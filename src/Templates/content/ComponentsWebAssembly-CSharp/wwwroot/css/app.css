@@ -1,40 +1,58 @@
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+body {
+    --body-font: Segoe UI, sans-serif;
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    margin: 0;
 }
 
-h1:focus {
-    outline: none;
-}
-
-a, .btn-link {
-    color: #0071c1;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.main {
+    height: calc(100dvh - 102px);
+    color: var(--neutral-foreground-rest);
 }
 
 .content {
-    padding-top: 1.1rem;
+    margin: 0 10px;
 }
 
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+footer {
+    display: grid;
+    grid-template-columns: 10px auto auto 10px;
+    background: var(--neutral-layer-4);
+    color: var(--neutral-foreground-rest);
+    align-items: center;
+    padding: 10px 10px;
 }
 
-.invalid {
-    outline: 1px solid red;
+    footer .link1 {
+        grid-column: 2;
+        justify-content: start;
+    }
+
+    footer .link2 {
+        grid-column: 3;
+        justify-self: end;
+    }
+
+    footer a {
+        color: var(--neutral-foreground-rest);
+        text-decoration: none;
+    }
+
+        footer a:focus {
+            outline: 1px dashed;
+            outline-offset: 3px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+.alert {
+    border: 1px dashed var(--accent-fill-rest);
+    padding: 5px;
 }
 
-.validation-message {
-    color: red;
-}
 
 #blazor-error-ui {
     background: lightyellow;
@@ -46,6 +64,7 @@ a, .btn-link {
     position: fixed;
     width: 100%;
     z-index: 1000;
+    margin: 20px 0;
 }
 
     #blazor-error-ui .dismiss {
@@ -61,8 +80,8 @@ a, .btn-link {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
+    .blazor-error-boundary::before {
+        content: "An error has occurred. "
     }
 
 .loading-progress {

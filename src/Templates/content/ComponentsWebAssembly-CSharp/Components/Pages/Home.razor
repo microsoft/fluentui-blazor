@@ -1,0 +1,28 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+@*#if (MissingAuthority)
+<div class="alert role="alert">
+    Before authentication will function correctly, you must configure your provider details in <code>Program.cs</code>
+</div>
+
+#endif*@
+Welcome to your new Fluent Blazor app.
+
+<style>
+    fluent-card {
+        --card-height: 150px;
+        --card-width: 300px;
+        padding: 20px;
+        margin: 12px 0;
+    }
+</style>
+
+<FluentCard>
+    <p>
+        This is some content in a <code>FluentCard</code> component.
+    </p>
+</FluentCard>

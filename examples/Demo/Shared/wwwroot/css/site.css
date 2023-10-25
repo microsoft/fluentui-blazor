@@ -64,8 +64,7 @@ header {
     
 
 footer {
-    display: grid;
-    grid-template-columns: 10px auto auto 10px;
+    display: flex;
     background: var(--neutral-layer-4);
     color: var(--neutral-foreground-rest);
     align-items: center;

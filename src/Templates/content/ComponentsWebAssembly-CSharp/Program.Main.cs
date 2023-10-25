@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ComponentsWebAssembly_CSharp;
+using ComponentsWebAssembly_CSharp.Components;
 
 namespace ComponentsWebAssembly_CSharp;
 

@@ -15,9 +15,11 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0-beta1.23472.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0-2.final" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion)" />
+	<PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion)"/>
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion)" />
+	<PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.0.0-preview.2" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.0.0-preview.1" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.0.0-preview.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
