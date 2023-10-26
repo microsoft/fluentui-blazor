@@ -22,6 +22,7 @@
     <IsTrimmable>true</IsTrimmable>
     <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
     <IsPackable>true</IsPackable>
+	<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -39,7 +40,6 @@
     <DebuggerSupport>false</DebuggerSupport>
     <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

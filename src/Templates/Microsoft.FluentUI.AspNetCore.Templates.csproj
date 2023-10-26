@@ -5,7 +5,7 @@
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-		<Description>Project templates for creating a Blazor Server or Blazor WebAssembly app that uses the Fluent UI Web Components for Blazor library. These templates can be used for web apps with rich dynamic user interfaces (UIs).</Description>
+		<Description>Project templates for creating a Blazor Web app or Blazor WebAssembly app that uses the Fluent UI Blazor library. These templates can be used for web apps with rich dynamic user interfaces (UIs).</Description>
 		<IncludeContentInPack>true</IncludeContentInPack>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<License>MIT</License>
@@ -18,15 +18,7 @@
 		<Title>Microsoft Fluent UI Blazor Templates</Title>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<IsShipping>true</IsShipping>
-		<Optimize>True</Optimize>
-		<NoWarn>1701;1702;8669;1591</NoWarn>
-		<DebuggerSupport>false</DebuggerSupport>
-		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<UsingToolTemplateLocalizer>true</UsingToolTemplateLocalizer>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -34,11 +26,5 @@
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<GeneratedContent Include="BlazorWeb-CSharp.csproj.in" OutputPath="content/BlazorWeb-CSharp/BlazorWeb-CSharp/BlazorWeb-CSharp.csproj" />
-		<GeneratedContent Include="BlazorWeb-CSharp.Client.csproj.in" OutputPath="content/BlazorWeb-CSharp/BlazorWeb-CSharp.Client/BlazorWeb-CSharp.Client.csproj" />
-		<!--<GeneratedContent Include="ComponentsWebAssembly-CSharp.csproj.in" OutputPath="content/ComponentsWebAssembly-CSharp/ComponentsWebAssembly-CSharp.csproj" />-->
 	</ItemGroup>
 </Project>

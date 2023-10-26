@@ -1,5 +1,46 @@
 ﻿import { SplitPanels } from "./js/SplitPanels.js";
 
+var beforeStartCalled = false;
+var afterStartedCalled = false;
+
+export function beforeWebStart(options, extensions) {
+    if (!beforeStartCalled) {
+        beforeStart(options, extensions);
+    }
+}
+
+export function afterWebStarted(blazor) {
+    if (!afterStartedCalled) {
+        afterStarted(blazor);
+    }
+}
+
+
+export function beforeServerStart(options, extensions) {
+    if (!beforeStartCalled) {
+        beforeStart(options, extensions);
+    }
+}
+
+export function afterServerStarted(blazor) {
+    if (!afterStartedCalled) {
+        afterStarted(blazor);
+    }
+}
+
+
+export function beforeWebAssemblyStart(options, extensions) {
+    if (!beforeStartCalled) {
+        beforeStart(options, extensions);
+    }
+}
+
+export function afterWebAssemblyStarted(blazor) {
+    if (!afterStartedCalled)
+        afterStarted(blazor);
+}
+
+
 export function afterStarted(blazor) {
 
     customElements.define("split-panels", SplitPanels);
@@ -154,6 +195,8 @@ export function afterStarted(blazor) {
             return event;
         }
     });
+
+    afterStartedCalled = true;
 }
 
 export function beforeStart(options, extensions) {
@@ -168,5 +211,7 @@ export function beforeStart(options, extensions) {
     libraryStyle.type = 'text/css';
     libraryStyle.href = './_content/Microsoft.FluentUI.AspNetCore.Components/css/Microsoft.FluentUI.AspNetCore.Components.css';
     document.head.appendChild(libraryStyle);
+
+    beforeStartCalled = true;
 }
 

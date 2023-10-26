@@ -702,6 +702,16 @@
             If you want content to be able to overflow the card, set this property to false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Width">
+            <summary>
+            Specifies the width of the card. Must be a valid CSS measurement.
+            </summary>  
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Height">
+            <summary>
+            Specifies the height of the card. Must be a valid CSS measurement.
+            </summary>  
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -4980,12 +4990,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.ChildContent">
             <summary>
             Content to display. All first HTML elements are included in the items flow.
@@ -5027,8 +5031,8 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.OverflowRaisedAsync(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.System#IAsyncDisposable#DisposeAsync">
-            <summary />
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem">
             <summary />

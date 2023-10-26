@@ -1,0 +1,3 @@
+fluent-card ::deep {
+    padding: calc(var(--design-unit) * 5px);
+}

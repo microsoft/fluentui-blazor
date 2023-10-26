@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-rc.2.*" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.0-rc.2.*" Condition="'$(IndividualLocalAuth)' == 'true'" />
     <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="8.0.0-rc.2.*" Condition="'$(OrganizationalAuth)' == 'true' OR '$(IndividualB2CAuth)' == 'true'" />
-	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
   </ItemGroup>
 
   <!--#if PWA -->
