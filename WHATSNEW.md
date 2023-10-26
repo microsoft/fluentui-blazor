@@ -1,6 +1,8 @@
 ﻿## V4.0.0-preview.3
 - Fix [#891](https://github.com/microsoft/fluentui-blazor/issues/891): JSDisconnectedException in FluentOverflow
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): Needed extra `empty-content-cell` class 
+- FluentCard: Add Width and Height + docs/examples
+
 
 ## V4.0.0-preview.2
 - Functionally equivalent to v3.2.2
