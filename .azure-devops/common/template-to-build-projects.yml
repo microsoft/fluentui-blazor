@@ -56,6 +56,10 @@ steps:
       # Build.BuildNumber = 1.2.4.23296.1
       #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
+      # To Sign and To Test
+      $sign = "false"
+      $toTest = "true"
+
       # BranchName = dev, main or PR
       $branch = "PR"
       if ("$(Build.SourceBranch)" -eq "refs/heads/main")
@@ -67,7 +71,7 @@ steps:
           $branch = "dev"
       }
 
-      # TODO: To remove (only for testing purpose)
+      # !!! TODO !!! To remove (only for testing purpose)
       if ("$(PublicVersion)" -ne "")
       {
           $branch = "$(PublicVersion)"
@@ -82,30 +86,33 @@ steps:
       # 1.2.4-Preview-23296-1 (dev), 1.2.4-RC.1 (main), 1.2.4 (main)
       $package = ""  # No package for PR (only Dev or Main)
 
+      # Dev: 1.2.4-Preview-23296-1
       if ("$branch" -eq "dev")
       {
-          # Dev: 1.2.4-Preview-23296-1
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+          $sign = "true"
+          $toTest = "true"
       }
 
+      # Main without PackageSuffix: 1.2.4
+      # Main with    PackageSuffix: 1.2.4-RC.1
       if ("$branch" -eq "main")
       {
-          # Main without PackageSuffix: 1.2.4
-          if ("$(PackageSuffix)" -ne "")
+          # Main without PackageSuffix
+          if ("$(PackageSuffix)" -eq "")
           {
               $package = "$($builds[0]).$($builds[1]).$($builds[2])"
           }
 
-          # Main with PackageSuffix: 1.2.4-RC.1
+          # Main with PackageSuffix
           else
           {
               $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($builds[3])"
           }
-      }
 
-      # To Sign and To Test
-      $sign = "false";      # TODO
-      $toTest = "false";    # TODO
+          $sign = "true"
+          $toTest = "true"
+      }
   
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
