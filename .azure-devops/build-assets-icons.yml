@@ -16,3 +16,4 @@ extends:
   parameters:
       Projects: |
        **/Microsoft.Fast.Components.FluentUI.Icons.csproj
+       **/Microsoft.Fast.Components.FluentUI.Emojis.csproj

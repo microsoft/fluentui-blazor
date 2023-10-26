@@ -5,14 +5,15 @@ trigger: none # Disable push triggers.
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-pool:
-  name: HostedDVO
-  demands:
-   - agent.name -equals Hosted-FluentUI 
+# TODO: To REMOVE - INCLUDE IN ICONS.YML
 
-extends:
-  template: common/template-to-build-projects.yml
-  parameters:
-      Projects: |
-       **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
-  
+# pool:
+#   name: HostedDVO
+#   demands:
+#    - agent.name -equals Hosted-FluentUI 
+
+# extends:
+#   template: common/template-to-build-projects.yml
+#   parameters:
+#       Projects: |
+#        **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
