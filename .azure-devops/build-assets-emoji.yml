@@ -6,7 +6,9 @@ trigger: none # Disable push triggers.
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
-  vmImage: 'windows-2022'
+  name: HostedDVO
+  demands:
+   - agent.name -equals Hosted-FluentUI 
 
 extends:
   template: common/template-to-build-projects.yml

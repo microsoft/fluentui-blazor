@@ -9,17 +9,8 @@
 		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-
-		<VersionFile>3.2.1</VersionFile>
-		<VersionPrefix>3.2.1</VersionPrefix>
-		<VersionSuffix></VersionSuffix>
-
-		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
-		<FileVersion>$(VersionFile)</FileVersion>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-		<Version>$(VersionPrefix)$(VersionSuffix)</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
