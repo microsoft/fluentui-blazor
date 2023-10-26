@@ -25,7 +25,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
-    
+
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -90,7 +90,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     public FluentOverflow()
     {
         Id = Identifier.NewId();
-    }   
+    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)

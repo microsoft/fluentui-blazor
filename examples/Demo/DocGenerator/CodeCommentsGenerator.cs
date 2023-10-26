@@ -63,7 +63,7 @@ namespace FluentUI.Demo.Generators
             sb.Remove(lastComma, 1);
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine("KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
+            sb.AppendLine("KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.Equals(name));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
             sb.AppendLine("\t\t}");
