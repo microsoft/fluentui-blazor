@@ -107,7 +107,7 @@ steps:
           # Main with PackageSuffix
           else
           {
-              $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($builds[3])"
+              $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
           }
 
           $sign = "true"
@@ -124,6 +124,8 @@ steps:
 
   # Display computed variables
   - script: |
+      echo 🔸 FileVersion            = $(FileVersion)
+      echo 🔸 PackageSuffix          = $(PackageSuffix)
       echo 🔸 Build.BuildNumber      = $(Build.BuildNumber)
       echo 🔸 Build.SourceBranch     = $(Build.SourceBranch)
       echo -----------------------------------------------
