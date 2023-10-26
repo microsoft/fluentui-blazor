@@ -233,6 +233,7 @@ steps:
       MaxConcurrency: '200'
       MaxRetryAttempts: '5'
 
+  # Publish the Artifacts
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
