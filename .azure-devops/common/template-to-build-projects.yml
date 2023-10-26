@@ -20,12 +20,15 @@ steps:
       # Build.BuildNumber = 1.2.4.23296.1
       #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
+      # Defaut values
+      $branch = "PR"
+      $package = ""
+
       # To Sign and To Test
       $sign = "false"
       $toTest = "true"
 
       # BranchName = dev, main or PR
-      $branch = "PR"
       if ("$(Build.SourceBranch)" -eq "refs/heads/main")
       {
           $branch = "main"
@@ -40,17 +43,6 @@ steps:
 
       # 1.2.4.23296
       $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
-
-      # 1.2.4-Preview-23296-1 (dev), 1.2.4-RC.1 (main), 1.2.4 (main)
-      $package = ""  # No package for PR (only Dev or Main)
-
-      # Dev: 1.2.4-Preview-23296-1
-      if ("$branch" -eq "dev")
-      {
-          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
-          $sign = "true"
-          $toTest = "true"
-      }
 
       # Main without PackageSuffix: 1.2.4
       # Main with    PackageSuffix: 1.2.4-RC.1
@@ -68,6 +60,14 @@ steps:
               $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
           }
 
+          $sign = "true"
+          $toTest = "true"
+      }
+
+      # Dev or other branches: 1.2.4-Preview-23296-1
+      else
+      {
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
           $sign = "true"
           $toTest = "true"
       }
