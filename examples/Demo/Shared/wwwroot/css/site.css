@@ -7,6 +7,7 @@
 
 body {
     height: 100%;
+    overflow: hidden;
 }
 
 #container {
@@ -32,15 +33,15 @@ body {
         padding: 0 30px;
         grid-column: 1;
     }
-    
+
     .header .notifications {
-        padding: 0 20px 0 0;
+        padding-right: 20px;
         display: flex;
         align-items: center;
     }
 
     .header .settings {
-        padding: 0 20px 0 0;
+        padding-right: 20px;
         display: flex;
         align-items: center;
     }
@@ -117,13 +118,13 @@ nav {
 }
 
 .fluent-nav-item {
-    max-width: 99%;
+    max-width: 99% !important;
 }
 
-.fluent-nav-link.notactive {
-    grid-template-columns: 4px auto 40px !important;
+.fluent-nav-link.notactive .fluent-nav-text {
+    font-weight:600 !important;
 }
-    
+
 .content {
     display: grid;
     grid-template-columns: 3fr 280px;
@@ -141,6 +142,8 @@ article {
 aside {
     padding: 2rem 0.75rem;
     border-left: 1px solid var(--neutral-stroke-divider-rest);
+    position: fixed;
+    right: 0.5rem;
 }
 
 #menu-toggle {
@@ -293,6 +296,7 @@ code {
     aside {
         grid-area: 2 / 1 / 3 / 3;
         padding: 1em 0.75em;
+        position: relative;
     }
 
     article {
@@ -316,7 +320,7 @@ code {
         visibility: visible;
         position: absolute;
         top: 0.7rem;
-        right: 1rem;
+        right: 0.7rem;
     }
 
     #menu-toggle ~ nav {
