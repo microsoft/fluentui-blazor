@@ -64,11 +64,19 @@ steps:
           $toTest = "true"
       }
 
-      # Dev or other branches: 1.2.4-Preview-23296-1
-      else
+      # Dev: 1.2.4-Preview-23296-1
+      if ("$branch" -eq "dev")
       {
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
           $sign = "true"
+          $toTest = "true"
+      }
+
+      # Other branches: 1.2.4-Preview-23296-1
+      else
+      {
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+          $sign = "false"
           $toTest = "true"
       }
   
@@ -122,7 +130,7 @@ steps:
   
   # Set version number
   - task: Assembly-Info-NetCore@3
-    displayName: 'Versioning $(AssemblyVersion)'
+    displayName: 'Versioning $(Build.BuildNumber)'
     inputs:
       Path: '$(Build.SourcesDirectory)'
       FileNames: '**/*.csproj'
