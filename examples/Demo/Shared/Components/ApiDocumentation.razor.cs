@@ -103,7 +103,7 @@ public partial class ApiDocumentation
                         Type t = propertyInfo.PropertyType;
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
-                        // Parameters/properies
+                        // Parameters/properties
                         if (!isEvent)
                         {
                             members.Add(new MemberDescription()
