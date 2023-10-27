@@ -4987,12 +4987,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentOverflow.ChildContent">
             <summary>
             Content to display. All first HTML elements are included in the items flow.
@@ -5034,8 +5028,8 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflow.OverflowRaisedAsync(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflow.System#IAsyncDisposable#DisposeAsync">
-            <summary />
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflow.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentOverflowItem">
             <summary />

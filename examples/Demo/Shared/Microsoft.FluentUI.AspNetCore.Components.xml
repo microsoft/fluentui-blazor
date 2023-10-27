@@ -397,13 +397,6 @@
             Determines if the element should receive document focus on page load.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.AfterBindValue">
-            <summary>
-            An event that is called after the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Value"/> property has been changed
-            through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
-            from .Net 7, but not available in .Net 6.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Placeholder">
             <summary>
             The short hint displayed in the input before the user enters a value.
