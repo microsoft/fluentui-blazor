@@ -21,21 +21,4 @@ extends:
   parameters:
       Projects: |
        **/FluentUI.Demo.Client.csproj
-
-steps:
-
-  # Publish the projects
-  - task: DotNetCoreCLI@2
-    displayName: 'Publish $(Build.BuildNumber)'
-    inputs:
-      command: 'publish'
-      publishWebProjects: false  # True to build all Web Projects
-      projects: $(Projects)
-      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
-      zipAfterPublish: false
-      workingDirectory: '$(Build.SourcesDirectory)'
-  
-  # Publish the Artifacts
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      IsDemo: true
