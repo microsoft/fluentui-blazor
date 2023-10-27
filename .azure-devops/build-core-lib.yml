@@ -1,4 +1,4 @@
-# Build and test projects.
+# Build and test Core project.
 
 pr:
 - main
