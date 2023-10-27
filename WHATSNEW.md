@@ -1,4 +1,9 @@
-﻿## V3.2.2
+﻿## V3.2.3
+- Fix [#891](https://github.com/microsoft/fluentui-blazor/issues/891): JSDisconnectedException in FluentOverflow
+- Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): Needed extra `empty-content-cell` class 
+- FluentCard: Add Width and Height + docs/examples
+- 
+## V3.2.2
 - Fix [#859](https://github.com/microsoft/fluentui-blazor/issues/859) and [#884](https://github.com/microsoft/fluentui-blazor/issues/859): Fix NavMenu for real by moving `<a>` tag up in the rendering tree
 
 ### Update Fluent UI System icons to 1.1.221
