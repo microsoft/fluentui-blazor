@@ -89,7 +89,7 @@ steps:
           $toTest = "false"
       }
 
-      if ("${{ parameters.IsDemo }}" -eq "false")
+      if ("${{ parameters.IsDemo }}" -eq "true")
       {
           $sign = "false"
       }
@@ -100,7 +100,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
-      Write-Host "##vso[task.setvariable variable=ShouldPublish]${IsDemo}"
+      Write-Host "##vso[task.setvariable variable=ShouldPublish]${{ parameters.IsDemo }}"
     displayName: Compute AssemblyVersion and PackageVersion
 
   # Display computed variables
@@ -116,6 +116,7 @@ steps:
       echo -----------------------------------------------
       echo 🔸 ShouldSign             = $(ShouldSign)
       echo 🔸 ShouldTest             = $(ShouldTest)
+      echo 🔸 ShouldPublish          = $(ShouldPublish)
     displayName: Display computed variables
 
   # Install NuGet tools
