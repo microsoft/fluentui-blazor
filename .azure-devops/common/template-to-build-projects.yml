@@ -171,6 +171,7 @@ steps:
   # Build the projects
   - task: DotNetCoreCLI@2
     displayName: 'Build $(Build.BuildNumber)'
+    condition: eq(variables['ShouldPublish'], 'false')
     inputs:
       command: 'build'
       projects: ${{ parameters.Projects }}
@@ -219,6 +220,7 @@ steps:
   # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
   - task: CopyFiles@2
     displayName: 'Pack $(Build.BuildNumber)'
+    condition: eq(variables['ShouldPublish'], 'false')
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)'
       Contents: '**/*$(PackageVersion).nupkg'
