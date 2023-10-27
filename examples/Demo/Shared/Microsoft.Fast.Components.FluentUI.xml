@@ -333,7 +333,7 @@
             as a cascading parameter.
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Readonly">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ReadOnly">
             <summary>
             When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
             </summary>
@@ -708,6 +708,16 @@
             By default, content in the card is restricted to the area of the card itself. 
             If you want content to be able to overflow the card, set this property to false.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.Width">
+            <summary>
+            Specifies the width of the card. Must be a valid CSS measurement.
+            </summary>  
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.Height">
+            <summary>
+            Specifies the height of the card. Must be a valid CSS measurement.
+            </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.ChildContent">
             <summary>
@@ -5354,7 +5364,7 @@
             Gets context for this <see cref="T:Microsoft.Fast.Components.FluentUI.FluentRadio`1"/>. 
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Readonly">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.ReadOnly">
             <summary>
             Gets or sets if the element is readonly
             </summary>
