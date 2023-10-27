@@ -1,4 +1,4 @@
-﻿parameters:
+parameters:
 - name: Projects  	    # List of projects to build
   type: string
   default: ''
@@ -84,12 +84,12 @@ steps:
           $toTest = "true"
       }
 
-      if ("$(Tests)" -eq "")
+      if ("${{ parameters.Tests }}" -eq "")
       {
           $toTest = "false"
       }
 
-      if ("$(IsDemo)" -eq "false")
+      if ("${{ parameters.IsDemo }}" -eq "false")
       {
           $sign = "false"
       }
