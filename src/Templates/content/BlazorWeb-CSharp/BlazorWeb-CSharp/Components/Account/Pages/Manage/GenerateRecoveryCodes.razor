@@ -33,7 +33,7 @@ else
     <div>
         <form @formname="generate-recovery-codes" @onsubmit="OnSubmitAsync" method="post">
             <AntiforgeryToken />
-            <button class="btn btn-danger" type="submit">Generate Recovery Codes</button>
+            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Filled">Generate Recovery Codes</FluentButton>
         </form>
     </div>
 }

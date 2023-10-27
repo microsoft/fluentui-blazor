@@ -7,9 +7,13 @@
 
 ##endif*@
 <nav>
+    @*#if (!(UseServer && !UseWebAssembly))
+    <FluentNavMenu Width="250" Title="Custom navigation menu">
+    ##else
     <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
+    ##endif*@
         <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
-        @*#if (UseServer || UseWebAssembly) -->
+        @*#if (UseServer || UseWebAssembly)
         <FluentNavLink Href="counter" Icon="@Icon.FromImageUrl("/images/counter.svg")" IconColor="Color.Accent">Counter</FluentNavLink>
         ##endif*@
         <FluentNavLink Href="weather" Icon="@Icon.FromImageUrl("/images/weather.svg")" IconColor="Color.Accent">Weather</FluentNavLink>

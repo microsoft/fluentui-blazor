@@ -3,29 +3,19 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-        <NavLink href="Account/Manage" Match="NavLinkMatch.All">Profile</NavLink>
-    </li>
-    <li class="nav-item">
-        <NavLink href="Account/Manage/Email">Email</NavLink>
-    </li>
-    <li class="nav-item">
-        <NavLink href="Account/Manage/ChangePassword">Password</NavLink>
-    </li>
+<FluentNavMenu Collapse="false">
+    <FluentNavLink Href="Account/Manage" Match="NavLinkMatch.All">Profile</FluentNavLink>
+    <FluentNavLink Href="Account/Manage/Email">Email</FluentNavLink>
+    <FluentNavLink Href="Account/Manage/ChangePassword">Password</FluentNavLink>
     @if (hasExternalLogins)
     {
-        <li class="nav-item">
-            <NavLink href="Account/Manage/ExternalLogins">External logins</NavLink>
-        </li>
+        <FluentNavLink Href="Account/Manage/ExternalLogins">External logins</FluentNavLink>
     }
-    <li class="nav-item">
-        <NavLink href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</NavLink>
-    </li>
-    <li class="nav-item">
-        <NavLink href="Account/Manage/PersonalData">Personal data</NavLink>
-    </li>
-</ul>
+    <FluentNavLink Href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</FluentNavLink>
+    <FluentNavLink Href="Account/Manage/PersonalData">Personal data</FluentNavLink>
+
+</FluentNavMenu>
+
 
 @code {
     private bool hasExternalLogins;

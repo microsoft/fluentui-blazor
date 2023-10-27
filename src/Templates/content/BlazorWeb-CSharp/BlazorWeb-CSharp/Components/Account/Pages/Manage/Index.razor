@@ -14,24 +14,22 @@
 <h3>Profile</h3>
 <StatusMessage />
 
-<div class="row">
-    <div class="col-md-6">
+<FluentGrid>
+    <FluentGridItem xs="12" sm="6">
         <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
-                <label for="username" class="form-label">Username</label>
+            <div style="width: 100%;">
+                <FluentTextField Value="@username" Placeholder="Please choose your username." Disabled Label="Username"/>
             </div>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
-                <label for="phone-number" class="form-label">Phone number</label>
+            <div style="width: 100%;">
+                <FluentTextField @bind-Value="Input.PhoneNumber" Paceholder="Please enter your phone number." Label="Phone number"/>
                 <ValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Save</FluentButton>
         </EditForm>
-    </div>
-</div>
+    </FluentGridItem>
+</FluentGrid>
 
 @code {
     private ApplicationUser user = default!;
