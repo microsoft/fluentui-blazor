@@ -22,7 +22,7 @@ public class FluentRadioTests: TestBase
         bool required = default!;
         bool? Checked = default!;
         var cut = TestContext.RenderComponent<FluentRadio<bool>>(parameters => parameters
-            .Add(p => p.Readonly, Readonly)
+            .Add(p => p.ReadOnly, Readonly)
                 .Add(p => p.Label, label)
                 .Add(p => p.LabelTemplate, labelTemplate)
                 .Add(p => p.AriaLabel, ariaLabel)
