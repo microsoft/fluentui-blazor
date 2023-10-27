@@ -16,12 +16,11 @@ pool:
   demands:
    - agent.name -equals Hosted-FluentUI
 
-variables:
-- group: Versioning # These variables are in Azure DevOps / Pipelines / Library
-
-- name: Projects
-  value: |
-      **/FluentUI.Demo.Client.csproj
+extends:
+  template: common/template-to-build-projects.yml
+  parameters:
+      Projects: |
+       **/FluentUI.Demo.Client.csproj
 
 steps:
 
