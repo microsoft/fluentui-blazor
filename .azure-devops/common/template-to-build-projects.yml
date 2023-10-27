@@ -1,77 +1,127 @@
-parameters:
-- name: Projects		# List of projects to build
+﻿parameters:
+- name: Projects		    # List of projects to build
   type: string
   default: ''
 
-- name: Tests		    # List of Unit-Test projects to run
+- name: Tests		        # List of Unit-Test projects to run
   type: string
   default: ''
 
 variables:
-- group: Versioning # These variables are in Azure DevOps / Pipelines / Library
+- template: versioning.yml  # Versions
 
 steps:
 
-  # In the main YAML script, set the "name: $(VersionMajor).$(VersionMinor).$(VersionPatch).$(Year:yy)$(DayOfYear).$(Rev:r)"
+  # Compute AssemblyVersion and PackageVersion
+  # -> Update Versioning.yml
   - powershell: |
-      $builds = "$(Build.BuildNumber)".Split('.')
-      $stage = "$(VersionStage)"
-      $stageId = "$(VersionStageId)"
-      
-      if ("$stageId" -eq "")
+  
+      # Example with FileVersion: "1.2.4" and PackageSuffix: "RC.1"
+      # Build.BuildNumber = 1.2.4.23296.1
+      #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+      # Defaut values
+      $branch = "PR"
+      $package = ""
+
+      # To Sign and To Test
+      $sign = "false"
+      $toTest = "true"
+
+      # BranchName = dev, main or PR
+      if ("$(Build.SourceBranch)" -eq "refs/heads/main")
       {
-        $package = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3]).$($builds[4])"
+          $branch = "main"
       }
+      if ("$(Build.SourceBranch)" -eq "refs/heads/dev")
+      {
+          $branch = "dev"
+      }
+
+      # [1, 2, 4, 23296, 1]
+      $builds = "$(Build.BuildNumber)".Split('.')
+
+      # 1.2.4.23296
+      $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
+
+      # Main without PackageSuffix: 1.2.4
+      # Main with    PackageSuffix: 1.2.4-RC.1
+      if ("$branch" -eq "main")
+      {
+          # Main without PackageSuffix
+          if ("$(PackageSuffix)" -eq "")
+          {
+              $package = "$($builds[0]).$($builds[1]).$($builds[2])"
+          }
+
+          # Main with PackageSuffix
+          else
+          {
+              $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
+          }
+
+          $sign = "true"
+          $toTest = "true"
+      }
+
+      # Dev: 1.2.4-Preview-23296-1
+      if ("$branch" -eq "dev")
+      {
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+          $sign = "true"
+          $toTest = "true"
+      }
+
+      # Other branches: 1.2.4-Preview-23296-1
       else
       {
-        $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($stage).$($stageId).$($builds[3]).$($builds[4])"
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+          $sign = "false"
+          $toTest = "true"
       }
-      
-      $sign = "false";
-      $toTest = "false";
-
-      # If PublicVersion is set, then we are building a public and signed version.
-      if ("$(PublicVersion)" -ne "")
-      {
-        $package = "$(PublicVersion)"
-        $sign = "true"
-      }
-
-      # If Tests is set, then we are testing these projects.
-      if ("${{ parameters.Tests }}" -ne "")
-      {
-        $toTest = "true"
-      }
-
+  
       # Set the output variable for use in other tasks.
-      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
+      Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
+      Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
+      Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
-    displayName: Compute VersionPackage
+    displayName: Compute AssemblyVersion and PackageVersion
 
+  # Display computed variables
   - script: |
-      echo "VersionPackage = $(VersionPackage)"
-      echo "BuildNumber    = $(Build.BuildNumber)"
-      echo "PublicVersion  = $(PublicVersion)"
-      echo "ShouldSign     = $(ShouldSign)"
-      echo "ShouldTest     = $(ShouldTest)"
+      echo 🔸 FileVersion            = $(FileVersion)
+      echo 🔸 PackageSuffix          = $(PackageSuffix)
+      echo 🔸 Build.BuildNumber      = $(Build.BuildNumber)
+      echo 🔸 Build.SourceBranch     = $(Build.SourceBranch)
+      echo -----------------------------------------------
+      echo 🔸 BranchName             = $(BranchName)
+      echo 🔸 AssemblyVersion        = $(AssemblyVersion)
+      echo 🔸 PackageVersion         = $(PackageVersion)
+      echo -----------------------------------------------
+      echo 🔸 ShouldSign             = $(ShouldSign)
+      echo 🔸 ShouldTest             = $(ShouldTest)
     displayName: Display computed variables
 
+  # Install NuGet tools
   - task: NuGetToolInstaller@1
     displayName: Install NuGet tools
   
+  # Install .NET 6.0
   - task: UseDotNet@2
     displayName: Install .NET 6.0
     inputs:
-      version: 6.0.412
+      version: 6.0.416
       includePreviewVersions: true
   
+  # Install .NET 7.0
   - task: UseDotNet@2
     displayName: 'Install .NET 7.0'
     inputs:
-      version: 7.0.306
+      version: 7.0.403
       includePreviewVersions: true
   
+  # Install .NET 8.0
   - task: UseDotNet@2
     displayName: 'Install .NET 8.0'
     inputs:
@@ -87,10 +137,10 @@ steps:
       InsertAttributes: true
       FileEncoding: 'auto'
       WriteBOM: false
-      VersionNumber: '$(Build.BuildNumber)'
-      FileVersionNumber: '$(Build.BuildNumber)'
-      InformationalVersion: '$(Build.BuildNumber)'
-      PackageVersion: '$(VersionPackage)'
+      VersionNumber: '$(AssemblyVersion)'
+      FileVersionNumber: '$(AssemblyVersion)'
+      InformationalVersion: '$(AssemblyVersion)'
+      PackageVersion: '$(PackageVersion)'
       LogLevel: 'verbose'
       FailOnWarning: false
       DisableTelemetry: false
@@ -138,6 +188,7 @@ steps:
       summaryFileLocation: '**/*.cobertura.xml'
       reportDirectory: CoverageFolder
 
+  # Not currently used (kept for archives)
   # - task: DotNetCoreCLI@2
   #   displayName: Pack $(Build.BuildNumber)
   #   inputs:
@@ -154,7 +205,7 @@ steps:
     displayName: 'Pack $(Build.BuildNumber)'
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)'
-      Contents: '**/*$(VersionPackage).nupkg'
+      Contents: '**/*$(PackageVersion).nupkg'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
       CleanTargetFolder: true
       OverWrite: true
@@ -190,6 +241,7 @@ steps:
       MaxConcurrency: '200'
       MaxRetryAttempts: '5'
 
+  # Publish the Artifacts
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'

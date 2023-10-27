@@ -1,14 +1,20 @@
-# Build and test projects.
+# Build Demo project.
 
 pr: none      # Disable pull request triggers.
 trigger:
 - main
+- dev
 
-# Build.BuildNumber
-name: $(VersionMajor).$(VersionMinor).$(VersionPatch).$(Year:yy)$(DayOfYear).$(Rev:r)
+# Build.BuildNumber (see versioning.yml)
+name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+# pool:
+#   vmImage: 'windows-2022'
 
 pool:
-  vmImage: 'windows-2022'
+  name: HostedDVO
+  demands:
+   - agent.name -equals Hosted-FluentUI
 
 variables:
 - group: Versioning # These variables are in Azure DevOps / Pipelines / Library
@@ -18,67 +24,6 @@ variables:
       **/FluentUI.Demo.Client.csproj
 
 steps:
-  - powershell: |
-      $builds = "$(Build.BuildNumber)".Split('.')
-      $stage = "$(VersionStage)"
-      $stageId = "$(VersionStageId)"
-      
-      if ("$stageId" -eq "")
-      {
-        $package = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3]).$($builds[4])"
-      }
-      else
-      {
-        $package = "$($builds[0]).$($builds[1]).$($builds[2])-$($stage).$($stageId).$($builds[3]).$($builds[4])"
-      }
-      
-      # Set the output variable for use in other tasks.
-      Write-Host "##vso[task.setvariable variable=VersionPackage]${package}"
-    displayName: Compute VersionPackage
-  
-  - task: NuGetToolInstaller@1
-    displayName: Install NuGet tools
-
-  - task: UseDotNet@2
-    displayName: 'Install .NET 8.0'
-    inputs:
-      version: 8.0.x
-      includePreviewVersions: true
-
-  # Set version number
-  - task: Assembly-Info-NetCore@3
-    displayName: 'Versioning $(Build.BuildNumber)'
-    inputs:
-      Path: '$(Build.SourcesDirectory)'
-      FileNames: '**/*.csproj'
-      InsertAttributes: true
-      FileEncoding: 'auto'
-      WriteBOM: false
-      VersionNumber: '$(Build.BuildNumber)'
-      FileVersionNumber: '$(Build.BuildNumber)'
-      InformationalVersion: '$(Build.BuildNumber)'
-      PackageVersion: '$(VersionPackage)'
-      LogLevel: 'verbose'
-      FailOnWarning: false
-      DisableTelemetry: false
-  
-  # Install dependencies
-  - task: DotNetCoreCLI@2
-    displayName: Install dependencies
-    inputs:
-      command: 'restore'
-      projects: $(Projects)
-  
-  # Build the projects
-  - task: DotNetCoreCLI@2
-    displayName: 'Build $(Build.BuildNumber)'
-    inputs:
-      command: 'build'
-      publishWebProjects: false  # True to build all Web Projects
-      projects: $(Projects)
-      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
-      zipAfterPublish: false
-      workingDirectory: '$(Build.SourcesDirectory)'
 
   # Publish the projects
   - task: DotNetCoreCLI@2

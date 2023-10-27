@@ -1,0 +1,24 @@
+# Build all projects.
+
+pr: none      # Disable pull request triggers.
+trigger: none # Disable push triggers.
+
+# Build.BuildNumber (see versioning.yml)
+name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+pool:
+  name: HostedDVO
+  demands:
+   - agent.name -equals Hosted-FluentUI
+
+extends:
+  template: common/template-to-build-projects.yml
+  parameters:
+      Projects: |
+       **/Microsoft.Fast.Components.FluentUI.csproj
+       **/Microsoft.Fast.Components.FluentUI.Icons.csproj
+       **/Microsoft.Fast.Components.FluentUI.Emojis.csproj
+       **/Microsoft.Fast.Templates.FluentUI.csproj
+       **/Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter.csproj
+      Tests: |
+       **/Microsoft.Fast.Components.FluentUI.Tests.csproj
