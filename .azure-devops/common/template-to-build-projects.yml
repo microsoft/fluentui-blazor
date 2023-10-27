@@ -264,7 +264,7 @@ steps:
     inputs:
       command: 'publish'
       publishWebProjects: false  # True to build all Web Projects
-      projects: $(Projects)
+      projects: ${{ parameters.Projects }}
       arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
       zipAfterPublish: false
       workingDirectory: '$(Build.SourcesDirectory)'
