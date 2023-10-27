@@ -1,5 +1,5 @@
 ﻿parameters:
-- name: Projects		    # List of projects to build
+- name: Projects  	    # List of projects to build
   type: string
   default: ''
 
@@ -7,6 +7,10 @@
   type: string
   default: ''
 
+- name: IsDemo		        # Projects to publish
+  type: boolean
+  default: false
+  
 variables:
 - template: versioning.yml  # Versions
 
@@ -79,13 +83,24 @@ steps:
           $sign = "false"
           $toTest = "true"
       }
-  
+
+      if ("$(Tests)" -eq "")
+      {
+          $toTest = "false"
+      }
+
+      if ("$(IsDemo)" -eq "false")
+      {
+          $sign = "false"
+      }
+      
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
       Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
       Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
+      Write-Host "##vso[task.setvariable variable=ShouldPublish]${IsDemo}"
     displayName: Compute AssemblyVersion and PackageVersion
 
   # Display computed variables
@@ -240,6 +255,18 @@ steps:
       SessionTimeout: '60'
       MaxConcurrency: '200'
       MaxRetryAttempts: '5'
+
+  # Publish the projects
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish $(Build.BuildNumber)'
+    condition: eq(variables['ShouldPublish'], 'true')
+    inputs:
+      command: 'publish'
+      publishWebProjects: false  # True to build all Web Projects
+      projects: $(Projects)
+      arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+      workingDirectory: '$(Build.SourcesDirectory)'
 
   # Publish the Artifacts
   - task: PublishBuildArtifacts@1
