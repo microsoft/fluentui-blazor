@@ -8,8 +8,13 @@ trigger:
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
+# pool:
+#   vmImage: 'windows-2022'
+
 pool:
-  vmImage: 'windows-2022'
+  name: HostedDVO
+  demands:
+   - agent.name -equals Hosted-FluentUI
 
 variables:
 - group: Versioning # These variables are in Azure DevOps / Pipelines / Library
