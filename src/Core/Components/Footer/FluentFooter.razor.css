@@ -1,7 +1,7 @@
 ﻿.footer {
-    /*width: 100%;*/
+    display: grid;
     z-index: 10;
-    /*flex-shrink: 0;*/
+    flex-direction: column;
     position: relative;
     font-family: var(--body-font);
     font-weight: normal;

@@ -11,6 +11,9 @@ namespace FluentUI.Demo.Shared;
 
 public partial class DemoMainLayout : IAsyncDisposable
 {
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
     private OfficeColor _selectedColorOption;
     private string? _version;
 

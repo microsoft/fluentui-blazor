@@ -14,7 +14,7 @@ public partial class FluentCard
         .AddStyle("content-visibility", "visible", !AreaRestricted)
         .AddStyle("contain", "style", !AreaRestricted)
         .Build();
-    
+
     /// <summary>
     /// By default, content in the card is restricted to the area of the card itself. 
     /// If you want content to be able to overflow the card, set this property to false.
