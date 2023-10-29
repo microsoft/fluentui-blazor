@@ -10,37 +10,37 @@ body {
     overflow: hidden;
 }
 
-.header {
+.siteheader {
     background-color: var(--neutral-layer-4) !important;
     border-bottom: calc(var(--stroke-width) * 3px) solid var(--accent-fill-rest);
     margin-bottom: 0 !important;
 }
 
-    .header .logo {
+    .siteheader .logo {
         width: 108px;
         height: 23px;
         /*padding: 0 30px;*/
         grid-column: 1;
     }
 
-    .header .notifications {
+    .siteheader .notifications {
         padding-right: 10px;
         display: flex;
         align-items: center;
     }
 
-    .header .settings {
+    .siteheader .settings {
         padding-right: 24px;
         display: flex;
         align-items: center;
     }
-    
-    [dir="rtl"] .header .settings {
-        padding: 0 0 0 20px;
-    }
-    [dir="rtl"] .header .notifications {
-        padding: 0 0 0 20px;
-    }
+
+[dir="rtl"] .siteheader .settings {
+    padding: 0 0 0 20px;
+}
+[dir="rtl"] .siteheader .notifications {
+    padding: 0 0 0 20px;
+}
 
 .stack-horizontal {
     flex-direction: row;
@@ -249,14 +249,14 @@ code {
 
 @media (max-width: 767px) {
 
-    .header {
+    .siteheader {
         grid-area: header;
         grid-template-columns: 150px 1fr;
         align-items: center;
         justify-content: flex-start;
     }
 
-        .header .logo {
+        .siteheader .logo {
             width: 160px;
             height: 23px;
             /*padding: 0 25px;*/
@@ -270,7 +270,7 @@ code {
     nav.sitenav {
         display: none;
         width: 100%;
-        height: auto;
+        height: calc(100dvh - 50px);
         overflow-y: auto;
     }
 
@@ -365,7 +365,7 @@ code {
 /* Surface Duo specific styling */
 @media (horizontal-viewport-segments: 2) {
 
-    .header {
+    .siteheader {
         grid-area: header;
         display: grid;
         grid-template-columns: 150px calc(env(viewport-segment-width 0 0) - 160px) 1fr;
@@ -376,29 +376,16 @@ code {
         background-color: var(--neutral-layer-4);
     }
 
-        .header a {
+        .siteheader a {
             padding: 0px 15px;
             color: var(--neutral-foreground-rest);
         }
 
-        .header .logo {
+        .siteheader .logo {
             grid-column: 1;
             width: 108px;
             height: 23px;
             /*padding: 0 30px;*/
-        }
-
-        .header .switches {
-            margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
-            grid-column: 3;
-            justify-self: end;
-            padding-left: 20px;
-        }
-
-        .header .colorgroup {
-            grid-column: 2;
-            justify-self: end;
-            z-index: 10;
         }
 
     main {
