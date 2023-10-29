@@ -258,25 +258,7 @@ public class FluentCounterBadgeTests : TestBase
     }
 
     [Fact]
-    public void FluentCounterBadge_BackgroundColorLightweightLuminanceDark()
-    {
-        // Arrange && Act
-        TestContext.Services.AddSingleton(GlobalState);
-
-        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
-        {
-            parameters.Add(p => p.BackgroundColor, Color.Lightweight);
-            parameters.Add(p => p.Color, Color.Fill);
-            parameters.Add(p => p.Count, 1);
-            parameters.AddChildContent("childcontent");
-        });
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentCounterBadge_BackgroundColorLightweightLuminanceLight()
+    public void FluentCounterBadge_BackgroundColorLightweightLuminanceLightAndDark()
     {
         // Arrange && Act
         TestContext.Services.AddSingleton(GlobalState);
