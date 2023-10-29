@@ -27,4 +27,8 @@
 		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="content\blazorweb-csharp\blazorweb-csharp\wwwroot\images\authrequired.svg" />
+	</ItemGroup>
 </Project>

@@ -23,12 +23,12 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div style="width: 100%;">
-                <FluentTextField @bind-Value="Input.TwoFactorCode" class="form-control" AutoComplete="off" Label="Authenticator code" />
+                <FluentTextField Name="Input.TwoFactorCode" @bind-Value="Input.TwoFactorCode" class="form-control" AutoComplete="off" Label="Authenticator code" />
 
                 <ValidationMessage For="() => Input.TwoFactorCode" class="text-danger" />
             </div>
             <div>
-                <FluentCheckbox @bind-Value="Input.RememberMachine" Label="Remember this machine" />
+                <FluentCheckbox Name="Input.RememberMachine" @bind-Value="Input.RememberMachine" Label="Remember this machine" />
 
             </div>
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Log in</FluentButton>

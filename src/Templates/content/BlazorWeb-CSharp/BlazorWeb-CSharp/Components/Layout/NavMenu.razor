@@ -20,7 +20,7 @@
 
         @*#if (IndividualLocalAuth)
 
-        <FluentNavLink Href="auth">Auth Required</FluentNavLink>
+    <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
         
         <AuthorizeView>
             <Authorized>
@@ -28,7 +28,7 @@
                     <form action="Account/Logout" method="post">
                         <AntiforgeryToken />
                         <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <FluentButton ButtonType="submit">Logout</FluentButton>
+                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
                     </form>
             </Authorized>
             <NotAuthorized>

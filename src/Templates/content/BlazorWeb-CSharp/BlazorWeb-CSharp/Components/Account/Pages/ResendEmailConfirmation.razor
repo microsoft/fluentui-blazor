@@ -4,6 +4,7 @@
 @using System.Text
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.UI.Services
 @using Microsoft.AspNetCore.WebUtilities
 @using BlazorWeb_CSharp.Data
 
@@ -24,7 +25,7 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div style="width: 100%;">
-                <FluentTextField @bind-Value="Input.Email" class="form-control" Required="true" Placeholder="name@example.com" Label="Email" />
+                <FluentTextField Name="Input.Email" @bind-Value="Input.Email" class="form-control" Required="true" Placeholder="name@example.com" Label="Email" />
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Resend</FluentButton>

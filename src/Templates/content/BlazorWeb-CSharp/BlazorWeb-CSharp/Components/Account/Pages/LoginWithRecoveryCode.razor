@@ -2,6 +2,7 @@
 
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
 @using BlazorWeb_CSharp.Data
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -24,7 +25,7 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div style="width: 100%;">
-                <FluentTextField @bind-Value="Input.RecoveryCode" class="form-control" AutoComplete="off" Placeholder="Recovery code" Label="Recovery code"/>
+                <FluentTextField Name="Input.RecoveryCode" @bind-Value="Input.RecoveryCode" class="form-control" AutoComplete="off" Placeholder="Recovery code" Label="Recovery code"/>
                 
                 <ValidationMessage For="() => Input.RecoveryCode" class="text-danger" />
             </div>

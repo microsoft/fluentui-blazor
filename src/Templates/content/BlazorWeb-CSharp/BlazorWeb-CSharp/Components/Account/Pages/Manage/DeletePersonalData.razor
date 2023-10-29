@@ -16,27 +16,25 @@
 
 <h3>Delete Personal Data</h3>
 
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-    </p>
-</div>
-
-<div>
-    <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
-        <DataAnnotationsValidator />
-        <ValidationSummary class="text-danger" role="alert" />
-        @if (requirePassword)
-        {
-            <div style="width: 100%;">
-                <FluentTextField type="password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="Please enter your password." Label="Password"/>
+<FluentGrid>
+    <FluentGridItem sm="6">
+        <div class="alert alert-warning" role="alert">
+            <p>
+                <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+            </p>
+        </div>
+        <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            @if (requirePassword)
+            {
+                <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="Please enter your password." Label="Password" Style="width: 100%" />
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-        }
-        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Delete data and close my account</FluentButton>
-    </EditForm>
-</div>
-
+            }
+            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Delete data and close my account</FluentButton>
+        </EditForm>
+    </FluentGridItem>
+</FluentGrid>
 @code {
     private string? message;
     private ApplicationUser user = default!;

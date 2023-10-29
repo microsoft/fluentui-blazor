@@ -8,16 +8,19 @@
         If you lose your device and don't have the recovery codes you will lose access to your account.
     </p>
 </div>
-<div class="row">
-    <div class="col-md-12">
+<FluentGrid>
+    <FluentGridItem sm="12">
         @foreach (var recoveryCode in RecoveryCodes)
         {
             <div>
                 <code class="recovery-code">@recoveryCode</code>
             </div>
         }
-    </div>
-</div>
+
+    </FluentGridItem>
+
+</FluentGrid>
+
 
 @code {
     [Parameter]

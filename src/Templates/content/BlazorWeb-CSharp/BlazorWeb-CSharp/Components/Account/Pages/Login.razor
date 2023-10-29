@@ -3,6 +3,7 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
 @using BlazorWeb_CSharp.Data
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -23,15 +24,15 @@
             <FluentValidationSummary class="text-danger" role="alert" />
             <FluentStack Orientation="Orientation.Vertical">
                 <div style="width: 100%;">
-                    <FluentTextField @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
+                    <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
                     <ValidationMessage For="() => Input.Email" class="text-danger" />
                 </div>
                 <div style="width: 100%;">
-                    <FluentTextField type="password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
+                    <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
                     <ValidationMessage For="() => Input.Password" class="text-danger" />
                 </div>
                 <div style="width: 100%;">
-                    <FluentCheckbox @bind-Value="Input.RememberMe" Label="Remember me" />
+                    <FluentCheckbox Name="Input.RememberMe" @bind-Value="Input.RememberMe" Label="Remember me" />
                 </div>
                 <div style="width: 100%;">
                     <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>

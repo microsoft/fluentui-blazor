@@ -35,7 +35,7 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div style="width: 100%;">
-                <InputText @bind-Value="Input.Email" AutoComplete="email" Placeholder="Please enter your email." Label="Email" />
+                <InputText Name="Input.Email" @bind-Value="Input.Email" AutoComplete="email" Placeholder="Please enter your email." Label="Email" />
                 <ValidationMessage For="() => Input.Email" />
             </div>
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Register</FluentButton>
