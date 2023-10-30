@@ -29,6 +29,9 @@
                           Class="fluent-datepicker-popup"
                           Style="@($"z-index: {ZIndex.DatePickerPopup}; padding: 10px;")">
         <FluentCalendar Culture="@Culture"
+                        DayFormat="@DayFormat"
+                        DisabledDateFunc="@DisabledDateFunc"
+                        DisabledSelectable="@DisabledSelectable"
                         Value="@Value"
                         ValueChanged="@OnSelectedDateAsync" />
     </FluentAnchoredRegion>
