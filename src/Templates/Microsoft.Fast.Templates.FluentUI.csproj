@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -12,10 +12,10 @@
 		<PackageId>Microsoft.Fast.Templates.FluentUI</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
-		<PackageTags>templates;fast;fast-blazor;blazor;fluentui;web-assembly</PackageTags>
+		<PackageTags>templates;blazor;fluentui;web-components;web-assembly</PackageTags>
 		<PackageType>Template</PackageType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<Title>Microsoft FAST Fluent UI Blazor Templates</Title>
+		<Title>Microsoft Fluent UI Blazor Templates</Title>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
