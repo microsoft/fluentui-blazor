@@ -4237,56 +4237,56 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.DismissClicked">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.ClassValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.StyleValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Section">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Section">
             <summary>
             Display only messages for this section.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Type">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Type">
             <summary>
             Displays messages as a single line (with the message only)
             or as a card (with the detailed message).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.MaxMessageCount">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.MaxMessageCount">
             <summary>
             Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
             Default value is 5
-            Set a value equal to or less than zero, to display all messages for this <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Section" /> (or all categories if not set).
+            Set a value equal to or less than zero, to display all messages for this <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Section" /> (or all categories if not set).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.NewestOnTop">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.NewestOnTop">
             <summary>
             Display the newest messages on top (true) or on bottom (false).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.ClearAfterNavigation">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.ClearAfterNavigation">
             <summary>
             Clear all (shown and stored) messages when the user navigates to a new page.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.AllMessagesForCategory">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.AllMessagesForCategory">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.MessagesToShow">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.MessagesToShow">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.OnInitialized">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.OnInitialized">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.OnMessageItemsUpdatedHandler">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.OnMessageItemsUpdatedHandler">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Dispose">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Dispose">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Message">
@@ -4379,7 +4379,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Section">
             <summary>
-            Identification of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer"/> the message belongs to.
+            Identification of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider"/> the message belongs to.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Timestamp">

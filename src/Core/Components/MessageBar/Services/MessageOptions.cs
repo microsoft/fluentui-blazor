@@ -5,7 +5,7 @@ public class MessageOptions
 
 {
     /// <summary>
-    /// Identification of the <see cref="FluentMessageBarContainer"/> the message belongs to.
+    /// Identification of the <see cref="FluentMessageBarProvider"/> the message belongs to.
     /// </summary>
     public string? Section { get; set; }
 

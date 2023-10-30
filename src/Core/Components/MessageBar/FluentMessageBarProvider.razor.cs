@@ -4,7 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentMessageBarContainer : FluentComponentBase, IDisposable
+public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 {
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class).Build();

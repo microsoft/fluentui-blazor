@@ -1,4 +1,4 @@
-.fluent-messagebar-container {
+.fluent-messagebar-provider {
     display: flex;
     flex-direction: column;
     row-gap: calc( var(--design-unit) * 2px);
