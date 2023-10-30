@@ -17,7 +17,7 @@
         ToastService.ShowToast(
             intent,
             message,
-            rnd.Next(3, 15),
+            rnd.Next(3000, 15000),
             "Log click",
             EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)
         );

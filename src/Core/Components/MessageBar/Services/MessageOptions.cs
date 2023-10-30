@@ -60,7 +60,7 @@ public class MessageOptions
     public bool ClearAfterNavigation { get; set; }
 
     /// <summary>
-    /// Timeout in seconds after which the message bar is removed. Default is null.
+    /// Timeout in milliseconds after which the message bar is removed. Default is null.
     /// </summary>
     public int? Timeout { get; set; }
 }

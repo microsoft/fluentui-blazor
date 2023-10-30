@@ -2,10 +2,10 @@ using Bunit;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Toast;
-public class FluentToastContainerTests : TestBase
+public class FluentToastProviderTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
-    public void FluentToastContainer_Default()
+    public void FluentToastProvider_Default()
     {
         //Arrange
         //Services.AddSingleton<IToastService,/*Add implementation for IToastService*/>();
@@ -14,7 +14,7 @@ public class FluentToastContainerTests : TestBase
         int maxToastCount = default!;
         bool removeToastsOnNavigation = default!;
         bool showCloseButton = default!;
-        var cut = TestContext.RenderComponent<FluentToastContainer>(parameters => parameters
+        var cut = TestContext.RenderComponent<FluentToastProvider>(parameters => parameters
             .Add(p => p.Position, position)
             .Add(p => p.Timeout, timeout)
             .Add(p => p.MaxToastCount, maxToastCount)

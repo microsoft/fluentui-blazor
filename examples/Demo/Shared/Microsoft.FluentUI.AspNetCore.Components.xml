@@ -2082,7 +2082,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDialogProvider.#ctor">
             <summary>
-            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer"/>.
+            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Alignment">
@@ -4434,7 +4434,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Timeout">
             <summary>
-            Timeout in seconds after which the message bar is removed. Default is null.
+            Timeout in milliseconds after which the message bar is removed. Default is null.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.MessageService">
@@ -6017,35 +6017,35 @@
             Closes the toast
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.Position">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.Position">
             <summary>
             Gets or sets the position on screen where the toasts are shown. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ToastPosition"/>
             Default is ToastPosition.TopRight
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.Timeout">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.Timeout">
             <summary>
-            Gets or sets the number of seconds a toast remains visible. Default is 7 seconds.
+            Gets or sets the number of milliseconds a toast remains visible. Default is 7000 (7 seconds).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.MaxToastCount">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.MaxToastCount">
             <summary>
             Gets or sets the maximum number of toasts that can be shown at once. Default is 4.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.RemoveToastsOnNavigation">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.RemoveToastsOnNavigation">
             <summary>
             Gets or sets whether to remove toasts when the user navigates to a new page. Default is true.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.ShowCloseButton">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.ShowCloseButton">
             <summary>
             Gets or sets whether to show a close button on a toast. Default is true.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.#ctor">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.#ctor">
             <summary>
-            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer"/>.
+            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ToastParameters`1.Content">

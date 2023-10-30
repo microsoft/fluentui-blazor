@@ -2,6 +2,8 @@
 - Fix [#891](https://github.com/microsoft/fluentui-blazor/issues/891): JSDisconnectedException in FluentOverflow
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): Needed extra `empty-content-cell` class 
 - FluentCard: Add Width and Height + docs/examples
+- FluentToast: Timeout is now in milliseconds
+- FluentToastContainer renamed to FluentToastProvider
 
 
 ## V4.0.0-preview.2

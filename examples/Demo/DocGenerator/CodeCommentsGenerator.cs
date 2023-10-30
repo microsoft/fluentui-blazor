@@ -74,7 +74,7 @@ namespace FluentUI.Demo.Generators
 
         private static string CleanupParamName(string value)
         {
-            Regex regex = new("[P,T,M,F]:Microsoft\\.Fast\\.Components\\.FluentUI\\.");
+            Regex regex = new("[P,T,M,F]:Microsoft\\.FluentUI\\.AspNetCore\\.Components\\.");
             value = regex.Replace(value, "");
             regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Shared\\.Components\\.");
             value = regex.Replace(value, "");

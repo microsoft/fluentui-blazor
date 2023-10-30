@@ -1,4 +1,4 @@
-﻿.fluent-toast-container {
+﻿.fluent-toast-provider {
     display: flex;
     flex-direction: column;
     position: fixed;

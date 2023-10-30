@@ -3,7 +3,7 @@
 
 @if (_toastList.Any())
 {
-    <div class="fluent-toast-container @_positionClass">
+    <div class="fluent-toast-provider @_positionClass">
         <CascadingValue TValue="InternalToastContext" IsFixed="true" Value="@_internalToastContext">
             @_renderToasts
         </CascadingValue>

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentToastContainer
+public partial class FluentToastProvider
 {
     [Inject]
     private IToastService ToastService { get; set; } = default!;
@@ -20,10 +20,10 @@ public partial class FluentToastContainer
     public ToastPosition Position { get; set; } = ToastPosition.TopRight;
 
     /// <summary>
-    /// Gets or sets the number of seconds a toast remains visible. Default is 7 seconds.
+    /// Gets or sets the number of milliseconds a toast remains visible. Default is 7000 (7 seconds).
     /// </summary>
     [Parameter]
-    public int Timeout { get; set; } = 7;
+    public int Timeout { get; set; } = 7000;
 
     /// <summary>
     /// Gets or sets the maximum number of toasts that can be shown at once. Default is 4.
@@ -51,9 +51,9 @@ public partial class FluentToastContainer
     private readonly RenderFragment _renderToasts;
 
     /// <summary>
-    /// Constructs an instance of <see cref="FluentToastContainer"/>.
+    /// Constructs an instance of <see cref="FluentToastProvider"/>.
     /// </summary>
-    public FluentToastContainer()
+    public FluentToastProvider()
     {
         _internalToastContext = new(this);
         _toastList = new();
