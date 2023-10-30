@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Splitter;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Splitter;
 public class FluentSplitterTests : TestBase
 {
     [Fact]
@@ -10,7 +10,7 @@ public class FluentSplitterTests : TestBase
         //Arrange
         string panel1 = "<b>render me</b>";
         string panel2 = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.Orientation orientation = default!;
+        Orientation orientation = default!;
         string panel1Size = default!;
         string panel2Size = default!;
         var cut = TestContext.RenderComponent<FluentSplitter>(parameters => parameters

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 public interface IStaticAssetService
 {

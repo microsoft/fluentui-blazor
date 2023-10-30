@@ -1,6 +1,6 @@
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 // The grid cascades this so that descendant columns can talk back to it. It's an internal type
 // so that it doesn't show up by mistake in unrelated components.

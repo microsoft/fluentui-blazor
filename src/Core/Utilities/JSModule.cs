@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.JSInterop;
-using static Microsoft.Fast.Components.FluentUI.Utilities.LinkerFlags;
+using static Microsoft.FluentUI.AspNetCore.Components.Utilities.LinkerFlags;
 
 
-namespace Microsoft.Fast.Components.FluentUI.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 internal static class LinkerFlags
 {

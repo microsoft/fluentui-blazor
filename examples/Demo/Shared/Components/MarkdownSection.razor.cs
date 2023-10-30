@@ -1,8 +1,8 @@
 using Markdig;
 using Microsoft.AspNetCore.Components;
 
-using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 
 // Remember to replace the namespace below with your own project's namespace..

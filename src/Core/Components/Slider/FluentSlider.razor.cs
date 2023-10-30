@@ -3,7 +3,7 @@ using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
 #if NET7_0_OR_GREATER
@@ -32,7 +32,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     public TValue? Step { get; set; }
 
     /// <summary>
-    /// Gets or sets the orentation of the slider. See <see cref="FluentUI.Orientation"/>
+    /// Gets or sets the orentation of the slider. See <see cref="AspNetCore.Components.Orientation"/>
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }

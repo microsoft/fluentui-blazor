@@ -1,3 +1,3 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class ConfirmationToastContent { }

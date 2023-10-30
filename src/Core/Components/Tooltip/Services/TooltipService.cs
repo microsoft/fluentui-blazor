@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Components.Tooltip;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
 /// <inheritdoc cref="ITooltipService"/>
 public class TooltipService : ITooltipService, IDisposable

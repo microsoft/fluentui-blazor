@@ -2,7 +2,7 @@ using Bunit;
 using Bunit.Rendering;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Accordion;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Accordion;
 
 public class FluentAccordionTests : TestBase
 {

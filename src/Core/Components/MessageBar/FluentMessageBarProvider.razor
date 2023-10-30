@@ -1,0 +1,13 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@inject IMessageService MessageService
+
+@if (MessageService != null)
+{
+    <div @attributes="AdditionalAttributes" class="fluent-messagebar-provider @ClassValue" style="@StyleValue">
+        @foreach (var message in MessagesToShow)
+        {
+            <FluentMessageBar Content="@message" Type="@Type" Style="@(Type == MessageType.Notification ? "border-top: 1px solid lightgray;" : "")" />
+        }
+    </div>
+}

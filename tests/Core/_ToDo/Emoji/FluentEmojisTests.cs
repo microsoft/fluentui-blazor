@@ -2,7 +2,7 @@ using Bunit;
 using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Emojis;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Emojis;
 public class FluentEmojiTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]

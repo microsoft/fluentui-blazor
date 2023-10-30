@@ -1,14 +1,14 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal sealed class InternalToastContext
 {
     public Dictionary<string, FluentToast> References { get; set; } = new();
 
-    public FluentToastContainer ToastContainer { get; }
+    public FluentToastProvider ToastProvider { get; }
 
-    public InternalToastContext(FluentToastContainer container)
+    public InternalToastContext(FluentToastProvider provider)
     {
-        ToastContainer = container;
+        ToastProvider = provider;
     }
 
     internal void Register(FluentToast toast)

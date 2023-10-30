@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Toast;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Toast;
 public class FluentToastTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]

@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NumberField;
 
 public class FluentNumberFieldTests : TestBase
 {

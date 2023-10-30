@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Stack;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Stack;
 public class FluentStackTests : TestBase
 {
     [Fact]
@@ -9,9 +9,9 @@ public class FluentStackTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.HorizontalAlignment horizontalAlignment = default!;
-        Microsoft.Fast.Components.FluentUI.VerticalAlignment verticalAlignment = default!;
-        Microsoft.Fast.Components.FluentUI.Orientation orientation = default!;
+        HorizontalAlignment horizontalAlignment = default!;
+        VerticalAlignment verticalAlignment = default!;
+        Orientation orientation = default!;
         string width = default!;
         bool wrap = default!;
         int? horizontalGap = default!;

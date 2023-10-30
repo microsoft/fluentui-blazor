@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 // The list cascades this so that descendant options can talk back to it.
 // It's an internal type so it doesn't show up in unrelated components by mistake.

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
+namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public interface IDesignToken<T>
 {

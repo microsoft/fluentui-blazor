@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentCalendarBase
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
@@ -9,7 +9,7 @@
                     Appearance="@Appearance"
                     @bind-Value="@DateAsString"
                     @onclick="@OnCalendarOpenHandlerAsync" 
-                    Readonly="@ReadOnly"
+                    ReadOnly="@ReadOnly"
                     Disabled="@Disabled"
                     Required="@Required"
                     Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"

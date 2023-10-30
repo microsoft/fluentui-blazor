@@ -3,8 +3,8 @@ using FluentUI.Demo.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.DesignTokens;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;

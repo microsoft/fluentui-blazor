@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.DateTime;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
 public class FluentTimePickerTests : TestBase
 {

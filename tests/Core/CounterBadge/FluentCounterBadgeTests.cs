@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.CounterBadge;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.CounterBadge;
 
 public class FluentCounterBadgeTests : TestBase
 {

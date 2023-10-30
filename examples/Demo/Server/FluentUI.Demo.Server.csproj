@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<!-- Uncomment below line if you want to target all mentioned frameworks -->
-		<!-- Targeting just one framework will speed up build time -->
-		<!--<TargetFrameworks>net6.0;net7.0</TargetFrameworks>-->
-		<!-- Comment below line if you enable line above -->
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

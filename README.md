@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Components.FluentUI?label=NuGet%20Component%20Library)
+![Nuget](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Components?label=NuGet%20Component%20Library)
 ![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Templates.FluentUI?label=NuGet%20Templates)
 
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
@@ -10,10 +10,12 @@
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 
 :star:  We appreciate your star, it helps!
+## V4.0 progress
+- v4.0.0-preview.2 is functionally equal to v3.2.2
 
 ## Introduction
 
-The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) components which you can use to build applications that have 
+The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which you can use to build applications that have 
 the look and feel or modern Microsoft applications. Some of the components are wrappers around Microsoft's official FluentUI Web Components. Others are components 
 that leverage the Fluent UI design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
@@ -28,10 +30,10 @@ If you are upgrading from an earlier version of the library, please see the [wha
 
 ## Getting Started
 
-To get started using the Fluent UI Blazor components for Blazor, you will first need to install the official [Nuget package for Fluent UI Blazor](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI/) in the project you would like to use the library and components. You can use the following command:
+To get started using the Fluent UI Blazor components for Blazor, you will first need to install the official [Nuget package for Fluent UI Blazor](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you would like to use the library and components. You can use the following command:
 
 ```shell
-dotnet add package Microsoft.Fast.Components.FluentUI
+dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
 
 ### Script
@@ -61,14 +63,14 @@ Reboot is a collection of element-specific CSS changes in a single file to help 
 If you want to use Reboot, you'll need to add to your `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
 ```html    
-<link href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" rel="stylesheet" />
+<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```    
 
 It is entirely possible to build a site without using Reboot. If you choose not to use it, please do add the `variables.css` file (which is otherwise imported through the `reboot.css` file) 
 to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
 
 ```html
-<link href="_content/Microsoft.Fast.Components.FluentUI/css/variables.css" rel="stylesheet" />
+<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/variables.css" rel="stylesheet" />
 ```
 
 The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
@@ -99,13 +101,13 @@ With the package installed and the script configured, you can begin using the Fl
 as any other Blazor component. Just be sure to add the following using statement to your views:
 
 ```razor
-@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.FluentUI.AspNetCore.Components
 ```
 
 Here's a small example of a `FluentCard` with a `FluentButton` that uses the Fluent "Accent" appearance:
 
 ```razor
-@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.FluentUI.AspNetCore.Components
 
 <FluentCard>
   <h2>Hello World!</h2>
@@ -114,7 +116,7 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 ```
 > **Tip**
 > 
-> You can add `@using Microsoft.Fast.Components.FluentUI` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page 
+> You can add `@using Microsoft.FluentUI.AspNetCore.Components` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page 
 that uses one of the components.
 
 
@@ -139,7 +141,7 @@ Currently when using the WebView to run Blazor (so all Hybrid variants) the web-
 There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
 ```xml
-<script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.Fast.Components.FluentUI/js/initializersLoader.webview.js"></script>
+<script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
 <script src="_framework/blazor.webview.js"></script>
 ```
 
@@ -154,7 +156,7 @@ If you want to use the `<FluentDataGrid>` with data provided through EF Core, yo
 ### Installation
 Install the package by running the command:
 ```
-dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter
 ```
 
 ### Usage

@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
@@ -46,7 +46,7 @@
                     {
                         if (SelectedOptionTemplate == null)
                         {
-                            <FluentBadge Appearance="@FluentUI.Appearance.Neutral"
+                            <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
                                          OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
                                          aria-label="@GetOptionText(item)">
                                 @GetOptionText(item)

@@ -2,11 +2,11 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSearch : FluentInputBase<string?>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Search/FluentSearch.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Search/FluentSearch.razor.js";
 
     /// <summary />
     [Inject]
@@ -52,7 +52,7 @@ public partial class FluentSearch : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <see cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;

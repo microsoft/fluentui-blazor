@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Footer;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Footer;
 public class FluentFooterTests : TestBase
 {
     [Fact]

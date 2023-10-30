@@ -2,9 +2,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells display a single value.

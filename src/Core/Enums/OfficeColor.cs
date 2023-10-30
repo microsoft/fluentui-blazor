@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The official product colors for Microsoft Office apps.

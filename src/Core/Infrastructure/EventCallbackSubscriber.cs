@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 /// <summary>
 /// Represents a subscriber that may be subscribe to an <see cref="EventCallbackSubscribable{T}"/>.

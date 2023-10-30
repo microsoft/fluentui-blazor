@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Spacer;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Spacer;
 public class FluentSpacerTests : TestBase
 {
     [Fact]

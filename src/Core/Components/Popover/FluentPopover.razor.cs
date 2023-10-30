@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentPopover : FluentComponentBase
 {
@@ -23,7 +23,7 @@ public partial class FluentPopover : FluentComponentBase
     /// Default is unset. See <seealso cref="HorizontalPosition"/>
     /// </summary>
     [Parameter]
-    public HorizontalPosition? HorizontalPosition { get; set; } = FluentUI.HorizontalPosition.Unset;
+    public HorizontalPosition? HorizontalPosition { get; set; } = AspNetCore.Components.HorizontalPosition.Unset;
 
     /// <summary>
     /// Gets or sets popover opened state

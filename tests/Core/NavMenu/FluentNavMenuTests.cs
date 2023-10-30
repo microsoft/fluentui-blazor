@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.NavMenu;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;
 
 public class FluentNavMenuTests : TestBase
 {

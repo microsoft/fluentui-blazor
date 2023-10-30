@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
@@ -57,7 +57,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public string? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="FluentUI.Appearance" />
+    /// Gets or sets the <see cref="AspNetCore.Components.Appearance" />
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;

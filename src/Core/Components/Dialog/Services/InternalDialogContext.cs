@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal sealed class InternalDialogContext
 {

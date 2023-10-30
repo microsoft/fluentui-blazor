@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public static partial class Emojis
 {
-    private const string Namespace = "Microsoft.Fast.Components.FluentUI";
-    private const string LibraryName = "Microsoft.Fast.Components.FluentUI.Emojis.dll";
+    private const string Namespace = "Microsoft.FluentUI.AspNetCore.Components";
+    private const string LibraryName = "Microsoft.FluentUI.AspNetCore.Components.Emoji.dll";
 
     /// <summary>
     /// Returns a new instance of the emoji.

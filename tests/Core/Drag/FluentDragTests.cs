@@ -1,7 +1,7 @@
 ﻿using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Drag;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Drag;
 
 public class FluentDragTests : TestBase
 {
