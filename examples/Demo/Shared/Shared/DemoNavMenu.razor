@@ -1,8 +1,5 @@
 
-    <FluentNavMenu Title="Main menu"
-                   Style="height: Calc(100dvh - 100px);
-                          overflow-y: overlay;
-                          overflow-x: hidden;">
+    <FluentNavMenu Title="Main menu">
         <FluentNavLink Icon="@(new Icons.Regular.Size20.Home())" Href="/" Match="NavLinkMatch.All">
             <h3>Home</h3>
         </FluentNavLink>
@@ -111,7 +108,7 @@
             <FluentNavLink Href="/TreeView" Icon="@(new Icons.Regular.Size20.TextBulletListTree())">Tree View</FluentNavLink>
         </FluentNavGroup>
 
-        <FluentNavGroup Expanded="false" 
+        <FluentNavGroup Expanded="true" 
                         Title="Incubation lab"
                         Href="/Lab/Overview" Icon="@(new Icons.Regular.Size20.Beaker())" 
                         Gap="10px">

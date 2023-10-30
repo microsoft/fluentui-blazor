@@ -31,7 +31,7 @@ body {
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
     font-weight: var(--font-weight);
-    color: var(--neutral-base-color);
+    color: var(--neutral-foreground-rest);
     background-color: var(--neutral-fill-layer-rest);
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
