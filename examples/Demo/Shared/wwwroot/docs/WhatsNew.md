@@ -4,7 +4,7 @@
 - FluentCard: Add Width and Height + docs/examples
 - FluentToast: Timeout is now in milliseconds
 - FluentToastContainer renamed to FluentToastProvider
-
+- FluentMessageBarContainer renamed to FluentMessageBarProvider
 
 ## V4.0.0-preview.2
 - Functionally equivalent to v3.2.2
