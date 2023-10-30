@@ -22,15 +22,9 @@
             <input type="hidden" name="RememberMe" value="@RememberMe" />
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
-            <div style="width: 100%;">
-                <FluentTextField Name="Input.TwoFactorCode" @bind-Value="Input.TwoFactorCode" class="form-control" AutoComplete="off" Label="Authenticator code" />
-
+                <FluentTextField Name="Input.TwoFactorCode" @bind-Value="Input.TwoFactorCode" class="form-control" AutoComplete="off" Label="Authenticator code" Style="width: 100%;"/>
                 <ValidationMessage For="() => Input.TwoFactorCode" class="text-danger" />
-            </div>
-            <div>
-                <FluentCheckbox Name="Input.RememberMachine" @bind-Value="Input.RememberMachine" Label="Remember this machine" />
-
-            </div>
+                <FluentCheckbox Name="Input.RememberMachine" @bind-Value="Input.RememberMachine" Label="Remember this machine" Style="width: 100%;"/>
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Log in</FluentButton>
         </EditForm>
     </FluentGridItem>
