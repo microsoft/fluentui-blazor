@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
-    <PackageId>Microsoft.Fast.Components.FluentUI</PackageId>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <PackageId>Microsoft.FluentUI.AspNetCore.Components</PackageId>
 
     <Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
     <PackageTags>Fluent UI, Blazor, Web Components, .NET8</PackageTags>
