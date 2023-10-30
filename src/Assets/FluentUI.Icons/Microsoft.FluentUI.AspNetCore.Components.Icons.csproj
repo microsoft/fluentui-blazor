@@ -13,7 +13,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
 		<Summary>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Summary>
-		<PackageTags>Icons, Fluent UI, FAST, Blazor, .NET8</PackageTags>
+		<PackageTags>Icons, Fluent UI, Blazor, .NET8</PackageTags>
 		<Title>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Title>
 		<Description>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
