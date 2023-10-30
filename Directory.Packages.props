@@ -20,7 +20,7 @@
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.0.0-preview.2" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.0.0-preview.3" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.0.0-preview.1" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.0.0-preview.2" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion)" />
