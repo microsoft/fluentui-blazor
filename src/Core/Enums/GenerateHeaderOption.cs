@@ -1,4 +1,4 @@
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The option for generating a header for the <see cref="FluentDataGrid{TGridItem}" />.

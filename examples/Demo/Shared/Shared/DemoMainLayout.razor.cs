@@ -3,14 +3,17 @@ using FluentUI.Demo.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.DesignTokens;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;
 
 public partial class DemoMainLayout : IAsyncDisposable
 {
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
     private OfficeColor _selectedColorOption;
     private string? _version;
 
@@ -77,7 +80,7 @@ public partial class DemoMainLayout : IAsyncDisposable
             GlobalState.SetLuminance(_dark ? StandardLuminance.DarkMode: StandardLuminance.LightMode);
 
             if (_selectedColorOption != OfficeColor.Default)
-                await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());            
+                await AccentBaseColor.WithDefault(_selectedColorOption.ToAttributeValue()!.ToSwatch());            
         }
     }
 

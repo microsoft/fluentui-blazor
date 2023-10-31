@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The size of the emoji (in multiples of 32).

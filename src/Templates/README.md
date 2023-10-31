@@ -1,9 +1,9 @@
 #### Installation
 Install the templates by running the command:
 ```
-dotnet new install {path to package}\Microsoft.Fast.Templates.FluentUI.{version}.nupkg
+dotnet new install {path to package}\Microsoft.FluentUI.AspNetCore.Templates.{version}.nupkg
 ```
-The current version can be found on the [NuGet page](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/). 
+The current version can be found on the [NuGet page](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/). 
 
 #### Usage
 After installing the templates you can create new a project from either the CLI or by creating a new project in Visual studio 2022. 
@@ -21,5 +21,5 @@ In Visual Studio you can create a new project by selecting either the FluentUI B
 #### Uninstalling the templates
 If you want to uninstall the templates, both from the CLI and Visual Studio 2022,  run the following command:
 ```
-dotnet new uninstall Microsoft.Fast.Templates.FluentUI
+dotnet new uninstall Microsoft.FluentUI.AspNetCore.Templates
 ```

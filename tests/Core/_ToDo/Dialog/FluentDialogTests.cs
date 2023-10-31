@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Dialog;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Dialog;
 public class FluentDialogTests : TestBase
 {
     [Fact]

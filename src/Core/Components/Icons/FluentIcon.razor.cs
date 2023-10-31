@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// FluentIcon is a component that renders an icon from the Fluent System icon set.
 /// </summary>
 public partial class FluentIcon<Icon> : FluentComponentBase
-    where Icon : FluentUI.Icon, new()
+    where Icon : AspNetCore.Components.Icon, new()
 {
     private Icon _icon = default!;
 
@@ -38,7 +38,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color. 
-    /// Value comes from the <see cref="FluentUI.Color"/> enumeration. Defaults to Accent.
+    /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]
     public Color? Color { get; set; }
@@ -93,7 +93,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
             _icon = new Icon();
         }
 
-        if (!string.IsNullOrEmpty(CustomColor) && Color != FluentUI.Color.Custom)
+        if (!string.IsNullOrEmpty(CustomColor) && Color != AspNetCore.Components.Color.Custom)
         {
             throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
         }
@@ -119,9 +119,9 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// <returns></returns>
     private string GetIconColor()
     {
-        string defaultColor = FluentUI.Color.Accent.ToAttributeValue()!;
+        string defaultColor = AspNetCore.Components.Color.Accent.ToAttributeValue()!;
 
-        if (Color == FluentUI.Color.Custom && !string.IsNullOrEmpty(CustomColor))
+        if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(CustomColor))
         {
             return CustomColor;
         }

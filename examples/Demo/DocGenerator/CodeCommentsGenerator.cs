@@ -63,7 +63,7 @@ namespace FluentUI.Demo.Generators
             sb.Remove(lastComma, 1);
             sb.AppendLine("\t\t};");
             sb.Append("\t\t");
-            sb.AppendLine("KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.StartsWith(name));");
+            sb.AppendLine("KeyValuePair<string, string> foundPair = summarydata.FirstOrDefault(x => x.Key.Equals(name));");
 
             sb.AppendLine("\t\treturn foundPair.Value;");
             sb.AppendLine("\t\t}");
@@ -74,7 +74,7 @@ namespace FluentUI.Demo.Generators
 
         private static string CleanupParamName(string value)
         {
-            Regex regex = new("[P,T,M,F]:Microsoft\\.Fast\\.Components\\.FluentUI\\.");
+            Regex regex = new("[P,T,M,F]:Microsoft\\.FluentUI\\.AspNetCore\\.Components\\.");
             value = regex.Replace(value, "");
             regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Shared\\.Components\\.");
             value = regex.Replace(value, "");
@@ -116,7 +116,7 @@ namespace FluentUI.Demo.Generators
                         .Replace(Environment.NewLine + "</summary>", "")
                         .Replace(Environment.NewLine, "<br />")
                         .Replace("\"", "'")
-                        .Replace("Microsoft.Fast.Components.FluentUI.", "")
+                        .Replace("Microsoft.FluentUI.AspNetCore.Components.", "")
                         .Replace("FluentDataGrid`1.", "")
                         .Replace("System.Linq.", "")
                         .Replace("System.Linq.Queryable.", "")

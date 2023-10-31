@@ -1,9 +1,10 @@
 ﻿.footer {
-    width: 100%;
     display: grid;
     z-index: 10;
-    flex-shrink: 0;
     flex-direction: column;
     position: relative;
-    margin-top: 0.5rem;
+    font-family: var(--body-font);
+    font-weight: normal;
+    font-size: var(--type-ramp-minus-1-font-size);
+    line-height: var(--type-ramp-minus-1-line-height);
 }

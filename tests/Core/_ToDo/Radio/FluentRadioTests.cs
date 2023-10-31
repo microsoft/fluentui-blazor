@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Radio;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Radio;
 using Bunit;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -14,7 +14,7 @@ public class FluentRadioTests: TestBase
         //Arrange
         string labelTemplate = "<b>render me</b>";
         string childContent = "<b>render me</b>";
-        bool Readonly = default!;
+        bool readOnly = default!;
         string label = default!;
         string ariaLabel = default!;
         bool disabled = default!;
@@ -22,7 +22,7 @@ public class FluentRadioTests: TestBase
         bool required = default!;
         bool? Checked = default!;
         var cut = TestContext.RenderComponent<FluentRadio<bool>>(parameters => parameters
-            .Add(p => p.Readonly, Readonly)
+            .Add(p => p.ReadOnly, readOnly)
                 .Add(p => p.Label, label)
                 .Add(p => p.LabelTemplate, labelTemplate)
                 .Add(p => p.AriaLabel, ariaLabel)

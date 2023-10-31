@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
+namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public interface IDesignToken<T>
 {
@@ -10,7 +10,7 @@ public interface IDesignToken<T>
     ValueTask<T> GetValueFor(ElementReference element);
 
     ValueTask SetValueFor(ElementReference element, T value);
-    DesignToken<T> WithDefault(T value);
+    ValueTask<DesignToken<T>> WithDefault(T value);
 
     ValueTask<DesignToken<T>> Create(string name);
 }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentButton : FluentComponentBase
 {
     private readonly string _customId = Identifier.NewId();
@@ -88,11 +88,11 @@ public partial class FluentButton : FluentComponentBase
     public bool Required { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
-    /// Defaults to <seealso cref="FluentUI.Appearance.Neutral"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Defaults to <seealso cref="AspNetCore.Components.Appearance.Neutral"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
+    public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
     /// Background color of this button (overrides the <see cref="Appearance"/> property).
@@ -192,7 +192,7 @@ public partial class FluentButton : FluentComponentBase
     private string RingStyle(Icon icon)
     {
         int size = Convert.ToInt32(icon.Size);
-        string inverse = Appearance == FluentUI.Appearance.Accent ? " filter: invert(1);" : string.Empty;
+        string inverse = Appearance == AspNetCore.Components.Appearance.Accent ? " filter: invert(1);" : string.Empty;
 
         return $"width: {size}px; height: {size}px;{inverse}";
     }

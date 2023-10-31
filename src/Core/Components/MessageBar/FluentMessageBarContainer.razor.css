@@ -1,6 +1,0 @@
-.fluent-messagebar-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: calc( var(--design-unit) * 2px);
-    padding-bottom: calc(var(--design-unit) * 1px);
-}

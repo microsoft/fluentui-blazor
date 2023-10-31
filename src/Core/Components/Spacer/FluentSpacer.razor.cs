@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 
 /// <summary />

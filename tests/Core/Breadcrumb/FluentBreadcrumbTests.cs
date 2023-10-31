@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Breadcrumb;
 
 public class FluentBreadcrumbTests : TestBase
 {

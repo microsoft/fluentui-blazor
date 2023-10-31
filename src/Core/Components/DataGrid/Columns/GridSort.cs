@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Represents a sort order specification used within <see cref="FluentDataGrid{TGridItem}"/>.

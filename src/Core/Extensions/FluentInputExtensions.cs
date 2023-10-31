@@ -2,7 +2,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.Extensions;
+namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 internal static class FluentInputExtensions
 {

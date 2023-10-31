@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Slider;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Slider;
 using Bunit;
 using Newtonsoft.Json.Linq;
 using Xunit;

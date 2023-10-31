@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 /// <summary>
 /// Represents an event that you may subscribe to. This differs from normal C# events in that the handlers

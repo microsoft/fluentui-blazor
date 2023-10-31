@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Defines the role of the divider.

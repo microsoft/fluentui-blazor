@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Tooltip;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Tooltip;
 
 public class FluentTooltipTests : TestBase
 {

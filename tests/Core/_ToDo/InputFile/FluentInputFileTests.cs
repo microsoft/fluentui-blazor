@@ -2,7 +2,7 @@ using Bunit;
 using Xunit;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.InputFile;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.InputFile;
 public class FluentInputFileTests : TestBase
 {
     [Fact]

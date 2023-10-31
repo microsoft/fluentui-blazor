@@ -1,7 +1,7 @@
 ﻿using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Microsoft.Fast.Components.FluentUI.DesignTokens;
+namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public static class DesignTokenHelpers
 {

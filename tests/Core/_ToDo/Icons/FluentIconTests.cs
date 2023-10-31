@@ -2,7 +2,7 @@ using Bunit;
 using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Icons;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Icons;
 
 public class FluentIconTests : TestBase
 {

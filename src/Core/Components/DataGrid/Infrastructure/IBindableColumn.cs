@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 /// <summary>
 /// A column that can bind to a property of model

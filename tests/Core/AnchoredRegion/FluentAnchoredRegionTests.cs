@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.AnchoredRegion;
 
 public class FluentAnchoredRegionTests : TestBase
 {

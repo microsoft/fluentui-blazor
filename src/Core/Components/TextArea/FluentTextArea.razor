@@ -1,10 +1,10 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<string?>
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
 <fluent-text-area @ref=Element
                   class="@ClassValue"
                   style="@StyleValue"
-                  readOnly="@Readonly"
+                  readOnly="@ReadOnly"
                   resize="@Resize.ToAttributeValue()"
                   autofocus="@Autofocus"
                   form=@Form

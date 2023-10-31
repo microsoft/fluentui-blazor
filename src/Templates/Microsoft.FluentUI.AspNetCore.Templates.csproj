@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Authors>Microsoft</Authors>
+		<ContentTargetFolders>Content</ContentTargetFolders>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<Description>Project templates for creating a Blazor Web app or Blazor WebAssembly app that uses the Fluent UI Blazor library. These templates can be used for web apps with rich dynamic user interfaces (UIs).</Description>
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<License>MIT</License>
+		<PackageId>Microsoft.FluentUI.AspNetCore.Templates</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+		<PackageTags>templates;blazor;fluentui;web-assembly</PackageTags>
+		<PackageType>Template</PackageType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>Microsoft Fluent UI Blazor Templates</Title>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+		<UsingToolTemplateLocalizer>true</UsingToolTemplateLocalizer>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+		<Compile Remove="**\*" />
+	</ItemGroup>
+</Project>

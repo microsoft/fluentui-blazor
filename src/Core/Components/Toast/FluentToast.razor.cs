@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentToast : FluentComponentBase, IDisposable
 {
@@ -25,7 +25,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
         {
             return;
         }
-        _countdownTimer = new CountdownTimer(_parameters.Timeout ?? ToastContext!.ToastContainer.Timeout).OnElapsed(Close);
+        _countdownTimer = new CountdownTimer(_parameters.Timeout ?? ToastContext!.ToastProvider.Timeout).OnElapsed(Close);
         await _countdownTimer.StartAsync();
     }
 
@@ -45,7 +45,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     /// Closes the toast
     /// </summary>
     public void Close()
-        => ToastContext?.ToastContainer.RemoveToast(Id!);
+        => ToastContext?.ToastProvider.RemoveToast(Id!);
 
     public void HandleTopActionClick()
     {

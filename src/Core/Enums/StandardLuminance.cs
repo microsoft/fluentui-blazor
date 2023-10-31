@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The standard luminance values for light and dark mode.
@@ -18,8 +18,8 @@ public enum StandardLuminance
 
 public static class StandardLuminanceExtensions
 {
-    private const float _lightmode = 1.0f;
-    private const float _darkmode = 0.23f;
+    private const float _lightmode = 0.98f;
+    private const float _darkmode = 0.15f;
 
     public static float GetLuminanceValue(this StandardLuminance value)
     {

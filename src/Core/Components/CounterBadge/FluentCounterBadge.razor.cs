@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public partial class FluentCounterBadge : FluentComponentBase, IDisposable
@@ -70,7 +70,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// Default design of this badge using colors from theme.
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; } = FluentUI.Appearance.Accent;
+    public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Accent;
 
     /// <summary>
     /// Background color to replace the color inferred from property.
@@ -112,15 +112,15 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         {
             throw new ArgumentException("Both BackgroundColor and Color must be set.");
         }
-        if (BackgroundColor is FluentUI.Color.Custom ||
-            Color is FluentUI.Color.Custom)
+        if (BackgroundColor is AspNetCore.Components.Color.Custom ||
+            Color is AspNetCore.Components.Color.Custom)
         {
             throw new ArgumentException("Color.Custom is not supported.");
         }
 
-        if (Appearance != FluentUI.Appearance.Accent &&
-            Appearance != FluentUI.Appearance.Lightweight &&
-            Appearance != FluentUI.Appearance.Neutral)
+        if (Appearance != AspNetCore.Components.Appearance.Accent &&
+            Appearance != AspNetCore.Components.Appearance.Lightweight &&
+            Appearance != AspNetCore.Components.Appearance.Neutral)
         {
             throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral.");
         }
@@ -138,19 +138,19 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     {
         if (BackgroundColor != null)
         {
-            if (BackgroundColor == FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
-                return FluentUI.Color.FillInverse;
-            if (BackgroundColor == FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
-                return FluentUI.Color.Lightweight;
+            if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
+                return AspNetCore.Components.Color.FillInverse;
+            if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
+                return AspNetCore.Components.Color.Lightweight;
 
             return BackgroundColor;
         }
 
         return Appearance switch
         {
-            FluentUI.Appearance.Accent => FluentUI.Color.Accent,
-            FluentUI.Appearance.Lightweight => FluentUI.Color.Lightweight,
-            FluentUI.Appearance.Neutral => FluentUI.Color.Neutral,
+            AspNetCore.Components.Appearance.Accent => AspNetCore.Components.Color.Accent,
+            AspNetCore.Components.Appearance.Lightweight => AspNetCore.Components.Color.Lightweight,
+            AspNetCore.Components.Appearance.Neutral => AspNetCore.Components.Color.Neutral,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         };
     }
@@ -160,10 +160,10 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     {
         if (BackgroundColor != null)
         {
-            if (BackgroundColor == FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
-                return FluentUI.Color.FillInverse;
-            if (BackgroundColor == FluentUI.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
-                return FluentUI.Color.Lightweight;
+            if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
+                return AspNetCore.Components.Color.FillInverse;
+            if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
+                return AspNetCore.Components.Color.Lightweight;
 
             return BackgroundColor;
 
@@ -171,9 +171,9 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
 
         return Appearance switch
         {
-            FluentUI.Appearance.Accent => FluentUI.Color.Accent,
-            FluentUI.Appearance.Lightweight => FluentUI.Color.Accent,
-            FluentUI.Appearance.Neutral => FluentUI.Color.Neutral,
+            AspNetCore.Components.Appearance.Accent => AspNetCore.Components.Color.Accent,
+            AspNetCore.Components.Appearance.Lightweight => AspNetCore.Components.Color.Accent,
+            AspNetCore.Components.Appearance.Neutral => AspNetCore.Components.Color.Neutral,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         };
     }
@@ -183,8 +183,8 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     {
         if (Color != null)
         {
-            if (BackgroundColor == FluentUI.Color.Error && GlobalState.Luminance == StandardLuminance.DarkMode)
-                return FluentUI.Color.FillInverse;
+            if (BackgroundColor == AspNetCore.Components.Color.Error && GlobalState.Luminance == StandardLuminance.DarkMode)
+                return AspNetCore.Components.Color.FillInverse;
 
 
             return Color;
@@ -192,9 +192,9 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
 
         return Appearance switch
         {
-            FluentUI.Appearance.Accent => FluentUI.Color.Fill,
-            FluentUI.Appearance.Lightweight => FluentUI.Color.FillInverse,
-            FluentUI.Appearance.Neutral => FluentUI.Color.Fill,
+            AspNetCore.Components.Appearance.Accent => AspNetCore.Components.Color.Fill,
+            AspNetCore.Components.Appearance.Lightweight => AspNetCore.Components.Color.FillInverse,
+            AspNetCore.Components.Appearance.Neutral => AspNetCore.Components.Color.Fill,
             _ => throw new ArgumentException("CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral."),
         }; ;
     }

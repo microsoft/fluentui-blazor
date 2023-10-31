@@ -1,6 +1,6 @@
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Holds state to represent pagination in a <see cref="FluentDataGrid{TGridItem}"/>.

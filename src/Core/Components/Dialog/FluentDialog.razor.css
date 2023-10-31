@@ -41,7 +41,6 @@ fluent-dialog[class~="right"]::part(control) {
 fluent-dialog[class~="left"]::part(control) {
     position: absolute;
     left: 0;
-    
 }
 
 fluent-dialog ::deep .fluent-dialog-header {
@@ -72,7 +71,6 @@ fluent-dialog ::deep .fluent-dialog-body {
     min-height: 80px;
 }
 
-fluent-dialog:has(:not(div[class~="fluent-dialog-header"]))
-{
+fluent-dialog:has(:not(div[class~="fluent-dialog-header"])) {
     padding: var(--dialog-padding) 0px 0px 0px;
 }

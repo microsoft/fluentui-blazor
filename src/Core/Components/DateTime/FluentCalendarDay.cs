@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Computes the properties of a day in the calendar, depending on the current culture.

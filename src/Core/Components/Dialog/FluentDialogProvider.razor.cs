@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDialogProvider : IDisposable
 {
@@ -15,7 +15,7 @@ public partial class FluentDialogProvider : IDisposable
     private NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary>
-    /// Constructs an instance of <see cref="FluentToastContainer"/>.
+    /// Constructs an instance of <see cref="FluentToastProvider"/>.
     /// </summary>
     public FluentDialogProvider()
     {

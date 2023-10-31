@@ -1,6 +1,6 @@
-﻿using Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 //[Obsolete("This component has been replaced with the FluentNavLink and will be removed in a future version.")]
 public partial class FluentNavMenuLink : FluentNavMenuItemBase, IDisposable

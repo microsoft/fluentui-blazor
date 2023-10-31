@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 
 /// <summary>
@@ -22,7 +22,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     }
 
     /// <summary>
-    /// Gets or sets the orientation of the group. See <see cref="FluentUI.Orientation"/>
+    /// Gets or sets the orientation of the group. See <see cref="AspNetCore.Components.Orientation"/>
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }

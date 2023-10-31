@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable

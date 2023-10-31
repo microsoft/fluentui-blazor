@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
 {
@@ -14,7 +14,7 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     /// Gets or sets if the element is readonly
     /// </summary>
     [Parameter]
-    public bool Readonly { get; set; }
+    public bool ReadOnly { get; set; }
 
     /// <summary>
     /// Text displayed just above the component

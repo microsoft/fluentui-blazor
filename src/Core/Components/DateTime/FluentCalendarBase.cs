@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public abstract class FluentCalendarBase : FluentComponentBase
 {
@@ -37,7 +37,7 @@ public abstract class FluentCalendarBase : FluentComponentBase
     /// Type style for the day (numeric or 2-digits).
     /// </summary>
     [Parameter]
-    public DayFormat? DayFormat { get; set; } = FluentUI.DayFormat.Numeric;
+    public DayFormat? DayFormat { get; set; } = AspNetCore.Components.DayFormat.Numeric;
 
     /// <summary>
     /// Selected date (two-way bindable).

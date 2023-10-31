@@ -1,9 +1,9 @@
 @using System.Timers;
 
 <FluentSearch @ref=searchTest
-@bind-Value="SearchValue"
-@oninput="@(e => SearchValue = e.Value?.ToString())"
-              AfterBindValue="HandleClear"
+              @bind-Value="SearchValue"
+              @bind-Value:after="HandleClear"
+              @oninput="@(e => SearchValue = e.Value?.ToString())"
               Placeholder="Search for name" />
 <br />
 <FluentListbox aria-label="search results" Items=@searchResults TOption="string" SelectedOptionChanged="@(e => SearchValue = (e != defaultResultsText ? e : string.Empty))" />
@@ -87,9 +87,9 @@
         }
     }
 
-    private void HandleClear(string value)
+    private void HandleClear()
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(SearchValue))
             return;
 
         DisposeTimer();

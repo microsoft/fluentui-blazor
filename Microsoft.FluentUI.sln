@@ -4,6 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{805140F8-CC9F-4C32-BB72-3D67D13BEBA7}"
+	ProjectSection(SolutionItems) = preProject
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		README.md = README.md
+		SECURITY.md = SECURITY.md
+		unit-tests.md = unit-tests.md
+		WHATSNEW.md = WHATSNEW.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{558E0FEA-094D-4AA4-994A-8ED67ABEDED4}"
 EndProject
@@ -27,15 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Server", "exa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Client", "examples\Demo\Client\FluentUI.Demo.Client.csproj", "{9D6713B7-7ECB-4D79-946B-92BE6D60DFC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI", "src\Core\Microsoft.Fast.Components.FluentUI.csproj", "{962C8010-8EE5-4504-AD28-536D98565DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components", "src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj", "{962C8010-8EE5-4504-AD28-536D98565DCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter", "src\Extensions\DataGrid.EntityFrameworkAdapter\Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter.csproj", "{8CD1F82B-4922-42DD-A83D-BCA7BF1A1C40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter", "src\Extensions\DataGrid.EntityFrameworkAdapter\Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj", "{8CD1F82B-4922-42DD-A83D-BCA7BF1A1C40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Generators", "src\Extensions\DesignToken.Generator\Microsoft.Fast.Components.FluentUI.Generators.csproj", "{222EC695-2AB9-44AC-BF85-78080A74DFFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Generators", "src\Extensions\DesignToken.Generator\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj", "{222EC695-2AB9-44AC-BF85-78080A74DFFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Templates.FluentUI", "src\Templates\Microsoft.Fast.Templates.FluentUI.csproj", "{F0820C2A-B8CC-42FB-A4E3-B7D5B356E38E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Templates", "src\Templates\Microsoft.FluentUI.AspNetCore.Templates.csproj", "{F0820C2A-B8CC-42FB-A4E3-B7D5B356E38E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Fast.Components.FluentUI.Tests", "tests\Core\Microsoft.Fast.Components.FluentUI.Tests.csproj", "{3EF0E994-318F-4CB9-A109-81E6CE9B762C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Tests", "tests\Core\Microsoft.FluentUI.AspNetCore.Components.Tests.csproj", "{3EF0E994-318F-4CB9-A109-81E6CE9B762C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocGenerator", "DocGenerator", "{DAE11C9D-6756-4B05-B3D8-FE7C28411F95}"
 EndProject
@@ -46,25 +54,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
 		LICENSE = LICENSE
+		NuGet.config = NuGet.config
 		README.md = README.md
 		SECURITY.md = SECURITY.md
 		WHATSNEW.md = WHATSNEW.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure DevOps pipelines", "Azure DevOps pipelines", "{BECDF0C6-072E-4B4E-8E72-295CA171F0B2}"
-	ProjectSection(SolutionItems) = preProject
-		.azure-devops\build-assets-emoji.yml = .azure-devops\build-assets-emoji.yml
-		.azure-devops\build-assets-icons.yml = .azure-devops\build-assets-icons.yml
-		.azure-devops\build-core-lib.yml = .azure-devops\build-core-lib.yml
-		.azure-devops\build-demo.yml = .azure-devops\build-demo.yml
-		.azure-devops\build-tools.yml = .azure-devops\build-tools.yml
-		.azure-devops\test-sign.yaml = .azure-devops\test-sign.yaml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{9AAEFCC9-1D75-4294-B06F-C5959EC14055}"
-	ProjectSection(SolutionItems) = preProject
-		.azure-devops\common\template-to-build-projects.yml = .azure-devops\common\template-to-build-projects.yml
 	EndProjectSection
 EndProject
 Global
@@ -128,7 +124,6 @@ Global
 		{3EF0E994-318F-4CB9-A109-81E6CE9B762C} = {EBE3ACB2-9B23-4F91-9953-7153E3D2B0DA}
 		{DAE11C9D-6756-4B05-B3D8-FE7C28411F95} = {9468ADD1-3660-410D-8231-6F89384D135D}
 		{345DE479-8DB3-4F84-BBC0-C44C12D9DED0} = {DAE11C9D-6756-4B05-B3D8-FE7C28411F95}
-		{9AAEFCC9-1D75-4294-B06F-C5959EC14055} = {BECDF0C6-072E-4B4E-8E72-295CA171F0B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420693A7-C2FD-498C-8E78-4B65CC25389A}

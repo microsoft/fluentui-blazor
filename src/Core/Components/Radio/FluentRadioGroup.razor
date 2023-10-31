@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 <CascadingValue TValue="FluentRadioContext" Value="_context">
@@ -7,7 +7,7 @@
                         id="@Id"
                         class="@ClassValue"
                         style="@StyleValue"
-                        readonly=@Readonly
+                        readonly=@ReadOnly
                         disabled=@Disabled
                         name="@_context!.GroupName"
                         value="@BindConverter.FormatValue(Value?.ToString())"

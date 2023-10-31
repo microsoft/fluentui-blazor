@@ -1,11 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A component that displays a grid.
@@ -155,6 +155,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
+    private bool _manualGrid;
 
     // The associated ES6 module, which uses document-level event listeners
     private IJSObjectReference? _jsModule;
@@ -171,7 +172,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private int? _lastRefreshedPaginationStateHash;
     private object? _lastAssignedItemsOrProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
-
+   
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
     public bool? SortByAscending => _sortByAscending;
@@ -207,7 +208,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
         }
-
+       
         // Perform a re-query only if the data source or something else has changed
         object? _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
         bool dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
@@ -230,7 +231,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (firstRender)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
+            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
             _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 
@@ -265,6 +266,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
+        _manualGrid = !_columns.Any();
     }
 
     /// <summary>

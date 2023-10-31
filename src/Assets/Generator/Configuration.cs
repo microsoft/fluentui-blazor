@@ -2,14 +2,14 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
-namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
+namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 
 /// <summary>
 /// Configuration for the generator.
 /// </summary>
 internal class Configuration
 {
-    private const string DefaultNamespace = "Microsoft.Fast.Components.FluentUI";
+    private const string DefaultNamespace = "Microsoft.FluentUI.AspNetCore.Components";
     private const string DefaultLibrary = "icon";
     private const string DefaultSizes = ""; // All sizes
 

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Gets few calendar details in the right culture.

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSkeleton : FluentComponentBase
 {
@@ -21,7 +21,7 @@ public partial class FluentSkeleton : FluentComponentBase
     public string? Fill { get; set; }
 
     /// <summary>
-    /// Gets or sets the shape of the skeleton. See <see cref="FluentUI.SkeletonShape"/>
+    /// Gets or sets the shape of the skeleton. See <see cref="AspNetCore.Components.SkeletonShape"/>
     /// </summary>
     [Parameter]
     public SkeletonShape? Shape { get; set; } = SkeletonShape.Rect;

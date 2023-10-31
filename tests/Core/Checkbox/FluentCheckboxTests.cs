@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Checkbox;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Checkbox;
 
 public class FluentCheckboxTests : TestBase
 {
@@ -30,7 +30,7 @@ public class FluentCheckboxTests : TestBase
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
         {
             parameters.Bind(p => p.Value, currentValue, newValue => currentValue = false);
-            parameters.Add(p => p.Readonly, true);
+            parameters.Add(p => p.ReadOnly, true);
             parameters.AddChildContent("childContent");
         });
 

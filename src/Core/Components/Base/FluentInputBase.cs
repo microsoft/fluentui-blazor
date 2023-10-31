@@ -3,13 +3,13 @@ using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A base class for fluent ui form input components. This base class automatically
-/// integrates with an <see cref="AspNetCore.Components.Forms.EditContext"/>, which must be supplied
+/// integrates with an <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>, which must be supplied
 /// as a cascading parameter.
 /// </summary>
 public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
@@ -33,7 +33,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
     /// </summary>
     [Parameter]
-    public bool Readonly { get; set; }
+    public bool ReadOnly { get; set; }
 
     /// <summary>
     /// Disables the form control, ensuring it doesn't participate in form submission.
@@ -106,21 +106,13 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
-    /// An event that is called after the <see cref="Value"/> property has been changed
-    /// through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
-    /// from .Net 7, but not available in .Net 6.
-    /// </summary>
-    [Parameter]
-    public EventCallback<TValue> AfterBindValue { get; set; }
-
-    /// <summary>
     /// The short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
     public virtual string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
+    /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
     protected EditContext EditContext { get; set; } = default!;
@@ -156,10 +148,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         if (FieldBound)
         {
             EditContext?.NotifyFieldChanged(FieldIdentifier);
-        }
-        if (AfterBindValue.HasDelegate)
-        {
-            await AfterBindValue.InvokeAsync(Value);
         }
     }
 
@@ -318,7 +306,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             // handlers for the previous one, and there's no strong use case. If a strong use case
             // emerges, we can consider changing this.
             throw new InvalidOperationException($"{GetType()} does not support changing the " +
-                $"{nameof(AspNetCore.Components.Forms.EditContext)} dynamically.");
+                $"{nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} dynamically.");
         }
 
         UpdateAdditionalValidationAttributes();

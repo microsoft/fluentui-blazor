@@ -9,6 +9,7 @@
     min-width: 292px;
     max-width: 500px;
     min-height: 44px;
+    font-family: var(--body-font);
     background-color: var(--neutral-layer-floating);
     box-shadow: var(--elevation-shadow-tooltip);
     border-radius: calc( var(--control-corner-radius) * 1px);

@@ -1,4 +1,4 @@
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared;
 
@@ -47,7 +47,7 @@ public partial class CodeEditorDefaultExample
         Language = "razor";
         Code = """
                 
-                @namespace FluentUI.Demo.Shared
+                @namespace Microsoft.FluentUI.AspNetCore.ComponentsDemo.Shared
 
                 @inherits FluentComponentBase
                 @implements IAsyncDisposable

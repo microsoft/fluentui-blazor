@@ -7,7 +7,7 @@ using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 internal static class DisplayAttributeExtensions
 {
 

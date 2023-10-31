@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.MainLayout;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MainLayout;
 public class FluentMainLayoutTests : TestBase
 {
     [Fact]

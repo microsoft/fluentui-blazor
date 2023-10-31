@@ -8,7 +8,7 @@
     <PropertyColumn Property="@(c => c.Name)" Sortable="true" Tooltip="true" Title="Name of the country">
         <ColumnOptions>
             <div class="search-box">
-                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" AfterBindValue="HandleClear" Placeholder="Country name..." />
+                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." />
             </div>
         </ColumnOptions>
     </PropertyColumn>
@@ -22,7 +22,7 @@
 <FluentPaginator State="@pagination" />
 
 <FluentSwitch @bind-Value="@_clearItems" 
-              AfterBindValue="ToggleItemsAsync" 
+              @bind-Value:after="ToggleItemsAsync" 
               UncheckedMessage="Clear all results"
               CheckedMessage="Restore all results">
 </FluentSwitch>
@@ -56,9 +56,12 @@
         }
     }
 
-    private void HandleClear(string? value)
+    private void HandleClear()
     {
-        nameFilter = value ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            nameFilter = string.Empty;
+        }
     }
 
     private async Task ToggleItemsAsync()

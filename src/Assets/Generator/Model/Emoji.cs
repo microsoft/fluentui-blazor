@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
+namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 
 /// <summary>
 /// Emoji model.

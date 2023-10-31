@@ -1,8 +1,8 @@
-﻿@namespace Microsoft.Fast.Components.FluentUI
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 
 @inherits FluentComponentBase
 
-<header class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+<header @ref=Element class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
     <div class="header-gutters">
         @ChildContent
     </div>

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Tests.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.NavMenu;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;
 
 public class FluentNavLinkTests : TestBase
 {

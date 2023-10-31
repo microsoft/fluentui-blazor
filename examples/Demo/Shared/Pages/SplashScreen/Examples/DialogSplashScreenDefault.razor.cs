@@ -1,5 +1,5 @@
 using global::Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
 {

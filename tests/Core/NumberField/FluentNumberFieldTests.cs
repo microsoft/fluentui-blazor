@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NumberField;
 
 public class FluentNumberFieldTests : TestBase
 {
@@ -31,7 +31,7 @@ public class FluentNumberFieldTests : TestBase
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
         {
-            parameters.Add(p => p.Readonly, true);
+            parameters.Add(p => p.ReadOnly, true);
             parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
             parameters.AddChildContent("100");
         });

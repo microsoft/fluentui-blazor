@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.DesignSystemProvider;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DesignSystemProvider;
 public class FluentDesignSystemProviderTests : TestBase
 {
     [Fact]
@@ -15,7 +15,7 @@ public class FluentDesignSystemProviderTests : TestBase
         string neutralBaseColor = default!;
         int? density = default!;
         int? designUnit = default!;
-        Microsoft.Fast.Components.FluentUI.LocalizationDirection? direction = default!;
+        LocalizationDirection? direction = default!;
         int? baseHeightMultiplier = default!;
         int? baseHorizontalSpacingMultiplier = default!;
         int? controlCornerRadius = default!;

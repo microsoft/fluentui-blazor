@@ -1,19 +1,20 @@
 ﻿
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
     private readonly List<FluentOverflowItem> _items = new();
     private RenderFragment? _childContent = null;
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
+    private IJSObjectReference _jsModule = default!;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -24,12 +25,10 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
-    /// <summary />
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
 
-    /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
     /// Content to display. All first HTML elements are included in the items flow.
@@ -46,10 +45,10 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         {
             _childContent = value;
 
-            if (Module != null && _dotNetHelper != null)
+            if (_jsModule != null && _dotNetHelper != null)
             {
                 bool isHorizontal = Orientation == Orientation.Horizontal;
-                InvokeAsync(async () => await Module.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null));
+                InvokeAsync(async () => await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null));
             }
         }
     }
@@ -91,7 +90,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     public FluentOverflow()
     {
         Id = Identifier.NewId();
-    }   
+    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -101,11 +100,11 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             return;
         }
 
-        Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         _dotNetHelper = DotNetObjectReference.Create(this);
 
         bool isHorizontal = Orientation == Orientation.Horizontal;
-        await Module.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null);
+        await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null);
     }
 
     /// <summary />
@@ -135,22 +134,31 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         await InvokeAsync(() => StateHasChanged());
     }
 
-    /// <summary />
-    async ValueTask IAsyncDisposable.DisposeAsync()
-    {
-        if (Module is not null)
-        {
-            await Module.DisposeAsync();
-        }
-
-        if (_dotNetHelper is not null)
-        {
-            _dotNetHelper.Dispose();
-        }
-    }
-
+   
     internal void AddItem(FluentOverflowItem item)
     {
         _items.Add(item);
+    }
+
+    /// <inheritdoc />
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_dotNetHelper is not null)
+            {
+                _dotNetHelper.Dispose();
+            }
+
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

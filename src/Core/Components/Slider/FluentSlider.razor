@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 @attribute [CascadingTypeParameter(nameof(TValue))]
@@ -6,7 +6,7 @@
 <fluent-slider @ref=Element
                class="@ClassValue"
                style="@StyleValue"
-               readonly="@Readonly"
+               readonly="@ReadOnly"
                min="@FormatValueAsString(Min)"
                max="@FormatValueAsString(Max)"
                step="@FormatValueAsString(Step)"

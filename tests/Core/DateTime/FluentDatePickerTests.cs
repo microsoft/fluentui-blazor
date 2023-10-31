@@ -2,7 +2,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.DateTime;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
 public class FluentDatePickerTests : TestBase
 {
@@ -113,5 +113,31 @@ public class FluentDatePickerTests : TestBase
 
         // Assert
         Assert.Null(picker.Instance.Value);
+    }
+
+    [Fact]
+    public void FluentCalendar_DisabledDate()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+            parameters.Add(p => p.DisabledDateFunc, (date) => date.Day == 14);
+        });
+
+        var textfield = picker.Find("fluent-text-field");
+
+        // Click
+        textfield.Click();
+
+        // Assert
+        var calendar = picker.FindComponent<FluentCalendar>();
+
+        // Assert
+        calendar.Verify();
     }
 }

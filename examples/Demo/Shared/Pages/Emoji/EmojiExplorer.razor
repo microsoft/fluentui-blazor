@@ -2,7 +2,7 @@
     <FluentSearch Style="width: 100%"
                   Name="Searchterm"
                   @bind-Value="@Criteria.SearchTerm"
-                  AfterBindValue="@HandleSearch"
+                  @bind-Value:after="@HandleSearch"
                   Placeholder="Part of emoji name..." />
 
     <FluentSelect TOption="EmojiGroup"

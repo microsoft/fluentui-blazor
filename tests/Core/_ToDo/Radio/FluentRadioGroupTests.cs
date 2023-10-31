@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Radio;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Radio;
 using Bunit;
 using Xunit;
 
@@ -12,7 +12,7 @@ public class FluentRadioGroupTests: TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.Orientation? orientation = default!;
+        Orientation? orientation = default!;
         
         var cut = TestContext.RenderComponent<FluentRadioGroup<bool>>(parameters => parameters
             .Add(p => p.Orientation, orientation)

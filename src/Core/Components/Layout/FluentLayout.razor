@@ -1,8 +1,8 @@
-﻿@namespace Microsoft.Fast.Components.FluentUI
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 
 @inherits FluentComponentBase
 
-<div class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+<div @ref=Element class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
     @ChildContent
 </div>
 

@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Highlighter;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Highlighter;
 public class FluentHighlighterTests : TestBase
 {
     [Fact]

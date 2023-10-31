@@ -1,4 +1,5 @@
 @page "/Panel"
+
 @using FluentUI.Demo.Shared.Pages.Panel.Examples;
 
 <h1>Panel</h1>
@@ -23,7 +24,8 @@
 <p>
     For more information on how to use the <code>DialogService</code>, see the <a href="DialogService">DialogService</a> page.
 </p>
-<h2>Examples</h2>
+
+<h2 id="example">Examples</h2>
 
 <DemoSection Title="Panels using async" Component="@typeof(DialogPanelAsync)" CollocatedFiles="@(new[] { "cs" })" AdditionalFiles="@(new[] {"SimplePanel.razor"})">
     <Description>
@@ -44,5 +46,6 @@
     </Description>
 </DemoSection>
 
-<h2>API Documentation</h2>
+<h2 id="documentation">Documentation</h2>
+
 <ApiDocumentation Component="typeof(DialogParameters<>)" InstanceTypes="@(new[] {typeof(string)})" GenericLabel="TData" />

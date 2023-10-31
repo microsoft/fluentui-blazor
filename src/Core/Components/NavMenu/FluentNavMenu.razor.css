@@ -16,16 +16,15 @@
         background: var(--neutral-fill-secondary-rest);
     }
 
-    ::deep .fluent-nav-item .positioning-region:has(a.active) {
+    ::deep .fluent-nav-item a.active {
         background: var(--neutral-fill-secondary-rest);
     }
 
         /* Active item indicator */
-        ::deep .fluent-nav-item .positioning-region:has(a.active)::before {
+        ::deep .fluent-nav-item a.active .positioning-region::before {
             content: "";
             display: block;
             position: absolute;
-            left: 0px;
             right: unset;
             width: 3px;
             height: calc(((var(--base-height-multiplier) + var(--density)) * var(--design-unit) / 2) * 1px);
@@ -35,9 +34,8 @@
             z-index: 5;
         }
 
-[dir='rtl'] * ::deep .fluent-nav-item .positioning-region:has(a.active)::before {
+[dir='rtl'] * ::deep .fluent-nav-item a.active .positioning-region::before {
     left: unset;
-    right: 0px;
 }
 
 ::deep .content-region {
@@ -51,7 +49,9 @@
 /* Nav items */
 ::deep .fluent-nav-item .positioning-region {
     display: flex;
+    width: 100%;
     position: relative;
+    align-items: center;
     box-sizing: border-box;
     background: var(--neutral-fill-stealth-rest);
     border: calc(var(--stroke-width) * 1px) solid transparent;
@@ -64,25 +64,26 @@
 }
 
 /* level indenting */
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item .content-region {
     padding-inline-start: 24px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
     padding-inline-start: 48px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
     padding-inline-start: 72px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item > .positioning-region {
+::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
     padding-inline-start: 96px;
 }
 
 ::deep .fluent-nav-text {
     overflow: hidden;
     text-overflow: ellipsis;
+    width: calc(100% - 70px);
 }
 
 /* collapsed */

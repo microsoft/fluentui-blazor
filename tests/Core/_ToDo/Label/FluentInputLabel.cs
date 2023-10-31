@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Label;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Label;
 public class FluentInputLabelTests : TestBase
 {
     [Fact]

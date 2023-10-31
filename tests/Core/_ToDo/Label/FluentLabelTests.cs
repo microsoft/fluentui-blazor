@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Label;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Label;
 public class FluentLabelTests : TestBase
 {
     [Fact]
@@ -9,11 +9,11 @@ public class FluentLabelTests : TestBase
     {
         //Arrange
         string childContent = "<b>render me</b>";
-        Microsoft.Fast.Components.FluentUI.Typography typo = default!;
+        Typography typo = default!;
         bool disabled = default!;
-        Microsoft.Fast.Components.FluentUI.HorizontalAlignment? alignment = default!;
-        Microsoft.Fast.Components.FluentUI.Color? color = default!;
-        Microsoft.Fast.Components.FluentUI.FontWeight weight = default!;
+        HorizontalAlignment? alignment = default!;
+        Color? color = default!;
+        FontWeight weight = default!;
         string marginBlock = default!;
         var cut = TestContext.RenderComponent<FluentLabel>(parameters => parameters
             .Add(p => p.Typo, typo)
@@ -27,7 +27,7 @@ public class FluentLabelTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

@@ -11,16 +11,16 @@
                           TOption="OfficeColor"
                           Position="SelectPosition.Below"
                           @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => HandleColorChange(x))"
+                          @onchange="@(x => UpdateColorAsync(x))"
                           aria-label="Accent color selector" />
         </div>
-
-        <FluentSwitch @bind-Value="@_inDarkMode" title="Switch theme" AfterBindValue="UpdateTheme">
-            <span class="label">Theme</span>
-            <span slot="unchecked-message">Light</span>
-            <span slot="checked-message">Dark</span>
-        </FluentSwitch>
-        <FluentSwitch @bind-Value="@_rtl" title="Switch direction" AfterBindValue="UpdateDirection">
+        <FluentRadioGroup TValue="string" Label="Theme" @bind-Value="@_currentTheme" @bind-Value:after="UpdateThemeAsync" Orientation="Orientation.Vertical">
+            <FluentRadio Value="@ThemeSettingSystem">System</FluentRadio>
+            <FluentRadio Value="@ThemeSettingLight">Light</FluentRadio>
+            <FluentRadio Value="@ThemeSettingDark">Dark</FluentRadio>
+        </FluentRadioGroup>
+       
+        <FluentSwitch @bind-Value="@_rtl" title="Switch direction" @bind-Value:after="UpdateDirectionAsync">
             <span>Direction</span>
             <span slot="unchecked-message">LTR</span>
             <span slot="checked-message">RTL</span>

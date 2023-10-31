@@ -1,0 +1,25 @@
+# Build all projects.
+
+# Build only manually
+pr: none         # Disable pull request triggers.
+trigger: none    # Disable dev and main branches.
+
+# Build.BuildNumber (see versioning.yml)
+name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+pool:
+  name: HostedDVO
+  demands:
+   - agent.name -equals Hosted-FluentUI
+
+extends:
+  template: common/template-to-build-projects.yml
+  parameters:
+      Projects: |
+       **/Microsoft.FluentUI.AspNetCore.Components.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj
+       **/Microsoft.FluentUI.AspNetCore.Templates.csproj
+       **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+      Tests: |
+       **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj

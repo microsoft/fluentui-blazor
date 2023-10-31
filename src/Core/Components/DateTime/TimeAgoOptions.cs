@@ -1,6 +1,6 @@
-﻿using Microsoft.Fast.Components.FluentUI.Resources;
+﻿using Microsoft.FluentUI.AspNetCore.Components.Resources;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public record TimeAgoOptions
 {

@@ -1,40 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <!-- Uncomment below line if you want to target all mentioned frameworks -->
-    <!-- Targeting just one framework will speed up build time -->
-    <!--<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>-->
-    <!-- Comment below line if you enable line above -->
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <!-- We can't trim here because we want ALL icons and emjoi available and searchable -->
-    <PublishTrimmed>false</PublishTrimmed>
-    <!-- Set False to avoid ConvertDllsToWebCil error -->
-    <WasmEnableWebcil>false</WasmEnableWebcil>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<!-- We can't trim here because we want ALL icons and emjoi available and searchable -->
+		<PublishTrimmed>false</PublishTrimmed>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.23" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.23" PrivateAssets="all" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly"  />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.12" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.12" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-rc.2.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-rc.2.*" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\js\site.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Shared\FluentUI.Demo.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Shared\FluentUI.Demo.Shared.csproj" />
+	</ItemGroup>
 
 </Project>

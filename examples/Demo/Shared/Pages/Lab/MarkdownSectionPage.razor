@@ -6,9 +6,8 @@
     The <code>MarkdownSection</code> component allows for rendering a blockof Markdown as HTML.
 </p>
 
-<ApiDocumentation Component="typeof(MarkdownSection)" />
+<h2 id="example">Examples</h2>
 
-<h2>Example</h2>
 <DemoSection Component="typeof(MarkdownSection)" Title="Default" CollocatedFiles="@(new[] {"cs"})"
              ComponentParameters="@(new Dictionary<string, object>(){ {"Content","text in *italics* and **bold**"} })">
     <ChildContent>
@@ -19,3 +18,7 @@
 </DemoSection>
 
 <DemoSection Component="typeof(MarkdownSectionFromAsset)" Title="Markdown from an asset" />
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(MarkdownSection)" />

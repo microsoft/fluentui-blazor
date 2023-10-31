@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Describes the horizontal positioning of a <see cref="FluentAnchoredRegion"/>.

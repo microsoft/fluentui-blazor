@@ -1,12 +1,12 @@
-﻿using Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI.Infrastructure
+namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure
 {
     public class CacheStorageAccessor : JSModule
     {
         public CacheStorageAccessor(IJSRuntime js)
-            : base(js, "./_content/Microsoft.Fast.Components.FluentUI/js/CacheStorageAccessor.js")
+            : base(js, "./_content/Microsoft.FluentUI.AspNetCore.Components/js/CacheStorageAccessor.js")
         {
         }
 

@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
 {
-    public const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
+    public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
     private string _valueText = string.Empty;
 
     /// <summary>
@@ -58,7 +58,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }

@@ -333,7 +333,7 @@
             as a cascading parameter.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Readonly">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ReadOnly">
             <summary>
             When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
             </summary>
@@ -395,13 +395,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Autofocus">
             <summary>
             Determines if the element should receive document focus on page load.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.AfterBindValue">
-            <summary>
-            An event that is called after the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Value"/> property has been changed
-            through data binding. This is equivalent to <code>@bind-Value:after</code> which is supported
-            from .Net 7, but not available in .Net 6.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Placeholder">
@@ -708,6 +701,16 @@
             By default, content in the card is restricted to the area of the card itself. 
             If you want content to be able to overflow the card, set this property to false.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Width">
+            <summary>
+            Specifies the width of the card. Must be a valid CSS measurement.
+            </summary>  
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Height">
+            <summary>
+            Specifies the height of the card. Must be a valid CSS measurement.
+            </summary>  
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ChildContent">
             <summary>
@@ -2079,7 +2082,7 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDialogProvider.#ctor">
             <summary>
-            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer"/>.
+            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Alignment">
@@ -2605,6 +2608,9 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.DisposeAsync">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentDragContainer`1">
             <summary />
         </member>
@@ -2938,10 +2944,24 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.Justify">
+            <summary>
+            Defines how the browser distributes space between and around content items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.Gap">
+            <summary>
+            Defines the gaps (gutters) between rows and columns.
+            See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.ClassValue">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.StyleValue">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.NoBreakpointsDefined">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentHeader.Height">
@@ -3573,6 +3593,16 @@
             Footer content, placed at the bottom of the popup panel.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.TitleScrollToPrevious">
+            <summary>
+            Title and Aria-Label for the Scroll to previous button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.TitleScrollToNext">
+            <summary>
+            Title and Aria-Label for the Scroll to next button.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -3580,6 +3610,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IdScroll">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IdPopup">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IsMultiSelectOpened">
@@ -4204,56 +4237,56 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.DismissClicked">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.ClassValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.StyleValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Section">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Section">
             <summary>
             Display only messages for this section.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Type">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Type">
             <summary>
             Displays messages as a single line (with the message only)
             or as a card (with the detailed message).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.MaxMessageCount">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.MaxMessageCount">
             <summary>
             Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
             Default value is 5
-            Set a value equal to or less than zero, to display all messages for this <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Section" /> (or all categories if not set).
+            Set a value equal to or less than zero, to display all messages for this <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Section" /> (or all categories if not set).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.NewestOnTop">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.NewestOnTop">
             <summary>
             Display the newest messages on top (true) or on bottom (false).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.ClearAfterNavigation">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.ClearAfterNavigation">
             <summary>
             Clear all (shown and stored) messages when the user navigates to a new page.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.AllMessagesForCategory">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.AllMessagesForCategory">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.MessagesToShow">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.MessagesToShow">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.OnInitialized">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.OnInitialized">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.OnMessageItemsUpdatedHandler">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.OnMessageItemsUpdatedHandler">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer.Dispose">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider.Dispose">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Message">
@@ -4346,7 +4379,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Section">
             <summary>
-            Identification of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarContainer"/> the message belongs to.
+            Identification of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBarProvider"/> the message belongs to.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Timestamp">
@@ -4401,7 +4434,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.Timeout">
             <summary>
-            Timeout in seconds after which the message bar is removed. Default is null.
+            Timeout in milliseconds after which the message bar is removed. Default is null.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.MessageService">
@@ -4957,12 +4990,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.ChildContent">
             <summary>
             Content to display. All first HTML elements are included in the items flow.
@@ -5004,8 +5031,8 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.OverflowRaisedAsync(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.System#IAsyncDisposable#DisposeAsync">
-            <summary />
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem">
             <summary />
@@ -5330,7 +5357,7 @@
             Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>. 
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Readonly">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.ReadOnly">
             <summary>
             Gets or sets if the element is readonly
             </summary>
@@ -5990,35 +6017,35 @@
             Closes the toast
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.Position">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.Position">
             <summary>
             Gets or sets the position on screen where the toasts are shown. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ToastPosition"/>
             Default is ToastPosition.TopRight
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.Timeout">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.Timeout">
             <summary>
-            Gets or sets the number of seconds a toast remains visible. Default is 7 seconds.
+            Gets or sets the number of milliseconds a toast remains visible. Default is 7000 (7 seconds).
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.MaxToastCount">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.MaxToastCount">
             <summary>
             Gets or sets the maximum number of toasts that can be shown at once. Default is 4.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.RemoveToastsOnNavigation">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.RemoveToastsOnNavigation">
             <summary>
             Gets or sets whether to remove toasts when the user navigates to a new page. Default is true.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.ShowCloseButton">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.ShowCloseButton">
             <summary>
             Gets or sets whether to show a close button on a toast. Default is true.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer.#ctor">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.#ctor">
             <summary>
-            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastContainer"/>.
+            Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ToastParameters`1.Content">
