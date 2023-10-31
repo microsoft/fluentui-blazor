@@ -28,21 +28,13 @@
             <hr />
             <FluentValidationSummary class="text-danger" role="alert" />
             <FluentStack Orientation="Orientation.Vertical">
-                <div style="width: 100%;">
-                    <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
-                    <ValidationMessage For="() => Input.Email" class="text-danger" />
-                </div>
-                <div style="width: 100%;">
-                    <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
-                    <ValidationMessage For="() => Input.Password" class="text-danger" />
-                </div>
-                <div style="width: 100%;">
-                    <FluentTextField type="password" Name="Input.ConfirmPassword" @bind-Value="Input.ConfirmPassword" AutoComplete="new-password" Required="true" Placeholder="password" Label="Confirm Password" Style="width: 100%" />
-                    <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-                </div>
-                <div style="width: 100%;">
-                    <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>
-                </div>
+                <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
+                <ValidationMessage For="() => Input.Email" class="text-danger" />
+                <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
+                <ValidationMessage For="() => Input.Password" class="text-danger" />
+                <FluentTextField type="password" Name="Input.ConfirmPassword" @bind-Value="Input.ConfirmPassword" AutoComplete="new-password" Required="true" Placeholder="password" Label="Confirm Password" Style="width: 100%" />
+                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>
             </FluentStack>
         </EditForm>
     </FluentGridItem>

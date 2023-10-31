@@ -24,11 +24,8 @@
         <EditForm Model="Input" FormName="login-with-recovery-code" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
-            <div style="width: 100%;">
-                <FluentTextField Name="Input.RecoveryCode" @bind-Value="Input.RecoveryCode" class="form-control" AutoComplete="off" Placeholder="Recovery code" Label="Recovery code"/>
-                
-                <ValidationMessage For="() => Input.RecoveryCode" class="text-danger" />
-            </div>
+            <FluentTextField Name="Input.RecoveryCode" @bind-Value="Input.RecoveryCode" class="form-control" AutoComplete="off" Placeholder="Recovery code" Label="Recovery code" Style="width: 100%;" />
+            <ValidationMessage For="() => Input.RecoveryCode" class="text-danger" />
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Log in</FluentButton>
         </EditForm>
     </FluentGridItem>
