@@ -1,4 +1,4 @@
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Parameters for data to be supplied by a <see cref="FluentDataGrid{TGridItem}"/>'s <see cref="FluentDataGrid{TGridItem}.ItemsProvider"/>.

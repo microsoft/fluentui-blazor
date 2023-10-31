@@ -2,12 +2,12 @@ using Bunit;
 using Microsoft.JSInterop;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.DataGrid;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DataGrid;
 public class FluentDataGridTests : TestBase
 {
     public FluentDataGridTests()
     {
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
+        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
         TestContext.JSInterop.Setup<IJSObjectReference>("init", _ => true);
     }
 
@@ -18,13 +18,13 @@ public class FluentDataGridTests : TestBase
         //Services.AddSingleton<IServiceProvider,/*Add implementation for IServiceProvider*/>();
         string childContent = "<b>render me</b>";
         string emptyContent = "<b>render me</b>";
-       
+
         bool virtualize = default!;
         float itemSize = default!;
         bool resizableColumns = default!;
-        Microsoft.Fast.Components.FluentUI.PaginationState pagination = default!;
+        PaginationState pagination = default!;
         bool noTabbing = default!;
-        Microsoft.Fast.Components.FluentUI.GenerateHeaderOption? generateHeader = default!;
+        GenerateHeaderOption? generateHeader = default!;
         string gridTemplateColumns = default!;
 
 

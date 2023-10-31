@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal static class BooleanExtensions
 {

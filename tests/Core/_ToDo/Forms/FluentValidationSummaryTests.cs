@@ -2,7 +2,7 @@ using Bunit;
 using Microsoft.AspNetCore.Components.Forms;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Forms;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Forms;
 public class FluentValidationSummaryTests : TestBase
 {
     [Fact(Skip="Need to figure out how to do this test")]

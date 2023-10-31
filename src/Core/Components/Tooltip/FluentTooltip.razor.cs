@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Fast.Components.FluentUI.Components.Tooltip;
+using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTooltip : FluentComponentBase, IDisposable
 {
@@ -56,7 +56,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
 
     /// <summary>
-    /// Gets or sets the tooltip's position. See <see cref="FluentUI.TooltipPosition"/>.
+    /// Gets or sets the tooltip's position. See <see cref="AspNetCore.Components.TooltipPosition"/>.
     /// Don't set this if you want the tooltip to use the best position.
     /// </summary>
     [Parameter]

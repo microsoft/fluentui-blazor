@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// FluentEmoji is a component that renders an emoji from the Microsoft FluentUI emoji set.
 /// </summary>
 public partial class FluentEmoji<Emoji> : FluentComponentBase
-    where Emoji : FluentUI.Emoji, new()
+    where Emoji : AspNetCore.Components.Emoji, new()
 {
     private Emoji _emoji = default!;
 

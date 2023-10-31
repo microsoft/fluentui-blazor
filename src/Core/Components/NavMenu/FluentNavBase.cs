@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Base class for <see cref="FluentNavGroup"/> and <see cref="FluentNavLink"/>.

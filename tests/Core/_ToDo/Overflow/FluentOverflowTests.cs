@@ -2,12 +2,12 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Overflow;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Overflow;
 public class FluentOverflowTests : TestBase
 {
     public FluentOverflowTests()
     {
-        TestContext.JSInterop.SetupModule("./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js");
+        TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNeCore.Components/Components/Overflow/FluentOverflow.razor.js");
     }
 
     [Fact(Skip = "Need to figure out how to do this test")]

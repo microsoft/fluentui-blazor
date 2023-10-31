@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentAnchoredRegion : FluentComponentBase
 {
     protected string? ClassValue => new CssBuilder(Class)
@@ -128,7 +128,7 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="AutoUpdateMode"/>
     /// </summary>
     [Parameter]
-    public AutoUpdateMode? AutoUpdateMode { get; set; } = FluentUI.AutoUpdateMode.Auto;
+    public AutoUpdateMode? AutoUpdateMode { get; set; } = AspNetCore.Components.AutoUpdateMode.Auto;
 
     [Parameter]
     public ElevationShadow Shadow { get; set; } = ElevationShadow.None;

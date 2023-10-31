@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.MenuButton;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MenuButton;
 public class FluentMenuButtonTests : TestBase
 {
     [Fact]

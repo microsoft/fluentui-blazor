@@ -56,7 +56,7 @@ To generate the icons, you need:
    cd icons
    ```
 
-6. Copy the result to your local fast-blazor clone/fork.
+6. Copy the result to your local fluentui-blazor clone/fork.
 
    ```
    rsync -r -v  .  /mnt/c/Temp/Icons
@@ -79,7 +79,7 @@ To generate the icons, you need:
 	   ```json
 	   {
 		  "profiles": {
-			"Microsoft.Fast.Components.FluentUI.AssetsGenerator": {
+			"Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator": {
 			  "commandName": "Project",
 			  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples --Library=Icon"
 			}
@@ -109,7 +109,7 @@ To generate the icons, you need:
 	   ```json
 	   {
 		  "profiles": {
-			"Microsoft.Fast.Components.FluentUI.AssetsGenerator": {
+			"Microsoft.FLuentUI.AspNetCore.Components.AssetsGenerator": {
 			  "commandName": "Project",
 			  "commandLineArgs": "--Assets=C:/Temp/Icons --Target=./Samples --Library=Emoji"
 			}
@@ -135,7 +135,7 @@ Run the application with the `--help` parameter to see all available parameters.
                      If not specified, "icon" will be used.
 
   --Namespace | -ns  The namespace used for generated classes.
-                     If not specified, "Microsoft.Fast.Components.FluentUI" will be used.
+                     If not specified, "Microsoft.FluentUI.AspNetCore.Components" will be used.
 
   --Names     | -n   The list of icon names to generate, separated by coma.
                      Example of icons: accessibility_32_filled,add_circle_20_filled

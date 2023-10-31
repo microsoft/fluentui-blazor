@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Progress;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Progress;
 public class FluentProgressTests : TestBase
 {
     [Fact]

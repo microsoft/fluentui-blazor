@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Extension methods for <see cref="DateTime"/>.

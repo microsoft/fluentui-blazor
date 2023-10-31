@@ -1,8 +1,8 @@
 ﻿using System.Reflection.Emit;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
 public class StyleBuilderTests : TestBase
 {

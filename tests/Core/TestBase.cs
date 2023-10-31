@@ -1,6 +1,6 @@
 using Bunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests;
 
 public class TestBase
 {

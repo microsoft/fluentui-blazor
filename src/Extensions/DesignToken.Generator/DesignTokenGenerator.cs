@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 
 #nullable enable
 
-namespace Microsoft.Fast.Components.FluentUI.Generators
+namespace Microsoft.FluentUI.AspNetCore.Components.Generators
 {
     [Generator]
     public class DesignTokenGenerator : IIncrementalGenerator
@@ -25,7 +25,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             StringBuilder? sb = new();
 
             sb.AppendLine($"#pragma warning disable CS1591");
-            sb.AppendLine($"namespace Microsoft.Fast.Components.FluentUI.DesignTokens;");
+            sb.AppendLine($"namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;");
             sb.AppendLine($"");
             sb.AppendLine("public static class Constants");
             sb.AppendLine("{");
@@ -42,7 +42,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
             sb.Clear();
             sb.AppendLine("using System.Drawing;");
             sb.AppendLine("using Microsoft.JSInterop;\n");
-            sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;\n");
+            sb.AppendLine("namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;\n");
             foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
@@ -77,7 +77,7 @@ namespace Microsoft.Fast.Components.FluentUI.Generators
 
             sb.Clear();
             sb.AppendLine("using Microsoft.Extensions.DependencyInjection;\n");
-            sb.AppendLine("namespace Microsoft.Fast.Components.FluentUI.DesignTokens;\n");
+            sb.AppendLine("namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;\n");
             sb.AppendLine("public static class ServiceCollectionExtensions");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static void AddDesignTokens(this IServiceCollection services)");

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// FluentUI Icon content.
@@ -76,7 +76,7 @@ public class Icon : IconInfo
     {
         if (accentContainer && Color == null)
         {
-            Color = FluentUI.Color.Lightweight.ToAttributeValue();
+            Color = AspNetCore.Components.Color.Lightweight.ToAttributeValue();
         }
 
         return this;

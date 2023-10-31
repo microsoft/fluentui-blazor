@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<PropertyGroup>
-		<!-- Uncomment below line if you want to target all mentioned frameworks -->
-		<!-- Targeting just one framework will speed up build time -->
-		<!--<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>-->
-		<!-- Comment below line if you enable line above -->
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -32,26 +28,18 @@
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.23" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.12" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.2.*" />
+	<ItemGroup>
+		<PackageReference Include="Markdig" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\Core\Microsoft.Fast.Components.FluentUI.csproj" />
+		<ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
 		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="Markdig" Version="0.31.0" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis" Version="3.*-*" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" version="3.0.1" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
+		<TrimmerRootAssembly Include="Microsoft.FluentUI.AspNetCore.Components" />
 	</ItemGroup>
 
 	<ItemGroup>

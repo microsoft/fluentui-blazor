@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
 {
     /// <summary>
-    /// Gets or sets if the element is auto completes. See <seealso cref="FluentUI.ComboboxAutocomplete"/>
+    /// Gets or sets if the element is auto completes. See <seealso cref="AspNetCore.Components.ComboboxAutocomplete"/>
     /// </summary>
     [Parameter]
     public ComboboxAutocomplete? Autocomplete { get; set; }
@@ -25,13 +25,13 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
 
     /// <summary>
     /// The placement for the listbox when the combobox is open.
-    /// See <seealso cref="FluentUI.SelectPosition"/>
+    /// See <seealso cref="AspNetCore.Components.SelectPosition"/>
     /// </summary>
     [Parameter]
     public SelectPosition? Position { get; set; } = SelectPosition.Below;
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }

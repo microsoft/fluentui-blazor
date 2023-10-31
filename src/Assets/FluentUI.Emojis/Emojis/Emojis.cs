@@ -4,7 +4,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Fast.Components.FluentUI.Resources {
+namespace Microsoft.FluentUI.AspNetCore.Components.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.Fast.Components.FluentUI.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Fast.Components.FluentUI.Resources.FluentInputFileResource", typeof(FluentInputFileResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource", typeof(FluentInputFileResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

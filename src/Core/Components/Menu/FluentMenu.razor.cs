@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentMenu : FluentComponentBase, IDisposable
 {
@@ -103,7 +103,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
             if (Trigger != MouseButton.None)
             {
                 _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                    "./_content/Microsoft.Fast.Components.FluentUI/Components/Menu/FluentMenu.razor.js");
+                    "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
 
                 _dotNetHelper = DotNetObjectReference.Create(this);
 

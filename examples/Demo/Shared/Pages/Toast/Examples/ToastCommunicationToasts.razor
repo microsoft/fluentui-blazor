@@ -11,7 +11,7 @@
                 {
                     Intent = ToastIntent.Success,
                     Title = "Your dataset is ready",
-                    Timeout = 15,
+                    Timeout = 4000,
                     PrimaryAction = "See dataset",
                     OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
                     SecondaryAction = "Get insights",
@@ -31,7 +31,7 @@
                     Intent = ToastIntent.Error,
                     Title = "File didn't upload to ABC folder",
                     TopCTAType = ToastTopCTAType.Timestamp,
-                    Timeout = 12,
+                    Timeout = 8000,
                     PrimaryAction = "Replace",
                     OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
                     SecondaryAction = "Keep both",

@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Skeleton;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Skeleton;
 public class FluentSkeletonTests : TestBase
 {
     [Fact]
@@ -10,7 +10,7 @@ public class FluentSkeletonTests : TestBase
         //Arrange
         string childContent = "<b>render me</b>";
         string fill = default!;
-        Microsoft.Fast.Components.FluentUI.SkeletonShape? shape = default!;
+        SkeletonShape? shape = default!;
         string pattern = default!;
         bool? shimmer = default!;
         string width = default!;

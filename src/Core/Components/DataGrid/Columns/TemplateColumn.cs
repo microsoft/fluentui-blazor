@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells render a supplied template.

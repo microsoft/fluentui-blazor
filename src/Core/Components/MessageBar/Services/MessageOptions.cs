@@ -1,11 +1,11 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public class MessageOptions
 
 {
     /// <summary>
-    /// Identification of the <see cref="FluentMessageBarContainer"/> the message belongs to.
+    /// Identification of the <see cref="FluentMessageBarProvider"/> the message belongs to.
     /// </summary>
     public string? Section { get; set; }
 
@@ -60,7 +60,7 @@ public class MessageOptions
     public bool ClearAfterNavigation { get; set; }
 
     /// <summary>
-    /// Timeout in seconds after which the message bar is removed. Default is null.
+    /// Timeout in milliseconds after which the message bar is removed. Default is null.
     /// </summary>
     public int? Timeout { get; set; }
 }

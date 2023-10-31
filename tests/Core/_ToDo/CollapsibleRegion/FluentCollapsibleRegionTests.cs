@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.CollapsibleRegion;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.CollapsibleRegion;
 public class FluentCollapsibleRegionTests : TestBase
 {
     [Fact]

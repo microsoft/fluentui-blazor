@@ -6,7 +6,7 @@
 
 #pragma warning disable 1591
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static partial class Icons
 {

@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Badge;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Badge;
 
 public partial class FluentBadgeTests : TestContext
 {

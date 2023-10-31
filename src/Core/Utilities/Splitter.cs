@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 
-namespace Microsoft.Fast.Components.FluentUI.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 /// <summary>
 /// Splits the text into fragments, according to the text to be highlighted

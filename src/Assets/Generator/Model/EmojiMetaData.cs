@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator.Model;
+namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 
 /// <summary />
 [DebuggerDisplay("{Cldr} [{Group}]")]

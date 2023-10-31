@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Tabs;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Tabs;
 public class FluentTabTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
@@ -16,10 +16,10 @@ public class FluentTabTests : TestBase
         Action<System.String> labelChanged = _ => { };
         string labelClass = default!;
         string labelStyle = default!;
-        Microsoft.Fast.Components.FluentUI.Icon icon = default!;
+        Icon icon = default!;
         bool labelEditable = default!;
         bool deferredLoading = default!;
-        Microsoft.Fast.Components.FluentUI.FluentTabs owner = default!;
+        FluentTabs owner = default!;
         var cut = TestContext.RenderComponent<FluentTab>(parameters => parameters
             .Add(p => p.Disabled, disabled)
             .Add(p => p.Label, label)

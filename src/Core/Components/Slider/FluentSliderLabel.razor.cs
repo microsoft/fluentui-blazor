@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSliderLabel<TValue> : FluentComponentBase
 {

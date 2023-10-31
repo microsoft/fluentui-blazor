@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal class CountdownTimer : IDisposable
 {
@@ -12,7 +12,7 @@ internal class CountdownTimer : IDisposable
     internal CountdownTimer(int timeout, CancellationToken cancellationToken = default)
     {
         _ticksToTimeout = 100;
-        _timer = new PeriodicTimer(TimeSpan.FromMilliseconds(timeout * 10));
+        _timer = new PeriodicTimer(TimeSpan.FromMilliseconds(timeout/100));
         _cancellationToken = cancellationToken;
     }
 

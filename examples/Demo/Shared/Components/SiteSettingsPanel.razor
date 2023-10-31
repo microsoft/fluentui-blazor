@@ -14,13 +14,13 @@
                           @onchange="@(x => UpdateColorAsync(x))"
                           aria-label="Accent color selector" />
         </div>
-        <FluentRadioGroup TValue="string" Label="Theme" @bind-Value="@_currentTheme" AfterBindValue="UpdateThemeAsync" Orientation="Orientation.Vertical">
+        <FluentRadioGroup TValue="string" Label="Theme" @bind-Value="@_currentTheme" @bind-Value:after="UpdateThemeAsync" Orientation="Orientation.Vertical">
             <FluentRadio Value="@ThemeSettingSystem">System</FluentRadio>
             <FluentRadio Value="@ThemeSettingLight">Light</FluentRadio>
             <FluentRadio Value="@ThemeSettingDark">Dark</FluentRadio>
         </FluentRadioGroup>
        
-        <FluentSwitch @bind-Value="@_rtl" title="Switch direction" AfterBindValue="UpdateDirectionAsync">
+        <FluentSwitch @bind-Value="@_rtl" title="Switch direction" @bind-Value:after="UpdateDirectionAsync">
             <span>Direction</span>
             <span slot="unchecked-message">LTR</span>
             <span slot="checked-message">RTL</span>

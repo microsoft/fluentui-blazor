@@ -3,11 +3,11 @@ using FluentAssertions.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.MessageBar;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MessageBar;
 
 public class FluentMessageBarTests : TestBase
 {
-    private const string FluentAnchorRazorJs = "./_content/Microsoft.Fast.Components.FluentUI/Components/Anchor/FluentAnchor.razor.js";
+    private const string FluentAnchorRazorJs = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Anchor/FluentAnchor.razor.js";
 
     public FluentMessageBarTests()
     {

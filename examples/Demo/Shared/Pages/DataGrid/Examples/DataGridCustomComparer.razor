@@ -15,7 +15,7 @@
     <TemplateColumn Title="Name" InitialSortDirection=SortDirection.Descending SortBy="@nameSort" IsDefaultSortColumn=true>
         <ColumnOptions>
             <div class="search-box">
-                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" AfterBindValue="HandleClear" Placeholder="Country name..." />
+                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." />
             </div>
         </ColumnOptions>
         <ChildContent>
@@ -60,9 +60,12 @@
         }
     }
 
-    private void HandleClear(string? value)
+    private void HandleClear()
     {
-        nameFilter = value ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            nameFilter = string.Empty;
+        }
     }
 
     public class StringLengthComparer : IComparer<string>

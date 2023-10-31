@@ -3,10 +3,10 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public partial class FluentOverlay
@@ -60,14 +60,14 @@ public partial class FluentOverlay
     public double? Opacity { get; set; }
 
     /// <summary>
-    /// Gets or sets the alignment of the content to a <see cref="FluentUI.Align"/> value.
+    /// Gets or sets the alignment of the content to a <see cref="AspNetCore.Components.Align"/> value.
     /// Defaults to Align.Center.
     /// </summary>
     [Parameter]
     public Align Alignment { get; set; } = Align.Center;
 
     /// <summary>
-    /// Gets or sets the justification of the content to a <see cref="FluentUI.JustifyContent"/> value.
+    /// Gets or sets the justification of the content to a <see cref="AspNetCore.Components.JustifyContent"/> value.
     /// Defaults to JustifyContent.Center.
     /// </summary>
     [Parameter]

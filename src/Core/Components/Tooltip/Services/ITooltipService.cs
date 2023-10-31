@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Components.Tooltip;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
 /// <summary>
 /// Service for managing tooltips.

@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.BodyContent;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.BodyContent;
 public class FluentBodyContentTests : TestBase
 {
 

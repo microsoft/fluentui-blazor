@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Card;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Card;
 
 public class FluentCardTests : TestBase
 {

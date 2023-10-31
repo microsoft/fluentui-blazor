@@ -1,4 +1,4 @@
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Holds the name of a property and the direction to sort by.

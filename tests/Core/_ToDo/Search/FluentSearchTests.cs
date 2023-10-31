@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Search;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Search;
 public class FluentSearchTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
@@ -15,7 +15,7 @@ public class FluentSearchTests : TestBase
         string pattern = default!;
         int? size = default!;
         bool? spellcheck = default!;
-        Microsoft.Fast.Components.FluentUI.FluentInputAppearance appearance = default!;
+        FluentInputAppearance appearance = default!;
         var cut = TestContext.RenderComponent<FluentSearch>(parameters => parameters
             .Add(p => p.DataList, dataList)
             .Add(p => p.Maxlength, maxlength)

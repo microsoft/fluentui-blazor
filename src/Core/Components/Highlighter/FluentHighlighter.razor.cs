@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 // Remember to replace the namespace below with your own project's namespace
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentHighlighter : FluentComponentBase
 {

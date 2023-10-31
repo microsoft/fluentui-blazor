@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Text;
 
-namespace Microsoft.Fast.Components.FluentUI.AssetsGenerator;
+namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 
 internal static class Tools
 {

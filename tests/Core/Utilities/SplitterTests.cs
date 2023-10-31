@@ -1,7 +1,7 @@
-﻿using Microsoft.Fast.Components.FluentUI.Utilities;
+﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
 
 public class SplitterTests
@@ -14,7 +14,7 @@ public class SplitterTests
         IEnumerable<string> highlightedTexts = new List<string>();
 
         // Act
-        var result = FluentUI.Utilities.Splitter.GetFragments(text!, highlightedTexts, out _, false, false);
+        var result = AspNetCore.Components.Utilities.Splitter.GetFragments(text!, highlightedTexts, out _, false, false);
 
         // Assert
         Assert.True(result.IsEmpty);
@@ -28,7 +28,7 @@ public class SplitterTests
         IEnumerable<string> highlightedTexts = new List<string>();
 
         // Act
-        var result = FluentUI.Utilities.Splitter.GetFragments(text, highlightedTexts, out _, false, false);
+        var result = AspNetCore.Components.Utilities.Splitter.GetFragments(text, highlightedTexts, out _, false, false);
 
         // Assert
         Assert.True(result.IsEmpty);
@@ -42,7 +42,7 @@ public class SplitterTests
         IEnumerable<string> highlightedTexts = new List<string> { "test" };
 
         // Act
-        var result = FluentUI.Utilities.Splitter.GetFragments(text, highlightedTexts, out _, false, false);
+        var result = AspNetCore.Components.Utilities.Splitter.GetFragments(text, highlightedTexts, out _, false, false);
 
         // Assert
         Assert.Equal(new[] { "This is a ", "test", " string." }, result.ToArray());

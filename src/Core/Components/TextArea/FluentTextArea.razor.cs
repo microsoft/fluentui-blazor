@@ -2,12 +2,12 @@ using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTextArea : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is resizeable. See <see cref="FluentUI.TextAreaResize"/>
+    /// Gets or sets if the text area is resizeable. See <see cref="AspNetCore.Components.TextAreaResize"/>
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }
@@ -57,7 +57,7 @@ public partial class FluentTextArea : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="FluentUI.FluentInputAppearance"/>
+    /// Gets or sets the visual appearance. See <see cref="AspNetCore.Components.FluentInputAppearance"/>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;

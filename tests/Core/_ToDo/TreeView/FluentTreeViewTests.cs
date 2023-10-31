@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.TreeView;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.TreeView;
 public class FluentTreeViewTests : TestBase
 {
     [Fact]

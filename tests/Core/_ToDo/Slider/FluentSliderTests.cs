@@ -1,7 +1,7 @@
 using Bunit;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Slider;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Slider;
 
 
 public class FluentSliderTests: TestBase

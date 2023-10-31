@@ -2,11 +2,11 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTextField : FluentInputBase<string?>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/TextField/FluentTextField.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
 
     /// <summary />
     [Inject]
@@ -16,7 +16,7 @@ public partial class FluentTextField : FluentInputBase<string?>
     private IJSObjectReference? Module { get; set; }
 
     /// <summary>
-    /// Gets or sets the text filed type. See <see cref="FluentUI.TextFieldType"/>
+    /// Gets or sets the text filed type. See <see cref="AspNetCore.Components.TextFieldType"/>
     /// </summary>
     [Parameter]
     public TextFieldType? TextFieldType { get; set; }
@@ -58,7 +58,7 @@ public partial class FluentTextField : FluentInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="FluentUI.FluentInputAppearance"/>
+    /// Gets or sets the visual appearance. See <see cref="AspNetCore.Components.FluentInputAppearance"/>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;

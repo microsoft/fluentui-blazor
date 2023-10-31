@@ -2,7 +2,7 @@ using Bunit;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.Fast.Components.FluentUI.Tests.Breadcrumb;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Breadcrumb;
 
 public class FluentBreadcrumbItemTests : TestBase
 {

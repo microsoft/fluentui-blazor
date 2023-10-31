@@ -1,4 +1,4 @@
-namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 /// <summary>
 /// Provides methods for asynchronous evaluation of queries against an <see cref="IQueryable{T}" />.

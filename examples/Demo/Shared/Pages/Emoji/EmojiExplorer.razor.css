@@ -44,5 +44,8 @@
         white-space: nowrap;
         overflow: hidden;
         background: var(--neutral-stroke-rest);
+        position: fixed;
+        left: 0;
+        bottom: 0;
     }
 }

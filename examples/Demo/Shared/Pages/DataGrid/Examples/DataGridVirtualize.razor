@@ -11,7 +11,7 @@
 </div>
 <br />
 <FluentSwitch @bind-Value="@_clearItems" 
-              AfterBindValue="ToggleItems" 
+              @bind-Value:after="ToggleItems" 
               UncheckedMessage="Clear all results"
               CheckedMessage="Restore all results">
 </FluentSwitch>
