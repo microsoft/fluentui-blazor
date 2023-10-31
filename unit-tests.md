@@ -19,8 +19,6 @@ and discover best practices for creating tests quickly and efficiently.
 
 ## Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/a5zkV8bUbLQ?si=5GVIaBPB8hDmA1R_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><br/>
-
 [Live demo link](https://youtu.be/a5zkV8bUbLQ)
 
 ## Unit Tests

@@ -261,6 +261,7 @@ public class FluentCounterBadgeTests : TestBase
     public void FluentCounterBadge_BackgroundColorLightweightLuminanceDark()
     {
         // Arrange && Act
+        GlobalState.Luminance = StandardLuminance.DarkMode;
         TestContext.Services.AddSingleton(GlobalState);
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
