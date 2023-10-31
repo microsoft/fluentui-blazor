@@ -3,7 +3,9 @@
 pr:
 - main
 - dev
-trigger: none   # Build via Build-All-Lib.yml
+trigger:
+- main
+- dev
 
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
