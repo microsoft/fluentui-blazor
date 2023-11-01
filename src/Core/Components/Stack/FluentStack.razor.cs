@@ -80,8 +80,10 @@ public partial class FluentStack : FluentComponentBase
         return HorizontalAlignment switch
         {
             HorizontalAlignment.Left => "start",
+            HorizontalAlignment.Start => "start",
             HorizontalAlignment.Center => "center",
             HorizontalAlignment.Right => "end",
+            HorizontalAlignment.End => "end",
             _ => "start",
         };
     }

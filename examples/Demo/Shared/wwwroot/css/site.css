@@ -19,7 +19,6 @@ body {
     .siteheader .logo {
         width: 108px;
         height: 23px;
-        /*padding: 0 30px;*/
         grid-column: 1;
     }
 
@@ -72,11 +71,10 @@ body {
 
 nav.sitenav {
     background-color: var(--neutral-layer-3);
-    padding: 10px;
+    padding: 10px 1.5rem;
     height: calc(100dvh - 90px);
-    width: 280px;
-    overflow-y: auto;
-
+    width: 18rem;
+    overflow-y: auto;    
 }
 
     nav h2 {
@@ -130,7 +128,7 @@ aside {
     height: 100vh;
     position: sticky;
     top: 0px;
-    width: 55em;
+    min-width: 18rem;
 }
 
 #menu-toggle {
