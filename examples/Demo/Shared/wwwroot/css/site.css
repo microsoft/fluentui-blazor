@@ -71,12 +71,10 @@ body {
 
 nav.sitenav {
     background-color: var(--neutral-layer-3);
-    padding: 10px;
+    padding: 10px 1.5rem;
     height: calc(100dvh - 90px);
-    width: 280px;
-    overflow-y: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.2rem;
+    width: 18rem;
+    overflow-y: auto;    
 }
 
     nav h2 {
@@ -130,7 +128,7 @@ aside {
     height: 100vh;
     position: sticky;
     top: 0px;
-    min-width: 18em;
+    min-width: 18rem;
 }
 
 #menu-toggle {
