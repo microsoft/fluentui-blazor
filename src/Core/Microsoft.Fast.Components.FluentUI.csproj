@@ -85,7 +85,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net8.0\*.xml" />
+      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net7.0\*.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\Shared" />
   </Target>
