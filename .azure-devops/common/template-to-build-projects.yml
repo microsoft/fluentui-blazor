@@ -49,7 +49,7 @@ steps:
       $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
 
       # Main without PackageSuffix: 1.2.4
-      # Main with    PackageSuffix: 1.2.4-RC.1
+      # Main with    PackageSuffix: 1.2.4-rc.1
       if ("$branch" -eq "main")
       {
           # Main without PackageSuffix
@@ -71,7 +71,7 @@ steps:
       # Dev: 1.2.4-Preview-23296-1
       if ("$branch" -eq "dev")
       {
-          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "true"
           $toTest = "true"
       }
@@ -79,7 +79,7 @@ steps:
       # Other branches: 1.2.4-Preview-23296-1
       else
       {
-          $package = "$($builds[0]).$($builds[1]).$($builds[2])-Preview-$($builds[3])-$($builds[4])"
+          $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "false"
           $toTest = "true"
       }
