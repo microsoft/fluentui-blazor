@@ -74,7 +74,7 @@ nav.sitenav {
     background-color: var(--neutral-layer-3);
     padding: 10px;
     height: calc(100dvh - 90px);
-    width: 330px;
+    width: 280px;
     overflow-y: auto;
 
 }

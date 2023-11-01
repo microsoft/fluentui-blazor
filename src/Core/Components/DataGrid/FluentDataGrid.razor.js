@@ -87,15 +87,15 @@ export function checkColumnOptionsPosition(gridElement) {
 }
 
 function enableColumnResizing(gridElement) {
-    const min = 50;
     const columns = [];
+    let min = 50;
     let headerBeingResized;
     let resizeHandle;
 
     gridElement.querySelectorAll('.column-header').forEach(header => {
         columns.push({ header });
         const onPointerMove = (e) => requestAnimationFrame(() => {
-            console.log(`onPointerMove${headerBeingResized ? '' : ' [not resizing]'}`);
+            //console.log(`onPointerMove${headerBeingResized ? '' : ' [not resizing]'}`);
 
             if (!headerBeingResized) {
                 return;
@@ -108,6 +108,8 @@ function enableColumnResizing(gridElement) {
             const width = pointerLocalLeft - headerLocalLeft;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
+            min = header.querySelector('.col-options-button') ? 75 : 50;
+
             column.size = Math.max(min, width) + 'px';
 
             // Set initial sizes
@@ -123,14 +125,14 @@ function enableColumnResizing(gridElement) {
         });
 
         const onPointerUp = () => {
-            console.log('onPointerUp');
+            //console.log('onPointerUp');
 
             headerBeingResized = undefined;
             resizeHandle = undefined;
         };
 
         const initResize = ({ target, pointerId }) => {
-            console.log('initResize');
+            //console.log('initResize');
 
             resizeHandle = target;
             headerBeingResized = target.parentNode;
