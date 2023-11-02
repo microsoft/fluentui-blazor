@@ -100,11 +100,11 @@ steps:
       }
       
       # Set the output variable for use in other tasks.
-      Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
-      Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
-      Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
-      Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
-      Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
+      Write-Host "##vso[task.setvariable variable=BranchName]$branch"
+      Write-Host "##vso[task.setvariable variable=AssemblyVersion]$assembly"
+      Write-Host "##vso[task.setvariable variable=PackageVersion]$package"
+      Write-Host "##vso[task.setvariable variable=ShouldSign]$sign"
+      Write-Host "##vso[task.setvariable variable=ShouldTest]$toTest"
       Write-Host "##vso[task.setvariable variable=ShouldPublish]${{ parameters.IsDemo }}"
     displayName: Compute AssemblyVersion and PackageVersion
 
