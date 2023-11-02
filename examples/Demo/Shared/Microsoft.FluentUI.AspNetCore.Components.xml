@@ -722,60 +722,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.JSRuntime">
-            <summary />
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor._jsModule">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.Language">
-            <summary>
-            Language used by the editor: csharp, javascript, ...
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.Height">
-            <summary>
-            Height of this component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.Width">
-            <summary>
-            Width of this component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.IsDarkMode">
-            <summary>
-            Theme of the editor (Light or Dark).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.Value">
-            <summary>
-            Gets or sets the value of the input. This should be used with two-way binding.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.ValueChanged">
-            <summary>
-            Gets or sets a callback that updates the bound value.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.OnParametersSetAsync">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.GetTheme(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.UpdateValueAsync(System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCodeEditor.DisposeAsync">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
             <summary>
             If true, the region is expaned, otherwise it is collapsed.
