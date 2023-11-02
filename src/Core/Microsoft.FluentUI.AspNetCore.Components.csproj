@@ -23,9 +23,7 @@
     <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
     <IsPackable>true</IsPackable>
 
-    <!-- This version will be replaced by the Build Pipeline -->
-    <Version>4.0.0-preview.3</Version>
-	<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+    <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
