@@ -1,10 +1,8 @@
 # Build all projects.
 
 pr: none      # Disable pull request triggers.
-trigger:
-- main
-- dev
-- archives/v3
+trigger: none
+
 
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)

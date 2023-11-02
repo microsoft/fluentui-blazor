@@ -50,7 +50,7 @@ steps:
 
       # Main without PackageSuffix: 1.2.4
       # Main with    PackageSuffix: 1.2.4-rc.1
-      if ("$branch" -eq "main" || "$branch" -eq "archives/v3")
+      if ("$branch" -eq "main" -or "$branch" -eq "archives/v3")
       {
           # Main without PackageSuffix
           if ("$(PackageSuffix)" -eq "")
