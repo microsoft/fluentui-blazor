@@ -49,7 +49,7 @@ public partial class DemoMainLayout : IAsyncDisposable
 
     protected override void OnInitialized()
     {
-        _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyVersionAttribute>()?.Version;
 
         OfficeColor[] colors = Enum.GetValues<OfficeColor>();
         _selectedColorOption = colors[new Random().Next(colors.Length)];
