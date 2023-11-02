@@ -33,9 +33,9 @@ steps:
       $toTest = "true"
 
       # BranchName = dev, archives/v3 or PR
-      if ("$(Build.SourceBranch)" -eq "refs/archives/v3")
+      if ("$(Build.SourceBranch)" -eq "refs/heads/archives/v3")
       {
-          $branch = "archives/v3"
+          $branch = "prod"
       }
       if ("$(Build.SourceBranch)" -eq "refs/heads/dev")
       {
@@ -50,7 +50,7 @@ steps:
 
       # archives/v3 without PackageSuffix: 1.2.4
       # archives/v3 with    PackageSuffix: 1.2.4-rc.1
-      if ("$branch" -eq "archives/v3")
+      if ("$branch" -eq "prod")
       {
           # archives/v3 without PackageSuffix
           if ("$(PackageSuffix)" -eq "")
