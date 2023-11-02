@@ -11,16 +11,14 @@
 
 :star:  We appreciate your star, it helps!
 
+**This package is for use in .NET 6 or .NET 7 Blazor projects. If you are using .NET 8, please use the next version (v4) of the package which has been renamed to `Microsoft.FluentUI.AspNetCore.Components`**
+
 ## Introduction
 
-The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) components which you can use to build applications that have 
-the look and feel or modern Microsoft applications. Some of the components are wrappers around Microsoft's official FluentUI Web Components. Others are components 
-that leverage the Fluent UI design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
+The `Microsoft.Fast.Components.FluentUI` package provides a set of [Blazor](https://blazor.net) components which are used to build applications that have a Fluent design (i.e. have the look and feel or modern Microsoft applications).
+Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
-The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
-
-The source for `@fluentui/web-components` is hosted in the [fluentui](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation for those components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
-The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. 
+The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net). 
 
 ## Upgrading from an earlier version 
 
@@ -35,19 +33,14 @@ dotnet add package Microsoft.Fast.Components.FluentUI
 ```
 
 ### Script
-The heart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
-script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
-unpredictable results. 
+The heart of this library is formed by the Fluent UI Web Components and implemented in the `web-components.min.js` script file. From version 2.3 onwards, the script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to unpredictable results. 
 
 > **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
 
 The script is added to the application automatically. This way we can safeguard that you are always using the best matching script version.
 
-
 ### Styles
-In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
-adding the following line to the <head> section of your `index.html` or `_Layout.cshtml` file in the project you installed the package:
-
+In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by adding the following line to the <head> section of your `index.html` or `_Layout.cshtml` file in the project you installed the package:
 
 ```html
 <link href="{PROJECT_NAME}.styles.css" rel="stylesheet" /> 
@@ -120,7 +113,7 @@ that uses one of the components.
 
 ## Configuring the Design System
 The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
-maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
+maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
 You can use this library in Blazor Hybrid (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take some extra steps (for now):

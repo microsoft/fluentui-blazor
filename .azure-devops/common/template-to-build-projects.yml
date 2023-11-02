@@ -42,7 +42,6 @@ steps:
           $branch = "dev"
       }
 
-      
       # [1, 2, 4, 23296, 1]
       $builds = "$(Build.BuildNumber)".Split('.')
 
@@ -81,7 +80,6 @@ steps:
       # Other branches: 1.2.4-preview-23296-1
       if ("$branch" -ne "dev" -and "$branch" -ne "prod")
       {
-        echo "now here!"
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "false"
           $toTest = "true"
@@ -96,7 +94,6 @@ steps:
       {
           $sign = "false"
       }
-      echo $package
       
       # Set the output variable for use in other tasks.
       Write-Host "##vso[task.setvariable variable=BranchName]$branch"

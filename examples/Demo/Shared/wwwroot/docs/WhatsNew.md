@@ -1,4 +1,11 @@
-﻿## V3.2.3
+﻿## V3.3.0
+- This version no longer supports .NET 8.0 (use `Microsoft.FluentUI.AspNetCore.Components` in that case)
+- Update all input component to use `ReadOnly` instead of a mix of possible spellings
+- Update demo site styling (nav menu and body now scroll independently)
+- Support DisabledDateFunc in FluentDatePicker 
+- Fix [#911](https://github.com/microsoft/fluentui-blazor/issues/91	1): Column resizing in DataGrid breaks when column to narrow
+
+## V3.2.3
 - Fix [#891](https://github.com/microsoft/fluentui-blazor/issues/891): JSDisconnectedException in FluentOverflow
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): Needed extra `empty-content-cell` class 
 - FluentCard: Add Width and Height + docs/examples
