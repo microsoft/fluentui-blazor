@@ -50,10 +50,10 @@ steps:
 
       # archives/v3 without PackageSuffix: 1.2.4
       # archives/v3 with    PackageSuffix: 1.2.4-rc.1
-      if ($branch -eq "prod")
+      if ("$branch" -eq "prod")
       {
           # archives/v3 without PackageSuffix
-          if ($(PackageSuffix) -eq "")
+          if ("$(PackageSuffix)" -eq "")
           {
               $package = "$($builds[0]).$($builds[1]).$($builds[2])"
           }
@@ -69,7 +69,7 @@ steps:
       }
 
       # Dev: 1.2.4-preview-23296-1
-      if ($branch -eq "dev")
+      if ("$branch" -eq "dev")
       {
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "true"
