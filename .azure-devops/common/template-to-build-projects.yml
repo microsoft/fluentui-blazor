@@ -42,6 +42,8 @@ steps:
           $branch = "dev"
       }
 
+      echo $branch
+
       # [1, 2, 4, 23296, 1]
       $builds = "$(Build.BuildNumber)".Split('.')
 
@@ -55,13 +57,16 @@ steps:
           # archives/v3 without PackageSuffix
           if ("$(PackageSuffix)" -eq "")
           {
+              
               $package = "$($builds[0]).$($builds[1]).$($builds[2])"
+              echo $(PackageSuffix) - $package
           }
 
           # archives/v3 with PackageSuffix
           else
           {
               $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
+              echo $(PackageSuffix) - $package
           }
 
           $sign = "true"
