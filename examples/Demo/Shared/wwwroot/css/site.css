@@ -71,7 +71,7 @@ body {
 
 nav.sitenav {
     background-color: var(--neutral-layer-3);
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
     width: 18rem;
     overflow-y: auto;    
@@ -115,7 +115,7 @@ nav.sitenav {
 }
 
 article {
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     border-right: 1px solid var(--neutral-stroke-divider-rest);
     margin: 0 0;
     overflow-x: hidden;
