@@ -77,7 +77,7 @@ steps:
       }
 
       # Other branches: 1.2.4-Preview-23296-1
-      if ("$branch" -ne "dev" -or "$branch" -ne "main")
+      if ("$branch" -ne "dev" -and "$branch" -ne "main")
       {
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "false"
