@@ -3,6 +3,7 @@ on:
   push:
     branches: 
       - main
+      - archives/v3
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
