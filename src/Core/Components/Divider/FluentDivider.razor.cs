@@ -22,7 +22,7 @@ public partial class FluentDivider : FluentComponentBase
     /// The orientation of the divider.
     /// </summary>
     [Parameter]
-    public Orientation? Orientation { get; set; } = AspNetCore.Components.Orientation.Horizontal;
+    public Orientation? Orientation { get; set; } = FluentUI.Orientation.Horizontal;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

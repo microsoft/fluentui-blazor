@@ -2600,9 +2600,6 @@
             A event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Module">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Role">
             <summary>
             The role of the element.
@@ -2617,6 +2614,9 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDivider.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentDragContainer`1">
             <summary />
