@@ -32,10 +32,10 @@ steps:
       $sign = "false"
       $toTest = "true"
 
-      # BranchName = dev, main or PR
-      if ("$(Build.SourceBranch)" -eq "refs/heads/main" -or "$(Build.SourceBranch)" -eq "refs/heads/archives/v3")
+      # BranchName = dev, archives/v3 or PR
+      if ("$(Build.SourceBranch)" -eq "refs/heads/archives/v3")
       {
-          $branch = "main"
+          $branch = "archives/v3"
       }
       if ("$(Build.SourceBranch)" -eq "refs/heads/dev")
       {
@@ -48,17 +48,17 @@ steps:
       # 1.2.4.23296
       $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
 
-      # Main without PackageSuffix: 1.2.4
-      # Main with    PackageSuffix: 1.2.4-rc.1
-      if ("$branch" -eq "main")
+      # archives/v3 without PackageSuffix: 1.2.4
+      # archives/v3 with    PackageSuffix: 1.2.4-rc.1
+      if ("$branch" -eq "archives/v3")
       {
-          # Main without PackageSuffix
+          # archives/v3 without PackageSuffix
           if ("$(PackageSuffix)" -eq "")
           {
               $package = "$($builds[0]).$($builds[1]).$($builds[2])"
           }
 
-          # Main with PackageSuffix
+          # archives/v3 with PackageSuffix
           else
           {
               $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
@@ -127,22 +127,22 @@ steps:
   - task: UseDotNet@2
     displayName: Install .NET 6.0
     inputs:
-      version: 6.0.416
+      version: 6.0.x
       includePreviewVersions: true
   
   # Install .NET 7.0
   - task: UseDotNet@2
     displayName: 'Install .NET 7.0'
     inputs:
-      version: 7.0.403
+      version: 7.0.x
       includePreviewVersions: true
   
   # Install .NET 8.0
-  - task: UseDotNet@2
-    displayName: 'Install .NET 8.0'
-    inputs:
-      version: 8.0.x
-      includePreviewVersions: true
+  #- task: UseDotNet@2
+  #  displayName: 'Install .NET 8.0'
+  #  inputs:
+  #    version: 8.0.x
+  #    includePreviewVersions: true
   
   # Set version number
   - task: Assembly-Info-NetCore@3
