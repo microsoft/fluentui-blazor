@@ -4,6 +4,7 @@ pr: none      # Disable pull request triggers.
 trigger:
 - main
 - dev
+- archives/v3
 
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
