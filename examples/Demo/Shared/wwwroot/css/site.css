@@ -70,7 +70,7 @@ body {
 
 
 nav.sitenav {
-    background-color: var(--neutral-layer-3);
+    background-color: var(--neutral-layer-1);
     padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
     width: 18rem;
