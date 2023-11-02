@@ -33,7 +33,7 @@ steps:
       $toTest = "true"
 
       # BranchName = dev, archives/v3 or PR
-      if ("$(Build.SourceBranch)" -eq "refs/heads/archives/v3")
+      if ("$(Build.SourceBranch)" -eq "refs/archives/v3")
       {
           $branch = "archives/v3"
       }
