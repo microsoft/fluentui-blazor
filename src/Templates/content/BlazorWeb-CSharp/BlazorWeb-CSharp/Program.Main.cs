@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 #endif
+#if (UseServer || UseWebAssembly)
+using Microsoft.FluentUI.AspNetCore.Components;
+#endif
 #if (UseWebAssembly && SampleContent)
 using BlazorWeb_CSharp.Client.Pages;
 #endif
@@ -36,6 +39,8 @@ public class Program
           #elif(UseWebAssembly)
             .AddInteractiveWebAssemblyComponents();
           #endif
+        
+        builder.Services.AddFluentUIComponents();
         #endif
 
         #if (IndividualLocalAuth)

@@ -52,9 +52,8 @@ fluent-data-grid {
 
 ::deep .col-width-draghandle {
     height: auto;
-    width: 4px;
+    width: calc(var(--design-unit) * 1px + 2px);
     right: calc(var(--col-gap)/2 - 0.5rem);
-    /*margin: 0 calc(var(--design-unit) * 1px);*/
     border-top: none;
     border-left: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-divider-rest);
     cursor: col-resize;

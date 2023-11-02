@@ -27,9 +27,14 @@
     }
 
     .column-header > ::deep .col-sort-button {
-        width: 100%;
+        flex-grow: 1;
         padding-inline-end: 5px;
     }
+
+        .column-header > ::deep .col-sort-button::part(content) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
     .column-header.col-justify-end ::deep .col-title-text, .column-header.col-justify-right ::deep .col-title-text {
         text-align: end;
@@ -51,6 +56,8 @@
 ::deep .col-sort-button::part(control) {
     align-items: center;
     justify-content: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .col-justify-center ::deep .col-sort-button::part(control) {
