@@ -76,11 +76,8 @@ steps:
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "true"
           $toTest = "true"
-      }
-
+      } else {
       # Other branches: 1.2.4-preview-23296-1
-      else
-      {
         echo "now here!"
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "false"
