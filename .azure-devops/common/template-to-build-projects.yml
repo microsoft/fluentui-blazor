@@ -33,7 +33,7 @@ steps:
       $toTest = "true"
 
       # BranchName = dev, main or PR
-      if ("$(Build.SourceBranch)" -eq "refs/heads/main")
+      if ("$(Build.SourceBranch)" -eq "refs/heads/main" -or "$(Build.SourceBranch)" -eq "refs/heads/archives/v3")
       {
           $branch = "main"
       }
@@ -50,7 +50,7 @@ steps:
 
       # Main without PackageSuffix: 1.2.4
       # Main with    PackageSuffix: 1.2.4-rc.1
-      if ("$branch" -eq "main" -or "$branch" -eq "archives/v3")
+      if ("$branch" -eq "main")
       {
           # Main without PackageSuffix
           if ("$(PackageSuffix)" -eq "")
