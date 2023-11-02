@@ -77,7 +77,7 @@ steps:
       }
 
       # Other branches: 1.2.4-Preview-23296-1
-      else
+      if ("$branch" -ne "dev" -or "$branch" -ne "main")
       {
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "false"
@@ -124,18 +124,18 @@ steps:
     displayName: Install NuGet tools
   
   # Install .NET 6.0
-  - task: UseDotNet@2
-    displayName: Install .NET 6.0
-    inputs:
-      version: 6.0.416
-      includePreviewVersions: true
+  # - task: UseDotNet@2
+  #   displayName: Install .NET 6.0
+  #   inputs:
+  #     version: 6.0.416
+  #     includePreviewVersions: true
   
   # Install .NET 7.0
-  - task: UseDotNet@2
-    displayName: 'Install .NET 7.0'
-    inputs:
-      version: 7.0.403
-      includePreviewVersions: true
+  # - task: UseDotNet@2
+  #   displayName: 'Install .NET 7.0'
+  #   inputs:
+  #     version: 7.0.403
+  #     includePreviewVersions: true
   
   # Install .NET 8.0
   - task: UseDotNet@2
