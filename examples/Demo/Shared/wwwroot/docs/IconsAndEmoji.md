@@ -2,7 +2,7 @@
 
 Starting with v3, the assets for the icons and emoji are removed from the library package and are provided through additional (separate) packages for 
 both the icon and emoji resources. The components, and icons that are used by the library itself, are still part of the package. 
-Adding the [Microsoft.Fast.Components.FluentUI.Icons package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons) and/or [Microsoft.Fast.Components.FluentUI.Emojis package](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Emojis) 
+Adding the [Microsoft.FluentUI.AspNetCore.Components.Icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons) and/or [Microsoft.FluentUI.AspNetCore.Components.Emoji](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji) packages 
 is enough to make the resources available to your code.
  
 We use the [.NET trimming capabilities](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer) to publish only those assests that are actually being used in your program. Usually this results in some very small DLL's that only contain the resources that are actually being used in your application.
@@ -11,16 +11,16 @@ We support the **complete** [Fluent UI System Icons](https://github.com/microsof
  
 ## Getting Started
  
-To use the **Fluent UI System Icons** in your application, you will need to install the [Microsoft.Fast.Components.FluentUI.Icons](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Icons/) NuGet package in the project which is using the main library. 
+To use the **Fluent UI System Icons** in your application, you will need to install the [Microsoft.FluentUI.AspNetCore.Components.Icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons/) NuGet package in the project which is using the main library. 
 
 ```shell
-dotnet add package Microsoft.Fast.Components.FluentUI.Icons
+dotnet add package FluentUI.AspNetCore.Components.Icons
 ```
 
-To use the **Fluent UI Emoji** in your application, you need to install the [Microsoft.Fast.Components.FluentUI.Emojis](https://www.nuget.org/packages/Microsoft.Fast.Components.FluentUI.Emojis/) NuGet package in the project which is using the main library.
+To use the **Fluent UI Emoji** in your application, you need to install the [Microsoft.FluentUI.AspNetCore.Components.Emojis](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji/) NuGet package in the project which is using the main library.
 
 ```shell
-dotnet add package Microsoft.Fast.Components.FluentUI.Emojis
+dotnet add package FluentUI.AspNetCore.Components.Emojis
 ```
 
  
