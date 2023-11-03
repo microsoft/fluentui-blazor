@@ -126,6 +126,7 @@ article {
 
 aside {
     padding: 1.5rem 1rem;
+    top: 0px;
     height: 100vh;
     position: sticky;
     width: 18rem;
