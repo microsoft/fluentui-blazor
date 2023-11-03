@@ -122,7 +122,6 @@ article {
     overflow-x: hidden;
     transition: all 300ms ease-in-out;
     width: calc(100% - 18rem);
-    
 }
 
 aside {
@@ -310,11 +309,12 @@ code {
 
     article {
         padding-top: 0px;
+        width: 100%;
     }
 
     aside {
         padding: 1em 0.75em;
-        width: unset;
+        width: 100%;
     }
 
     .footer {
@@ -356,10 +356,12 @@ code {
 
     aside {
         padding: 1.5em 0.75em 1em 0.75em;
+        width: 12rem;
     }
 
     article {
         padding-top: 0px;
+        width: 100%;
     }
 }
 
