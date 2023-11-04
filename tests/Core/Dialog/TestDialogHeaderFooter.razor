@@ -1,0 +1,31 @@
+@implements IDialogContentComponent
+
+@* Header *@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentLabel Typo="Typography.PaneHeader">
+        @Dialog?.Instance?.Parameters?.Title
+    </FluentLabel>
+</FluentDialogHeader>
+
+@* Footer *@
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
+</FluentDialogFooter>
+
+@* Body *@
+<FluentDialogBody>
+    My body
+</FluentDialogBody>
+
+@code {
+    [CascadingParameter]
+    public FluentDialog? Dialog { get; set; }
+
+    private async Task SaveAsync()
+    {
+        if (Dialog is not null)
+        {
+            await Dialog.CloseAsync();
+        }
+    }
+}
