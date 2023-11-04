@@ -78,6 +78,7 @@
           "exclude": [
             "Pages/Authentication.razor",
             "Layout/LoginDisplay.razor",
+            "Layout/LoginDisplay.razor.css",
             "Layout/MainLayout.Auth.razor",
             "Layout/RedirectToLogin.razor",
             "wwwroot/appsettings.Development.json",
