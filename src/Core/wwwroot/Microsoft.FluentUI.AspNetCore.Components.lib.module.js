@@ -3,9 +3,9 @@
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
-export function beforeWebStart() {
+export function beforeWebStart(options, extensions) {
     if (!beforeStartCalled) {
-        beforeStart();
+        beforeStart(options, extensions);
     }
     // Ensure that initializers can be async by "yielding" execution
     return new Promise((resolve, reject) => {
@@ -16,16 +16,16 @@ export function beforeWebStart() {
     });
 }
 
-export function afterWebStarted() {
+export function afterWebStarted(blazor) {
     if (!afterStartedCalled) {
         afterStarted(blazor);
     }
     appendElement('modern-after-web-started', 'Modern "afterWebStarted"');
 }
 
-export function beforeWebAssemblyStart() {
+export function beforeWebAssemblyStart(options, extensions) {
     if (!beforeStartCalled) {
-        beforeStart();
+        beforeStart(options, extensions);
     }
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -35,16 +35,16 @@ export function beforeWebAssemblyStart() {
     });
 }
 
-export function afterWebAssemblyStarted() {
+export function afterWebAssemblyStarted(blazor) {
     if (!afterStartedCalled) {
-        afterStarted();
+        afterStarted(blazor);
     }
     appendElement('modern-after-web-assembly-started', 'Modern "afterWebAssemblyStarted"')
 }
 
-export function beforeServerStart(options) {
+export function beforeServerStart(options, extensions) {
     if (!beforeStartCalled) {
-        beforeStart(options);
+        beforeStart(options, extensions);
     }
     // Ensure that initializers can be async by "yielding" execution
     return new Promise((resolve, reject) => {
@@ -60,9 +60,9 @@ export function beforeServerStart(options) {
     });
 }
 
-export function afterServerStarted() {
+export function afterServerStarted(blazor) {
     if (!afterStartedCalled) {
-        afterStarted();
+        afterStarted(blazor);
     }
     appendElement('modern-after-server-started', 'Modern "afterServerStarted"');
 }

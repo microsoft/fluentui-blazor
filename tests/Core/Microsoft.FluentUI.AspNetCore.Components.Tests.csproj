@@ -14,7 +14,7 @@
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
-    <PackageReference Include="xunit.runner.visualstudio" >
+    <PackageReference Include="xunit.runner.visualstudio">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -47,5 +47,19 @@
       <DependentUpon>%(ParentFile).cs</DependentUpon>
     </None>
 
+    <!-- Dependent Test Result RAZOR files -->
+    <None Include="**\*.verified.razor.html" />
+    <None Update="**\*.verified.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+
+    <None Include="**\*.received.razor.html" />
+    <None Update="**\*.received.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+    
   </ItemGroup>
+
 </Project>
