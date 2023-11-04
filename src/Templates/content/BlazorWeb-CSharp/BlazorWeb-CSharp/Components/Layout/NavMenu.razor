@@ -11,10 +11,10 @@
 
 ##endif*@
 <nav>
-    @*#if (!(UseServer || UseWebAssembly) && !InteractiveAtRoot)
-    <FluentNavMenu Width="250" Title="Custom navigation menu">
-    ##else
+    @*#if (UseServer || UseWebAssembly) 
     <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
+    ##else
+    <FluentNavMenu Width="250" Title="Custom navigation menu">
     ##endif*@
         <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
         @*#if (UseServer || UseWebAssembly)

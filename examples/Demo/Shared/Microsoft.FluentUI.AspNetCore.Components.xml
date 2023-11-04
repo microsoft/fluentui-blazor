@@ -1874,6 +1874,11 @@
             The event callback invoked to return the dialog result.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialog.CallingFromDialogService">
+            <summary>
+            Gets True if the Dialog was called from the DialogService.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDialog.OnInitialized">
             <summary />
         </member>
