@@ -118,6 +118,10 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public EventCallback<DialogResult> OnDialogResult { get; set; }
 
+    /// <summary>
+    /// Gets True if the Dialog was called from the DialogService.
+    /// </summary>
+    private bool CallingFromDialogService => ChildContent is null;
 
     /// <summary />
     protected override void OnInitialized()
@@ -273,11 +277,11 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private bool HasDefaultDialogHeader => _dialogHeader == null ||
+    private bool HasDefaultDialogHeader => (_dialogHeader == null && CallingFromDialogService) ||
                                            _dialogHeader?.Data?.ToString() == FluentDialogHeader.DefaultDialogHeaderIdentifier;
 
     /// <summary />
-    private bool HasDefaultDialogFooter => _dialogFooter == null ||
+    private bool HasDefaultDialogFooter => (_dialogFooter == null && CallingFromDialogService) ||
                                            _dialogFooter?.Data?.ToString() == FluentDialogFooter.DefaultDialogFooterIdentifier;
 
     /// <summary />
