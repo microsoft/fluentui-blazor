@@ -28,9 +28,41 @@
         <FluentDialogFooter>
             Footer content
         </FluentDialogFooter>
-    </FluentDialog>);
+    </FluentDialog>
+        );
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentDialog_OnlySingleFooter()
+    {
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            // Arrange && Act
+            var cut = Render(
+
+            @<FluentDialog Modal="true">
+                <FluentDialogHeader ShowDismiss="true">
+                    Header content
+                </FluentDialogHeader>
+                <FluentDialogBody>
+                    Body content
+                </FluentDialogBody>
+                <FluentDialogFooter>
+                    Footer content
+                </FluentDialogFooter>
+
+                <!-- Second footer -->
+                <FluentDialogFooter>
+                    Second invalid Footer
+                </FluentDialogFooter>
+            </FluentDialog>
+            );
+
+            // Assert
+            var result = cut.Markup;
+        });
     }
 }
