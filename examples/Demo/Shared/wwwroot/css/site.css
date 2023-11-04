@@ -348,7 +348,7 @@ code {
     }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     fluent-select::part(control) {
         width: 150px;
     }
