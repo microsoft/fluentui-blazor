@@ -42,7 +42,7 @@ body {
     padding: 0 0 0 20px;
 }
 
-.stack-horizontal {
+.body-stack {
     flex-direction: row;
 }
 
@@ -262,7 +262,7 @@ code {
         }
 
 
-    .stack-horizontal {
+    .body-stack {
         flex-direction: column !important;
     }
 
