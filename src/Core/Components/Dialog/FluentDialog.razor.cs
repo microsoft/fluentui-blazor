@@ -24,6 +24,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
         .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
+        .AddClass("autoheight", () => !string.IsNullOrWhiteSpace(_parameters.Height) && _parameters.Height == "auto")
         .Build();
 
     /// <summary />

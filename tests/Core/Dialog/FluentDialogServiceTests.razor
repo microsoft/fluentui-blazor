@@ -23,4 +23,26 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public async Task FluentDialogService_AutoHeight()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentDialogProvider />);
+        var dialogService = Services.GetRequiredService<IDialogService>();
+
+        // Act
+        var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(new DialogParameters()
+            {
+                Height = "auto",
+                Title = "Sample title",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            });
+
+        // Assert
+        cut.Verify();
+    }
 }
