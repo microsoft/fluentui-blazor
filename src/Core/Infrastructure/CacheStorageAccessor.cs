@@ -3,13 +3,9 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure
 {
-    public class CacheStorageAccessor : JSModule
+    public class CacheStorageAccessor(IJSRuntime js) : 
+        JSModule(js, "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js")
     {
-        public CacheStorageAccessor(IJSRuntime js)
-            : base(js, "./_content/Microsoft.FluentUI.AspNetCore.Components/js/CacheStorageAccessor.js")
-        {
-        }
-
         public async ValueTask PutAsync(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
         {
             string requestMethod = requestMessage.Method.Method;

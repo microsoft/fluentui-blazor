@@ -1,13 +1,13 @@
 import * as esbuild from 'esbuild'
-import package from './package.json';
+import pkg from './package.json' assert { type: 'json' }
 
 await esbuild.build({
-    entryPoints: [ package.source ],
+    entryPoints: [ pkg.source ],
     bundle: true,
     minify: true,
     sourcemap: true,
     logLevel: 'info',
     target: 'es2022',
     format: 'esm',
-    outfile: package.main,
+    outfile: pkg.main,
 });

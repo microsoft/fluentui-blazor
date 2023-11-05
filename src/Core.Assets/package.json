@@ -2,7 +2,7 @@
   "private": true,
   "name": "microsoft.fluentui.aspnetcore.components.assets",
   "source": "src/index.ts",
-  "main": "dist/index.js",
+  "main": "dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js",
   "scripts": {
     "build": "node ./esbuild.config.mjs",
     "clean": "rimraf ./dist"

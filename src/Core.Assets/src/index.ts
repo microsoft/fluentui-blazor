@@ -1,4 +1,5 @@
-﻿import '@fluentui/web-components'
+﻿export * from '@fluentui/web-components/dist/web-components'
+export * from './CacheStorageAccessor'
 import { SplitPanels } from './SplitPanels';
 
 var beforeStartCalled = false;
