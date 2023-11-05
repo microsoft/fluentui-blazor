@@ -1,1 +1,62 @@
 ﻿@page "/IssueTester"
+<PageTitle>Crash</PageTitle>
+
+<FluentDialog @ref="_dialog" @bind-Hidden="DialogHidden" Modal="true" @ondialogdismiss="OnDialogDismiss">
+
+    <FluentDialogHeader ShowDismiss="true">
+        Header
+    </FluentDialogHeader>
+    <FluentDialogBody>
+        This is the body
+    </FluentDialogBody>
+
+    <FluentDialogFooter>
+        Crash if present, works when commented out
+    </FluentDialogFooter>
+
+</FluentDialog>
+
+<FluentButton OnClick="ShowDialog" Appearance="Appearance.Accent">Show dialog</FluentButton>
+
+
+<FluentDialog @ref="_dialog2" @bind-Hidden="DialogHidden2" Modal="true" @ondialogdismiss="OnDialogDismiss2">
+
+    <FluentDialogBody>
+        This is the body
+    </FluentDialogBody>
+
+    <FluentDialogFooter>
+        Crash if present, works when commented out
+    </FluentDialogFooter>
+
+</FluentDialog>
+
+<FluentButton OnClick="ShowDialog2" Appearance="Appearance.Accent">Show dialog 2</FluentButton>
+
+
+
+@code {
+    private FluentDialog? _dialog, _dialog2;
+    private bool DialogHidden { get; set; } = true;
+    private bool DialogHidden2 { get; set; } = true;
+
+    private void OnDialogDismiss()
+    {
+        DialogHidden = true;
+    }
+
+    private void OnDialogDismiss2()
+    {
+        DialogHidden2 = true;
+    }
+
+    private void ShowDialog()
+    {
+        DialogHidden = false;
+    }
+
+    private void ShowDialog2()
+    {
+        DialogHidden2 = false;
+    }
+}

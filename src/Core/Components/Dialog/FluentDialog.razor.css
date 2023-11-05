@@ -65,7 +65,3 @@ fluent-dialog ::deep .fluent-dialog-body {
     height: auto;
     min-height: 80px;
 }
-
-fluent-dialog:has(:not(div[class~="fluent-dialog-header"])) {
-    padding: var(--dialog-padding) 0px 0px 0px;
-}
