@@ -633,7 +633,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Name">
             <summary>
-            The name of the element.Allows access by name from the associated form.
+            The name of the element. Allows access by name from the associated form.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Required">
@@ -1707,7 +1707,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Name">
             <summary>
-            The name of the element.Allows access by name from the associated form.
+            The name of the element. Allows access by name from the associated form.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Required">
@@ -2122,7 +2122,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.DialogBodyStyle">
             <summary>
-            Gets or sets the extra styles appied to the Body content.
+            Gets or sets the extra styles applied to the Body content.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.AriaLabelledby">
