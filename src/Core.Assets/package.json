@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "microsoft.fluentui.aspnetcore.components.assets",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node ./esbuild.config.mjs",
+    "clean": "rimraf ./dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "esbuild": "0.19.5",
+    "eslint": "^8.53.0",
+    "rimraf": "5.0.5",
+    "typescript": "^5.2.2",
+    "@microsoft/fast-element": "1.12.0"
+  },
+  "dependencies": {
+    "@fluentui/web-components": "2.5.16"
+  }
+}

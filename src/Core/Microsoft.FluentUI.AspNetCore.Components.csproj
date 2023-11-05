@@ -56,11 +56,12 @@
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-	  <PackageReference Include="Microsoft.Extensions.Http"  />
+	  <PackageReference Include="Microsoft.Extensions.Http" />
 	  <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj" />
     <ProjectReference Include="..\Extensions\DesignToken.Generator\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 

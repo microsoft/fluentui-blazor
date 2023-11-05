@@ -1,17 +1,25 @@
-﻿function fireEvent(element, eventName) {
+﻿function fireEvent(element: HTMLElement, eventName: string) {
     const event = new Event(eventName, { bubbles: true, cancelable: true })
     return element.dispatchEvent(event);
 }
 
 class SplitPanels extends HTMLElement {
+
     static observedAttributes = ["direction"];
+
     #direction = "row";
     #isResizing = false;
+    private dom: { median: HTMLElement | null } | undefined;
+    private left = 0;
+    private top = 0;
+
     constructor() {
         super();
         this.bind(this);
     }
-    bind(element) {
+
+    /* TODO: Proper type for element */
+    bind(element: any) {
         element.attachEvents = element.attachEvents.bind(element);
         element.render = element.render.bind(element);
         element.cacheDom = element.cacheDom.bind(element);
@@ -19,8 +27,8 @@ class SplitPanels extends HTMLElement {
         element.resizeDrag = element.resizeDrag.bind(element);
     }
     render() {
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.innerHTML = `
+        const shadow = this.attachShadow({ mode: "open" });
+        shadow.innerHTML = `
             <style>
                 :host{ display: grid; }
                 :host([resizing]){ user-select: none; }
@@ -55,6 +63,7 @@ class SplitPanels extends HTMLElement {
             </div>
             <slot id="slot2" name="2"></slot>
         `;
+
     }
     connectedCallback() {
         this.render();
@@ -63,13 +72,13 @@ class SplitPanels extends HTMLElement {
     }
     cacheDom() {
         this.dom = {
-            median: this.shadowRoot.querySelector("#median")
+            median: this.shadowRoot!.querySelector("#median")
         };
     }
     attachEvents() {
-        this.dom.median.addEventListener("pointerdown", this.pointerdown);
+        this.dom!.median!.addEventListener("pointerdown", this.pointerdown);
     }
-    pointerdown(e) {
+    pointerdown(e: PointerEvent) {
         this.isResizing = true;
         const clientRect = this.getBoundingClientRect();
         this.left = clientRect.x;
@@ -83,21 +92,21 @@ class SplitPanels extends HTMLElement {
         this.removeEventListener("pointermove", this.resizeDrag);
         this.removeEventListener("pointerup", this.pointerup);
     }
-    resizeDrag(e) {
+    resizeDrag(e: PointerEvent) {
         if (this.direction === "row") {
             const newMedianLeft = e.clientX - this.left;
-            const median = this.dom.median.getBoundingClientRect().width;
+            const median = this.dom!.median!.getBoundingClientRect().width;
             this.style.gridTemplateColumns = `calc(${newMedianLeft}px - ${median / 2}px) ${median}px 1fr`;
         }
         if (this.direction === "column") {
             const newMedianTop = e.clientY - this.top;
-            const median = this.dom.median.getBoundingClientRect().height;
+            const median = this.dom!.median!.getBoundingClientRect().height;
             this.style.gridTemplateRows = `calc(${newMedianTop}px - ${median / 2}px) ${median}px 1fr`;
         }
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
         if (newValue != oldValue) {
-            this[name] = newValue;
+            (this as any as DOMStringMap)[name] = newValue;
         }
     }
     set isResizing(value) {
