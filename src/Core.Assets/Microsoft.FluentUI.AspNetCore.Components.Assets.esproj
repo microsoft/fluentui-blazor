@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.58794-alpha">
   <PropertyGroup>
     <DefaultProjectTypeGuid Condition="'$(BuildingInsideVisualStudio)' == 'false'">FAE04EC0-301F-11D3-BF4B-00C04F79EFBC</DefaultProjectTypeGuid>
-	<DebugAssetsDirectory>dist\</DebugAssetsDirectory>
-	<StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
+	  <DebugAssetsDirectory>dist\</DebugAssetsDirectory>
+    <StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <None Update="src\Styles.css">
@@ -10,4 +11,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="Pack" />
+
 </Project>
