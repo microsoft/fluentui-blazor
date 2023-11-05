@@ -4,4 +4,10 @@
 	<DebugAssetsDirectory>dist\</DebugAssetsDirectory>
 	<StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
   </PropertyGroup>
+  <ItemGroup>
+    <None Update="src\Styles.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
 </Project>

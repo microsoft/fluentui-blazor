@@ -1,6 +1,9 @@
-﻿export * from '@fluentui/web-components/dist/web-components'
+﻿declare module '*.css';
+
+export * from '@fluentui/web-components/dist/web-components'
 export * from './CacheStorageAccessor'
-import { SplitPanels } from './SplitPanels';
+import { SplitPanels } from './SplitPanels'
+import styles from './Styles.css' assert { type: "css" }
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
@@ -221,8 +224,6 @@ export function beforeStart(options: any) {
     beforeStartCalled = true;
 }
 
-var response = await fetch('./_content/Microsoft.FluentUI.AspNetCore.Components/css/Microsoft.FluentUI.AspNetCore.Components.css');
-var css = await response.text();
 var styleSheet = new CSSStyleSheet();
-styleSheet.replaceSync(css);
+styleSheet.replaceSync(styles);
 document.adoptedStyleSheets.push(styleSheet);
