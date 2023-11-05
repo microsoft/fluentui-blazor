@@ -27,6 +27,7 @@ steps:
       # Defaut values
       $branch = "PR"
       $package = ""
+      $demo = "${{ parameters.IsDemo }}".toLower()
 
       # To Sign and To Test
       $sign = "false"
@@ -103,7 +104,7 @@ steps:
           $toTest = "false"
       }
 
-      if ("${{ parameters.IsDemo }}" -eq "true")
+      if ("$demo" -eq "true")
       {
           $sign = "false"
       }
@@ -114,7 +115,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
-      Write-Host "##vso[task.setvariable variable=ShouldPublish]${{ parameters.IsDemo }}"
+      Write-Host "##vso[task.setvariable variable=ShouldPublish]${$demo}"
     displayName: Compute AssemblyVersion and PackageVersion
 
   # Display computed variables
