@@ -2,7 +2,7 @@
 
 <FluentStack>
     <FluentCard Width="300px" Height="300px">
-        <p>This card's content is restricted to it's area. Open the select list below to see the result</p>
+        <p>This card's content is restricted to its area. Open the select list below to see the result</p>
         <label for="people-listbox">Select a person</label>
         <FluentSelect TOption="Person"
                       Items="@Data.People.WithVeryLongName()"
@@ -15,7 +15,7 @@
 
     </FluentCard>
     <FluentCard Width="300px" Height="300px" AreaRestricted="false">
-        <p>This card's content is not restricted to it's area. Open the select list below to see the result</p>
+        <p>This card's content is not restricted to its area. Open the select list below to see the result</p>
         <label for="people-listbox">Select a person</label>
         <FluentSelect TOption="Person"
                       Items="@Data.People.WithVeryLongName()"
