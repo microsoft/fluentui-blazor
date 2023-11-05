@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter": {
+    "Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
