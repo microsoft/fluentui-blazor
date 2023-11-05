@@ -91,7 +91,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the extra styles appied to the Body content.
+    /// Gets or sets the extra styles applied to the Body content.
     /// </summary>
     public string DialogBodyStyle { get; set; } = string.Empty;
 

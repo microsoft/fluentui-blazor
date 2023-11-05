@@ -630,8 +630,8 @@ For version 2.2 we started working on adding .NET 8 support. One important new f
 QuickGrid is a high performance grid component for displaying data in tabular form. It is built to be a simple and convenient way to display your data, while 
 still providing powerful features like sorting, filtering, paging, and virtualization. 
 
-QuickGrid was originally introduced as an experimental package based on .NET 7 and we copied it's code over to the Fluent UI library to re-use it's 
-features (and some more) but render it with the Fluent UI Web Components instead of it's orignal rendering based on HTML table, tr and td elements. As part 
+QuickGrid was originally introduced as an experimental package based on .NET 7 and we copied its code over to the Fluent UI library to re-use its 
+features (and some more) but render it with the Fluent UI Web Components instead of its orignal rendering based on HTML table, tr and td elements. As part 
 of bringing QuickGrid into .NET 8 the ASP.NET Core team made some changes and improvements to the API. We brought these changes over to the `<FluentDataGrid>` as well. To update an app that uses `<FluentDataGrid>`, 
 you may need to make the following adjustments:
 

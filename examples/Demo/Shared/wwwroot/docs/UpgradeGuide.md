@@ -33,7 +33,7 @@ Another breaking change is found in the `Align` enumeration. Where we previously
  
 `FluentBadge` now uses a `Color` \ `BackgroundColor` combination to determine the fill values.
  
-`FluentCalendar` no longer wraps the `fluent-calendar` web component. It's functionality was too limited. Not all parameters are supported in the updated version.
+`FluentCalendar` no longer wraps the `fluent-calendar` web component. Its functionality was too limited. Not all parameters are supported in the updated version.
  
 `StackHorizontalAlignment`/`StackVerticalAlignment` have been renamed to just `HorizontalAlignment`/`VerticalAlignment` as there are now more components using these enumarations.
 

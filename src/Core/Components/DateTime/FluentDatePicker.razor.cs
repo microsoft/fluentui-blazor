@@ -52,7 +52,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// The name of the element. Allows access by name from the associated form.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
