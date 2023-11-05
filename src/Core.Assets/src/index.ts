@@ -5,6 +5,10 @@ export * from './CacheStorageAccessor'
 import { SplitPanels } from './SplitPanels'
 import styles from './Styles.css' assert { type: "css" }
 
+var styleSheet = new CSSStyleSheet();
+styleSheet.replaceSync(styles);
+document.adoptedStyleSheets.push(styleSheet);
+
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
@@ -223,7 +227,3 @@ export function afterStarted(blazor: Blazor) {
 export function beforeStart(options: any) {
     beforeStartCalled = true;
 }
-
-var styleSheet = new CSSStyleSheet();
-styleSheet.replaceSync(styles);
-document.adoptedStyleSheets.push(styleSheet);
