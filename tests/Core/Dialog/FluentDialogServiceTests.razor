@@ -1,0 +1,47 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public async Task FluentDialogService_Default()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentDialogProvider />);
+        var dialogService = Services.GetRequiredService<IDialogService>();
+
+        // Act
+        var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(new DialogParameters()
+            {
+                Height = "200px",
+                Title = "Sample title",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDialogService_HeightUnset()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentDialogProvider />);
+        var dialogService = Services.GetRequiredService<IDialogService>();
+
+        // Act
+        var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(new DialogParameters()
+            {
+                Title = "Sample title",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            });
+
+        // Assert
+        cut.Verify();
+    }
+}

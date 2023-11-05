@@ -41,7 +41,7 @@ body {
     padding: 0 0 0 20px;
 }
 
-.stack-horizontal {
+.body-stack {
     flex-direction: row;
 }
 
@@ -259,8 +259,8 @@ code {
         }
        
 
-    .stack-horizontal {
-        flex-direction:column !important;
+    .body-stack {
+        flex-direction: column !important;
     }
 
     nav.sitenav {
@@ -343,7 +343,7 @@ code {
     }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     fluent-select::part(control) {
         width: 150px;
     }
