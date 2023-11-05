@@ -3959,7 +3959,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuTitle">
             <summary>
-            Gets or set the tite of the navigation menu
+            Gets or sets the tite of the navigation menu
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuContent">
@@ -5599,7 +5599,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Orientation">
             <summary>
-            Gets or set the orientation of the stacked components. 
+            Gets or sets the orientation of the stacked components. 
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
