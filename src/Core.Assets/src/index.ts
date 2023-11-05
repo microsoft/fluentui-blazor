@@ -221,13 +221,8 @@ export function beforeStart(options: any) {
     beforeStartCalled = true;
 }
 
-// Apply the style sheet to the document on module load.
-// This is better than using a link tag because it doesn't flash on enhanced navigation/load.
-// TODO: We can easily bundle the CSS into the JS file using esbuild.
-fetch('./_content/Microsoft.FluentUI.AspNetCore.Components/css/Microsoft.FluentUI.AspNetCore.Components.css')
-    .then(response => response.text())
-    .then(css => {
-        let styleSheet = new CSSStyleSheet();
-        styleSheet.replaceSync(css);
-        document.adoptedStyleSheets = [styleSheet];
-    });
+var response = await fetch('./_content/Microsoft.FluentUI.AspNetCore.Components/css/Microsoft.FluentUI.AspNetCore.Components.css');
+var css = await response.text();
+var styleSheet = new CSSStyleSheet();
+styleSheet.replaceSync(css);
+document.adoptedStyleSheets.push(styleSheet);
