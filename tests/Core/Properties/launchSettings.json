@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Microsoft.Fast.Components.FluentUI.Tests": {
+    "Microsoft.FluentUI.AspNetCore.Components.Tests": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

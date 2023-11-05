@@ -30,7 +30,7 @@ public static partial class Icons
             var allIcons = assembly.GetTypes()
                                    .Where(i => i.BaseType == typeof(Icon));
 
-            // Ex. Microsoft.Fast.Components.FluentUI.Icons+Filled+Size10+PresenceAvailable
+            // Ex. Microsoft.FluentUI.AspNetCore.Components.Icons+Filled+Size10+PresenceAvailable
             var iconFullName = $"{Namespace}.Icons+{icon.Variant}+Size{(int)icon.Size}+{icon.Name}";
             var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
 

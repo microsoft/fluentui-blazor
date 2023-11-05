@@ -28,7 +28,7 @@ public static partial class Emojis
             var allEmojis = assembly.GetTypes()
                                     .Where(i => i.BaseType == typeof(Emoji));
 
-            // Ex. Microsoft.Fast.Components.FluentUI.Emojis+Activities+Color+Default+Baseball
+            // Ex. Microsoft.FluentUI.AspNetCore.Components.Emojis+Activities+Color+Default+Baseball
             var group = emoji.Group.ToString().Replace("_", string.Empty);
             var emojiFullName = $"{Namespace}.Emojis+{group}+{emoji.Style}+{emoji.Skintone}+{emoji.Name}";
             var emojiType = allEmojis.FirstOrDefault(i => i.FullName == emojiFullName);
