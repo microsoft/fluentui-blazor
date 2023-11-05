@@ -13,23 +13,23 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion)" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0-beta1.23472.1" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0-2.final" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0-3.final" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion)" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.0.0-preview.2" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.0.0-preview.1" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.0.0-preview.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.0.0-rc.1" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.0.0-rc.1" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.0.0-rc.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion)" />
     <!-- test dependencies -->
-    <PackageVersion Include="bunit" Version="1.24.10" />
+    <PackageVersion Include="bunit" Version="1.25.1-preview" />
     <PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23503-02" />
-    <PackageVersion Include="xunit" Version="2.5.3" />
+    <PackageVersion Include="xunit" Version="2.6.1" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />

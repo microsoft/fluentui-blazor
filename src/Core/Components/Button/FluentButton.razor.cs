@@ -147,7 +147,17 @@ public partial class FluentButton : FluentComponentBase
     {
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+        {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+        }
+        if (Appearance == AspNetCore.Components.Appearance.Filled)
+        {
+            throw new ArgumentException("Appearance.Filled is not supported for FluentButton");
+        }
+        if (Appearance == AspNetCore.Components.Appearance.Hypertext)
+        {
+            throw new ArgumentException("Appearance.Hypertext is not supported for FluentButton");
+        }
     }
 
     private string? CustomId =>
