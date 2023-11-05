@@ -10,4 +10,5 @@ await esbuild.build({
     target: 'es2022',
     format: 'esm',
     outfile: pkg.main,
+    legalComments: 'external',
 });
