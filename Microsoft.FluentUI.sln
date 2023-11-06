@@ -4,6 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{805140F8-CC9F-4C32-BB72-3D67D13BEBA7}"
+	ProjectSection(SolutionItems) = preProject
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+		SECURITY.md = SECURITY.md
+		unit-tests.md = unit-tests.md
+		WHATSNEW.md = WHATSNEW.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{558E0FEA-094D-4AA4-994A-8ED67ABEDED4}"
 EndProject
@@ -43,13 +52,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Generators", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B89F06FD-2497-4041-B9EE-EDD889A2C14C}"
 	ProjectSection(SolutionItems) = preProject
-		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		CONTRIBUTING.md = CONTRIBUTING.md
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
 		LICENSE = LICENSE
-		README.md = README.md
-		SECURITY.md = SECURITY.md
-		WHATSNEW.md = WHATSNEW.md
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Global
