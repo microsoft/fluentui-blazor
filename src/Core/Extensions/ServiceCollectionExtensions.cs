@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
@@ -18,20 +19,10 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDialogService, DialogService>();
         services.AddScoped<IMessageService, MessageService>();
 
-        if (configuration is null)
+        LibraryConfiguration options = configuration ?? new();
+        if (options.UseTooltipServiceProvider)
         {
-            LibraryConfiguration options = new();
-            if (options.UseTooltipServiceProvider)
-            {
-                services.AddScoped<ITooltipService, TooltipService>();
-            }
-        }
-        else
-        {
-            if (configuration.UseTooltipServiceProvider)
-            {
-                services.AddScoped<ITooltipService, TooltipService>();
-            }
+            services.AddScoped<ITooltipService, TooltipService>();
         }
 
         services.AddDesignTokens();
