@@ -19,6 +19,9 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
     private ElementReference _container;
 
     [Inject]
+    private GlobalState GlobalState { get; set; } = default!;
+
+    [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
@@ -79,6 +82,7 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
             StandardLuminance newLuminance = await GetBaseLayerLuminanceForSetting(_currentTheme);
 
             await BaseLayerLuminance.WithDefault(newLuminance.GetLuminanceValue());
+            GlobalState.SetLuminance(newLuminance);
             await _jsModule.InvokeVoidAsync("switchHighlightStyle", newLuminance == StandardLuminance.DarkMode);
             await _jsModule.InvokeVoidAsync("setThemeCookie", _currentTheme);
         }

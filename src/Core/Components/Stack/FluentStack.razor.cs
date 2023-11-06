@@ -38,7 +38,7 @@ public partial class FluentStack : FluentComponentBase
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Top;
 
     /// <summary>
-    /// Gets or set the orientation of the stacked components. 
+    /// Gets or sets the orientation of the stacked components. 
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;

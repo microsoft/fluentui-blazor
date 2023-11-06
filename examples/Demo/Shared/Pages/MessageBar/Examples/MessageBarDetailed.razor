@@ -1,7 +1,7 @@
 ﻿@inject IMessageService MessageService
 
 <FluentButton OnClick="@DisplayMessage" Appearance="Appearance.Accent">Display</FluentButton>
-<FluentButton Appearance="Appearance.Hypertext" OnClick="@((e) => MessageService.Clear())">Clear all messages</FluentButton>
+<FluentButton Appearance="Appearance.Neutral" OnClick="@((e) => MessageService.Clear())">Clear all messages</FluentButton>
 
 @code
 {

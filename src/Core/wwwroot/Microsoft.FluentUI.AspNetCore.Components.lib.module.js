@@ -3,68 +3,40 @@
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
-export function beforeWebStart() {
+export function beforeWebStart(options, extensions) {
     if (!beforeStartCalled) {
-        beforeStart();
+        beforeStart(options, extensions);
     }
-    // Ensure that initializers can be async by "yielding" execution
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            appendElement('modern-before-web-start', 'Modern "beforeWebStart"');
-            resolve();
-        }, 0);
-    });
 }
 
-export function afterWebStarted() {
+export function afterWebStarted(blazor) {
     if (!afterStartedCalled) {
         afterStarted(blazor);
     }
-    appendElement('modern-after-web-started', 'Modern "afterWebStarted"');
 }
 
-export function beforeWebAssemblyStart() {
+export function beforeWebAssemblyStart(options, extensions) {
     if (!beforeStartCalled) {
-        beforeStart();
+        beforeStart(options, extensions);
     }
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            appendElement('modern-before-web-assembly-start', 'Modern "beforeWebAssemblyStart"');
-            resolve();
-        }, 0);
-    });
 }
 
-export function afterWebAssemblyStarted() {
+export function afterWebAssemblyStarted(blazor) {
     if (!afterStartedCalled) {
-        afterStarted();
+        afterStarted(blazor);
     }
-    appendElement('modern-after-web-assembly-started', 'Modern "afterWebAssemblyStarted"')
 }
 
-export function beforeServerStart(options) {
+export function beforeServerStart(options, extensions) {
     if (!beforeStartCalled) {
-        beforeStart(options);
+        beforeStart(options, extensions);
     }
-    // Ensure that initializers can be async by "yielding" execution
-    return new Promise((resolve, reject) => {
-        options.circuitHandlers.push({
-            onCircuitOpened: () => {
-                debugger;
-                appendElement('modern-circuit-opened', 'Modern "circuitOpened"');
-            },
-            onCircuitClosed: () => appendElement('modern-circuit-closed', 'Modern "circuitClosed"')
-        });
-        appendElement('modern-before-server-start', 'Modern "beforeServerStart"');
-        resolve();
-    });
 }
 
-export function afterServerStarted() {
+export function afterServerStarted(blazor) {
     if (!afterStartedCalled) {
-        afterStarted();
+        afterStarted(blazor);
     }
-    appendElement('modern-after-server-started', 'Modern "afterServerStarted"');
 }
 
 export function afterStarted(blazor) {
@@ -239,15 +211,4 @@ export function beforeStart(options, extensions) {
     document.head.appendChild(libraryStyle);
 
     beforeStartCalled = true;
-}
-
-function appendElement(id, text) {
-    var content = document.getElementById('initializers-content');
-    if (!content) {
-        return;
-    }
-    var element = document.createElement('p');
-    element.id = id;
-    element.innerText = text;
-    content.appendChild(element);
 }

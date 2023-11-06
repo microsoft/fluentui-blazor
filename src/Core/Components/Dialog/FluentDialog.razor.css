@@ -1,14 +1,12 @@
 ﻿fluent-dialog::part(control) {
     --dialog-padding: calc(var(--design-unit) * 6 * 1px);
     position: relative;
-    padding: 0px var(--dialog-padding);
+    padding: var(--dialog-padding);
     width: calc(var(--dialog-width) - 2 * var(--dialog-padding));
     height: calc(var(--dialog-height) - 2 * var(--dialog-padding));
-    max-width: 80%;
 }
 
 fluent-dialog:has(div[class~="fluent-dialog-body"]):not(:is(fluent-dialog[class~="right"], fluent-dialog[class~="left"]) )::part(control) {
-    height: auto;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
@@ -45,16 +43,13 @@ fluent-dialog[class~="left"]::part(control) {
 
 fluent-dialog ::deep .fluent-dialog-header {
     grid-area: dialog-header;
-    padding: var(--dialog-padding) 0px;
-    width: 100%;
+    padding: 0 0 var(--dialog-padding) 0;
 }
 
 fluent-dialog ::deep .fluent-dialog-footer {
     grid-area: dialog-footer;
     margin-top: auto;
-    padding: var(--dialog-padding) 0px;
-    bottom: 0px;
-    width: calc(100% - var(--dialog-padding) * 1px);
+    padding: var(--dialog-padding) 0 0 0;
 }
 
 fluent-dialog:has(div[class~="fluent-dialog-body"]) ::deep .fluent-dialog-footer {
@@ -69,8 +64,4 @@ fluent-dialog ::deep .fluent-dialog-body {
     width: 100%;
     height: auto;
     min-height: 80px;
-}
-
-fluent-dialog:has(:not(div[class~="fluent-dialog-header"])) {
-    padding: var(--dialog-padding) 0px 0px 0px;
 }

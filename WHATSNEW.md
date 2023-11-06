@@ -1,10 +1,17 @@
-﻿## V4.0.0-preview.3
+﻿## V4.0.0-rc.1
+- This version is for .NET 8 **only**. (use `Microsoft.Fast.Components.FluentUI` when using .NET 6 or 7)
+- Update all input component to use `ReadOnly` instead of a mix of possible spellings
+- Update demo site styling (nav menu and body now scroll independently)
+- Support DisabledDateFunc in FluentDatePicker 
+- Removed the FluentCodeEditor component because it lacked features and has no Fluent design aspects. You can use the [BlazorMonaco](https://github.com/serdarciplak/BlazorMonaco) component as a replacement
+- Fix [#911](https://github.com/microsoft/fluentui-blazor/issues/911): Column resizing in DataGrid breaks when column to narrow
 - Fix [#891](https://github.com/microsoft/fluentui-blazor/issues/891): JSDisconnectedException in FluentOverflow
 - Fix [#861](https://github.com/microsoft/fluentui-blazor/issues/861): Needed extra `empty-content-cell` class 
 - FluentCard: Add Width and Height + docs/examples
 - FluentToast: Timeout is now in milliseconds
 - FluentToastContainer renamed to FluentToastProvider
 - FluentMessageBarContainer renamed to FluentMessageBarProvider
+
 
 ## V4.0.0-preview.2
 - Functionally equivalent to v3.2.2

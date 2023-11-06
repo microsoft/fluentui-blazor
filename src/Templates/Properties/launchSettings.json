@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Microsoft.Fast.Templates.FluentUI": {
+    "Microsoft.FluentUI.AspNetCore.Templates": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

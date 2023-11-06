@@ -10,19 +10,21 @@
 [![Discord](https://img.shields.io/badge/chat%20on-discord-7289da.svg)](https://discord.gg/FcSNfg4)
 
 :star:  We appreciate your star, it helps!
+
+**This package is for use in .NET 8 Blazor projects. If you are using .NET 6 or 7, please use the v3 version f the package which is named `Microsoft.Fast.Components.FluentUI`**
+
+
 ## V4.0 progress
+- v4.0.0-rc.1 is out! Please test and report issues you find.
 - v4.0.0-preview.2 is functionally equal to v3.2.2
 
 ## Introduction
 
-The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which you can use to build applications that have 
-the look and feel or modern Microsoft applications. Some of the components are wrappers around Microsoft's official FluentUI Web Components. Others are components 
-that leverage the Fluent UI design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
+The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which are used to build applications that have a Fluent design (i.e. have the look and feel or modern Microsoft applications).
 
-The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net) and at [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/). 
+Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
-The source for `@fluentui/web-components` is hosted in the [fluentui](https://github.com/microsoft/fluentui/tree/master/packages/web-components) mono-repository. Documentation for those components is available on [docs.microsoft.com](https://docs.microsoft.com/en-us/fluent-ui/web-components/).
-The FluentUI Web Components are built on [FAST](https://www.fast.design/) and work in every major browser. 
+The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net). 
 
 ## Upgrading from an earlier version 
 
@@ -37,13 +39,22 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
 
 ### Script
-The heart of this library is formed by the Fluent UI Web Components and the accompanying `web-components.min.js` file. From version 2.3 onwards, the 
-script is included in the library itself and no longer needs to be added to your `index.html` or `_Layout.cshtml`. In fact, doing this might lead to 
-unpredictable results. 
+The heart of this library is formed by the Fluent UI Web Components and implemented in a script file. This file 
+is included in the library itself and does not have to be downloaded or pulled from a CDN.
 
-> **If you are upgrading from an earlier version please remove the script from your `index.html` or `_Layout.cshtml` file.**
+It is dependant on what type of project you are creating, if the script needs to be added to your
+`index.html` or `App.razor` file. When using SSR, you will need to include the web components script. As there is no Blazor script being loaded/used, our script will also not get loaded.
 
-The script is added to the application automatically. This way we can safeguard that you are always using the best matching script version.
+Include the following in your App.razor:
+```
+<script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
+```
+If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
+
+If you use the templates to create your project, inserting the script will be taken care of based on the choices you make when creating an app from the template.
+
+By including the script in the library we can safeguard that you are always using the best matching script version.
+
 
 
 ### Styles
@@ -85,7 +96,7 @@ Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEm
 
 ## Getting started by using project templates
 To make it easier to start a project that uses the Fluent UI Blazor components out of the box, we have created the
-[Microsoft.Fast.Templates.FluentUI](https://www.nuget.org/packages/Microsoft.Fast.Templates.FluentUI/) template package.
+[Microsoft.FluentUI.AspNetCore.Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates) template package.
 
 The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor 
 templates. The library is already set up (and all the Bootstrap styling removed). All components from the regular template have been 
@@ -122,7 +133,7 @@ that uses one of the components.
 
 ## Configuring the Design System
 The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
-maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The three different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
+maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
 You can use this library in Blazor Hybrid (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take some extra steps (for now):

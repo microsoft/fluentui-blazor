@@ -19,7 +19,7 @@ steps:
   # Compute AssemblyVersion and PackageVersion
   # -> Update Versioning.yml
   - powershell: |
-  
+
       # Example with FileVersion: "1.2.4" and PackageSuffix: "RC.1"
       # Build.BuildNumber = 1.2.4.23296.1
       #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
@@ -27,20 +27,35 @@ steps:
       # Defaut values
       $branch = "PR"
       $package = ""
+      $demo = "${{ parameters.IsDemo }}".toLower()
 
       # To Sign and To Test
       $sign = "false"
       $toTest = "true"
 
-      # BranchName = dev, main or PR
+      # BranchName = dev, main, archive or PR
       if ("$(Build.SourceBranch)" -eq "refs/heads/main")
       {
           $branch = "main"
       }
-      if ("$(Build.SourceBranch)" -eq "refs/heads/dev")
+      elseif ("$(Build.SourceBranch)" -eq "refs/heads/dev")
       {
           $branch = "dev"
       }
+      elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
+      {
+          $branch = "archive"
+      }
+      else
+      {
+          $branch = "PR"
+      }
+
+      # Debug Only - To remove
+      # if ("$(PublicVersion)" -ne "")
+      # {
+      #     $branch = "$(PublicVersion)"
+      # }
 
       # [1, 2, 4, 23296, 1]
       $builds = "$(Build.BuildNumber)".Split('.')
@@ -48,9 +63,9 @@ steps:
       # 1.2.4.23296
       $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
 
-      # Main without PackageSuffix: 1.2.4
-      # Main with    PackageSuffix: 1.2.4-rc.1
-      if ("$branch" -eq "main")
+      # Main or Archive without PackageSuffix: 1.2.4
+      # Main or Archive with    PackageSuffix: 1.2.4-rc.1
+      if ("$branch" -eq "main" -or "$branch" -eq "archive")
       {
           # Main without PackageSuffix
           if ("$(PackageSuffix)" -eq "")
@@ -69,14 +84,14 @@ steps:
       }
 
       # Dev: 1.2.4-preview-23296-1
-      if ("$branch" -eq "dev")
+      elseif ("$branch" -eq "dev")
       {
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
           $sign = "true"
           $toTest = "true"
       }
 
-      # Other branches: 1.2.4-Preview-23296-1
+      # Other branches: 1.2.4-preview-23296-1
       else
       {
           $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
@@ -89,7 +104,7 @@ steps:
           $toTest = "false"
       }
 
-      if ("${{ parameters.IsDemo }}" -eq "true")
+      if ("$demo" -eq "true")
       {
           $sign = "false"
       }
@@ -100,7 +115,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
       Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
       Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
-      Write-Host "##vso[task.setvariable variable=ShouldPublish]${{ parameters.IsDemo }}"
+      Write-Host "##vso[task.setvariable variable=ShouldPublish]${demo}"
     displayName: Compute AssemblyVersion and PackageVersion
 
   # Display computed variables
@@ -127,14 +142,14 @@ steps:
   - task: UseDotNet@2
     displayName: Install .NET 6.0
     inputs:
-      version: 6.0.416
+      version: 6.0.x
       includePreviewVersions: true
   
   # Install .NET 7.0
   - task: UseDotNet@2
     displayName: 'Install .NET 7.0'
     inputs:
-      version: 7.0.403
+      version: 7.0.x
       includePreviewVersions: true
   
   # Install .NET 8.0

@@ -83,8 +83,10 @@ function setInitialBaseLayerLuminance() {
 
     if (theme === themeSettingDark) {
         baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        switchHighlightStyle(true);
     } else /* Light */ {
         baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        switchHighlightStyle(false);
     }
 }
 
