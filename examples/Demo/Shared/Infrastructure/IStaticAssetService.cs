@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Fast.Components.FluentUI.Infrastructure;
+﻿namespace FluentUI.Demo.Shared;
 
 public interface IStaticAssetService
 {

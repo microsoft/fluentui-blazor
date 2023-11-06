@@ -10,10 +10,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-builder.Services.AddFluentUIComponents(options =>
-{
-    options.HostingModel = BlazorHostingModel.WebAssembly;
-});
+builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIDemoServices();
 
 builder.Services.AddScoped<DataSource>();
 

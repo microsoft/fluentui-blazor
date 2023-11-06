@@ -23,12 +23,11 @@ fluent-dialog[class~="left"]::part(control) {
     border-radius: unset;
     border-width: 0;
     --dialog-height: 100dvh;
-    height: 100dvh;
 }
 
 :is(fluent-dialog[class~="right"], fluent-dialog[class~="left"]) ::deep .fluent-dialog-body {
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 fluent-dialog[class~="right"]::part(control) {

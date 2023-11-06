@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
 
-namespace Microsoft.Fast.Components.FluentUI;
+namespace FluentUI.Demo.Shared;
 
 public class HttpBasedStaticAssetService : IStaticAssetService
 {
