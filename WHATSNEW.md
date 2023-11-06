@@ -1,4 +1,18 @@
-﻿## V4.0.0-rc.1
+﻿## V4.0.0-rc.2
+- Fix initial Highlight style after refresh was not right
+- Fix [#918](https://github.com/microsoft/fluentui-blazor/issues/918): .NET 8 initializers + cleanup
+- Fix [#923](https://github.com/microsoft/fluentui-blazor/issues/923): WebAssembly template errors
+- Fix [#924](https://github.com/microsoft/fluentui-blazor/issues/924): Call SetLuminance after theme change
+- Fix [#925](https://github.com/microsoft/fluentui-blazor/issues/925): Fic W3C links in demo site
+- Fix [#926](https://github.com/microsoft/fluentui-blazor/issues/926): Work on Dialog height
+- Remove Card from Home page in the WebAssembly template
+- Change template interactivity default to None (ie SSR mode)
+- Adjust FluentNavMenu to work with interactivity change
+- Add favicon to demo sites and templates
+- Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
+- Fix WhatsNew archive
+
+## V4.0.0-rc.1
 - This version is for .NET 8 **only**. (use `Microsoft.Fast.Components.FluentUI` when using .NET 6 or 7)
 - Update all input component to use `ReadOnly` instead of a mix of possible spellings
 - Update demo site styling (nav menu and body now scroll independently)
@@ -47,4 +61,4 @@
 - Change root namespace to `Microsoft.FluentUI.AspNetCore.Components`
 
 ## Archives
-See the [What's New](https://www.fluentui-blazor.net/WhatsNew) page on the documentation online to browse the archive
+See the [What's New](/WhatsNew-Archive) page on the documentation online to browse the archive
