@@ -325,7 +325,7 @@
     "InteractivityPlatform": {
       "type": "parameter",
       "datatype": "choice",
-      "defaultValue": "Server",
+      "defaultValue": "None",
       "displayName": "_Interactive render mode",
       "description": "Chooses which interactive render mode to use for interactive components",
       "choices": [
