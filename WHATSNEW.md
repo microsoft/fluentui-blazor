@@ -1,5 +1,6 @@
 ﻿## V4.0.0-rc.3
 - Undo change template interactivity default to None. Default is now Server (same as regular Blazor template)
+- FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
 
 ## V4.0.0-rc.2
 - Fix initial Highlight style after refresh was not right

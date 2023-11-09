@@ -62,4 +62,8 @@
     
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="_ToDo\Splitter\" />
+  </ItemGroup>
+
 </Project>
