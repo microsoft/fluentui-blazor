@@ -2,8 +2,10 @@ using Bunit;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Splitter;
-public class FluentSplitterTests : TestBase
+public partial class FluentSplitterTests : TestContext
 {
+    private TestContext TestContext => new(); // TODO: To remove and to use the `RenderComponent` inherited method.
+
     [Fact]
     public void FluentSplitter_Default()
     {
@@ -23,7 +25,7 @@ public class FluentSplitterTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 
