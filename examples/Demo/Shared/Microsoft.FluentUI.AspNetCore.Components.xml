@@ -5604,6 +5604,9 @@
             Gets or sets the width of the spacer (in pixels)
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.InlineStyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.ClassValue">
             <summary />
         </member>
@@ -10880,6 +10883,16 @@
             An <see cref="T:System.EventArgs"/> class that is used as arguments
             whenever a user attempts to execute the default action on a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenuItemBase"/>.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplitterResizedEventArgs.Panel1Size">
+            <summary>
+            Gets the size of panel 1 (top/left) after a resize operation
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplitterResizedEventArgs.Panel2Size">
+            <summary>
+            Gets the size of the panel 2 (bottom/right) after a resize operation
+            </summary>  
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary> Determines whether two sets of attributes are equal when rendered. </summary>

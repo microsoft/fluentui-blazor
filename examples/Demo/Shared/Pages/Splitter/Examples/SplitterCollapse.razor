@@ -1,12 +1,8 @@
-﻿<FluentSelect Items=@(Enum.GetValues<Orientation>())
-              OptionValue="@(c => c.ToAttributeValue())"
-              TOption="Orientation"
-              Position="SelectPosition.Below"
-              @bind-SelectedOption="@orientation" />
+﻿<FluentSwitch CheckedMessage="Collapsed" UncheckedMessage="Split" @bind-Value="_collapse" />
 <br />
 <br />
 
-<FluentSplitter Orientation="@orientation" OnResized=OnResizedHandler>
+<FluentSplitter Collapsed="_collapse" OnCollapsed="OnCollapsedChanged" OnExpanded="OnExpandedChanged">
     <Panel1>
         <div class="demopanel">
             <p>
@@ -36,10 +32,15 @@
 
 @code
 {
-    Orientation orientation = Orientation.Horizontal;
+    private bool _collapse = false;
 
-    private void OnResizedHandler(SplitterResizedEventArgs args)
+    private void OnCollapsedChanged(bool status)
     {
-       DemoLogger.WriteLine($"Size changed: {args.Panel1Size}, {args.Panel2Size}");
+        DemoLogger.WriteLine($"Collapsed Changed: {status}");
+    }
+
+    private void OnExpandedChanged(bool status)
+    {
+        DemoLogger.WriteLine($"Expanded Changed: {status}");
     }
 }

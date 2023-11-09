@@ -1,25 +1,15 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-@if (!string.IsNullOrEmpty(Panel1Size) || !string.IsNullOrEmpty(Panel2Size))
-{
-    
-<style>
-    #@Id {
-        @if (!string.IsNullOrEmpty(Panel1Size))
-        {
-            @:--first-size: @Panel1Size;
-        }
-        @if (!string.IsNullOrEmpty(Panel2Size))
-        {
-            @:--second-size: @Panel2Size;
-        }
-    }
-</style>
-    
-}
-
-<split-panels @attributes="AdditionalAttributes" id="@Id" class="@ClassValue" style="@StyleValue" direction="@_direction">
+@InlineStyleValue
+<split-panels @attributes="AdditionalAttributes" 
+              id="@Id" 
+              class="@ClassValue" 
+              style="@StyleValue" 
+              direction="@_direction" 
+              collapsed="@Collapsed" 
+              @onsplittercollapsed="OnCollapsedHandler"
+              @onsplitterresized="OnResizedHandler">
     <div slot="1">
         @Panel1
     </div>
