@@ -193,6 +193,13 @@ export function afterStarted(blazor) {
             return event;
         }
     });
+    blazor.registerCustomEventType('collapsedchanged', {
+        createEventArgs: event => {
+            return {
+                newValue: event.detail.newValue
+            }
+        }
+    });
 
     afterStartedCalled = true;
 }

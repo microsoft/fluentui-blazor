@@ -1,12 +1,56 @@
-﻿function fireEvent(element, eventName) {
-    const event = new Event(eventName, { bubbles: true, cancelable: true })
+﻿function fireEvent(element, eventName, detail) {
+    const event = new CustomEvent(eventName, { detail, bubbles: true, cancelable: true })
     return element.dispatchEvent(event);
 }
 
+const styleSheet = new CSSStyleSheet();
+styleSheet.replaceSync(`
+    :host{ display: grid; }
+    :host([resizing]){ user-select: none; }
+    :host([resizing][direction=row]){ cursor: col-resize; }
+    :host([direction=row]) { grid-template-columns: var(--first-size, 1fr) max-content var(--second-size, 1fr); }
+    :host([direction=row]) #median { inline-size: 0.5rem; grid-column: 2 / 3; }
+    :host([direction=row]) #median:hover { cursor: col-resize; }
+    :host([direction=row]) #median span[part="handle"] { height: 16px; margin: 2px 0;}
+    :host([direction=row]) #slot1 { grid-column: 1 / 2; grid-row: 1 / 1; }
+    :host([direction=row]) #slot2 { grid-column: 3 / 4; grid-row: 1 / 1; }
+
+    :host([resizing][direction=col]){ cursor: row-resize; }
+    :host([direction=column]) { grid-template-rows: var(--first-size, 1fr) max-content var(--second-size, 1fr); }
+    :host([direction=column]) #median { block-size: 0.5rem; grid-row: 2 / 3; }
+    :host([direction=column]) #median:hover { cursor: row-resize; }
+    :host([direction=column]) #median span[part="handle"] { width: 16px; margin: 0 2px;}
+    :host([direction=column]) #slot1 { grid-row: 1 / 2; grid-column: 1 / 1; }
+    :host([direction=column]) #slot2 { grid-row: 3 / 4; grid-column: 1 / 1; }
+
+    #median { background: var(--neutral-stroke-rest); display: inline-flex; align-items:center; justify-content: center; }
+    #median:hover { background: var(--neutral-stroke-hover); }
+    #median:active { background: var(--neutral-stroke-active); }
+    #median:focus { background: var(--neutral-stroke-focus); }
+                
+    #median span[part="handle"] {  border: 1px solid var(--neutral-stroke-strong-rest); border-radius: 1px; }
+
+    ::slotted(*) { overflow: auto; }
+
+    :host([collapsed]) { grid-template-columns: 1fr !important; grid-template-rows: none !important; }
+    :host([collapsed]) #median { display: none; }
+    :host([collapsed]) #slot2 { display: none; }
+`);
+
+const template = `
+    <slot id="slot1" name="1"></slot>
+    <div id="median" part="median">
+        <span part="handle"></span>
+    </div>
+    <slot id="slot2" name="2"></slot>
+`;
+
 class SplitPanels extends HTMLElement {
-    static observedAttributes = ["direction"];
+    static observedAttributes = ["direction", "collapsed"];
     #direction = "row";
     #isResizing = false;
+    #collapsed = false;
+
     constructor() {
         super();
         this.bind(this);
@@ -19,42 +63,9 @@ class SplitPanels extends HTMLElement {
         element.resizeDrag = element.resizeDrag.bind(element);
     }
     render() {
-        this.attachShadow({ mode: "open" });
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host{ display: grid; }
-                :host([resizing]){ user-select: none; }
-                :host([resizing][direction=row]){ cursor: col-resize; }
-                :host([direction=row]) { grid-template-columns: var(--first-size, 1fr) max-content var(--second-size, 1fr); }
-                :host([direction=row]) #median { inline-size: 0.5rem; grid-column: 2 / 3; }
-                :host([direction=row]) #median:hover { cursor: col-resize; }
-                :host([direction=row]) #median span[part="handle"] { height: 16px; margin: 2px 0;}
-                :host([direction=row]) #slot1 { grid-column: 1 / 2; grid-row: 1 / 1; }
-                :host([direction=row]) #slot2 { grid-column: 3 / 4; grid-row: 1 / 1; }
-
-                :host([resizing][direction=col]){ cursor: row-resize; }
-                :host([direction=column]) { grid-template-rows: var(--first-size, 1fr) max-content var(--second-size, 1fr); }
-                :host([direction=column]) #median { block-size: 0.5rem; grid-row: 2 / 3; }
-                :host([direction=column]) #median:hover { cursor: row-resize; }
-                :host([direction=column]) #median span[part="handle"] { width: 16px; margin: 0 2px;}
-                :host([direction=column]) #slot1 { grid-row: 1 / 2; grid-column: 1 / 1; }
-                :host([direction=column]) #slot2 { grid-row: 3 / 4; grid-column: 1 / 1; }
-
-                #median { background: var(--neutral-stroke-rest); display: inline-flex; align-items:center; justify-content: center; }
-                #median:hover { background: var(--neutral-stroke-hover); }
-                #median:active { background: var(--neutral-stroke-active); }
-                #median:focus { background: var(--neutral-stroke-focus); }
-                
-                #median span[part="handle"] {  border: 1px solid var(--neutral-stroke-strong-rest); border-radius: 1px; }
-
-                ::slotted(*) { overflow: auto; }
-            </style>
-            <slot id="slot1" name="1"></slot>
-            <div id="median" part="median">
-                <span part="handle"></span>
-            </div>
-            <slot id="slot2" name="2"></slot>
-        `;
+        const shadow = this.attachShadow({ mode: "open" });
+        shadow.adoptedStyleSheets.push(styleSheet);
+        shadow.innerHTML = template;
     }
     connectedCallback() {
         this.render();
@@ -121,6 +132,21 @@ class SplitPanels extends HTMLElement {
     }
     get direction() {
         return this.#direction;
+    }
+    set collapsed(value) {
+        const realValue = value !== null && value !== undefined && value !== false;
+        if (this.#collapsed !== realValue) {
+            this.#collapsed = realValue;
+            if (this.#collapsed) {
+                this.setAttribute("collapsed", "");
+            } else {
+                this.removeAttribute("collapsed");
+            }
+            fireEvent(this, "collapsedchanged", { newValue: this.#collapsed });
+        }
+    }
+    get collapsed() {
+        return this.#collapsed;
     }
 }
 
