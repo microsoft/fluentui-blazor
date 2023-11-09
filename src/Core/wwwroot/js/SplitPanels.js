@@ -108,7 +108,7 @@ class SplitPanels extends HTMLElement {
             const newMedianTop = e.clientY - this.top;
             const median = this.dom.median.getBoundingClientRect().height;
             this.#slot1size = newMedianTop - (median / 2);
-            this.#slot2size = this.clientWidth - this.#slot1size - median;
+            this.#slot2size = this.clientHeight - this.#slot1size - median;
             this.style.gridTemplateRows = `${this.#slot1size}px ${median}px 1fr`;
         }
     }
