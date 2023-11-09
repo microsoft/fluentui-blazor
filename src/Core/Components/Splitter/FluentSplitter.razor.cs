@@ -8,6 +8,12 @@ public partial class FluentSplitter : FluentComponentBase
     protected string _direction = "row";
 
     /// <summary />
+    protected virtual MarkupString InlineStyleValue => new InlineStyleBuilder()
+        .AddStyle($"#{Id}", "--first-size", Panel1Size, !string.IsNullOrEmpty(Panel1Size))
+        .AddStyle($"#{Id}", "--second-size", Panel2Size, !string.IsNullOrEmpty(Panel2Size))
+        .BuildMarkupString();
+
+    /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-splitter")
         .Build();
@@ -58,13 +64,45 @@ public partial class FluentSplitter : FluentComponentBase
     [Parameter]
     public bool Collapsed { get; set; }
 
+    [Parameter]
+    public EventCallback<bool> OnCollapsed { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnExpanded { get; set; }
+
+    [Parameter]
+    public EventCallback<SplitterResizedEventArgs> OnResized { get; set; }
+
     public FluentSplitter()
     {
-        Id = Identifier.NewId();   
+        Id = Identifier.NewId();
     }
 
     protected override void OnParametersSet()
     {
         _direction = (Orientation == Orientation.Horizontal) ? "row" : "column";
+    }
+
+    private void OnCollapsedHandler(SplitterCollapsedEventArgs args)
+    {
+        bool status = args.Collapsed;
+
+        if (OnCollapsed.HasDelegate)
+        {
+            OnCollapsed.InvokeAsync(status);
+        }
+
+        if (OnExpanded.HasDelegate)
+        {
+            OnExpanded.InvokeAsync(!status);
+        }
+    }
+
+    private void OnResizedHandler(SplitterResizedEventArgs args)
+    {
+        if (OnResized.HasDelegate)
+        {
+            OnResized.InvokeAsync(args);
+        }
     }
 }

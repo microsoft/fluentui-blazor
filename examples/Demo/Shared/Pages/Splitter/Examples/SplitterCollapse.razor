@@ -2,7 +2,7 @@
 <br />
 <br />
 
-<FluentSplitter Collapsed="_collapse" @oncollapsedchanged="OnCollapsedChanged">
+<FluentSplitter Collapsed="_collapse" OnCollapsed="OnCollapsedChanged" OnExpanded="OnExpandedChanged">
     <Panel1>
         <div class="demopanel">
             <p>
@@ -34,8 +34,13 @@
 {
     private bool _collapse = false;
 
-    private void OnCollapsedChanged(CollapsedChangedEventArgs eventArgs)
+    private void OnCollapsedChanged(bool status)
     {
-        DemoLogger.WriteLine($"Collapsed Changed: {eventArgs.NewValue}");
+        DemoLogger.WriteLine($"Collapsed Changed: {status}");
+    }
+
+    private void OnExpandedChanged(bool status)
+    {
+        DemoLogger.WriteLine($"Expanded Changed: {status}");
     }
 }
