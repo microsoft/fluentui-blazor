@@ -19,6 +19,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontooltipdismiss", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onsizechanged", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("oncollapsedchanged", typeof(CollapsedChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }
