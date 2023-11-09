@@ -1,0 +1,38 @@
+﻿.icon-explorer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    align-content: start;
+}
+
+    .icon-explorer ::deep .card {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        width: 100px;
+        margin: 10px;
+        border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-layer-rest);
+        border-radius: calc(var(--layer-corner-radius) * 1px);
+        box-shadow: var(--elevation-shadow-card-rest);
+    }
+
+    .icon-explorer ::deep .copy {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+    }
+
+    .icon-explorer ::deep .icon {
+        flex: 1;
+    }
+
+    .icon-explorer ::deep .label {
+        font-size: 10px;
+        width: 100%;
+        text-align: center;
+        background-color: var(--neutral-stroke-rest);
+    }
+}

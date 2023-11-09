@@ -31,7 +31,6 @@
 	<ItemGroup>
 		<PackageReference Include="Markdig" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
 	</ItemGroup>
