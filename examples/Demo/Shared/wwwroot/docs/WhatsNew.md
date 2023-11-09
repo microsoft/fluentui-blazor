@@ -1,4 +1,8 @@
-﻿## V3.3.0
+﻿## V3.4.0
+- FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
+- Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
+
+## V3.3.0
 - This version no longer supports .NET 8.0 (use `Microsoft.FluentUI.AspNetCore.Components` in that case)
 - Update all input component to use `ReadOnly` instead of a mix of possible spellings
 - Update demo site styling (nav menu and body now scroll independently)

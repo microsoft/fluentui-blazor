@@ -13,8 +13,10 @@
     <div slot="1">
         @Panel1
     </div>
-
-    <div slot="2">
-        @Panel2
-    </div>
+    @if (!Collapsed)
+    {
+        <div slot="2">
+            @Panel2
+        </div>
+    }
 </split-panels>

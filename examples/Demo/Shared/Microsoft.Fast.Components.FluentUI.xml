@@ -5606,6 +5606,9 @@
             Gets or sets the width of the spacer (in pixels)
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.InlineStyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.ClassValue">
             <summary />
         </member>
@@ -5639,6 +5642,12 @@
             Size for the right/bottom panel. Needs to be a valid css size like '50%' or '250px'
             Uses grid-template-rows/columns with max-content to determine end width. 
             See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSplitter.Collapsed">
+            <summary>
+            Gets or sets a value indicating whether the splitter is collapsed.
+            If set to true, Panel1 will take up all the space and Panel2 as well as the splitter bar will be hidden.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentStack.HorizontalAlignment">
@@ -10882,6 +10891,16 @@
             An <see cref="T:System.EventArgs"/> class that is used as arguments
             whenever a user attempts to execute the default action on a <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavMenuItemBase"/>.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplitterResizedEventArgs.Panel1Size">
+            <summary>
+            Gets the size of panel 1 (top/left) after a resize operation
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplitterResizedEventArgs.Panel2Size">
+            <summary>
+            Gets the size of the panel 2 (bottom/right) after a resize operation
+            </summary>  
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary> Determines whether two sets of attributes are equal when rendered. </summary>

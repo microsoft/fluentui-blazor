@@ -163,8 +163,6 @@ export function afterStarted(blazor) {
             }
         }
     });
-
-    afterStartedCalled = true;
 }
 
 export function beforeStart(options, extensions) {
