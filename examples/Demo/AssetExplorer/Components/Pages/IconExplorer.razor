@@ -3,13 +3,13 @@
 <FluentGrid Style="width: 100%;" Spacing="1">
     <FluentGridItem Style="min-width: 200px;">
         <FluentSearch @bind-Value="@Criteria.SearchTerm"
-                      @bind-Value:after="@HandleSearchAsync"
+                      @bind-Value:after="@StartNewSearchAsync"
                       Placeholder="Part of icon name..." />
     </FluentGridItem>
     <FluentGridItem Gap="0">
         <FluentSelect TOption="IconSize"
                       @bind-SelectedOption="@Criteria.Size"
-                      @bind-SelectedOption:after="@HandleSearchAsync"
+                      @bind-SelectedOption:after="@StartNewSearchAsync"
                       Style="min-width: 100px;"
                       Items="@(Enum.GetValues<IconSize>())"
                       OptionText="@(i => Convert.ToString(i))" />
@@ -17,21 +17,21 @@
     <FluentGridItem>
         <FluentSelect TOption="IconVariant"
                       @bind-SelectedOption="@Criteria.Variant"
-                      @bind-SelectedOption:after="@HandleSearchAsync"
+                      @bind-SelectedOption:after="@StartNewSearchAsync"
                       Style="min-width: 100px;"
                       Items="@(Enum.GetValues<IconVariant>())" />
     </FluentGridItem>
     <FluentGridItem>
         <FluentSelect TOption="Color"
-                      @bind-SelectedOption="@IconColor"
-                      @bind-SelectedOption:after="@HandleSearchAsync"
+                      @bind-SelectedOption="@Criteria.Color"
+                      @bind-SelectedOption:after="@StartNewSearchAsync"
                       Style="min-width: 100px;"
                       Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
                       OptionValue="@(i => i.ToAttributeValue())" />
     </FluentGridItem>
     <FluentGridItem>
         <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
-                      OnClick="@HandleSearchAsync" />
+                      OnClick="@StartNewSearchAsync" />
     </FluentGridItem>
 </FluentGrid>
 
@@ -43,32 +43,41 @@
 else
 {
     <div class="icon-explorer">
-        @if (IconsCount <= 0)
+        @if (IconsFound.Any())
         {
-            <strong>No icons found</strong>
-        }
-        else
-        {
-            @foreach (var item in IconsForCurrentPage)
-            {
-                <div class="card">
-                    <FluentIcon Class="copy" Value="@(new Icons.Regular.Size16.Clipboard())" Color="@Color.Accent" />
-                    <FluentIcon Class="icon" Value="Icons.GetInstance(item)" Color="@IconColor" Title="@item.Name" />
-                    <FluentLabel Class="label">@item.Name</FluentLabel>
-                </div>
-            }
-        }
-    </div>
-    <div>
-        <div style="width: 100%;">
-            <FluentPaginator State="@PaginationState" CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
-        </div>
-
-        <div style="width: 100%">
-            <FluentLabel>
+            <FluentLabel Class="header">
                 Click on upper right clipboard icon in a card to copy a ready to paste <code>FluentIcon</code>
                 component declaration to the clipboard.
             </FluentLabel>
-        </div>
+
+            @foreach (var item in IconsForCurrentPage)
+            {
+                <div class="card">
+                    <FluentIcon Class="copy"
+                                Value="@(new Icons.Regular.Size16.Clipboard())"
+                                Color="@Color.Neutral"
+                                OnClick="@(() => CopyToClipboardAsync(item))"
+                                Title="Copy to clipboard" />
+                    <FluentIcon Class="icon"
+                                Value="Icons.GetInstance(item)"
+                                Color="@Criteria.Color"
+                                Title="@item.Name" />
+                    <FluentLabel Class="label">
+                        @item.Name
+                    </FluentLabel>
+                </div>
+            }
+
+            <FluentLabel Class="footer">
+                <FluentPaginator State="@PaginationState"
+                                 CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
+            </FluentLabel>
+        }
+        else
+        {
+            <FluentLabel Class="not-found">
+                No icons found
+            </FluentLabel>
+        }
     </div>
 }

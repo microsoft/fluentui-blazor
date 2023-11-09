@@ -30,9 +30,31 @@
     }
 
     .icon-explorer ::deep .label {
-        font-size: 10px;
+        font-size: 11px;
         width: 100%;
         text-align: center;
         background-color: var(--neutral-stroke-rest);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
     }
-}
+
+    .icon-explorer ::deep .header {
+        margin: 16px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .icon-explorer ::deep .footer {
+        margin: 16px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .icon-explorer ::deep .not-found {
+        margin: 32px;
+        flex-wrap: wrap;
+        width: 100%;
+        font-weight: bold;
+        text-align: center;
+    }
