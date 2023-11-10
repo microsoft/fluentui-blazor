@@ -1,9 +1,15 @@
 ﻿.icon-explorer {
     display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    align-content: start;
+    flex-direction: column;
 }
+
+    .icon-explorer ::deep .result-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        align-content: start;
+    }
 
     .icon-explorer ::deep .card {
         display: flex;
@@ -46,7 +52,7 @@
     }
 
     .icon-explorer ::deep .footer {
-        margin: 16px;
+        margin-top: 16px;
         flex-wrap: wrap;
         width: 100%;
     }

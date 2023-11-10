@@ -1,48 +1,49 @@
 ﻿@page "/icon-explorer"
 
-<FluentGrid Style="width: 100%;" Spacing="1">
-    <FluentGridItem Style="min-width: 200px;">
-        <FluentSearch @bind-Value="@Criteria.SearchTerm"
-                      @bind-Value:after="@StartNewSearchAsync"
-                      Placeholder="Part of icon name..." />
-    </FluentGridItem>
-    <FluentGridItem Gap="0">
-        <FluentSelect TOption="IconSize"
-                      @bind-SelectedOption="@Criteria.Size"
-                      @bind-SelectedOption:after="@StartNewSearchAsync"
-                      Style="min-width: 100px;"
-                      Items="@(Enum.GetValues<IconSize>())"
-                      OptionText="@(i => Convert.ToString(i))" />
-    </FluentGridItem>
-    <FluentGridItem>
-        <FluentSelect TOption="IconVariant"
-                      @bind-SelectedOption="@Criteria.Variant"
-                      @bind-SelectedOption:after="@StartNewSearchAsync"
-                      Style="min-width: 100px;"
-                      Items="@(Enum.GetValues<IconVariant>())" />
-    </FluentGridItem>
-    <FluentGridItem>
-        <FluentSelect TOption="Color"
-                      @bind-SelectedOption="@Criteria.Color"
-                      @bind-SelectedOption:after="@StartNewSearchAsync"
-                      Style="min-width: 100px;"
-                      Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
-                      OptionValue="@(i => i.ToAttributeValue())" />
-    </FluentGridItem>
-    <FluentGridItem>
-        <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
-                      OnClick="@StartNewSearchAsync" />
-    </FluentGridItem>
-</FluentGrid>
+<div class="icon-explorer" style="width: @Width; height: @Height;">
 
-@* Results *@
-@if (SearchInProgress)
-{
-    <FluentProgressRing Style="width: unset; margin: 50px;" />
-}
-else
-{
-    <div class="icon-explorer">
+    <FluentGrid Style="width: 100%;" Spacing="1">
+        <FluentGridItem Style="min-width: 200px;">
+            <FluentSearch @bind-Value="@Criteria.SearchTerm"
+                          @bind-Value:after="@StartNewSearchAsync"
+                          Placeholder="Part of icon name..." />
+        </FluentGridItem>
+        <FluentGridItem Gap="0">
+            <FluentSelect TOption="IconSize"
+                          @bind-SelectedOption="@Criteria.Size"
+                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          Style="min-width: 100px;"
+                          Items="@(Enum.GetValues<IconSize>())"
+                          OptionText="@(i => Convert.ToString(i))" />
+        </FluentGridItem>
+        <FluentGridItem>
+            <FluentSelect TOption="IconVariant"
+                          @bind-SelectedOption="@Criteria.Variant"
+                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          Style="min-width: 100px;"
+                          Items="@(Enum.GetValues<IconVariant>())" />
+        </FluentGridItem>
+        <FluentGridItem>
+            <FluentSelect TOption="Color"
+                          @bind-SelectedOption="@Criteria.Color"
+                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          Style="min-width: 100px;"
+                          Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
+                          OptionValue="@(i => i.ToAttributeValue())" />
+        </FluentGridItem>
+        <FluentGridItem>
+            <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
+                          OnClick="@StartNewSearchAsync" />
+        </FluentGridItem>
+    </FluentGrid>
+
+    @* Results *@
+    @if (SearchInProgress)
+    {
+        <FluentProgressRing Style="width: unset; margin: 50px;" />
+    }
+    else
+    {
         @if (IconsFound.Any())
         {
             <FluentLabel Class="header">
@@ -50,23 +51,25 @@ else
                 component declaration to the clipboard.
             </FluentLabel>
 
-            @foreach (var item in IconsForCurrentPage)
-            {
-                <div class="card">
-                    <FluentIcon Class="copy"
-                                Value="@(new Icons.Regular.Size16.Clipboard())"
-                                Color="@Color.Neutral"
-                                OnClick="@(() => CopyToClipboardAsync(item))"
-                                Title="Copy to clipboard" />
-                    <FluentIcon Class="icon"
-                                Value="Icons.GetInstance(item)"
-                                Color="@Criteria.Color"
-                                Title="@item.Name" />
-                    <FluentLabel Class="label">
-                        @item.Name
-                    </FluentLabel>
-                </div>
-            }
+            <div class="result-list">
+                @foreach (var item in IconsForCurrentPage)
+                {
+                    <div class="card">
+                        <FluentIcon Class="copy"
+                                    Value="@(new Icons.Regular.Size16.Clipboard())"
+                                    Color="@Color.Neutral"
+                                    OnClick="@(() => CopyToClipboardAsync(item))"
+                                    Title="Copy to clipboard" />
+                        <FluentIcon Class="icon"
+                                    Value="Icons.GetInstance(item)"
+                                    Color="@Criteria.Color"
+                                    Title="@item.Name" />
+                        <FluentLabel Class="label">
+                            @item.Name
+                        </FluentLabel>
+                    </div>
+                }
+            </div>
 
             <FluentLabel Class="footer">
                 <FluentPaginator State="@PaginationState"
@@ -79,5 +82,5 @@ else
                 No icons found
             </FluentLabel>
         }
-    </div>
-}
+    }
+</div>

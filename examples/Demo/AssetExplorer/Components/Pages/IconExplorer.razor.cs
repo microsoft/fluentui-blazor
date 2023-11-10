@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System.Data;
 using FluentUI.Demo.AssetExplorer.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -8,7 +8,7 @@ namespace FluentUI.Demo.AssetExplorer.Components.Pages;
 
 public partial class IconExplorer
 {
-    private const int ITEMS_PER_PAGE = 24;
+    private const int ITEMS_PER_PAGE = 4 * 12;
     private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.AssetExplorer/Components/Pages/IconExplorer.razor.js";
 
     private bool SearchInProgress = false;
@@ -17,13 +17,19 @@ public partial class IconExplorer
     private IconInfo[] IconsFound = Array.Empty<IconInfo>();    
     private PaginationState PaginationState = new PaginationState { ItemsPerPage = ITEMS_PER_PAGE };
 
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
     private IJSObjectReference? JSModule { get; set; }
 
     [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
     public IToastService ToastService { get; set; } = default!;
+
+    [Parameter]
+    public string Width { get; set; } = "95%";
+
+    [Parameter]
+    public string Height { get; set; } = "100%";
 
     private IEnumerable<IconInfo> IconsForCurrentPage
     {
@@ -36,8 +42,6 @@ public partial class IconExplorer
 
     private async Task StartNewSearchAsync()
     {
-        Console.WriteLine($"HandleSearchAsync {Criteria.Size}");
-
         SearchInProgress = true;
 
         IconsFound = Icons.AllIcons
@@ -45,7 +49,7 @@ public partial class IconExplorer
                                    && i.Size == Criteria.Size
                                    && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
                           .ToArray();
-        
+
         await PaginationState.SetTotalItemCountAsync(IconsFound.Length);
 
         SearchInProgress = false;
