@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion>8.0.0</RuntimeVersion>
-    <AspNetCoreVersion>8.0.0</AspNetCoreVersion>
-    <EfCoreVersion>8.0.0</EfCoreVersion>
+    <RuntimeVersion>8.0.0-rc.2.23479.6</RuntimeVersion>
+    <AspNetCoreVersion>8.0.0-rc.2.23480.2</AspNetCoreVersion>
+    <EfCoreVersion>8.0.0-rc.2.23480.1</EfCoreVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- build dependencies -->
