@@ -103,4 +103,47 @@ public class FluentCardTests : TestBase
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentCard_Width()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.Width, "400px");
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_Height()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.Height, "400px");
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_WidthAndHeight()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.Width, "400px");
+            parameters.Add(p => p.Height, "400px");
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
 }

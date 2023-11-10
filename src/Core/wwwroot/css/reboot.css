@@ -9,7 +9,6 @@
  * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-@import "variables.css";
 
 *, *::before, *::after {
     box-sizing: border-box;

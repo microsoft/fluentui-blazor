@@ -1,4 +1,9 @@
-﻿## V4.0.0-rc.2
+﻿## V4.0.0-rc.3
+- Undo change template interactivity default to None. Default is now Server (same as regular Blazor template)
+- FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
+- `variables.css` is imported in the automatically loaded library's css now
+
+## V4.0.0-rc.
 - Fix initial Highlight style after refresh was not right
 - Fix [#918](https://github.com/microsoft/fluentui-blazor/issues/918): .NET 8 initializers + cleanup
 - Fix [#923](https://github.com/microsoft/fluentui-blazor/issues/923): WebAssembly template errors

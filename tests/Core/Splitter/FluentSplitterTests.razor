@@ -1,0 +1,83 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentSplitter_DefaultHorizontal()
+    {
+        // Arrange && Act
+            var cut = Render(@<FluentSplitter Id="split-test" Orientation="Orientation.Horizontal">
+            <Panel1>render me</Panel1>
+            <Panel2>render me</Panel2>
+            </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_DefaultVertical()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Orientation="Orientation.Vertical">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Size1()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Orientation="Orientation.Horizontal" Panel1Size="25%">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Size2()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Orientation="Orientation.Horizontal" Panel2Size="25%">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_SizeBoth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Orientation="Orientation.Horizontal" Panel1Size="25%" Panel2Size="25%">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Collapsed()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+    
+}
