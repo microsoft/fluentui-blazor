@@ -15,7 +15,7 @@
 
 
 ## V4.0 progress
-- v4.0.0-rc.2 is out! Please test and report issues you find.
+- v4.0.0-rc.3 is out! Please test and report issues you find.
 - v4.0.0-preview.2 is functionally equal to v3.2.2
 
 ## Introduction
