@@ -15,51 +15,58 @@
 
 
 ## V4.0 progress
-- v4.0.0-rc.1 is out! Please test and report issues you find.
+- v4.0.0-rc.2 is out! Please test and report issues you find.
 - v4.0.0-preview.2 is functionally equal to v3.2.2
 
 ## Introduction
 
-The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which are used to build applications that have a Fluent design (i.e. have the look and feel or modern Microsoft applications).
+The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which are used to build 
+applications that have a Fluent design (i.e. have the look and feel or modern Microsoft applications).
 
-Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
+Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the 
+Fluent design system or make it easier to work with Fluent UI. To get up and running with the library, see the 'Getting Started' section below.
 
-The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net). 
+The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation 
+on the components is available at the [demo site](https://www.fluentui-blazor.net). 
 
-## Upgrading from an earlier version 
+## What's new?
 
-If you are upgrading from an earlier version of the library, please see the [what's new](https://www.fluentui-blazor.net/whatsnew) for information on (breaking) changes.
+If you are upgrading from an earlier version of the library, please see the [what's new](https://www.fluentui-blazor.net/whatsnew) page for information
+on (breaking) changes.
 
 ## Getting Started
 
-To get started using the Fluent UI Blazor components for Blazor, you will first need to install the official [Nuget package for Fluent UI Blazor](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you would like to use the library and components. You can use the following command:
+The easiest way to get started is by using our [templates](https://www.fluentui-blazor.net/Templates). TTo start using the Fluent UI Blazor 
+components from scratch, you first need to install the main [Nuget package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) 
+in the project you would like to use the library and components. You can use the NuGet package manager in your IDE for that or use the following 
+command when using a CLI:
 
 ```shell
 dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
 
 ### Script
-The heart of this library is formed by the Fluent UI Web Components and implemented in a script file. This file 
-is included in the library itself and does not have to be downloaded or pulled from a CDN.
+As mentioned, we wrap the Fluent UI Web Components. These components are implemented in a script file which is included in the library itself 
+and does not have to be downloaded or pulled from a CDN.
 
-It is dependant on what type of project you are creating, if the script needs to be added to your
-`index.html` or `App.razor` file. When using SSR, you will need to include the web components script. As there is no Blazor script being loaded/used, our script will also not get loaded.
+It is dependant on what type of project you are creating, if the script needs to be added to your `index.html` or `App.razor` file. When using 
+SSR, you will need to include the web components script. As there is no Blazor script being loaded/used, our script will also not get loaded.
 
-Include the following in your App.razor:
+In this situation, include the following in your App.razor:
+
 ```
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
 ```
-If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
-If you use the templates to create your project, inserting the script will be taken care of based on the choices you make when creating an app from the template.
+If you later add interactivity, the Blazor script will kick in and to load the web component script again but JavaScript will handle 
+that gracefully by design.
 
-By including the script in the library we can safeguard that you are always using the best matching script version.
-
-
+If you use the templates to create your project, inserting the script will be taken care of based on the choices you make when creating the 
+application. By including the script in the library we can safeguard that you are always using the best matching script version.
 
 ### Styles
 In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
-adding the following line to the <head> section of your `index.html` or `_Layout.cshtml` file in the project you installed the package:
+adding the following line to the <head> section of your `index.html`, `_Layout.cshtml` or `App.razor` file in the project you installed the package:
 
 
 ```html
@@ -68,23 +75,27 @@ adding the following line to the <head> section of your `index.html` or `_Layout
 
 It is possible that the line is already in place (but commented out).
 
+> **IMPORTANT:** When you change the root namespace/assembly name of your project, you need to update the {PROJECT_NAME} in your copy of the 
+code above accordingly.
+
 #### Reboot
-Reboot is a collection of element-specific CSS changes in a single file to help kick-start building a site with the Fluent UI Blazor components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
+Reboot is a collection of element-specific CSS changes in a single file to help kickstart building a site with the Fluent UI Blazor components.
+It provides an elegant, consistent, and simple baseline to build upon.
+ 
+If you want to use Reboot, you'll need to add to your `index.html`, `_Layout.cshtml` or `App.razor` file a 
+line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section: 
 
-If you want to use Reboot, you'll need to add to your `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
-
-```html    
+```
 <link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
-```    
-
-It is entirely possible to build a site without using Reboot. If you choose not to use it, please do add the `variables.css` file (which is otherwise imported through the `reboot.css` file) 
-to your `index.html` or `_Layout.cshtml` file in the `<head>` section like this:
-
-```html
-<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/variables.css" rel="stylesheet" />
 ```
 
-The file contains a number of CSS variables that are required to be defined for the components to work correctly. 
+When using the templates to create your application, Reboot is already set-up for you.
+ 
+It is entirely possible to build a site without using Reboot. If you do not want to use Reboot and you used the templates as a starting poin, just 
+remove the following line from the `app.css` file (it is the first line in the file):
+```
+@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+```
 
 ### Code
 Please refer to the [code setup](https://www.fluentui-blazor.net/CodeSetup) document to learn what needs to be included in your `Program.cs` file 
@@ -120,44 +131,41 @@ Here's a small example of a `FluentCard` with a `FluentButton` that uses the Flu
 ```razor
 @using Microsoft.FluentUI.AspNetCore.Components
 
-<FluentCard>
+<FluentCard Width="400px" Height="250px">
   <h2>Hello World!</h2>
   <FluentButton Appearance="@Appearance.Accent">Click Me</FluentButton>
 </FluentCard>
 ```
+
 > **Tip**
 > 
-> You can add `@using Microsoft.FluentUI.AspNetCore.Components` to the namespace collection in `_Imports.razor`, so you don't have to add it to every razor page 
-that uses one of the components.
+> You can add `@using Microsoft.FluentUI.AspNetCore.Components` to the namespace collection in `_Imports.razor`, so you don't have to add it 
+to every razor page that uses one of the components.
 
 
 ## Configuring the Design System
-The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
-maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
+The Fluent UI Blazor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while 
+automatically maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, 
+which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described 
+in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
-You can use this library in Blazor Hybrid (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take some extra steps (for now):
-
-1. You need to make some changes in your `{Type}Program.cs` file.
-Make sure the following is added before the `return builder.Build()` line:  
-```csharp
-builder.Services.AddFluentUIComponents(options =>
-{
-		options.HostingModel = BlazorHostingModel.Hybrid;
-});
-```
+It is possible to use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, 
+however to get everything to work you'll need to take one extra step:
 
 ### Temporary workaround for MAUI/WPF/Windows Forms issues
-Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404). 
-There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
+Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see 
+[#404](https://github.com/microsoft/fluentui-blazor/issues/404). There is also an isue with loading the custom event handlers that are being 
+configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept 
+`_framework/blazor.modules.json` and provide a proper JS initializers file (created by build). The needed `initializersLoader.webview.js` has 
+been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
-```xml
+```html
 <script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
 <script src="_framework/blazor.webview.js"></script>
 ```
 
-The `app-name` attribute needs to match your app's assembly name - initializersLoader uses 'app-name' to resolve name of the file with initializers.
-initializersLoader replaces standard `fetch` function with one which provides the correct file in place of the empty `blazor.modules.json`. `fetch` is restored to its original state once `_framework/blazor.modules.json` request is intercepted.
+The app-name attribute needs to match your app's assembly name - initializersLoader uses 'app-name' to resolve name of the file with initializers. `initializersLoader` replaces the standard fetch function with one which provides the correct file in place of the empty `blazor.modules.json`. fetch is restored to its original state once `_framework/blazor.modules.json` request is intercepted.
 
 For more information regarding the bug, see issue [15234](https://github.com/dotnet/maui/issues/15234) in the MAUI repo.
 	
