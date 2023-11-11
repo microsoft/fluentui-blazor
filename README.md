@@ -30,32 +30,44 @@ If you are upgrading from an earlier version of the library, please see the [wha
 
 ### Using our dotnet templates
 
-To get started quickly, you can use our  [FluentUI.Blazor Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates)  they are pre-configured with FluentUI.Blazor. Open a terminal and install them with this command.
-```shall
+To easiest way to get started is by using our [Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates). These mimic the regular Blazor templates and come with the design and components pre-configured. You install them with this command:
+```shell
 dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
 
-Navigate to a folder where you want your project and run the following command to create a new project.
+Navigate to a folder where you want to create your new project and run the following command to create a new project.
 ```shell
 dotnet new fluentblazor --name MyApplication
 ```
 
-### Manual Install
-To get started using the **Fluent UI Blazor components** for Blazor, you will first need to install the official [Nuget package for Fluent UI Blazor](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you would like to use the library and components.
+If you want to create a new standalone WebAssembly project, you can use the following command:
+```shell
+dotnet new fluentblazorwasm --name MyApplication
+```
 
-You can also add the library of [icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons) or [emojis](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji).
+When using Visual Studio, you can also use the **New Project** dialog to create a new project. The templates will be available under the **Blazor** category.
+
+### Manual Install
+To start using the **Fluent UI Blazor components** from scratch, you first need to install the main [Nuget package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you want to use the library and its components.
+You can use the NuGet package manager in your IDE or use the following command when using a CLI:
 
 ```shell
 dotnet add package Microsoft.FluentUI.AspNetCore.Components
+```
+
+If you want to extend the functionality of the library with [icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons) or [emoji](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji), you can install additional packages for that:
+
+```shell
 dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
 ### Script
-The heart of this library is formed by the **Fluent UI Web Components** and implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
+As mentioned, we wrap the **Fluent UI Web Components** which aree implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
-When using **SSR (Server Side Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
+When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
 
 ```html
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
@@ -63,13 +75,17 @@ When using **SSR (Server Side Rendering)**, you will need to include the web com
 If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
 ### Reboot (optional)
-**Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
+**Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components. It provides an elegant, consistent, and simple baseline to build upon.
 
 If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
 ```html    
 <link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
+
+When using the templates to create your application, **Reboot** is already set-up for you.
+
+
 
 ### Register Services
 Add the following in `Program.cs`
@@ -83,11 +99,6 @@ If you're running your application on **Blazor Server**, make sure a default `Ht
 ```csharp
 builder.Services.AddHttpClient();
 ```
-
-> **Note**
-> An options argument can be added to `AddFluentUIComponents`. The `options.HostingModel` parameter is used to determine the type of project you're building. Choose the appropriate value from the `BlazorHostingModel` enumeration.
-> 
-> See the section **Blazor Hybrid** below.
 
 ### Add Component Providers
 Add the following components at the end of your `MainLayout.razor` file.
@@ -131,16 +142,7 @@ The **Fluent UI Blazor** components are built on FAST's (Adaptive UI) technology
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
-You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take some extra steps (for now):
-
-1. You need to make some changes in your `{Type}Program.cs` file.
-Make sure the following is added before the `return builder.Build()` line:  
-```csharp
-builder.Services.AddFluentUIComponents(options =>
-{
-		options.HostingModel = BlazorHostingModel.Hybrid;
-});
-```
+You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra steps (for now) described below.
 
 ### Temporary workaround for MAUI/WPF/Windows Forms issues
 Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404)). 
