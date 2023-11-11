@@ -50,6 +50,8 @@ class SplitPanels extends HTMLElement {
     #direction = "row";
     #isResizing = false;
     #collapsed = false;
+    #slot1size;
+    #slot2size;
 
     constructor() {
         super();
@@ -90,7 +92,7 @@ class SplitPanels extends HTMLElement {
     }
     pointerup() {
         this.isResizing = false;
-        fireEvent(this, "sizechanged");
+        fireEvent(this, "splitterresized", {panel1size: this.#slot1size, panel2size: this.#slot2size});
         this.removeEventListener("pointermove", this.resizeDrag);
         this.removeEventListener("pointerup", this.pointerup);
     }
@@ -98,12 +100,16 @@ class SplitPanels extends HTMLElement {
         if (this.direction === "row") {
             const newMedianLeft = e.clientX - this.left;
             const median = this.dom.median.getBoundingClientRect().width;
-            this.style.gridTemplateColumns = `calc(${newMedianLeft}px - ${median / 2}px) ${median}px 1fr`;
+            this.#slot1size = newMedianLeft - (median / 2);
+            this.#slot2size = this.clientWidth - this.#slot1size - median;
+            this.style.gridTemplateColumns = `${this.#slot1size}px ${median}px 1fr`;
         }
         if (this.direction === "column") {
             const newMedianTop = e.clientY - this.top;
             const median = this.dom.median.getBoundingClientRect().height;
-            this.style.gridTemplateRows = `calc(${newMedianTop}px - ${median / 2}px) ${median}px 1fr`;
+            this.#slot1size = newMedianTop - (median / 2);
+            this.#slot2size = this.clientHeight - this.#slot1size - median;
+            this.style.gridTemplateRows = `${this.#slot1size}px ${median}px 1fr`;
         }
     }
     attributeChangedCallback(name, oldValue, newValue) {
@@ -142,7 +148,7 @@ class SplitPanels extends HTMLElement {
             } else {
                 this.removeAttribute("collapsed");
             }
-            fireEvent(this, "collapsedchanged", { newValue: this.#collapsed });
+            fireEvent(this, "splittercollapsed", { collapsed: this.#collapsed });
         }
     }
     get collapsed() {

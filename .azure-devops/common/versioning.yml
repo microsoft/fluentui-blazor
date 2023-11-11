@@ -3,4 +3,4 @@ variables:
   # dev  branch: 1.2.4-Preview-23282-1'    (PackageSuffix is always ignored in Dev branch)
   # main branch: 1.2.4-RC.1'               (PackageSuffix is ignored, if empty, in Main branch)
   FileVersion: '4.0.0'
-  PackageSuffix: 'rc.2'
+  PackageSuffix: ''

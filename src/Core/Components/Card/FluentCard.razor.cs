@@ -5,12 +5,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentCard
 {
-    private const string DEFAULT_CARD_WIDTH = "350px";
-    private const string DEFAULT_CARD_HEIGHT = "350px";
-
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("--card-width", Width ?? DEFAULT_CARD_WIDTH)
-        .AddStyle("--card-height", Height ?? DEFAULT_CARD_HEIGHT)
+        .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
+        .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
         .AddStyle("content-visibility", "visible", !AreaRestricted)
         .AddStyle("contain", "style", !AreaRestricted)
         .Build();
