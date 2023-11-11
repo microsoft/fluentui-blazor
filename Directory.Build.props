@@ -14,7 +14,7 @@
 
 		<VersionFile>4.0.0</VersionFile>
 		<VersionPrefix>4.0.0</VersionPrefix>
-		<VersionSuffix>rc.3</VersionSuffix>
+		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
 	</PropertyGroup>

@@ -13,11 +13,6 @@
 
 **This package is for use in .NET 8 Blazor projects. If you are using .NET 6 or 7, please use the v3 version f the package which is named `Microsoft.Fast.Components.FluentUI`**
 
-
-## V4.0 progress
-- v4.0.0-rc.3 is out! Please test and report issues you find.
-- v4.0.0-preview.2 is functionally equal to v3.2.2
-
 ## Introduction
 
 The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which are used to build 
