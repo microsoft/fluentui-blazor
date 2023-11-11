@@ -22,6 +22,12 @@ body {
         grid-column: 1;
     }
 
+    .siteheader .links {
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+    }
+
     .siteheader .notifications {
         padding-right: 10px;
         display: flex;
@@ -42,7 +48,7 @@ body {
     padding: 0 0 0 20px;
 }
 
-.stack-horizontal {
+.body-stack {
     flex-direction: row;
 }
 
@@ -262,7 +268,7 @@ code {
         }
 
 
-    .stack-horizontal {
+    .body-stack {
         flex-direction: column !important;
     }
 

@@ -1,4 +1,17 @@
-﻿## Breaking changes v3.2.0
+﻿## Breaking changes v4.0.0
+The most obvious breaking change of course is namespace change from 
+`Microsoft.Fast.Components.FluentUI` to `Microsoft.FluentUI.AspNetCore.Components`. 
+This means you wil need to change all `usings` in your code, change your `_Imports.razor`, etc.
+
+- AfterBindValue has been replaced with the native @bind-Value:after
+- FluentToast: Timeout is now in milliseconds
+- FluentToastContainer renamed to FluentToastProvider
+- FluentMessageBarContainer renamed to FluentMessageBarProvider
+- Removed the FluentCodeEditor component
+
+The rest of the changes are minimal. Check the [WhatsNew](/WhatsNew) page for more information.
+
+## Breaking changes v3.2.0
 
 ### The pre-v3.2 `FluentNavMenu` has been renamed to `FluentNavMenuTree` 
 A new `FluentNavMenu` component has been added. 
@@ -33,7 +46,7 @@ Another breaking change is found in the `Align` enumeration. Where we previously
  
 `FluentBadge` now uses a `Color` \ `BackgroundColor` combination to determine the fill values.
  
-`FluentCalendar` no longer wraps the `fluent-calendar` web component. It's functionality was too limited. Not all parameters are supported in the updated version.
+`FluentCalendar` no longer wraps the `fluent-calendar` web component. Its functionality was too limited. Not all parameters are supported in the updated version.
  
 `StackHorizontalAlignment`/`StackVerticalAlignment` have been renamed to just `HorizontalAlignment`/`VerticalAlignment` as there are now more components using these enumarations.
 

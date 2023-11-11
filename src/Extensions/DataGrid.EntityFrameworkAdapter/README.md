@@ -1,5 +1,5 @@
 ## About 
-Use this package if the data you want to display in the `FluentDataGrid` (component in the `Microsoft,Fast.Components.FluentUI library`) comes from EF Core:
+Use this package if the data you want to display in the `FluentDataGrid` (component in the `Microsoft.FluentUI.AspNetCore.Components library`) comes from EF Core:
 
 - ... with [Blazor Server and any EF Core-supported database](https://docs.microsoft.com/en-us/aspnet/core/blazor/blazor-server-ef-core)
 - ... with [Blazor WebAssembly and EF Core's Sqlite support](https://www.youtube.com/watch?v=2UPiKgHv8YE)
@@ -26,7 +26,7 @@ The `FluentDataGrid` recognizes EF-supplied `IQueryable` instances and knows how
 ## Installation
 Install the package by running the command:
 ```
-dotnet add package Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter
 ```
 
 ## Usage

@@ -278,8 +278,6 @@ public partial class FluentButtonTests : TestContext
 
     [Theory]
     [InlineData(Appearance.Accent)]
-    [InlineData(Appearance.Filled)]
-    [InlineData(Appearance.Hypertext)]
     [InlineData(Appearance.Lightweight)]
     [InlineData(Appearance.Neutral)]
     [InlineData(Appearance.Outline)]

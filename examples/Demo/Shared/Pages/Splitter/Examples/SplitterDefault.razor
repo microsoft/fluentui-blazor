@@ -6,7 +6,7 @@
 <br />
 <br />
 
-<FluentSplitter Orientation="@orientation" @onsizechanged=OnSizeChanged>
+<FluentSplitter Orientation="@orientation" OnResized=OnResizedHandler>
     <Panel1>
         <div class="demopanel">
             <p>
@@ -38,8 +38,8 @@
 {
     Orientation orientation = Orientation.Horizontal;
 
-    private void OnSizeChanged()
+    private void OnResizedHandler(SplitterResizedEventArgs args)
     {
-       DemoLogger.WriteLine("Size changed");
+       DemoLogger.WriteLine($"Size changed: {args.Panel1Size}, {args.Panel2Size}");
     }
 }

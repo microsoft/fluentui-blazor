@@ -214,10 +214,19 @@ export function afterStarted(blazor: Blazor) {
             };
         }
     });
-    blazor.registerCustomEventType('sizechanged', {
-        browserEventName: 'sizechanged',
+    blazor.registerCustomEventType('splitterresized', {
         createEventArgs: event => {
-            return event;
+            return {
+                panel1size: event.detail.panel1size,
+                panel2size: event.detail.panel2size
+            }
+        }
+    });
+    blazor.registerCustomEventType('splittercollapsed', {
+        createEventArgs: event => {
+            return {
+                collapsed: event.detail.collapsed
+            }
         }
     });
 
