@@ -1,0 +1,17 @@
+﻿<div class="card">
+    <FluentIcon Class="copy"
+                Value="@(new Icons.Regular.Size16.Clipboard())"
+                Color="@Color.Neutral"
+                OnClick="@(() => CopyToClipboardAsync())"
+                Title="Copy to clipboard" />
+    @if (Icon is not null)
+    {
+        <FluentIcon Class="icon"
+                    Value="@Icons.GetInstance(Icon)"
+                    Color="@IconColor"
+                    Title="@Icon?.Name" />
+    }
+    <FluentLabel Class="label">
+        @Icon?.Name
+    </FluentLabel>
+</div>

@@ -1,4 +1,5 @@
 ﻿@page "/icon-explorer"
+@using FluentUI.Demo.AssetExplorer.Components.Controls
 
 <div class="icon-explorer" style="width: @Width; height: @Height;">
 
@@ -54,20 +55,7 @@
             <div class="result-list">
                 @foreach (var item in IconsForCurrentPage)
                 {
-                    <div class="card">
-                        <FluentIcon Class="copy"
-                                    Value="@(new Icons.Regular.Size16.Clipboard())"
-                                    Color="@Color.Neutral"
-                                    OnClick="@(() => CopyToClipboardAsync(item))"
-                                    Title="Copy to clipboard" />
-                        <FluentIcon Class="icon"
-                                    Value="Icons.GetInstance(item)"
-                                    Color="@Criteria.Color"
-                                    Title="@item.Name" />
-                        <FluentLabel Class="label">
-                            @item.Name
-                        </FluentLabel>
-                    </div>
+                    <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
                 }
             </div>
 
