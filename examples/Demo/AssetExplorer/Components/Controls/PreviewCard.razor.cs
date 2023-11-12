@@ -26,11 +26,30 @@ public partial class PreviewCard
     [Parameter]
     public EmojiInfo? Emoji { get; set; }
 
+    private string FullName
+    {
+        get
+        {
+            if (Icon != null)
+            {
+                return $"{Icon.Variant}.{Icon.Size}.{Icon.Name}";
+            }
+
+            if (Emoji != null)
+            {
+                return $"{Emoji.Group}.{Emoji.Style}.{Emoji.Skintone}.{Emoji.Name}";
+            }
+
+            return string.Empty;
+        }
+    }
+
     public async void CopyToClipboardAsync()
     {
         if (Icon != null)
         {
-            string value = $"Value=\"@(new Icons.{Icon.Variant}.{Icon.Size}.{Icon.Name}())\"";
+            // Icons.[IconVariant].[IconSize].[IconName]
+            string value = $"Value=\"@(new Icons.{FullName}())\"";
             string color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
 
             string code = $"<FluentIcon {value}{color} />";
@@ -38,12 +57,34 @@ public partial class PreviewCard
             JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             var error = await JSModule.InvokeAsync<string>("copyToClipboard", code);
 
-            ToastService.ShowSuccess($"FluentIcon `{Icon.Name}` component declaration copied to clipboard.");
+            if (string.IsNullOrEmpty(error))
+            {
+                ToastService.ShowSuccess($"FluentIcon `{Icon.Name}` component declaration copied to clipboard.");
+            }
+            else
+            {
+                ToastService.ShowError(error);
+            }
         }
 
         if (Emoji != null)
         {
-            throw new NotImplementedException();
+            // Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]
+            string value = $"Value=\"@(new Emojis.{FullName}())\"";
+
+            string code = $"<FluentEmoji {value} />";
+
+            JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            var error = await JSModule.InvokeAsync<string>("copyToClipboard", code);
+
+            if (string.IsNullOrEmpty(error))
+            {
+                ToastService.ShowSuccess($"FluentEmoji `{Emoji.Name}` component declaration copied to clipboard.");
+            }
+            else
+            {
+                ToastService.ShowError(error);
+            }
         }
 
     }
