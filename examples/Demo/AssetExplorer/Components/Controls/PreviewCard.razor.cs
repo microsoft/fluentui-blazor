@@ -40,5 +40,11 @@ public partial class PreviewCard
 
             ToastService.ShowSuccess($"FluentIcon `{Icon.Name}` component declaration copied to clipboard.");
         }
+
+        if (Emoji != null)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

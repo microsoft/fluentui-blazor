@@ -23,7 +23,7 @@
         display: block;
     }
 
-    .card ::deep .icon {
+    .card ::deep .image {
         flex: 1;
     }
 
