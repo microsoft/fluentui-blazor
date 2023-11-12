@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using AngleSharp.Diffing.Core;
+﻿using AngleSharp.Diffing.Core;
 using AngleSharp.Dom;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests;

@@ -10,7 +10,7 @@
 		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Summary>An adapter for using the Fluent UI Blazor DataGrid with Entity Framework.</Summary>
-		<PackageTags>Fluent UI, Blazor, DataGrid, .NET8, QuickGrid</PackageTags>
+		<PackageTags>Fluent UI, Blazor, DataGrid, .NET8</PackageTags>
 		<Title>Microsoft Fluent UI DataGrid adapter for Entity Framework</Title>
 		<Description>An adapter for using the Fluent UI Blazor DataGrid with Entity Framework.</Description>
 		<SignAssembly>true</SignAssembly>
