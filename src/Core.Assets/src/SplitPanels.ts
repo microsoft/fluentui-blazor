@@ -1,4 +1,4 @@
-﻿function fireEvent(element, eventName, detail) {
+﻿function fireEvent(element: HTMLElement, eventName: string, detail: any) {
     const event = new CustomEvent(eventName, { detail, bubbles: true, cancelable: true })
     return element.dispatchEvent(event);
 }
@@ -50,14 +50,19 @@ class SplitPanels extends HTMLElement {
     #direction = "row";
     #isResizing = false;
     #collapsed = false;
-    #slot1size;
-    #slot2size;
+    #slot1size = 0;
+    #slot2size = 0;
+    #left = 0;
+    #top = 0;
+    private dom: { median: HTMLElement | null } | undefined;
+
 
     constructor() {
         super();
         this.bind(this);
     }
-    bind(element) {
+    /* TODO: Proper type for element */
+    bind(element: any) {
         element.attachEvents = element.attachEvents.bind(element);
         element.render = element.render.bind(element);
         element.cacheDom = element.cacheDom.bind(element);
@@ -76,17 +81,17 @@ class SplitPanels extends HTMLElement {
     }
     cacheDom() {
         this.dom = {
-            median: this.shadowRoot.querySelector("#median")
+            median: this.shadowRoot!.querySelector("#median")
         };
     }
     attachEvents() {
-        this.dom.median.addEventListener("pointerdown", this.pointerdown);
+        this.dom!.median!.addEventListener("pointerdown", this.pointerdown);
     }
-    pointerdown(e) {
+    pointerdown(e: PointerEvent) {
         this.isResizing = true;
         const clientRect = this.getBoundingClientRect();
-        this.left = clientRect.x;
-        this.top = clientRect.y;
+        this.#left = clientRect.x;
+        this.#top = clientRect.y;
         this.addEventListener("pointermove", this.resizeDrag);
         this.addEventListener("pointerup", this.pointerup);
     }
@@ -96,25 +101,25 @@ class SplitPanels extends HTMLElement {
         this.removeEventListener("pointermove", this.resizeDrag);
         this.removeEventListener("pointerup", this.pointerup);
     }
-    resizeDrag(e) {
+    resizeDrag(e: PointerEvent) {
         if (this.direction === "row") {
-            const newMedianLeft = e.clientX - this.left;
-            const median = this.dom.median.getBoundingClientRect().width;
-            this.#slot1size = newMedianLeft - (median / 2);
-            this.#slot2size = this.clientWidth - this.#slot1size - median;
+            const newMedianLeft = e.clientX - this.#left;
+            const median = this.dom!.median!.getBoundingClientRect().width;
+            this.#slot1size = Math.floor(newMedianLeft - (median / 2));
+            this.#slot2size = Math.floor(this.clientWidth - this.#slot1size - median);
             this.style.gridTemplateColumns = `${this.#slot1size}px ${median}px 1fr`;
         }
         if (this.direction === "column") {
-            const newMedianTop = e.clientY - this.top;
-            const median = this.dom.median.getBoundingClientRect().height;
-            this.#slot1size = newMedianTop - (median / 2);
-            this.#slot2size = this.clientHeight - this.#slot1size - median;
+            const newMedianTop = e.clientY - this.#top;
+            const median = this.dom!.median!.getBoundingClientRect().height;
+            this.#slot1size = Math.floor(newMedianTop - (median / 2));
+            this.#slot2size = Math.floor(this.clientHeight - this.#slot1size - median);
             this.style.gridTemplateRows = `${this.#slot1size}px ${median}px 1fr`;
         }
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name: string, oldValue: any, newValue: any) {
         if (newValue != oldValue) {
-            this[name] = newValue;
+            (this as any as DOMStringMap)[name] = newValue;
         }
     }
     set isResizing(value) {

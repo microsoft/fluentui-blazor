@@ -1,7 +1,7 @@
 ﻿declare module '*.css';
 
 export * from '@fluentui/web-components/dist/web-components'
-export * from './CacheStorageAccessor'
+//export * from './CacheStorageAccessor'
 import { SplitPanels } from './SplitPanels'
 import styles from './Styles.css' assert { type: "css" }
 
@@ -215,6 +215,7 @@ export function afterStarted(blazor: Blazor) {
         }
     });
     blazor.registerCustomEventType('splitterresized', {
+        browserEventName: 'splitterresized',
         createEventArgs: event => {
             return {
                 panel1size: event.detail.panel1size,
@@ -223,6 +224,7 @@ export function afterStarted(blazor: Blazor) {
         }
     });
     blazor.registerCustomEventType('splittercollapsed', {
+        browserEventName: 'splittercollapsed',
         createEventArgs: event => {
             return {
                 collapsed: event.detail.collapsed

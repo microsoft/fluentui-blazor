@@ -46,6 +46,14 @@
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Remove="wwwroot\js\CacheStorageAccessor.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\js\CacheStorageAccessor.ts" />
+	</ItemGroup>
+
 	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
