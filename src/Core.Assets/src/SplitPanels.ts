@@ -52,10 +52,9 @@ class SplitPanels extends HTMLElement {
     #collapsed = false;
     #slot1size = 0;
     #slot2size = 0;
-    #left = 0;
-    #top = 0;
+    left = 0;
+    top = 0;
     private dom: { median: HTMLElement | null } | undefined;
-
 
     constructor() {
         super();
@@ -90,8 +89,8 @@ class SplitPanels extends HTMLElement {
     pointerdown(e: PointerEvent) {
         this.isResizing = true;
         const clientRect = this.getBoundingClientRect();
-        this.#left = clientRect.x;
-        this.#top = clientRect.y;
+        this.left = clientRect.x;
+        this.top = clientRect.y;
         this.addEventListener("pointermove", this.resizeDrag);
         this.addEventListener("pointerup", this.pointerup);
     }
@@ -103,17 +102,17 @@ class SplitPanels extends HTMLElement {
     }
     resizeDrag(e: PointerEvent) {
         if (this.direction === "row") {
-            const newMedianLeft = e.clientX - this.#left;
+            const newMedianLeft = e.clientX - this.left;
             const median = this.dom!.median!.getBoundingClientRect().width;
             this.#slot1size = Math.floor(newMedianLeft - (median / 2));
-            this.#slot2size = Math.floor(this.clientWidth - this.#slot1size - median);
+            this.#slot2size = this.clientWidth - this.#slot1size - median;
             this.style.gridTemplateColumns = `${this.#slot1size}px ${median}px 1fr`;
         }
         if (this.direction === "column") {
-            const newMedianTop = e.clientY - this.#top;
+            const newMedianTop = e.clientY - this.top;
             const median = this.dom!.median!.getBoundingClientRect().height;
             this.#slot1size = Math.floor(newMedianTop - (median / 2));
-            this.#slot2size = Math.floor(this.clientHeight - this.#slot1size - median);
+            this.#slot2size = this.clientHeight - this.#slot1size - median;
             this.style.gridTemplateRows = `${this.#slot1size}px ${median}px 1fr`;
         }
     }

@@ -5,17 +5,6 @@
 		<StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
-	<ItemGroup>
-		<None Update="src\Styles.css">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</None>
-		<None Update="src\variables.css">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</None>
-	</ItemGroup>
-
 
 	<Target Name="Pack" />
 

@@ -1,7 +1,6 @@
 ﻿declare module '*.css';
 
 export * from '@fluentui/web-components/dist/web-components'
-//export * from './CacheStorageAccessor'
 import { SplitPanels } from './SplitPanels'
 import styles from './Styles.css' assert { type: "css" }
 
