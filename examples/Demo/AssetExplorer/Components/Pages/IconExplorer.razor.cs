@@ -16,6 +16,9 @@ public partial class IconExplorer
     private PaginationState PaginationState = new PaginationState { ItemsPerPage = ITEMS_PER_PAGE };
 
     [Parameter]
+    public string Title { get; set; } = "FluentUI Blazor - Icon Explorers";
+
+    [Parameter]
     public string Width { get; set; } = "95%";
 
     [Parameter]

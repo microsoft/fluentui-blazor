@@ -1,7 +1,14 @@
 ﻿@page "/icon-explorer"
 @using FluentUI.Demo.AssetExplorer.Components.Controls
 
+<PageTitle>FluentUI Blazor - Icon Explorers</PageTitle>
+
 <div class="icon-explorer" style="width: @Width; height: @Height;">
+
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2>@Title</h2>
+    }
 
     <FluentGrid Style="width: 100%;" Spacing="1">
         <FluentGridItem Style="min-width: 200px;">

@@ -15,6 +15,9 @@ public partial class EmojiExplorer
     private PaginationState PaginationState = new PaginationState { ItemsPerPage = ITEMS_PER_PAGE };
 
     [Parameter]
+    public string Title { get; set; } = "FluentUI Blazor - Emoji Explorers";
+
+    [Parameter]
     public string Width { get; set; } = "95%";
 
     [Parameter]
@@ -35,8 +38,7 @@ public partial class EmojiExplorer
         await Task.Delay(1); // Display spinner
 
         EmojisFound = Emojis.AllEmojis
-                            .Where(i => i.Skintone == Criteria.Skintone
-                                     && i.Style == Criteria.Style
+                            .Where(i => i.Style == Criteria.Style
                                      && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
                             .OrderBy(i => i.Name)
                             .ToArray();

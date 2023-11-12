@@ -3,6 +3,10 @@
     flex-direction: column;
 }
 
+    .emoji-explorer h2 {
+        margin: 32px 0px;
+    }
+
     .emoji-explorer ::deep .result-list {
         display: flex;
         flex-direction: row;

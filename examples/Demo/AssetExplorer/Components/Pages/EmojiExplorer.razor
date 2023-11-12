@@ -1,7 +1,14 @@
 ﻿@page "/emoji-explorer"
 @using FluentUI.Demo.AssetExplorer.Components.Controls
 
+<PageTitle>FluentUI Blazor - Emoji Explorers</PageTitle>
+
 <div class="emoji-explorer" style="width: @Width; height: @Height;">
+
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2>@Title</h2>    
+    }
 
     <FluentGrid Style="width: 100%;" Spacing="1">
         <FluentGridItem Style="min-width: 200px;">
@@ -10,14 +17,6 @@
                           Placeholder="Part of emoji name..." />
         </FluentGridItem>
         <FluentGridItem Gap="0">
-            <FluentSelect TOption="EmojiSkintone"
-                          @bind-SelectedOption="@Criteria.Skintone"
-                          @bind-SelectedOption:after="@StartNewSearchAsync"
-                          Style="min-width: 150px;"
-                          Items="@(Enum.GetValues<EmojiSkintone>())"
-                          OptionText="@(i => Convert.ToString(i))" />
-        </FluentGridItem>
-        <FluentGridItem>
             <FluentSelect TOption="EmojiStyle"
                           @bind-SelectedOption="@Criteria.Style"
                           @bind-SelectedOption:after="@StartNewSearchAsync"

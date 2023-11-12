@@ -1,6 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<FluentLayout>
+    <FluentHeader>
+        <FluentStack>
+            <a href="/">
+                <FluentIcon Value="@(new Icons.Regular.Size24.Home())"
+                            Title="Home page"
+                            Color="Color.Fill" />
+            </a>
+            FluentUI Blazor - Icons and Emoji Explorers
+        </FluentStack>
+    </FluentHeader>
+    <FluentBodyContent Style="margin: 24px;">
+        @Body
+    </FluentBodyContent>
+</FluentLayout>
 
 <FluentToastProvider />
 
