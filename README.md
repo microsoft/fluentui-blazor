@@ -63,7 +63,7 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
 ### Script
-As mentioned, we wrap the **Fluent UI Web Components** which aree implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
+As mentioned, we wrap the **Fluent UI Web Components** which are implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
