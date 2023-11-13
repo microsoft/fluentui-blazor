@@ -7,13 +7,11 @@ namespace FluentUI.Demo.AssetExplorer.Components.Pages;
 
 public partial class IconExplorer
 {
-    private const int ITEMS_PER_PAGE = 4 * 12;
-    
     private bool SearchInProgress = false;
 
     private readonly IconSearchCriteria Criteria = new();
     private IconInfo[] IconsFound = Array.Empty<IconInfo>();    
-    private PaginationState PaginationState = new PaginationState { ItemsPerPage = ITEMS_PER_PAGE };
+    private PaginationState PaginationState = new PaginationState { ItemsPerPage = 4 * 12 };
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Icon Explorers";
@@ -24,12 +22,23 @@ public partial class IconExplorer
     [Parameter]
     public string Height { get; set; } = "100%";
 
+    [Parameter]
+    public int ItemsPerPage { get; set; }
+
     private IEnumerable<IconInfo> IconsForCurrentPage
     {
         get
         {
             return IconsFound.Skip(PaginationState.CurrentPageIndex * PaginationState.ItemsPerPage)
                              .Take(PaginationState.ItemsPerPage);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        if (ItemsPerPage > 0)
+        {
+            PaginationState = new PaginationState { ItemsPerPage = ItemsPerPage };
         }
     }
 

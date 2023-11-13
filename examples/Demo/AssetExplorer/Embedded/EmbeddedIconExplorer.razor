@@ -1,5 +1,12 @@
-﻿@page "/icon-explorer/embedded"
+﻿@page "/icon-explorer/embedded/"
+@page "/icon-explorer/embedded/{ItemsPerPage:int}"
 @using FluentUI.Demo.AssetExplorer.Components.Pages
 @layout EmptyLayout
 
-<IconExplorer Title="" />
+<IconExplorer Title="" ItemsPerPage="@(ItemsPerPage ?? 0)" />
+
+@code
+{
+    [Parameter]
+    public int? ItemsPerPage { get; set; }
+}

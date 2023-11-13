@@ -6,13 +6,11 @@ namespace FluentUI.Demo.AssetExplorer.Components.Pages;
 
 public partial class EmojiExplorer
 {
-    private const int ITEMS_PER_PAGE = 4 * 12;
-
     private bool SearchInProgress = false;
 
     private readonly EmojiSearchCriteria Criteria = new();
     private EmojiInfo[] EmojisFound = Array.Empty<EmojiInfo>();
-    private PaginationState PaginationState = new PaginationState { ItemsPerPage = ITEMS_PER_PAGE };
+    private PaginationState PaginationState = new PaginationState { ItemsPerPage = 4 * 12 };
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Emoji Explorers";
@@ -23,12 +21,23 @@ public partial class EmojiExplorer
     [Parameter]
     public string Height { get; set; } = "100%";
 
+    [Parameter]
+    public int ItemsPerPage { get; set; }
+
     private IEnumerable<EmojiInfo> EmojisForCurrentPage
     {
         get
         {
             return EmojisFound.Skip(PaginationState.CurrentPageIndex * PaginationState.ItemsPerPage)
                               .Take(PaginationState.ItemsPerPage);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        if (ItemsPerPage > 0)
+        {
+            PaginationState = new PaginationState { ItemsPerPage = ItemsPerPage };
         }
     }
 
