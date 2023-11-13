@@ -7,6 +7,15 @@
                        heading-level=@HeadingLevel
                        expanded="@Expanded"
                        @attributes="AdditionalAttributes">
-    <span slot="heading">@Heading</span>
+    @if (Heading is not null)
+    {
+        <span slot="heading">@Heading</span>
+    }
+    else
+    {
+        <div slot="heading">
+            @HeadingContent
+        </div>
+    }
     @ChildContent
 </fluent-accordion-item>
