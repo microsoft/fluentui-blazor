@@ -14,8 +14,13 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// Gets or sets the heading of the accordion item.
     /// </summary>
     [Parameter]
-    [EditorRequired]
-    public string Heading { get; set; } = string.Empty;
+    public string? Heading { get; set; }
+
+    /// <summary>
+    /// Gets or sets the heading content of the accordion item.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeadingContent { get; set; }
 
     /// <summary>
     /// Expands or collapses the item.

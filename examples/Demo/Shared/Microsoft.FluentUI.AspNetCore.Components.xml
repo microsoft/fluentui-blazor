@@ -40,6 +40,11 @@
             Gets or sets the heading of the accordion item.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.HeadingContent">
+            <summary>
+            Gets or sets the heading content of the accordion item.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.Expanded">
             <summary>
             Expands or collapses the item.
