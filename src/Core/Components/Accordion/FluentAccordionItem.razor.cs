@@ -12,15 +12,19 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Gets or sets the heading of the accordion item.
+    /// Use either this or the <see cref="HeadingTemplate"/> parameter."/>
+    /// If both are set, this parameter will be used.
     /// </summary>
     [Parameter]
     public string? Heading { get; set; }
 
     /// <summary>
     /// Gets or sets the heading content of the accordion item.
+    /// Use either this or the <see cref="Heading"/> parameter."/>
+    /// If both are set, this parameter will not be used.
     /// </summary>
     [Parameter]
-    public RenderFragment? HeadingContent { get; set; }
+    public RenderFragment? HeadingTemplate { get; set; }
 
     /// <summary>
     /// Expands or collapses the item.
