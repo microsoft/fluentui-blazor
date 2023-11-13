@@ -41,6 +41,24 @@ public class FluentAccordionItemTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentAccordionItem_WithHeadingContentAndHeading_IsProvidedBoth()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        {
+            parameters.Add(p => p.HeadingContent, context =>
+            {
+                context.AddContent(0, "custom heading content");
+            });
+
+            parameters.Add(p => p.Heading, "Heading Value First");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
@@ -120,6 +138,35 @@ public class FluentAccordionItemTests : TestBase
         var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
         {
             parameters.Add(p => p.Style, "background-color: grey");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAccordionItem_WithHeadingContent_IsNull()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        {
+            parameters.Add(p => p.HeadingContent, context => { });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAccordionItem_WithHeadingContent_IsProvided()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAccordionItem>(parameters =>
+        {
+            parameters.Add(p => p.HeadingContent, context =>
+            {
+                context.AddContent(0, "custom heading content");
+            });
         });
 
         // Assert
