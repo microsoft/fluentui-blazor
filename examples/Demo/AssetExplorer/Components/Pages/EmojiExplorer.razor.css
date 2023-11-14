@@ -13,6 +13,7 @@
         flex-wrap: wrap;
         overflow-y: auto;
         align-content: start;
+        height: 100%;
     }
 
     .emoji-explorer ::deep .not-found {

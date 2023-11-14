@@ -1,12 +1,20 @@
-﻿@page "/emoji-explorer/embedded/{ItemsPerPage:int}"
-@page "/emoji-explorer/embedded"
+﻿@page "/emoji-explorer/embedded"
 @using FluentUI.Demo.AssetExplorer.Components.Pages
 @layout EmptyLayout
 
-<EmojiExplorer Title="" ItemsPerPage="@(ItemsPerPage ?? 0)" />
+<EmojiExplorer Title="" ItemsPerPage="@(Items ?? 0)" Height="@(Height ?? "100%")" Width="@(Width ?? "100%")" />
 
 @code
 {
     [Parameter]
-    public int? ItemsPerPage { get; set; }
+    [SupplyParameterFromQuery]
+    public int? Items { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Height { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Width { get; set; }
 }

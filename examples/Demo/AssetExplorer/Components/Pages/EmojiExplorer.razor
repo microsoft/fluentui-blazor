@@ -3,7 +3,7 @@
 
 <PageTitle>FluentUI Blazor - Emoji Explorers</PageTitle>
 
-<div class="emoji-explorer" style="width: @Width; height: @Height;">
+<div class="emoji-explorer" style="width: @(Width ?? "100%"); height: @(Height ?? "calc(100vh - 120px)");">
 
     @if (!string.IsNullOrEmpty(Title))
     {

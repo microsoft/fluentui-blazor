@@ -17,10 +17,10 @@ public partial class IconExplorer
     public string Title { get; set; } = "FluentUI Blazor - Icon Explorers";
 
     [Parameter]
-    public string Width { get; set; } = "95%";
+    public string? Width { get; set; }
 
     [Parameter]
-    public string Height { get; set; } = "100%";
+    public string? Height { get; set; }
 
     [Parameter]
     public int ItemsPerPage { get; set; }
