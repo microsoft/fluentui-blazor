@@ -25,7 +25,10 @@
 	<ItemGroup>
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
 	</ItemGroup>
 
 </Project>
