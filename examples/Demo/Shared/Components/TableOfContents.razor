@@ -1,7 +1,7 @@
 ﻿<div>
     <FluentAccordion>
         <FluentAccordionItem Expanded="_expanded" Heading="@Heading" id="toc" role="doc-toc">
-            <FluentIcon Icon="Icons.Regular.Size20.TextBulletListTree" Color="@Color.Accent" Slot="start" />
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextBulletListTree())" Color="@Color.Accent" Slot="start" />
             @GetTocItems(_anchors)
         </FluentAccordionItem>
 

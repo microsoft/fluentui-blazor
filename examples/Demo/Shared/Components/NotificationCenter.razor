@@ -37,7 +37,7 @@ else
     }
 
     private RenderFragment NotificationIcon() =>
-        @<FluentIcon Icon="Icons.Regular.Size20.Alert" Color="Color.Neutral"  Title="Notification center" />;
+        @<FluentIcon Value="@(new Icons.Regular.Size20.Alert())" Color="Color.Neutral"  Title="Notification center" />;
 
     private async Task OpenNotificationCenterAsync()
     {

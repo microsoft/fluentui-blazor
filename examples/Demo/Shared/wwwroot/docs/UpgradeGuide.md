@@ -65,7 +65,7 @@ At the moment there are more than 2200 distinct icons available in both filled a
 
 After the following changes, usage is very simple:
 ```xml
-<FluentIcon Icon="Icons.Regular.Size24.Save" />
+<FluentIcon Value="@(new Icons.Regular.Size24.Save())" />
 ```
 
 There are a couple of changes that need to be done to upgrade from v2 to v3 when using icons/emoji:
@@ -104,7 +104,7 @@ The `options.HostingModel` setting is used to determine the type of project you 
 For icons the new format is like:
  
 ```razor
-<FluentIcon Icon="@(Icons.Regular.Size24.Save)" />
+<FluentIcon Value="@(new @(Icons.Regular.Size24.Save)())" />
 ```
 
 > Names are structured as follows: `Icons.[IconVariant].[IconSize].[IconName]`.
@@ -112,7 +112,7 @@ For icons the new format is like:
 For emoji the new format is:
 
 ```xml
-<FluentEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
+<FluentEmoji Value="@(new Emojis.PeopleBody.Color.Default.Artist())" />
 ```
 
 > Names are structured as follows: `Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]`.
@@ -124,7 +124,7 @@ For emoji the new format is:
 > You have to adapt them to your project.
 
 - To search: `<FluentIcon Name="?@?FluentIcons\.(?<name>[^"]+)"? Size="?@?IconSize\.(?<size>[^"]+)"? Variant="?@?IconVariant\.(?<variant>[^"]+)"? Color="?@?Color\.(?<color>[^"]+)"? Slot="?(?<slot>[^"]+)"? />`
-- To replace by: `<FluentIcon Icon="Icons.${variant}.${size}.${name}" Color="@Color.${color}" Slot="${slot}" />`
+- To replace by: `<FluentIcon Value="@(new Icons.${variant}.${size}.${name}())" Color="@Color.${color}" Slot="${slot}" />`
 
 ![Find and Replace](./_content/FluentUI.Demo.Shared/images/Icons-FindReplace-RegEx.png)
 
