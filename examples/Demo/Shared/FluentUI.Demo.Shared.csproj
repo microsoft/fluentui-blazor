@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
-		<IsTrimmable>true</IsTrimmable>
+		<IsTrimmable>false</IsTrimmable>
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
 	</PropertyGroup>
 
@@ -38,9 +38,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<TrimmerRootAssembly Include="Microsoft.FluentUI.AspNetCore.Components" />
-	</ItemGroup>
+    <ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
