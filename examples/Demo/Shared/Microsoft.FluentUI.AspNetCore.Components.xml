@@ -5599,6 +5599,24 @@
             See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns">mdn web docs</see> for more information 
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Panel1MinSize">
+            <summary>
+            Gets or sets the minimum size for the left/top panel.
+            Needs to be a valid css size like '50%' or '250px'
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Panel2MinSize">
+            <summary>
+            Gets or sets the minimum size for the right/bottom panel.
+            Needs to be a valid css size like '50%' or '250px'
+            </summary>  
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.BarSize">
+            <summary>
+            Gets or sets the size of the splitter bar in pixels.
+            Default is 8
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Collapsed">
             <summary>
             Gets or sets a value indicating whether the splitter is collapsed.
