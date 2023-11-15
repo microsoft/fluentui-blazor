@@ -58,6 +58,27 @@ public partial class FluentSplitter : FluentComponentBase
     public string? Panel2Size { get; set; }
 
     /// <summary>
+    /// Gets or sets the minimum size for the left/top panel.
+    /// Needs to be a valid css size like '50%' or '250px'
+    /// </summary>
+    [Parameter]
+    public string? Panel1MinSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the minimum size for the right/bottom panel.
+    /// Needs to be a valid css size like '50%' or '250px'
+    /// </summary>  
+    [Parameter]
+    public string? Panel2MinSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the splitter bar in pixels.
+    /// Default is 8
+    /// </summary>
+    [Parameter]
+    public int BarSize { get; set; } = 8;
+
+    /// <summary>
     /// Gets or sets a value indicating whether the splitter is collapsed.
     /// If set to true, Panel1 will take up all the space and Panel2 as well as the splitter bar will be hidden.
     /// </summary>
