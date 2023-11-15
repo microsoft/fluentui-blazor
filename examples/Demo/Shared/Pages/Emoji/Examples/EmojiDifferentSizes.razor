@@ -1,9 +1,8 @@
-﻿
-<div style="display: flex; align-items: flex-end; margin-bottom: 0.75em; gap: 10px">
-    <span>16x16: </span><FluentEmoji Emoji=Emojis.FoodDrink.Color.Default.Hamburger Width="16px" />
-    <span>32x32: </span><FluentEmoji Emoji=Emojis.FoodDrink.Color.Default.Hamburger Width="32px" />
-    <span>64x64: </span><FluentEmoji Emoji=Emojis.FoodDrink.Color.Default.Hamburger Width="64px" />
-    <span>128x128: </span><FluentEmoji Emoji=Emojis.FoodDrink.Color.Default.Hamburger Width="128px" />
+﻿<div style="display: flex; align-items: flex-end; margin-bottom: 0.75em; gap: 10px">
+    <span>16x16: </span><FluentEmoji Value="@(new Emojis.FoodDrink.Color.Default.Hamburger())" Width="16px" />
+    <span>32x32: </span><FluentEmoji Value="@(new Emojis.FoodDrink.Color.Default.Hamburger())" Width="32px" />
+    <span>64x64: </span><FluentEmoji Value="@(new Emojis.FoodDrink.Color.Default.Hamburger())" Width="64px" />
+    <span>128x128: </span><FluentEmoji Value="@(new Emojis.FoodDrink.Color.Default.Hamburger())" Width="128px" />
 </div>
 
 <FluentDivider Role=DividerRole.Presentation />
@@ -17,7 +16,7 @@
 {
     <div style="display: flex; align-items: flex-end; margin-bottom: 0.75em; gap: 10px">
         <span>@(size)x@(size): </span>
-        <FluentEmoji Emoji=Emojis.FoodDrink.Color.Default.Hamburger Width="@($"{size}px")" />
+        <FluentEmoji Value="@(new Emojis.FoodDrink.Color.Default.Hamburger())" Width="@($"{size}px")" />
     </div>
 }
 

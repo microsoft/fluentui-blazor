@@ -1,4 +1,17 @@
-﻿## Breaking changes v3.2.0
+﻿## Breaking changes v4.0.0
+The most obvious breaking change of course is namespace change from 
+`Microsoft.Fast.Components.FluentUI` to `Microsoft.FluentUI.AspNetCore.Components`. 
+This means you wil need to change all `usings` in your code, change your `_Imports.razor`, etc.
+
+- AfterBindValue has been replaced with the native @bind-Value:after
+- FluentToast: Timeout is now in milliseconds
+- FluentToastContainer renamed to FluentToastProvider
+- FluentMessageBarContainer renamed to FluentMessageBarProvider
+- Removed the FluentCodeEditor component
+
+The rest of the changes are minimal. Check the [WhatsNew](/WhatsNew) page for more information.
+
+## Breaking changes v3.2.0
 
 ### The pre-v3.2 `FluentNavMenu` has been renamed to `FluentNavMenuTree` 
 A new `FluentNavMenu` component has been added. 
@@ -52,7 +65,7 @@ At the moment there are more than 2200 distinct icons available in both filled a
 
 After the following changes, usage is very simple:
 ```xml
-<FluentIcon Icon="Icons.Regular.Size24.Save" />
+<FluentIcon Value="@(new Icons.Regular.Size24.Save())" />
 ```
 
 There are a couple of changes that need to be done to upgrade from v2 to v3 when using icons/emoji:
@@ -91,7 +104,7 @@ The `options.HostingModel` setting is used to determine the type of project you 
 For icons the new format is like:
  
 ```razor
-<FluentIcon Icon="@(Icons.Regular.Size24.Save)" />
+<FluentIcon Value="@(new @(Icons.Regular.Size24.Save)())" />
 ```
 
 > Names are structured as follows: `Icons.[IconVariant].[IconSize].[IconName]`.
@@ -99,7 +112,7 @@ For icons the new format is like:
 For emoji the new format is:
 
 ```xml
-<FluentEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
+<FluentEmoji Value="@(new Emojis.PeopleBody.Color.Default.Artist())" />
 ```
 
 > Names are structured as follows: `Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]`.
@@ -111,7 +124,7 @@ For emoji the new format is:
 > You have to adapt them to your project.
 
 - To search: `<FluentIcon Name="?@?FluentIcons\.(?<name>[^"]+)"? Size="?@?IconSize\.(?<size>[^"]+)"? Variant="?@?IconVariant\.(?<variant>[^"]+)"? Color="?@?Color\.(?<color>[^"]+)"? Slot="?(?<slot>[^"]+)"? />`
-- To replace by: `<FluentIcon Icon="Icons.${variant}.${size}.${name}" Color="@Color.${color}" Slot="${slot}" />`
+- To replace by: `<FluentIcon Value="@(new Icons.${variant}.${size}.${name}())" Color="@Color.${color}" Slot="${slot}" />`
 
 ![Find and Replace](./_content/FluentUI.Demo.Shared/images/Icons-FindReplace-RegEx.png)
 

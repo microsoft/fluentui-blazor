@@ -1,7 +1,7 @@
 ﻿<FluentTabs ActiveTabId="tab-1">
     <FluentTab Id="tab-1">
         <Header>
-            <FluentIcon Icon="Icons.Regular.Size16.LeafOne" />
+            <FluentIcon Value="@(new Icons.Regular.Size16.LeafOne())" />
             All
         </Header>
         <Content>
@@ -10,7 +10,7 @@
     </FluentTab>
     <FluentTab Id="tab-2">
         <Header>
-            <FluentIcon Icon="Icons.Regular.Size16.LeafTwo" Color="@Color.Success" />
+            <FluentIcon Value="@(new Icons.Regular.Size16.LeafTwo())" Color="@Color.Success" />
             January
         </Header>
         <Content>
@@ -19,7 +19,7 @@
     </FluentTab>
     <FluentTab Id="tab-3">
         <Header>
-            <FluentIcon Icon="Icons.Regular.Size16.LeafThree" Color="@Color.Error" />
+            <FluentIcon Value="@(new Icons.Regular.Size16.LeafThree())" Color="@Color.Error" />
             <span style="color:forestgreen;">February</span>
         </Header>
         <Content>

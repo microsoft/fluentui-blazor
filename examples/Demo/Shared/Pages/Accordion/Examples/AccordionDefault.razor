@@ -1,7 +1,7 @@
 ﻿
 <FluentAccordion ActiveId="@activeId" OnAccordionItemChange="HandleOnAccordionItemChange">
     <FluentAccordionItem Heading="Panel one">
-        <FluentIcon Icon="Icons.Regular.Size20.Globe" Color="@Color.Neutral" Slot="start" />
+        <FluentIcon Value="@(new Icons.Regular.Size20.Globe())" Color="@Color.Neutral" Slot="start" />
         Panel one content, using the 'start' slot for extra header content (in this case an icon)
     </FluentAccordionItem>
     <FluentAccordionItem Heading="Panel two">
@@ -12,6 +12,14 @@
     </FluentAccordionItem>
     <FluentAccordionItem Expanded="true" Heading="Panel three">
         Panel three content
+    </FluentAccordionItem>
+    <FluentAccordionItem Expanded="true">
+        <HeadingTemplate>
+            Panel <span style="color:red">Four</span>
+        </HeadingTemplate>
+        <ChildContent>
+            Panel four content
+        </ChildContent>
     </FluentAccordionItem>
 </FluentAccordion>
 

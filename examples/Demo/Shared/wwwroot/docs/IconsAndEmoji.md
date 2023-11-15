@@ -29,7 +29,7 @@ dotnet add package FluentUI.AspNetCore.Components.Emojis
 To use the icons, you add a `FluentIcon` component in your code like this:
 
 ```razor
-<FluentIcon Icon="Icons.Regular.Size24.Save" />
+<FluentIcon Value="@(new Icons.Regular.Size24.Save())" />
 ```
 
 > **Note:** Icon names are structured like this: `Icons.[IconVariant].[IconSize].[IconName]`
@@ -65,7 +65,7 @@ The `Icon` class and enumerations are in the Fluent UI library itself (so, you c
 After adding the class, you can start using this custom icon like a "normal" Fluent UI Icon:
 
 ```razor
-<FluentIcon Icon="MyIcons.SettingsEmail" />
+<FluentIcon Value="@(new MyIcons.SettingsEmail())" />
 ```
  
 #### Using the `FluentEmoji` component
@@ -73,10 +73,34 @@ After adding the class, you can start using this custom icon like a "normal" Flu
 To use the emoji, you add a `FleuntEmoji` component in your code like this:
 
 ```razor
-<FluentSystemEmoji Emoji="Emojis.PeopleBody.Color.Default.Artist" />
+<FluentEmoji Value="@(new Emojis.PeopleBody.Color.Default.Artist())" />
 ```
 
 > **Note:** Names are structured like this: `Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]`
 
 
- 
+### Recommendation
+
+During the DotNet Publication process, the unused icons are automatically removed from the final library.
+You can configure this behavior by setting the [PublishTrimmed](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer) property in your project file.
+
+We recommend always using the **Value** property to specify the Icon/Emoji to be rendered (and not the Icon/Emoji property).
+This ensures that the icon is not deleted from the final library.
+
+```csharp
+<FluentIcon Value="@(new Icons.Regular.Size24.Bookmark())" />
+<FluentEmoji Value="@(new Emojis.PeopleBody.Color.Default.Artist())" />
+```
+
+If you have already written your code using the **Icon** property or the **Emoji** property,
+you can use the **Visual Studio Find and Replace** functionality, checking the **Use regular expressions** item.
+
+> Before to use Find and Replace in Files, you have to backup your project. The following steps are provided as an example and may not work in your case. You have to adapt them to your project.
+
+For Icons:
+- To search: `<FluentIcon Icon="(?<name>[^"]+)"?`
+- To replace by: `<FluentIcon Value="@(new ${name}())"`
+
+For Emojis:
+- To search: `<FluentEmoji Emoji="(?<name>[^"]+)"?`
+- To replace by: `<FluentEmoji Value="@(new ${name}())"`

@@ -1,70 +1,14 @@
-<div class="icon-explorer-criteria">
-    <FluentSearch Style="width: 100%"
-                  Name="Searchterm"
-                  @bind-Value="@Criteria.SearchTerm"
-                  @bind-Value:after="@HandleSearch"
-                  Placeholder="Part of icon name..." />
+@code
+{
+    const string Width = "100%";
+    const string Height = "800px";
+    const int ItemsPerPage = 24;
+    readonly string ExplorerUrl = $"https://fluentui-explorer.azurewebsites.net/icon-explorer/embedded?items={ItemsPerPage}&height={Height}";
+}
 
-    <FluentSelect TOption="IconSize" @bind-SelectedOption="@Criteria.Size"
-                  Style="min-width: unset;"
-                  Items="@(Enum.GetValues<IconSize>())"
-                  OptionText="x=>((int)x).ToString()"
-                  @onchange="@(x => HandleSize(x))" />
-
-    <FluentSelect TOption="IconVariant" @bind-SelectedOption="@Criteria.Variant"
-                  Style="min-width: unset;"
-                  Items="@(Enum.GetValues<IconVariant>())"
-                  @onchange="@(x => HandleVariant(x))" />
-
-    <FluentSelect TOption="Color"
-                  Id="Color"
-                  @bind-SelectedOption="IconColor"
-                  @onchange="@(x => HandleColor(x))"
-                  Items="@(Enum.GetValues<Color>())"
-                  OptionValue="x=> x.ToAttributeValue()"
-                  OptionSelected="x => x == IconColor"
-                  OptionDisabled="x => x == Color.Custom" />
-
-    <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())" OnClick="@HandleSearch" />
-</div>
-
-@* Results *@
-<div class="icon-explorer">
-    @if (SearchInProgress)
-    {
-        <FluentProgressRing Style="width: unset; margin: 50px;" />
-    }
-    else
-    {
-        if (IconsCount <= 0)
-        {
-            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
-                <strong>No icons found</strong>
-            </div>
-        }
-        else
-        {
-            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
-                <FluentPaginator State="@PaginationState" CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
-            </div>
-
-            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
-                <small>
-                    Click on upper right clipboard icon in a card to copy a ready to paste <code>FluentIcon</code>
-                    component declaration to the clipboard.
-                </small>
-            </div>
-
-            @foreach (var item in IconsForCurrentPage)
-            {
-                <FluentCard Class="card">
-                    <FluentIcon Class="copy" Icon="@Icons.Regular.Size16.Clipboard" Color="@Color.Accent" OnClick="()=>HandleClick(item)" />
-                    <div class="icon">
-                        <FluentIcon Value="Icons.GetInstance(item)" Color=IconColor Title="@item.Name" />
-                    </div>
-                    <label>@item.Name</label>
-                </FluentCard>
-            }
-        }
-    }
-</div>
+<iframe src="@ExplorerUrl"
+        style="border: 0px none; height: @Height; width: @Width;"
+        id="icon-explorer"
+        scrolling="yes" frameborder="0"
+        marginheight="0" marginwidth="0">
+</iframe>

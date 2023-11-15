@@ -1,0 +1,25 @@
+﻿.emoji-explorer {
+    display: flex;
+    flex-direction: column;
+}
+
+    .emoji-explorer h2 {
+        margin: 32px 0px;
+    }
+
+    .emoji-explorer ::deep .result-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        align-content: start;
+        height: 100%;
+    }
+
+    .emoji-explorer ::deep .not-found {
+        margin: 32px;
+        flex-wrap: wrap;
+        width: 100%;
+        font-weight: bold;
+        text-align: center;
+    }

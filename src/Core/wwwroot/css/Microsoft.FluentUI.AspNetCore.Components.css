@@ -1,3 +1,5 @@
-﻿body:has(.prevent-scroll) {
+﻿@import "variables.css";
+
+body:has(.prevent-scroll) {
     overflow: hidden;
 }

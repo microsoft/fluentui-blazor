@@ -1,0 +1,38 @@
+﻿@page "/"
+
+<PageTitle>FluentUI Blazor - Icon and Emoji Explorers</PageTitle>
+
+<h1>FluentUI Blazor - Icons and Emoji</h1>
+
+<p>
+    The components, and icons that are used by the library itself, are still part of the package. Adding the
+    <a hred="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons">
+        Microsoft.FluentUI.AspNetCore.Components.Icons
+    </a> and
+    <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji">
+        Microsoft.FluentUI.AspNetCore.Components.Emoji
+    </a>
+    packages is enough to make the resources available to your code.
+</p>
+
+<p>
+    We use the <a href="https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer">.NET trimming capabilities</a>
+    to publish only those assests that are actually being used in your program.
+    Usually this results in some very small DLL's that only contain the resources that are
+    actually being used in your application.
+</p>
+<p>
+    We support the complete <a href="https://github.com/microsoft/fluentui-system-icons">Fluent UI System Icons</a>
+    and <a href="https://github.com/microsoft/fluentui-emoji">Fluent Emoji collections</a>.
+</p>
+
+<h1>Explorers</h1>
+
+<p>
+    Select the <strong>Explorer</strong> you want to see:
+</p>
+
+<ul>
+    <li><a href="./icon-explorer">Icon Explorer</a></li>
+    <li><a href="./emoji-explorer">Emoji Explorer</a></li>
+</ul>

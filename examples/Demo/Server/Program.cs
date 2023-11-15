@@ -1,3 +1,4 @@
+using FluentUI.Demo.Shared;
 using FluentUI.Demo.Shared.SampleData;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -12,10 +13,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddFluentUIComponents(options =>
-{
-    options.HostingModel = BlazorHostingModel.Server;
-});
+builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIDemoServices();
 
 builder.Services.AddScoped<DataSource>();
 
