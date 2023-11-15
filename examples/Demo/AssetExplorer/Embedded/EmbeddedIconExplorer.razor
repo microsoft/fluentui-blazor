@@ -1,0 +1,20 @@
+﻿@page "/icon-explorer/embedded"
+@using FluentUI.Demo.AssetExplorer.Components.Pages
+@layout EmptyLayout
+
+<IconExplorer Title="" ItemsPerPage="@(Items ?? 0)" Height="@(Height ?? "100%")" Width="@(Width ?? "100%")" />
+
+@code
+{
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int? Items { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Height { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Width { get; set; }
+}

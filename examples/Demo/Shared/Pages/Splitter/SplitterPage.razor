@@ -45,3 +45,12 @@
 
 <ApiDocumentation Component="typeof(FluentSplitter)" />
 <ApiDocumentation Component="typeof(SplitterResizedEventArgs)" />
+
+@code
+{
+    // Hack to force the compiler to include this class in the final library
+    // (WASM publishing)
+    // TODO: To find a better solution
+    FluentSplitter temp1 = new FluentSplitter();
+    SplitterResizedEventArgs temp2 = new SplitterResizedEventArgs();
+}

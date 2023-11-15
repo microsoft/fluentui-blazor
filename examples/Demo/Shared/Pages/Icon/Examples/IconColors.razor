@@ -39,14 +39,14 @@
         <FluentGridItem xs="1" Style="background-color: var(--neutral-layer-3);">
             @if (color == Color.Custom)
             {
-                <FluentIcon Icon="@Icons.Filled.Size24.Alert"
+                <FluentIcon Value="@(new @Icons.Filled.Size24.Alert())"
                             Color="Color.Custom"
                             CustomColor="@CustomColor"
                             Title="@($"Icon with Color=\"Color.Custom\"")" />
             }
             else
             {
-                <FluentIcon Icon="@Icons.Filled.Size24.Alert"
+                <FluentIcon Value="@(new @Icons.Filled.Size24.Alert())"
                             Color="@color"
                             Title="@($"Icon with Color=\"Color.{name}\"")" />
             }

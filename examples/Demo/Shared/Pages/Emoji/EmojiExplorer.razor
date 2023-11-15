@@ -1,84 +1,14 @@
-<div class="emoji-explorer-criteria">
-    <FluentSearch Style="width: 100%"
-                  Name="Searchterm"
-                  @bind-Value="@Criteria.SearchTerm"
-                  @bind-Value:after="@HandleSearch"
-                  Placeholder="Part of emoji name..." />
+@code
+{
+    const string Width = "100%";
+    const string Height = "800px";
+    const int ItemsPerPage = 24;
+    readonly string ExplorerUrl = $"https://fluentui-explorer.azurewebsites.net/emoji-explorer/embedded?items={ItemsPerPage}&height={Height}";
+}
 
-    <FluentSelect TOption="EmojiGroup"
-                  OptionText="x => x.ToAttributeValue(false)" 
-                  OptionValue="x => x.ToString()"
-                  @bind-SelectedOption="@Criteria.Group"
-                  @onchange=@(x => HandleGroup(x))
-                  Style="min-width: 150px;"
-                  Items="@(Enum.GetValues<EmojiGroup>())" /> 
-                  
-
-    <FluentSelect TOption="EmojiStyle"
-                  OptionText="x => x.ToAttributeValue(false)"
-                  OptionValue="x => x.ToString()"
-                  @bind-SelectedOption="@Criteria.Style"
-                  @onchange=@(x => HandleStyle(x))
-                  Style="min-width: 120px;"
-                  Items="@(Enum.GetValues<EmojiStyle>())" />
-
-    <FluentSelect TOption="EmojiSkintone"
-                  OptionText="x => x.ToAttributeValue(false)"
-                  OptionValue="x => x.ToString()"
-                  @bind-SelectedOption="Criteria.Skintone" 
-                  @onchange=@(x => HandleSkintone(x))
-                  Items="@(Enum.GetValues<EmojiSkintone>())" />
-    
-    <FluentSelect TOption="EmojiSize" 
-                  OptionText="x=>((int)x).ToString()"
-                  @bind-SelectedOption="@Criteria.Size"
-                  @onchange="@(x => HandleSize(x))"
-                  Style="min-width: unset;"
-                  Items="@(Enum.GetValues<EmojiSize>())" />
-    
-        <span style="display: block; width: 24px; height: 24px">
-            <FluentIcon Value="@(new Icons.Regular.Size24.ArrowCircleRight())" OnClick="@HandleSearch"/>
-        </span>
-    
-</div>
-
-@* Results *@
-<div class="emoji-explorer">
-    @if (SearchInProgress)
-    {
-        <FluentProgressRing Style="width: unset; margin: 50px;" />
-    }
-    else
-    {
-        if (EmojisCount <= 0)
-        {
-            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
-                <strong>No emojis found</strong>
-            </div>
-        }
-        else
-        {
-            <div style="width: 100%; line-height: var(--type-ramp-plus-4-line-height);">
-                <strong>@EmojisCount</strong> emojis found.
-                @if (EmojisCount > MAX_ICONS)
-                {
-                    <em>Only the first @MAX_ICONS results are shown.</em>
-                }
-                <br />
-                <small>Click on upper right clipboard icon in a card to copy a ready to paste <code>FluentEmoji</code> 
-                    component declaration to the clipboard.</small>
-            </div>
-
-            @foreach (var item in EmojisFound)
-            {
-                <FluentCard Class="card" Style="@($"width: {(int)Criteria.Size + 50}px; height: {(int)Criteria.Size + 50}px; ")">
-                    <FluentIcon Class="copy" Icon="@Icons.Regular.Size16.Clipboard" Color="@Color.Accent" OnClick="()=>HandleClick(item)" />
-                    <div class="emoji">
-                        <FluentEmoji Value="Emojis.GetInstance(item)" Title="@item.Name" Width="@($"{(int)Criteria.Size}px")" />
-                    </div>
-                    <label>@item.Name</label>
-                </FluentCard>
-            }
-        }
-    }
-</div>
+<iframe src="@ExplorerUrl"
+        style="border: 0px none; height: @Height; width: @Width;"
+        id="emoji-explorer"
+        scrolling="yes" frameborder="0"
+        marginheight="0" marginwidth="0">
+</iframe>

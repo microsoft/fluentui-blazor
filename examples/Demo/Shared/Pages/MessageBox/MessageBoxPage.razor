@@ -48,3 +48,12 @@
 <ApiDocumentation Component="typeof(MessageBoxContent)" />
 
 <ApiDocumentation Component="typeof(DialogParameters<>)" InstanceTypes="@(new[] {typeof(MessageBoxContent)})" GenericLabel="MessageBoxData" />
+
+@code
+{
+    // Hack to force the compiler to include this class in the final library
+    // (WASM publishing)
+    // TODO: To find a better solution
+    DialogParameters<MessageBoxContent> temp1 = new DialogParameters<MessageBoxContent>();
+    MessageBoxContent temp2 = new MessageBoxContent();
+}

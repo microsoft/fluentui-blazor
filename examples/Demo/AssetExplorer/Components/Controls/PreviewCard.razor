@@ -1,0 +1,27 @@
+﻿<div class="card">
+    <FluentIcon Class="copy"
+                Value="@(new Icons.Regular.Size16.Clipboard())"
+                Color="@Color.Neutral"
+                OnClick="@(() => CopyToClipboardAsync())"
+                Title="Copy to clipboard" />
+    @if (Icon is not null)
+    {
+        <FluentIcon Class="image"
+                    Value="@Icons.GetInstance(Icon)"
+                    Color="@IconColor"
+                    Title="@Icon?.Name" />
+    }
+
+    @if (Emoji is not null)
+    {
+        <FluentEmoji Class="image"
+                     Value="@Emojis.GetInstance(Emoji)"
+                     Width="64px"
+                     Title="@Emoji?.Name" />
+    }
+
+    <FluentLabel Class="label" title="@FullName">
+        @Icon?.Name
+        @Emoji?.Name
+    </FluentLabel>
+</div>
