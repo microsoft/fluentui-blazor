@@ -79,5 +79,95 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentSplitter_BarSize()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" BarSize="4">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
     
+    [Fact]
+    public void FluentSplitter_Panel1MinSizePercent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" Panel1MinSize="15%">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Panel1MinSizeFraction()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" Panel1MinSize="0.20fr">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Panel1MinSizePixel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" Panel1MinSize="55px">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Panel2MinSizePercent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" Panel2MinSize="15%">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+    </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Panel2MinSizeFraction()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" Panel2MinSize="0.20fr">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+    </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitter_Panel2MinSizePixel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" Collapsed="true" Panel2MinSize="55px">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+    </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
 }
