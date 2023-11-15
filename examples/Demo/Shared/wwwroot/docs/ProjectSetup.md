@@ -28,7 +28,7 @@ Then you can use the icons in your Blazor components like this:
 > **Note:** Names are structured as follows: `Icons.[IconVariant].[IconSize].[IconName]`.
 
 ```razor
-<FluentIcon Icon="@(Icons.Regular.Size24.Save)" />
+<FluentIcon Value="@(new @(Icons.Regular.Size24.Save)())" />
 ```
 
 You can use your custom images by setting the `Value` property calling the `Icon.FromImageUrl` method:
@@ -60,7 +60,7 @@ Then you can use the emoji's in your Blazor components like this:
 > **Note:** Names are structured as follows: `Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]`.
 
 ```razor
-<FluentEmoji Emoji="@(Emojis.PeopleBody.Color.Default.Artist)" />
+<FluentEmoji Value="@(new Emojis.PeopleBody.Color.Default.Artist())" />
 ```
 
 

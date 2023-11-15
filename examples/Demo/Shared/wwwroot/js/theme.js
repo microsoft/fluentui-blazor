@@ -38,12 +38,6 @@ export function getThemeCookieValue() {
     return getCookieValue(currentThemeCookieName) ?? themeSettingSystem;
 }
 
-export function switchDirection(dir) {
-    document.dir = dir;
-    const container = document.getElementById('container');
-    container.style.direction = dir;
-}
-
 export function switchHighlightStyle(dark) {
     if (dark) {
         document.querySelector(`link[title="dark"]`).removeAttribute("disabled");

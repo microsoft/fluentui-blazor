@@ -46,7 +46,7 @@
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
             <div class="menutoggle">
                 <label for="menu-toggle" class="menu-icon">
-                    <FluentIcon Icon="Icons.Regular.Size20.Navigation" Color="Color.Neutral" />
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" />
                 </label>
                 <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
 

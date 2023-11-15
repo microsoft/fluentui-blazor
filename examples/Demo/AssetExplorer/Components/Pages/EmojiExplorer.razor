@@ -1,0 +1,65 @@
+﻿@page "/emoji-explorer"
+@using FluentUI.Demo.AssetExplorer.Components.Controls
+
+<PageTitle>FluentUI Blazor - Emoji Explorers</PageTitle>
+
+<div class="emoji-explorer" style="width: @(Width ?? "100%"); height: @(Height ?? "calc(100vh - 120px)");">
+
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2>@Title</h2>    
+    }
+
+    <FluentGrid Style="width: 100%;" Spacing="1">
+        <FluentGridItem Style="min-width: 200px;">
+            <FluentSearch @bind-Value="@Criteria.SearchTerm"
+                          @bind-Value:after="@StartNewSearchAsync"
+                          Placeholder="Part of emoji name..." />
+        </FluentGridItem>
+        <FluentGridItem Gap="0">
+            <FluentSelect TOption="EmojiStyle"
+                          @bind-SelectedOption="@Criteria.Style"
+                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          Style="min-width: 150px;"
+                          Items="@(Enum.GetValues<EmojiStyle>())" />
+        </FluentGridItem>
+        <FluentGridItem>
+            <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
+                          OnClick="@StartNewSearchAsync" />
+        </FluentGridItem>
+    </FluentGrid>
+
+    @* Results *@
+    @if (SearchInProgress)
+    {
+        <FluentProgressRing Style="width: unset; margin: 50px;" />
+    }
+    else
+    {
+        @if (EmojisFound.Any())
+        {
+            <FluentLabel Class="header">
+                Click on upper right clipboard emoji in a card to copy a ready to paste <code>FluentEmoji</code>
+                component declaration to the clipboard.
+            </FluentLabel>
+
+            <div class="result-list">
+                @foreach (var item in EmojisForCurrentPage)
+                {
+                    <PreviewCard Emoji="@item" />
+                }
+            </div>
+
+            <FluentLabel Class="footer">
+                <FluentPaginator State="@PaginationState"
+                                 CurrentPageIndexChanged="@HandleCurrentPageIndexChanged" />
+            </FluentLabel>
+        }
+        else
+        {
+            <FluentLabel Class="not-found">
+                No emoji found
+            </FluentLabel>
+        }
+    }
+</div>

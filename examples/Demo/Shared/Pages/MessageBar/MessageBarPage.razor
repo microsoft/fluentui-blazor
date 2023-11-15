@@ -90,3 +90,14 @@
 <ApiDocumentation Component="typeof(MessageService)" />
 
 <ApiDocumentation Component="typeof(Message)" />
+
+@code
+{
+    // Hack to force the compiler to include this class in the final library
+    // (WASM publishing)
+    // TODO: To find a better solution
+    FluentMessageBarProvider temp1 = new FluentMessageBarProvider();
+    FluentMessageBar temp2 = new FluentMessageBar();
+    MessageService temp3 = new MessageService();
+    Message temp4 = new Message();
+}
