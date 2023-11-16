@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
 using System.Reflection;
 using System;
 
-namespace FluentUI.Demo.Shared.Pages.Home;
+namespace FluentUI.Demo.Shared.Pages.Index;
 public partial class Index
 {
     private string? _version;
