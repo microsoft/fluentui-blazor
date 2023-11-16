@@ -4,7 +4,7 @@ using System.Reflection;
 using System;
 
 namespace FluentUI.Demo.Shared.Pages.Home;
-public partial class Home
+public partial class Index
 {
     private string? _version;
 
