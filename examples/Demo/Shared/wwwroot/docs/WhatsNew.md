@@ -1,4 +1,7 @@
 ﻿## V3.4.0
+- FluentAccordionItem: Add HeaderTemplate parameter
+- FluentSplitter: Add Panel1MinSize, Panel2MinSize and BarSize parameter. 
+- FluentSplitter: Make resizing always use proportional values
 - FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
 - Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
 
