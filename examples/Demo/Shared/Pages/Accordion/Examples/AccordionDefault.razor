@@ -23,7 +23,7 @@
     </FluentAccordionItem>
 </FluentAccordion>
 
-<p>Last changed accordion item: @changed?.Heading</p>
+<p>Last changed accordion item: @(changed?.Heading ?? "item with HeaderTemplate")</p>
 
 
 @code {
