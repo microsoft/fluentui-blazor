@@ -24,9 +24,9 @@
         }
         else
         {
-            <div class="positioning-region">
+            <div class="positioning-region" @onkeydown="@HandleExpanderKeyDownAsync">
                 <div class="content-region">
-                    <div class="fluent-nav-link notactive" tabindex="0" @onclick="ToggleExpandedAsync" @onkeydown="@HandleExpanderKeyDownAsync">
+                    <div class="fluent-nav-link notactive" tabindex="0" @onclick="ToggleExpandedAsync" >
                         @_renderContent
                         @_renderButton
                     </div>
