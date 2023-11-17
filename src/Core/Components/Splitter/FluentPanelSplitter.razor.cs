@@ -58,6 +58,18 @@ public partial class FluentPanelSplitter : FluentComponentBase
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
+    /// <summary>
+    /// Gets or sets the width of the container.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the container.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-panel-splitter")
@@ -65,6 +77,8 @@ public partial class FluentPanelSplitter : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary />

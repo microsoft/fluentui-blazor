@@ -1,21 +1,19 @@
-<FluentPanelSplitter OnResize="@OnResizeHandler" 
-               Class="card-example">
-    <FluentPanelSplitterPane Size="50%" Min="50px" Max="70%">
-        Pane A1
+<FluentPanelSplitter OnResize="@OnResizeHandler" Height="150px" Style="border: 1px dashed var(--accent-fill-rest);">
+    <FluentPanelSplitterPane Size="20%" Min="50px" Max="70%">
+        Left Menu
     </FluentPanelSplitterPane>
     <FluentPanelSplitterPane Size="50%">
-        Pane A2
+        <FluentPanelSplitter Orientation="Orientation.Vertical">
+            <FluentPanelSplitterPane Collapsible="true">
+                Main Content
+            </FluentPanelSplitterPane>
+            <FluentPanelSplitterPane Collapsible="true">
+                Console log
+            </FluentPanelSplitterPane>
+        </FluentPanelSplitter>
     </FluentPanelSplitterPane>
-</FluentPanelSplitter>
-
-<FluentPanelSplitter Orientation="Orientation.Vertical"
-               Class="card-example"
-               OnResize="@OnResizeHandler">
-    <FluentPanelSplitterPane Collapsible="true">
-        Pane B1
-    </FluentPanelSplitterPane>
-    <FluentPanelSplitterPane Collapsible="true">
-        Pane B2
+    <FluentPanelSplitterPane Size="30%">
+        Properties
     </FluentPanelSplitterPane>
 </FluentPanelSplitter>
 
@@ -26,11 +24,3 @@
         DemoLogger.WriteLine($"Pane {e.PaneIndex} Resize (New size {e.NewSize})");
     }
 }
-
-<style>
-    .card-example {
-        height: 150px !important;
-        margin: 10px;
-        border: 1px solid silver;
-    }
-</style>
