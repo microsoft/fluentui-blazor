@@ -55,7 +55,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
     /// Gets or sets the size of the splitter bar in pixels. Default is 8
     /// </summary>
     [Parameter]
-    public int? BarSize { get; set; }
+    public string? BarSize { get; set; }
 
     /// <summary>
     /// Gets or sets the orientation.
@@ -85,7 +85,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-        .AddStyle("--fluent-panel-splitter-bar-size", $"{BarSize}px", () => BarSize.HasValue)
+        .AddStyle("--fluent-panel-splitter-bar-size", BarSize, () => !string.IsNullOrEmpty(BarSize))
         .Build();
 
     /// <summary />
