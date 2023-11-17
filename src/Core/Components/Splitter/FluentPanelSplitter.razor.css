@@ -1,9 +1,15 @@
 ﻿.fluent-panel-splitter {
-    --fluent-panel-splitter-color: #6a6a6a;
-    --fluent-panel-splitter-color-active: #6a6a6a;
-    --fluent-panel-splitter-background-color: #f3f2f1;
-    --fluent-panel-splitter-background-color-active: #c1c1c1;
+    /* Resize Icon colors */
+    --fluent-panel-splitter-color: var(--neutral-stroke-strong-rest);
+    --fluent-panel-splitter-color-active: var(--neutral-stroke-strong-hover);
+    /* Bar colors */
+    --fluent-panel-splitter-background-color: var(--neutral-stroke-rest);
+    --fluent-panel-splitter-background-color-active: var(--neutral-stroke-hover);
     --fluent-panel-splitter-hover-opacity: 0.8;
+    /* Bar size */
+    --fluent-panel-splitter-bar-size: 8px;
+
+    /* Styles */
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
@@ -91,7 +97,7 @@
 
     .fluent-panel-splitter[orientation="horizontal"] ::deep > .fluent-panel-splitter-bar {
         flex-direction: column;
-        width: 6px;        
+        width: var(--fluent-panel-splitter-bar-size);
     }
 
         .fluent-panel-splitter[orientation="horizontal"] ::deep > .fluent-panel-splitter-bar > span[part="collapse"]:before {
@@ -118,7 +124,7 @@
 
     .fluent-panel-splitter[orientation="vertical"] ::deep > .fluent-panel-splitter-bar {
         flex-direction: row;
-        height: 6px;        
+        height: var(--fluent-panel-splitter-bar-size);
     }
 
         .fluent-panel-splitter[orientation="vertical"] ::deep > .fluent-panel-splitter-bar > span[part="collapse"]:before {
