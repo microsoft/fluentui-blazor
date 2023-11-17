@@ -1,0 +1,25 @@
+﻿@page "/PanelSplitter"
+@using FluentUI.Demo.Shared.Pages.Splitter.Examples
+
+<h1>Panel Splitter (DRAFT)</h1>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Component="typeof(PanelSplitterDefault)" Title="Default">
+    <Description>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentPanelSplitter)" />
+<ApiDocumentation Component="typeof(FluentPanelSplitterPane)" />
+
+@code
+{
+    // Hack to force the compiler to include this class in the final library
+    // (WASM publishing)
+    // TODO: To find a better solution
+    FluentPanelSplitter temp1 = new FluentPanelSplitter();
+    FluentPanelSplitterPane temp2 = new FluentPanelSplitterPane();
+}
