@@ -74,6 +74,18 @@ When using **SSR (Static Server Rendering)**, you will need to include the web c
 ```
 If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
+### Styles
+
+In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by adding the following line to the `<head>` section of your `index.html`, `_Layout.cshtml` or `App.razor` file in the project you installed the package:
+
+```html
+<link href="{PROJECT_NAME}.styles.css" rel="stylesheet" />
+```
+
+It is possible that the line is already there (but commented out).
+
+**IMPORTANT:** When you change the root namespace/assembly name of your project, you need to update the {PROJECT_NAME} in your copy of the code above accordingly. 
+
 ### Reboot (optional)
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components. It provides an elegant, consistent, and simple baseline to build upon.
 
