@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
-    private readonly List<FluentOverflowItem> _items = new();
+    private readonly List<FluentOverflowItem> _items = [];
     private RenderFragment? _childContent = null;
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
     private IJSObjectReference _jsModule = default!;
@@ -111,7 +111,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     [JSInvokable]
     public async Task OverflowRaisedAsync(string value)
     {
-        var items = JsonSerializer.Deserialize<OverflowItem[]>(value);
+        OverflowItem[]? items = JsonSerializer.Deserialize<OverflowItem[]>(value);
 
         if (items == null)
         {
@@ -145,10 +145,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     {
         try
         {
-            if (_dotNetHelper is not null)
-            {
-                _dotNetHelper.Dispose();
-            }
+            _dotNetHelper?.Dispose();
 
             if (_jsModule is not null)
             {
