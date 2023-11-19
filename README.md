@@ -16,7 +16,7 @@
 
 ## Introduction
 
-The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which are used to build applications that have a Fluent design (i.e. have the look and feel or modern Microsoft applications).
+The `Microsoft.FluentUI.AspNetCore.Components` package provides a set of [Blazor](https://blazor.net) components which are used to build applications that have a Fluent design (i.e. have the look and feel or modern Microsoft applications). 
 
 Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent Design System or make it easier to work with Fluent UI. To get up and running with the library, see the **Getting Started** section below.
 
@@ -30,7 +30,7 @@ If you are upgrading from an earlier version of the library, please see the [wha
 
 ### Using our dotnet templates
 
-To easiest way to get started is by using our [Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates). These mimic the regular Blazor templates and come with the design and components pre-configured. You install them with this command:
+The easiest way to get started is by using our [Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates). These mimic the regular Blazor templates and come with the design and components pre-configured. You install them with this command:
 ```shell
 dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
@@ -72,7 +72,7 @@ When using **SSR (Static Server Rendering)**, you will need to include the web c
 ```html
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
 ```
-If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
+If you add interactivity later, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
 ### Reboot (optional)
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components. It provides an elegant, consistent, and simple baseline to build upon.
@@ -101,7 +101,7 @@ builder.Services.AddHttpClient();
 ```
 
 ### Add Component Providers
-Add the following components at the end of your `MainLayout.razor` file.
+Add the following components at the end of your `MainLayout.razor` file.  
 These providers are used by associated services to display Toasts, Dialog boxes, Tooltips or Message Bars correctly.
 
 ```xml
@@ -159,7 +159,7 @@ initializersLoader replaces standard `fetch` function with one which provides th
 For more information regarding the bug, see issue [15234](https://github.com/dotnet/maui/issues/15234) in the MAUI repo.
 	
 ## Use the DataGrid component with EF Core
-If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.  .
+If you want to use the `<FluentDataGrid>` with data provided through EF Core, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.
 
 ### Installation
 Install the package by running the command:
