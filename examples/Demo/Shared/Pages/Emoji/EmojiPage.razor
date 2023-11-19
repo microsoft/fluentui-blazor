@@ -42,11 +42,3 @@
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentEmoji<>)" InstanceTypes="@(new[] {typeof(Emoji)})" GenericLabel="Emoji"></ApiDocumentation>
-
-@code
-{
-    // Hack to force the compiler to include this class in the final library
-    // (WASM publishing)
-    // TODO: To find a better solution
-    FluentEmoji<Emoji> temp = new FluentEmoji<Emoji>();
-}
