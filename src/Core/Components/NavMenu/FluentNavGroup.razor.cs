@@ -27,13 +27,13 @@ public partial class FluentNavGroup : FluentNavBase
             .AddClass("rotate", Expanded)
             .Build();
 
-    protected string? ExpandIconClassValue =>
+    protected static string? ExpandIconClassValue =>
         new CssBuilder("fluent-nav-expand-icon")
             .Build();
 
     internal Dictionary<string, object?> Attributes
     {
-        get => Disabled ? new Dictionary<string, object?>() : new Dictionary<string, object?>
+        get => Disabled ? [] : new Dictionary<string, object?>
         {
             { "href", Href },
             { "target", Target },

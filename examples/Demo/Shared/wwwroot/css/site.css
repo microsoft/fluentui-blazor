@@ -200,6 +200,7 @@ code {
     width: 100%;
     z-index: 1000;
     margin: 20px 0;
+    color: var(--neutral-foreground-rest);
 }
 
     #blazor-error-ui .dismiss {

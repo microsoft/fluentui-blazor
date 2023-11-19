@@ -1,7 +1,9 @@
 ﻿@* To get access to all Fluent UI System icons, install the Microsoft.FluentUI.AspNetCore.Compoents.Icon package *@
 @* See all the diffeent ways on how to use icons at https://www.fluentui-blazor.net/Icon *@
-@*#if (UseServer && !InteractiveAtRoot) -->
-@rendermode InteractiveServer
+@*#if (UseServer && !InteractiveAtRoot)
+@rendermode InteractiveAuto
+##elseif (!InteractiveAtRoot)
+@rendermode InteractiveWebAssembly
 ##endif*@
 
 @*#if (IndividualLocalAuth)
@@ -11,15 +13,9 @@
 
 ##endif*@
 <nav>
-    @*#if (UseServer || UseWebAssembly)
     <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
-    ##else
-    <FluentNavMenu Width="250" Title="Custom navigation menu">
-    ##endif*@
         <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
-        @*#if (UseServer || UseWebAssembly)
         <FluentNavLink Href="counter" Icon="@Icon.FromImageUrl("/images/counter.svg")" IconColor="Color.Accent">Counter</FluentNavLink>
-        ##endif*@
         <FluentNavLink Href="weather" Icon="@Icon.FromImageUrl("/images/weather.svg")" IconColor="Color.Accent">Weather</FluentNavLink>
         @*#if (IndividualLocalAuth)
         <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
