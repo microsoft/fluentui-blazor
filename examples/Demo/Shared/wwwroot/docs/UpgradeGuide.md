@@ -7,6 +7,7 @@ This means you will need to change all `usings` in your code, change your `_Impo
 - FluentToast: Timeout is now in milliseconds
 - FluentToastContainer renamed to FluentToastProvider
 - FluentMessageBarContainer renamed to FluentMessageBarProvider
+- FluentButton: `Appearance.Filled` is no longer a valid value.
 - Removed the FluentCodeEditor component
 
 The rest of the changes are minimal. Check the [WhatsNew](/WhatsNew) page for more information.
