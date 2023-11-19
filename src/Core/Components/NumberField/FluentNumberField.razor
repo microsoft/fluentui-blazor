@@ -19,7 +19,7 @@
                      max="@Max"
                      min="@Min"
                      id=@Id
-                     value=@Value
+                     value=@BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture)
                      current-value="@BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture)"
                      disabled="@Disabled"
                      name=@Name
