@@ -25,13 +25,13 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the slot where the icon is displayed in
+    /// Gets or sets the slot where the icon is displayed in.
     /// </summary>
     [Parameter]
     public string? Slot { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the title for the icon
+    /// Gets or sets the title for the icon.
     /// </summary>
     [Parameter]
     public string? Title { get; set; } = null;
@@ -69,7 +69,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     }
 
     /// <summary>
-    /// Allows for capturing a mouse click on an icon
+    /// Allows for capturing a mouse click on an icon.
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }

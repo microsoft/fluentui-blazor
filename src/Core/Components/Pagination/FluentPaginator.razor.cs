@@ -14,7 +14,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     public EventCallback<int> CurrentPageIndexChanged { get; set; }
 
     /// <summary>
-    /// Specifies the associated <see cref="PaginationState"/>. This parameter is required.
+    /// Gets or sets the associated <see cref="PaginationState"/>. This parameter is required.
     /// </summary>
     [Parameter, EditorRequired]
     public PaginationState State { get; set; } = default!;

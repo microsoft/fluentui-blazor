@@ -29,7 +29,7 @@ public partial class FluentTab : FluentComponentBase
     public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the label of the tab
+    /// Gets or sets the label of the tab.
     /// </summary>
     [Parameter]
     public string Label { get; set; } = string.Empty;
@@ -41,19 +41,19 @@ public partial class FluentTab : FluentComponentBase
     public EventCallback<string> LabelChanged { get; set; }
 
     /// <summary>
-    /// User styles, applied to the Label Tab Item.
+    /// Gets or sets the class, applied to the Label Tab Item.
     /// </summary>
     [Parameter]
     public virtual string? LabelClass { get; set; }
 
     /// <summary>
-    /// User styles, applied to the Label Tab Item.
+    /// Gets or sets the style, applied to the Label Tab Item.
     /// </summary>
     [Parameter]
     public virtual string? LabelStyle { get; set; }
 
     /// <summary>
-    /// Customized content of the header.
+    /// Gets or sets the customized content of the header.
     /// </summary>
     [Parameter]
     public RenderFragment? Header { get; set; }
@@ -82,7 +82,7 @@ public partial class FluentTab : FluentComponentBase
     public bool DeferredLoading { get; set; } = false;
 
     /// <summary>
-    /// Customized content of this tab panel.
+    /// CGets or sets the cstomized content of this tab panel.
     /// </summary>
     [Parameter]
     public RenderFragment? Content { get; set; }
@@ -94,7 +94,7 @@ public partial class FluentTab : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the owning FluentTabs component
+    /// Gets or sets the owning FluentTabs component.
     /// </summary>
     [CascadingParameter]
     public FluentTabs Owner { get; set; } = default!;

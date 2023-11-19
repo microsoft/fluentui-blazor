@@ -60,7 +60,7 @@ public partial class TableOfContents : IAsyncDisposable
     public string Heading { get; set; } = "In this article";
 
     /// <summary>
-    /// Gets or sets if a 'Back to top' button should be rendered.
+    /// Gets or sets a value indicating whether a 'Back to top' button should be rendered.
     /// Defaults to true
     /// </summary>
     [Parameter]

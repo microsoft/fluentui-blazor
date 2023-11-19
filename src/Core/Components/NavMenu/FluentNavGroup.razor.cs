@@ -41,7 +41,7 @@ public partial class FluentNavGroup : FluentNavBase
         };
     }
     /// <summary>
-    /// The text to display for the group.
+    /// Gets or sets the text to display for the group.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -89,7 +89,6 @@ public partial class FluentNavGroup : FluentNavBase
     /// <summary>
     /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
     /// </summary>
-
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
 

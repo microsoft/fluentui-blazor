@@ -7,12 +7,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public readonly struct GridItemsProviderResult<TGridItem>
 {
     /// <summary>
-    /// The items being supplied.
+    /// Gets or sets the items being supplied.
     /// </summary>
     public /*required*/  ICollection<TGridItem> Items { get; init; }
 
     /// <summary>
-    /// The total number of items that may be displayed in the grid. This normally means the total number of items in the
+    /// Gets or sets the total number of items that may be displayed in the grid. This normally means the total number of items in the
     /// underlying data source after applying any filtering that is in effect.
     ///
     /// If the grid is paginated, this should include all pages. If the grid is virtualized, this should include the entire scroll range.

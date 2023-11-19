@@ -5,37 +5,38 @@ public class MessageOptions
 
 {
     /// <summary>
-    /// Identification of the <see cref="FluentMessageBarProvider"/> the message belongs to.
+    /// Gets or sets the identification of the <see cref="FluentMessageBarProvider"/> the message belongs to.
     /// </summary>
     public string? Section { get; set; }
 
     /// <summary>
-    /// The timestamp of the message.
+    /// Gets or sets the timestamp of the message.
     /// </summary>
     public DateTime? Timestamp { get; set; }
 
     /// <summary>
-    /// Icon to show in the message bar based on the intent of the message. See <see cref="Icon"/> for more details.
+    /// Gets or sets the icon to show in the message bar based on the intent of the message. See <see cref="Icon"/> for more details.
     /// </summary>
     public Icon? Icon { get; set; }
 
     /// <summary>
+    /// Gets or sets the title.
     /// Most important info to be shown in the message bar.
     /// </summary>
     public string? Title { get; set; }
 
     /// <summary>
-    /// Message to be shown in the message bar after the title.
+    /// Gets or sets the message to be shown in the message bar after the title.
     /// </summary>
     public string? Body { get; set; }
 
     /// <summary>
-    /// Link to be shown in the message bar after the title/message. 
+    /// Gets or sets the link to be shown in the message bar after the title/message. 
     /// </summary>
-    public ActionLink<Message>? Link { get; set; } 
+    public ActionLink<Message>? Link { get; set; }
 
     /// <summary>
-    /// Action to be executed when the message bar is closed.
+    /// Gets or sets the action to be executed when the message bar is closed.
     /// </summary>
     public Func<Message, Task>? OnClose { get; set; }
 
@@ -50,17 +51,18 @@ public class MessageOptions
     public ActionButton<Message>? SecondaryAction { get; set; } = new();
 
     /// <summary>
-    /// Intent of the message bar. Default is MessageIntent.Info.
+    /// Gets or sets the intent of the message bar. 
+    /// Default is MessageIntent.Info.
     /// </summary>
-    public MessageIntent? Intent { get; set; } 
+    public MessageIntent? Intent { get; set; }
 
     /// <summary>
-    /// Remove the message bar after navigation.
+    /// Gets or sets a value indicating whether the message will be removed after navigation.
     /// </summary>
     public bool ClearAfterNavigation { get; set; }
 
     /// <summary>
-    /// Timeout in milliseconds after which the message bar is removed. Default is null.
+    /// Gets or sets the timeout in milliseconds after which the message bar is removed. Default is null.
     /// </summary>
     public int? Timeout { get; set; }
 }

@@ -41,27 +41,27 @@ public partial class FluentInputFile : FluentComponentBase
 
     /// <summary>
     /// To select multiple files, set the maximum number of files allowed to be uploaded.
-    /// Default value is 10
+    /// Default value is 10.
     /// </summary>
     [Parameter]
     public int MaximumFileCount { get; set; } = 10;
 
     /// <summary>
-    /// Maximum size of a file to be uploaded (in bytes).
+    /// Gets or sets the maximum size of a file to be uploaded (in bytes).
     /// Default value is 10 MB.
     /// </summary>
     [Parameter]
     public long MaximumFileSize { get; set; } = 10 * 1024 * 1024;
 
     /// <summary>
-    /// Size of buffer to read bytes from uploaded file (in bytes).
+    /// Gets or sets the sze of buffer to read bytes from uploaded file (in bytes).
     /// Default value is 10 KB.
     /// </summary>
     [Parameter]
     public uint BufferSize { get; set; } = 10 * 1024;
 
     /// <summary>
-    /// Filter for what file types the user can pick from the file input dialog box.
+    /// Gets or sets the filter for what file types the user can pick from the file input dialog box.
     /// Example: ".gif, .jpg, .png, .doc", "audio/*", "video/*", "image/*"
     /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept</see>
     /// for more information.
@@ -70,7 +70,7 @@ public partial class FluentInputFile : FluentComponentBase
     public string Accept { get; set; } = string.Empty;
 
     /// <summary>
-    /// Type of file reading.
+    /// Gets or sets the type of file reading.
     /// For SaveToTemporaryFolder, use <see cref="FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
     /// For Buffer, use <see cref="FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
     /// </summary>
@@ -78,24 +78,24 @@ public partial class FluentInputFile : FluentComponentBase
     public InputFileMode Mode { get; set; } = InputFileMode.SaveToTemporaryFolder;
 
     /// <summary>
-    /// Drag/Drop zone visible or not. Default is true.
-    /// You can.
+    /// Gets or sets a value indicating whether the Drag/Drop zone is visible. 
+    /// Default is true.
     /// </summary>
     [Parameter]
     public bool DragDropZoneVisible { get; set; } = true;
 
     /// <summary>
-    /// Current label display when an upload is in progress.
+    /// Gets or sets the current label display when an upload is in progress.
     /// </summary>
     public string ProgressTitle { get; private set; } = string.Empty;
 
     /// <summary>
-    /// Current global value of the percentage of a current upload.
+    /// Gets or sets the current global value of the percentage of a current upload.
     /// </summary>
     public int ProgressPercent { get; private set; } = 0;
 
     /// <summary>
-    /// Child content of the component.
+    /// Gets or sets the child content of the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -133,7 +133,7 @@ public partial class FluentInputFile : FluentComponentBase
     public EventCallback<IEnumerable<FluentInputFileEventArgs>> OnCompleted { get; set; }
 
     /// <summary>
-    /// Identifier of the source component clickable by the end user.
+    /// Gets or sets the identifier of the source component clickable by the end user.
     /// </summary>
     [Parameter]
     public string AnchorId { get; set; } = string.Empty;

@@ -1,7 +1,7 @@
 ﻿## Breaking changes v4.0.0
 The most obvious breaking change of course is namespace change from 
 `Microsoft.Fast.Components.FluentUI` to `Microsoft.FluentUI.AspNetCore.Components`. 
-This means you wil need to change all `usings` in your code, change your `_Imports.razor`, etc.
+This means you will need to change all `usings` in your code, change your `_Imports.razor`, etc.
 
 - AfterBindValue has been replaced with the native @bind-Value:after
 - FluentToast: Timeout is now in milliseconds

@@ -31,7 +31,8 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     protected IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Content to display. All first HTML elements are included in the items flow.
+    /// Gets or sets the content to display. 
+    /// All first HTML elements are included in the items flow.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent
@@ -54,13 +55,13 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     }
 
     /// <summary>
-    /// Template to display <see cref="ItemsOverflow"/> elements.
+    /// Gets or sets the template to display <see cref="ItemsOverflow"/> elements.
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
 
     /// <summary>
-    /// Template to display the More button.
+    /// Gets or sets the template to display the More button.
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? MoreButtonTemplate { get; set; }

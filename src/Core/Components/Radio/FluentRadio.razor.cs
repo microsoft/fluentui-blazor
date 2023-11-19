@@ -11,31 +11,31 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     internal FluentRadioContext? Context { get; private set; }
 
     /// <summary>
-    /// Gets or sets if the element is readonly
+    /// Gets or sets a value indicating whether the element is readonly.
     /// </summary>
     [Parameter]
     public bool ReadOnly { get; set; }
 
     /// <summary>
-    /// Text displayed just above the component
+    /// Gets or sets the text displayed just above the component.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
+    /// Gets or sets the content displayed just above the component.
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
     /// <summary>
-    /// Text used on aria-label attribute.
+    /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// The value of the element
+    /// Gets or sets the value of the element.
     /// </summary>
     [Parameter]
     public TValue? Value { get; set; }
@@ -53,12 +53,13 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     public string? Name { get; set; }
 
     /// <summary>
-    /// The element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
+
     /// <summary>
-    /// Gets or sets if the element is checked
+    /// Gets or sets a value indicating whether the element is checked.
     /// </summary>
     [Parameter]
     public bool? Checked { get; set; }

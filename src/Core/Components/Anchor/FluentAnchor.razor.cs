@@ -20,7 +20,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public string? Download { get; set; }
 
     /// <summary>
-    /// The URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// Use Target parameter to specify where.
     /// </summary>
     [Parameter, EditorRequired]
@@ -51,7 +51,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public string? Rel { get; set; }
 
     /// <summary>
-    /// The target attribute specifies where to open the link, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>
     [Parameter]
@@ -71,13 +71,13 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the start of anchor content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of anchor content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the end of anchor content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of anchor content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
