@@ -1497,10 +1497,29 @@
             <param name="date"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthNames">
+            <summary>
+            Returns the list of month names in the right culture.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthNameAndYear">
             <summary>
             Returns the name of the month in the right culture, followed by the year.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear">
+            <summary>
+            Returns the year value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear(System.DateTime)">
+            <summary>
+            Returns the year value.
+            </summary>
+            <param name="date"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetDayNames">
@@ -1732,6 +1751,38 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Placeholder">
             <summary>
             The short hint displayed in the input before the user enters a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ReadOnly">
+            <summary>
+            Gets or sets if the calendar is readonly 
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.Culture">
+            <summary>
+            The culture of the component.
+            By default <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> to display using the OS culture.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.Value">
+            <summary>
+            Selected date (two-way bindable).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ValueChanged">
+            <summary>
+            Fired when the display month changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.CalendarExtended">
+            <summary>
+            All days of this current month.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">

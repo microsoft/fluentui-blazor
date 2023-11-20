@@ -97,6 +97,18 @@ internal struct CalendarExtended
     }
 
     /// <summary>
+    /// Returns the list of month names in the right culture.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames() 
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            yield return (i + 1, ToTitleCase(Culture.DateTimeFormat.AbbreviatedMonthNames[i]), ToTitleCase(Culture.DateTimeFormat.MonthNames[i]));
+        }
+    }
+
+    /// <summary>
     /// Returns the name of the month in the right culture, followed by the year.
     /// </summary>
     /// <returns></returns>
@@ -104,6 +116,25 @@ internal struct CalendarExtended
     {
         var result = $"{GetMonthName(Date)} {Date.Year}";
         return result;
+    }
+
+    /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <returns></returns>
+    public string GetYear()
+    {
+        return $"{Date.Year}";
+    }
+
+    /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public string GetYear(DateTime date)
+    {
+        return $"{date.Year}";
     }
 
     /// <summary>
