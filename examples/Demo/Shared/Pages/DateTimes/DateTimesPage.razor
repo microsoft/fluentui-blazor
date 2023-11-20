@@ -6,11 +6,11 @@
 
 @* Test *@
 <FluentMonth @bind-Value="@MyMonth" />
-<div>@MyMonth</div>
+<div style="margin: 30px;">@MyMonth?.ToString("yyyy-MM")</div>
 
 @code
 {
-    DateTime MyMonth = DateTime.Today;
+    DateTime? MyMonth = null;
 }
 
 <p>

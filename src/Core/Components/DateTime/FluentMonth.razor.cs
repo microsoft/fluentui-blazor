@@ -12,7 +12,7 @@ public partial class FluentMonth : FluentComponentBase
 
     private VerticalPosition _animationRunning = VerticalPosition.Unset;
     private DateTime _pickerMonth = DateTime.Today;
-    private DateTime _selectedValue = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+    private DateTime? _selectedValue = null;
     private CalendarExtended? _calendarExtended = null;
 
     /// <summary />
@@ -46,16 +46,16 @@ public partial class FluentMonth : FluentComponentBase
     /// Selected date (two-way bindable).
     /// </summary>
     [Parameter]
-    public virtual DateTime Value
+    public virtual DateTime? Value
     {
         get
         {
-            return FirstDayOfMonth(_selectedValue);
+            return _selectedValue == null ? null : FirstDayOfMonth(_selectedValue.Value);
         }
 
         set
         {
-            var month = FirstDayOfMonth(value);
+            var month = value == null ? (DateTime?)null : FirstDayOfMonth(value.Value);
 
             if (month == _selectedValue)
             {
@@ -71,7 +71,7 @@ public partial class FluentMonth : FluentComponentBase
     /// Fired when the display month changes.
     /// </summary>
     [Parameter]
-    public virtual EventCallback<DateTime> ValueChanged { get; set; }
+    public virtual EventCallback<DateTime?> ValueChanged { get; set; }
 
     /// <summary />
     internal CalendarExtended CalendarExtended => _calendarExtended 
@@ -103,7 +103,7 @@ public partial class FluentMonth : FluentComponentBase
 
     private string? SelectedAttribute(int year, int month)
     {
-        if (Value.Year == year && Value.Month == month)
+        if (Value != null && (Value.Value.Year == year && Value.Value.Month == month))
         {
             return "selected";
         }
