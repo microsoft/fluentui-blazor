@@ -22,12 +22,15 @@ public partial class FluentMonth : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary />
-    public string AnimationClass => _animationRunning switch
+    private string AnimationClass => _animationRunning switch
     {
         VerticalPosition.Top => "animation-running-up",
         VerticalPosition.Bottom => "animation-running-down",
         _ => "animation-none"
     };
+
+    /// <summary />
+    private MonthView View { get; set; } = MonthView.Months;
 
     /// <summary>
     /// Gets or sets if the calendar is readonly 
@@ -117,5 +120,11 @@ public partial class FluentMonth : FluentComponentBase
     { 
         Value = new DateTime(year, month, 1);
         return Task.CompletedTask;
+    }
+
+    private enum MonthView
+    { 
+        Months,
+        Years
     }
 }

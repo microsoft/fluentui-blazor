@@ -21,7 +21,7 @@
         justify-content: space-between;
     }
 
-    .fluent-month ::deep .year {
+    .fluent-month ::deep .title-year {
         vertical-align: middle;
     }
 
@@ -78,11 +78,37 @@
         background: var(--neutral-fill-stealth-hover);
     }
 
-    /* Selected */
     .fluent-month ::deep .month[selected] {
         color: var(--accent-fill-rest);
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);
+    }
+
+    /* List of years */
+    .fluent-month ::deep .years {
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: var(--month-gap);
+        width: 100%;
+    }
+
+    .fluent-month ::deep .year {
+        display: flex;
+        height: var(--month-cell-height);
+        border: calc(var(--stroke-width) * 1px) solid transparent;
+        border-radius: calc(var(--control-corner-radius) * 1px);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .fluent-month[readonly] ::deep .year {
+        cursor: default;
+    }
+
+    .fluent-month ::deep .year:hover {
+        background: var(--neutral-fill-stealth-hover);
     }
 
     /* Animations */

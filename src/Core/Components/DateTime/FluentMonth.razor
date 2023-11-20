@@ -4,8 +4,17 @@
 <div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
     @* Year name *@
     <div class="title" part="title" aria-label="@CalendarExtended.GetYear()">
-        <span part="year" class="year @AnimationClass">
-            @CalendarExtended.GetYear()
+        <span part="year" class="title-year @AnimationClass">
+            @switch (View)
+            {
+                case MonthView.Months:
+                    @CalendarExtended.GetYear()
+                    break;
+
+                case MonthView.Years:
+                    @($"{_pickerMonth.Year} - {_pickerMonth.Year + 12}")
+                    break;
+            }
         </span>
         <span part="move" class="change-year">
             @if (_pickerMonth.Year == DateTime.MinValue.Year)
@@ -35,14 +44,30 @@
         </span>
     </div>
 
-    <div class="months" part="months">
-        @foreach (var month in CalendarExtended.GetMonthNames())
-        {
-            <div class="month @AnimationClass"
-                 selected="@SelectedAttribute(_pickerMonth.Year, month.Index)"
-                 @onclick="@(e => SelectMonthHandlerAsync(_pickerMonth.Year, month.Index))">
-                <div>@month.Abbreviated</div>
+    @switch (View)
+    {
+        case MonthView.Months:
+            <div class="months" part="months">
+                @foreach (var month in CalendarExtended.GetMonthNames())
+                {
+                    <div class="month @AnimationClass"
+                         selected="@SelectedAttribute(_pickerMonth.Year, month.Index)"
+                         @onclick="@(e => SelectMonthHandlerAsync(_pickerMonth.Year, month.Index))">
+                        <div>@month.Abbreviated</div>
+                    </div>
+                }
             </div>
-        }
-    </div>
+            break;
+
+        case MonthView.Years:
+            <div class="years" part="years">
+                @foreach (var year in Enumerable.Range(2023, 12))
+                {
+                    <div class="year @AnimationClass">
+                        <div>@year</div>
+                    </div>
+                }
+            </div>
+            break;
+    }
 </div>
