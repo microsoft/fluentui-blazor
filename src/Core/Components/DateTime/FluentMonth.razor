@@ -4,7 +4,7 @@
 <div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
     @* Year name *@
     <div class="title" part="title" aria-label="@CalendarExtended.GetYear()">
-        <span part="year" class="year">
+        <span part="year" class="year @AnimationClass">
             @CalendarExtended.GetYear()
         </span>
         <span part="move" class="change-year">
@@ -16,7 +16,7 @@
             {
                 <div class="previous-year"
                      title="@CalendarExtended.GetYear(Value.AddYears(-1))"
-                     @onclick="@((e) => this.Value = Value.AddYears(-1))">
+                     @onclick="@(e => MoveYearAsync(-1))">
                     @((MarkupString)ArrowUp)
                 </div>
             }
@@ -28,7 +28,7 @@
             {
                 <div title="@CalendarExtended.GetYear(Value.AddYears(+1))"
                      class="next-year"
-                     @onclick="@((e) => this.Value = Value.AddYears(+1))">
+                     @onclick="@(e => MoveYearAsync(+1))">
                     @((MarkupString)ArrowDown)
                 </div>
             }
@@ -38,30 +38,9 @@
     <div class="months" part="months">
         @foreach (var month in CalendarExtended.GetMonthNames())
         {
-            <div class="month">
+            <div class="month @AnimationClass">
                 <div>@month.Abbreviated</div>
             </div>
-
-            @*
-        <div part="day"
-        class="day"
-        disabled="@dayProperties.IsDisabled"
-        inactive="@dayProperties.IsInactive"
-        today="@dayProperties.IsToday"
-        selected="@dayProperties.IsSelected"
-        aria-label="@dayProperties.Title"
-        value="@dayProperties.DayIdentifier"
-        @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
-        @if (DaysTemplate == null)
-        {
-        @dayProperties.DayNumber
-        }
-        else
-        {
-        @DaysTemplate(dayProperties)
-        }
-        </div>
-        *@
         }
     </div>
 </div>

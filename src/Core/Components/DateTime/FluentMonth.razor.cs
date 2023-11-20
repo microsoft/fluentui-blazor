@@ -10,6 +10,7 @@ public partial class FluentMonth : FluentComponentBase
     public static string ArrowUp = FluentCalendar.ArrowUp;
     public static string ArrowDown = FluentCalendar.ArrowDown;
 
+    private VerticalPosition _animationRunning = VerticalPosition.Unset;
     private DateTime _selectedValue = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
     private CalendarExtended? _calendarExtended = null;
 
@@ -18,6 +19,14 @@ public partial class FluentMonth : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style).Build();
+
+    /// <summary />
+    public string AnimationClass => _animationRunning switch
+    {
+        VerticalPosition.Top => "animation-running-up",
+        VerticalPosition.Bottom => "animation-running-down",
+        _ => "animation-none"
+    };
 
     /// <summary>
     /// Gets or sets if the calendar is readonly 
@@ -73,4 +82,22 @@ public partial class FluentMonth : FluentComponentBase
         return date.Day == 1 ? date : new DateTime(date.Year, date.Month, 1);
     }
 
+    private async Task MoveYearAsync(int increment)
+    {
+        // Remove the current animation
+        _animationRunning = VerticalPosition.Unset;
+        await Task.Delay(1);
+        StateHasChanged();
+
+        if (increment > 0)
+        {
+            Value = Value.AddYears(increment);
+            _animationRunning = VerticalPosition.Top;
+        }
+        else
+        {
+            Value = Value.AddYears(increment);
+            _animationRunning = VerticalPosition.Bottom;
+        }
+    }
 }

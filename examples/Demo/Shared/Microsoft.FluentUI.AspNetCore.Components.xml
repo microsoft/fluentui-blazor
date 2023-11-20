@@ -1759,6 +1759,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.AnimationClass">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ReadOnly">
             <summary>
             Gets or sets if the calendar is readonly 

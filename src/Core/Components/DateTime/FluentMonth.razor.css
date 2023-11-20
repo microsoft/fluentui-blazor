@@ -77,3 +77,58 @@
     .fluent-month ::deep .month:hover {
         background: var(--neutral-fill-stealth-hover);
     }
+
+    /* TODO: Apply animation */
+    .fluent-month ::deep .animation-running-down {
+        animation: 0.3s fluent-month-text-animation-down ease-out;
+    }
+
+    .fluent-month ::deep .animation-running-up {
+        animation: 0.3s fluent-month-text-animation-up ease-out;
+    }
+
+    .fluent-month ::deep .animation-none {
+        animation: none;
+    }
+
+@keyframes fluent-month-text-animation-up {
+    0% {
+        opacity: 0;
+        transform: translateY(80%);
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes fluent-month-text-animation-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-80%);
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
