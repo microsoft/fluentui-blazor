@@ -1784,9 +1784,7 @@
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.CalendarExtended">
-            <summary>
-            All days of this current month.
-            </summary>
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />

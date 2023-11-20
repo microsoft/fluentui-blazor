@@ -11,6 +11,7 @@ public partial class FluentMonth : FluentComponentBase
     public static string ArrowDown = FluentCalendar.ArrowDown;
 
     private VerticalPosition _animationRunning = VerticalPosition.Unset;
+    private DateTime _pickerMonth = DateTime.Today;
     private DateTime _selectedValue = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
     private CalendarExtended? _calendarExtended = null;
 
@@ -72,10 +73,9 @@ public partial class FluentMonth : FluentComponentBase
     [Parameter]
     public virtual EventCallback<DateTime> ValueChanged { get; set; }
 
-    /// <summary>
-    /// All days of this current month.
-    /// </summary>
-    internal CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(this.Culture, this.Value);
+    /// <summary />
+    internal CalendarExtended CalendarExtended => _calendarExtended 
+                                               ?? new CalendarExtended(this.Culture, _pickerMonth);
 
     private DateTime FirstDayOfMonth(DateTime date)
     {
@@ -91,13 +91,31 @@ public partial class FluentMonth : FluentComponentBase
 
         if (increment > 0)
         {
-            Value = Value.AddYears(increment);
+            _pickerMonth = _pickerMonth.AddYears(increment);
             _animationRunning = VerticalPosition.Top;
         }
         else
         {
-            Value = Value.AddYears(increment);
+            _pickerMonth = _pickerMonth.AddYears(increment);
             _animationRunning = VerticalPosition.Bottom;
         }
+    }
+
+    private string? SelectedAttribute(int year, int month)
+    {
+        if (Value.Year == year && Value.Month == month)
+        {
+            return "selected";
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private Task SelectMonthHandlerAsync(int year, int month)
+    { 
+        Value = new DateTime(year, month, 1);
+        return Task.CompletedTask;
     }
 }

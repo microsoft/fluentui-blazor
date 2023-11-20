@@ -78,13 +78,20 @@
         background: var(--neutral-fill-stealth-hover);
     }
 
-    /* TODO: Apply animation */
+    /* Selected */
+    .fluent-month ::deep .month[selected] {
+        color: var(--accent-fill-rest);
+        border: 1px solid var(--accent-fill-rest);
+        background: var(--fill-color);
+    }
+
+    /* Animations */
     .fluent-month ::deep .animation-running-down {
-        animation: 0.3s fluent-month-text-animation-down ease-out;
+        animation: 0.2s fluent-month-text-animation-down ease-out;
     }
 
     .fluent-month ::deep .animation-running-up {
-        animation: 0.3s fluent-month-text-animation-up ease-out;
+        animation: 0.2s fluent-month-text-animation-up ease-out;
     }
 
     .fluent-month ::deep .animation-none {

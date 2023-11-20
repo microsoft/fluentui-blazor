@@ -8,25 +8,25 @@
             @CalendarExtended.GetYear()
         </span>
         <span part="move" class="change-year">
-            @if (Value.Year == DateTime.MinValue.Year)
+            @if (_pickerMonth.Year == DateTime.MinValue.Year)
             {
                 <div class="previous-year" />
             }
             else
             {
                 <div class="previous-year"
-                     title="@CalendarExtended.GetYear(Value.AddYears(-1))"
+                     title="@CalendarExtended.GetYear(_pickerMonth.AddYears(-1))"
                      @onclick="@(e => MoveYearAsync(-1))">
                     @((MarkupString)ArrowUp)
                 </div>
             }
-            @if (Value.Year == DateTime.MaxValue.Year)
+            @if (_pickerMonth.Year == DateTime.MaxValue.Year)
             {
                 <div class="next-year" />
             }
             else
             {
-                <div title="@CalendarExtended.GetYear(Value.AddYears(+1))"
+                <div title="@CalendarExtended.GetYear(_pickerMonth.AddYears(+1))"
                      class="next-year"
                      @onclick="@(e => MoveYearAsync(+1))">
                     @((MarkupString)ArrowDown)
@@ -38,7 +38,9 @@
     <div class="months" part="months">
         @foreach (var month in CalendarExtended.GetMonthNames())
         {
-            <div class="month @AnimationClass">
+            <div class="month @AnimationClass"
+                 selected="@SelectedAttribute(_pickerMonth.Year, month.Index)"
+                 @onclick="@(e => SelectMonthHandlerAsync(_pickerMonth.Year, month.Index))">
                 <div>@month.Abbreviated</div>
             </div>
         }

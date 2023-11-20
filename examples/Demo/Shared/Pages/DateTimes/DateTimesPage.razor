@@ -5,7 +5,13 @@
 <h1>Date & Time</h1>
 
 @* Test *@
-<FluentMonth />
+<FluentMonth @bind-Value="@MyMonth" />
+<div>@MyMonth</div>
+
+@code
+{
+    DateTime MyMonth = DateTime.Today;
+}
 
 <p>
     The <code>&lt;FluentCalendar&gt;</code> is an implementation of a month calendar display leveraging the Fluent UI design system.
