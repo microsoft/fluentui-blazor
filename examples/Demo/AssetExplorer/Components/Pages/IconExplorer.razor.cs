@@ -47,12 +47,15 @@ public partial class IconExplorer
         SearchInProgress = true;
         await Task.Delay(1); // Display spinner
 
-        IconsFound = Icons.AllIcons
-                          .Where(i => i.Variant == Criteria.Variant
-                                   && i.Size == Criteria.Size
-                                   && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
-                          .OrderBy(i => i.Name)
-                          .ToArray();
+        IconsFound =
+        [
+            .. Icons.AllIcons
+                                      .Where(i => i.Variant == Criteria.Variant
+                                               && i.Size == Criteria.Size
+                                               && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                                      .OrderBy(i => i.Name)
+,
+        ];
 
         await PaginationState.SetTotalItemCountAsync(IconsFound.Length);
 

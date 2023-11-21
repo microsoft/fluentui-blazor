@@ -417,7 +417,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 result = result.Take(request.Count.Value);
             }
-            TGridItem[]? resultArray = _asyncQueryExecutor is null ? result.ToArray() : await _asyncQueryExecutor.ToArrayAsync(result);
+            TGridItem[]? resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result);
             return GridItemsProviderResult.From(resultArray, totalItemCount);
         }
         else

@@ -46,11 +46,14 @@ public partial class EmojiExplorer
         SearchInProgress = true;
         await Task.Delay(1); // Display spinner
 
-        EmojisFound = Emojis.AllEmojis
-                            .Where(i => i.Style == Criteria.Style
-                                     && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
-                            .OrderBy(i => i.Name)
-                            .ToArray();
+        EmojisFound =
+        [
+            .. Emojis.AllEmojis
+                                        .Where(i => i.Style == Criteria.Style
+                                                 && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                                        .OrderBy(i => i.Name)
+,
+        ];
 
         await PaginationState.SetTotalItemCountAsync(EmojisFound.Length);
 
