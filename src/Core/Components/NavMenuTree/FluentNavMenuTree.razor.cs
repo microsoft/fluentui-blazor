@@ -11,8 +11,8 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private bool _disposed;
     private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
-    private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = new();
-    private readonly List<FluentNavMenuItemBase> _childItems = new();
+    private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = [];
+    private readonly List<FluentNavMenuItemBase> _childItems = [];
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
     private FluentTreeItem? _currentlySelectedTreeItem;
     private FluentTreeItem? _previousSuccessfullySelectedTreeItem;

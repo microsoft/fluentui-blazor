@@ -67,8 +67,8 @@ public sealed class GridSort<TGridItem>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public GridSort<TGridItem> ThenAscending<U>(Expression<Func<TGridItem, U>> expression)
     {
-        _then ??= new();
-        _thenExpressions ??= new();
+        _then ??= [];
+        _thenExpressions ??= [];
         _then.Add((queryable, asc) => asc ? queryable.ThenBy(expression) : queryable.ThenByDescending(expression));
         _thenExpressions.Add((expression, true));
         _cachedPropertyListAscending = null;
@@ -84,8 +84,8 @@ public sealed class GridSort<TGridItem>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public GridSort<TGridItem> ThenDescending<U>(Expression<Func<TGridItem, U>> expression)
     {
-        _then ??= new();
-        _thenExpressions ??= new();
+        _then ??= [];
+        _thenExpressions ??= [];
         _then.Add((queryable, asc) => asc ? queryable.ThenByDescending(expression) : queryable.ThenBy(expression));
         _thenExpressions.Add((expression, false));
         _cachedPropertyListAscending = null;

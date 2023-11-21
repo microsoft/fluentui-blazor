@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTabs : FluentComponentBase
 {
     private const string FLUENT_TAB_TAG = "fluent-tab";
-    private readonly Dictionary<string, FluentTab> _tabs = new();
+    private readonly Dictionary<string, FluentTab> _tabs = [];
     //private string _activeId = string.Empty;
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;

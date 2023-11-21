@@ -188,7 +188,7 @@ public partial class FluentInputFile : FluentComponentBase
         ProgressPercent = 0;
         ProgressTitle = FluentInputFileResource.LoadingBefore;
 
-        List<FluentInputFileEventArgs>? uploadedFiles = new();
+        List<FluentInputFileEventArgs>? uploadedFiles = [];
         IReadOnlyList<IBrowserFile>? allFiles = e.GetMultipleFiles(MaximumFileCount);
         List<UploadedFileDetails>? allFilesSummary = allFiles.Select(i => (new UploadedFileDetails(i.Name, i.Size, i.ContentType))).ToList();
         long totalFileSizes = allFiles.Sum(i => i.Size);

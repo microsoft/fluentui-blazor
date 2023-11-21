@@ -5,7 +5,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAccordion : FluentComponentBase
 {
-    private readonly Dictionary<string, FluentAccordionItem> items = new();
+    private readonly Dictionary<string, FluentAccordionItem> items = [];
 
     /// <summary>
     /// Controls the expand mode of the Accordion, either allowing

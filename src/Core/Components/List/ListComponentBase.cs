@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract class ListComponentBase<TOption> : FluentComponentBase
 {
     private bool _multiple = false;
-    private List<TOption> _selectedOptions = new();
+    private List<TOption> _selectedOptions = [];
 
     // We cascade the InternalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
@@ -491,7 +491,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     /// <summary />
     protected virtual bool RemoveAllSelectedItems()
     {
-        _selectedOptions = new();
+        _selectedOptions = [];
         return true;
     }
 

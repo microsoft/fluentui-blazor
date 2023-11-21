@@ -10,7 +10,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 {
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;
-    private readonly Dictionary<string, FluentMenuItem> items = new();
+    private readonly Dictionary<string, FluentMenuItem> items = [];
     private IJSObjectReference _jsModule = default!;
 
 

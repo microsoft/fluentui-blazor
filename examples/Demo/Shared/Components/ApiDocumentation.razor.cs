@@ -66,7 +66,7 @@ public partial class ApiDocumentation
 
         if (_allMembers == null)
         {
-            List<MemberDescription>? members = new();
+            List<MemberDescription>? members = [];
 
             object? obj;
             if (Component.IsGenericType)
