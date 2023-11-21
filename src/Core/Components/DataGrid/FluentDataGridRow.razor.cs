@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
     internal string RowId { get; } = Identifier.NewId();
-    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = new();
+    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
 
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values
@@ -35,6 +35,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     [Parameter]
     public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
 
+    [Parameter]
+    public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Center;
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -52,7 +55,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{Owner.Grid.ItemSize}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
-       .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
     protected override void OnInitialized()
