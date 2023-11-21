@@ -351,7 +351,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
             return false;
         }
 
-        NavMenuActionArgs? actionArgs = new(target: menuItem, renavigate: renavigate);
+        NavMenuActionArgs? actionArgs = new NavMenuActionArgs(target: menuItem, renavigate: renavigate);
         if (OnAction.HasDelegate)
         {
             await OnAction.InvokeAsync(actionArgs);

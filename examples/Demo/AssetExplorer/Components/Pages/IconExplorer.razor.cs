@@ -11,7 +11,7 @@ public partial class IconExplorer
 
     private readonly IconSearchCriteria Criteria = new();
     private IconInfo[] IconsFound = Array.Empty<IconInfo>();    
-    private PaginationState PaginationState = new() { ItemsPerPage = 4 * 12 };
+    private PaginationState PaginationState = new PaginationState { ItemsPerPage = 4 * 12 };
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Icon Explorers";

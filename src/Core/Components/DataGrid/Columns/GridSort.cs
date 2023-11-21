@@ -126,7 +126,7 @@ public sealed class GridSort<TGridItem>
     {
         var result = new List<SortedProperty>
         {
-            new() { PropertyName = ToPropertyName(_firstExpression.Item1), Direction = (_firstExpression.Item2 ^ ascending) ? SortDirection.Descending : SortDirection.Ascending }
+            new SortedProperty { PropertyName = ToPropertyName(_firstExpression.Item1), Direction = (_firstExpression.Item2 ^ ascending) ? SortDirection.Descending : SortDirection.Ascending }
         };
 
         if (_thenExpressions is not null)

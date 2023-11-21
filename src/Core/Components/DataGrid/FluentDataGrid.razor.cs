@@ -193,7 +193,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
         // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
-        EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
+        EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new EventCallbackSubscriber<object?>(
             EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
     }
@@ -266,7 +266,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
-        _manualGrid = !_columns.Any();
+        _manualGrid = _columns.Count == 0;
     }
 
     /// <summary>
@@ -336,7 +336,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // If we're not using Virtualize, we build and execute a request against the items provider directly
             _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             int startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
-            GridItemsProviderRequest<TGridItem> request = new(
+            GridItemsProviderRequest<TGridItem> request = new GridItemsProviderRequest<TGridItem>(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
             GridItemsProviderResult<TGridItem> result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
@@ -375,7 +375,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             count = Math.Min(request.Count, Pagination.ItemsPerPage - request.StartIndex);
         }
 
-        GridItemsProviderRequest<TGridItem> providerRequest = new(
+        GridItemsProviderRequest<TGridItem> providerRequest = new GridItemsProviderRequest<TGridItem>(
             startIndex, count, _sortByColumn, _sortByAscending, request.CancellationToken);
         GridItemsProviderResult<TGridItem> providerResult = await ResolveItemsRequestAsync(providerRequest);
 
