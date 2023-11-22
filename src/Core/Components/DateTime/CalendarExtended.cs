@@ -109,6 +109,18 @@ internal struct CalendarExtended
     }
 
     /// <summary>
+    /// Returns the list of 12 years.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<(int Index, int Year)> GetYearsRange()
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            yield return (i, Date.Year + i);
+        }
+    }
+
+    /// <summary>
     /// Returns the name of the month in the right culture, followed by the year.
     /// </summary>
     /// <returns></returns>

@@ -83,6 +83,7 @@ public partial class FluentCalendar : FluentCalendarBase
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
 
+    /// <summary />
     private string AnimationClass => _animationRunning switch
     {
         VerticalPosition.Top => "animation-running-up",
@@ -104,6 +105,7 @@ public partial class FluentCalendar : FluentCalendarBase
         return new CalendarTitles(this);
     }
 
+    /// <summary />
     private async Task OnPreviousButtonHandler(MouseEventArgs e)
     {
         bool animate = AnimatePeriodChanges ?? (View != CalendarViews.Days);
@@ -125,10 +127,12 @@ public partial class FluentCalendar : FluentCalendarBase
                 break;
 
             case CalendarViews.Years:
+                _pickerMonth = PickerMonth.AddYears(-12);
                 break;
         }
     }
 
+    /// <summary />
     private async Task OnNextButtonHandler(MouseEventArgs e)
     {
         bool animate = AnimatePeriodChanges ?? (View != CalendarViews.Days);
@@ -150,10 +154,12 @@ public partial class FluentCalendar : FluentCalendarBase
                 break;
 
             case CalendarViews.Years:
+                _pickerMonth = PickerMonth.AddYears(+12);
                 break;
         }
     }
 
+    /// <summary />
     private bool MonthSelected(int? year, int? month)
     {
         if (Value == null || year == null || month == null)
@@ -169,11 +175,23 @@ public partial class FluentCalendar : FluentCalendarBase
         return false;
     }
 
-    private Task MonthSelectHandlerAsync(int? year, int? month)
+    /// <summary />
+    private Task OnSelectMonthHandlerAsync(int? year, int? month)
     {
         if (year != null && month != null)
         {
             Value = new DateTime(year.Value, month.Value, 1);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    private Task OnSelectYearHandlerAsync(int? year)
+    {
+        if (year != null)
+        {
+            Value = new DateTime(year.Value, 1, 1);
         }
 
         return Task.CompletedTask;
@@ -194,11 +212,20 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <returns></returns>
     private FluentCalendarMonth GetMonthProperties(int? year, int? month) => new(this, new DateTime(year ?? PickerMonth.Year, month ?? PickerMonth.Month, 1));
 
+    /// <summary>
+    /// Returns the class name to display a year (year, inactive, disable).
+    /// </summary>
+    /// <param name="year"></param>
+    /// <returns></returns>
+    private FluentCalendarYear GetYearProperties(int? year) => new(this, new DateTime(year ?? PickerMonth.Year, 1, 1));
+
+    /// <summary />
     private DateTime FirstDayOfMonth(DateTime date)
     {
         return new DateTime(date.Year, date.Month, 1);
     }
 
+    /// <summary />
     private async Task CleanAnimation()
     {
         // Remove the current animation

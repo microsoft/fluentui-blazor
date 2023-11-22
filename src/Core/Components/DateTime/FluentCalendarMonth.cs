@@ -3,7 +3,7 @@
 /// <summary>
 /// Computes the properties of a month in the calendar.
 /// </summary>
-public class FluentCalendarMonth
+internal class FluentCalendarMonth
 {
     FluentCalendar _calendar;
 
@@ -34,12 +34,12 @@ public class FluentCalendarMonth
     public bool IsInactive => false; // TODO
 
     /// <summary>
-    /// Whether the day is selected by the user
+    /// Whether the month is selected by the user
     /// </summary>
     public bool IsSelected => Month == _calendar.Value;
 
     /// <summary>
-    /// Gets the identifier of the day in the format yyyy-MM.
+    /// Gets the identifier of the month in the format yyyy-MM.
     /// </summary>
     public string MonthIdentifier => this.Month.ToString("yyyy-MM");
 }

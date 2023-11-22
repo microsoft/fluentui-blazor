@@ -1503,6 +1503,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRange">
+            <summary>
+            Returns the list of 12 years.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthNameAndYear">
             <summary>
             Returns the name of the month in the right culture, followed by the year.
@@ -1630,6 +1636,9 @@
             but disabled for Days view.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimationClass">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CalendarExtended">
             <summary>
             All days of this current month.
@@ -1640,6 +1649,21 @@
             Gets titles to use in the calendar.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnPreviousButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnNextButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.MonthSelected(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectYearHandlerAsync(System.Nullable{System.Int32})">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetDayProperties(System.DateTime)">
             <summary>
@@ -1655,6 +1679,19 @@
             <param name="year"></param>
             <param name="month"></param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetYearProperties(System.Nullable{System.Int32})">
+            <summary>
+            Returns the class name to display a year (year, inactive, disable).
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CleanAnimation">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
             <summary>
@@ -1696,7 +1733,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectDayHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay">
@@ -1780,12 +1817,49 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsSelected">
             <summary>
-            Whether the day is selected by the user
+            Whether the month is selected by the user
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.MonthIdentifier">
             <summary>
-            Gets the identifier of the day in the format yyyy-MM.
+            Gets the identifier of the month in the format yyyy-MM.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear">
+            <summary>
+            Computes the properties of a year in the calendar.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentCalendar,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear"/> class.
+            </summary>
+            <param name="calendar"></param>
+            <param name="year"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.Year">
+            <summary>
+            Current Year (month and day are always 1)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsDisabled">
+            <summary>
+            Whether the year is disabled by the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsInactive">
+            <summary>
+            Whether the year is inactive (out of the current year).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsSelected">
+            <summary>
+            Whether the year is selected by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.YearIdentifier">
+            <summary>
+            Gets the identifier of the year in the format yyyy.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.#ctor">

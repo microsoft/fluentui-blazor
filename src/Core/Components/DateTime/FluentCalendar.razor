@@ -67,7 +67,7 @@
                                  selected="@dayProperties.IsSelected"
                                  aria-label="@dayProperties.Title"
                                  value="@dayProperties.DayIdentifier"
-                                 @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                                 @onclick="@((e) => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
                                 @if (DaysTemplate == null)
                                 {
                                     @dayProperties.DayNumber
@@ -93,7 +93,7 @@
                     @* TODO: To add other attributes like for Day  *@
                     <div class="month @AnimationClass"
                          selected="@monthProperties.IsSelected"
-                         @onclick="@(e => MonthSelectHandlerAsync(_pickerMonth?.Year, month.Index))">
+                         @onclick="@(e => OnSelectMonthHandlerAsync(_pickerMonth?.Year, month.Index))">
                         @month.Abbreviated
                     </div>
                 }
@@ -103,10 +103,14 @@
         // "Years" view
         case CalendarViews.Years:
             <div class="years" part="years">
-                @foreach (var year in Enumerable.Range(2023, 12))
+                @foreach (var year in CalendarExtended.GetYearsRange())
                 {
-                    <div class="year @AnimationClass">
-                        @year
+                    var yearProperties = GetYearProperties(year.Year);
+
+                    <div class="year @AnimationClass"
+                         selected="@yearProperties.IsSelected"
+                         @onclick="@(e => OnSelectYearHandlerAsync(year.Year))">
+                        @year.Year
                     </div>
                 }
             </div>
