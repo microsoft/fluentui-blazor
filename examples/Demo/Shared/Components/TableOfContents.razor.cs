@@ -121,8 +121,8 @@ public partial class TableOfContents : IAsyncDisposable
 
     private bool AnchorsEqual(Anchor[]? firstSet, Anchor[]? secondSet)
     {
-        return (firstSet ?? Array.Empty<Anchor>())
-            .SequenceEqual(secondSet ?? Array.Empty<Anchor>());
+        return (firstSet ?? [])
+            .SequenceEqual(secondSet ?? []);
     }
 
     protected override void OnInitialized()
@@ -187,8 +187,6 @@ public partial class TableOfContents : IAsyncDisposable
         }
 
     }
-
-
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
