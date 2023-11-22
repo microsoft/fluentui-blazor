@@ -3,7 +3,7 @@
 // Inspiration: https://dvoituron.com/2020/01/22/UnitTest-DateTime/
 public sealed class IdentifierContext : IDisposable
 {
-    private static readonly ThreadLocal<Stack<IdentifierContext>> _threadScopeStack = new ThreadLocal<Stack<IdentifierContext>>(() => new Stack<IdentifierContext>());
+    private static readonly ThreadLocal<Stack<IdentifierContext>> _threadScopeStack = new(() => new Stack<IdentifierContext>());
 
     public IdentifierContext(Func<uint, string> newId)
     {

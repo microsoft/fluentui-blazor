@@ -10,7 +10,7 @@ public partial class EmojiExplorer
 
     private readonly EmojiSearchCriteria Criteria = new();
     private EmojiInfo[] EmojisFound = Array.Empty<EmojiInfo>();
-    private PaginationState PaginationState = new PaginationState { ItemsPerPage = 4 * 12 };
+    private PaginationState PaginationState = new() { ItemsPerPage = 4 * 12 };
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Emoji Explorers";
