@@ -17,7 +17,7 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
         .BuildMarkupString();
 
     /// <summary>
-    /// The open attribute.
+    /// Gets or sets the open attribute.
     /// </summary>
     [Parameter]
     public bool? Open { get; set; }

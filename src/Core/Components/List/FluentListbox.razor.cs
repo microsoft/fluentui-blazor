@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentListbox<TOption> : ListComponentBase<TOption>
 {
     /// <summary>
-    /// The maximum number of options that should be visible in the listbox scroll area.
+    /// Gets or sets the maximum number of options that should be visible in the listbox scroll area.
     /// </summary>
     [Parameter]
     public int Size { get; set; }

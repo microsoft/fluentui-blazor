@@ -20,7 +20,7 @@ public partial class FluentPersona : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the initials to display if no image is provided.
-    /// Byt default, the first letters of the <see cref="Name"/> is used.
+    /// By default, the first letters of the <see cref="Name"/> is used.
     /// </summary>
     [Parameter]
     public string? Initials { get; set; }
@@ -50,13 +50,13 @@ public partial class FluentPersona : FluentComponentBase
     public string? ImageSize { get; set; }
 
     /// <summary>
-    /// The status to show. See <see cref="PresenceStatus"/> for options.
+    /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]
     public PresenceStatus? Status { get; set; }
 
     /// <summary>
-    /// The title to show on hover. If not provided, the status will be used.
+    /// Gets or sets the title to show on hover. If not provided, the status will be used.
     /// </summary>
     [Parameter]
     public string? StatusTitle { get; set; }

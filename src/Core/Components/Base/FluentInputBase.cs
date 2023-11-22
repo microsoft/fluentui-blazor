@@ -25,7 +25,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
 
-
     [CascadingParameter]
     private EditContext? CascadedEditContext { get; set; }
 
@@ -42,31 +41,32 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// Gets or sets the name of the element.
+    /// Allows access by name from the associated form.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Text displayed just above the component
+    /// Gets or sets the text displayed just above the component.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
+    /// Gets or sets the content displayed just above the component.
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
     /// <summary>
-    /// Text used on aria-label attribute.
+    /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Whether the element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -106,7 +106,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
-    /// The short hint displayed in the input before the user enters a value.
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
     public virtual string? Placeholder { get; set; }

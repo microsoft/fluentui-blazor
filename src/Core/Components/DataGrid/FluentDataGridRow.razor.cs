@@ -11,26 +11,26 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
 
     /// <summary>
-    /// Gets or sets the reference to the item that holds this row's values
+    /// Gets or sets the reference to the item that holds this row's values.
     /// </summary>
     [Parameter]
     public TGridItem? Item { get; set; }
 
     /// <summary>
-    /// Gets or sets the index of this row
-    /// When FluentDataGrid is virtualized, this value is not used
+    /// Gets or sets the index of this row.
+    /// When FluentDataGrid is virtualized, this value is not used.
     /// </summary>
     [Parameter]
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// String that gets applied to the css gridTemplateColumns attribute for the row
+    /// Gets or sets the string that gets applied to the css gridTemplateColumns attribute for the row.
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the type of row. See <see cref="DataGridRowType"/>
+    /// Gets or sets the type of row. See <see cref="DataGridRowType"/>.
     /// </summary>
     [Parameter]
     public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;

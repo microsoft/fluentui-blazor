@@ -33,19 +33,19 @@ public partial class FluentMainLayout : FluentComponentBase
     public int? HeaderHeight { get; set; } = 50;
 
     /// <summary>
-    /// Gets or sets the tite of the navigation menu
+    /// Gets or sets the tite of the navigation menu.
     /// </summary>
     [Parameter]
     public string? NavMenuTitle { get; set; }
 
     /// <summary>
-    /// Gets or sets the content of the navigation menu
+    /// Gets or sets the content of the navigation menu.
     /// </summary>
     [Parameter]
     public RenderFragment? NavMenuContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content of the body
+    /// Gets or sets the content of the body.
     /// </summary>
     [Parameter]
     public RenderFragment? Body { get; set; }

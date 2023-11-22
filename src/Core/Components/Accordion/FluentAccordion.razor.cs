@@ -15,7 +15,7 @@ public partial class FluentAccordion : FluentComponentBase
     public AccordionExpandMode? ExpandMode { get; set; } = AccordionExpandMode.Multi;
 
     /// <summary>
-    /// Gets or sets the id of the active accordion item
+    /// Gets or sets the id of the active accordion item.
     /// </summary>
     [Parameter]
     public string? ActiveId { get; set; }
@@ -34,7 +34,7 @@ public partial class FluentAccordion : FluentComponentBase
     public EventCallback<string?> ActiveIdChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a accordion item is changed .
+    /// Gets or sets a callback when a accordion item is changed.
     /// </summary>
     [Parameter]
     public EventCallback<FluentAccordionItem> OnAccordionItemChange { get; set; }

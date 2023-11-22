@@ -10,7 +10,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
     internal InternalListContext<TOption> InternalListContext { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets if the element is disabled
+    /// Gets or sets a value indicating whether the element is disabled.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
@@ -22,7 +22,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
     public string? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets if the element is selected
+    /// Gets or sets a value indicating whether the element is selected.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }

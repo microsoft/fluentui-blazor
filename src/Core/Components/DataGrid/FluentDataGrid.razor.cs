@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
     /// <summary>
-    /// A queryable source of data for the grid.
+    /// Gets or sets a queryable source of data for the grid.
     ///
     /// This could be in-memory data converted to queryable using the
     /// <see cref="System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
@@ -26,14 +26,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public IQueryable<TGridItem>? Items { get; set; }
 
     /// <summary>
-    /// A callback that supplies data for the rid.
+    /// Gets or sets a callback that supplies data for the rid.
     ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
     [Parameter] public GridItemsProvider<TGridItem>? ItemsProvider { get; set; }
 
     /// <summary>
-    /// Defines the child components of this instance. For example, you may define columns by adding
+    /// Gets or sets the child components of this instance. For example, you may define columns by adding
     /// components derived from the <see cref="ColumnBase{TGridItem}"/> base class.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -85,34 +85,34 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public PaginationState? Pagination { get; set; }
 
-
     /// <summary>
-    /// When true the component will not add itself to the tab queue. Default is false.
+    /// Gets or sets a value indicating whether the component will not add itself to the tab queue. 
+    /// Default is false.
     /// </summary>
     [Parameter]
     public bool NoTabbing { get; set; }
 
     /// <summary>
-    /// Whether the grid should automatically generate a header row and its type
+    /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="GenerateHeaderOption"/>
     /// </summary>
     [Parameter]
     public GenerateHeaderOption? GenerateHeader { get; set; } = GenerateHeaderOption.Default;
 
     /// <summary>
-    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows
+    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets a callback when a row is focused
+    /// Gets or sets a callback when a row is focused.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowFocus { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a row is focused
+    /// Gets or sets a callback when a row is focused.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
