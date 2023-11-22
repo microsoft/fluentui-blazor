@@ -37,7 +37,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     public bool UseTooltipService { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets if the tooltip is visible
+    /// Gets or sets a value indicating whether the tooltip is visible.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; }
@@ -50,7 +50,8 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     public string Anchor { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the delay (in milliseconds). Default is 300.
+    /// Gets or sets the delay (in milliseconds). 
+    /// Default is 300.
     /// </summary>
     [Parameter]
     public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
@@ -70,20 +71,20 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Controls when the tooltip updates its position, default is anchor which only updates when
-    /// the anchor is resized.  auto will update on scroll/resize events.
+    /// the anchor is resized. Auto will update on scroll/resize events.
     /// Corresponds to anchored-region auto-update-mode.
     /// </summary>
     [Parameter]
     public AutoUpdateMode? AutoUpdateMode { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the horizontal viewport is locked
+    /// Gets or sets whether the horizontal viewport is locked.
     /// </summary>
     [Parameter]
     public bool HorizontalViewportLock { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the vertical viewport is locked
+    /// Gets or sets whether the vertical viewport is locked.
     /// </summary>
     [Parameter]
     public bool VerticalViewportLock { get; set; }
@@ -95,7 +96,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Callback for when the tooltip is dismissed
+    /// Callback for when the tooltip is dismissed.
     /// </summary>  
     [Parameter]
     public EventCallback<EventArgs> OnDismissed{ get; set; }

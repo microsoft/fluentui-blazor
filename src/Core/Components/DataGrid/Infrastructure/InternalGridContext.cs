@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 internal sealed class InternalGridContext<TGridItem>
 {
     private int _index = 0;
-    public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();
+    public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
 
     public FluentDataGrid<TGridItem> Grid { get; }
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();

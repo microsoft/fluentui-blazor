@@ -12,7 +12,7 @@ public readonly struct InlineStyleBuilder
     /// </summary>
     public InlineStyleBuilder()
     {
-        _styles = new Dictionary<string, StyleBuilder>();
+        _styles = [];
     }
 
     /// <summary>

@@ -34,7 +34,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests;
 public static class FluentAssert
 {
     private const string UndefinedSuffix = "[#~UNDEFINED~#]";
-    public static readonly FluentAssertOptions Options = new FluentAssertOptions();
+    public static readonly FluentAssertOptions Options = new();
 
     /// <summary>
     /// Verifies that the rendered markup from the <paramref name="actual"/> <see cref="IRenderedFragment"/> matches

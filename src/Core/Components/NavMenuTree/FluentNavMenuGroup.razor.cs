@@ -8,7 +8,7 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 {
     internal const string ICON_WIDTH = "20px";
 
-    private readonly List<FluentNavMenuItemBase> _childItems = new();
+    private readonly List<FluentNavMenuItemBase> _childItems = [];
     private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private bool Visible => NavMenu.Expanded || HasIcon;
 

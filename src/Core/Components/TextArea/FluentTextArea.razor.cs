@@ -7,13 +7,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTextArea : FluentInputBase<string?>
 {
     /// <summary>
-    /// Gets or sets if the text area is resizeable. See <see cref="AspNetCore.Components.TextAreaResize"/>
+    /// Gets or sets a value indicating whether the text area is resizeable. See <see cref="AspNetCore.Components.TextAreaResize"/>
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }
 
     /// <summary>
-    /// The <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to
+    /// Gets or sets the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to.
     /// </summary>
     [Parameter]
     public string? Form { get; set; }
@@ -25,32 +25,31 @@ public partial class FluentTextArea : FluentInputBase<string?>
     public string? DataList { get; set; }
 
     /// <summary>
-    /// The maximum number of characters a user can enter.
+    /// Gets or sets the maximum number of characters a user can enter.
     /// </summary>
     [Parameter]
     public int? Maxlength { get; set; }
 
     /// <summary>
-    /// The minimum number of characters a user can enter.
+    /// Gets or sets the minimum number of characters a user can enter.
     /// </summary>
     [Parameter]
     public int? Minlength { get; set; }
 
-
     /// <summary>
-    /// Sizes the element horizontally by a number of character columns.
+    /// Gets or sets the size the element horizontally by a number of character columns.
     /// </summary>
     [Parameter]
     public int? Cols { get; set; }
 
     /// <summary>
-    /// Sizes the element vertically by a number of character rows.
+    /// Gets or sets the size the element vertically by a number of character rows.
     /// </summary>
     [Parameter]
     public int? Rows { get; set; }
 
     /// <summary>
-    /// Sets if the element is eligible for spell checking
+    /// Gets or sets a value indicating whether the element is eligible for spell checking
     /// but the UA.
     /// </summary>
     [Parameter]

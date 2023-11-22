@@ -40,7 +40,7 @@ public partial class FluentGridItem : FluentComponentBase
     public JustifyContent? Justify { get; set; }
 
     /// <summary>
-    /// Defines the gaps (gutters) between rows and columns.
+    /// Gets or sets the gaps (gutters) between rows and columns.
     /// See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
     /// </summary>
     [Parameter]

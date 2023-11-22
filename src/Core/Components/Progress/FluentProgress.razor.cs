@@ -12,30 +12,28 @@ public partial class FluentProgress : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the minimum value 
+    /// Gets or sets the minimum value.
     /// </summary>
     [Parameter]
     public int? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum value 
+    /// Gets or sets the maximum value.
     /// </summary>
     [Parameter]
     public int? Max { get; set; }
 
     /// <summary>
-    /// Gets or sets the current value 
+    /// Gets or sets the current value.
     /// </summary>
     [Parameter]
     public int? Value { get; set; }
-
-
 
     [Parameter]
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets if the progress element is paused
+    /// Gets or sets a value indicating whether the progress element is paused.
     /// </summary>
     [Parameter]
     public bool? Paused { get; set; }

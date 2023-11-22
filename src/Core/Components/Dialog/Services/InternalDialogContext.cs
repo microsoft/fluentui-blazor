@@ -4,7 +4,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal sealed class InternalDialogContext
 {
-    public Collection<IDialogReference> References { get; set; } = new();
+    public Collection<IDialogReference> References { get; set; } = [];
 
     public FluentDialogProvider DialogContainer { get; }
 

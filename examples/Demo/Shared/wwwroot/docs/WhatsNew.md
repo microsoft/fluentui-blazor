@@ -1,4 +1,9 @@
-﻿## V4.0.0
+﻿## V4.0.1
+- FluentSplitter: Add Panel1MinSize, Panel2MinSize, BarSize parameters. Make resizing always use proportional values
+- Fix Web App template to correctly handle NavMenu based on rendermode and interactivity choices
+- Fix miscallaneous demo errors caused by trimming
+
+## V4.0.0
 - FluentAccordionItem: Add `HeaderTemplate` parameter
 
 ## V4.0.0-rc.3

@@ -52,13 +52,13 @@ public partial class FluentDatePicker : FluentCalendarBase
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element. Allows access by name from the associated form.
+    /// Gets or sets the name of the element. Allows access by name from the associated form.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Whether the element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -70,7 +70,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
-    /// The short hint displayed in the input before the user enters a value.
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
     public virtual string? Placeholder { get; set; }

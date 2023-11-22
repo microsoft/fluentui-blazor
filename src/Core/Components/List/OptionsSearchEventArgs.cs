@@ -7,12 +7,12 @@
 public class OptionsSearchEventArgs<T>
 {
     /// <summary>
-    /// Text to search.
+    /// Gets or sets the text to search.
     /// </summary>
     public string Text { get; set; } = string.Empty;
 
     /// <summary>
-    /// List of items to display.
+    /// Gets or sets the list of items to display.
     /// </summary>
     public IEnumerable<T>? Items { get; set; }
 }
