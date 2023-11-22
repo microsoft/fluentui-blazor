@@ -53,6 +53,68 @@
     <img style="border: 1px solid var(--neutral-foreground-focus);" src="_content/FluentUI.Demo.Shared/images/newproject.png" alt="New project dialog with Fluent UI templates" />
 </p>
 
+<h3>Blazor Web App details</h3>
+<p>The rendermode and interactivity choices made when creating an application with the template determine the behavoir of the NavMenu and wether we include the web 
+	components scrip in <code>App.razor</code>. Starting with v4.0.1 of the templates, the result of that choices are described in the table below:
+    
+<table>
+<thead>
+	<tr>
+		<th>Rendermode / Interactivity</th>
+		<th>NavMenu @@rendermode</th>
+		<th>NavMenu Collapsible</th>
+		<th>WC script in body</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>SSR / not applicable</td>
+		<td>❌</td>
+		<td>❌</td>
+		<td>✅</td>
+	</tr>
+	<tr>
+		<td>Server / Global</td>
+		<td>❌</td>
+		<td>✅</td>
+		<td>❌</td>
+	</tr>
+	<tr>
+		<td>Server / Per Page</td>
+		<td>✅</td>
+		<td>✅</td>
+		<td>❌</td>
+	</tr>
+	<tr>
+		<td>WebAssembly / Global*</td>
+		<td>❌</td>
+		<td>✅</td>
+		<td>❌</td>
+	</tr>
+	<tr>
+		<td>WebAssembly / Per Page*</td>
+		<td>✅</td>
+		<td>✅</td>
+		<td>❌</td>
+	</tr>
+	<tr>
+		<td>Auto / Global*</td>
+		<td>❌</td>
+		<td>✅</td>
+		<td>❌</td>
+	</tr>
+	<tr>
+		<td>Auto / Per Page*</td>
+		<td>✅</td>
+		<td>✅</td>
+		<td>❌</td>
+	</tr>
+</tbody>
+</table>
+
+
+</p>
+
 <h2 id="uninstalling-the-templates">Uninstalling the templates</h2>
 
 <p>

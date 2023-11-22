@@ -14,7 +14,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
 
     /// <summary>
-    /// Title of the dialog
+    /// Gets or sets the title of the dialog.
     /// </summary>
     public string? Title { get; set; }
 
@@ -36,31 +36,31 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool PreventScroll { get; set; } = true;
 
     /// <summary>
-    /// Indicates if dialog should trap focus.
+    /// Gets or sets a value indicating whether if dialog should trap focus.
     /// Defaults to true.
     /// </summary>
     public bool? TrapFocus { get; set; } = true;
 
     /// <summary>
-    /// Show the title in the header.
+    /// Gets or sets a value indicating whether show the title in the header.
     /// Defaults to true.
     /// </summary>
     public bool ShowTitle { get; set; } = true;
 
     /// <summary>
-    /// Show the dismiss button in the header.
+    /// Gets or sets a value indicating whether show the dismiss button in the header.
     /// Defaults to true.
     /// </summary>
     public bool ShowDismiss { get; set; } = true;
 
     /// <summary>
-    /// Title of the dismiss button, display in a tooltip.
+    /// Gets or sets the Title of the dismiss button, display in a tooltip.
     /// Defaults to "Close".
     /// </summary>
     public string? DismissTitle { get; set; } = "Close";
 
     /// <summary>
-    /// Text to display for the primary action.
+    /// Gets or sets the text to display for the primary action.
     /// </summary>
     public string? PrimaryAction { get; set; } = "OK"; //DialogResources.ButtonPrimary;
 
@@ -70,7 +70,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool PrimaryActionEnabled { get; set; } = true;
 
     /// <summary>
-    /// Text to display for the secondary action.
+    /// Gets or sets the text to display for the secondary action.
     /// </summary>
     public string? SecondaryAction { get; set; } = "Cancel"; //DialogResources.ButtonSecondary;
 
@@ -80,12 +80,12 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool SecondaryActionEnabled { get; set; } = true;
 
     /// <summary>
-    /// Width of the dialog. Must be a valid CSS width value like "600px" or "3em"
+    /// Gets or sets the width of the dialog. Must be a valid CSS width value like "600px" or "3em"
     /// </summary>
     public string? Width { get; set; }
 
     /// <summary>
-    /// Height of the dialog. Must be a valid CSS height value like "600px" or "3em"
+    /// Gets or sets the height of the dialog. Must be a valid CSS height value like "600px" or "3em"
     /// Only used if Alignment is set to "HorizontalAlignment.Center"
     /// </summary>  
     public string? Height { get; set; }
@@ -96,22 +96,22 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public string DialogBodyStyle { get; set; } = string.Empty;
 
     /// <summary>
-    /// Identifies the element that labels the element it is applied to.
+    /// Gets or sets the element that labels the element it is applied to.
     /// </summary>
     public string? AriaLabelledby { get; set; }
 
     /// <summary>
-    /// Identifies the element that describes the element on which the attribute is set.
+    /// Gets or sets the element that describes the element on which the attribute is set.
     /// </summary>
     public string? AriaDescribedby { get; set; }
 
     /// <summary>
-    /// The value that labels an interactive element.
+    /// Gets or sets the value that labels an interactive element.
     /// </summary>
     public string? AriaLabel { get; set; }
 
     /// <summary>
-    /// The type of dialog.
+    /// Gets or sets the type of dialog.
     /// </summary>
     public DialogType DialogType { get; set; } = DialogType.Dialog;
 
@@ -138,7 +138,7 @@ public class DialogParameters<TContent> : DialogParameters, IDialogParameters<TC
     where TContent : class
 {
     /// <summary>
-    /// Content to pass to and from the dialog.
+    /// Gets or sets the content to pass to and from the dialog.
     /// </summary>
     public TContent Content { get; set; } = default!;
 }

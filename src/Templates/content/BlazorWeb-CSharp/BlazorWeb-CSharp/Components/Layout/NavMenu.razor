@@ -1,7 +1,7 @@
 ﻿@* To get access to all Fluent UI System icons, install the Microsoft.FluentUI.AspNetCore.Compoents.Icon package *@
 @* See all the diffeent ways on how to use icons at https://www.fluentui-blazor.net/Icon *@
-@*#if (UseServer && UseWebAssembly && !InteractiveAtRoot)
-@rendermode InteractiveAuto
+@*#if (UseServer && !InteractiveAtRoot) -->
+@rendermode InteractiveServer
 ##endif*@
 
 @*#if (IndividualLocalAuth)
@@ -11,7 +11,7 @@
 
 ##endif*@
 <nav>
-    @*#if (UseServer || UseWebAssembly) 
+    @*#if (UseServer || UseWebAssembly)
     <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
     ##else
     <FluentNavMenu Width="250" Title="Custom navigation menu">

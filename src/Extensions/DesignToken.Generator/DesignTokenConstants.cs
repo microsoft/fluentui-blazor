@@ -2,7 +2,7 @@
 
 /// <summary>
 /// This class contains all the design tokens as const <c ref="string" />s where the value represents 
-/// the <c ref="Type"> of the value of the design token
+/// the <c ref="Type"> of the value of the design token.
 /// </summary>
 public class DesignTokenConstants
 {

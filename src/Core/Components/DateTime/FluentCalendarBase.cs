@@ -8,13 +8,13 @@ public abstract class FluentCalendarBase : FluentComponentBase
     private DateTime? _selectedDate = null;
 
     /// <summary>
-    /// Gets or sets if the calendar is readonly 
+    /// Gets or sets a value indicating whether the calendar is readonly.
     /// </summary>
     [Parameter]
     public bool ReadOnly { get; set; } = false;
 
     /// <summary>
-    /// The culture of the component.
+    /// Gets or sets the culture of the component.
     /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
     /// </summary>
     [Parameter]
@@ -34,13 +34,13 @@ public abstract class FluentCalendarBase : FluentComponentBase
     public virtual bool DisabledSelectable { get; set; } = true;
 
     /// <summary>
-    /// Type style for the day (numeric or 2-digits).
+    /// Gets or sets the Type style for the day (numeric or 2-digits).
     /// </summary>
     [Parameter]
     public DayFormat? DayFormat { get; set; } = AspNetCore.Components.DayFormat.Numeric;
 
     /// <summary>
-    /// Selected date (two-way bindable).
+    /// Gets or sets the selected date (two-way bindable).
     /// </summary>
     [Parameter]
     public virtual DateTime? Value

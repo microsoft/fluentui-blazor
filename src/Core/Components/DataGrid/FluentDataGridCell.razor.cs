@@ -7,21 +7,20 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     internal string CellId { get; } = Identifier.NewId();
 
     /// <summary>
-    /// Gets or sets the reference to the item that holds this cell's values
+    /// Gets or sets the reference to the item that holds this cell's values.
     /// </summary>
     [Parameter]
     public TGridItem? Item { get; set; }
 
     /// <summary>
-    /// Gets or sets the cell type. See <see cref="DataGridCellType"/>
+    /// Gets or sets the cell type. See <see cref="DataGridCellType"/>.
     /// </summary>
     [Parameter]
     public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
 
     /// <summary>
-    /// The column index of the cell.
-    /// This will be applied to the css grid-column-index value
-    /// applied to the cell
+    /// Gets or sets the column index of the cell.
+    /// This will be applied to the css grid-column-index value applied to the cell.
     /// </summary>
     [Parameter]
     public int GridColumn { get; set; }
@@ -33,7 +32,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the owning <see cref="FluentDataGridRow{TItem}"/> component
+    /// Gets or sets the owning <see cref="FluentDataGridRow{TItem}"/> component.
     /// </summary>
     [CascadingParameter(Name = "OwningRow")]
     public FluentDataGridRow<TGridItem> Owner { get; set; } = default!;

@@ -22,7 +22,7 @@ public partial class FluentCalendar : FluentCalendarBase
     protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
-    /// The current month of the date picker (two-way bindable).
+    /// Gets or sets the current month of the date picker (two-way bindable).
     /// This changes when the user browses through the calendar.
     /// The month is represented as a DateTime which is always the first day of that month.
     /// You can also set this to determine which month is displayed first.

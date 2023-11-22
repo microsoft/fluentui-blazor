@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 internal class InternalListContext<TOption>
 {
 
-    private readonly List<FluentOption<TOption>> options = new();
+    private readonly List<FluentOption<TOption>> options = [];
 
     public ListComponentBase<TOption> ListComponent { get; }
 

@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
     /// <summary>
-    /// When true, spin buttons will not be rendered
+    /// When true, spin buttons will not be rendered.
     /// </summary>
     [Parameter]
     public bool HideStep { get; set; }
@@ -19,19 +19,19 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public string? DataList { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum length
+    /// Gets or sets the maximum length.
     /// </summary>
     [Parameter]
     public int MaxLength { get; set; } = 14;
 
     /// <summary>
-    /// Gets or sets the minimum length
+    /// Gets or sets the minimum length.
     /// </summary>
     [Parameter]
     public int MinLength { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the size
+    /// Gets or sets the size.
     /// </summary>
     [Parameter]
     public int Size { get; set; } = 20;
@@ -43,27 +43,25 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public string Step { get; set; } = _stepAttributeValue;
 
     /// <summary>
-    /// Gets or sets the maximum value
+    /// Gets or sets the maximum value.
     /// </summary>
     [Parameter]
-
     public string? Max { get; set; }
 
     /// <summary>
-    /// Gets or sets the minimum value
+    /// Gets or sets the minimum value.
     /// </summary>
     [Parameter]
-
     public string? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="AspNetCore.Components.Appearance" />
+    /// Gets or sets the <see cref="AspNetCore.Components.Appearance" />.
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
-    /// Gets or sets the error message to show when the field can not be parsed
+    /// Gets or sets the error message to show when the field can not be parsed.
     /// </summary>
     [Parameter]
     public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";

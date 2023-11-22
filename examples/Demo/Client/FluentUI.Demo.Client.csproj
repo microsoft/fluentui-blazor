@@ -12,6 +12,13 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
 	</ItemGroup>
 
+	<!-- For WASM, Trim Icons and Emojis Libs, -->
+	<!-- but not Core and Shared libs -->
+	<ItemGroup>
+		<TrimmerRootAssembly Include="Microsoft.FluentUI.AspNetCore.Components" />
+		<TrimmerRootAssembly Include="FluentUI.Demo.Shared" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>

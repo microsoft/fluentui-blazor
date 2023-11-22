@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentGrid : FluentComponentBase
 {
     /// <summary>
-    /// Distance between flexbox items, using a multiple of 4px.
+    /// Gets or sets the distance between flexbox items, using a multiple of 4px.
     /// Only values from 0 to 10 are possible.
     /// </summary>
     [Parameter]
@@ -28,7 +28,7 @@ public partial class FluentGrid : FluentComponentBase
     public JustifyContent Justify { get; set; } = JustifyContent.FlexStart;
 
     /// <summary>
-    /// Child content of component.
+    /// Gets or sets the child content of component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

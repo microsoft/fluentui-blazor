@@ -26,13 +26,13 @@ public partial class FluentStack : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// The horizontal alignment of the components in the stack. 
+    /// Gets or sets the horizontal alignment of the components in the stack. 
     /// </summary>
     [Parameter]
     public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
 
     /// <summary>
-    /// The vertical alignment of the components in the stack.
+    /// Gets or sets the vertical alignment of the components in the stack.
     /// </summary>
     [Parameter]
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Top;
@@ -44,13 +44,13 @@ public partial class FluentStack : FluentComponentBase
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
-    /// The width of the stack as a percentage string (default = 100%).
+    /// Gets or sets the width of the stack as a percentage string (default = 100%).
     /// </summary>
     [Parameter]
     public string? Width { get; set; } = "100%";
 
     /// <summary>
-    /// Gets or sets if the stack wraps.
+    /// Gets or sets a value indicating whether the stack wraps.
     /// </summary>
     [Parameter]
     public bool Wrap { get; set; } = false;
@@ -64,7 +64,7 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the gap between vertically stacked components (in pixels).
-    /// Default is 10 pixels
+    /// Default is 10 pixels.
     /// </summary>
     [Parameter]
     public int? VerticalGap { get; set; } = 10;

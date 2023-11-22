@@ -14,7 +14,7 @@ public partial class FluentButton : FluentComponentBase
     public bool? Autofocus { get; set; }
 
     /// <summary>
-    /// The id of a form to associate the element to.
+    /// Gets or sets the id of a form to associate the element to.
     /// </summary>
     [Parameter]
     public string? FormId { get; set; }
@@ -51,38 +51,39 @@ public partial class FluentButton : FluentComponentBase
     public string? Target { get; set; }
 
     /// <summary>
-    /// The button type. See <see cref="ButtonType"/> for more details.
-    /// Default is ButtonType.Button"
+    /// Gets or sets the button type. See <see cref="ButtonType"/> for more details.
+    /// Default is ButtonType.Button.
     /// </summary>
     [Parameter]
     public ButtonType? Type { get; set; } = ButtonType.Button;
 
     /// <summary>
-    /// The value of the element
+    /// Gets or sets the value of the element.
     /// </summary>
     [Parameter]
     public string? Value { get; set; }
 
     /// <summary>
-    /// The element's current value 
+    /// Gets or sets the element's current value.
     /// </summary>
     [Parameter]
     public string? CurrentValue { get; set; }
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission
+    /// Disables the form control, ensuring it doesn't participate in form submission.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element. Allows access by name from the associated form.
+    /// Gets or sets the name of the element. 
+    /// Allows access by name from the associated form.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// The element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -95,14 +96,14 @@ public partial class FluentButton : FluentComponentBase
     public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
-    /// Background color of this button (overrides the <see cref="Appearance"/> property).
+    /// Gets or sets the background color of this button (overrides the <see cref="Appearance"/> property).
     /// Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
     /// </summary>
     [Parameter]
     public string? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Color of the font (overrides the <see cref="Appearance"/> property).
+    /// Gets or sets the color of the font (overrides the <see cref="Appearance"/> property).
     /// </summary>
     [Parameter]
     public string? Color { get; set; }
@@ -114,19 +115,20 @@ public partial class FluentButton : FluentComponentBase
     public bool Loading { get; set; } = false;
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the start of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the end of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
 
     /// <summary>
-    /// Title of the button: the text usually displayed in a 'tooltip' popup when the mouse is over the button.
+    /// Gets or sets the title of the button.
+    /// The text usually displayed in a 'tooltip' popup when the mouse is over the button.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }

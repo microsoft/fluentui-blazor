@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
-    private readonly List<FluentOverflowItem> _items = new();
+    private readonly List<FluentOverflowItem> _items = [];
     private RenderFragment? _childContent = null;
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
     private IJSObjectReference _jsModule = default!;
@@ -31,7 +31,8 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     protected IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Content to display. All first HTML elements are included in the items flow.
+    /// Gets or sets the content to display. 
+    /// All first HTML elements are included in the items flow.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent
@@ -54,13 +55,13 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     }
 
     /// <summary>
-    /// Template to display <see cref="ItemsOverflow"/> elements.
+    /// Gets or sets the template to display <see cref="ItemsOverflow"/> elements.
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
 
     /// <summary>
-    /// Template to display the More button.
+    /// Gets or sets the template to display the More button.
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? MoreButtonTemplate { get; set; }
@@ -111,7 +112,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     [JSInvokable]
     public async Task OverflowRaisedAsync(string value)
     {
-        var items = JsonSerializer.Deserialize<OverflowItem[]>(value);
+        OverflowItem[]? items = JsonSerializer.Deserialize<OverflowItem[]>(value);
 
         if (items == null)
         {
@@ -145,10 +146,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     {
         try
         {
-            if (_dotNetHelper is not null)
-            {
-                _dotNetHelper.Dispose();
-            }
+            _dotNetHelper?.Dispose();
 
             if (_jsModule is not null)
             {

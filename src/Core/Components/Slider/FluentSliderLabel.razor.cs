@@ -12,12 +12,13 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase
     public TValue? Position { get; set; }
 
     /// <summary>
-    /// Gets or sets if marks are hidden
+    /// Gets or sets a value indicating whether marks are hidden.
     /// </summary>
     [Parameter]
     public bool? HideMark { get; set; }
+
     /// <summary>
-    /// The disabled state of the label. This is generally controlled by the parent .
+    /// Gets or sets disabled state of the label. This is generally controlled by the parent.
     /// </summary>
     [Parameter]
     public bool? Disabled { get; set; }

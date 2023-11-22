@@ -27,13 +27,13 @@ public partial class FluentNavGroup : FluentNavBase
             .AddClass("rotate", Expanded)
             .Build();
 
-    protected string? ExpandIconClassValue =>
+    protected static string? ExpandIconClassValue =>
         new CssBuilder("fluent-nav-expand-icon")
             .Build();
 
     internal Dictionary<string, object?> Attributes
     {
-        get => Disabled ? new Dictionary<string, object?>() : new Dictionary<string, object?>
+        get => Disabled ? [] : new Dictionary<string, object?>
         {
             { "href", Href },
             { "target", Target },
@@ -41,7 +41,7 @@ public partial class FluentNavGroup : FluentNavBase
         };
     }
     /// <summary>
-    /// The text to display for the group.
+    /// Gets or sets the text to display for the group.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -89,7 +89,6 @@ public partial class FluentNavGroup : FluentNavBase
     /// <summary>
     /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
     /// </summary>
-
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
 

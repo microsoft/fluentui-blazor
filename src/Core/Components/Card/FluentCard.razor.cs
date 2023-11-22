@@ -20,13 +20,13 @@ public partial class FluentCard
     public bool AreaRestricted { get; set; } = true;
 
     /// <summary>
-    /// Specifies the width of the card. Must be a valid CSS measurement.
+    /// Gets or sets the width of the card. Must be a valid CSS measurement.
     /// </summary>  
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Specifies the height of the card. Must be a valid CSS measurement.
+    /// Gets or sets the height of the card. Must be a valid CSS measurement.
     /// </summary>  
     [Parameter]
     public string? Height { get; set; }

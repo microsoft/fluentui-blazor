@@ -23,7 +23,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     private FluentDragContainer<TItem> Container { get; set; } = default!;
 
     /// <summary>
-    /// Item to identify a draggable zone.
+    /// Gets or sets the item to identify a draggable zone.
     /// </summary>
     [Parameter]
     public TItem Item { get; set; } = default!;
@@ -35,13 +35,13 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Indicates whether the element can receive a dragged item.
+    /// Gets or sets a value indicating whether the element can receive a dragged item.
     /// </summary>
     [Parameter]
     public bool Droppable { get; set; }
 
     /// <summary>
-    /// Indicates whether the element can be dragged.
+    /// Gets or sets a value indicating whether the element can be dragged.
     /// </summary>
     [Parameter]
     public bool Draggable { get; set; }
