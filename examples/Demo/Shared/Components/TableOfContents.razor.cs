@@ -85,12 +85,19 @@ public partial class TableOfContents : IAsyncDisposable
 
             if (mobile)
                 _expanded = false;
+            
+            await BackToTop();
             await QueryDom();
+
         }
     }
 
     private async Task BackToTop()
     {
+        if (_jsModule is null)
+        {
+            return;
+        }
         await _jsModule.InvokeAsync<Anchor[]?>("backToTop");
     }
 
@@ -128,6 +135,7 @@ public partial class TableOfContents : IAsyncDisposable
     {
         try
         {
+            await BackToTop();
             await QueryDom();
         }
         catch (Exception)
