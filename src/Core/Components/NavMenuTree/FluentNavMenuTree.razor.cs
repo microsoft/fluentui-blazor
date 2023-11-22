@@ -36,16 +36,15 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the expander icon
-    /// when the menu is collapsible.  The default icon will be used if
-    /// this is not specified.
+    /// Gets or sets the content to be rendered for the expander icon when the menu is collapsible. 
+    /// The default icon will be used if this is not specified.
     /// </summary>
     [Parameter]
     public RenderFragment? ExpanderContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the title of the navigation menu
-    /// Default to "Navigation menu"
+    /// Gets or sets the title of the navigation menu.
+    /// Default to "Navigation menu".
     /// </summary>
     [Parameter]
     public string? Title { get; set; } = "Navigation menu";
@@ -79,8 +78,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
     public EventCallback<NavMenuActionArgs> OnAction { get; set; }
 
     /// <summary>
-    /// If set to <see langword="true"/> then the tree will
-    /// expand when it is created.
+    /// If set to <see langword="true"/> then the tree will expand when it is created.
     /// </summary>
     [Parameter]
     public bool InitiallyExpanded { get; set; }

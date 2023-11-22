@@ -29,25 +29,27 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
-    /// The type of message bar. Default is MessageType.MessageBar. See <see cref="MessageType"/> for more details.
+    /// Gets or sets the type of message bar. 
+    /// Default is MessageType.MessageBar. See <see cref="MessageType"/> for more details.
     /// </summary>
     [Parameter]
     public MessageType Type { get; set; } = MessageType.MessageBar;
 
     /// <summary>
-    /// The actual message instance shown in the message bar.
+    /// Gets or sets the actual message instance shown in the message bar.
     /// </summary>
     [Parameter]
     public Message Content { get; set; } = Message.Empty();
 
     /// <summary>
-    /// The message to be shown whennot using the MessageService methods
+    /// Gets or sets the message to be shown when not using the MessageService methods.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Intent of the message bar. Default is MessageIntent.Info. See <see cref="MessageIntent"/> for more details.
+    /// Gets or sets the intent of the message bar. 
+    /// Default is MessageIntent.Info. See <see cref="MessageIntent"/> for more details.
     /// </summary>
     [Parameter]
     public MessageIntent? Intent
@@ -64,7 +66,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Icon to show in the message bar based on the intent of the message. See <see cref="Icon"/> for more details.
+    /// Gets or sets the icon to show in the message bar based on the intent of the message. See <see cref="Icon"/> for more details.
     /// </summary>
     [Parameter]
     public Icon? Icon
@@ -95,12 +97,14 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Visibility of the message bar. Default is true.
+    /// Gets or sets the visibility of the message bar. 
+    /// Default is true.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the title. 
     /// Most important info to be shown in the message bar.
     /// </summary>
     [Parameter]
@@ -118,7 +122,9 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Time on which the message was created. Default is DateTime.Now. Onlu used when MessageType is Notification.
+    /// Gets or sets the time on which the message was created. 
+    /// Default is DateTime.Now. 
+    /// Only used when MessageType is Notification.
     /// </summary>
     [Parameter]
     public DateTime? Timestamp
@@ -135,8 +141,9 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     }
 
     /// <summary>
-    /// The color of the icon. Only applied when intent is MessageBarIntent.Custom
-    /// Default is Color.Accent
+    /// Gets or sets the color of the icon. 
+    /// Only applied when intent is MessageBarIntent.Custom.
+    /// Default is Color.Accent.
     /// </summary>
     [Parameter]
     public Color? IconColor { get; set; } = Color.Accent;

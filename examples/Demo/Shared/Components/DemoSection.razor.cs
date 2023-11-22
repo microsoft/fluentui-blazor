@@ -30,7 +30,7 @@ public partial class DemoSection : ComponentBase
     public RenderFragment? Description { get; set; }
 
     /// <summary>
-    /// The component for which the example will be shown. Enter the type (typeof(...)) _name 
+    /// Gets or sets the component for which the example will be shown. Enter the type (typeof(...)) _name 
     /// </summary>
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;

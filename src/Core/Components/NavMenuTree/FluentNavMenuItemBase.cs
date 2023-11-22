@@ -43,7 +43,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public EventCallback<NavMenuActionArgs> OnAction { get; set; }
 
     /// <summary>
-    /// Gets or sets if the item is selected.
+    /// Gets or sets a value indicating whether the item is selected.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
@@ -89,10 +89,9 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public bool HasIcon => Icon != null;
 
     /// <summary>
-    /// The tree item associated with this menu item.
+    /// Gets or sets the tree item associated with this menu item.
     /// </summary>
     protected internal FluentTreeItem TreeItem { get; set; } = null!;
-
 
     void IDisposable.Dispose()
     {

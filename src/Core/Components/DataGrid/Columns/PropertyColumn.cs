@@ -19,7 +19,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     private Func<TGridItem, string?>? _cellTooltipTextFunc;
     private GridSort<TGridItem>? _sortBuilder;
 
-
 	public PropertyInfo? PropertyInfo { get; private set; }
 
 	/// <summary>
@@ -105,5 +104,4 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
     protected internal override string? RawCellContent(TGridItem item)
         => _cellTooltipTextFunc?.Invoke(item);
-
 }

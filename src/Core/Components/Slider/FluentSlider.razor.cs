@@ -14,19 +14,19 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
 
 {
     /// <summary>
-    /// Gets or sets the slider's minimal value
+    /// Gets or sets the slider's minimal value.
     /// </summary>
     [Parameter, EditorRequired]
     public TValue? Min { get; set; }
 
     /// <summary>
-    /// Gets or sets the slider's maximum value
+    /// Gets or sets the slider's maximum value.
     /// </summary>
     [Parameter, EditorRequired]
     public TValue? Max { get; set; }
 
     /// <summary>
-    /// Gets or sets the slider's step value
+    /// Gets or sets the slider's step value.
     /// </summary>
     [Parameter, EditorRequired]
     public TValue? Step { get; set; }
@@ -38,7 +38,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     public Orientation? Orientation { get; set; }
 
     /// <summary>
-    /// The selection mode.
+    /// Gets or sets the selection mode.
     /// </summary>
     [Parameter]
     public SliderMode? Mode { get; set; }

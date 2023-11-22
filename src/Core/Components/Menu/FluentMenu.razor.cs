@@ -37,7 +37,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Identifier of the source component clickable by the end user.
+    /// Gets or sets the identifier of the source component clickable by the end user.
     /// </summary>
     [Parameter]
     public string Anchor { get; set; } = string.Empty;
@@ -62,13 +62,13 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Menu position (left or right).
+    /// Gets or sets the menu position (left or right).
     /// </summary>
     [Parameter]
     public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
 
     /// <summary>
-    /// Width of this menu.
+    /// Gets or sets the width of this menu.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }

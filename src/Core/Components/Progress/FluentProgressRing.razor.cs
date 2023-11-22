@@ -24,7 +24,7 @@ public partial class FluentProgressRing : FluentComponentBase
     public int? Max { get; set; }
 
     /// <summary>
-    /// Gets or sets the current value 
+    /// Gets or sets the current value .
     /// </summary>
     [Parameter]
     public int? Value { get; set; }
@@ -34,7 +34,7 @@ public partial class FluentProgressRing : FluentComponentBase
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets if the progress element is paused
+    /// Gets or sets a value indicating whether the progress element is paused.
     /// </summary>
     [Parameter]
     public bool? Paused { get; set; }

@@ -26,25 +26,25 @@ public partial class FluentBadge : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the color
+    /// Gets or sets the color.
     /// </summary>
     [Parameter]
     public string? Color { get; set; }
 
     /// <summary>
-    /// Gets or sets the background color
+    /// Gets or sets the background color.
     /// </summary>
     [Parameter]
     public string? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Gets or sets the background color based on fill value
+    /// Gets or sets the background color based on fill value.
     /// </summary>
     [Parameter]
     public string? Fill { get; set; }
 
     /// <summary>
-    /// Gets or sets if the badge is rendered circular
+    /// Gets or sets a value indicating whether the badge is rendered circular.
     /// </summary>
     [Parameter]
     public bool Circular { get; set; } = false;
