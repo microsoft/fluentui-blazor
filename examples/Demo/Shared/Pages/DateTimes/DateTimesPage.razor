@@ -5,12 +5,21 @@
 <h1>Date & Time</h1>
 
 @* Test *@
-<FluentMonth @bind-Value="@MyMonth" />
-<div style="margin: 30px;">@MyMonth?.ToString("yyyy-MM")</div>
+<FluentStack>
+    <div>
+        <FluentCalendar @bind-Value="@MyMonth" View="CalendarViews.Months" />
+        <div style="margin: 30px;">Selected month: @MyMonth?.ToString("yyyy-MM")</div>
+    </div>
+    <div>
+        <FluentCalendar @bind-Value="@MyYear" View="CalendarViews.Years" />
+        <div style="margin: 30px;">Selected year: @MyYear?.ToString("yyyy")</div>
+    </div>
+</FluentStack>
 
 @code
 {
     DateTime? MyMonth = null;
+    DateTime? MyYear = null;
 }
 
 <p>

@@ -2,80 +2,114 @@
 @inherits FluentCalendarBase
 
 <div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
-    @* Month name *@
-    <div class="title" part="title" aria-label="@CalendarExtended.GetMonthNameAndYear()">
-        <span part="month" class="month">
-            @CalendarExtended.GetMonthNameAndYear()
-        </span>
-        <span part="move" class="change-month">
-            @if (PickerMonth.Year == DateTime.MinValue.Year && 
-                 PickerMonth.Month == DateTime.MinValue.Month)
+
+    @{
+        var titles = GetTitles();
+    }
+
+    @* Title bar (label, previous and next buttons) *@
+    <div class="title" part="title" aria-label="@titles.Label">
+        <div part="label" class="label @AnimationClass">
+            @titles.Label
+        </div>
+        <div part="move" class="change-period">
+            @if (titles.PreviousDisabled)
             {
-                <div class="previous-month" />
+                <div class="previous" />
             }
             else
             {
-                <div class="previous-month"
-                     title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(-1))"
-                     @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(-1))">
+                <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandler">
                     @((MarkupString)ArrowUp)
                 </div>
             }
-            @if (PickerMonth.Year == DateTime.MaxValue.Year &&
-            PickerMonth.Month == DateTime.MaxValue.Month)
+            @if (titles.NextDisabled)
             {
-                <div class="next-month" />
+                <div class="next" />
             }
             else
             {
-                <div title="@CalendarExtended.GetMonthName(PickerMonth.AddMonths(+1))"
-                     class="next-month"
-                     @onclick="@((e) => this.PickerMonth = PickerMonth.AddMonths(+1))">
+                <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandler">
                     @((MarkupString)ArrowDown)
-                </div>  
-            }
-        </span>
-    </div>
-
-    <div class="days" part="days">
-        @* Titles: Mon, Tue, ... *@
-        <div class="week-days" part="week-days">
-            @foreach (var weekDay in CalendarExtended.GetDayNames())
-            {
-                <div class="week-day" part="week-day" title="@weekDay.Name" abbr="@weekDay.Name">
-                    @weekDay.Shorted
                 </div>
             }
         </div>
+    </div>
 
-        @for (int week = 0; week < 6; week++)
-        {
-            @* A week of 7 days *@
-            <div class="week">
-                @foreach (var day in CalendarExtended.GetDaysOfWeek(week))
+    @switch (View)
+    {
+        // "Days" view
+        case CalendarViews.Days:
+            <div class="days" part="days">
+                @* Titles: Mon, Tue, ... *@
+                <div class="week-days" part="week-days">
+                    @foreach (var weekDay in CalendarExtended.GetDayNames())
+                    {
+                        <div class="week-day" part="week-day" title="@weekDay.Name" abbr="@weekDay.Name">
+                            @weekDay.Shorted
+                        </div>
+                    }
+                </div>
+
+                @for (int week = 0; week < 6; week++)
                 {
-                    var dayProperties = GetDayProperties(day);
+                    @* A week of 7 days *@
+                    <div class="week">
+                        @foreach (var day in CalendarExtended.GetDaysOfWeek(week))
+                        {
+                            var dayProperties = GetDayProperties(day);
 
-                    <div part="day"
-                         class="day"
-                         disabled="@dayProperties.IsDisabled"
-                         inactive="@dayProperties.IsInactive"
-                         today="@dayProperties.IsToday"
-                         selected="@dayProperties.IsSelected"
-                         aria-label="@dayProperties.Title"
-                         value="@dayProperties.DayIdentifier"
-                         @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
-                        @if (DaysTemplate == null)
-                        {
-                            @dayProperties.DayNumber
-                        }
-                        else
-                        {
-                            @DaysTemplate(dayProperties)
+                            <div part="day"
+                                 class="day @AnimationClass"
+                                 disabled="@dayProperties.IsDisabled"
+                                 inactive="@dayProperties.IsInactive"
+                                 today="@dayProperties.IsToday"
+                                 selected="@dayProperties.IsSelected"
+                                 aria-label="@dayProperties.Title"
+                                 value="@dayProperties.DayIdentifier"
+                                 @onclick="@((e) => OnSelectedDateHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                                @if (DaysTemplate == null)
+                                {
+                                    @dayProperties.DayNumber
+                                }
+                                else
+                                {
+                                    @DaysTemplate(dayProperties)
+                                }
+                            </div>
                         }
                     </div>
                 }
             </div>
-        }
-    </div>
+            break;
+
+        // "Months" view
+        case CalendarViews.Months:
+            <div class="months" part="months">
+                @foreach (var month in CalendarExtended.GetMonthNames())
+                {
+                    var monthProperties = GetMonthProperties(_pickerMonth?.Year, month.Index);
+
+                    @* TODO: To add other attributes like for Day  *@
+                    <div class="month @AnimationClass"
+                         selected="@monthProperties.IsSelected"
+                         @onclick="@(e => MonthSelectHandlerAsync(_pickerMonth?.Year, month.Index))">
+                        @month.Abbreviated
+                    </div>
+                }
+            </div>
+            break;
+
+        // "Years" view
+        case CalendarViews.Years:
+            <div class="years" part="years">
+                @foreach (var year in Enumerable.Range(2023, 12))
+                {
+                    <div class="year @AnimationClass">
+                        @year
+                    </div>
+                }
+            </div>
+            break;
+    }
 </div>

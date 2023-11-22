@@ -1561,6 +1561,32 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentCalendar)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles"/> class.
+            </summary>
+            <param name="calendar"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.CalendarExtended">
+            <summary>
+            Gets the CalendarExtended to use for the calendar.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.View">
+            <summary>
+            Gets the currently View.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.Date">
+            <summary>
+            Gets the current date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.Label">
+            <summary>
+            Gets the main calendar title.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar">
             <summary>
             Fluent Calendar based on
@@ -1592,16 +1618,42 @@
             Defines the appearance of a Day cell.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.View">
+            <summary>
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
+            <summary>
+            Gets ot sets if the calendar items are animated during a period change.
+            By default, the animation is enabled for Months and Years views,
+            but disabled for Days view.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CalendarExtended">
             <summary>
             All days of this current month.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetTitles">
+            <summary>
+            Gets titles to use in the calendar.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetDayProperties(System.DateTime)">
             <summary>
             Returns the class name to display a day (day, inactive, today).
             </summary>
             <param name="day"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetMonthProperties(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Returns the class name to display a month (month, inactive, disable).
+            </summary>
+            <param name="year"></param>
+            <param name="month"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
@@ -1699,6 +1751,43 @@
             Gets the identifier of the day in the format yyyy-MM-dd.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth">
+            <summary>
+            Computes the properties of a month in the calendar.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentCalendar,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth"/> class.
+            </summary>
+            <param name="calendar"></param>
+            <param name="month"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.Month">
+            <summary>
+            Current month (day is always 1)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsDisabled">
+            <summary>
+            Whether the month is disabled by the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsInactive">
+            <summary>
+            Whether the month is inactive (out of the current year).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsSelected">
+            <summary>
+            Whether the day is selected by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.MonthIdentifier">
+            <summary>
+            Gets the identifier of the day in the format yyyy-MM.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.#ctor">
             <summary />
         </member>
@@ -1752,42 +1841,6 @@
             <summary>
             The short hint displayed in the input before the user enters a value.
             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ClassValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.AnimationClass">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.View">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ReadOnly">
-            <summary>
-            Gets or sets if the calendar is readonly 
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.Culture">
-            <summary>
-            The culture of the component.
-            By default <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> to display using the OS culture.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.Value">
-            <summary>
-            Selected date (two-way bindable).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.ValueChanged">
-            <summary>
-            Fired when the display month changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMonth.CalendarExtended">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
@@ -9591,69 +9644,9 @@
             The day format is numeric.
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CalendarViews">
             <summary>
-            Defines the format of the day names shown in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat.Long">
-            <summary>
-            The day name uses a long format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat.Narrow">
-            <summary>
-            The day name uses a narrow format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat.Short">
-            <summary>
-            The day name uses a short format.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.MonthFormat">
-            <summary>
-            Defines the format of the months shown in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.TwoDigit">
-            <summary>
-            The month number is shown in 2 digits
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Long">
-            <summary>
-            The month name uses a long format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Narrow">
-            <summary>
-            The month names uses a narrow format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Numeric">
-            <summary>
-            The month is shown in a numeric format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Short">
-            <summary>
-            The month name uses a short format.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.YearFormat">
-            <summary>
-            Defines the format of the years shown in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.YearFormat.TwoDigit">
-            <summary>
-            The year is shown in a 2 digit format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.YearFormat.Numeric">
-            <summary>
-            The year is shwn in a numeric format (4 digits).
+            Defines the view display in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">
