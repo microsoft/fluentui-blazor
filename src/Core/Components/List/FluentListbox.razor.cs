@@ -14,7 +14,7 @@ public partial class FluentListbox<TOption> : ListComponentBase<TOption>
 
     /// <summary />
     protected virtual StyleBuilder BorderStyle => new StyleBuilder()
-        .AddStyle("max-width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("max-height", Height, when: !string.IsNullOrEmpty(Height))
         .AddStyle("overflow-y", "auto")
         .AddStyle("border", "calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest)")
