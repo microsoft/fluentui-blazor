@@ -57,8 +57,10 @@ export function afterStarted(blazor) {
     blazor.registerCustomEventType('checkedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
+            console.log(event);
             return {
-                checked: event.target.currentChecked
+                checked: event.target.currentChecked,
+                indeterminate: event.target.indeterminate
             };
         }
     });

@@ -730,9 +730,25 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeState">
+            <summary>
+            Gets or sets the state of the CheckBox.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState">
+            <summary>
+            Gets or sets the state of the CheckBox.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
@@ -9623,6 +9639,26 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.YearFormat.Numeric">
             <summary>
             The year is shwn in a numeric format (4 digits).
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CheckState">
+            <summary>
+            Different states for the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CheckState.Checked">
+            <summary>
+            The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> displays a check mark.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CheckState.Unchecked">
+            <summary>
+            The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> is empty.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CheckState.Indeterminate">
+            <summary>
+            The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> displays a indeterminate check mark.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">

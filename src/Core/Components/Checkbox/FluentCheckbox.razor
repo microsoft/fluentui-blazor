@@ -11,7 +11,7 @@
                  name=@Name
                  required="@Required"
                  current-checked="@CurrentValue"
-                 @oncheckedchange="@((e) => SetCurrentValue(e.Checked))"
+                 @oncheckedchange="@SetCheckboxAsync"
                  @attributes="@AdditionalAttributes">
     @if (!string.IsNullOrEmpty(Label) || !string.IsNullOrEmpty(AriaLabel) || LabelTemplate is not null)
     {
