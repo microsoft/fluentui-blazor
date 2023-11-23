@@ -7,19 +7,30 @@
 @* Test *@
 <FluentStack>
     <div>
-        <FluentCalendar @bind-Value="@MyMonth" View="CalendarViews.Months" />
-        <div style="margin: 30px;">Selected month: @MyMonth?.ToString("yyyy-MM")</div>
+        <FluentCalendar @bind-Value="@MyMonth" @bind-PickerMonth="@MyPickerMonth" View="CalendarViews.Months" />
+        <div style="margin: 30px;">Selected month: @MyMonth?.ToString("yyyy-MM-dd")</div>
+        <div style="margin: 30px;">Picker month: @MyPickerMonth.ToString("yyyy-MM-dd")</div>
     </div>
     <div>
-        <FluentCalendar @bind-Value="@MyYear" View="CalendarViews.Years" />
-        <div style="margin: 30px;">Selected year: @MyYear?.ToString("yyyy")</div>
+        <FluentCalendar @bind-Value="@MyYear" @bind-PickerMonth="@MyPickerYear" View="CalendarViews.Years" />
+        <div style="margin: 30px;">Selected year: @MyYear?.ToString("yyyy-MM-dd")</div>
+        <div style="margin: 30px;">Picker Year: @MyPickerYear.ToString("yyyy-MM-dd")</div>
+    </div>
+    <div>
+        <FluentCalendar @bind-Value="@MyDay" @bind-PickerMonth="@MyPickerDay" View="CalendarViews.Days" />
+        <div style="margin: 30px;">Selected day: @MyDay?.ToString("yyyy-MM-dd")</div>
+        <div style="margin: 30px;">Picker Day: @MyPickerDay.ToString("yyyy-MM-dd")</div>
     </div>
 </FluentStack>
 
 @code
 {
     DateTime? MyMonth = null;
+    DateTime MyPickerMonth = DateTime.Today;
     DateTime? MyYear = null;
+    DateTime MyPickerYear = DateTime.Today;
+    DateTime? MyDay = null;
+    DateTime MyPickerDay= DateTime.Today;
 }
 
 <p>

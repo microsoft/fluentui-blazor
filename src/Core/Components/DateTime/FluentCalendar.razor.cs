@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -39,8 +40,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         get
         {
-            return FirstDayOfMonth(_pickerMonth
-                                  ?? (Value ?? DateTime.Today));
+            return FirstDayOfMonth(_pickerMonth ?? Value ?? DateTime.Today);
         }
 
         set
@@ -77,8 +77,7 @@ public partial class FluentCalendar : FluentCalendarBase
 
     /// <summary>
     /// Gets ot sets if the calendar items are animated during a period change.
-    /// By default, the animation is enabled for Months and Years views,
-    /// but disabled for Days view.
+    /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
@@ -101,20 +100,14 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <returns></returns>
     internal CalendarTitles GetTitles()
-    { 
+    {
         return new CalendarTitles(this);
     }
 
     /// <summary />
     private async Task OnPreviousButtonHandler(MouseEventArgs e)
     {
-        bool animate = AnimatePeriodChanges ?? (View != CalendarViews.Days);
-
-        if (animate)
-        {
-            await CleanAnimation();
-            _animationRunning = VerticalPosition.Bottom;
-        }
+        await StartNewAnimation(VerticalPosition.Bottom);
 
         switch (View)
         {
@@ -123,11 +116,11 @@ public partial class FluentCalendar : FluentCalendarBase
                 break;
 
             case CalendarViews.Months:
-                _pickerMonth = PickerMonth.AddYears(-1);
+                PickerMonth = PickerMonth.AddYears(-1);
                 break;
 
             case CalendarViews.Years:
-                _pickerMonth = PickerMonth.AddYears(-12);
+                PickerMonth = PickerMonth.AddYears(-12);
                 break;
         }
     }
@@ -135,13 +128,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <summary />
     private async Task OnNextButtonHandler(MouseEventArgs e)
     {
-        bool animate = AnimatePeriodChanges ?? (View != CalendarViews.Days);
-
-        if (animate)
-        {
-            await CleanAnimation();
-            _animationRunning = VerticalPosition.Top;
-        }
+        await StartNewAnimation(VerticalPosition.Top);
 
         switch (View)
         {
@@ -150,50 +137,26 @@ public partial class FluentCalendar : FluentCalendarBase
                 break;
 
             case CalendarViews.Months:
-                _pickerMonth = PickerMonth.AddYears(+1);
+                PickerMonth = PickerMonth.AddYears(+1);
                 break;
 
             case CalendarViews.Years:
-                _pickerMonth = PickerMonth.AddYears(+12);
+                PickerMonth = PickerMonth.AddYears(+12);
                 break;
         }
     }
 
     /// <summary />
-    private bool MonthSelected(int? year, int? month)
+    private Task OnSelectMonthHandlerAsync(int year, int month)
     {
-        if (Value == null || year == null || month == null)
-        {
-            return false;
-        }
-
-        if (Value.Value.Year == year && Value.Value.Month == month)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    /// <summary />
-    private Task OnSelectMonthHandlerAsync(int? year, int? month)
-    {
-        if (year != null && month != null)
-        {
-            Value = new DateTime(year.Value, month.Value, 1);
-        }
-
+        Value = new DateTime(year, month, 1);
         return Task.CompletedTask;
     }
 
     /// <summary />
-    private Task OnSelectYearHandlerAsync(int? year)
+    private Task OnSelectYearHandlerAsync(int year)
     {
-        if (year != null)
-        {
-            Value = new DateTime(year.Value, 1, 1);
-        }
-
+        Value = new DateTime(year, 1, 1);
         return Task.CompletedTask;
     }
 
@@ -220,17 +183,27 @@ public partial class FluentCalendar : FluentCalendarBase
     private FluentCalendarYear GetYearProperties(int? year) => new(this, new DateTime(year ?? PickerMonth.Year, 1, 1));
 
     /// <summary />
-    private DateTime FirstDayOfMonth(DateTime date)
+    private DateTime FirstDayOfMonth(DateTime value)
     {
-        return new DateTime(date.Year, date.Month, 1);
+        return View == CalendarViews.Years
+             ? value.Day == 1 && value.Month == 1 ? value : new DateTime(value.Year, 1, 1)
+             : value.Day == 1 ? value : new DateTime(value.Year, value.Month, 1);
     }
 
     /// <summary />
-    private async Task CleanAnimation()
+    private async Task StartNewAnimation(VerticalPosition position)
     {
-        // Remove the current animation
-        _animationRunning = VerticalPosition.Unset;
-        await Task.Delay(1);
-        StateHasChanged();
+        bool animate = AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
+
+        if (animate)
+        {
+            // Remove the current animation
+            _animationRunning = VerticalPosition.Unset;
+            await Task.Delay(1);
+            StateHasChanged();
+
+            // Start the new animation
+            _animationRunning = position;
+        }
     }
 }

@@ -39,6 +39,11 @@ internal class FluentCalendarMonth
     public bool IsSelected => Month == _calendar.Value;
 
     /// <summary>
+    /// Gets the title of the month in the format [month] [year].
+    /// </summary>
+    public string Title => this.Month.ToString("MMMM yyyy");
+
+    /// <summary>
     /// Gets the identifier of the month in the format yyyy-MM.
     /// </summary>
     public string MonthIdentifier => this.Month.ToString("yyyy-MM");

@@ -39,6 +39,11 @@ internal class FluentCalendarYear
     public bool IsSelected => Year == _calendar.Value;
 
     /// <summary>
+    /// Gets the title of the year in the format [year].
+    /// </summary>
+    public string Title => this.Year.ToString();
+
+    /// <summary>
     /// Gets the identifier of the year in the format yyyy.
     /// </summary>
     public string YearIdentifier => this.Year.ToString("yyyy");

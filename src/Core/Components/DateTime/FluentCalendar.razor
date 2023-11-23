@@ -88,12 +88,18 @@
             <div class="months" part="months">
                 @foreach (var month in CalendarExtended.GetMonthNames())
                 {
-                    var monthProperties = GetMonthProperties(_pickerMonth?.Year, month.Index);
+                    var year = PickerMonth.Year;
+                    var monthProperties = GetMonthProperties(year, month.Index);
 
                     @* TODO: To add other attributes like for Day  *@
                     <div class="month @AnimationClass"
                          selected="@monthProperties.IsSelected"
-                         @onclick="@(e => OnSelectMonthHandlerAsync(_pickerMonth?.Year, month.Index))">
+                         disabled="@monthProperties.IsDisabled"
+                         inactive="@monthProperties.IsInactive"
+                         aria-label="@monthProperties.Title"
+                         title="@monthProperties.Title"
+                         value="@monthProperties.MonthIdentifier"
+                         @onclick="@(e => OnSelectMonthHandlerAsync(year, month.Index))">
                         @month.Abbreviated
                     </div>
                 }
@@ -109,6 +115,10 @@
 
                     <div class="year @AnimationClass"
                          selected="@yearProperties.IsSelected"
+                         disabled="@yearProperties.IsDisabled"
+                         inactive="@yearProperties.IsInactive"
+                         aria-label="@yearProperties.Title"
+                         value="@yearProperties.YearIdentifier"
                          @onclick="@(e => OnSelectYearHandlerAsync(year.Year))">
                         @year.Year
                     </div>

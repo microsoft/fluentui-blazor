@@ -1632,8 +1632,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
             <summary>
             Gets ot sets if the calendar items are animated during a period change.
-            By default, the animation is enabled for Months and Years views,
-            but disabled for Days view.
+            By default, the animation is enabled for Months views, but disabled for Days and Years view.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimationClass">
@@ -1656,13 +1655,10 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnNextButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.MonthSelected(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Int32,System.Int32)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectYearHandlerAsync(System.Nullable{System.Int32})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectYearHandlerAsync(System.Int32)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetDayProperties(System.DateTime)">
@@ -1690,7 +1686,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CleanAnimation">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StartNewAnimation(Microsoft.FluentUI.AspNetCore.Components.VerticalPosition)">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
@@ -1820,6 +1816,11 @@
             Whether the month is selected by the user
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.Title">
+            <summary>
+            Gets the title of the month in the format [month] [year].
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.MonthIdentifier">
             <summary>
             Gets the identifier of the month in the format yyyy-MM.
@@ -1855,6 +1856,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsSelected">
             <summary>
             Whether the year is selected by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.Title">
+            <summary>
+            Gets the title of the year in the format [year].
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.YearIdentifier">
