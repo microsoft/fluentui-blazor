@@ -4,35 +4,6 @@
 
 <h1>Date & Time</h1>
 
-@* Test *@
-<FluentStack>
-    <div>
-        <FluentCalendar @bind-Value="@MyMonth" @bind-PickerMonth="@MyPickerMonth" View="CalendarViews.Months" />
-        <div style="margin: 30px;">Selected month: @MyMonth?.ToString("yyyy-MM-dd")</div>
-        <div style="margin: 30px;">Picker month: @MyPickerMonth.ToString("yyyy-MM-dd")</div>
-    </div>
-    <div>
-        <FluentCalendar @bind-Value="@MyYear" @bind-PickerMonth="@MyPickerYear" View="CalendarViews.Years" />
-        <div style="margin: 30px;">Selected year: @MyYear?.ToString("yyyy-MM-dd")</div>
-        <div style="margin: 30px;">Picker Year: @MyPickerYear.ToString("yyyy-MM-dd")</div>
-    </div>
-    <div>
-        <FluentCalendar @bind-Value="@MyDay" @bind-PickerMonth="@MyPickerDay" View="CalendarViews.Days" />
-        <div style="margin: 30px;">Selected day: @MyDay?.ToString("yyyy-MM-dd")</div>
-        <div style="margin: 30px;">Picker Day: @MyPickerDay.ToString("yyyy-MM-dd")</div>
-    </div>
-</FluentStack>
-
-@code
-{
-    DateTime? MyMonth = null;
-    DateTime MyPickerMonth = DateTime.MaxValue.AddMonths(-1);
-    DateTime? MyYear = null;
-    DateTime MyPickerYear = DateTime.MaxValue.AddMonths(-1);
-    DateTime? MyDay = null;
-    DateTime MyPickerDay = DateTime.MaxValue.AddMonths(-1);
-}
-
 <p>
     The <code>&lt;FluentCalendar&gt;</code> is an implementation of a month calendar display leveraging the Fluent UI design system.
     It allows for setting selected and/or disabled dates and can handle a click on a day event (if not <code>ReadOnly</code>)
