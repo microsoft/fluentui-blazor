@@ -26,11 +26,11 @@
 @code
 {
     DateTime? MyMonth = null;
-    DateTime MyPickerMonth = DateTime.Today;
+    DateTime MyPickerMonth = DateTime.MaxValue.AddMonths(-1);
     DateTime? MyYear = null;
-    DateTime MyPickerYear = DateTime.Today;
+    DateTime MyPickerYear = DateTime.MaxValue.AddMonths(-1);
     DateTime? MyDay = null;
-    DateTime MyPickerDay= DateTime.Today;
+    DateTime MyPickerDay = DateTime.MaxValue.AddMonths(-1);
 }
 
 <p>

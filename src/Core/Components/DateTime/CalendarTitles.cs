@@ -38,7 +38,7 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => CalendarExtended.GetMonthNameAndYear(),
                 CalendarViews.Months => CalendarExtended.GetYear(),
-                CalendarViews.Years => $"{Date.Year} - {Date.Year + 12}",
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.Year),
                 _ => string.Empty
             };
         }
@@ -52,7 +52,7 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(-1)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(-1)),
-                CalendarViews.Years => "TODO",
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.Year - 12),
                 _ => string.Empty
             };
         }
@@ -64,9 +64,9 @@ internal class CalendarTitles
         {
             return View switch
             {
-                CalendarViews.Days => Date.Year == DateTime.MinValue.Year && Date.Month == DateTime.MaxValue.Month,
+                CalendarViews.Days => Date.Year == DateTime.MinValue.Year && Date.Month == DateTime.MinValue.Month,
                 CalendarViews.Months => Date.Year == DateTime.MinValue.Year,
-                CalendarViews.Years => false,    // TODO
+                CalendarViews.Years => Date.Year == DateTime.MinValue.Year,
                 _ => false
             };
         }
@@ -80,7 +80,7 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(+1)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(+1)),
-                CalendarViews.Years => "TODO",
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.Year + 12),
                 _ => string.Empty
             };
         }
@@ -94,7 +94,7 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => Date.Year == DateTime.MaxValue.Year && Date.Month == DateTime.MaxValue.Month,
                 CalendarViews.Months => Date.Year == DateTime.MaxValue.Year,
-                CalendarViews.Years => false,    // TODO
+                CalendarViews.Years => Date.Year == DateTime.MaxValue.Year,
                 _ => false
             };
         }

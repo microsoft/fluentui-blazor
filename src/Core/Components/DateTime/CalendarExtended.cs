@@ -42,10 +42,15 @@ internal struct CalendarExtended
         }
 
         var monthFirst = GetFirstDayToDisplay(monthOffset);
-        var weekFirst = monthFirst.AddDays(weekNumber * 7).StartOfWeek(GetFirstDayOfWeek());
-        for (var i = 0; i < 7; i++)
+        bool maxLimit = monthFirst.Year == DateTime.MaxValue.Year && monthFirst.Month == DateTime.MaxValue.Month && weekNumber > 3;
+
+        if (!maxLimit)
         {
-            yield return weekFirst.AddDays(i);
+            var weekFirst = monthFirst.AddDays(weekNumber * 7).StartOfWeek(GetFirstDayOfWeek());
+            for (var i = 0; i < 7; i++)
+            {
+                yield return weekFirst.AddDays(i);
+            }
         }
     }
 
@@ -114,7 +119,13 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(int Index, int Year)> GetYearsRange()
     {
-        for (int i = 0; i < 12; i++)
+        int max = 12;
+        if (Date.Year + max > DateTime.MaxValue.Year)
+        {
+            max = DateTime.MaxValue.Year - Date.Year + 1;
+        }
+
+        for (int i = 0; i < max; i++)
         {
             yield return (i, Date.Year + i);
         }
@@ -137,6 +148,28 @@ internal struct CalendarExtended
     public string GetYear()
     {
         return $"{Date.Year}";
+    }
+
+    /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <returns></returns>
+    public string GetYearsRangeLabel(int fromYear)
+    {
+        int min = fromYear;
+        int max = fromYear + 11;
+
+        if (min < DateTime.MinValue.Year)
+        {
+            min = DateTime.MinValue.Year;
+        }
+
+        if (max > DateTime.MaxValue.Year)
+        {
+            max = DateTime.MaxValue.Year;
+        }
+
+        return min == max ? $"{min}" : $"{min} - {max}";
     }
 
     /// <summary>

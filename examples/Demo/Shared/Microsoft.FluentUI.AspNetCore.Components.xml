@@ -1521,6 +1521,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
+            <summary>
+            Returns the year value.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear(System.DateTime)">
             <summary>
             Returns the year value.

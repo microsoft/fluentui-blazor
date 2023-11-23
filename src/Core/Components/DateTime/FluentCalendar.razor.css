@@ -43,8 +43,8 @@
             cursor: pointer;
         }
 
-            .fluent-calendar ::deep .change-period > .previous:hover,
-            .fluent-calendar ::deep .change-period > .next:hover {
+            .fluent-calendar ::deep .change-period > .previous:not([disabled]):hover,
+            .fluent-calendar ::deep .change-period > .next:not([disabled]):hover {
                 background: var(--neutral-fill-stealth-hover);
             }
 
@@ -196,8 +196,8 @@
             cursor: pointer;
         }
 
-            .fluent-month ::deep .change-period > .previous:hover,
-            .fluent-month ::deep .change-period > .next:hover {
+            .fluent-month ::deep .change-period > .previous:not([disabled]):hover,
+            .fluent-month ::deep .change-period > .next:not([disabled]):hover {
                 background: var(--neutral-fill-stealth-hover);
             }
 
@@ -299,8 +299,8 @@
             cursor: pointer;
         }
 
-            .fluent-year ::deep .change-period > .previous:hover,
-            .fluent-year ::deep .change-period > .next:hover {
+            .fluent-year ::deep .change-period > .previous:not([disabled]):hover,
+            .fluent-year ::deep .change-period > .next:not([disabled]):hover {
                 background: var(--neutral-fill-stealth-hover);
             }
 
