@@ -1,31 +1,25 @@
 ﻿<FluentStack Style="margin: 20px;">
-    <FluentCheckbox Id="check1" ThreeState="true" @bind-Value="@value1" @bind-CheckState="@state1" Label="ThreeState = true" Style="width: 200px;" />
+    <FluentCheckbox Id="check1" ThreeState="true" @bind-Value="@value1" @bind-CheckState="@state1" Label="ThreeState = true" Style="min-width: 250px;" />
     <div>
         Value = @value1 - CheckState = @(state1?.ToString() ?? "null (Indeterminate)")
     </div>
 </FluentStack>
 
 <FluentStack Style="margin: 20px;">
-    <FluentCheckbox Id="check2" ThreeState="false" @bind-Value="@value2" @bind-CheckState="@state2" Label="ThreeState = false" Style="width: 200px;" />
+    <FluentCheckbox Id="check2" ThreeState="false" @bind-Value="@value2" Label="ThreeState = false" Style="min-width: 250px;" />
     <div>
-        Value = @value2 - CheckState = @state2
+        Value = @value2
     </div>
 </FluentStack>
 
-<FluentButton OnClick="@(e => value2 = !value2)">Switch Value2</FluentButton>
-
-
-<br/> <br/>
-
-<FluentButton OnClick="@(e => value1 = !value1)">Switch</FluentButton>
-
-<FluentButton OnClick="@(e => state1 = true)">Checked</FluentButton>
-<FluentButton OnClick="@(e => state1 = null)">Indeterminate</FluentButton>
-<FluentButton OnClick="@(e => state1 = false)">Unchecked</FluentButton>
+<FluentStack Style="margin: 20px;">
+    <FluentCheckbox Id="check3" ThreeState="true" @bind-Value="@value3" @bind-CheckState="@state3" ShowIndeterminate="false" Label="ShowIndeterminate = false" Style="min-width: 250px;" />
+    <div>
+        Value = @value3 - CheckState = @(state3?.ToString() ?? "null (Indeterminate)")
+    </div>
+</FluentStack>
 
 @code {
-    bool value1, value2;
-    bool intermediate1 = true, intermediate2;
-    bool? check1;
-    bool? state1, state2;
+    bool value1, value2, value3;
+    bool? state1 = false, state3 = null;
 }

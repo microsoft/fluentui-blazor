@@ -746,6 +746,13 @@
             Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ShowIndeterminate">
+            <summary>
+            Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
+            If this is not the case, the checkbox can be started in the indeterminate state, but the user cannot activate it with the mouse.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState">
             <summary>
             Gets or sets the state of the CheckBox: true, false or null.
