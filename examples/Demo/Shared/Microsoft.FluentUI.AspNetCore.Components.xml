@@ -743,8 +743,33 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeState">
             <summary>
-            Gets or sets the state of the CheckBox.
+            Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState">
+            <summary>
+            Gets or sets the state of the CheckBox: true, false or null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.Intermediate">
+            <summary>
+            Gets or sets the Intermediate state of the CheckBox.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetIntermediateAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentCheckState(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.OnCheckedChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CheckboxChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.UpdateAndRaiseCheckStateEvent(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
             <summary>
@@ -9634,26 +9659,6 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.YearFormat.Numeric">
             <summary>
             The year is shwn in a numeric format (4 digits).
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CheckState">
-            <summary>
-            Different states for the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> component.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CheckState.Checked">
-            <summary>
-            The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> displays a check mark.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CheckState.Unchecked">
-            <summary>
-            The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> is empty.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CheckState.Indeterminate">
-            <summary>
-            The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox"/> displays a indeterminate check mark.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">

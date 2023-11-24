@@ -5,7 +5,6 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCheckbox : FluentInputBase<bool>
 {
-    //private bool _updateCheckStateRunning = false;
     private bool _intermediate = false;
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/CheckBox/FluentCheckbox.razor.js";
 
@@ -22,8 +21,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     /// <summary />
     private IJSObjectReference? Module { get; set; }
 
-    //private bool IsIndeterminate { get; set; } = false;
-
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -31,19 +28,24 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the state of the CheckBox.
+    /// Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
     /// </summary>
     [Parameter]
     public bool ThreeState { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets the state of the CheckBox: true, false or null.
+    /// </summary>
     [Parameter]
     public bool? CheckState { get; set; } = false;
 
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
 
-    [Parameter]
-    public bool Intermediate
+    /// <summary>
+    /// Gets or sets the Intermediate state of the CheckBox.
+    /// </summary>
+    private bool Intermediate
     {
         get => _intermediate;
         set
@@ -52,31 +54,20 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         }
     }
 
-    [Parameter]
-    public EventCallback<bool> IntermediateChanged { get; set; }
-
-    private async Task SetIntermediateAsync(bool value)
+    /// <summary />
+    private async Task SetIntermediateAsync(bool intermediate)
     {
         // Force the Indeterminate state to be set.
         // Each time the user clicks the checkbox, the Indeterminate state is reset to false.
-        await UpdateUIAsync(value, Value);
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        await Module.InvokeVoidAsync("setFluentCheckBoxIndeterminate", Id, intermediate, Value);
 
-        if (_intermediate != value)
-        {
-            _intermediate = value;
-
-            if (IntermediateChanged.HasDelegate)
-            {
-                await IntermediateChanged.InvokeAsync(value);
-            }
-        }
+        _intermediate = intermediate;
     }
 
+    /// <summary />
     private async Task SetCurrentCheckState(bool newChecked)
     {
-        Console.WriteLine($"SetCurrentCheckState - Intermediate: {Intermediate}, NewChecked: {newChecked}");
-
-        //                [1]       [2]      [3]               [4]
         // Value:        False   -> True  -> False         -> False
         // Intermediate: False   -> False -> True          -> False
         //               ---------------------------------------------
@@ -87,7 +78,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             await SetCurrentValue(true);
             await SetIntermediateAsync(false);
-            await UpdateCheckState(true);
+            await UpdateAndRaiseCheckStateEvent(true);
         }
 
         // Check -> Indeterminate
@@ -95,7 +86,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             await SetCurrentValue(false);
             await SetIntermediateAsync(true);
-            await UpdateCheckState(null);
+            await UpdateAndRaiseCheckStateEvent(null);
         }
 
         // Indeterminate -> Unckeck
@@ -103,7 +94,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             await SetCurrentValue(false);
             await SetIntermediateAsync(false);
-            await UpdateCheckState(false);
+            await UpdateAndRaiseCheckStateEvent(false);
         }
 
         // 
@@ -111,23 +102,11 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             await SetCurrentValue(false); 
             await SetIntermediateAsync(false);
-            await UpdateCheckState(false);
-        }
-
-        async Task UpdateCheckState(bool? value)
-        {
-            if (CheckState != value)
-            {
-                CheckState = value;
-
-                if (CheckStateChanged.HasDelegate)
-                {
-                    await CheckStateChanged.InvokeAsync(value);
-                }
-            }
+            await UpdateAndRaiseCheckStateEvent(false);
         }
     }
 
+    /// <summary />
     private async Task OnCheckedChangeHandlerAsync(CheckboxChangeEventArgs e)
     {
         Console.WriteLine($"OnCheckedChangeHandler - Intermediate: {e.Indeterminate}, Checked: {e.Checked}");
@@ -144,165 +123,25 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         else
         {
             await SetCurrentValue(e.Checked ?? false);
+            await UpdateAndRaiseCheckStateEvent(e.Checked ?? false);
         }
     }
 
-    /*
-    /// <summary>
-    /// Gets or sets the state of the CheckBox.
-    /// </summary>
-    [Parameter]
-    public bool ThreeState { get; set; } = false;
-
-    private CheckState _checkState = CheckState.Unchecked;
-
-    /// <summary>
-    /// Gets or sets the state of the CheckBox.
-    /// </summary>
-    [Parameter]
-    public CheckState CheckState
+    /// <summary />
+    private async Task UpdateAndRaiseCheckStateEvent(bool? value)
     {
-        get => _checkState;
-        set
+        if (CheckState != value)
         {
-            _ = UpdateCheckStateAsync(value);
-        }
-    }
+            CheckState = value;
 
-    [Parameter]
-    public EventCallback<CheckState> CheckStateChanged { get; set; }
-
-    private async Task UpdateCheckStateAsync(CheckState value)
-    {
-        if (_checkState == value)
-        {
-            return;
-        }
-
-        if (_updateCheckStateRunning)
-        {
-            return;
-        }
-
-        Console.WriteLine($"CheckState({value})");
-
-        _updateCheckStateRunning = true;
-
-        switch (value)
-        {
-            case CheckState.Checked:
-                _checkState = CheckState.Checked;
-                await SetIndeterminateAsync(false);
-                await SetCurrentValue(true);
-                break;
-
-            case CheckState.Indeterminate:
-                _checkState = CheckState.Indeterminate;
-                await SetIndeterminateAsync(true);
-                await SetCurrentValue(true);
-                break;
-
-            default:
-                _checkState = CheckState.Unchecked;
-                await SetIndeterminateAsync(false);
-                await SetCurrentValue(false);
-                break;
-        }
-
-        if (CheckStateChanged.HasDelegate)
-        {
-            await CheckStateChanged.InvokeAsync(_checkState);
-        }
-
-        _updateCheckStateRunning = false;
-    }
-
-    private async Task SetCheckboxAsync(CheckboxChangeEventArgs args)
-    {
-        bool value = args.Checked;
-
-        var checkbox = (OldValue: Value, NewValue: value);
-
-        if (ThreeState)
-        {
-            //bool indeterminate = args.Indeterminate;
-
-            
-            //   (Old,   New)     Target state  -> CheckState
-            //   ------------------------------------------------
-            //   (false, true)    Unchecked     -> Checked
-            //   (true,  false)   Checked       -> Indeterminate
-            //   (true,  true)    Indeterminate -> Unchecked
-            //   (false, false)   Unchecked     -> Unchecked
-            
-
-            // Unchecked -> Checked
-            if (!checkbox.OldValue && checkbox.NewValue)
+            if (CheckStateChanged.HasDelegate)
             {
-                CheckState = CheckState.Checked;
-                //value = true;
-                //indeterminate = false;
-            }
-
-            // Checked -> Indeterminate
-            else if (checkbox.OldValue && !checkbox.NewValue)
-            {
-                CheckState = CheckState.Indeterminate;
-                //value = true;
-                //indeterminate = true;
-            }
-
-            // Indeterminate -> Unchecked
-            else if (checkbox.OldValue && checkbox.NewValue)
-            {
-                CheckState = CheckState.Unchecked;
-                //value = false;
-                //indeterminate = false;
-            }
-
-            // Unchecked -> Unchecked
-            else
-            {
-                CheckState = CheckState.Unchecked;
-                //value = false;
-                //indeterminate = false;
-            }
-
-            //await SetIndeterminateAsync(indeterminate);
-        }
-
-        else
-        {
-            await base.SetCurrentValue(value);
-
-            var checkState = value ? CheckState.Checked : CheckState.Unchecked;
-            if (CheckState != checkState)
-            {
-                _checkState = checkState;
-
-                if (CheckStateChanged.HasDelegate)
-                {
-                    _ = CheckStateChanged.InvokeAsync(_checkState);
-                }
+                await CheckStateChanged.InvokeAsync(value);
             }
         }
     }
 
-    private async Task SetIndeterminateAsync(bool value)
-    {
-        IsIndeterminate = value;
-
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        await Module.InvokeVoidAsync("setFluentCheckBoxIndeterminate", Id, value);
-    }
-    */
-     
-    private async Task UpdateUIAsync(bool isIndeterminate, bool isChecked)
-    { 
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        await Module.InvokeVoidAsync("setFluentCheckBoxIndeterminate", Id, isIndeterminate, isChecked);
-    }
-
+    /// <summary />
     protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) => throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
 
 }
