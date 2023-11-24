@@ -756,6 +756,9 @@
             Gets or sets the Intermediate state of the CheckBox.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentAndIntermediate(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetIntermediateAsync(System.Boolean)">
             <summary />
         </member>

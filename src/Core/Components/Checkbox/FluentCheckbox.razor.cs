@@ -5,7 +5,9 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCheckbox : FluentInputBase<bool>
 {
+    private const bool VALUE_FOR_INDETERMINATE = false;
     private bool _intermediate = false;
+    private bool? _checkState = false;
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/CheckBox/FluentCheckbox.razor.js";
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
@@ -37,7 +39,18 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     /// Gets or sets the state of the CheckBox: true, false or null.
     /// </summary>
     [Parameter]
-    public bool? CheckState { get; set; } = false;
+    public bool? CheckState
+    {
+        get => _checkState;
+        set
+        {
+            if (_checkState != value)
+            {
+                _checkState = value;
+                _ = SetCurrentAndIntermediate(value);
+            }
+        }
+    }
 
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
@@ -51,6 +64,31 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         set
         {
             _ = SetIntermediateAsync(value);
+        }
+    }
+
+    /// <summary />
+    private async Task SetCurrentAndIntermediate(bool? value)
+    {
+        switch (value)
+        {
+            // Unchecked
+            case true:
+                await SetCurrentValue(true);
+                await SetIntermediateAsync(false);
+                break;
+
+            // Checked
+            case false:
+                await SetCurrentValue(false);
+                await SetIntermediateAsync(false);
+                break;
+
+            // Indeterminate
+            default:
+                await SetCurrentValue(VALUE_FOR_INDETERMINATE);
+                await SetIntermediateAsync(true);
+                break;
         }
     }
 
@@ -74,7 +112,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         //               Uncheck -> Check -> Indeterminate -> Uncheck
 
         // Uncheck -> Check
-        if (newChecked && !Intermediate) 
+        if (newChecked && !Intermediate)
         {
             await SetCurrentValue(true);
             await SetIntermediateAsync(false);
@@ -84,7 +122,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         // Check -> Indeterminate
         else if (!newChecked && !Intermediate)
         {
-            await SetCurrentValue(false);
+            await SetCurrentValue(VALUE_FOR_INDETERMINATE);
             await SetIntermediateAsync(true);
             await UpdateAndRaiseCheckStateEvent(null);
         }
@@ -100,7 +138,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         // 
         else
         {
-            await SetCurrentValue(false); 
+            await SetCurrentValue(false);
             await SetIntermediateAsync(false);
             await UpdateAndRaiseCheckStateEvent(false);
         }
@@ -111,14 +149,15 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     {
         Console.WriteLine($"OnCheckedChangeHandler - Intermediate: {e.Indeterminate}, Checked: {e.Checked}");
 
-        if (e.Checked == null && e.Indeterminate == null) {
+        if (e.Checked == null && e.Indeterminate == null)
+        {
             Console.WriteLine($"OnCheckedChangeHandler - CANCELED");
-            return; 
+            return;
         }
 
-        if (ThreeState) 
-        { 
-            await SetCurrentCheckState(e.Checked ?? false); 
+        if (ThreeState)
+        {
+            await SetCurrentCheckState(e.Checked ?? false);
         }
         else
         {
@@ -130,9 +169,9 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     /// <summary />
     private async Task UpdateAndRaiseCheckStateEvent(bool? value)
     {
-        if (CheckState != value)
+        if (_checkState != value)
         {
-            CheckState = value;
+            _checkState = value;
 
             if (CheckStateChanged.HasDelegate)
             {

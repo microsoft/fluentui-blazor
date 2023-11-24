@@ -17,8 +17,11 @@
 
 <br/> <br/>
 
-<FluentButton OnClick="@(e => value1 = !value1)">Checked</FluentButton>
-<FluentButton OnClick="@(e => intermediate1 = !intermediate1)">Indeterminate</FluentButton>
+<FluentButton OnClick="@(e => value1 = !value1)">Switch</FluentButton>
+
+<FluentButton OnClick="@(e => state1 = true)">Checked</FluentButton>
+<FluentButton OnClick="@(e => state1 = null)">Indeterminate</FluentButton>
+<FluentButton OnClick="@(e => state1 = false)">Unchecked</FluentButton>
 
 @code {
     bool value1, value2;
