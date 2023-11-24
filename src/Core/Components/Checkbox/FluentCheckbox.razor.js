@@ -1,10 +1,12 @@
-﻿export function setFluentCheckBoxIndeterminate(id, value) {
+﻿export function setFluentCheckBoxIndeterminate(id, indeterminate, checked) {
     var item = document.getElementById(id);
-    if (!!item) {
-        item.indeterminate = value;
+    if (!!item) {        
+        item.isUpdating = true;
 
-        if (value) {
-            item.checked = false;
-        }
+        // Need to update Checked before Indeterminate
+        item.checked = checked;
+        item.indeterminate = indeterminate;
+
+        item.isUpdating = false;
     }
 }

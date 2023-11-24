@@ -746,11 +746,6 @@
             Gets or sets the state of the CheckBox.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState">
-            <summary>
-            Gets or sets the state of the CheckBox.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
             <summary>
             If true, the region is expaned, otherwise it is collapsed.

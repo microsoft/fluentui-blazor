@@ -1,7 +1,7 @@
 ﻿<FluentStack Style="margin: 20px;">
     <FluentCheckbox Id="check1" ThreeState="true" @bind-Value="@value1" @bind-CheckState="@state1" Label="ThreeState = true" Style="width: 200px;" />
     <div>
-        Value = @value1 - CheckState = @state1
+        Value = @value1 - CheckState = @(state1?.ToString() ?? "null (Indeterminate)")
     </div>
 </FluentStack>
 
@@ -15,15 +15,14 @@
 <FluentButton OnClick="@(e => value2 = !value2)">Switch Value2</FluentButton>
 
 
-<FluentButton OnClick="@(e => state1 = CheckState.Checked)">1-Checked</FluentButton>
-<FluentButton OnClick="@(e => state1 = CheckState.Indeterminate)">1-Indeterminate</FluentButton>
-<FluentButton OnClick="@(e => state1 = CheckState.Unchecked)">1-Unchecked</FluentButton>
+<br/> <br/>
 
-<FluentCheckbox ThreeState="true" CheckState="CheckState.Unchecked" />
-<FluentCheckbox ThreeState="true" CheckState="CheckState.Checked" />
-<FluentCheckbox ThreeState="true" CheckState="CheckState.Indeterminate" />
+<FluentButton OnClick="@(e => value1 = !value1)">Checked</FluentButton>
+<FluentButton OnClick="@(e => intermediate1 = !intermediate1)">Indeterminate</FluentButton>
 
 @code {
     bool value1, value2;
-    CheckState state1, state2;
+    bool intermediate1 = true, intermediate2;
+    bool? check1;
+    bool? state1, state2;
 }
