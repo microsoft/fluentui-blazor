@@ -68,18 +68,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
 
-    /// <summary>
-    /// Gets or sets the Intermediate state of the CheckBox.
-    /// </summary>
-    private bool Intermediate
-    {
-        get => _intermediate;
-        set
-        {
-            _ = SetIntermediateAsync(value);
-        }
-    }
-
     /// <summary />
     private async Task SetCurrentAndIntermediate(bool? value)
     {
@@ -125,14 +113,14 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         //               Uncheck -> Check -> Indeterminate -> Uncheck
 
         // Uncheck -> Check
-        if (newChecked && !Intermediate)
+        if (newChecked && !_intermediate)
         {
             await SetCurrentAndIntermediate(true);
             await UpdateAndRaiseCheckStateEvent(true);
         }
 
         // Check -> Indeterminate (or Uncheck is ShowIndeterminate is false)
-        else if (!newChecked && !Intermediate)
+        else if (!newChecked && !_intermediate)
         {
             if (ShowIndeterminate)
             {
@@ -146,8 +134,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>
             }
         }
 
-        // Indeterminate -> Unckeck
-        else if (newChecked && Intermediate)
+        // Indeterminate -> Uncheck
+        else if (newChecked && _intermediate)
         {
             await SetCurrentAndIntermediate(false);
             await UpdateAndRaiseCheckStateEvent(false);
