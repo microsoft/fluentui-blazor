@@ -1,8 +1,7 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@inject IStringLocalizer<FluentPaginatorResource> localizer
-@using Microsoft.Extensions.Localization
-@using Microsoft.FluentUI.AspNetCore.Components.Resources
+@inject IStringLocalizer<FluentPaginatorResource> Loc
+
 <div class="paginator">
     @if (State.TotalItemCount.HasValue)
     {
@@ -13,24 +12,24 @@
             }
             else
             {
-                <text><strong>@State.TotalItemCount</strong> @(State.TotalItemCount > 1 ? localizer[nameof(FluentPaginatorResource.Items)] : @localizer[nameof(FluentPaginatorResource.Item)])</text>
+                <text><strong>@State.TotalItemCount</strong> @(State.TotalItemCount > 1 ? Loc[nameof(FluentPaginatorResource.Items)] : Loc[nameof(FluentPaginatorResource.Item)])</text>
             }
         </div>
         <nav role="navigation" class="paginator-nav">
-            <FluentButton @onclick="GoFirstAsync" Disabled="@(!CanGoBack)" Title="@localizer[nameof(FluentPaginatorResource.GoToFirstPage)].Value" aria-label="Go to first page">
+            <FluentButton @onclick="GoFirstAsync" Disabled="@(!CanGoBack)" title="@Loc[nameof(FluentPaginatorResource.GoToFirstPage)].Value" aria-label="@Loc[nameof(FluentPaginatorResource.GoToFirstPage)].Value">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())" Width="20px" />
             </FluentButton>
-            <FluentButton @onclick="GoPreviousAsync" Disabled="@(!CanGoBack)" Title="@localizer[nameof(FluentPaginatorResource.GoToPreviousPage)].Value" aria-label="Go to previous page">
+            <FluentButton @onclick="GoPreviousAsync" Disabled="@(!CanGoBack)" title="@Loc[nameof(FluentPaginatorResource.GoToPreviousPage)].Value" aria-label="@Loc[nameof(FluentPaginatorResource.GoToPreviousPage)].Value">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronLeft())" Width="20px" />
             </FluentButton>
             <div class="pagination-text">
-                @localizer[nameof(FluentPaginatorResource.Page)] <strong>@(State.CurrentPageIndex + 1)</strong>
-                @localizer[nameof(FluentPaginatorResource.Of)] <strong>@(State.LastPageIndex + 1)</strong>
+                @Loc[nameof(FluentPaginatorResource.Page)] <strong>@(State.CurrentPageIndex + 1)</strong>
+                @Loc[nameof(FluentPaginatorResource.Of)] <strong>@(State.LastPageIndex + 1)</strong>
             </div>
-            <FluentButton @onclick="GoNextAsync" Disabled="@(!CanGoForwards)" Title="@localizer[nameof(FluentPaginatorResource.GoToNextPage)].Value" aria-label="Go to next page">
+            <FluentButton @onclick="GoNextAsync" Disabled="@(!CanGoForward)" title="@Loc[nameof(FluentPaginatorResource.GoToNextPage)].Value" aria-label="@Loc[nameof(FluentPaginatorResource.GoToNextPage)].Value">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronRight())" Width="20px" />
             </FluentButton>
-            <FluentButton @onclick="GoLastAsync" Disabled="@(!CanGoForwards)" Title="@localizer[nameof(FluentPaginatorResource.GoToLastPage)].Value" aria-label="Go to last page">
+            <FluentButton @onclick="GoLastAsync" Disabled="@(!CanGoForward)" title="@Loc[nameof(FluentPaginatorResource.GoToLastPage)].Value" aria-label="@Loc[nameof(FluentPaginatorResource.GoToLastPage)].Value">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" Width="20px" />
             </FluentButton>
         </nav>

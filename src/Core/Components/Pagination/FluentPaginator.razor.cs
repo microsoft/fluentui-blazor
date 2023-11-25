@@ -40,7 +40,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     private Task GoLastAsync() => GoToPageAsync(State.LastPageIndex.GetValueOrDefault(0));
 
     private bool CanGoBack => State.CurrentPageIndex > 0;
-    private bool CanGoForwards => State.CurrentPageIndex < State.LastPageIndex;
+    private bool CanGoForward => State.CurrentPageIndex < State.LastPageIndex;
 
     private async Task GoToPageAsync(int pageIndex)
     { 
