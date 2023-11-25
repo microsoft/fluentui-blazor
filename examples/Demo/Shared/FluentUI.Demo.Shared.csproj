@@ -31,6 +31,7 @@
 	<ItemGroup>
 		<PackageReference Include="Markdig" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
@@ -53,4 +54,25 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>
+
+	<ItemGroup>
+	  <Compile Remove="Components\CultureSelector.razor.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Components\CultureSelector.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\CultureSelector.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Components\CultureSelector.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Shared\CultureSelector.razor.cs" />
+	  <None Include="Shared\CultureSelector.razor" />
+	</ItemGroup>
 </Project>

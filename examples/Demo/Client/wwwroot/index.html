@@ -84,6 +84,12 @@
             hljs.addPlugin(new CopyButtonPlugin());
         }
     </script>
+    <script>
+        window.blazorCulture = {
+            get: () => localStorage['BlazorCulture'],
+            set: (value) => localStorage['BlazorCulture'] = value
+        };
+    </script>
 </body>
 
 </html>

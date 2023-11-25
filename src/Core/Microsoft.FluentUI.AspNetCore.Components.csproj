@@ -56,7 +56,8 @@
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-	  <PackageReference Include="Microsoft.Extensions.Http"  />
+	  <PackageReference Include="Microsoft.Extensions.Http" />
+	  <PackageReference Include="Microsoft.Extensions.Localization" />
 	  <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
@@ -79,10 +80,6 @@
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
     <None Include="**\*.*.resx" />
-    <None Update="**\*.*.resx">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).resx</DependentUpon>
-    </None>
 
     <Compile Update="**\*.Designer.cs">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>

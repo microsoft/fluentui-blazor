@@ -9,10 +9,13 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddLocalization();
 
 builder.Services.AddFluentUIComponents();
 builder.Services.AddFluentUIDemoServices();
 
 builder.Services.AddScoped<DataSource>();
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+await host.SetDefaultCulture();
+await host.RunAsync();
