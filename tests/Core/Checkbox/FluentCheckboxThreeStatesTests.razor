@@ -1,0 +1,93 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Theory]
+    [InlineData(false, true, true)] // Unchecked => Checked
+    [InlineData(true, null, false)] // Checked => Indeterminate
+    [InlineData(null, false, false)] // Indeterminate => Unchecked
+    public void FluentCheckbox_ThreeStates(bool? initialState, bool? assertState, bool assertValue)
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        bool myValue = initialState ?? false;
+        bool? myState = initialState;
+
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="myCheck"
+                ThreeState="true"
+                @bind-CheckState="@myState"
+                @bind-Value="@myValue" />);
+
+        var component = cut.Find("fluent-checkbox");
+        component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = !myValue });
+
+        // Assert
+        Assert.Equal(assertState, myState);
+        Assert.Equal(assertValue, myValue);
+    }
+
+    [Fact]
+    public void FluentCheckbox_ThreeStates_ShowIntermediateFalse()
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Start Intermediate
+        bool? myState = null;
+
+        // Arrange
+        var cut = Render(@<FluentCheckbox Id="myCheck"
+                ThreeState="true"
+                ShowIndeterminate="false"
+                @bind-CheckState="@myState" />);
+
+        // Act
+        var component = cut.Find("fluent-checkbox");
+
+        // ... Intermediate => Uncheck
+        // ... Uncheck => Check
+        // ... Check => Uncheck (not Intermediate because )
+        component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = false });
+        component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = true });
+        component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = false });
+
+        // Assert
+        Assert.False(myState);
+    }
+
+    [Theory]
+    [InlineData(true, false)] // Unchecked => Checked
+    [InlineData(false, true)] // Checked => Unchecked
+    public void FluentCheckbox_ThreeStatesFalse(bool initialValue, bool assertValue)
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        bool myValue = initialValue;
+
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="myCheck"
+                ThreeState="false"
+                @bind-Value="@myValue" />
+    );
+
+        var component = cut.Find("fluent-checkbox");
+        component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = !myValue });
+
+        // Assert
+        Assert.Equal(assertValue, myValue);
+    }
+
+    [Fact]
+    public void FluentCheckbox_Labels()
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Start Intermediate
+        bool? myState = null;
+
+        // Arrange
+        var cut = Render(@<FluentCheckbox Label="MyLabel">My customized content</FluentCheckbox>);
+
+        cut.Verify();
+    }
+}

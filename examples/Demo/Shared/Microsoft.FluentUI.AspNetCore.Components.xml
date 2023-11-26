@@ -730,10 +730,51 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeState">
+            <summary>
+            Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ShowIndeterminate">
+            <summary>
+            Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
+            If this is not the case, the checkbox can be started in the indeterminate state, but the user cannot activate it with the mouse.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState">
+            <summary>
+            Gets or sets the state of the CheckBox: true, false or null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentAndIntermediate(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetIntermediateAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentCheckState(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.OnCheckedChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CheckboxChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.UpdateAndRaiseCheckStateEvent(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
             <summary>
