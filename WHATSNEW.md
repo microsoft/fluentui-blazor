@@ -1,12 +1,12 @@
 ﻿## V4.0.1
 - FluentSplitter: Add Panel1MinSize, Panel2MinSize, BarSize parameters. Make resizing always use proportional values
 - Fix Web App template to correctly handle NavMenu based on rendermode and interactivity choices
-- Fix miscallaneous demo errors caused by trimming
+- Fix miscellaneous demo errors caused by trimming
 
 ## V4.0.0
 - FluentAccordionItem: Add `HeaderTemplate` parameter
 
-- ## V4.0.0-rc.3
+## V4.0.0-rc.3
 - Undo change template interactivity default to None. Default is now Server (same as regular Blazor template)
 - FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
 - `variables.css` is imported in the automatically loaded library's css now
