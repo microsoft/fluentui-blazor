@@ -733,10 +733,51 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.ThreeState">
+            <summary>
+            Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.ShowIndeterminate">
+            <summary>
+            Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
+            If this is not the case, the checkbox can be started in the indeterminate state, but the user cannot activate it with the mouse.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.CheckState">
+            <summary>
+            Gets or sets the state of the CheckBox: true, false or null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCheckbox.SetCurrentAndIntermediate(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCheckbox.SetIntermediateAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCheckbox.SetCurrentCheckState(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCheckbox.OnCheckedChangeHandlerAsync(Microsoft.Fast.Components.FluentUI.CheckboxChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCheckbox.UpdateAndRaiseCheckStateEvent(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentCodeEditor">
             <summary />

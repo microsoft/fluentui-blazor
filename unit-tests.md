@@ -254,7 +254,7 @@ This chapter discusses the usage of code coverage for unit testing with **Coverl
    Each unit test project folders will contain a file `coverage.cobertura.xml`.
 
    ```
-   dotnet test --framework net8.0 /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+   dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
    ```
 
 4. **Generate a report**
@@ -262,7 +262,7 @@ This chapter discusses the usage of code coverage for unit testing with **Coverl
    Merge and convert all `Cobertura.xml` files to an HTML report (change the sample folder Temp/FluentUI/Coverage).
 
    ```
-   reportgenerator "-reports:coverage.net8.0.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.Fast.Components.FluentUI.DesignTokens.*"
+   reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*"
    ```
 
 > **Note:** The `_StartCodeCoverage.cmd` file contains these two command lines.
