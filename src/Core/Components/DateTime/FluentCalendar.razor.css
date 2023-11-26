@@ -230,7 +230,7 @@
         cursor: default;
     }
 
-    .fluent-month ::deep .month:hover {
+    .fluent-month:not([readonly]) ::deep .month:hover {
         background: var(--neutral-fill-stealth-hover);
     }
 
@@ -333,7 +333,7 @@
         cursor: default;
     }
 
-    .fluent-year ::deep .year:hover {
+    .fluent-year:not([readonly]) ::deep .year:hover {
         background: var(--neutral-fill-stealth-hover);
     }
 

@@ -6,6 +6,7 @@
 internal class FluentCalendarMonth
 {
     FluentCalendar _calendar;
+    private bool _isInDisabledList;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentCalendarMonth"/> class.
@@ -16,6 +17,8 @@ internal class FluentCalendarMonth
     {
         _calendar = calendar;
         Month = month.Day == 1 ? month : new DateTime(month.Year, month.Day, 1);
+
+        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month) ?? false;
     }
 
     /// <summary>
@@ -24,19 +27,14 @@ internal class FluentCalendarMonth
     public DateTime Month { get; }
 
     /// <summary>
-    /// Whether the month is disabled by the user.
+    /// Whether the month is readonly.
     /// </summary>
-    public bool IsDisabled => IsInactive ? true : false;  // TODO
-
-    /// <summary>
-    /// Whether the month is inactive (out of the current year).
-    /// </summary>
-    public bool IsInactive => false; // TODO
+    public bool IsReadOnly => _isInDisabledList || _calendar.ReadOnly;
 
     /// <summary>
     /// Whether the month is selected by the user
     /// </summary>
-    public bool IsSelected => Month == _calendar.Value;
+    public bool IsSelected => Month.Year == _calendar.Value?.Year && Month.Month == _calendar.Value?.Month;
 
     /// <summary>
     /// Gets the title of the month in the format [month] [year].

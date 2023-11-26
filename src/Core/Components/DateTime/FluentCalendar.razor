@@ -91,15 +91,13 @@
                     var year = PickerMonth.Year;
                     var monthProperties = GetMonthProperties(year, month.Index);
 
-                    @* TODO: To add other attributes like for Day  *@
                     <div class="month @AnimationClass"
                          selected="@monthProperties.IsSelected"
-                         disabled="@monthProperties.IsDisabled"
-                         inactive="@monthProperties.IsInactive"
+                         readonly="@monthProperties.IsReadOnly"
                          aria-label="@monthProperties.Title"
                          title="@monthProperties.Title"
                          value="@monthProperties.MonthIdentifier"
-                         @onclick="@(e => OnSelectMonthHandlerAsync(year, month.Index))">
+                         @onclick="@(e => OnSelectMonthHandlerAsync(year, month.Index, monthProperties.IsReadOnly))">
                         @month.Abbreviated
                     </div>
                 }
@@ -115,11 +113,10 @@
 
                     <div class="year @AnimationClass"
                          selected="@yearProperties.IsSelected"
-                         disabled="@yearProperties.IsDisabled"
-                         inactive="@yearProperties.IsInactive"
+                         readonly="@yearProperties.IsReadOnly"
                          aria-label="@yearProperties.Title"
                          value="@yearProperties.YearIdentifier"
-                         @onclick="@(e => OnSelectYearHandlerAsync(year.Year))">
+                         @onclick="@(e => OnSelectYearHandlerAsync(year.Year, yearProperties.IsReadOnly))">
                         @year.Year
                     </div>
                 }

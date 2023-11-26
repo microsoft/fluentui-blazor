@@ -147,16 +147,22 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private Task OnSelectMonthHandlerAsync(int year, int month)
+    private Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
     {
-        Value = new DateTime(year, month, 1);
+        if (!isReadOnly)
+        {
+            Value = new DateTime(year, month, 1);
+        }
         return Task.CompletedTask;
     }
 
     /// <summary />
-    private Task OnSelectYearHandlerAsync(int year)
+    private Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
     {
-        Value = new DateTime(year, 1, 1);
+        if (!isReadOnly)
+        {
+            Value = new DateTime(year, 1, 1);
+        }
         return Task.CompletedTask;
     }
 

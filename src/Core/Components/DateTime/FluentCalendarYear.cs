@@ -6,6 +6,7 @@
 internal class FluentCalendarYear
 {
     FluentCalendar _calendar;
+    private bool _isInDisabledList;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentCalendarYear"/> class.
@@ -16,6 +17,8 @@ internal class FluentCalendarYear
     {
         _calendar = calendar;
         Year = year.Day == 1 && year.Month == 1 ? year : new DateTime(year.Year, 1, 1);
+
+        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Year) ?? false;
     }
 
     /// <summary>
@@ -24,19 +27,14 @@ internal class FluentCalendarYear
     public DateTime Year { get; }
 
     /// <summary>
-    /// Whether the year is disabled by the user.
+    /// Whether the year is readonly.
     /// </summary>
-    public bool IsDisabled => IsInactive ? true : false;  // TODO
-
-    /// <summary>
-    /// Whether the year is inactive (out of the current year).
-    /// </summary>
-    public bool IsInactive => false; // TODO
+    public bool IsReadOnly => _isInDisabledList || _calendar.ReadOnly;
 
     /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
-    public bool IsSelected => Year == _calendar.Value;
+    public bool IsSelected => Year.Year == _calendar.Value?.Year;
 
     /// <summary>
     /// Gets the title of the year in the format [year].

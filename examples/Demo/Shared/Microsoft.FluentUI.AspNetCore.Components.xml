@@ -1709,10 +1709,10 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnNextButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Int32,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Int32,System.Int32,System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectYearHandlerAsync(System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectYearHandlerAsync(System.Int32,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetDayProperties(System.DateTime)">
@@ -1855,14 +1855,9 @@
             Current month (day is always 1)
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsDisabled">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsReadOnly">
             <summary>
-            Whether the month is disabled by the user.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsInactive">
-            <summary>
-            Whether the month is inactive (out of the current year).
+            Whether the month is readonly.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsSelected">
@@ -1897,14 +1892,9 @@
             Current Year (month and day are always 1)
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsDisabled">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsReadOnly">
             <summary>
-            Whether the year is disabled by the user.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsInactive">
-            <summary>
-            Whether the year is inactive (out of the current year).
+            Whether the year is readonly.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsSelected">
