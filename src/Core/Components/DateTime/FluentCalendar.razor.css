@@ -230,7 +230,7 @@
         cursor: default;
     }
 
-    .fluent-month:not([readonly]) ::deep .month:hover {
+    .fluent-month:not([readonly]) ::deep .month:not([disabled]):hover {
         background: var(--neutral-fill-stealth-hover);
     }
 
@@ -238,6 +238,11 @@
         color: var(--accent-fill-rest);
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);
+    }
+
+    .fluent-month ::deep .month[disabled] {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
     }
 
     /* Animations */
@@ -333,7 +338,7 @@
         cursor: default;
     }
 
-    .fluent-year:not([readonly]) ::deep .year:hover {
+    .fluent-year:not([readonly]) ::deep .year:not([disabled]):hover {
         background: var(--neutral-fill-stealth-hover);
     }
 
@@ -341,6 +346,11 @@
         color: var(--accent-fill-rest);
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);
+    }
+
+    .fluent-year ::deep .year[disabled] {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
     }
 
     /* Animations */

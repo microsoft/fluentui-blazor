@@ -94,6 +94,7 @@
                     <div class="month @AnimationClass"
                          selected="@monthProperties.IsSelected"
                          readonly="@monthProperties.IsReadOnly"
+                         disabled="@monthProperties.IsDisabled"
                          aria-label="@monthProperties.Title"
                          title="@monthProperties.Title"
                          value="@monthProperties.MonthIdentifier"
@@ -114,6 +115,7 @@
                     <div class="year @AnimationClass"
                          selected="@yearProperties.IsSelected"
                          readonly="@yearProperties.IsReadOnly"
+                         disabled="@yearProperties.IsDisabled"
                          aria-label="@yearProperties.Title"
                          value="@yearProperties.YearIdentifier"
                          @onclick="@(e => OnSelectYearHandlerAsync(year.Year, yearProperties.IsReadOnly))">

@@ -32,6 +32,11 @@ internal class FluentCalendarYear
     public bool IsReadOnly => _isInDisabledList || _calendar.ReadOnly;
 
     /// <summary>
+    /// Whether the year is disabled.
+    /// </summary>
+
+    public bool IsDisabled => _isInDisabledList;
+    /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
     public bool IsSelected => Year.Year == _calendar.Value?.Year;

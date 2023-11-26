@@ -32,6 +32,11 @@ internal class FluentCalendarMonth
     public bool IsReadOnly => _isInDisabledList || _calendar.ReadOnly;
 
     /// <summary>
+    /// Whether the month is disabled.
+    /// </summary>
+    public bool IsDisabled => _isInDisabledList;
+
+    /// <summary>
     /// Whether the month is selected by the user
     /// </summary>
     public bool IsSelected => Month.Year == _calendar.Value?.Year && Month.Month == _calendar.Value?.Month;

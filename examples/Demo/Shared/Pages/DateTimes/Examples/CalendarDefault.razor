@@ -5,12 +5,12 @@
         <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>
     </FluentGridItem>
     <FluentGridItem>
-        <FluentCalendar View="CalendarViews.Months" @bind-Value="@SelectedMonth" @bind-PickerMonth="@PickerMonth" Style="height: 250px;" />
+        <FluentCalendar DisabledDateFunc="@DisableMonth" View="CalendarViews.Months" @bind-Value="@SelectedMonth" @bind-PickerMonth="@PickerMonth" Style="height: 250px;" />
         <p>Selected @(SelectedMonth?.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerMonth.ToString("yyyy-MM-dd"))</p>
     </FluentGridItem>
     <FluentGridItem>
-        <FluentCalendar View="CalendarViews.Years" @bind-Value="@SelectedYear" @bind-PickerMonth="@PickerYear" Style="height: 250px;" />
+        <FluentCalendar DisabledDateFunc="@DisableYear" View="CalendarViews.Years" @bind-Value="@SelectedYear" @bind-PickerMonth="@PickerYear" Style="height: 250px;" />
         <p>Selected @(SelectedYear?.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerYear.ToString("yyyy-MM-dd"))</p>
     </FluentGridItem>
@@ -25,10 +25,7 @@
     private DateTime? SelectedYear = null;
     private DateTime PickerYear = DateTime.Today;
 
-    private bool DisabledDay(DateTime date)
-    {
-        return (date.Day == 3 ||
-                date.Day == 8 ||
-                date.Day == 20);
-    }
+    private bool DisabledDay(DateTime date) => date.Day == 3 || date.Day == 8 || date.Day == 20;
+    private bool DisableMonth(DateTime date) => date.Month == 3 || date.Month == 8;
+    private bool DisableYear(DateTime date) => date.Year == 2026 || date.Year == 2027;
 }
