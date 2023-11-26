@@ -2,12 +2,15 @@
 
 internal class CalendarTitles
 {
+    private readonly FluentCalendar _calendar;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarTitles"/> class.
     /// </summary>
     /// <param name="calendar"></param>
     public CalendarTitles(FluentCalendar calendar)
     {
+        _calendar = calendar;
         CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth);
         View = calendar.View;
     }
@@ -30,14 +33,25 @@ internal class CalendarTitles
     /// <summary>
     /// Gets a value indicating whether the calendar Title is not clickable.
     /// </summary>
-    public bool ReadOnly => View switch
+    public bool ReadOnly
     {
-        CalendarViews.Days => false,
-        CalendarViews.DaysMonths => true,
-        CalendarViews.Months => false,
-        CalendarViews.Years => true,
-        _ => true
-    };
+        get 
+        {
+            if (_calendar.ReadOnly)
+            {
+                return true;
+            }
+
+            return View switch
+            {
+                CalendarViews.Days => false,
+                CalendarViews.DaysMonths => true,
+                CalendarViews.Months => false,
+                CalendarViews.Years => true,
+                _ => true
+            };
+        }
+    }
 
     /// <summary>
     /// Gets the main calendar title.

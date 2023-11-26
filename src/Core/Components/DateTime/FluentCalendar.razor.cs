@@ -222,7 +222,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         if (title.ReadOnly)
         {
-            await Task.CompletedTask;
+            return;
         }
 
         switch (View)
@@ -238,6 +238,7 @@ public partial class FluentCalendar : FluentCalendarBase
                 break;
         }
 
+        await Task.CompletedTask;
     }
 
     /// <summary>

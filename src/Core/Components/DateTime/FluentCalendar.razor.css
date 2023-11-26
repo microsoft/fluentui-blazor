@@ -30,9 +30,9 @@
             width: 100%;
         }
 
-        .fluent-calendar ::deep .title[readonly] > .label {
-            cursor: default;
-        }
+            .fluent-calendar ::deep .title > .label[readonly] {
+                cursor: default;
+            }
 
     .fluent-calendar ::deep .change-period {
         float: right;
@@ -189,9 +189,9 @@
             width: 100%;
         }
 
-        .fluent-month ::deep .title[readonly] > .label {
-            cursor: default;
-        }
+            .fluent-month ::deep .title > .label[readonly] {
+                cursor: default;
+            }
 
     .fluent-month ::deep .change-period {
         float: right;
@@ -301,9 +301,9 @@
             vertical-align: middle;
         }
 
-        .fluent-year ::deep .title[readonly] > .label {
-            cursor: default;
-        }
+            .fluent-year ::deep .title > .label[readonly] {
+                cursor: default;
+            }
 
     .fluent-year ::deep .change-period {
         float: right;
