@@ -28,6 +28,18 @@ internal class CalendarTitles
     private DateTime Date => CalendarExtended.Date;
 
     /// <summary>
+    /// Gets a value indicating whether the calendar Title is not clickable.
+    /// </summary>
+    public bool ReadOnly => View switch
+    {
+        CalendarViews.Days => false,
+        CalendarViews.DaysMonths => true,
+        CalendarViews.Months => false,
+        CalendarViews.Years => true,
+        _ => true
+    };
+
+    /// <summary>
     /// Gets the main calendar title.
     /// </summary>
     public string Label

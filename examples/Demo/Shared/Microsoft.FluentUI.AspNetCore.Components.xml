@@ -1642,6 +1642,11 @@
             Gets the current date.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.ReadOnly">
+            <summary>
+            Gets a value indicating whether the calendar Title is not clickable.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.Label">
             <summary>
             Gets the main calendar title.
@@ -1742,6 +1747,27 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StartNewAnimation(Microsoft.FluentUI.AspNetCore.Components.VerticalPosition)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.TitleClickHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CalendarTitles)">
+            <summary>
+            Click on the Calendar Title to disply the Month or Year selector
+            </summary>
+            <param name="title"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerMonthSelect(System.Nullable{System.DateTime})">
+            <summary>
+            Select a Month and come back to the Days view.
+            </summary>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerYearSelect(System.Nullable{System.DateTime})">
+            <summary>
+            Select a Year and come back to the Months view.
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
             <summary>
@@ -9798,6 +9824,26 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.CalendarViews">
             <summary>
             Defines the view display in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Days">
+            <summary>
+            Display the Days View only
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.DaysMonths">
+            <summary>
+            Display the Days View and the Months view on the right.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Months">
+            <summary>
+            Display the Months View only
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Years">
+            <summary>
+            Display the Years View only
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">

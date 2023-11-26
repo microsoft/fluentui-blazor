@@ -26,6 +26,12 @@
 
         .fluent-calendar ::deep .title > .label {
             vertical-align: middle;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .fluent-calendar ::deep .title[readonly] > .label {
+            cursor: default;
         }
 
     .fluent-calendar ::deep .change-period {
@@ -177,8 +183,14 @@
         justify-content: space-between;
     }
 
-        .fluent-month ::deep .title > label {
+        .fluent-month ::deep .title > .label {
             vertical-align: middle;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .fluent-month ::deep .title[readonly] > .label {
+            cursor: default;
         }
 
     .fluent-month ::deep .change-period {
@@ -285,8 +297,12 @@
         justify-content: space-between;
     }
 
-        .fluent-year ::deep .title > label {
+        .fluent-year ::deep .title > .label {
             vertical-align: middle;
+        }
+
+        .fluent-year ::deep .title[readonly] > .label {
+            cursor: default;
         }
 
     .fluent-year ::deep .change-period {

@@ -24,7 +24,23 @@ public enum DayFormat
 /// </summary>
 public enum CalendarViews
 { 
+    /// <summary>
+    /// Display the Days View only
+    /// </summary>
     Days,
+
+    /// <summary>
+    /// Display the Days View and the Months view on the right.
+    /// </summary>
+    DaysMonths,
+
+    /// <summary>
+    /// Display the Months View only
+    /// </summary>
     Months,
+
+    /// <summary>
+    /// Display the Years View only
+    /// </summary>
     Years
 }
