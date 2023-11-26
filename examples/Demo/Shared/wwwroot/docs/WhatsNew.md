@@ -1,7 +1,7 @@
 ﻿## V4.0.1
 - FluentSplitter: Add Panel1MinSize, Panel2MinSize, BarSize parameters. Make resizing always use proportional values
 - Fix Web App template to correctly handle NavMenu based on rendermode and interactivity choices
-- Fix miscallaneous demo errors caused by trimming
+- Fix miscellaneous demo errors caused by trimming
 
 ## V4.0.0
 - FluentAccordionItem: Add `HeaderTemplate` parameter
@@ -11,7 +11,7 @@
 - FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
 - `variables.css` is imported in the automatically loaded library's css now
 
-## V4.0.0-rc.
+## V4.0.0-rc.2
 - Fix initial Highlight style after refresh was not right
 - Fix [#918](https://github.com/microsoft/fluentui-blazor/issues/918): .NET 8 initializers + cleanup
 - Fix [#923](https://github.com/microsoft/fluentui-blazor/issues/923): WebAssembly template errors

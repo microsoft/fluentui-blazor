@@ -27,7 +27,7 @@ public class ToastParameters<TContent> : ToastParameters, IToastParameters<TCont
     where TContent : class
 {
     /// <summary>
-    /// The content to be shown in the toast body.
+    /// Gets or sets the content to be shown in the toast body.
     /// </summary>
     public TContent Content { get; set; } = default!;
 }

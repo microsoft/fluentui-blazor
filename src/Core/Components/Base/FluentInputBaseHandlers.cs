@@ -15,7 +15,7 @@ public partial class FluentInputBase<TValue>
     public bool Immediate { get; set; } = false;
 
     /// <summary>
-    /// Delay, in milliseconds, before to raise the <see cref="ValueChanged"/> event.
+    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="ValueChanged"/> event.
     /// </summary>
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;

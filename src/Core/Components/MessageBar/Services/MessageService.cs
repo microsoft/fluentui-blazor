@@ -30,7 +30,7 @@ public class MessageService : IMessageService, IDisposable
     private ReaderWriterLockSlim MessageLock { get; } = new ReaderWriterLockSlim();
 
     /// <summary />
-    private List<Message> MessageList { get; } = new List<Message>();
+    private List<Message> MessageList { get; } = [];
 
     /// <summary>
     /// Gets all messages.

@@ -11,7 +11,7 @@ public readonly struct CssBuilder
 
     public CssBuilder()
     {
-        _classes = new HashSet<string>();
+        _classes = [];
         _userClasses = null;
     }
 
@@ -21,7 +21,7 @@ public readonly struct CssBuilder
     /// <param name="userClasses">The user classes to include at the end.</param>
     public CssBuilder(string? userClasses)
     {
-        _classes = new HashSet<string>();
+        _classes = [];
         _userClasses = string.IsNullOrWhiteSpace(userClasses)
                      ? null
                      : string.Join(" ", userClasses.Split(' ', StringSplitOptions.RemoveEmptyEntries));

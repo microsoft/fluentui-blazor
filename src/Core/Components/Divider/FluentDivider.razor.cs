@@ -12,15 +12,15 @@ public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
-    
+
     /// <summary>
-    /// The role of the element.
+    /// Gets or sets the role of the element.
     /// </summary>
     [Parameter]
     public DividerRole? Role { get; set; }
 
     /// <summary>
-    /// The orientation of the divider.
+    /// Gets or sets the orientation of the divider.
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; } = AspNetCore.Components.Orientation.Horizontal;

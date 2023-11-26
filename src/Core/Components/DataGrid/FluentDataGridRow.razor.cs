@@ -8,32 +8,35 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
     internal string RowId { get; } = Identifier.NewId();
-    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = new();
+    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
 
     /// <summary>
-    /// Gets or sets the reference to the item that holds this row's values
+    /// Gets or sets the reference to the item that holds this row's values.
     /// </summary>
     [Parameter]
     public TGridItem? Item { get; set; }
 
     /// <summary>
-    /// Gets or sets the index of this row
-    /// When FluentDataGrid is virtualized, this value is not used
+    /// Gets or sets the index of this row.
+    /// When FluentDataGrid is virtualized, this value is not used.
     /// </summary>
     [Parameter]
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// String that gets applied to the css gridTemplateColumns attribute for the row
+    /// Gets or sets the string that gets applied to the css gridTemplateColumns attribute for the row.
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the type of row. See <see cref="DataGridRowType"/>
+    /// Gets or sets the type of row. See <see cref="DataGridRowType"/>.
     /// </summary>
     [Parameter]
     public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
+
+    [Parameter]
+    public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Center;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -52,7 +55,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{Owner.Grid.ItemSize}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
-       .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
     protected override void OnInitialized()

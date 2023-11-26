@@ -28,31 +28,31 @@ public partial class FluentTextField : FluentInputBase<string?>
     public string? DataList { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum length
+    /// Gets or sets the maximum length.
     /// </summary>
     [Parameter]
     public int? Maxlength { get; set; }
 
     /// <summary>
-    /// Gets or sets the minimum length
+    /// Gets or sets the minimum length.
     /// </summary>
     [Parameter]
     public int? Minlength { get; set; }
 
     /// <summary>
-    /// A regular expression that the value must match to pass validation.
+    /// Gets or sets a regular expression that the value must match to pass validation.
     /// </summary>
     [Parameter]
     public string? Pattern { get; set; }
 
     /// <summary>
-    /// Gets or sets the size of the text field
+    /// Gets or sets the size of the text field.
     /// </summary>
     [Parameter]
     public int? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the if spellcheck should be used
+    /// Gets or sets a value indicating whether spellcheck should be used.
     /// </summary>
     [Parameter]
     public bool? Spellcheck { get; set; }

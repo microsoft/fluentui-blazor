@@ -9,7 +9,7 @@ public class ComponentParameters : IComponentParameters
 
     public ComponentParameters()
     {
-        _parameters = new Dictionary<string, object>();
+        _parameters = [];
     }
 
 

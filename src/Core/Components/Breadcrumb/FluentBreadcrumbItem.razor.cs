@@ -10,7 +10,7 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     public string? Download { get; set; }
 
     /// <summary>
-    /// The URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// Use Target parameter to specify where.
     /// </summary>
     [Parameter]
@@ -41,7 +41,7 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     public string? Rel { get; set; }
 
     /// <summary>
-    /// The target attribute specifies where to open the link, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
     /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>

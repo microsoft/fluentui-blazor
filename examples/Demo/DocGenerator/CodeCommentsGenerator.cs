@@ -23,7 +23,7 @@ namespace FluentUI.Demo.Generators
 
         public void GenerateSource(SourceProductionContext context, ImmutableArray<AdditionalText> files)
         {
-            List<XElement> members = new();
+            List<XElement> members = [];
 
 
             foreach (AdditionalText file in files)

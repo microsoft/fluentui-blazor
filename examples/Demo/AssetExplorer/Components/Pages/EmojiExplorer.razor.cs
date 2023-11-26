@@ -10,7 +10,7 @@ public partial class EmojiExplorer
 
     private readonly EmojiSearchCriteria Criteria = new();
     private EmojiInfo[] EmojisFound = Array.Empty<EmojiInfo>();
-    private PaginationState PaginationState = new PaginationState { ItemsPerPage = 4 * 12 };
+    private PaginationState PaginationState = new() { ItemsPerPage = 4 * 12 };
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Emoji Explorers";
@@ -46,11 +46,14 @@ public partial class EmojiExplorer
         SearchInProgress = true;
         await Task.Delay(1); // Display spinner
 
-        EmojisFound = Emojis.AllEmojis
-                            .Where(i => i.Style == Criteria.Style
-                                     && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
-                            .OrderBy(i => i.Name)
-                            .ToArray();
+        EmojisFound =
+        [
+            .. Emojis.AllEmojis
+                                        .Where(i => i.Style == Criteria.Style
+                                                 && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                                        .OrderBy(i => i.Name)
+,
+        ];
 
         await PaginationState.SetTotalItemCountAsync(EmojisFound.Length);
 
