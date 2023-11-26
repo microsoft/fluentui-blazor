@@ -8,7 +8,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     private const bool VALUE_FOR_INDETERMINATE = false;
     private bool _intermediate = false;
     private bool? _checkState = false;
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/CheckBox/FluentCheckbox.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Checkbox/FluentCheckbox.razor.js";
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
     public FluentCheckbox()
