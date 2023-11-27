@@ -26,7 +26,7 @@ public partial class DemoMainLayout : IAsyncDisposable
     private IJSObjectReference? _jsModule;
     bool menuchecked = true;
 
-    ErrorBoundary? errorBoundary;
+   
 
 
     [Inject]
@@ -60,10 +60,7 @@ public partial class DemoMainLayout : IAsyncDisposable
         NavigationManager.LocationChanged += LocationChanged;
     }
 
-    protected override void OnParametersSet()
-    {
-        errorBoundary?.Recover();
-    }
+    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

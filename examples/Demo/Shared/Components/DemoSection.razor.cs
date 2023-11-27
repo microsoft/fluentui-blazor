@@ -2,6 +2,8 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.AspNetCore.Components.Web;
+
 
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
@@ -12,6 +14,7 @@ public partial class DemoSection : ComponentBase
     private string? _ariaId;
 
     private readonly Regex _pattern = new(@"[;,<>&(){}!$^#@=/\ ]");
+    private ErrorBoundary? errorBoundary;
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
@@ -103,6 +106,11 @@ public partial class DemoSection : ComponentBase
             _hasCode = true;
             StateHasChanged();
         }
+    }
+
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
     }
 
     protected async Task SetCodeContentsAsync()
