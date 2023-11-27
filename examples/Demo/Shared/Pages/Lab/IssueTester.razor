@@ -19,6 +19,19 @@
         <FluentSwitch @bind-Value=Content.Switch CheckedMessage="On" UncheckedMessage="Off">
             Switch test
         </FluentSwitch>
+
+        <FluentCheckbox Id="check1" ThreeState="true" @bind-Value="@Content.value1" @bind-CheckState="@Content.state1" Label="ThreeState = true" Style="min-width: 250px;" />
+        <div>
+            Value = @Content.value1 - CheckState = @(Content.state1?.ToString() ?? "null (Indeterminate)")
+        </div>
+
+        <FluentSlider Label=@($"Double1: {Content.Double1}%") @bind-Value="Content.Double1" TValue="double" Min="0" Max="100" Step="1" />
+        <FluentSlider Label=@($"Double2: {Content.Double2}%") @bind-Value="Content.Double2" TValue="double" Min="0" Max="100" Step="1" />
+        <FluentSlider Label=@($"Double3: {Content.Double3}%") @bind-Value="Content.Double3" TValue="double" Min="0" Max="100" Step="1" />
+        <FluentSlider Label=@($"Double4: {Content.Double4}%") @bind-Value="Content.Double4" TValue="double" Min="0" Max="100" Step="1" />
+        <FluentSlider Label=@($"Int1: {Content.Int1}%") @bind-Value="Content.Int1" TValue="int" Min="0" Max="100" Step="10" />
+        <FluentSlider Label=@($"Int2: {Content.Int2}%") @bind-Value="Content.Int2" TValue="int" Min="0" Max="100" Step="10" />
+        <FluentSlider Label=@($"Int3: {Content.Int3}%") @bind-Value="Content.Int3" TValue="int" Min="0" Max="100" Step="10" />
         <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
     </FluentStack>
 </EditForm>
@@ -30,6 +43,19 @@
 
         public bool IsChecked { get; set; }
         public bool Switch { get; set; }
+        public double Double1 { get; set; }
+        public double Double2 { get; set; }
+        public double Double3 { get; set; }
+        public double Double4 { get; set; }
+
+        public int Int1 { get; set; }
+        public int Int2 { get; set; }
+        public int Int3 { get; set; }
+        public bool value1 { get; set; }
+        public bool value2 { get; set; }
+        public bool value3 { get; set; }
+        public bool? state1 { get; set; } = false;
+        public bool? state3 { get; set; } = null;
     }
 
     public TestData Content = new();

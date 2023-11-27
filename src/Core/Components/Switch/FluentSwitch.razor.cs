@@ -1,10 +1,21 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSwitch : FluentInputBase<bool>
 {
+    protected override string? ClassValue 
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass("checked", Value)
+                .Build();
+        }
+    }
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>

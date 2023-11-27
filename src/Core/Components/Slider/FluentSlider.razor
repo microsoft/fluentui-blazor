@@ -4,7 +4,7 @@
 @attribute [CascadingTypeParameter(nameof(TValue))]
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" style="margin-bottom: calc(var(--design-unit) * 3px);">@LabelTemplate</FluentInputLabel>
 <fluent-slider @ref=Element
-               class="@($"{ClassValue} {Orientation.ToAttributeValue() ?? "horizontal"}".Trim())"
+               class="@ClassValue"
                style="@StyleValue"
                readonly="@ReadOnly"
                min="@FormatValueAsString(Min)"

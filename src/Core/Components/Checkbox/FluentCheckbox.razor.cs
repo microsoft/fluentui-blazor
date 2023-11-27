@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -9,6 +10,16 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     private bool _intermediate = false;
     private bool? _checkState = false;
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Checkbox/FluentCheckbox.razor.js";
+
+    protected override string? ClassValue
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass("checked", Value)
+                .Build();
+        }
+    }
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
     public FluentCheckbox()

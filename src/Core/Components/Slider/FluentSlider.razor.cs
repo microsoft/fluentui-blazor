@@ -2,17 +2,24 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
-#if NET7_0_OR_GREATER
     where TValue : System.Numerics.INumber<TValue>
-#else
-    where TValue : IComparable, IComparable<TValue>, IConvertible, IEquatable<TValue>, IFormattable
-#endif
-
 {
+
+    protected override string? ClassValue
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass(Orientation.ToAttributeValue() ?? "horizontal")
+                .Build();
+        }
+    }
+
     /// <summary>
     /// Gets or sets the slider's minimal value.
     /// </summary>
