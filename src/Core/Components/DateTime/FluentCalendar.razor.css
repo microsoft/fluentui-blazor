@@ -1,4 +1,7 @@
-﻿.fluent-calendar {
+﻿/*
+    "Days" View
+*/
+.fluent-calendar {
     --calendar-cell-size: 28px;
     --calendar-gap: 2px;
     font-family: var(--body-font);
@@ -21,35 +24,41 @@
         justify-content: space-between;
     }
 
-    .fluent-calendar ::deep .month {
-        vertical-align: middle;
-    }
+        .fluent-calendar ::deep .title > .label {
+            vertical-align: middle;
+            cursor: pointer;
+            width: 100%;
+        }
 
-    .fluent-calendar ::deep .change-month {
+            .fluent-calendar ::deep .title > .label[readonly] {
+                cursor: default;
+            }
+
+    .fluent-calendar ::deep .change-period {
         float: right;
         display: flex;
         margin-right: -6px;
     }
 
-    .fluent-calendar ::deep .previous-month,
-    .fluent-calendar ::deep .next-month {
-        width: var(--calendar-cell-size);
-        height: var(--calendar-cell-size);
-        margin-left: calc(2 * var(--calendar-gap));
-        text-align: center;
-        cursor: pointer;
-    }
-
-        .fluent-calendar ::deep .previous-month:hover,
-        .fluent-calendar ::deep .next-month:hover {
-            background: var(--neutral-fill-stealth-hover);
+        .fluent-calendar ::deep .change-period > .previous,
+        .fluent-calendar ::deep .change-period > .next {
+            width: var(--calendar-cell-size);
+            height: var(--calendar-cell-size);
+            margin-left: calc(2 * var(--calendar-gap));
+            text-align: center;
+            cursor: pointer;
         }
 
-        .fluent-calendar ::deep .previous-month svg,
-        .fluent-calendar ::deep .next-month svg {
-            width: 16px;
-            fill: var(--neutral-fill-strong-focus);
-        }
+            .fluent-calendar ::deep .change-period > .previous:not([disabled]):hover,
+            .fluent-calendar ::deep .change-period > .next:not([disabled]):hover {
+                background: var(--neutral-fill-stealth-hover);
+            }
+
+            .fluent-calendar ::deep .change-period > .previous svg,
+            .fluent-calendar ::deep .change-period > .next svg {
+                width: 16px;
+                fill: var(--neutral-fill-strong-focus);
+            }
 
     /* List of days */
     .fluent-calendar ::deep .days {
@@ -124,7 +133,7 @@
         color: var(--foreground-on-accent-rest);
         background: var(--accent-fill-rest);
         border-radius: 50%;
-        position: relative;        
+        position: relative;
     }
 
     /* Selected */
@@ -133,3 +142,284 @@
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);
     }
+
+    /* Animations */
+    .fluent-calendar ::deep .animation-running-down {
+        animation: 0.2s fluent-text-animation-down ease-out;
+    }
+
+    .fluent-calendar ::deep .animation-running-up {
+        animation: 0.2s fluent-text-animation-up ease-out;
+    }
+
+    .fluent-calendar ::deep .animation-none {
+        animation: none;
+    }
+
+/*
+    "Months" View
+*/
+.fluent-month {
+    --month-cell-size: 28px;
+    --month-cell-height: 48px;
+    --month-gap: 2px;
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    color: var(--neutral-foreground-rest);
+    min-width: 220px;
+    max-width: calc((var(--month-cell-size) + 2 * var(--month-gap)) * 7);
+    user-select: none;
+}
+
+    /* Header: Year name and navigation arrows */
+    .fluent-month ::deep .title {
+        display: flex;
+        padding: calc(var(--design-unit) * 2px);
+        font-weight: 600;
+        width: 100%;
+        height: calc(var(--month-cell-size) + 4 * var(--month-gap));
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .fluent-month ::deep .title > .label {
+            vertical-align: middle;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            .fluent-month ::deep .title > .label[readonly] {
+                cursor: default;
+            }
+
+    .fluent-month ::deep .change-period {
+        float: right;
+        display: flex;
+        margin-right: -6px;
+    }
+
+        .fluent-month ::deep .change-period > .previous,
+        .fluent-month ::deep .change-period > .next {
+            width: var(--month-cell-size);
+            height: var(--month-cell-size);
+            margin-left: calc(2 * var(--month-gap));
+            text-align: center;
+            cursor: pointer;
+        }
+
+            .fluent-month ::deep .change-period > .previous:not([disabled]):hover,
+            .fluent-month ::deep .change-period > .next:not([disabled]):hover {
+                background: var(--neutral-fill-stealth-hover);
+            }
+
+            .fluent-month ::deep .change-period > .previous svg,
+            .fluent-month ::deep .change-period > .next svg {
+                width: 16px;
+                fill: var(--neutral-fill-strong-focus);
+            }
+
+    /* List of months */
+    .fluent-month ::deep .months {
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: var(--month-gap);
+        width: 100%;
+    }
+
+    .fluent-month ::deep .month {
+        display: flex;
+        height: var(--month-cell-height);
+        border: calc(var(--stroke-width) * 1px) solid transparent;
+        border-radius: calc(var(--control-corner-radius) * 1px);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .fluent-month[readonly] ::deep .month {
+        cursor: default;
+    }
+
+    .fluent-month:not([readonly]) ::deep .month:not([disabled]):hover {
+        background: var(--neutral-fill-stealth-hover);
+    }
+
+    .fluent-month ::deep .month[selected] {
+        color: var(--accent-fill-rest);
+        border: 1px solid var(--accent-fill-rest);
+        background: var(--fill-color);
+    }
+
+    .fluent-month ::deep .month[disabled] {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
+    }
+
+    /* Animations */
+    .fluent-month ::deep .animation-running-down {
+        animation: 0.2s fluent-text-animation-down ease-out;
+    }
+
+    .fluent-month ::deep .animation-running-up {
+        animation: 0.2s fluent-text-animation-up ease-out;
+    }
+
+    .fluent-month ::deep .animation-none {
+        animation: none;
+    }
+
+/*
+    "Years" View
+*/
+.fluent-year {
+    --year-cell-size: 28px;
+    --year-cell-height: 48px;
+    --year-gap: 2px;
+    font-family: var(--body-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    color: var(--neutral-foreground-rest);
+    min-width: 220px;
+    max-width: calc((var(--year-cell-size) + 2 * var(--year-gap)) * 7);
+    user-select: none;
+}
+
+    /* Header: Multiple years and navigation arrows */
+    .fluent-year ::deep .title {
+        display: flex;
+        padding: calc(var(--design-unit) * 2px);
+        font-weight: 600;
+        width: 100%;
+        height: calc(var(--year-cell-size) + 4 * var(--year-gap));
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .fluent-year ::deep .title > .label {
+            vertical-align: middle;
+        }
+
+            .fluent-year ::deep .title > .label[readonly] {
+                cursor: default;
+            }
+
+    .fluent-year ::deep .change-period {
+        float: right;
+        display: flex;
+        margin-right: -6px;
+    }
+
+        .fluent-year ::deep .change-period > .previous,
+        .fluent-year ::deep .change-period > .next {
+            width: var(--year-cell-size);
+            height: var(--year-cell-size);
+            margin-left: calc(2 * var(--year-gap));
+            text-align: center;
+            cursor: pointer;
+        }
+
+            .fluent-year ::deep .change-period > .previous:not([disabled]):hover,
+            .fluent-year ::deep .change-period > .next:not([disabled]):hover {
+                background: var(--neutral-fill-stealth-hover);
+            }
+
+            .fluent-year ::deep .change-period > .previous svg,
+            .fluent-year ::deep .change-period > .next svg {
+                width: 16px;
+                fill: var(--neutral-fill-strong-focus);
+            }
+
+    /* List of years */
+    .fluent-year ::deep .years {
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: var(--year-gap);
+        width: 100%;
+    }
+
+    .fluent-year ::deep .year {
+        display: flex;
+        height: var(--year-cell-height);
+        border: calc(var(--stroke-width) * 1px) solid transparent;
+        border-radius: calc(var(--control-corner-radius) * 1px);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .fluent-year[readonly] ::deep .year {
+        cursor: default;
+    }
+
+    .fluent-year:not([readonly]) ::deep .year:not([disabled]):hover {
+        background: var(--neutral-fill-stealth-hover);
+    }
+
+    .fluent-year ::deep .year[selected] {
+        color: var(--accent-fill-rest);
+        border: 1px solid var(--accent-fill-rest);
+        background: var(--fill-color);
+    }
+
+    .fluent-year ::deep .year[disabled] {
+        color: var(--neutral-stroke-focus);
+        cursor: default;
+    }
+
+    /* Animations */
+    .fluent-year ::deep .animation-running-down {
+        animation: 0.2s fluent-text-animation-down ease-out;
+    }
+
+    .fluent-year ::deep .animation-running-up {
+        animation: 0.2s fluent-text-animation-up ease-out;
+    }
+
+    .fluent-year ::deep .animation-none {
+        animation: none;
+    }
+
+@keyframes fluent-text-animation-up {
+    0% {
+        opacity: 0;
+        transform: translateY(80%);
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes fluent-text-animation-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-80%);
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
