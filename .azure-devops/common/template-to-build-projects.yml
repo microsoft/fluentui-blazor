@@ -159,12 +159,14 @@ steps:
       version: 8.0.x
       includePreviewVersions: true
   
-  # Set version number
+  # Set version number (exclude Templates/content)
   - task: Assembly-Info-NetCore@3
     displayName: 'Versioning $(Build.BuildNumber)'
     inputs:
       Path: '$(Build.SourcesDirectory)'
-      FileNames: '**/*.csproj'
+      FileNames: |
+        **/*.csproj
+        !**/src/Templates/content/**/*.csproj
       InsertAttributes: true
       FileEncoding: 'auto'
       WriteBOM: false

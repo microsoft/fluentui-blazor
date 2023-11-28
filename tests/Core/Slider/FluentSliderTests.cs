@@ -4,8 +4,10 @@ using Xunit;
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Slider;
 
 
-public class FluentSliderTests: TestBase
-    {
+public partial class FluentSliderTests: TestContext
+{
+    private static TestContext TestContext => new(); // TODO: To remove and to use the `RenderComponent` inherited method.
+
     [Fact]
     public void FluentSlider_Default()
     {
