@@ -1694,7 +1694,7 @@
             By default, the animation is enabled for Months views, but disabled for Days and Years view.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimationClass">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetAnimationClass(System.String)">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CalendarExtended">
@@ -1743,6 +1743,9 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CanBeAnimated">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StartNewAnimation(Microsoft.FluentUI.AspNetCore.Components.VerticalPosition)">

@@ -12,7 +12,7 @@
 
             @* Title bar (label, previous and next buttons) *@
             <div class="title" part="title" aria-label="@titles.Label">
-                <div part="label" class="label @AnimationClass" readonly="@ReadOnly"
+                <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
                      @onclick="@(e => TitleClickHandlerAsync(titles))">
                     @titles.Label
                 </div>
@@ -64,7 +64,7 @@
                                     var dayProperties = GetDayProperties(day);
 
                                     <div part="day"
-                                         class="day @AnimationClass"
+                                         class="@GetAnimationClass("day")"
                                          disabled="@dayProperties.IsDisabled"
                                          inactive="@dayProperties.IsInactive"
                                          today="@dayProperties.IsToday"
@@ -95,7 +95,7 @@
                             var year = PickerMonth.Year;
                             var monthProperties = GetMonthProperties(year, month.Index);
 
-                            <div class="month @AnimationClass"
+                            <div class="@GetAnimationClass("month")"
                                  selected="@monthProperties.IsSelected"
                                  readonly="@monthProperties.IsReadOnly"
                                  disabled="@monthProperties.IsDisabled"
@@ -116,7 +116,7 @@
                         {
                             var yearProperties = GetYearProperties(year.Year);
 
-                            <div class="year @AnimationClass"
+                            <div class="@GetAnimationClass("year")"
                                  selected="@yearProperties.IsSelected"
                                  readonly="@yearProperties.IsReadOnly"
                                  disabled="@yearProperties.IsDisabled"

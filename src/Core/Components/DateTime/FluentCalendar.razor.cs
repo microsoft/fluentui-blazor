@@ -83,12 +83,12 @@ public partial class FluentCalendar : FluentCalendarBase
     public bool? AnimatePeriodChanges { get; set; }
 
     /// <summary />
-    private string AnimationClass => _animationRunning switch
+    private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
     {
-        VerticalPosition.Top => "animation-running-up",
-        VerticalPosition.Bottom => "animation-running-down",
-        _ => "animation-none"
-    };
+        VerticalPosition.Top => $"{existingClass} animation-running-up",
+        VerticalPosition.Bottom => $"{existingClass} animation-running-down",
+        _ => $"{existingClass} animation-none"
+    } : existingClass;
 
     /// <summary>
     /// All days of this current month.
@@ -197,11 +197,12 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
+    private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
+
+    /// <summary />
     private async Task StartNewAnimation(VerticalPosition position)
     {
-        bool animate = AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
-
-        if (animate)
+        if (CanBeAnimated)
         {
             // Remove the current animation
             _animationRunning = VerticalPosition.Unset;
