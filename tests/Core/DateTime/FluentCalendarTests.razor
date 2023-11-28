@@ -68,7 +68,7 @@
         DateTime? value = DateTime.MinValue;
 
         // Arrange & Act
-        var calendar = Render(@<FluentCalendar Value="@value" View="@view" />);
+        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@CultureInfo.GetCultureInfo("en-us")" />);
         var previous = calendar.Find($".previous");
 
         // Assert
@@ -85,7 +85,7 @@
         DateTime? value = DateTime.MaxValue;
 
         // Arrange & Act
-        var calendar = Render(@<FluentCalendar Value="@value" View="@view" />);
+        var calendar = Render(@<FluentCalendar Value="@value" View="@view" Culture="@CultureInfo.GetCultureInfo("en-us")" />);
         var previous = calendar.Find($".next");
 
         // Assert
