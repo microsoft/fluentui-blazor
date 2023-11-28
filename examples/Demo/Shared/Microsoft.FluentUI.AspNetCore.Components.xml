@@ -9834,11 +9834,6 @@
             Display the Days View only
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.DaysMonths">
-            <summary>
-            Display the Days View and the Months view on the right.
-            </summary>
-        </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Months">
             <summary>
             Display the Months View only

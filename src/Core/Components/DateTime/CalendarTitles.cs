@@ -45,7 +45,6 @@ internal class CalendarTitles
             return View switch
             {
                 CalendarViews.Days => false,
-                CalendarViews.DaysMonths => true,
                 CalendarViews.Months => false,
                 CalendarViews.Years => true,
                 _ => true

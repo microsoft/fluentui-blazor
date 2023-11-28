@@ -30,11 +30,6 @@ public enum CalendarViews
     Days,
 
     /// <summary>
-    /// Display the Days View and the Months view on the right.
-    /// </summary>
-    DaysMonths,
-
-    /// <summary>
     /// Display the Months View only
     /// </summary>
     Months,
