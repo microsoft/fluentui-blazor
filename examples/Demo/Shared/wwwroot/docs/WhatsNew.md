@@ -1,9 +1,13 @@
 ﻿## V3.4.0
+- FluentCheckbox: Add tri-state support
 - FluentAccordionItem: Add HeaderTemplate parameter
 - FluentSplitter: Add Panel1MinSize, Panel2MinSize and BarSize parameter. 
 - FluentSplitter: Make resizing always use proportional values
 - FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
+- Fix using checkbox, switch, slider being used in `EditForm` not getting set on first clicks
 - Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
+- Update Fluent UI System Icons to 1.1.223
+- Demo: Move ErrorBoundry into DemoSection component so pagge keeps working when only one section fails
 
 ## V3.3.0
 - This version no longer supports .NET 8.0 (use `Microsoft.FluentUI.AspNetCore.Components` in that case)
