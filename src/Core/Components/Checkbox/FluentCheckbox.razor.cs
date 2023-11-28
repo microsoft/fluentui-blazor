@@ -11,15 +11,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     private bool? _checkState = false;
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Checkbox/FluentCheckbox.razor.js";
 
-    protected override string? ClassValue
-    {
-        get
-        {
-            return new CssBuilder(base.ClassValue)
-                .AddClass("checked", Value)
-                .Build();
-        }
-    }
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
     public FluentCheckbox()
@@ -78,6 +69,16 @@ public partial class FluentCheckbox : FluentInputBase<bool>
 
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
+
+    protected override string? ClassValue
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass("checked", when: Value)
+                .Build();
+        }
+    }
 
     /// <summary />
     private async Task SetCurrentAndIntermediate(bool? value)

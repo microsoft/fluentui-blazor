@@ -9,17 +9,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     where TValue : System.Numerics.INumber<TValue>
 {
-
-    protected override string? ClassValue
-    {
-        get
-        {
-            return new CssBuilder(base.ClassValue)
-                .AddClass(Orientation.ToAttributeValue() ?? "horizontal")
-                .Build();
-        }
-    }
-
     /// <summary>
     /// Gets or sets the slider's minimal value.
     /// </summary>
@@ -56,6 +45,15 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    protected override string? ClassValue
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass(Orientation.ToAttributeValue() ?? "horizontal")
+                .Build();
+        }
+    }
 
     protected override void OnParametersSet()
     {
