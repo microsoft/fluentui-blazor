@@ -155,4 +155,24 @@
         // Assert
         Assert.Equal(nextTitle, label.TextContent);
     }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_TitleClick(CalendarViews view)
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="@view" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var title = calendar.Find(".label");
+        title?.Click();
+
+        // Assert
+        calendar.Verify(suffix: view.GetDescription());
+    }
 }

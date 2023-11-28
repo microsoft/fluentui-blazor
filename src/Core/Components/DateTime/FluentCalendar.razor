@@ -120,7 +120,8 @@
                                  selected="@yearProperties.IsSelected"
                                  readonly="@yearProperties.IsReadOnly"
                                  disabled="@yearProperties.IsDisabled"
-                                 aria-label="@yearProperties.Title"
+                                 aria-label="@year.Year"
+                                 title="@year.Year"
                                  value="@yearProperties.YearIdentifier"
                                  @onclick="@(e => OnSelectYearHandlerAsync(year.Year, yearProperties.IsReadOnly))">
                                 @year.Year
