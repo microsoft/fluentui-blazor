@@ -57,8 +57,18 @@ export function afterStarted(blazor) {
     blazor.registerCustomEventType('checkedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
+
+            // Hacking of a fake update
+            if (event.target.isUpdating) {                
+                return {
+                    checked: null,
+                    indeterminate: null
+                }
+            }
+
             return {
-                checked: event.target.currentChecked
+                checked: event.target.currentChecked,
+                indeterminate: event.target.indeterminate
             };
         }
     });

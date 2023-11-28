@@ -11,7 +11,7 @@ public partial class FluentToast : FluentComponentBase, IDisposable
     private InternalToastContext ToastContext { get; set; } = default!;
 
     /// <summary>
-    /// The instance containing the programmatic API for the toast.
+    /// Gets or sets the instance containing the programmatic API for the toast.
     /// </summary>
     [Parameter]
     public ToastInstance Instance { get; set; } = default!;

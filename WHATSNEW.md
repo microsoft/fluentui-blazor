@@ -1,7 +1,21 @@
-﻿## V4.0.0
+﻿## V4.1.0
+- FluentCalendar: Add new views to select month/year 
+- FluentCheckbox: Add tri-state support
+- FluentAccordionItem: Add HeaderTemplate parameter
+- FluentSplitter: Add Panel1MinSize, Panel2MinSize and BarSize parameter
+- FluentSplitter: Make resizing always use proportional values
+- FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
+- Fix using checkbox, switch, slider being used in `EditForm` not getting set on first few clicks
+- Fix Web App template to correctly handle NavMenu based on rendermode and interactivity choices
+- Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
+- Update Fluent UI System Icons to 1.1.223 (no overview of what's new/changed this time)
+- Demo: Move ErrorBoundry into DemoSection component so pagge keeps working when only one section fails
+- Fix miscellaneous demo errors caused by trimming
+
+## V4.0.0
 - FluentAccordionItem: Add `HeaderTemplate` parameter
 
-- ## V4.0.0-rc.3
+## V4.0.0-rc.3
 - Undo change template interactivity default to None. Default is now Server (same as regular Blazor template)
 - FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
 - `variables.css` is imported in the automatically loaded library's css now

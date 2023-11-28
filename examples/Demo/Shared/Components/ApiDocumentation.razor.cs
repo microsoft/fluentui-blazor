@@ -23,7 +23,7 @@ public partial class ApiDocumentation
     private string? _displayName, _id;
 
     /// <summary>
-    /// The Component for which the Parameters, Methods and Events should be displayed
+    /// Gets or sets the Component for which the Parameters, Methods and Events should be displayed.
     /// </summary>
 
     [Parameter, EditorRequired]
@@ -40,7 +40,7 @@ public partial class ApiDocumentation
     public Type[] InstanceTypes { get; set; } = new[] { typeof(string) };
 
     /// <summary>
-    /// The label used for displaying the type parameter
+    /// Gets or sets the label used for displaying the type parameter.
     /// </summary>
     [Parameter]
     public string? GenericLabel { get; set; } = null;
@@ -66,7 +66,7 @@ public partial class ApiDocumentation
 
         if (_allMembers == null)
         {
-            List<MemberDescription>? members = new();
+            List<MemberDescription>? members = [];
 
             object? obj;
             if (Component.IsGenericType)

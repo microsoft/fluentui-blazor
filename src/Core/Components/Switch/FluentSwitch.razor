@@ -12,7 +12,7 @@
                aria-label="@(string.IsNullOrEmpty(AriaLabel) ? Label : AriaLabel)"
                required=@Required
                current-checked="@CurrentValue"
-               @onswitchcheckedchange="@((e) => CurrentValue = e.Checked)"
+               @onswitchcheckedchange="@((e) => CurrentValue = e.Checked ?? false)"
                @attributes="@AdditionalAttributes">
     @Label
     @LabelTemplate

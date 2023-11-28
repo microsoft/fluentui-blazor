@@ -12,8 +12,8 @@ public class DataSource
 
     public List<string> Names = _people.Select(p => $"{p.FirstName} {p.LastName}").ToList();
 
-    public List<string> Hits { get; } = new()
-    {
+    public List<string> Hits { get; } =
+    [
         "Please Please Me",
         "With The Beatles",
         "A Hard Day's Night",
@@ -27,16 +27,16 @@ public class DataSource
         "Yellow Submarine",
         "Abbey Road",
         "Let It Be",
-    };
+    ];
 
-    public List<string> Sizes { get; } = new()
-    {
+    public List<string> Sizes { get; } =
+    [
         "Extra small",
         "Small",
         "Medium",
         "Large",
         "Extra Large"
-    };
+    ];
 
     public static async Task WaitAsync(int milliseconds, Action action)
     {

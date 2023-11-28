@@ -13,7 +13,7 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     private static readonly RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
 
     /// <summary>
-    /// Specifies the content to be rendered for each row in the table.
+    /// Gets or sets the content to be rendered for each row in the table.
     /// </summary>
     [Parameter] public RenderFragment<TGridItem> ChildContent { get; set; } = EmptyChildContent;
 

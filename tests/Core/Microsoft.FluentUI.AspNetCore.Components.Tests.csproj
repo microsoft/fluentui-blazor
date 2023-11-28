@@ -62,4 +62,11 @@
     
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Slider\FluentSliderTests.FluentButton_Title.verified.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>FluentSliderTests.razor</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>

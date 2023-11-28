@@ -28,25 +28,26 @@ public class TooltipOptions
     public string? MaxWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the delay (in milliseconds). Default is 300.
+    /// Gets or sets the delay (in milliseconds). 
+    /// Default is 300.
     /// </summary>
     [Parameter]
     public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
 
     /// <summary>
-    /// Gets or sets the tooltip's position. See <see cref="TooltipPosition"/>
+    /// Gets or sets the tooltip's position. See <see cref="TooltipPosition"/>.
     /// </summary>
     [Parameter]
     public TooltipPosition? Position { get; set; }
 
     /// <summary>
-    /// Callback for when the tooltip is dismissed
+    /// Callback for when the tooltip is dismissed.
     /// </summary>  
     [Parameter]
     public EventCallback<EventArgs> OnDismissed { get; set; }
 
     /// <summary>
-    /// Gets or sets if the tooltip is visible
+    /// Gets or sets a value indicating whether the tooltip is visible.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; }

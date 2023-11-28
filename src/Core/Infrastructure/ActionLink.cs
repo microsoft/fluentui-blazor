@@ -3,22 +3,22 @@
 public class ActionLink<T>
 {
     /// <summary>
-    /// The text to show for the link
+    /// Gets or sets the text to show for the link.
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
-    /// The address to navigate to when the link is clicked
+    /// Gets or sets the address to navigate to when the link is clicked.
     /// </summary>
     public string? Href { get; set; }
 
     /// <summary>
-    /// The target window or frame to open the link in
+    /// Gets or sets the target window or frame to open the link in.
     /// </summary>
     public string? Target { get; set; }
 
     /// <summary>
-    /// The function to call when the link is clicked
+    /// Gets or sets the function to call when the link is clicked.
     /// </summary>
     public Func<T, Task>? OnClick { get; set; }
 }

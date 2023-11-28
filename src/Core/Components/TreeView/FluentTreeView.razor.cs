@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTreeView : FluentComponentBase, IDisposable
 {
-    private readonly Dictionary<string, FluentTreeItem> _allItems = new();
+    private readonly Dictionary<string, FluentTreeItem> _allItems = [];
     private readonly Debouncer _currentSelectedChangedDebouncer = new();
     private bool _disposed;
 

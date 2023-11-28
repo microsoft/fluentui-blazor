@@ -26,60 +26,59 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         .Build();
 
     /// <summary>
-    /// Child content of component, the content that the badge will apply to.
+    /// Gets or sets the child content of component, the content that the badge will apply to.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Number displayed inside the badge.
+    /// Gets or sets the number displayed inside the badge.
     /// Can be enriched with a plus sign with <see cref="ShowOverflow"/>
     /// </summary>
     [Parameter, EditorRequired]
     public int? Count { get; set; }
 
     /// <summary>
-    /// Content you want inside the badge, to customize the badge content.
+    /// Gets or sets the content you want inside the badge, to customize the badge content.
     /// </summary>
     [Parameter]
     public RenderFragment? BadgeContent { get; set; }
 
     /// <summary>
-    /// Max number that can be displayed inside the badge.
+    /// Gets or sets the maximum number that can be displayed inside the badge.
     /// Default is 99.
     /// </summary>
     [Parameter]
     public int? Max { get; set; } = 99;
 
-
     /// <summary>
-    /// Left position of the badge in percentage.
+    /// Gets or sets the left position of the badge in percentage.
     /// By default, this value is 50 to center the badge.
     /// </summary>
     [Parameter]
     public int? HorizontalPosition { get; set; } = 50;
 
     /// <summary>
-    /// Bottom position of the badge in percentage.
+    /// Gets or sets the bottom position of the badge in percentage.
     /// By default, this value is 50 to center the badge.
     /// </summary>
     [Parameter]
     public int? BottomPosition { get; set; } = 50;
 
     /// <summary>
-    /// Default design of this badge using colors from theme.
+    /// Gets or sets the default design of this badge using colors from theme.
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Accent;
 
     /// <summary>
-    /// Background color to replace the color inferred from property.
+    /// Gets or sets the background color to replace the color inferred from property.
     /// </summary>
     [Parameter]
     public Color? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Font color to replace the color inferred from property.
+    /// Gets or sets the font color to replace the color inferred from property.
     /// </summary>
     [Parameter]
     public Color? Color { get; set; }
@@ -104,7 +103,6 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     ///</summary>
     [Parameter]
     public bool ShowOverflow { get; set; } = true;
-
 
     protected override Task OnParametersSetAsync()
     {

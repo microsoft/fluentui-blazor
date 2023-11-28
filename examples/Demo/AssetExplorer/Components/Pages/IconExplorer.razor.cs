@@ -11,7 +11,7 @@ public partial class IconExplorer
 
     private readonly IconSearchCriteria Criteria = new();
     private IconInfo[] IconsFound = Array.Empty<IconInfo>();    
-    private PaginationState PaginationState = new PaginationState { ItemsPerPage = 4 * 12 };
+    private PaginationState PaginationState = new() { ItemsPerPage = 4 * 12 };
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Icon Explorers";
@@ -47,12 +47,15 @@ public partial class IconExplorer
         SearchInProgress = true;
         await Task.Delay(1); // Display spinner
 
-        IconsFound = Icons.AllIcons
-                          .Where(i => i.Variant == Criteria.Variant
-                                   && i.Size == Criteria.Size
-                                   && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
-                          .OrderBy(i => i.Name)
-                          .ToArray();
+        IconsFound =
+        [
+            .. Icons.AllIcons
+                                      .Where(i => i.Variant == Criteria.Variant
+                                               && i.Size == Criteria.Size
+                                               && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                                      .OrderBy(i => i.Name)
+,
+        ];
 
         await PaginationState.SetTotalItemCountAsync(IconsFound.Length);
 

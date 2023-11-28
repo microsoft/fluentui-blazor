@@ -48,7 +48,7 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     public string? MaxHeight { get; set; }
 
     /// <summary>
-    /// Child content of component.
+    /// Gets or sets the child content of component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -57,6 +57,5 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     /// Callback for when the Expanded property changes.
     /// </summary>
     [Parameter]
-    public EventCallback<bool> ExpandedChanged { get; set; }
-   
+    public EventCallback<bool> ExpandedChanged { get; set; }   
 }
