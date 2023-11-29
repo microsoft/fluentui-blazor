@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Components.Routing
 
 
-@if (NavMenuExpanded || HasIcon)
+@if (Owner.Expanded || HasIcon)
 {
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
 
