@@ -419,6 +419,7 @@ code {
         padding: 1.5em 0.75em 1em 0.75em;
         margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
         margin-inline-end: calc(100% - env(viewport-segment-left 1 0));
+        width: auto;
     }
 
     article {
@@ -426,6 +427,7 @@ code {
         padding-top: 0px;
         margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0)); /* hinge width */
         margin-inline-end: calc(100% - env(viewport-segment-left 1 0));
+        width: auto;
     }
 }
 
