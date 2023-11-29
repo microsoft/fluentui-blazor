@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" aria-label="@(Collapsible ? null : @Title)" role="menu" aria-expanded="@Expanded">
-    <CascadingValue Value="@Expanded" Name="NavMenuExpanded">
+    <CascadingValue Value="this" IsFixed="true">
         @if (Collapsible)
         {
             <div aria-label="@Title"
