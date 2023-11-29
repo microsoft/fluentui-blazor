@@ -18,7 +18,7 @@ public partial class FluentNavGroup : FluentNavBase
             .Build();
 
     internal string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("margin", $"{Gap} 0" , !string.IsNullOrEmpty(Gap))
+       .AddStyle("margin", $"{Gap} 0", !string.IsNullOrEmpty(Gap))
        .Build();
 
 
@@ -84,7 +84,7 @@ public partial class FluentNavGroup : FluentNavBase
     /// When specifying both Title and TitleTemplate, both will be rendered.
     /// </summary>
     [Parameter]
-    public RenderFragment? TitleTemplate { get; set; } 
+    public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
@@ -99,7 +99,7 @@ public partial class FluentNavGroup : FluentNavBase
     }
 
     private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
-   
+
     private async Task HandleExpanderKeyDownAsync(KeyboardEventArgs args)
     {
         Task handler = args.Code switch
@@ -121,11 +121,19 @@ public partial class FluentNavGroup : FluentNavBase
         {
             return;
         }
-
-        Expanded = value;
-        if (ExpandedChanged.HasDelegate)
+       
+        if (!Owner.Expanded)
         {
-            await ExpandedChanged.InvokeAsync(value);
+            await Owner.ExpandedChanged.InvokeAsync(true);
+        }
+        else
+        {
+            Expanded = value;
+
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(value);
+            }
         }
     }
 }

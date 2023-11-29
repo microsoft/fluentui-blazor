@@ -44,7 +44,7 @@ internal class FluentCalendarMonth
     /// <summary>
     /// Gets the title of the month in the format [month] [year].
     /// </summary>
-    public string Title => this.Month.ToString("MMMM yyyy");
+    public string Title => $"{_calendar.CalendarExtended.GetMonthName(Month)} {Month.Year:0000}";
 
     /// <summary>
     /// Gets the identifier of the month in the format yyyy-MM.
