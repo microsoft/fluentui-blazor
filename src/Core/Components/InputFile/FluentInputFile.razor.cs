@@ -145,9 +145,9 @@ public partial class FluentInputFile : FluentComponentBase
     public string AnchorId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the current label display when an upload is in progress.
+    /// Gets the current label display when an upload is in progress.
     /// </summary>
-    public string ProgressTitle { get; set; } = string.Empty;
+    public string ProgressTitle { get; private set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the current global value of the percentage of a current upload.

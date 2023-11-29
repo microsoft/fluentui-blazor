@@ -3556,7 +3556,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTitle">
             <summary>
-            Gets or sets the current label display when an upload is in progress.
+            Gets the current label display when an upload is in progress.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent">
