@@ -5064,6 +5064,12 @@
             Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Tooltip">
+            <summary>
+            Gets or sets the tooltip to display when the mouse is placed over the item.
+            For  <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup" /> the <c>Title</c> is used as fallback.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
             <summary>
             Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.

@@ -60,6 +60,13 @@ public abstract class FluentNavBase : FluentComponentBase
     [Parameter]
     public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 
+    /// <summary>
+    /// Gets or sets the tooltip to display when the mouse is placed over the item.
+    /// For  <see cref="FluentNavGroup" /> the <c>Title</c> is used as fallback.
+    /// </summary>
+    [Parameter]
+    public string? Tooltip { get; set; }
+
     [CascadingParameter]
     public FluentNavMenu Owner { get; set; } = default!;
 
