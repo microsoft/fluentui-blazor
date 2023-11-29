@@ -67,6 +67,9 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         }
     }
 
+    /// <summary>
+    /// Gets or sets a callback that updates the <see cref="CheckState"/>.
+    /// </summary>
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
 
