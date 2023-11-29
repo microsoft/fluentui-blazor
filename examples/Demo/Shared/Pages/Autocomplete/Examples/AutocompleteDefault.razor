@@ -1,9 +1,9 @@
 ﻿@inject DataSource Data
 
 <FluentAutocomplete TOption="Country"
-                    Label="Select a country"
+                    Label="Select a country or region"
                     Width="250px"
-                    Placeholder="Select countries"
+                    Placeholder="Select countries or regions"
                     OnOptionsSearch="@OnSearchAsync"
                     MaximumSelectedOptions="3"
                     OptionText="@(item => item.Name)"
