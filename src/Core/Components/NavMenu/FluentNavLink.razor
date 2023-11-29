@@ -9,7 +9,8 @@
         <NavLink class="@LinkClassValue"
                  @attributes="@Attributes"
                  Match="@Match"
-                 ActiveClass="@ActiveClass">
+                 ActiveClass="@ActiveClass"
+                 title="@Tooltip">
             <div class="positioning-region">
                 <div class="content-region">
                     @_renderContent
@@ -19,7 +20,7 @@
     }
     else
     {
-        <div class="positioning-region">
+        <div class="positioning-region" title="@Tooltip">
             <div class="content-region">
                 <div class="@LinkClassValue" @onclick="OnClickHandler">
                     @_renderContent
