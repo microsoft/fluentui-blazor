@@ -9,7 +9,7 @@
 - Fix Web App template to correctly handle NavMenu based on rendermode and interactivity choices
 - Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
 - Update Fluent UI System Icons to 1.1.223 (no overview of what's new/changed this time)
-- Demo: Move ErrorBoundry into DemoSection component so pagge keeps working when only one section fails
+- Demo: Move ErrorBoundary into DemoSection component so page keeps working when only one section fails
 - Fix miscellaneous demo errors caused by trimming
 
 ## V4.0.0
