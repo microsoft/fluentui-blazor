@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentInputFile : FluentComponentBase
 {
     public static string ResourceLoadingBefore = "Loading...";
-    public static string ResourceLoadingAfter = "Completed";
+    public static string ResourceLoadingCompleted = "Completed";
     public static string ResourceLoadingCanceled = "Canceled";
     public static string ResourceLoadingInProgress = "Loading {0}/{1} - {2}";
 
@@ -105,9 +105,6 @@ public partial class FluentInputFile : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment<ProgressFileDetails>? ProgressTemplate { get; set; }
-
-    /// <summary />
-    // private RenderFragment? InternalProgressTemplate { get; set; }
 
     /// <summary>
     /// Use the native event raised by the <seealso href="https://docs.microsoft.com/en-us/aspnet/core/blazor/file-uploads">InputFile</seealso> component.
@@ -330,7 +327,7 @@ public partial class FluentInputFile : FluentComponentBase
         }
         else
         {
-            await UpdateProgressAsync(100, ResourceLoadingAfter);
+            await UpdateProgressAsync(100, ResourceLoadingCompleted);
         }
 
         if (OnCompleted.HasDelegate)
