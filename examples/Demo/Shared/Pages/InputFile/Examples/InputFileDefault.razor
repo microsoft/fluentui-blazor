@@ -1,32 +1,31 @@
 ﻿<FluentInputFile Id="my-file-uploader"
                  Mode="InputFileMode.SaveToTemporaryFolder"
                  Multiple="true"
-                 ShowPreview="true"
                  MaximumFileCount="4"
-                 MaximumFileSize="50000000"
+                 MaximumFileSize="@(10*1024*1024)"
                  Accept="image/*"
-                 OnCompleted="@OnCompleted"
-                 OnFileError="@OnError"
-                 Style="height: 300px;"
-                 Class="demopanel">
+                 @bind-ProgressPercent="@ProgressPercent"
+                 OnCompleted="@OnCompletedAsync"
+                 OnFileError="@OnErrorAsync"
+                 Style="height: 300px; border: 1px dashed var(--accent-fill-rest);">
+    <ChildContent>
+        <label for="my-file-uploader">
+            <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" />
+        </label>
 
-    <label for="my-file-uploader">
-        <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" />
-    </label>
+        <div>
+            Drag files here you wish to upload,
+            or <label for="my-file-uploader">browse</label>
+            for them<span style="color: red;">*</span>.
+            <br />
+            <em>Maximum of 4 files allowed.</em>
+        </div>
 
-    <div>
-        Drag files here you wish to upload,
-        or <label for="my-file-uploader">browse</label>
-        for them<span style="color: red;">*</span>.
-        <br/>
-        <em>Maximum of 4 files allowed.</em>
-    </div>
-
-    <div>
-        <br/>
-        <a href="#">Read more about our supported file formats.</a>
-    </div>
-
+        <div>
+            <br />
+            <a href="#">Read more about our supported file formats.</a>
+        </div>
+    </ChildContent>
 </FluentInputFile>
 
 @if (Files.Any())
@@ -39,7 +38,7 @@
                 <b>@file.Name</b> 🔹
                 @($"{Decimal.Divide(file.Size, 1024):N} KB") 🔹
                 @file.ContentType 🔹
-                @file.LocalFile?.FullName 
+                @file.LocalFile?.FullName
                 @file.ErrorMessage
             </li>
         }
@@ -48,9 +47,10 @@
 
 @code
 {
+    int ProgressPercent = 0;
     FluentInputFileEventArgs[] Files = Array.Empty<FluentInputFileEventArgs>();
 
-    void OnCompleted(IEnumerable<FluentInputFileEventArgs> files)
+    private async Task OnCompletedAsync(IEnumerable<FluentInputFileEventArgs> files)
     {
         Files = files.ToArray();
 
@@ -59,10 +59,15 @@
         {
             file.LocalFile?.Delete();
         }
+
+        // Wait 3 seconds before to reset the progress bar.
+        await Task.Delay(3000);
+        ProgressPercent = 0;
     }
 
-    void OnError(FluentInputFileEventArgs file)
+    private Task OnErrorAsync(FluentInputFileEventArgs file)
     {
         DemoLogger.WriteLine($"Error: {file.ErrorMessage}");
+        return Task.CompletedTask;
     }
 }

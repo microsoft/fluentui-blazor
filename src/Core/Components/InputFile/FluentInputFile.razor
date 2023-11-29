@@ -17,12 +17,16 @@
 
         @ChildContent
 
-        <div class="progress">
-            <FluentProgress Visible="@(ProgressPercent > 0)"
-                            Min="0"
-                            Max="100"
-                            Value="@ProgressPercent" /><br />
-            @ProgressTitle
+        <div class="inputfile-progress" style="@ProgressStyle">
+            @if (ProgressTemplate == null)
+            {
+                <FluentProgress Min="0" Max="100" Value="@ProgressPercent" /><br />
+                @ProgressTitle
+            }
+            else
+            {
+                @ProgressTemplate(ProgressPercent > 0 ? ProgressFileDetails with { Percentage = ProgressPercent } : new ProgressFileDetails())
+            }
         </div>
     </div>
 
