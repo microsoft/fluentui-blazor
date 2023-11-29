@@ -127,7 +127,7 @@ public partial class FluentInputFile : FluentComponentBase
     public EventCallback<FluentInputFileEventArgs> OnProgressChange { get; set; }
 
     /// <summary>
-    /// Raise when a file raised an error.
+    /// Raise when a file raised an error. Not yet used.
     /// </summary>
     [Parameter]
     public EventCallback<FluentInputFileEventArgs> OnFileError { get; set; }
@@ -168,7 +168,7 @@ public partial class FluentInputFile : FluentComponentBase
     private string ProgressStyle => ProgressTemplate == null ? $"visibility: {(ProgressPercent > 0 ? "visible" : "hidden")};" : string.Empty;
 
     /// <summary>
-    /// Open the dialogbox to select files.
+    /// Open the dialog-box to select files.
     /// Use <see cref="AnchorId"/> instead to specify the ID of the button (for example) on which the user should click.
     /// ⚠️ This method doesn't work on Safari and iOS.
     /// </summary>

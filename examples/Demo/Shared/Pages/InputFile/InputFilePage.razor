@@ -6,10 +6,14 @@
 
 <p>The <code>FluentInputFile</code> wraps the native Blazor <code>InputFile</code> component and extends it with drag/drop zone support. See the examples below for some different ways on how to use this component.</p>
 
-<blockquote>
-    <b>note:</b> You can localize this component by customizing the content of <code>ChildContent</code>, but also the content of the progress area via the <code>ProgressTemplate</code> attribute.
+<p>
+    <b>Customization:</b> You can localize this component by customizing the content of <code>ChildContent</code>, but also the content of the progress area via the <code>ProgressTemplate</code> attribute.
     The default progress area displays <i>Loading</i>, <i>Completed</i> or <i>Canceled</i> labels via static variables <code>FluentInputFile.ResourceLoadingXXX</code>.
     These can be accessed to globally adapt the default display if you wish.
+</p>
+
+<blockquote>
+    <b>note</b>: This component is not yet fully compatible with accessibility.
 </blockquote>
 
 <h2 id="example">Examples</h2>

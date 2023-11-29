@@ -6,7 +6,6 @@
                  Accept="image/*"
                  @bind-ProgressPercent="@ProgressPercent"
                  OnCompleted="@OnCompletedAsync"
-                 OnFileError="@OnErrorAsync"
                  Style="height: 300px; border: 1px dashed var(--accent-fill-rest);">
     <ChildContent>
         <label for="my-file-uploader">
@@ -63,11 +62,5 @@
         // Wait 3 seconds before to reset the progress bar.
         await Task.Delay(3000);
         ProgressPercent = 0;
-    }
-
-    private Task OnErrorAsync(FluentInputFileEventArgs file)
-    {
-        DemoLogger.WriteLine($"Error: {file.ErrorMessage}");
-        return Task.CompletedTask;
     }
 }
