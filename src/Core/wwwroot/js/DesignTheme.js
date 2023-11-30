@@ -12,8 +12,6 @@ import {
 
 class DesignTheme extends HTMLElement {
 
-    static observedAttributes = ["theme", "color", "appName"];
-
     static _DEFAULT_COLOR = "#0078D4";
     static _instanceCounter = 0;
     static _COLORS = [
@@ -104,14 +102,14 @@ class DesignTheme extends HTMLElement {
         this.applyColor(value);
 
         const appName = DesignTheme._COLORS.find(item => item.Color.toLowerCase() === value.toLowerCase())?.App;
-        this.updateAttribute("appName", appName);
+        this.updateAttribute("app-name", appName);
     }
 
     /**
     * Gets the current Microsoft application name
     */
     get appName() {
-        return this.getAttribute('appName');
+        return this.getAttribute('app-name');
     }
 
     /**
@@ -121,7 +119,7 @@ class DesignTheme extends HTMLElement {
      * Stream, Sway, Teams, Visio, Windows, Word, Yammer
      */
     set appName(value) {
-        this.updateAttribute("appName", value);
+        this.updateAttribute("app-name", value);
 
         const color = DesignTheme._COLORS.find(item => item.App.toLowerCase() === value.toLowerCase())?.Color ?? DesignTheme._DEFAULT_COLOR;
         this.color = color;
@@ -155,6 +153,10 @@ class DesignTheme extends HTMLElement {
     adoptedCallback() {
     }
 
+    static get observedAttributes() {
+        return ["theme", "color", "app-name"];
+    }
+
     // Attribute "name" has changed.
     attributeChangedCallback(name, oldValue, newValue) {
 
@@ -171,7 +173,7 @@ class DesignTheme extends HTMLElement {
                 this.color = newValue;
                 break;
 
-            case "appName":
+            case "app-name":
                 this.appName = newValue;
                 break;
         }
