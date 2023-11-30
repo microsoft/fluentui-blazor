@@ -3,6 +3,7 @@ The most obvious breaking change of course is namespace change from
 `Microsoft.Fast.Components.FluentUI` to `Microsoft.FluentUI.AspNetCore.Components`. 
 This means you will need to change all `usings` in your code, change your `_Imports.razor`, etc.
 
+- You no longer need to specify any `HostingModel` in the `AddFluentUIComponents()` service collection extension. If it is still in there, remove it.
 - AfterBindValue has been replaced with the native @bind-Value:after
 - FluentToast: Timeout is now in milliseconds
 - FluentToastContainer renamed to FluentToastProvider

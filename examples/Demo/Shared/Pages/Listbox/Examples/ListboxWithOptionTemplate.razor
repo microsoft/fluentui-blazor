@@ -1,0 +1,17 @@
+﻿@inject DataSource Data
+
+<FluentListbox Items="@Data.People"
+               OptionValue="@(i => i.PersonId.ToString())">
+    <OptionTemplate>
+        <FluentIcon Icon="Icons.Regular.Size16.Delete" Slot="end" OnClick="@(() => DemoLogger.WriteLine($"{@context.LastName} deleted"))" />
+        @context.FirstName / @context.LastName
+    </OptionTemplate>
+</FluentListbox>
+
+
+
+
+
+@code {
+    
+}
