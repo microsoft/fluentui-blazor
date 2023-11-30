@@ -3831,11 +3831,6 @@
             Gets or sets the message displayed when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaximumSelectedOptions"/> is reached.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OptionTemplate">
-            <summary>
-            Gets or sets the template for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items"/> items.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectedOptionTemplate">
             <summary>
             Gets or sets the template for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptions"/> items.
@@ -4180,6 +4175,11 @@
             <summary>
             If true, the user can select multiple elements.
             ⚠️ Only available for the FluentSelect and FluentListbox components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionTemplate">
+            <summary>
+            Gets or sets the template for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items"/> items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptions">

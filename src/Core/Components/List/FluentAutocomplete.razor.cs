@@ -30,7 +30,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
-    /// Sets the placeholder value of the element, generally used to provide a hint to the user.
+    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
@@ -58,7 +58,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
@@ -103,38 +103,32 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public RenderFragment? MaximumSelectedOptionsMessage { get; set; }
 
     /// <summary>
-    /// Template for the <see cref="ListComponentBase{TOption}.Items"/> items.
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TOption>? OptionTemplate { get; set; }
-
-    /// <summary>
-    /// Template for the <see cref="ListComponentBase{TOption}.SelectedOptions"/> items.
+    /// Gets or sets the template for the <see cref="ListComponentBase{TOption}.SelectedOptions"/> items.
     /// </summary>
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
 
 
     /// <summary>
-    /// Header content, placed at the top of the popup panel.
+    /// Gets or sets the header content, placed at the top of the popup panel.
     /// </summary>
     [Parameter]
     public RenderFragment<IEnumerable<TOption>>? HeaderContent { get; set; }
 
     /// <summary>
-    /// Footer content, placed at the bottom of the popup panel.
+    /// Gets or sets the footer content, placed at the bottom of the popup panel.
     /// </summary>
     [Parameter]
     public RenderFragment<IEnumerable<TOption>>? FooterContent { get; set; }
 
     /// <summary>
-    /// Title and Aria-Label for the Scroll to previous button.
+    /// Gets or sets the title and Aria-Label for the Scroll to previous button.
     /// </summary>
     [Parameter]
     public string TitleScrollToPrevious { get; set; } = "Previous";
 
     /// <summary>
-    /// Title and Aria-Label for the Scroll to next button.
+    /// Gets or sets the title and Aria-Label for the Scroll to next button.
     /// </summary>
     [Parameter]
     public string TitleScrollToNext { get; set; } = "Next";
@@ -355,10 +349,5 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         {
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
         }
-    }
-
-    private EventCallback<string> OnSelectCallback(TOption? item)
-    {
-        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
     }
 }

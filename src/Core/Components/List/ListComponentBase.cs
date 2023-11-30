@@ -166,6 +166,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     [Parameter]
     public virtual bool Multiple { get; set; }
 
+    /// <summary>
+    /// Gets or sets the template for the <see cref="ListComponentBase{TOption}.Items"/> items.
+    /// </summary>
+    [Parameter]
+    public virtual RenderFragment<TOption>? OptionTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets all selected items.
@@ -503,6 +508,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
             return;
 
         _selectedOptions.Add(item);
+    }
+
+    protected EventCallback<string> OnSelectCallback(TOption? item)
+    {
+        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
     }
 
     /// <summary />
