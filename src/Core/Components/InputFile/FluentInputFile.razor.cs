@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Fast.Components.FluentUI.Resources;
 using Microsoft.Fast.Components.FluentUI.Utilities;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
 using Microsoft.JSInterop;
 
 

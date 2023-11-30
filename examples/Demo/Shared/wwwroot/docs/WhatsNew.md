@@ -1,5 +1,9 @@
 ﻿## V3.4.1
--Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): FluentNumberField can be changedwhen ReadOnly
+- Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): FluentNumberField can be changed when ReadOnly
+- Fix [#917](https://github.com/microsoft/fluentui-blazor/issues/917) Multiple Header and Footer detection in Dialog
+- FluentNavMenu: Add `Tooltip` parameter to `FluentNavMenuGroup` (fallback to `Title`) and `FluentNavLink`
+- FluentNavMenu: Expand the menu when collapsed and a navitem is clicked 
+- FluentInputFile: Add ProgressTemplate and a bindable ProgressPercent attribute
 
 ## V3.4.0
 - FluentCheckbox: Add tri-state support

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+﻿namespace Microsoft.Fast.Components;
 
 public record struct ProgressFileDetails(int Index, string Name, int Percentage);
 
