@@ -758,6 +758,11 @@
             Gets or sets the state of the CheckBox: true, false or null.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckStateChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState"/>.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentAndIntermediate(System.Nullable{System.Boolean})">
             <summary />
         </member>
@@ -3444,6 +3449,9 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.#ctor">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.JSRuntime">
             <summary />
         </member>
@@ -3504,19 +3512,14 @@
             Default is true.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTitle">
-            <summary>
-            Gets or sets the current label display when an upload is in progress.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent">
-            <summary>
-            Gets or sets the current global value of the percentage of a current upload.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ChildContent">
             <summary>
             Gets or sets the child content of the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTemplate">
+            <summary>
+            Gets or sets the progress content of the component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnInputFileChange">
@@ -3538,7 +3541,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnFileError">
             <summary>
-            Raise when a file raised an error.
+            Raise when a file raised an error. Not yet used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnCompleted">
@@ -3551,9 +3554,30 @@
             Gets or sets the identifier of the source component clickable by the end user.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTitle">
+            <summary>
+            Gets the current label display when an upload is in progress.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent">
+            <summary>
+            Gets or sets the current global value of the percentage of a current upload.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercentChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressFileDetails">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressStyle">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ShowFilesDialogAsync">
             <summary>
-            Open the dialogbox to select files.
+            Open the dialog-box to select files.
             Use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.AnchorId"/> instead to specify the ID of the button (for example) on which the user should click.
             ⚠️ This method doesn't work on Safari and iOS.
             </summary>
@@ -11290,42 +11314,6 @@
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
             If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingAfter">
-            <summary>
-              Looks up a localized string similar to Completed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingBefore">
-            <summary>
-              Looks up a localized string similar to Loading....
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingCanceled">
-            <summary>
-              Looks up a localized string similar to Canceled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingInProgress">
-            <summary>
-              Looks up a localized string similar to Loading {0}/{1} - {2}.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
