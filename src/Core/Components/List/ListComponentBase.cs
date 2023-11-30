@@ -509,6 +509,11 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
         _selectedOptions.Add(item);
     }
 
+    protected EventCallback<string> OnSelectCallback(TOption? item)
+    {
+        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
+    }
+
     /// <summary />
     protected internal string? GetAriaLabel()
     {

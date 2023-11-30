@@ -24,7 +24,7 @@
                      appearance="@Appearance.ToAttributeValue()"
                      @onchange="@OnChangedHandlerAsync"
                      @attributes="AdditionalAttributes">        
-        @if (OptionTemplate == null)
+        @if (OptionTemplate == null || Items == null)
         {
             @GetListOptions(Items)
         }
@@ -37,7 +37,8 @@
                     <FluentOption TOption="TOption"
                                   Value="@GetOptionValue(item)"
                                   Selected="@GetOptionSelected(item)"
-                                  Disabled="@(GetOptionDisabled(item) ?? false)">
+                                  Disabled="@(GetOptionDisabled(item) ?? false)"
+                                  OnSelect="@OnSelectCallback(item)">
                             @OptionTemplate(item)
                     </FluentOption>
                 }

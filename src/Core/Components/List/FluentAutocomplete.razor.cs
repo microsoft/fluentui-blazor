@@ -350,9 +350,4 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
         }
     }
-
-    private EventCallback<string> OnSelectCallback(TOption? item)
-    {
-        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
-    }
 }
