@@ -45,12 +45,6 @@
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Content Update="Pages\Combobox\Examples\ComboboxWithOptionTemplate.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
-	</ItemGroup>
-
 	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
