@@ -212,7 +212,7 @@ public partial class FluentInputFile : FluentComponentBase
         // Start
         await UpdateProgressAsync(0, ResourceLoadingBefore);
 
-        List<FluentInputFileEventArgs>? uploadedFiles = [];
+        List<FluentInputFileEventArgs>? uploadedFiles = new();
         IReadOnlyList<IBrowserFile>? allFiles = e.GetMultipleFiles(MaximumFileCount);
         List<UploadedFileDetails>? allFilesSummary = allFiles.Select(i => (new UploadedFileDetails(i.Name, i.Size, i.ContentType))).ToList();
         long totalFileSizes = allFiles.Sum(i => i.Size);
