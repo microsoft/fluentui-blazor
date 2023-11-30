@@ -17,16 +17,20 @@
 
         @ChildContent
 
-        <div class="progress">
-            <FluentProgress Visible="@(ProgressPercent > 0)"
-                            Min="0"
-                            Max="100"
-                            Value="@ProgressPercent" /><br />
-            @ProgressTitle
+        <div class="inputfile-progress" style="@ProgressStyle">
+            @if (ProgressTemplate == null)
+            {
+                <FluentProgress Min="0" Max="100" Value="@ProgressPercent" /><br />
+                @ProgressTitle
+            }
+            else
+            {
+                @ProgressTemplate(ProgressPercent > 0 ? ProgressFileDetails with { Percentage = ProgressPercent } : new ProgressFileDetails())
+            }
         </div>
     </div>
 
-    <div style="grid-column: 1; grid-row: 1; z-index: @(DropOver ? ZIndex.InputFileDropZone : null)">
+    <div style="grid-column: 1; grid-row: 1; @(DropOver ? $"z-index: {ZIndex.InputFileDropZone}" : null)">
         <InputFile OnChange="OnUploadFilesHandlerAsync"
                    id="@Id"
                    multiple=@Multiple

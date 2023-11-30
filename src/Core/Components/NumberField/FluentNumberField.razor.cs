@@ -72,7 +72,6 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
     private static string GetStepAttributeValue()
