@@ -1,4 +1,7 @@
-﻿## V3.4.0
+﻿## V3.4.1
+-Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): FluentNumberField can be changedwhen ReadOnly
+
+## V3.4.0
 - FluentCheckbox: Add tri-state support
 - FluentAccordionItem: Add HeaderTemplate parameter
 - FluentSplitter: Add Panel1MinSize, Panel2MinSize and BarSize parameter. 

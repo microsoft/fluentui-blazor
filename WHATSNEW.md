@@ -1,4 +1,7 @@
-﻿## V3.4.0
+﻿## V3.4.1
+-Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): FluentNumberField can be changedwhen ReadOnly
+
+## V3.4.0
 - FluentCheckbox: Add tri-state support
 - FluentAccordionItem: Add HeaderTemplate parameter
 - FluentSplitter: Add Panel1MinSize, Panel2MinSize and BarSize parameter. 
@@ -9,13 +12,12 @@
 - Update Fluent UI System Icons to 1.1.223
 - Demo: Move ErrorBoundry into DemoSection component so pagge keeps working when only one section fails
 
-
 ## V3.3.0
 - This version no longer supports .NET 8.0 (use `Microsoft.FluentUI.AspNetCore.Components` in that case)
 - Update all input component to use `ReadOnly` instead of a mix of possible spellings
 - Update demo site styling (nav menu and body now scroll independently)
 - Support DisabledDateFunc in FluentDatePicker 
-- Fix [#911](https://github.com/microsoft/fluentui-blazor/issues/91	1): Column resizing in DataGrid breaks when column to narrow
+- Fix [#911](https://github.com/microsoft/fluentui-blazor/issues/911): Column resizing in DataGrid breaks when column to narrow
 
 ## V3.2.3
 - Fix [#891](https://github.com/microsoft/fluentui-blazor/issues/891): JSDisconnectedException in FluentOverflow
