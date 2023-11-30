@@ -1,4 +1,5 @@
 ﻿import { SplitPanels } from "./js/SplitPanels.js";
+import { DesignTheme } from "./js/DesignTheme.js";
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
@@ -217,6 +218,9 @@ export function afterStarted(blazor) {
 }
 
 export function beforeStart(options, extensions) {
+
+    customElements.define("fluent-design-theme", DesignTheme);
+
     var wcScript = document.createElement('script');
     wcScript.type = 'module';
     wcScript.src = './_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js';
