@@ -20,24 +20,21 @@
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
                         @onchange="@OnChangedHandlerAsync"
                         @attributes="AdditionalAttributes">
-            @if (OptionTemplate == null)
+            @if (OptionTemplate == null || Items == null)
             {
                 @GetListOptions(Items)
             }
             else
             {
-                @if (Items != null)
+                foreach (TOption item in Items)
                 {
-                    foreach (TOption item in Items)
-                    {
-                        <FluentOption TOption="TOption"
-                                      Value="@GetOptionValue(item)"
-                                      Selected="@GetOptionSelected(item)"
-                                      Disabled="@(GetOptionDisabled(item) ?? false)"
-                                      OnSelect="@OnSelectCallback(item)">
-                                @OptionTemplate(item)
-                        </FluentOption>
-                    }
+                    <FluentOption TOption="TOption"
+                                    Value="@GetOptionValue(item)"
+                                    Selected="@GetOptionSelected(item)"
+                                    Disabled="@(GetOptionDisabled(item) ?? false)"
+                                    OnSelect="@OnSelectCallback(item)">
+                            @OptionTemplate(item)
+                    </FluentOption>
                 }
             }
         </fluent-listbox>
