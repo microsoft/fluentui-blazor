@@ -93,7 +93,7 @@ export function afterStarted(blazor: Blazor) {
             }
 
             return {
-                checked: event.target!.currentChecked
+                checked: event.target!.currentChecked,
                 indeterminate: event.target!.indeterminate
             };
         }
