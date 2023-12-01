@@ -74,10 +74,7 @@ class SplitPanels extends HTMLElement {
         shadow.adoptedStyleSheets.push(styleSheet);
         shadow.innerHTML = template;
 
-        if (this.direction === "row")
-            shadow.querySelector('#median').style.inlineSize = this.barsize +'px';
-        else
-            shadow.querySelector('#median').style.blockSize = this.barsize + 'px';
+        this.updateBarSizeStyle();
     }
     connectedCallback() {
         this.render();
@@ -158,6 +155,20 @@ class SplitPanels extends HTMLElement {
             this.style.gridTemplateRows = `${slot1fraction}fr ${median}px ${slot2fraction}fr`;
         }
     }
+    updateBarSizeStyle() {
+        let median = this.shadowRoot?.querySelector('#median');
+
+        if (median) {
+            if (this.direction === "row") {
+                median.style.inlineSize = this.barsize + 'px';
+                median.style.blockSize = null;
+            }
+            else {
+                median.style.blockSize = this.barsize + 'px';
+                median.style.inlineSize = null;
+            }
+        }
+    }
     attributeChangedCallback(name: string, oldValue: any, newValue: any) {
         if (newValue != oldValue) {
             (this as any as DOMStringMap)[name] = newValue;
@@ -199,6 +210,7 @@ class SplitPanels extends HTMLElement {
         this.setAttribute("direction", value);
         this.style.gridTemplateRows = "";
         this.style.gridTemplateColumns = "";
+        this.updateBarSizeStyle();
     }
     get direction() {
         return this.#direction;
@@ -234,6 +246,7 @@ class SplitPanels extends HTMLElement {
     }
     set barsize(value) {
         this.#barsize = value;
+        this.updateBarSizeStyle();
     }
     get barsize() {
         return this.#barsize;

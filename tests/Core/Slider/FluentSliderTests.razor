@@ -1,0 +1,46 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentSlider_HorizontalImplicit()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_Horizontal()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_Vertical()
+    {
+
+        // Arrange
+            var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Orientation="Orientation.Vertical"></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_Double()
+    {
+        double value = 3.5;
+        // Arrange
+        var cut = Render(@<FluentSlider Min="-1.50" Max="7.0" Step="0.5" @bind-bind-Value="@value"></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+}

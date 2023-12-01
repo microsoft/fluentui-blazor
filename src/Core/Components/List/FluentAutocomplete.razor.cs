@@ -103,12 +103,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     public RenderFragment? MaximumSelectedOptionsMessage { get; set; }
 
     /// <summary>
-    /// Gets or sets the template for the <see cref="ListComponentBase{TOption}.Items"/> items.
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TOption>? OptionTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the template for the <see cref="ListComponentBase{TOption}.SelectedOptions"/> items.
     /// </summary>
     [Parameter]
@@ -355,10 +349,5 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
         {
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
         }
-    }
-
-    private EventCallback<string> OnSelectCallback(TOption? item)
-    {
-        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
     }
 }

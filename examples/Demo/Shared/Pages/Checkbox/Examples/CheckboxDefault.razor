@@ -1,28 +1,22 @@
-﻿<h4>Standard</h4>
-<p>Without a label:</p>
-<FluentCheckbox @bind-Value=value1></FluentCheckbox>
+﻿<h4>Horizontal</h4>
+<FluentStack>
+    <FluentCheckbox @bind-Value="@value1" Label="Apples" />
+    <FluentCheckbox @bind-Value="@value2" Disabled="true" Label="Bananas (disabled)" />
+    <FluentCheckbox @bind-Value="@value3" Label="Oranges" />
+</FluentStack>
 
-<p>With a label: </p>
-<FluentCheckbox @bind-Value=value2 Label="With a label:"></FluentCheckbox>
+<br />
+<br />
 
-<h4>Checked</h4>
-<FluentCheckbox @bind-Value=value3></FluentCheckbox>
+<h4>Vertical</h4>
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentCheckbox @bind-Value="@value1">Apples</FluentCheckbox>
+    <FluentCheckbox @bind-Value="@value2" Disabled="true">Bananas (disabled)</FluentCheckbox>
+    <FluentCheckbox @bind-Value="@value3">Oranges</FluentCheckbox>
+</FluentStack>
 
-<!-- Required -->
-<h4>Required</h4>
-<FluentCheckbox Required="true" @bind-Value=value4></FluentCheckbox>
-
-<!-- Disabled -->
-<h4>Disabled</h4>
-<FluentCheckbox Disabled="true" @bind-Value=value5></FluentCheckbox>
-<FluentCheckbox Disabled="true" @bind-Value=value6>label</FluentCheckbox>
-<FluentCheckbox Disabled="true" @bind-Value=value7>Checked</FluentCheckbox>
-
-<h4>Inline</h4>
-<FluentCheckbox @bind-Value=value8>Apples</FluentCheckbox>
-<FluentCheckbox @bind-Value=value9>Bananas</FluentCheckbox>
-<FluentCheckbox @bind-Value=value10>Honeydew</FluentCheckbox>
-<FluentCheckbox @bind-Value=value11>Oranges</FluentCheckbox>
 @code {
-    bool value1, value2, value3 = true, value4, value5, value6, value7 = true, value8 = true, value9 = true, value10, value11 = true;
+    bool value1 = true;
+    bool value2 = true;
+    bool value3;
 }

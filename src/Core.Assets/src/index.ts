@@ -83,8 +83,18 @@ export function afterStarted(blazor: Blazor) {
     blazor.registerCustomEventType('checkedchange', {
         browserEventName: 'change',
         createEventArgs: event => {
+
+            // Hacking of a fake update
+            if (event.target!.isUpdating) {                
+                return {
+                    checked: null,
+                    indeterminate: null
+                }
+            }
+
             return {
                 checked: event.target!.currentChecked
+                indeterminate: event.target!.indeterminate
             };
         }
     });
@@ -92,7 +102,7 @@ export function afterStarted(blazor: Blazor) {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                checked: event.target.checked
+                checked: event.target!.checked
             };
         }
     });

@@ -110,9 +110,10 @@ public class FluentNavLinkTests : TestBase
     public void FluentNavLink_IconAndIconColor()
     {
         // Arrange & Act
+        var m = new FluentNavMenu();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
-            parameters.Add(p => p.NavMenuExpanded, true);
+            parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.Icon, SampleIcons.Info);
             parameters.Add(p => p.IconColor, Color.Neutral);
             parameters.AddChildContent("NavLink text");
@@ -128,8 +129,10 @@ public class FluentNavLinkTests : TestBase
         Action<MouseEventArgs> onClickHandler = _ => { };
 
         // Arrange & Act
+        var m = new FluentNavMenu();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
+            parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.OnClick, onClickHandler);
             parameters.AddChildContent("NavLink text");
         });

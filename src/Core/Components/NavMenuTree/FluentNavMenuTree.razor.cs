@@ -10,7 +10,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
     private bool _disposed;
-    private bool _hasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
+    private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private readonly Dictionary<string, FluentNavMenuItemBase> _allItems = [];
     private readonly List<FluentNavMenuItemBase> _childItems = [];
     private readonly string _expandCollapseTreeItemId = Identifier.NewId();
@@ -216,12 +216,9 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
             // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL 
             // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
             // Extra "/" is needed to avoid matching https://.../Panels with https://.../Panel
-            if (menuItem is null)
-            {
-                menuItem = _allItems.Values
+            menuItem ??= _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
                 .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/"), StringComparison.InvariantCultureIgnoreCase));
-            }
         }
         if (menuItem is not null) 
         {
@@ -288,7 +285,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
         // So try to activate the new one instead of the old one.
         // If it succeeds then keep it selected, if it fails then revert to the last successfully selected
         // tree item. This prevents the user from selecting an item with no Href or custom action.
-        if (treeItem?.Selected == true && _allItems.TryGetValue(treeItem.Id!, out FluentNavMenuItemBase? menuItem))
+        if (treeItem?.Selected == true && _allItems.TryGetValue(treeItem.Id!, out _))
         {
             bool activated = await TryActivateMenuItemAsync(treeItem);
             if (activated)

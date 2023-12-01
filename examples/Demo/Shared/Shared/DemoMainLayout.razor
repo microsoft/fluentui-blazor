@@ -62,16 +62,11 @@
 
                         <FluentMessageBarProvider Section="@App.MESSAGES_TOP" />
 
-                        <ErrorBoundary @ref="errorBoundary">
-                            <ChildContent>
+                       
                                 <CascadingValue Value=@OnRefreshTableOfContents>
                                     @Body
                                 </CascadingValue>
-                            </ChildContent>
-                            <ErrorContent Context="ex">
-                                <div class="blazor-error-boundary">@ex.Message</div>
-                            </ErrorContent>
-                        </ErrorBoundary>
+                           
                     </article>
                     <aside>
                         <TableOfContents @ref=_toc />
