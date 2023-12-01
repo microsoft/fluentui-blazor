@@ -7,8 +7,8 @@
     }
 }
 
-function createRequest(url: string, method: string, body = "") {
-    let requestInit: { [key: string]: string } =
+function createRequest(url, method, body = "") {
+    let requestInit =
     {
         method: method
     };
@@ -22,7 +22,7 @@ function createRequest(url: string, method: string, body = "") {
     return request;
 }
 
-export async function put(url: string, method: string, body = "", responseString: string) {
+export async function put(url, method, body = "", responseString) {
     const CACHING_DURATION = 7 * 24 * 3600;
 
     const expires = new Date();
@@ -42,7 +42,7 @@ export async function put(url: string, method: string, body = "", responseString
     }
 }
 
-export async function get(url: string, method: string, body = "") {
+export async function get(url, method, body = "") {
     let cache = await openCacheStorage();
     if (cache == null) {
         return "";
@@ -55,19 +55,20 @@ export async function get(url: string, method: string, body = "") {
         return "";
     }
     else {
-        /* TODO: Review this code */
-        const expirationDate = Date.parse(response.headers.get('fluent-cache-expires')!);
+        const expirationDate = Date.parse(response.headers.get('fluent-cache-expires'));
         const now = new Date();
         // Check it is not already expired and return from the cache
-        if (expirationDate > now.getTime()) {
-            return await response.text();
+        if (expirationDate > now) {
+            let result = await response.text();
+
+            return result;
         }
     }
 
     return "";
 }
 
-export async function remove(url: string, method: string, body = "") {
+export async function remove(url, method, body = "") {
     let cache = await openCacheStorage();
 
     if (cache != null) {
@@ -82,7 +83,7 @@ export async function removeAll() {
     if (cache != null) {
         cache.keys().then(function (names) {
             for (let name of names)
-                cache!.delete(name);
+                cache.delete(name);
         });
         //let requests = await cache.keys();
 
