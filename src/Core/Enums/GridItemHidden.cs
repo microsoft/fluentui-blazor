@@ -71,7 +71,7 @@ public enum GridItemHidden
     /// <summary>
     /// All sizes
     /// </summary>
-    XxlAndDown = Xs | Sm | Md | Lg | Xxl,
+    XxlAndDown = Xs | Sm | Md | Lg | Xl | Xxl,
 
     /// <summary>
     /// All sizes
