@@ -135,31 +135,33 @@
 
     IQueryable<HiddenValue> AllHiddenValues = new List<HiddenValue>()
     {
-        GetHiddenValue(GridItemHidden.None),
-        GetHiddenValue(GridItemHidden.Xs),
-        GetHiddenValue(GridItemHidden.Sm),
-        GetHiddenValue(GridItemHidden.Md),
-        GetHiddenValue(GridItemHidden.Lg),
-        GetHiddenValue(GridItemHidden.Xl),
-        GetHiddenValue(GridItemHidden.Xxl),
-        GetHiddenValue(GridItemHidden.XsAndDown),
-        GetHiddenValue(GridItemHidden.SmAndDown),
-        GetHiddenValue(GridItemHidden.MdAndDown),
-        GetHiddenValue(GridItemHidden.LgAndDown),
-        GetHiddenValue(GridItemHidden.XlAndDown),
-        GetHiddenValue(GridItemHidden.XxlAndDown),
-        GetHiddenValue(GridItemHidden.XsAndUp),
-        GetHiddenValue(GridItemHidden.SmAndUp),
-        GetHiddenValue(GridItemHidden.MdAndUp),
-        GetHiddenValue(GridItemHidden.LgAndUp),
-        GetHiddenValue(GridItemHidden.XlAndUp),
-        GetHiddenValue(GridItemHidden.XxlAndUp),
+        GetHiddenValue("None"),
+        GetHiddenValue("Xs"),
+        GetHiddenValue("Sm"),
+        GetHiddenValue("Md"),
+        GetHiddenValue("Lg"),
+        GetHiddenValue("Xl"),
+        GetHiddenValue("Xxl"),
+        GetHiddenValue("XsAndDown"),
+        GetHiddenValue("SmAndDown"),
+        GetHiddenValue("MdAndDown"),
+        GetHiddenValue("LgAndDown"),
+        GetHiddenValue("XlAndDown"),
+        GetHiddenValue("XxlAndDown"),
+        GetHiddenValue("XsAndUp"),
+        GetHiddenValue("SmAndUp"),
+        GetHiddenValue("MdAndUp"),
+        GetHiddenValue("LgAndUp"),
+        GetHiddenValue("XlAndUp"),
+        GetHiddenValue("XxlAndUp"),
     }.AsQueryable();
 
-    private static HiddenValue GetHiddenValue(GridItemHidden item)
+    private static HiddenValue GetHiddenValue(string name)
     {
+        var item = Enum.Parse<GridItemHidden>(name);
+
         return new(
-            Enum.GetName<GridItemHidden>(item) ?? string.Empty,
+            name,
             (item & GridItemHidden.Xs) == GridItemHidden.Xs,
             (item & GridItemHidden.Sm) == GridItemHidden.Sm,
             (item & GridItemHidden.Md) == GridItemHidden.Md,
