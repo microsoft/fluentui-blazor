@@ -12,6 +12,7 @@ import {
 
 class DesignTheme extends HTMLElement {
 
+    private _isColorSchemeChangedRegistered: boolean = false;
     static _DEFAULT_COLOR = "#0078D4";
     static _instanceCounter = 0;
     static _COLORS = [
@@ -119,17 +120,13 @@ class DesignTheme extends HTMLElement {
 
         // Detect system theme changing
         window.matchMedia("(prefers-color-scheme: dark)")
-            .addEventListener("change", ({ matches }) => {
-                if (matches) {
-                    this.mode = "dark";
-                } else {
-                    this.mode = "light";
-                }
-            })
+            .addEventListener("change", e => this.colorSchemeChanged(e));
+        this._isColorSchemeChangedRegistered = true;
     }
 
     // Custom element removed from page.
     disconnectedCallback() {
+        this._isColorSchemeChangedRegistered = false;
         DesignTheme._instanceCounter--;
     }
 
@@ -137,11 +134,12 @@ class DesignTheme extends HTMLElement {
     adoptedCallback() {
     }
 
+    // Attributes to observe
     static get observedAttributes() {
         return ["mode", "primary-color"];
     }
 
-    // Attribute "name" has changed.
+    // Attributes has changed.
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
 
         if (this._isInternalChange) {
@@ -150,6 +148,7 @@ class DesignTheme extends HTMLElement {
 
         switch (name) {
             case "mode":
+                this.modeAttributeChanged(oldValue, newValue);
                 this.mode = newValue;
                 break;
 
@@ -159,12 +158,39 @@ class DesignTheme extends HTMLElement {
         }
     }
 
-    applyOffice(name: string | null) {
+    colorSchemeChanged(e: MediaQueryListEvent) {
+        if (!this._isColorSchemeChangedRegistered) {
+            return;
+        }
+
+        const currentMode = this.getAttribute("mode");
+
+        if (e.matches) {
+            if (currentMode !== "dark") {
+                this.modeAttributeChanged(currentMode, "dark");
+                this.mode = "dark";
+            }
+            
+        } else {
+            if (currentMode !== "light") {
+                this.modeAttributeChanged(currentMode, "light");
+                this.mode = "light";
+            }
+        }
+    }
+
+    private modeAttributeChanged(oldValue: string | null, newValue: string | null): void {
+        if (oldValue !== newValue) {
+            console.log(`mode changed ${oldValue} ${newValue}`);
+        }
+    }
+
+    private applyOffice(name: string | null): void {
         const color = DesignTheme._COLORS.find(item => item.App.toLowerCase() === name?.toLowerCase())?.Color;
         this.applyColor(color ?? DesignTheme._DEFAULT_COLOR);
     }
 
-    applyColor(color: string | null) {
+    private applyColor(color: string | null): void {
         const rgb = this.parseColorHexRGB(color ?? DesignTheme._DEFAULT_COLOR);
         if (rgb != null) {
             const swatch = SwatchRGB.from(rgb);
@@ -172,10 +198,10 @@ class DesignTheme extends HTMLElement {
         }
     }
 
-    updateAttribute(name: string, value: string | null) {
+    private updateAttribute(name: string, value: string | null): void {
         this._isInternalChange = true;
 
-        if (name != value) {
+        if (this.getAttribute(name) != value) {
             if (value) {
                 this.setAttribute(name, value);
             } else {
@@ -189,7 +215,7 @@ class DesignTheme extends HTMLElement {
     /**
      * See https://github.com/microsoft/fast -> packages/utilities/fast-colors/src/parse-color.ts
      */
-    parseColorHexRGB(raw: string): ColorRGB | null {
+    private parseColorHexRGB(raw: string): ColorRGB | null {
         // Matches #RGB and #RRGGBB, where R, G, and B are [0-9] or [A-F]
         const hexRGBRegex: RegExp = /^#((?:[0-9a-f]{6}|[0-9a-f]{3}))$/i;
         const result: string[] | null = hexRGBRegex.exec(raw);
@@ -224,7 +250,7 @@ class DesignTheme extends HTMLElement {
     /**
      * Scales an input to a number between 0 and 1
      */
-    normalized(i: number, min: number, max: number): number {
+    private normalized(i: number, min: number, max: number): number {
         if (isNaN(i) || i <= min) {
             return 0.0;
         } else if (i >= max) {
