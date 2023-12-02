@@ -2112,6 +2112,9 @@
             Gets or sets the application to defined the Accent base color.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnChangeRaisedAsync(System.String,System.String,System.String)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
             <summary />
         </member>

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -7,6 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDesignTheme : ComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
+    private DotNetObjectReference<FluentDesignTheme>? _dotNetHelper = null;
 
     /// <summary />
     [Inject]
@@ -39,12 +39,34 @@ public partial class FluentDesignTheme : ComponentBase
     [Parameter]
     public OfficeColor? OfficeColor { get; set; }
 
+    [Parameter]
+    public EventCallback<DesignThemeModes> ModeChanged { get; set; }
+
+    /// <summary />
+    [JSInvokable]
+    public async Task OnChangeRaisedAsync(string name, string oleValue, string newValue)
+    {
+        Console.WriteLine($"{name} - {oleValue} - {newValue}");
+
+        if (name == "mode" && ModeChanged.HasDelegate)
+        {
+            if (!Enum.TryParse<DesignThemeModes>(newValue, true, out var mode))
+            {
+                mode = DesignThemeModes.System;
+            }
+
+            await ModeChanged.InvokeAsync(mode);
+        }
+    }
+
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await Module.InvokeVoidAsync("addThemeChangeEvent", Id);
+            _dotNetHelper = DotNetObjectReference.Create(this);
+
+            await Module.InvokeVoidAsync("addThemeChangeEvent", _dotNetHelper, Id);
         }
     }
 

@@ -1,30 +1,36 @@
 
-<FluentDesignTheme Mode="@Mode" OfficeColor="OfficeColor" />
+<FluentDesignTheme @bind-Mode="@Mode" OfficeColor="OfficeColor" />
 
-<FluentGrid>
-    <FluentGridItem xs="12" md="6">
-        <FluentSelect Label="Theme"
-                      Items="@(Enum.GetValues<DesignThemeModes>())"
-                      @bind-SelectedOption="@Mode" />
-    </FluentGridItem>
+<div style="min-height: 400px;">
+    <FluentGrid>
+        <FluentGridItem xs="12" md="6">
+            <FluentSelect Label="Theme"
+                          Items="@(Enum.GetValues<DesignThemeModes>())"
+                          @bind-SelectedOption="@Mode" />
+        </FluentGridItem>
 
-    <FluentGridItem xs="12" md="6">
-        <FluentSelect Label="Color"
-                      Items="@(Enum.GetValues<OfficeColor>())"
-                      Height="200px"
-                      @bind-SelectedOption="@OfficeColor">
-            <OptionTemplate>
-                <FluentStack>
-                    <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
-                                Color="Color.Custom"
-                                CustomColor="@context.ToAttributeValue()"/>
-                    <FluentLabel>@context</FluentLabel>
-                </FluentStack>
-            </OptionTemplate>
-        </FluentSelect>
-    </FluentGridItem>
+        <FluentGridItem xs="12" md="6">
+            <FluentSelect Label="Color"
+                          Items="@(Enum.GetValues<OfficeColor>())"
+                          Height="200px"
+                          @bind-SelectedOption="@OfficeColor">
+                <OptionTemplate>
+                    <FluentStack>
+                        <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
+                                    Color="Color.Custom"
+                                    CustomColor="@context.ToAttributeValue()" />
+                        <FluentLabel>@context</FluentLabel>
+                    </FluentStack>
+                </OptionTemplate>
+            </FluentSelect>
+        </FluentGridItem>
 
-</FluentGrid>
+        <FluentGridItem xs="12">
+            @Mode
+        </FluentGridItem>
+
+    </FluentGrid>
+</div>
 
 @code
 {
