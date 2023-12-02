@@ -67,14 +67,17 @@ class DesignTheme extends HTMLElement {
         this.updateAttribute("theme", value);
 
         switch (value) {
+            // Dark mode - Luminance = 0.15
             case "dark":
                 baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
                 break;
 
+            // Light mode - Luminance = 0.98
             case "light":
                 baseLayerLuminance.withDefault(StandardLuminance.LightMode);
                 break;
 
+            // System mode
             default:
                 const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
                 if (isDark) {
@@ -99,7 +102,13 @@ class DesignTheme extends HTMLElement {
      */
     set color(value) {
         this.updateAttribute("color", value);
-        this.applyColor(value);
+
+        if (value.startsWith("#")) {
+            this.applyColor(value);
+        }
+        else {
+            this.applyOffice(value);
+        }
 
         const appName = DesignTheme._COLORS.find(item => item.Color.toLowerCase() === value.toLowerCase())?.App;
         this.updateAttribute("app-name", appName);
@@ -120,9 +129,7 @@ class DesignTheme extends HTMLElement {
      */
     set appName(value) {
         this.updateAttribute("app-name", value);
-
-        const color = DesignTheme._COLORS.find(item => item.App.toLowerCase() === value.toLowerCase())?.Color ?? DesignTheme._DEFAULT_COLOR;
-        this.color = color;
+        this.applyOffice(value);
     }
 
     // Custom element added to page.
@@ -177,6 +184,11 @@ class DesignTheme extends HTMLElement {
                 this.appName = newValue;
                 break;
         }
+    }
+
+    applyOffice(name) {
+        const color = DesignTheme._COLORS.find(item => item.App.toLowerCase() === name.toLowerCase())?.Color ?? DesignTheme._DEFAULT_COLOR;
+        this.color = color;
     }
 
     applyColor(color) {
