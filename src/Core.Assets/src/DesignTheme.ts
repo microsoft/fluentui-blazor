@@ -52,7 +52,7 @@ class DesignTheme extends HTMLElement {
      * Gets the current mode (dark/light) attribute value.
      */
     get mode(): string | null {
-        return this.getAttribute('mode');
+        return this.getAttribute("mode");
     }
 
     /**
@@ -74,7 +74,7 @@ class DesignTheme extends HTMLElement {
 
             // System mode
             default:
-                const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
                 if (isDark) {
                     baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
                 }
@@ -91,15 +91,15 @@ class DesignTheme extends HTMLElement {
     * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype, 
     * Stream, Sway, Teams, Visio, Windows, Word, Yammer
     */
-    get color(): string | null {
-        return this.getAttribute('color');
+    get primaryColor(): string | null {
+        return this.getAttribute("primary-color");
     }
 
     /**
      * Sets the current color or office name attribute value.
      */
-    set color(value: string | null) {
-        this.updateAttribute("color", value);
+    set primaryColor(value: string | null) {
+        this.updateAttribute("primary-color", value);
 
         if (value != null && value.startsWith("#")) {
             this.applyColor(value);
@@ -138,7 +138,7 @@ class DesignTheme extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["mode", "color"];
+        return ["mode", "primary-color"];
     }
 
     // Attribute "name" has changed.
@@ -153,8 +153,8 @@ class DesignTheme extends HTMLElement {
                 this.mode = newValue;
                 break;
 
-            case "color":
-                this.color = newValue;
+            case "primary-color":
+                this.primaryColor = newValue;
                 break;
         }
     }

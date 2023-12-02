@@ -2086,6 +2086,24 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
+            <summary>
+            Gets or sets the Theme mode: Dark, Light, or browser System theme.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor">
+            <summary>
+            Gets or sets the Accent base color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor">
+            <summary>
+            Gets or sets the application to defined the Accent base color.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IDialogContentComponent">
             <summary>
             A component implementing this interface can be used as dialog content.
@@ -10002,6 +10020,26 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType.StickyHeader">
             <summary>
             A sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes">
+            <summary>
+            The standard theme values for light and dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.System">
+            <summary>
+            Browser System theme
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.Light">
+            <summary>
+            Light theme
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.Dark">
+            <summary>
+            Dark theme
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogType">

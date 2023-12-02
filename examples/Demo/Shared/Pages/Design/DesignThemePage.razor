@@ -1,0 +1,43 @@
+﻿@page "/DesignTheme"
+@using FluentUI.Demo.Shared.Pages.Design.Examples
+
+<h1>Theming</h1>
+
+<p>
+    The theme provider specifies all the colors, shapes, sizes and shadows for your layout.
+</p>
+<p>
+    <strong>FluentDesignTheme</strong> lets you quickly manage the main color and mode (dark/light)
+    of your <strong>entire</strong> application. <br />
+    If you'd like to customize all the details of your application, or just part of it, please use
+    the <a href="/DesignTokens">DesignTokens</a>
+</p>
+
+<blockquote>
+    &#9888; This <strong>FluentDesignTheme</strong> component can only be added once to your HTML code.
+    As it manages the theme of the entire page, it avoids the effects of interaction between several elements.
+</blockquote>
+
+<h2 id="DesignTheme">FluentDesignTheme</h2>
+
+<p>
+    <strong>FluentDesignTheme</strong> is both a Blazor component but also available in HTML to allow theme configuration,
+    before Blazor components are rendered to avoid a "sparkling/flash" effect at page startup.
+    Particularly when using a WebAssembly project, which may require more time to load the Assemblies needed to run the application.
+
+    <br />
+    <br />
+    <b>Example in HTML</b><br />
+    <CodeSnippet Language="xml">
+        @(
+            @"<fluent-design-theme mode=""dark"" primary-color=""word"" />")"
+    </CodeSnippet>
+
+    <b>Example in Blazor</b><br />
+    <CodeSnippet Language="xml">
+        @(
+            @"<FluentDesignTheme Mode=""DesignThemeModes.Dark"" OfficeColor=""OfficeColor.Word"" />")"
+    </CodeSnippet>
+</p>
+
+<DemoSection Title="" Component="@typeof(DesignThemeDefault)" />
