@@ -2,6 +2,7 @@
 
 export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
+import { DesignTheme } from './DesignTheme'
 import styles from './Styles.css' assert { type: "css" }
 
 var styleSheet = new CSSStyleSheet();
@@ -66,8 +67,6 @@ export function afterServerStarted(blazor: any) {
 }
 
 export function afterStarted(blazor: Blazor) {
-
-    customElements.define("split-panels", SplitPanels);
 
     blazor.registerCustomEventType('radiogroupclick', {
         browserEventName: 'click',
@@ -245,5 +244,9 @@ export function afterStarted(blazor: Blazor) {
 }
 
 export function beforeStart(options: any) {
+
+    customElements.define("fluent-design-theme", DesignTheme);
+    customElements.define("split-panels", SplitPanels);
+
     beforeStartCalled = true;
 }

@@ -8,7 +8,7 @@ import {
     neutralBaseColor,
     accentBaseColor,
     SwatchRGB
-} from "./web-components-v2.5.16.min.js";
+} from "@fluentui/web-components/dist/web-components";
 
 class DesignTheme extends HTMLElement {
 
@@ -44,29 +44,24 @@ class DesignTheme extends HTMLElement {
 
     _isInternalChange = false;
 
-    BaseLayerLuminance = baseLayerLuminance;
-    StandardLuminance = StandardLuminance;
-    NeutralBaseColor = neutralBaseColor;
-    AccentBaseColor = accentBaseColor;
-
     constructor() {
         super();
     }
 
     /**
-     * Gets the current theme attribute value.
+     * Gets the current mode (dark/light) attribute value.
      */
-    get theme() {
-        return this.getAttribute('theme');
+    get mode(): string | null {
+        return this.getAttribute('mode');
     }
 
     /**
-     * Sets the current theme attribute value.
+     * Sets the current mode (dark/light) attribute value.
      */
-    set theme(value) {
-        this.updateAttribute("theme", value);
+    set mode(value: string | null) {
+        this.updateAttribute("mode", value);
 
-        switch (value) {
+        switch (value?.toLowerCase()) {
             // Dark mode - Luminance = 0.15
             case "dark":
                 baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
@@ -91,45 +86,27 @@ class DesignTheme extends HTMLElement {
     }
 
     /**
-    * Gets the current color attribute value.
+    * Gets the current color or office name attribute value.
+    * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook, 
+    * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype, 
+    * Stream, Sway, Teams, Visio, Windows, Word, Yammer
     */
-    get color() {
+    get color(): string | null {
         return this.getAttribute('color');
     }
 
     /**
-     * Sets the current color attribute value.
+     * Sets the current color or office name attribute value.
      */
-    set color(value) {
+    set color(value: string | null) {
         this.updateAttribute("color", value);
 
-        if (value.startsWith("#")) {
+        if (value != null && value.startsWith("#")) {
             this.applyColor(value);
         }
         else {
             this.applyOffice(value);
         }
-
-        const appName = DesignTheme._COLORS.find(item => item.Color.toLowerCase() === value.toLowerCase())?.App;
-        this.updateAttribute("app-name", appName);
-    }
-
-    /**
-    * Gets the current Microsoft application name
-    */
-    get appName() {
-        return this.getAttribute('app-name');
-    }
-
-    /**
-     * Sets the current color based on a Microsoft Application name.
-     * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook, 
-     * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype, 
-     * Stream, Sway, Teams, Visio, Windows, Word, Yammer
-     */
-    set appName(value) {
-        this.updateAttribute("app-name", value);
-        this.applyOffice(value);
     }
 
     // Custom element added to page.
@@ -144,9 +121,9 @@ class DesignTheme extends HTMLElement {
         window.matchMedia("(prefers-color-scheme: dark)")
             .addEventListener("change", ({ matches }) => {
                 if (matches) {
-                    this.theme = "dark";
+                    this.mode = "dark";
                 } else {
-                    this.theme = "light";
+                    this.mode = "light";
                 }
             })
     }
@@ -161,43 +138,41 @@ class DesignTheme extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["theme", "color", "app-name"];
+        return ["mode", "color"];
     }
 
     // Attribute "name" has changed.
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
 
         if (this._isInternalChange) {
             return;
         }
 
         switch (name) {
-            case "theme":
-                this.theme = newValue;
+            case "mode":
+                this.mode = newValue;
                 break;
 
             case "color":
                 this.color = newValue;
                 break;
-
-            case "app-name":
-                this.appName = newValue;
-                break;
         }
     }
 
-    applyOffice(name) {
-        const color = DesignTheme._COLORS.find(item => item.App.toLowerCase() === name.toLowerCase())?.Color ?? DesignTheme._DEFAULT_COLOR;
-        this.color = color;
+    applyOffice(name: string | null) {
+        const color = DesignTheme._COLORS.find(item => item.App.toLowerCase() === name?.toLowerCase())?.Color;
+        this.applyColor(color ?? DesignTheme._DEFAULT_COLOR);
     }
 
-    applyColor(color) {
+    applyColor(color: string | null) {
         const rgb = this.parseColorHexRGB(color ?? DesignTheme._DEFAULT_COLOR);
-        const swatch = SwatchRGB.from(rgb);
-        this.AccentBaseColor.withDefault(swatch);
+        if (rgb != null) {
+            const swatch = SwatchRGB.from(rgb);
+            accentBaseColor.withDefault(swatch);
+        }
     }
 
-    updateAttribute(name, value) {
+    updateAttribute(name: string, value: string | null) {
         this._isInternalChange = true;
 
         if (name != value) {
@@ -214,42 +189,42 @@ class DesignTheme extends HTMLElement {
     /**
      * See https://github.com/microsoft/fast -> packages/utilities/fast-colors/src/parse-color.ts
      */
-    parseColorHexRGB(raw) {
+    parseColorHexRGB(raw: string): ColorRGB | null {
         // Matches #RGB and #RRGGBB, where R, G, and B are [0-9] or [A-F]
-        const hexRGBRegex = /^#((?:[0-9a-f]{6}|[0-9a-f]{3}))$/i;
-        const result = hexRGBRegex.exec(raw);
+        const hexRGBRegex: RegExp = /^#((?:[0-9a-f]{6}|[0-9a-f]{3}))$/i;
+        const result: string[] | null = hexRGBRegex.exec(raw);
 
         if (result === null) {
             return null;
         }
 
-        let digits = result[1];
+        let digits: string = result[1];
 
         if (digits.length === 3) {
-            const r = digits.charAt(0);
-            const g = digits.charAt(1);
-            const b = digits.charAt(2);
+            const r: string = digits.charAt(0);
+            const g: string = digits.charAt(1);
+            const b: string = digits.charAt(2);
 
             digits = r.concat(r, g, g, b, b);
         }
 
-        const rawInt = parseInt(digits, 16);
+        const rawInt: number = parseInt(digits, 16);
 
         if (isNaN(rawInt)) {
             return null;
         }
 
-        return {
-            r: this.normalize((rawInt & 0xff0000) >>> 16, 0, 255),
-            g: this.normalize((rawInt & 0x00ff00) >>> 8, 0, 255),
-            b: this.normalize(rawInt & 0x0000ff, 0, 255),
-        }
+        return new ColorRGB(
+            this.normalized((rawInt & 0xff0000) >>> 16, 0, 255),
+            this.normalized((rawInt & 0x00ff00) >>> 8, 0, 255),
+            this.normalized(rawInt & 0x0000ff, 0, 255),
+        );
     }
 
     /**
      * Scales an input to a number between 0 and 1
      */
-    normalize(i, min, max) {
+    normalized(i: number, min: number, max: number): number {
         if (isNaN(i) || i <= min) {
             return 0.0;
         } else if (i >= max) {
@@ -257,6 +232,18 @@ class DesignTheme extends HTMLElement {
         }
         return i / (max - min);
     }
+}
+
+class ColorRGB {
+    constructor(red: number, green: number, blue: number) {
+        this.r = red;
+        this.g = green;
+        this.b = blue;
+    }
+
+    public readonly r: number;
+    public readonly g: number;
+    public readonly b: number;
 }
 
 export { DesignTheme };
