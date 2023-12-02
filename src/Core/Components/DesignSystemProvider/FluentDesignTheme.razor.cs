@@ -1,9 +1,26 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDesignTheme : ComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
+    /// <summary>
+    /// Gets or sets the identifier for the component.
+    /// </summary>
+    [Parameter]
+    public string Id { get; set; } = Identifier.NewId();
+
     /// <summary>
     /// Gets or sets the Theme mode: Dark, Light, or browser System theme.
     /// </summary>
@@ -21,6 +38,15 @@ public partial class FluentDesignTheme : ComponentBase
     /// </summary>
     [Parameter]
     public OfficeColor? OfficeColor { get; set; }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("addThemeChangeEvent", Id);
+        }
+    }
 
     /// <summary />
     private string? GetColor()

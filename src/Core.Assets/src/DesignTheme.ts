@@ -146,9 +146,10 @@ class DesignTheme extends HTMLElement {
             return;
         }
 
+        this.modeAttributeChanged(name, oldValue, newValue);
+
         switch (name) {
             case "mode":
-                this.modeAttributeChanged(oldValue, newValue);
                 this.mode = newValue;
                 break;
 
@@ -167,21 +168,30 @@ class DesignTheme extends HTMLElement {
 
         if (e.matches) {
             if (currentMode !== "dark") {
-                this.modeAttributeChanged(currentMode, "dark");
+                this.modeAttributeChanged("mode", currentMode, "dark");
                 this.mode = "dark";
             }
             
         } else {
             if (currentMode !== "light") {
-                this.modeAttributeChanged(currentMode, "light");
+                this.modeAttributeChanged("mode", currentMode, "light");
                 this.mode = "light";
             }
         }
     }
 
-    private modeAttributeChanged(oldValue: string | null, newValue: string | null): void {
+    private modeAttributeChanged(name: string, oldValue: string | null, newValue: string | null): void {
         if (oldValue !== newValue) {
-            console.log(`mode changed ${oldValue} ${newValue}`);
+            this.dispatchEvent(
+                new CustomEvent("onchange", {
+                    bubbles: true,
+                    detail: {
+                        name: name,
+                        oldValue: oldValue,
+                        newValue: newValue,
+                    },
+                }),
+            );
         }
     }
 

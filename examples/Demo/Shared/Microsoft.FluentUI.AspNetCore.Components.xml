@@ -2086,6 +2086,17 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Id">
+            <summary>
+            Gets or sets the identifier for the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
             <summary>
             Gets or sets the Theme mode: Dark, Light, or browser System theme.
