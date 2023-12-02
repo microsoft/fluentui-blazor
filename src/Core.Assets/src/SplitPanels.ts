@@ -1,4 +1,4 @@
-﻿function fireEvent(element, eventName, detail) {
+﻿function fireEvent(element: HTMLElement, eventName: string, detail: any) {
     const event = new CustomEvent(eventName, { detail, bubbles: true, cancelable: true })
     return element.dispatchEvent(event);
 }
@@ -61,7 +61,8 @@ class SplitPanels extends HTMLElement {
         super();
         this.bind(this);
     }
-    bind(element) {
+    /* TODO: Proper type for element */
+    bind(element: any) {
         element.attachEvents = element.attachEvents.bind(element);
         element.render = element.render.bind(element);
         element.cacheDom = element.cacheDom.bind(element);
@@ -73,10 +74,7 @@ class SplitPanels extends HTMLElement {
         shadow.adoptedStyleSheets.push(styleSheet);
         shadow.innerHTML = template;
 
-        if (this.direction === "row")
-            shadow.querySelector('#median').style.inlineSize = this.barsize +'px';
-        else
-            shadow.querySelector('#median').style.blockSize = this.barsize + 'px';
+        this.updateBarSizeStyle();
     }
     connectedCallback() {
         this.render();
@@ -85,13 +83,13 @@ class SplitPanels extends HTMLElement {
     }
     cacheDom() {
         this.dom = {
-            median: this.shadowRoot.querySelector("#median")
+            median: this.shadowRoot!.querySelector("#median")
         };
     }
     attachEvents() {
-        this.dom.median.addEventListener("pointerdown", this.pointerdown);
+        this.dom!.median!.addEventListener("pointerdown", this.pointerdown);
     }
-    pointerdown(e) {
+    pointerdown(e: PointerEvent) {
         this.isResizing = true;
         const clientRect = this.getBoundingClientRect();
         this.left = clientRect.x;
@@ -107,7 +105,7 @@ class SplitPanels extends HTMLElement {
         this.removeEventListener("pointermove", this.resizeDrag);
         this.removeEventListener("pointerup", this.pointerup);
     }
-    resizeDrag(e) {
+    resizeDrag(e: PointerEvent) {
         if (this.direction === "row") {
             const newMedianLeft = e.clientX - this.left;
             const median = this.barsize;
@@ -157,9 +155,23 @@ class SplitPanels extends HTMLElement {
             this.style.gridTemplateRows = `${slot1fraction}fr ${median}px ${slot2fraction}fr`;
         }
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    updateBarSizeStyle() {
+        let median = this.shadowRoot?.querySelector('#median');
+
+        if (median) {
+            if (this.direction === "row") {
+                median.style.inlineSize = this.barsize + 'px';
+                median.style.blockSize = null;
+            }
+            else {
+                median.style.blockSize = this.barsize + 'px';
+                median.style.inlineSize = null;
+            }
+        }
+    }
+    attributeChangedCallback(name: string, oldValue: any, newValue: any) {
         if (newValue != oldValue) {
-            this[name] = newValue;
+            (this as any as DOMStringMap)[name] = newValue;
         }
     }
     ensurevalue(value) {
@@ -198,6 +210,7 @@ class SplitPanels extends HTMLElement {
         this.setAttribute("direction", value);
         this.style.gridTemplateRows = "";
         this.style.gridTemplateColumns = "";
+        this.updateBarSizeStyle();
     }
     get direction() {
         return this.#direction;
@@ -233,6 +246,7 @@ class SplitPanels extends HTMLElement {
     }
     set barsize(value) {
         this.#barsize = value;
+        this.updateBarSizeStyle();
     }
     get barsize() {
         return this.#barsize;

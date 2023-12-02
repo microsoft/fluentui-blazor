@@ -1,4 +1,12 @@
-﻿## V4.1.0
+﻿## 4.1.1
+- Fix [#939](https://github.com/microsoft/fluentui-blazor/issues/939): Add `OptionTemplate` for `FluentCombobox`, `FluentListBox` and `FluentSelect` 
+- Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): `FluentNumberField` can be changed when `ReadOnly`
+- FluentNavMenu: Add `Tooltip` parameter to `FluentNavMenuGroup` (fallback to `Title`) and `FluentNavLink`
+- FluentNavMenu: Expand the menu when collapsed and a navitem is clicked 
+- FluentInputFile: Add ProgressTemplate and a bindable ProgressPercent attribute
+- Templates: Add missing Client project to `_Imports.razor`
+
+## V4.1.0
 - FluentCalendar: Add new views to select month/year 
 - FluentCheckbox: Add tri-state support
 - FluentAccordionItem: Add HeaderTemplate parameter

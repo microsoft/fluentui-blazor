@@ -1,0 +1,17 @@
+﻿@inject DataSource Data
+
+<FluentListbox Items="@Data.People"
+               OptionValue="@(i => i.PersonId.ToString())"
+               @bind-SelectedOption=@Person>
+    <OptionTemplate>
+        <FluentIcon Icon="Icons.Regular.Size16.Person" Slot="end" OnClick="@(() => DemoLogger.WriteLine($"Icon for {@context.LastName} selected"))" />
+        @context.FirstName (@context.LastName)
+    </OptionTemplate>
+</FluentListbox>
+<p>
+    Selected: @Person?.FirstName (@Person?.LastName)
+</p>
+
+@code {
+    public Person Person { get; set; } = default!;
+}
