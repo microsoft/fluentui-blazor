@@ -2,6 +2,11 @@
 @inherits TestContext
 @code
 {
+    public FluentGridTests()
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentGrid_Default()
     {
