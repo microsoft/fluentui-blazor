@@ -42,12 +42,15 @@
 
 <DemoSection Title="Remove queued toasts" Component="typeof(ToastClearQueue)" ShowDownloads=false></DemoSection>
 
-<h2 id="toastcontainer">Toast container</h2>
+<h2 id="toastprovider">ToastProvider</h2>
 
 <strong>IMPORTANT!!</strong>
 <p>
-    Toasts are rendered through the <code>&lt;FluentToastContainer /&gt;</code> component. This component needs to be added to the main layout of your application/site.
-    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+    Toasts are rendered through the <code>&lt;FluentToastProvider /&gt;</code> component. This component needs to be added to the main layout of your application/site.
+    You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like shown below.
+</p>
+<p>
+    <strong>For the Toasts to work properly, the component the <code>&lt;FluentToastProvider/&gt;</code> is placed in needs to be interactive!</strong>
 </p>
 <CodeSnippet>
     &lt;main&gt;
@@ -59,12 +62,12 @@
                 @@Body
             &lt;/article&gt;
         &lt;/div&gt;
-        &lt;FluentToastContainer MaxToastCount=&quot;10&quot; /&gt;
+        &lt;FluentToastProvider MaxToastCount=&quot;10&quot; /&gt;
     &lt;/main&gt;
 </CodeSnippet>
 
 <p>
-    See the documentation below for more information about the <code>FluentToastContainer</code> parameters.
+    See the documentation below for more information about the <code>FluentToastProvider</code> parameters.
 </p>
 
 <h2 id="documentation">Documentation</h2>
