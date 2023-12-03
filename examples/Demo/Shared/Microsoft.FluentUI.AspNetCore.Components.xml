@@ -3160,6 +3160,12 @@
             that are used for specific screen sizes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Spacing">
             <summary>
             Gets or sets the distance between flexbox items, using a multiple of 4px.
@@ -3174,6 +3180,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ChildContent">
             <summary>
             Gets or sets the child content of component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.OnSizeEnter">
+            <summary>
+            when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ClassValue">
@@ -10299,7 +10310,7 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xs">
             <summary>
-            Browser size less  that 599px
+            Browser size less than 599px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Sm">
@@ -10329,27 +10340,27 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndDown">
             <summary>
-            Browser size less  that 599px
+            Browser size less than 599px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.SmAndDown">
             <summary>
-            Browser size less  that 959px
+            Browser size less than 959px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.MdAndDown">
             <summary>
-            Browser size less  that 1279px
+            Browser size less than 1279px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.LgAndDown">
             <summary>
-            Browser size less  that 1919px
+            Browser size less than 1919px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XlAndDown">
             <summary>
-            Browser size less that 2559px
+            Browser size less than 2559px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XxlAndDown">
@@ -10364,27 +10375,62 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.SmAndUp">
             <summary>
-            Browser size greater that 600px
+            Browser size greater than 600px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.MdAndUp">
             <summary>
-            Browser size greater that 960px
+            Browser size greater than 960px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.LgAndUp">
             <summary>
-            Browser size greater that 1280px
+            Browser size greater than 1280px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XlAndUp">
             <summary>
-            Browser size greater that 1920px
+            Browser size greater than 1920px
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XxlAndUp">
             <summary>
-            Browser size greater that 2560px
+            Browser size greater than 2560px
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemSize">
+            <summary>
+            Size available for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentGrid"/> when a Resize event raised.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xxl">
+            <summary>
+            Browser size greater  than 2560px
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment">

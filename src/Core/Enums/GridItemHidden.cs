@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Microsoft.FluentUI.AspNetCore.Components;
+﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Hide the <see cref="FluentGridItem"/> when a size condition is met.
@@ -14,7 +12,7 @@ public enum GridItemHidden
     None = 0,
 
     /// <summary>
-    /// Browser size less  that 599px
+    /// Browser size less than 599px
     /// </summary>
     Xs = 1,
 
@@ -44,27 +42,27 @@ public enum GridItemHidden
     Xxl = 32,
 
     /// <summary>
-    /// Browser size less  that 599px
+    /// Browser size less than 599px
     /// </summary>
     XsAndDown = Xs,
 
     /// <summary>
-    /// Browser size less  that 959px
+    /// Browser size less than 959px
     /// </summary>
     SmAndDown = Xs | Sm,
 
     /// <summary>
-    /// Browser size less  that 1279px
+    /// Browser size less than 1279px
     /// </summary>
     MdAndDown = Xs | Sm | Md,
 
     /// <summary>
-    /// Browser size less  that 1919px
+    /// Browser size less than 1919px
     /// </summary>
     LgAndDown = Xs | Sm | Md | Lg,
 
     /// <summary>
-    /// Browser size less that 2559px
+    /// Browser size less than 2559px
     /// </summary>
     XlAndDown = Xs | Sm | Md | Lg | Xl,
 
@@ -79,27 +77,27 @@ public enum GridItemHidden
     XsAndUp = Xs | Sm | Md | Lg | Xl | Xxl,
 
     /// <summary>
-    /// Browser size greater that 600px
+    /// Browser size greater than 600px
     /// </summary>
     SmAndUp = Sm | Md | Lg | Xl | Xxl,
 
     /// <summary>
-    /// Browser size greater that 960px
+    /// Browser size greater than 960px
     /// </summary>
     MdAndUp = Md | Lg | Xl | Xxl,
 
     /// <summary>
-    /// Browser size greater that 1280px
+    /// Browser size greater than 1280px
     /// </summary>
     LgAndUp = Lg | Xl | Xxl,
 
     /// <summary>
-    /// Browser size greater that 1920px
+    /// Browser size greater than 1920px
     /// </summary>
     XlAndUp = Xl | Xxl,
 
     /// <summary>
-    /// Browser size greater that 2560px
+    /// Browser size greater than 2560px
     /// </summary>
     XxlAndUp = Xxl,
 }
