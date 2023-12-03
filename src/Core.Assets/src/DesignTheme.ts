@@ -2,6 +2,13 @@
 // https://learn.microsoft.com/en-us/fluent-ui/web-components/getting-started/styling
 // ********************
 
+
+/*
+    Passer Dark/Light mode uniquement si on est en System.
+    Forcer Dark / Light si c'est le choix de l'utilisateur
+*/
+
+
 import {
     baseLayerLuminance,
     StandardLuminance,
@@ -159,7 +166,11 @@ class DesignTheme extends HTMLElement {
         }
     }
 
-    colorSchemeChanged(e: MediaQueryListEvent) {
+    private isSystemDark(): boolean {
+        return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+
+    private colorSchemeChanged(e: MediaQueryListEvent) {
         if (!this._isColorSchemeChangedRegistered) {
             return;
         }

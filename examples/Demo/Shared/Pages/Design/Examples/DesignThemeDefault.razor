@@ -1,15 +1,14 @@
+<FluentDesignTheme @bind-Mode="@Mode" OfficeColor="@OfficeColor" />
 
-<FluentDesignTheme @bind-Mode="@Mode" OfficeColor="OfficeColor" />
-
-<div style="min-height: 400px;">
+<div style="min-height: 250px;">
     <FluentGrid>
-        <FluentGridItem xs="12" md="6">
+        <FluentGridItem>
             <FluentSelect Label="Theme"
                           Items="@(Enum.GetValues<DesignThemeModes>())"
                           @bind-SelectedOption="@Mode" />
         </FluentGridItem>
 
-        <FluentGridItem xs="12" md="6">
+        <FluentGridItem>
             <FluentSelect Label="Color"
                           Items="@(Enum.GetValues<OfficeColor>())"
                           Height="200px"
@@ -24,12 +23,15 @@
                 </OptionTemplate>
             </FluentSelect>
         </FluentGridItem>
-
-        <FluentGridItem xs="12">
-            @Mode
-        </FluentGridItem>
-
     </FluentGrid>
+
+    <FluentLabel Typo="Typography.PaneHeader" Style="margin: 10px 0px;">Examples</FluentLabel>
+    <FluentStack>
+        <FluentIcon Value="@(new Icons.Regular.Size24.Airplane())" />
+        <FluentLabel>Example of content</FluentLabel>
+        <FluentButton Appearance="Appearance.Outline">Outline button</FluentButton>
+        <FluentButton Appearance="Appearance.Accent">Accent button</FluentButton>
+    </FluentStack>
 </div>
 
 @code
