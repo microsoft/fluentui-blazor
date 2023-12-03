@@ -1,10 +1,14 @@
-﻿function setupLoader() {
+﻿interface Window {
+    Blazor: any;
+}
+
+function setupLoader() {
     const { Blazor: blazor } = window;
 
     if (typeof blazor !== 'undefined') {
         throw new Error("Blazor has been already registered. initializersLoader JS file must be added before Blazor's JS file.");
     }
-
+    fetch
     var appName = getAppName();
     let modulesResource = `${appName}.modules.json`;
 
@@ -18,7 +22,7 @@
             window.fetch = originalFetch;
         }
 
-        const response = await originalFetch(resource, config);
+        const response = await originalFetch(resource as any, config);
         return response;
     }
 }

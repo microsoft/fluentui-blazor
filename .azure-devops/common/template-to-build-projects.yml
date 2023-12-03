@@ -158,6 +158,12 @@ steps:
     inputs:
       version: 8.0.x
       includePreviewVersions: true
+
+  # Install nodejs
+  - task: NodeTool@0
+    displayName: 'Install nodejs'
+    inputs:
+      versionSpec: '20.x'
   
   # Set version number (exclude Templates/content)
   - task: Assembly-Info-NetCore@3
