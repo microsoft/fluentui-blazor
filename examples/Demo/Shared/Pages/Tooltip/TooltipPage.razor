@@ -25,6 +25,12 @@ At the end of your <b>MainLayout.razor</b> page, include the provider:
 With this provider, all tooltip definitions will be generated with these global options
 and will be written at the end of the HTML page to support the different z-index levels.
 <br />
+<p>
+    <strong>
+        For the <code>&lt;FluentTooltipProvider/&gt;</code> to work properly, it needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
+</p>
 <br />
 <b>Example</b>
     <FluentStack>

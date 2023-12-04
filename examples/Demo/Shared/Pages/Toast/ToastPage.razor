@@ -50,7 +50,10 @@
     You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like shown below.
 </p>
 <p>
-    <strong>For the Toasts to work properly, the component the <code>&lt;FluentToastProvider/&gt;</code> is placed in needs to be interactive!</strong>
+    <strong>
+        For the Toasts to work properly, the <code>&lt;FluentToastProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
 </p>
 <CodeSnippet>
     &lt;main&gt;
