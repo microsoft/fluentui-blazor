@@ -2,6 +2,11 @@
 @inherits TestContext
 @code
 {
+    public FluentGridTests()
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentGrid_Default()
     {
@@ -73,5 +78,38 @@
 
         //Assert
         cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(GridItemHidden.Xs, "xs")]
+    [InlineData(GridItemHidden.Sm, "sm")]
+    [InlineData(GridItemHidden.Md, "md")]
+    [InlineData(GridItemHidden.Lg, "lg")]
+    [InlineData(GridItemHidden.Xl, "xl")]
+    [InlineData(GridItemHidden.Xxl, "xxl")]
+    [InlineData(GridItemHidden.XsAndDown, "xs")]
+    [InlineData(GridItemHidden.SmAndDown, "xs sm")]
+    [InlineData(GridItemHidden.MdAndDown, "xs sm md")]
+    [InlineData(GridItemHidden.LgAndDown, "xs sm md lg")]
+    [InlineData(GridItemHidden.XlAndDown, "xs sm md lg xl")]
+    [InlineData(GridItemHidden.XxlAndDown, "xs sm md lg xl xxl")]
+    [InlineData(GridItemHidden.XsAndUp, "xs sm md lg xl xxl")]
+    [InlineData(GridItemHidden.SmAndUp, "sm md lg xl xxl")]
+    [InlineData(GridItemHidden.MdAndUp, "md lg xl xxl")]
+    [InlineData(GridItemHidden.LgAndUp, "lg xl xxl")]
+    [InlineData(GridItemHidden.XlAndUp, "xl xxl")]
+    [InlineData(GridItemHidden.XxlAndUp, "xxl")]
+    public void FluentGrid_Hidden(GridItemHidden hidden, string assert)
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentGrid>
+                <FluentGridItem HiddenWhen="@hidden">My cell</FluentGridItem>
+            </FluentGrid>);
+
+        var hiddenAttribute = cut.Find("div[hidden-when]").GetAttribute("hidden-when") ?? string.Empty;
+
+        // Assert
+        Assert.Equal(assert, hiddenAttribute);
     }
 }
