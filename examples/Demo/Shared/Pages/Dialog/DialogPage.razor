@@ -62,6 +62,17 @@
     Dialogs are rendered by the <code>&lt;FluentDialogProvider /&gt;</code> component. This component needs to be added to the main layout of your application/site.
     You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
 </p>
+<p>
+    <strong>
+        For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! <p>
+    <strong>
+        For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
+</p>Be sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
+</p>
 <CodeSnippet>
     &lt;main&gt;
         &lt;nav&gt;

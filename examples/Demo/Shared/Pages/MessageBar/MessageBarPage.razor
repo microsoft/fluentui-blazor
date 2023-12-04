@@ -6,9 +6,15 @@
 
 <strong>IMPORTANT!!</strong>
 <p>
-    Messages are rendered by the <code>&lt;FluentMessageBarProvider /&gt;</code>. This component needs to be added to the layout of your application/site.
+    MessageBars are rendered by the <code>&lt;FluentMessageBarProvider /&gt;</code>. This component needs to be added to the layout of your application/site.
     For a message bar that needs to be shown at the top of the screen, you typically do this in the <code>MainLayout.razor</code> file at the location in 
     the HTML structure where you want the message bars to appear  of the <code>&lt;main&gt;</code> section like this:
+</p>
+<p>
+    <strong>
+        For the MessageBars to work properly, the <code>&lt;FluentMessageBarProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
 </p>
 <CodeSnippet>
     &lt;main&gt;
