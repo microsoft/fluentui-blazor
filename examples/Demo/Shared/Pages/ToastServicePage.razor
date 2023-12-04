@@ -37,6 +37,14 @@
     &lt;/main&gt;
 </CodeSnippet>
 
+<strong>IMPORTANT!!</strong>
+<p>
+    <strong>
+        For the <code>&lt;FluentToastProvider/&gt;</code> to work porperly, it needs interactivity! If you are using "per page" interactivity or ASP.NET Core 8
+        or above with <strong>Server Side Rendering</strong> , make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
+</p>
 <p>
     See the documentation below for more information about the <code>FluentToastProvider</code> parameters.
 </p>
