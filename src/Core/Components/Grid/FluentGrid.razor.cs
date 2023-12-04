@@ -67,7 +67,7 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && OnSizeEnter.HasDelegate)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
