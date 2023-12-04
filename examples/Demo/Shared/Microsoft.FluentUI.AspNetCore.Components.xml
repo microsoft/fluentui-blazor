@@ -3182,7 +3182,7 @@
             Gets or sets the child content of component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.OnBreakPointEnter">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.OnBreakpointEnter">
             <summary>
             when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
             </summary>
