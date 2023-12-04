@@ -53,7 +53,7 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     /// when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
     /// </summary>
     [Parameter]
-    public EventCallback<GridItemSize> OnSizeEnter { get; set; }
+    public EventCallback<GridItemSize> OnBreakPointEnter { get; set; }
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -67,7 +67,7 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && OnSizeEnter.HasDelegate)
+        if (firstRender && OnBreakPointEnter.HasDelegate)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
@@ -78,11 +78,11 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     [JSInvokable]
     public async Task FluentGrid_MediaChangedAsync(string size)
     {
-        if (OnSizeEnter.HasDelegate)
+        if (OnBreakPointEnter.HasDelegate)
         {
             if (Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum))
             {
-                await OnSizeEnter.InvokeAsync(sizeEnum);
+                await OnBreakPointEnter.InvokeAsync(sizeEnum);
             }
         }
     }

@@ -6,7 +6,7 @@
 <br />
 <br />
 
-<FluentGrid Spacing="3" OnSizeEnter="@OnSizeEnterHandler" Justify="@Justification" Style="background-color: var(--neutral-layer-3);">
+<FluentGrid Spacing="3" OnBreakPointEnter="@OnBreakPointEnterHandler" Justify="@Justification" Style="background-color: var(--neutral-layer-3);">
     <FluentGridItem xs="12">
         <div class="card">
             xs="12"
@@ -53,7 +53,7 @@
 {
     JustifyContent Justification = JustifyContent.FlexStart;
 
-    void OnSizeEnterHandler(GridItemSize size)
+    void OnBreakPointEnterHandler(GridItemSize size)
     {
         Console.WriteLine($"Page Size: {size}");
         DemoLogger.WriteLine($"Page Size: {size}");
