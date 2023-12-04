@@ -21,6 +21,8 @@ public partial class FluentDialogProvider : IDisposable
     {
         _internalDialogContext = new(this);
         _renderDialogs = RenderDialogs;
+
+        var temp1 = new MessageBox(); // To avoid WASM Trimming, to remove this class.
     }
 
     protected override void OnInitialized()
