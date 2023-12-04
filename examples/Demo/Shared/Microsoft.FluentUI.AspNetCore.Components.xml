@@ -3153,6 +3153,33 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1">
+            <summary>
+            Displays a list of validation messages for a specified field within a cascaded <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.For">
+            <summary>
+            Specifies the field for which validation messages should be displayed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.#ctor">
+            <summary>`
+            Constructs an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessage`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.Dispose(System.Boolean)">
+            <summary>
+            Called to dispose this instance.
+            </summary>
+            <param name="disposing"><see langword="true"/> if called within <see cref="M:System.IDisposable.Dispose"/>.</param>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentGrid">
             <summary>
             The grid component helps keeping layout consistent across various screen resolutions and sizes.
