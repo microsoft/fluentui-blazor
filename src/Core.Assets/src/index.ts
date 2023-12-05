@@ -1,12 +1,42 @@
-﻿declare module '*.css';
+﻿//declare module '*.css';
 
 export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
-import styles from './Styles.css' assert { type: "css" }
+//import styles from './styles.css' 
+//import variables from './variables.css'  
+
 
 var styleSheet = new CSSStyleSheet();
+
+const styles = `
+body:has(.prevent-scroll) {
+    overflow: hidden;
+}
+:root {
+    --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
+    --success: #0E700E;
+    --warning: #E9835E;
+    --error: #BC2F32;
+    --info: #616161;
+    --presence-available: #13a10e;
+    --presence-away: #eaa300;
+    --presence-busy: #d13438;
+    --presence-dnd: #d13438;
+    --presence-offline: #adadad;
+    --presence-oof: #c239b3;
+    --presence-unknown: #d13438;
+    --highlight-bg: #fff3cd;
+}
+`;
+
 styleSheet.replaceSync(styles);
+console.log(styleSheet);
 document.adoptedStyleSheets.push(styleSheet);
+
+//styleSheet.replaceSync(variables);
+//console.log(styleSheet);
+//document.adoptedStyleSheets.push(styleSheet);
+
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
