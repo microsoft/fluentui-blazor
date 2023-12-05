@@ -3,7 +3,7 @@
    
     if (element) {
         element.addEventListener("onchange", (e) => {
-            dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.olvValue, e.detail.newValue);
+            dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
         });
     }
 }

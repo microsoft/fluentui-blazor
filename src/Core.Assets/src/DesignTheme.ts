@@ -3,12 +3,6 @@
 // ********************
 
 
-/*
-    Passer Dark/Light mode uniquement si on est en System.
-    Forcer Dark / Light si c'est le choix de l'utilisateur
-*/
-
-
 import {
     baseLayerLuminance,
     StandardLuminance,
@@ -126,8 +120,10 @@ class DesignTheme extends HTMLElement {
         }
 
         // Detect system theme changing
-        window.matchMedia("(prefers-color-scheme: dark)")
-            .addEventListener("change", e => this.colorSchemeChanged(e));
+        if (!this._isColorSchemeChangedRegistered) {
+            window.matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", e => this.colorSchemeChanged(e));
+        }
         this._isColorSchemeChangedRegistered = true;
     }
 
@@ -177,16 +173,20 @@ class DesignTheme extends HTMLElement {
 
         const currentMode = this.getAttribute("mode");
 
-        if (e.matches) {
-            if (currentMode !== "dark") {
-                this.modeAttributeChanged("mode", currentMode, "dark");
-                this.mode = "dark";
+        // Only if the DesignTheme.Mode = 'System' (null)
+        // If not, the dev already "forced" the mode to "dark" or "light"
+        if (currentMode == null) {
+
+            // Dark
+            if (e.matches) {
+                this.modeAttributeChanged("mode", currentMode, "system-dark");
+                baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
             }
-            
-        } else {
-            if (currentMode !== "light") {
-                this.modeAttributeChanged("mode", currentMode, "light");
-                this.mode = "light";
+
+            // Light
+            else {
+                this.modeAttributeChanged("mode", currentMode, "system-light");
+                baseLayerLuminance.withDefault(StandardLuminance.LightMode);
             }
         }
     }
@@ -199,7 +199,7 @@ class DesignTheme extends HTMLElement {
                     detail: {
                         name: name,
                         oldValue: oldValue,
-                        newValue: newValue,
+                        newValue: newValue ?? (this.isSystemDark() ? "system-dark" : "system-light"),
                     },
                 }),
             );

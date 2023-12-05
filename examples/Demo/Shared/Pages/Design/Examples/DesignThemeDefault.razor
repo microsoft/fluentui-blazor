@@ -1,4 +1,4 @@
-<FluentDesignTheme @bind-Mode="@Mode" OfficeColor="@OfficeColor" />
+<FluentDesignTheme @bind-Mode="@Mode" OfficeColor="@OfficeColor" OnLuminanceChanged="@OnLuminanceChanged" />
 
 <div style="min-height: 250px;">
     <FluentGrid>
@@ -39,4 +39,9 @@
     public DesignThemeModes Mode { get; set; }
 
     public OfficeColor OfficeColor { get; set; }
+
+    void OnLuminanceChanged(LuminanceChangedEventArgs e)
+    {
+        DemoLogger.WriteLine($"{(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+    }
 }

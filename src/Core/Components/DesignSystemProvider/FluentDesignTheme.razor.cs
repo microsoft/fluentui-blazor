@@ -28,6 +28,12 @@ public partial class FluentDesignTheme : ComponentBase
     public DesignThemeModes Mode { get; set; } = DesignThemeModes.System;
 
     /// <summary>
+    /// Gets or sets a callback that updates the <see cref="Mode"/>.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DesignThemeModes> ModeChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets the Accent base color.
     /// </summary>
     [Parameter]
@@ -39,23 +45,34 @@ public partial class FluentDesignTheme : ComponentBase
     [Parameter]
     public OfficeColor? OfficeColor { get; set; }
 
+    /// <summary>
+    /// Callback raised when the Dark/Light luminance changes.
+    /// </summary>
     [Parameter]
-    public EventCallback<DesignThemeModes> ModeChanged { get; set; }
+    public EventCallback<LuminanceChangedEventArgs> OnLuminanceChanged { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Method raised by the JavaScript code when the "mode" changes.
+    /// </summary>
+    /// <param name="name">Attribute name: only "mode".</param>
+    /// <param name="value">New value: for "mode" = "dark", "light", "system-dark", "system-light"</param>
+    /// <returns></returns>
     [JSInvokable]
-    public async Task OnChangeRaisedAsync(string name, string oleValue, string newValue)
+    public async Task OnChangeRaisedAsync(string name, string value)
     {
-        Console.WriteLine($"{name} - {oleValue} - {newValue}");
+        if (!Enum.TryParse<DesignThemeModes>(value, true, out var mode))
+        {
+            mode = DesignThemeModes.System;
+        }
 
         if (name == "mode" && ModeChanged.HasDelegate)
         {
-            if (!Enum.TryParse<DesignThemeModes>(newValue, true, out var mode))
-            {
-                mode = DesignThemeModes.System;
-            }
-
             await ModeChanged.InvokeAsync(mode);
+        }
+
+        if (name == "mode" && OnLuminanceChanged.HasDelegate)
+        {
+            await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
         }
     }
 
@@ -88,7 +105,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     private string? GetMode()
     {
-        return Mode switch
+        return Mode switch 
         {
             DesignThemeModes.Dark => "dark",
             DesignThemeModes.Light => "light",
@@ -96,3 +113,5 @@ public partial class FluentDesignTheme : ComponentBase
         };
     }
 }
+
+public record LuminanceChangedEventArgs(DesignThemeModes Mode, bool IsDark);
