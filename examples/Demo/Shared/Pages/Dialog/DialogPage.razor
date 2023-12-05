@@ -41,6 +41,14 @@
     <br/>
     When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
 </p>
+<blockquote>
+    During the WASM DotNet Publication process, the unused classes are automatically removed from the final library.
+    The Dialog razor file will be removed if no reference are set by your code.
+    For example, if you call <code>var = await DialogService.ShowDialogAsync&lt;SimpleDialog>(simplePerson, parameters);</code> the <b>SimpleDialog</b> will be removed by the WASM Publication process.
+    You can configure this behavior by setting the <a href="https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer">PublishTrimmed</a> property in your project file
+    or you can create a temporary instance <code>var temp1 = new SimpleDialog();</code> to force the Publication process to keep this class in the final library.
+</blockquote>
+
 <h2>Exchange data between dialog and calling component</h2>
 <p>
     There are two ways available to exchange data between the dialog and the component which shows it. The first is by capturing the returned 
