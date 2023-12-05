@@ -30,14 +30,41 @@
     <b>Example in HTML</b><br />
     <CodeSnippet Language="xml">
         @(
-            @"<fluent-design-theme mode=""dark"" primary-color=""word"" />")"
-    </CodeSnippet>
+@"<fluent-design-theme mode=""dark"" primary-color=""word"" />
+<fluent-design-theme mode=""light"" primary-color=""#ff0000"" />")"</CodeSnippet>
 
     <b>Example in Blazor</b><br />
     <CodeSnippet Language="xml">
         @(
-            @"<FluentDesignTheme Mode=""DesignThemeModes.Dark"" OfficeColor=""OfficeColor.Word"" />")"
-    </CodeSnippet>
+@"<FluentDesignTheme Mode=""DesignThemeModes.Dark"" OfficeColor=""OfficeColor.Word"" />
+<FluentDesignTheme Mode=""DesignThemeModes.Light"" CustomColor=""#ff0000"" />")")"</CodeSnippet>
+</p>
+
+<p>
+    For the Blazor <b>FluentDesignTheme</b> component, you can define the <b>mode</b> of your application.
+    <ul>
+        <li><b>System</b>: respects the browser's appearance.</li>
+        <li><b>Dark</b>: forces the appearance in Dark theme.</li>
+        <li><b>Light</b>: forces the appearance in Light theme.</li>
+    </ul>
+    When the theme is updated, the <b>OnLuminanceChanged</b> event is triggered.
+    <FluentDataGrid Items="@ModeCombinations" Style="border: 1px solid silver;">
+        <PropertyColumn Property="@(p => p.FluentDesignTheme)" Title="FluentDesignTheme.Mode" />
+        <PropertyColumn Property="@(p => p.Browser)" Title="Browser theme" />
+        <PropertyColumn Property="@(p => p.OnLuminanceChanged)" Title="OnLuminanceChanged event" />
+    </FluentDataGrid>
+
+    @code
+    {
+        record ModeCombination(string FluentDesignTheme, string Browser, string OnLuminanceChanged);
+        IQueryable<ModeCombination> ModeCombinations = new[]
+        {
+            new ModeCombination("System", "Light", "{ Mode: \"System\", IsDark: false }"),
+            new ModeCombination("System", "Dark", "{ Mode: \"System\", IsDark: true}"),
+            new ModeCombination("Light", "NA", "{ Mode: \"Light\", IsDark: false }"),
+            new ModeCombination("Dark", "NA", "{ Mode: \"Dark\", IsDark: true }"),
+        }.AsQueryable();
+    }
 </p>
 
 <DemoSection Title="" Component="@typeof(DesignThemeDefault)" />
@@ -48,5 +75,18 @@
     <Description>
         This panel is customized using the <strong>FluentDesignSystemProvider</strong> component,
         where <b>AccentBaseColor</b> is red, <b>StrokeWidth</b> is 4 and <b>FillColor</b> is light gray.
+
+        <p>
+            See this <a href="/DesignTokens">"Design tokens" page</a> for more details.
+        </p>
     </Description>
 </DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentDesignTheme)" />
+
+<br />
+<br />
+
+<ApiDocumentation Component="typeof(FluentDesignSystemProvider)" />
