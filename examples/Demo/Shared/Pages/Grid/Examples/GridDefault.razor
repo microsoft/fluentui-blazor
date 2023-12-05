@@ -6,15 +6,15 @@
 <br />
 <br />
 
-<FluentGrid Spacing="3" Justify="@Justification" Style="background-color: var(--neutral-layer-3);">
+<FluentGrid Spacing="3" OnBreakpointEnter="@OnBreakpointEnterHandler" Justify="@Justification" Style="background-color: var(--neutral-layer-3);">
     <FluentGridItem xs="12">
         <div class="card">
             xs="12"
         </div>
     </FluentGridItem>
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="6" HiddenWhen="GridItemHidden.SmAndDown">
         <div class="card">
-            xs="12" sm="6"
+            xs="12" sm="6" Hidden="SmAndDown"
         </div>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="6">
@@ -52,4 +52,10 @@
 @code
 {
     JustifyContent Justification = JustifyContent.FlexStart;
+
+    void OnBreakpointEnterHandler(GridItemSize size)
+    {
+        Console.WriteLine($"Page Size: {size}");
+        DemoLogger.WriteLine($"Page Size: {size}");
+    }
 }
