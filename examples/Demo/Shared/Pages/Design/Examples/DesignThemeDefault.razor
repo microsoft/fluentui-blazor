@@ -1,5 +1,6 @@
 <FluentDesignTheme @bind-Mode="@Mode"
                    OfficeColor="@OfficeColor"
+                   OfficeColorChanged="@(e => { OfficeColor = e ?? OfficeColor.Default; StateHasChanged(); })"
                    OnLuminanceChanged="@OnLuminanceChanged"
                    LocalStorage="theme" />
 
@@ -28,8 +29,7 @@
         </FluentGridItem>
     </FluentGrid>
 
-    <FluentLabel Typo="Typography.PaneHeader" Style="margin: 30px 0px;">Examples</FluentLabel>
-    <FluentStack>
+    <FluentStack Style="margin: 30px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
         <FluentIcon Value="@(new Icons.Regular.Size24.Airplane())" />
         <FluentLabel>Example of content</FluentLabel>
         <FluentButton Appearance="Appearance.Outline">Outline button</FluentButton>

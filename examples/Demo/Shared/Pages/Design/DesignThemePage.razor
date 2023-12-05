@@ -40,6 +40,8 @@
 <FluentDesignTheme Mode=""DesignThemeModes.Light"" CustomColor=""#ff0000"" />")")"</CodeSnippet>
 </p>
 
+<h3>Mode</h3>
+
 <p>
     For the Blazor <b>FluentDesignTheme</b> component, you can define the <b>mode</b> of your application.
     <ul>
@@ -47,6 +49,11 @@
         <li><b>Dark</b>: forces the appearance in Dark theme.</li>
         <li><b>Light</b>: forces the appearance in Light theme.</li>
     </ul>
+</p>
+
+<h3>OnLuminanceChanged</h3>
+
+<p>
     When the theme is updated, the <b>OnLuminanceChanged</b> event is triggered.
     <FluentDataGrid Items="@ModeCombinations" Style="border: 1px solid silver;">
         <PropertyColumn Property="@(p => p.FluentDesignTheme)" Title="FluentDesignTheme.Mode" />
@@ -66,6 +73,22 @@
         }.AsQueryable();
     }
 </p>
+
+<h3>LocalStorage</h3>
+
+<p>
+    The <b>FluentDesignTheme</b> component contains an optional <b>LocalStorage</b> attribute to
+    define the name of the local storage to automatically save and retrieve the selected <b>Mode</b> and <b>PrimaryColor</b>.
+</p>
+<p>
+    Don't set this property to allow you to set your application's theme manually.
+    On the other hand, set a value (e.g. <i>theme</i>) to automatically let the component save the theme choice and retrieve it the next time the application is visited.
+    <br /><br />
+    Theme settings are saved in the browser's LocalStorage section.
+    <CodeSnippet Language="json">@("\"theme\" = {\"mode\": \"light\", \"primaryColor\": \"word\"}")</CodeSnippet>
+</p>
+
+<h3>Example</h3>
 
 <DemoSection Title="" Component="@typeof(DesignThemeDefault)" />
 

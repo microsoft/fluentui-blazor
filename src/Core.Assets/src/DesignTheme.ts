@@ -219,7 +219,6 @@ class DesignTheme extends HTMLElement {
                 newValue = newValue ?? (this.isSystemDark() ? "system-dark" : "system-light");
             }
 
-            console.log(`dispatchAttributeChanged ${name}: ${oldValue} -> ${newValue}`);
             this.dispatchEvent(
                 new CustomEvent("onchange", {
                     bubbles: true,

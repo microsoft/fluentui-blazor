@@ -6,7 +6,7 @@
 
 <PageTitle>Fluent UI Blazor components demo page</PageTitle>
 
-<div @ref="container">
+<div>
     <FluentLayout>
         <FluentHeader Class="siteheader">
             <a href="/">
@@ -48,7 +48,7 @@
                 <label for="menu-toggle" class="menu-icon">
                     <FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" />
                 </label>
-                <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
+                <input type="checkbox" id="menu-toggle" checked=@_menuChecked @onclick=HandleChecked />
 
 
                 <nav class="sitenav"

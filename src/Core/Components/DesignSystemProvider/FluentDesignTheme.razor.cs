@@ -45,10 +45,22 @@ public partial class FluentDesignTheme : ComponentBase
     public string? CustomColor { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that updates the <see cref="CustomColor"/>.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> CustomColorChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets the application to defined the Accent base color.
     /// </summary>
     [Parameter]
     public OfficeColor? OfficeColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that updates the <see cref="OfficeColor"/>.
+    /// </summary>
+    [Parameter]
+    public EventCallback<OfficeColor?> OfficeColorChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
@@ -71,22 +83,48 @@ public partial class FluentDesignTheme : ComponentBase
     [JSInvokable]
     public async Task OnChangeRaisedAsync(string name, string value)
     {
-        if (name == "mode")
+        switch (name.ToLower())
         {
-            if (!Enum.TryParse<DesignThemeModes>(value, true, out var mode))
-            {
-                mode = DesignThemeModes.System;
-            }
+            case "mode":
+                if (!Enum.TryParse<DesignThemeModes>(value, true, out var mode))
+                {
+                    mode = DesignThemeModes.System;
+                }
 
-            if (ModeChanged.HasDelegate)
-            {
-                await ModeChanged.InvokeAsync(mode);
-            }
+                if (ModeChanged.HasDelegate)
+                {
+                    await ModeChanged.InvokeAsync(mode);
+                }
 
-            if (OnLuminanceChanged.HasDelegate)
-            {
-                await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
-            }
+                if (OnLuminanceChanged.HasDelegate)
+                {
+                    await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
+                }
+
+                break;
+
+            case "primary-color":
+                if (value.StartsWith("#"))
+                {
+                    if (CustomColorChanged.HasDelegate)
+                    {
+                        await CustomColorChanged.InvokeAsync(value);
+                    }
+                }
+                else
+                {
+                    if (!Enum.TryParse<OfficeColor>(value, true, out var color))
+                    {
+                        color = AspNetCore.Components.OfficeColor.Default;
+                    }
+
+                    if (OfficeColorChanged.HasDelegate)
+                    {
+                        await OfficeColorChanged.InvokeAsync(color);
+                    }
+                }
+
+                break;
         }
     }
 
@@ -122,10 +160,10 @@ public partial class FluentDesignTheme : ComponentBase
         // Color
         if (!string.IsNullOrEmpty(theme?.PrimaryColor))
         {
-            Console.WriteLine($"Color: {theme.PrimaryColor}");
             if (theme.PrimaryColor.StartsWith("#"))
             {
                 CustomColor = theme.PrimaryColor;
+                await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
             }
             else
             {
@@ -133,8 +171,8 @@ public partial class FluentDesignTheme : ComponentBase
                 {
                     color = AspNetCore.Components.OfficeColor.Default;
                 }
-
                 OfficeColor = color;
+                await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
             }
         }
     }
