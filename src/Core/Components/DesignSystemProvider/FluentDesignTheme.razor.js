@@ -5,5 +5,9 @@
         element.addEventListener("onchange", (e) => {
             dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
         });
+
+        return JSON.stringify(element.readLocalStorage());
     }
+
+    return null;
 }

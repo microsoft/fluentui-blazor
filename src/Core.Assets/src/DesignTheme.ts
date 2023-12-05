@@ -111,6 +111,20 @@ class DesignTheme extends HTMLElement {
         }
     }
 
+     /**
+     * Gets the current local-storage key, to persist the theme/color between sessions.
+     */
+    get localStorage(): string | null {
+        return this.getAttribute("local-storage");
+    }
+
+    /**
+     * Sets the current local-storage key, to persist the theme/color between sessions.
+     */
+    set localStorage(value: string | null) {
+        this.updateAttribute("local-storage", value);
+    }
+
     // Custom element added to page.
     connectedCallback() {
         DesignTheme._instanceCounter++;
@@ -124,6 +138,10 @@ class DesignTheme extends HTMLElement {
             window.matchMedia("(prefers-color-scheme: dark)")
                 .addEventListener("change", e => this.colorSchemeChanged(e));
         }
+        
+        // Load from LocalStorage
+        this.readLocalStorage();
+
         this._isColorSchemeChangedRegistered = true;
     }
 
@@ -139,7 +157,7 @@ class DesignTheme extends HTMLElement {
 
     // Attributes to observe
     static get observedAttributes() {
-        return ["mode", "primary-color"];
+        return ["mode", "primary-color", "local-storage"];
     }
 
     // Attributes has changed.
@@ -149,15 +167,18 @@ class DesignTheme extends HTMLElement {
             return;
         }
 
-        this.modeAttributeChanged(name, oldValue, newValue);
-
         switch (name) {
             case "mode":
+                this.dispatchAttributeChanged(name, oldValue, newValue);
                 this.mode = newValue;
                 break;
 
             case "primary-color":
                 this.primaryColor = newValue;
+                break;
+
+            case "local-storage":
+                this.localStorage = newValue;
                 break;
         }
     }
@@ -179,27 +200,33 @@ class DesignTheme extends HTMLElement {
 
             // Dark
             if (e.matches) {
-                this.modeAttributeChanged("mode", currentMode, "system-dark");
+                this.dispatchAttributeChanged("mode", currentMode, "system-dark");
                 baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
             }
 
             // Light
             else {
-                this.modeAttributeChanged("mode", currentMode, "system-light");
+                this.dispatchAttributeChanged("mode", currentMode, "system-light");
                 baseLayerLuminance.withDefault(StandardLuminance.LightMode);
             }
         }
     }
 
-    private modeAttributeChanged(name: string, oldValue: string | null, newValue: string | null): void {
+    private dispatchAttributeChanged(name: string, oldValue: string | null, newValue: string | null): void {
         if (oldValue !== newValue) {
+
+            if (name === "mode") {
+                newValue = newValue ?? (this.isSystemDark() ? "system-dark" : "system-light");
+            }
+
+            console.log(`dispatchAttributeChanged ${name}: ${oldValue} -> ${newValue}`);
             this.dispatchEvent(
                 new CustomEvent("onchange", {
                     bubbles: true,
                     detail: {
                         name: name,
                         oldValue: oldValue,
-                        newValue: newValue ?? (this.isSystemDark() ? "system-dark" : "system-light"),
+                        newValue: newValue,
                     },
                 }),
             );
@@ -229,6 +256,8 @@ class DesignTheme extends HTMLElement {
                 this.removeAttribute(name);
             }
         }
+
+        this.updateLocalStorage();
 
         this._isInternalChange = false;
     }
@@ -278,6 +307,38 @@ class DesignTheme extends HTMLElement {
             return 1.0;
         }
         return i / (max - min);
+    }
+
+    private updateLocalStorage() {
+
+        // connectedCallback not yet called
+        if (!this._isColorSchemeChangedRegistered) {
+            return;
+        }
+
+        // Save if localStorage is set
+        if (this.localStorage != null) {
+            const theme = {
+                mode: this.mode,
+                primaryColor: this.primaryColor,
+            }
+            localStorage.setItem(this.localStorage, JSON.stringify(theme));            
+        }
+    }
+
+    public readLocalStorage() {
+        if (this.localStorage != null) {
+            const theme = JSON.parse(localStorage.getItem(this.localStorage));
+
+            this.dispatchAttributeChanged("mode", this.mode, theme?.mode);
+
+            this.mode = theme?.mode;
+            this.primaryColor = theme?.primaryColor;
+
+            return theme;
+        }
+
+        return null;
     }
 }
 

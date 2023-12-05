@@ -2117,6 +2117,11 @@
             Gets or sets the application to defined the Accent base color.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.LocalStorage">
+            <summary>
+            Gets or sets the local storage name to save and retrieve the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/> and the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/> / <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLuminanceChanged">
             <summary>
             Callback raised when the Dark/Light luminance changes.
@@ -2129,6 +2134,12 @@
             <param name="name">Attribute name: only "mode".</param>
             <param name="value">New value: for "mode" = "dark", "light", "system-dark", "system-light"</param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValues(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
             <summary />

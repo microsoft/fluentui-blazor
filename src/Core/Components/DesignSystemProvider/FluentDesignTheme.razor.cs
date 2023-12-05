@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -7,6 +8,10 @@ public partial class FluentDesignTheme : ComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
     private DotNetObjectReference<FluentDesignTheme>? _dotNetHelper = null;
+    private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true,
+    };
 
     /// <summary />
     [Inject]
@@ -46,6 +51,12 @@ public partial class FluentDesignTheme : ComponentBase
     public OfficeColor? OfficeColor { get; set; }
 
     /// <summary>
+    /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
+    /// </summary>
+    [Parameter]
+    public string? LocalStorage { get; set; }
+
+    /// <summary>
     /// Callback raised when the Dark/Light luminance changes.
     /// </summary>
     [Parameter]
@@ -60,19 +71,22 @@ public partial class FluentDesignTheme : ComponentBase
     [JSInvokable]
     public async Task OnChangeRaisedAsync(string name, string value)
     {
-        if (!Enum.TryParse<DesignThemeModes>(value, true, out var mode))
+        if (name == "mode")
         {
-            mode = DesignThemeModes.System;
-        }
+            if (!Enum.TryParse<DesignThemeModes>(value, true, out var mode))
+            {
+                mode = DesignThemeModes.System;
+            }
 
-        if (name == "mode" && ModeChanged.HasDelegate)
-        {
-            await ModeChanged.InvokeAsync(mode);
-        }
+            if (ModeChanged.HasDelegate)
+            {
+                await ModeChanged.InvokeAsync(mode);
+            }
 
-        if (name == "mode" && OnLuminanceChanged.HasDelegate)
-        {
-            await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
+            if (OnLuminanceChanged.HasDelegate)
+            {
+                await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
+            }
         }
     }
 
@@ -83,8 +97,53 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            await Module.InvokeVoidAsync("addThemeChangeEvent", _dotNetHelper, Id);
+            var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
+            var theme = JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
+
+            await ApplyLocalStorageValues(theme);
         }
+    }
+
+    /// <summary />
+    private async Task ApplyLocalStorageValues(DataLocalStorage? theme)
+    {
+        // Mode (Dark / Light / System)
+        if (!string.IsNullOrEmpty(theme?.Mode))
+        {
+            if (!Enum.TryParse<DesignThemeModes>(theme.Mode, true, out var mode))
+            {
+                mode = DesignThemeModes.System;
+            }
+
+            Mode = mode;
+            await OnChangeRaisedAsync("mode", theme.Mode);
+        }
+
+        // Color
+        if (!string.IsNullOrEmpty(theme?.PrimaryColor))
+        {
+            Console.WriteLine($"Color: {theme.PrimaryColor}");
+            if (theme.PrimaryColor.StartsWith("#"))
+            {
+                CustomColor = theme.PrimaryColor;
+            }
+            else
+            {
+                if (!Enum.TryParse<OfficeColor>(theme.PrimaryColor, true, out var color))
+                {
+                    color = AspNetCore.Components.OfficeColor.Default;
+                }
+
+                OfficeColor = color;
+            }
+        }
+    }
+
+    /// <summary />
+    private class DataLocalStorage
+    {
+        public string? Mode { get; set; }
+        public string? PrimaryColor { get; set; }
     }
 
     /// <summary />
@@ -105,7 +164,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     private string? GetMode()
     {
-        return Mode switch 
+        return Mode switch
         {
             DesignThemeModes.Dark => "dark",
             DesignThemeModes.Light => "light",
