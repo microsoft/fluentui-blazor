@@ -2,23 +2,38 @@
 
 <FluentButton Appearance="Appearance.Accent" OnClick="@OpenAsync">Open dialog</FluentButton>
 
-<p>Name: @DialogData.Firstname</p>
+<p>Name: @DialogData.Name - Age: @DialogData.Age</p>
 
 @code
 {
-    SimplePerson DialogData { get; set; } = new() { Firstname = "Bill", Age = 42 };
+    public record NameAndAge
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
+    NameAndAge DialogData { get; set; } = new() { Id = 1, Name = "Bill", Age = 42 };
 
     private async Task OpenAsync()
     {
-        var dialog = await DialogService.ShowDialogAsync<SimpleCustomizedDialog>(DialogData, new DialogParameters()
+        // Create a new instance of DialogData
+        // to allow the user to cancel the update
+        var data = DialogData with { Id = 1 };
+
+        var dialog = await DialogService.ShowDialogAsync<SimpleCustomizedDialog>(data, new DialogParameters()
             {
                 Height = "240px",
-                Title = $"Updating the {DialogData.Firstname} sheet",
+                Title = $"Updating the {DialogData.Name} sheet",
                 PreventDismissOnOverlayClick = true,
                 PreventScroll = true,
             });
 
         var result = await dialog.Result;
-        var data = result.Data as SimplePerson;
+        if (!result.Cancelled && result.Data != null)
+        {
+            DialogData = (NameAndAge)result.Data;
+        }
+
     }
 }

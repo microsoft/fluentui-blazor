@@ -1,4 +1,4 @@
-@implements IDialogContentComponent<SimplePerson>
+@implements IDialogContentComponent<DialogCustomizableExample.NameAndAge>
 
 @* Header *@
 <FluentDialogHeader ShowDismiss="true">
@@ -12,24 +12,30 @@
 
 @* Footer *@
 <FluentDialogFooter>
-    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Close</FluentButton>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Save</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Cancel</FluentButton>
 </FluentDialogFooter>
 
 @* Body *@
 <FluentDialogBody>
-    <FluentTextField @bind-Value="@Content.Firstname">FirstName:</FluentTextField>
+    <FluentTextField @bind-Value="@Content.Name">Name:</FluentTextField>
     <FluentNumberField @bind-Value="@Content.Age">Age:</FluentNumberField>
 </FluentDialogBody>
 
 @code {
     [Parameter]
-    public SimplePerson Content { get; set; } = default!;
+    public DialogCustomizableExample.NameAndAge Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
     private async Task SaveAsync()
     {
-        await Dialog.CloseAsync();
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
     }
 }
