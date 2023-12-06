@@ -47,7 +47,7 @@ class DesignTheme extends HTMLElement {
     set mode(value: string | null) {
         this.updateAttribute("mode", value);
 
-        console.log(`mode = "${value}"`)
+        console.log(` ** Set "mode" = "${value}"`)
 
         switch (value?.toLowerCase()) {
             // Dark mode - Luminance = 0.15
@@ -118,7 +118,7 @@ class DesignTheme extends HTMLElement {
 
     // Custom element added to page.
     connectedCallback() {
-        console.log("connectedCallback - Start");
+        console.log("> connectedCallback - Start");
         DesignTheme._instanceCounter++;
 
         if (DesignTheme._instanceCounter > 1) {
@@ -140,7 +140,7 @@ class DesignTheme extends HTMLElement {
         }
 
         this._isInitialized = true;
-        console.log("connectedCallback - Finished");
+        console.log("> connectedCallback - Finished");
     }
 
     // Custom element removed from page.
@@ -162,6 +162,10 @@ class DesignTheme extends HTMLElement {
     attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
 
         if (this._isInternalChange) {
+            return;
+        }
+
+        if (oldValue === newValue) {
             return;
         }
 
@@ -192,7 +196,7 @@ class DesignTheme extends HTMLElement {
         // If not, the dev already "forced" the mode to "dark" or "light"
         if (currentMode == null) {
 
-            console.log(`colorSchemeChanged = "${currentMode}"`)
+            console.log(` ** colorSchemeChanged = "${currentMode}"`)
 
             // Dark
             if (e.matches) {

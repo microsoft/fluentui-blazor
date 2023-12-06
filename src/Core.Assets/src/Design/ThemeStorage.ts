@@ -32,7 +32,6 @@ class ThemeStorage {
       return;
     }
 
-    console.log(`updateLocalStorage ${this.storageName}`, mode, primaryColor);
     // Save to the localstorage
     localStorage.setItem(this.storageName, JSON.stringify({
       mode: mode,
@@ -48,9 +47,7 @@ class ThemeStorage {
     }
 
     // Read the localstorage
-    const storageJson = localStorage.getItem(this.storageName) ?? "";
-    console.log(`readLocalStorage ${this.storageName}`, storageJson);
-    const storageItems = JSON.parse(storageJson);
+    const storageItems = JSON.parse(localStorage.getItem(this.storageName) ?? "");
 
     return {
       mode: storageItems?.mode,
