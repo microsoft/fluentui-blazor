@@ -17,7 +17,7 @@ class DesignTheme extends HTMLElement {
 
     static _instanceCounter = 0;
 
-    private _isInitialized: boolean = false;
+    public _isInitialized: boolean = false;
     private _themeStorage: ThemeStorage;
 
     _isInternalChange = false;
@@ -127,7 +127,7 @@ class DesignTheme extends HTMLElement {
 
         // Detect system theme changing
         window.matchMedia("(prefers-color-scheme: dark)")
-              .addEventListener("change", e => this.colorSchemeChanged(e));
+              .addEventListener("change", this.colorSchemeListener);
 
         // Load from LocalStorage
         if (this.localStorage != null) {
@@ -185,7 +185,7 @@ class DesignTheme extends HTMLElement {
         }
     }
 
-    private colorSchemeChanged(e: MediaQueryListEvent) {
+    private colorSchemeListener = (e: MediaQueryListEvent) => {
         if (!this._isInitialized) {
             return;
         }
@@ -196,7 +196,7 @@ class DesignTheme extends HTMLElement {
         // If not, the dev already "forced" the mode to "dark" or "light"
         if (currentMode == null) {
 
-            console.log(` ** colorSchemeChanged = "${currentMode}"`)
+            console.log(` ** colorSchemeListener = "${currentMode}"`)
 
             // Dark
             if (e.matches) {
