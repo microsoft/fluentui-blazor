@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -9,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.
 /// </summary>
-public class FluentValidationMessage<TValue> : FluentComponentBase, IDisposable
+public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDisposable
 {
     private EditContext? _previousEditContext;
     private Expression<Func<TValue>>? _previousFieldAccessor;
@@ -23,6 +24,15 @@ public class FluentValidationMessage<TValue> : FluentComponentBase, IDisposable
     /// Specifies the field for which validation messages should be displayed.
     /// </summary>
     [Parameter] public Expression<Func<TValue>>? For { get; set; }
+
+    /// <summary />
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("validation-message")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder(Style)
+        .Build();
 
     /// <summary>`
     /// Constructs an instance of <see cref="ValidationMessage{TValue}"/>.
@@ -58,19 +68,6 @@ public class FluentValidationMessage<TValue> : FluentComponentBase, IDisposable
             DetachValidationStateChangedListener();
             CurrentEditContext.OnValidationStateChanged += _validationStateChangedHandler;
             _previousEditContext = CurrentEditContext;
-        }
-    }
-
-    /// <inheritdoc />
-    protected override void BuildRenderTree(RenderTreeBuilder builder)
-    {
-        foreach (var message in CurrentEditContext.GetValidationMessages(_fieldIdentifier))
-        {
-            builder.OpenElement(0, "div");
-            builder.AddAttribute(1, "class", "validation-message");
-            builder.AddMultipleAttributes(2, AdditionalAttributes);
-            builder.AddContent(3, message);
-            builder.CloseElement();
         }
     }
 

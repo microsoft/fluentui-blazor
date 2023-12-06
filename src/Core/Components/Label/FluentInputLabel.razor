@@ -1,9 +1,14 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TValue
 
-@if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
+@if (!string.IsNullOrEmpty(Input?.Label ?? Label) || (Input?.LabelTemplate ?? ChildContent) is not null)
 {
-    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes">
-        @Label
-        @ChildContent
+    <label for="@(Input?.Id ?? ForId)" class="fluent-input-label" @attributes="@(Input?.AdditionalAttributes ?? AdditionalAttributes)" aria-label="@(Input?.AriaLabel ?? AriaLabel)">
+        @(Input?.Label ?? Label)
+        @(Input?.LabelTemplate ?? ChildContent)
+        @if (Input?.Required ?? Required)
+        {
+            <span aria-label="required" aria-hidden="true" style="padding-inline-start: 4px; color: var(--error);">*</span>
+        }
     </label>
 }

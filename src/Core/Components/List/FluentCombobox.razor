@@ -10,7 +10,7 @@
 }
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required=@Required TValue="TOption" />
     <fluent-combobox @ref=Element
                      id="@Id"
                      class="@ClassValue"
@@ -22,6 +22,7 @@
                      position=@Position.ToAttributeValue()
                      disabled=@Disabled
                      appearance="@Appearance.ToAttributeValue()"
+                     required="@Required"
                      @onchange="@OnChangedHandlerAsync"
                      @attributes="AdditionalAttributes">        
         @if (OptionTemplate == null || Items == null)

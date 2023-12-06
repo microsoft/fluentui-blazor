@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentInputLabel
+public partial class FluentInputLabel<TValue>
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Label/FluentInputLabel.razor.js";
 
@@ -13,6 +13,9 @@ public partial class FluentInputLabel
 
     /// <summary />
     private IJSObjectReference? Module { get; set; }
+
+    [Parameter]
+    public FluentInputBase<TValue>? Input { get; set; }
 
     /// <summary>
     /// Gets or sets the HTML label `for` attribute.
@@ -26,6 +29,12 @@ public partial class FluentInputLabel
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
+
+    /// <summary>
+    /// Gets or sets if an indicator is showed that this input is required.
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be displayed as a label, just above the component.

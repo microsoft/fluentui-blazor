@@ -6,7 +6,7 @@
     public void FluentSlider_HorizontalImplicit()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Label="label"></FluentSlider>);
 
         // Assert
         cut.Verify();
@@ -16,7 +16,7 @@
     public void FluentSlider_Horizontal()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Label="label"></FluentSlider>);
 
         // Assert
         cut.Verify();
@@ -27,7 +27,7 @@
     {
 
         // Arrange
-            var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Orientation="Orientation.Vertical"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Orientation="Orientation.Vertical" Label="label"></FluentSlider>);
 
         // Assert
         cut.Verify();
@@ -38,7 +38,7 @@
     {
         double value = 3.5;
         // Arrange
-        var cut = Render(@<FluentSlider Min="-1.50" Max="7.0" Step="0.5" @bind-bind-Value="@value"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="-1.50" Max="7.0" Step="0.5" @bind-Value="@value" Label="label"></FluentSlider>);
 
         // Assert
         cut.Verify();
