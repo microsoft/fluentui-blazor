@@ -15,8 +15,6 @@ import { ThemeStorage } from "./Design/ThemeStorage";
 
 class DesignTheme extends HTMLElement {
 
-    static _instanceCounter = 0;
-
     public _isInitialized: boolean = false;
     private _themeStorage: ThemeStorage;
 
@@ -119,11 +117,6 @@ class DesignTheme extends HTMLElement {
     // Custom element added to page.
     connectedCallback() {
         console.log("> connectedCallback - Start");
-        DesignTheme._instanceCounter++;
-
-        if (DesignTheme._instanceCounter > 1) {
-            throw new Error("fluent-design-theme (DesignTheme) can only be used once.");
-        }
 
         // Detect system theme changing
         window.matchMedia("(prefers-color-scheme: dark)")
@@ -145,8 +138,11 @@ class DesignTheme extends HTMLElement {
 
     // Custom element removed from page.
     disconnectedCallback() {
+        console.log("> disconnectedCallback");
         this._isInitialized = false;
-        DesignTheme._instanceCounter--;
+
+        window.matchMedia("(prefers-color-scheme: dark)")
+              .removeEventListener("change", this.colorSchemeListener);
     }
 
     // Custom element moved to new page.
