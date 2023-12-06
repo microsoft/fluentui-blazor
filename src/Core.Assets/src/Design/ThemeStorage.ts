@@ -1,0 +1,62 @@
+import { DesignTheme } from "../DesignTheme";
+import { ColorsUtils } from "./ColorsUtils";
+
+class ThemeStorage {
+
+  private _designTheme: DesignTheme
+
+  /**
+   * Initializes a new instance of ThemeStorage
+   * @param designTheme DesignTheme component
+   */
+  constructor(designTheme: DesignTheme) {
+    this._designTheme = designTheme;
+  }
+
+  /**
+   * Gets the value of the DesignTheme localStorage attribute.
+   */
+  get storageName(): string | null {
+    return this._designTheme.localStorage;
+  }
+
+
+  public updateLocalStorage(mode: string | null, primaryColor: string | null): void {
+    // Wait the component to be initialized
+    if (!this._designTheme._isInitialized) {
+        return;
+    }
+
+    // Check if LocalStorage attribute is defined
+    if (this.storageName == null) {
+      return;
+    }
+
+    console.log(`updateLocalStorage ${this.storageName}`, mode, primaryColor);
+    // Save to the localstorage
+    localStorage.setItem(this.storageName, JSON.stringify({
+      mode: mode,
+      primaryColor: primaryColor,
+    }));
+  }
+
+  public readLocalStorage(): { mode: string | null, primaryColor: string | null } | null {
+
+    // Check if LocalStorage attribute is defined
+    if (this.storageName == null) {
+      return null;
+    }
+
+    // Read the localstorage
+    const storageJson = localStorage.getItem(this.storageName) ?? "";
+    console.log(`readLocalStorage ${this.storageName}`, storageJson);
+    const storageItems = JSON.parse(storageJson);
+
+    return {
+      mode: storageItems?.mode,
+      primaryColor: storageItems?.primaryColor,
+    }
+  }
+}
+
+export { ThemeStorage };

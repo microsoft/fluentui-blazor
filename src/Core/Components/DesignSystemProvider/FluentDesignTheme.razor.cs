@@ -22,7 +22,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the identifier for the component.
-    /// </summary>
+    /// </summary> 
     [Parameter]
     public string Id { get; set; } = Identifier.NewId();
 
@@ -64,7 +64,7 @@ public partial class FluentDesignTheme : ComponentBase
 
     /// <summary>
     /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
-    /// </summary>
+    /// </summary> 
     [Parameter]
     public string? LocalStorage { get; set; }
 
@@ -136,12 +136,12 @@ public partial class FluentDesignTheme : ComponentBase
             _dotNetHelper = DotNetObjectReference.Create(this);
 
             var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
-            var theme = JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
+            var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
-            await ApplyLocalStorageValues(theme);
+            await ApplyLocalStorageValues(theme);  
         }
     }
-
+     
     /// <summary />
     private async Task ApplyLocalStorageValues(DataLocalStorage? theme)
     {

@@ -6,7 +6,8 @@
             dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
         });
 
-        return JSON.stringify(element.readLocalStorage());
+        const theme = element.themeStorage.readLocalStorage()
+        return theme == null ? theme : JSON.stringify(theme);
     }
 
     return null;

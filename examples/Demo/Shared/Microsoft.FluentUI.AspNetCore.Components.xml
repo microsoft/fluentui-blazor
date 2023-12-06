@@ -2095,7 +2095,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Id">
             <summary>
             Gets or sets the identifier for the component.
-            </summary>
+            </summary> 
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
             <summary>
@@ -2130,7 +2130,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.LocalStorage">
             <summary>
             Gets or sets the local storage name to save and retrieve the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/> and the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/> / <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
-            </summary>
+            </summary> 
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLuminanceChanged">
             <summary>
