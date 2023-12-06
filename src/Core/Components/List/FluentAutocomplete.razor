@@ -6,20 +6,22 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
-        <fluent-text-field role="combobox"
-                           id="@Id"
-                           appearance="@Appearance.ToAttributeValue()"
-                           disabled="@Disabled"
-                           placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
+         
+        <FluentTextField role="combobox"
+                         Id="@Id"
+                         AutoComplete="@AutoComplete"
+                           Appearance="@Appearance"
+                           Disabled="@Disabled"
+                           Placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
                            aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                            aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                            aria-label="@(GetAriaLabel() ?? Label ?? Placeholder)"
-                           current-value="@_valueText"
+                           Value="@_valueText"
                            @onclick="@OnDropDownExpandedAsync"
                            @oninput="@InputHandlerAsync"
                            @onkeydown="@KeyDownHandlerAsync"                           
                            @onfocusout="@(e => { IsReachedMaxItems = false; })"
-                           style="@ComponentWidth">
+                           Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
@@ -81,7 +83,7 @@
                                 OnClick="@OnDropDownExpandedAsync" />
                 }
             }
-        </fluent-text-field>
+        </FluentTextField>
 
         @* List of available items *@
         @if (IsMultiSelectOpened)
