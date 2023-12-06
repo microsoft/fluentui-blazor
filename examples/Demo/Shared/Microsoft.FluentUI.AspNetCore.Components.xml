@@ -5461,6 +5461,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.SummaryTemplate">
             <summary>
             Optionally supplies a template for rendering the page count summary.
+            The following values can be included:
+            {your State parameter name}.TotalItemCount (for the total number of items)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.PaginationTextTemplate">
+            <summary>
+            Optionally supplies a template for rendering the pagination summary.
+            The following values can be included:
+            {your State parameter name}.DisplayedCurrentPageIndex (for the current page number)
+            {your State parameter name}.DisplayedLastPageIndex (for the total number of pages)
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.#ctor">
@@ -5489,6 +5499,11 @@
             Gets the current zero-based page index. To set it, call <see cref="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetCurrentPageIndexAsync(System.Int32)" />.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.DisplayedCurrentPageIndex">
+            <summary>
+            Gets the current 1-based page index. The value cannot be set manually.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.TotalItemCount">
             <summary>
             Gets the total number of items across all pages, if known. The value will be null until an
@@ -5498,6 +5513,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.LastPageIndex">
             <summary>
             Gets the zero-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.TotalItemCount"/> is known.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.DisplayedLastPageIndex">
+            <summary>
+            Gets the 1-based index of the last page, if known. The value will be null until <see cref="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.TotalItemCount"/> is known.
             </summary>
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.PaginationState.TotalItemCountChanged">

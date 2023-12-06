@@ -29,7 +29,14 @@
 </FluentDataGrid>
 
 
-<FluentPaginator State="@pagination" />
+<FluentPaginator State="@pagination">
+    <SummaryTemplate>
+        There are <strong>@(pagination.TotalItemCount ?? 0)</strong> rows
+    </SummaryTemplate>
+    <PaginationTextTemplate>
+        This is page <strong>@pagination.DisplayedCurrentPageIndex</strong> out of a total of <strong>@pagination.DisplayedLastPageIndex</strong> pages
+    </PaginationTextTemplate>
+</FluentPaginator>
 
 @code {
     IQueryable<Country>? items;

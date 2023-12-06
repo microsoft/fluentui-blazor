@@ -21,9 +21,20 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Optionally supplies a template for rendering the page count summary.
+    /// The following values can be included:
+    /// {your State parameter name}.TotalItemCount (for the total number of items)
     /// </summary>
     [Parameter]
     public RenderFragment? SummaryTemplate { get; set; }
+
+    /// <summary>
+    /// Optionally supplies a template for rendering the pagination summary.
+    /// The following values can be included:
+    /// {your State parameter name}.DisplayedCurrentPageIndex (for the current page number)
+    /// {your State parameter name}.DisplayedLastPageIndex (for the total number of pages)
+    /// </summary>
+    [Parameter] 
+    public RenderFragment? PaginationTextTemplate { get; set; }
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentPaginator" />.
