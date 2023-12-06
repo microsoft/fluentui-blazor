@@ -116,11 +116,9 @@ class DesignTheme extends HTMLElement {
 
     // Custom element added to page.
     connectedCallback() {
-        console.log("> connectedCallback - Start");
-
         // Detect system theme changing
         window.matchMedia("(prefers-color-scheme: dark)")
-              .addEventListener("change", this.colorSchemeListener);
+            .addEventListener("change", this.colorSchemeListener);
 
         // Load from LocalStorage
         if (this.localStorage != null) {
@@ -133,16 +131,19 @@ class DesignTheme extends HTMLElement {
         }
 
         this._isInitialized = true;
-        console.log("> connectedCallback - Finished");
+
+        // Default System mode
+        if (this.mode == null) {
+            this.colorSchemeListener(new MediaQueryListEvent("change", { matches: ColorsUtils.isSystemDark() }));
+        }
     }
 
     // Custom element removed from page.
     disconnectedCallback() {
-        console.log("> disconnectedCallback");
         this._isInitialized = false;
 
         window.matchMedia("(prefers-color-scheme: dark)")
-              .removeEventListener("change", this.colorSchemeListener);
+            .removeEventListener("change", this.colorSchemeListener);
     }
 
     // Custom element moved to new page.
