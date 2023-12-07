@@ -19,14 +19,14 @@
                           Items="@(Enum.GetValues<OfficeColor>())"
                           Height="200px"
                           @bind-SelectedOption="@OfficeColor">
-                <OptionTemplate>
+                <OptionTemplate>  
                     <FluentStack>
                         <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
                                     Color="Color.Custom"
                                     CustomColor="@context.ToAttributeValue()" />
-                        <FluentLabel>@context</FluentLabel>
+                        <FluentLabel>@context</FluentLabel>  
                     </FluentStack>
-                </OptionTemplate>
+                </OptionTemplate> 
             </FluentSelect>
         </FluentGridItem>
     </FluentGrid>

@@ -47,7 +47,7 @@ class ThemeStorage {
     }
 
     // Read the localstorage
-    const storageItems = JSON.parse(localStorage.getItem(this.storageName) ?? "");
+    const storageItems = JSON.parse(localStorage.getItem(this.storageName) ?? "{ }");
 
     return {
       mode: storageItems?.mode,

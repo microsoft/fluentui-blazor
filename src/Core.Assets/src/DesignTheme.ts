@@ -45,7 +45,7 @@ class DesignTheme extends HTMLElement {
     set mode(value: string | null) {
         this.updateAttribute("mode", value);
 
-        console.log(` ** Set "mode" = "${value}"`)
+        // console.log(` ** Set "mode" = "${value}"`)
 
         switch (value?.toLowerCase()) {
             // Dark mode - Luminance = 0.15
@@ -69,6 +69,8 @@ class DesignTheme extends HTMLElement {
                 }
                 break;
         }
+
+        this.synchronizeOtherComponents("mode", value);
     }
 
     /**
@@ -98,6 +100,9 @@ class DesignTheme extends HTMLElement {
             const swatch = SwatchRGB.from(rgb);
             accentBaseColor.withDefault(swatch);
         }
+
+        // Synchronization
+        this.synchronizeOtherComponents("primary-color", value);
     }
 
     /**
@@ -114,14 +119,60 @@ class DesignTheme extends HTMLElement {
         this.updateAttribute("local-storage", value);
     }
 
+    /**
+     * Synchronize the attribute value with an external value (from another component).
+     * @param id
+     * @param name
+     * @param value
+     */
+    public synchronizeAttribute = (id: string, name: string, value: string | null): void => {
+
+        if (this.id === id) {
+            return;
+        }
+
+        this.dispatchAttributeChanged(name, this.getAttribute(name), value);
+        this.updateAttribute(name, value);
+    }
+
+    /**
+     * Start the attribute synchronization with other components.
+     * @param name
+     * @param value
+     */
+    private synchronizeOtherComponents(name: string, value: string | null) {
+
+        if (!this._isInitialized) {
+            return;
+        }
+
+        const components = document.querySelectorAll(`fluent-design-theme:not([id="${this.id}"])`);
+        for (let i = 0; i < components.length; i++) {
+            const component = components[i] as DesignTheme;            
+            if (component.synchronizeAttribute instanceof Function) {
+                component.synchronizeAttribute(this.id, name, value);
+            }
+        }
+    }
+
     // Custom element added to page.
     connectedCallback() {
+
+        // console.log(` > Initialization ${this.id}`);
+
         // Detect system theme changing
         window.matchMedia("(prefers-color-scheme: dark)")
             .addEventListener("change", this.colorSchemeListener);
 
+        // Default attribute values for existing components (if existing)
+        const existingComponent = document.querySelector(`fluent-design-theme:not([id="${this.id}"])`);
+        if (existingComponent != null) {
+            this.attributeChangedCallback("mode", this.mode, existingComponent.getAttribute("mode"));
+            this.attributeChangedCallback("primary-color", this.primaryColor, existingComponent.getAttribute("primary-color"));
+        }
+        
         // Load from LocalStorage
-        if (this.localStorage != null) {
+        else if (this.localStorage != null) {
             const theme = this._themeStorage.readLocalStorage();
 
             if (theme != null) {
@@ -136,6 +187,8 @@ class DesignTheme extends HTMLElement {
         if (this.mode == null) {
             this.colorSchemeListener(new MediaQueryListEvent("change", { matches: ColorsUtils.isSystemDark() }));
         }
+
+        // console.log(` > Synchronization ${this.id}`);
     }
 
     // Custom element removed from page.
@@ -166,6 +219,8 @@ class DesignTheme extends HTMLElement {
             return;
         }
 
+        // console.log(`attributeChangedCallback ${name} ${oldValue} ${newValue}`);
+
         switch (name) {
             case "mode":
                 this.dispatchAttributeChanged(name, oldValue, newValue);
@@ -193,7 +248,7 @@ class DesignTheme extends HTMLElement {
         // If not, the dev already "forced" the mode to "dark" or "light"
         if (currentMode == null) {
 
-            console.log(` ** colorSchemeListener = "${currentMode}"`)
+            // console.log(` ** colorSchemeListener = "${currentMode}"`)
 
             // Dark
             if (e.matches) {
