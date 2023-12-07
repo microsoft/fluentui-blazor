@@ -30,8 +30,8 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     /// <summary>
     /// Optionally supplies a template for rendering the pagination summary.
     /// The following values can be included:
-    /// {your State parameter name}.DisplayedCurrentPageIndex (for the current page number)
-    /// {your State parameter name}.DisplayedLastPageIndex (for the total number of pages)
+    /// {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+    /// {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
     /// </summary>
     [Parameter] 
     public RenderFragment? PaginationTextTemplate { get; set; }

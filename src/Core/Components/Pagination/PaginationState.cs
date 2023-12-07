@@ -18,11 +18,6 @@ public class PaginationState
     public int CurrentPageIndex { get; private set; }
 
     /// <summary>
-    /// Gets the current 1-based page index. The value cannot be set manually.
-    /// </summary>
-    public int DisplayedCurrentPageIndex => CurrentPageIndex + 1;
-
-    /// <summary>
     /// Gets the total number of items across all pages, if known. The value will be null until an
     /// associated <see cref="FluentDataGrid{TGridItem}"/> assigns a value after loading data.
     /// </summary>
@@ -32,11 +27,6 @@ public class PaginationState
     /// Gets the zero-based index of the last page, if known. The value will be null until <see cref="TotalItemCount"/> is known.
     /// </summary>
     public int? LastPageIndex => (TotalItemCount - 1) / ItemsPerPage;
-
-    /// <summary>
-    /// Gets the 1-based index of the last page, if known. The value will be null until <see cref="TotalItemCount"/> is known.
-    /// </summary>
-    public int? DisplayedLastPageIndex => LastPageIndex + 1;
 
     /// <summary>
     /// An event that is raised when the total item count has changed.
