@@ -8,19 +8,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
-    <style>
-        :root {
-            --neutral-fill-layer-rest: #ffffff;
-            color: #000000;
-        }
-
-        @@media(prefers-color-scheme: dark) {
-            :root {
-                --neutral-fill-layer-rest: #464646;
-                color: #ffffff;
-            }
-        }
-    </style>
     <link href="FluentUI.Demo.Server.styles.css" rel="stylesheet" />
     <link href="_content/FluentUI.Demo.Shared/css/site.css" rel="stylesheet" />
     <!-- highlight -->
@@ -28,9 +15,11 @@
     <link rel="stylesheet" title="dark" disabled="disabled" href="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@@11.6.0/styles/vs2015.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-copy@@1.0.3/dist/highlightjs-copy.min.css">
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-
 </head>
-<body class="before-started">
+<body>
+    <!-- Set the default theme -->
+    <script src="_content/Microsoft.FluentUI.AspNetCore.Components/apply-design.js" type="text/javascript"></script>
+
     @RenderBody()
 
     <div id="blazor-error-ui">
@@ -45,8 +34,8 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
-    <script src="js/site.js"></script>
-    <script src="_content/FluentUI.Demo.Shared/js/theme.js" type="module"></script>
+@*     <script src="js/site.js"></script>
+    <script src="_content/FluentUI.Demo.Shared/js/theme.js" type="module"></script> *@
 
     <!-- highlight -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@@11.6.0/highlight.min.js"></script>
