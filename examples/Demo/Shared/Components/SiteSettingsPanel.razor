@@ -3,7 +3,6 @@
 <div>
     <FluentStack Orientation="Orientation.Vertical" VerticalGap="8">
         <div class="colorgroup">
-            <label for="color">Color</label><br />
             <FluentSelect Id="color"
                           Items=@(Enum.GetValues<OfficeColor>())
                           OptionValue="@(c => c.ToAttributeValue())"
@@ -12,6 +11,7 @@
                           Position="SelectPosition.Below"
                           @bind-SelectedOption="@_selectedColorOption"
                           @onchange="@(x => UpdateColorAsync(x))"
+                          Label="Color"
                           aria-label="Accent color selector" />
         </div>
         <FluentRadioGroup TValue="string" Label="Theme" @bind-Value="@_currentTheme" @bind-Value:after="UpdateThemeAsync" Orientation="Orientation.Vertical">
