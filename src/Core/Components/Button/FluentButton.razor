@@ -12,9 +12,7 @@
 {
     <span class="loading-button">
         @_renderButton
-        
-            <FluentProgressRing />
-        
+        <FluentProgressRing />
     </span>
 }
 else
@@ -48,31 +46,31 @@ else
                custom-id="@CustomId"
                @onclick="@OnClickHandlerAsync"
                @attributes="AdditionalAttributes">
-    @if (IconStart != null)
-    {
-        if (Loading)
-        {
-            <FluentProgressRing slot="start" Style="@RingStyle(IconStart)" />
-        }
-        else
-        {
-            <FluentIcon Value="@(IconStart.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
-                        Slot="@(ChildContent != null ? "start" : null)" />
-        }
-    }
-    @ChildContent
-    @if (IconEnd != null)
-    {
-        if (Loading && IconStart == null)
-        {
-            <FluentProgressRing slot="end" Style="@RingStyle(IconEnd)" />
-        }
-        else
-        {
-            <FluentIcon Value="@(IconEnd.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
-                        Slot="@(ChildContent != null ? "end" : null)" />
-        }
-    }
-</fluent-button>
+            @if (IconStart != null)
+            {
+                if (Loading)
+                {
+                    <FluentProgressRing slot="start" Style="@RingStyle(IconStart)" />
+                }
+                else
+                {
+                    <FluentIcon Value="@(IconStart.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
+                                Slot="@(ChildContent != null ? "start" : null)" />
+                }
+            }
+            @ChildContent
+            @if (IconEnd != null)
+            {
+                if (Loading && IconStart == null)
+                {
+                    <FluentProgressRing slot="end" Style="@RingStyle(IconEnd)" />
+                }
+                else
+                {
+                    <FluentIcon Value="@(IconEnd.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
+                                Slot="@(ChildContent != null ? "end" : null)" />
+                }
+            }
+        </fluent-button>
     }
 }
