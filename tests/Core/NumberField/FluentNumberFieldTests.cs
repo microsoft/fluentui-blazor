@@ -1,12 +1,21 @@
 using Bunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.NumberField;
 
 public class FluentNumberFieldTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentNumberFieldTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentNumberField_Default()
     {

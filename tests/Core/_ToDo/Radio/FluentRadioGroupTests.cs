@@ -3,10 +3,20 @@ using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Radio;
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 public class FluentRadioGroupTests: TestBase
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentRadioGroupTests()
     {
+        
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+    }
     [Fact]
     public void FluentRadioGroup_Default()
     {

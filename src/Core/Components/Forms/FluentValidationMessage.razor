@@ -1,0 +1,12 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@typeparam TValue
+
+@foreach (var message in CurrentEditContext.GetValidationMessages(_fieldIdentifier))
+{
+    <div class="@ClassValue" style="@StyleValue" @attributes=@AdditionalAttributes>
+        <FluentIcon Value="@(new CoreIcons.Filled.Size12.ErrorCircle())" Color="@Color.Error" />
+        <span>@message</span>
+    </div>
+}
+

@@ -2,46 +2,61 @@
 
 <h1>Starfleet Starship Database</h1>
 <p>
-    This form uses the Fluent UI input components. It uses a <code>DataAnnotationsValidator</code> and a <code>FluentValidationSummary</code>
+    This form uses the Fluent UI input components. It uses a <code>DataAnnotationsValidator</code>, a <code>FluentValidationSummary</code>
+    and <code>FluentValidationMessage</code>s.
 </p>
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit" FormName="starship_fluent_entry" novalidate>
     <DataAnnotationsValidator />
     <FluentValidationSummary />
 
 
     <FluentStack Orientation="Orientation.Vertical">
-        <FluentTextField @bind-Value="starship.Identifier">Identifier:</FluentTextField>
-        <FluentTextArea Rows=5 Cols=60 @bind-Value="starship.Description">Description (optional):</FluentTextArea>
-        <label for="classification">Primary Classification:</label>
-        <FluentSelect Id="classification" @bind-Value="starship.Classification" TOption="string">
-            <FluentOption Value="">Select classification ...</FluentOption>
-            <FluentOption Value="Exploration">Exploration</FluentOption>
-            <FluentOption Value="Diplomacy">Diplomacy</FluentOption>
-            <FluentOption Value="Defense">Defense</FluentOption>
-        </FluentSelect>
-        
-        <FluentNumberField @bind-Value="starship.MaximumAccommodation"> Maximum Accommodation:</FluentNumberField>
-        <FluentCheckbox @bind-Value="starship.IsValidatedDesign">Engineering Approval</FluentCheckbox>
-        <label for="proddate">Production Date:</label>
-        <FluentDatePicker Id="proddate" @bind-Value="prodDate" />
-        
+        <div>
+            <FluentTextField Name="identifier" @bind-Value="starship.Identifier" Label="Identifier" Required />
+            <FluentValidationMessage For="@(() => starship.Identifier)" />
+        </div>
+        <div>
+            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" />
+        </div>
+        <div>
+            <FluentSelect name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
+                <FluentOption Value="">Select classification ...</FluentOption>
+                <FluentOption Value="Exploration">Exploration</FluentOption>
+                <FluentOption Value="Diplomacy">Diplomacy</FluentOption>
+                <FluentOption Value="Defense">Defense</FluentOption>
+            </FluentSelect>
+            <FluentValidationMessage For="@(() => starship.Classification)" />
+        </div>
+        <div>
+            <FluentNumberField Name="accomodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required/>
+            <FluentValidationMessage For="@(() => starship.MaximumAccommodation)" />
+        </div>
+        <div>
+            <FluentCheckbox Name="approved" @bind-Value="starship.IsValidatedDesign" Required Label="Engineering approval" />
+            <FluentValidationMessage For="@(() => starship.IsValidatedDesign)" />
+        </div>
+        <div>
+            <FluentDatePicker Name="producion_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required />
+            <FluentValidationMessage For="@(() => starship.ProductionDate)" />
+        </div>
         <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
     </FluentStack>
 </EditForm>
 
 <div style="margin-top: 3rem;"><a href="http://www.startrek.com/">Star Trek</a>, ©1966-2023 CBS Studios, Inc. and <a href="https://www.paramount.com">Paramount Pictures</a></div>
 @code {
-    DateTime? prodDate = DateTime.Now;
+
 
     protected override void OnInitialized()
     {
-        starship.ProductionDate = new DateOnly(prodDate!.Value.Year, prodDate!.Value.Month, prodDate!.Value.Day);
+        starship.ProductionDate = DateTime.Now;
     }
 
-    private Starship starship = new();
+    [SupplyParameterFromForm]
+    private Starship starship { get; set;}  = new();
 
     private void HandleValidSubmit()
     {

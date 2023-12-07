@@ -44,6 +44,7 @@ public class FluentAssertOptions
         return content.ReplaceAttribute("id", "xxx")
                       .ReplaceAttribute("name", "xxx")
                       .ReplaceAttribute("for", "xxx")
+                      .ReplaceAttribute("ForId", "xxx")
                       .ReplaceAttribute("blazor:elementreference", "xxx")
                       .ReplaceAttribute("anchor", "xxx");
     }

@@ -1,13 +1,19 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.Label;
 public class FluentInputLabelTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
     [Fact]
     public void FluentInputLabel_Default()
     {
         //Arrange
+        TestContext.Services.AddSingleton(LibraryConfiguration);
         string childContent = "<b>render me</b>";
         string forId = default!;
         string label = default!;

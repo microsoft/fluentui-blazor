@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 // If needed, additional services configuration objects can be added here
 
@@ -12,6 +14,11 @@ public class LibraryConfiguration
     /// If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
     /// </summary>
     public bool UseTooltipServiceProvider { get; set; } = true;
+
+    public MarkupString RequiredLabel { get; set; } = (MarkupString)
+        """
+        <span aria-label="required" aria-hidden="true" style="padding-inline-start: calc(var(--design-unit) * 1px); color: var(--error);">*</span>
+        """;
 
     public LibraryConfiguration()
     {

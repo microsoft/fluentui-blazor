@@ -1,9 +1,19 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.TextArea;
 public class FluentTextAreaTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentTextAreaTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentTextArea_Default()
     {
