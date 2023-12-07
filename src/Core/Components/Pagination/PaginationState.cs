@@ -52,7 +52,6 @@ public class PaginationState
         return CurrentPageItemsChanged.InvokeCallbacksAsync(this);
     }
 
-
     public Task SetTotalItemCountAsync(int totalItemCount)
     {
         if (totalItemCount == TotalItemCount)
