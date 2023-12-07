@@ -7,8 +7,6 @@
 
     public FluentSliderTests()
     {
-        JSInterop.SetupModule(FluentInputLabel.JAVASCRIPT_FILE);
-        JSInterop.SetupVoid("setInputAriaLabel", "xxx", "label");
         Services.AddSingleton(LibraryConfiguration);
     }
 
@@ -57,7 +55,7 @@
     [Fact]
     public void FluentSlider_WithLabel()
     {
-        this.JSInterop.Mode = JSRuntimeMode.Loose;
+        JSInterop.Mode = JSRuntimeMode.Loose;
 
         // Arrange && Act       
         var cut = Render(@<FluentSlider Id="xxx" Min="0" Max="100" Step="10" Label="label"></FluentSlider>);
