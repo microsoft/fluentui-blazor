@@ -66,7 +66,7 @@ public partial class FluentDesignTheme : ComponentBase
     /// Gets or sets the local storage name to save and retrieve the <see cref="Mode"/> and the <see cref="OfficeColor"/> / <see cref="CustomColor"/>.
     /// </summary> 
     [Parameter]
-    public string? LocalStorage { get; set; }
+    public string? StorageName { get; set; }
 
     /// <summary>
     /// Callback raised when the Dark/Light luminance changes.

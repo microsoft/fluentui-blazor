@@ -13,10 +13,10 @@ class ThemeStorage {
   }
 
   /**
-   * Gets the value of the DesignTheme localStorage attribute.
+   * Gets the value of the DesignTheme storageName attribute.
    */
   get storageName(): string | null {
-    return this._designTheme.localStorage;
+    return this._designTheme.storageName;
   }
 
 
@@ -26,7 +26,7 @@ class ThemeStorage {
         return;
     }
 
-    // Check if LocalStorage attribute is defined
+    // Check if storageName attribute is defined
     if (this.storageName == null) {
       return;
     }
@@ -40,7 +40,7 @@ class ThemeStorage {
 
   public readLocalStorage(): { mode: string | null, primaryColor: string | null } | null {
 
-    // Check if LocalStorage attribute is defined
+    // Check if storageName attribute is defined
     if (this.storageName == null) {
       return null;
     }

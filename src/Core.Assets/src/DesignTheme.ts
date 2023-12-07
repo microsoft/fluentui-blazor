@@ -108,17 +108,17 @@ class DesignTheme extends HTMLElement {
     }
 
     /**
-    * Gets the current local-storage key, to persist the theme/color between sessions.
+    * Gets the current storage-name key, to persist the theme/color between sessions.
     */
-    get localStorage(): string | null {
-        return this.getAttribute("local-storage");
+    get storageName(): string | null {
+        return this.getAttribute("storage-name");
     }
 
     /**
-     * Sets the current local-storage key, to persist the theme/color between sessions.
+     * Sets the current storage-name key, to persist the theme/color between sessions.
      */
-    set localStorage(value: string | null) {
-        this.updateAttribute("local-storage", value);
+    set storageName(value: string | null) {
+        this.updateAttribute("storage-name", value);
     }
 
     /**
@@ -145,7 +145,7 @@ class DesignTheme extends HTMLElement {
         }
 
         // Load from LocalStorage
-        else if (this.localStorage != null) {
+        else if (this.storageName != null) {
             const theme = this._themeStorage.readLocalStorage();
 
             if (theme != null) {
@@ -178,7 +178,7 @@ class DesignTheme extends HTMLElement {
 
     // Attributes to observe
     static get observedAttributes() {
-        return ["mode", "primary-color", "local-storage"];
+        return ["mode", "primary-color", "storage-name"];
     }
 
     // Attributes has changed.
@@ -204,8 +204,8 @@ class DesignTheme extends HTMLElement {
                 this.primaryColor = newValue;
                 break;
 
-            case "local-storage":
-                this.localStorage = newValue;
+            case "storage-name":
+                this.storageName = newValue;
                 break;
         }
     }
@@ -268,7 +268,7 @@ class DesignTheme extends HTMLElement {
             }
         }
 
-        if (this.localStorage != null) {
+        if (this.storageName != null) {
             this._themeStorage.updateLocalStorage(this.mode, this.primaryColor);
         }
 
