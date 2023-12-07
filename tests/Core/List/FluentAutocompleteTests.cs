@@ -1,14 +1,20 @@
 ﻿using Bunit;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.List;
 
 public class FluentAutocompleteTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
     public FluentAutocompleteTests()
     {
         TestContext.JSInterop.SetupModule(FluentAutocomplete<string>.JAVASCRIPT_FILE);
+        TestContext.Services.AddSingleton(LibraryConfiguration);
     }
 
     [Fact]
