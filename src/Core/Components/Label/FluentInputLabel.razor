@@ -4,7 +4,7 @@
 
 @if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
 {
-    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes" aria-label="AriaLabel">
+    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
         @Label
         @ChildContent
         @if (Required)

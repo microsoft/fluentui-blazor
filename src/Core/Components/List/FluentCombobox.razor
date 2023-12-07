@@ -10,7 +10,7 @@
 }
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required=@Required />
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
     <fluent-combobox @ref=Element
                      id="@Id"
                      class="@ClassValue"

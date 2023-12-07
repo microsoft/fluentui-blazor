@@ -5,7 +5,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentInputLabel
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Label/FluentInputLabel.razor.js";
+    public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Label/FluentInputLabel.razor.js";
 
     /// <summary />
     [Inject]
@@ -65,7 +65,7 @@ public partial class FluentInputLabel
     }
 
     /// <summary />
-    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId)
+    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) && ForId != "xxx"
                                        && (!string.IsNullOrWhiteSpace(Label) ||
                                            !string.IsNullOrWhiteSpace(AriaLabel));
 }
