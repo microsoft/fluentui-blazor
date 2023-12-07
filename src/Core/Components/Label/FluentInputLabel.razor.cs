@@ -65,7 +65,7 @@ public partial class FluentInputLabel
     }
 
     /// <summary />
-    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) && ForId != "xxx"
+    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) 
                                        && (!string.IsNullOrWhiteSpace(Label) ||
                                            !string.IsNullOrWhiteSpace(AriaLabel));
 }
