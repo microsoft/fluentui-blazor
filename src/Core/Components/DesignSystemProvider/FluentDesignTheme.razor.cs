@@ -75,6 +75,12 @@ public partial class FluentDesignTheme : ComponentBase
     public EventCallback<LuminanceChangedEventArgs> OnLuminanceChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the content of the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// Method raised by the JavaScript code when the "mode" changes.
     /// </summary>
     /// <param name="name">Attribute name: only "mode".</param>

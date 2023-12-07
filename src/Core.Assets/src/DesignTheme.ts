@@ -158,7 +158,18 @@ class DesignTheme extends HTMLElement {
 
         // Default System mode
         if (this.mode == null) {
-            this.colorSchemeListener(new MediaQueryListEvent("change", { matches: ColorsUtils.isSystemDark() }));
+            // Check the localstorage
+            const defaultMode = this._themeStorage.readLocalStorage()?.mode;
+
+            // ... not found => use the browser theme
+            if (defaultMode == null) {
+                this.colorSchemeListener(new MediaQueryListEvent("change", { matches: ColorsUtils.isSystemDark() }));
+            }
+
+            // ... found => use this theme
+            else {
+                this.colorSchemeListener(new MediaQueryListEvent("change", { matches: (defaultMode == "dark" ) }));
+            }
         }
 
         // console.log(` > Synchronization ${this.id}`);
@@ -232,6 +243,7 @@ class DesignTheme extends HTMLElement {
             // Light
             else {
                 this.dispatchAttributeChanged("mode", currentMode, "system-light");
+                console.log("LIGHT MODE 3");
                 baseLayerLuminance.withDefault(StandardLuminance.LightMode);
             }
         }

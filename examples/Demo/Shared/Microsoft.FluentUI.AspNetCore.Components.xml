@@ -2137,6 +2137,11 @@
             Callback raised when the Dark/Light luminance changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ChildContent">
+            <summary>
+            Gets or sets the content of the component.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnChangeRaisedAsync(System.String,System.String)">
             <summary>
             Method raised by the JavaScript code when the "mode" changes.
