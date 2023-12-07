@@ -1,6 +1,6 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<string?>
-<FluentInputLabel Input="this" />
+<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <fluent-search @ref=Element
                class="@ClassValue"
                style="@StyleValue"

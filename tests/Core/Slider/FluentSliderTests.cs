@@ -33,28 +33,7 @@ public partial class FluentSliderTests: TestContext
 		cut.Verify();
     }
 
-    [Fact]
-    public void FluentSlider_WithLabelTemplate()
-    {
-        //Arrange
-        string childContent = "<b>render me</b>";
-        
-        Orientation? orientation = default!;
-        SliderMode? mode = default!;
-        var cut = TestContext.RenderComponent<FluentSlider<int>>(parameters => parameters
-            .Add(p => p.Min, 0)
-            .Add(p => p.Max, 100)
-            .Add(p => p.Step, 10)
-            .Add(p => p.Orientation, orientation)
-            .Add(p => p.Mode, mode)
-            .Add(p => p.LabelTemplate, "<strong>label</strong>")
-            .AddChildContent(childContent)
-        );
-        //Act
-
-        //Assert
-        cut.Verify();
-    }
+   
 }
 
 

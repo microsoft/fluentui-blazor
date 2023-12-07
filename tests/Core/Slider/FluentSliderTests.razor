@@ -53,4 +53,16 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentSlider_WithLabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" >
+        <LabelTemplate><strong>label</strong></LabelTemplate>
+        </FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
 }

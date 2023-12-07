@@ -3735,48 +3735,48 @@
             Set this property to True to cancel the current upload file.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.JSRuntime">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.ForId">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.ForId">
             <summary>
             Gets or sets the HTML label `for` attribute.
             See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/for
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.Label">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Label">
             <summary>
             Gets or sets the text to be displayed as a label, just above the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.Required">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Required">
             <summary>
             Gets or sets if an indicator is showed that this input is required.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.ChildContent">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.ChildContent">
             <summary>
             Gets or sets the content to be displayed as a label, just above the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.AriaLabel">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.AriaLabel">
             <summary>
             Gets or sets the text to be used as the `aria-label` attribute of the input.
-            If not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.Label"/> will be used.
+            If not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Label"/> will be used.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.AdditionalAttributes">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.AdditionalAttributes">
             <summary>
             Gets or sets a collection of additional attributes that will be applied to the created element.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.OnAfterRenderAsync(System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel`1.ShouldRenderAriaLabel">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.ShouldRenderAriaLabel">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentLabel">

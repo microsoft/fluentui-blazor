@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentInputLabel<TValue>
+public partial class FluentInputLabel
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Label/FluentInputLabel.razor.js";
 
@@ -13,9 +13,6 @@ public partial class FluentInputLabel<TValue>
 
     /// <summary />
     private IJSObjectReference? Module { get; set; }
-
-    [Parameter]
-    public FluentInputBase<TValue>? Input { get; set; }
 
     /// <summary>
     /// Gets or sets the HTML label `for` attribute.

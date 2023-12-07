@@ -13,7 +13,7 @@ public class FluentInputLabelTests : TestBase
         string label = default!;
         string ariaLabel = default!;
         IReadOnlyDictionary<string, object> additionalAttributes = default!;
-        var cut = TestContext.RenderComponent<FluentInputLabel<string>>(parameters => parameters
+        var cut = TestContext.RenderComponent<FluentInputLabel>(parameters => parameters
             .Add(p => p.ForId, forId)
             .Add(p => p.Label, label)
             .AddChildContent(childContent)

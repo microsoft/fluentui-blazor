@@ -8,7 +8,7 @@
     var value = BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture);
 }
 
-<FluentInputLabel Input=this />
+<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <fluent-number-field @ref=Element
                      class="@ClassValue"
                      style="@StyleValue"
