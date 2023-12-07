@@ -1,5 +1,4 @@
 import { DesignTheme } from "../DesignTheme";
-import { ColorsUtils } from "./ColorsUtils";
 
 class ThemeStorage {
 

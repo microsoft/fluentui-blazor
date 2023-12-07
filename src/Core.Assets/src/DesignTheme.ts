@@ -11,18 +11,20 @@ import {
     SwatchRGB
 } from "@fluentui/web-components/dist/web-components";
 import { ThemeStorage } from "./Design/ThemeStorage";
-
+import { Synchronization } from "./Design/Synchronization";
 
 class DesignTheme extends HTMLElement {
 
     public _isInitialized: boolean = false;
     private _themeStorage: ThemeStorage;
+    private _synchronization: Synchronization;
 
     _isInternalChange = false;
 
     constructor() {
         super();
         this._themeStorage = new ThemeStorage(this);
+        this._synchronization = new Synchronization(this);
     }
 
     /**
@@ -70,7 +72,7 @@ class DesignTheme extends HTMLElement {
                 break;
         }
 
-        this.synchronizeOtherComponents("mode", value);
+        this._synchronization.synchronizeOtherComponents("mode", value);
     }
 
     /**
@@ -102,7 +104,7 @@ class DesignTheme extends HTMLElement {
         }
 
         // Synchronization
-        this.synchronizeOtherComponents("primary-color", value);
+        this._synchronization.synchronizeOtherComponents("primary-color", value);
     }
 
     /**
@@ -120,39 +122,10 @@ class DesignTheme extends HTMLElement {
     }
 
     /**
-     * Synchronize the attribute value with an external value (from another component).
-     * @param id
-     * @param name
-     * @param value
-     */
-    public synchronizeAttribute = (id: string, name: string, value: string | null): void => {
-
-        if (this.id === id) {
-            return;
-        }
-
-        this.dispatchAttributeChanged(name, this.getAttribute(name), value);
-        this.updateAttribute(name, value);
-    }
-
-    /**
-     * Start the attribute synchronization with other components.
-     * @param name
-     * @param value
-     */
-    private synchronizeOtherComponents(name: string, value: string | null) {
-
-        if (!this._isInitialized) {
-            return;
-        }
-
-        const components = document.querySelectorAll(`fluent-design-theme:not([id="${this.id}"])`);
-        for (let i = 0; i < components.length; i++) {
-            const component = components[i] as DesignTheme;            
-            if (component.synchronizeAttribute instanceof Function) {
-                component.synchronizeAttribute(this.id, name, value);
-            }
-        }
+    * Gets a reference to the Synchronization methods.
+    */
+    get synchronization(): Synchronization {
+        return this._synchronization;
     }
 
     // Custom element added to page.
@@ -170,7 +143,7 @@ class DesignTheme extends HTMLElement {
             this.attributeChangedCallback("mode", this.mode, existingComponent.getAttribute("mode"));
             this.attributeChangedCallback("primary-color", this.primaryColor, existingComponent.getAttribute("primary-color"));
         }
-        
+
         // Load from LocalStorage
         else if (this.localStorage != null) {
             const theme = this._themeStorage.readLocalStorage();
@@ -284,7 +257,7 @@ class DesignTheme extends HTMLElement {
         }
     }
 
-    private updateAttribute(name: string, value: string | null): void {
+    public updateAttribute(name: string, value: string | null): void {
         this._isInternalChange = true;
 
         if (this.getAttribute(name) != value) {
