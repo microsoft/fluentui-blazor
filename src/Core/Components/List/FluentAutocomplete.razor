@@ -5,7 +5,7 @@
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
         <fluent-text-field role="combobox"
                            id="@Id"
                            appearance="@Appearance.ToAttributeValue()"
@@ -15,6 +15,7 @@
                            aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                            aria-label="@(GetAriaLabel() ?? Label ?? Placeholder)"
                            current-value="@_valueText"
+                           required="@Required"
                            @onclick="@OnDropDownExpandedAsync"
                            @oninput="@InputHandlerAsync"
                            @onkeydown="@KeyDownHandlerAsync"                           

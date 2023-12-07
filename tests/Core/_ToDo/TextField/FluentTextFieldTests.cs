@@ -1,9 +1,19 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.TextField;
 public class FluentTextFieldTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentTextFieldTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentTextField_Default()
     {
