@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -62,8 +60,15 @@ public abstract class FluentNavBase : FluentComponentBase
     [Parameter]
     public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 
-    [CascadingParameter(Name = "NavMenuExpanded")]
-    public bool NavMenuExpanded { get; private set; }
+    /// <summary>
+    /// Gets or sets the tooltip to display when the mouse is placed over the item.
+    /// For  <see cref="FluentNavGroup" /> the <c>Title</c> is used as fallback.
+    /// </summary>
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    [CascadingParameter]
+    public FluentNavMenu Owner { get; set; } = default!;
 
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
@@ -97,8 +102,16 @@ public abstract class FluentNavBase : FluentComponentBase
         }
         else
         {
-            await OnClick.InvokeAsync(ev);
+            if (!Owner.Expanded)
+            {
+                await Owner.ExpandedChanged.InvokeAsync(true);
+            }
+            if (OnClick.HasDelegate)
+            {
+                await OnClick.InvokeAsync(ev);
+            }
         }
+
     }
 }
 

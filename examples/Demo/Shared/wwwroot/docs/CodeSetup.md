@@ -88,6 +88,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentMessageBarProvider />
 ```
 > **note:** You can remove providers that are not used in your application.
+> **note:** If you get scrollbars in your application, move the providers up in the page elements hierarchy, for example into the `FluentBodyContent` component.
 
 ## Working with Icons and Emoji
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections. 

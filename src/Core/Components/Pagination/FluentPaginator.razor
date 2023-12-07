@@ -1,6 +1,6 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-<div class="paginator">
+<div class="paginator" style="@Style">
     @if (State.TotalItemCount.HasValue)
     {
         <div class="summary">
@@ -21,8 +21,15 @@
                 <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronLeft())" Width="20px" />
             </FluentButton>
             <div class="pagination-text">
-                Page <strong>@(State.CurrentPageIndex + 1)</strong>
-                of <strong>@(State.LastPageIndex + 1)</strong>
+                @if (PaginationTextTemplate is not null)
+                {
+                    @PaginationTextTemplate
+                }
+                else
+                {
+                    <text>Page <strong>@(State.CurrentPageIndex + 1)</strong> of <strong>@(State.LastPageIndex + 1)</strong></text>
+                }
+
             </div>
             <FluentButton @onclick="GoNextAsync" Disabled="@(!CanGoForwards)" title="Go to next page" aria-label="Go to next page">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronRight())" Width="20px" />

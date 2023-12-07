@@ -1,12 +1,29 @@
-﻿## V4.0.1
-- FluentSplitter: Add Panel1MinSize, Panel2MinSize, BarSize parameters. Make resizing always use proportional values
+﻿## 4.1.1
+- Fix [#939](https://github.com/microsoft/fluentui-blazor/issues/939): Add `OptionTemplate` for `FluentCombobox`, `FluentListBox` and `FluentSelect` 
+- Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): `FluentNumberField` can be changed when `ReadOnly`
+- FluentNavMenu: Add `Tooltip` parameter to `FluentNavMenuGroup` (fallback to `Title`) and `FluentNavLink`
+- FluentNavMenu: Expand the menu when collapsed and a navitem is clicked 
+- FluentInputFile: Add ProgressTemplate and a bindable ProgressPercent attribute
+- Templates: Add missing Client project to `_Imports.razor`
+
+## V4.1.0
+- FluentCalendar: Add new views to select month/year 
+- FluentCheckbox: Add tri-state support
+- FluentAccordionItem: Add HeaderTemplate parameter
+- FluentSplitter: Add Panel1MinSize, Panel2MinSize and BarSize parameter
+- FluentSplitter: Make resizing always use proportional values
+- FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
+- Fix using checkbox, switch, slider being used in `EditForm` not getting set on first few clicks
 - Fix Web App template to correctly handle NavMenu based on rendermode and interactivity choices
-- Fix miscallaneous demo errors caused by trimming
+- Move CacheStorageAccessor and StaticAssetService to Demo.Shared project as these are specific to the demo site and not the library
+- Update Fluent UI System Icons to 1.1.223 (no overview of what's new/changed this time)
+- Demo: Move ErrorBoundary into DemoSection component so page keeps working when only one section fails
+- Fix miscellaneous demo errors caused by trimming
 
 ## V4.0.0
 - FluentAccordionItem: Add `HeaderTemplate` parameter
 
-- ## V4.0.0-rc.3
+## V4.0.0-rc.3
 - Undo change template interactivity default to None. Default is now Server (same as regular Blazor template)
 - FluentSplitter: Add support for collapsing panel 2 (right/bottom), add `OnCollapsed`, `OnExpanded` and  `OnResized` event callbacks
 - `variables.css` is imported in the automatically loaded library's css now

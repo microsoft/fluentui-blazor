@@ -730,10 +730,56 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeState">
+            <summary>
+            Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ShowIndeterminate">
+            <summary>
+            Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
+            If this is not the case, the checkbox can be started in the indeterminate state, but the user cannot activate it with the mouse.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState">
+            <summary>
+            Gets or sets the state of the CheckBox: true, false or null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckStateChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentAndIntermediate(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetIntermediateAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentCheckState(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.OnCheckedChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CheckboxChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.UpdateAndRaiseCheckStateEvent(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCollapsibleRegion.Expanded">
             <summary>
@@ -1504,10 +1550,41 @@
             <param name="date"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthNames">
+            <summary>
+            Returns the list of month names in the right culture.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRange">
+            <summary>
+            Returns the list of 12 years.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthNameAndYear">
             <summary>
             Returns the name of the month in the right culture, followed by the year.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear">
+            <summary>
+            Returns the year value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
+            <summary>
+            Returns the year value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear(System.DateTime)">
+            <summary>
+            Returns the year value.
+            </summary>
+            <param name="date"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetDayNames">
@@ -1549,6 +1626,37 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentCalendar)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles"/> class.
+            </summary>
+            <param name="calendar"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.CalendarExtended">
+            <summary>
+            Gets the CalendarExtended to use for the calendar.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.View">
+            <summary>
+            Gets the currently View.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.Date">
+            <summary>
+            Gets the current date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.ReadOnly">
+            <summary>
+            Gets a value indicating whether the calendar Title is not clickable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.Label">
+            <summary>
+            Gets the main calendar title.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar">
             <summary>
             Fluent Calendar based on
@@ -1580,16 +1688,93 @@
             Defines the appearance of a Day cell.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.View">
+            <summary>
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
+            <summary>
+            Gets ot sets if the calendar items are animated during a period change.
+            By default, the animation is enabled for Months views, but disabled for Days and Years view.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetAnimationClass(System.String)">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CalendarExtended">
             <summary>
             All days of this current month.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetTitles">
+            <summary>
+            Gets titles to use in the calendar.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnPreviousButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnNextButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Int32,System.Int32,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectYearHandlerAsync(System.Int32,System.Boolean)">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetDayProperties(System.DateTime)">
             <summary>
             Returns the class name to display a day (day, inactive, today).
             </summary>
             <param name="day"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetMonthProperties(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Returns the class name to display a month (month, inactive, disable).
+            </summary>
+            <param name="year"></param>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetYearProperties(System.Nullable{System.Int32})">
+            <summary>
+            Returns the class name to display a year (year, inactive, disable).
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CanBeAnimated">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StartNewAnimation(Microsoft.FluentUI.AspNetCore.Components.VerticalPosition)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.TitleClickHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CalendarTitles)">
+            <summary>
+            Click on the Calendar Title to disply the Month or Year selector
+            </summary>
+            <param name="title"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerMonthSelect(System.Nullable{System.DateTime})">
+            <summary>
+            Select a Month and come back to the Days view.
+            </summary>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerYearSelect(System.Nullable{System.DateTime})">
+            <summary>
+            Select a Year and come back to the Months view.
+            </summary>
+            <param name="year"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
@@ -1632,7 +1817,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectDayHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay">
@@ -1685,6 +1870,90 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.DayIdentifier">
             <summary>
             Gets the identifier of the day in the format yyyy-MM-dd.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth">
+            <summary>
+            Computes the properties of a month in the calendar.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentCalendar,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth"/> class.
+            </summary>
+            <param name="calendar"></param>
+            <param name="month"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.Month">
+            <summary>
+            Current month (day is always 1)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsReadOnly">
+            <summary>
+            Whether the month is readonly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsDisabled">
+            <summary>
+            Whether the month is disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.IsSelected">
+            <summary>
+            Whether the month is selected by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.Title">
+            <summary>
+            Gets the title of the month in the format [month] [year].
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarMonth.MonthIdentifier">
+            <summary>
+            Gets the identifier of the month in the format yyyy-MM.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear">
+            <summary>
+            Computes the properties of a year in the calendar.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.#ctor(Microsoft.FluentUI.AspNetCore.Components.FluentCalendar,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear"/> class.
+            </summary>
+            <param name="calendar"></param>
+            <param name="year"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.Year">
+            <summary>
+            Current Year (month and day are always 1)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsReadOnly">
+            <summary>
+            Whether the year is readonly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsDisabled">
+            <summary>
+            Whether the year is disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.IsSelected">
+            <summary>
+            Whether the year is selected by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.Title">
+            <summary>
+            Gets the title of the year in the format [year].
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarYear.YearIdentifier">
+            <summary>
+            Gets the identifier of the year in the format yyyy.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.#ctor">
@@ -2891,6 +3160,12 @@
             that are used for specific screen sizes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Spacing">
             <summary>
             Gets or sets the distance between flexbox items, using a multiple of 4px.
@@ -2905,6 +3180,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ChildContent">
             <summary>
             Gets or sets the child content of component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.OnBreakpointEnter">
+            <summary>
+            when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ClassValue">
@@ -2924,6 +3204,11 @@
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenWhen">
+            <summary>
+            Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.ClassValue">
             <summary />
         </member>
@@ -2931,6 +3216,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.NoBreakpointsDefined">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenAttribute">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentHeader.Height">
@@ -3180,6 +3468,9 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.#ctor">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.JSRuntime">
             <summary />
         </member>
@@ -3240,19 +3531,14 @@
             Default is true.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTitle">
-            <summary>
-            Gets or sets the current label display when an upload is in progress.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent">
-            <summary>
-            Gets or sets the current global value of the percentage of a current upload.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ChildContent">
             <summary>
             Gets or sets the child content of the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTemplate">
+            <summary>
+            Gets or sets the progress content of the component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnInputFileChange">
@@ -3274,7 +3560,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnFileError">
             <summary>
-            Raise when a file raised an error.
+            Raise when a file raised an error. Not yet used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnCompleted">
@@ -3287,9 +3573,30 @@
             Gets or sets the identifier of the source component clickable by the end user.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressTitle">
+            <summary>
+            Gets the current label display when an upload is in progress.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent">
+            <summary>
+            Gets or sets the current global value of the percentage of a current upload.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercentChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressPercent"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressFileDetails">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ProgressStyle">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.ShowFilesDialogAsync">
             <summary>
-            Open the dialogbox to select files.
+            Open the dialog-box to select files.
             Use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.AnchorId"/> instead to specify the ID of the button (for example) on which the user should click.
             ⚠️ This method doesn't work on Safari and iOS.
             </summary>
@@ -3541,11 +3848,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaximumSelectedOptionsMessage">
             <summary>
             Gets or sets the message displayed when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaximumSelectedOptions"/> is reached.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OptionTemplate">
-            <summary>
-            Gets or sets the template for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items"/> items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectedOptionTemplate">
@@ -3892,6 +4194,11 @@
             <summary>
             If true, the user can select multiple elements.
             ⚠️ Only available for the FluentSelect and FluentListbox components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OptionTemplate">
+            <summary>
+            Gets or sets the template for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items"/> items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptions">
@@ -4800,6 +5107,12 @@
             Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Tooltip">
+            <summary>
+            Gets or sets the tooltip to display when the mouse is placed over the item.
+            For  <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup" /> the <c>Title</c> is used as fallback.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
             <summary>
             Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.
@@ -5148,6 +5461,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.SummaryTemplate">
             <summary>
             Optionally supplies a template for rendering the page count summary.
+            The following values can be included:
+            {your State parameter name}.TotalItemCount (for the total number of items)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.PaginationTextTemplate">
+            <summary>
+            Optionally supplies a template for rendering the pagination summary.
+            The following values can be included:
+            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.#ctor">
@@ -9560,69 +9883,24 @@
             The day format is numeric.
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CalendarViews">
             <summary>
-            Defines the format of the day names shown in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
+            Defines the view display in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat.Long">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Days">
             <summary>
-            The day name uses a long format.
+            Display the Days View only
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat.Narrow">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Months">
             <summary>
-            The day name uses a narrow format.
+            Display the Months View only
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WeekdayFormat.Short">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Years">
             <summary>
-            The day name uses a short format.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.MonthFormat">
-            <summary>
-            Defines the format of the months shown in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.TwoDigit">
-            <summary>
-            The month number is shown in 2 digits
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Long">
-            <summary>
-            The month name uses a long format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Narrow">
-            <summary>
-            The month names uses a narrow format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Numeric">
-            <summary>
-            The month is shown in a numeric format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.MonthFormat.Short">
-            <summary>
-            The month name uses a short format.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.YearFormat">
-            <summary>
-            Defines the format of the years shown in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.YearFormat.TwoDigit">
-            <summary>
-            The year is shown in a 2 digit format.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.YearFormat.Numeric">
-            <summary>
-            The year is shwn in a numeric format (4 digits).
+            Display the Years View only
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">
@@ -10028,6 +10306,141 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GenerateHeaderOption.Sticky">
             <summary>
             Generate a sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden">
+            <summary>
+            Hide the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem"/> when a size condition is met.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.None">
+            <summary>
+            Never
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xxl">
+            <summary>
+            Browser size greater  than 2560px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndDown">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.SmAndDown">
+            <summary>
+            Browser size less than 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.MdAndDown">
+            <summary>
+            Browser size less than 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.LgAndDown">
+            <summary>
+            Browser size less than 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XlAndDown">
+            <summary>
+            Browser size less than 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XxlAndDown">
+            <summary>
+            All sizes
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndUp">
+            <summary>
+            All sizes
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.SmAndUp">
+            <summary>
+            Browser size greater than 600px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.MdAndUp">
+            <summary>
+            Browser size greater than 960px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.LgAndUp">
+            <summary>
+            Browser size greater than 1280px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XlAndUp">
+            <summary>
+            Browser size greater than 1920px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XxlAndUp">
+            <summary>
+            Browser size greater than 2560px
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemSize">
+            <summary>
+            Size available for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentGrid"/> when a Resize event raised.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xxl">
+            <summary>
+            Browser size greater  than 2560px
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment">
@@ -11065,42 +11478,6 @@
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
             If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingAfter">
-            <summary>
-              Looks up a localized string similar to Completed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingBefore">
-            <summary>
-              Looks up a localized string similar to Loading....
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingCanceled">
-            <summary>
-              Looks up a localized string similar to Canceled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Resources.FluentInputFileResource.LoadingInProgress">
-            <summary>
-              Looks up a localized string similar to Loading {0}/{1} - {2}.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">

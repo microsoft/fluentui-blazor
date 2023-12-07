@@ -3,6 +3,11 @@
 @typeparam TValue where TValue : new()
 @using System.Globalization;
 @using System.Reflection;
+
+@{
+    var value = BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture);
+}
+
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
 <fluent-number-field @ref=Element
                      class="@ClassValue"
@@ -16,11 +21,11 @@
                      minlength="@MinLength"
                      size="@Size"
                      step=@Step
-                     max="@Max"
-                     min="@Min"
+                     max="@(ReadOnly ? value : Max)"
+                     min="@(ReadOnly ? value : Min)"
                      id=@Id
-                     value=@BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture)
-                     current-value="@BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture)"
+                     value="@value"
+                     current-value="@value"
                      disabled="@Disabled"
                      name=@Name
                      required="@Required"

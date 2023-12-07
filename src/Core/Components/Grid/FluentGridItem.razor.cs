@@ -46,6 +46,12 @@ public partial class FluentGridItem : FluentComponentBase
     [Parameter]
     public string? Gap { get; set; }
 
+    /// <summary>
+    /// Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+    /// </summary>
+    [Parameter]
+    public GridItemHidden? HiddenWhen { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -68,5 +74,26 @@ public partial class FluentGridItem : FluentComponentBase
             && lg is null
             && xl is null
             && xxl is null;
+    }
+
+    /// <summary />
+    private string? HiddenAttribute
+    {
+        get
+        {
+            var selected = new string[]
+            {
+                (HiddenWhen & GridItemHidden.Xs) == GridItemHidden.Xs ? "xs" : string.Empty,
+                (HiddenWhen & GridItemHidden.Sm) == GridItemHidden.Sm ? "sm" : string.Empty,
+                (HiddenWhen & GridItemHidden.Md) == GridItemHidden.Md ? "md" : string.Empty,
+                (HiddenWhen & GridItemHidden.Lg) == GridItemHidden.Lg ? "lg" : string.Empty,
+                (HiddenWhen & GridItemHidden.Xl) == GridItemHidden.Xl ? "xl" : string.Empty,
+                (HiddenWhen & GridItemHidden.Xxl) == GridItemHidden.Xxl ? "xxl" : string.Empty,
+            };
+
+            var result = string.Join(" ", selected.Where(i => !string.IsNullOrEmpty(i)));
+
+            return string.IsNullOrEmpty(result) ? null : result;
+        }
     }
 }

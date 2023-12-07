@@ -11,36 +11,11 @@
 </p>
 <p>
     <code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation
-    of a data grid leveraging the Fluent  UI design system. Internally <code>&lt;FluentDataGrid&gt;</code> is using the code from
-    <a href="https://aspnet.github.io/quickgridsamples">QuickGrid</a> with a few adjustments to parameter names to stay in-line
-    with the fluent-data-grid web component (see table below)
+    of a data grid leveraging the Fluent  UI design system. Besides this we also provide wrappers for the <code>&lt;fluent-data-grid-row&gt;</code> and
+    <code>&lt;fluent-data-grid-cell&gt;</code>
+    web components. Internally <code>&lt;FluentDataGrid&gt;</code> is using the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/quickgrid?view=aspnetcore-8.0">QuickGrid</a> 
+    code where all the rendering is replaced with the web components. We also added some extras like column resizing and row/column specific styling.
 
-    <table title="Parameter name changes">
-        <tr>
-            <th align="left" style="width: 8rem;">QuickGrid</th>
-            <th align="left" style="width: 8rem;">FluentDataGrid</th>
-        </tr>
-        <tr>
-            <td>Items</td>
-            <td>RowsData</td>
-        </tr>
-        <tr>
-            <td>ItemsProvider</td>
-            <td>RowsDataProvider</td>
-        </tr>
-        <tr>
-            <td>ItemSize</td>
-            <td>RowsDataSize</td>
-        </tr>
-        <tr>
-            <td>ItemKey</td>
-            <td>RowsDataKey</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
 </p>
 
 <h2 id="example">Examples</h2>
@@ -145,7 +120,9 @@
     <Description>
         Here a custom comparer is being used to sort counties by the length of their name.<br/>
         The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
-        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.
+        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.<br />
+        <br />
+        This example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
     </Description>
 </DemoSection>
 
@@ -204,3 +181,7 @@
 <ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
 
 <ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(FluentPaginator)" />
+
+<ApiDocumentation Component="typeof(PaginationState)" /> 
