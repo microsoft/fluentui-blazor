@@ -22,12 +22,23 @@ class LoadingTheme extends HTMLElement {
         const storageName = this.getAttribute("storage-name");
         const mode = this.getAttribute("mode");
 
-        // Compute the saved or the system theme (dark/light).
-        const isDarkSaved = (mode ?? JSON.parse(localStorage.getItem(storageName))?.mode) === "dark";
-        const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const bgColor = isDarkSaved || isSystemDark ? this.defaultDarkColor : this.defaultLightColor;
+        const isDark = (modeSaved, isSystemDark) => {
+            switch (modeSaved) {
+                case "dark":
+                    return true;
+                case "light":
+                    return false;
+                default:
+                    return isSystemDark ? true : false;
+            }
+        };
 
-        console.log("LoadingTheme", { storageName, mode, isDarkSaved, isSystemDark, bgColor });
+        // Compute the saved or the system theme (dark/light).
+        const modeSaved = mode ?? JSON.parse(localStorage.getItem(storageName))?.mode;
+        const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const bgColor = isDark(modeSaved, isSystemDark) ? this.defaultDarkColor : this.defaultLightColor;
+
+        console.log("LoadingTheme", { storageName, mode, modeSaved, isSystemDark, bgColor });
 
         // Create a ".hidden-unstyled-body" class
         // where the background-color is dark or light.
@@ -42,15 +53,14 @@ class LoadingTheme extends HTMLElement {
 
         document.body.classList.add(this.className);
 
-        // Add a <fluent-design-theme storage-name="{<theme>}" /> element
+        // Add a <fluent-design-theme mode="dark|light" /> sub-element
         const designTheme = document.createElement("fluent-design-theme");
-        if (mode) designTheme.setAttribute("mode", mode);
-        if (storageName) designTheme.setAttribute("storage-name", storageName);
+        designTheme.setAttribute("mode", isDark(modeSaved, isSystemDark) ? "dark" : "light");
         this.appendChild(designTheme);
 
         // Wait for the fluentui web components to be loaded
         // and to remove the className to show the <body> content.
-        customElements.whenDefined("fluent-button").then(() => {
+        customElements.whenDefined("fluent-design-theme").then(() => {
             document.body.classList.remove(this.className);
         });
     }
