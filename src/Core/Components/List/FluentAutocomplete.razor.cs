@@ -61,7 +61,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
     /// </summary>
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
+
+    /// <summary>
+    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+    /// An Id value must be set to use this property.
+    /// </summary>
+    [Parameter]
+    public string? AutoComplete { get; set; }
 
     /// <summary>
     /// Filter the list of options (items), using the text encoded by the user.
