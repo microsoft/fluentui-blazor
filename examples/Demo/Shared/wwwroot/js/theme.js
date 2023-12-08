@@ -49,6 +49,12 @@ export function switchHighlightStyle(dark) {
     }
 }
 
+export function switchDirection(dir) {
+    document.dir = dir;
+    const container = document.getElementById('container');
+    container.style.direction = dir;
+}
+
 /**
  * Returns the value of the specified cookie, or the empty string if the cookie is not present
  * @param {string} cookieName
