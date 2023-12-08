@@ -79,6 +79,12 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
+    /// Gets or sets if an indicator is showed that this input is required.
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
+
+    /// <summary>
     /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]

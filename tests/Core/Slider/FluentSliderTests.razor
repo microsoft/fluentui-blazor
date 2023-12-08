@@ -2,8 +2,16 @@
 @inherits TestContext
 @code
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentSliderTests()
+    {
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
-    public void FluentSlider_HorizontalImplicit()
+    public void FluentSlider_Default()
     {
         // Arrange && Act
         var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
@@ -16,7 +24,7 @@
     public void FluentSlider_Horizontal()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Orientation="Orientation.Horizontal"></FluentSlider>);
 
         // Assert
         cut.Verify();
@@ -27,7 +35,7 @@
     {
 
         // Arrange
-            var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Orientation="Orientation.Vertical"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" Orientation="Orientation.Vertical"></FluentSlider>);
 
         // Assert
         cut.Verify();
@@ -38,7 +46,31 @@
     {
         double value = 3.5;
         // Arrange
-        var cut = Render(@<FluentSlider Min="-1.50" Max="7.0" Step="0.5" @bind-bind-Value="@value"></FluentSlider>);
+        var cut = Render(@<FluentSlider Min="-1.50" Max="7.0" Step="0.5" @bind-Value="@value"></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_WithLabel()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Arrange && Act       
+        var cut = Render(@<FluentSlider Id="xxx" Min="0" Max="100" Step="10" Label="label"></FluentSlider>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_WithLabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" >
+        <LabelTemplate><strong>label</strong></LabelTemplate>
+        </FluentSlider>);
 
         // Assert
         cut.Verify();

@@ -27,7 +27,7 @@
     <PackageVersion Include="System.Text.Json" Version="8.0.0" />
     <!-- test dependencies -->
     <PackageVersion Include="bunit" Version="1.25.3" />
-    <PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.3" />
+	<PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23503-02" />
     <PackageVersion Include="xunit" Version="2.6.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4" />
