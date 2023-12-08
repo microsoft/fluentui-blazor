@@ -7,22 +7,23 @@
          style="@StyleValue">
 
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
-         
+
         <FluentTextField role="combobox"
                          Id="@Id"
                          AutoComplete="@AutoComplete"
-                           Appearance="@Appearance"
-                           Disabled="@Disabled"
-                           Placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
-                           aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
-                           aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
-                           aria-label="@(GetAriaLabel() ?? Label ?? Placeholder)"
-                           Value="@_valueText"
-                           @onclick="@OnDropDownExpandedAsync"
-                           @oninput="@InputHandlerAsync"
-                           @onkeydown="@KeyDownHandlerAsync"                           
-                           @onfocusout="@(e => { IsReachedMaxItems = false; })"
-                           Style="@ComponentWidth">
+                         Appearance="@Appearance"
+                         Disabled="@Disabled"
+                         Placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
+                         aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
+                         aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
+                         aria-label="@(GetAriaLabel() ?? Label ?? Placeholder)"
+                         Value="@_valueText"
+                         Required="@Required"
+                         @onclick="@OnDropDownExpandedAsync"
+                         @oninput="@InputHandlerAsync"
+                         @onkeydown="@KeyDownHandlerAsync"
+                         @onfocusout="@(e => { IsReachedMaxItems = false; })"
+                         Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
