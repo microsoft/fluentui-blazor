@@ -8,6 +8,7 @@ public partial class FluentDesignTheme : ComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
     private DotNetObjectReference<FluentDesignTheme>? _dotNetHelper = null;
+    private string? _direction;
     private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true,
@@ -67,6 +68,20 @@ public partial class FluentDesignTheme : ComponentBase
     /// </summary> 
     [Parameter]
     public string? StorageName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the body.dir value.
+    /// </summary> 
+    [Parameter]
+    public string? Direction
+    {
+        get => _direction;
+        set
+        {
+            _direction = value;
+            Module?.InvokeVoidAsync("UpdateDirection", value);
+        }
+    }
 
     /// <summary>
     /// Callback raised when the Dark/Light luminance changes.
@@ -141,13 +156,15 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
+            _direction = await Module.InvokeAsync<string?>("GetDirection");
+
             var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
             var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
-            await ApplyLocalStorageValues(theme);  
+            await ApplyLocalStorageValues(theme);
         }
     }
-     
+
     /// <summary />
     private async Task ApplyLocalStorageValues(DataLocalStorage? theme)
     {

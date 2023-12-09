@@ -8,6 +8,8 @@ public partial class SiteSettingsPanel
 
     public OfficeColor? OfficeColor { get; set; }
 
+    public bool Direction { get; set; } = true;
+
     private IEnumerable<DesignThemeModes> AllModes => Enum.GetValues<DesignThemeModes>();
 
     private IEnumerable<OfficeColor?> AllOfficeColors

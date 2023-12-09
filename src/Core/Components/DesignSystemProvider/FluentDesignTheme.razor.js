@@ -16,3 +16,11 @@
 
     return null;
 }
+
+export function UpdateDirection(value) {
+    document.body.dir = value;
+}
+
+export function GetDirection() {
+    return document.body.dir;
+}

@@ -3,14 +3,17 @@
 <div>
     <FluentDesignTheme @bind-Mode="@Mode"
                        @bind-OfficeColor="@OfficeColor"
+                       Direction="@(Direction ? "ltr" : "rtl")"
                        StorageName="theme" />
 
-    <FluentStack Orientation="Orientation.Vertical" VerticalGap="8">
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
         <FluentSelect Label="Theme"
+                      Style="margin-bottom: 30px;"
                       Items="@AllModes"
                       @bind-SelectedOption="@Mode" />
 
         <FluentSelect Label="Color"
+                      Style="margin-bottom: 30px;"
                       Items="@AllOfficeColors"
                       Height="200px"
                       @bind-SelectedOption="@OfficeColor">
@@ -23,5 +26,15 @@
                 </FluentStack>
             </OptionTemplate>
         </FluentSelect>
+
+        <FluentSwitch Label="Direction"
+                      Style="margin-bottom: 30px;"
+                      CheckedMessage="Left to Right"
+                      UncheckedMessage="Right to Left"
+                      @bind-Value="@Direction" />
+        <FluentLabel>
+            These values (except for Direction) are persisted in the LocalStorage.
+            You can recover this style during your next visits.
+        </FluentLabel>
     </FluentStack>
 </div>
