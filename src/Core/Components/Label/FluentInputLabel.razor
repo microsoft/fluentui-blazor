@@ -1,9 +1,15 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
+@inject LibraryConfiguration LibraryConfiguration
+
 
 @if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
 {
-    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes">
+    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
         @Label
         @ChildContent
+        @if (Required)
+        {
+            @LibraryConfiguration.RequiredLabel;
+        }
     </label>
 }

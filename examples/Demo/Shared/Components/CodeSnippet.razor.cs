@@ -5,15 +5,19 @@
 namespace FluentUI.Demo.Shared.Components;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 /// <summary />
 public partial class CodeSnippet
 {
     private ElementReference codeElement;
+    
+    private IJSObjectReference _jsModule = default!;
 
     [Inject]
-    private IJSRuntime JS { get; set; } = default!;
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
@@ -28,7 +32,10 @@ public partial class CodeSnippet
     {
         if (firstRender)
         {
-            await JS.InvokeVoidAsync("hljs.highlightElement", codeElement);
+           
+            await JSRuntime.InvokeVoidAsync("hljs.highlightElement", codeElement);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/FluentUI.Demo.Shared/Components/CodeSnippet.razor.js");
         }
     }
 }
