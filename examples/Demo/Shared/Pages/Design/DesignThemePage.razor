@@ -13,6 +13,44 @@
     the <a href="/DesignTokens">DesignTokens</a>
 </p>
 
+<h2>Quick guide</h2>
+
+<p>
+    1. First, choose a <b>name</b> to save the theme <b>mode</b> (dark/bright) and <b>color</b>, in the browser's local storage.
+    for example: <code>theme</code>.
+</p>
+
+<p>
+    2. Next, add this line to your <b>App.razor</b> file (or your Layout page), 
+    to automatically apply the theme to all your pages.
+
+    <CodeSnippet Language="xml">@(@"<FluentDesignTheme StorageName=""theme"" />")"</CodeSnippet>
+</p>
+
+<p>
+    3. (optional) To avoid a "Sparkling Effect" when the page loads (mainly in Dark mode), as described below, 
+    we recommend you add these lines of code to the <code>index.html</code> or <code>_layout.cshtml</code> file.
+
+        <CodeSnippet Language="xml">
+        @(
+@"<!-- Set the default theme -->
+<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
+<loading-theme storage-name=""theme""></loading-theme>
+<!-- End -->")"</CodeSnippet>
+
+</p>
+<p>
+    4. Finally, you can add a button or page that allows the user to choose their theme.
+    To do this, you need to use a <b>FluentDesignTheme</b> component on which you can bind the <b>Mode</b> and 
+    the <b>OfficeColor</b> properties, and to set a <b>StorageName</b> to save all this in the LocalStorage.
+
+        <CodeSnippet Language="xml">
+        @(
+@"<FluentDesignTheme @bind-Mode=""@Mode""
+                   @bind-OfficeColor=""@OfficeColor""
+                   StorageName=""theme"" />")"</CodeSnippet>
+</p>
+
 <h2 id="DesignTheme">FluentDesignTheme</h2>
 
 <p>

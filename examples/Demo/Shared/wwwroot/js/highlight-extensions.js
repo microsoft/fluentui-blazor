@@ -23,12 +23,14 @@ highlight.onload = () => {
 
     // Switch highlight Dark/Light theme
     const theme = document.querySelector('loading-theme > fluent-design-theme');
-    theme.addEventListener('onchange', (e) => {
-        if (e.detail.name == 'mode') {
-            const isDark = e.detail.newValue.includes('dark');
-            hljs_ColorSwitcher(isDark);
-        }
-    });
+    if (theme != null) {
+        theme.addEventListener('onchange', (e) => {
+            if (e.detail.name == 'mode') {
+                const isDark = e.detail.newValue.includes('dark');
+                hljs_ColorSwitcher(isDark);
+            }
+        });
+    }
 
     // Detect system theme changing
     window.matchMedia('(prefers-color-scheme: dark)')
@@ -41,9 +43,11 @@ highlight.onload = () => {
 }
 function hljs_ColorSystem() {
     const theme = document.querySelector('loading-theme > fluent-design-theme');
-    if (theme.getAttribute('mode') == 'null' || theme.getAttribute('mode') == null) {
-        const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        hljs_ColorSwitcher(isSystemDark);
+    if (theme != null) {
+        if (theme.getAttribute('mode') == 'null' || theme.getAttribute('mode') == null) {
+            const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            hljs_ColorSwitcher(isSystemDark);
+        }
     }
 }
 
