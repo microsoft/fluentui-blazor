@@ -54,6 +54,8 @@ class LoadingTheme extends HTMLElement {
         document.body.classList.add(this.className);
 
         // Add a <fluent-design-theme mode="dark|light" /> sub-element
+        // Do not add the "storage-name"" to avoid unwanted local registration.
+        // If it's a request, add another <fluent-design-theme>
         const designTheme = document.createElement("fluent-design-theme");
         designTheme.setAttribute("mode", isDark(modeSaved, isSystemDark) ? "dark" : "light");
         this.appendChild(designTheme);

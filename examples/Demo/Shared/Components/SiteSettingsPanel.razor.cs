@@ -56,8 +56,7 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                 "./_content/FluentUI.Demo.Shared/js/theme.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "TODO: To remove");
             _currentTheme = await _jsModule.InvokeAsync<string>("getThemeCookieValue");
             StateHasChanged();
         }
