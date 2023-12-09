@@ -21,6 +21,7 @@ class LoadingTheme extends HTMLElement {
         // Attributes
         const storageName = this.getAttribute("storage-name");
         const mode = this.getAttribute("mode");
+        const primaryColor = this.getAttribute("primary-color");
 
         const isDark = (modeSaved, isSystemDark) => {
             switch (modeSaved) {
@@ -35,6 +36,7 @@ class LoadingTheme extends HTMLElement {
 
         // Compute the saved or the system theme (dark/light).
         const modeSaved = mode ?? JSON.parse(localStorage.getItem(storageName))?.mode;
+        const primaryColorSaved = primaryColor ?? JSON.parse(localStorage.getItem(storageName))?.primaryColor;
         const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const bgColor = isDark(modeSaved, isSystemDark) ? this.defaultDarkColor : this.defaultLightColor;
 
@@ -54,10 +56,10 @@ class LoadingTheme extends HTMLElement {
         document.body.classList.add(this.className);
 
         // Add a <fluent-design-theme mode="dark|light" /> sub-element
-        // Do not add the "storage-name"" to avoid unwanted local registration.
-        // If it's a request, add another <fluent-design-theme>
+        // Do not add the "storage-name"" to avoid unwanted local storage.
         const designTheme = document.createElement("fluent-design-theme");
-        designTheme.setAttribute("mode", modeSaved); // isDark(modeSaved, isSystemDark) ? "dark" : "light");
+        designTheme.setAttribute("mode", modeSaved);
+        designTheme.setAttribute("primary-color", primaryColorSaved);
         this.appendChild(designTheme);
 
         // Wait for the fluentui web components to be loaded
