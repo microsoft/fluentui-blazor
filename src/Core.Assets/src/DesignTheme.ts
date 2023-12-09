@@ -260,7 +260,7 @@ class DesignTheme extends HTMLElement {
 
             this.dispatchEvent(
                 new CustomEvent("onchange", {
-                    bubbles: true,
+                    bubbles: false,
                     detail: {
                         name: name,
                         oldValue: oldValue,

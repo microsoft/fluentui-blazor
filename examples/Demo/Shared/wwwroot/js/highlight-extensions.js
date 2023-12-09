@@ -1,47 +1,59 @@
 ﻿// Add Stylesheets
-addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css', 'highlight-light', null);
-addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css', 'highlight-dark', 'disabled');
-addStylesheet('https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.css', null, null);
+hljs_addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css', 'highlight-light', null);
+hljs_addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css', 'highlight-dark', 'disabled');
+hljs_addStylesheet('https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.css', null, null);
 
-addInlineStylesheet(`pre[class~="snippet"] {
+hljs_addInlineStylesheet(`pre[class~="snippet"] {
     --font-monospace: "courier";
     --type-ramp-base-font-variations: unset;
     font-weight: bold;
     }`);
 
 // Add Scripts
-const highlight = addJavaScript('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/highlight.min.js');
+const highlight = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/highlight.min.js');
 
 // Add custom code
 highlight.onload = () => {
-    const hljsRazor = addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js');
-    const hljsCopy = addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.js');
+    const hljsRazor = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js');
+    const hljsCopy = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.js');
 
     hljsCopy.onload = () => {
         hljs.addPlugin(new CopyButtonPlugin());
     }
 
     // Switch highlight Dark/Light theme
-    const theme = document.querySelector('loading-theme');
+    const theme = document.querySelector('loading-theme > fluent-design-theme');
     theme.addEventListener('onchange', (e) => {
-        const darkCss = document.querySelector('link[title="highlight-dark"]');
-        const lightCss = document.querySelector('link[title="highlight-light"]');
-
         const isDark = e.detail.name == 'mode' && e.detail.newValue.includes('dark');
-
-        if (isDark) {
-            darkCss.removeAttribute("disabled");
-            lightCss.setAttribute("disabled", "disabled");
-        }
-        else {
-            lightCss.removeAttribute("disabled");
-            darkCss.setAttribute("disabled", "disabled");
-        }
+        hljs_ColorSwitcher(isDark)
     });
+
+    // Detect system theme changing
+    window.matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+            const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            hljs_ColorSwitcher(isSystemDark);
+        });
+}
+
+function hljs_ColorSwitcher(isDark) {
+    console.log("hightlight - onchange");
+
+    const darkCss = document.querySelector('link[title="highlight-dark"]');
+    const lightCss = document.querySelector('link[title="highlight-light"]');
+
+    if (isDark) {
+        darkCss.removeAttribute("disabled");
+        lightCss.setAttribute("disabled", "disabled");
+    }
+    else {
+        lightCss.removeAttribute("disabled");
+        darkCss.setAttribute("disabled", "disabled");
+    }
 }
 
 // Add a <script> to the <body> element
-function addJavaScript(src) {
+function hljs_addJavaScript(src) {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = src;
@@ -58,7 +70,7 @@ function addJavaScript(src) {
 }
 
 // Add a <link> to the <head> element
-function addStylesheet(src, title, disabled) {
+function hljs_addStylesheet(src, title, disabled) {
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = src;
@@ -75,7 +87,7 @@ function addStylesheet(src, title, disabled) {
     return stylesheet;
 }
 
-function addInlineStylesheet(code) {
+function hljs_addInlineStylesheet(code) {
     const stylesheet = document.createElement('style');
     stylesheet.innerText = code;
 

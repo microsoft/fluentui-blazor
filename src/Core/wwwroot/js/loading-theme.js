@@ -38,7 +38,7 @@ class LoadingTheme extends HTMLElement {
         const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const bgColor = isDark(modeSaved, isSystemDark) ? this.defaultDarkColor : this.defaultLightColor;
 
-        console.log("LoadingTheme", { storageName, mode, modeSaved, isSystemDark, bgColor });
+        // console.log("LoadingTheme", { storageName, mode, modeSaved, isSystemDark, bgColor });
 
         // Create a ".hidden-unstyled-body" class
         // where the background-color is dark or light.
