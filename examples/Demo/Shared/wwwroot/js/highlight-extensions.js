@@ -24,21 +24,30 @@ highlight.onload = () => {
     // Switch highlight Dark/Light theme
     const theme = document.querySelector('loading-theme > fluent-design-theme');
     theme.addEventListener('onchange', (e) => {
-        const isDark = e.detail.name == 'mode' && e.detail.newValue.includes('dark');
-        hljs_ColorSwitcher(isDark)
+        if (e.detail.name == 'mode') {
+            const isDark = e.detail.newValue.includes('dark');
+            hljs_ColorSwitcher(isDark);
+        }
     });
 
     // Detect system theme changing
-    window.matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", (e) => {
-            const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-            hljs_ColorSwitcher(isSystemDark);
+    window.matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (e) => {
+            hljs_ColorSystem();
         });
+
+    // First/default theme
+    hljs_ColorSystem();
+}
+function hljs_ColorSystem() {
+    const theme = document.querySelector('loading-theme > fluent-design-theme');
+    if (theme.getAttribute('mode') == 'null' || theme.getAttribute('mode') == null) {
+        const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        hljs_ColorSwitcher(isSystemDark);
+    }
 }
 
 function hljs_ColorSwitcher(isDark) {
-    console.log("hightlight - onchange");
-
     const darkCss = document.querySelector('link[title="highlight-dark"]');
     const lightCss = document.querySelector('link[title="highlight-light"]');
 
