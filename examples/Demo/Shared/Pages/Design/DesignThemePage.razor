@@ -13,11 +13,6 @@
     the <a href="/DesignTokens">DesignTokens</a>
 </p>
 
-<blockquote>
-    &#9888; This <strong>FluentDesignTheme</strong> component can only be added once to your HTML code.
-    As it manages the theme of the entire page, it avoids the effects of interaction between several elements.
-</blockquote>
-
 <h2 id="DesignTheme">FluentDesignTheme</h2>
 
 <p>
@@ -77,7 +72,7 @@
 <h3>LocalStorage</h3>
 
 <p>
-    The <b>FluentDesignTheme</b> component contains an optional <b>LocalStorage</b> attribute to
+    The <b>FluentDesignTheme</b> component contains an optional <b>StorageName</b> attribute to
     define the name of the local storage to automatically save and retrieve the selected <b>Mode</b> and <b>PrimaryColor</b>.
 </p>
 <p>
@@ -88,7 +83,40 @@
     <CodeSnippet Language="json">@("\"theme\" = {\"mode\": \"light\", \"primaryColor\": \"word\"}")</CodeSnippet>
 </p>
 
-<h3>Example</h3>
+<h3>How to remove the "Sparkling Effect" on loading</h3>
+
+<p>
+    Depending on the size of the file to be downloaded or the user's bandwidth,
+    there may be a "Sparkling Effect" effect when the page is loaded.
+    (a white page displayed some milliseconds before the Dark theme is present).
+    This is due to the fact that Blazor's complete engine cannot display a Dark page
+    until the code (JS and WebAssembly) has been downloaded and executed.
+</p>
+<p>
+    To avoid this, we propose a component separate from the main library,
+    whose only purpose is to detect the dark/light mode to be displayed,
+    until the main components are loaded.
+</p>
+
+<CodeSnippet Language="xml">
+    @(
+@"<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
+<loading-theme storage-name=""theme""></loading-theme>")"</CodeSnippet>
+
+<p>
+    In this example, the <strong>storage-name="theme"</strong> searches for a optional
+    theme saved in the browser's LocalStorage. <br/>
+    You can also "force" the Dark theme using a syntax like <code>&lt;loading-theme mode="dark" /&gt;</code>
+</p>
+
+<p>
+    Technically, this <b>loading-theme</b> component adds a <b>hidden-body</b> class
+    (<code>visibility: hidden; background-color: #272727;</code>) to the <b>body</b> tag during the loading time 
+    of all FluentUI Blazor components.
+    Once they are integrated into the browser, this class is removed and the content is displayed.
+</p>
+
+<h3>Example</h3>  
 
 <DemoSection Title="" Component="@typeof(DesignThemeDefault)" />
 

@@ -199,6 +199,9 @@ class DesignTheme extends HTMLElement {
             return;
         }
 
+        if (oldValue == "null") oldValue = null
+        if (newValue == "null") newValue = null;
+
         if (oldValue === newValue) {
             return;
         }
@@ -232,7 +235,7 @@ class DesignTheme extends HTMLElement {
         // If not, the dev already "forced" the mode to "dark" or "light"
         if (currentMode == null) {
 
-            // console.log(` ** colorSchemeListener = "${currentMode}"`)
+            // console.log(` ** colorSchemeListener = "${currentMode}"`) 
 
             // Dark
             if (e.matches) {
@@ -243,7 +246,6 @@ class DesignTheme extends HTMLElement {
             // Light
             else {
                 this.dispatchAttributeChanged("mode", currentMode, "system-light");
-                console.log("LIGHT MODE 3");
                 baseLayerLuminance.withDefault(StandardLuminance.LightMode);
             }
         }
@@ -279,7 +281,6 @@ class DesignTheme extends HTMLElement {
                 this.removeAttribute(name);
             }
         }
-
         if (this.storageName != null) {
             this._themeStorage.updateLocalStorage(this.mode, this.primaryColor);
         }

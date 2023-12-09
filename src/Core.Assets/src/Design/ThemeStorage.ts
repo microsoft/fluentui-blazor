@@ -31,6 +31,9 @@ class ThemeStorage {
       return;
     }
 
+    if (mode == "null") mode = null;
+    if (primaryColor == "null") primaryColor = null;
+
     // Save to the localstorage
     localStorage.setItem(this.storageName, JSON.stringify({
       mode: mode,
@@ -49,8 +52,8 @@ class ThemeStorage {
     const storageItems = JSON.parse(localStorage.getItem(this.storageName) ?? "{ }");
 
     return {
-      mode: storageItems?.mode,
-      primaryColor: storageItems?.primaryColor,
+      mode: storageItems?.mode == "null" ? null : storageItems?.mode,
+      primaryColor: storageItems?.primaryColor == "null" ? null : storageItems?.primaryColor,
     }
   }
 }

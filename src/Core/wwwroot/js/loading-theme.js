@@ -57,7 +57,7 @@ class LoadingTheme extends HTMLElement {
         // Do not add the "storage-name"" to avoid unwanted local registration.
         // If it's a request, add another <fluent-design-theme>
         const designTheme = document.createElement("fluent-design-theme");
-        designTheme.setAttribute("mode", isDark(modeSaved, isSystemDark) ? "dark" : "light");
+        designTheme.setAttribute("mode", modeSaved); // isDark(modeSaved, isSystemDark) ? "dark" : "light");
         this.appendChild(designTheme);
 
         // Wait for the fluentui web components to be loaded
