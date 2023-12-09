@@ -1,31 +1,27 @@
-﻿@implements IDialogContentComponent<GlobalState>
+﻿@implements IDialogContentComponent
 
 <div>
+    <FluentDesignTheme @bind-Mode="@Mode"
+                       @bind-OfficeColor="@OfficeColor"
+                       StorageName="theme" />
+
     <FluentStack Orientation="Orientation.Vertical" VerticalGap="8">
-        <div class="colorgroup">
-            <label for="color">Color</label><br />
-            <FluentSelect Id="color"
-                          Items=@(Enum.GetValues<OfficeColor>())
-                          OptionValue="@(c => c.ToAttributeValue())"
-                          OptionSelected="@(c => c == _selectedColorOption)"
-                          TOption="OfficeColor"
-                          Position="SelectPosition.Below"
-                          @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => UpdateColorAsync(x))"
-                          aria-label="Accent color selector" />
-        </div>
-        <FluentRadioGroup TValue="string" Label="Theme" @bind-Value="@_currentTheme" @bind-Value:after="UpdateThemeAsync" Orientation="Orientation.Vertical">
-            <FluentRadio Value="@ThemeSettingSystem">System</FluentRadio>
-            <FluentRadio Value="@ThemeSettingLight">Light</FluentRadio>
-            <FluentRadio Value="@ThemeSettingDark">Dark</FluentRadio>
-        </FluentRadioGroup>
-       
-        <FluentSwitch @bind-Value="@_rtl" title="Switch direction" @bind-Value:after="UpdateDirectionAsync">
-            <span>Direction</span>
-            <span slot="unchecked-message">LTR</span>
-            <span slot="checked-message">RTL</span>
-        </FluentSwitch>
-        <p style="margin-top:48px;"><i>These settings are not (yet) persisted from one session to another.</i></p>
+        <FluentSelect Label="Theme"
+                      Items="@AllModes"
+                      @bind-SelectedOption="@Mode" />
+
+        <FluentSelect Label="Color"
+                      Items="@AllOfficeColors"
+                      Height="200px"
+                      @bind-SelectedOption="@OfficeColor">
+            <OptionTemplate>
+                <FluentStack>
+                    <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
+                                Color="Color.Custom"
+                                CustomColor="@context.ToAttributeValue()" />
+                    <FluentLabel>@context</FluentLabel>
+                </FluentStack>
+            </OptionTemplate>
+        </FluentSelect>
     </FluentStack>
 </div>
-
