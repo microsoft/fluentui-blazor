@@ -1,10 +1,5 @@
-﻿//declare module '*.css';
-
-export * from '@fluentui/web-components/dist/web-components'
+﻿export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
-//import styles from './styles.css' 
-//import variables from './variables.css'  
-
 
 var styleSheet = new CSSStyleSheet();
 
@@ -30,13 +25,7 @@ body:has(.prevent-scroll) {
 `;
 
 styleSheet.replaceSync(styles);
-console.log(styleSheet);
 document.adoptedStyleSheets.push(styleSheet);
-
-//styleSheet.replaceSync(variables);
-//console.log(styleSheet);
-//document.adoptedStyleSheets.push(styleSheet);
-
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
