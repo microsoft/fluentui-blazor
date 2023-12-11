@@ -1,8 +1,6 @@
-﻿
 export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
-
 
 var styleSheet = new CSSStyleSheet();
 
@@ -29,11 +27,6 @@ body:has(.prevent-scroll) {
 
 styleSheet.replaceSync(styles);
 document.adoptedStyleSheets.push(styleSheet);
-
-//styleSheet.replaceSync(variables);
-//console.log(styleSheet);
-//document.adoptedStyleSheets.push(styleSheet);
-
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
