@@ -746,6 +746,13 @@
             Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeStateOrderUncheckToIntermediate">
+            <summary>
+            Gets or sets a value indicating the order of the three states of the CheckBox.
+            False (by default), the order is Unchecked -> Checked -> Intermediate.
+            True: the order is Unchecked -> Intermediate -> Checked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ShowIndeterminate">
             <summary>
             Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -2085,6 +2092,84 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Id">
+            <summary>
+            Gets or sets the identifier for the component.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
+            <summary>
+            Gets or sets the Theme mode: Dark, Light, or browser System theme.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ModeChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor">
+            <summary>
+            Gets or sets the Accent base color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColorChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor">
+            <summary>
+            Gets or sets the application to defined the Accent base color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColorChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.StorageName">
+            <summary>
+            Gets or sets the local storage name to save and retrieve the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/> and the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/> / <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Direction">
+            <summary>
+            Gets or sets the body.dir value.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLuminanceChanged">
+            <summary>
+            Callback raised when the Dark/Light luminance changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ChildContent">
+            <summary>
+            Gets or sets the content of the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnChangeRaisedAsync(System.String,System.String)">
+            <summary>
+            Method raised by the JavaScript code when the "mode" changes.
+            </summary>
+            <param name="name">Attribute name: only "mode".</param>
+            <param name="value">New value: for "mode" = "dark", "light", "system-dark", "system-light"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValues(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IDialogContentComponent">
             <summary>
@@ -10077,6 +10162,26 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType.StickyHeader">
             <summary>
             A sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes">
+            <summary>
+            The standard theme values for light and dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.System">
+            <summary>
+            Browser System theme
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.Light">
+            <summary>
+            Light theme
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.Dark">
+            <summary>
+            Dark theme
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogType">

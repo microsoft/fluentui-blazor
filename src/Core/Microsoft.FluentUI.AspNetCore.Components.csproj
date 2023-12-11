@@ -62,7 +62,7 @@
 
   <ItemGroup>
 	  
-    <ProjectReference Include="..\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj" PrivateAssets="All"/>
+    <ProjectReference Include="..\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj" PrivateAssets="All" />
     <ProjectReference Include="..\Extensions\DesignToken.Generator\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
