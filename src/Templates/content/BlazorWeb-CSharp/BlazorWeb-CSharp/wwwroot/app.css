@@ -142,7 +142,7 @@ code {
         width: 100% !important;
     }
 
-        #main-menu > div:first-child {
+        #main-menu > div:first-child:is(.expander) {
             display: none;
         }
 
