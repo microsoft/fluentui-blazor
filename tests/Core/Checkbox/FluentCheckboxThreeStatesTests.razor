@@ -27,6 +27,32 @@
         Assert.Equal(assertValue, myValue);
     }
 
+    [Theory]
+    [InlineData(false, null, false)] // Unchecked => Indeterminate
+    [InlineData(null, true, true)] // Indeterminate => Checked
+    [InlineData(true, false, false)] // Checked => Unchecked
+    public void FluentCheckbox_ThreeStates_InverseOrder(bool? initialState, bool? assertState, bool assertValue)
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        bool myValue = initialState ?? false;
+        bool? myState = initialState;
+
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="myCheck"
+                ThreeState="true"
+                ThreeStateOrderUncheckToIntermediate="true"
+                @bind-CheckState="@myState"
+                @bind-Value="@myValue" />);
+
+        var component = cut.Find("fluent-checkbox");
+        component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = !myValue });
+
+        // Assert
+        Assert.Equal(assertState, myState);
+        Assert.Equal(assertValue, myValue);
+    }
+
     [Fact]
     public void FluentCheckbox_ThreeStates_ShowIntermediateFalse()
     {
