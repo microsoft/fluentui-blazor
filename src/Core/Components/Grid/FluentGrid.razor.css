@@ -138,7 +138,7 @@
     .fluent-grid ::deep > div[xs="3"] {
         flex-grow: 0;
         max-width: 25%;
-        flex-basis: 253%;
+        flex-basis: 25%;
     }
 
     .fluent-grid ::deep > div[xs="4"] {
@@ -192,7 +192,7 @@
     .fluent-grid ::deep > div[xs="12"] {
         flex-grow: 0;
         max-width: 100%;
-        flex-basis: 1003%;
+        flex-basis: 100%;
     }
 
 
@@ -232,7 +232,7 @@
     .fluent-grid ::deep > div[sm="3"] {
         flex-grow: 0;
         max-width: 25%;
-        flex-basis: 253%;
+        flex-basis: 25%;
     }
 
     .fluent-grid ::deep > div[sm="4"] {
@@ -286,7 +286,7 @@
     .fluent-grid ::deep > div[sm="12"] {
         flex-grow: 0;
         max-width: 100%;
-        flex-basis: 1003%;
+        flex-basis: 100%;
     }
 }
 
@@ -326,7 +326,7 @@
     .fluent-grid ::deep > div[md="3"] {
         flex-grow: 0;
         max-width: 25%;
-        flex-basis: 253%;
+        flex-basis: 25%;
     }
 
     .fluent-grid ::deep > div[md="4"] {
@@ -380,7 +380,7 @@
     .fluent-grid ::deep > div[md="12"] {
         flex-grow: 0;
         max-width: 100%;
-        flex-basis: 1003%;
+        flex-basis: 100%;
     }
 }
 
@@ -420,7 +420,7 @@
     .fluent-grid ::deep > div[lg="3"] {
         flex-grow: 0;
         max-width: 25%;
-        flex-basis: 253%;
+        flex-basis: 25%;
     }
 
     .fluent-grid ::deep > div[lg="4"] {
@@ -474,7 +474,7 @@
     .fluent-grid ::deep > div[lg="12"] {
         flex-grow: 0;
         max-width: 100%;
-        flex-basis: 1003%;
+        flex-basis: 100%;
     }
 }
 
@@ -514,7 +514,7 @@
     .fluent-grid ::deep > div[xl="3"] {
         flex-grow: 0;
         max-width: 25%;
-        flex-basis: 253%;
+        flex-basis: 25%;
     }
 
     .fluent-grid ::deep > div[xl="4"] {
@@ -568,7 +568,7 @@
     .fluent-grid ::deep > div[xl="12"] {
         flex-grow: 0;
         max-width: 100%;
-        flex-basis: 1003%;
+        flex-basis: 100%;
     }
 }
 
@@ -608,7 +608,7 @@
     .fluent-grid ::deep > div[xxl="3"] {
         flex-grow: 0;
         max-width: 25%;
-        flex-basis: 253%;
+        flex-basis: 25%;
     }
 
     .fluent-grid ::deep > div[xxl="4"] {
@@ -662,7 +662,7 @@
     .fluent-grid ::deep > div[xxl="12"] {
         flex-grow: 0;
         max-width: 100%;
-        flex-basis: 1003%;
+        flex-basis: 100%;
     }
 }
 
