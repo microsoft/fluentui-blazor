@@ -1,7 +1,6 @@
 ﻿// Add Stylesheets
 hljs_addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css', 'highlight-light', null);
 hljs_addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css', 'highlight-dark', 'disabled');
-hljs_addStylesheet('https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.css', null, null);
 
 hljs_addInlineStylesheet(`pre[class~="snippet"] {
     --font-monospace: "courier";
@@ -15,11 +14,6 @@ const highlight = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/@highlightjs/
 // Add custom code
 highlight.onload = () => {
     const hljsRazor = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js');
-    const hljsCopy = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.js');
-
-    hljsCopy.onload = () => {
-        hljs.addPlugin(new CopyButtonPlugin());
-    }
 
     // Switch highlight Dark/Light theme
     const theme = document.querySelector('loading-theme > fluent-design-theme');
