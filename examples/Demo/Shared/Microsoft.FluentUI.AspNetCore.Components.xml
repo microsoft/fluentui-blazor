@@ -746,6 +746,13 @@
             Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeStateOrderUncheckToIntermediate">
+            <summary>
+            Gets or sets a value indicating the order of the three states of the CheckBox.
+            False (by default), the order is Unchecked -> Checked -> Intermediate.
+            True: the order is Unchecked -> Intermediate -> Checked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ShowIndeterminate">
             <summary>
             Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
