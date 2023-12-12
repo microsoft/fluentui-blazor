@@ -14,9 +14,9 @@
     <input type="checkbox" id="navmenu-toggle" />
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
         @*#if (UseServer || UseWebAssembly)
-        <FluentNavMenu Id="main-menu" Width="250" Collapsible="true" Title="Custom navigation menu" @bind-Expanded="expanded">
+        <FluentNavMenu Id="main-menu" Width="250" Collapsible="true" Title="Navigation menu" @bind-Expanded="expanded">
         ##else
-        <FluentNavMenu Id="main-menu" Width="250" Title="Custom navigation menu" @bind-Expanded="expanded">
+        <FluentNavMenu Id="main-menu" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
         ##endif*@
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
             @*#if (UseServer || UseWebAssembly)
