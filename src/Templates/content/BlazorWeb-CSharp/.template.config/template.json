@@ -113,6 +113,7 @@
             "BlazorWeb-CSharp/Components/Pages/Weather.*",
             "BlazorWeb-CSharp/Components/Layout/NavMenu.*",
             "BlazorWeb-CSharp/wwwroot/favicon.*",
+            "BlazorWeb-CSharp.Client/Layout/NavMenu.*",
             "BlazorWeb-CSharp.Client/Pages/**",
             "BlazorWeb-CSharp.Client/wwwroot/**"
           ]
