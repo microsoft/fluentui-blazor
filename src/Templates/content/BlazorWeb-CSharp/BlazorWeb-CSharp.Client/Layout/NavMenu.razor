@@ -1,6 +1,4 @@
-﻿@* To get access to all Fluent UI System icons, install the Microsoft.FluentUI.AspNetCore.Compoents.Icon package *@
-@* See all the different ways on how to use icons at https://www.fluentui-blazor.net/Icon *@
-@*#if (UseServer && !InteractiveAtRoot)
+﻿@*#if (UseServer && !InteractiveAtRoot)
 @rendermode InteractiveAuto
 ##elseif (!InteractiveAtRoot)
 @rendermode InteractiveWebAssembly
@@ -16,9 +14,9 @@
     <input type="checkbox" id="navmenu-toggle" />
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
         <FluentNavMenu Id="main-menu" Width="250" Collapsible="true" Title="Navigation menu" @bind-Expanded="expanded">
-            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
-            <FluentNavLink Href="counter" Icon="@Icon.FromImageUrl("/images/counter.svg")" IconColor="Color.Accent">Counter</FluentNavLink>
-            <FluentNavLink Href="weather" Icon="@Icon.FromImageUrl("/images/weather.svg")" IconColor="Color.Accent">Weather</FluentNavLink>
+            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
+            <FluentNavLink Href="counter" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconColor="Color.Accent">Counter</FluentNavLink>
+            <FluentNavLink Href="weather" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">Weather</FluentNavLink>
             @*#if (IndividualLocalAuth)
             <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
             <AuthorizeView>
