@@ -58,7 +58,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
     }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }

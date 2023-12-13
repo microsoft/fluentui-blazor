@@ -1,4 +1,83 @@
-﻿## V3.4.1
+﻿## V3.5.0
+
+- Update Fluent UI System Icons to version 1.1.224
+**What's new (Name / Size(s) / Variant(s))**
+- Arrow Clockwise Dashes / 16, 32 / Filled & Regular
+- Building Swap / 16, 20, 24, 32, 48 / Filled & Regular
+- Certificate / 32 / Filled & Regular
+- Clipboard Brush / 16, 20, 24, 28, 32 / Filled & Regular
+- Cloud Beaker / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Cloud Cube / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Contract Up Right / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Document Data Lock / 16, 20, 24, 32 / Filled & Regular
+- Glance Horizontal Sparkles / 20 / Filled & Regular
+- Layout Cell Four Focus Bottom Left / 16, 20, 24 / Filled
+- Layout Cell Four Focus Bottom Right / 16, 20, 24 / Filled
+- Layout Cell Four Focus Top Left / 16, 20, 24 / Filled
+- Layout Cell Four Focus Top Right / 16, 20, 24 / Filled
+- Layout Cell Four / 16, 20, 24 / Filled & Regular
+- Layout Column Four Focus Center Left / 16, 20, 24 / Filled
+- Layout Column Four Focus Center Right / 16, 20, 24 / Filled
+- Layout Column Four Focus Left / 16, 20, 24 / Filled
+- Layout Column Four Focus Right / 16, 20, 24 / Filled
+- Layout Column Four / 16, 20, 24 / Filled & Regular
+- Layout Column One Third Left / 16, 20, 24 / Filled & Regular
+- Layout Column One Third Right Hint / 16, 20, 24 / Filled & Regular
+- Layout Column One Third Right / 16, 20, 24 / Filled & Regular
+- Layout Column Three Focus Center / 16, 20, 24 / Filled
+- Layout Column Three Focus Left / 16, 20, 24 / Filled
+- Layout Column Three Focus Right / 16, 20, 24 / Filled
+- Layout Column Three / 16, 20, 24 / Filled & Regular
+- Layout Column Two Focus Left / 16, 20, 24 / Filled
+- Layout Column Two Focus Right / 16, 20, 24 / Filled
+- Layout Column Two Split Left Focus Bottom Left / 16, 20, 24 / Filled
+- Layout Column Two Split Left Focus Right / 16, 20, 24 / Filled
+- Layout Column Two Split Left Focus Top Left / 16, 20, 24 / Filled
+- Layout Column Two Split Left / 16, 20, 24 / Filled & Regular
+- Layout Column Two Split Right Focus Bottom Right / 16, 20, 24 / Filled
+- Layout Column Two Split Right Focus Left / 16, 20, 24 / Filled
+- Layout Column Two Split Right Focus Top Right / 16, 20, 24 / Filled
+- Layout Column Two Split Right / 16, 20, 24 / Filled & Regular
+- Layout Column Two / 16, 20, 24 / Filled & Regular
+- Layout Row Four Focus Bottom / 16, 20, 24 / Filled
+- Layout Row Four Focus Center Bottom / 16, 20, 24 / Filled
+- Layout Row Four Focus Center Top / 16, 20, 24 / Filled
+- Layout Row Four Focus Top / 16, 20, 24 / Filled
+- Layout Row Four / 16, 20, 24 / Filled & Regular
+- Layout Row Three Focus Bottom / 16, 20, 24 / Filled
+- Layout Row Three Focus Center / 16, 20, 24 / Filled
+- Layout Row Three Focus Top / 16, 20, 24 / Filled
+- Layout Row Three / 16, 20, 24 / Filled & Regular
+- Layout Row Two Focus Bottom / 16, 20, 24 / Filled
+- Layout Row Two Focus Top / 16, 20, 24 / Filled
+- Layout Row Two Split Bottom Focus Bottom Left / 16, 20, 24 / Filled
+- Layout Row Two Split Bottom Focus Bottom Right / 16, 20, 24 / Filled
+- Layout Row Two Split Bottom Focus Top / 16, 20, 24 / Filled
+- Layout Row Two Split Bottom / 16, 20, 24 / Filled & Regular
+- Layout Row Two Split Top Focus Bottom / 16, 20, 24 / Filled
+- Layout Row Two Split Top Focus Top Left / 16, 20, 24 / Filled
+- Layout Row Two Split Top Focus Top Right / 16, 20, 24 / Filled
+- Layout Row Two Split Top / 16, 20, 24 / Filled & Regular
+- Layout Row Two / 16, 20, 24 / Filled & Regular
+- Location Target Square / 16, 20, 24, 32 / Filled & Regular
+- Resize / 16, 28, 32, 48 / Filled & Regular
+- Select All Off / 16 / Filled & Regular
+- Select All On / 16 / Filled & Regular
+- Share Android / 16, 32 / Filled & Regular
+- Text Arrow Down Right Column / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Text Effects Sparkle / 20, 24 / Filled & Regular
+- Whiteboard Off / 16, 20, 24 / Filled & Regular
+- Whiteboard / 16 / Filled & Regular
+ 
+**What's updated (Name / Size(s) / Variant(s))**
+- Contract Down Left / 28 / Filled & Regular
+- Resize / 20, 24 / Filled & Regular
+- Select All Off / 20, 24 / Filled & Regular
+- Select All On / 20, 24 / Filled & Regular
+
+
+
+## V3.4.1
 - Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): `FluentNumberField` can be changed when `ReadOnly`
 - Fix [#917](https://github.com/microsoft/fluentui-blazor/issues/917) Multiple `Header` and `Footer` detection in Dialog
 - Fix [#939](https://github.com/microsoft/fluentui-blazor/issues/939): Add `OptionTemplate` for `FluentCombobox`, `FluentListBox` and `FluentSelect` 

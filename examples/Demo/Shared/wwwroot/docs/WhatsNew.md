@@ -1,4 +1,5 @@
-﻿## V3.4.1
+﻿## V3.5.0
+## V3.4.1
 - Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): `FluentNumberField` can be changed when `ReadOnly`
 - Fix [#917](https://github.com/microsoft/fluentui-blazor/issues/917) Multiple `Header` and `Footer` detection in Dialog
 - Fix [#939](https://github.com/microsoft/fluentui-blazor/issues/939): Add `OptionTemplate` for `FluentCombobox`, `FluentListBox` and `FluentSelect` 
