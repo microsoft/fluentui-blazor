@@ -1,12 +1,16 @@
 ﻿## 4.2.0
 - New: FluentDesignTheme - An easy-to-use component to set a theme and accent color.
+- New: FluentValidationMessage and Required indicator for input components
+- JavaScript tools project system integration 
 - Enhanced: NavMenu
 - Enhanced: InputFile
 - Enhanced: List components
-- Enhanced: Grid
+- Enhanced: Grid: Hiding elements and `OnBreakpointEnter` event callback
 - Enhanced: Checkbox
 - Enhanced: Splitter
-- Updated Templates
+- Updated Templates: responsive NavMenu and other improvements
+- Fix [#1057](https://github.com/microsoft/fluentui-blazor/issues/1057): Can't show Fluent UI Blazor dialog on published Blazor webasm app
+- Fix [#1070](https://github.com/microsoft/fluentui-blazor/issues/1070): Style not applied for FluentPaginator + added `PaginationTextTemplate` parameter 
 
 ## 4.1.1
 - Fix [#939](https://github.com/microsoft/fluentui-blazor/issues/939): Add `OptionTemplate` for `FluentCombobox`, `FluentListBox` and `FluentSelect` 
