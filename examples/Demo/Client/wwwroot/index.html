@@ -7,39 +7,9 @@
     <title>FluentUI.Demo.Client</title>
     <base href="/" />
     <link href="_content/FluentUI.Demo.Shared/css/site.css" rel="stylesheet" />
-    <style>
-        :root {
-            --neutral-fill-layer-rest: #ffffff;
-            color: #000000;
-        }
-
-        .loading-progress-text {
-            color: #000000;
-        }
-
-        @media(prefers-color-scheme: dark) {
-            :root {
-                --neutral-fill-layer-rest: #464646;
-                color: #ffffff;
-            }
-
-            .loading-progress-text {
-                color: #ffffff;
-            }
-        }
-
-        body,
-        #container {
-            font: 14px "Segoe UI Variable", "Segoe UI", sans-serif;
-            background-color: var(--neutral-fill-layer-rest);
-        }
-    </style>
     <link href="FluentUI.Demo.Client.styles.css" rel="stylesheet" />
 
-    <!-- highlight -->
-    <link rel="stylesheet" title="light" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css">
-    <link rel="stylesheet" title="dark" disabled="disabled" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.css">
+    <!-- Statistics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VML6BZWWTC"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -58,6 +28,11 @@
 </head>
 
 <body>
+    <!-- Set the default theme ("mode" overrides the "storage-name") -->
+    <script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js" type="text/javascript"></script>
+    <loading-theme storage-name="theme"></loading-theme>
+    <!-- End -->
+
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
@@ -72,18 +47,9 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="js/site.js"></script>
-    <script src="_content/FluentUI.Demo.Shared/js/theme.js" type="module"></script>
 
     <!-- highlight -->
-    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlightjs-copy@1.0.3/dist/highlightjs-copy.min.js"></script>
-    <script>
-        if (hljs != null) {
-            hljs.addPlugin(new CopyButtonPlugin());
-        }
-    </script>
+    <script type="text/javascript" src="_content/FluentUI.Demo.Shared/js/highlight-extensions.js"></script>
 </body>
 
 </html>

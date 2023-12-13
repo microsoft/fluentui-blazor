@@ -1,0 +1,7 @@
+.validation-message {
+    color: var(--error);
+    font-size: var(--type-ramp-minus-1-font-size);
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+}

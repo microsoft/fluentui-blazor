@@ -1,6 +1,4 @@
-﻿@* To get access to all Fluent UI System icons, install the Microsoft.FluentUI.AspNetCore.Compoents.Icon package *@
-@* See all the diffeent ways on how to use icons at https://www.fluentui-blazor.net/Icon *@
-@*#if (UseServer && !InteractiveAtRoot) -->
+﻿@*#if (UseServer && !InteractiveAtRoot) -->
 @rendermode InteractiveServer
 ##endif*@
 
@@ -10,40 +8,44 @@
 @inject NavigationManager NavigationManager
 
 ##endif*@
-<nav>
-    @*#if (UseServer || UseWebAssembly)
-    <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
-    ##else
-    <FluentNavMenu Width="250" Title="Custom navigation menu">
-    ##endif*@
-        <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
+<div class="navmenu">
+    <input type="checkbox" id="navmenu-toggle" />
+    <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
         @*#if (UseServer || UseWebAssembly)
-        <FluentNavLink Href="counter" Icon="@Icon.FromImageUrl("/images/counter.svg")" IconColor="Color.Accent">Counter</FluentNavLink>
+        <FluentNavMenu Id="main-menu" Width="250" Collapsible="true" Title="Navigation menu" @bind-Expanded="expanded">
+        ##else
+        <FluentNavMenu Id="main-menu" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
         ##endif*@
-        <FluentNavLink Href="weather" Icon="@Icon.FromImageUrl("/images/weather.svg")" IconColor="Color.Accent">Weather</FluentNavLink>
-        @*#if (IndividualLocalAuth)
-        <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
-        <AuthorizeView>
-            <Authorized>
-                <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
-                <form action="Account/Logout" method="post">
-                    <AntiforgeryToken />
-                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                    <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
-                </form>
-            </Authorized>
-            <NotAuthorized>
-                <FluentNavLink Href="Account/Register">Register</FluentNavLink>
-                <FluentNavLink Href="Account/Login">Login</FluentNavLink>
-            </NotAuthorized>
-        </AuthorizeView>
-        ##endif*@
-    </FluentNavMenu>
-</nav>
-
-@*#if (IndividualLocalAuth)
+            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
+            @*#if (UseServer || UseWebAssembly)
+            <FluentNavLink Href="counter" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconColor="Color.Accent">Counter</FluentNavLink>
+            ##endif*@
+            <FluentNavLink Href="weather" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">Weather</FluentNavLink>
+            @*#if (IndividualLocalAuth)
+            <FluentNavLink Href="auth" Icon="@(new Icons.Regular.Size20.LockClosedKey())" IconColor="Color.Accent">Auth Required</FluentNavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
+                    <form action="Account/Logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
+                    </form>
+                </Authorized>
+                <NotAuthorized>
+                    <FluentNavLink Href="Account/Register">Register</FluentNavLink>
+                    <FluentNavLink Href="Account/Login">Login</FluentNavLink>
+                </NotAuthorized>
+            </AuthorizeView>
+            ##endif*@
+        </FluentNavMenu>
+    </nav>
+</div>
 
 @code {
+    private bool expanded = true;
+
+@*#if (IndividualLocalAuth)
     private string? currentUrl;
 
     protected override void OnInitialized()
@@ -62,6 +64,6 @@
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
-}
 ##endif*@
+}
 

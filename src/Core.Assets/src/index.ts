@@ -1,56 +1,100 @@
-﻿import { SplitPanels } from "./js/SplitPanels.js";
+export * from '@fluentui/web-components/dist/web-components'
+import { SplitPanels } from './SplitPanels'
+import { DesignTheme } from './DesignTheme'
+
+var styleSheet = new CSSStyleSheet();
+
+const styles = `
+body:has(.prevent-scroll) {
+    overflow: hidden;
+}
+:root {
+    --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
+    --success: #0E700E;
+    --warning: #E9835E;
+    --error: #BC2F32;
+    --info: #616161;
+    --presence-available: #13a10e;
+    --presence-away: #eaa300;
+    --presence-busy: #d13438;
+    --presence-dnd: #d13438;
+    --presence-offline: #adadad;
+    --presence-oof: #c239b3;
+    --presence-unknown: #d13438;
+    --highlight-bg: #fff3cd;
+}
+`;
+
+styleSheet.replaceSync(styles);
+document.adoptedStyleSheets.push(styleSheet);
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
-export function beforeWebStart(options, extensions) {
+interface Blazor {
+    registerCustomEventType: (
+        name: string,
+        options: CustomeventTypeOptions) => void;
+}
+
+interface CustomeventTypeOptions {
+    browserEventName: string;
+    createEventArgs: (event: FluentUIEventType) => any;
+}
+
+interface FluentUIEventType {
+    target: any;
+    detail: any;
+    _readOnly: any;
+    type: string;
+}
+
+export function beforeWebStart(options: any) {
     if (!beforeStartCalled) {
-        beforeStart(options, extensions);
+        beforeStart(options);
     }
 }
 
-export function afterWebStarted(blazor) {
+export function afterWebStarted(blazor: any) {
     if (!afterStartedCalled) {
         afterStarted(blazor);
     }
 }
 
-export function beforeWebAssemblyStart(options, extensions) {
+export function beforeWebAssemblyStart(options: any) {
     if (!beforeStartCalled) {
-        beforeStart(options, extensions);
+        beforeStart(options);
     }
 }
 
-export function afterWebAssemblyStarted(blazor) {
+export function afterWebAssemblyStarted(blazor: any) {
     if (!afterStartedCalled) {
         afterStarted(blazor);
     }
 }
 
-export function beforeServerStart(options, extensions) {
+export function beforeServerStart(options: any) {
     if (!beforeStartCalled) {
-        beforeStart(options, extensions);
+        beforeStart(options);
     }
 }
 
-export function afterServerStarted(blazor) {
+export function afterServerStarted(blazor: any) {
     if (!afterStartedCalled) {
         afterStarted(blazor);
     }
 }
 
-export function afterStarted(blazor) {
-
-    customElements.define("split-panels", SplitPanels);
+export function afterStarted(blazor: Blazor) {
 
     blazor.registerCustomEventType('radiogroupclick', {
         browserEventName: 'click',
         createEventArgs: event => {
-            if (event.target._readOnly || event.target._disabled) {
+            if (event.target!._readOnly || event.target!._disabled) {
                 return null;
             }
             return {
-                value: event.target.value
+                value: event.target!.value
             };
         }
     });
@@ -59,7 +103,7 @@ export function afterStarted(blazor) {
         createEventArgs: event => {
 
             // Hacking of a fake update
-            if (event.target.isUpdating) {                
+            if (event.target!.isUpdating) {                
                 return {
                     checked: null,
                     indeterminate: null
@@ -67,8 +111,8 @@ export function afterStarted(blazor) {
             }
 
             return {
-                checked: event.target.currentChecked,
-                indeterminate: event.target.indeterminate
+                checked: event.target!.currentChecked,
+                indeterminate: event.target!.indeterminate
             };
         }
     });
@@ -76,16 +120,16 @@ export function afterStarted(blazor) {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                checked: event.target.checked
+                checked: event.target!.checked
             };
         }
     });
     blazor.registerCustomEventType('accordionchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-accordion-item') {
+            if (event.target!.localName == 'fluent-accordion-item') {
                 return {
-                    activeId: event.target.id,
+                    activeId: event.target!.id,
                 }
             };
             return null;
@@ -94,7 +138,7 @@ export function afterStarted(blazor) {
     blazor.registerCustomEventType('tabchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-tabs') {
+            if (event.target!.localName == 'fluent-tabs') {
                 return {
                     activeId: event.detail.id,
                 }
@@ -105,7 +149,7 @@ export function afterStarted(blazor) {
     blazor.registerCustomEventType('selectedchange', {
         browserEventName: 'selected-change',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-tree-item') {
+            if (event.target!.localName == 'fluent-tree-item') {
                 return {
                     affectedId: event.detail.attributes['id'].value,
                     selected: event.detail._selected,
@@ -136,7 +180,7 @@ export function afterStarted(blazor) {
     blazor.registerCustomEventType('tooltipdismiss', {
         browserEventName: 'dismiss',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-tooltip') {
+            if (event.target!.localName == 'fluent-tooltip') {
                 return {
                     reason: event.type
                 };
@@ -147,9 +191,9 @@ export function afterStarted(blazor) {
     blazor.registerCustomEventType('dialogdismiss', {
         browserEventName: 'dismiss',
         createEventArgs: event => {
-            if (event.target.localName == 'fluent-dialog') {
+            if (event.target!.localName == 'fluent-dialog') {
                 return {
-                    id: event.target.id,
+                    id: event.target!.id,
                     reason: event.type
                 };
             };
@@ -160,8 +204,8 @@ export function afterStarted(blazor) {
         browserEventName: 'change',
         createEventArgs: event => {
             return {
-                id: event.target.id,
-                value: event.target.innerText
+                id: event.target!.id,
+                value: event.target!.innerText
             };
         }
     });
@@ -198,6 +242,7 @@ export function afterStarted(blazor) {
         }
     });
     blazor.registerCustomEventType('splitterresized', {
+        browserEventName: 'splitterresized',
         createEventArgs: event => {
             return {
                 panel1size: event.detail.panel1size,
@@ -206,6 +251,7 @@ export function afterStarted(blazor) {
         }
     });
     blazor.registerCustomEventType('splittercollapsed', {
+        browserEventName: 'splittercollapsed',
         createEventArgs: event => {
             return {
                 collapsed: event.detail.collapsed
@@ -216,18 +262,10 @@ export function afterStarted(blazor) {
     afterStartedCalled = true;
 }
 
-export function beforeStart(options, extensions) {
-    var wcScript = document.createElement('script');
-    wcScript.type = 'module';
-    wcScript.src = './_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js';
-    wcScript.async = true;
-    document.body.appendChild(wcScript);
+export function beforeStart(options: any) {
 
-    var libraryStyle = document.createElement('link');
-    libraryStyle.rel = 'stylesheet';
-    libraryStyle.type = 'text/css';
-    libraryStyle.href = './_content/Microsoft.FluentUI.AspNetCore.Components/css/Microsoft.FluentUI.AspNetCore.Components.css';
-    document.head.appendChild(libraryStyle);
+    customElements.define("fluent-design-theme", DesignTheme);
+    customElements.define("split-panels", SplitPanels);
 
     beforeStartCalled = true;
 }

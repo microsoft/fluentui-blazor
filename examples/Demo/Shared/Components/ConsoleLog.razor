@@ -28,7 +28,7 @@
 
     private async void OnLineReceived(string text)
     {
-        ConsoleContent = $"[{DateTime.Now:HH:mm:ss}] - {text}{Environment.NewLine}{ConsoleContent}";
+        ConsoleContent = $"{ConsoleContent}{Environment.NewLine}[{DateTime.Now:HH:mm:ss}] - {text}";
         await InvokeAsync(() => StateHasChanged());
     }
 

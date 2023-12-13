@@ -1,10 +1,5 @@
 ﻿@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
-/* Hide any web components that haven't been started */
-:not(:defined), .before-started {
-    visibility: hidden;
-}
-
 body {
     height: 100%;
     overflow: hidden;
@@ -138,19 +133,19 @@ aside {
     width: 18rem;
 }
 
-#menu-toggle {
+#navmenu-toggle {
     display: none;
 }
 
-.menu-icon {
+.navmenu-icon {
     display: none;
 }
 
-#menu-toggle:checked > nav {
+#navmenu-toggle:checked > nav {
     width: 0px;
 }
 
-[dir="rtl"] #menu-toggle:checked ~ nav {
+[dir="rtl"] #navmenu-toggle:checked ~ nav {
     right: 0px;
 }
 
@@ -274,38 +269,47 @@ code {
     }
 
     nav.sitenav {
-        display: none;
+        
         width: 100%;
         height: calc(100dvh - 50px);
-        overflow-y: auto;
+        
     }
 
-    .menutoggle {
+    .navmenu {
         width: 100%;
     }
 
-    .menu-icon {
+    #navmenu-toggle {
+        appearance: none;
+        cursor: pointer;
         z-index: 10;
         display: block;
         visibility: visible;
         position: absolute;
         top: 15px;
         right: 20px;
+        width: 20px;
+        height: 20px;
+        border: none;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='image' style='width: 20px; fill: var(--neutral-fill-rest);' focusable='false' viewBox='0 0 20 20' aria-hidden='true'%3E%3Cpath d='M2 4.5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm0 5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-15Z'%3E%3C/path%3E%3C/svg%3E");
     }
 
-    #menu-toggle ~ nav {
+    #navmenu-toggle ~ nav {
         display: none;
     }
 
-    #menu-toggle:checked ~ nav {
+    #navmenu-toggle:checked ~ nav {
+        display: block;
+        
+
+        
+    }
+
+    #navmenu-toggle ~ article {
         display: block;
     }
 
-    #menu-toggle ~ article {
-        display: block;
-    }
-
-    #menu-toggle:checked ~ article {
+    #navmenu-toggle:checked ~ article {
         display: none;
     }
 

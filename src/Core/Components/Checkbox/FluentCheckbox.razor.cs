@@ -11,7 +11,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     private bool? _checkState = false;
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Checkbox/FluentCheckbox.razor.js";
 
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
     public FluentCheckbox()
     {
@@ -36,6 +35,14 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     /// </summary>
     [Parameter]
     public bool ThreeState { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets a value indicating the order of the three states of the CheckBox.
+    /// False (by default), the order is Unchecked -> Checked -> Intermediate.
+    /// True: the order is Unchecked -> Intermediate -> Checked.
+    /// </summary>
+    [Parameter]
+    public bool ThreeStateOrderUncheckToIntermediate { get; set; } = false;
 
     /// <summary>
     /// Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -79,6 +86,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             return new CssBuilder(base.ClassValue)
                 .AddClass("checked", when: Value)
+                .AddClass("indeterminate", when: ThreeState && CheckState is null )
                 .Build();
         }
     }
@@ -122,46 +130,64 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     /// <summary />
     private async Task SetCurrentCheckState(bool newChecked)
     {
-        // Value:        False   -> True  -> False         -> False
-        // Intermediate: False   -> False -> True          -> False
-        //               ---------------------------------------------
-        //               Uncheck -> Check -> Indeterminate -> Uncheck
+        bool? newState = null;
 
-        // Uncheck -> Check
-        if (newChecked && !_intermediate)
+        // Uncheck -> Indeterminate -> Check
+        if (ThreeStateOrderUncheckToIntermediate)
         {
-            await SetCurrentAndIntermediate(true);
-            await UpdateAndRaiseCheckStateEvent(true);
-        }
+            // NewChecked  |  Intermediate  |  NewState
+            //   True             False          [-]
+            //   True             True           [x]
+            //   False            False          [ ]
 
-        // Check -> Indeterminate (or Uncheck is ShowIndeterminate is false)
-        else if (!newChecked && !_intermediate)
-        {
-            if (ShowIndeterminate)
+            // Uncheck -> Intermediate (or Check is ShowIndeterminate is false)
+            if (newChecked && !_intermediate)
             {
-                await SetCurrentAndIntermediate(null);
-                await UpdateAndRaiseCheckStateEvent(null);
+                newState = ShowIndeterminate ? null : true;                
             }
+
+            // Indeterminate -> Checked
+            else if (newChecked && _intermediate)
+            {
+                newState = true;
+            }
+
+            // Checked -> Uncheck
             else
             {
-                await SetCurrentAndIntermediate(false);
-                await UpdateAndRaiseCheckStateEvent(false);
+                newState = false;
             }
         }
 
-        // Indeterminate -> Uncheck
-        else if (newChecked && _intermediate)
-        {
-            await SetCurrentAndIntermediate(false);
-            await UpdateAndRaiseCheckStateEvent(false);
-        }
-
-        // 
+        // Uncheck -> Check -> Indeterminate
         else
         {
-            await SetCurrentAndIntermediate(false);
-            await UpdateAndRaiseCheckStateEvent(false);
+            // NewChecked  |  Intermediate  |  NewState
+            //   True             False          [x]
+            //   False            False          [-]
+            //   True             true           [ ]
+
+            // Uncheck -> Check
+            if (newChecked && !_intermediate)
+            {
+                newState = true;
+            }
+
+            // Check -> Indeterminate (or Uncheck is ShowIndeterminate is false)
+            else if (!newChecked && !_intermediate)
+            {
+                newState = ShowIndeterminate ? null : false;
+            }
+
+            // Indeterminate -> Uncheck
+            else
+            {
+                newState = false;
+            }
         }
+
+        await SetCurrentAndIntermediate(newState);
+        await UpdateAndRaiseCheckStateEvent(newState);
     }
 
     /// <summary />

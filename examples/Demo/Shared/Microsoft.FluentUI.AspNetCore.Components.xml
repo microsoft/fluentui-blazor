@@ -746,6 +746,13 @@
             Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ThreeStateOrderUncheckToIntermediate">
+            <summary>
+            Gets or sets a value indicating the order of the three states of the CheckBox.
+            False (by default), the order is Unchecked -> Checked -> Intermediate.
+            True: the order is Unchecked -> Intermediate -> Checked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.ShowIndeterminate">
             <summary>
             Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -2086,6 +2093,84 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Id">
+            <summary>
+            Gets or sets the identifier for the component.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode">
+            <summary>
+            Gets or sets the Theme mode: Dark, Light, or browser System theme.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ModeChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor">
+            <summary>
+            Gets or sets the Accent base color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColorChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor">
+            <summary>
+            Gets or sets the application to defined the Accent base color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColorChanged">
+            <summary>
+            Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.StorageName">
+            <summary>
+            Gets or sets the local storage name to save and retrieve the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Mode"/> and the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OfficeColor"/> / <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.CustomColor"/>.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.Direction">
+            <summary>
+            Gets or sets the body.dir value.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLuminanceChanged">
+            <summary>
+            Callback raised when the Dark/Light luminance changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ChildContent">
+            <summary>
+            Gets or sets the content of the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnChangeRaisedAsync(System.String,System.String)">
+            <summary>
+            Method raised by the JavaScript code when the "mode" changes.
+            </summary>
+            <param name="name">Attribute name: only "mode".</param>
+            <param name="value">New value: for "mode" = "dark", "light", "system-dark", "system-light"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValues(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IDialogContentComponent">
             <summary>
             A component implementing this interface can be used as dialog content.
@@ -3153,12 +3238,48 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1">
+            <summary>
+            Displays a list of validation messages for a specified field within a cascaded <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.For">
+            <summary>
+            Specifies the field for which validation messages should be displayed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.StyleValue">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.#ctor">
+            <summary>`
+            Constructs an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessage`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.Dispose(System.Boolean)">
+            <summary>
+            Called to dispose this instance.
+            </summary>
+            <param name="disposing"><see langword="true"/> if called within <see cref="M:System.IDisposable.Dispose"/>.</param>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentGrid">
             <summary>
             The grid component helps keeping layout consistent across various screen resolutions and sizes.
             PowerGrid comes with a 12-point grid system and contains 5 types of breakpoints
             that are used for specific screen sizes.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Spacing">
             <summary>
@@ -3174,6 +3295,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ChildContent">
             <summary>
             Gets or sets the child content of component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.OnBreakpointEnter">
+            <summary>
+            when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ClassValue">
@@ -3193,6 +3319,11 @@
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenWhen">
+            <summary>
+            Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.ClassValue">
             <summary />
         </member>
@@ -3200,6 +3331,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.NoBreakpointsDefined">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenAttribute">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentHeader.Height">
@@ -3703,6 +3837,11 @@
             Gets or sets the text to be displayed as a label, just above the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Required">
+            <summary>
+            Gets or sets if an indicator is showed that this input is required.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.ChildContent">
             <summary>
             Gets or sets the content to be displayed as a label, just above the component.
@@ -3796,6 +3935,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnOptionsSearch">
@@ -4103,6 +4248,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.AriaLabel">
             <summary>
             Gets or sets the text used on aria-label attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Required">
+            <summary>
+            Gets or sets if an indicator is showed that this input is required.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Title">
@@ -5442,6 +5592,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.SummaryTemplate">
             <summary>
             Optionally supplies a template for rendering the page count summary.
+            The following values can be included:
+            {your State parameter name}.TotalItemCount (for the total number of items)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.PaginationTextTemplate">
+            <summary>
+            Optionally supplies a template for rendering the pagination summary.
+            The following values can be included:
+            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.#ctor">
@@ -10004,6 +10164,26 @@
             A sticky header row.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes">
+            <summary>
+            The standard theme values for light and dark mode.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.System">
+            <summary>
+            Browser System theme
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.Light">
+            <summary>
+            Light theme
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes.Dark">
+            <summary>
+            Dark theme
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogType">
             <summary>
             The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDialog"/>.
@@ -10277,6 +10457,141 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.GenerateHeaderOption.Sticky">
             <summary>
             Generate a sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden">
+            <summary>
+            Hide the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem"/> when a size condition is met.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.None">
+            <summary>
+            Never
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.Xxl">
+            <summary>
+            Browser size greater  than 2560px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndDown">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.SmAndDown">
+            <summary>
+            Browser size less than 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.MdAndDown">
+            <summary>
+            Browser size less than 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.LgAndDown">
+            <summary>
+            Browser size less than 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XlAndDown">
+            <summary>
+            Browser size less than 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XxlAndDown">
+            <summary>
+            All sizes
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndUp">
+            <summary>
+            All sizes
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.SmAndUp">
+            <summary>
+            Browser size greater than 600px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.MdAndUp">
+            <summary>
+            Browser size greater than 960px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.LgAndUp">
+            <summary>
+            Browser size greater than 1280px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XlAndUp">
+            <summary>
+            Browser size greater than 1920px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XxlAndUp">
+            <summary>
+            Browser size greater than 2560px
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemSize">
+            <summary>
+            Size available for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentGrid"/> when a Resize event raised.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.GridItemSize.Xxl">
+            <summary>
+            Browser size greater  than 2560px
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment">
