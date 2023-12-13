@@ -1,5 +1,12 @@
 ﻿## 4.2.0
-- ToDo
+- New: FluentDesignTheme - An easy-to-use component to set a theme and accent color.
+- Enhanced: NavMenu
+- Enhanced: InputFile
+- Enhanced: List components
+- Enhanced: Grid
+- Enhanced: Checkbox
+- Enhanced: Splitter
+- Updated Templates
 
 
 ## 4.1.1
