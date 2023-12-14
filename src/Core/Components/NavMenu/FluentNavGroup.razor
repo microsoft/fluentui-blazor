@@ -3,7 +3,9 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-
+<HeadContent>
+    <script src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavGroup.razor.js"></script>
+</HeadContent>
 @if (Owner.Expanded || HasIcon)
 {
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
@@ -33,6 +35,9 @@
                     </div>
                 </div>
             </div>
+            <script>
+                attachEventHandlers('@Id');
+            </script>
         }
 
         <FluentCollapsibleRegion @bind-Expanded="@Expanded" MaxHeight="@MaxHeight" Class="items" role="group">
@@ -42,7 +47,9 @@
         </FluentCollapsibleRegion>
     </div>
 }
+
 @code {
+
     private void RenderContent(RenderTreeBuilder __builder)
     {
         @if (Icon is not null)

@@ -94,6 +94,7 @@ public partial class FluentNavGroup : FluentNavBase
 
     public FluentNavGroup()
     {
+        Id = Identifier.NewId();
         _renderContent = RenderContent;
         _renderButton = RenderButton;
     }
