@@ -84,5 +84,5 @@ public partial class FluentProgressRing : FluentComponentBase
     private string StyleIndicator => $"stroke-width: {StrokeDetails.Width}px; " + 
                                      $"r: {StrokeDetails.Radius}px; " + 
                                      $"stroke-dashoffset: {StrokeDetails.Dashoffset}px; " + 
-                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest);" : Color )};";
+                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color )};";
 }

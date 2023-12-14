@@ -87,12 +87,12 @@ public partial class FluentProgress : FluentComponentBase
     private string StyleProgress => $"height: calc((var(--stroke-width) * {StrokeDetails.BackgroundHeight}) * 1px); " +
                                     $"background-color: {(string.IsNullOrEmpty(BackgroundColor) ? $"var({StrokeDetails.DefaultBackgroundColor})" : BackgroundColor)};";
 
-    private string StyleProgressIndicator => $"height: calc((var(--stroke-width) * {StrokeDetails.BarHeight}) * 1px);" +
-                                             $"background-color: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest);" : Color)};";
+    private string StyleProgressIndicator => $"height: calc((var(--stroke-width) * {StrokeDetails.BarHeight}) * 1px); " +
+                                             $"background-color: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color)};";
 
     private string StyleIndeterminate => $"--stroke-width: {((double)StrokeDetails.BarHeight / 3d).ToString("0.00")}; " +
                                          $"height: calc((1 * {StrokeDetails.BackgroundHeight}) * 1px); " +
                                          $"background-color: {(string.IsNullOrEmpty(BackgroundColor) ? $"var({StrokeDetails.DefaultBackgroundColor})" : BackgroundColor)};";
 
-    private string StyleIndeterminateIndicator => $"background-color: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest);" : Color)};";
+    private string StyleIndeterminateIndicator => $"background-color: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color)};";
 }
