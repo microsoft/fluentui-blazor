@@ -299,7 +299,10 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
             }
-
+            else if (ValueChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => Value);
+            }
 
             if (CascadedEditContext != null)
             {
