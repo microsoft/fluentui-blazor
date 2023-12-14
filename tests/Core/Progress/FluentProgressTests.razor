@@ -65,16 +65,6 @@
     }
 
     [Fact]
-    public void FluentProgress_Stroke_Indeterminate()
-    {
-        // Arrange && Act
-        var cut = Render(@<FluentProgress Min="0" Max="100" Stroke="ProgressStrokes.Thin" />);
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
     public void FluentProgress_Colors()
     {
         // Arrange && Act

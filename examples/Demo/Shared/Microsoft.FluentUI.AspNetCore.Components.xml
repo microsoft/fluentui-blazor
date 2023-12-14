@@ -5774,7 +5774,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Stroke">
             <summary>
-            Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
+            Gets or sets the stroke width of the progress bar. If not set, the default theme stroke width is used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Color">
