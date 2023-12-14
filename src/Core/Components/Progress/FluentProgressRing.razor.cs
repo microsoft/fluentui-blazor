@@ -9,7 +9,14 @@ public partial class FluentProgressRing : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Width, () => !string.IsNullOrEmpty(Width))
         .Build();
+
+    public FluentProgressRing()
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary>
     /// Gets or sets the minimum value 
@@ -44,4 +51,35 @@ public partial class FluentProgressRing : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
+    /// </summary>
+    [Parameter]
+    public ProgressStrokes Stroke { get; set; } = ProgressStrokes.Normal;
+
+    /// <summary>
+    /// Gets or sets the color to be used for the progress ring. If not set, the default theme color is used.
+    /// </summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    private (int Width, int Radius, int Dashoffset) StrokeDetails => Stroke switch
+    {
+        ProgressStrokes.Thin => (1, 7, 0),
+        ProgressStrokes.Normal => (2, 7, 0),
+        ProgressStrokes.Large => (4, 6, (int)(0.066 * (Value ?? 0) + 0.22)),
+        _ => throw new NotImplementedException(),
+    };
+
+    private string StyleBackground => $"stroke-width: {StrokeDetails.Width}px; " + 
+                                      $"r: {StrokeDetails.Radius}px;";
+
+    private string StyleIndicator => $"stroke-width: {StrokeDetails.Width}px; " + 
+                                     $"r: {StrokeDetails.Radius}px; " + 
+                                     $"stroke-dashoffset: {StrokeDetails.Dashoffset}px; " + 
+                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest);" : Color )};";
 }
