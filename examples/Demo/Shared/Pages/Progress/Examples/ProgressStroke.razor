@@ -8,20 +8,10 @@
 <FluentStack Style="margin: 30px;">
     <FluentLabel Style="width: 20px;">@Percentage</FluentLabel>
 
-    <FluentProgressRing Value="@(Indeterminate ? null : Percentage)"
-                        Width="32px"
-                        Stroke="@Stroke"
-                        Color="@(Color.ToAttributeValue())" />
-
-    <FluentProgressRing Value="@(Indeterminate ? null : Percentage)"
-                        Width="64px"
-                        Stroke="@Stroke"
-                        Color="@(Color.ToAttributeValue())" />
-
-    <FluentProgressRing Value="@(Indeterminate ? null : Percentage)"
-                        Width="128px"
-                        Stroke="@Stroke"
-                        Color="@(Color.ToAttributeValue())" />
+    <FluentProgress Min="0" Max="100" Value="@(Indeterminate ? null : Percentage)"
+                    Width="200px"
+                    Stroke="@Stroke"
+                    Color="@(Color.ToAttributeValue())" />
 </FluentStack>
 
 @code

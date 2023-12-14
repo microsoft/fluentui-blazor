@@ -52,6 +52,9 @@ public partial class FluentProgressRing : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the component width and height.
+    /// </summary>
     [Parameter]
     public string? Width { get; set; }
 

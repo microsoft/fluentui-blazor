@@ -5752,6 +5752,16 @@
             Gets or sets the current value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Visible">
+            <summary>
+            Gets or sets the visibility of the component
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Width">
+            <summary>
+            Gets or sets the component width.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Paused">
             <summary>
             Gets or sets a value indicating whether the progress element is paused.
@@ -5760,6 +5770,21 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Stroke">
+            <summary>
+            Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Color">
+            <summary>
+            Gets or sets the color to be used for the progress bar. If not set, the default theme color is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.BackgroundColor">
+            <summary>
+            Gets or sets the color to be used for the background. If not set, the default theme color is used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Min">
@@ -5785,6 +5810,21 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Width">
+            <summary>
+            Gets or sets the component width and height.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Stroke">
+            <summary>
+            Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgressRing.Color">
+            <summary>
+            Gets or sets the color to be used for the progress ring. If not set, the default theme color is used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Context">
