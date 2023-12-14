@@ -16,7 +16,7 @@
 
 @code {
 
-    private readonly ImmutableArray<string> _allResourceTypes = ["Project", "Executable", "Container"];
+    private readonly ImmutableArray<string> _allResourceTypes = ImmutableArray.Create<string>(new string[]{ "Project", "Executable", "Container" });
     private readonly HashSet<string> _visibleResourceTypes;
 
     public CheckboxThreeStateList()

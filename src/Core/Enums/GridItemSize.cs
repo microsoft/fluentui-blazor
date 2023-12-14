@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Size available for <see cref="FluentGrid"/> when a Resize event raised.

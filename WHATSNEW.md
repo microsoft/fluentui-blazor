@@ -1,5 +1,14 @@
 ﻿## V3.5.0
-
+- New: FluentValidationMessage and Required indicator for input components
+- NavMenu: Tooltips. Expand on click when collapsed)
+- InputFile: ProgressTEmplate and ProgressPercentage bindable
+- List components: OptionTemplate
+- Grid: Hiding elements and `OnBreakpointEnter` event callback
+- Checkbox: Three state behavior			
+- Splitter: Panel1MinSize, Panel2MinSie, BarSize, OnColllapsed, OnExpanded, OnResized
+- Paginator: PaginationTextTemplate
+- Fix [#1057](https://github.com/microsoft/fluentui-blazor/issues/1057): Can't show Fluent UI Blazor dialog on published Blazor webasm app
+- Fix [#1070](https://github.com/microsoft/fluentui-blazor/issues/1070): Style not applied for FluentPaginator + added `PaginationTextTemplate` parameter 
 - Update Fluent UI System Icons to version 1.1.224
 **What's new (Name / Size(s) / Variant(s))**
 - Arrow Clockwise Dashes / 16, 32 / Filled & Regular
@@ -74,8 +83,6 @@
 - Resize / 20, 24 / Filled & Regular
 - Select All Off / 20, 24 / Filled & Regular
 - Select All On / 20, 24 / Filled & Regular
-
-
 
 ## V3.4.1
 - Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): `FluentNumberField` can be changed when `ReadOnly`

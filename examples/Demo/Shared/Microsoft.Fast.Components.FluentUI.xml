@@ -749,6 +749,13 @@
             Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.ThreeStateOrderUncheckToIntermediate">
+            <summary>
+            Gets or sets a value indicating the order of the three states of the CheckBox.
+            False (by default), the order is Unchecked -> Checked -> Intermediate.
+            True: the order is Unchecked -> Intermediate -> Checked.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCheckbox.ShowIndeterminate">
             <summary>
             Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -2982,6 +2989,36 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1">
+            <summary>
+            Displays a list of validation messages for a specified field within a cascaded <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1.For">
+            <summary>
+            Specifies the field for which validation messages should be displayed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1.StyleValue">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1.#ctor">
+            <summary>`
+            Constructs an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessage`1"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentValidationMessage`1.Dispose(System.Boolean)">
+            <summary>
+            Called to dispose this instance.
+            </summary>
+            <param name="disposing"><see langword="true"/> if called within <see cref="M:System.IDisposable.Dispose"/>.</param>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentGrid">
             <summary>
             The grid component helps keeping layout consistent across various screen resolutions and sizes.
@@ -2989,9 +3026,15 @@
             that are used for specific screen sizes.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.Spacing">
             <summary>
-            Distance between flexbox items, using a multiple of 4px.
+            Gets or sets the distance between flexbox items, using a multiple of 4px.
             Only values from 0 to 10 are possible.
             </summary>
         </member>
@@ -3002,7 +3045,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.ChildContent">
             <summary>
-            Child content of component.
+            Gets or sets the child content of component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.OnBreakpointEnter">
+            <summary>
+            when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.ClassValue">
@@ -3022,6 +3070,11 @@
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.HiddenWhen">
+            <summary>
+            Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.ClassValue">
             <summary />
         </member>
@@ -3029,6 +3082,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentGridItem.NoBreakpointsDefined">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.HiddenAttribute">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHeader.Height">
@@ -3532,6 +3588,11 @@
             Gets or sets the text to be displayed as a label, just above the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.Required">
+            <summary>
+            Gets or sets if an indicator is showed that this input is required.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.ChildContent">
             <summary>
             Gets or sets the content to be displayed as a label, just above the component.
@@ -3623,7 +3684,13 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <seealso cref="!:AspNetCore.Components.Appearance"/>
+            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnOptionsSearch">
@@ -3930,12 +3997,17 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AriaLabel">
             <summary>
-            Text used on aria-label attribute.
+            Gets or sets the text used on aria-label attribute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Required">
+            <summary>
+            Gets or sets if an indicator is showed that this input is required.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Title">
             <summary>
-            Text used on aria-label attribute.
+            Gets or sets the text used on aria-label attribute.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Disabled">
@@ -5257,6 +5329,16 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPaginator.SummaryTemplate">
             <summary>
             Optionally supplies a template for rendering the page count summary.
+            The following values can be included:
+            {your State parameter name}.TotalItemCount (for the total number of items)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPaginator.PaginationTextTemplate">
+            <summary>
+            Optionally supplies a template for rendering the pagination summary.
+            The following values can be included:
+            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentPaginator.#ctor">
@@ -10134,6 +10216,141 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption.Sticky">
             <summary>
             Generate a sticky header row.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.GridItemHidden">
+            <summary>
+            Hide the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentGridItem"/> when a size condition is met.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.None">
+            <summary>
+            Never
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.Xxl">
+            <summary>
+            Browser size greater  than 2560px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.XsAndDown">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.SmAndDown">
+            <summary>
+            Browser size less than 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.MdAndDown">
+            <summary>
+            Browser size less than 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.LgAndDown">
+            <summary>
+            Browser size less than 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.XlAndDown">
+            <summary>
+            Browser size less than 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.XxlAndDown">
+            <summary>
+            All sizes
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.XsAndUp">
+            <summary>
+            All sizes
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.SmAndUp">
+            <summary>
+            Browser size greater than 600px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.MdAndUp">
+            <summary>
+            Browser size greater than 960px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.LgAndUp">
+            <summary>
+            Browser size greater than 1280px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.XlAndUp">
+            <summary>
+            Browser size greater than 1920px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemHidden.XxlAndUp">
+            <summary>
+            Browser size greater than 2560px
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.GridItemSize">
+            <summary>
+            Size available for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentGrid"/> when a Resize event raised.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemSize.Xs">
+            <summary>
+            Browser size less than 599px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemSize.Sm">
+            <summary>
+            Browser size between 600px and 959px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemSize.Md">
+            <summary>
+            Browser size between 960px and 1279px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemSize.Lg">
+            <summary>
+            Browser size between 1280px and 1919px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemSize.Xl">
+            <summary>
+            Browser size between 1920px and 2559px
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.GridItemSize.Xxl">
+            <summary>
+            Browser size greater  than 2560px
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.HorizontalAlignment">

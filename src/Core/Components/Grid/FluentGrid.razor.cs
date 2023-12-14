@@ -15,7 +15,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Grid/FluentGrid.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Grid/FluentGrid.razor.js";
     private DotNetObjectReference<FluentGrid>? _dotNetHelper = null;
 
     public FluentGrid()

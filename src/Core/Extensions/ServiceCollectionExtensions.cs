@@ -24,7 +24,7 @@ public static class ServiceCollectionExtensions
         {
             services.AddScoped<ITooltipService, TooltipService>();
         }
-
+        services.AddSingleton(options);
         services.AddDesignTokens();
 
         return services;

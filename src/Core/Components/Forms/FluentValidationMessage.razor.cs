@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 
 /// <summary>
