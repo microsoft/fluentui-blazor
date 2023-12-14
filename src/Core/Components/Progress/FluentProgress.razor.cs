@@ -60,7 +60,7 @@ public partial class FluentProgress : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
+    /// Gets or sets the stroke width of the progress bar. If not set, the default theme stroke width is used.
     /// </summary>
     [Parameter]
     public ProgressStrokes Stroke { get; set; } = ProgressStrokes.Normal;
