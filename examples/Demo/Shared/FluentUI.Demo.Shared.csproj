@@ -43,9 +43,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Core\Microsoft.Fast.Components.FluentUI.csproj" />
 		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="Markdig" Version="0.33.0" />
+		<PackageReference Include="Markdig" Version="0.34.0" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Emojis" Version="3.*-*" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" version="3.3.0" />
+		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" version="3.5.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<TrimmerRootAssembly Include="Microsoft.Fast.Components.FluentUI" />
 	</ItemGroup>
