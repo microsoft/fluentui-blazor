@@ -5489,14 +5489,39 @@
             Gets or sets the current value 
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Visible">
+            <summary>
+            Gets or sets the visibility of the component
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Width">
+            <summary>
+            Gets or sets the component width.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Paused">
             <summary>
-            Gets or sets if the progress element is paused
+            Gets or sets a value indicating whether the progress element is paused.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Stroke">
+            <summary>
+            Gets or sets the stroke width of the progress bar. If not set, the default theme stroke width is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.Color">
+            <summary>
+            Gets or sets the color to be used for the progress bar. If not set, the default theme color is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgress.BackgroundColor">
+            <summary>
+            Gets or sets the color to be used for the background. If not set, the default theme color is used.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Min">
@@ -5522,6 +5547,21 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Width">
+            <summary>
+            Gets or sets the component width and height.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Stroke">
+            <summary>
+            Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentProgressRing.Color">
+            <summary>
+            Gets or sets the color to be used for the progress ring. If not set, the default theme color is used.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentRadio`1.Context">

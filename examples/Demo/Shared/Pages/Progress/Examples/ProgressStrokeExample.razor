@@ -1,6 +1,6 @@
 ﻿<h4>Stroke and Color</h4>
 
-<FluentSelect Label="Width" Items="@(new [] { Microsoft.FluentUI.AspNetCore.Components.ProgressStroke.Small, Microsoft.FluentUI.AspNetCore.Components.ProgressStroke.Normal, Microsoft.FluentUI.AspNetCore.Components.ProgressStroke.Large })" @bind-SelectedOption="@Stroke" Width="60px" />
+<FluentSelect Label="Width" Items="@(new [] { ProgressStroke.Small, ProgressStroke.Normal, ProgressStroke.Large })" @bind-SelectedOption="@Stroke" Width="60px" />
 <FluentCheckbox Label="Indeterminate" @bind-Value="@Indeterminate" />
 <FluentSelect Label="Color" Items="@(Enum.GetValues<OfficeColor>())" @bind-SelectedOption="@Color" Width="100px" Height="200px" />
 <FluentSlider Min="0" Max="100" Step="5" @bind-Value="@Percentage" Style="max-width: 200px; margin: 20px 0px;" Disabled="@Indeterminate" />
@@ -16,7 +16,7 @@
 
 @code
 {
-    ProgressStroke Stroke = Microsoft.FluentUI.AspNetCore.Components.ProgressStroke.Normal;
+    ProgressStroke Stroke = ProgressStroke.Normal;
     int Percentage = 30;
     bool Indeterminate = false;
     OfficeColor Color = OfficeColor.Default;

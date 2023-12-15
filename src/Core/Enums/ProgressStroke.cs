@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+﻿namespace Microsoft.Fast.Components.FluentUI;
 
 public enum ProgressStroke
 {
