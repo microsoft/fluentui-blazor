@@ -35,12 +35,6 @@ public partial class FluentTab : FluentComponentBase
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Callback to invoke when visibility changes
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> VisibleChanged { get; set; }
-
-    /// <summary>
     /// Gets or sets the label of the tab.
     /// </summary>
     [Parameter]
