@@ -6210,6 +6210,16 @@
             When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Visible">
+            <summary>
+            Gets or sets the visability of a tab
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.VisibleChanged">
+            <summary>
+            Callback to invoke when visibility changes
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Label">
             <summary>
             Gets or sets the label of the tab.
