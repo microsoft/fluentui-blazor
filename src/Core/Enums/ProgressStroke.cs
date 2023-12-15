@@ -1,8 +1,8 @@
 ﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public enum ProgressStrokes
+public enum ProgressStroke
 {
+    Small,
     Normal,
-    Thin,
     Large,
 }

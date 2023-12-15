@@ -58,7 +58,7 @@
     public void FluentProgressRing_Stroke()
     {
         // Arrange && Act
-        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Stroke="ProgressStrokes.Large" />);
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Stroke="ProgressStroke.Large" />);
 
         // Assert
         cut.Verify();
@@ -68,7 +68,7 @@
     public void FluentProgressRing_Stroke_Indeterminate()
     {
         // Arrange && Act
-        var cut = Render(@<FluentProgressRing Min="0" Max="100" Stroke="ProgressStrokes.Thin" />);
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Stroke="ProgressStroke.Small" />);
 
         // Assert
         cut.Verify();

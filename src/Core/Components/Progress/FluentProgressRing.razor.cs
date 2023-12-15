@@ -62,7 +62,7 @@ public partial class FluentProgressRing : FluentComponentBase
     /// Gets or sets the stroke width of the progress ring. If not set, the default theme stroke width is used.
     /// </summary>
     [Parameter]
-    public ProgressStrokes Stroke { get; set; } = ProgressStrokes.Normal;
+    public ProgressStroke Stroke { get; set; } = ProgressStroke.Normal;
 
     /// <summary>
     /// Gets or sets the color to be used for the progress ring. If not set, the default theme color is used.
@@ -72,9 +72,9 @@ public partial class FluentProgressRing : FluentComponentBase
 
     private (int Width, int Radius, int Dashoffset) StrokeDetails => Stroke switch
     {
-        ProgressStrokes.Thin => (1, 7, 0),
-        ProgressStrokes.Normal => (2, 7, 0),
-        ProgressStrokes.Large => (4, 6, (int)(0.066 * (Value ?? 0) + 0.22)),
+        ProgressStroke.Small => (1, 7, 0),
+        ProgressStroke.Normal => (2, 7, 0),
+        ProgressStroke.Large => (4, 6, (int)(0.066 * (Value ?? 0) + 0.22)),
         _ => throw new NotImplementedException(),
     };
 

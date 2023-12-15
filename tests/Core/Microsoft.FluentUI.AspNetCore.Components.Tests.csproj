@@ -55,8 +55,6 @@
     </None>
 
     <None Include="**\*.received.razor.html" />
-
-    <None Include="Progress\FluentProgressTests.razor" />
     <None Update="**\*.received.razor.html">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
