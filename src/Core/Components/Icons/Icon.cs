@@ -87,15 +87,28 @@ public class Icon : IconInfo
     /// </summary>
     public virtual MarkupString ToMarkup(string? size = null, string? color = null)
     {
-        var styleWidth = size ?? $"{(int)Size}px";
+        var styleWidth = size ?? $"{Width}px"; // was previously using (int)Size which is what Width does. Width is also the property used in FluentIcon.StyleValue
         var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
         return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+    }
+
+    internal virtual int? OverridenWidth { get; private set; } = null; // init to null so the previous behavior is unchanged
+
+    /// <summary>
+    /// Sets the render size of the icon in px. Use null to revert to icon original size
+    /// </summary>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    public virtual Icon WithSize(int? size)
+    {
+        OverridenWidth = size;
+        return this;
     }
 
     /// <summary>
     /// Gets the width of the icon.
     /// </summary>
-    protected internal virtual int Width => (int)Size;
+    protected internal virtual int Width => OverridenWidth ?? (int)Size; // return the overriden width if it exists
 
     /// <summary>
     /// Returns an icon instance.
