@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 @if (Visible)
 {
-    if (Stroke != ProgressStrokes.Normal || !string.IsNullOrEmpty(Color))
+    if (Stroke != ProgressStroke.Normal || !string.IsNullOrEmpty(Color))
     {
         <style>
             @($"#{Id}::part(background) {{ {StyleBackground} }}")
