@@ -159,18 +159,18 @@
 <p>
 	Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see <a href="https://github.com/microsoft/fluentui-blazor/issues/404">#404</a>.
 	There is also an isue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is
-	a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	<code>initializersLoader.webview.js</code> has
-	been added to the library and needs to be included with a script tag **before** the <code>_framework/blazor.webview.js</code> script tag:
+	a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	script is 
+	included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag:
 </p>
-<pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
+<pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; type=&quot;module&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <p>
-	The <code>app-name</code> attribute needs to match your app's assembly name - initializersLoader uses 'app-name' to resolve name of the file with initializers.
-	initializersLoader replaces standard <code>fetch</code> function with one which provides the correct file in place of the empty <code>blazor.modules.json</code>. <code>fetch</code> is restored to its original state once <code>_framework/blazor.modules.json</code> request is intercepted.
+	The <code>app-name</code> attribute needs to match your app's assembly name - the script uses 'app-name' to resolve name of the file with initializers.
+	The 'initializersLoader' part of the script replaces standard <code>fetch</code> function with one which provides the correct file in place of the empty <code>blazor.modules.json</code>. <code>fetch</code> is restored to its original state once <code>_framework/blazor.modules.json</code> request is intercepted.
 </p>
 <p>
-	For more information regarding the bug, see issue <a href="https://github.com/dotnet/maui/issues/15234">15234</a> in the MAUI repo.
+	For more information regarding this bug, see issue <a href="https://github.com/dotnet/maui/issues/15234">15234</a> in the MAUI repo.
 </p>
 
 
