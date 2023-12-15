@@ -63,7 +63,7 @@ public partial class FluentProgress : FluentComponentBase
     /// Gets or sets the stroke width of the progress bar. If not set, the default theme stroke width is used.
     /// </summary>
     [Parameter]
-    public ProgressStrokes Stroke { get; set; } = ProgressStrokes.Normal;
+    public ProgressStroke Stroke { get; set; } = ProgressStroke.Normal;
 
     /// <summary>
     /// Gets or sets the color to be used for the progress bar. If not set, the default theme color is used.
@@ -79,9 +79,9 @@ public partial class FluentProgress : FluentComponentBase
 
     private (int BarHeight, int BackgroundHeight, string DefaultBackgroundColor) StrokeDetails => Stroke switch
     {
-        ProgressStrokes.Thin => (2, 1, "--neutral-stroke-strong-rest"),
-        ProgressStrokes.Normal => (3, 1, "--neutral-stroke-strong-rest"),
-        ProgressStrokes.Large => (9, 6, "--neutral-stroke-rest"),
+        ProgressStroke.Small => (2, 1, "--neutral-stroke-strong-rest"),
+        ProgressStroke.Normal => (3, 1, "--neutral-stroke-strong-rest"),
+        ProgressStroke.Large => (9, 6, "--neutral-stroke-rest"),
         _ => throw new NotImplementedException(),
     };    
     private string StyleProgress => $"height: calc((var(--stroke-width) * {StrokeDetails.BackgroundHeight}) * 1px); " +
