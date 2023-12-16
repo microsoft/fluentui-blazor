@@ -162,7 +162,7 @@
 	a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	script is 
 	included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag:
 </p>
-<pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; type=&quot;module&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js&quot;&gt;&lt;/script&gt;
+<pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <p>
