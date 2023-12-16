@@ -9,5 +9,8 @@
     }
 
     <FluentProgress Class="fluent-toast-progressbar" Min="0" Max="100" Value="@Content.Progress"></FluentProgress>
-    <div class="fluent-toast-progressbar-percentage">@Content.Progress%</div>
+    @if (Content.Progress is not null)
+    {
+        <div class="fluent-toast-progressbar-percentage">@Content.Progress%</div>
+    }
 </div>
