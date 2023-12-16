@@ -1,8 +1,4 @@
-﻿interface Window {
-    Blazor: any;
-}
-
-function setupLoader() {
+﻿function setupLoader() {
     const { Blazor: blazor } = window;
 
     if (typeof blazor !== 'undefined') {
