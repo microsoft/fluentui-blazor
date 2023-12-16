@@ -68,6 +68,19 @@
     }
 
     [Fact]
+    public void FluentIcon_CustomColor_RequiresColorAttribute()
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            // Arrange && Act
+            var icon = new SampleIcons.Samples.Info();
+            var cut = Render(@<FluentIcon Value="@icon" CustomColor="#ff0000" />);
+
+            // Assert an exception because Color=Color.Custom is required
+        });
+    }
+
+    [Fact]
     public void FluentIcon_Width()
     {
         // Arrange && Act
