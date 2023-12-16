@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- build dependencies -->
+    <PackageVersion Include="BenchmarkDotNet" Version="0.13.11" />
     <PackageVersion Include="Markdig" Version="0.33.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion)" />

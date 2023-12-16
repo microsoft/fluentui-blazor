@@ -3489,6 +3489,14 @@
             <param name="size"><see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Size"/></param>
             <param name="content"><see cref="P:Microsoft.FluentUI.AspNetCore.Components.Icon.Content"/></param>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Icon.#ctor(System.String,Microsoft.FluentUI.AspNetCore.Components.IconVariant,System.ValueTuple{Microsoft.FluentUI.AspNetCore.Components.IconSize,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> class.
+            </summary>
+            <param name="name"><see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/></param>
+            <param name="variant"><see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Variant"/></param>
+            <param name="sc"><see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Size"/> <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Icon.Content"/></param>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.Icon.Content">
             <summary>
             Gets the content of the icon: SVG path.
@@ -3525,6 +3533,13 @@
             <summary>
             Gets the HTML markup of the icon.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Icon.WithSize(System.Nullable{System.Int32})">
+            <summary>
+            Sets the render size of the icon in px. Use null to revert to icon original size
+            </summary>
+            <param name="size"></param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.Icon.Width">
             <summary>
@@ -6213,11 +6228,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Visible">
             <summary>
             Gets or sets the visability of a tab
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.VisibleChanged">
-            <summary>
-            Callback to invoke when visibility changes
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Label">

@@ -54,6 +54,7 @@ internal class Program
                 }
                 else
                 {
+                    factoryIcons.GenerateCommon(assets); // comment out this line to generate the previous version.
                     //factoryIcons.GenerateMainIconsClass(assets);
                     factoryIcons.GenerateClasses(assets);
                 }

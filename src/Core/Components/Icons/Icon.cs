@@ -32,6 +32,21 @@ public class Icon : IconInfo
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Icon"/> class.
+    /// </summary>
+    /// <param name="name"><see cref="IconInfo.Name"/></param>
+    /// <param name="variant"><see cref="IconInfo.Variant"/></param>
+    /// <param name="sc"><see cref="IconInfo.Size"/> <see cref="Icon.Content"/></param>
+    protected Icon(string name, IconVariant variant, (IconSize size, string content) sc)
+    {
+        Name = name;
+        Variant = variant;
+        Size = sc.size;
+        Content = sc.content;
+    }
+
+
+    /// <summary>
     /// Gets the content of the icon: SVG path.
     /// </summary>
     public virtual string Content { get; }
@@ -92,7 +107,7 @@ public class Icon : IconInfo
         return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
     }
 
-    internal virtual int? OverriddenWidth { get; private set; } = null; // init to null so the previous behavior is unchanged
+    protected virtual int? OverriddenWidth { get; set; } = null; // init to null so the previous behavior is unchanged
 
     /// <summary>
     /// Sets the render size of the icon in px. Use null to revert to icon original size
