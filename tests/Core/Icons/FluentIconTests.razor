@@ -129,6 +129,16 @@
     }
 
     [Fact]
+    public void FluentIcon_Icon_FromEmptyImage()
+    {
+        // Arrange && Act
+        var icon = new IconFromImage();
+
+        // Assert
+        Assert.Empty(icon.Content);
+
+    }
+    [Fact]
     public void FluentIcon_Icon_WithColorRed()
     {
         // Arrange && Act
