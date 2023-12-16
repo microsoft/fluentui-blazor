@@ -6215,11 +6215,6 @@
             Gets or sets the visability of a tab
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.VisibleChanged">
-            <summary>
-            Callback to invoke when visibility changes
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Label">
             <summary>
             Gets or sets the label of the tab.
