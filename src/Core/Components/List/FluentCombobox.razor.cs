@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
+public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     /// <summary>
     /// Gets or sets a value indicating whether the element auto completes. See <seealso cref="AspNetCore.Components.ComboboxAutocomplete"/>

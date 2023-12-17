@@ -4,7 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentListbox<TOption> : ListComponentBase<TOption>
+public partial class FluentListbox<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     /// <summary>
     /// Gets or sets the maximum number of options that should be visible in the listbox scroll area.
