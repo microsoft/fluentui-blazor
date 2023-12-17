@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Component that provides a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-public abstract class ListComponentBase<TOption> : FluentComponentBase
+public abstract class ListComponentBase<TOption> : FluentComponentBase where TOption : notnull
 {
     private bool _multiple = false;
     private List<TOption> _selectedOptions = [];
@@ -425,8 +425,13 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
                     builder.AddAttribute(4, "ChildContent", (RenderFragment)(content =>
                     {
+                        if (item is null)
+                        {
+                            throw new NullReferenceException($"You cannot use a null element as an option in the {nameof(Items)} property.");
+                        }
+
                         content.AddContent(5, GetOptionText(item));
-                        if (item!.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
+                        if (item.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
                         {
                             Option<string>? t = item as Option<string>;
                             if (t is not null)
