@@ -131,6 +131,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
 
     /// <summary>
     /// Gets or sets the content source of all items to display in this list.
+    /// Each item must be instantiated (cannot be null).
     /// </summary>
     [Parameter]
     public virtual IEnumerable<TOption>? Items { get; set; }
