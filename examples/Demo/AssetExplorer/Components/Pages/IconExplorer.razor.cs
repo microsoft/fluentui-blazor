@@ -50,10 +50,10 @@ public partial class IconExplorer
         IconsFound =
         [
             .. Icons.AllIcons
-                                      .Where(i => i.Variant == Criteria.Variant
-                                               && i.Size == Criteria.Size
-                                               && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
-                                      .OrderBy(i => i.Name)
+                    .Where(i => i.Variant == Criteria.Variant
+                             && (Criteria.Size > 0 ? (int)i.Size == Criteria.Size : true)
+                             && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
+                    .OrderBy(i => i.Name)
 ,
         ];
 
@@ -65,5 +65,15 @@ public partial class IconExplorer
     private void HandleCurrentPageIndexChanged()
     {
         StateHasChanged();
+    }
+
+    private IEnumerable<int> AllAvailableSizes
+    {
+        get
+        {
+            var sizes = Enum.GetValues<IconSize>().Select(i => (int)i).ToList();
+            var empty = new int[] { 0 };
+            return empty.Concat(sizes);
+        }
     }
 }
