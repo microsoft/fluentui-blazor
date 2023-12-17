@@ -4,7 +4,7 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace Microsoft.Fast.Components.FluentUI;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentListbox<TOption> : ListComponentBase<TOption>
+public partial class FluentListbox<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     /// <summary>
     /// The maximum number of options that should be visible in the listbox scroll area.

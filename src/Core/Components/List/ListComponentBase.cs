@@ -7,8 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// Component that provides a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-
-public abstract class ListComponentBase<TOption> : FluentComponentBase
+public abstract class ListComponentBase<TOption> : FluentComponentBase where TOption : notnull
 {
     private bool _multiple = false;
     private List<TOption> _selectedOptions = new();
@@ -50,25 +49,25 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     }
 
     /// <summary>
-    /// Width of the component.
+    /// Gets or sets the width of the component.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Height of the component or of the popup panel.
+    /// Gets or sets the height of the component or of the popup panel.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// Text displayed just above the component
+    /// Gets or sets the text displayed just above the component.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
+    /// Gets or sets the content displayed just above the component.
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
@@ -106,32 +105,33 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
     public virtual RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Function used to determine which text to display for each option.
+    /// Gets or sets the function used to determine which text to display for each option.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, string?> OptionText { get; set; }
 
     /// <summary>
-    /// Function used to determine which value to return for the selected item.
+    /// Gets or sets the function used to determine which value to return for the selected item.
     /// Only for <see cref="FluentListbox{TOption}"/> and <see cref="FluentSelect{TOption}"/> components.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, string?> OptionValue { get; set; }
 
     /// <summary>
-    /// Function used to determine if an option is disabled.
+    /// Gets or sets the function used to determine if an option is disabled.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionDisabled { get; set; }
 
     /// <summary>
-    /// Function used to determine if an option is initially selected.
+    /// Gets or sets the function used to determine if an option is initially selected.
     /// </summary>
     [Parameter]
     public virtual Func<TOption, bool>? OptionSelected { get; set; }
 
     /// <summary>
-    /// Content source of all items to display in this list.
+    /// Gets or sets the content source of all items to display in this list.
+    /// Each item must be instantiated (cannot be null).
     /// </summary>
     [Parameter]
     public virtual IEnumerable<TOption>? Items { get; set; }
@@ -426,8 +426,13 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase
 
                     builder.AddAttribute(4, "ChildContent", (RenderFragment)(content =>
                     {
+                        if (item is null)
+                        {
+                            throw new NullReferenceException($"You cannot use a null element as an option in the {nameof(Items)} property.");
+                        }
+
                         content.AddContent(5, GetOptionText(item));
-                        if (item!.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
+                        if (item.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
                         {
                             Option<string>? t = item as Option<string>;
                             if (t is not null)
