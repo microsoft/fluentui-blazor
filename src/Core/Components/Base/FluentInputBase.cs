@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
@@ -43,6 +43,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// <summary>
     /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
+    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
