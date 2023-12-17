@@ -18,7 +18,7 @@
             window.fetch = originalFetch;
         }
 
-        const response = await originalFetch(resource as any, config);
+        const response = await originalFetch(resource, config);
         return response;
     }
 }
