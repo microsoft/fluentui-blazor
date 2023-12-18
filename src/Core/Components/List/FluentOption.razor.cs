@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
-public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
+public partial class FluentOption<TOption> : FluentComponentBase, IDisposable where TOption : notnull
 {
     internal string OptionId { get; } = Identifier.NewId();
 
