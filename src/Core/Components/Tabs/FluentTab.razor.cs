@@ -29,6 +29,12 @@ public partial class FluentTab : FluentComponentBase
     public bool Disabled { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the visability of a tab
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the label of the tab.
     /// </summary>
     [Parameter]

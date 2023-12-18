@@ -29,7 +29,7 @@
             @if (requirePassword)
             {
                 <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="Please enter your password." Label="Password" Style="width: 100%" />
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
+                <FluentValidationMesssage For="() => Input.Password" class="text-danger" />
             }
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Delete data and close my account</FluentButton>
         </EditForm>

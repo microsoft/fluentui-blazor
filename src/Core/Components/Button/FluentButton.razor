@@ -7,10 +7,9 @@
     <style>@CustomStyle</style>
 }
 
-
-@if (Loading && IconStart == null && IconEnd == null)
+@if (LoadingOverlay)
 {
-    <span class="loading-button">
+    <span class="@($"{Class} loading-button")" style="@Style">
         @_renderButton
         <FluentProgressRing />
     </span>
@@ -24,8 +23,8 @@ else
     protected void RenderButton(RenderTreeBuilder __builder)
     {
         <fluent-button @ref=Element
-               class="@Class"
-               style="@Style"
+               class="@(LoadingOverlay ? string.Empty : Class)"
+               style="@(LoadingOverlay ? "width: 100%;" : Style)"
                autofocus=@Autofocus
                form=@FormId
                formaction=@Action

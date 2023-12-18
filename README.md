@@ -70,7 +70,7 @@ As mentioned, we wrap the **Fluent UI Web Components** which are implemented in 
 When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
 
 ```html
-<script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
+<script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>
 ```
 If you add interactivity later, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 

@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption>
+public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
     private string _valueText = string.Empty;

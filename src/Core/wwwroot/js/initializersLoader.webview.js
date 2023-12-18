@@ -1,8 +1,4 @@
-﻿interface Window {
-    Blazor: any;
-}
-
-function setupLoader() {
+﻿function setupLoader() {
     const { Blazor: blazor } = window;
 
     if (typeof blazor !== 'undefined') {
@@ -22,7 +18,7 @@ function setupLoader() {
             window.fetch = originalFetch;
         }
 
-        const response = await originalFetch(resource as any, config);
+        const response = await originalFetch(resource, config);
         return response;
     }
 }
