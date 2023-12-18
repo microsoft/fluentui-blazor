@@ -6,7 +6,11 @@
     <EfCoreVersion>8.0.0</EfCoreVersion>
   </PropertyGroup>
   <ItemGroup>
-    <!-- build dependencies -->
+    <!-- For Sample Apps -->
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.2.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.2.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.2.0" />
+    <!-- Build dependencies -->
     <PackageVersion Include="Markdig" Version="0.33.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion)" />
@@ -19,13 +23,10 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.1.1" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.1.0" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.1.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.0" />
-    <!-- test dependencies -->
+    <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.25.3" />
     <PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23577-04" />
