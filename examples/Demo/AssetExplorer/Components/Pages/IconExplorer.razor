@@ -17,12 +17,12 @@
                           Placeholder="Part of icon name..." />
         </FluentGridItem>
         <FluentGridItem Gap="0">
-            <FluentSelect TOption="IconSize"
+            <FluentSelect TOption="int"
                           @bind-SelectedOption="@Criteria.Size"
                           @bind-SelectedOption:after="@StartNewSearchAsync"
                           Style="min-width: 100px;"
-                          Items="@(Enum.GetValues<IconSize>())"
-                          OptionText="@(i => Convert.ToString(i))" />
+                          Items="@AllAvailableSizes"
+                          OptionText="@(i => i > 0 ? $"Size{i}" : "[All]")" />
         </FluentGridItem>
         <FluentGridItem>
             <FluentSelect TOption="IconVariant"
@@ -62,7 +62,7 @@
             <div class="result-list">
                 @foreach (var item in IconsForCurrentPage)
                 {
-                    <PreviewCard Icon="@item" IconColor="@Criteria.Color" />
+                    <PreviewCard Icon="@item" IconColor="@Criteria.Color" TopLeftLabel="@(Criteria.Size > 0 ? string.Empty : $"{(int)item.Size}")" />
                 }
             </div>
 

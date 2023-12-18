@@ -18,6 +18,9 @@ public partial class PreviewCard
     public IToastService ToastService { get; set; } = default!;
 
     [Parameter]
+    public string? TopLeftLabel { get; set; }
+
+    [Parameter]
     public Color? IconColor { get; set; }
 
     [Parameter]
