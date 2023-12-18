@@ -10,7 +10,6 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>
-		
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
 		<Summary>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Summary>
@@ -27,17 +26,13 @@
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<Folder Include="Icons\" />
-	</ItemGroup>
-	
-	<!--<ItemGroup>
-	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
-	</ItemGroup>-->
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+	  <Folder Include="Icons\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
 	</ItemGroup>
 
 </Project>
