@@ -11,6 +11,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
 {
     private bool _multiple = false;
     private List<TOption> _selectedOptions = [];
+    private TOption? _currentSelectedOption;
 
     // We cascade the InternalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
@@ -203,6 +204,81 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
         OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
     }
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        parameters.SetParameterProperties(this);
+
+        if (!Multiple)
+        {
+            bool isSetSelectedOption = false, isSetValue = false;
+            TOption? newSelectedOption = default;
+            string? newValue = null;
+
+            foreach (var parameter in parameters)
+            {
+                switch (parameter.Name)
+                {
+                    case nameof(SelectedOption):
+                        isSetSelectedOption = true;
+                        newSelectedOption = (TOption?)parameter.Value;
+                        break;
+                    case nameof(Value):
+                        isSetValue = true;
+                        newValue = (string?)parameter.Value;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
+            {
+                if (Items != null)
+                {
+                    if (Items.Contains(newSelectedOption))
+                    {
+                        _currentSelectedOption = newSelectedOption;
+                    }
+                    else
+                    {
+                        // If the selected option is not in the list of items, reset the selected option
+                        _currentSelectedOption = SelectedOption = default;
+                        await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                    }
+                }
+                else
+                {
+                    // If Items is null, we don't know if the selected option is in the list of items, so we just set it
+                    _currentSelectedOption = newSelectedOption;
+                }
+
+                Value = GetOptionValue(_currentSelectedOption);
+                await ValueChanged.InvokeAsync(Value);
+            }
+            else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
+            {
+                newSelectedOption = Items.FirstOrDefault(item => GetOptionValue(item) == newValue);
+
+                if (newSelectedOption != null)
+                {
+                    _currentSelectedOption = SelectedOption = newSelectedOption;
+                }
+                else
+                {
+                    // If the selected option is not in the list of items, reset the selected option
+                    _currentSelectedOption = SelectedOption = default;
+                    Value = null;
+                    await ValueChanged.InvokeAsync(Value);
+                }
+
+                await SelectedOptionChanged.InvokeAsync(SelectedOption);
+
+            }
+        }
+
+        await base.SetParametersAsync(ParameterView.Empty);
+    }
+
     protected override void OnInitialized()
     {
         if (_multiple != Multiple)
@@ -261,7 +337,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
             }
         }
 
-       
+
     }
 
     /// <summary />
@@ -405,7 +481,7 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
         }
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(InternalValue);         
+            await ValueChanged.InvokeAsync(InternalValue);
         }
         StateHasChanged();
     }
