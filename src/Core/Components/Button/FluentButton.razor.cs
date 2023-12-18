@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentButton : FluentComponentBase
 {
     private readonly string _customId = Identifier.NewId();
     private readonly RenderFragment _renderButton;
+
+    private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary>
     /// Determines if the element should receive document focus on page load.
