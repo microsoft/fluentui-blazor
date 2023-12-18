@@ -357,6 +357,7 @@
             <summary>
             Gets or sets the name of the element.
             Allows access by name from the associated form.
+            ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Label">
@@ -4295,6 +4296,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Items">
             <summary>
             Gets or sets the content source of all items to display in this list.
+            Each item must be instantiated (cannot be null).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOption">
