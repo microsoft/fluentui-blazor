@@ -188,7 +188,8 @@ public partial class FluentDesignTheme : ComponentBase
 
             await ApplyLocalStorageValues(theme);
 
-            var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance") ?? "1.0";
+            var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance");
+            realLuminance = string.IsNullOrWhiteSpace(realLuminance) ? "1.0" : realLuminance;
             var isDark = double.Parse(realLuminance, CultureInfo.InvariantCulture) < 0.5;
             GlobalDesign.SetLuminance(isDark ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
 
