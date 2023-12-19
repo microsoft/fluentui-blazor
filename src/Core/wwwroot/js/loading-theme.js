@@ -18,6 +18,11 @@ class LoadingTheme extends HTMLElement {
     // Custom element added to page.
     connectedCallback() {
 
+        // If LocalStorage is not available, do nothing.
+        if (localStorage == null) {
+            return;
+        }
+
         // Attributes
         const storageName = this.getAttribute("storage-name");
         const mode = this.getAttribute("mode");
