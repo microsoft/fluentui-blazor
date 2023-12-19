@@ -2150,6 +2150,11 @@
             Callback raised when the Dark/Light luminance changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.OnLoaded">
+            <summary>
+            Callback raised when the component is rendered for the first time.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ChildContent">
             <summary>
             Gets or sets the content of the component.

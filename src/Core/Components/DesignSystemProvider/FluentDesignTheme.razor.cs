@@ -98,6 +98,12 @@ public partial class FluentDesignTheme : ComponentBase
     public EventCallback<LuminanceChangedEventArgs> OnLuminanceChanged { get; set; }
 
     /// <summary>
+    /// Callback raised when the component is rendered for the first time.
+    /// </summary>
+    [Parameter]
+    public EventCallback<LoadedEventArgs> OnLoaded { get; set; }
+
+    /// <summary>
     /// Gets or sets the content of the component.
     /// </summary>
     [Parameter]
@@ -179,8 +185,15 @@ public partial class FluentDesignTheme : ComponentBase
             var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
             var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
-                await ApplyLocalStorageValues(theme);
+            await ApplyLocalStorageValues(theme);
+
+            if (OnLoaded.HasDelegate)
+            {
+                var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance") ?? "1.0";
+                var isDark = Convert.ToDouble(realLuminance) < 0.5;
+                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction));
             }
+        }
     }
 
     /// <summary />
@@ -208,7 +221,7 @@ public partial class FluentDesignTheme : ComponentBase
             }
             else
             {
-                if (!Enum.TryParse(theme.PrimaryColor, true, out OfficeColor color))
+                if (!Enum.TryParse<OfficeColor>(theme.PrimaryColor, true, out var color))
                 {
                     color = AspNetCore.Components.OfficeColor.Default;
                 }
@@ -253,3 +266,5 @@ public partial class FluentDesignTheme : ComponentBase
 }
 
 public record LuminanceChangedEventArgs(DesignThemeModes Mode, bool IsDark);
+
+public record LoadedEventArgs(DesignThemeModes Mode, bool IsDark, string? CustomColor, OfficeColor? OfficeColor, string? StorageName, string? Direction);

@@ -35,6 +35,11 @@ interface Blazor {
     registerCustomEventType: (
         name: string,
         options: CustomeventTypeOptions) => void;
+
+    theme: {
+        isSystemDark(): boolean,
+        isDarkMode(): boolean
+    }
 }
 
 interface CustomeventTypeOptions {
@@ -103,7 +108,7 @@ export function afterStarted(blazor: Blazor) {
         createEventArgs: event => {
 
             // Hacking of a fake update
-            if (event.target!.isUpdating) {                
+            if (event.target!.isUpdating) {
                 return {
                     checked: null,
                     indeterminate: null
@@ -258,6 +263,17 @@ export function afterStarted(blazor: Blazor) {
             }
         }
     });
+
+    blazor.theme = {
+        isSystemDark: () => {
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        },
+
+        isDarkMode: () => {
+            const luminance: string = getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
+            return parseFloat(luminance) < 0.5;
+        }
+    }
 
     afterStartedCalled = true;
 }
