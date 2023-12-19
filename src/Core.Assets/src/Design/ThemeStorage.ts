@@ -21,6 +21,12 @@ class ThemeStorage {
 
 
   public updateLocalStorage(mode: string | null, primaryColor: string | null): void {
+
+    // If LocalStorage is not available, do nothing.
+    if (localStorage == null) {
+        return;
+    }
+ 
     // Wait the component to be initialized
     if (!this._designTheme._isInitialized) {
         return;
@@ -42,6 +48,11 @@ class ThemeStorage {
   }
 
   public readLocalStorage(): { mode: string | null, primaryColor: string | null } | null {
+
+    // If LocalStorage is not available, do nothing.
+    if (localStorage == null) {
+        return null;
+    }
 
     // Check if storageName attribute is defined
     if (this.storageName == null) {
