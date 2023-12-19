@@ -1,6 +1,32 @@
 export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
+import { PageScript, onEnhancedLoad } from './PageScript'
+
+interface Blazor {
+    registerCustomEventType: (
+        name: string,
+        options: CustomeventTypeOptions) => void;
+
+    theme: {
+        isSystemDark(): boolean,
+        isDarkMode(): boolean
+    }
+    addEventListener: (name: string, callback: (event: any) => void) => void;
+}
+
+interface CustomeventTypeOptions {
+    browserEventName: string;
+    createEventArgs: (event: FluentUIEventType) => any;
+}
+
+interface FluentUIEventType {
+    target: any;
+    detail: any;
+    _readOnly: any;
+    type: string;
+}
+
 
 var styleSheet = new CSSStyleSheet();
 
@@ -31,114 +57,11 @@ document.adoptedStyleSheets.push(styleSheet);
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
-const pageScriptInfoBySrc = new Map();
-
-function registerPageScriptElement(src: any) {
-  if (!src) {
-    throw new Error('Must provide a non-empty value for the "src" attribute.');
-  }
-
-  let pageScriptInfo = pageScriptInfoBySrc.get(src);
-
-  if (pageScriptInfo) {
-    pageScriptInfo.referenceCount++;
-  } else {
-    pageScriptInfo = { referenceCount: 1, module: null };
-    pageScriptInfoBySrc.set(src, pageScriptInfo);
-    initializePageScriptModule(src, pageScriptInfo);
-  }
-}
-
-function unregisterPageScriptElement(src: any) {
-  if (!src) {
-    return;
-  }
-
-  const pageScriptInfo = pageScriptInfoBySrc.get(src);
-  if (!pageScriptInfo) {
-    return;
-  }
-
-  pageScriptInfo.referenceCount--;
-}
-
-async function initializePageScriptModule(src: any, pageScriptInfo: any) {
-  if (src.startsWith("./")) {
-    src = new URL(src.substr(2), document.baseURI).toString();
-  }
-
-  const module = await import(src);
-
-  if (pageScriptInfo.referenceCount <= 0) {
-    return;
-  }
-
-  pageScriptInfo.module = module;
-  module.onLoad?.();
-  module.onUpdate?.();
-}
-
-function onEnhancedLoad() {
-  for (const [src, { module, referenceCount }] of pageScriptInfoBySrc) {
-    if (referenceCount <= 0) {
-      module?.onDispose?.();
-      pageScriptInfoBySrc.delete(src);
-    }
-  }
-
-  for (const { module } of pageScriptInfoBySrc.values()) {
-    module?.onUpdate?.();
-  }
-}
 
 export function afterWebStarted(blazor: any) {
-  customElements.define('page-script', class extends HTMLElement {
-    static observedAttributes = ['src'];
-    src: string | null = null;
-
-    attributeChangedCallback(name: any, oldValue: any, newValue: any) {
-      if (name !== 'src') {
-        return;
-      }
-
-      this.src = newValue;
-      unregisterPageScriptElement(oldValue);
-      registerPageScriptElement(newValue);
+    if (!afterStartedCalled) {
+        afterStarted(blazor);
     }
-
-    disconnectedCallback() {
-      unregisterPageScriptElement(this.src);
-    }
-  });
-
-  blazor.addEventListener('enhancedload', onEnhancedLoad);
-  if (!afterStartedCalled) {
-    afterStarted(blazor);
-  }
-}
-
-
-interface Blazor {
-  registerCustomEventType: (
-    name: string,
-    options: CustomeventTypeOptions) => void;
-
-  theme: {
-    isSystemDark(): boolean,
-    isDarkMode(): boolean
-  }
-}
-
-interface CustomeventTypeOptions {
-  browserEventName: string;
-  createEventArgs: (event: FluentUIEventType) => any;
-}
-
-interface FluentUIEventType {
-  target: any;
-  detail: any;
-  _readOnly: any;
-  type: string;
 }
 
 export function beforeWebStart(options: any) {
@@ -356,13 +279,17 @@ export function afterStarted(blazor: Blazor) {
     }
   }
 
-  afterStartedCalled = true;
+    blazor.addEventListener('enhancedload', onEnhancedLoad);
+
+    afterStartedCalled = true;
+
 }
 
 export function beforeStart(options: any) {
 
-  customElements.define("fluent-design-theme", DesignTheme);
-  customElements.define("split-panels", SplitPanels);
+    customElements.define("fluent-design-theme", DesignTheme);
+    customElements.define("split-panels", SplitPanels);
+    customElements.define('page-script', PageScript);
 
   beforeStartCalled = true;
 }
