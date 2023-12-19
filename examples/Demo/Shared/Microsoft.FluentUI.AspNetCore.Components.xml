@@ -10846,7 +10846,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.LocalizationDirection">
             <summary>
-            The direction of the text.
+            The (reading) direction of objects in the UI.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.LocalizationDirection.ltr">
@@ -10855,6 +10855,16 @@
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.LocalizationDirection.rtl">
+            <summary>
+            Right to left.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.LocalizationDirection.LeftToRight">
+            <summary>
+            Left to right.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.LocalizationDirection.RightToLeft">
             <summary>
             Right to left.
             </summary>
@@ -11583,6 +11593,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.StringExtensions.ToPercentage(System.Decimal)">
             <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.GlobalState">
+            <summary>
+            This class is used to store the global design values of the Fluent UI components.
+            The name of this class will be changed to 'GlobalDesign' in the next major version.
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Identifier">
             <summary />
