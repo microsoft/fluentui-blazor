@@ -8,14 +8,14 @@ public partial class FluentDesignTheme : ComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
     private DotNetObjectReference<FluentDesignTheme>? _dotNetHelper = null;
-    private LocalizationDirection _direction;
-    private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+    private LocalizationDirection? _direction;
+    private readonly JsonSerializerOptions JSON_OPTIONS = new()
     {
         PropertyNameCaseInsensitive = true,
     };
 
     [Inject]
-    private GlobalState GlobalState { get; set; } = default!;
+    private GlobalState GlobalDesign { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -76,15 +76,18 @@ public partial class FluentDesignTheme : ComponentBase
     /// Gets or sets the body.dir value.
     /// </summary> 
     [Parameter]
-    public LocalizationDirection Direction
+    public LocalizationDirection? Direction
     {
         get => _direction;
         set
         {
             _direction = value;
-           GlobalState.SetDirection(_direction);
-           
-            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue());
+            if (value is not null)
+            {
+                GlobalDesign.SetDirection((LocalizationDirection) value);
+            }
+
+            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue() );
         }
     }
 
@@ -124,14 +127,14 @@ public partial class FluentDesignTheme : ComponentBase
 
                 if (OnLuminanceChanged.HasDelegate)
                 {
-                    GlobalState.SetLuminance(value.Contains("dark") ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
+                    GlobalDesign.SetLuminance(value.Contains("dark") ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
                     await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
                 }
 
                 break;
 
             case "primary-color":
-                if (value.StartsWith("#"))
+                if (value.StartsWith('#'))
                 {
                     if (CustomColorChanged.HasDelegate)
                     {
@@ -162,11 +165,19 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            if (!Enum.TryParse(await Module.InvokeAsync<string>("GetDirection"), true, out _direction))
-                _direction = LocalizationDirection.ltr;
+            string? dir = await Module.InvokeAsync<string?>("GetDirection");
+            if (!string.IsNullOrEmpty(dir))
+            {
+                _direction = dir switch
+                {
+                    "ltr" => LocalizationDirection.LeftToRight,
+                    "rtl" => LocalizationDirection.RightToLeft,
+                    _ => LocalizationDirection.LeftToRight
+                };
+            }
 
-            string? themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
-            DataLocalStorage? theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
+            var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
+            var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
                 await ApplyLocalStorageValues(theme);
             }
@@ -190,7 +201,7 @@ public partial class FluentDesignTheme : ComponentBase
         // Color
         if (!string.IsNullOrEmpty(theme?.PrimaryColor))
         {
-            if (theme.PrimaryColor.StartsWith("#"))
+            if (theme.PrimaryColor.StartsWith('#'))
             {
                 CustomColor = theme.PrimaryColor;
                 await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);

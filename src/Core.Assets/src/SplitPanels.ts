@@ -50,12 +50,15 @@ class SplitPanels extends HTMLElement {
     #direction = "row";
     #isResizing = false;
     #collapsed = false;
-    #barsize;
-    #slot1size;
-    #slot2size;
-    #slot1minsize;
-    #slot2minsize;
-    #totalsize;
+    #barsize: number = 8;
+    #slot1size: number = 0;
+    #slot2size: number = 0;
+    #slot1minsize: number = 0;
+    #slot2minsize: number = 0;
+    #totalsize: number = 0;
+    left: number = 0;
+    top: number = 0;
+    dom: any;
 
     constructor() {
         super();
@@ -156,16 +159,16 @@ class SplitPanels extends HTMLElement {
         }
     }
     updateBarSizeStyle() {
-        let median = this.shadowRoot?.querySelector('#median');
+        let median: HTMLElement | null | undefined = this.shadowRoot?.querySelector('#median');
 
-        if (median) {
+        if (median && median.style) {
             if (this.direction === "row") {
                 median.style.inlineSize = this.barsize + 'px';
-                median.style.blockSize = null;
+                median.style.blockSize = "";
             }
             else {
                 median.style.blockSize = this.barsize + 'px';
-                median.style.inlineSize = null;
+                median.style.inlineSize = "";
             }
         }
     }
@@ -174,9 +177,9 @@ class SplitPanels extends HTMLElement {
             (this as any as DOMStringMap)[name] = newValue;
         }
     }
-    ensurevalue(value) {
+    ensurevalue(value: string | number | any) {
     if (!value)
-        return null;
+        return 0;
 
     value = value.trim().toLowerCase();
 

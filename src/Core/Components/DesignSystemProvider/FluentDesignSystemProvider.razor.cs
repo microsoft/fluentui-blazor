@@ -23,7 +23,7 @@ public partial class FluentDesignSystemProvider : FluentComponentBase
     public int? DesignUnit { get; set; }
 
     [Parameter]
-    public LocalizationDirection? Direction { get; set; } = LocalizationDirection.ltr;
+    public LocalizationDirection? Direction { get; set; } = LocalizationDirection.LeftToRight;
     [Parameter]
     public int? BaseHeightMultiplier { get; set; }
 
