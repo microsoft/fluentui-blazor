@@ -20,7 +20,8 @@ highlight.onload = () => {
     if (theme != null) {
         theme.addEventListener('onchange', (e) => {
             if (e.detail.name == 'mode') {
-                const isDark = e.detail.newValue.includes('dark');
+                if (e.detail.newValue === 'undefined') return;
+                const isDark =  e.detail.newValue.includes('dark');
                 hljs_ColorSwitcher(isDark);
             }
         });
@@ -38,7 +39,7 @@ highlight.onload = () => {
 function hljs_ColorSystem() {
     const theme = document.querySelector('loading-theme > fluent-design-theme');
     if (theme != null) {
-        if (theme.getAttribute('mode') == 'null' || theme.getAttribute('mode') == null) {
+        if (theme.getAttribute('mode') == 'null' || theme.getAttribute('mode') == null || theme.getAttribute('mode').value === undefined) {
             const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             hljs_ColorSwitcher(isSystemDark);
         }

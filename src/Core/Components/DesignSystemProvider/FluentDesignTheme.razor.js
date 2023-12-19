@@ -24,3 +24,7 @@ export function UpdateDirection(value) {
 export function GetDirection() {
     return document.body.dir;
 }
+
+export function GetGlobalLuminance() {
+    return getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
+}
