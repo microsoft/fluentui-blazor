@@ -1,6 +1,10 @@
-function attachEventHandlers(id){
-    var element = document.getElementById(id);
-    var positioningRegion = element.getElementsByClassName("positioning-region")[0];
+export function onLoad() {
+    for (let element of document.getElementsByClassName("fluent-nav-group")) {
+        attachEventHandlers(element);
+    }
+}
+function attachEventHandlers(element){
+    let positioningRegion = element.getElementsByClassName("positioning-region")[0];
     positioningRegion.addEventListener('click', () => toggleExpandedAsync(element));
     positioningRegion.addEventListener('keydown', (ev) => handleExpanderKeyDownAsync(element,ev));
 }
