@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -8,11 +9,14 @@ public partial class FluentDesignTheme : ComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
     private DotNetObjectReference<FluentDesignTheme>? _dotNetHelper = null;
-    private string? _direction;
-    private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+    private LocalizationDirection? _direction;
+    private readonly JsonSerializerOptions JSON_OPTIONS = new()
     {
         PropertyNameCaseInsensitive = true,
     };
+
+    [Inject]
+    private GlobalState GlobalDesign { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -73,13 +77,18 @@ public partial class FluentDesignTheme : ComponentBase
     /// Gets or sets the body.dir value.
     /// </summary> 
     [Parameter]
-    public string? Direction
+    public LocalizationDirection? Direction
     {
         get => _direction;
         set
         {
             _direction = value;
-            Module?.InvokeVoidAsync("UpdateDirection", value);
+            if (value is not null)
+            {
+                GlobalDesign.SetDirection((LocalizationDirection) value);
+            }
+
+            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue() );
         }
     }
 
@@ -125,13 +134,14 @@ public partial class FluentDesignTheme : ComponentBase
 
                 if (OnLuminanceChanged.HasDelegate)
                 {
+                    GlobalDesign.SetLuminance(value.Contains("dark") ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
                     await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
                 }
 
                 break;
 
             case "primary-color":
-                if (value.StartsWith("#"))
+                if (value.StartsWith('#'))
                 {
                     if (CustomColorChanged.HasDelegate)
                     {
@@ -162,18 +172,29 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            _direction = await Module.InvokeAsync<string?>("GetDirection");
+            string? dir = await Module.InvokeAsync<string?>("GetDirection");
+            if (!string.IsNullOrEmpty(dir))
+            {
+                _direction = dir switch
+                {
+                    "ltr" => LocalizationDirection.LeftToRight,
+                    "rtl" => LocalizationDirection.RightToLeft,
+                    _ => LocalizationDirection.LeftToRight
+                };
+            }
 
             var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
             var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
             await ApplyLocalStorageValues(theme);
 
+            var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance") ?? "1.0";
+            var isDark = double.Parse(realLuminance, CultureInfo.InvariantCulture) < 0.5;
+            GlobalDesign.SetLuminance(isDark ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
+
             if (OnLoaded.HasDelegate)
             {
-                var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance") ?? "1.0";
-                var isDark = Convert.ToDouble(realLuminance) < 0.5;
-                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction));
+                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction.ToAttributeValue()));
             }
         }
     }
@@ -184,7 +205,7 @@ public partial class FluentDesignTheme : ComponentBase
         // Mode (Dark / Light / System)
         if (!string.IsNullOrEmpty(theme?.Mode))
         {
-            if (!Enum.TryParse<DesignThemeModes>(theme.Mode, true, out var mode))
+            if (!Enum.TryParse(theme.Mode, true, out DesignThemeModes mode))
             {
                 mode = DesignThemeModes.System;
             }
@@ -196,7 +217,7 @@ public partial class FluentDesignTheme : ComponentBase
         // Color
         if (!string.IsNullOrEmpty(theme?.PrimaryColor))
         {
-            if (theme.PrimaryColor.StartsWith("#"))
+            if (theme.PrimaryColor.StartsWith('#'))
             {
                 CustomColor = theme.PrimaryColor;
                 await OnChangeRaisedAsync("primary-color", theme.PrimaryColor);
