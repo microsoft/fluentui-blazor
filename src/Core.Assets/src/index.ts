@@ -65,223 +65,224 @@ export function afterWebStarted(blazor: any) {
 }
 
 export function beforeWebStart(options: any) {
-    if (!beforeStartCalled) {
-        beforeStart(options);
-    }
+  if (!beforeStartCalled) {
+    beforeStart(options);
+  }
 }
 
 export function beforeWebAssemblyStart(options: any) {
-    if (!beforeStartCalled) {
-        beforeStart(options);
-    }
+  if (!beforeStartCalled) {
+    beforeStart(options);
+  }
 }
 
 export function afterWebAssemblyStarted(blazor: any) {
-    if (!afterStartedCalled) {
-        afterStarted(blazor);
-    }
+  if (!afterStartedCalled) {
+    afterStarted(blazor);
+  }
 }
 
 export function beforeServerStart(options: any) {
-    if (!beforeStartCalled) {
-        beforeStart(options);
-    }
+  if (!beforeStartCalled) {
+    beforeStart(options);
+  }
 }
 
 export function afterServerStarted(blazor: any) {
-    if (!afterStartedCalled) {
-        afterStarted(blazor);
-    }
+  if (!afterStartedCalled) {
+    afterStarted(blazor);
+  }
 }
 
 export function afterStarted(blazor: Blazor) {
 
-    blazor.registerCustomEventType('radiogroupclick', {
-        browserEventName: 'click',
-        createEventArgs: event => {
-            if (event.target!._readOnly || event.target!._disabled) {
-                return null;
-            }
-            return {
-                value: event.target!.value
-            };
-        }
-    });
-    blazor.registerCustomEventType('checkedchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-
-            // Hacking of a fake update
-            if (event.target!.isUpdating) {
-                return {
-                    checked: null,
-                    indeterminate: null
-                }
-            }
-
-            return {
-                checked: event.target!.currentChecked,
-                indeterminate: event.target!.indeterminate
-            };
-        }
-    });
-    blazor.registerCustomEventType('switchcheckedchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            return {
-                checked: event.target!.checked
-            };
-        }
-    });
-    blazor.registerCustomEventType('accordionchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            if (event.target!.localName == 'fluent-accordion-item') {
-                return {
-                    activeId: event.target!.id,
-                }
-            };
-            return null;
-        }
-    });
-    blazor.registerCustomEventType('tabchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            if (event.target!.localName == 'fluent-tabs') {
-                return {
-                    activeId: event.detail.id,
-                }
-            };
-            return null;
-        }
-    });
-    blazor.registerCustomEventType('selectedchange', {
-        browserEventName: 'selected-change',
-        createEventArgs: event => {
-            if (event.target!.localName == 'fluent-tree-item') {
-                return {
-                    affectedId: event.detail.attributes['id'].value,
-                    selected: event.detail._selected,
-                    expanded: event.detail._expanded
-                }
-            };
-            return null;
-        }
-    });
-    blazor.registerCustomEventType('expandedchange', {
-        browserEventName: 'expanded-change',
-        createEventArgs: event => {
-            return {
-                affectedId: event.detail.attributes['id'].value,
-                selected: event.detail._selected,
-                expanded: event.detail._expanded
-            };
-        }
-    });
-    blazor.registerCustomEventType('dateselected', {
-        browserEventName: 'dateselected',
-        createEventArgs: event => {
-            return {
-                calendarDateInfo: event.detail
-            };
-        }
-    });
-    blazor.registerCustomEventType('tooltipdismiss', {
-        browserEventName: 'dismiss',
-        createEventArgs: event => {
-            if (event.target!.localName == 'fluent-tooltip') {
-                return {
-                    reason: event.type
-                };
-            };
-            return null;
-        }
-    });
-    blazor.registerCustomEventType('dialogdismiss', {
-        browserEventName: 'dismiss',
-        createEventArgs: event => {
-            if (event.target!.localName == 'fluent-dialog') {
-                return {
-                    id: event.target!.id,
-                    reason: event.type
-                };
-            };
-            return null;
-        }
-    });
-    blazor.registerCustomEventType('menuchange', {
-        browserEventName: 'change',
-        createEventArgs: event => {
-            return {
-                id: event.target!.id,
-                value: event.target!.innerText
-            };
-        }
-    });
-    blazor.registerCustomEventType('scrollstart', {
-        browserEventName: 'scrollstart',
-        createEventArgs: event => {
-            return {
-                scroll: event.detail
-            };
-        }
-    });
-    blazor.registerCustomEventType('scrollend', {
-        browserEventName: 'scrollend',
-        createEventArgs: event => {
-            return {
-                scroll: event.detail
-            };
-        }
-    });
-    blazor.registerCustomEventType('cellfocus', {
-        browserEventName: 'cell-focused',
-        createEventArgs: event => {
-            return {
-                cellId: event.detail.attributes['cell-id'].value
-            };
-        }
-    });
-    blazor.registerCustomEventType('rowfocus', {
-        browserEventName: 'row-focused',
-        createEventArgs: event => {
-            return {
-                rowId: event.detail.attributes['row-id'].value
-            };
-        }
-    });
-    blazor.registerCustomEventType('splitterresized', {
-        browserEventName: 'splitterresized',
-        createEventArgs: event => {
-            return {
-                panel1size: event.detail.panel1size,
-                panel2size: event.detail.panel2size
-            }
-        }
-    });
-    blazor.registerCustomEventType('splittercollapsed', {
-        browserEventName: 'splittercollapsed',
-        createEventArgs: event => {
-            return {
-                collapsed: event.detail.collapsed
-            }
-        }
-    });
-
-    blazor.theme = {
-        isSystemDark: () => {
-            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        },
-
-        isDarkMode: () => {
-            const luminance: string = getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
-            return parseFloat(luminance) < 0.5;
-        }
+  blazor.registerCustomEventType('radiogroupclick', {
+    browserEventName: 'click',
+    createEventArgs: event => {
+      if (event.target!._readOnly || event.target!._disabled) {
+        return null;
+      }
+      return {
+        value: event.target!.value
+      };
     }
+  });
+  blazor.registerCustomEventType('checkedchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+
+      // Hacking of a fake update
+      if (event.target!.isUpdating) {
+        return {
+          checked: null,
+          indeterminate: null
+        }
+      }
+
+      return {
+        checked: event.target!.currentChecked,
+        indeterminate: event.target!.indeterminate
+      };
+    }
+  });
+  blazor.registerCustomEventType('switchcheckedchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      return {
+        checked: event.target!.checked
+      };
+    }
+  });
+  blazor.registerCustomEventType('accordionchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      if (event.target!.localName == 'fluent-accordion-item') {
+        return {
+          activeId: event.target!.id,
+        }
+      };
+      return null;
+    }
+  });
+  blazor.registerCustomEventType('tabchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      if (event.target!.localName == 'fluent-tabs') {
+        return {
+          activeId: event.detail.id,
+        }
+      };
+      return null;
+    }
+  });
+  blazor.registerCustomEventType('selectedchange', {
+    browserEventName: 'selected-change',
+    createEventArgs: event => {
+      if (event.target!.localName == 'fluent-tree-item') {
+        return {
+          affectedId: event.detail.attributes['id'].value,
+          selected: event.detail._selected,
+          expanded: event.detail._expanded
+        }
+      };
+      return null;
+    }
+  });
+  blazor.registerCustomEventType('expandedchange', {
+    browserEventName: 'expanded-change',
+    createEventArgs: event => {
+      return {
+        affectedId: event.detail.attributes['id'].value,
+        selected: event.detail._selected,
+        expanded: event.detail._expanded
+      };
+    }
+  });
+  blazor.registerCustomEventType('dateselected', {
+    browserEventName: 'dateselected',
+    createEventArgs: event => {
+      return {
+        calendarDateInfo: event.detail
+      };
+    }
+  });
+  blazor.registerCustomEventType('tooltipdismiss', {
+    browserEventName: 'dismiss',
+    createEventArgs: event => {
+      if (event.target!.localName == 'fluent-tooltip') {
+        return {
+          reason: event.type
+        };
+      };
+      return null;
+    }
+  });
+  blazor.registerCustomEventType('dialogdismiss', {
+    browserEventName: 'dismiss',
+    createEventArgs: event => {
+      if (event.target!.localName == 'fluent-dialog') {
+        return {
+          id: event.target!.id,
+          reason: event.type
+        };
+      };
+      return null;
+    }
+  });
+  blazor.registerCustomEventType('menuchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      return {
+        id: event.target!.id,
+        value: event.target!.innerText
+      };
+    }
+  });
+  blazor.registerCustomEventType('scrollstart', {
+    browserEventName: 'scrollstart',
+    createEventArgs: event => {
+      return {
+        scroll: event.detail
+      };
+    }
+  });
+  blazor.registerCustomEventType('scrollend', {
+    browserEventName: 'scrollend',
+    createEventArgs: event => {
+      return {
+        scroll: event.detail
+      };
+    }
+  });
+  blazor.registerCustomEventType('cellfocus', {
+    browserEventName: 'cell-focused',
+    createEventArgs: event => {
+      return {
+        cellId: event.detail.attributes['cell-id'].value
+      };
+    }
+  });
+  blazor.registerCustomEventType('rowfocus', {
+    browserEventName: 'row-focused',
+    createEventArgs: event => {
+      return {
+        rowId: event.detail.attributes['row-id'].value
+      };
+    }
+  });
+  blazor.registerCustomEventType('splitterresized', {
+    browserEventName: 'splitterresized',
+    createEventArgs: event => {
+      return {
+        panel1size: event.detail.panel1size,
+        panel2size: event.detail.panel2size
+      }
+    }
+  });
+  blazor.registerCustomEventType('splittercollapsed', {
+    browserEventName: 'splittercollapsed',
+    createEventArgs: event => {
+      return {
+        collapsed: event.detail.collapsed
+      }
+    }
+  });
+
+  blazor.theme = {
+    isSystemDark: () => {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    },
+
+    isDarkMode: () => {
+      const luminance: string = getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
+      return parseFloat(luminance) < 0.5;
+    }
+  }
 
     blazor.addEventListener('enhancedload', onEnhancedLoad);
 
     afterStartedCalled = true;
+
 }
 
 export function beforeStart(options: any) {
@@ -290,5 +291,5 @@ export function beforeStart(options: any) {
     customElements.define("split-panels", SplitPanels);
     customElements.define('page-script', PageScript);
 
-    beforeStartCalled = true;
+  beforeStartCalled = true;
 }
