@@ -2,8 +2,9 @@
 @inherits FluentNavBase
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 
-
+<PageScript Src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavGroup.razor.js"></PageScript>
 @if (Owner.Expanded || HasIcon)
 {
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
@@ -42,7 +43,9 @@
         </FluentCollapsibleRegion>
     </div>
 }
+
 @code {
+
     private void RenderContent(RenderTreeBuilder __builder)
     {
         @if (Icon is not null)
@@ -72,7 +75,6 @@
                  @onkeydown="@HandleExpanderKeyDownAsync">
                 <FluentIcon Value="@ExpandIcon" Color="@(Disabled ? Color.Disabled : Color.Neutral)" Class="@ExpandIconClassValue" />
             </div>
-
         }
     }
 }
