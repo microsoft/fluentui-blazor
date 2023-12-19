@@ -8,11 +8,14 @@ public partial class FluentDesignTheme : ComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DesignSystemProvider/FluentDesignTheme.razor.js";
     private DotNetObjectReference<FluentDesignTheme>? _dotNetHelper = null;
-    private string? _direction;
+    private LocalizationDirection _direction;
     private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true,
     };
+
+    [Inject]
+    private GlobalState GlobalState { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -73,13 +76,15 @@ public partial class FluentDesignTheme : ComponentBase
     /// Gets or sets the body.dir value.
     /// </summary> 
     [Parameter]
-    public string? Direction
+    public LocalizationDirection Direction
     {
         get => _direction;
         set
         {
             _direction = value;
-            Module?.InvokeVoidAsync("UpdateDirection", value);
+           GlobalState.SetDirection(_direction);
+           
+            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue());
         }
     }
 
@@ -119,6 +124,7 @@ public partial class FluentDesignTheme : ComponentBase
 
                 if (OnLuminanceChanged.HasDelegate)
                 {
+                    GlobalState.SetLuminance(value.Contains("dark") ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
                     await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
                 }
 
@@ -156,13 +162,14 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            _direction = await Module.InvokeAsync<string?>("GetDirection");
+            if (!Enum.TryParse(await Module.InvokeAsync<string>("GetDirection"), true, out _direction))
+                _direction = LocalizationDirection.ltr;
 
-            var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
-            var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
+            string? themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
+            DataLocalStorage? theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
-            await ApplyLocalStorageValues(theme);
-        }
+                await ApplyLocalStorageValues(theme);
+            }
     }
 
     /// <summary />
@@ -171,7 +178,7 @@ public partial class FluentDesignTheme : ComponentBase
         // Mode (Dark / Light / System)
         if (!string.IsNullOrEmpty(theme?.Mode))
         {
-            if (!Enum.TryParse<DesignThemeModes>(theme.Mode, true, out var mode))
+            if (!Enum.TryParse(theme.Mode, true, out DesignThemeModes mode))
             {
                 mode = DesignThemeModes.System;
             }
@@ -190,7 +197,7 @@ public partial class FluentDesignTheme : ComponentBase
             }
             else
             {
-                if (!Enum.TryParse<OfficeColor>(theme.PrimaryColor, true, out var color))
+                if (!Enum.TryParse(theme.PrimaryColor, true, out OfficeColor color))
                 {
                     color = AspNetCore.Components.OfficeColor.Default;
                 }

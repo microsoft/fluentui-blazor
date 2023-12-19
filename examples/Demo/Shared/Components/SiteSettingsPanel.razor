@@ -3,7 +3,7 @@
 <div>
     <FluentDesignTheme @bind-Mode="@Mode"
                        @bind-OfficeColor="@OfficeColor"
-                       Direction="@(Direction ? "ltr" : "rtl")"
+                       Direction="@(Direction ? LocalizationDirection.ltr : LocalizationDirection.rtl)"
                        StorageName="theme" />
 
     <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
