@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -187,11 +188,13 @@ public partial class FluentDesignTheme : ComponentBase
 
             await ApplyLocalStorageValues(theme);
 
+            var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance") ?? "1.0";
+            var isDark = double.Parse(realLuminance, CultureInfo.InvariantCulture) < 0.5;
+            GlobalDesign.SetLuminance(isDark ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
+
             if (OnLoaded.HasDelegate)
             {
-                var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance") ?? "1.0";
-                var isDark = Convert.ToDouble(realLuminance) < 0.5;
-                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction));
+                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction.ToAttributeValue()));
             }
         }
     }
