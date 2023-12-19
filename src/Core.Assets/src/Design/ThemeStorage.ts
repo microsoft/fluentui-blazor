@@ -24,12 +24,12 @@ class ThemeStorage {
 
     // If LocalStorage is not available, do nothing.
     if (localStorage == null) {
-        return;
+      return;
     }
- 
+
     // Wait the component to be initialized
     if (!this._designTheme._isInitialized) {
-        return;
+      return;
     }
 
     // Check if storageName attribute is defined
@@ -37,13 +37,10 @@ class ThemeStorage {
       return;
     }
 
-    if (mode == "null") mode = null;
-    if (primaryColor == "null") primaryColor = null;
-
     // Save to the localstorage
     localStorage.setItem(this.storageName, JSON.stringify({
-      mode: mode,
-      primaryColor: primaryColor,
+      mode: ThemeStorage.getValueOrNull(mode),
+      primaryColor: ThemeStorage.getValueOrNull(primaryColor),
     }));
   }
 
@@ -51,7 +48,7 @@ class ThemeStorage {
 
     // If LocalStorage is not available, do nothing.
     if (localStorage == null) {
-        return null;
+      return null;
     }
 
     // Check if storageName attribute is defined
@@ -59,13 +56,29 @@ class ThemeStorage {
       return null;
     }
 
+    // Check if localstorage exists
+    const storageJson = localStorage.getItem(this.storageName);
+
+    if (storageJson == null) {
+      return null;
+    }
+
     // Read the localstorage
-    const storageItems = JSON.parse(localStorage.getItem(this.storageName) ?? "{ }");
+    const storageItems = JSON.parse(storageJson);
 
     return {
-      mode: storageItems?.mode == "null" ? null : storageItems?.mode,
-      primaryColor: storageItems?.primaryColor == "null" ? null : storageItems?.primaryColor,
+      mode: ThemeStorage.getValueOrNull(storageItems?.mode),
+      primaryColor: ThemeStorage.getValueOrNull(storageItems?.primaryColor),
     }
+  }
+
+  /**
+ * Return null or the specified value
+ * @param value
+ * @returns
+ */
+  public static getValueOrNull(value: any) {
+    return value == null || value == undefined || value == "null" || value == "undefined" ? null : value;
   }
 }
 
