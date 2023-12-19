@@ -1,6 +1,7 @@
 <FluentDesignTheme @bind-Mode="@Mode"
                    OfficeColor="@OfficeColor"
                    OfficeColorChanged="@(e => { OfficeColor = e ?? OfficeColor.Default; StateHasChanged(); })"
+                   OnLoaded="@OnLoaded"
                    OnLuminanceChanged="@OnLuminanceChanged"
                    StorageName="theme" />
 
@@ -43,8 +44,13 @@
 
     public OfficeColor OfficeColor { get; set; }
 
+    void OnLoaded(LoadedEventArgs e)
+    {
+        DemoLogger.WriteLine($"Loaded: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+    }
+
     void OnLuminanceChanged(LuminanceChangedEventArgs e)
     {
-        DemoLogger.WriteLine($"{(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+        DemoLogger.WriteLine($"Changed: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
     }
 }
