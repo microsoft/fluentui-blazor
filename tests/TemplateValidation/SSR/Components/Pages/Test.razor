@@ -1,0 +1,28 @@
+﻿@page "/test"
+@*Paste your test code below. Do not change page directive*@
+<h3>Test</h3>
+
+<PageTitle>Test page</PageTitle>
+
+
+<FluentNavMenu>
+    <FluentNavLink>Test 1</FluentNavLink>
+    <FluentNavGroup Title="Test group 1" Tooltip="@($"Expanded: {_expandedOne}")" @bind-Expanded="_expandedOne">
+        <FluentNavLink>Test1</FluentNavLink>
+        <FluentNavLink>Test1</FluentNavLink>
+    </FluentNavGroup>
+
+    <FluentNavGroup Title="Test group 2" Tooltip="@($"Expanded: {_expandedTwo}")" @bind-Expanded="_expandedTwo">
+        <FluentNavLink>Test2</FluentNavLink>
+        <FluentNavLink>Test2</FluentNavLink>
+    </FluentNavGroup>
+    <FluentNavGroup Title="TestThree" Href="/weather">
+        <FluentNavLink>Test Href</FluentNavLink>
+        <FluentNavLink>Test Href</FluentNavLink>
+    </FluentNavGroup>
+</FluentNavMenu>
+
+@code {
+    private bool _expandedOne;
+    private bool _expandedTwo = true;
+}
