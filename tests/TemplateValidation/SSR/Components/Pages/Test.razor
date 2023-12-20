@@ -5,7 +5,24 @@
 <PageTitle>Test page</PageTitle>
 
 
-<FluentNavMenu>
+<FluentNavMenu Collapsible Width="250">
+    <FluentNavLink>Test 1</FluentNavLink>
+    <FluentNavGroup Title="Test group 1" Tooltip="@($"Expanded: {_expandedOne}")" @bind-Expanded="_expandedOne">
+        <FluentNavLink>Test 1.1</FluentNavLink>
+        <FluentNavLink>Test 1.2</FluentNavLink>
+    </FluentNavGroup>
+
+    <FluentNavGroup Title="Test group 2" Tooltip="@($"Expanded: {_expandedTwo}")" @bind-Expanded="_expandedTwo">
+        <FluentNavLink>Test 2.1</FluentNavLink>
+        <FluentNavLink>Test 2.2</FluentNavLink>
+    </FluentNavGroup>
+    <FluentNavGroup Title="Test group with Href" Href="/weather">
+        <FluentNavLink>Test 3.1</FluentNavLink>
+        <FluentNavLink>Test 3.2</FluentNavLink>
+    </FluentNavGroup>
+</FluentNavMenu>
+
+<FluentNavMenu Collapsible Width="350">
     <FluentNavLink>Test 1</FluentNavLink>
     <FluentNavGroup Title="Test group 1" Tooltip="@($"Expanded: {_expandedOne}")" @bind-Expanded="_expandedOne">
         <FluentNavLink>Test 1.1</FluentNavLink>

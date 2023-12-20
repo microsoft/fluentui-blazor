@@ -1,4 +1,12 @@
 export function onUpdate() {
+    for (let expander of document.getElementsByClassName("expander")) {
+        if (expander) {
+            const origStyle = expander.parentElement.style.cssText;
+            expander.addEventListener('click', () => toggleMenuExpandedAsync(expander, origStyle));
+            expander.parentElement.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
+        }
+    }
+
     for (let element of document.getElementsByClassName("fluent-nav-group")) {
         attachEventHandlers(element);
     }
@@ -6,29 +14,46 @@ export function onUpdate() {
 function attachEventHandlers(element) {
     let navlink = element.getElementsByClassName("fluent-nav-link")[0];
     if (!navlink.href) {
-        navlink.addEventListener('click', () => toggleExpandedAsync(element));
+        navlink.addEventListener('click', () => toggleGroupExpandedAsync(element));
     }
     navlink.addEventListener('keydown', (ev) => handleExpanderKeyDownAsync(element, ev));
 
     let expandCollapseButton = element.getElementsByClassName("expand-collapse-button")[0];
-    expandCollapseButton.addEventListener('click', (ev) => toggleExpandedAsync(element, navlink, ev));
+    expandCollapseButton.addEventListener('click', (ev) => toggleGroupExpandedAsync(element, navlink, ev));
 }
 
-function toggleExpandedAsync(element, navlink, event) {
+function toggleMenuExpandedAsync(element, orig, event) {
+
+    let parent = element.parentElement;
+    if (!parent.classList.contains('collapsed')) {
+        parent.classList.add('collapsed');
+        parent.style.width = '40px';
+        parent.style.minWidth = '40px';
+        parent.ariaExpanded = 'false';
+        element.ariaExpanded = 'false';
+    }
+    else {
+        parent.classList.remove('collapsed');
+        parent.style.cssText = orig;
+        parent.ariaExpanded = 'true';
+        element.ariaExpanded = 'true';
+    }
+    event?.stopPropagation();
+}
+
+function toggleGroupExpandedAsync(element, navlink, event) {
     if (navlink && navlink.href) {
         event.preventDefault();
     }
     setExpanded(element, !element.classList.contains('expanded'));
-    if (event) {
-        event.stopPropagation();
-    }
+    event?.stopPropagation();
 }
 
 function handleExpanderKeyDownAsync(element, event) {
     switch (event.code) {
         case "NumpadEnter":
         case "Enter":
-            toggleExpandedAsync(element, null, event);
+            toggleGroupExpandedAsync(element, null, event);
             break;
         case "NumpadArrowRight":
         case "ArrowRight":
@@ -39,6 +64,25 @@ function handleExpanderKeyDownAsync(element, event) {
             setExpanded(element, false);
             break;
     }
+    event.stopPropagation();
+}
+
+function handleMenuExpanderKeyDownAsync(element, origStyle, event) {
+    switch (event.code) {
+        case "NumpadEnter":
+        case "Enter":
+            toggleMenuExpandedAsync(element, origStyle);
+            break;
+        case "NumpadArrowRight":
+        case "ArrowRight":
+            setMenuExpanded(element, origStyle, true);
+            break;
+        case "NumpadArrowLeft":
+        case "ArrowLeft":
+            setMenuExpanded(element, origStyle, false);
+            break;
+    }
+    event.stopPropagation();
 }
 
 function setExpanded(element, expand) {
@@ -53,5 +97,22 @@ function setExpanded(element, expand) {
         button.classList.remove("rotate");
         collapsibleRegion.style.height = '0px';
         element.classList.remove('expanded');
+    }
+}
+
+function setMenuExpanded(element, origStyle, expand) {
+    let parent = element.parentElement;
+    if (expand) {
+        parent.classList.remove('collapsed');
+        parent.style.cssText = origStyle;
+        parent.ariaExpanded = 'true';
+        element.ariaExpanded = 'true';
+    }
+    else {
+        parent.classList.add('collapsed');
+        parent.style.width = '40px';
+        parent.style.minWidth = '40px';
+        parent.ariaExpanded = 'false';
+        element.ariaExpanded = 'false';
     }
 }
