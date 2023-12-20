@@ -1,4 +1,10 @@
-﻿## V3.5.0
+﻿## V3.5.1
+- Fix [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
+- Fix [#1169](https://github.com/microsoft/fluentui-blazor/issues/1169): NavMenu: don't set background on selected active link
+- Fix [#1144](https://github.com/microsoft/fluentui-blazor/issues/1144): List components: Each item must be instantiated (cannot be null).
+- [FluentProgress] Add Width, Stroke, Color and BackgroundColor attributes
+
+## V3.5.0
 - New: FluentValidationMessage and Required indicator for input components
 - NavMenu: Tooltips. Expand on click when collapsed)
 - InputFile: ProgressTEmplate and ProgressPercentage bindable
@@ -10,7 +16,8 @@
 - Fix [#1057](https://github.com/microsoft/fluentui-blazor/issues/1057): Can't show Fluent UI Blazor dialog on published Blazor webasm app
 - Fix [#1070](https://github.com/microsoft/fluentui-blazor/issues/1070): Style not applied for FluentPaginator + added `PaginationTextTemplate` parameter 
 - Update Fluent UI System Icons to version 1.1.224
-**What's new (Name / Size(s) / Variant(s))**
+
+- **What's new (Name / Size(s) / Variant(s))**
 - Arrow Clockwise Dashes / 16, 32 / Filled & Regular
 - Building Swap / 16, 20, 24, 32, 48 / Filled & Regular
 - Certificate / 32 / Filled & Regular

@@ -1,4 +1,10 @@
-﻿## V3.5.0
+﻿## V3.5.1
+- Fix [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
+- Fix [#1169](https://github.com/microsoft/fluentui-blazor/issues/1169): NavMenu: don't set background on selected active link
+- Fix [#1144](https://github.com/microsoft/fluentui-blazor/issues/1144): List components: Each item must be instantiated (cannot be null).
+- [FluentProgress] Add Width, Stroke, Color and BackgroundColor attributes
+
+## V3.5.0
 - New: FluentValidationMessage and Required indicator for input components
 - NavMenu: Tooltips. Expand on click when collapsed)
 - InputFile: ProgressTEmplate and ProgressPercentage bindable
