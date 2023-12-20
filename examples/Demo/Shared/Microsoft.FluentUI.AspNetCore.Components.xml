@@ -3314,6 +3314,37 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.xs">
+            <summary>
+            Defines the number of columns the item should span.
+            Extra Small (xs) devices (portrait phones, less than 600px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.sm">
+            <summary>
+            Defines the number of columns the item should span.
+            Small (sm) devices (landscape phones, less than 960px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.md">
+            <summary>
+            Defines the number of columns the item should span.
+            Medium (md) devices (tablets, less than 1280px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.lg">
+            <summary>
+            Defines the number of columns the item should span.
+            Large (lg) devices (desktops, less than 1920px wide)
+            </summary> 
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.xl">
+            <summary>
+            Defines the number of columns the item should span.
+            Extra large (xl) devices (large desktops, less than 2560px wide)
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.xxl" -->
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.Justify">
             <summary>
             Defines how the browser distributes space between and around content items.

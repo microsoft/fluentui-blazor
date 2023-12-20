@@ -12,21 +12,44 @@ public partial class FluentGridItem : FluentComponentBase
 #pragma warning disable IDE1006 // Naming Styles
 #pragma warning disable SA1300 // Element should begin with upper-case letter
 
+    /// <summary>
+    /// The number of columns the item should span in the 12-column grid system.
+    /// Extra Small (xs) devices (portrait phones, less than 600px wide)
+    /// </summary>
     [Parameter]
     public int? xs { get; set; }
 
+    /// <summary>
+    /// The number of columns the item should span in the 12-column grid system.
+    /// Small (sm) devices (landscape phones, less than 960px wide)
+    /// </summary>
     [Parameter]
     public int? sm { get; set; }
 
+    /// <summary>
+    /// The number of columns the item should span in the 12-column grid system.
+    /// Medium (md) devices (tablets, less than 1280px wide)
+    /// </summary>
     [Parameter]
     public int? md { get; set; }
 
+    /// <summary>
+    /// The number of columns the item should span in the 12-column grid system.
+    /// Large (lg) devices (desktops, less than 1920px wide)
+    /// </summary> 
     [Parameter]
     public int? lg { get; set; }
 
+    /// <summary>
+    /// The number of columns the item should span in the 12-column grid system.
+    /// Extra large (xl) devices (large desktops, less than 2560px wide)
+    /// </summary>
     [Parameter]
     public int? xl { get; set; }
 
+    /// <summary>
+    /// The number of columns the item should span in the 12-column grid system.
+    /// Extra extra large (xxl) devices (larger desktops, more than 2560px wide)
     [Parameter]
     public int? xxl { get; set; }
 

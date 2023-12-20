@@ -11,11 +11,7 @@
 <div class="navmenu">
     <input type="checkbox" id="navmenu-toggle" />
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
-        @*#if (UseServer || UseWebAssembly)
-        <FluentNavMenu Id="main-menu" Width="250" Collapsible="true" Title="Navigation menu" @bind-Expanded="expanded">
-        ##else
-        <FluentNavMenu Id="main-menu" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
-        ##endif*@
+        <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
             @*#if (UseServer || UseWebAssembly)
             <FluentNavLink Href="counter" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconColor="Color.Accent">Counter</FluentNavLink>
