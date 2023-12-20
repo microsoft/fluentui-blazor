@@ -172,6 +172,13 @@
 <p>
 	For more information regarding this bug, see issue <a href="https://github.com/dotnet/maui/issues/15234">15234</a> in the MAUI repo.
 </p>
+<blockquote>
+	<strong>
+		We are aware that the necessary file is missing from the 4.2.0 package and are working on a fix. In the meantime, if you
+		need a workaround for this, copy the contents of https://github.com/microsoft/fluentui-blazor/blob/dev/src/Core/wwwroot/js/initializersLoader.webview.js 
+		to a file in your project and use that file in the script tag described above.
+	</strong>
+</blockquote>
 
 
 <h2>Use the DataGrid component with EF Core</h2>
