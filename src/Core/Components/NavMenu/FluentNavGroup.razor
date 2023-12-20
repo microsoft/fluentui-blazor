@@ -3,8 +3,6 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-
-<PageScript Src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavGroup.razor.js"></PageScript>
 @if (Owner.Expanded || HasIcon)
 {
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
@@ -16,7 +14,7 @@
                      Match="@Match"
                      ActiveClass="@ActiveClass"
                      title="@(Tooltip ?? Title)">
-                <div class="positioning-region" >
+                <div class="positioning-region">
                     <div class="content-region">
                         @_renderContent
                         @_renderButton
@@ -26,9 +24,9 @@
         }
         else
         {
-            <div class="positioning-region" @onclick="ToggleExpandedAsync" @onkeydown="@HandleExpanderKeyDownAsync" title="@(Tooltip ?? Title)">
-                <div class="content-region">
-                    <div class="fluent-nav-link notactive" tabindex="0">
+            <div class="fluent-nav-link notactive" tabindex="0">
+                <div class="positioning-region" @onclick="ToggleExpandedAsync" @onkeydown="@HandleExpanderKeyDownAsync" title="@(Tooltip ?? Title)">
+                    <div class="content-region">
                         @_renderContent
                         @_renderButton
                     </div>
@@ -37,7 +35,7 @@
         }
 
         <FluentCollapsibleRegion @bind-Expanded="@Expanded" MaxHeight="@MaxHeight" Class="items" role="group">
-            <FluentNavMenu>
+            <FluentNavMenu Data="_data">
                 @ChildContent
             </FluentNavMenu>
         </FluentCollapsibleRegion>
@@ -45,7 +43,7 @@
 }
 
 @code {
-
+    private string _data = "no-pagescript";
     private void RenderContent(RenderTreeBuilder __builder)
     {
         @if (Icon is not null)

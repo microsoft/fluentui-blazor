@@ -9,8 +9,10 @@ public class FluentNavGroupTests : TestBase
     public void FluentNavGroup_Default()
     {
         // Arrange & Act
-        var m = new FluentNavMenu();
-        m.Expanded = true;
+        var m = new FluentNavMenu
+        {
+            Expanded = true
+        };
         var cut = TestContext.RenderComponent<FluentNavGroup>(parameters =>
         {
             parameters.Add(p => p.Owner, m);

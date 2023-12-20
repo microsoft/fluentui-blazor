@@ -1,6 +1,4 @@
 const pageScriptInfoBySrc = new Map();
-
-
 class PageScript extends HTMLElement {
     static observedAttributes = ['src'];
     src: string | null = null;
@@ -64,8 +62,6 @@ class PageScript extends HTMLElement {
         module.onUpdate?.();
     }
 }
-
-
 
 export function onEnhancedLoad() {
     for (const [src, { module, referenceCount }] of pageScriptInfoBySrc) {
