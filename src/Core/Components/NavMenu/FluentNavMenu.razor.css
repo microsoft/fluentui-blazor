@@ -16,10 +16,6 @@
         background: var(--neutral-fill-secondary-rest);
     }
 
-    ::deep .fluent-nav-item a.active {
-        background: var(--neutral-fill-secondary-rest);
-    }
-
         /* Active item indicator */
         ::deep .fluent-nav-item a.active .positioning-region::before {
             content: "";
