@@ -1,4 +1,19 @@
-﻿## 4.2.0
+﻿## 4.2.1
+- NavMenu and NevMenuGroups can now expand/collpase in SSR mode
+- Added PageScript component (See [Static Server Rendeing on MS Learn](https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/static-server-rendering?view=aspnetcore-8.0))
+- Move `initializersLoader.webview.js` back into `wwwroot/js` so it gets published in the package again.
+- Updates and fixes for FluentDesignTheme: add `OnLoaded`, check if LocalStorage is available 
+- `FluentProgress`: Add `Width`, `Stroke`, `Color` and `BackgroundColor` attributes
+- `FluentTab`: Add `Visible` parameter 
+- Fix [#1160](https://github.com/microsoft/fluentui-blazor/issues/1160): FluentDesignTheme custom color not honored and assertion failure.
+- Fix [#1116](https://github.com/microsoft/fluentui-blazor/issues/1116): Create FieldIdentifier when no ValueExpression set 
+- Fix [#1138](https://github.com/microsoft/fluentui-blazor/issues/1138): Do not render percent sign for indeterminate ProgressToast
+- Fix [#1144](https://github.com/microsoft/fluentui-blazor/issues/1144): [List components] Each item must be instantiated (cannot be null).
+- Fix [#1146](https://github.com/microsoft/fluentui-blazor/issues/1146): Loading button with styles issue
+- Fix [#1149](https://github.com/microsoft/fluentui-blazor/issues/1149): [List components] maintain consistency between SelectedOption and Value when Multiple is false
+- Demo site: Search for icons in all sizes
+
+## 4.2.0
 - New: FluentDesignTheme - An easy-to-use component to set a theme and accent color.
 - New: FluentValidationMessage and Required indicator for input components
 - JavaScript tools project system integration 
@@ -12,6 +27,7 @@
 - Fix [#1057](https://github.com/microsoft/fluentui-blazor/issues/1057): Can't show Fluent UI Blazor dialog on published Blazor webasm app
 - Fix [#1070](https://github.com/microsoft/fluentui-blazor/issues/1070): Style not applied for FluentPaginator + added `PaginationTextTemplate` parameter 
 - Update Fluent UI System Icons to 1.1.224:
+
 **What's new (Name / Size(s) / Variant(s))**
 - Arrow Clockwise Dashes / 16, 32 / Filled & Regular
 - Building Swap / 16, 20, 24, 32, 48 / Filled & Regular
