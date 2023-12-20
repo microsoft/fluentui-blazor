@@ -1,4 +1,9 @@
-﻿## 4.2.1
+﻿## V4.2.2
+- Fix [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
+- Fix [#1174](https://github.com/microsoft/fluentui-blazor/issues/1174): Forgot to replace svg with icon in templates
+- Fix [#1173](https://github.com/microsoft/fluentui-blazor/issues/1174): Replace type="image/png" with type="image/x-icon"in templates
+
+## 4.2.1
 - NavMenu and NevMenuGroups can now expand/collpase in SSR mode
 - Added PageScript component (See [Static Server Rendeing on MS Learn](https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/static-server-rendering?view=aspnetcore-8.0))
 - Move `initializersLoader.webview.js` back into `wwwroot/js` so it gets published in the package again.
