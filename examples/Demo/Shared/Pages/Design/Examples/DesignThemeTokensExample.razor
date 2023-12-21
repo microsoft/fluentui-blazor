@@ -1,18 +1,55 @@
+@using System.Text.Json
+
 <FluentDesignTheme Token="@Token" />
-<FluentButton OnClick="@UpdateToken">Update Font</FluentButton>
+
+<FluentTextArea @bind-Value="@JsonConfiguration" Rows="25" Style="width: 100%; font-family: 'Courier New';" />
+
+<br />
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <FluentLabel Color="Color.Error" Style="border: 1px solid red;">
+        <FluentIcon Value="@(new Icons.Filled.Size16.ErrorCircle())" Color="Color.Error" />
+        @ErrorMessage
+    </FluentLabel>
+}
+<FluentStack Style="width: calc(100% - 24px); margin-top: 24px;">
+    <FluentLabel>
+        Colors must be in HEX format (#ff00ff) and numbers in international format (1.0).
+        Only non-null values are applied to the global theme (once a parameter has been applied, resetting it to null does not reinitialize it).
+    </FluentLabel>
+    <FluentSpacer />
+    <FluentButton Appearance="Appearance.Accent" OnClick="@UpdateToken">Apply</FluentButton>
+</FluentStack>
 
 @code
 {
     ThemeToken? Token;
+    string ErrorMessage = string.Empty;
+    string JsonConfiguration = @"{
+  ""common"": {
+    ""bodyFont"": ""Times New Roman"",
+    ""neutralBaseColor"": null,
+    ""fillColor"": null,
+    ""controlCornerRadius"": 15,
+    ""layerCornerRadius"": null,
+    ""density"": 1.2
+  }
+}";
 
     void UpdateToken()
     {
-        Token = new ThemeToken();
+        try
+        {
+            Token = JsonSerializer.Deserialize<ThemeToken>(JsonConfiguration, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
 
-        Token.Common.BodyFont = "courier new";
-        Token.Common.NeutralBaseColor = "#0000ff";  // Blue
-        //Token.Common.FillColor = "#ff0000";  // Red
-        Token.Common.ControlCornerRadius = 20;
-        Token.Common.LayerCornerRadius = 15;
+            ErrorMessage = string.Empty;
+        }
+        catch (JsonException ex)
+        {
+            ErrorMessage = ex.Message;
+        }
     }
 }

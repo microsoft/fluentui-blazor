@@ -2206,8 +2206,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.Density">
             <summary>
-            Sets the corner radius used layers like cards, flyouts, and dialogs.
-            Ex: Increase to 20px for very round cards.
+            A modifier used with sizing tokens baseHeightMultiplier and baseHorizontalSpacingMultiplier.
+            Ex: Set to 1 to increase control size or -1 to decrease.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.TypeRamps">

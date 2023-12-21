@@ -3,55 +3,27 @@ import {
   SwatchRGB,
   bodyFont,
   controlCornerRadius,
+  density,
   fillColor,
   layerCornerRadius,
   neutralBaseColor
 } from "@fluentui/web-components/dist/web-components";
-import { CSSDesignToken } from '@microsoft/fast-foundation';
 import { ColorsUtils } from "./ColorsUtils";
 
 class Tokens {
   public apply(token: ThemeToken) {
     console.log(token);
 
-    token.common.bodyFont && bodyFont.withDefault(token.common.bodyFont);
-
-    this.applyColor(fillColor, token.common.fillColor);
-    this.applyColor(neutralBaseColor, token.common.neutralBaseColor);
-
-    token.common.controlCornerRadius && controlCornerRadius.withDefault(token.common.controlCornerRadius);
-    token.common.layerCornerRadius && layerCornerRadius.withDefault(token.common.layerCornerRadius);
-  }
-
-  applyColor(item: CSSDesignToken<Swatch>, color: string | null) {
-
-    if (color == null) {
-      return;
-    }
-
-    const swatchRGB: SwatchRGB = this.swatchColor(color);
-    if (swatchRGB == null) {
-        return
-    }
-
-    item.withDefault(swatchRGB);
-  }
-
-  /**
-   * Convert the RGB string to a SwatchRGB
-   * @param color
-   * @returns
-   */
-  swatchColor(color: string): SwatchRGB {
-    const rgb = ColorsUtils.parseColorHexRGB(color);
-    if (rgb != null) {
-      return SwatchRGB.from(rgb);
-    }
-    else {
-      throw new Error(`This is not a valid HEX Color: "${color}".`);
-    }
+    ColorsUtils.applyDefaultColors(fillColor, token.common.fillColor);
+    ColorsUtils.applyDefaultColors(neutralBaseColor, token.common.neutralBaseColor);
+    ColorsUtils.applyDefaultString(bodyFont, token.common.bodyFont);
+    ColorsUtils.applyDefaultNumber(controlCornerRadius, token.common.controlCornerRadius);
+    ColorsUtils.applyDefaultNumber(layerCornerRadius, token.common.layerCornerRadius);
+    ColorsUtils.applyDefaultNumber(density, token.common.de);
   }
 }
+
+
 
 /* https://csharptotypescript.azurewebsites.net/ */
 
@@ -62,12 +34,12 @@ interface ThemeToken {
 }
 
 interface CommonProps {
+  bodyFont: string | null;
   fillColor: string | null;
   neutralBaseColor: string | null;
-  bodyFont: string | null;
   controlCornerRadius: number | null;
   layerCornerRadius: number | null;
-  density: string | null;
+  density: number | null;
 }
 
 interface ColorsProps {

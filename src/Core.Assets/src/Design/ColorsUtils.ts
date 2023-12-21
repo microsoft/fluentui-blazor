@@ -1,3 +1,6 @@
+import { Swatch, SwatchRGB } from "@fluentui/web-components";
+import { CSSDesignToken } from '@microsoft/fast-foundation';
+
 class ColorsUtils {
 
   public static isSystemDark(): boolean {
@@ -40,6 +43,25 @@ class ColorsUtils {
   }
 
   /**
+   * Convert the RGB string to a SwatchRGB
+   * @param color
+   * @returns
+   */
+  public static swatchHexColor(color: string | null): SwatchRGB | null {
+
+    if (color == null) {
+      return null;
+    }
+
+    const rgb = ColorsUtils.parseColorHexRGB(color);
+    if (rgb == null) {
+      return null;
+    }
+
+    return SwatchRGB.from(rgb);
+  }
+
+  /**
    * Scales an input to a number between 0 and 1
    */
   public static normalized(i: number, min: number, max: number): number {
@@ -49,6 +71,46 @@ class ColorsUtils {
       return 1.0;
     }
     return i / (max - min);
+  }
+
+  /**
+   * Apply the string to the item (if not null).
+   * @param item
+   * @param value
+   * @returns
+   */
+  public static applyDefaultString(item: CSSDesignToken<string>, value: string | null): void {
+    value && item.withDefault(value);
+  }
+
+  /**
+   * Apply the number to the item (if not null).
+   * @param item
+   * @param value
+   * @returns
+   */
+  public static applyDefaultNumber(item: CSSDesignToken<number>, value: number| null): void {
+    value && item.withDefault(value);
+  }
+
+  /**
+   * Apply the color to the item (if not null).
+   * @param item
+   * @param color
+   * @returns
+   */
+  public static applyDefaultColors(item: CSSDesignToken<Swatch>, color: string | null): void {
+
+    if (color == null) {
+      return;
+    }
+
+    const swatchRGB = ColorsUtils.swatchHexColor(color);
+    if (swatchRGB == null) {
+      return
+    }
+
+    item.withDefault(swatchRGB);
   }
 
   /**

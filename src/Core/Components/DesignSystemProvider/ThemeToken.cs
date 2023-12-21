@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -9,9 +10,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class ThemeToken
 {
-    public CommonProps Common { get; } = new();
-    public ColorsProps Colors { get; } = new();
-    public OthersProps Others { get; } = new();
+    public CommonProps Common { get; set;  } = new();
+    public ColorsProps Colors { get; set; } = new();
+    public OthersProps Others { get; set; } = new();
 
     public class CommonProps
     {
@@ -34,26 +35,26 @@ public class ThemeToken
         /// Sets the corner radius used by controls with backplates.
         /// Ex: Increase to 6px for slightly rounder buttons and text fields.
         /// </summary>
-        public int? ControlCornerRadius { get; set; }
+        public double? ControlCornerRadius { get; set; }
 
         /// <summary>
         /// Sets the corner radius used layers like cards, flyouts, and dialogs.
         /// Ex: Increase to 20px for very round cards.
         /// </summary>
-        public int? LayerCornerRadius { get; set; }
+        public double? LayerCornerRadius { get; set; }
 
         /// <summary>
-        /// Sets the corner radius used layers like cards, flyouts, and dialogs.
-        /// Ex: Increase to 20px for very round cards.
+        /// A modifier used with sizing tokens baseHeightMultiplier and baseHorizontalSpacingMultiplier.
+        /// Ex: Set to 1 to increase control size or -1 to decrease.
         /// </summary>
-        public string? Density { get; set; }
+        public double? Density { get; set; }
     }
 
     public class ColorsProps
     {
-        public RecipeStateful AccentFill { get; } = new();
-        public RecipeStateful AccentForeground { get; } = new();
-        public RecipeStateful ForegroundOnAccent { get; } = new();
+        public RecipeStateful AccentFill { get; set; } = new();
+        public RecipeStateful AccentForeground { get; set; } = new();
+        public RecipeStateful ForegroundOnAccent { get; set; } = new();
     }
 
     public class OthersProps
@@ -61,7 +62,7 @@ public class ThemeToken
         /// <summary>
         /// Type ramps
         /// </summary>
-        public TypeRamps TypeRamps { get; } = new();
+        public TypeRamps TypeRamps { get; set; } = new();
 
         /// <summary>
         ///  This value, multiplied by designUnit, sets the base height of most controls. Works with adaptive density values.
@@ -99,47 +100,47 @@ public class ThemeToken
         /// <summary>
         /// Smallest
         /// </summary>
-        public TypeRamp Minus1 { get; } = new();
+        public TypeRamp Minus1 { get; set; } = new();
 
         /// <summary>
         /// Small
         /// </summary>
-        public TypeRamp Minus2 { get; } = new();
+        public TypeRamp Minus2 { get; set; } = new();
 
         /// <summary>
         /// Body
         /// </summary>
-        public TypeRamp Base { get; } = new();
+        public TypeRamp Base { get; set; } = new();
 
         /// <summary>
         /// Large Level 1
         /// </summary>
-        public TypeRamp Plus1 { get; } = new();
+        public TypeRamp Plus1 { get; set; } = new();
 
         /// <summary>
         /// Large Level 2
         /// </summary>
-        public TypeRamp Plus2 { get; } = new();
+        public TypeRamp Plus2 { get; set; } = new();
 
         /// <summary>
         /// Large Level 3
         /// </summary>
-        public TypeRamp Plus3 { get; } = new();
+        public TypeRamp Plus3 { get; set; } = new();
 
         /// <summary>
         /// Large Level 4
         /// </summary>
-        public TypeRamp Plus4 { get; } = new();
+        public TypeRamp Plus4 { get; set; } = new();
 
         /// <summary>
         /// Large Level 5
         /// </summary>
-        public TypeRamp Plus5 { get; } = new();
+        public TypeRamp Plus5 { get; set; } = new();
 
         /// <summary>
         /// Large Level 6
         /// </summary>
-        public TypeRamp Plus6 { get; } = new();
+        public TypeRamp Plus6 { get; set; } = new();
     }
 
     public class TypeRamp
