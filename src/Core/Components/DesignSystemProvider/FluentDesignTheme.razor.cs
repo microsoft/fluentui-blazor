@@ -104,6 +104,22 @@ public partial class FluentDesignTheme : ComponentBase
     [Parameter]
     public EventCallback<LoadedEventArgs> OnLoaded { get; set; }
 
+    private ThemeToken? _token;
+
+    [Parameter]
+    public ThemeToken? Token
+    {
+        get => _token;
+        set
+        {
+            _token = value;
+            if (Module != null)
+            {
+                Module.InvokeVoidAsync("applyThemeToken", Id, _token);
+            }
+        }
+    }
+
     /// <summary>
     /// Gets or sets the content of the component.
     /// </summary>
@@ -171,6 +187,11 @@ public partial class FluentDesignTheme : ComponentBase
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
+
+            if (Token != null)
+            {
+                await Module.InvokeVoidAsync("applyThemeToken", Id, Token);
+            }
 
             string? dir = await Module.InvokeAsync<string?>("GetDirection");
             if (!string.IsNullOrEmpty(dir))

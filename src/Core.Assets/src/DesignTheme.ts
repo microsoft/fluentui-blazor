@@ -5,10 +5,11 @@
 import { ColorsUtils } from "./Design/ColorsUtils";
 import {
   baseLayerLuminance,
-  StandardLuminance,
   neutralBaseColor,
   accentBaseColor,
-  SwatchRGB
+  StandardLuminance,
+  SwatchRGB,
+  bodyFont
 } from "@fluentui/web-components/dist/web-components";
 import { ThemeStorage } from "./Design/ThemeStorage";
 import { Synchronization } from "./Design/Synchronization";
@@ -297,6 +298,11 @@ class DesignTheme extends HTMLElement {
     }
 
     this._isInternalChange = false;
+  }
+
+  public applyToken(token: string) {
+    console.log(token);
+    bodyFont.withDefault("Courier New");
   }
 }
 

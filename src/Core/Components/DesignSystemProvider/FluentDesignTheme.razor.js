@@ -28,3 +28,11 @@ export function GetDirection() {
 export function GetGlobalLuminance() {
     return getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
 }
+
+export function applyThemeToken(id, token) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.applyToken(token);
+    }
+}
