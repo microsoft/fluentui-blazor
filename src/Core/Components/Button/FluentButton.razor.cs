@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -103,8 +102,8 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public bool Required { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
-    /// Defaults to <seealso cref="AspNetCore.Components.Appearance.Neutral"/>
+    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
+    /// Defaults to <seealso cref="Appearance.Neutral"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;

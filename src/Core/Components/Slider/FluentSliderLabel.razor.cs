@@ -1,10 +1,19 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Slider/FluentSliderLabel.razor.js";
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
     /// <summary>
     /// Gets or sets the value for this slider position.
     /// </summary>

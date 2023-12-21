@@ -1,13 +1,14 @@
-using Bunit;
-using Xunit;
-
 namespace Microsoft.Fast.Components.FluentUI.Tests.Slider;
 using Bunit;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
-public class FluentSliderLabelTests: TestBase
+public class FluentSliderLabelTests : TestBase
+{
+    public FluentSliderLabelTests()
     {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentSliderLaber_Default()
     {
@@ -25,7 +26,7 @@ public class FluentSliderLabelTests: TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

@@ -590,6 +590,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Autofocus">
             <summary>
             Determines if the element should receive document focus on page load.
@@ -597,7 +603,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.FormId">
             <summary>
-            The id of a form to associate the element to.
+            Gets or sets the id of a form to associate the element to.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Action">
@@ -628,33 +634,34 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Type">
             <summary>
-            The button type. See <see cref="T:Microsoft.Fast.Components.FluentUI.ButtonType"/> for more details.
-            Default is ButtonType.Button"
+            Gets or sets the button type. See <see cref="T:Microsoft.Fast.Components.FluentUI.ButtonType"/> for more details.
+            Default is ButtonType.Button.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Value">
             <summary>
-            The value of the element
+            Gets or sets the value of the element.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.CurrentValue">
             <summary>
-            The element's current value 
+            Gets or sets the element's current value.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Disabled">
             <summary>
-            Disables the form control, ensuring it doesn't participate in form submission
+            Disables the form control, ensuring it doesn't participate in form submission.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Name">
             <summary>
-            The name of the element.Allows access by name from the associated form.
+            Gets or sets the name of the element. 
+            Allows access by name from the associated form.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Required">
             <summary>
-            The element needs to have a value
+            Gets or sets a value indicating whether the element needs to have a value.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance">
@@ -665,13 +672,13 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.BackgroundColor">
             <summary>
-            Background color of this button (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
+            Gets or sets the background color of this button (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
             Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Color">
             <summary>
-            Color of the font (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
+            Gets or sets the color of the font (overrides the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentButton.Appearance"/> property).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Loading">
@@ -681,17 +688,18 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconStart">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of button content.
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the start of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.IconEnd">
             <summary>
-            <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of button content.
+            Gets or sets the <see cref="T:Microsoft.Fast.Components.FluentUI.Icon"/> displayed at the end of button content.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Title">
             <summary>
-            Title of the button: the text usually displayed in a 'tooltip' popup when the mouse is over the button.
+            Gets or sets the title of the button.
+            The text usually displayed in a 'tooltip' popup when the mouse is over the button.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.ChildContent">
@@ -703,6 +711,9 @@
             <summary>
             Command executed when the user clicks on the button.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.#ctor">
             <summary>
@@ -2590,6 +2601,9 @@
             <param name="component">The type of the component to show</param>
             <param name="parameters"><see cref="T:Microsoft.Fast.Components.FluentUI.SplashScreenContent"/> that holds the content to display</param>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.#ctor">
+            <summary />
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.Fast.Components.FluentUI.DialogResult,System.Threading.Tasks.Task})">
             <summary>
             Convenience method to create a <see cref="T:Microsoft.AspNetCore.Components.EventCallback"/> for a dialog result.
@@ -3977,22 +3991,22 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Width">
             <summary>
-            Width of the component.
+            Gets or sets the width of the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Height">
             <summary>
-            Height of the component or of the popup panel.
+            Gets or sets the height of the component or of the popup panel.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Label">
             <summary>
-            Text displayed just above the component
+            Gets or sets the text displayed just above the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.LabelTemplate">
             <summary>
-            Content displayed just above the component
+            Gets or sets the content displayed just above the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.AriaLabel">
@@ -4023,28 +4037,29 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionText">
             <summary>
-            Function used to determine which text to display for each option.
+            Gets or sets the function used to determine which text to display for each option.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionValue">
             <summary>
-            Function used to determine which value to return for the selected item.
+            Gets or sets the function used to determine which value to return for the selected item.
             Only for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentListbox`1"/> and <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSelect`1"/> components.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionDisabled">
             <summary>
-            Function used to determine if an option is disabled.
+            Gets or sets the function used to determine if an option is disabled.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.OptionSelected">
             <summary>
-            Function used to determine if an option is initially selected.
+            Gets or sets the function used to determine if an option is initially selected.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.Items">
             <summary>
-            Content source of all items to display in this list.
+            Gets or sets the content source of all items to display in this list.
+            Each item must be instantiated (cannot be null).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ListComponentBase`1.SelectedOption">
@@ -5785,6 +5800,12 @@
             <param name = "value">The value to format.</param>
             <returns>A string representation of the value.</returns>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Position">
             <summary>
             Gets or sets the value for this slider position.
@@ -5792,18 +5813,21 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.HideMark">
             <summary>
-            Gets or sets if marks are hidden
+            Gets or sets a value indicating whether marks are hidden.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.Disabled">
             <summary>
-            The disabled state of the label. This is generally controlled by the parent .
+            Gets or sets disabled state of the label. This is generally controlled by the parent.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentSliderLabel`1.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentSpacer">
             <summary />
