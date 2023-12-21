@@ -2177,6 +2177,21 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.Common">
+            <summary>
+            Common used properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.Colors">
+            <summary>
+            Color properties
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.Others">
+            <summary>
+            Less common properties.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.FillColor">
             <summary>
             Gets or sets a value that may be applied to an element's styles and used as context for child color recipes.
@@ -2190,6 +2205,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.BodyFont">
             <summary>
             Used to specify the font string to apply to components. Note that this does not import fonts, so they must either be web standard, assumed to be installed, or imported at the top of your app.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.FontWeight">
+            <summary>
+            Used to specify the font weight to apply to component
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.ControlCornerRadius">
@@ -2208,6 +2228,52 @@
             <summary>
             A modifier used with sizing tokens baseHeightMultiplier and baseHorizontalSpacingMultiplier.
             Ex: Set to 1 to increase control size or -1 to decrease.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.AccentFill">
+            <summary>
+            Relies on textColor and contrastTarget to find the closest colors from the supplied palette that can be used for component states. For instance, colors needed to support white text and a 14px font (which requires 4.5:1 contrast).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.AccentForeground">
+            <summary>
+            Commonly for link text or icon. Also for smaller elements that might not show up well using accentFill, for instance if your accent color is dark purple and you support a dark mode interface.
+            Like accentFill this relies on textColor and contrastTarget to find the closest colors from the supplied palette that can be used for component states.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.ForegroundOnAccent">
+            <summary>
+            Technically this doesn't use the accent palette, but it's designed to be used over the accent palette. This algorithm simply returns black or white based on the provided contrastTarget. It returns white if possible, as a common treatment for an accent button is white text over the accent color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.NeutralFill">
+            <summary>
+            The most basic fill used for buttons or other components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.NeutralFillInput">
+            <summary>
+            Another basic fill, applied to input elements to allow easy differentiation from other components like buttons.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.NeutralFillLayer">
+            <summary>
+            The only layer recipe that's relative to the container color instead of absolute. The most common example of this is a Card, which will be one layer color lighter than its container.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.NeutralFillStealth">
+            <summary>
+            More subtle than neutralFill in that the resting state is transparent. Often used for low-priority features to draw less attention.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.NeutralForeground">
+            <summary>
+            Most common recipe, used for plain text or icons.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.ColorsProps.NeutralStroke">
+            <summary>
+            Used for strong outline, either alone or with a fill.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.TypeRamps">
@@ -2235,7 +2301,7 @@
             Controls the width of the stroke of a component that has a stroke.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.FocusStrokeWidth">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.FocusStroke">
             <summary>
             Controls with width of the stroke of a component that has a stroke when it has document focus.
             </summary>
@@ -2243,6 +2309,42 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.DisabledOpacity">
             <summary>
             The opacity of disabled controls. Careful with values that are too high as the control may no longer look disabled. There are no contrast requirements for a disabled control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.NeutralLayer">
+            <summary>
+            Absolute layer colors derived from and starting at baseLayerLuminance.
+            Layer one is lightest and the values darken as the layer number increases.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.NeutralLayerProps.Layer1">
+            <summary>
+            Absolute layer colors derived from and starting at baseLayerLuminance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.NeutralLayerProps.Layer2">
+            <summary>
+            Absolute layer colors derived from and starting at baseLayerLuminance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.NeutralLayerProps.Layer3">
+            <summary>
+            Absolute layer colors derived from and starting at baseLayerLuminance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.NeutralLayerProps.Layer4">
+            <summary>
+            Absolute layer colors derived from and starting at baseLayerLuminance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.NeutralLayerProps.CardContainer">
+            <summary>
+            A special layer to support experiences primarily built with cards, especially in light mode, so cards can be white and the container color can be one layer darker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.NeutralLayerProps.Floating">
+            <summary>
+            A special layer for floating layers, like flyouts or menus. It will be lighter than any other layers if possible, but will also be white in default light mode, as will neutral layer one.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Minus1">

@@ -1,9 +1,11 @@
 import {
     Swatch,
   SwatchRGB,
+  accentFillRecipe,
   bodyFont,
   controlCornerRadius,
   density,
+  disabledOpacity,
   fillColor,
   layerCornerRadius,
   neutralBaseColor
@@ -12,14 +14,12 @@ import { ColorsUtils } from "./ColorsUtils";
 
 class Tokens {
   public apply(token: ThemeToken) {
-    console.log(token);
-
     ColorsUtils.applyDefaultColors(fillColor, token.common.fillColor);
     ColorsUtils.applyDefaultColors(neutralBaseColor, token.common.neutralBaseColor);
     ColorsUtils.applyDefaultString(bodyFont, token.common.bodyFont);
     ColorsUtils.applyDefaultNumber(controlCornerRadius, token.common.controlCornerRadius);
     ColorsUtils.applyDefaultNumber(layerCornerRadius, token.common.layerCornerRadius);
-    ColorsUtils.applyDefaultNumber(density, token.common.de);
+    ColorsUtils.applyDefaultNumber(density, token.common.density);
   }
 }
 
