@@ -1,0 +1,10 @@
+@if (Members is not null)
+{
+    <ul>
+        @foreach (var item in Members)
+        {
+            <li>@item.Key - @GetSummary(item.Value)</li>
+        }
+    </ul>   
+
+}

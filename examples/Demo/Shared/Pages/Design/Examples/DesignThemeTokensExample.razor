@@ -25,25 +25,24 @@
 {
     ThemeToken? Token;
     string ErrorMessage = string.Empty;
-    string JsonConfiguration = @"{
-  ""common"": {
-    ""bodyFont"": ""Times New Roman"",
-    ""neutralBaseColor"": null,
-    ""fillColor"": null,
-    ""controlCornerRadius"": 15,
-    ""layerCornerRadius"": null,
-    ""density"": 1.2
-  }
-}";
 
-    void UpdateToken()
+    // JSON displayed on the page
+    string JsonConfiguration = JsonSerializer.Serialize(new ThemeToken()
+        {
+            Common = new()
+            {
+                BodyFont = "Times new roman",
+                ControlCornerRadius = 10,
+                Density = 1.5
+            }
+        }, JsonOptions);
+
+    // Apply the JSON updated by the user
+    private void UpdateToken()
     {
         try
         {
-            Token = JsonSerializer.Deserialize<ThemeToken>(JsonConfiguration, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            Token = JsonSerializer.Deserialize<ThemeToken>(JsonConfiguration, JsonOptions);
 
             ErrorMessage = string.Empty;
         }
@@ -52,4 +51,10 @@
             ErrorMessage = ex.Message;
         }
     }
+
+    private static JsonSerializerOptions JsonOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true,
+        };
 }
