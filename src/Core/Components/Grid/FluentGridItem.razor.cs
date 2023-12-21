@@ -50,6 +50,7 @@ public partial class FluentGridItem : FluentComponentBase
     /// <summary>
     /// The number of columns the item should span in the 12-column grid system.
     /// Extra extra large (xxl) devices (larger desktops, more than 2560px wide)
+    /// </summary>
     [Parameter]
     public int? xxl { get; set; }
 

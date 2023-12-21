@@ -3316,31 +3316,31 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.xs">
             <summary>
-            Defines the number of columns the item should span.
+            The number of columns the item should span in the 12-column grid system.
             Extra Small (xs) devices (portrait phones, less than 600px wide)
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.sm">
             <summary>
-            Defines the number of columns the item should span.
+            The number of columns the item should span in the 12-column grid system.
             Small (sm) devices (landscape phones, less than 960px wide)
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.md">
             <summary>
-            Defines the number of columns the item should span.
+            The number of columns the item should span in the 12-column grid system.
             Medium (md) devices (tablets, less than 1280px wide)
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.lg">
             <summary>
-            Defines the number of columns the item should span.
+            The number of columns the item should span in the 12-column grid system.
             Large (lg) devices (desktops, less than 1920px wide)
             </summary> 
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.xl">
             <summary>
-            Defines the number of columns the item should span.
+            The number of columns the item should span in the 12-column grid system.
             Extra large (xl) devices (large desktops, less than 2560px wide)
             </summary>
         </member>
