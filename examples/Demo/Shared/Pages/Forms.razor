@@ -2,18 +2,18 @@
 
 <h1>Fluent UI Blazor forms overview</h1>
 <p>
-    A lot of the components in this library are specifically made to get input by means of forms. These components almost all derive from 
-    <code>FluentInputBase&lt;TValue&gt;</code>, our generic abstract base class for Fluent UI Blazor input handling components. Let's first dive a bit deeper
-    into this component.
+    A lot of the components in this library are specifically made to get input from users by means of forms. These components almost all derive from
+    <code>FluentInputBase&lt;TValue&gt;</code>, our generic abstract base class for input handling components. Let's first dive a bit deeper
+    into this base component and its derivates.
 </p>
 
 <h2>Input components and forms</h2>
 
 <h3>FluentInputBase&lt;TValue&gt;</h3>
 <p>
-    <code>FluentInputBase&lt;TValue&gt;</code> is a generic class which makes it possible for this base class to handle different types of data.
-    It is also an abstract class so you can <b>not</b> create or use a <code>FluentInputBase&lt;TValue&gt;</code> on a page or in another component. 
-    Because it is a base class, it exposes the following parameters through every derived component.<br /><br />
+    <code>FluentInputBase&lt;TValue&gt;</code> is a generic class making it possible for this base class to handle different types of data.
+    It is also an abstract class so you can <b>not</b> create or use a <code>FluentInputBase&lt;TValue&gt;</code> on a page or in another component.
+    Because it is a base class, it exposes the parameters, event callbacks and methods below in every derived component.<br /><br />
     <em>These parameters are also shown in the component overviews in the rest of the documentation pages</em>
 </p>
 
@@ -61,16 +61,17 @@
         </div>
     </TemplateColumn>
 </FluentDataGrid>
-
+<br />
 <h3>Derived components</h3>
 <p>
-    The list below sums up the current derived components and the way they use the <code>FluentInputBase</code> base class.
+    The list below sums up the derived components and the way they use the <code>FluentInputBase</code> base class. Every derived component has its
+    own specific parameters, event callbacks and methods. These are documented on the component pages.
     <ul>
         <li><code>FluentCheckbox</code> : <code>FluentInputBase&lt;bool&gt;</code></li>
         <li><code>FluentNumberField&lt;TValue&gt;</code> : <code>FluentInputBase&lt;TValue&gt;</code></li>
         <li><code>FluentRadioGroup</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
         <li><code>FluentSearch</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
-        <li><code>FluentSlider</code> : <code>FluentInputBase&lt;int&gt;</code></li>
+        <li><code>FluentSlider</code> : <code>FluentInputBase&lt;TValue&gt;</code></li>
         <li><code>FluentSwitch</code> : <code>FluentInputBase&lt;bool&gt</code>;</li>
         <li><code>FluentTextArea</code> : <code>FluentInputBase&lt;string?&gt</code>;</li>
         <li><code>FluentTextField</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
@@ -78,18 +79,46 @@
     </ul>
 </p>
 
+<h3>Label and LabelTemplate</h3>
+<p>
+    Every derived component supports the <code>Label</code> parameter. The contents of this parameter is of type string and cannot contain any markup.
+    The value will be used to create a <code>label</code> HTML element for the input component. It is usually displayed just above the input field.
+    For a checkbox it is displayed after the input field, for a switch it is displayed in front of it.
+</p>
+<p>
+    If you would like to apply more complex markup for the label, you can use the <code>LabelTemplate</code> parameter. As this has a type of 
+    <code>RenderFragment?</code>, it can contain virtuall anything.
+</p>
+<p>
+    When neither <code>Label</code> nor <code>LabelTemplate</code> parameters are set, you can create your own <code>label</code> HTML elements.
+</p>
+
+<h2>Binding</h2>
+<p>
+    The Fluent UI Blazor input components all support binding, just like the standard Blazor input components do. See the
+    <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/binding?view=aspnetcore-8.0">documentation</a> on the Learn site
+    for more information.
+</p>
+
 <h2>Validation</h2>
+<p>
+    The Fluent UI Blazor input components work with validation in the same way the standard Blazor input components do. We provide 2 extra
+    components to make it possible to show validation messages which follow the Fluent Design guidelines:
+    <ul>
+        <li><code>FluentValidationSummary</code></li>
+        <li><code>FluentValidationMessage</code></li>
+    </ul>
+    See the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-8.0">documentation</a> on the Learn site
+    for more information on the standard components. As the Fluent UI Blazor components are based on the standard components, the same documentation applies.
+</p>
 <p>
 
 </p>
-<ul> 
-    <li>FluentValidationSummary</li>
-    <li>FluentValidationMessage</li>
-</ul>
+
 
 <h2>Layout</h2>
 <p>
-    In principal a label is shown right above the actual input field. 
+    In principal a label is shown right above the actual input field.
     You can use 3 ways to layout your forms:
     <ul>
         <li>Use the <a href="/Stack">FluentStack</a> component</li>
@@ -97,6 +126,17 @@
         <li>Use your own HTML elements and CSS classes</li>
     </ul>
 </p>
+
+<h2>Example</h2>
+
+<DemoSection Title="Basic Fluent UI form" Component="typeof(BasicFormFluentUIComponents)" AdditionalFiles="@(new [] {"Starship.cs"})">
+    <Description>
+        This is an example from the standard <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/input-components?view=aspnetcore-8.0#example-form">Blazor input components documentation</a> implemented with the Fluent UI Blazor input
+        components. It uses the <code>FluentValidationSummary</code> and <code>FluentValidationMessage</code> to give feedback on the state of the form. It 
+        uses the same <code>Starship</code> model as the standard docs and a DataAnnotationsValidator to use the data annotations set in the model.
+        Not all of the library's input components are used in this form. No data is actually being stored or saved.
+    </Description>
+</DemoSection>
 
 @code {
     private record paramDef(string Name, string Type, string? Default, string Description);

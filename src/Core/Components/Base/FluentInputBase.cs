@@ -49,13 +49,15 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the text displayed just above the component.
+    /// Gets or sets the text to label the input.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Gets or sets the content displayed just above the component.
+    /// Gets or sets the content to label the input component.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }

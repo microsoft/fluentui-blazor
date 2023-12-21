@@ -22,7 +22,8 @@ public partial class FluentInputLabel
     public string? ForId { get; set; }
 
     /// <summary>
-    /// Gets or sets the text to be displayed as a label, just above the component.
+    /// Gets or sets the text to label the input.
+    /// This is usually displayd just above the component.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
