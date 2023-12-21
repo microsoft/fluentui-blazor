@@ -1,8 +1,13 @@
 ﻿## V3.5.1
+- Fix [#1205](https://github.com/microsoft/fluentui-blazor/issues/1205): FluentButton submit does not work outside the EditForm
+- Fix [#1194](https://github.com/microsoft/fluentui-blazor/issues/1194): FluentTextField inside FluentTabs, pressing Enter re-renders FluentTab's content
+- Fix [#1189](https://github.com/microsoft/fluentui-blazor/issues/1189): Combobox z-index stack order issue
+- Fix [#1177](https://github.com/microsoft/fluentui-blazor/issues/1177): Update outdated W3.org link
 - Fix [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
 - Fix [#1169](https://github.com/microsoft/fluentui-blazor/issues/1169): NavMenu: don't set background on selected active link
 - Fix [#1144](https://github.com/microsoft/fluentui-blazor/issues/1144): List components: Each item must be instantiated (cannot be null).
 - [FluentProgress] Add Width, Stroke, Color and BackgroundColor attributes
+- [FluentDialog]Fix broken in published release build
 
 ## V3.5.0
 - New: FluentValidationMessage and Required indicator for input components
