@@ -3,7 +3,7 @@
 - Fix [#1174](https://github.com/microsoft/fluentui-blazor/issues/1174): Forgot to replace svg with icon in templates
 - Fix [#1173](https://github.com/microsoft/fluentui-blazor/issues/1174): Replace type="image/png" with type="image/x-icon"in templates
 
-## 4.2.1
+## V4.2.1
 - NavMenu and NevMenuGroups can now expand/collpase in SSR mode
 - Added PageScript component (See [Static Server Rendeing on MS Learn](https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/static-server-rendering?view=aspnetcore-8.0))
 - Move `initializersLoader.webview.js` back into `wwwroot/js` so it gets published in the package again.
@@ -18,7 +18,7 @@
 - Fix [#1149](https://github.com/microsoft/fluentui-blazor/issues/1149): [List components] maintain consistency between SelectedOption and Value when Multiple is false
 - Demo site: Search for icons in all sizes
 
-## 4.2.0
+## V4.2.0
 - New: FluentDesignTheme - An easy-to-use component to set a theme and accent color.
 - New: FluentValidationMessage and Required indicator for input components
 - JavaScript tools project system integration 
@@ -32,7 +32,8 @@
 - Fix [#1057](https://github.com/microsoft/fluentui-blazor/issues/1057): Can't show Fluent UI Blazor dialog on published Blazor webasm app
 - Fix [#1070](https://github.com/microsoft/fluentui-blazor/issues/1070): Style not applied for FluentPaginator + added `PaginationTextTemplate` parameter 
 - Update Fluent UI System Icons to 1.1.224:
-**What's new (Name / Size(s) / Variant(s))**
+
+- **What's new (Name / Size(s) / Variant(s))**
 - Arrow Clockwise Dashes / 16, 32 / Filled & Regular
 - Building Swap / 16, 20, 24, 32, 48 / Filled & Regular
 - Certificate / 32 / Filled & Regular
@@ -107,7 +108,7 @@
 - Select All On / 20, 24 / Filled & Regular
 
 
-## 4.1.1
+## V4.1.1
 - Fix [#939](https://github.com/microsoft/fluentui-blazor/issues/939): Add `OptionTemplate` for `FluentCombobox`, `FluentListBox` and `FluentSelect` 
 - Fix [#1040](https://github.com/microsoft/fluentui-blazor/issues/1040): `FluentNumberField` can be changed when `ReadOnly`
 - FluentNavMenu: Add `Tooltip` parameter to `FluentNavMenuGroup` (fallback to `Title`) and `FluentNavLink`
@@ -198,4 +199,4 @@
 - Change root namespace to `Microsoft.FluentUI.AspNetCore.Components`
 
 ## Archives
-See the [What's New](/WhatsNew-Archive) page on the documentation online to browse the archive
+See the [archives](/WhatsNew-Archive) page to browse the pre-V4 What's New archive.

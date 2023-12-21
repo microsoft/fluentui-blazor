@@ -8,8 +8,6 @@
  * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) 
  * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-
-
 *, *::before, *::after {
     box-sizing: border-box;
 }

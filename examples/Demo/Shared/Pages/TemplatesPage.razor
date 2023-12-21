@@ -2,24 +2,27 @@
 <h1><FluentIcon Value="@(new Icons.Regular.Size24.Classification())" /> Project templates</h1>
 
 <p>
-	To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/">Microsoft.FluentUI.AspNetCore.Templates</a>
-	package.
+	To make it easier to start a project that uses the Fluent UI Blazor components out of the box, we have created the <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/">Microsoft.FluentUI.AspNetCore.Templates</a>
+	package. The package contains templates for creating a Blazor Web App or Blazor WebAssembly Standalone App. They mimic the standard Blazor templates and
+	offer the exact same options (including authentication) when creating a new project either in Visual Studio or with a CLI.
 </p>
 <p>
-	The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps that mimic the regular Blazor templates with
-	the Fluent UI components already set up (and all the Bootstrap styling removed). All components have been replaced with Fluent UI counterparts (and a few
-	extra have been added). The pages you get after creating a project with one of the templates look like this:
+	The Fluent UI Blazor library package is already added to the new project and all standard components have been replaced with Fluent UI counterparts 
+	(and a few extra have been added). All Bootstrap styling has been removed.</p>
+<p>
+    The pages you get after creating a project with one of the templates look like this<sup>*</sup>
 </p>
 <p style="display: flex; flex-direction:column; align-items:center">
 	<img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/template-home.png" alt="Home page for site created Fluent UI templates" />
 	<img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/template-counter.png" alt="Counter page for site created Fluent UI templates" />
 	<img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/template-weather.png" alt="Fetch data page for site created Fluent UI templates" />
 </p>
+<p><em>*) It depends on the type of project and the choices made during project creation, which pages will be available in the generated app.</em></p>
 
 
 <h2 id="installation">Installation</h2>
 <p>
-	Install the templates by running the command:
+	Install the templates by running this command:
 </p>
 
 <CodeSnippet>dotnet new install {path to package}\Microsoft.FluentUI.AspNetCore.Templates.{version}.nupkg</CodeSnippet>
@@ -46,7 +49,7 @@
 <CodeSnippet>dotnet new fluentblazorwasm -o {your project name}</CodeSnippet>
 
 <p>
-	In Visual Studio you can create a new project by selecting either the FluentUI Blazor Server App template or the FluentUI Blazor WebAssembly
+	In Visual Studio you can create a new project by selecting either the 'Fluent Blazor Server App' template or the 'Fluent Blazor WebAssembly Standalone App''
 	template in the 'File-&gt;New-&gt;Project'-dialog. It looks like this:
 </p>
 <p style="display: flex; justify-content:center">
@@ -56,65 +59,59 @@
 <h3>Blazor Web App details</h3>
 <p>
 	The rendermode and interactivity choices made when creating an application with the template determine the behavoir of the NavMenu and wether we include the web
-	components scrip in <code>App.razor</code>. Starting with v4.0.1 of the templates, the result of that choices are described in the table below:
+	components scrip in <code>App.razor</code>. Starting with v4.2.1 of the templates, the result of that choices are described in the table below:
 
-	<table>
+	<table width="90%">
 		<thead>
 			<tr>
-				<th>Rendermode / Interactivity</th>
-				<th>NavMenu @@rendermode</th>
-				<th>NavMenu Collapsible</th>
-				<th>WC script in body</th>
+				<th width="33%">Rendermode / Interactivity</th>
+				<th width="33%">NavMenu @@rendermode</th>
+				<th width="33%">NavMenu Collapsible</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>SSR / not applicable</td>
 				<td>❌</td>
-				<td>❌</td>
-				<td>✅</td>
+				<td>✅<sup>*</sup></td>
 			</tr>
 			<tr>
 				<td>Server / Global</td>
 				<td>❌</td>
 				<td>✅</td>
-				<td>❌</td>
 			</tr>
 			<tr>
 				<td>Server / Per Page</td>
 				<td>✅</td>
 				<td>✅</td>
-				<td>❌</td>
 			</tr>
 			<tr>
-				<td>WebAssembly / Global*</td>
+				<td>WebAssembly / Global<sup>**</sup></td>
 				<td>❌</td>
 				<td>✅</td>
-				<td>❌</td>
 			</tr>
 			<tr>
-				<td>WebAssembly / Per Page*</td>
+				<td>WebAssembly / Per Page<sup>**</sup></td>
 				<td>✅</td>
 				<td>✅</td>
-				<td>❌</td>
 			</tr>
 			<tr>
-				<td>Auto / Global*</td>
+				<td>Auto / Global<sup>**</sup></td>
 				<td>❌</td>
 				<td>✅</td>
-				<td>❌</td>
 			</tr>
 			<tr>
-				<td>Auto / Per Page*</td>
+				<td>Auto / Per Page<sup>**</sup></td>
 				<td>✅</td>
 				<td>✅</td>
-				<td>❌</td>
 			</tr>
 		</tbody>
 	</table>
-
-
 </p>
+<p>
+	<em>*) For expanding/collapsing items, this uses a JavaScript file that is only active when running in SSR mode.</em><br />
+	<em>**) The NavMenu component is located in the Client project.</em>
+	</p>
 
 <h2 id="uninstalling-the-templates">Uninstalling the templates</h2>
 
@@ -123,8 +120,3 @@
 </p>
 
 <CodeSnippet>dotnet new uninstall Microsoft.FluentUI.AspNetCore.Templates</CodeSnippet>
-
-
-
-
-
