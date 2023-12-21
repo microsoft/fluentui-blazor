@@ -2177,6 +2177,119 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GetColor">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.FillColor">
+            <summary>
+            Gets or sets a value that may be applied to an element's styles and used as context for child color recipes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.NeutralBaseColor">
+            <summary>
+            Set to a custom swatch to use for color recipes for layers and other neutral components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.BodyFont">
+            <summary>
+            Used to specify the font string to apply to components. Note that this does not import fonts, so they must either be web standard, assumed to be installed, or imported at the top of your app.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.ControlCornerRadius">
+            <summary>
+            Sets the corner radius used by controls with backplates.
+            Ex: Increase to 6px for slightly rounder buttons and text fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.LayerCornerRadius">
+            <summary>
+            Sets the corner radius used layers like cards, flyouts, and dialogs.
+            Ex: Increase to 20px for very round cards.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.CommonProps.Density">
+            <summary>
+            Sets the corner radius used layers like cards, flyouts, and dialogs.
+            Ex: Increase to 20px for very round cards.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.TypeRamps">
+            <summary>
+            Type ramps
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.BaseHeightMultiplier">
+            <summary>
+             This value, multiplied by designUnit, sets the base height of most controls. Works with adaptive density values.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.BaseHorizontalSpacingMultiplier">
+            <summary>
+            This value, multiplied by designUnit, sets the internal horizontal padding of most controls. Works with adaptive density values.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.DesignUnit">
+            <summary>
+            The unit size of the design grid. Used to calculate height and spacing sizes for controls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.StrokeWidth">
+            <summary>
+            Controls the width of the stroke of a component that has a stroke.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.FocusStrokeWidth">
+            <summary>
+            Controls with width of the stroke of a component that has a stroke when it has document focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.OthersProps.DisabledOpacity">
+            <summary>
+            The opacity of disabled controls. Careful with values that are too high as the control may no longer look disabled. There are no contrast requirements for a disabled control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Minus1">
+            <summary>
+            Smallest
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Minus2">
+            <summary>
+            Small
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Base">
+            <summary>
+            Body
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Plus1">
+            <summary>
+            Large Level 1
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Plus2">
+            <summary>
+            Large Level 2
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Plus3">
+            <summary>
+            Large Level 3
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Plus4">
+            <summary>
+            Large Level 4
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Plus5">
+            <summary>
+            Large Level 5
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ThemeToken.TypeRamps.Plus6">
+            <summary>
+            Large Level 6
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IDialogContentComponent">
             <summary>
             A component implementing this interface can be used as dialog content.

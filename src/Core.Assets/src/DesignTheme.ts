@@ -8,18 +8,19 @@ import {
   neutralBaseColor,
   accentBaseColor,
   StandardLuminance,
-  SwatchRGB,
-  bodyFont
+  SwatchRGB  
 } from "@fluentui/web-components/dist/web-components";
 import { ThemeStorage } from "./Design/ThemeStorage";
 import { Synchronization } from "./Design/Synchronization";
+import { Tokens } from "./Design/Tokens";
 
 class DesignTheme extends HTMLElement {
 
   public _isInitialized: boolean = false;
   private _themeStorage: ThemeStorage;
   private _synchronization: Synchronization;
-
+  private _tokens: Tokens = new Tokens();
+  
   _isInternalChange = false;
 
   constructor() {
@@ -127,6 +128,13 @@ class DesignTheme extends HTMLElement {
   */
   get synchronization(): Synchronization {
     return this._synchronization;
+  }
+
+  /**
+   * Gets the Token Design
+   */
+  get tokens(): Tokens {
+    return this._tokens;
   }
 
   // Custom element added to page.
@@ -298,11 +306,6 @@ class DesignTheme extends HTMLElement {
     }
 
     this._isInternalChange = false;
-  }
-
-  public applyToken(token: string) {
-    console.log(token);
-    bodyFont.withDefault("Courier New");
   }
 }
 

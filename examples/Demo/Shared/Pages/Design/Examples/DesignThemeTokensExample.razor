@@ -1,0 +1,18 @@
+<FluentDesignTheme Token="@Token" />
+<FluentButton OnClick="@UpdateToken">Update Font</FluentButton>
+
+@code
+{
+    ThemeToken? Token;
+
+    void UpdateToken()
+    {
+        Token = new ThemeToken();
+
+        Token.Common.BodyFont = "courier new";
+        Token.Common.NeutralBaseColor = "#0000ff";  // Blue
+        //Token.Common.FillColor = "#ff0000";  // Red
+        Token.Common.ControlCornerRadius = 20;
+        Token.Common.LayerCornerRadius = 15;
+    }
+}

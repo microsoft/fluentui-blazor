@@ -3,8 +3,11 @@
 
 <h1>Theming</h1>
 
+<!-- TODO: To remove -->
+<DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" />
+
 <p>
-    The theme provider specifies all the colors, shapes, sizes and shadows for your layout.
+    ssThe theme provider specifies all the colors, shapes, sizes and shadows for your layout.
 </p>
 <p>
     <strong>FluentDesignTheme</strong> lets you quickly manage the main color and mode (dark/light)
@@ -170,23 +173,9 @@
     </Description>
 </DemoSection>
 
-<h2>DesignTheme Global Token</h2>
+<h2 id="DesignThemeToken">DesignTheme Token</h2>
 
-<FluentDesignTheme Token="@Token" />
-<FluentButton OnClick="@UpdateToken">Update Font</FluentButton>
-
-@code
-{
-    ThemeToken? Token;
-
-    void UpdateToken()
-    {
-        Token = new ThemeToken()
-            {
-                BodyFont = "courier new",
-            };
-    }
-}
+<DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" />
 
 <h2 id="documentation">Documentation</h2>
 

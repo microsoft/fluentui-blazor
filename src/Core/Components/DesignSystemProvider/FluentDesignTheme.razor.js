@@ -29,10 +29,10 @@ export function GetGlobalLuminance() {
     return getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
 }
 
-export function applyThemeToken(id, token) {
+export function applyThemeToken(id, tokens) {
     const element = document.getElementById(id);
 
     if (element) {
-        element.applyToken(token);
+        element.tokens.apply(tokens);
     }
 }
