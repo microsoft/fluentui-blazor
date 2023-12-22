@@ -3,7 +3,7 @@
 @typeparam TOption
 
 <style>
-    @($"#{Id}::part(listbox) {{ {(string.IsNullOrEmpty(Height) ? null : string.Concat("max-height:", Height))}; z-index: {ZIndex.ComboboxPopup} }}")
+    @($"#{Id}::part(listbox) {{ {(string.IsNullOrEmpty(Height) ? null : $"max-height: {Height};")} z-index: {ZIndex.ComboboxPopup} }}")
 </style>
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
