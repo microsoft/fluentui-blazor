@@ -7262,6 +7262,145 @@
             item within the tree.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Height">
+            <summary>
+            Gets or sets the height of the wizard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Width">
+            <summary>
+            Gets or sets the width of the wizard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinish">
+            <summary>
+            Triggers when the done button is clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.StepperPosition">
+            <summary>
+            Gets or sets the stepper position in the wizard (Top or Left).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.StepperSize">
+            <summary>
+            Gets or sets the stepper width (if position is Left)
+            or the stepper height (if position is Top).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.StepperBulletSpace">
+            <summary>
+            Gets or sets the space between two bullets (ex. 120px).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Border">
+            <summary>
+            Display a border of the Wizard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Value">
+            <summary>
+            Gets or sets the step index of the current step.
+            This value is bindable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ValueChanged">
+            <summary>
+            Triggers when the value has changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.WizardButtons">
+            <summary>
+            Gets or sets the buttons section of the wizard.
+            This configuration overrides the whole rendering of the bottom-right section of the Wizard,
+            including the built-in buttons and thus provides a full control over it.
+            Custom Wizard buttons do not trigger the component OnChange and OnFinish events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Steps">
+            <summary>
+            Gets or sets the wizard steps. Add WizardStep tags inside this tag.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnNextHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnPreviousHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinishHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.ChildContent">
+            <summary>
+            Gets or sets the content of the step.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Index">
+            <summary>
+            Gets the step index.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Disabled">
+            <summary>
+            Gets or sets whether the step is disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Label">
+            <summary>
+            Gets or sets the label of the step.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.OnChange">
+            <summary>
+            The OnChange event fires before the current step has changed.
+            The EventArgs contains a field of the targeted new step and a field to cancel the build-in action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.FluentWizard">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Summary">
+            <summary>
+            Gets or sets the summary of the step, to diplay near the label.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.StepStyle">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.#ctor(System.Int32,System.String)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.TargetIndex">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.TargetLabel">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.IsCancelled">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
             Gets the name of this design token 
@@ -11260,6 +11399,15 @@
             Dark mode luminance
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.StepperPosition">
+            <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.StepperPosition.Top">
+            <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.StepperPosition.Left">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.TabSize">
             <summary>
             The size of the tab item.
@@ -11547,6 +11695,21 @@
             <summary>
             Position at the center.
             </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.WizardBorder">
+            <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.None">
+            <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.Inside">
+            <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.Outside">
+            <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.All">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.NavMenuActionArgs">
             <summary>

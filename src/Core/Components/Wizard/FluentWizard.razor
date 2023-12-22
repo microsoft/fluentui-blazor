@@ -1,0 +1,67 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<CascadingValue Value="this">
+@*     <style>
+        .fluent-wizard-left,
+        .fluent-wizard-top {
+            --fluent-wizard-step-previous: url("data:image/svg+xml, @((MarkupString)GetIconSvgEncoded(new CoreIcons.Filled.Size24.CheckmarkCircle().Content, AspNetCore.Components.Color.Accent.ToAttributeValue()!))");
+            --fluent-wizard-step-current: url("data:image/svg+xml, @((MarkupString)GetIconSvgEncoded(new CoreIcons.Filled.Size24.Circle().Content, AspNetCore.Components.Color.Accent.ToAttributeValue()!))");
+            --fluent-wizard-step-next: url("data:image/svg+xml, @((MarkupString)GetIconSvgEncoded(new CoreIcons.Regular.Size24.Circle().Content, AspNetCore.Components.Color.Info.ToAttributeValue()!))");
+        }
+    </style> *@
+
+    <div style="@StyleValue" class="@ClassValue">
+        <div class="@(StepperPosition == StepperPosition.Top ? "fluent-wizard-top" : "fluent-wizard-left")"
+             border-outside=@Border.HasFlag(WizardBorder.Outside)>
+            <ol style=@GetStepperWidthOrHeight() 
+                border-inside=@Border.HasFlag(WizardBorder.Inside)>
+                @Steps
+            </ol>
+
+            <div class="fluent-wizard-content"
+                 border-inside=@Border.HasFlag(WizardBorder.Inside)>
+                @foreach (var step in _steps)
+                {
+                    <div style="@(step.Index == Value ? "" : "display: none;")">
+                        @(step.ChildContent)
+                    </div>
+                }
+            </div>
+
+            <div class="fluent-wizard-buttons"
+                 border-inside=@Border.HasFlag(WizardBorder.Inside)>
+                @if (WizardButtons == null)
+                {
+                    string buttonWidth = "80px;";
+
+                    @if (Value > 0)
+                    {
+                        <FluentButton Appearance="Appearance.Neutral" Width="@buttonWidth" OnClick="@OnPreviousHandlerAsync">
+                            Previous   @* TODO *@
+                        </FluentButton>
+                    }
+
+                    <span style="margin-right: 10px" />
+
+                    @if (Value < _steps.Count - 1)
+                    {
+                        <FluentButton Appearance="Appearance.Accent" Width="@buttonWidth" OnClick="@OnNextHandlerAsync">
+                            Next @* TODO *@
+                        </FluentButton>
+                    }
+                    else
+                    {
+                        <FluentButton Appearance="Appearance.Accent" Width="@buttonWidth" OnClick="OnFinishHandlerAsync">
+                            Done @* TODO *@
+                        </FluentButton>
+                    }
+                }
+                else
+                {
+                    @WizardButtons(Value)
+                }
+            </div>
+        </div>
+    </div>
+</CascadingValue>

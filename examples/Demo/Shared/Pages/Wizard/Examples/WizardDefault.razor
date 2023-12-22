@@ -1,0 +1,34 @@
+@inject IDialogService DialogService
+
+<FluentWizard StepperPosition="StepperPosition.Top"   
+             Border="WizardBorder.Outside"
+             OnFinish="@(_ => DialogService.ShowInfoAsync("Wizard completed"))">
+    <Steps>
+        <FluentWizardStep Label="Intro" OnChange="@OnStepChange">
+            My introduction
+        </FluentWizardStep>
+        <FluentWizardStep Label="Step 2" Summary="My second summary" OnChange="@OnStepChange">
+            Your profile
+            <FluentTextField Label="Last name" />
+            <FluentTextField Label="First name" />
+        </FluentWizardStep>
+        <FluentWizardStep Disabled Label="Step 3" Summary="Disabled step" OnChange="@OnStepChange">
+            My content 3
+        </FluentWizardStep>
+        <FluentWizardStep Label="Step 4" Summary="My fourth summary" OnChange="@OnStepChange">
+            What is your age?
+            <FluentSelect Items="@(Enumerable.Range(10, 80).Select(i => i.ToString()))" />
+        </FluentWizardStep>
+        <FluentWizardStep Label="Summary" OnChange="@OnStepChange">
+            My summary
+        </FluentWizardStep>
+    </Steps>
+</FluentWizard>
+
+@code
+{
+    void OnStepChange(FluentWizardStepChangeEventArgs e)
+    {
+        DemoLogger.WriteLine($"Go to step {e.TargetLabel} (#{e.TargetIndex})");
+    }
+}
