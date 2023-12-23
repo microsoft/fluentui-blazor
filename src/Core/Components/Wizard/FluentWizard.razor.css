@@ -32,7 +32,7 @@
         grid-column: 2;
         grid-row: 1;
         margin: 5px 10px 0px 15px;
-        overflow-y: auto;
+        /*overflow-y: auto;*/
     }
 
     .fluent-wizard-left .fluent-wizard-buttons {
@@ -77,7 +77,7 @@
 
     .fluent-wizard-top .fluent-wizard-content {
         margin: 5px 10px 0px 10px;
-        overflow-y: auto;
+        /*overflow-y: auto;*/
     }
 
     .fluent-wizard-top .fluent-wizard-buttons {

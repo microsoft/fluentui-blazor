@@ -5,22 +5,21 @@
              OnFinish="@(_ => DialogService.ShowInfoAsync("Wizard completed"))">
     <Steps>
         <FluentWizardStep Label="Intro" OnChange="@OnStepChange">
-            My introduction
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut nisi eget dolor semper luctus vitae a nulla. Cras semper eros sed lacinia tincidunt. Mauris dignissim ullamcorper dolor, ut blandit dui ullamcorper faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis mauris ut augue dapibus lacinia. Nam libero neque, elementum at maximus ut, molestie non dui. Aliquam tempor nisi eu lacus semper, ut blandit nunc hendrerit. Proin eget felis lorem. Nunc nibh orci, ultrices eu eleifend at, rhoncus elementum mi. Morbi vel efficitur lacus, et venenatis est.
         </FluentWizardStep>
         <FluentWizardStep Label="Step 2" Summary="My second summary" OnChange="@OnStepChange">
-            Your profile
-            <FluentTextField Label="Last name" />
-            <FluentTextField Label="First name" />
+            Maecenas sed justo ac sapien venenatis ullamcorper. Sed maximus nunc non venenatis euismod. Fusce vel porta ex, imperdiet molestie nisl. Vestibulum eu ultricies mauris, eget aliquam quam. Vestibulum sit amet ex sit amet metus ornare ultrices. Suspendisse suscipit, dolor nec mollis scelerisque, neque odio pellentesque ligula, eu blandit libero ante in neque. Proin blandit hendrerit purus, et tincidunt diam dapibus non. Fusce convallis malesuada nisi, ac placerat orci dictum vitae. Donec arcu est, auctor ac porta vitae, volutpat et arcu. Aliquam tempus ex mauris, in blandit augue facilisis quis.
         </FluentWizardStep>
         <FluentWizardStep Disabled Label="Step 3" Summary="Disabled step" OnChange="@OnStepChange">
-            My content 3
+            Nunc dignissim tortor eget lacus porta tristique. Nunc in posuere dui. Cras ligula ex, ullamcorper in gravida in, euismod vitae purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at velit leo. Suspendisse potenti. Cras dictum eu augue in laoreet.
         </FluentWizardStep>
         <FluentWizardStep Label="Step 4" Summary="My fourth summary" OnChange="@OnStepChange">
-            What is your age?
-            <FluentSelect Items="@(Enumerable.Range(10, 80).Select(i => i.ToString()))" />
+            Phasellus quis augue convallis, congue velit ac, aliquam ex. In egestas porttitor massa aliquet porttitor. Donec bibendum faucibus urna vitae elementum. Phasellus vitae efficitur turpis, eget molestie ipsum.
+            <FluentSelect Items="@(Enumerable.Range(10, 80).Select(i => i.ToString()))"
+                          Height="300px"/>
         </FluentWizardStep>
         <FluentWizardStep Label="Summary" OnChange="@OnStepChange">
-            My summary
+            Ut iaculis sed magna efficitur tempor. Vestibulum est erat, imperdiet in diam ac, aliquam tempus sapien. Nam rutrum mi at enim mattis, non mollis diam molestie. Cras sodales dui libero, sit amet cursus sapien elementum ac. Nulla euismod nisi sem, vitae viverra nunc commodo et. Donec sollicitudin enim in nunc porttitor congue.
         </FluentWizardStep>
     </Steps>
 </FluentWizard>

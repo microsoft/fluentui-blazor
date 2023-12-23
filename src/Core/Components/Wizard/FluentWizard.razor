@@ -2,14 +2,6 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this">
-@*     <style>
-        .fluent-wizard-left,
-        .fluent-wizard-top {
-            --fluent-wizard-step-previous: url("data:image/svg+xml, @((MarkupString)GetIconSvgEncoded(new CoreIcons.Filled.Size24.CheckmarkCircle().Content, AspNetCore.Components.Color.Accent.ToAttributeValue()!))");
-            --fluent-wizard-step-current: url("data:image/svg+xml, @((MarkupString)GetIconSvgEncoded(new CoreIcons.Filled.Size24.Circle().Content, AspNetCore.Components.Color.Accent.ToAttributeValue()!))");
-            --fluent-wizard-step-next: url("data:image/svg+xml, @((MarkupString)GetIconSvgEncoded(new CoreIcons.Regular.Size24.Circle().Content, AspNetCore.Components.Color.Info.ToAttributeValue()!))");
-        }
-    </style> *@
 
     <div style="@StyleValue" class="@ClassValue">
         <div class="@(StepperPosition == StepperPosition.Top ? "fluent-wizard-top" : "fluent-wizard-left")"
