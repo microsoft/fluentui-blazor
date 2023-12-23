@@ -1,10 +1,22 @@
 @if (Members is not null)
 {
-    <ul>
-        @foreach (var item in Members)
-        {
-            <li>@item.Key - @GetSummary(item.Value)</li>
-        }
-    </ul>   
-
+    @foreach (var member in Members)
+    {
+        var item = GetPropertySummary(member);
+        <div style="padding-left: @(item.Level * 20)px; margin-top: 10px; display: flex; flex-wrap: wrap;">
+            <div style="font-weight: bold; width: @(200 - item.Level * 20)px;">
+                @item.Name
+            </div>
+            @if (item.IsEditable)
+            {
+                <div>
+                    <FluentTextField />
+                </div>
+            }
+            <div style=" flex-basis: 100%; height: 0;" /> @* Break *@
+            <div>
+                @item.Summary
+            </div>
+        </div>
+    }
 }

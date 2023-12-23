@@ -39,12 +39,26 @@ public partial class ApiComplexClass
         }
     }
 
-    private string GetSummary(MemberInfo member)
+    private PropertySummary GetPropertySummary(KeyValuePair<string, MemberInfo> value)
     {
-        var property = (PropertyInfo)member;
-        var ns = property.ReflectedType.Namespace ?? string.Empty;
+        // Summary documentation
+        var property = (PropertyInfo)value.Value;
+        var ns = property.ReflectedType?.Namespace ?? string.Empty;
         var prefix = property.ReflectedType?.FullName?.Substring(ns.Length + 1).Replace("+", ".");
-        return CodeComments.GetSummary($"{prefix}.{member.Name}");
+        var commentKey = $"{prefix}.{property.Name}";
+        var summary = CodeComments.GetSummary(commentKey);
+
+        // Editable if the last leaf
+        bool isEditable = IsSimpleType(property.PropertyType); 
+
+        // Returns
+        return new PropertySummary(
+            value.Key,
+            value.Key.Count(i => i == '.'),
+            value.Key.Split(".").Last(),
+            summary,
+            isEditable
+            );
     }
 
     private bool IsSimpleType(Type type) => type.IsPrimitive ||
@@ -58,5 +72,5 @@ public partial class ApiComplexClass
                                                 );
 
 
-
+    record PropertySummary(string FullName, int Level, string Name, string Summary, bool IsEditable);
 }
