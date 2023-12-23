@@ -1,0 +1,11 @@
+@* <FluentTreeItem InitiallyExpanded="true">
+    <FluentLabel slot="start" Weight="FontWeight.Bold" Style="width: 200px;">
+        @Property.Name (@Property.)
+    </FluentLabel>
+   <FluentTextField slot="end" /> 
+    <FluentLabel slot="item">
+        @Property.Summary
+    </FluentLabel>
+
+    @ChildContent
+</FluentTreeItem> *@

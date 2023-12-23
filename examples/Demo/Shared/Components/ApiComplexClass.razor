@@ -1,22 +1,36 @@
-@if (Members is not null)
+@if (Properties is not null)
 {
-    @foreach (var member in Members)
+    <FluentTreeView>
+@*         @foreach (var itemL0 in Properties.Where(i => i.Level == 0))
+        {
+            <ApiComplexClassItem Property="@itemL0.Summary">
+                @foreach (var itemL1 in Properties.Where(i => i.Parent == itemL0))
+                {
+                    <ApiComplexClassItem Property="@itemL1.Summary">
+
+                    </ApiComplexClassItem>
+                } 
+            </ApiComplexClassItem>
+        } *@
+
+        @*    @foreach (var member in Properties)
     {
-        var item = GetPropertySummary(member);
-        <div style="padding-left: @(item.Level * 20)px; margin-top: 10px; display: flex; flex-wrap: wrap;">
-            <div style="font-weight: bold; width: @(200 - item.Level * 20)px;">
-                @item.Name
-            </div>
-            @if (item.IsEditable)
-            {
-                <div>
-                    <FluentTextField />
-                </div>
-            }
-            <div style=" flex-basis: 100%; height: 0;" /> @* Break *@
-            <div>
-                @item.Summary
-            </div>
-        </div>
+    var item = GetPropertySummary(member);
+    <div style="padding-left: @(item.Level * 20)px; margin-top: 10px; display: flex; flex-wrap: wrap;">
+    <div style="font-weight: bold; width: @(200 - item.Level * 20)px;">
+    @item.Name
+    </div>
+    @if (item.IsEditable)
+    {
+    <div>
+    <FluentTextField />
+    </div>
     }
+    <div style=" flex-basis: 100%; height: 0;" />
+    <div>
+    @item.Summary
+    </div>
+    </div>
+    } *@
+    </FluentTreeView>
 }

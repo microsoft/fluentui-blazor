@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using FluentUI.Demo.Shared.Components.ApiComplex;
 using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Components;
@@ -11,66 +12,82 @@ public partial class ApiComplexClass
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     public Type Item { get; set; } = default!;
 
-    public IDictionary<string, MemberInfo>? Members { get; set; } = null;
+    public IEnumerable<PropertyInfo>? Properties { get; set; } = null;
 
     protected override void OnInitialized()
     {
-        var members = new Dictionary<string, MemberInfo>();
-        GetMembers(ref members, Item, Item.Name);
-
-        Members = members;
+        var properties = new List<PropertyParentChild>();
+        ClassPropertyFactory.HierarchicalProperties(properties, Item);
     }
 
-    private void GetMembers(ref Dictionary<string, MemberInfo> members, Type type, string path)
-    {
-        var items = type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                        .Where(m => m.MemberType == MemberTypes.Property)
-                        .OrderBy(m => m.Name)
-                        .Select(i => (PropertyInfo)i)
-                        .ToArray();
+    //private void GetProperties(List<PropertyLevel> properties, Type type, int level, string path)
+    //{
+    //    var items = type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+    //                    .Where(m => m.MemberType == MemberTypes.Property)
+    //                    .OrderBy(m => m.Name)
+    //                    .Select(i => (PropertyInfo)i)
+    //                    .ToArray();
 
-        foreach (var item in items)
-        {
-            members.Add($"{path}.{item.Name}", item);
-            if (!IsSimpleType(item.PropertyType))
-            {
-                GetMembers(ref members, item.PropertyType, $"{path}.{item.Name}");
-            }
-        }
-    }
+    //    var parent = properties.FirstOrDefault(i => i.Property.PropertyType == type);
 
-    private PropertySummary GetPropertySummary(KeyValuePair<string, MemberInfo> value)
-    {
-        // Summary documentation
-        var property = (PropertyInfo)value.Value;
-        var ns = property.ReflectedType?.Namespace ?? string.Empty;
-        var prefix = property.ReflectedType?.FullName?.Substring(ns.Length + 1).Replace("+", ".");
-        var commentKey = $"{prefix}.{property.Name}";
-        var summary = CodeComments.GetSummary(commentKey);
+    //    foreach (var item in items)
+    //    {
+    //        properties.Add(new PropertyLevel($"{path}.{item.Name}", level + 1, parent, item));
+    //        if (!IsSimpleType(item.PropertyType))
+    //        {
+    //            GetProperties(properties, item.PropertyType, level + 1, $"{path}.{item.Name}");
+    //        }
+    //    }
+    //}
 
-        // Editable if the last leaf
-        bool isEditable = IsSimpleType(property.PropertyType); 
+    //internal static bool IsSimpleType(Type type) => type.IsPrimitive ||
+    //                                        type == typeof(string) ||
+    //                                        type == typeof(decimal) ||
+    //                                        type.IsNullable() && 
+    //                                            (
+    //                                             Nullable.GetUnderlyingType(type)?.IsPrimitive == true ||
+    //                                             Nullable.GetUnderlyingType(type) == typeof(string) ||
+    //                                             Nullable.GetUnderlyingType(type) == typeof(decimal)
+    //                                            );
 
-        // Returns
-        return new PropertySummary(
-            value.Key,
-            value.Key.Count(i => i == '.'),
-            value.Key.Split(".").Last(),
-            summary,
-            isEditable
-            );
-    }
+    //public class PropertyLevel
+    //{
+    //    public PropertyLevel(string key, int level, PropertyLevel? parent, PropertyInfo property)
+    //    {
+    //        Key = key;
+    //        Level = level;
+    //        Parent = parent;
+    //        Property = property;
+    //    }
 
-    private bool IsSimpleType(Type type) => type.IsPrimitive ||
-                                            type == typeof(string) ||
-                                            type == typeof(decimal) ||
-                                            type.IsNullable() && 
-                                                (
-                                                 Nullable.GetUnderlyingType(type)?.IsPrimitive == true ||
-                                                 Nullable.GetUnderlyingType(type) == typeof(string) ||
-                                                 Nullable.GetUnderlyingType(type) == typeof(decimal)
-                                                );
+    //    public string Key { get; }
+    //    public int Level { get; }
+    //    public PropertyLevel? Parent { get; }
+    //    public PropertyInfo Property { get; set; }
+    //    public PropertySummary Summary => new PropertySummary(this);
+    //}
 
-
-    record PropertySummary(string FullName, int Level, string Name, string Summary, bool IsEditable);
+    //public class PropertySummary
+    //{
+    //    private PropertyLevel _property;
+    //    public PropertySummary(PropertyLevel property)
+    //    {
+    //        _property = property;
+    //    }
+    //    public string FullName => _property.Key;
+    //    public int Level => _property.Key.Count(i => i == '.');
+    //    public string Name => _property.Key.Split(".").Last();
+    //    public string Summary
+    //    {
+    //        get
+    //        {
+    //            var property = _property.Property;
+    //            var ns = property.ReflectedType?.Namespace ?? string.Empty;
+    //            var prefix = property.ReflectedType?.FullName?.Substring(ns.Length + 1).Replace("+", ".");
+    //            var commentKey = $"{prefix}.{property.Name}";
+    //            return CodeComments.GetSummary(commentKey);
+    //        }
+    //    }
+    //    // bool IsEditable => IsSimpleType(Property.Property.PropertyType);
+    //}
 }
