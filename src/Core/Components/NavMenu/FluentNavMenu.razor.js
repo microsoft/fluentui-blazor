@@ -1,16 +1,26 @@
-export function onUpdate() {
+export function onLoad() {
+    const mql = window.matchMedia("(max-width: 600px)");
+
     for (let expander of document.getElementsByClassName("expander")) {
         if (expander) {
             const origStyle = expander.parentElement.style.cssText;
-            expander.addEventListener('click', () => toggleMenuExpandedAsync(expander, origStyle));
-            expander.parentElement.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
+            expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev), true);
+            expander.parentElement.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev), true);
+
+            mql.onchange = (e) => {
+                if (e.matches) {
+                    setMenuExpanded(expander, origStyle, true)
+                }
+            };
         }
     }
-
+}
+export function onUpdate() {
     for (let element of document.getElementsByClassName("fluent-nav-group")) {
         attachEventHandlers(element);
     }
 }
+
 function attachEventHandlers(element) {
     let navlink = element.getElementsByClassName("fluent-nav-link")[0];
     if (!navlink.href) {
@@ -71,7 +81,7 @@ function handleMenuExpanderKeyDownAsync(element, origStyle, event) {
     switch (event.code) {
         case "NumpadEnter":
         case "Enter":
-            toggleMenuExpandedAsync(element, origStyle);
+            toggleMenuExpandedAsync(element, origStyle, event);
             break;
         case "NumpadArrowRight":
         case "ArrowRight":

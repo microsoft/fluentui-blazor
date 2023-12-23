@@ -20,6 +20,7 @@
         width: inherit;
         margin-top: 1em;
         display: flex;
+        flex-direction: column;
     }
 
     .fluent-popover-content .fluent-popover-footer {

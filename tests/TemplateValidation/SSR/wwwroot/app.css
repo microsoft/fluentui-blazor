@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-#navmenu-toggle {
+.navmenu-icon {
     display: none;
 }
 
@@ -152,18 +152,6 @@ code {
 
     #navmenu-toggle {
         appearance: none;
-        cursor: pointer;
-        z-index: 10;
-        display: block;
-        visibility: visible;
-        position: absolute;
-        top: 16px;
-        right: 1.5rem;
-        width: 20px;
-        height: 20px;
-        border: none;
-        color: white;
-        background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' style='width: 20px; fill: white;' focusable='false' viewBox='0 0 20 20'><path d='M2 4.5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm0 5c0-.28.22-.5.5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-15Z'></path></svg>");
     }
 
         #navmenu-toggle ~ nav {
@@ -173,4 +161,16 @@ code {
         #navmenu-toggle:checked ~ nav {
             display: block;
         }
+
+    .navmenu-icon {
+        cursor: pointer;
+        z-index: 10;
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        border: none;
+    }
 }

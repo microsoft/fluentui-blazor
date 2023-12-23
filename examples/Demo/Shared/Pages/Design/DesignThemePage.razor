@@ -1,21 +1,11 @@
 ﻿@page "/DesignTheme"
 @using FluentUI.Demo.Shared.Pages.Design.Examples
 
-<h1>Theming</h1>
-
-<!-- TODO: To remove -->
-<DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" />
-
-<ApiComplexClass Item="@typeof(ThemeToken)" />
+<h1>Themes</h1>
 
 <p>
-    ssThe theme provider specifies all the colors, shapes, sizes and shadows for your layout.
-</p>
-<p>
-    <strong>FluentDesignTheme</strong> lets you quickly manage the main color and mode (dark/light)
-    of your <strong>entire</strong> application. <br />
-    If you'd like to customize all of the design details of your application, or just a very specific part, please use
-    the <a href="/DesignTokens">DesignTokens</a>
+    The <code>FluentDesignTheme</code> component lets you quickly manage the primary/main color and mode (dark/light) of your <strong>entire</strong> application. <br />
+    If you'd like to customize all of the design details of your application, or just a very specific part, please use the <a href="/DesignTokens">DesignTokens</a>
 </p>
 
 <h2>Quick guide</h2>
@@ -34,13 +24,13 @@
 
 <p>
     3. (optional) To avoid a "flash" effect when the page loads (mainly in dark mode), as described below,
-    we recommend you add these lines of code to the <code>index.html</code> or <code>App.razor</code> file (or <code>_layout.cshtml</code> file if
+    we recommend you add these lines of code to the <code>index.html</code> or <code>App.razor</code> file (or <code>_layout.cshtml</code> file if 
     you upgraded you project from an earlier .NET version).
 
     <CodeSnippet Language="xml">
-        @(@"<!-- Set the default theme -->
-        <script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
-        <loading-theme storage-name=""theme""></loading-theme>")
+@(@"<!-- Set the default theme -->
+<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
+<loading-theme storage-name=""theme""></loading-theme>")
     </CodeSnippet>
 </p>
 <p>
@@ -49,7 +39,7 @@
     the <b>OfficeColor</b> properties, and to set a <b>StorageName</b> to save all this in the LocalStorage.
 
     <CodeSnippet Language="xml">
-        @(@"<FluentDesignTheme @bind-Mode=""@Mode"" @bind-OfficeColor=""@OfficeColor"" StorageName=""theme"" />")
+@(@"<FluentDesignTheme @bind-Mode=""@Mode"" @bind-OfficeColor=""@OfficeColor"" StorageName=""theme"" />")
     </CodeSnippet>
 </p>
 
@@ -63,14 +53,14 @@
     <br />
     <b>Example in HTML</b><br />
     <CodeSnippet Language="xml">
-        @(@"<fluent-design-theme mode=""dark"" primary-color=""word"" />
-        <fluent-design-theme mode=""light"" primary-color=""#ff0000"" />")
+@(@"<fluent-design-theme mode=""dark"" primary-color=""word"" />
+<fluent-design-theme mode=""light"" primary-color=""#ff0000"" />")
     </CodeSnippet>
 
     <b>Example in Blazor</b><br />
     <CodeSnippet Language="xml">
-        @(@"<FluentDesignTheme Mode=""DesignThemeModes.Dark"" OfficeColor=""OfficeColor.Word"" />
-        <FluentDesignTheme Mode=""DesignThemeModes.Light"" CustomColor=""#ff0000"" />")
+@(@"<FluentDesignTheme Mode=""DesignThemeModes.Dark"" OfficeColor=""OfficeColor.Word"" />
+<FluentDesignTheme Mode=""DesignThemeModes.Light"" CustomColor=""#ff0000"" />")
     </CodeSnippet>
 </p>
 
@@ -139,10 +129,8 @@
 </p>
 
 <CodeSnippet Language="xml">
-    @(
-    @"<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
-    <loading-theme storage-name=""theme""></loading-theme>"
-        )
+@(@"<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
+<loading-theme storage-name=""theme""></loading-theme>")
 </CodeSnippet>
 
 <p>
@@ -174,10 +162,6 @@
         </p>
     </Description>
 </DemoSection>
-
-<h2 id="DesignThemeToken">DesignTheme Token</h2>
-
-<DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" />
 
 <h2 id="documentation">Documentation</h2>
 

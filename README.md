@@ -181,7 +181,7 @@ builder.Services.AddDataGridEntityFrameworkAdapter();
 ## Contributing to the project
 
 We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/main/CONTRIBUTING.md). 
-We alo have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/main/unit-tests.md)
+We also have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/main/unit-tests.md)
 
 ## Joining the Community
 

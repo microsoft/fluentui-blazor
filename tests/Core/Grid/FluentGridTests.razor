@@ -79,7 +79,7 @@
         //Assert
         cut.Verify();
     }
-
+    #pragma warning disable xUnit1025 
     [Theory]
     [InlineData(GridItemHidden.Xs, "xs")]
     [InlineData(GridItemHidden.Sm, "sm")]
@@ -112,4 +112,5 @@
         // Assert
         Assert.Equal(assert, hiddenAttribute);
     }
+    #pragma warning restore xUnit1025
 }
