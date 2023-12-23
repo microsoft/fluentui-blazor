@@ -2,12 +2,9 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-@if (!String.IsNullOrEmpty(Height))
-{
-    <style>
-        @($"#{Id}::part(listbox) {{ max-height: {Height}; z-index: {ZIndex.ComboboxPopup} }}")
-    </style>
-}
+<style>
+    @($"#{Id}::part(listbox) {{ {(string.IsNullOrEmpty(Height) ? null : $"max-height: {Height};")} z-index: {ZIndex.ComboboxPopup} }}")
+</style>
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
