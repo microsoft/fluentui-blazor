@@ -62,10 +62,10 @@ public partial class FluentWizard : FluentComponentBase
     public WizardBorder Border { get; set; } = WizardBorder.None;
 
     /// <summary>
-    /// Display a number on each step icon. Can be overridden by the step DisplayStepNumber property.
+    /// Display a number on each step icon. Can be overridden by the step <see cref="FluentWizardStep.DisplayStepNumber"/> property.
     /// </summary>
     [Parameter]
-    public bool DisplayStepNumber { get; set; } = false;
+    public WizardStepStatus DisplayStepNumber { get; set; } = WizardStepStatus.None;
 
     /// <summary>
     /// Gets or sets the step index of the current step.

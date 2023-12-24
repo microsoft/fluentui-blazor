@@ -1,8 +1,14 @@
 ﻿namespace Microsoft.FluentUI.AspNetCore.Components;
 
-internal enum WizardStepStatus
+/// <summary>
+/// Step Status
+/// </summary>
+[Flags]
+public enum WizardStepStatus
 {
-    Previous,
-    Current,
-    Next,
+    None = 0,
+    Previous = 1,
+    Current = 2,
+    Next = 4,
+    All = Previous | Current | Next
 }

@@ -7,7 +7,7 @@
               CheckedMessage="Top" />
 
 <FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
-              DisplayStepNumber="true"
+              DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
               Border="WizardBorder.Outside"
               Height="300px"
               OnFinish="@(_ => DialogService.ShowInfoAsync("Wizard completed"))">

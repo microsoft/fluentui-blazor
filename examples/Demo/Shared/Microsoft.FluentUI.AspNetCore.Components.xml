@@ -7306,7 +7306,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.DisplayStepNumber">
             <summary>
-            Display a number on each step icon. Can be overridden by the step DisplayStepNumber property.
+            Display a number on each step icon. Can be overridden by the step <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.DisplayStepNumber"/> property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Value">
@@ -11736,6 +11736,11 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.All">
             <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.WizardStepStatus">
+            <summary>
+            Step Status
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.NavMenuActionArgs">
             <summary>

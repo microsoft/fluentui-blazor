@@ -8,7 +8,7 @@
                         Class="fluent-wizard-icon"
                         Style="@IconStyle" />
 
-            @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber)
+            @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))
             {
                 <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.ToAttributeValue()">
                     @(Index + 1)
