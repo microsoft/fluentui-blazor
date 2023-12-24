@@ -7383,8 +7383,23 @@
             Gets or sets the summary of the step, to diplay near the label.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.StepStyle">
-            <summary />
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.IconPrevious">
+            <summary>
+            Gets or sets the icon to display for the past/previous step.
+            By default, it is a checkmark circle.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.IconCurrent">
+            <summary>
+            Gets or sets the icon to display for the current/active step.
+            By default, it is a checkmark circle.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.IconNext">
+            <summary>
+            Gets or sets the icon to display for the future/next step.
+            By default, it is a checkmark circle.
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.OnInitialized">
             <summary />

@@ -1,9 +1,9 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<li status="@Status.ToAttributeValue()" style="@StepStyle">
+<li status="@Status.ToAttributeValue()" class="@ClassValue" style="@StyleValue">
     <div>       
-        <FluentIcon Value="@StepIcon" />
+        <FluentIcon Value="@StepIcon" Style="width: var(--fluent-wizard-circle-size)" />
         <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled=@Disabled>@Label</FluentLabel>
         <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled=@Disabled>@Summary</FluentLabel>
     </div>

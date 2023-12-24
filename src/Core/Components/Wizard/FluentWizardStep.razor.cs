@@ -10,7 +10,10 @@ public partial class FluentWizardStep : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class).Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
+    protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("height", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .Build();
 
     /// <summary>
     /// Gets or sets the content of the step.
@@ -52,27 +55,28 @@ public partial class FluentWizardStep : FluentComponentBase
     [Parameter]
     public string Summary { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Gets or sets the icon to display for the past/previous step.
+    /// By default, it is a checkmark circle.
+    /// </summary>
+    [Parameter]
+    public Icon IconPrevious { get; set; } = new CoreIcons.Filled.Size24.CheckmarkCircle();
+
+    /// <summary>
+    /// Gets or sets the icon to display for the current/active step.
+    /// By default, it is a checkmark circle.
+    /// </summary>
+    [Parameter]
+    public Icon IconCurrent { get; set; } = new CoreIcons.Filled.Size24.Circle();
+
+    /// <summary>
+    /// Gets or sets the icon to display for the future/next step.
+    /// By default, it is a checkmark circle.
+    /// </summary>
+    [Parameter]
+    public Icon IconNext { get; set; } = new CoreIcons.Regular.Size24.Circle();
+
     internal WizardStepStatus Status { get; set; } = WizardStepStatus.Next;
-
-    /// <summary />
-    private string StepStyle
-    {
-        get
-        {
-            string spaceSize = FluentWizard.StepperBulletSpace ?? "100%";
-            switch (FluentWizard.StepperPosition)
-            {
-                case StepperPosition.Top:
-                    return $"max-width: {spaceSize};";
-
-                case StepperPosition.Left:
-                    return $"height: {spaceSize};";
-
-                default:
-                    return string.Empty;
-            }
-        }
-    }
 
     private Icon StepIcon
     {
@@ -81,13 +85,13 @@ public partial class FluentWizardStep : FluentComponentBase
             switch (Status)
             {
                 case WizardStepStatus.Previous:
-                    return new CoreIcons.Filled.Size24.CheckmarkCircle();
+                    return IconPrevious;
 
                 case WizardStepStatus.Current:
-                    return new CoreIcons.Filled.Size24.Circle();
+                    return IconCurrent;
 
                 case WizardStepStatus.Next:
-                    return new CoreIcons.Regular.Size24.Circle();
+                    return IconNext;
 
                 default:
                     return new CoreIcons.Regular.Size24.Circle();
