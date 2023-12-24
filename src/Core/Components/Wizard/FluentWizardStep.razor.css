@@ -52,6 +52,34 @@
         background-color: var(--neutral-stroke-hover);
     }
 
+/* Icon */
+.fluent-wizard-icon {
+    
+}
+
+.fluent-wizard-icon-number {
+    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 2px);
+    font-size: small;
+    color: var(--accent-fill-rest);
+}
+
+    .fluent-wizard-icon-number[disabled] {
+        opacity: var(--disabled-opacity);
+    }
+
+    .fluent-wizard-icon-number[status='previous']:not([disabled]) {
+        color: var(--foreground-on-accent-rest);
+    }
+
+
+    .fluent-wizard-icon-number[status='current']:not([disabled]) {
+        color: var(--foreground-on-accent-rest);
+    }
+
+    .fluent-wizard-icon-number[status='next']:not([disabled]) {
+        color: var(--accent-fill-rest);
+    }
+
 /* Title */
 .fluent-wizard-title {
     margin-block-start: 2px;

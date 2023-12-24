@@ -1,8 +1,15 @@
 @inject IDialogService DialogService
 
-<FluentWizard StepperPosition="StepperPosition.Top"
+<FluentSwitch @bind-Value="@IsTop"
+              Style="margin: 30px;"
+              Label="Step position"
+              UncheckedMessage="Left"
+              CheckedMessage="Top" />
+
+<FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
+              DisplayStepNumber="true"
               Border="WizardBorder.Outside"
-              Height="200px"
+              Height="300px"
               OnFinish="@(_ => DialogService.ShowInfoAsync("Wizard completed"))">
     <Steps>
         <FluentWizardStep Label="Intro"
@@ -29,6 +36,7 @@
                           IconPrevious="@(new Icons.Filled.Size24.Star())"
                           IconCurrent="@(new Icons.Filled.Size24.StarEmphasis())"
                           IconNext="@(new Icons.Regular.Size24.Star())"
+                          DisplayStepNumber="false"
                           Summary="My fourth summary" 
                           OnChange="@OnStepChange">
             Phasellus quis augue convallis, congue velit ac, aliquam ex. In egestas porttitor massa
@@ -47,6 +55,8 @@
 
 @code
 {
+    bool IsTop = true;
+
     void OnStepChange(FluentWizardStepChangeEventArgs e)
     {
         DemoLogger.WriteLine($"Go to step {e.TargetLabel} (#{e.TargetIndex})");

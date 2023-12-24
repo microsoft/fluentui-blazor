@@ -2,9 +2,20 @@
 @inherits FluentComponentBase
 
 <li status="@Status.ToAttributeValue()" class="@ClassValue" style="@StyleValue">
-    <div>       
-        <FluentIcon Value="@StepIcon" Style="width: var(--fluent-wizard-circle-size)" />
-        <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled=@Disabled>@Label</FluentLabel>
-        <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled=@Disabled>@Summary</FluentLabel>
+    <div>
+        <div>
+            <FluentIcon Value="@StepIcon"
+                        Class="fluent-wizard-icon"
+                        Style="@IconStyle" />
+
+            @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber)
+            {
+                <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.ToAttributeValue()">
+                    @(Index + 1)
+                </div>
+            }
+        </div>
+        <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled="@Disabled">@Label</FluentLabel>
+        <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled="@Disabled">@Summary</FluentLabel>
     </div>
 </li>

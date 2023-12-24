@@ -39,6 +39,13 @@ public partial class FluentWizardStep : FluentComponentBase
     public string Label { get; set; } = string.Empty;
 
     /// <summary>
+    /// Display a number the step icon.
+    /// By default, this is the <see cref="FluentWizard.DisplayStepNumber"/> value.
+    /// </summary>
+    [Parameter]
+    public bool? DisplayStepNumber { get; set; }
+
+    /// <summary>
     /// The OnChange event fires before the current step has changed.
     /// The EventArgs contains a field of the targeted new step and a field to cancel the build-in action.
     /// </summary>
@@ -77,6 +84,9 @@ public partial class FluentWizardStep : FluentComponentBase
     public Icon IconNext { get; set; } = new CoreIcons.Regular.Size24.Circle();
 
     internal WizardStepStatus Status { get; set; } = WizardStepStatus.Next;
+
+    private string IconStyle => "width: var(--fluent-wizard-circle-size);" +
+                                (Disabled ? " fill-opacity: var(--disabled-opacity);" : string.Empty);
 
     private Icon StepIcon
     {

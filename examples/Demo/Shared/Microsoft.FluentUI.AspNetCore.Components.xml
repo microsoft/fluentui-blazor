@@ -7304,6 +7304,11 @@
             Display a border of the Wizard.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.DisplayStepNumber">
+            <summary>
+            Display a number on each step icon. Can be overridden by the step DisplayStepNumber property.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Value">
             <summary>
             Gets or sets the step index of the current step.
@@ -7367,6 +7372,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Label">
             <summary>
             Gets or sets the label of the step.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.DisplayStepNumber">
+            <summary>
+            Display a number the step icon.
+            By default, this is the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.DisplayStepNumber"/> value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.OnChange">
