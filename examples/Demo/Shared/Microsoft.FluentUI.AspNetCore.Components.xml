@@ -7359,6 +7359,11 @@
             Gets or sets the content of the step.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.StepTemplate">
+            <summary>
+            Gets or sets the template of the step icon.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Index">
             <summary>
             Gets the step index.

@@ -22,6 +22,12 @@ public partial class FluentWizardStep : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the template of the step icon.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<int>? StepTemplate { get; set; }
+
+    /// <summary>
     /// Gets the step index.
     /// </summary>
     public int Index { get; private set; } = 0;
