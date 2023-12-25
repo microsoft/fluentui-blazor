@@ -3,9 +3,8 @@
 
 <li status="@Status.ToAttributeValue()" class="@ClassValue" style="@StyleValue">
     <div>
-        <div>
+        <div class="fluent-wizard-icon">
             <FluentIcon Value="@StepIcon"
-                        Class="fluent-wizard-icon"
                         Style="@IconStyle" />
 
             @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))

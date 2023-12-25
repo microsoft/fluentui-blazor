@@ -54,11 +54,12 @@
 
 /* Icon */
 .fluent-wizard-icon {
-    
+    min-width: calc(1.5 * var(--fluent-wizard-circle-size));
+    min-height: calc(1.5 * var(--fluent-wizard-circle-size));
 }
 
 .fluent-wizard-icon-number {
-    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 2px);
+    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 3px);
     font-size: small;
     color: var(--accent-fill-rest);
 }
