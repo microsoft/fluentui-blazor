@@ -2,26 +2,26 @@
 @inherits FluentComponentBase
 
 <li status="@Status.ToAttributeValue()" class="@ClassValue" style="@StyleValue">
-    <div>
-        @if (StepTemplate is null)
-        {
-            <div class="fluent-wizard-icon">
-                <FluentIcon Value="@StepIcon"
-                            Style="@IconStyle" />
+    @if (StepTemplate is null)
+    {
+        <div class="fluent-wizard-icon">
+            <FluentIcon Value="@StepIcon"
+                        Style="@IconStyle" />
 
-                @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))
-                {
-                    <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.ToAttributeValue()">
-                        @(Index + 1)
-                    </div>
-                }
-            </div>
+            @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))
+            {
+                <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.ToAttributeValue()">
+                    @(Index + 1)
+                </div>
+            }
+        </div>
+        <div>
             <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled="@Disabled">@Label</FluentLabel>
             <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled="@Disabled">@Summary</FluentLabel>
-        }
-        else
-        {
-            @StepTemplate(Index)
-        }
-    </div>
+        </div>
+    }
+    else
+    {
+        @StepTemplate(Index)
+    }
 </li>
