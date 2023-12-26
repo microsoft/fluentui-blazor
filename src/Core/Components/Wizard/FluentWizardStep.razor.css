@@ -1,4 +1,4 @@
-﻿/* Wizard with steps on Left */
+﻿/* Wizard with steps */
 .fluent-wizard > ol > li {
     position: relative;
     display: flex;
@@ -112,7 +112,7 @@
 .fluent-wizard > ol > li ::deep .fluent-wizard-summary {
     margin-block-start: 4px;
     margin-block-end: 0px;
-    font-size: small;
+    font-size: smaller;
 }
 
 .fluent-wizard > ol > li[status='current'] ::deep .fluent-wizard-summary {

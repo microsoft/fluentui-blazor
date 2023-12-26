@@ -25,7 +25,7 @@ public partial class FluentWizardStep : FluentComponentBase
     /// Gets or sets the template of the step icon.
     /// </summary>
     [Parameter]
-    public RenderFragment<int>? StepTemplate { get; set; }
+    public RenderFragment<FluentWizardStepArgs>? StepTemplate { get; set; }
 
     /// <summary>
     /// Gets the step index.
@@ -64,7 +64,10 @@ public partial class FluentWizardStep : FluentComponentBase
     [Parameter]
     public EventCallback<FluentWizardStepChangeEventArgs> OnChange { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Reference to the parent <see cref="FluentWizard"/> component.
+    /// For internal use only
+    /// </summary>
     [CascadingParameter]
     public FluentWizard FluentWizard { get; set; } = default!;
 

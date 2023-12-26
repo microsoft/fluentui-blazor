@@ -11,7 +11,7 @@
               Border="WizardBorder.Outside"
               StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
               Height="300px"
-              OnFinish="@(_ => DialogService.ShowInfoAsync("Wizard completed"))">
+              OnFinish="@OnFinishedAsync">
     <Steps>
         <FluentWizardStep Label="Intro"
                           OnChange="@OnStepChange">
@@ -63,5 +63,10 @@
     void OnStepChange(FluentWizardStepChangeEventArgs e)
     {
         DemoLogger.WriteLine($"Go to step {e.TargetLabel} (#{e.TargetIndex})");
+    }
+
+    async Task OnFinishedAsync()
+    {
+        await DialogService.ShowInfoAsync("Wizard completed");
     }
 }

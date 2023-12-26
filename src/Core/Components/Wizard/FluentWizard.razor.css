@@ -17,6 +17,11 @@
         padding: 10px;
     }
 
+    .fluent-wizard .fluent-wizard-buttons {
+        display: flex;
+        justify-content: end;
+    }
+
     .fluent-wizard .fluent-wizard-buttons[border-inside] {
         border-top: 1px solid var(--neutral-stroke-hover);
     }
@@ -70,6 +75,5 @@
         }
 
         .fluent-wizard[position="top"] .fluent-wizard-buttons {
-            text-align-last: end;
             padding: 10px;
         }
