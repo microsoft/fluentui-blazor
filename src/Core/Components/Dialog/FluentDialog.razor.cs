@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -122,6 +123,13 @@ public partial class FluentDialog : FluentComponentBase
     /// Gets True if the Dialog was called from the DialogService.
     /// </summary>
     private bool CallingFromDialogService => ChildContent is null;
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+
+    public FluentDialog()
+    {
+    
+    }
 
     /// <summary />
     protected override void OnInitialized()
