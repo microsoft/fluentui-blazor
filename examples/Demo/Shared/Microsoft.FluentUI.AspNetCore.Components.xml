@@ -7374,6 +7374,11 @@
             Gets or sets whether the step is disabled.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.DeferredLoading">
+            <summary>
+            Render the Wizard Step content only when the Step is selected.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.Label">
             <summary>
             Gets or sets the label of the step.

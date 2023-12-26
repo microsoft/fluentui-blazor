@@ -13,7 +13,7 @@
 
             <div class="fluent-wizard-content"
                  border-inside=@Border.HasFlag(WizardBorder.Inside)>
-                @foreach (var step in _steps)
+                @foreach (var step in _steps.Where(i => i.Index == Value || !i.DeferredLoading))
                 {
                     <div style="@(step.Index == Value ? "" : "display: none;")">
                         @(step.ChildContent)

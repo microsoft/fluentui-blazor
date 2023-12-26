@@ -39,6 +39,12 @@ public partial class FluentWizardStep : FluentComponentBase
     public bool Disabled { get; set; } = false;
 
     /// <summary>
+    /// Render the Wizard Step content only when the Step is selected.
+    /// </summary>
+    [Parameter]
+    public bool DeferredLoading { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets the label of the step.
     /// </summary>
     [Parameter]

@@ -106,10 +106,11 @@
 }
 
 /* Summary */
-.fluent-wizard-top > ol > li .fluent-wizard-summary,
-.fluent-wizard-left > ol > li .fluent-wizard-summary {
+.fluent-wizard-top > ol > li ::deep .fluent-wizard-summary,
+.fluent-wizard-left > ol > li ::deep .fluent-wizard-summary {
     margin-block-start: 4px;
     margin-block-end: 0px;
+    font-size: small;
 }
 
 .fluent-wizard-left > ol > li[status='next'] ::deep .fluent-wizard-title,
