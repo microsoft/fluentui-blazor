@@ -9,6 +9,7 @@
 <FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
               DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
               Border="WizardBorder.Outside"
+              StepLabelHiddenWhen="@GridItemHidden.XsAndDown"
               Height="300px"
               OnFinish="@(_ => DialogService.ShowInfoAsync("Wizard completed"))">
     <Steps>

@@ -115,13 +115,19 @@ public partial class FluentWizard : FluentComponentBase
     /// Custom Wizard buttons do not trigger the component OnChange and OnFinish events.
     /// </summary>
     [Parameter]
-    public RenderFragment<int>? WizardButtons { get; set; }
+    public RenderFragment<int>? ButtonTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the wizard steps. Add WizardStep tags inside this tag.
     /// </summary>
     [Parameter]
     public RenderFragment? Steps { get; set; }
+
+    /// <summary>
+    /// Hide the label on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+    /// </summary>
+    [Parameter]
+    public GridItemHidden? StepLabelHiddenWhen { get; set; }
 
     /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)

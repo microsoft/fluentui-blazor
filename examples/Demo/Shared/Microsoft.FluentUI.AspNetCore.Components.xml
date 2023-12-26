@@ -7320,7 +7320,7 @@
             Triggers when the value has changed.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.WizardButtons">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ButtonTemplate">
             <summary>
             Gets or sets the buttons section of the wizard.
             This configuration overrides the whole rendering of the bottom-right section of the Wizard,
@@ -7331,6 +7331,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Steps">
             <summary>
             Gets or sets the wizard steps. Add WizardStep tags inside this tag.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.StepLabelHiddenWhen">
+            <summary>
+            Hide the label on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnNextHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">

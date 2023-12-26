@@ -3,7 +3,7 @@
 
 <CascadingValue Value="this">
 
-    <div style="@StyleValue" class="@ClassValue">
+    <div id="@Id" style="@StyleValue" class="@ClassValue" @attributes="@AdditionalAttributes">
         <div class="@(StepperPosition == StepperPosition.Top ? "fluent-wizard-top" : "fluent-wizard-left")"
              border-outside=@Border.HasFlag(WizardBorder.Outside)>
             <ol style=@GetStepperWidthOrHeight() 
@@ -23,13 +23,15 @@
 
             <div class="fluent-wizard-buttons"
                  border-inside=@Border.HasFlag(WizardBorder.Inside)>
-                @if (WizardButtons == null)
+                @if (ButtonTemplate == null)
                 {
                     string buttonWidth = "80px;";
 
                     @if (Value > 0)
                     {
-                        <FluentButton Appearance="Appearance.Neutral" Width="@buttonWidth" OnClick="@OnPreviousHandlerAsync">
+                        <FluentButton Appearance="Appearance.Neutral"
+                                      Style="@($"width: {buttonWidth};")"
+                                      OnClick="@OnPreviousHandlerAsync">
                             @LabelButtonPrevious
                         </FluentButton>
                     }
@@ -38,20 +40,24 @@
 
                     @if (Value < _steps.Count - 1)
                     {
-                        <FluentButton Appearance="Appearance.Accent" Width="@buttonWidth" OnClick="@OnNextHandlerAsync">
+                        <FluentButton Appearance="Appearance.Accent"
+                                      Style="@($"width: {buttonWidth};")"
+                                      OnClick="@OnNextHandlerAsync">
                             @LabelButtonNext
                         </FluentButton>
                     }
                     else
                     {
-                        <FluentButton Appearance="Appearance.Accent" Width="@buttonWidth" OnClick="OnFinishHandlerAsync">
+                        <FluentButton Appearance="Appearance.Accent"
+                                      Style="@($"width: {buttonWidth};")"
+                                      OnClick="OnFinishHandlerAsync">
                             @LabelButtonDone
                         </FluentButton>
                     }
                 }
                 else
                 {
-                    @WizardButtons(Value)
+                    @ButtonTemplate(Value)
                 }
             </div>
         </div>
