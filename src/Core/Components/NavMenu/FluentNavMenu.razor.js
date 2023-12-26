@@ -1,9 +1,17 @@
 export function onLoad() {
+    const mql = window.matchMedia("(max-width: 600px)");
+
     for (let expander of document.getElementsByClassName("expander")) {
         if (expander) {
             const origStyle = expander.parentElement.style.cssText;
             expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev), true);
             expander.parentElement.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev), true);
+
+            mql.onchange = (e) => {
+                if (e.matches) {
+                    setMenuExpanded(expander, origStyle, true)
+                }
+            };
         }
     }
 }
