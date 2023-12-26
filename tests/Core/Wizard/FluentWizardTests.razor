@@ -1,0 +1,231 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentWizard_Left()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>);
+
+        // Assert
+        cut.Markup.Contains("position=\"left\"");
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_Top()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentWizard StepperPosition="StepperPosition.Top">
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>);
+
+        // Assert
+        cut.Markup.Contains("position=\"top\"");
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentWizard_Disabled()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Disabled Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Assert
+        cut.FindAll("li").Single(i => i.ToMarkup().Contains("disabled"));
+    }
+
+    [Fact]
+    public void FluentWizard_NavigateNext()
+    {
+        var stepChangedIndex = 0;
+        var stepChangedLabel = "";
+
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1" OnChange="@StepChanged">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2" OnChange="@StepChanged">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3" OnChange="@StepChanged">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        var nextButton = cut.Find("fluent-button[appearance='accent']");
+        nextButton.Click();
+
+        // Assert
+        cut.FindAll("li")[1].ToMarkup().Contains("status=\"current\"");
+        Assert.Equal(1, stepChangedIndex);
+        Assert.Equal("Step2", stepChangedLabel);
+
+        void StepChanged(FluentWizardStepChangeEventArgs e)
+        {
+            stepChangedIndex = e.TargetIndex;
+            stepChangedLabel = e.TargetLabel;
+        }
+    }
+
+    [Fact]
+    public void FluentWizard_NavigatePrevious()
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        var nextButton = cut.Find("fluent-button[appearance='accent']");
+        nextButton.Click();
+        nextButton.Click();
+
+        var previousButton = cut.Find("fluent-button");
+        previousButton.Click();
+
+        // Assert
+        cut.FindAll("li")[1].ToMarkup().Contains("status=\"current\"");
+    }
+
+    [Fact]
+    public void FluentWizard_NavigateWithDisabled()
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Disabled Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>);
+
+        var nextButton = cut.Find("fluent-button[appearance='accent']");
+        nextButton.Click();
+
+        // Assert
+        cut.FindAll("li")[2].ToMarkup().Contains("status=\"current\"");
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(2)]
+    public void FluentWizard_DeferredLoading(int nextCount)
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep DeferredLoading Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep DeferredLoading Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>);
+
+        for (int i = 0; i < nextCount; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify(suffix: $"Count{nextCount}");
+    }
+
+    [Fact]
+    public void FluentWizard_StepTemplate()
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep>
+                <StepTemplate>
+                    @GetStepContent(context)
+                </StepTemplate>
+                <ChildContent>
+                    Content 1
+                </ChildContent>
+            </FluentWizardStep>
+            <FluentWizardStep>
+                <StepTemplate>
+                    @GetStepContent(context)
+                </StepTemplate>
+                <ChildContent>
+                    Content 2
+                </ChildContent>
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Assert
+        cut.Verify();
+
+        string GetStepContent(FluentWizardStepArgs args)
+        {
+            return $"{args.Index} - {(args.Active ? "Active" : "Inactive")}";
+        }
+    }
+}

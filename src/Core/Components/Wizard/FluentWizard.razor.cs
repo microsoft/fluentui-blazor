@@ -255,14 +255,6 @@ public partial class FluentWizard : FluentComponentBase
         }
     }
 
-    private string GetIconSvgEncoded(string icon, string color)
-    {
-        return $@"<svg xmlns='http://www.w3.org/2000/svg' style='fill: {color};' focusable='false' viewBox='0 0 24 24' aria-hidden='true'>{icon}</svg>"
-                    .Replace("\"", "'")
-                    .Replace("<", "%3C")
-                    .Replace(">", "%3E");
-    }
-
     private string? GetStepperWidthOrHeight()
     {
         if (string.IsNullOrEmpty(StepperSize))
