@@ -14,7 +14,9 @@ public partial class FluentWizard : FluentComponentBase
     private int _value = 0;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class).Build();
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-wizard")
+        .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
@@ -124,10 +126,11 @@ public partial class FluentWizard : FluentComponentBase
     public RenderFragment? Steps { get; set; }
 
     /// <summary>
-    /// Hide the label on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
+    /// Hide step titles and summaries on specified sizes (you can combine several values: GridItemHidden.Sm | GridItemHidden.Xl).
+    /// The default value is <see cref="GridItemHidden.XsAndDown"/> to adapt to mobile devices.
     /// </summary>
     [Parameter]
-    public GridItemHidden? StepLabelHiddenWhen { get; set; }
+    public GridItemHidden? StepTitleHiddenWhen { get; set; } = GridItemHidden.XsAndDown;
 
     /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)

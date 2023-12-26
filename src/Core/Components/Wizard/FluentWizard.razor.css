@@ -1,90 +1,75 @@
-﻿/* Wizard with steps on Left */
-
-.fluent-wizard-left {
+﻿.fluent-wizard {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr auto;
     height: 100%;
+    --fluent-wizard-circle-size: 24px;
+    --fluent-wizard-spacing: 4px;
 }
 
-    .fluent-wizard-left[border-outside] {
+    .fluent-wizard[border-outside] {
         border: 1px solid var(--neutral-stroke-hover);
     }
 
-    .fluent-wizard-left > ol {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        --fluent-wizard-circle-size: 24px;
-        --fluent-wizard-spacing: 4px;
+    .fluent-wizard > ol {
         display: flex;
-        flex-direction: column;
         padding-inline-start: 0px;
         margin-block-start: 0px;
         margin-block-end: 0px;
         padding: 10px;
     }
 
-        .fluent-wizard-left > ol[border-inside] {
-            border-right: 1px solid var(--neutral-stroke-hover);
+    .fluent-wizard .fluent-wizard-buttons[border-inside] {
+        border-top: 1px solid var(--neutral-stroke-hover);
+    }
+
+    /* Wizard with steps on Left */
+    .fluent-wizard[position="left"] {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto;
+    }
+
+        .fluent-wizard[position="left"] > ol {
+            flex-direction: column;
+            grid-column: 1;
+            grid-row: 1 / span 2;
         }
 
-    .fluent-wizard-left .fluent-wizard-content {
-        grid-column: 2;
-        grid-row: 1;
-        margin: 5px 10px 0px 15px;
-        /*overflow-y: auto;*/
-    }
+            .fluent-wizard[position="left"] > ol[border-inside] {
+                border-right: 1px solid var(--neutral-stroke-hover);
+            }
 
-    .fluent-wizard-left .fluent-wizard-buttons {
-        grid-column: 2;
-        grid-row: 2;
-        text-align-last: end;
-        padding: 10px;
-    }
-
-        .fluent-wizard-left .fluent-wizard-buttons[border-inside] {
-            border-top: 1px solid var(--neutral-stroke-hover);
+        .fluent-wizard[position="left"] .fluent-wizard-content {
+            grid-column: 2;
+            grid-row: 1;
+            margin: 5px 10px 0px 15px;
         }
 
-/* Wizard with steps on Top */
-
-.fluent-wizard-top {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto 1fr auto;
-    height: 100%;
-}
-
-    .fluent-wizard-top[border-outside] {
-        border: 1px solid var(--neutral-stroke-hover);
-    }
-
-    .fluent-wizard-top > ol {
-        --fluent-wizard-circle-size: 24px;
-        --fluent-wizard-spacing: 4px;
-        display: flex;
-        flex-direction: row;
-        padding-inline-start: 0px;
-        margin-block-start: 0px;
-        margin-block-end: 0px;
-        justify-content: center;
-        padding: 10px;
-    }
-
-        .fluent-wizard-top > ol[border-inside] {
-            border-bottom: 1px solid var(--neutral-stroke-hover);
+        .fluent-wizard[position="left"] .fluent-wizard-buttons {
+            grid-column: 2;
+            grid-row: 2;
+            text-align-last: end;
+            padding: 10px;
         }
 
-    .fluent-wizard-top .fluent-wizard-content {
-        margin: 5px 10px 0px 10px;
-        /*overflow-y: auto;*/
+    /* Wizard with steps on Top */
+    .fluent-wizard[position="top"] {
+        grid-template-columns: auto;
+        grid-template-rows: auto 1fr auto;
     }
 
-    .fluent-wizard-top .fluent-wizard-buttons {
-        text-align-last: end;
-        padding: 10px;
-    }
+        .fluent-wizard[position="top"] > ol {
+            flex-direction: row;
+            justify-content: center;
+        }
 
-        .fluent-wizard-top .fluent-wizard-buttons[border-inside] {
-            border-top: 1px solid var(--neutral-stroke-hover);
+            .fluent-wizard[position="top"] > ol[border-inside] {
+                border-bottom: 1px solid var(--neutral-stroke-hover);
+            }
+
+        .fluent-wizard[position="top"] .fluent-wizard-content {
+            margin: 5px 10px 0px 10px;
+        }
+
+        .fluent-wizard[position="top"] .fluent-wizard-buttons {
+            text-align-last: end;
+            padding: 10px;
         }

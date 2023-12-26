@@ -105,19 +105,29 @@ public partial class FluentGridItem : FluentComponentBase
     {
         get
         {
-            var selected = new string[]
+            return GetHiddenAttribute(HiddenWhen);
+        }
+    }
+
+    /// <summary>
+    /// Returns the hidden attribute value for the specified <see cref="GridItemHidden"/> value.
+    /// </summary>
+    /// <param name="hiddenWhen"></param>
+    /// <returns></returns>
+    public static string? GetHiddenAttribute(GridItemHidden? hiddenWhen)
+    {
+        var selected = new string[]
             {
-                (HiddenWhen & GridItemHidden.Xs) == GridItemHidden.Xs ? "xs" : string.Empty,
-                (HiddenWhen & GridItemHidden.Sm) == GridItemHidden.Sm ? "sm" : string.Empty,
-                (HiddenWhen & GridItemHidden.Md) == GridItemHidden.Md ? "md" : string.Empty,
-                (HiddenWhen & GridItemHidden.Lg) == GridItemHidden.Lg ? "lg" : string.Empty,
-                (HiddenWhen & GridItemHidden.Xl) == GridItemHidden.Xl ? "xl" : string.Empty,
-                (HiddenWhen & GridItemHidden.Xxl) == GridItemHidden.Xxl ? "xxl" : string.Empty,
+                (hiddenWhen & GridItemHidden.Xs) == GridItemHidden.Xs ? "xs" : string.Empty,
+                (hiddenWhen & GridItemHidden.Sm) == GridItemHidden.Sm ? "sm" : string.Empty,
+                (hiddenWhen & GridItemHidden.Md) == GridItemHidden.Md ? "md" : string.Empty,
+                (hiddenWhen & GridItemHidden.Lg) == GridItemHidden.Lg ? "lg" : string.Empty,
+                (hiddenWhen & GridItemHidden.Xl) == GridItemHidden.Xl ? "xl" : string.Empty,
+                (hiddenWhen & GridItemHidden.Xxl) == GridItemHidden.Xxl ? "xxl" : string.Empty,
             };
 
-            var result = string.Join(" ", selected.Where(i => !string.IsNullOrEmpty(i)));
+        var result = string.Join(" ", selected.Where(i => !string.IsNullOrEmpty(i)));
 
-            return string.IsNullOrEmpty(result) ? null : result;
-        }
+        return string.IsNullOrEmpty(result) ? null : result;
     }
 }

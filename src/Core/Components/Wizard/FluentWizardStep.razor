@@ -15,7 +15,7 @@
                 </div>
             }
         </div>
-        <div>
+        <div hidden-when="@FluentGridItem.GetHiddenAttribute(FluentWizard.StepTitleHiddenWhen)">
             <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled="@Disabled">@Label</FluentLabel>
             <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled="@Disabled">@Summary</FluentLabel>
         </div>
