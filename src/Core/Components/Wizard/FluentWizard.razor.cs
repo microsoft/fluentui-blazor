@@ -6,6 +6,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentWizard : FluentComponentBase
 {
+    public static string LabelButtonPrevious = "Previous";
+    public static string LabelButtonNext = "Next";
+    public static string LabelButtonDone = "Done";
+
     private readonly List<FluentWizardStep> _steps = new();
     private int _value = 0;
 

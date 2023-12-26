@@ -30,7 +30,7 @@
                     @if (Value > 0)
                     {
                         <FluentButton Appearance="Appearance.Neutral" Width="@buttonWidth" OnClick="@OnPreviousHandlerAsync">
-                            Previous   @* TODO *@
+                            @LabelButtonPrevious
                         </FluentButton>
                     }
 
@@ -39,13 +39,13 @@
                     @if (Value < _steps.Count - 1)
                     {
                         <FluentButton Appearance="Appearance.Accent" Width="@buttonWidth" OnClick="@OnNextHandlerAsync">
-                            Next @* TODO *@
+                            @LabelButtonNext
                         </FluentButton>
                     }
                     else
                     {
                         <FluentButton Appearance="Appearance.Accent" Width="@buttonWidth" OnClick="OnFinishHandlerAsync">
-                            Done @* TODO *@
+                            @LabelButtonDone
                         </FluentButton>
                     }
                 }
