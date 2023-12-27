@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSliderLabel<TValue> : FluentComponentBase
+public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSliderLabel.razor.js";
 
@@ -68,5 +68,14 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             await Module.InvokeVoidAsync("updateSliderLabel", Id);
         }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+       if (Module is not null)
+        {
+            return Module.DisposeAsync();
+        }
+        return ValueTask.CompletedTask;
     }
 }
