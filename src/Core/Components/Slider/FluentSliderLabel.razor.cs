@@ -1,10 +1,25 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentSliderLabel<TValue> : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSliderLabel.razor.js";
+
+    public FluentSliderLabel()
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     /// <summary>
     /// Gets or sets the value for this slider position.
     /// </summary>
@@ -43,5 +58,15 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase
             decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
             _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
         };
+    }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("updateSliderLabel", Id);
+        }
     }
 }
