@@ -1243,6 +1243,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowStyle">
             <summary>
             Optionally defines a style to be applied to a rendered row. 
+            Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass"/> instead.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.EmptyContent">
@@ -6309,6 +6310,12 @@
             <param name = "value">The value to format.</param>
             <returns>A string representation of the value.</returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Position">
             <summary>
             Gets or sets the value for this slider position.
@@ -6328,6 +6335,9 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentSpacer">
             <summary />

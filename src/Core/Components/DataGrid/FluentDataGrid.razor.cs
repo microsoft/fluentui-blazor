@@ -124,6 +124,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Optionally defines a style to be applied to a rendered row. 
+    /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
 

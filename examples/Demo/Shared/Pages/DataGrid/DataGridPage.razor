@@ -15,7 +15,10 @@
     <code>&lt;fluent-data-grid-cell&gt;</code>
     web components. Internally <code>&lt;FluentDataGrid&gt;</code> is using the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/quickgrid?view=aspnetcore-8.0">QuickGrid</a> 
     code where all the rendering is replaced with the web components. We also added some extras like column resizing and row/column specific styling.
-
+</p>
+<p>
+    Do not use the <code>RowStyle</code> parameter to dynamically update a row style after rendering (for example to highlight a row which was clicked on) 
+    as this will interfere with the DataGrid scripts that use this attribute as well. Use the <code>RowClass</code> instead.
 </p>
 
 <h2 id="example">Examples</h2>
