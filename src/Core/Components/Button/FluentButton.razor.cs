@@ -1,11 +1,25 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
-public partial class FluentButton : FluentComponentBase
+public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 {
+
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Button/FluentButton.razor.js";
+
     private readonly string _customId = Identifier.NewId();
     private readonly RenderFragment _renderButton;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
+    private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary>
     /// Determines if the element should receive document focus on page load.
@@ -14,7 +28,7 @@ public partial class FluentButton : FluentComponentBase
     public bool? Autofocus { get; set; }
 
     /// <summary>
-    /// The id of a form to associate the element to.
+    /// Gets or sets the id of a form to associate the element to.
     /// </summary>
     [Parameter]
     public string? FormId { get; set; }
@@ -51,58 +65,59 @@ public partial class FluentButton : FluentComponentBase
     public string? Target { get; set; }
 
     /// <summary>
-    /// The button type. See <see cref="ButtonType"/> for more details.
-    /// Default is ButtonType.Button"
+    /// Gets or sets the button type. See <see cref="ButtonType"/> for more details.
+    /// Default is ButtonType.Button.
     /// </summary>
     [Parameter]
     public ButtonType? Type { get; set; } = ButtonType.Button;
 
     /// <summary>
-    /// The value of the element
+    /// Gets or sets the value of the element.
     /// </summary>
     [Parameter]
     public string? Value { get; set; }
 
     /// <summary>
-    /// The element's current value 
+    /// Gets or sets the element's current value.
     /// </summary>
     [Parameter]
     public string? CurrentValue { get; set; }
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission
+    /// Disables the form control, ensuring it doesn't participate in form submission.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// Gets or sets the name of the element. 
+    /// Allows access by name from the associated form.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// The element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
-    /// Defaults to <seealso cref="FluentUI.Appearance.Neutral"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Defaults to <seealso cref="AspNetCore.Components.Appearance.Neutral"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; } = FluentUI.Appearance.Neutral;
 
     /// <summary>
-    /// Background color of this button (overrides the <see cref="Appearance"/> property).
+    /// Gets or sets the background color of this button (overrides the <see cref="Appearance"/> property).
     /// Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
     /// </summary>
     [Parameter]
     public string? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Color of the font (overrides the <see cref="Appearance"/> property).
+    /// Gets or sets the color of the font (overrides the <see cref="Appearance"/> property).
     /// </summary>
     [Parameter]
     public string? Color { get; set; }
@@ -114,19 +129,20 @@ public partial class FluentButton : FluentComponentBase
     public bool Loading { get; set; } = false;
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the start of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the end of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
 
     /// <summary>
-    /// Title of the button: the text usually displayed in a 'tooltip' popup when the mouse is over the button.
+    /// Gets or sets the title of the button.
+    /// The text usually displayed in a 'tooltip' popup when the mouse is over the button.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -148,6 +164,16 @@ public partial class FluentButton : FluentComponentBase
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+    }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Id is not null && Type != ButtonType.Button)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("updateProxy", Id);
+        }
     }
 
     private string? CustomId =>
@@ -173,14 +199,14 @@ public partial class FluentButton : FluentComponentBase
     }
 
     /// <summary />
-    protected Task OnClickHandlerAsync(MouseEventArgs e)
+    protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (!Disabled && OnClick.HasDelegate)
         {
-            return OnClick.InvokeAsync(e);
+            await OnClick.InvokeAsync(e);
         }
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public void SetDisabled(bool disabled)
@@ -195,5 +221,13 @@ public partial class FluentButton : FluentComponentBase
         string inverse = Appearance == FluentUI.Appearance.Accent ? " filter: invert(1);" : string.Empty;
 
         return $"width: {size}px; height: {size}px;{inverse}";
+    }
+    public ValueTask DisposeAsync()
+    {
+        if (Module is not null)
+        {
+            return Module.DisposeAsync();
+        }
+        return ValueTask.CompletedTask;
     }
 }
