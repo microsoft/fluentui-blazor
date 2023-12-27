@@ -67,8 +67,6 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Microsoft.FluentUI.AspNetCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateValidation", "TemplateValidation", "{C2BD02DF-9FF9-4D0C-915E-EA1BD11585A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.TemplateValidation.SSR", "tests\TemplateValidation\SSR\FluentUI.TemplateValidation.SSR.csproj", "{BAF7E925-C11C-4187-834C-D4389FED1CD1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,10 +119,6 @@ Global
 		{292081C2-5076-467C-AEFF-12DC0617531A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{292081C2-5076-467C-AEFF-12DC0617531A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{292081C2-5076-467C-AEFF-12DC0617531A}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{BAF7E925-C11C-4187-834C-D4389FED1CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAF7E925-C11C-4187-834C-D4389FED1CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAF7E925-C11C-4187-834C-D4389FED1CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAF7E925-C11C-4187-834C-D4389FED1CD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,7 +142,6 @@ Global
 		{E4E62EAA-38FC-48FE-B63E-EB4ABAD660D2} = {17F26C55-E329-4117-B64D-0393E912FFFE}
 		{292081C2-5076-467C-AEFF-12DC0617531A} = {DF88C07D-46D7-4DEC-ACE4-409217634E57}
 		{C2BD02DF-9FF9-4D0C-915E-EA1BD11585A8} = {EBE3ACB2-9B23-4F91-9953-7153E3D2B0DA}
-		{BAF7E925-C11C-4187-834C-D4389FED1CD1} = {C2BD02DF-9FF9-4D0C-915E-EA1BD11585A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420693A7-C2FD-498C-8E78-4B65CC25389A}
