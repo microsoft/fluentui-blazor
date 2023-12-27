@@ -6,24 +6,24 @@
 <!-- TODO: To remove -->
 @* <DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" /> *@
 
+@(Token.Common.BodyFont)
+@(Token.Common.Density)
+@(Token.Common.ControlCornerRadius)
+
+
 @code
 {
     ThemeToken Token = new()
         {
-            Common = new()
+            Common = new() 
             {
                 BodyFont = "Arial",
                 Density = 1.2,
             }
         };
-
-    protected override void OnInitialized()
-    {
-        PropertyInfoExtensions.SetPropertyValue(Token, "Common.BodyFont", "Hello");
-    }
 }
 
-<ApiComplexClass Item="@Token" />
+<ApiComplexClass Item="@Token" OnChanged="@(e => StateHasChanged())" />
 
 
 <p>

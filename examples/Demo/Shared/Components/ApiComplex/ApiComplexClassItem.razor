@@ -9,7 +9,7 @@
     {
         <div slot="end" style="display: flex;">
             <FluentTextField Placeholder="@Property.FullName"
-                             Value="@ItemAsString" />
+                             @bind-Value="@ItemAsString" />
 
             @if (!string.IsNullOrEmpty(Property.Summary))
             {
@@ -33,7 +33,7 @@
     {
         @foreach (var property in Property.Children)
         {
-            <ApiComplexClassItem Property="@property" Item="@Item" />
+            <ApiComplexClassItem Property="@property" Item="@Item" OnChanged="@(e => OnChanged.InvokeAsync(property))" />
         }
     }
 </FluentTreeItem>
