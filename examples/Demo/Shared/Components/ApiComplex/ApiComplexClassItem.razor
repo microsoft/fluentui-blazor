@@ -1,0 +1,25 @@
+@namespace FluentUI.Demo.Shared.Components
+
+<FluentTreeItem InitiallyExpanded="false">
+    <FluentLabel slot="start" Weight="FontWeight.Bold" Style="width: 200px;">
+        @Property.Item.Name
+    </FluentLabel>
+
+    @if (Property.Item.IsSimpleType())
+    {
+        <FluentTextField slot="end" />
+    }
+    
+    <FluentLabel slot="item" Style="@($"font-size: small; margin-left: {Property.Level * 30}px;")">
+        Summary
+    </FluentLabel>
+   
+
+    @if (Property.Children != null)
+    {
+        @foreach (var property in Property.Children)
+        {
+            <ApiComplexClassItem Property="@property" />
+        }
+    }
+</FluentTreeItem>
