@@ -4,6 +4,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
+    /// <summary />
+    public DialogService()
+    {
+        // Issue #280: to avoid the Trimming process to remove this class
+        _ = new DialogEventArgs() { Id = "0", Reason = "Unknown" };
+    }
+
     /// <summary>
     /// Convenience method to create a <see cref="EventCallback"/> for a dialog result.
     /// You can also call <code>EventCallback.Factory.Create</code> directly.
