@@ -6,7 +6,12 @@
 <!-- TODO: To remove -->
 @* <DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" /> *@
 
-<ApiComplexClass Item="@typeof(ThemeToken)" />
+@code
+{
+    ThemeToken Token = new();
+}
+
+<ApiComplexClass Item="@Token" />
 
 
 <p>

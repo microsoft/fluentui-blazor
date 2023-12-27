@@ -8,7 +8,7 @@ public partial class ApiComplexClass
     [Parameter]
     [EditorRequired]
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-    public Type Item { get; set; } = default!;
+    public object Item { get; set; } = default!;
 
     public IEnumerable<PropertyChildren>? Properties { get; set; }
 

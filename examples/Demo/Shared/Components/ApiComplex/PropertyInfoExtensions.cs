@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Components;
 
@@ -62,6 +63,7 @@ public class PropertyChildren
 {
     public PropertyChildren(PropertyInfo item, int level)
     {
+        Id = Identifier.NewId();
         Level = level;
         Item = item;
         Children = item.IsSimpleType()
@@ -71,9 +73,22 @@ public class PropertyChildren
                        .ToArray();
     }
 
+    public string Id { get; }
+
     public int Level { get; }
+
+    public string Summary => GetSummary();
 
     public PropertyInfo Item { get; }
 
     public IEnumerable<PropertyChildren>? Children { get; }
+
+    private string GetSummary()
+    {
+        var property = Item;
+        var ns = property.ReflectedType?.Namespace ?? string.Empty;
+        var prefix = property.ReflectedType?.FullName?.Substring(ns.Length + 1).Replace("+", ".");
+        var commentKey = $"{prefix}.{property.Name}";
+        return CodeComments.GetSummary(commentKey);
+    }
 }

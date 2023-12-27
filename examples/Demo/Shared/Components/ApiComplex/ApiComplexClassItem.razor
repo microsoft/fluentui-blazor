@@ -7,13 +7,24 @@
 
     @if (Property.Item.IsSimpleType())
     {
-        <FluentTextField slot="end" />
+        <div slot="end" style="display: flex;">
+            <FluentTextField />
+            @if (!string.IsNullOrEmpty(Property.Summary))
+            {
+                <FluentTooltip Anchor="@($"info-{Property.Id}")">
+                    @Property.Summary
+                </FluentTooltip>
+                <FluentIcon Style="margin-left: 10px;" Id="@($"info-{Property.Id}")" Value="@(new Icons.Filled.Size16.Info())" />
+            }
+
+        </div>
     }
-    
-    <FluentLabel slot="item" Style="@($"font-size: small; margin-left: {Property.Level * 30}px;")">
-        Summary
-    </FluentLabel>
-   
+    else
+    {
+        <FluentLabel slot="item" Style="@($"font-size: small; margin-left: {35 + Property.Level * 20}px;")">
+            @Property.Summary
+        </FluentLabel>
+    }
 
     @if (Property.Children != null)
     {
