@@ -158,7 +158,7 @@ public class ThemeToken
         /// <summary>
         /// Controls with width of the stroke of a component that has a stroke when it has document focus.
         /// </summary>
-        public FocusStrokeProps? FocusStroke { get; set; }
+        public FocusStrokeProps FocusStroke { get; set; } = new();
 
         /// <summary>
         /// The opacity of disabled controls. Careful with values that are too high as the control may no longer look disabled. There are no contrast requirements for a disabled control.

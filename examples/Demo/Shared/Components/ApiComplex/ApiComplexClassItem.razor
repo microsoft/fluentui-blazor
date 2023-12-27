@@ -8,15 +8,18 @@
     @if (Property.Item.IsSimpleType())
     {
         <div slot="end" style="display: flex;">
-            <FluentTextField />
+            <FluentTextField Placeholder="@Property.FullName"
+                             Value="@ItemAsString" />
+
             @if (!string.IsNullOrEmpty(Property.Summary))
             {
                 <FluentTooltip Anchor="@($"info-{Property.Id}")">
                     @Property.Summary
                 </FluentTooltip>
-                <FluentIcon Style="margin-left: 10px;" Id="@($"info-{Property.Id}")" Value="@(new Icons.Filled.Size16.Info())" />
+                <FluentIcon Style="margin-left: 10px;"
+                            Id="@($"info-{Property.Id}")"
+                            Value="@(new Icons.Filled.Size16.Info())" />
             }
-
         </div>
     }
     else
@@ -30,7 +33,7 @@
     {
         @foreach (var property in Property.Children)
         {
-            <ApiComplexClassItem Property="@property" />
+            <ApiComplexClassItem Property="@property" Item="@Item" />
         }
     }
 </FluentTreeItem>

@@ -7,7 +7,7 @@ else
     <FluentTreeView>
         @foreach (var property in Properties)
         {
-            <ApiComplexClassItem Property="@property" />
+            <ApiComplexClassItem Property="@property" Item="@Item" />
         }
     </FluentTreeView>
 }

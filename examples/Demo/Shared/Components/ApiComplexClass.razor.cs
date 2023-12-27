@@ -16,7 +16,7 @@ public partial class ApiComplexClass
     {
         if (firstRender)
         {
-            Properties = Item.GetPropertyChildren().ToArray();
+            Properties = Item.GetType().GetPropertyChildren().ToArray();
             StateHasChanged();
         }
     }
