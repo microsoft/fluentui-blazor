@@ -179,7 +179,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Id is not null)
+        if (firstRender && Id is not null && Type != ButtonType.Button)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             await Module.InvokeVoidAsync("updateProxy", Id);
