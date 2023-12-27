@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Components;
 
@@ -15,6 +15,62 @@ public partial class ApiComplexClassItem
 
     [Parameter]
     public EventCallback<PropertyChildren> OnChanged { get; set; }
+
+    private string Placeholder
+    {
+        get
+        {
+            var type = PropertyType;
+
+            if (type == typeof(double))
+            {
+                return "0.0";
+            }
+
+            return string.Empty;
+        }
+    }
+
+    private string InputType
+    {
+        get
+        {
+            return Property.TokenType.ToAttributeValue() ?? "text";
+        }
+    }
+
+    public Type PropertyType
+    {
+        get
+        {
+            var nullable = Property.Item.PropertyType.IsNullable();
+            var type = nullable
+                     ? Nullable.GetUnderlyingType(Property.Item.PropertyType)
+                     : Property.Item.PropertyType;
+            return type ?? typeof(string);
+        }
+    }
+
+    public object? PropertyDefault
+    {
+        get
+        {
+            var nullable = Property.Item.PropertyType.IsNullable();
+
+            if (nullable)
+            {
+                return null;
+            }
+
+            var type = PropertyType;
+            if (type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
+            }
+
+            return null;
+        }
+    }
 
     public string ItemAsString
     {
@@ -37,10 +93,7 @@ public partial class ApiComplexClassItem
         }
         set
         {
-            var nullable = Property.Item.PropertyType.IsNullable();
-            var type = nullable
-                     ? Nullable.GetUnderlyingType(Property.Item.PropertyType) 
-                     : Property.Item.PropertyType;
+            var type = PropertyType;
 
             if (type == typeof(double))
             {
@@ -50,7 +103,7 @@ public partial class ApiComplexClassItem
                 }
                 else
                 {
-                    PropertyInfoExtensions.SetPropertyValue(Item, Property.FullName, nullable ? null : 0.0);
+                    PropertyInfoExtensions.SetPropertyValue(Item, Property.FullName, PropertyDefault);
                 }
             }
             else

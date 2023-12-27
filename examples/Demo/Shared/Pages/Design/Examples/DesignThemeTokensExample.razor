@@ -2,59 +2,15 @@
 
 <FluentDesignTheme Token="@Token" />
 
-<FluentTextArea @bind-Value="@JsonConfiguration" Rows="25" Style="width: 100%; font-family: 'Courier New';" />
+<FluentLabel>
+    Colors must be in HEX format (#ff00ff) and numbers in international format (1.0).
+    Only non-null values are applied to the global theme (once a parameter has been applied, resetting it to null does not reinitialize it).
+</FluentLabel>
 
-<br />
-@if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <FluentLabel Color="Color.Error" Style="border: 1px solid red;">
-        <FluentIcon Value="@(new Icons.Filled.Size16.ErrorCircle())" Color="Color.Error" />
-        @ErrorMessage
-    </FluentLabel>
-}
-<FluentStack Style="width: calc(100% - 24px); margin-top: 24px;">
-    <FluentLabel>
-        Colors must be in HEX format (#ff00ff) and numbers in international format (1.0).
-        Only non-null values are applied to the global theme (once a parameter has been applied, resetting it to null does not reinitialize it).
-    </FluentLabel>
-    <FluentSpacer />
-    <FluentButton Appearance="Appearance.Accent" OnClick="@UpdateToken">Apply</FluentButton>
-</FluentStack>
+@* Property Editor *@
+<ApiComplexClass Item="@Token" OnChanged="@(e => StateHasChanged())" />
 
 @code
 {
-    ThemeToken? Token;
-    string ErrorMessage = string.Empty;
-
-    // JSON displayed on the page
-    string JsonConfiguration = JsonSerializer.Serialize(new ThemeToken()
-        {
-            Common = new()
-            {
-                BodyFont = "Times new roman",
-                ControlCornerRadius = 10,
-                Density = 1.5
-            }
-        }, JsonOptions);
-
-    // Apply the JSON updated by the user
-    private void UpdateToken()
-    {
-        try
-        {
-            Token = JsonSerializer.Deserialize<ThemeToken>(JsonConfiguration, JsonOptions);
-
-            ErrorMessage = string.Empty;
-        }
-        catch (JsonException ex)
-        {
-            ErrorMessage = ex.Message;
-        }
-    }
-
-    private static JsonSerializerOptions JsonOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            WriteIndented = true,
-        };
+    ThemeToken Token = new();
 }

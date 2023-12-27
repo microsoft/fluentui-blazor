@@ -145,6 +145,8 @@ public class PropertyChildren
 
     public string FullName => GetFullName(this);
 
+    public TokenType TokenType => Item.GetCustomAttribute<ThemeTokenTypeAttribute>()?.Value ?? TokenType.Text;
+
     private string GetSummary()
     {
         var property = Item;

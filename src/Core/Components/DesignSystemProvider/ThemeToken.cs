@@ -27,39 +27,46 @@ public class ThemeToken
         /// <summary>
         /// Gets or sets a value that may be applied to an element's styles and used as context for child color recipes.
         /// </summary>
+        [ThemeTokenType(TokenType.Color)]
         public string? FillColor { get; set; }
 
         /// <summary>
         /// Set to a custom swatch to use for color recipes for layers and other neutral components.
         /// </summary>
+        [ThemeTokenType(TokenType.Color)] 
         public string? NeutralBaseColor { get; set; }
 
         /// <summary>
         /// Used to specify the font string to apply to components. Note that this does not import fonts, so they must either be web standard, assumed to be installed, or imported at the top of your app.
         /// </summary>
+        [ThemeTokenType(TokenType.Text)]
         public string? BodyFont { get; set; }
 
         /// <summary>
         /// Used to specify the font weight to apply to component
         /// </summary>
+        [ThemeTokenType(TokenType.Number)]
         public double? FontWeight { get; set; }
 
         /// <summary>
         /// Sets the corner radius used by controls with backplates.
         /// Ex: Increase to 6px for slightly rounder buttons and text fields.
         /// </summary>
+        [ThemeTokenType(TokenType.Number)] 
         public double? ControlCornerRadius { get; set; }
 
         /// <summary>
         /// Sets the corner radius used layers like cards, flyouts, and dialogs.
         /// Ex: Increase to 20px for very round cards.
         /// </summary>
+        [ThemeTokenType(TokenType.Number)] 
         public double? LayerCornerRadius { get; set; }
 
         /// <summary>
         /// A modifier used with sizing tokens baseHeightMultiplier and baseHorizontalSpacingMultiplier.
         /// Ex: Set to 1 to increase control size or -1 to decrease.
         /// </summary>
+        [ThemeTokenType(TokenType.Number)] 
         public double? Density { get; set; }
     }
 

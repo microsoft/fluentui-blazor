@@ -1,6 +1,6 @@
 @namespace FluentUI.Demo.Shared.Components
 
-<FluentTreeItem InitiallyExpanded="false">
+<FluentTreeItem InitiallyExpanded="false" Selected="false">
     <FluentLabel slot="start" Weight="FontWeight.Bold" Style="width: 200px;">
         @Property.Item.Name
     </FluentLabel>
@@ -8,18 +8,33 @@
     @if (Property.Item.IsSimpleType())
     {
         <div slot="end" style="display: flex;">
-            <FluentTextField Placeholder="@Property.FullName"
-                             @bind-Value="@ItemAsString" />
+
 
             @if (!string.IsNullOrEmpty(Property.Summary))
             {
                 <FluentTooltip Anchor="@($"info-{Property.Id}")">
                     @Property.Summary
                 </FluentTooltip>
-                <FluentIcon Style="margin-left: 10px;"
+                <FluentIcon Style="margin: 0px 10px;"
+                            tabindex="-1"
                             Id="@($"info-{Property.Id}")"
-                            Value="@(new Icons.Filled.Size16.Info())" />
+                            Value="@(new Icons.Regular.Size20.Info())" />
             }
+
+            @switch (Property.TokenType)
+            {
+                case TokenType.Text:
+                    <input type="text" placeholder="@Placeholder" tabindex="0" @bind-value="@ItemAsString" style="width: 150px;" />
+                    break;
+                case TokenType.Number:
+                    <input type="number" step="0.05" placeholder="@Placeholder" tabindex="0" @bind-value="@ItemAsString" style="width: 150px;" />
+                    break;
+                case TokenType.Color:
+                    <input type="color" placeholder="@Placeholder" tabindex="0" @bind-value="@ItemAsString" style="width: 30px;" />
+                    <input type="text" @bind-value="@ItemAsString" style="width: 120px;" />
+                    break;
+            }
+
         </div>
     }
     else

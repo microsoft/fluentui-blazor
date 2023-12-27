@@ -3,28 +3,7 @@
 
 <h1>Themes</h1>
 
-<!-- TODO: To remove -->
-@* <DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" /> *@
-
-@(Token.Common.BodyFont)
-@(Token.Common.Density)
-@(Token.Common.ControlCornerRadius)
-
-
-@code
-{
-    ThemeToken Token = new()
-        {
-            Common = new() 
-            {
-                BodyFont = "Arial",
-                Density = 1.2,
-            }
-        };
-}
-
-<ApiComplexClass Item="@Token" OnChanged="@(e => StateHasChanged())" />
-
+<DemoSection Title="" Component="@typeof(DesignThemeTokensExample)" />
 
 <p>
     The <code>FluentDesignTheme</code> component lets you quickly manage the primary/main color and mode (dark/light) of your <strong>entire</strong> application. <br />
