@@ -170,6 +170,7 @@ public partial class FluentTabs : FluentComponentBase
                 ActiveTabId = tabId;
                 await ActiveTabIdChanged.InvokeAsync(tabId);
             }
+            _shouldRender = true;
         }
         else
         {
