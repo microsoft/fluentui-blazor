@@ -8,6 +8,7 @@
 - Fix [#1144](https://github.com/microsoft/fluentui-blazor/issues/1144): List components: Each item must be instantiated (cannot be null).
 - [FluentProgress] Add Width, Stroke, Color and BackgroundColor attributes
 - [FluentDialog]Fix broken in published release build
+- [FluentOverflow] Resize when a new element is included or excluded
 
 ## V3.5.0
 - New: FluentValidationMessage and Required indicator for input components
