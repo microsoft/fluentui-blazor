@@ -56,6 +56,7 @@ internal static partial class CoreIcons
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static partial class Size24
         {
+            public class Circle : Icon { public Circle() : base("Circle", IconVariant.Filled, IconSize.Size24, "<path d=\"M2 12a10 10 0 1120 0 10 10 0 01-20 0z\"/>") { } }
             public class CheckmarkCircle : Icon { public CheckmarkCircle() : base("CheckmarkCircle", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm3.22 6.97-4.47 4.47-1.97-1.97a.75.75 0 0 0-1.06 1.06l2.5 2.5c.3.3.77.3 1.06 0l5-5a.75.75 0 1 0-1.06-1.06Z\"/>") { } }
             public class DismissCircle : Icon { public DismissCircle() : base("DismissCircle", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm3.53 6.47-.08-.07a.75.75 0 0 0-.89-.01l-.09.08L12 10.94 9.53 8.47l-.08-.07a.75.75 0 0 0-.89-.01l-.09.08-.07.08c-.2.26-.2.62-.01.89l.08.09L10.94 12l-2.47 2.47-.07.08c-.2.26-.2.62-.01.89l.08.09.08.07c.26.2.62.2.89.01l.09-.08L12 13.06l2.47 2.47.08.07c.26.2.62.2.89.01l.09-.08.07-.08c.2-.26.2-.62.01-.89l-.08-.09L13.06 12l2.47-2.47.07-.08c.2-.26.2-.62.01-.89l-.08-.09-.08-.07.08.07Z\"/>") { } }
             public class Info : Icon { public Info() : base("Info", IconVariant.Filled, IconSize.Size24, "<path d=\"M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 8.25a1 1 0 0 0-1 .88v5.74a1 1 0 0 0 2 0v-5.62l-.01-.12a1 1 0 0 0-1-.88Zm0-3.75A1.25 1.25 0 1 0 12 9a1.25 1.25 0 0 0 0-2.5Z\"/>") { } }
@@ -110,6 +111,7 @@ internal static partial class CoreIcons
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static partial class Size24
         {
+            public class Circle : Icon { public Circle() : base("Circle", IconVariant.Regular, IconSize.Size24, "<path d=\"M12 3.5a8.5 8.5 0 100 17 8.5 8.5 0 000-17zM2 12a10 10 0 1120 0 10 10 0 01-20 0z\"/>") { } }
             public class ArrowDownload : Icon { public ArrowDownload() : base("ArrowDownload", IconVariant.Regular, IconSize.Size24, "<path d=\"M18.25 20.5a.75.75 0 1 1 0 1.5h-13a.75.75 0 1 1 0-1.5h13Zm-6.6-18.49h.1c.38 0 .7.28.74.64l.01.1v13.7l3.72-3.73a.75.75 0 0 1 .98-.07l.08.07c.27.27.3.68.07.98l-.07.08-5 5a.75.75 0 0 1-.97.07l-.09-.07-5-5a.75.75 0 0 1 .98-1.13l.08.07L11 16.43V2.76c0-.38.28-.7.65-.75h.1-.1Z\"/>") { } }
             public class ArrowSortDown : Icon { public ArrowSortDown() : base("ArrowSortDown", IconVariant.Regular, IconSize.Size24, "<path d=\"M11.65 4h.1c.38 0 .7.28.74.65l.01.1v12.7l3.22-3.23c.27-.26.68-.29.98-.07l.08.07c.27.27.3.69.07.98l-.07.09-4.5 4.5a.75.75 0 0 1-.97.07l-.09-.07-4.5-4.5a.75.75 0 0 1 .98-1.14l.08.07L11 17.44V4.75c0-.38.28-.7.65-.74l.1-.01h-.1Z\"/>") { } }
             public class ArrowSortUp : Icon { public ArrowSortUp() : base("ArrowSortUp", IconVariant.Regular, IconSize.Size24, "<path d=\"m6.72 8.71 4.5-4.49a.75.75 0 0 1 .97-.07l.08.07 4.5 4.5a.75.75 0 0 1-.97 1.13l-.08-.07-3.22-3.22v12.7c0 .37-.28.69-.65.74h-.1a.75.75 0 0 1-.75-.64V6.56L7.78 9.78a.75.75 0 0 1-.98.07l-.08-.07a.75.75 0 0 1-.07-.98l.07-.09 4.5-4.49-4.5 4.5Z\"/>") { } }

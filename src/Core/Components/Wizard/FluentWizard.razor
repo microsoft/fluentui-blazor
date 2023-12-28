@@ -1,0 +1,67 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<CascadingValue Value="this">
+
+    <div id="@Id"
+         style="@StyleValue"
+         class="@ClassValue"
+         border-outside=@Border.HasFlag(WizardBorder.Outside)
+         position="@(StepperPosition == StepperPosition.Top ? "top" : "left")"
+         @attributes="@AdditionalAttributes">
+        <ol style=@GetStepperWidthOrHeight()
+            border-inside=@Border.HasFlag(WizardBorder.Inside)>
+            @Steps
+        </ol>
+
+        <div class="fluent-wizard-content"
+             border-inside=@Border.HasFlag(WizardBorder.Inside)>
+            @foreach (var step in _steps.Where(i => i.Index == Value || !i.DeferredLoading))
+            {
+                <div style="@(step.Index == Value ? "" : "display: none;")">
+                    @(step.ChildContent)
+                </div>
+            }
+        </div>
+
+        <div class="fluent-wizard-buttons"
+             border-inside=@Border.HasFlag(WizardBorder.Inside)>
+            @if (ButtonTemplate == null)
+            {
+                string buttonWidth = "80px;";
+
+                @if (Value > 0)
+                {
+                    <FluentButton Appearance="Appearance.Neutral"
+                                  Style="@($"width: {buttonWidth};")"
+                                  OnClick="@OnPreviousHandlerAsync">
+                        @LabelButtonPrevious
+                    </FluentButton>
+                }
+
+                <span style="margin-right: 10px" />
+
+                @if (Value < _steps.Count - 1)
+                {
+                    <FluentButton Appearance="Appearance.Accent"
+                                  Style="@($"width: {buttonWidth};")"
+                                  OnClick="@OnNextHandlerAsync">
+                        @LabelButtonNext
+                    </FluentButton>
+                }
+                else
+                {
+                    <FluentButton Appearance="Appearance.Accent"
+                                  Style="@($"width: {buttonWidth};")"
+                                  OnClick="OnFinishHandlerAsync">
+                        @LabelButtonDone
+                    </FluentButton>
+                }
+            }
+            else
+            {
+                @ButtonTemplate(Value)
+            }
+        </div>
+    </div>
+</CascadingValue>
