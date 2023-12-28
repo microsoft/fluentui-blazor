@@ -24,7 +24,7 @@
         </form>
         <EditForm Model="Input" FormName="change-email" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
+            <FluentValidationSummary class="text-danger" role="alert" />
             @if (isEmailConfirmed)
             {
                 <FluentTextField Value="@email" Placeholder="Please enter your email." Disabled Label="Email" Appearance=FluentInputAppearance.Filled Style="width: 100%">

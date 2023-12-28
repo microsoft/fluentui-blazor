@@ -18,7 +18,7 @@
     <FluentGridItem xs="12" sm="6">
         <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
+            <FluentValidationSummary class="text-danger" role="alert" />
             <FluentTextField Value="@username" Placeholder="Please choose your username." Disabled Label="Username" Appearance=FluentInputAppearance.Filled Style="width: 100%" />
             <FluentTextField Name="Input.PhoneNumber" @bind-Value="Input.PhoneNumber" Paceholder="Please enter your phone number." Label="Phone number" Style="width: 100%" />
             <FluentValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
