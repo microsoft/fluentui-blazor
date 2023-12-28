@@ -2,7 +2,7 @@
 
 <FluentTreeItem InitiallyExpanded="false" Selected="false">
     <FluentLabel slot="start" Weight="FontWeight.Bold" Style="width: 200px;">
-        @Property.Item.Name
+        @Property.Item.Name (@Property.TotalCount)
     </FluentLabel>
 
     @if (Property.Item.IsSimpleType())

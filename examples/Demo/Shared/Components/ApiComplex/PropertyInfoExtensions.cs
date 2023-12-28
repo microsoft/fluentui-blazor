@@ -147,6 +147,8 @@ public class PropertyChildren
 
     public TokenType TokenType => Item.GetCustomAttribute<ThemeTokenTypeAttribute>()?.Value ?? TokenType.Text;
 
+    public int TotalCount => Children?.Sum(i => i.TotalCount) ?? 1;
+
     private string GetSummary()
     {
         var property = Item;
