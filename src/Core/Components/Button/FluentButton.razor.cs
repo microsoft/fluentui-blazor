@@ -7,7 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 {
 
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Button/FluentButton.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Button/FluentButton.razor.js";
 
     private readonly string _customId = Identifier.NewId();
     private readonly RenderFragment _renderButton;
