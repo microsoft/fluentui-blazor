@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
     /// <summary />
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
     public DialogService()
     {
-        // Issue #280: to avoid the Trimming process to remove this class
-        _ = new DialogEventArgs() { Id = "0", Reason = "Unknown" };
     }
 
     /// <summary>
