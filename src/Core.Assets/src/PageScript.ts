@@ -3,7 +3,7 @@ class PageScript extends HTMLElement {
   static observedAttributes = ['src'];
   src: string | null = null;
 
-  attributeChangedCallback(name: any, oldValue: any, newValue: any) {
+  attributeChangedCallback(name: string | null, oldValue: string | null, newValue: string | null) {
     if (name !== 'src') {
       return;
     }
@@ -18,7 +18,7 @@ class PageScript extends HTMLElement {
     this.unregisterPageScriptElement(this.src);
   }
 
-  registerPageScriptElement(src: any) {
+  registerPageScriptElement(src: string | null) {
     if (!src) {
       throw new Error('Must provide a non-empty value for the "src" attribute.');
     }
@@ -34,7 +34,7 @@ class PageScript extends HTMLElement {
     }
   }
 
-  unregisterPageScriptElement(src: any) {
+  unregisterPageScriptElement(src: string | null) {
     if (!src) {
       return;
     }
@@ -47,7 +47,7 @@ class PageScript extends HTMLElement {
     pageScriptInfo.referenceCount--;
   }
 
-  async initializePageScriptModule(src: any, pageScriptInfo: any) {
+  async initializePageScriptModule(src: string, pageScriptInfo: any) {
     if (src.startsWith("./")) {
       src = new URL(src.substr(2), document.baseURI).toString();
     }
