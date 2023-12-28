@@ -39,6 +39,12 @@ public partial class FluentMainLayout : FluentComponentBase
     public string? NavMenuTitle { get; set; }
 
     /// <summary>
+    /// Gets or sets the width of the navigation menu.
+    /// </summary>
+    [Parameter]
+    public int NavMenuWidth { get; set; } = 200;
+
+    /// <summary>
     /// Gets or sets the content of the navigation menu.
     /// </summary>
     [Parameter]
