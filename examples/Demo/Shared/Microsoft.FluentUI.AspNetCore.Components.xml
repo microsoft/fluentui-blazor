@@ -588,6 +588,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Autofocus">
             <summary>
             Determines if the element should receive document focus on page load.
@@ -703,6 +709,9 @@
             <summary>
             Command executed when the user clicks on the button.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.#ctor">
             <summary>
@@ -2847,6 +2856,9 @@
             </summary>
             <param name="component">The type of the component to show</param>
             <param name="parameters"><see cref="T:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent"/> that holds the content to display</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.#ctor">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task})">
             <summary>
@@ -6102,6 +6114,12 @@
             <param name = "value">The value to format.</param>
             <returns>A string representation of the value.</returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Position">
             <summary>
             Gets or sets the value for this slider position.
@@ -6121,6 +6139,9 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentSpacer">
             <summary />

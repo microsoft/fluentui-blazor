@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using FluentUI.TemplateValidation.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<FluentNavMenu Collapse="false">
+    <FluentNavLink Href="Account/Manage" Match="NavLinkMatch.All">Profile</FluentNavLink>
+    <FluentNavLink Href="Account/Manage/Email">Email</FluentNavLink>
+    <FluentNavLink Href="Account/Manage/ChangePassword">Password</FluentNavLink>
+    @if (hasExternalLogins)
+    {
+        <FluentNavLink Href="Account/Manage/ExternalLogins">External logins</FluentNavLink>
+    }
+    <FluentNavLink Href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</FluentNavLink>
+    <FluentNavLink Href="Account/Manage/PersonalData">Personal data</FluentNavLink>
+
+</FluentNavMenu>
+
+
+@code {
+    private bool hasExternalLogins;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    }
+}

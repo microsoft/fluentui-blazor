@@ -1,12 +1,23 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-public partial class FluentButton : FluentComponentBase
+public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 {
+
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Button/FluentButton.razor.js";
+
     private readonly string _customId = Identifier.NewId();
     private readonly RenderFragment _renderButton;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
 
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
@@ -165,6 +176,16 @@ public partial class FluentButton : FluentComponentBase
         }
     }
 
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Id is not null && Type != ButtonType.Button)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("updateProxy", Id);
+        }
+    }
+
     private string? CustomId =>
         string.IsNullOrEmpty(BackgroundColor) && string.IsNullOrEmpty(Color) ? null : _customId;
 
@@ -188,14 +209,14 @@ public partial class FluentButton : FluentComponentBase
     }
 
     /// <summary />
-    protected Task OnClickHandlerAsync(MouseEventArgs e)
+    protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (!Disabled && OnClick.HasDelegate)
         {
-            return OnClick.InvokeAsync(e);
+            await OnClick.InvokeAsync(e);
         }
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public void SetDisabled(bool disabled)
@@ -210,5 +231,13 @@ public partial class FluentButton : FluentComponentBase
         string inverse = Appearance == AspNetCore.Components.Appearance.Accent ? " filter: invert(1);" : string.Empty;
 
         return $"width: {size}px; height: {size}px;{inverse}";
+    }
+    public ValueTask DisposeAsync()
+    {
+        if (Module is not null)
+        {
+            return Module.DisposeAsync();
+        }
+        return ValueTask.CompletedTask;
     }
 }
