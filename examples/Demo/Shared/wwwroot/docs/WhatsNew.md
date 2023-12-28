@@ -1,7 +1,20 @@
-﻿## V4.2.2
+﻿## V4.3
+- New: FluentWizard component
+- Fix [#1227](https://github.com/microsoft/fluentui-blazor/issues/1227):Conditionally render span
+- Fix [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215):Fix #1194 #v3 (#1222)
+- Fix [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215):Fix #1205  FluentButton submit does not work outside the EditForm #v3 
+- Fix [#1214](https://github.com/microsoft/fluentui-blazor/issues/1214): Add JS Code to update the FluentSliderLabel MaxWidth
+- Fix [#1189](https://github.com/microsoft/fluentui-blazor/issues/1189): Combobox z-index stack order issue
+- Fix [#1185](https://github.com/microsoft/fluentui-blazor/issues/1185): NavMenu Collapse button behavior in SRR only woks once
+- Fix [#1172](https://github.com/microsoft/fluentui-blazor/issues/1172): Resize the FluentOverflow when a new item is included or exclude
+- Fix [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215): FluentTextField ignores DataList property
+- Fix [#1226](https://github.com/microsoft/fluentui-blazor/issues/1226): FluentAutocomplete does not have an ElementReference
 - Fix [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
 - Fix [#1174](https://github.com/microsoft/fluentui-blazor/issues/1174): Forgot to replace svg with icon in templates
 - Fix [#1173](https://github.com/microsoft/fluentui-blazor/issues/1174): Replace type="image/png" with type="image/x-icon"in templates
+- [DialogService] Fix trimming on production error 
+- Demo site: menu structure overhaul
+- Add solution with Template generated projects
 
 ## V4.2.1
 - NavMenu and NevMenuGroups can now expand/collpase in SSR mode
