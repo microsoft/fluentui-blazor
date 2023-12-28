@@ -8,6 +8,7 @@ class PageScript extends HTMLElement {
       return;
     }
 
+    this.style.display = 'none';
     this.src = newValue;
     this.unregisterPageScriptElement(oldValue);
     this.registerPageScriptElement(newValue);
