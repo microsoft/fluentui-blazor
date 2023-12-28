@@ -14,12 +14,14 @@ public class FluentMainLayoutTests : TestBase
         string body = "<b>render me</b>";
         int? headerHeight = default!;
         string navMenuTitle = default!;
+        int  navMenuWidth = 320;
         var cut = TestContext.RenderComponent<FluentMainLayout>(parameters => parameters
             .Add(p => p.Header, header)
             .Add(p => p.SubHeader, subHeader)
             .Add(p => p.HeaderHeight, headerHeight)
             .Add(p => p.NavMenuTitle, navMenuTitle)
             .Add(p => p.NavMenuContent, navMenuContent)
+            .Add(p => p.NavMenuWidth, navMenuWidth)
             .Add(p => p.Body, body)
         );
         //Act

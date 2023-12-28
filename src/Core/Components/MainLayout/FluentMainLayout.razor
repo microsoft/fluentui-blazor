@@ -12,7 +12,7 @@
     <FluentStack Orientation="Orientation.Horizontal" style="height:calc(100% - var(--header-height))" HorizontalGap="0">
         @if (NavMenuContent != null)
         {
-            <FluentNavMenu Width="200" Collapsible="true" Class="main-layout-navmenu" Title="@NavMenuTitle">
+            <FluentNavMenu Width="@NavMenuWidth" Collapsible="true" Class="main-layout-navmenu" Title="@NavMenuTitle">
                 @NavMenuContent
             </FluentNavMenu>
         }
