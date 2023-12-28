@@ -2771,6 +2771,9 @@
             <param name="component">The type of the component to show</param>
             <param name="parameters"><see cref="T:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent"/> that holds the content to display</param>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.#ctor">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.CreateDialogCallback(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task})">
             <summary>
             Convenience method to create a <see cref="T:Microsoft.AspNetCore.Components.EventCallback"/> for a dialog result.

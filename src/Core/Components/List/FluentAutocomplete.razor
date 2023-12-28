@@ -9,6 +9,7 @@
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
 
         <FluentTextField role="combobox"
+                         @ref="@Element"
                          Id="@Id"
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"

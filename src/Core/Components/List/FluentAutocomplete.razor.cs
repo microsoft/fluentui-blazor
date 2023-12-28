@@ -9,8 +9,11 @@ namespace Microsoft.Fast.Components.FluentUI;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
-    public const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
     private string _valueText = string.Empty;
+    
+    public const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
+
+    public new FluentTextField? Element { get; set; } = default!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
