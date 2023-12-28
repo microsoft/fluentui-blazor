@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
+    /// <summary />
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+    public DialogService()
+    {
+    }
+
     /// <summary>
     /// Convenience method to create a <see cref="EventCallback"/> for a dialog result.
     /// You can also call <code>EventCallback.Factory.Create</code> directly.
