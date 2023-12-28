@@ -25,6 +25,20 @@ public class ThemeToken
     public class CommonProps
     {
         /// <summary>
+        /// This is a decimal value, and the LightMode (0.98) and DarkMode (0.15) constants represent the standard 
+        /// points for light and dark mode. You could set it to any value 0 (black) to 1 (white) 
+        /// depending on your needs.
+        /// </summary>
+        [ThemeTokenType(TokenType.Text)]
+        public double BaseLayerLuminance { get; set; }
+
+        /// <summary>
+        /// Set to a custom swatch to use for color recipes for accent buttons, checkboxes, etc.
+        /// </summary>
+        [ThemeTokenType(TokenType.Color)]
+        public string? AccentBaseColor { get; set; }
+
+        /// <summary>
         /// Gets or sets a value that may be applied to an element's styles and used as context for child color recipes.
         /// </summary>
         [ThemeTokenType(TokenType.Color)]

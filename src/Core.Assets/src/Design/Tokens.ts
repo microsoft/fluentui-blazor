@@ -1,7 +1,7 @@
 import {
-    Swatch,
-  SwatchRGB,
+  accentBaseColor,
   accentFillRecipe,
+  baseLayerLuminance,
   bodyFont,
   controlCornerRadius,
   density,
@@ -10,16 +10,22 @@ import {
   layerCornerRadius,
   neutralBaseColor
 } from "@fluentui/web-components/dist/web-components";
-import { ColorsUtils } from "./ColorsUtils";
+import { Converters } from "./Converters";
 
 class Tokens {
   public apply(token: ThemeToken) {
-    ColorsUtils.applyDefaultColors(fillColor, token.common.fillColor);
-    ColorsUtils.applyDefaultColors(neutralBaseColor, token.common.neutralBaseColor);
-    ColorsUtils.applyDefaultString(bodyFont, token.common.bodyFont);
-    ColorsUtils.applyDefaultNumber(controlCornerRadius, token.common.controlCornerRadius);
-    ColorsUtils.applyDefaultNumber(layerCornerRadius, token.common.layerCornerRadius);
-    ColorsUtils.applyDefaultNumber(density, token.common.density);
+
+    // Duplicate with DesignTheme attributes
+    Converters.applyDefaultNumber(baseLayerLuminance, token.common.baseLayerLuminance)
+    Converters.applyDefaultColors(accentBaseColor, token.common.accentBaseColor);
+
+    // Common
+    Converters.applyDefaultColors(fillColor, token.common.fillColor);
+    Converters.applyDefaultColors(neutralBaseColor, token.common.neutralBaseColor);
+    Converters.applyDefaultString(bodyFont, token.common.bodyFont);
+    Converters.applyDefaultNumber(controlCornerRadius, token.common.controlCornerRadius);
+    Converters.applyDefaultNumber(layerCornerRadius, token.common.layerCornerRadius);
+    Converters.applyDefaultNumber(density, token.common.density);
   }
 }
 
@@ -34,6 +40,8 @@ interface ThemeToken {
 }
 
 interface CommonProps {
+  baseLayerLuminance: number | null;
+  accentBaseColor: string | null;
   bodyFont: string | null;
   fillColor: string | null;
   neutralBaseColor: string | null;
