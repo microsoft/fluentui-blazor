@@ -14,6 +14,8 @@ public partial class FluentTabs : FluentComponentBase
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
 
+    private bool _shouldRender = true;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
@@ -153,6 +155,11 @@ public partial class FluentTabs : FluentComponentBase
         }
     }
 
+    protected override bool ShouldRender()
+    {
+        return _shouldRender;
+    }
+
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {
         if (args is not null)
@@ -164,6 +171,11 @@ public partial class FluentTabs : FluentComponentBase
                 ActiveTabId = tabId;
                 await ActiveTabIdChanged.InvokeAsync(tabId);
             }
+            _shouldRender = true;
+        }
+        else
+        {
+            _shouldRender = false;
         }
     }
 
