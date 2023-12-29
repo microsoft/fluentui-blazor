@@ -2180,6 +2180,11 @@
             <param name="value">New value: for "mode" = "dark", "light", "system-dark", "system-light"</param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ClearLocalStorageAsync">
+            <summary>
+            Clears the local storage.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValues(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
             <summary />
         </member>
@@ -4483,6 +4488,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuTitle">
             <summary>
             Gets or sets the tite of the navigation menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuContent">

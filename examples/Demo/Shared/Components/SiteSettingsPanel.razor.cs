@@ -8,6 +8,7 @@ public partial class SiteSettingsPanel
 {
     private string? _status;
     private bool _popVisible;
+    private FluentDesignTheme? _theme;
 
     [Inject]
     public ILogger<SiteSettingsPanel> Logger { get; set; } = default!;
@@ -22,9 +23,9 @@ public partial class SiteSettingsPanel
 
     public bool Direction { get; set; } = true;
 
-    private IEnumerable<DesignThemeModes> AllModes => Enum.GetValues<DesignThemeModes>();
+    private static IEnumerable<DesignThemeModes> AllModes => Enum.GetValues<DesignThemeModes>();
 
-    private IEnumerable<OfficeColor?> AllOfficeColors
+    private static IEnumerable<OfficeColor?> AllOfficeColors
     {
         get
         {
@@ -32,11 +33,14 @@ public partial class SiteSettingsPanel
         }
     }
 
-    private async Task RemoveAllCache()
+    private async Task ResetSite()
     {
+        string? msg = "Site settings reset and cache cleared!";
+        
         await CacheStorageAccessor.RemoveAllAsync();
-        Logger.LogInformation("Cache cleared!");
-
-        _status = "Cache cleared!";
+        _theme?.ClearLocalStorageAsync();
+        
+        Logger.LogInformation(msg);
+        _status = msg;
     }
 }

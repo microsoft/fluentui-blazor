@@ -87,8 +87,7 @@ public partial class FluentDesignTheme : ComponentBase
             {
                 GlobalDesign.SetDirection((LocalizationDirection) value);
             }
-
-            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue() );
+            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue());
         }
     }
 
@@ -198,6 +197,15 @@ public partial class FluentDesignTheme : ComponentBase
                 await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction.ToAttributeValue()));
             }
         }
+    }
+
+    /// <summary>
+    /// Clears the local storage.
+    /// </summary>
+    public async Task ClearLocalStorageAsync()
+    {
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        await Module.InvokeVoidAsync("ClearLocalStorage", Id);
     }
 
     /// <summary />

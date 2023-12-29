@@ -1,7 +1,8 @@
 ﻿@implements IDialogContentComponent
 
 <div>
-    <FluentDesignTheme @bind-Mode="@Mode"
+    <FluentDesignTheme @ref=@_theme
+                       @bind-Mode="@Mode"
                        @bind-OfficeColor="@OfficeColor"
                        Direction="@(Direction ? LocalizationDirection.LeftToRight : LocalizationDirection.RightToLeft)"
                        StorageName="theme" />
@@ -38,24 +39,29 @@
         </FluentLabel>
         <FluentDivider Style="width: 100%; margin: 1rem 0" />
         <FluentPopover Style="width: 350px;" AnchorId="info" @bind-Open="@_popVisible">
-            <Header>Clear cache</Header>
+            <Header>Reset site settings</Header>
             <Body>
                 <p>
-                    You can check the contents of the cache in the browser's developer tools. If you are using Edge or Chrome, you can do this by going to the Application tab and then clicking on the Cache Storage section.
-                    In Firefox, you can do this by going to the Storage tab and then clicking on the Cache Storage section.
+                    This site stores settings for the theme and color and downloaded samples, emoji and icons in the browser' cache and local storage.
+                </p>
+                <p>
+                    You can check the contents of the cache and storage in the browser's developer tools. If you are using Edge or Chrome, you can do this by 
+                    going to the Application tab and then clicking on the Cache Storage or Local Storagesection.<br />
+                    In Firefox, you can do this by going to the Storage tab and then clicking on the Cache Storage or Local Storage section.
                 </p>
 
                 <p>
-                    If you feel like you're not seeing the latest and greatest of samples. emoji or icons, click the button below to clear the cache.
+                    If you feel like you're not seeing the latest and greatest of samples. emoji or icons, or you want to clear out the stored theme and color, 
+                    click the button below to clear the cache and delete local storage.
                 </p>
                 <p>
-                    <strong>Don't worry, this will only clear the cache for this site. It will not clear your browser's cache!</strong>
+                    <strong>Don't worry, this will <strong>only</strong> reset stored data for <strong>this</strong> site. It will not clear any of your browser's cache for other sites!</strong>
                 </p>
             </Body>
         </FluentPopover>
 
         <FluentStack VerticalAlignment="VerticalAlignment.Center" >
-            <FluentButton OnClick="@RemoveAllCache">Clear Cache</FluentButton>
+            <FluentButton OnClick="@ResetSite">Reset settings</FluentButton>
             <FluentIcon Id="info" Value="@(new Icons.Regular.Size24.Info())" OnClick="@(() => _popVisible = !_popVisible)" />
         </FluentStack>
 
