@@ -29,7 +29,7 @@ public partial class SiteSettingsPanel
     {
         get
         {
-            return Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i).Union(new[] { (OfficeColor?)null });
+            return Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i);
         }
     }
 
@@ -42,5 +42,10 @@ public partial class SiteSettingsPanel
         
         Logger.LogInformation(msg);
         _status = msg;
+
+        OfficeColor = Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random;
+        Mode = DesignThemeModes.System;
+
+        //StateHasChanged();
     }
 }

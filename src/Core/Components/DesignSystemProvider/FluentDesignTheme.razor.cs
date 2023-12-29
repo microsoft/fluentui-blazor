@@ -263,6 +263,12 @@ public partial class FluentDesignTheme : ComponentBase
             return Enum.GetName(OfficeColor.Value);
         }
 
+        //Array? values = Enum.GetValues(typeof(OfficeColor));
+        //Random? random = new Random();
+        //OfficeColor randomValue = (OfficeColor)values.GetValue(random.Next(values.Length))!;
+        
+        //return Enum.GetName(randomValue);
+
         return null;
     }
 

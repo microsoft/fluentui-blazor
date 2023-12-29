@@ -11258,6 +11258,11 @@
             The official product colors for Microsoft Office apps.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random">
+            <summary>
+            A random color from the OfficeColor enum
+            </summary>
+        </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Default">
             <summary>
             The default Fluent UI accent color
