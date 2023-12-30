@@ -2,13 +2,33 @@
 
 @using FluentUI.Demo.Shared.Pages.Card.Examples
 
+<style>
+    .multiple-examples-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 36px;
+    }
 
+    .card-header {
+        font-size: var(--type-ramp-base-font-size);
+        line-height: var(--type-ramp-base-line-height);
+        font-weight: 600;
+    }
+
+    .card-description {
+        font-size: var(--type-ramp-minus-1-font-size);
+        line-height: var(--type-ramp-minus-1-line-height);
+        color: var(--neutral-foreground-hover);
+    }
+</style>
 
 <h1>Card</h1>
 
 <p>The <code>&lt;FluentCard&gt;</code> component is a visual container without semantics that takes children. Cards are snapshots of content that are typically used in a group to present collections of related information.</p>
-<p><code>&lt;FluentCard&gt;</code> wraps the <code>&lt;fluent-card&gt;</code> element, a web component implementation of a card leveraging the Fluent UI design system.</p>
+<p>By default <code>&lt;FluentCard&gt;</code> wraps the <code>&lt;fluent-card&gt;</code> element, a web component implementation of a card leveraging the Fluent UI design system.</p>
 <p>Use the <code>Width</code> and <code>Height</code> parameters to size the card. Both values default to 350 pixels.</p>
+<p>If <code>&lt;FluentCard&gt;</code> has <code>&lt;FluentCardHeader&gt;</code>, <code>&lt;FluentCardPreview&gt;</code> or <code>&lt;FluentCardFooter&gt;</code> as a child element, it switches to <a href="https://fluent2.microsoft.design/components/web/react/card/usage">Fluent UI 2 Card</a> and allows additional customization of appearance and behavior with <code>Appearance</code>, <code>Orientation</code>, <code>Size</code> and <code>FocusMode</code> parameters.</p>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Simple card example" Component="@typeof(CardDefault)"></DemoSection>
@@ -16,13 +36,44 @@
 <DemoSection Title="Area restricted examples" Component="@typeof(CardAreaRestricted)">
     <Description>
         <p>
-            By default a card restricts its content to the card area. This means, for exmple, that if you have a select list with a lot of items, the list will be cut off at the bottom of the card.
+            By default a card restricts its content to the card area. This means, for example, that if you have a select list with a lot of items, the list will be cut off at the bottom of the card.
             You can override this behavior by setting the <code>AreaRestricted</code> property to <code>false</code>.
         </p>
     </Description>
 </DemoSection>
 
+<DemoSection Title="Appearance example" Component="@typeof(CardAppearances)">
+    <Description>Cards can have different styles depending on the situation and where it is placed.</Description>
+</DemoSection>
+
+<DemoSection Title="Orientation example" Component="@typeof(CardOrientation)">
+    <Description><p>Cards can have a different anatomy and be displayed either vertically (by default) or horizontally.</p></Description>
+</DemoSection>
+
+<DemoSection Title="Size example" Component="@typeof(CardSizes)">
+    <Description><p>Size options are mainly to provide variety, and consistency when using cards for different usages. It relates to padding and border-radius and not so much the actual dimensions of the card.</p></Description>
+</DemoSection>
+
+<DemoSection Title="Selectable examples" Component="@typeof(CardSelectable)">
+    <Description><p>Cards can be selectable and clicking the card surface can toggle its state to selected.</p></Description>
+</DemoSection>
+
+<DemoSection Title="Selectable Indicator examples" Component="@typeof(CardSelectableIndicator)">
+    <Description><p>By default, selectable cards do not include any element to represent its selection state. For example, checkboxes can be composed together as an additional element by using the <code>FloatingAction</code> property</p></Description>
+</DemoSection>
+
+<DemoSection Title="Focus Mode examples" Component="@typeof(CardFocusMode)">
+    <Description><p>Cards can be focusable and manage the focus of their contents in several different strategies. Using the <code>FocusMode</code> parameter, the following can be achieved:</p></Description>
+</DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentCard)" />
+
+<ApiDocumentation Component="typeof(FluentCardHeader)" />
+
+<ApiDocumentation Component="typeof(FluentCardPreview)" />
+
+<ApiDocumentation Component="typeof(FluentCardFooter)" />
+
+<ApiDocumentation Component="typeof(FluentCardFloatingAction)" />

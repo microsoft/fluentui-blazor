@@ -1,0 +1,10 @@
+.fluent-card-footer {
+    --fluent-card-footer-gap: calc(var(--design-unit, 4) * 3 * 1px);
+    display: flex;
+    flex-direction: row;
+    gap: var(--fluent-card-footer-gap);
+}
+
+.fluent-card-footer ::deep > .action {
+    margin-left: auto;
+}

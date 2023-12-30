@@ -1,0 +1,45 @@
+@page "/FocusManager"
+
+@using FluentUI.Demo.Shared.Pages.FocusManager.Examples
+
+<style>
+    .multiple-examples-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 36px;
+    }
+</style>
+
+<h1>Focus Manager</h1>
+
+<p><code>FocusManager</code> is an injectable service that helps control focus behavior.</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Arrow Navigation Group" Component="@typeof(ArrowNavigationGroup)">
+    <Description>
+        <p>A set of parameters that enables keyboard navigation using the arrow keys, among a collection of focusable elements. <kbd>Home</kbd>, <kbd>End</kbd>, <kbd>PageUp</kbd> and <kbd>PageDown</kbd> can be used for navigation as well.</p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Focusable Group" Component="@typeof(FocusableGroup)">
+    <Description>
+        <p>Applies specific focus behaviour for focusable elements that contain other nested focusable elements. There are different strategies on how focus should be moved into nested focusable elements.</p>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FocusManager)" />
+
+<ApiDocumentation Component="typeof(ArrowNavigationGroupParameters)" />
+
+<ApiDocumentation Component="typeof(FocusableElementParameters)" />
+
+<ApiDocumentation Component="typeof(FocusableGroupParameters)" />
+
+<ApiDocumentation Component="typeof(FocusRestoreParameters)" />
+
+<ApiDocumentation Component="typeof(ModalParameters)" />
+
+<ApiDocumentation Component="typeof(FocusTrackingParameters)" />

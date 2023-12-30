@@ -336,6 +336,13 @@
             Gets or sets a collection of additional attributes that will be applied to the created element.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.GetTabIndexAttributeValue(System.Boolean)">
+            <summary>
+            Returns value for rendered 'tabindex' attribute.
+            </summary>
+            <param name="disabled">Component's Disabled parameter value</param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1">
             <summary>
             A base class for fluent ui form input components. This base class automatically
@@ -730,17 +737,187 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Width">
             <summary>
             Gets or sets the width of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Height">
             <summary>
             Gets or sets the height of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Appearance">
+            <summary>
+            Sets the appearance of the card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Orientation">
+            <summary>
+            Defines the orientation of the card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Size">
+            <summary>
+            Controls the card's border radius and padding between inner elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.FocusMode">
+            <summary>
+            Sets the focus behavior for the card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Selected">
+            <summary>
+            When true, the control will appear selected by user interaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.SelectedChanged">
+            <summary>
+            Called whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Selected"/> changes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.RegisterFloatingAction(Microsoft.FluentUI.AspNetCore.Components.FluentCardFloatingAction)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.UnregisterFloatingAction(Microsoft.FluentUI.AspNetCore.Components.FluentCardFloatingAction)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.RegisterHeader(Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.UnregisterHeader(Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.RegisterPreview(Microsoft.FluentUI.AspNetCore.Components.FluentCardPreview)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.UnregisterPreview(Microsoft.FluentUI.AspNetCore.Components.FluentCardPreview)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.RegisterFooter(Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.UnregisterFooter(Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.OnCardSelectedChangeHandler">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.OnSelectedChange">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ApplySelectionParametersAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.InitJsSelectionHandlersAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.RemoveJsSelectionHandlersAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.InitDefaultSelectionCheckboxAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.EnsureJsModuleLoadedAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCard.DisposeAsync">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardFloatingAction.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardFloatingAction.Card">
+            <summary>
+            Gets or sets the owning FluentCard component
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardFloatingAction.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardFloatingAction.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter.Action">
+            <summary>
+            Gets or sets the content to be rendered on the far end of the footer, used for action buttons.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter.Card">
+            <summary>
+            Gets or sets the owning FluentCard component
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardFooter.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.Header">
+            <summary>
+            Gets or sets the content to be rendered as the main header title.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.Description">
+            <summary>
+            Gets or sets the content to be rendered as a short description related to the title.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.Image">
+            <summary>
+            Gets or sets the content to be rendered as an image or avatar related to the card.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.Action">
+            <summary>
+            Gets or sets the content to be rendered on the far end of the header, used for action buttons.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.Card">
+            <summary>
+            Gets or sets the owning FluentCard component
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardHeader.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardPreview.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCardPreview.Card">
+            <summary>
+            Gets or sets the owning FluentCard component
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardPreview.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCardPreview.Dispose">
+            <inheritdoc />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.JSRuntime">
             <summary />
@@ -3254,6 +3431,164 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters">
+            <summary>
+            Parameters of arrow navigation inside group that can be applied to the group element using <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters.Mode">
+            <summary>
+            Defines what arrow keys move focus inside the group of elements. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode"/>.
+            </summary>
+            <remarks>
+            Home, End, PageUp and PageDown keys can be used as well.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters.FirstFocusedMinimumVisibility">
+            <summary>
+            Defines minimum visibility of element that can receive focus when focus enters the group.
+            </summary>
+            <remarks>
+            <see cref="F:Microsoft.FluentUI.AspNetCore.Components.FocusableElementVisibility.Invisible"/> value might make the list scroll and cause the virtual list to load more items.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters.RememberLastFocused">
+            <summary>
+            Defines behavior when focus re-enters the group.
+            If set to <see langword="true" />, focus will go to the previously focused element (if available).
+            If set to <see langword="false" />, focus will go to the first/last element inside the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters.NavigationWithTab">
+            <summary>
+            Defines whether Tab can be used to navigate elements inside the group.
+            By default when Tab is pressed, focus leaves the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters.Circular">
+            <summary>
+            Defines behavior when first/last element is focused and arrow key is pressed.
+            If set to <see langword="true" />
+            <list type="bullet">
+            <listheader>
+            <description>if first element is focused and Up button is pressed, focus will go to the last element in the group.</description>
+            </listheader>
+            <item>
+            <description>if last element is focused and Down button is pressed, focus will go to the first element in the group.</description>
+            </item>
+            </list>
+            By default nothing happens if Up button is pressed when the first element is selected or Down button is pressed when the last element is select.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters">
+            <summary>
+            General focus-related parameters targeting individual elements. Can be applied to element using <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters.Default">
+            <summary>
+            Marks element as default for focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters.IgnoreAriaDisabled">
+            <summary>
+            Indicates that element's focusability should not be determined based on aria-disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters.ExcludeFromArrowKeyNavigation">
+            <summary>
+            Excludes element (and all sub-elements) from arrow key navigation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters.IgnoredKeydownEvents">
+            <summary>
+            Events to be ignored by <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupParameters">
+            <summary>
+            Focusable group parameters that can be applied to element using <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupParameters.Mode">
+            <summary>
+            Gets or sets Tab behavior for the group. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupMode"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FocusManager.SetFocusParametersAsync(Microsoft.AspNetCore.Components.ElementReference,Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters,Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters,Microsoft.FluentUI.AspNetCore.Components.FocusableGroupParameters,Microsoft.FluentUI.AspNetCore.Components.FocusRestoreParameters,Microsoft.FluentUI.AspNetCore.Components.ModalParameters,Microsoft.FluentUI.AspNetCore.Components.FocusTrackingParameters,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FocusManager.EnsureJsModuleInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FocusManager.DisposeAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusManagerIgnoredKeydownEvents">
+            <summary>
+            List events that can be set as ignored by <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreParameters">
+            <summary>
+            Focus restore parameters that can be applied to element using <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreParameters.Role">
+            <summary>
+            Gets or sets role of element in focus restore. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreRole"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusTrackingParameters">
+            <summary>
+            Parameters for tracking focus using data attributes
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusTrackingParameters.FocusVisible">
+            <summary>
+            Adds 'data-fui-focus-visible' attribute to element when it has focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FocusTrackingParameters.FocusWithin">
+            <summary>
+            Adds 'data-fui-focus-within' attribute to element when it or one of its child elements is focused.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IFocusManager.SetFocusParametersAsync(Microsoft.AspNetCore.Components.ElementReference,Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupParameters,Microsoft.FluentUI.AspNetCore.Components.FocusableElementParameters,Microsoft.FluentUI.AspNetCore.Components.FocusableGroupParameters,Microsoft.FluentUI.AspNetCore.Components.FocusRestoreParameters,Microsoft.FluentUI.AspNetCore.Components.ModalParameters,Microsoft.FluentUI.AspNetCore.Components.FocusTrackingParameters,System.Boolean)">
+            <summary>
+            Sets focus management parameters on target <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/>
+            </summary>
+            <param name="element">Target <see cref="T:Microsoft.AspNetCore.Components.ElementReference"/></param>
+            <param name="arrowNavigationGroup">parameters of arrow navigation inside group</param>
+            <param name="focusableElement">general focus-related parameters</param>
+            <param name="focusableGroup">focusable group parameters</param>
+            <param name="focusRestore">focus restore parameters</param>
+            <param name="modal">parameters for creation of modal dialog like experience</param>
+            <param name="tracking">parameters for tracking focus using data attributes</param>
+            <param name="update">defines whether applied parameters will update any existing parameters or replace them</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ModalParameters">
+            <summary>
+            Parameters that help to create modal dialog like experience. Applied to dialog content element using <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IFocusManager"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ModalParameters.GroupName">
+            <summary>
+            Gets or sets modal group name.
+            Elements with same modal group name could be accessible when one of them is activated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ModalParameters.AlwaysAccessible">
+            <summary>
+            Indicates if element is always reachable in Tab order.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ModalParameters.TrapFocus">
+            <summary>
+            Traps focus inside the target element - it forbids users to tab out of the focus trap into the actual browser.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentFooter.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -4483,6 +4818,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuTitle">
             <summary>
             Gets or sets the tite of the navigation menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuContent">
@@ -10201,6 +10541,36 @@
             Show filled.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode">
+            <summary>
+            Values to define arrow keys available for navigation in the group of elements.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode.Both">
+            <summary>
+            Default, focus can be moved to the previous using Up/Left and to the next using Down/Right buttons.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode.Vertical">
+            <summary>
+            Focus can be moved using only Up/Down buttons.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode.Horizontal">
+            <summary>
+            Focus can be moved using only Left/Right buttons.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode.Grid">
+            <summary>
+            Focus can be moved using arrow keys in two dimensions, movement depends on the visual placement of elements.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode.GridLinear">
+            <summary>
+            Same as <see cref="F:Microsoft.FluentUI.AspNetCore.Components.ArrowNavigationGroupMode.Grid"/> and also allows linear movement.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.AutoUpdateMode">
             <summary>
              Defines if a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion"/> component updates its position automatically. 
@@ -10336,6 +10706,54 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarViews.Years">
             <summary>
             Display the Years View only
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CardAppearance">
+            <summary>
+            The visual appearance of a card
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.Filled">
+            <summary>
+            The card will have a shadow, border and background color.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.FilledAlternative">
+            <summary>
+            This appearance is similar to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.Filled"/>, but the background color will be a little darker.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.Outline">
+            <summary>
+            This appearance is similar to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.Filled"/>, but the background color will be transparent and no shadow applied.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.Subtle">
+            <summary>
+            This appearance is similar to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.CardAppearance.FilledAlternative"/>, but no border is applied.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CardSize">
+            <summary>
+            The size of the card.
+            </summary>
+            <remarks>
+            Size options are mainly to provide variety, and consistency when using cards for different usages. It relates to padding and border-radius and not so much the actual dimensions of the card
+            </remarks>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardSize.Small">
+            <summary>
+            The card size is small
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardSize.Medium">
+            <summary>
+            The card size is medium
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CardSize.Large">
+            <summary>
+            The card size is large
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">
@@ -10737,6 +11155,67 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.FluentInputAppearance.Outline">
             <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusableElementVisibility">
+            <summary>
+            Focusable element visibility states.
+            Values to define focus behavior when it enters container element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableElementVisibility.Invisible">
+            <summary>
+            Element is not in the viewport or less that 25% of it is visible.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableElementVisibility.PartiallyVisible">
+            <summary>
+            At least 25% of element is visible
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableElementVisibility.Visible">
+            <summary>
+            75% of element or more is visible.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupMode">
+            <summary>
+            Values to define Tab behavior for the group element which contains other focusable elements.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupMode.Off">
+            <summary>
+            The group will not be focusable.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupMode.NoTab">
+            <summary>
+            This behaviour traps the focus inside of the group when pressing the Enter key and will only release focus when pressing the Escape key.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupMode.TabExit">
+            <summary>
+            This behaviour traps the focus inside of the group when pressing the Enter key but will release focus when pressing the Tab key on the last inner element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusableGroupMode.TabOnly">
+            <summary>
+            This behaviour will cycle through all elements inside of the group when pressing the Tab key and then release focus after the last inner element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreRole">
+            <summary>
+            Values to define available focus restore roles.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreRole.Source">
+            <summary>
+            When focus is lost by element with this role, it is restored to the most recent element with <see cref="F:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreRole.Target"/> role.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreRole.Target">
+            <summary>
+            When focus is lost by element with <see cref="F:Microsoft.FluentUI.AspNetCore.Components.FocusRestoreRole.Source" /> role, it is restored to the most recent element with this role.
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FontWeight">
             <summary>

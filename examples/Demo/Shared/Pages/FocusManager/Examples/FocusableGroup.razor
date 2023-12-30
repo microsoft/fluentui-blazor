@@ -1,0 +1,88 @@
+﻿@inject IFocusManager FocusManager
+
+<style>
+    .group {
+        padding: 8px;
+        background-color: var(--colorNeutralBackground1, var(--neutral-fill-layer-rest));
+        display: inline-block;
+    }
+</style>
+
+<div class="multiple-examples-container">
+    <div>
+        <h4>Off mode</h4>
+        <p>The group will not be focusable.</p>
+        <div @ref="_off" class="group">
+            @_groupElements
+        </div>
+    </div>
+    <div>
+        <h4>No Tab mode</h4>
+        <p>This behaviour traps the focus inside the group when pressing the <kbd>Enter</kbd> key and will only release focus when pressing the <kbd>Escape</kbd> key.</p>
+        <div @ref="_noTab" class="group">
+            @_groupElements
+        </div>
+    </div>
+    <div>
+        <h4>Tab Exit mode</h4>
+        <p>This behaviour traps the focus inside the group when pressing the <kbd>Enter</kbd> key but will release focus when pressing the <kbd>Tab</kbd> key on the last inner element.</p>
+        <div @ref="_tabExit" class="group">
+            @_groupElements
+        </div>
+    </div>
+    <div>
+        <h4>Tab Only mode</h4>
+        <p>This behaviour will cycle through all elements inside the group when pressing the <kbd>Tab</kbd> key and then release focus after the last inner element.</p>
+        <div @ref="_tabOnly" class="group">
+            @_groupElements
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private ElementReference _off;
+    private ElementReference _noTab;
+    private ElementReference _tabExit;
+    private ElementReference _tabOnly;
+
+    private static readonly RenderFragment _groupElements = __builder =>
+    {
+        <FluentButton Appearance="Appearance.Outline">
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextBold())" />
+        </FluentButton>
+        <FluentButton Appearance="Appearance.Outline">
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextUnderline())" />
+        </FluentButton>
+        <FluentButton Appearance="Appearance.Outline">
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextItalic())" />
+        </FluentButton>
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FocusManager.SetFocusParametersAsync(_off,
+                focusableGroup: new FocusableGroupParameters
+                {
+                    Mode = FocusableGroupMode.Off
+                });
+            await FocusManager.SetFocusParametersAsync(_noTab,
+                focusableGroup: new FocusableGroupParameters
+                {
+                    Mode = FocusableGroupMode.NoTab
+                });
+            await FocusManager.SetFocusParametersAsync(_tabExit,
+                focusableGroup: new FocusableGroupParameters
+                {
+                    Mode = FocusableGroupMode.TabExit
+                });
+            await FocusManager.SetFocusParametersAsync(_tabOnly,
+                focusableGroup: new FocusableGroupParameters
+                {
+                    Mode = FocusableGroupMode.TabOnly
+                });
+        }
+    }
+}

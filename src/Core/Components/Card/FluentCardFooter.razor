@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@Style"
+     @attributes="AdditionalAttributes">
+    @ChildContent
+
+    @if (Action is not null)
+    {
+        <div class="action">
+            @Action
+        </div>
+    }
+</div>

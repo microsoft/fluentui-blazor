@@ -1,0 +1,31 @@
+.fluent-card-header {
+    --fluent-card-header-gap: calc(var(--design-unit, 4) * 3 * 1px);
+    display: grid;
+    grid-auto-columns: min-content 1fr min-content;
+    align-items: center;
+}
+
+    .fluent-card-header ::deep > .image {
+        display: inline-flex;
+        margin-right: var(--fluent-card-header-gap);
+        grid-column-start: 1;
+        grid-row-start: span 2;
+    }
+
+    .fluent-card-header ::deep > .header {
+        display: flex;
+        grid-column-start: 2;
+        grid-row-start: 1;
+    }
+
+    .fluent-card-header ::deep > .description {
+        display: flex;
+        grid-column-start: 2;
+        grid-row-start: 2;
+    }
+
+    .fluent-card-header ::deep > .action {
+        margin-left: var(--fluent-card-header-gap);
+        grid-column-start: 3;
+        grid-row-start: span 2;
+    }

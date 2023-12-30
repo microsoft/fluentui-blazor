@@ -1,0 +1,134 @@
+﻿<div class="multiple-examples-container">
+    <div>
+        <h4>Off (Default)</h4>
+        <p>The contents might still be focusable, but the Card won't manage the focus of its contents or be focusable.</p>
+        <FluentCard FocusMode="FocusableGroupMode.Off"
+                    Width="@CardWidth">
+            <FluentCardPreview>
+                @PreviewImage
+            </FluentCardPreview>
+            <FluentCardHeader>
+                <Image>@HeaderImage</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p>
+                Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw.
+                Marshmallow pastry jujubes toffee sugar plum.
+            </p>
+            <FluentCardFooter>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Open())">Open</FluentButton>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Share())">Share</FluentButton>
+            </FluentCardFooter>
+        </FluentCard>
+    </div>
+
+    <div>
+        <h4>NoTab</h4>
+        <p>The Card will be focusable and trap the focus inside when <kbd>Enter</kbd> key is pressed. You can use <kbd>Tab</kbd> to navigate between the contents and escaping focus only by pressing the <kbd>Escape</kbd> key.</p>
+        <FluentCard FocusMode="FocusableGroupMode.NoTab"
+                    Width="@CardWidth">
+            <FluentCardPreview>
+                @PreviewImage
+            </FluentCardPreview>
+            <FluentCardHeader>
+                <Image>@HeaderImage</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p>
+                Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw.
+                Marshmallow pastry jujubes toffee sugar plum.
+            </p>
+            <FluentCardFooter>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Open())">Open</FluentButton>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Share())">Share</FluentButton>
+            </FluentCardFooter>
+        </FluentCard>
+    </div>
+    
+    <div>
+        <h4>TabExit</h4>
+        <p>The Card will be focusable and trap the focus, but release it on an <kbd>Escape</kbd> or <kbd>Tab</kbd> key press.</p>
+        <FluentCard FocusMode="FocusableGroupMode.TabExit"
+                    Width="@CardWidth">
+            <FluentCardPreview>
+                @PreviewImage
+            </FluentCardPreview>
+            <FluentCardHeader>
+                <Image>@HeaderImage</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p>
+                Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw.
+                Marshmallow pastry jujubes toffee sugar plum.
+            </p>
+            <FluentCardFooter>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Open())">Open</FluentButton>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Share())">Share</FluentButton>
+            </FluentCardFooter>
+        </FluentCard>
+    </div>
+    
+    <div>
+        <h4>TabOnly</h4>
+        <p>The Card will not trap focus but will still be focusable and allow <kbd>Tab</kbd> navigation of its contents.</p>
+        <FluentCard FocusMode="FocusableGroupMode.TabOnly"
+                    Width="@CardWidth">
+            <FluentCardPreview>
+                @PreviewImage
+            </FluentCardPreview>
+            <FluentCardHeader>
+                <Image>@HeaderImage</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p>
+                Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw.
+                Marshmallow pastry jujubes toffee sugar plum.
+            </p>
+            <FluentCardFooter>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Open())">Open</FluentButton>
+                <FluentButton Appearance="Appearance.Accent"
+                              IconStart="@(new Icons.Regular.Size16.Share())">Share</FluentButton>
+            </FluentCardFooter>
+        </FluentCard>
+    </div>
+</div>
+
+@code {
+    const string CardWidth = "400px";
+    const string AssetBaseUrl = "https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/";
+
+    static readonly RenderFragment PreviewImage = __builder =>
+    {
+        <img src="@($"{AssetBaseUrl}sales_template.png")"
+            alt="Sales Presentation Preview" />
+    };
+
+    static readonly RenderFragment HeaderImage = __builder =>
+    {
+        <img src="@($"{AssetBaseUrl}pptx.png")"
+             width="32px"
+             height="32px"
+             alt="Microsoft PowerPoint logo" />
+    };
+
+    static readonly RenderFragment Header = __builder =>
+    {
+        <span class="card-header">App Name</span>
+    };
+
+    static readonly RenderFragment Description = __builder =>
+    {
+        <span class="card-description">Developer</span>
+    };
+}

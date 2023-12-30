@@ -1,0 +1,109 @@
+﻿@inject IFocusManager FocusManager
+
+<div class="multiple-examples-container">
+    <div>
+        <h4>Horizontal mode</h4>
+        <div @ref="_horizontalGroup">
+            @_buttons
+        </div>
+    </div>
+    <div>
+        <h4>Vertical mode and Circular</h4>
+        <div @ref="_verticalGroup" style="display: flex; flex-direction: column; gap: 4px; align-items: start;">
+            @_buttons
+        </div>
+    </div>
+    <div>
+        <h4>Both mode and Remember Last Focused</h4>
+        <div @ref="_bothGroup">
+            @_buttons
+        </div>
+    </div>
+    <div>
+        <h4>Grid mode</h4>
+        <div @ref="_gridGroup" style="display: grid; grid-template-columns: repeat(3, max-content); gap: 4px;">
+            @_buttons
+        </div>
+    </div>
+    <div>
+        <h4>Grid Linear mode</h4>
+        <div @ref="_gridLinearGroup" style="display: grid; grid-template-columns: repeat(3, max-content); gap: 4px;">
+            @_buttons
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private ElementReference _horizontalGroup;
+    private ElementReference _verticalGroup;
+    private ElementReference _bothGroup;
+    private ElementReference _gridGroup;
+    private ElementReference _gridLinearGroup;
+
+    private static readonly RenderFragment _buttons = __builder =>
+    {
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextBold())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextUnderline())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextItalic())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextAlignLeft())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextAlignCenter())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextAlignRight())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.Copy())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.Cut())" />
+        </FluentButton>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size20.ClipboardPaste())" />
+        </FluentButton>
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FocusManager.SetFocusParametersAsync(_horizontalGroup,
+                arrowNavigationGroup: new ArrowNavigationGroupParameters
+                {
+                    Mode = ArrowNavigationGroupMode.Horizontal
+                });
+            await FocusManager.SetFocusParametersAsync(_verticalGroup,
+                arrowNavigationGroup: new ArrowNavigationGroupParameters
+                {
+                    Mode = ArrowNavigationGroupMode.Vertical,
+                    Circular = true
+                });
+            await FocusManager.SetFocusParametersAsync(_bothGroup,
+                arrowNavigationGroup: new ArrowNavigationGroupParameters
+                {
+                    Mode = ArrowNavigationGroupMode.Both,
+                    RememberLastFocused = true
+                });
+            await FocusManager.SetFocusParametersAsync(_gridGroup,
+                arrowNavigationGroup: new ArrowNavigationGroupParameters
+                {
+                    Mode = ArrowNavigationGroupMode.Grid,
+                    RememberLastFocused = true
+                });
+            await FocusManager.SetFocusParametersAsync(_gridLinearGroup,
+                arrowNavigationGroup: new ArrowNavigationGroupParameters
+                {
+                    Mode = ArrowNavigationGroupMode.GridLinear
+                });
+        }
+    }
+}

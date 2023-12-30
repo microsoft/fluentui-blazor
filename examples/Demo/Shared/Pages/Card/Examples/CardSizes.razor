@@ -1,0 +1,82 @@
+﻿<div class="multiple-examples-container">
+    <style>
+        .flex {
+            display: flex;
+            gap: 4px;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .card-footer {
+            justify-content: space-between;
+        }
+    </style>
+    <div>
+        <h4>Small</h4>
+        <FluentCard Size="CardSize.Small"
+                    Width="@CardWidth">
+            @HeaderImages
+            <FluentCardHeader>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            @Footer
+        </FluentCard>
+    </div>
+
+    <div>
+        <h4>Medium (Default)</h4>
+        <FluentCard Size="CardSize.Medium"
+                    Width="@CardWidth">
+            @HeaderImages
+            <FluentCardHeader>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            @Footer
+        </FluentCard>
+    </div>
+
+    <div>
+        <h4>Large</h4>
+        <FluentCard Size="CardSize.Large"
+                    Width="@CardWidth">
+            @HeaderImages
+            <FluentCardHeader>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            @Footer
+        </FluentCard>
+    </div>
+</div>
+
+@code
+{
+    private const string CardWidth = "300px";
+
+    static readonly RenderFragment Header = __builder =>
+    {
+        <span class="card-header">Alert in Teams when a new document is uploaded in channel</span>
+    };
+    static readonly RenderFragment Description = __builder =>
+    {
+        <span class="card-description">By Microsoft</span>
+    };
+
+    static readonly RenderFragment HeaderImages = __builder =>
+    {
+        <header class="flex">
+            <img style="height: 32px; border-radius: 4px;" src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/logo.svg" alt="Application one logo"/>
+            <img style="height: 32px; border-radius: 4px;" src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/logo2.svg" alt="Application two logo">
+        </header>
+    };
+
+    static readonly RenderFragment Footer = __builder =>
+    {
+        <footer class="flex card-footer">
+            <span>Automated</span>
+            <span>3290</span>
+        </footer>
+    };
+}

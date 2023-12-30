@@ -43,6 +43,7 @@ else
                title=@Title
                appearance=@Appearance.ToAttributeValue()
                custom-id="@CustomId"
+               tabindex="@GetTabIndexAttributeValue(Disabled)"
                @onclick="@OnClickHandlerAsync"
                @attributes="AdditionalAttributes">
             @if (IconStart != null)

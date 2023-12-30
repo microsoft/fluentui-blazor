@@ -57,6 +57,24 @@ public abstract class FluentComponentBase : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    /// <summary>
+    /// Returns value for rendered 'tabindex' attribute.
+    /// </summary>
+    /// <param name="disabled">Component's Disabled parameter value</param>
+    /// <returns></returns>
+    protected object GetTabIndexAttributeValue(bool disabled = false)
+    {
+        if (disabled)
+            return -1;
+
+        if (AdditionalAttributes?.TryGetValue("tabindex", out var tabIndexValue) ?? false)
+        {
+            return tabIndexValue;
+        }
+
+        return 0;
+    }
+
     protected string? GetId()
     {
         return string.IsNullOrEmpty(Id) ? null : Id;

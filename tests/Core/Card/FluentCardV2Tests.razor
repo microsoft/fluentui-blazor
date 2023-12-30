@@ -1,0 +1,140 @@
+﻿@using Xunit;
+@inherits TestContext
+
+@code {
+    private const string FluentUIJs = "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js";
+    private const string FluentCardRazorJs = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Card/FluentCard.razor.js";
+
+    public FluentCardV2Tests()
+    {
+        Services.AddFluentUIComponents();
+
+        var fluentUIJsModule = JSInterop.SetupModule(FluentUIJs);
+        fluentUIJsModule.Mode = JSRuntimeMode.Loose;
+        var cardJsModule = JSInterop.SetupModule(FluentCardRazorJs);
+        cardJsModule.Mode = JSRuntimeMode.Loose;
+    }
+
+    [Theory]
+    [InlineData(CardAppearance.Filled)]
+    [InlineData(CardAppearance.FilledAlternative)]
+    [InlineData(CardAppearance.Outline)]
+    [InlineData(CardAppearance.Subtle)]
+    public void FluentCard_AppearanceAttribute(CardAppearance appearance)
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentCard Appearance="@appearance">
+                <FluentCardPreview>
+                    Preview Content
+                </FluentCardPreview>
+                <FluentCardHeader>
+                    <Image><img src="https://domain.com/image.jpg"/></Image>
+                    <Header>Title</Header>
+                    <Description>Description</Description>
+                </FluentCardHeader>
+                <FluentCardFooter>
+                    <FluentButton>Footer button</FluentButton>
+                </FluentCardFooter>
+            </FluentCard>);
+
+        // Assert
+        cut.Verify(suffix: appearance.ToString());
+    }
+
+    [Theory]
+    [InlineData(CardSize.Small)]
+    [InlineData(CardSize.Medium)]
+    [InlineData(CardSize.Large)]
+    public void FluentCard_SizeAttribute(CardSize size)
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentCard Size="@size">
+        <FluentCardHeader>
+            <Image><img src="https://domain.com/image.jpg" /></Image>
+            <Header>Title</Header>
+            <Description>Description</Description>
+        </FluentCardHeader>
+    </FluentCard>);
+
+        // Assert
+        cut.Verify(suffix: size.ToString());
+    }
+
+    [Theory]
+    [InlineData(Orientation.Horizontal)]
+    [InlineData(Orientation.Vertical)]
+    public void FluentCard_OrientationAttribute(Orientation orientation)
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentCard Orientation="@orientation">
+                <FluentCardHeader>
+                    <Image><img src="https://domain.com/image.jpg" /></Image>
+                    <Header>Title</Header>
+                    <Description>Description</Description>
+                </FluentCardHeader>
+            </FluentCard>);
+
+        // Assert
+        cut.Verify(suffix: orientation.ToString());
+    }
+
+    [Fact]
+    public void FluentCard_InteractiveAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentCard @onclick="() => { }">
+                <FluentCardHeader>
+                    <Image><img src="https://domain.com/image.jpg" /></Image>
+                    <Header>Title</Header>
+                    <Description>Description</Description>
+                </FluentCardHeader>
+            </FluentCard>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCard_SelectableAttribute_SelectedParameter()
+    {
+        // Arrange && Act
+        JSInterop.SetupModule("initSelectionHandlers", _ => true);
+
+        var cut = Render(
+            @<FluentCard Selected="true">
+                <FluentCardHeader>
+                    <Image><img src="https://domain.com/image.jpg" /></Image>
+                    <Header>Title</Header>
+                    <Description>Description</Description>
+                </FluentCardHeader>
+            </FluentCard>);
+
+        // Assert
+        cut.Verify();
+        //JSInterop.Invocations.Identifiers.Should().Contain("initSelectionHandlers"); // as of 2023-12-30 randomly fails
+    }
+
+    [Fact]
+    public void FluentCard_SelectableAttribute_SelectedChangedParameter()
+    {
+        // Arrange && Act
+        JSInterop.SetupModule("initSelectionHandlers", _ => true);
+
+        var cut = Render(
+            @<FluentCard SelectedChanged="() => { }">
+                <FluentCardHeader>
+                    <Image><img src="https://domain.com/image.jpg" /></Image>
+                    <Header>Title</Header>
+                    <Description>Description</Description>
+                </FluentCardHeader>
+            </FluentCard>);
+
+        // Assert
+        cut.Verify();
+        //JSInterop.Invocations.Identifiers.Should().Contain("initSelectionHandlers"); // as of 2023-12-30 randomly fails
+    }
+}

@@ -1,8 +1,46 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-<fluent-card @ref=Element 
-             class=@Class
+
+<CascadingValue Value="this" IsFixed="true">
+    @if (_firstRender)
+    {
+        @* triggers initialization of components in ChildContent *@
+        <div style="display: none; visibility: hidden;">
+            @ChildContent
+        </div>
+    }
+    else if (V2Mode)
+    {
+        <div @ref=Element
+             class="@ClassValue"
              style="@StyleValue"
+             appearance="@Appearance.ToAttributeValue()"
+             orientation="@Orientation.ToAttributeValue()"
+             size="@Size.ToAttributeValue()"
+             interactive="@Interactive"
+             selectable="@Selectable"
+             selected="@Selected"
+             @oncardselectedchange="OnCardSelectedChangeHandler"
              @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-card>
+
+            @if (SelectableWithDefaultCheckbox)
+            {
+                <input @ref="_defaultCheckboxElement"
+                       type="checkbox"
+                       class="fluent-card-checkbox"
+                       checked="@Selected" />
+            }
+
+            @ChildContent
+        </div>
+    }
+    else
+    {
+        <fluent-card @ref=Element
+                     class=@ClassValue
+                     style="@StyleValue"
+                     @attributes="AdditionalAttributes">
+            @ChildContent
+        </fluent-card>
+    }
+</CascadingValue>
