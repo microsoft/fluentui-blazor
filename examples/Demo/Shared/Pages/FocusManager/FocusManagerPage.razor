@@ -13,6 +13,7 @@
 <h1>Focus Manager</h1>
 
 <p><code>FocusManager</code> is an injectable service that helps control focus behavior.</p>
+<p><code>FocusManager</code> relies on a standard criteria for programmatic discovery of focusable elements - either element is one of <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code> or element has <code>tabindex</code> attribute set to anything other than -1. Because of that, Web Components need to have <code>tabindex</code> attribute to participate in navigation scenario provided by <code>FocusManager</code>. The attribute can be set explicitly per component or the library can be configured to render it by default by setting <code>LibraryConfiguration.EmitTabIndexAttribute = true</code> when calling <code>AddFluentUIComponents()</code>.</p>
 
 <h2 id="example">Examples</h2>
 

@@ -24,6 +24,9 @@ public static class ServiceCollectionExtensions
         {
             services.AddScoped<ITooltipService, TooltipService>();
         }
+
+        FluentComponentBase.EmitTabIndexAttribute = options.EmitTabIndexAttribute;
+
         services.AddSingleton(options);
 
         services.AddDesignTokens();

@@ -299,6 +299,11 @@
             Event callback for when the badge <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.DismissIcon"/> icon is clicked.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.EmitTabIndexAttribute">
+            <summary>
+            Gets or sets value indicating whether 'tabindex' attribute needs to be rendered for focusable components by default.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Element">
             <summary>
             Gets or sets the associated web component. 
@@ -12457,6 +12462,11 @@
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
             If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.EmitTabIndexAttribute">
+            <summary>
+            Gets or sets a value indicating whether the library should render 'tabindex' for focusable components for programmatic discovery.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
