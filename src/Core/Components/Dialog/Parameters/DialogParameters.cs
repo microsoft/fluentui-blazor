@@ -129,6 +129,13 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// Callback function for the result.
     /// </summary>
     public EventCallback<DialogResult> OnDialogResult { get; set; } = default!;
+    /// <summary>
+    /// Callback function that is called and awaited before the dialog fully closes.
+    /// </summary>
+    /// <remarks>
+    /// This is a suitable callback to use for animating the Dialog before it fully closes and is removed from the DOM.
+    /// </remarks>
+    public EventCallback OnDialogClosing { get; set; } = default!;
 }
 
 /// <summary>

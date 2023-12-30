@@ -13,6 +13,7 @@
                    aria-describedby=@(_parameters.AriaDescribedby ?? AriaDescribedby)
                    aria-labelledby=@(_parameters.AriaLabelledby ?? AriaLabelledby)
                    aria-label=@(_parameters.AriaLabel ?? AriaLabel)
+                   @ondialogdismiss=HandleDismissAsync
                    @attributes=@AdditionalAttributes>
 
         @* Default Header *@

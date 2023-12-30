@@ -2548,6 +2548,14 @@
             Callback function for the result.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.OnDialogClosing">
+            <summary>
+            Callback function that is called and awaited before the dialog fully closes.
+            </summary>
+            <remarks>
+            This is a suitable callback to use for animating the Dialog before it fully closes and is removed from the DOM.
+            </remarks>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters`1">
             <summary>
             Parameters for a dialog.
@@ -4483,6 +4491,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuTitle">
             <summary>
             Gets or sets the tite of the navigation menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuContent">

@@ -42,6 +42,10 @@
             {
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialog),
+                // OnDialogClosing = EventCallback.Factory.Create(this, async () =>
+                // {
+                //     await Task.Delay(1000);    
+                // }),
                 PrimaryAction = "Yes",
                 PrimaryActionEnabled = false,
                 SecondaryAction = "No",

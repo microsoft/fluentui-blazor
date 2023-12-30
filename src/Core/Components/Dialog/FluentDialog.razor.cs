@@ -222,6 +222,13 @@ public partial class FluentDialog : FluentComponentBase
     /// </summary>
     public async Task CloseAsync(DialogResult dialogResult)
     {
+        if (Instance is not null)
+        {
+            if (Instance.Parameters.OnDialogClosing.HasDelegate)
+            {
+                await Instance.Parameters.OnDialogClosing.InvokeAsync(dialogResult);
+            }
+        }
         DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
         if (Instance is not null)
         {
@@ -233,6 +240,17 @@ public partial class FluentDialog : FluentComponentBase
         else
         {
             Hide();
+        }
+    }
+
+    private async Task HandleDismissAsync(DialogEventArgs args)
+    {
+        if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id) && args.Id == this.Id)
+        {
+            if (this.Instance.Parameters.PreventDismissOnOverlayClick == false)
+            {
+                await CloseAsync(DialogResult.Cancel());
+            }
         }
     }
 

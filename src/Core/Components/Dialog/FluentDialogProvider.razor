@@ -14,7 +14,7 @@
     {
         @foreach (DialogReference dialog in _internalDialogContext.References)
         {
-            <FluentDialog @key="@dialog" Id="@dialog.Id" Instance="@dialog.Instance" Data="@dialog.Instance.Content" @ondialogdismiss=OnDismissAsync />
+            <FluentDialog @key="@dialog" Id="@dialog.Id" Instance="@dialog.Instance" Data="@dialog.Instance.Content" />
         }
     }
 }
