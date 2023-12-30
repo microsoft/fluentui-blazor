@@ -133,9 +133,9 @@ public partial class FluentDesignTheme : ComponentBase
 
                 if (OnLuminanceChanged.HasDelegate)
                 {
-                    GlobalDesign.SetLuminance(value.Contains("dark") ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
                     await OnLuminanceChanged.InvokeAsync(new LuminanceChangedEventArgs(mode, value.Contains("dark")));
                 }
+                GlobalDesign.SetLuminance(value.Contains("dark") ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
 
                 break;
 
