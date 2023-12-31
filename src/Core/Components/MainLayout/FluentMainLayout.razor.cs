@@ -21,7 +21,7 @@ public partial class FluentMainLayout : FluentComponentBase
     public RenderFragment? Header { get; set; }
 
     /// <summary>
-    /// Gets or sets the subheader content.
+    /// Gets or sets the sub header content.
     /// </summary>
     [Parameter]
     public RenderFragment? SubHeader { get; set; }
@@ -33,7 +33,7 @@ public partial class FluentMainLayout : FluentComponentBase
     public int? HeaderHeight { get; set; } = 50;
 
     /// <summary>
-    /// Gets or sets the tite of the navigation menu.
+    /// Gets or sets the title of the navigation menu.
     /// </summary>
     [Parameter]
     public string? NavMenuTitle { get; set; }
