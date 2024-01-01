@@ -2,13 +2,8 @@
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;
-public class CacheStorageAccessor : JSModule
+public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/FluentUI.Demo.Shared/js/CacheStorageAccessor.js")
 {
-    public CacheStorageAccessor(IJSRuntime js)
-        : base(js, "./_content/FluentUI.Demo.Shared/js/CacheStorageAccessor.js")
-    {
-    }
-
     public async ValueTask PutAsync(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
     {
         string requestMethod = requestMessage.Method.Method;

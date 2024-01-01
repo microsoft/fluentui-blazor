@@ -24,7 +24,6 @@ body {
     }
 
     .siteheader .notifications {
-        padding-right: 10px;
         display: flex;
         align-items: center;
     }
@@ -39,8 +38,8 @@ body {
     padding: 0 0 0 20px;
 }
 
-[dir="rtl"] .siteheader .notifications {
-    padding: 0 0 0 20px;
+[dir="rtl"] .siteheader .links {
+    padding-left: 10px;
 }
 
 .body-stack {
@@ -289,10 +288,16 @@ code {
         display: block;
         position: absolute;
         top: 15px;
+        left: unset;
         right: 20px;
         width: 20px;
         height: 20px;
         border: none;
+    }
+
+    [dir="rtl"] .navmenu-icon {
+        left: 20px;
+        right: unset
     }
 
     #navmenu-toggle ~ nav {
