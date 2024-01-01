@@ -4490,6 +4490,11 @@
             Gets or sets the width of the navigation menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuContent">
             <summary>
             Gets or sets the content of the navigation menu.
