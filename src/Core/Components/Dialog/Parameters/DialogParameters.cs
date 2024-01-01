@@ -133,9 +133,18 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// Callback function that is called and awaited before the dialog fully closes.
     /// </summary>
     /// <remarks>
-    /// This is a suitable callback to use for animating the Dialog before it fully closes and is removed from the DOM.
+    /// This is a suitable callback to use for animating the Dialog <em>before</em> it fully closes and is removed from the DOM.
+    /// This method is only called when using the <see cref="IDialogService"/>.
     /// </remarks>
-    public EventCallback OnDialogClosing { get; set; } = default!;
+    public EventCallback<DialogInstance> OnDialogClosing { get; set; } = default!;
+    /// <summary>
+    /// Callback function that is called and awaited after the dialog renders for the first time.
+    /// </summary>
+    /// <remarks>
+    /// This is a suitable callback to use for animating the Dialog <em>after</em> it is fully rendered in the DOM.
+    /// This method is only called when using the <see cref="IDialogService"/>.
+    /// </remarks>
+    public EventCallback<DialogInstance> OnDialogOpened { get; set; } = default!;
 }
 
 /// <summary>

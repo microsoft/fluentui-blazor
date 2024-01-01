@@ -150,6 +150,14 @@ public partial class FluentDialog : FluentComponentBase
         if (firstRender)
         {
             await Element.FocusAsync();
+
+            if (Instance is not null)
+            {
+                if (Instance.Parameters.OnDialogOpened.HasDelegate)
+                {
+                    await Instance.Parameters.OnDialogOpened.InvokeAsync(Instance);
+                }
+            }
         }
     }
 
@@ -226,7 +234,7 @@ public partial class FluentDialog : FluentComponentBase
         {
             if (Instance.Parameters.OnDialogClosing.HasDelegate)
             {
-                await Instance.Parameters.OnDialogClosing.InvokeAsync(dialogResult);
+                await Instance.Parameters.OnDialogClosing.InvokeAsync(Instance);
             }
         }
         DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
