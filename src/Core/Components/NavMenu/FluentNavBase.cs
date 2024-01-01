@@ -98,6 +98,10 @@ public abstract class FluentNavBase : FluentComponentBase
         }
         if (!string.IsNullOrEmpty(Href))
         {
+            if (OnClick.HasDelegate)
+            {
+                await OnClick.InvokeAsync(ev);
+            }
             NavigationManager.NavigateTo(Href, ForceLoad);
         }
         else
