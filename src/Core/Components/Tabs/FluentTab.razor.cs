@@ -29,7 +29,7 @@ public partial class FluentTab : FluentComponentBase
     public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the visability of a tab
+    /// Gets or sets the visibility of a tab
     /// </summary>
     [Parameter]
     public bool Visible { get; set; } = true;
@@ -88,7 +88,7 @@ public partial class FluentTab : FluentComponentBase
     public bool DeferredLoading { get; set; } = false;
 
     /// <summary>
-    /// CGets or sets the cstomized content of this tab panel.
+    /// Gets or sets the customized content of this tab panel.
     /// </summary>
     [Parameter]
     public RenderFragment? Content { get; set; }
@@ -106,7 +106,7 @@ public partial class FluentTab : FluentComponentBase
     public FluentTabs Owner { get; set; } = default!;
 
     /// <summary>
-    /// If this tab is outside of vistible tab panel area.
+    /// If this tab is outside of visible tab panel area.
     /// </summary>
     public bool? Overflow { get; private set; }
 

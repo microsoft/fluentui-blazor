@@ -31,7 +31,7 @@ public enum TooltipPosition
     Start,
 
     /// <summary>
-    /// The tooltip is positioned at the end of the enachor elemenet.
+    /// The tooltip is positioned at the end of the anchor element.
     /// </summary>
     End
 }

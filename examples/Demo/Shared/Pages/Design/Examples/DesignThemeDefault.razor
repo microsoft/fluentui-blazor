@@ -1,6 +1,6 @@
 <FluentDesignTheme @bind-Mode="@Mode"
                    OfficeColor="@OfficeColor"
-                   OfficeColorChanged="@(e => { OfficeColor = e ?? OfficeColor.Default; StateHasChanged(); })"
+                   OfficeColorChanged="@(e => { OnOfficeColorChanged(e); })"
                    OnLoaded="@OnLoaded"
                    OnLuminanceChanged="@OnLuminanceChanged"
                    StorageName="theme" />
@@ -22,7 +22,7 @@
                     <FluentStack>
                         <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
                                     Color="Color.Custom"
-                                    CustomColor="@context.ToAttributeValue()" />
+                                    CustomColor="@(@context.ToAttributeValue() != "default" ? context.ToAttributeValue() : "#036ac4" )" />
                         <FluentLabel>@context</FluentLabel>  
                     </FluentStack>
                 </OptionTemplate> 
@@ -42,6 +42,8 @@
 {
     public DesignThemeModes Mode { get; set; }
 
+
+
     public OfficeColor OfficeColor { get; set; }
 
     void OnLoaded(LoadedEventArgs e)
@@ -52,5 +54,28 @@
     void OnLuminanceChanged(LuminanceChangedEventArgs e)
     {
         DemoLogger.WriteLine($"Changed: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+    }
+
+    void OnOfficeColorChanged(OfficeColor? e)
+    {
+        switch (e)
+        {
+            case null:
+                OfficeColor = OfficeColor.Default;
+                break;
+            case OfficeColor.Random:
+                {
+                    Array values = Enum.GetValues<OfficeColor>().Skip(2).ToArray();
+                    Random random = new Random();
+                    OfficeColor randomValue = (OfficeColor)values.GetValue(random.Next(values.Length))!;
+
+                    OfficeColor = randomValue;
+                    break;
+                }
+
+            default:
+                OfficeColor = e.Value;
+                break;
+        }
     }
 }

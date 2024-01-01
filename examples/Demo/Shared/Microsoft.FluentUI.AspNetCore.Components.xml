@@ -2180,6 +2180,11 @@
             <param name="value">New value: for "mode" = "dark", "light", "system-dark", "system-light"</param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ClearLocalStorageAsync">
+            <summary>
+            Clears the local storage.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValues(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
             <summary />
         </member>
@@ -4480,7 +4485,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.SubHeader">
             <summary>
-            Gets or sets the subheader content.
+            Gets or sets the sub header content.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.HeaderHeight">
@@ -4490,7 +4495,22 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuTitle">
             <summary>
-            Gets or sets the tite of the navigation menu.
+            Gets or sets the title of the navigation menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
+            <summary>
+            Gets or sets the width of the navigation menu.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.NavMenuWidth">
@@ -6300,7 +6320,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Visible">
             <summary>
-            Gets or sets the visability of a tab
+            Gets or sets the visibility of a tab
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Label">
@@ -6350,7 +6370,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Content">
             <summary>
-            CGets or sets the cstomized content of this tab panel.
+            Gets or sets the customized content of this tab panel.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.ChildContent">
@@ -6365,7 +6385,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Overflow">
             <summary>
-            If this tab is outside of vistible tab panel area.
+            If this tab is outside of visible tab panel area.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTab.OnAfterRenderAsync(System.Boolean)">
@@ -11261,6 +11281,11 @@
             The official product colors for Microsoft Office apps.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random">
+            <summary>
+            A random color from the OfficeColor enum
+            </summary>
+        </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Default">
             <summary>
             The default Fluent UI accent color
@@ -11730,7 +11755,7 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.TooltipPosition.End">
             <summary>
-            The tooltip is positioned at the end of the enachor elemenet.
+            The tooltip is positioned at the end of the anchor element.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Typography">
