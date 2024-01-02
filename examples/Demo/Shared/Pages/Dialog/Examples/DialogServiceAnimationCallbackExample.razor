@@ -39,6 +39,7 @@
                         async function func() {{
                             let dialog = document.getElementById('{instance.Id}')?.dialog;
                             if (!dialog) return;
+                            dialog.style.opacity = '0.0';
                             let animation = dialog.animate([
                                 {{ opacity: '1', transform: '' }},
                                 {{ opacity: '0', transform: 'translateX(-100%)' }}

@@ -251,17 +251,6 @@ public partial class FluentDialog : FluentComponentBase
         }
     }
 
-    private async Task HandleDismissAsync(DialogEventArgs args)
-    {
-        if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id) && args.Id == this.Id)
-        {
-            if (this.Instance.Parameters.PreventDismissOnOverlayClick == false)
-            {
-                await CloseAsync(DialogResult.Cancel());
-            }
-        }
-    }
-
     /// <summary />
     internal void SetDialogHeader(FluentDialogHeader header)
     {
