@@ -8,6 +8,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum OfficeColor
 {
     /// <summary>
+    /// A random color from the OfficeColor enum
+    /// </summary>
+    [Description("random")]
+    Random,
+    
+    /// <summary>
     /// The default Fluent UI accent color
     /// </summary>
     [Description("default")]

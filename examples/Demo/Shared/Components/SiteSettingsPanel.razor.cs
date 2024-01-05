@@ -25,13 +25,13 @@ public partial class SiteSettingsPanel
 
     public LocalizationDirection? Direction { get; set; }
 
-    private IEnumerable<DesignThemeModes> AllModes => Enum.GetValues<DesignThemeModes>();
+    private static IEnumerable<DesignThemeModes> AllModes => Enum.GetValues<DesignThemeModes>();
 
-    private IEnumerable<OfficeColor?> AllOfficeColors
+    private static IEnumerable<OfficeColor?> AllOfficeColors
     {
         get
         {
-            return Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i).Union(new[] { (OfficeColor?)null });
+            return Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i);
         }
     }
 
@@ -51,11 +51,19 @@ public partial class SiteSettingsPanel
         Direction = isLeftToRight ? LocalizationDirection.LeftToRight : LocalizationDirection.RightToLeft;
     }
 
-    private async Task RemoveAllCache()
+    private async Task ResetSite()
     {
+        string? msg = "Site settings reset and cache cleared!";
+        
         await CacheStorageAccessor.RemoveAllAsync();
-        Logger.LogInformation("Cache cleared!");
+        _theme?.ClearLocalStorageAsync();
+        
+        Logger.LogInformation(msg);
+        _status = msg;
 
-        _status = "Cache cleared!";
+        OfficeColor = Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random;
+        Mode = DesignThemeModes.System;
+
+        //StateHasChanged();
     }
 }

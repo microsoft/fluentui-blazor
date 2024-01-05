@@ -57,6 +57,7 @@ class SplitPanels extends HTMLElement {
   #slot2minsize: number = 0;
   #totalsize: number = 0;
   left: number = 0;
+  right: number = 0;
   top: number = 0;
   dom: any;
 
@@ -96,6 +97,7 @@ class SplitPanels extends HTMLElement {
     this.isResizing = true;
     const clientRect = this.getBoundingClientRect();
     this.left = clientRect.x;
+    this.right = clientRect.right;
     this.top = clientRect.y;
     this.#totalsize = this.direction === "row" ? clientRect.width : clientRect.height;
 
@@ -110,10 +112,10 @@ class SplitPanels extends HTMLElement {
   }
   resizeDrag(e: PointerEvent) {
     if (this.direction === "row") {
-      const newMedianLeft = e.clientX - this.left;
+      const newMedianStart = (document.body.dir === '' || document.body.dir === 'ltr') ? (e.clientX - this.left) : (this.right - e.clientX);
       const median = this.barsize;
 
-      this.#slot1size = Math.floor(newMedianLeft - (median / 2));
+      this.#slot1size = Math.floor(newMedianStart - (median / 2));
       this.#slot2size = Math.floor(this.clientWidth - this.#slot1size - (median / 2));
 
       let min1size = this.ensurevalue(this.slot1minsize);
@@ -130,7 +132,6 @@ class SplitPanels extends HTMLElement {
       const totalSize = this.#slot1size + this.#slot2size - median;
       let slot1fraction = (this.#slot1size / totalSize).toFixed(2);
       let slot2fraction = (this.#slot2size / totalSize).toFixed(2);
-
       this.style.gridTemplateColumns = `${slot1fraction}fr ${median}px ${slot2fraction}fr`;
     }
     if (this.direction === "column") {
