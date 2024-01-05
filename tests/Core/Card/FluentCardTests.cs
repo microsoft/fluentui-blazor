@@ -146,4 +146,18 @@ public class FluentCardTests : TestBase
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentCard_Id()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.Id, "customid");
+            parameters.AddChildContent("childcontent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
 }
