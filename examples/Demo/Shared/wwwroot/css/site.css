@@ -30,18 +30,15 @@ body {
     }
 
     .siteheader .settings {
-        padding-right: 24px;
+        padding-right: 6px;
         display: flex;
         align-items: center;
     }
 
 [dir="rtl"] .siteheader .settings {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 6px;
 }
 
-[dir="rtl"] .siteheader .notifications {
-    padding: 0 0 0 20px;
-}
 
 .body-stack {
     flex-direction: row;
