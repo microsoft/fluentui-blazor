@@ -9,6 +9,7 @@ public partial class SiteSettingsPanel
     private string? _status;
     private bool _popVisible;
     private bool _ltr = true;
+    private FluentDesignTheme? _theme;
 
     [Inject]
     public required ILogger<SiteSettingsPanel> Logger { get; set; }

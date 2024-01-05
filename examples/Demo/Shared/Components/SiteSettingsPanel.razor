@@ -1,7 +1,8 @@
 ﻿@implements IDialogContentComponent
 
 <div>
-    <FluentDesignTheme @bind-Mode="@Mode"
+    <FluentDesignTheme @ref=_theme
+                       @bind-Mode="@Mode"
                        @bind-OfficeColor="@OfficeColor"
                        Direction="@Direction"
                        StorageName="theme" />
