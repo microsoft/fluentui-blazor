@@ -1,10 +1,14 @@
-using Bunit;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Card;
 
 public class FluentCardTests : TestBase
 {
+    public FluentCardTests()
+    {
+        TestContext.Services.AddFluentUIComponents();
+    }
+
     [Fact]
     public void FluentCard_Default()
     {

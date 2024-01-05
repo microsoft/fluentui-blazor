@@ -1,0 +1,129 @@
+﻿<style>
+    .multiple-examples-container {
+        row-gap: 16px;
+        column-gap: 16px;
+    }
+
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 16px;
+        column-gap: 16px;
+    }
+
+    .transparent-checkbox {
+        --neutral-fill-input-alt-rest: transparent;
+        --neutral-fill-input-alt-hover: transparent;
+        --neutral-fill-input-alt-active: transparent;
+        --neutral-fill-input-alt-focus: transparent;
+    }
+</style>
+
+<div class="multiple-examples-container">
+    <div class="cards-container">
+        <div>
+            <FluentCard @bind-Selected="_firstCardSelected"
+                        Width="@CardWidth">
+                <FluentCardFloatingAction>
+                    <FluentCheckbox @bind-Value="@_firstCardSelected"
+                                    @onclick:stopPropagation="true"
+                                    Class="transparent-checkbox"></FluentCheckbox>
+                </FluentCardFloatingAction>
+                <FluentCardPreview>
+                    @PreviewContent
+                </FluentCardPreview>
+                <FluentCardHeader>
+                    <Header>@Header("iOS App Prototype")</Header>
+                    <Description>@Description("You created 53m ago")</Description>
+                </FluentCardHeader>
+            </FluentCard>
+            <p>First selected: @_firstCardSelected</p>
+        </div>
+
+        <div>
+            <FluentCard @bind-Selected="_secondCardSelected"
+                        Width="@CardWidth">
+                <FluentCardFloatingAction>
+                    <FluentCheckbox @bind-Value="@_secondCardSelected"
+                                    @onclick:stopPropagation="true"
+                                    Class="transparent-checkbox"></FluentCheckbox>
+                </FluentCardFloatingAction>
+                <FluentCardPreview>
+                    @PreviewContent
+                </FluentCardPreview>
+                <FluentCardHeader>
+                    <Header>@Header("iOS App Prototype")</Header>
+                    <Description>@Description("You created 53m ago")</Description>
+                </FluentCardHeader>
+            </FluentCard>
+            <p>Second selected: @_secondCardSelected</p>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div>
+            <FluentCard @bind-Selected="_thirdCardSelected"
+                        Width="@CardWidth">
+                <FluentCardFloatingAction>
+                    <FluentCheckbox @bind-Value="@_thirdCardSelected"
+                                    @onclick:stopPropagation="true"
+                                    Class="transparent-checkbox"></FluentCheckbox>
+                </FluentCardFloatingAction>
+                <FluentCardHeader>
+                    <Image>
+                        <img src="@($"{AssetBaseUrl}docx.png")" alt="Microsoft Word Logo" />
+                    </Image>
+                    <Header>@Header("Secret Project Briefing")</Header>
+                    <Description>@Description("OneDrive > Documents")</Description>
+                </FluentCardHeader>
+            </FluentCard>
+            <p>Third selected: @_thirdCardSelected</p>
+        </div>
+
+        <div>
+            <FluentCard @bind-Selected="_forthCardSelected"
+                        Width="@CardWidth">
+                <FluentCardFloatingAction>
+                    <FluentCheckbox @bind-Value="@_forthCardSelected"
+                                    @onclick:stopPropagation="true"
+                                    Class="transparent-checkbox"></FluentCheckbox>
+                </FluentCardFloatingAction>
+                <FluentCardHeader>
+                    <Image>
+                        <img src="@($"{AssetBaseUrl}xlsx.png")" alt="Microsoft Word Logo" />
+                    </Image>
+                    <Header>@Header("Team Budget")</Header>
+                    <Description>@Description("OneDrive > Spreadsheets")</Description>
+                </FluentCardHeader>
+            </FluentCard>
+            <p>Forth selected: @_forthCardSelected</p>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    const string CardWidth = "400px";
+    const string AssetBaseUrl = "https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/";
+
+    bool _firstCardSelected = true;
+    bool _secondCardSelected = false;
+    bool _thirdCardSelected = true;
+    bool _forthCardSelected = false;
+
+    static readonly RenderFragment<string> Header = text => @<span class="card-header">@text</span>;
+
+    static readonly RenderFragment<string> Description = text => @<span class="card-description">@text</span>;
+
+    static readonly RenderFragment PreviewContent = __builder =>
+    {
+        <img style="height: 100%; width: 100%; display: block; border-radius: calc(var(--control-corner-radius) * 1px);"
+             src="@($"{AssetBaseUrl}office1.png")"
+             alt="Presentation Preview" />
+        <div style="position: absolute; left: 12px; bottom: 12px; height: 32px; width: 32px;">
+            <img style="padding: 5px; box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 2px, rgba(0, 0, 0, 0.12) 0px 0px 2px; background-color: #FFFFFF; border-radius: 2px;"
+                 src="@($"{AssetBaseUrl}logo3.svg")"
+                 alt="Figma app logo" />
+        </div>
+    };
+}

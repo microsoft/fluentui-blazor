@@ -68,21 +68,23 @@ public partial class ApiDocumentation
         {
             List<MemberDescription>? members = [];
 
-            object? obj;
-            if (Component.IsGenericType)
+            object? obj = null;
+            if (Component.GetConstructors().Any(x => x.GetParameters().Length == 0))
             {
-                if (InstanceTypes is null)
-                    throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
+                if (Component.IsGenericType)
+                {
+                    if (InstanceTypes is null)
+                        throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
 
-                // Supply the type to create the generic instance with (needs to be an array)
-                Type[] typeArgs = InstanceTypes;
-                Type constructed = Component.MakeGenericType(typeArgs);
+                    // Supply the type to create the generic instance with (needs to be an array)
+                    Type[] typeArgs = InstanceTypes;
+                    Type constructed = Component.MakeGenericType(typeArgs);
 
-                obj = Activator.CreateInstance(constructed);
+                    obj = Activator.CreateInstance(constructed);
+                }
+                else
+                    obj = Activator.CreateInstance(Component);
             }
-            else
-                obj = Activator.CreateInstance(Component);
-
 
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);

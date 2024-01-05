@@ -1,4 +1,5 @@
 export * from '@fluentui/web-components/dist/web-components'
+export * from './FocusManager'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
 import { PageScript, onEnhancedLoad } from './PageScript'
@@ -277,6 +278,14 @@ export function afterStarted(blazor: Blazor) {
       return {
         collapsed: event.detail.collapsed
       }
+    }
+  });
+  blazor.registerCustomEventType('cardselectedchange', {
+    browserEventName: 'card-selected',
+    createEventArgs: event => {
+      return {
+        selected: event.detail.selected
+      };
     }
   });
 

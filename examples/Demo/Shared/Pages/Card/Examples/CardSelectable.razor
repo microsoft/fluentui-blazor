@@ -1,0 +1,58 @@
+﻿<div style="display: flex; flex-wrap: wrap; column-gap: 16px;">
+    <div>
+        <FluentCard @bind-Selected="_firstCardSelected"
+                    Width="@CardWidth">
+            <FluentCardPreview>
+                @PreviewContent
+            </FluentCardPreview>
+            <FluentCardHeader>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+        </FluentCard>
+        <p>First selected: @_firstCardSelected</p>
+    </div>
+    
+    <div>
+        <FluentCard @bind-Selected="_secondCardSelected"
+                    Width="@CardWidth">
+            <FluentCardPreview>
+                @PreviewContent
+            </FluentCardPreview>
+            <FluentCardHeader>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+        </FluentCard>
+        <p>Second selected: @_secondCardSelected</p>
+    </div>
+</div>
+
+@code
+{
+    const string CardWidth = "400px";
+
+    bool _firstCardSelected = true;
+    bool _secondCardSelected = false;
+
+    static readonly RenderFragment Header = __builder =>
+    {
+        <span class="card-header">iOS App Prototype</span>
+    };
+    static readonly RenderFragment Description = __builder =>
+    {
+        <span class="card-description">You created 53m ago</span>
+    };
+
+    static readonly RenderFragment PreviewContent = __builder =>
+    {
+        <img style="height: 100%; width: 100%; display: block; border-radius: calc(var(--control-corner-radius) * 1px);"
+             src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/office1.png"
+             alt="Presentation Preview" />
+        <div style="position: absolute; left: 12px; bottom: 12px; height: 32px; width: 32px;">
+            <img style="padding: 5px; box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 2px, rgba(0, 0, 0, 0.12) 0px 0px 2px; background-color: #FFFFFF; border-radius: 2px;"
+                 src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/logo3.svg"
+                 alt="Figma app logo" />
+        </div>
+    };
+}

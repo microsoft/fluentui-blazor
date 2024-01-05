@@ -15,6 +15,11 @@ public class LibraryConfiguration
     /// </summary>
     public bool UseTooltipServiceProvider { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the library should render 'tabindex' for focusable components for programmatic discovery.
+    /// </summary>
+    public bool EmitTabIndexAttribute { get; set; }
+
     public MarkupString RequiredLabel { get; set; } = (MarkupString)
         """
         <span aria-label="required" aria-hidden="true" style="padding-inline-start: calc(var(--design-unit) * 1px); color: var(--error);">*</span>

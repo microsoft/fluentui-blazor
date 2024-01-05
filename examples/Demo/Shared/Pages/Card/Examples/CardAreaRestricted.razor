@@ -3,10 +3,10 @@
 <FluentStack>
     <FluentCard Width="300px" Height="300px">
         <p>This card's content is restricted to its area. Open the select list below to see the result</p>
-        <label for="people-listbox">Select a person</label>
+        <label for="people-listbox1">Select a person</label>
         <FluentSelect TOption="Person"
                       Items="@Data.People.WithVeryLongName()"
-                      Id="people-listbox"
+                      Id="people-listbox1"
                       Width="200px"
                       OptionValue="@(p => p.PersonId.ToString())"
                       OptionText="@(p => p.LastName + ", " + p.FirstName)"
@@ -16,10 +16,10 @@
     </FluentCard>
     <FluentCard Width="300px" Height="300px" AreaRestricted="false">
         <p>This card's content is not restricted to its area. Open the select list below to see the result</p>
-        <label for="people-listbox">Select a person</label>
+        <label for="people-listbox2">Select a person</label>
         <FluentSelect TOption="Person"
                       Items="@Data.People.WithVeryLongName()"
-                      Id="people-listbox"
+                      Id="people-listbox2"
                       Width="200px"
                       OptionValue="@(p => p.PersonId.ToString())"
                       OptionText="@(p => p.LastName + ", " + p.FirstName)"

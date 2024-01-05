@@ -1,0 +1,17 @@
+.fluent-card-preview {
+    position: relative
+}
+
+    .fluent-card-preview ::deep > :not(.logo) {
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    .fluent-card-preview ::deep > .logo {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        width: 32px;
+        height: 32px;
+    }

@@ -8,7 +8,7 @@
     /* Modules */
     "module": "ESNext",
     "moduleResolution": "Node",
-    "lib": [ "ESNext", "DOM" ],
+    "lib": [ "ESNext", "DOM", "DOM.Iterable" ],
     /* Emit */
     "sourceMap": true, /* Create source map files for emitted JavaScript files. */
 

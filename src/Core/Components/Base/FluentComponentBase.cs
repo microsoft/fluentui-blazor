@@ -7,6 +7,11 @@ public abstract class FluentComponentBase : ComponentBase
     private ElementReference _ref;
 
     /// <summary>
+    /// Gets or sets value indicating whether 'tabindex' attribute needs to be rendered for focusable components by default.
+    /// </summary>
+    internal static bool EmitTabIndexAttribute;
+
+    /// <summary>
     /// Gets or sets the associated web component. 
     /// May be <see langword="null"/> if accessed before the component is rendered.
     /// </summary>
@@ -56,6 +61,27 @@ public abstract class FluentComponentBase : ComponentBase
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <summary>
+    /// Returns value for rendered 'tabindex' attribute.
+    /// </summary>
+    /// <param name="disabled">Component's Disabled parameter value</param>
+    /// <returns></returns>
+    protected object? GetTabIndexAttributeValue(bool disabled = false)
+    {
+        if (!EmitTabIndexAttribute)
+            return null;
+
+        if (disabled)
+            return -1;
+
+        if (AdditionalAttributes?.TryGetValue("tabindex", out var tabIndexValue) ?? false)
+        {
+            return tabIndexValue;
+        }
+
+        return 0;
+    }
 
     protected string? GetId()
     {

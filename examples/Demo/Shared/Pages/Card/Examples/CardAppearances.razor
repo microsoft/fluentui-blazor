@@ -1,0 +1,85 @@
+﻿<div class="multiple-examples-container">
+    <div>
+        <h4>Filled (Default)</h4>
+        <p>This is the default style to use for cards. Use this style variant for most of your card designs.</p>
+        <FluentCard Appearance="CardAppearance.Filled"
+                    Width="@CardWidth"
+                    @onclick="HandleCardClick">
+            <FluentCardHeader>
+                <Image>@Image</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p style="margin: 0;">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
+        </FluentCard>
+    </div>
+
+    <div>
+        <h4>Filled Alternative</h4>
+        <p>Use if your card is being displayed on a lighter gray or white surface. This ensures that you have adequate contrast between the card surface and the background of the application.</p>
+        <FluentCard Appearance="CardAppearance.FilledAlternative"
+                    Width="@CardWidth"
+                    @onclick="HandleCardClick">
+            <FluentCardHeader>
+                <Image>@Image</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p style="margin: 0;">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
+        </FluentCard>
+    </div>
+
+    <div>
+        <h4>Outline</h4>
+        <p>Use when you don't want a filled background color but a discernible outline (border) on the card.</p>
+        <FluentCard Appearance="CardAppearance.Outline"
+                    Width="@CardWidth"
+                    @onclick="HandleCardClick">
+            <FluentCardHeader>
+                <Image>@Image</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p style="margin: 0;">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
+        </FluentCard>
+    </div>
+
+    <div>
+        <h4>Subtle</h4>
+        <p>This variant doesn't have a background or border for the card container. However, it does include interaction states that display a visible footprint when interacting with the card item.</p>
+        <FluentCard Appearance="CardAppearance.Subtle"
+                    Width="@CardWidth"
+                    @onclick="HandleCardClick">
+            <FluentCardHeader>
+                <Image>@Image</Image>
+                <Header>@Header</Header>
+                <Description>@Description</Description>
+            </FluentCardHeader>
+            <p style="margin: 0;">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
+        </FluentCard>
+    </div>
+</div>
+
+@code
+{
+    private const string CardWidth = "480px";
+
+    static readonly RenderFragment Header = __builder =>
+    {
+        <span class="card-header">App Name</span>
+    };
+    static readonly RenderFragment Description = __builder =>
+    {
+        <span class="card-description">Developer</span>
+    };
+
+    static readonly RenderFragment Image = __builder =>
+    {
+        <img style="height: 48px; border-radius: 4px;" src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg" alt="App name logo" />
+    };
+
+    private void HandleCardClick(MouseEventArgs _)
+    {
+        Console.WriteLine("Interactive!");
+    }
+}
