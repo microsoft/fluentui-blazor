@@ -25,10 +25,10 @@ public partial class DialogService : IDialogService
         return CloseAsync(dialog, DialogResult.Ok<object?>(null));
     }
 
-    public async Task CloseAsync(DialogReference dialog, DialogResult result)
+    public Task CloseAsync(DialogReference dialog, DialogResult result)
     {
-        await Task.Run(() => { });  // To avoid warning
         OnDialogCloseRequested?.Invoke(dialog, result);
+        return Task.CompletedTask;
     }
 
     internal virtual IDialogReference CreateReference(string id)
