@@ -37,7 +37,7 @@ public partial class DialogService : IDialogService
     }
 
     /// <summary>
-    /// A event that will be invoked when showing a dialog with a custom component
+    /// An event that will be invoked when showing a dialog with a custom component
     /// </summary>
     public event Action<IDialogReference, Type?, DialogParameters, object>? OnShow;
 
