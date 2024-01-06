@@ -21,4 +21,6 @@
 }
 
     
-
+[dir="rtl"] * ::deep fluent-button > svg {
+    transform: rotate(180deg);
+}
