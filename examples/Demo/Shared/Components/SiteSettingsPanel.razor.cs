@@ -8,20 +8,23 @@ public partial class SiteSettingsPanel
 {
     private string? _status;
     private bool _popVisible;
+    private bool _ltr = true;
     private FluentDesignTheme? _theme;
 
     [Inject]
-    public ILogger<SiteSettingsPanel> Logger { get; set; } = default!;
+    public required ILogger<SiteSettingsPanel> Logger { get; set; }
 
     [Inject]
-    public CacheStorageAccessor CacheStorageAccessor { get; set; } = default!;
-    
+    public required CacheStorageAccessor CacheStorageAccessor { get; set; }
+
+    [Inject]
+    public required GlobalState GlobalState { get; set; }
     
     public DesignThemeModes Mode { get; set; }
 
     public OfficeColor? OfficeColor { get; set; }
 
-    public bool Direction { get; set; } = true;
+    public LocalizationDirection? Direction { get; set; }
 
     private static IEnumerable<DesignThemeModes> AllModes => Enum.GetValues<DesignThemeModes>();
 
@@ -31,6 +34,22 @@ public partial class SiteSettingsPanel
         {
             return Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i);
         }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Direction = GlobalState.Dir;
+            _ltr = !Direction.HasValue || Direction.Value == LocalizationDirection.LeftToRight;
+        }
+    }
+
+    protected void HandleDirectionChanged(bool isLeftToRight)
+    {
+
+        _ltr = isLeftToRight;
+        Direction = isLeftToRight ? LocalizationDirection.LeftToRight : LocalizationDirection.RightToLeft;
     }
 
     private async Task ResetSite()
