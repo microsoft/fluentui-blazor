@@ -26,6 +26,8 @@ public interface IDialogParameters
     bool PreventScroll { get; set; }
     bool PreventDismissOnOverlayClick { get; set; }
     EventCallback<DialogResult> OnDialogResult { get; set; }
+    EventCallback<DialogInstance> OnDialogClosing { get; set; }
+    EventCallback<DialogInstance> OnDialogOpened { get; set; }
 }
 
 public interface IDialogParameters<TContent> : IDialogParameters
