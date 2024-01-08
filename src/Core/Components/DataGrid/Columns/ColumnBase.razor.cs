@@ -96,7 +96,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
-    public FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
+    public IDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary>
     /// Overridden by derived components to provide rendering logic for the column's cells.

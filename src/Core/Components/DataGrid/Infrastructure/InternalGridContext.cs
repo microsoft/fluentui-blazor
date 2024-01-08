@@ -9,10 +9,10 @@ internal sealed class InternalGridContext<TGridItem>
     private int _index = 0;
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
 
-    public FluentDataGrid<TGridItem> Grid { get; }
+    public IDataGrid<TGridItem> Grid { get; }
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();
 
-    public InternalGridContext(FluentDataGrid<TGridItem> grid)
+    public InternalGridContext(IDataGrid<TGridItem> grid)
     {
         Grid = grid;
     }
