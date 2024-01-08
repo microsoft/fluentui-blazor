@@ -70,19 +70,21 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
 
         itemsTotalSize += element.overflowSize;
 
-        // Add an attribute 'overflow'
-        if (itemsTotalSize > containerMaxSize) {
-            if (!isOverflow) {
-                element.setAttribute("overflow", "");
-                overflowChanged = true;
+        // Only check for overflow if the container has a size
+        if (containerMaxSize > 0) {
+            if (itemsTotalSize > containerMaxSize) {
+                // Add an attribute 'overflow'
+                if (!isOverflow) {
+                    element.setAttribute("overflow", "");
+                    overflowChanged = true;
+                }
             }
-        }
-
-        // Remove the attribute 'overflow'
-        else {
-            if (isOverflow) {
-                element.removeAttribute("overflow");
-                overflowChanged = true;
+            else {
+                // Remove the attribute 'overflow'
+                if (isOverflow) {
+                    element.removeAttribute("overflow");
+                    overflowChanged = true;
+                }
             }
         }
 

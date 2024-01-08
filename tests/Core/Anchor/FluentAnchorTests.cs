@@ -4,20 +4,20 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Anchor;
 
-public class FluentAnchorTests : TestBase
+public partial class FluentAnchorTests : TestContext
 {
     private const string FluentAnchorRazorJs = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Anchor/FluentAnchor.razor.js";
 
     public FluentAnchorTests()
     {
-        TestContext.JSInterop.SetupModule(FluentAnchorRazorJs);
+        JSInterop.SetupModule(FluentAnchorRazorJs);
     }
 
     [Fact]
     public void FluentAnchor_AttributesDefaultValues()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
+        var cut = RenderComponent<FluentAnchor>(parameters =>
         {
             parameters.AddChildContent("click me!");
         });
@@ -32,7 +32,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_DownloadAttribute(string download)
     {
         // Arrange && Act
-        var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
+        var cut = RenderComponent<FluentAnchor>(parameters =>
         {
             parameters.Add(p => p.Href, "https://fast.design");
             parameters.Add(p => p.Download, download);
@@ -50,7 +50,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_HrefAttribute(string url, string suffix)
     {
         // Arrange && Act
-        var cut = TestContext.RenderComponent<FluentAnchor>(parameters =>
+        var cut =  RenderComponent<FluentAnchor>(parameters =>
         {
             parameters.Add(p => p.Href, url);
             parameters.AddChildContent("click me!");
@@ -66,7 +66,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_HrefLangAttribute(string lang)
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Hreflang, lang)
                 .Add(p => p.Href, "https://fast.design")
@@ -82,7 +82,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_PingAttribute(string ping, string suffix)
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Ping, ping)
                 .Add(p => p.Href, "https://fast.design")
@@ -98,7 +98,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_ReferrerPolicyAttribute(string referrerPolicy)
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Referrerpolicy, referrerPolicy)
                 .Add(p => p.Href, "https://fast.design")
@@ -114,7 +114,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_RelAttribute(string rel)
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Rel, rel)
                 .Add(p => p.Href, "https://fast.design")
@@ -136,7 +136,7 @@ public class FluentAnchorTests : TestBase
         IRenderedComponent<FluentAnchor>? cut = null;
         Action action = () =>
         {
-            cut = TestContext.RenderComponent<FluentAnchor>(
+            cut = RenderComponent<FluentAnchor>(
                 parameters => parameters
                     .Add(p => p.Target, target)
                     .Add(p => p.Href, "https://fast.design")
@@ -161,7 +161,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_TypeAttribute(string type, string suffix)
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Type, type)
                 .Add(p => p.Href, "https://fast.design")
@@ -182,7 +182,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_AppearanceAttribute(Appearance appearance)
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Appearance, appearance)
                 .Add(p => p.Href, "https://fast.design")
@@ -196,7 +196,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_Without_ChildContent()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAnchor>();
+        var cut = RenderComponent<FluentAnchor>();
 
         // Assert
         cut.Verify();
@@ -206,7 +206,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_WithAdditionalCSSClass()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Href, "https://fast.design")
                 .Add(p => p.Class, "additional-class")
@@ -220,7 +220,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_WithAdditionalStyle()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Href, "https://fast.design")
                 .Add(p => p.Style, "background-color: black;")
@@ -234,7 +234,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_WithASingleAdditionalAttribute()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Href, "https://fast.design")
                 .AddUnmatched("additional", "additional-value")
@@ -248,7 +248,7 @@ public class FluentAnchorTests : TestBase
     public void FluentAnchor_WithMultipleAdditionalAttributes()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAnchor>(
+        var cut = RenderComponent<FluentAnchor>(
             parameters => parameters
                 .Add(p => p.Href, "https://fast.design")
                 .AddUnmatched("additional1", "additional1-value")
