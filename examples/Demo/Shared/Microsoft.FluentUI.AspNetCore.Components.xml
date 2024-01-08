@@ -1686,9 +1686,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StyleValue">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerMonth">
             <summary>
             Gets or sets the current month of the date picker (two-way bindable).
@@ -1797,11 +1794,6 @@
             <param name="year"></param>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
-            <summary>
-            Gets or sets a value indicating whether the calendar is readonly.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Culture">
             <summary>
             Gets or sets the culture of the component.
@@ -1827,11 +1819,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
             <summary>
             Gets or sets the selected date (two-way bindable).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ValueChanged">
-            <summary>
-            Fired when the display month changes.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
@@ -1982,52 +1969,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Label">
-            <summary>
-            Text displayed just above the component
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.LabelTemplate">
-            <summary>
-            Content displayed just above the component
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.AriaLabel">
-            <summary>
-            Text used on aria-label attribute.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Appearance">
             <summary>
             Gets or sets the design of this input.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Disabled">
-            <summary>
-            Disables the form control, ensuring it doesn't participate in form submission.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Name">
-            <summary>
-            Gets or sets the name of the element. Allows access by name from the associated form.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Required">
-            <summary>
-            Gets or sets a value indicating whether the element needs to have a value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Autofocus">
-            <summary>
-            Determines if the element should receive document focus on page load.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Placeholder">
-            <summary>
-            Gets or sets the short hint displayed in the input before the user enters a value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">

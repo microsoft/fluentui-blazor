@@ -6,18 +6,20 @@
 
 <EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
-    <FluentValidationSummary />
+    <ValidationSummary />
 
     <p>
         <label>
             Identifier:
             <InputText @bind-Value="starship.Identifier" />
+            <ValidationMessage For="@(() => starship.Identifier)" />
         </label>
     </p>
     <p>
         <label>
             Description (optional):
             <InputTextArea @bind-Value="starship.Description" />
+            <ValidationMessage For="@(() => starship.Description)" />
         </label>
     </p>
     <p>
@@ -29,24 +31,28 @@
                 <option value="Diplomacy">Diplomacy</option>
                 <option value="Defense">Defense</option>
             </InputSelect>
+            <ValidationMessage For="@(() => starship.Classification)" />
         </label>
     </p>
     <p>
         <label>
             Maximum Accommodation:
             <InputNumber @bind-Value="starship.MaximumAccommodation" />
+            <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
         </label>
     </p>
     <p>
         <label>
             Engineering Approval:
             <InputCheckbox @bind-Value="starship.IsValidatedDesign" />
+            <ValidationMessage For="@(() => starship.IsValidatedDesign)" />
         </label>
     </p>
     <p>
         <label>
             Production Date:
             <InputDate @bind-Value="starship.ProductionDate" />
+            <ValidationMessage For="@(() => starship.ProductionDate)" />
         </label>
     </p>
 

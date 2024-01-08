@@ -81,7 +81,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// @bind-Value="model.PropertyName"
     /// </example>
     [Parameter]
-    public TValue? Value { get; set; }
+    public virtual TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
