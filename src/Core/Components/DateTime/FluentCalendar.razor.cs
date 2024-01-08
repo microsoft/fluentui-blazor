@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -19,15 +21,18 @@ public partial class FluentCalendar : FluentCalendarBase
     private CalendarExtended? _calendarExtended = null;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-calendar", () => View == CalendarViews.Days)
-        .AddClass("fluent-month", () => View == CalendarViews.Months)
-        .AddClass("fluent-year", () => View == CalendarViews.Years)
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
-
+    protected override string? ClassValue
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass("fluent-calendar", () => View == CalendarViews.Days)
+                .AddClass("fluent-month", () => View == CalendarViews.Months)
+                .AddClass("fluent-year", () => View == CalendarViews.Years)
+                .Build();
+        }
+    }
+    
     /// <summary>
     /// Gets or sets the current month of the date picker (two-way bindable).
     /// This changes when the user browses through the calendar.
@@ -249,7 +254,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <returns></returns>
     private async Task PickerMonthSelect(DateTime? month)
     {
-        PickerMonth = month.HasValue ? month.Value : DateTime.Today;
+        PickerMonth = month ?? DateTime.Today;
         _pickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
@@ -261,8 +266,15 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <returns></returns>
     private async Task PickerYearSelect(DateTime? year)
     {
-        PickerMonth = year.HasValue ? year.Value : DateTime.Today;
+        PickerMonth = year ?? DateTime.Today;
         _pickerView = CalendarViews.Days;
         await Task.CompletedTask;
+    }
+
+    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        BindConverter.TryConvertTo(value, Culture, out result);
+        validationErrorMessage = null;
+        return true;
     }
 }
