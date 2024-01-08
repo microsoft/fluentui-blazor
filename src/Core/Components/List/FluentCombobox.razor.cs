@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -35,6 +36,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
+
+    protected override string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
+        .Build();
 
     protected override async Task OnChangedHandlerAsync(ChangeEventArgs e)
     {
