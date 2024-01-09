@@ -37,8 +37,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     [Parameter]
     public Appearance? Appearance { get; set; }
 
-    protected override string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
 
