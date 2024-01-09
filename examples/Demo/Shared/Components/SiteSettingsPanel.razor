@@ -24,7 +24,7 @@
                 <FluentStack>
                     <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
                                 Color="Color.Custom"
-                                CustomColor="@(@context.ToAttributeValue() != "default" ? context.ToAttributeValue() : "#036ac4" )" />
+                                CustomColor="@GetCustomColor(@context)" />
                     <FluentLabel>@context</FluentLabel>
                 </FluentStack>
             </OptionTemplate>
@@ -38,7 +38,7 @@
                       ValueChanged="HandleDirectionChanged"/>
         <FluentLabel>
             These values (except for Direction) are persisted in the LocalStorage.
-            You can recover this style during your next visits.<br />
+            and will be recovered during your next visits.<br /><br />
             Use the 'Reset settings button' below to go back to the system theme and a random color.
         </FluentLabel>
         <FluentDivider Style="width: 100%; margin: 1rem 0" />

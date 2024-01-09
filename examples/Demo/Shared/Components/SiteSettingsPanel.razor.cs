@@ -62,9 +62,18 @@ public partial class SiteSettingsPanel
         Logger.LogInformation(msg);
         _status = msg;
 
-        OfficeColor = Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random;
+        OfficeColor = OfficeColorUtilities.GetRandom();
         Mode = DesignThemeModes.System;
+    }
 
-        //StateHasChanged();
+    private static string? GetCustomColor(OfficeColor? color)
+    {
+        return color switch
+        {
+            null => OfficeColorUtilities.GetRandom(true).ToAttributeValue(),
+            Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Default => "#036ac4",
+            _ => color.ToAttributeValue(),
+        };
+
     }
 }
