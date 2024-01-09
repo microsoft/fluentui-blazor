@@ -9,12 +9,14 @@
 
     <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
         <FluentSelect Label="Theme"
+                      Width="100%"
                       Style="margin-bottom: 30px;"
                       Items="@AllModes"
                       @bind-SelectedOption="@Mode" />
 
         <FluentSelect Label="Color"
                       Style="margin-bottom: 30px;"
+                      Width="100%"
                       Items="@AllOfficeColors"
                       Height="200px"
                       @bind-SelectedOption="@OfficeColor">
