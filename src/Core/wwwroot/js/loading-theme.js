@@ -27,7 +27,6 @@ class LoadingTheme extends HTMLElement {
         const storageName = this.getAttribute("storage-name");
         const mode = this.getAttribute("mode");
         const primaryColor = this.getAttribute("primary-color");
-        const randomColor = this.getAttribute("random-color");
 
         const isDark = (modeSaved, isSystemDark) => {
             switch (modeSaved) {
@@ -61,18 +60,12 @@ class LoadingTheme extends HTMLElement {
 
         document.body.classList.add(this.className);
 
-        let color = primaryColorSaved;
-        if ((!color || color ==='Random') && (randomColor === '' || randomColor === 'true' || randomColor === true) ) {
-            const officeColors = ["Default", "Access", "Booking", "Exchange", "Excel,", "GroupMe", "Office", "OneDrive", "OneNote", "Outlook", "Planner", "PowerApps", "PowerBI", "PowerPoint", "Project", "Publisher", "SharePoint", "Skype,", "Stream", "Sway", "Teams", "Visio,", "Windows", "Word", "Yammer"]
-            const randomElement = officeColors[Math.floor(Math.random() * officeColors.length)];
-            color = randomElement;
-        }
 
         // Add a <fluent-design-theme mode="dark|light" /> sub-element
         // Do not add the "storage-name"" to avoid unwanted local storage.
         const designTheme = document.createElement("fluent-design-theme");
         designTheme.setAttribute("mode", modeSaved);
-        designTheme.setAttribute("primary-color", color);
+        designTheme.setAttribute("primary-color", primaryColorSaved);
         this.appendChild(designTheme);
 
         // Wait for the fluentui web components to be loaded
