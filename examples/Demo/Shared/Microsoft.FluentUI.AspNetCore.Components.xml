@@ -6123,6 +6123,12 @@
             Gets or sets the width of the spacer (in pixels).
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter">
+            <summary>
+            Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+            Add this line to suppress de compilation error: `@{ #pragma warning disable FluentPanelSplitter }`
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.#ctor">
             <summary />
         </member>

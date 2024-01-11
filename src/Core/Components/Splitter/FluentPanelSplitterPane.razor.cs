@@ -7,6 +7,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+#pragma warning disable FluentPanelSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
 {
     private string _size = string.Empty;
@@ -232,3 +233,4 @@ public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
         return "locked";
     }
 }
+#pragma warning restore FluentPanelSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.

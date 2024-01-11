@@ -1,5 +1,6 @@
 ﻿@page "/PanelSplitter"
 @using FluentUI.Demo.Shared.Pages.Splitter.Examples
+@{ #pragma warning disable FluentPanelSplitter }
 
 <h1>Panel Splitter (DRAFT)</h1>
 
@@ -14,12 +15,3 @@
 
 <ApiDocumentation Component="typeof(FluentPanelSplitter)" />
 <ApiDocumentation Component="typeof(FluentPanelSplitterPane)" />
-
-@code
-{
-    // Hack to force the compiler to include this class in the final library
-    // (WASM publishing)
-    // TODO: To find a better solution
-    FluentPanelSplitter temp1 = new FluentPanelSplitter();
-    FluentPanelSplitterPane temp2 = new FluentPanelSplitterPane();
-}
