@@ -1,6 +1,5 @@
 <FluentDesignTheme @bind-Mode="@Mode"
-                   OfficeColor="@OfficeColor"
-                   OfficeColorChanged="@(e => { OnOfficeColorChanged(e); })"
+                   @bind-OfficeColor="@OfficeColor"
                    OnLoaded="@OnLoaded"
                    OnLuminanceChanged="@OnLuminanceChanged"
                    StorageName="theme" />
@@ -9,14 +8,16 @@
     <FluentGrid>
         <FluentGridItem>
             <FluentSelect Label="Theme"
+                          Width="250px"
                           Items="@(Enum.GetValues<DesignThemeModes>())"
                           @bind-SelectedOption="@Mode" />
         </FluentGridItem>
 
         <FluentGridItem>
             <FluentSelect Label="Color"
-                          Items="@(Enum.GetValues<OfficeColor>())"
+                          Items="@(Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i))"
                           Height="200px"
+                          Width="250px"
                           @bind-SelectedOption="@OfficeColor">
                 <OptionTemplate>  
                     <FluentStack>
@@ -27,6 +28,7 @@
                     </FluentStack>
                 </OptionTemplate> 
             </FluentSelect>
+            <FluentButton Appearance="Appearance.Accent" OnClick="PickRandomColor">Feeling lucky?</FluentButton>
         </FluentGridItem>
     </FluentGrid>
 
@@ -44,7 +46,7 @@
 
 
 
-    public OfficeColor OfficeColor { get; set; }
+    public OfficeColor? OfficeColor { get; set; }
 
     void OnLoaded(LoadedEventArgs e)
     {
@@ -56,26 +58,8 @@
         DemoLogger.WriteLine($"Changed: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
     }
 
-    void OnOfficeColorChanged(OfficeColor? e)
+    void PickRandomColor()
     {
-        switch (e)
-        {
-            case null:
-                OfficeColor = OfficeColor.Default;
-                break;
-            case OfficeColor.Random:
-                {
-                    Array values = Enum.GetValues<OfficeColor>().Skip(2).ToArray();
-                    Random random = new Random();
-                    OfficeColor randomValue = (OfficeColor)values.GetValue(random.Next(values.Length))!;
-
-                    OfficeColor = randomValue;
-                    break;
-                }
-
-            default:
-                OfficeColor = e.Value;
-                break;
-        }
+        OfficeColor = OfficeColorUtilities.GetRandom();
     }
 }
