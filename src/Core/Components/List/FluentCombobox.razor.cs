@@ -41,6 +41,13 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        parameters.SetParameterProperties(this);
+
+        await base.SetParametersAsync(ParameterView.Empty);
+    }
+
     protected override async Task OnChangedHandlerAsync(ChangeEventArgs e)
     {
         if (e.Value is not null && Items is not null)
