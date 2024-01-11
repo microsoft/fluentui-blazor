@@ -2,11 +2,13 @@
 
 public static class OfficeColorUtilities
 {
+    public static readonly OfficeColor[] AllColors = Enum.GetValues<OfficeColor>();
+
     public static OfficeColor GetRandom(bool skipDefault = true)
     {
 
-        Array values = Enum.GetValues<OfficeColor>().Skip(skipDefault ? 1 : 0).ToArray();
+        IEnumerable<OfficeColor>? values = AllColors.Skip(skipDefault ? 1 : 0);
         
-        return (OfficeColor)values.GetValue(new Random().Next(values.Length))!;
+        return values.ElementAt(new Random().Next(values.Count()));
     }
 }
