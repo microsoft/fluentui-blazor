@@ -5,7 +5,7 @@ export function updateProxy(id) {
     }
     const element = document.getElementById(id);
 
-    if (element.form) {
+    if (element && element.form) {
         if (element.form.id !== '') {
             element.proxy.setAttribute("form", element.form.id)
         }
