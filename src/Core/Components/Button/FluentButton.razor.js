@@ -5,7 +5,12 @@ export function updateProxy(id) {
     }
     const element = document.getElementById(id);
 
-    if (!!element && !!element.form) {
-        element.proxy.setAttribute("form", element.form.id)
+    if (element.form) {
+        if (element.form.id !== '') {
+            element.proxy.setAttribute("form", element.form.id)
+        }
+        else {
+            console.warn("When the submit button is placed outside of the EditForm, make sure to supply an id attribute to the EditForm.");
+        }
     }
 }
