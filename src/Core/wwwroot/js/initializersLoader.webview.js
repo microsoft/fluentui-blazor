@@ -4,7 +4,7 @@
     if (typeof blazor !== 'undefined') {
         throw new Error("Blazor has been already registered. initializersLoader JS file must be added before Blazor's JS file.");
     }
-
+    fetch
     var appName = getAppName();
     let modulesResource = `${appName}.modules.json`;
 

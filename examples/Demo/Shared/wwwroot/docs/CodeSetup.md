@@ -38,14 +38,14 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
 ### Script
-As mentioned, we wrap the **Fluent UI Web Components** which aree implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
+As mentioned, we wrap the **Fluent UI Web Components** which are implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
 When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
 
 ```html
-<script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
+<script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>
 ```
 If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
@@ -88,6 +88,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentMessageBarProvider />
 ```
 > **note:** You can remove providers that are not used in your application.
+> **note:** If you get scrollbars in your application, move the providers up in the page elements hierarchy, for example into the `FluentBodyContent` component.
 
 ## Working with Icons and Emoji
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections. 

@@ -4,13 +4,17 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
-    @{ StartCollectingColumns(); }
+    @{
+        StartCollectingColumns();
+    }
     @if (!_manualGrid)
     {
         @ChildContent
     }
     <Defer>
-        @{ FinishCollectingColumns(); }
+        @{
+            FinishCollectingColumns();
+        }
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
 
         <fluent-data-grid @ref=_gridReference
@@ -33,7 +37,7 @@
                 </FluentDataGridRow>
             }
 
-            @if (_ariaBodyRowCount == 0 && !_manualGrid )
+            @if (_ariaBodyRowCount == 0 && !_manualGrid)
             {
                 <div class="empty-content-row" role="row">
                     <div class="empty-content-cell" role="gridcell">

@@ -5,7 +5,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentInputLabel
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Label/FluentInputLabel.razor.js";
+    public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Label/FluentInputLabel.razor.js";
 
     /// <summary />
     [Inject]
@@ -22,10 +22,17 @@ public partial class FluentInputLabel
     public string? ForId { get; set; }
 
     /// <summary>
-    /// Gets or sets the text to be displayed as a label, just above the component.
+    /// Gets or sets the text to label the input.
+    /// This is usually displayd just above the component.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
+
+    /// <summary>
+    /// Gets or sets if an indicator is showed that this input is required.
+    /// </summary>
+    [Parameter]
+    public bool Required { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be displayed as a label, just above the component.
@@ -59,7 +66,7 @@ public partial class FluentInputLabel
     }
 
     /// <summary />
-    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId)
+    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) 
                                        && (!string.IsNullOrWhiteSpace(Label) ||
                                            !string.IsNullOrWhiteSpace(AriaLabel));
 }

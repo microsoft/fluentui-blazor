@@ -26,6 +26,7 @@ The most common need for setting a token is to switch between light and dark mod
 - `BaseLayerLuminance`: Set to `StandardLuminance.DarkMode` to switch into dark mode.
 
 This is a decimal value, and the `LightMode` and `DarkMode` constants represent the standard points for light and dark mode. You could set it to any value `0` (black) to `1` (white) depending on your needs.
+>**note:** To get the corresponding value from the `StandardLuminance` enum, use the `GetLuminanceValue()` extension method. 
 
 #### Layers and fill color
 

@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
@@ -25,7 +25,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
 
-
     [CascadingParameter]
     private EditContext? CascadedEditContext { get; set; }
 
@@ -42,31 +41,35 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// Gets or sets the name of the element.
+    /// Allows access by name from the associated form.
+    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Text displayed just above the component
+    /// Gets or sets the text to label the input.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
+    /// Gets or sets the content to label the input component.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
     /// <summary>
-    /// Text used on aria-label attribute.
+    /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Whether the element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -78,7 +81,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// @bind-Value="model.PropertyName"
     /// </example>
     [Parameter]
-    public TValue? Value { get; set; }
+    public virtual TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
@@ -106,7 +109,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
-    /// The short hint displayed in the input before the user enters a value.
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
     public virtual string? Placeholder { get; set; }
@@ -287,7 +290,10 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
             }
-
+            else if (ValueChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => Value);
+            }
 
             if (CascadedEditContext != null)
             {
@@ -315,6 +321,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
+    // TODO: #vNext: Make it proper async Task
     /// <summary>
     /// Exposes the elements FocusAsync() method.
     /// </summary>
@@ -323,6 +330,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         await Element!.FocusAsync();
     }
 
+    // TODO: #vNext: Make it proper async Task
     /// <summary>
     /// Exposes the elements FocusAsync(bool preventScroll) method.
     /// </summary>
@@ -398,7 +406,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         var newDictionaryCreated = true;
         if (source == null)
         {
-            result = new Dictionary<string, object>();
+            result = [];
         }
         else if (source is Dictionary<string, object> currentDictionary)
         {
@@ -407,7 +415,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         }
         else
         {
-            result = new Dictionary<string, object>();
+            result = [];
             foreach (var item in source)
             {
                 result.Add(item.Key, item.Value);

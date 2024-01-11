@@ -1,30 +1,31 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
+public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     /// <summary>
-    /// Gets or sets if the element is auto completes. See <seealso cref="AspNetCore.Components.ComboboxAutocomplete"/>
+    /// Gets or sets a value indicating whether the element auto completes. See <seealso cref="AspNetCore.Components.ComboboxAutocomplete"/>
     /// </summary>
     [Parameter]
     public ComboboxAutocomplete? Autocomplete { get; set; }
 
     /// <summary>
-    /// The open attribute.
+    /// Gets or sets the open attribute.
     /// </summary>
     [Parameter]
     public bool? Open { get; set; }
 
     /// <summary>
-    /// Sets the placeholder value of the element, generally used to provide a hint to the user.
+    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// The placement for the listbox when the combobox is open.
+    /// Gets or sets the placement for the listbox when the combobox is open.
     /// See <seealso cref="AspNetCore.Components.SelectPosition"/>
     /// </summary>
     [Parameter]
@@ -35,6 +36,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
+
+    protected override string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
+        .Build();
 
     protected override async Task OnChangedHandlerAsync(ChangeEventArgs e)
     {

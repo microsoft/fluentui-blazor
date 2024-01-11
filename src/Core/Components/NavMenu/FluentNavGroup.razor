@@ -3,8 +3,7 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-
-@if (NavMenuExpanded || HasIcon)
+@if (Owner.Expanded || HasIcon)
 {
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
 
@@ -13,7 +12,8 @@
             <NavLink class="fluent-nav-link"
                      @attributes="@Attributes"
                      Match="@Match"
-                     ActiveClass="@ActiveClass">
+                     ActiveClass="@ActiveClass"
+                     title="@(Tooltip ?? Title)">
                 <div class="positioning-region">
                     <div class="content-region">
                         @_renderContent
@@ -24,9 +24,9 @@
         }
         else
         {
-            <div class="positioning-region" @onclick="ToggleExpandedAsync" @onkeydown="@HandleExpanderKeyDownAsync">
-                <div class="content-region">
-                    <div class="fluent-nav-link notactive" tabindex="0">
+            <div class="fluent-nav-link notactive" tabindex="0">
+                <div class="positioning-region" @onclick="ToggleExpandedAsync" @onkeydown="@HandleExpanderKeyDownAsync" title="@(Tooltip ?? Title)">
+                    <div class="content-region">
                         @_renderContent
                         @_renderButton
                     </div>
@@ -35,13 +35,15 @@
         }
 
         <FluentCollapsibleRegion @bind-Expanded="@Expanded" MaxHeight="@MaxHeight" Class="items" role="group">
-            <FluentNavMenu>
+            <FluentNavMenu Data="_data">
                 @ChildContent
             </FluentNavMenu>
         </FluentCollapsibleRegion>
     </div>
 }
+
 @code {
+    private string _data = "no-pagescript";
     private void RenderContent(RenderTreeBuilder __builder)
     {
         @if (Icon is not null)
@@ -52,7 +54,7 @@
         {
             <span class="fluent-nav-icon" style="min-width: 20px;"></span>
         }
-        <div class="fluent-nav-text" title="@Title">
+        <div class="fluent-nav-text">
             @Title
             @TitleTemplate
         </div>
@@ -71,7 +73,6 @@
                  @onkeydown="@HandleExpanderKeyDownAsync">
                 <FluentIcon Value="@ExpandIcon" Color="@(Disabled ? Color.Disabled : Color.Neutral)" Class="@ExpandIconClassValue" />
             </div>
-
         }
     }
 }

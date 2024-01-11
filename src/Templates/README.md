@@ -8,13 +8,13 @@ The current version can be found on the [NuGet page](https://www.nuget.org/packa
 #### Usage
 After installing the templates you can create new a project from either the CLI or by creating a new project in Visual studio 2022. 
 
-For creating a Blazor Server project from the CLI 
+For creating a Fluent Blazor Web App project from the CLI 
 ```
-dotnet new fluentuiblazorserver -o {your project name}
+dotnet new fluentblazor -o {your project name}
 ``` 
-For creating a Blazor WebAssembly project from the CLI:
+For creating a Fluent Blazor WebAssembly Standalone App project from the CLI:
 ```
-dotnet new fluentuiblazorwasm -o {your project name}
+dotnet new fluentblazorwasm -o {your project name}
 ``` 
 In Visual Studio you can create a new project by selecting either the FluentUI Blazor Server App template or the FluentUI Blazor WebAssembly template in the 'File->New->Project'-dialog.
 

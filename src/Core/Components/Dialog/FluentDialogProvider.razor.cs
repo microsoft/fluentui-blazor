@@ -21,6 +21,8 @@ public partial class FluentDialogProvider : IDisposable
     {
         _internalDialogContext = new(this);
         _renderDialogs = RenderDialogs;
+
+        var temp1 = new MessageBox(); // To avoid WASM trimming from removing this class
     }
 
     protected override void OnInitialized()
@@ -133,8 +135,13 @@ public partial class FluentDialogProvider : IDisposable
         if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id))
         {
             IDialogReference? dialog = GetDialogReference(args.Id);
-            if (dialog!.Instance.Parameters.PreventDismissOnOverlayClick == false)
+            if (dialog == null) return;
+            if (dialog.Instance.Parameters.PreventDismissOnOverlayClick == false)
             {
+                if (dialog.Instance.Parameters.OnDialogClosing.HasDelegate)
+                {
+                    await dialog.Instance.Parameters.OnDialogClosing.InvokeAsync(dialog.Instance);
+                }
                 await dialog!.CloseAsync(DialogResult.Cancel());
             }
         }

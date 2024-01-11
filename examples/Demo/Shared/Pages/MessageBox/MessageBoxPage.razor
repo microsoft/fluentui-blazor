@@ -48,22 +48,3 @@
 <ApiDocumentation Component="typeof(MessageBoxContent)" />
 
 <ApiDocumentation Component="typeof(DialogParameters<>)" InstanceTypes="@(new[] {typeof(MessageBoxContent)})" GenericLabel="MessageBoxData" />
-
-@code
-{
-    // Hack to force the compiler to include this class in the final library
-    // (WASM publishing)
-    // TODO: To find a better solution
-    protected override void OnInitialized()
-    {
-        var temp1 = new DialogParameters<MessageBoxContent>();
-        var temp2 = new MessageBoxContent()
-            {
-                Icon = new Icons.Regular.Size24.Check(),
-                IconColor = Color.Accent,
-            };
-        var temp3 = temp2.IconColor;
-        var temp4 = temp2.Intent;
-        var temp5 = temp2.MarkupMessage;
-    }    
-}

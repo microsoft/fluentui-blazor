@@ -28,7 +28,7 @@
         cursor: pointer;
     }
 
-    .fluent-inputfile-container .progress {
+    .fluent-inputfile-container .inputfile-progress {
         padding-top: 20px;
         height: 50px;
         margin: 0px 15%;

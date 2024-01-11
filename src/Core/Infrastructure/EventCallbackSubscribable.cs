@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 /// <typeparam name="T">A type for the eventargs.</typeparam>
 internal sealed class EventCallbackSubscribable<T>
 {
-    private readonly Dictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = new();
+    private readonly Dictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = [];
 
     /// <summary>
     /// Invokes all the registered callbacks sequentially, in an undefined order.

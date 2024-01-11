@@ -12,6 +12,9 @@
                   @onselectedchange="@HandleSelectedChangeAsync"
                   @onexpandedchange="@HandleExpandedChangeAsync"
                   @attributes="AdditionalAttributes">
-    <span class="treeitem-text">@Text</span>
+    @if (!string.IsNullOrWhiteSpace(Text))
+    {
+        <span class="treeitem-text">@Text</span>
+    }
     @ChildContent
 </fluent-tree-item>

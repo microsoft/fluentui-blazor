@@ -2,15 +2,12 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-@if (!String.IsNullOrEmpty(Height))
-{
-    <style>
-        @($"#{Id}::part(listbox) {{ max-height: {Height}; z-index: {ZIndex.ComboboxPopup} }}")
-    </style>
-}
+<style>
+    @($"#{Id}::part(listbox) {{ {(string.IsNullOrEmpty(Height) ? null : $"max-height: {Height};")} z-index: {ZIndex.ComboboxPopup} }}")
+</style>
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
     <fluent-combobox @ref=Element
                      id="@Id"
                      class="@ClassValue"
@@ -22,8 +19,25 @@
                      position=@Position.ToAttributeValue()
                      disabled=@Disabled
                      appearance="@Appearance.ToAttributeValue()"
+                     required="@Required"
                      @onchange="@OnChangedHandlerAsync"
                      @attributes="AdditionalAttributes">        
-        @GetListOptions(Items)
+        @if (OptionTemplate == null || Items == null)
+        {
+            @GetListOptions(Items)
+        }
+        else
+        {
+            foreach (TOption item in Items)
+            {
+                <FluentOption TOption="TOption"
+                                Value="@GetOptionValue(item)"
+                                Selected="@GetOptionSelected(item)"
+                                Disabled="@(GetOptionDisabled(item) ?? false)"
+                                OnSelect="@OnSelectCallback(item)">
+                        @OptionTemplate(item)
+                </FluentOption>
+            }
+        }
     </fluent-combobox>
 </CascadingValue>

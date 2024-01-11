@@ -31,24 +31,24 @@ public class FluentCalendarDay
     public DateTime Date { get; }
 
     /// <summary>
-    /// Whether the day is disabled by the user.
+    /// Gets or sets a value indicating whether the day is disabled by the user.
     /// </summary>
     public bool IsDisabled => IsInactive ? false : _isInDisabledList && _calendar.DisabledSelectable;
 
     /// <summary>
-    /// Whether the day is inactive (out of the current month).
+    /// Gets or sets a value indicating whether the day is inactive (out of the current month).
     /// </summary>
     public bool IsInactive => _isOutsideCurrentMonth || (_isInDisabledList && !_calendar.DisabledSelectable);
 
     /// <summary>
-    /// Whether the day is now
+    /// Gets or sets a value indicating whether the day is set to Today.
     /// </summary>
     public bool IsToday => Date == DateTime.Today && !_isOutsideCurrentMonth;
 
     /// <summary>
-    /// Whether the day is selected by the user
+    /// Gets or sets a value indicating whether the day is selected by the user.
     /// </summary>
-    public bool IsSelected => Date == _calendar.Value;
+    public bool IsSelected => Date.DayOfYear == _calendar.Value.GetValueOrDefault().DayOfYear;
 
     /// <summary>
     /// Gets the name of the day and month in current culture.

@@ -1,5 +1,24 @@
 ﻿export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
 
+    // Create a Add/Remove Observer for <fluent-tab>, started later
+    const observerAddRemoveTab = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+
+            // Only new node (type=childList)
+            if (mutation.type !== 'childList' && (mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0)) {
+                return
+            }
+
+            // Only <fluent-tab> element
+            const node = mutation.addedNodes.length > 0 ? mutation.addedNodes[0] : mutation.removedNodes[0];
+            if (node.nodeType !== Node.ELEMENT_NODE || !node.matches(querySelector)) {
+                return;
+            }
+
+            FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelector);
+        });
+    });
+
     // Create a ResizeObserver, started later
     const resizeObserver = new ResizeObserver((entries) => {
         FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelector);
@@ -9,6 +28,7 @@
     var el = document.getElementById(id);
     if (el) {
         resizeObserver.observe(el);
+        observerAddRemoveTab.observe(el, { childList: true, subtree: false });
     }    
 }
 
@@ -50,19 +70,21 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
 
         itemsTotalSize += element.overflowSize;
 
-        // Add an attribute 'overflow'
-        if (itemsTotalSize > containerMaxSize) {
-            if (!isOverflow) {
-                element.setAttribute("overflow", "");
-                overflowChanged = true;
+        // Only check for overflow if the container has a size
+        if (containerMaxSize > 0) {
+            if (itemsTotalSize > containerMaxSize) {
+                // Add an attribute 'overflow'
+                if (!isOverflow) {
+                    element.setAttribute("overflow", "");
+                    overflowChanged = true;
+                }
             }
-        }
-
-        // Remove the attribute 'overflow'
-        else {
-            if (isOverflow) {
-                element.removeAttribute("overflow");
-                overflowChanged = true;
+            else {
+                // Remove the attribute 'overflow'
+                if (isOverflow) {
+                    element.removeAttribute("overflow");
+                    overflowChanged = true;
+                }
             }
         }
 

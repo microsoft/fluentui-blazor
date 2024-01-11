@@ -6,6 +6,10 @@
     display: flex;
 }
 
+    ::deep .fluent-nav-link.notactive:focus-within {
+        outline-offset: 1px;
+    }
+
 ::deep .fluent-nav-icon {
     margin-inline-end: calc(var(--design-unit) * 2px + 2px);
     min-width: 20px;

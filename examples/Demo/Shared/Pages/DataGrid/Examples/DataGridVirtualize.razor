@@ -6,7 +6,9 @@
             <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
             <PropertyColumn Property="@(c => c.Item4)" Align="Align.End" />
         </ChildContent>
-        <EmptyContent><FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent"/>&nbsp; Nothing to see here. Carry on!</EmptyContent>
+        <EmptyContent>
+            <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent"/>&nbsp; Nothing to see here. Carry on!
+        </EmptyContent>
     </FluentDataGrid>
 </div>
 <br />

@@ -15,7 +15,7 @@ public partial class FluentInputBase<TValue>
     public bool Immediate { get; set; } = false;
 
     /// <summary>
-    /// Delay, in milliseconds, before to raise the <see cref="ValueChanged"/> event.
+    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="ValueChanged"/> event.
     /// </summary>
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;
@@ -56,16 +56,16 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task InputHandlerAsync(ChangeEventArgs e) // TODO: To update in all Input fields 
     {
-        if (this.Immediate)
+        if (Immediate)
         {
             // Raise ChangeHandler after a delay
-            if (this.ImmediateDelay > 0)
+            if (ImmediateDelay > 0)
             {
-                _timerForImmediate = GetNewPeriodicTimer(this.ImmediateDelay);
+                _timerForImmediate = GetNewPeriodicTimer(ImmediateDelay);
 
                 while (await _timerForImmediate.WaitForNextTickAsync(_timerCancellationTokenSource.Token))
                 {
-                    await this.ChangeHandlerAsync(e);
+                    await ChangeHandlerAsync(e);
                     _timerCancellationTokenSource.Cancel();
                 }
             }

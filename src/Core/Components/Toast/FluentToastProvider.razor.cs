@@ -56,7 +56,7 @@ public partial class FluentToastProvider
     public FluentToastProvider()
     {
         _internalToastContext = new(this);
-        _toastList = new();
+        _toastList = [];
         _toastWaitingQueue = new();
         _renderToasts = RenderToasts;
     }

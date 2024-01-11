@@ -1,17 +1,19 @@
 ﻿using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
     private bool _hasCode = false;
-    private readonly Dictionary<string, string> _tabPanelsContent = new();
-    private readonly List<string> _allFiles = new();
+    private readonly Dictionary<string, string> _tabPanelsContent = [];
+    private readonly List<string> _allFiles = [];
     private string? _ariaId;
 
-    private readonly Regex _pattern = new(@"[;,<>&(){}!$^#@=/\ ]");
+    private readonly Regex _pattern = Pattern();
+    private ErrorBoundary? errorBoundary;
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
@@ -30,7 +32,7 @@ public partial class DemoSection : ComponentBase
     public RenderFragment? Description { get; set; }
 
     /// <summary>
-    /// The component for which the example will be shown. Enter the type (typeof(...)) _name 
+    /// Gets or sets the component for which the example will be shown. Enter the type (typeof(...)) _name 
     /// </summary>
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
@@ -105,6 +107,11 @@ public partial class DemoSection : ComponentBase
         }
     }
 
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
+
     protected async Task SetCodeContentsAsync()
     {
         HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
@@ -173,4 +180,7 @@ public partial class DemoSection : ComponentBase
 
         return null;
     }
+
+    [GeneratedRegex(@"[;,<>&(){}!$^#@=/\ ]")]
+    private static partial Regex Pattern();
 }

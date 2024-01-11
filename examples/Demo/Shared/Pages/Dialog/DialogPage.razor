@@ -41,6 +41,14 @@
     <br/>
     When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
 </p>
+<blockquote>
+    During the WASM DotNet Publication process, the unused classes are automatically removed from the final library.
+    The Dialog razor file will be removed if no reference are set by your code.
+    For example, if you call <code>var = await DialogService.ShowDialogAsync&lt;SimpleDialog>(simplePerson, parameters);</code> the <b>SimpleDialog</b> will be removed by the WASM Publication process.
+    You can configure this behavior by setting the <a href="https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer">PublishTrimmed</a> property in your project file
+    or you can create a temporary instance <code>var temp1 = new SimpleDialog();</code> to force the Publication process to keep this class in the final library.
+</blockquote>
+
 <h2>Exchange data between dialog and calling component</h2>
 <p>
     There are two ways available to exchange data between the dialog and the component which shows it. The first is by capturing the returned 
@@ -53,6 +61,17 @@
 <p>
     Dialogs are rendered by the <code>&lt;FluentDialogProvider /&gt;</code> component. This component needs to be added to the main layout of your application/site.
     You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
+</p>
+<p>
+    <strong>
+        For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! <p>
+    <strong>
+        For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
+</p>Be sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
 </p>
 <CodeSnippet>
     &lt;main&gt;
@@ -98,6 +117,12 @@
 <DemoSection Title="DialogService with EventCallback" MaxHeight="500px" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use an <code>EventCallback</code> parameter to get data back from the dialog.
+    </Description>
+</DemoSection>
+
+<DemoSection Title="DialogService with Custom Animations" MaxHeight="500px" Component="@typeof(DialogServiceAnimationCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
+    <Description>
+        This example shows how to use <code>EventCallback</code> parameters to animate dialogs when they appear and disappear.  
     </Description>
 </DemoSection>
 

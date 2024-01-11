@@ -4,7 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentSelect<TOption> : ListComponentBase<TOption>
+public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     /// <summary />
     protected virtual MarkupString InlineStyleValue => new InlineStyleBuilder()
@@ -17,7 +17,7 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
         .BuildMarkupString();
 
     /// <summary>
-    /// The open attribute.
+    /// Gets or sets the open attribute.
     /// </summary>
     [Parameter]
     public bool? Open { get; set; }

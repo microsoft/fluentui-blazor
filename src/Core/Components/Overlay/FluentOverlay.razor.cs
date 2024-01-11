@@ -1,10 +1,8 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -30,13 +28,13 @@ public partial class FluentOverlay
         .Build();
 
     /// <summary>
-    /// Gets or sets if the overlay is visible.
+    /// Gets or sets a value indicating whether the overlay is visible.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; } = false;
 
     /// <summary>
-    /// Callback for when overlay visisbility changes
+    /// Callback for when overlay visisbility changes.
     /// </summary>
     [Parameter]
     public EventCallback<bool> VisibleChanged { get; set; }
@@ -74,7 +72,7 @@ public partial class FluentOverlay
     public JustifyContent Justification { get; set; } = JustifyContent.Center;
 
     /// <summary>
-    /// Gets or sets if the overlay is shown full screen or bound to the containing element.
+    /// Gets or sets a value indicating whether the overlay is shown full screen or bound to the containing element.
     /// </summary>
     [Parameter]
     public bool FullScreen { get; set; } = false;
@@ -83,9 +81,9 @@ public partial class FluentOverlay
     public bool Dismissable { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets background color. 
-    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb)
-    /// Default is '#ffffff'
+    /// Gets or sets the background color. 
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).
+    /// Default is '#ffffff'.
     /// </summary>
     [Parameter]
     public string BackgroundColor { get; set; } = "#ffffff";

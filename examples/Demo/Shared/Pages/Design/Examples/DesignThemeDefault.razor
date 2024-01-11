@@ -1,0 +1,81 @@
+<FluentDesignTheme @bind-Mode="@Mode"
+                   OfficeColor="@OfficeColor"
+                   OfficeColorChanged="@(e => { OnOfficeColorChanged(e); })"
+                   OnLoaded="@OnLoaded"
+                   OnLuminanceChanged="@OnLuminanceChanged"
+                   StorageName="theme" />
+
+<div style="min-height: 250px;">
+    <FluentGrid>
+        <FluentGridItem>
+            <FluentSelect Label="Theme"
+                          Items="@(Enum.GetValues<DesignThemeModes>())"
+                          @bind-SelectedOption="@Mode" />
+        </FluentGridItem>
+
+        <FluentGridItem>
+            <FluentSelect Label="Color"
+                          Items="@(Enum.GetValues<OfficeColor>())"
+                          Height="200px"
+                          @bind-SelectedOption="@OfficeColor">
+                <OptionTemplate>  
+                    <FluentStack>
+                        <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
+                                    Color="Color.Custom"
+                                    CustomColor="@(@context.ToAttributeValue() != "default" ? context.ToAttributeValue() : "#036ac4" )" />
+                        <FluentLabel>@context</FluentLabel>  
+                    </FluentStack>
+                </OptionTemplate> 
+            </FluentSelect>
+        </FluentGridItem>
+    </FluentGrid>
+
+    <FluentStack Style="margin: 30px 0px; padding: 30px; border: 1px solid var(--accent-fill-rest);">
+        <FluentIcon Value="@(new Icons.Regular.Size24.Airplane())" />
+        <FluentLabel>Example of content</FluentLabel>
+        <FluentButton Appearance="Appearance.Outline">Outline button</FluentButton>
+        <FluentButton Appearance="Appearance.Accent">Accent button</FluentButton>
+    </FluentStack>
+</div>
+
+@code
+{
+    public DesignThemeModes Mode { get; set; }
+
+
+
+    public OfficeColor OfficeColor { get; set; }
+
+    void OnLoaded(LoadedEventArgs e)
+    {
+        DemoLogger.WriteLine($"Loaded: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+    }
+
+    void OnLuminanceChanged(LuminanceChangedEventArgs e)
+    {
+        DemoLogger.WriteLine($"Changed: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+    }
+
+    void OnOfficeColorChanged(OfficeColor? e)
+    {
+        switch (e)
+        {
+            case null:
+                OfficeColor = OfficeColor.Default;
+                break;
+            case OfficeColor.Random:
+                {
+                    Array values = Enum.GetValues<OfficeColor>().Skip(2).ToArray();
+                    Random random = new Random();
+                    OfficeColor randomValue = (OfficeColor)values.GetValue(random.Next(values.Length))!;
+
+                    OfficeColor = randomValue;
+                    break;
+                }
+
+            default:
+                OfficeColor = e.Value;
+                break;
+        }
+    }
+}

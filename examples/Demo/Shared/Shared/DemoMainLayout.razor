@@ -6,14 +6,14 @@
 
 <PageTitle>Fluent UI Blazor components demo page</PageTitle>
 
-<div @ref="container">
+<div>
     <FluentLayout>
         <FluentHeader Class="siteheader">
             <a href="/">
                 <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
                     <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
                         <g data-name="MS-symbol">
-                            <clipPath>
+                            <clipPath> 
                                 <path transform="matrix(1 0 0 -1 0 216)" d="M0 216h482V0H0z"></path>
                             </clipPath>
                             <g clip-path="url(#a)">
@@ -44,34 +44,18 @@
         </FluentHeader>
 
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
-            <div class="menutoggle">
-                <label for="menu-toggle" class="menu-icon">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" />
-                </label>
-                <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
-
-
-                <nav class="sitenav"
-                     onclick="document.getElementById('menu-toggle').click()">
-                    <DemoNavMenu />
-                </nav>
-            </div>
+            <DemoNavMenu />
             <FluentBodyContent id="body-content" Style="height: calc(100dvh - 90px);">
                 <div class="content">
                     <article id="article">
 
                         <FluentMessageBarProvider Section="@App.MESSAGES_TOP" />
 
-                        <ErrorBoundary @ref="errorBoundary">
-                            <ChildContent>
+                       
                                 <CascadingValue Value=@OnRefreshTableOfContents>
                                     @Body
                                 </CascadingValue>
-                            </ChildContent>
-                            <ErrorContent Context="ex">
-                                <div class="blazor-error-boundary">@ex.Message</div>
-                            </ErrorContent>
-                        </ErrorBoundary>
+                           
                     </article>
                     <aside>
                         <TableOfContents @ref=_toc />

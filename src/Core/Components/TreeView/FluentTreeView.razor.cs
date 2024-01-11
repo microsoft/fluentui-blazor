@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTreeView : FluentComponentBase, IDisposable
 {
-    private readonly Dictionary<string, FluentTreeItem> _allItems = new();
+    private readonly Dictionary<string, FluentTreeItem> _allItems = [];
     private readonly Debouncer _currentSelectedChangedDebouncer = new();
     private bool _disposed;
 
@@ -53,7 +53,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     public FluentTreeView()
     {
     }
-
+    
     void IDisposable.Dispose()
     {
         // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
@@ -98,7 +98,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         }
 
         var previouslySelected = CurrentSelected;
-        await _currentSelectedChangedDebouncer.DebounceAsync(100, () => InvokeAsync(async () =>
+        await _currentSelectedChangedDebouncer.DebounceAsync(50, () => InvokeAsync(async () =>
         {
             CurrentSelected = treeItem?.Selected == true ? treeItem : null;
             if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)

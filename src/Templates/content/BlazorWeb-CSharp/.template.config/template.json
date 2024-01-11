@@ -65,11 +65,18 @@
         {
           "condition": "(UseWebAssembly && InteractiveAtRoot)",
           "rename": {
-            "BlazorWeb-CSharp/Components/Layout/": "./BlazorWeb-CSharp.Client/Layout/",
+            "BlazorWeb-CSharp/Components/Layout/MainLayout.razor": "./BlazorWeb-CSharp.Client/Layout/MainLayout.razor",
             "BlazorWeb-CSharp/Components/Pages/Home.razor": "./BlazorWeb-CSharp.Client/Pages/Home.razor",
             "BlazorWeb-CSharp/Components/Pages/Weather.razor": "./BlazorWeb-CSharp.Client/Pages/Weather.razor",
             "BlazorWeb-CSharp/Components/Routes.razor": "./BlazorWeb-CSharp.Client/Routes.razor"
           }
+        },
+        {
+          "condition": "(UseWebAssembly)",
+          "exclude": [
+            "BlazorWeb-CSharp/Components/Layout/NavMenu.razor",
+            "BlazorWeb-CSharp/Components/Layout/NavMenu.razor.css"
+          ]
         },
         {
           "condition": "(!UseProgramMain)",
@@ -106,6 +113,7 @@
             "BlazorWeb-CSharp/Components/Pages/Weather.*",
             "BlazorWeb-CSharp/Components/Layout/NavMenu.*",
             "BlazorWeb-CSharp/wwwroot/favicon.*",
+            "BlazorWeb-CSharp.Client/Layout/NavMenu.*",
             "BlazorWeb-CSharp.Client/Pages/**",
             "BlazorWeb-CSharp.Client/wwwroot/**"
           ]

@@ -1,0 +1,29 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<li id="@Id" status="@Status.ToAttributeValue()"
+    disabled="@Disabled"
+    class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
+    @if (StepTemplate is null)
+    {
+        <div class="fluent-wizard-icon">
+            <FluentIcon Value="@StepIcon"
+                        Style="@IconStyle" />
+
+            @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))
+            {
+                <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.ToAttributeValue()">
+                    @(Index + 1)
+                </div>
+            }
+        </div>
+        <div hidden-when="@FluentGridItem.GetHiddenAttribute(FluentWizard.StepTitleHiddenWhen)">
+            <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled="@Disabled">@Label</FluentLabel>
+            <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled="@Disabled">@Summary</FluentLabel>
+        </div>
+    }
+    else
+    {
+        @StepTemplate(new FluentWizardStepArgs(Index, FluentWizard.Value))
+    }
+</li>

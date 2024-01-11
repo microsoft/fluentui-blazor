@@ -6,6 +6,6 @@ internal class IconSearchCriteria
 {
     public string SearchTerm { get; set; } = string.Empty;
     public IconVariant Variant { get; set; } = IconVariant.Regular;
-    public IconSize Size { get; set; } = IconSize.Size24;
+    public int Size { get; set; } = 20;
     public Color Color { get; set; } = Color.Accent;
 }

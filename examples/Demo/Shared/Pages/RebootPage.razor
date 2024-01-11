@@ -2,26 +2,18 @@
 <h1><FluentIcon Value="@(new Icons.Regular.Size24.ArrowReset())" /> Reboot CSS</h1>
 
 <p>
-    Reboot is a collection of element-specific CSS changes in a single file to help kickstart building a site with the Fluent UI Web 
-    components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
+    Reboot is a collection of element-specific CSS changes in a single file to help kickstart building a site with the Fluent UI Blazor library. 
+    It provides an elegant, consistent, and simple baseline to build upon (inspired by Bootstrap's Reboot which again is based on Normalize.css)
 </p>
 <p>
-    If you want to use Reboot, like this demo site, you'll need to include it in your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
-    <CodeSnippet Language="language-html">
-&lt;link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" /&gt;
-    </CodeSnippet>
+    If you want to use Reboot, like this demo site, you'll need to include it in your <code>App.razor</code> or <code>index.html</code> file like this:
+<CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" /&gt;</CodeSnippet>
+    If you are using our <a href="/Templates">Templates</a> package, this is already set up for you. You can 
+    <FluentAnchor Appearance=Appearance.Hypertext Href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" Download="reboot.css">download the file</FluentAnchor> 
+    to see what's inside.
 </p>
 <p>
-    You can <FluentAnchor Appearance=Appearance.Hypertext Href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" Download="reboot.css">download the file</FluentAnchor> to see what's inside.
-</p>
-
-<p>
-    It is entirely possible to build a site without using Reboot. If you choose not to use it, please do add the <code>variables.css</code> file (which is otherwise imported through the <code>reboot.css</code> file) 
-    to your <code>index.html</code> or <code>_Layout.cshtml</code> file like this:
-    <CodeSnippet Language="language-html">
-&lt;link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/variables.css" rel="stylesheet" /&gt;
-    </CodeSnippet>
-    The file contains a number of CSS variables that are required to be defined for the components to work correctly. See the <FluentAnchor Appearance=Appearance.Hypertext Href="#css-variables">CSS variables section</FluentAnchor> below for more information.
+    PS: It is entirely possible to build a site <b>without using Reboot</b> but you will have to do more styling yourself.
 </p>
 
 <h2 id="approach">Approach <a class="anchor-link" href="#approach" aria-label="Link to this section: Approach"></a></h2>
@@ -33,30 +25,6 @@
     <li>For easier scaling across device sizes, block elements should use <code>rem</code>s for <code>margin</code>s.</li>
     <li>Keep declarations of <code>font</code>-related properties to a minimum, using <code>inherit</code> whenever possible.</li>
 </ul>
-<h2 id="css-variables">CSS variables <a class="anchor-link" href="#css-variables" aria-label="Link to this section: CSS variables"></a></h2>
-<p>
-    There are a number of extra variables defined (for now only colors). They can be found in the <FluentAnchor Appearance=Appearance.Hypertext Href="_content/Microsoft.FluentUI.AspNetCore.Components/css/variables.css" Download="variables.css" >variables.css</FluentAnchor> 
-    file (which Reboot imports). Many more CSS variable are defined are in the Fluent UI Web Components for Blazor library. They are definded 
-    through the Fluent UI Web Components scripts and can be used without including or importing any other files besides the 'web-components' script.
-</p>
-<h3><code>variables.css</code> file contents</h3>
-<CodeSnippet Language="css">
-:root {
-    --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
-    --success: #107c10;
-    --warning: #817400;
-    --error: #d13438;
-    --info: #424242;
-    --presence-available: #13a10e;
-    --presence-away: #eaa300;
-    --presence-busy: #d13438;
-    --presence-dnd: #d13438;
-    --presence-offline: #adadad;
-    --presence-oof: #c239b3;
-    --presence-unknown: #d13438;
-    --highlight-bg: #fff3cd;
-}
-</CodeSnippet>
 
 <h2 id="page-defaults">Page defaults <a class="anchor-link" href="#page-defaults" aria-label="Link to this section: Page defaults"></a></h2>
 <p>The <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> elements are updated to provide better page-wide defaults. More specifically:</p>
@@ -215,7 +183,10 @@
 </div>
 
 <h2 id="forms">Forms <a class="anchor-link" href="#forms" aria-label="Link to this section: Forms"></a></h2>
-<p>Various form elements have been rebooted for simpler base styles. Here are some of the most notable changes:</p>
+<p>
+    To maintain a consistent look and feel, we stongly advise you to use the Fluent Input components as described in the 
+    <a href="/Forms">Form & inputs</a> section. It is however also still possible of course to use the standard HTML input components. Most of them 
+    have been rebooted for simpler base styles. Here are some of the most notable changes:</p>
 <ul>
     <li><code>&lt;fieldset&gt;</code>s have no borders, padding, or margin so they can be easily used as wrappers for individual inputs or groups of inputs.</li>
     <li><code>&lt;legend&gt;</code>s, like fieldsets, have also been restyled to be displayed as a heading of sorts.</li>
@@ -374,10 +345,10 @@
     </address>
 </div>
 <h3 id="blockquote">Blockquote <a class="anchor-link" href="#blockquote" aria-label="Link to this section: Blockquote"></a></h3>
-<p>The default <code>margin</code> on blockquotes is <code>1em 40px</code> and for Fluent UI we are keeping that.</p>
+<p>The default <code>margin</code> on blockquotes is <code>1em 40px</code>.</p>
 <div class="reboot-example">
     <blockquote class="blockquote">
-        <p>A well-known quote, contained in a blockquote element.</p>
+        A well-known quote, contained in a blockquote element.
     </blockquote>
     <p>Someone famous in <cite title="Source Title">Source Title</cite></p>
 </div>

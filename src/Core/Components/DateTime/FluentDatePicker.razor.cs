@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -14,66 +15,23 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         Id = Identifier.NewId();
     }
-
+    
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class).AddClass("fluent-datepicker").Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
-
-    /// <summary>
-    /// Text displayed just above the component
-    /// </summary>
-    [Parameter]
-    public string? Label { get; set; }
-
-    /// <summary>
-    /// Content displayed just above the component
-    /// </summary>
-    [Parameter]
-    public RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
-    /// Text used on aria-label attribute.
-    /// </summary>
-    [Parameter]
-    public virtual string? AriaLabel { get; set; }
+    protected override string? ClassValue
+    {
+        get
+        {
+            return new CssBuilder(base.ClassValue)
+                .AddClass("fluent-datepicker")
+                .Build();
+        }
+    }
 
     /// <summary>
     /// Gets or sets the design of this input.
     /// </summary>
     [Parameter]
     public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
-
-    /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission.
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
-    /// The name of the element. Allows access by name from the associated form.
-    /// </summary>
-    [Parameter]
-    public string? Name { get; set; }
-
-    /// <summary>
-    /// Whether the element needs to have a value
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
-
-    /// <summary>
-    /// Determines if the element should receive document focus on page load.
-    /// </summary>
-    [Parameter]
-    public virtual bool Autofocus { get; set; } = false;
-
-    /// <summary>
-    /// The short hint displayed in the input before the user enters a value.
-    /// </summary>
-    [Parameter]
-    public virtual string? Placeholder { get; set; }
 
     [Parameter]
     public EventCallback<bool> OnCalendarOpen { get; set; }
@@ -138,5 +96,12 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
 
         return Task.CompletedTask;
+    }
+
+    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        BindConverter.TryConvertTo(value, Culture, out result);
+        validationErrorMessage = null;
+        return true;
     }
 }

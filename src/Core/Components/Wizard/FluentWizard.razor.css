@@ -1,0 +1,79 @@
+﻿.fluent-wizard {
+    display: grid;
+    height: 100%;
+    --fluent-wizard-circle-size: 24px;
+    --fluent-wizard-spacing: 4px;
+}
+
+    .fluent-wizard[border-outside] {
+        border: 1px solid var(--neutral-stroke-hover);
+    }
+
+    .fluent-wizard > ol {
+        display: flex;
+        padding-inline-start: 0px;
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+        padding: 10px;
+    }
+
+    .fluent-wizard .fluent-wizard-buttons {
+        display: flex;
+        justify-content: end;
+    }
+
+    .fluent-wizard .fluent-wizard-buttons[border-inside] {
+        border-top: 1px solid var(--neutral-stroke-hover);
+    }
+
+    /* Wizard with steps on Left */
+    .fluent-wizard[position="left"] {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto;
+    }
+
+        .fluent-wizard[position="left"] > ol {
+            flex-direction: column;
+            grid-column: 1;
+            grid-row: 1 / span 2;
+        }
+
+            .fluent-wizard[position="left"] > ol[border-inside] {
+                border-right: 1px solid var(--neutral-stroke-hover);
+            }
+
+        .fluent-wizard[position="left"] .fluent-wizard-content {
+            grid-column: 2;
+            grid-row: 1;
+            margin: 5px 10px 0px 15px;
+        }
+
+        .fluent-wizard[position="left"] .fluent-wizard-buttons {
+            grid-column: 2;
+            grid-row: 2;
+            text-align-last: end;
+            padding: 10px;
+        }
+
+    /* Wizard with steps on Top */
+    .fluent-wizard[position="top"] {
+        grid-template-columns: auto;
+        grid-template-rows: auto 1fr auto;
+    }
+
+        .fluent-wizard[position="top"] > ol {
+            flex-direction: row;
+            justify-content: center;
+        }
+
+            .fluent-wizard[position="top"] > ol[border-inside] {
+                border-bottom: 1px solid var(--neutral-stroke-hover);
+            }
+
+        .fluent-wizard[position="top"] .fluent-wizard-content {
+            margin: 5px 10px 0px 10px;
+        }
+
+        .fluent-wizard[position="top"] .fluent-wizard-buttons {
+            padding: 10px;
+        }

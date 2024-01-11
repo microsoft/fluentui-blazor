@@ -1,15 +1,28 @@
 ﻿## Breaking changes v4.0.0
 The most obvious breaking change of course is namespace change from 
 `Microsoft.Fast.Components.FluentUI` to `Microsoft.FluentUI.AspNetCore.Components`. 
-This means you wil need to change all `usings` in your code, change your `_Imports.razor`, etc.
+This means you will need to change all `usings` in your code, change your `_Imports.razor`, etc.
 
+- You no longer need to specify any `HostingModel` in the `AddFluentUIComponents()` service collection extension. If it is still in there, remove it.
 - AfterBindValue has been replaced with the native @bind-Value:after
 - FluentToast: Timeout is now in milliseconds
 - FluentToastContainer renamed to FluentToastProvider
 - FluentMessageBarContainer renamed to FluentMessageBarProvider
+- FluentButton: `Appearance.Filled` is no longer a valid value.
 - Removed the FluentCodeEditor component
 
 The rest of the changes are minimal. Check the [WhatsNew](/WhatsNew) page for more information.
+
+### Upgrading your VS solution from v3 to v4
+When upgrading your solution in Visual Studio from `Microsoft.Fast.Components.FluentUI` (v3.x) to `Microsoft.FluentUI.AspNetCore.Components` (v4.x)
+you might run into an issue where the Razor editor is not working properly anymore. You will see a lot of errors in your razor files and IntelliSense is not working.
+
+We found following 4 steps gets you to a working environment again:
+1. Close Visual Studio
+1. Delete `bin` and `obj` folders from all projects in your solution
+1. Remove the folder `X:\Users\<user>\.nuget\packages\microsoft.fast.components.fluentui` (where 'X' denotes the drive you store your user folder)
+1. Restart Visual Studio and rebuild you project
+
 
 ## Breaking changes v3.2.0
 

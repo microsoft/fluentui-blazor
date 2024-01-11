@@ -1,7 +1,6 @@
 ﻿.fluent-popover-content  {
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
-    color: rgb(50, 49, 48);
     line-height: 27px;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -21,6 +20,7 @@
         width: inherit;
         margin-top: 1em;
         display: flex;
+        flex-direction: column;
     }
 
     .fluent-popover-content .fluent-popover-footer {

@@ -1,46 +1,48 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-<fluent-tab class="@LabelClass"
-            style="@LabelStyle"
-            id="@Id"
-            disabled="@Disabled"
-            aria-label="@Label"
-            overflow=@Overflow
-            @attributes="AdditionalAttributes">
-    @if (Icon != null)
-    {
-        <FluentIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
-    }
-    @if (LabelEditable)
-    {
-        <span contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" Title="Click to edit this tab name" style="padding: 3px 5px;">
+@if (Visible)
+{
+    <fluent-tab class="@LabelClass"
+                style="@LabelStyle"
+                id="@Id"
+                disabled="@Disabled"
+                aria-label="@Label"
+                overflow=@Overflow
+                @attributes="AdditionalAttributes">
+        @if (Icon != null)
+        {
+            <FluentIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
+        }
+        @if (LabelEditable)
+        {
+            <span contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" Title="Click to edit this tab name" style="padding: 3px 5px;">
+                @Label
+            </span>
+        }
+        else
+        {
             @Label
-        </span>
-    }
-    else
-    {
-        @Label
-    }
-    
-    @Header
+        }
 
-    @if (Owner.ShowClose)
-    {
-        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
-    }
-</fluent-tab>
-<fluent-tab-panel style="@StyleValue" class="@ClassValue">
-    @if (Owner.ActiveTabId == Id || !DeferredLoading)
-    {
-        @Content
-        @ChildContent
-    }
-    else
-    {
-        <FluentProgress />
-    }
-</fluent-tab-panel>
+        @Header
 
+        @if (Owner.ShowClose)
+        {
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
+        }
+    </fluent-tab>
+    <fluent-tab-panel style="@StyleValue" class="@ClassValue" id="@($"{Id}-panel")">
+        @if (Owner.ActiveTabId == Id || !DeferredLoading)
+        {
+            @Content
+            @ChildContent
+        }
+        else
+        {
+            <FluentProgress />
+        }
+    </fluent-tab-panel>
+}
 
 
 

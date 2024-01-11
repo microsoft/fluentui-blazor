@@ -4,6 +4,10 @@
     align-items: stretch;
 }
 
+::deep .fluent-nav-item.expander:focus-within {
+    outline-offset: 1px;
+}
+
 ::deep .fluent-nav-item {
     margin: calc(var(--design-unit) * 1px + 1px) 0;
     -webkit-user-select: none;
@@ -13,10 +17,6 @@
     /* Hover and active highlighting */
     ::deep .fluent-nav-item .positioning-region:hover:not(:has(.disabled)) {
         cursor: pointer;
-        background: var(--neutral-fill-secondary-rest);
-    }
-
-    ::deep .fluent-nav-item a.active {
         background: var(--neutral-fill-secondary-rest);
     }
 

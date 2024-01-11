@@ -7,12 +7,13 @@ namespace FluentUI.Demo.Shared.SampleData;
 public class Starship
 {
     [Required]
+    [MinLength(3, ErrorMessage = "Identifier is too short!")]
     [StringLength(16, ErrorMessage = "Identifier too long (16 character limit).")]
     public string? Identifier { get; set; }
 
     public string? Description { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "A classification is required")]
     public string? Classification { get; set; }
 
     [Range(1, 100000, ErrorMessage = "Accommodation invalid (1-100000).")]
@@ -24,5 +25,5 @@ public class Starship
     public bool IsValidatedDesign { get; set; }
 
     [Required]
-    public DateOnly ProductionDate { get; set; }
+    public DateTime? ProductionDate { get; set; }
 }

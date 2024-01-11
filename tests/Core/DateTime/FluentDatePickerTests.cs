@@ -1,16 +1,23 @@
 ﻿using System.Globalization;
 using Bunit;
+using FluentAssertions.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
 public class FluentDatePickerTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
     [Fact]
     public void FluentDatePicker_Closed()
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
@@ -33,6 +40,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>();
@@ -57,6 +65,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
         var today = System.DateTime.Today;
 
         // Act
@@ -79,6 +88,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
@@ -100,6 +110,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
@@ -120,6 +131,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>

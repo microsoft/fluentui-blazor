@@ -14,16 +14,27 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     public EventCallback<int> CurrentPageIndexChanged { get; set; }
 
     /// <summary>
-    /// Specifies the associated <see cref="PaginationState"/>. This parameter is required.
+    /// Gets or sets the associated <see cref="PaginationState"/>. This parameter is required.
     /// </summary>
     [Parameter, EditorRequired]
     public PaginationState State { get; set; } = default!;
 
     /// <summary>
     /// Optionally supplies a template for rendering the page count summary.
+    /// The following values can be included:
+    /// {your State parameter name}.TotalItemCount (for the total number of items)
     /// </summary>
     [Parameter]
     public RenderFragment? SummaryTemplate { get; set; }
+
+    /// <summary>
+    /// Optionally supplies a template for rendering the pagination summary.
+    /// The following values can be included:
+    /// {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+    /// {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
+    /// </summary>
+    [Parameter] 
+    public RenderFragment? PaginationTextTemplate { get; set; }
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentPaginator" />.

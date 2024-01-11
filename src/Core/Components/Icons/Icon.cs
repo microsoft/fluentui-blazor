@@ -37,7 +37,7 @@ public class Icon : IconInfo
     public virtual string Content { get; }
 
     /// <summary>
-    /// Gets the color of the icon (set.
+    /// Gets the color of the icon.
     /// </summary>
     internal virtual string? Color { get; private set; }
 

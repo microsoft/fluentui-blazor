@@ -60,7 +60,7 @@ public partial class TableOfContents : IAsyncDisposable
     public string Heading { get; set; } = "In this article";
 
     /// <summary>
-    /// Gets or sets if a 'Back to top' button should be rendered.
+    /// Gets or sets a value indicating whether a 'Back to top' button should be rendered.
     /// Defaults to true
     /// </summary>
     [Parameter]
@@ -78,19 +78,25 @@ public partial class TableOfContents : IAsyncDisposable
     {
         if (firstRender)
         {
-            // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
             "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
             bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
                 _expanded = false;
+            
+            await BackToTop();
             await QueryDom();
+
         }
     }
 
     private async Task BackToTop()
     {
+        if (_jsModule is null)
+        {
+            return;
+        }
         await _jsModule.InvokeAsync<Anchor[]?>("backToTop");
     }
 
@@ -114,8 +120,8 @@ public partial class TableOfContents : IAsyncDisposable
 
     private bool AnchorsEqual(Anchor[]? firstSet, Anchor[]? secondSet)
     {
-        return (firstSet ?? Array.Empty<Anchor>())
-            .SequenceEqual(secondSet ?? Array.Empty<Anchor>());
+        return (firstSet ?? [])
+            .SequenceEqual(secondSet ?? []);
     }
 
     protected override void OnInitialized()
@@ -128,6 +134,7 @@ public partial class TableOfContents : IAsyncDisposable
     {
         try
         {
+            await BackToTop();
             await QueryDom();
         }
         catch (Exception)
@@ -179,8 +186,6 @@ public partial class TableOfContents : IAsyncDisposable
         }
 
     }
-
-
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
