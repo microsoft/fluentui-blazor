@@ -12,7 +12,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+/// This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 /// Add this line to suppress de compilation error: `@{ #pragma warning disable FluentPanelSplitter }`
 /// </summary>
 [Experimental("FluentPanelSplitter", UrlFormat = "https://preview.fluentui-blazor.net/PanelSplitter")]

@@ -1,8 +1,38 @@
 ﻿@page "/PanelSplitter"
 @using FluentUI.Demo.Shared.Pages.Splitter.Examples
-@{ #pragma warning disable FluentPanelSplitter }
+@{
+#pragma warning disable FluentPanelSplitter
+}
 
-<h1>Panel Splitter (DRAFT)</h1>
+<h1>Panel Splitter (Experimental)</h1>
+
+<blockquote style="font-style: normal;">
+    ⚠️ <b>This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.</b>.<br />
+    To use it, you need to add the following line to the top of your razor file <br />
+    <code>@($"@{{ #pragma warning disable FluentPanelSplitter }}")</code>
+</blockquote>
+
+<p>The <b>Panel Splitter</b> splits the page into sections and allows the user to control the page layout.</p>
+
+<p>These CSS variables are predefined with these values, but can be overwritten (using <code>!important</code>)</p>
+
+<code>
+    <pre>
+    .fluent-panel-splitter {
+        /* Resize Icon colors */
+        --fluent-panel-splitter-color: var(--neutral-stroke-strong-rest);
+        --fluent-panel-splitter-color-active: var(--neutral-stroke-strong-hover);
+
+        /* Bar colors */
+        --fluent-panel-splitter-background-color: var(--neutral-stroke-rest);
+        --fluent-panel-splitter-background-color-active: var(--neutral-stroke-hover);
+        --fluent-panel-splitter-hover-opacity: 0.8;
+
+        /* Bar size */
+        --fluent-panel-splitter-bar-size: 8px;
+    }
+    </pre>
+</code>
 
 <h2 id="example">Examples</h2>
 
