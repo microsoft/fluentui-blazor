@@ -86,3 +86,8 @@ if ($auth -eq 'individual' -or $auth -eq 'all' )
 		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\D-Auto\NoSamplePages --interactivity auto --auth Individual --all-interactive true --empty true --force
 	}
 }
+
+# Wasm Standalone
+dotnet new fluentblazorwasm -n FluentUI.TemplateValidation -o WasmStandalone\NoSamplePages --empty true --force
+dotnet new fluentblazorwasm -n FluentUI.TemplateValidation -o WasmStandalone\IndividualAccounts --auth individual --force
+dotnet new fluentblazorwasm -n FluentUI.TemplateValidation -o WasmStandalone\NoAuthentication --auth none --force

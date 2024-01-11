@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-FluentUI.TemplateValidation-575542c9-dc00-4e07-9938-4d6f2b97837b</UserSecretsId>
+    <UserSecretsId>aspnet-FluentUI.TemplateValidation-dfa7712f-1965-4ddb-bca2-aab666bf0949</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2838,7 +2838,7 @@
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.DialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
@@ -2901,7 +2901,7 @@
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.IDialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.Role">
@@ -6178,6 +6178,12 @@
             <summary>
             Gets or sets the size of the splitter bar in pixels.
             Default is 8.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.BarHandle">
+            <summary>
+            Gets or sets a value indicating whether the splitter bar handle is visible.
+            Default is true.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Collapsed">
