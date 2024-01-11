@@ -124,6 +124,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.TemplateValidation
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.TemplateValidation", "WasmStandalone\NoAuthentication\FluentUI.TemplateValidation.csproj", "{C9476F8C-B54F-4771-A991-564A266FC6E0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components", "..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj", "{712E2F47-8D5A-4E88-8879-1C2DCFE3A320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -246,6 +248,10 @@ Global
 		{C9476F8C-B54F-4771-A991-564A266FC6E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9476F8C-B54F-4771-A991-564A266FC6E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9476F8C-B54F-4771-A991-564A266FC6E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712E2F47-8D5A-4E88-8879-1C2DCFE3A320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712E2F47-8D5A-4E88-8879-1C2DCFE3A320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712E2F47-8D5A-4E88-8879-1C2DCFE3A320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712E2F47-8D5A-4E88-8879-1C2DCFE3A320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
