@@ -6180,6 +6180,12 @@
             Default is 8.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.BarHandle">
+            <summary>
+            Gets or sets a value indicating whether the splitter bar handle is visible.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Collapsed">
             <summary>
             Gets or sets a value indicating whether the splitter is collapsed.

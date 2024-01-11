@@ -78,8 +78,12 @@ public partial class FluentSplitter : FluentComponentBase
     [Parameter]
     public int BarSize { get; set; } = 8;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the splitter bar handle is visible.
+    /// Default is true.
+    /// </summary>
     [Parameter]
-    public bool ShowBarHandle { get; set; } = true;
+    public bool BarHandle { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value indicating whether the splitter is collapsed.

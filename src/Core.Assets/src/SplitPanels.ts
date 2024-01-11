@@ -11,7 +11,7 @@ styleSheet.replaceSync(`
     :host([direction=row]) { grid-template-columns: var(--first-size, 1fr) max-content var(--second-size, 1fr); }
     :host([direction=row]) #median { grid-column: 2 / 3; }
     :host([direction=row]) #median:hover { cursor: col-resize; }
-    :host([direction=row]) #median span[part="handle"] { height: 16px; margin: 2px 0; display: none}
+    :host([direction=row]) #median span[part="handle"] { height: 16px; margin: 2px 0; }
     :host([direction=row]) #slot1 { grid-column: 1 / 2; grid-row: 1 / 1; }
     :host([direction=row]) #slot2 { grid-column: 3 / 4; grid-row: 1 / 1; }
 
@@ -19,7 +19,7 @@ styleSheet.replaceSync(`
     :host([direction=column]) { grid-template-rows: var(--first-size, 1fr) max-content var(--second-size, 1fr); }
     :host([direction=column]) #median { grid-row: 2 / 3; }
     :host([direction=column]) #median:hover { cursor: row-resize; }
-    :host([direction=column]) #median span[part="handle"] { width: 16px; margin: 0 2px; display: none}
+    :host([direction=column]) #median span[part="handle"] { width: 16px; margin: 0 2px; }
     :host([direction=column]) #slot1 { grid-row: 1 / 2; grid-column: 1 / 1; }
     :host([direction=column]) #slot2 { grid-row: 3 / 4; grid-column: 1 / 1; }
 
@@ -36,7 +36,7 @@ styleSheet.replaceSync(`
     :host([collapsed]) #median { display: none; }
     :host([collapsed]) #slot2 { display: none; }
 
-    :host([barhandle]) #median span[part="handle"] { display: block; }
+    :host([no-barhandle]) #median span[part="handle"] { display: none; }
 `);
 
 const template = `
@@ -48,7 +48,7 @@ const template = `
 `;
 
 class SplitPanels extends HTMLElement {
-  static observedAttributes = ["direction", "collapsed", "barsize", "barhandle", "slot1minsize", "slot2minsize"];
+  static observedAttributes = ["direction", "collapsed", "barsize", "no-barhandle", "slot1minsize", "slot2minsize"];
   #direction = "row";
   #isResizing = false;
   #collapsed = false;
@@ -267,9 +267,10 @@ class SplitPanels extends HTMLElement {
     if (this.#barhandle !== realValue) {
       this.#barhandle = realValue;
       if (this.#barhandle) {
-        this.setAttribute("barhandle", "");
+        this.removeAttribute("no-barhandle");
       } else {
-        this.removeAttribute("barhandle");
+        this.setAttribute("no-barhandle", "");
+        
       }
     }
   }
