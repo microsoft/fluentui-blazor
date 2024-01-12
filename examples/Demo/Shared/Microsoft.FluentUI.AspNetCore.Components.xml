@@ -6445,7 +6445,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.DisplayMoreTabAsync(Microsoft.FluentUI.AspNetCore.Components.FluentTab)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.GoToTab(System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.GoToTabAsync(System.String)">
             <summary>
             Go to a specific tab by specifying an id
             </summary>
