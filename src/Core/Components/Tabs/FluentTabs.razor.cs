@@ -271,7 +271,7 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     /// <param name="TabId">Id of the tab to goto</param>
     /// <returns></returns>
-    public async Task GoToTab(string TabId)
+    public async Task GoToTabAsync(string TabId)
     {
         await OnTabChangeHandlerAsync(new TabChangeEventArgs()
         {
