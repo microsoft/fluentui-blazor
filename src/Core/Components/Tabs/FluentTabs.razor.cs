@@ -224,6 +224,7 @@ public partial class FluentTabs : FluentComponentBase
         {
             await OnTabSelect.InvokeAsync(ActiveTab);
         }
+        _shouldRender = true;
     }
 
     /// <summary />
@@ -264,5 +265,19 @@ public partial class FluentTabs : FluentComponentBase
         {
             ActiveId = tab.Id,
         });
+    }
+
+    /// <summary>
+    /// Go to a specific tab by specifying an id
+    /// </summary>
+    /// <param name="TabId">Id of the tab to goto</param>
+    /// <returns></returns>
+    public async Task GoToTabAsync(string TabId)
+    {
+        await OnTabChangeHandlerAsync(new TabChangeEventArgs()
+        {
+            ActiveId = TabId,
+        });
+        
     }
 }
