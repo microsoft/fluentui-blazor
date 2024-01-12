@@ -1,0 +1,222 @@
+@using Xunit;
+@inherits TestContext
+@{
+#pragma warning disable FluentPanelSplitter
+}
+@code
+{
+    [Fact]
+    public void FluentPanelSplitter_Horizontal_Basic()
+    {
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.Add(p => p.Orientation, Orientation.Horizontal);
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPanelSplitter_Vertical_Basic()
+    {
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.Add(p => p.Orientation, Orientation.Vertical);
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPanelSplitter_PaneCollapsible()
+    {
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentPanelSplitter_PaneResizedRaised()
+    {
+        bool eventCalled = false;
+
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.Add(p => p.OnResize, (e) => eventCalled = true);
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // MouseUp
+        await cut.InvokeAsync(async () => await cut.Instance.OnPaneResizedAsync(0, 20, 1, 80));
+
+        // Assert
+        Assert.True(eventCalled);
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPanelSplitter_PaneResizedReceived()
+    {
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Min, "50px");
+                pane.Add(p => p.Max, "70%");
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // Action
+        var bar = cut.Find($".fluent-panel-splitter-bar");
+        bar.MouseDown();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentPanelSplitter_PaneResizeCanceled()
+    {
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.Add(p => p.OnResize, (e) => e.Cancel = true);
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Size, "40%");
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Size, "60%");
+                pane.AddChildContent("Pane B");
+            });
+        });
+
+        // MouseUp
+        await cut.InvokeAsync(async () => await cut.Instance.OnPaneResizedAsync(0, 20, 1, 80));
+
+        // New values (20% and 80%) are rollbacked to initial values (40% and 60%)
+        Assert.Contains("flex-basis: 40%;", cut.Markup);
+        Assert.Contains("flex-basis: 60%;", cut.Markup);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPanelSplitter_Expand()
+    {
+        FluentPanelSplitter_ExpandCollapse("expand");
+    }
+
+    [Fact]
+    public void FluentPanelSplitter_Collapse()
+    {
+        FluentPanelSplitter_ExpandCollapse("collapse");
+    }
+
+    private void FluentPanelSplitter_ExpandCollapse(string part)
+    {
+        bool eventCalled = false;
+
+        // Arrange
+        using var ctx = new Bunit.TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = ctx.RenderComponent<FluentPanelSplitter>(parameters =>
+        {
+            parameters.Add(p => p.OnExpand, (e) => eventCalled = true);
+            parameters.Add(p => p.OnCollapse, (e) => eventCalled = true);
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane A");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane B");
+            });
+            parameters.AddChildContent<FluentPanelSplitterPane>(pane =>
+            {
+                pane.Add(p => p.Collapsible, true);
+                pane.AddChildContent("Pane C");
+            });
+        });
+
+        // Action
+        var button = cut.Find($"span[part='{part}']");
+        button.MouseDown();
+
+        // Assert
+        Assert.True(eventCalled);
+        cut.Verify(suffix: part);
+    }
+}
