@@ -2,10 +2,12 @@
     /* Resize Icon colors */
     --fluent-panel-splitter-color: var(--neutral-stroke-strong-rest);
     --fluent-panel-splitter-color-active: var(--neutral-stroke-strong-hover);
+
     /* Bar colors */
     --fluent-panel-splitter-background-color: var(--neutral-stroke-rest);
     --fluent-panel-splitter-background-color-active: var(--neutral-stroke-hover);
     --fluent-panel-splitter-hover-opacity: 0.8;
+    
     /* Bar size */
     --fluent-panel-splitter-bar-size: 8px;
 
