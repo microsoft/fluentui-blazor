@@ -79,6 +79,13 @@ public partial class FluentSplitter : FluentComponentBase
     public int BarSize { get; set; } = 8;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the splitter bar handle is visible.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool BarHandle { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets a value indicating whether the splitter is collapsed.
     /// If set to true, Panel1 will take up all the space and Panel2 as well as the splitter bar will be hidden.
     /// </summary>

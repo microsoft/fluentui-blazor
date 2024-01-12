@@ -2838,7 +2838,7 @@
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.DialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
@@ -2901,7 +2901,7 @@
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.IDialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.Role">
@@ -6180,6 +6180,12 @@
             Default is 8.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.BarHandle">
+            <summary>
+            Gets or sets a value indicating whether the splitter bar handle is visible.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Collapsed">
             <summary>
             Gets or sets a value indicating whether the splitter is collapsed.
@@ -6438,6 +6444,13 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.DisplayMoreTabAsync(Microsoft.FluentUI.AspNetCore.Components.FluentTab)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.GoToTab(System.String)">
+            <summary>
+            Go to a specific tab by specifying an id
+            </summary>
+            <param name="TabId">Id of the tab to goto</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTextArea.Resize">
             <summary>
@@ -11218,11 +11231,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.OfficeColor">
             <summary>
             The official product colors for Microsoft Office apps.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random">
-            <summary>
-            A random color from the OfficeColor enum
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Default">
