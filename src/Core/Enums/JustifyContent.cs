@@ -3,8 +3,7 @@
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// The size of the emoji (in multiples of 32).
-/// Defauts to Size32
+/// Defines the alignment of items along the main axis of a flex container.
 /// </summary>
 public enum JustifyContent
 {
