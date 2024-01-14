@@ -1,5 +1,5 @@
 export function init(gridElement) {
-    if (gridElement === null) {
+    if (gridElement === undefined || gridElement === null) {
         return;
     };
 
