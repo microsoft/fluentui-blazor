@@ -5,9 +5,9 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Supplies information about a <see cref="FluentPanelSplitter.OnExpand" /> or <see cref="FluentPanelSplitter.OnCollapse" /> event that is being raised.
+/// Supplies information about a <see cref="FluentMultiSplitter.OnExpand" /> or <see cref="FluentMultiSplitter.OnCollapse" /> event that is being raised.
 /// </summary>
-public class FluentPanelSplitterEventArgs
+public class FluentMultiSplitterEventArgs
 {
     /// <summary>
     /// Gets the index of the pane.
@@ -18,7 +18,7 @@ public class FluentPanelSplitterEventArgs
     /// Gets the pane which the event applies to.
     /// </summary>
     /// <value>The pane.</value>
-    public FluentPanelSplitterPane Pane { get; set; } = default!;
+    public FluentMultiSplitterPane Pane { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a value which will cancel the event.

@@ -1,27 +1,27 @@
-@{ #pragma warning disable FluentPanelSplitter }
+@{ #pragma warning disable FluentMultiSplitter }
 
-<FluentPanelSplitter OnResize="@OnResizeHandler" Height="150px" Style="border: 1px dashed var(--accent-fill-rest);">
-    <FluentPanelSplitterPane Size="20%" Min="50px" Max="70%">
+<FluentMultiSplitter OnResize="@OnResizeHandler" Height="150px" Style="border: 1px dashed var(--accent-fill-rest);">
+    <FluentMultiSplitterPane Size="20%" Min="50px" Max="70%">
         Left Menu
-    </FluentPanelSplitterPane>
-    <FluentPanelSplitterPane Size="50%">
-        <FluentPanelSplitter OnResize="@OnResizeHandler" Orientation="Orientation.Vertical">
-            <FluentPanelSplitterPane Collapsible="true">
+    </FluentMultiSplitterPane>
+    <FluentMultiSplitterPane Size="50%">
+        <FluentMultiSplitter OnResize="@OnResizeHandler" Orientation="Orientation.Vertical">
+            <FluentMultiSplitterPane Collapsible="true">
                 Main Content
-            </FluentPanelSplitterPane>
-            <FluentPanelSplitterPane Collapsible="true">
+            </FluentMultiSplitterPane>
+            <FluentMultiSplitterPane Collapsible="true">
                 Console log
-            </FluentPanelSplitterPane>
-        </FluentPanelSplitter>
-    </FluentPanelSplitterPane>
-    <FluentPanelSplitterPane Size="30%">
+            </FluentMultiSplitterPane>
+        </FluentMultiSplitter>
+    </FluentMultiSplitterPane>
+    <FluentMultiSplitterPane Size="30%">
         Properties
-    </FluentPanelSplitterPane>
-</FluentPanelSplitter>
+    </FluentMultiSplitterPane>
+</FluentMultiSplitter>
 
 @code
 {
-    void OnResizeHandler(FluentPanelSplitterResizeEventArgs e)
+    void OnResizeHandler(FluentMultiSplitterResizeEventArgs e)
     {
         DemoLogger.WriteLine($"Pane {e.PaneIndex} Resize (New size {e.NewSize})");
     }

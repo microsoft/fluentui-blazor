@@ -75,7 +75,7 @@
         mouseUpHandler: function (e) {
             if (document.splitterData[el]) {
                 splitter.invokeMethodAsync(
-                    'FluentPanelSplitter.OnPaneResizedAsync',
+                    'FluentMultiSplitter.OnPaneResizedAsync',
                     parseInt(pane.getAttribute('data-index')),
                     parseFloat(pane.style.flexBasis),
                     paneNext ? parseInt(paneNext.getAttribute('data-index')) : null,

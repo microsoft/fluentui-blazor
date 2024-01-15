@@ -13,18 +13,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-/// Add this line to suppress de compilation error: `@{ #pragma warning disable FluentPanelSplitter }`
+/// Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
 /// </summary>
-[Experimental("FluentPanelSplitter", UrlFormat = "https://preview.fluentui-blazor.net/PanelSplitter")]
-public partial class FluentPanelSplitter : FluentComponentBase
+[Experimental("FluentMultiSplitter", UrlFormat = "https://preview.fluentui-blazor.net/PanelSplitter")]
+public partial class FluentMultiSplitter : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Splitter/FluentPanelSplitter.razor.js";
-    private DotNetObjectReference<FluentPanelSplitter>? _objRef = null;
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Splitter/FluentMultiSplitter.razor.js";
+    private DotNetObjectReference<FluentMultiSplitter>? _objRef = null;
 
-    internal List<FluentPanelSplitterPane> Panes { get; } = new();
+    internal List<FluentMultiSplitterPane> Panes { get; } = new();
 
     /// <summary />
-    public FluentPanelSplitter()
+    public FluentMultiSplitter()
     {
         Id = Identifier.NewId();
     }
@@ -41,21 +41,21 @@ public partial class FluentPanelSplitter : FluentComponentBase
     /// </summary>
     /// <value>The collapse callback.</value>
     [Parameter]
-    public EventCallback<FluentPanelSplitterEventArgs> OnCollapse { get; set; }
+    public EventCallback<FluentMultiSplitterEventArgs> OnCollapse { get; set; }
 
     /// <summary>
     /// Gets or sets the expand callback.
     /// </summary>
     /// <value>The expand callback.</value>
     [Parameter]
-    public EventCallback<FluentPanelSplitterEventArgs> OnExpand { get; set; }
+    public EventCallback<FluentMultiSplitterEventArgs> OnExpand { get; set; }
 
     /// <summary>
     /// Gets or sets the resize callback.
     /// </summary>
     /// <value>The resize callback.</value>
     [Parameter]
-    public EventCallback<FluentPanelSplitterResizeEventArgs> OnResize { get; set; }
+    public EventCallback<FluentMultiSplitterResizeEventArgs> OnResize { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the splitter bar in pixels. Default is 8
@@ -105,7 +105,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
     /// Adds the pane.
     /// </summary>
     /// <param name="pane">The pane.</param>
-    public void AddPane(FluentPanelSplitterPane pane)
+    public void AddPane(FluentMultiSplitterPane pane)
     {
         // Add this pane if not already done
         if (Panes.IndexOf(pane) < 0)
@@ -131,7 +131,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
     /// <param name="sizeNew">The size new.</param>
     /// <param name="paneNextIndex">Index of the pane next.</param>
     /// <param name="sizeNextNew">The size next new.</param>
-    [JSInvokable("FluentPanelSplitter.OnPaneResizedAsync")]
+    [JSInvokable("FluentMultiSplitter.OnPaneResizedAsync")]
     public async Task OnPaneResizedAsync(int paneIndex, double sizeNew, int? paneNextIndex, double? sizeNextNew)
     {
         // Current panel
@@ -139,7 +139,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
 
         if (OnResize.HasDelegate)
         {
-            var arg = new FluentPanelSplitterResizeEventArgs()
+            var arg = new FluentMultiSplitterResizeEventArgs()
             {
                 PaneIndex = pane.Index,
                 Pane = pane,
@@ -170,7 +170,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
 
             if (OnResize.HasDelegate)
             {
-                var arg = new FluentPanelSplitterResizeEventArgs()
+                var arg = new FluentMultiSplitterResizeEventArgs()
                 {
                     PaneIndex = paneNext.Index,
                     Pane = paneNext,
@@ -198,7 +198,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
     /// Removes the pane.
     /// </summary>
     /// <param name="pane">The pane.</param>
-    public void RemovePane(FluentPanelSplitterPane pane)
+    public void RemovePane(FluentMultiSplitterPane pane)
     {
         if (Panes.Contains(pane))
         {
@@ -220,7 +220,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
         {
             if (OnExpand.HasDelegate)
             {
-                var arg = new FluentPanelSplitterEventArgs()
+                var arg = new FluentMultiSplitterEventArgs()
                 {
                     PaneIndex = paneNext.Index,
                     Pane = paneNext,
@@ -240,7 +240,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
         {
             if (OnCollapse.HasDelegate)
             {
-                var arg = new FluentPanelSplitterEventArgs()
+                var arg = new FluentMultiSplitterEventArgs()
                 {
                     PaneIndex = pane.Index,
                     Pane = pane,
@@ -273,7 +273,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
         {
             if (OnCollapse.HasDelegate)
             {
-                var arg = new FluentPanelSplitterEventArgs()
+                var arg = new FluentMultiSplitterEventArgs()
                 {
                     PaneIndex = paneNext.Index,
                     Pane = paneNext,
@@ -293,7 +293,7 @@ public partial class FluentPanelSplitter : FluentComponentBase
         {
             if (OnExpand.HasDelegate)
             {
-                var arg = new FluentPanelSplitterEventArgs()
+                var arg = new FluentMultiSplitterEventArgs()
                 {
                     PaneIndex = pane.Index,
                     Pane = pane,

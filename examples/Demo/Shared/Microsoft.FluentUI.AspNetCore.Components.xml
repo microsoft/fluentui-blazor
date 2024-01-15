@@ -6123,79 +6123,79 @@
             Gets or sets the width of the spacer (in pixels).
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter">
             <summary>
             This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-            Add this line to suppress de compilation error: `@{ #pragma warning disable FluentPanelSplitter }`
+            Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.#ctor">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.#ctor">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.ChildContent">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ChildContent">
             <summary>
             Gets or sets the child content.
             </summary>
             <value>The child content.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnCollapse">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnCollapse">
             <summary>
             Gets or sets the collapse callback.
             </summary>
             <value>The collapse callback.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnExpand">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnExpand">
             <summary>
             Gets or sets the expand callback.
             </summary>
             <value>The expand callback.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnResize">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnResize">
             <summary>
             Gets or sets the resize callback.
             </summary>
             <value>The resize callback.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.BarSize">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.BarSize">
             <summary>
             Gets or sets the size of the splitter bar in pixels. Default is 8
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.Orientation">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Orientation">
             <summary>
             Gets or sets the orientation.
             </summary>
             <value>The orientation.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.Width">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Width">
             <summary>
             Gets or sets the width of the container.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.Height">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Height">
             <summary>
             Gets or sets the height of the container.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.ClassValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.StyleValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.JS">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.JS">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Module">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.AddPane(Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.AddPane(Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane)">
             <summary>
             Adds the pane.
             </summary>
             <param name="pane">The pane.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnPaneResizedAsync(System.Int32,System.Double,System.Nullable{System.Int32},System.Nullable{System.Double})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnPaneResizedAsync(System.Int32,System.Double,System.Nullable{System.Int32},System.Nullable{System.Double})">
             <summary>
             Called when pane resized (internal method).
             </summary>
@@ -6204,153 +6204,153 @@
             <param name="paneNextIndex">Index of the pane next.</param>
             <param name="sizeNextNew">The size next new.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.Refresh">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Refresh">
             <summary>
             Refreshes this instance.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.RemovePane(Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.RemovePane(Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane)">
             <summary>
             Removes the pane.
             </summary>
             <param name="pane">The pane.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.CollapseExecAsync(System.Object,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.CollapseExecAsync(System.Object,System.Int32)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.ExpandExecAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ExpandExecAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Int32)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.ResizeExecAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ResizeExecAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Int32)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnAfterRenderAsync(System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterEventArgs">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterEventArgs">
             <summary>
-            Supplies information about a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnExpand" /> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnCollapse" /> event that is being raised.
+            Supplies information about a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnExpand" /> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnCollapse" /> event that is being raised.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterEventArgs.PaneIndex">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterEventArgs.PaneIndex">
             <summary>
             Gets the index of the pane.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterEventArgs.Pane">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterEventArgs.Pane">
             <summary>
             Gets the pane which the event applies to.
             </summary>
             <value>The pane.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterEventArgs.Cancel">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterEventArgs.Cancel">
             <summary>
             Gets or sets a value which will cancel the event.
             </summary>
             <value><c>true</c> to cancel the event; otherwise, <c>false</c>.</value>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.#ctor">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.#ctor">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.ChildContent">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.ChildContent">
             <summary>
             Gets or sets the child content.
             </summary>
             <value>The child content.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Collapsed">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Collapsed">
             <summary>
-            Gets or sets a value indicating whether this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane"/> is collapsed.
+            Gets or sets a value indicating whether this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane"/> is collapsed.
             </summary>
             <value><c>true</c> if collapsed; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Collapsible">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Collapsible">
             <summary>
-            Gets or sets a value indicating whether this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane"/> is collapsible.
+            Gets or sets a value indicating whether this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane"/> is collapsible.
             </summary>
             <value><c>true</c> if collapsible; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Max">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Max">
             <summary>
             Determines the maximum value.
             </summary>
             <value>The maximum value.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Min">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Min">
             <summary>
             Determines the minimum value.
             </summary>
             <value>The minimum value.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Resizable">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Resizable">
             <summary>
-            Gets or sets a value indicating whether this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane"/> is resizable.
+            Gets or sets a value indicating whether this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane"/> is resizable.
             </summary>
             <value><c>true</c> if resizable; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Size">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Size">
             <summary>
             Gets or sets the size.
             </summary>
             <value>The size.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Splitter">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Splitter">
             <summary>
             Gets or sets the splitter.
             </summary>
             <value>The splitter.</value>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Index">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Index">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.IsCollapsible">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.IsCollapsible">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.IsExpandable">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.IsExpandable">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.IsLast">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.IsLast">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.IsLastResizable">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.IsLastResizable">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.IsResizable">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.IsResizable">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.SizeAuto">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.SizeAuto">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.SizeRuntime">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.SizeRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.ClassValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.StyleValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.StyleValue">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Dispose">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Dispose">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Next">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Next">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.Refresh">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.Refresh">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.SetCollapsed(System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.SetCollapsed(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterPane.GetClassStatus">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane.GetClassStatus">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterResizeEventArgs">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterResizeEventArgs">
             <summary>
-            Supplies information about a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitter.OnResize" /> event that is being raised.
+            Supplies information about a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.OnResize" /> event that is being raised.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPanelSplitterResizeEventArgs.NewSize">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterResizeEventArgs.NewSize">
             <summary>
             The new size of the pane.
             </summary>

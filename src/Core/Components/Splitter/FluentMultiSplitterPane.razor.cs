@@ -7,15 +7,15 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-#pragma warning disable FluentPanelSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
+#pragma warning disable FluentMultiSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
 {
     private string _size = string.Empty;
 
-    private FluentPanelSplitter _splitter = default!;
+    private FluentMultiSplitter _splitter = default!;
 
     /// <summary />
-    public FluentPanelSplitterPane()
+    public FluentMultiSplitterPane()
     {
         Id = Identifier.NewId();
     }
@@ -28,14 +28,14 @@ public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentPanelSplitterPane"/> is collapsed.
+    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsed.
     /// </summary>
     /// <value><c>true</c> if collapsed; otherwise, <c>false</c>.</value>
     [Parameter]
     public bool Collapsed { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentPanelSplitterPane"/> is collapsible.
+    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsible.
     /// </summary>
     /// <value><c>true</c> if collapsible; otherwise, <c>false</c>.</value>
     [Parameter]
@@ -56,7 +56,7 @@ public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
     public string Min { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentPanelSplitterPane"/> is resizable.
+    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is resizable.
     /// </summary>
     /// <value><c>true</c> if resizable; otherwise, <c>false</c>.</value>
     [Parameter]
@@ -85,7 +85,7 @@ public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
     /// </summary>
     /// <value>The splitter.</value>
     [CascadingParameter]
-    public FluentPanelSplitter Splitter
+    public FluentMultiSplitter Splitter
     {
         get => _splitter;
         set
@@ -193,7 +193,7 @@ public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    internal FluentPanelSplitterPane? Next()
+    internal FluentMultiSplitterPane? Next()
     {
         return Index <= Splitter.Panes.Count - 2
             ? Splitter.Panes[Index + 1]
@@ -233,4 +233,4 @@ public partial class FluentPanelSplitterPane : FluentComponentBase, IDisposable
         return "locked";
     }
 }
-#pragma warning restore FluentPanelSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+#pragma warning restore FluentMultiSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
