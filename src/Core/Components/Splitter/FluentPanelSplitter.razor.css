@@ -150,7 +150,7 @@
 .fluent-panel-splitter ::deep > .fluent-panel-splitter-pane {
     overflow: hidden;
     position: relative;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
 }
 
     .fluent-panel-splitter ::deep > .fluent-panel-splitter-pane[status="collapsed"] {
