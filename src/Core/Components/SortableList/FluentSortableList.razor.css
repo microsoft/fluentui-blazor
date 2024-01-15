@@ -1,0 +1,45 @@
+/* 
+  you need the ::deep identifier if you are using scoped styles like this
+  because scoped styles are only applied to markup in the component, not
+  to the markup inside the render fragment.
+*/
+
+.fluent-sortable-list {
+    --fluent-sortable-list-background-color: var(--neutral-layer-2)
+}
+
+fluent-sortable-list ::deep .sortable-ghost {
+    visibility: hidden;
+}
+
+fluent-sortable-list ::deep .sortable-fallback {
+    opacity: 1 !important
+}
+
+.fluent-sortable-list ::deep .sortable-grab {
+    cursor: grab;
+    padding: 0 0.3rem;
+    display: flex;
+}
+
+.fluent-sortable-list ::deep .sortable-item {
+    display: flex;
+    height: 2.2rem !important;
+    align-items: center;
+    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-input-active);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-bottom: 2px;
+}
+
+
+.fluent-sortable-list ::deep .sortable-item-content {
+    display: flex;
+    height: 100%;
+    padding: 0 0.3rem;
+    background: var(--fluent-sortable-list-background-color);
+    align-items: center;
+}

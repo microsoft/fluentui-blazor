@@ -1,0 +1,58 @@
+﻿<style>
+    .no-move-warning {
+        background: var(--warning)!important;
+    }
+</style>
+
+<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+    <FluentGridItem xs="12" sm="6">
+         <FluentSortableList Id="filter" Filter=".filtered" Items="items" OnUpdate="@SortList" Context="item">
+             <SortableItemTemplate>
+                <div class="sortable-item sortable-item-content @(item.Disabled ? "filtered no-move-warning" : "sortable-grab")">@item.Name</div>
+             </SortableItemTemplate>
+         </FluentSortableList>
+     </FluentGridItem>
+ </FluentGrid>
+
+@code {
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+
+        public bool Disabled { get; set; } = false;
+    }
+
+    public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    // on initialized, set a random item in the list to disabled
+    protected override void OnInitialized()
+    {
+        var random = new Random();
+        var randomIndex = random.Next(0, items.Count);
+        items[randomIndex].Disabled = true;
+    }
+
+
+    private void SortList((int oldIndex, int newIndex) indices)
+    {
+        // deconstruct the tuple
+        var (oldIndex, newIndex) = indices;
+
+        var items = this.items;
+        var itemToMove = items[oldIndex];
+        items.RemoveAt(oldIndex);
+
+        if (newIndex < items.Count)
+        {
+            items.Insert(newIndex, itemToMove);
+        }
+        else
+        {
+            items.Add(itemToMove);
+        }
+
+        StateHasChanged();
+    }
+
+}

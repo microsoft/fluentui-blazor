@@ -1,0 +1,40 @@
+﻿ <FluentSortableList Id="simpleList" Items="items" OnUpdate="@SortList" Context="item">
+     <SortableItemTemplate>
+        <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
+     </SortableItemTemplate>
+ </FluentSortableList>
+
+ @code {
+
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+
+        public bool Disabled { get; set; } = false;
+    }
+
+    public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+
+    private void SortList((int oldIndex, int newIndex) indices)
+    {
+        // deconstruct the tuple
+        var (oldIndex, newIndex) = indices;
+
+        var items = this.items;
+        var itemToMove = items[oldIndex];
+        items.RemoveAt(oldIndex);
+
+        if (newIndex < items.Count)
+        {
+            items.Insert(newIndex, itemToMove);
+        }
+        else
+        {
+            items.Add(itemToMove);
+        }
+
+        StateHasChanged();
+    }
+ }

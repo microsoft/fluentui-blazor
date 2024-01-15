@@ -1,0 +1,17 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@using System.Collections.Generic
+@using System.Diagnostics.CodeAnalysis
+
+@typeparam TItem
+
+<div id="@Id" class="@ClassValue" style="@StyleValue">
+    @foreach (var item in Items)
+    {
+        @if (SortableItemTemplate is not null)
+        {
+            @SortableItemTemplate(item)
+        }
+    }
+</div>
+

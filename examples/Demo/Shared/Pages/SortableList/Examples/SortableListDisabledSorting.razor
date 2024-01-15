@@ -1,0 +1,60 @@
+﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+    <FluentGridItem xs="12" sm="6">
+        <FluentSortableList Id="disabledOne" Group="disabledSorting" Pull="clone" Put="false" Sort="false" Items="items1" Context="item" OnRemove="ListOneRemove">
+            <SortableItemTemplate>
+                <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
+            </SortableItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="6">
+        <FluentSortableList Id="disabledTwo" Group="disabledSorting" Pull="clone" Items="items2" Context="item" OnUpdate="SortList">
+            <SortableItemTemplate>
+                <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
+            </SortableItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+</FluentGrid>
+
+@code {
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+
+        public bool Disabled { get; set; } = false;
+    }
+
+    public List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    private void ListOneRemove((int oldIndex, int newIndex) indices)
+    {
+        var item = items1[indices.oldIndex];
+
+        var clone = item;
+
+        items2.Insert(indices.newIndex, clone);
+    }
+
+    private void SortList((int oldIndex, int newIndex) indices)
+    {
+        // deconstruct the tuple
+        var (oldIndex, newIndex) = indices;
+
+        var items = this.items2;
+        var itemToMove = items[oldIndex];
+        items.RemoveAt(oldIndex);
+
+        if (newIndex < items2.Count)
+        {
+            items.Insert(newIndex, itemToMove);
+        }
+        else
+        {
+            items.Add(itemToMove);
+        }
+
+        StateHasChanged();
+    }
+}

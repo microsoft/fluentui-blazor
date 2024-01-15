@@ -1,0 +1,62 @@
+﻿<style>
+    .fluent-sortable-list.darker {
+        --fluent-sortable-list-background-color: var(--neutral-layer-4) !important;
+    }
+</style>
+
+
+<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+    <FluentGridItem xs="12" sm="6">
+        <FluentSortableList Id="shared1" Class="darker" Group="sharedLists" Items="items1" Context="item" OnRemove="ListOneRemove">
+            <SortableItemTemplate>
+                <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
+            </SortableItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="6">
+        <FluentSortableList Id="shared2" Group="sharedLists" OnRemove="ListTwoRemove" Items="items2" Context="item">
+            <SortableItemTemplate>
+                <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
+            </SortableItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+</FluentGrid>
+
+@code {
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+
+        public bool Disabled { get; set; } = false;
+    }
+
+    public List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    private void ListOneRemove((int oldIndex, int newIndex) indices)
+    {
+        // get the item at the old index in list 1
+        var item = items1[indices.oldIndex];
+
+        // add it to the new index in list 2
+        items2.Insert(indices.newIndex, item);
+
+        // remove the item from the old index in list 1
+        items1.Remove(items1[indices.oldIndex]);
+    }
+
+    private void ListTwoRemove((int oldIndex, int newIndex) indices)
+    {
+        // get the item at the old index in list 2
+        var item = items2[indices.oldIndex];
+
+        // add it to the new index in list 1
+        items1.Insert(indices.newIndex, item);
+
+        // remove the item from the old index in list 2
+        items2.Remove(items2[indices.oldIndex]);
+    }
+
+}
