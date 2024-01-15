@@ -11008,6 +11008,11 @@
             FluentUI System Icon size 48x48
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconSize.Custom">
+            <summary>
+            Custom size included in the SVG content.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconVariant">
             <summary>
             The icon variant.

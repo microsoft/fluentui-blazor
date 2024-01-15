@@ -106,6 +106,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     private bool ContainsSVG()
     {
         return !string.IsNullOrEmpty(_icon.Content) &&
+               _icon.Size != IconSize.Custom &&
                (_icon.Content.StartsWith("<path ") ||
                 _icon.Content.StartsWith("<rect ") ||
                 _icon.Content.StartsWith("<g ") ||

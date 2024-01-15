@@ -65,6 +65,13 @@
     </Description>
 </DemoSection>
 
+<h2></h2>
+
+You can create your own icons. If the size of the SVG Viewbox is not one of the standard IconSize sizes, 
+you can use a custom size.
+
+<FluentIcon Value="@(new MyIcon())" Width="48px" />
+
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentIcon<>)" InstanceTypes="@(new[] {typeof(Icon)})" GenericLabel="Icon">
