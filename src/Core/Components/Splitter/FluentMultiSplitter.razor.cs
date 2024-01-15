@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 /// Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
 /// </summary>
-[Experimental("FluentMultiSplitter", UrlFormat = "https://preview.fluentui-blazor.net/PanelSplitter")]
+[Experimental("FluentMultiSplitter", UrlFormat = "https://preview.fluentui-blazor.net/MultiSplitter")]
 public partial class FluentMultiSplitter : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Splitter/FluentMultiSplitter.razor.js";
