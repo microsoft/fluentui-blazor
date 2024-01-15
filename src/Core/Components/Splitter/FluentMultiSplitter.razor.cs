@@ -84,14 +84,14 @@ public partial class FluentMultiSplitter : FluentComponentBase
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-panel-splitter")
+        .AddClass("fluent-multi-splitter")
         .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-        .AddStyle("--fluent-panel-splitter-bar-size", BarSize, () => !string.IsNullOrEmpty(BarSize))
+        .AddStyle("--fluent-multi-splitter-bar-size", BarSize, () => !string.IsNullOrEmpty(BarSize))
         .Build();
 
     /// <summary />

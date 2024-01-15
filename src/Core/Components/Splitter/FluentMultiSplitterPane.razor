@@ -13,7 +13,7 @@
 
 @if (!IsLast)
 {
-    <div class="fluent-panel-splitter-bar"
+    <div class="fluent-multi-splitter-bar"
          status="@GetClassStatus()"
          @onmousedown="@(e => Splitter.ResizeExecAsync(e, Index))"
          @onclick:preventDefault="true"

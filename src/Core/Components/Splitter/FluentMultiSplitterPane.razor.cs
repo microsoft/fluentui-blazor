@@ -178,7 +178,7 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-panel-splitter-pane")
+        .AddClass("fluent-multi-splitter-pane")
         .Build();
 
     /// <summary />
