@@ -14,8 +14,10 @@ namespace Microsoft.Fast.Components.FluentUI;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js";
+
     /// <summary>
-    /// A queryable source of data for the grid.
+    /// Gets or sets a queryable source of data for the grid.
     ///
     /// This could be in-memory data converted to queryable using the
     /// <see cref="System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
@@ -26,14 +28,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public IQueryable<TGridItem>? Items { get; set; }
 
     /// <summary>
-    /// A callback that supplies data for the rid.
+    /// Gets or sets a callback that supplies data for the rid.
     ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
     [Parameter] public GridItemsProvider<TGridItem>? ItemsProvider { get; set; }
 
     /// <summary>
-    /// Defines the child components of this instance. For example, you may define columns by adding
+    /// Gets or sets the child components of this instance. For example, you may define columns by adding
     /// components derived from the <see cref="ColumnBase{TGridItem}"/> base class.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -85,34 +87,34 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public PaginationState? Pagination { get; set; }
 
-
     /// <summary>
-    /// When true the component will not add itself to the tab queue. Default is false.
+    /// Gets or sets a value indicating whether the component will not add itself to the tab queue. 
+    /// Default is false.
     /// </summary>
     [Parameter]
     public bool NoTabbing { get; set; }
 
     /// <summary>
-    /// Whether the grid should automatically generate a header row and its type
+    /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="GenerateHeaderOption"/>
     /// </summary>
     [Parameter]
     public GenerateHeaderOption? GenerateHeader { get; set; } = GenerateHeaderOption.Default;
 
     /// <summary>
-    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows
+    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets a callback when a row is focused
+    /// Gets or sets a callback when a row is focused.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowFocus { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a row is focused
+    /// Gets or sets a callback when a row is focused.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
@@ -124,6 +126,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Optionally defines a style to be applied to a rendered row. 
+    /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
 
@@ -133,9 +136,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? EmptyContent { get; set; }
 
     [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JS { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private ElementReference _gridReference;
+    private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
     private int _ariaBodyRowCount;
     private ICollection<TGridItem> _currentNonVirtualizedViewItems = Array.Empty<TGridItem>();
@@ -157,9 +160,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnOptionsPosition;
     private bool _manualGrid;
 
-    // The associated ES6 module, which uses document-level event listeners
-    private IJSObjectReference? _jsModule;
     private IJSObjectReference? _jsEventDisposable;
+    private IJSObjectReference? Module { get; set; }
 
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
@@ -229,16 +231,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && _gridReference is not null)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.Fast.Components.FluentUI/Components/DataGrid/FluentDataGrid.razor.js");
-            _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
-            _ = _jsModule?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
+            _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
         }
     }
 
@@ -466,9 +468,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 await _jsEventDisposable.DisposeAsync();
             }
 
-            if (_jsModule is not null)
+            if (Module is not null)
             {
-                await _jsModule.DisposeAsync();
+                await Module.DisposeAsync();
             }
         }
         catch (JSDisconnectedException)
