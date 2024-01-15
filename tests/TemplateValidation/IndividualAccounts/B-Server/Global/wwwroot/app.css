@@ -13,7 +13,7 @@ body {
 }
 
 .main {
-    height: calc(100dvh - 86px);
+    height: calc(100% - 86px);
     color: var(--neutral-foreground-rest);
 }
 

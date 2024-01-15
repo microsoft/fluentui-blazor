@@ -3,8 +3,10 @@
 - Issue [#1283](https://github.com/microsoft/fluentui-blazor/issues/1283): Fix Combobox and Select width property
 - Issue [#1294](https://github.com/microsoft/fluentui-blazor/issues/1294): Issue upgrading from 4.2.1 to 4.3.0; better fix for #1205 en #1225
 - Issue [#1305](https://github.com/microsoft/fluentui-blazor/issues/1305): ComboBox component resetting bound object to null when custom content is entered
+- Issue [#1314](https://github.com/microsoft/fluentui-blazor/issues/1314): Updating FluentTabs ActiveTabId doesn't rerender if data is entered in contained FluentTextInput
 
 - [Splitter] Add parameter to show/hide bar handle
+- [Tabs] Add GotToTabAsync method
 
 ## V4.3
 - New: FluentWizard component
