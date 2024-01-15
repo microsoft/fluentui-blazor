@@ -25,7 +25,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public EventCallback<(int oldIndex, int newIndex)> OnRemove { get; set; }
 
     [Parameter]
-    public string Group { get; set; } = Identifier.NewId();
+    public string? Group { get; set; }
 
     [Parameter]
     public string? Pull { get; set; }

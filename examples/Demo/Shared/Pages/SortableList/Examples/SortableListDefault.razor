@@ -1,6 +1,6 @@
-﻿ <FluentSortableList Id="simpleList" Items="items" OnUpdate="@SortList" Context="item">
+﻿ <FluentSortableList Items="items" OnUpdate="@SortList">
      <SortableItemTemplate>
-        <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
+        <div class="sortable-item sortable-item-content sortable-grab">@context.Name</div>
      </SortableItemTemplate>
  </FluentSortableList>
 
