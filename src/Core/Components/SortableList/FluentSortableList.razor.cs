@@ -15,33 +15,67 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         Id = Identifier.NewId();
     }
 
+    /// <summary>
+    /// Gets or sets the template to be used to define each sortable item in the list.
+    /// Use the @context parameter to access the item and its properties.
+    /// </summary>
     [Parameter, EditorRequired]
     public RenderFragment<TItem>? SortableItemTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of items to be displayed in a sortable list.
+    /// </summary>
     [Parameter, AllowNull]
     public IEnumerable<TItem> Items { get; set; }
 
+    /// <summary>
+    /// Event callback for when the list is updated.
+    /// </summary>
     [Parameter]
     public EventCallback<(int oldIndex, int newIndex)> OnUpdate { get; set; }
 
+    /// <summary>
+    /// Event callback for when an item is removed from the list.
+    /// </summary>
     [Parameter]
     public EventCallback<(int oldIndex, int newIndex)> OnRemove { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
+    /// </summary>
     [Parameter]
     public string? Group { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
+    /// </summary>
     [Parameter]
     public string? Pull { get; set; }
 
+    /// <summary>
+    /// Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
+    /// Set to false to disable dropping from another list onto the current list.
+    /// </summary>
     [Parameter]
     public bool Put { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets whether the list is sortable.
+    /// Default is true
+    /// Disable sorting within a list by setting to false.
+    /// </summary>
     [Parameter]
     public bool Sort { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets the CSS selector name (including the '.') for the sortable list to use as the drag handle.
+    /// </summary>
     [Parameter]
     public string Handle { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Gets or sets the CSS selector name (including the '.') to identify elements that cannot be sorted or moved.
+    /// </summary>
     [Parameter]
     public string Filter { get; set; } = string.Empty;
 
