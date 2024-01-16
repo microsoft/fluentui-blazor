@@ -8,11 +8,11 @@
     --fluent-sortable-list-background-color: var(--neutral-layer-2)
 }
 
-fluent-sortable-list ::deep .sortable-ghost {
-    visibility: hidden;
+.fluent-sortable-list ::deep .sortable-ghost {
+    background-color: var(--neutral-layer-1) !important;
 }
 
-fluent-sortable-list ::deep .sortable-fallback {
+.fluent-sortable-list ::deep .sortable-fallback {
     opacity: 1 !important
 }
 

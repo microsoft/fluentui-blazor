@@ -8,7 +8,7 @@ export function init(id, group, pull, put, sort, handle, filter, component) {
         },
         filter: filter || undefined,
         sort: sort,
-        forceFallback: true,
+        forceFallback: false,
         handle: handle || undefined,
         onUpdate: (event) => {
             // Revert the DOM to match the .NET state
