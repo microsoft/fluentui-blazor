@@ -14,8 +14,6 @@ public partial class FluentTabs : FluentComponentBase
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
 
-    private bool _shouldRender = true;
-
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
@@ -154,28 +152,16 @@ public partial class FluentTabs : FluentComponentBase
         }
     }
 
-    protected override bool ShouldRender()
-    {
-        return _shouldRender;
-    }
-
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {
-        if (args is not null)
+        string? tabId = args?.ActiveId;
+        if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
         {
-            string? tabId = args.ActiveId;
-            if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
-            {
-                await OnTabChange.InvokeAsync(tab);
-                ActiveTabId = tabId;
-                await ActiveTabIdChanged.InvokeAsync(tabId);
-            }
-            _shouldRender = true;
+            await OnTabChange.InvokeAsync(tab);
+            ActiveTabId = tabId;
+            await ActiveTabIdChanged.InvokeAsync(tabId);
         }
-        else
-        {
-            _shouldRender = false;
-        }
+
     }
 
     internal int RegisterTab(FluentTab tab)
@@ -223,7 +209,6 @@ public partial class FluentTabs : FluentComponentBase
         {
             await OnTabSelect.InvokeAsync(ActiveTab);
         }
-        _shouldRender = true;
     }
 
     /// <summary />
@@ -277,6 +262,6 @@ public partial class FluentTabs : FluentComponentBase
         {
             ActiveId = TabId,
         });
-        
+
     }
 }
