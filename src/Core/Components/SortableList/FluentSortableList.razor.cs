@@ -15,7 +15,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    [Parameter]
+    [Parameter, EditorRequired]
     public RenderFragment<TItem>? SortableItemTemplate { get; set; }
 
     [Parameter, AllowNull]
