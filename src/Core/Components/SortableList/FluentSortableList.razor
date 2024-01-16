@@ -5,13 +5,12 @@
 
 @typeparam TItem
 
-<div id="@Id" class="@ClassValue" style="@StyleValue">
-    @foreach (var item in Items)
-    {
-        @if (SortableItemTemplate is not null)
+@if (SortableItemTemplate is not null)
+{
+    <div id="@Id" class="@ClassValue" style="@StyleValue">
+        @foreach (var item in Items)
         {
             @SortableItemTemplate(item)
         }
-    }
-</div>
-
+    </div>
+}

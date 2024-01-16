@@ -1,18 +1,1 @@
 ﻿@page "/IssueTester"
-
-
-        <span>Enabled: @SwitchEnabled</span>
-        <FluentSwitch @bind-Value="SwitchEnabled" />
-
-        <span>Checked: @CheckBoxChecked</span>
-        <FluentCheckbox @bind-Value="CheckBoxChecked" />
-
-        <span>Content: @Content</span>
-        <FluentTextField @bind-Value="Content" />
-
-
-@code {
-    bool SwitchEnabled = false;
-    bool CheckBoxChecked = false;
-    string Content = "";
-}

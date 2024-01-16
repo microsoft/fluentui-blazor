@@ -8,15 +8,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSortableList<TItem> : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js";
+    private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
 
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    public FluentSortableList()
+    {
+        Id = Identifier.NewId();
+    }
 
     [Parameter]
     public RenderFragment<TItem>? SortableItemTemplate { get; set; }
 
     [Parameter, AllowNull]
-    public List<TItem> Items { get; set; }
+    public IEnumerable<TItem> Items { get; set; }
 
     [Parameter]
     public EventCallback<(int oldIndex, int newIndex)> OnUpdate { get; set; }
@@ -49,20 +52,16 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
-    private DotNetObjectReference<FluentSortableList<TItem>>? selfReference;
-
-    public FluentSortableList()
-    {
-        Id = Identifier.NewId();
-    }
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            selfReference = DotNetObjectReference.Create(this);
+            _selfReference = DotNetObjectReference.Create(this);
             IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await module.InvokeAsync<string>("init", Id, Group, Pull, Put, Sort, Handle, Filter, selfReference);
+            await module.InvokeAsync<string>("init", Id, Group, Pull, Put, Sort, Handle, Filter, _selfReference);
         }
     }
 
@@ -80,5 +79,5 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         OnRemove.InvokeAsync((oldIndex, newIndex));
     }
 
-    public void Dispose() => selfReference?.Dispose();
+    public void Dispose() => _selfReference?.Dispose();
 }
