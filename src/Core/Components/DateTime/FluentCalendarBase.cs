@@ -57,6 +57,10 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
             {
                 ValueChanged.InvokeAsync(value);
             }
+            if (FieldBound)
+            {
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
+            }
         }
     }
 

@@ -1,1 +1,29 @@
 ﻿@page "/IssueTester"
+
+<FluentLabel Typo="Typography.H1">FluentDatePicker not marking form as dirty</FluentLabel>
+
+<EditForm @ref=form
+          Model=model>
+    <FluentTextField Label="Name"
+                     @bind-Value=model.Name />
+    <FluentDatePicker Label="DateTime"
+                      Culture="@(System.Globalization.CultureInfo.GetCultureInfo("en-GB"))"
+                      @bind-Value=model.DateTime />
+</EditForm>
+
+<FluentLabel Typo="Typography.H2">
+    Form @(form.EditContext?.IsModified() ?? false ? "dirty" : "unchanged")
+</FluentLabel>
+
+@code {
+    private EditForm form = default!;
+
+    private readonly Model model = new();
+
+    private class Model
+    {
+        public string Name { get; set; } = string.Empty;
+
+        public DateTime? DateTime { get; set; }
+    }
+}
