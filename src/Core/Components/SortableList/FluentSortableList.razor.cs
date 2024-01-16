@@ -32,13 +32,13 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     /// Event callback for when the list is updated.
     /// </summary>
     [Parameter]
-    public EventCallback<(int oldIndex, int newIndex)> OnUpdate { get; set; }
+    public EventCallback<FluentSortableListEventArgs> OnUpdate { get; set; }
 
     /// <summary>
     /// Event callback for when an item is removed from the list.
     /// </summary>
     [Parameter]
-    public EventCallback<(int oldIndex, int newIndex)> OnRemove { get; set; }
+    public EventCallback<FluentSortableListEventArgs> OnRemove { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
@@ -103,14 +103,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public void OnUpdateJS(int oldIndex, int newIndex)
     {
         // invoke the OnUpdate event passing in the oldIndex and the newIndex
-        OnUpdate.InvokeAsync((oldIndex, newIndex));
+        OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
     }
 
     [JSInvokable]
     public void OnRemoveJS(int oldIndex, int newIndex)
     {
         // remove the item from the list
-        OnRemove.InvokeAsync((oldIndex, newIndex));
+        OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
     }
 
     public void Dispose() => _selfReference?.Dispose();

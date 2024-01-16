@@ -46,6 +46,7 @@
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +82,7 @@
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
     <None Include="**\*.*.resx" />
+    <Content Remove="compilerconfig.json" />
     <None Update="**\*.*.resx">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).resx</DependentUpon>

@@ -28,33 +28,48 @@
 
     public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
-    private void ListOneRemove((int oldIndex, int newIndex) indices)
+    private void ListOneRemove(FluentSortableListEventArgs args)
     {
+        if (args is null)
+        {
+            return;
+        }
+
         // get the item at the old index in list 1
-        var item = items1[indices.oldIndex];
+        var item = items1[args.OldIndex];
 
         var clone = item;
 
         // add it to the new index in list 2
-        items2.Insert(indices.newIndex, clone);
+        items2.Insert(args.NewIndex, clone);
     }
 
-    private void ListTwoRemove((int oldIndex, int newIndex) indices)
+    private void ListTwoRemove(FluentSortableListEventArgs args)
     {
+        if (args is null)
+        {
+            return;
+        }
+
         // get the item at the old index in list 2
-        var item = items2[indices.oldIndex];
+        var item = items2[args.OldIndex];
 
         // make a copy
         var clone = item;
 
         // add it to the new index in list 1
-        items1.Insert(indices.newIndex, clone);
+        items1.Insert(args.NewIndex, clone);
     }
 
-    private void SortListOne((int oldIndex, int newIndex) indices)
+    private void SortListOne(FluentSortableListEventArgs args)
     {
-        // deconstruct the tuple
-        var (oldIndex, newIndex) = indices;
+        if (args is null || args.OldIndex == args.NewIndex)
+        {
+            return;
+        }
+
+        var oldIndex = args.OldIndex;
+        var newIndex = args.NewIndex;
 
         var items = this.items1;
         var itemToMove = items[oldIndex];
@@ -71,10 +86,15 @@
 
         StateHasChanged();
     }
-    private void SortListTwo((int oldIndex, int newIndex) indices)
+    private void SortListTwo(FluentSortableListEventArgs args)
     {
-        // deconstruct the tuple
-        var (oldIndex, newIndex) = indices;
+        if (args is null || args.OldIndex == args.NewIndex)
+        {
+            return;
+        }
+
+        var oldIndex = args.OldIndex;
+        var newIndex = args.NewIndex;
 
         var items = this.items2;
         var itemToMove = items[oldIndex];

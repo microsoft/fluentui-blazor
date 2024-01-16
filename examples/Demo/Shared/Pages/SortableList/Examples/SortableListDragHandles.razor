@@ -23,10 +23,15 @@
     }
     public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
-    private void SortList((int oldIndex, int newIndex) indices)
+    private void SortList(FluentSortableListEventArgs args)
     {
-        // deconstruct the tuple
-        var (oldIndex, newIndex) = indices;
+        if (args is null || args.OldIndex == args.NewIndex)
+        {
+            return;
+        }
+
+        var oldIndex = args.OldIndex;
+        var newIndex = args.NewIndex;
 
         var items = this.items;
         var itemToMove = items[oldIndex];

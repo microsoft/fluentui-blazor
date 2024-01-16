@@ -35,28 +35,37 @@
 
     public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
-    private void ListOneRemove((int oldIndex, int newIndex) indices)
+    private void ListOneRemove(FluentSortableListEventArgs args)
     {
+        if (args is null)
+        {
+            return;
+        }
+
         // get the item at the old index in list 1
-        var item = items1[indices.oldIndex];
+        var item = items1[args.OldIndex];
 
         // add it to the new index in list 2
-        items2.Insert(indices.newIndex, item);
+        items2.Insert(args.NewIndex, item);
 
         // remove the item from the old index in list 1
-        items1.Remove(items1[indices.oldIndex]);
+        items1.Remove(items1[args.OldIndex]);
     }
 
-    private void ListTwoRemove((int oldIndex, int newIndex) indices)
+    private void ListTwoRemove(FluentSortableListEventArgs args)
     {
+        if (args is null)
+        {
+            return;
+        }
         // get the item at the old index in list 2
-        var item = items2[indices.oldIndex];
+        var item = items2[args.OldIndex];
 
         // add it to the new index in list 1
-        items1.Insert(indices.newIndex, item);
+        items1.Insert(args.NewIndex, item);
 
         // remove the item from the old index in list 2
-        items2.Remove(items2[indices.oldIndex]);
+        items2.Remove(items2[args.OldIndex]);
     }
 
 }
