@@ -114,6 +114,7 @@ public partial class FluentDesignTheme : ComponentBase
     {
         Id = Identifier.NewId();
     }
+
     /// <summary>
     /// Method raised by the JavaScript code when the "mode" changes.
     /// </summary>
@@ -195,7 +196,7 @@ public partial class FluentDesignTheme : ComponentBase
             var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance");
             realLuminance = string.IsNullOrWhiteSpace(realLuminance) ? "1.0" : realLuminance;
             var isDark = double.Parse(realLuminance, CultureInfo.InvariantCulture) < 0.5;
-            //GlobalDesign.SetLuminance(isDark ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
+            GlobalDesign.SetLuminance(isDark ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
 
             if (OnLoaded.HasDelegate)
             {
