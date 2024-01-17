@@ -8,6 +8,11 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Slider/FluentSliderLabel.razor.js";
 
+    public FluentSliderLabel()
+    {
+        Id = Identifier.NewId();
+    }
+
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
