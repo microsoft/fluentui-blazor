@@ -21,7 +21,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         .AddStyle("width", Width ?? $"{_icon.Width}px")
         .AddStyle("fill", GetIconColor())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
-        .AddStyle("display", "inline-block", !ContainsSVG())
+        .AddStyle("display", "inline-block", !_icon.ContainsSVG)
         .Build();
 
     /// <summary>
@@ -97,20 +97,6 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         {
             throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
         }
-    }
-
-    /// <summary>
-    /// Returns true if the icon contains a SVG content.
-    /// </summary>
-    /// <returns></returns>
-    private bool ContainsSVG()
-    {
-        return !string.IsNullOrEmpty(_icon.Content) &&
-               (_icon.Content.StartsWith("<path ") ||
-                _icon.Content.StartsWith("<rect ") ||
-                _icon.Content.StartsWith("<g ") ||
-                _icon.Content.StartsWith("<circle ") ||
-                _icon.Content.StartsWith("<mark "));
     }
 
     /// <summary>
