@@ -1,4 +1,7 @@
-﻿## V4.3.1
+﻿## V4.3.2
+- - Issue [#1335](https://github.com/microsoft/fluentui-blazor/issues/1335): Consider removing the PageScript component from the public API (renamed to FluentPageScript)
+
+## V4.3.1
 - Issue [#1282](https://github.com/microsoft/fluentui-blazor/issues/1282): Looping behaviour after update to 4.3.0 / FluentDesignTheme
 - Issue [#1283](https://github.com/microsoft/fluentui-blazor/issues/1283): Fix Combobox and Select width property
 - Issue [#1294](https://github.com/microsoft/fluentui-blazor/issues/1294): Issue upgrading from 4.2.1 to 4.3.0; better fix for #1205 en #1225

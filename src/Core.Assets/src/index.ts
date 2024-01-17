@@ -1,7 +1,7 @@
 export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
-import { PageScript, onEnhancedLoad } from './PageScript'
+import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
 
 interface Blazor {
   registerCustomEventType: (
@@ -299,7 +299,7 @@ export function afterStarted(blazor: Blazor) {
 export function beforeStart(options: any) {
   customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
-  customElements.define('page-script', PageScript);
+  customElements.define('fluent-page-script', FluentPageScript);
 
   beforeStartCalled = true;
 }

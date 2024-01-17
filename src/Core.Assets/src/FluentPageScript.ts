@@ -1,5 +1,5 @@
 const pageScriptInfoBySrc = new Map();
-class PageScript extends HTMLElement {
+class FluentPageScript extends HTMLElement {
   static observedAttributes = ['src'];
   src: string | null = null;
 
@@ -49,7 +49,7 @@ class PageScript extends HTMLElement {
 
   async initializePageScriptModule(src: string, pageScriptInfo: any) {
     if (src.startsWith("./")) {
-      src = new URL(src.substr(2), document.baseURI).toString();
+      src = new URL(src.substring(2), document.baseURI).toString();
     }
 
     const module = await import(src);
@@ -77,4 +77,4 @@ export function onEnhancedLoad() {
   }
 }
 
-export { PageScript };
+export { FluentPageScript };
