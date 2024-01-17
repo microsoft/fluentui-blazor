@@ -74,10 +74,24 @@
     If the size of your customized icon (Viewbox) is not one of the standard IconSize sizes,
     you can use a <b>IconSize.Custom</b> size.
     <br />
-    <FluentIcon Value="@(new MyCircle())" Width="16px" /><code>&lt;FluentIcon Value="@@(new MyCircle())" Width="16px" /></code><br />
-    <FluentIcon Value="@(new MyCircle().WithColor("red"))" Width="16px" /><code>&lt;FluentIcon Value="@@(new MyCircle().WithColor("red"))" Width="16px" /></code><br />
-    <FluentButton IconStart="@(new MyCircle())" Loading="true">Refresh</FluentButton><br />
-    @(new MyCircle().ToMarkup("20px", "blue"))<br />
+    <ul>
+        <li>
+            <FluentIcon Value="@(new MyCircle())" Width="16px" /> 
+            <code>&lt;FluentIcon Value="@@(new MyCircle())" Width="16px" /></code>
+        </li>
+        <li>
+            <FluentIcon Value="@(new MyCircle().WithColor("red"))" Width="16px" /> 
+            <code>&lt;FluentIcon Value="@@(new MyCircle().WithColor("red"))" Width="16px" /></code>
+        </li>
+        <li>
+            @(new MyCircle().ToMarkup("16px", "blue")) 
+            <code>@@new MyCircle().ToMarkup("16px", "blue")</code>
+        </li>
+        <li>
+            <FluentButton IconStart="@(new MyCircle())" Loading="@ButtonIsLoading" OnClick="@(e => ButtonIsLoading = !ButtonIsLoading)">Refresh</FluentButton>
+            <code>&lt;FluentButton IconStart="@@(new MyCircle())">Refresh&lt;/FluentButton></code>
+        </li>
+    </ul>
     <br /><br />
     <CodeSnippet Language="language-csharp">public class MyCircle : Microsoft.FluentUI.AspNetCore.Components.Icon
 {
@@ -102,3 +116,8 @@
         <code>Icon</code> Type, while the <code>Value</code> parameter takes a icon object. 
     </Description>
 </ApiDocumentation>
+
+@code
+{
+    bool ButtonIsLoading = false;
+}

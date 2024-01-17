@@ -3488,12 +3488,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.ContainsSVG">
-            <summary>
-            Returns true if the icon contains a SVG content.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.GetIconColor">
             <summary>
             Returns FluentIcon.CustomColor, or FluentIcon.Color, or Icon.Color.
@@ -3561,6 +3555,12 @@
             <summary>
             Gets the width of the icon.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Icon.ContainsSVG">
+            <summary>
+            Returns true if the icon contains a SVG content.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Icon.FromType``1">
             <summary>
