@@ -63,10 +63,6 @@ public abstract class FluentCalendarBase : FluentComponentBase
             {
                 ValueChanged.InvokeAsync(value);
             }
-            if (FieldBound)
-            {
-                EditContext?.NotifyFieldChanged(FieldIdentifier);
-            }
         }
     }
 

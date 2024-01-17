@@ -1,4 +1,24 @@
 ﻿## V3.5.1
+- Issue [#1323](https://github.com/microsoft/fluentui-blazor/issues/1323): Rapidly clicking between UI component throws Microsoft.JSInterop.JSException
+- Issue [#1319](https://github.com/microsoft/fluentui-blazor/issues/1319): Fix FluentCheckbox issue
+- Issue [#1324](https://github.com/microsoft/fluentui-blazor/issues/1324): Fix JustifyContent enum documentation description
+- Issue [#1314](https://github.com/microsoft/fluentui-blazor/issues/1314): Updating FluentTabs ActiveTabId doesn't rerender if data is entered in contained FluentTextInput
+- Issue [#1306](https://github.com/microsoft/fluentui-blazor/issues/1306): Better fix for #1205 / #1225 which fixes #1294
+- Issue [#1305](https://github.com/microsoft/fluentui-blazor/issues/1305): Combobox component resetting bound object to null when custom content is entered 
+- Issue [#1283](https://github.com/microsoft/fluentui-blazor/issues/1283): Fix Combobox and Select width property 
+- Issue [#1279](https://github.com/microsoft/fluentui-blazor/issues/1279): Fix Combobox width without a important mark 
+- Issue [#1278](https://github.com/microsoft/fluentui-blazor/issues/1278): Add Id to Anchor
+- Issue [#1276](https://github.com/microsoft/fluentui-blazor/issues/1276): FluentTabs shows badge although all tabs are visible
+- Issue [#1274](https://github.com/microsoft/fluentui-blazor/issues/1274): Width less than 250px does not take effect] in [FluentCombobox and FluentSelect
+- Issue [#1273](https://github.com/microsoft/fluentui-blazor/issues/1273): Change CalendarDay IsSelected logic
+- Issue [#1270](https://github.com/microsoft/fluentui-blazor/issues/1270): Optimize Dialog CloseAsync Method
+- Issue [#1267](https://github.com/microsoft/fluentui-blazor/issues/1267): Add id parameter to FluentCard and FluentStack
+- Issue [#1250](https://github.com/microsoft/fluentui-blazor/issues/1250): Fix paginator icons in RTL
+- Issue [#1247](https://github.com/microsoft/fluentui-blazor/issues/1247): FluentNavMenu Add OnClick invoke to OnClickHandler 
+- Issue [#1242](https://github.com/microsoft/fluentui-blazor/issues/1242): Implement OnDialogClosing and OnDialogOpened
+- Issue [#1227](https://github.com/microsoft/fluentui-blazor/issues/1227): FluentTreeItem in that span that renders Text proprty is not conditional and adds unnecessary space when gap githubproperty is applied
+- Issue [#1226](https://github.com/microsoft/fluentui-blazor/issues/1226): FluentAutocomplete does not have an ElementReference
+- Issue [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215): FluentTextField ignores DataList property
 - Issue [#1205](https://github.com/microsoft/fluentui-blazor/issues/1205): Slider label max-width set to 30px
 - Issue [#1204](https://github.com/microsoft/fluentui-blazor/issues/1204): FluentButton submit does not work outside the EditFor
 - Issue [#1194](https://github.com/microsoft/fluentui-blazor/issues/1194): FluentTextField inside FluentTabs, pressing Enter re-renders FluentTab's content

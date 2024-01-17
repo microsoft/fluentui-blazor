@@ -1201,7 +1201,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items">
              <summary>
-             A queryable source of data for the grid.
+             Gets or sets a queryable source of data for the grid.
             
              This could be in-memory data converted to queryable using the
              <see cref="M:System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
@@ -1212,14 +1212,14 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider">
              <summary>
-             A callback that supplies data for the rid.
+             Gets or sets a callback that supplies data for the rid.
             
              You should supply either <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Items"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ItemsProvider"/>, but not both.
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ChildContent">
             <summary>
-            Defines the child components of this instance. For example, you may define columns by adding
+            Gets or sets the child components of this instance. For example, you may define columns by adding
             components derived from the <see cref="T:Microsoft.Fast.Components.FluentUI.ColumnBase`1"/> base class.
             </summary>
         </member>
@@ -1272,28 +1272,29 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.NoTabbing">
             <summary>
-            When true the component will not add itself to the tab queue. Default is false.
+            Gets or sets a value indicating whether the component will not add itself to the tab queue. 
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.GenerateHeader">
             <summary>
-            Whether the grid should automatically generate a header row and its type
+            Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
             See <see cref="T:Microsoft.Fast.Components.FluentUI.GenerateHeaderOption"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.GridTemplateColumns">
             <summary>
-            Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows
+            Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnRowFocus">
             <summary>
-            Gets or sets a callback when a row is focused
+            Gets or sets a callback when a row is focused.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnCellFocus">
             <summary>
-            Gets or sets a callback when a row is focused
+            Gets or sets a callback when a row is focused.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass">
@@ -1304,6 +1305,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowStyle">
             <summary>
             Optionally defines a style to be applied to a rendered row. 
+            Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass"/> instead.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">
@@ -2294,6 +2296,24 @@
             Callback function for the result.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.OnDialogClosing">
+            <summary>
+            Callback function that is called and awaited before the dialog fully closes.
+            </summary>
+            <remarks>
+            This is a suitable callback to use for animating the Dialog <em>before</em> it fully closes and is removed from the DOM.
+            This method is only called when using the <see cref="T:Microsoft.Fast.Components.FluentUI.IDialogService"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.DialogParameters.OnDialogOpened">
+            <summary>
+            Callback function that is called and awaited after the dialog renders for the first time.
+            </summary>
+            <remarks>
+            This is a suitable callback to use for animating the Dialog <em>after</em> it is fully rendered in the DOM.
+            This method is only called when using the <see cref="T:Microsoft.Fast.Components.FluentUI.IDialogService"/>.
+            </remarks>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DialogParameters`1">
             <summary>
             Parameters for a dialog.
@@ -2615,7 +2635,7 @@
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.DialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.Fast.Components.FluentUI.DialogParameters)">
@@ -2678,7 +2698,7 @@
         </member>
         <member name="E:Microsoft.Fast.Components.FluentUI.IDialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDivider.Role">
@@ -6146,6 +6166,13 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.DisplayMoreTabAsync(Microsoft.Fast.Components.FluentUI.FluentTab)">
             <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentTabs.GoToTabAsync(System.String)">
+            <summary>
+            Go to a specific tab by specifying an id
+            </summary>
+            <param name="TabId">Id of the tab to goto</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextArea.Resize">
             <summary>
@@ -10581,8 +10608,7 @@
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.JustifyContent">
             <summary>
-            The size of the emoji (in multiples of 32).
-            Defauts to Size32
+            Defines the alignment of items along the main axis of a flex container.
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.JustifyContent.FlexStart">

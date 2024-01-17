@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.Fast.Components.FluentUI;
 
 public interface IDialogParameters
 {
@@ -30,9 +30,8 @@ public interface IDialogParameters
     EventCallback<DialogInstance> OnDialogOpened { get; set; }
 }
 
-    public interface IDialogParameters<TContent> : IDialogParameters
-         where TContent : class
-    {
-        TContent Content { get; set; }
-    }
+public interface IDialogParameters<TContent> : IDialogParameters
+     where TContent : class
+{
+    TContent Content { get; set; }
 }
