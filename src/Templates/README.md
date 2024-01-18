@@ -1,3 +1,6 @@
+> **IMPORTANT!!**
+> Just as with the standard Blazor Web App template, Blazor will use SSR by default. If you want to have interactive components, make sure you add a rendermode to the app, page or component.!</p>
+
 #### Installation
 Install the templates by running the command:
 ```
