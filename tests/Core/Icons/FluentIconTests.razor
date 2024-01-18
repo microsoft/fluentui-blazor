@@ -203,4 +203,26 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentIcon_Icon_ToMarkupCustomIcon()
+    {
+        // Arrange && Act
+        var icon = new SampleIcons.Samples.MyCircle();
+        var cut = Render(@<div>@icon.ToMarkup()</div>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentIcon_Icon_ToMarkupCustomIcon_SizeColor()
+    {
+        // Arrange && Act
+        var icon = new SampleIcons.Samples.MyCircle();
+        var cut = Render(@<div>@icon.ToMarkup(size: "20px", color: "blue")</div>);
+
+        // Assert
+        cut.Verify();
+    }
 }
