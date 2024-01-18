@@ -4,9 +4,8 @@
 #### Installation
 Install the templates by running the command:
 ```
-dotnet new install {path to package}\Microsoft.FluentUI.AspNetCore.Templates.{version}.nupkg
+dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
-The current version can be found on the [NuGet page](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/). 
 
 #### Usage
 After installing the templates you can create new a project from either the CLI or by creating a new project in Visual studio 2022. 
