@@ -1,9 +1,11 @@
+> **IMPORTANT!!**
+> Just as with the standard Blazor Web App template, Blazor will use SSR by default. If you want to have interactive components, make sure you add a rendermode to the app, page or component.!</p>
+
 #### Installation
 Install the templates by running the command:
 ```
-dotnet new install {path to package}\Microsoft.FluentUI.AspNetCore.Templates.{version}.nupkg
+dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
-The current version can be found on the [NuGet page](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/). 
 
 #### Usage
 After installing the templates you can create new a project from either the CLI or by creating a new project in Visual studio 2022. 
