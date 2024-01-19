@@ -1,4 +1,7 @@
-﻿## V3.5.1
+﻿## V3.5.2
+- Issue [#1333](https://github.com/microsoft/fluentui-blazor/issues/1333): FluentSwitch inside FluentTab does not work anymore (revert #1194)
+
+## V3.5.1
 - Issue [#1323](https://github.com/microsoft/fluentui-blazor/issues/1323): Rapidly clicking between UI component throws Microsoft.JSInterop.JSException
 - Issue [#1319](https://github.com/microsoft/fluentui-blazor/issues/1319): Fix FluentCheckbox issue
 - Issue [#1324](https://github.com/microsoft/fluentui-blazor/issues/1324): Fix JustifyContent enum documentation description

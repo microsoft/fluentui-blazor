@@ -14,8 +14,6 @@ public partial class FluentTabs : FluentComponentBase
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
 
-    private bool _shouldRender = true;
-
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
@@ -67,20 +65,20 @@ public partial class FluentTabs : FluentComponentBase
     public bool ShowClose { get; set; } = false;
 
     /// <summary>
-    /// Width of the tab items.
+    /// Gets or sets the width of the tab items.
     /// </summary>
     [Parameter]
     public TabSize? Size { get; set; } = TabSize.Medium;
 
     /// <summary>
-    /// Width of the tabs component.
+    /// Gets or sets the width of the tabs component.
     /// Needs to be a valid CSS value (e.g. 100px, 50%).
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Height of the tabs component.
+    /// Gets or sets the height of the tabs component.
     /// Needs to be a valid CSS value (e.g. 100px, 50%).
     /// </summary>
     [Parameter]
@@ -101,9 +99,8 @@ public partial class FluentTabs : FluentComponentBase
     [Parameter]
     public EventCallback<string> ActiveTabIdChanged { get; set; }
 
-
     /// <summary>
-    /// Whether or not to show the active indicator 
+    /// Gets or sets a value indicating whether the active indicator is displayed.
     /// </summary>
     [Parameter]
     public bool ShowActiveIndicator { get; set; } = true;
@@ -115,7 +112,7 @@ public partial class FluentTabs : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a tab is changed .
+    /// Gets or sets a callback when a tab is changed.
     /// </summary>
     [Parameter]
     public EventCallback<FluentTab> OnTabChange { get; set; }
@@ -155,28 +152,16 @@ public partial class FluentTabs : FluentComponentBase
         }
     }
 
-    protected override bool ShouldRender()
-    {
-        return _shouldRender;
-    }
-
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {
-        if (args is not null)
+        string? tabId = args?.ActiveId;
+        if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
         {
-            string? tabId = args.ActiveId;
-            if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
-            {
-                await OnTabChange.InvokeAsync(tab);
-                ActiveTabId = tabId;
-                await ActiveTabIdChanged.InvokeAsync(tabId);
-            }
-            _shouldRender = true;
+            await OnTabChange.InvokeAsync(tab);
+            ActiveTabId = tabId;
+            await ActiveTabIdChanged.InvokeAsync(tabId);
         }
-        else
-        {
-            _shouldRender = false;
-        }
+
     }
 
     internal int RegisterTab(FluentTab tab)
@@ -224,7 +209,6 @@ public partial class FluentTabs : FluentComponentBase
         {
             await OnTabSelect.InvokeAsync(ActiveTab);
         }
-        _shouldRender = true;
     }
 
     /// <summary />
@@ -278,6 +262,6 @@ public partial class FluentTabs : FluentComponentBase
         {
             ActiveId = TabId,
         });
-        
+
     }
 }
