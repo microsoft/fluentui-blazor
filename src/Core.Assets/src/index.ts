@@ -291,7 +291,9 @@ export function afterStarted(blazor: Blazor) {
     }
   }
 
-  blazor.addEventListener('enhancedload', onEnhancedLoad);
+  if (typeof blazor.addEventListener === 'function') {
+    blazor.addEventListener('enhancedload', onEnhancedLoad);
+  }
 
   afterStartedCalled = true;
 }
