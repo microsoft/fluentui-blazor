@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
@@ -14,7 +15,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         Id = Identifier.NewId();
     }
-
+    
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class).AddClass("fluent-datepicker").Build();
 

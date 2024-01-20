@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// A base class for fluent ui form input components. This base class automatically
-/// integrates with an <see cref="AspNetCore.Components.Forms.EditContext"/>, which must be supplied
+/// integrates with an <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>, which must be supplied
 /// as a cascading parameter.
 /// </summary>
 public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
@@ -42,31 +42,35 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// Gets or sets the name of the element.
+    /// Allows access by name from the associated form.
+    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Text displayed just above the component
+    /// Gets or sets the text to label the input.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
+    /// Gets or sets the content to label the input component.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
     /// <summary>
-    /// Text used on aria-label attribute.
+    /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Whether the element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -120,7 +124,14 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
+    /// Gets or sets if the derived component is embedded in another component. 
+    /// If true, the ClassValue property will not include the EditContext's FieldCssClass.
+    /// </summary>
+    [Parameter]
+    public virtual bool Embedded { get; set; } = false;
+
+    /// <summary>
+    /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
     protected EditContext EditContext { get; set; } = default!;
@@ -267,7 +278,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         get
         {
-            string? fieldClass = FieldBound ? EditContext?.FieldCssClass(FieldIdentifier) : null;
+            string? fieldClass = (FieldBound && !Embedded) ? EditContext?.FieldCssClass(FieldIdentifier) : null;
 
             string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 
@@ -321,7 +332,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             // handlers for the previous one, and there's no strong use case. If a strong use case
             // emerges, we can consider changing this.
             throw new InvalidOperationException($"{GetType()} does not support changing the " +
-                $"{nameof(AspNetCore.Components.Forms.EditContext)} dynamically.");
+                $"{nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} dynamically.");
         }
 
         UpdateAdditionalValidationAttributes();

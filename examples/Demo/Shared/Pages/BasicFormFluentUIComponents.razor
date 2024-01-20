@@ -39,7 +39,7 @@
             <FluentValidationMessage For="@(() => starship.IsValidatedDesign)" />
         </div>
         <div>
-            <FluentDatePicker Name="producion_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required />
+            <FluentDatePicker Name="production_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required />
             <FluentValidationMessage For="@(() => starship.ProductionDate)" />
         </div>
         <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
