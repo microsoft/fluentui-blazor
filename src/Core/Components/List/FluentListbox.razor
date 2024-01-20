@@ -20,6 +20,7 @@
                         required="@Required"
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
                         @onchange="@OnChangedHandlerAsync"
+                        @onkeydown="@OnKeydownHandlerAsync"
                         @attributes="AdditionalAttributes">
             @if (OptionTemplate == null || Items == null)
             {

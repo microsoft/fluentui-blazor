@@ -26,8 +26,9 @@ internal class InternalListContext<TOption> where TOption : notnull
             return;
 
         if (!options.Contains(option))
+        {
             options.Add(option);
-
+        }
     }
 
     internal void Unregister(FluentOption<TOption> option)
@@ -35,8 +36,7 @@ internal class InternalListContext<TOption> where TOption : notnull
         if (option is null)
             return;
 
-        if (options.Contains(option))
-            options.Remove(option);
+        options.Remove(option);
     }
 
 
