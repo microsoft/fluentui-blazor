@@ -69,10 +69,11 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public bool Sort { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the CSS selector name (including the '.') for the sortable list to use as the drag handle.
+    /// Gets or sets whether the whole item acts as drag handle.
+    /// Set to true to use an element with classname `.sortable-grab` as the handle.
     /// </summary>
     [Parameter]
-    public string Handle { get; set; } = string.Empty;
+    public bool Handle { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the function to filter out elements that cannot be sorted or moved.
@@ -104,7 +105,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         {
             _selfReference = DotNetObjectReference.Create(this);
             IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await module.InvokeAsync<string>("init", Id, Group, Clone ? "clone" : null, Drop, Sort, Handle, Filter, Fallback, _selfReference);
+            await module.InvokeAsync<string>("init", Id, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
         }
     }
 

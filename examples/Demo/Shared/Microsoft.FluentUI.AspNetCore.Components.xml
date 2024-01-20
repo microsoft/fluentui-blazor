@@ -6168,7 +6168,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Handle">
             <summary>
-            Gets or sets the CSS selector name (including the '.') for the sortable list to use as the drag handle.
+            Gets or sets whether the whole item acts as drag handle.
+            Set to true to use an element with classname `.sortable-grab` as the handle.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ItemFilter">

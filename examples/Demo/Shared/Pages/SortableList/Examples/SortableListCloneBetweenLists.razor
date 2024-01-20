@@ -1,12 +1,12 @@
 ﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
-        <h4>List 1</h4>
+        <h5>List 1</h5>
         <FluentSortableList Id="clone1" Group="cloning" Clone="true" OnUpdate="@SortListOne" OnRemove="@ListOneRemove" Items="@items1" Context="item">
             <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="6">
-        <h4>List 2</h4>
+        <h5>List 2</h5>
         <FluentSortableList Id="clone2" Group="cloning" Clone="true" OnUpdate="@SortListTwo" OnRemove="@ListTwoRemove" Items="@items2" Context="item">
             <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
