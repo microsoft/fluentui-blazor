@@ -1,13 +1,15 @@
 ﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
-        <FluentSortableList Id="disabledOne" Group="disabledSorting" Pull="clone" Put="false" Sort="false" Items="items1" Context="item" OnRemove="ListOneRemove">
+        <h4>List 1</h4>
+        <FluentSortableList Id="disabledOne" Group="disabledSorting" Clone="true" Put="false" Sort="false" Items="items1" Context="item" OnRemove="ListOneRemove">
             <SortableItemTemplate>
                 <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
             </SortableItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="6">
-        <FluentSortableList Id="disabledTwo" Group="disabledSorting" Pull="clone" Items="items2" Context="item" OnUpdate="SortList">
+        <h4>List 2</h4>
+        <FluentSortableList Id="disabledTwo" Group="disabledSorting" Clone="true" Items="items2" Context="item" OnUpdate="SortList">
             <SortableItemTemplate>
                 <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
             </SortableItemTemplate>

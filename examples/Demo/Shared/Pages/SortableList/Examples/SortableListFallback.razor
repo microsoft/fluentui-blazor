@@ -1,19 +1,11 @@
-﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
-    <FluentGridItem xs="12" sm="6">
-        <FluentSortableList Id="dragHandles" Handle=".drag-handle" Items="items" OnUpdate="@SortList" Context="item">
-            <SortableItemTemplate>
-                <div class="sortable-item">
-                    <div class="drag-handle sortable-grab">
-                        <FluentIcon Value="@(new Icons.Regular.Size20.ArrowSort())" />
-                    </div>
-                    <div class="sortable-item-content" style="flex-grow: 1;">@item.Name</div>
-                </div>
-            </SortableItemTemplate>
-        </FluentSortableList>
-    </FluentGridItem>
-</FluentGrid>
+﻿ <FluentSortableList Fallback="true" Items="items" OnUpdate="@SortList">
+     <SortableItemTemplate>
+        <div class="sortable-item sortable-item-content sortable-grab">@context.Name</div>
+     </SortableItemTemplate>
+ </FluentSortableList>
 
 @code {
+
     public class Item
     {
         public int Id { get; set; }
@@ -21,7 +13,9 @@
 
         public bool Disabled { get; set; } = false;
     }
+
     public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
 
     private void SortList(FluentSortableListEventArgs args)
     {
@@ -45,5 +39,7 @@
         {
             items.Add(itemToMove);
         }
+
+        StateHasChanged();
     }
-}
+ }

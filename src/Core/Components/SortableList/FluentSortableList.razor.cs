@@ -42,6 +42,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
+    /// You can only have 1 group with 2 lists.
     /// </summary>
     [Parameter]
     public string? Group { get; set; }
@@ -50,14 +51,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     /// Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
     /// </summary>
     [Parameter]
-    public string? Pull { get; set; }
+    public bool Clone { get; set; } = false;
 
     /// <summary>
     /// Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
     /// Set to false to disable dropping from another list onto the current list.
     /// </summary>
     [Parameter]
-    public bool Put { get; set; } = true;
+    public bool Drop { get; set; } = true;
 
     /// <summary>
     /// Gets or sets whether the list is sortable.
@@ -79,6 +80,12 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     [Parameter]
     public string Filter { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Gets or sets wether ro ignore the HTML5 DnD behaviour and force the fallback to kick in
+    /// </summary>
+    [Parameter]
+    public bool Fallback { get; set; } = false;
+
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-sortable-list")
         .Build();
@@ -95,22 +102,28 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         {
             _selfReference = DotNetObjectReference.Create(this);
             IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await module.InvokeAsync<string>("init", Id, Group, Pull, Put, Sort, Handle, Filter, _selfReference);
+            await module.InvokeAsync<string>("init", Id, Group, Clone ? "clone" : null, Drop, Sort, Handle, Filter, Fallback, _selfReference);
         }
     }
 
     [JSInvokable]
     public void OnUpdateJS(int oldIndex, int newIndex)
     {
-        // invoke the OnUpdate event passing in the oldIndex and the newIndex
-        OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
+        if (OnUpdate.HasDelegate)
+        {
+            // invoke the OnUpdate event passing in the oldIndex and the newIndex
+            OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
+        }
     }
 
     [JSInvokable]
     public void OnRemoveJS(int oldIndex, int newIndex)
     {
-        // remove the item from the list
-        OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
+        if (OnRemove.HasDelegate)
+        {
+            // remove the item from the list
+            OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
+        }
     }
 
     public void Dispose() => _selfReference?.Dispose();

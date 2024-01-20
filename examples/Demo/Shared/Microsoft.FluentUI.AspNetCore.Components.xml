@@ -6145,14 +6145,15 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Group">
             <summary>
             Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
+            You can only have 1 group with 2 lists.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Pull">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Clone">
             <summary>
             Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Put">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Drop">
             <summary>
             Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
             Set to false to disable dropping from another list onto the current list.
@@ -6173,6 +6174,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Filter">
             <summary>
             Gets or sets the CSS selector name (including the '.') to identify elements that cannot be sorted or moved.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Fallback">
+            <summary>
+            Gets or sets wether ro ignore the HTML5 DnD behaviour and force the fallback to kick in
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.OldIndex">

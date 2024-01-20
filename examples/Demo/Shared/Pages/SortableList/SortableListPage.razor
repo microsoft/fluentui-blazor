@@ -4,28 +4,29 @@
 
 <h1>SortableList</h1>
 
-<p>An integration of the <a href="https://github.com/SortableJS/Sortable">SortableJS library</a> with Blazor Fluent UI.</p>
+<p>An <a href="https://github.com/SortableJS/Sortable">SortableJS</a> adaption for the Fluent UI Blazor library.</p>
+<p>The <code>FluentSortableList</code> is a generic component that takes a list of items and a <code>SortableItemTemplate</code> that defines how to render each item in the sortable list.</p>
 
 <h2>Examples</h2>
 <DemoSection Component="typeof(SortableListDefault)" Title="Simple sortable list" />
 
-<DemoSection Component="typeof(SortableListSharedLists)" Title="Move items between two lists">
+<DemoSection Component="typeof(SortableListMoveBetweenLists)" Title="Move items between two lists">
     <Description>
         Shared lists are lists where items can be dragged from one list to the other and vice-versa. Providing the same "Group" string name for
-        both lists is what links them together. Note that when an item is dragged into a different list, it assumes the visual style of that list.
-        This is because Blazor controls the rendering of the list items.
+        both lists is what links them together. <br/>
+        Note: When an item is dragged into a different list, it assumes the visual style of that list. This is because Blazor controls the rendering of the list items.
     </Description>
 </DemoSection>
 
-<DemoSection Component="typeof(SortableListCloning)" Title="Clone items">
+<DemoSection Component="typeof(SortableListCloneBetweenLists)" Title="Clone items">
     <Description>
-        Cloning is enabled by the "Pull='Clone'" property. This allows cloning of an item by dropping it into a shared list.
+        Cloning is enabled by setting the <code>Clone</code> parameter to `true`. This allows cloning of an item by dropping it into a shared list.
     </Description>
 </DemoSection>
 
 <DemoSection Component="typeof(SortableListDisabledSorting)" Title="Disabling sorting">
     <Description>
-        You can disable sorting with the `Sort` option set to `false`. You can also disable dropping items on a list by setting the `Put` to `false`. In the example below, you can drag from list 1 to list 2, but not from list 2 to list 1. You can sort list 2, but not list 1.
+        You can disable sorting with the <code>Sort</code> parameter set to `false`. You can also disable dropping items on a list by setting the <code>Drop</code> parameter to `false`. In the example below, you can drag from list 1 to list 2, but not from list 2 to list 1. You can sort list 2, but not list 1.
     </Description>
 </DemoSection>
 
@@ -38,6 +39,12 @@
 <DemoSection Component="typeof(SortableListFiltering)" Title="Filtering">
     <Description>
         In the list below, you cannot drag the item in red. This is because it is filtered out with a filter CSS class. Pass the name of this class to the `Filter` property to filter out an item.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SortableListFallback)" Title="Sortable list using fallback behavior">
+    <Description>
+        By setting Fallbak parameter to true, the list will not use native HTML5 drag and drop behavior.
     </Description>
 </DemoSection>
 

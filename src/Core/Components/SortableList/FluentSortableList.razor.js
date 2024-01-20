@@ -1,4 +1,4 @@
-export function init(id, group, pull, put, sort, handle, filter, component) {
+export function init(id, group, pull, put, sort, handle, filter, fallback, component) {
     var sortable = new Sortable(document.getElementById(id), {
         animation: 200,
         group: {
@@ -8,7 +8,7 @@ export function init(id, group, pull, put, sort, handle, filter, component) {
         },
         filter: filter || undefined,
         sort: sort,
-        forceFallback: false,
+        forceFallback: fallback || false,
         handle: handle || undefined,
         onUpdate: (event) => {
             // Revert the DOM to match the .NET state

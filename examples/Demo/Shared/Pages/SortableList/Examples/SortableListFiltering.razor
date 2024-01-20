@@ -1,6 +1,6 @@
 ﻿<style>
-    .no-move-warning {
-        background: var(--warning)!important;
+    .fluent-sortable-list > .sortable-item-content.no-move-warning {
+        background: var(--warning);
     }
 </style>
 
@@ -56,8 +56,5 @@
         {
             items.Add(itemToMove);
         }
-
-        StateHasChanged();
     }
-
 }
