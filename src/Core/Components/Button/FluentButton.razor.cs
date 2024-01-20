@@ -227,7 +227,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     private string RingStyle(Icon icon)
     {
-        int size = Convert.ToInt32(icon.Size);
+        int size = icon.Width;
         string inverse = Appearance == AspNetCore.Components.Appearance.Accent ? " filter: invert(1);" : string.Empty;
 
         return $"width: {size}px; height: {size}px;{inverse}";

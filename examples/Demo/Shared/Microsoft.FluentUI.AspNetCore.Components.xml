@@ -416,6 +416,12 @@
             Gets or sets the short hint displayed in the input before the user enters a value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Embedded">
+            <summary>
+            Gets or sets if the derived component is embedded in another component. 
+            If true, the ClassValue property will not include the EditContext's FieldCssClass.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.EditContext">
             <summary>
             Gets the associated <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -3488,12 +3494,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.ContainsSVG">
-            <summary>
-            Returns true if the icon contains a SVG content.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.GetIconColor">
             <summary>
             Returns FluentIcon.CustomColor, or FluentIcon.Color, or Icon.Color.
@@ -3561,6 +3561,12 @@
             <summary>
             Gets the width of the icon.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Icon.ContainsSVG">
+            <summary>
+            Returns true if the icon contains a SVG content.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Icon.FromType``1">
             <summary>
@@ -11070,6 +11076,11 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconSize.Size48">
             <summary>
             FluentUI System Icon size 48x48
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconSize.Custom">
+            <summary>
+            Custom size included in the SVG content.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconVariant">
