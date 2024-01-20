@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -571,6 +572,47 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
         }
     }
 
+    protected virtual async Task OnKeydownHandlerAsync(KeyboardEventArgs e)
+    {
+        if (e is null || Multiple || Items is null)
+        {
+            return;
+        }
+
+
+        TOption? item = default;
+
+        // Get the previous and next options based on selected option
+        // Element at 0:  Previous, 1: Current, 2: Next
+        List<TOption?>? sandwichedItems = FindPrevAndNextOptions().ToList();
+
+        switch (e.Key)
+        {
+            case "Home":
+                item = Items.FirstOrDefault();
+                break;
+            case "ArrowDown":
+            case "NumpadArrowDown":
+                item = sandwichedItems[2];
+                break;
+            case "ArrowUp":
+            case "NumpadArrowUp":
+                item = sandwichedItems[0];
+                break;
+            case "End":
+                item = Items.LastOrDefault();
+                break;
+            case "Enter":
+            case "Escape":
+            default:
+                break;
+        }
+
+        await OnSelectedItemChangedHandlerAsync(item);
+
+
+    }
+
     /// <summary />
     protected virtual bool RemoveSelectedItem(TOption? item)
     {
@@ -608,5 +650,34 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
 #pragma warning disable CS0618 // Type or member is obsolete
         return string.IsNullOrEmpty(AriaLabel) ? Title : AriaLabel;
 #pragma warning restore CS0618 // Type or member is obsolete
+    }
+
+    private IEnumerable<TOption?> FindPrevAndNextOptions()
+    {
+        if (Items is null)
+            yield break;
+
+        using (IEnumerator<TOption> iter = Items.GetEnumerator())
+        {
+            TOption? previous = default;
+            while (iter.MoveNext())
+            {
+                if (iter.Current.Equals(SelectedOption))
+                {
+                    yield return previous;
+                    yield return iter.Current;
+                    if (iter.MoveNext())
+                        yield return iter.Current;
+                    else
+                        yield return default;
+                    yield break;
+                }
+                previous = iter.Current;
+            }
+        }
+        // If we get here nothing has been found so return three default values
+        yield return default; // Previous
+        yield return default; // Current
+        yield return default; // Next
     }
 }
