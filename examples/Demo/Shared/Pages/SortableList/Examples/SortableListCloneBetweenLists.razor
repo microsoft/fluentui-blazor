@@ -2,17 +2,13 @@
     <FluentGridItem xs="12" sm="6">
         <h4>List 1</h4>
         <FluentSortableList Id="clone1" Group="cloning" Clone="true" OnUpdate="@SortListOne" OnRemove="@ListOneRemove" Items="@items1" Context="item">
-            <SortableItemTemplate>
-                <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
-            </SortableItemTemplate>
+            <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="6">
         <h4>List 2</h4>
         <FluentSortableList Id="clone2" Group="cloning" Clone="true" OnUpdate="@SortListTwo" OnRemove="@ListTwoRemove" Items="@items2" Context="item">
-            <SortableItemTemplate>
-                <div class="sortable-item sortable-item-content sortable-grab">@item.Name</div>
-            </SortableItemTemplate>
+            <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
 </FluentGrid>

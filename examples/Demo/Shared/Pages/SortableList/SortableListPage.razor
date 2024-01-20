@@ -4,8 +4,57 @@
 
 <h1>SortableList</h1>
 
-<p>An <a href="https://github.com/SortableJS/Sortable">SortableJS</a> adaption for the Fluent UI Blazor library.</p>
-<p>The <code>FluentSortableList</code> is a generic component that takes a list of items and a <code>SortableItemTemplate</code> that defines how to render each item in the sortable list.</p>
+<p>A <a href="https://sortablejs.github.io/Sortable/">SortableJS library</a> adaptation for Blazor Fluent UI. Allows for reordering elements within a list using drag and drop. Inspired by and based on <a href="https://devblogs.microsoft.com/dotnet/introducing-blazor-sortable/">Burke Holland's article and code</a>. Re-used with permission.</p>
+<p>The <code>FluentSortableList</code> is a generic component that takes a list of items and a <code>ItemTemplate</code> that defines how to render each item in the sortable list.</p>
+
+<p>The following CSS variables have been predefined. These can be overruled by using the component's <code>Style</code> parameter. See the <a href="/SortableList#filtering">filtering</a> example for how to do this.</p>
+
+<code>
+    <pre>
+    .fluent-sortable-list {
+         --fluent-sortable-list-background-color: var(--neutral-layer-2);
+         --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
+         --fluent-sortable-list-filtered: var(--warning);
+    }
+    </pre>
+</code>
+
+<h2 id="how-to-use-it-in-your-own-project">How to use this in your own project</h2>
+<p>We do not include the needed Sortable script in the library. If you want to use the <code>FluentSortableList</code> component, you will need to 
+    include the script to your <code>index.html</code>/<code>_Layout.cshtml</code>/<code>App.razor</code> file. You can either download from the <a href="https://sortablejs.github.io/Sortable/">SortableJS website</a> or use a CDN:
+</p>
+<CodeSnippet>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
+
+<p> See the examples below what is needed to use the component in a page.</p>
+<blockquote>
+    The component does not actually do any sorting or moving of items. It simply provides the hooks to do so. You will need to handle all events yourself. <strong>If you don't handle any events, no sort or move will happen</strong> as Blazor needs to make the changes to the underlying data structures so it can re-render the list.
+</blockquote>
+
+<p>Here is an example of how to reorder your list when the OnUpdate is fired...</p>
+<CodeSnippet>private void SortList(FluentSortableListEventArgs indices)
+{
+     if (args is null || args.OldIndex == args.NewIndex)
+     {
+         return;
+     }
+
+     var oldIndex = args.OldIndex;
+     var newIndex = args.NewIndex;
+
+     var items = this.items;
+     var itemToMove = items[oldIndex];
+     items.RemoveAt(oldIndex);
+
+     if (newIndex &lt; items.Count)
+     {
+         items.Insert(newIndex, itemToMove);
+     }
+     else
+     {
+         items.Add(itemToMove);
+     }
+}
+</CodeSnippet>
 
 <h2>Examples</h2>
 <DemoSection Component="typeof(SortableListDefault)" Title="Simple sortable list" />
@@ -38,7 +87,10 @@
 
 <DemoSection Component="typeof(SortableListFiltering)" Title="Filtering">
     <Description>
-        In the list below, you cannot drag the item in red. This is because it is filtered out with a filter CSS class. Pass the name of this class to the `Filter` property to filter out an item.
+        In the lists below, you cannot drag the item in the acccented color. This is because these items are filtered out with an <code>ItemFilter</code> parameter (of type <code>Func&lt;TItem, bool&gt;</code>). 
+        The <code>ItemFilter</code> parameter is a function that takes an item and returns a boolean value. If the function returns true, the item is excluded from dragging in the list. If the function returns false, the item can be dragged.
+        In the left list below, the <code>ItemFilter</code> parameter is set to filter out a random item from the list. In the right list, the <code>ItemFilter</code> parameter is set to filter out items with an Id larger than 6.
+        See the Razor tab for how the different functions are being specified.
     </Description>
 </DemoSection>
 

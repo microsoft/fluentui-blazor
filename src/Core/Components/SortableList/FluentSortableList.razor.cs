@@ -20,7 +20,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     /// Use the @context parameter to access the item and its properties.
     /// </summary>
     [Parameter, EditorRequired]
-    public RenderFragment<TItem>? SortableItemTemplate { get; set; }
+    public RenderFragment<TItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the list of items to be displayed in a sortable list.
@@ -75,10 +75,10 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public string Handle { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the CSS selector name (including the '.') to identify elements that cannot be sorted or moved.
+    /// Gets or sets the function to filter out elements that cannot be sorted or moved.
     /// </summary>
     [Parameter]
-    public string Filter { get; set; } = string.Empty;
+    public Func<TItem, bool>? ItemFilter { get; set; }
 
     /// <summary>
     /// Gets or sets wether ro ignore the HTML5 DnD behaviour and force the fallback to kick in
@@ -93,6 +93,8 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
+    private string Filter => Items.Any(GetItemFiltered) ? ".filtered" : string.Empty;
+
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -104,6 +106,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
             IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             await module.InvokeAsync<string>("init", Id, Group, Clone ? "clone" : null, Drop, Sort, Handle, Filter, Fallback, _selfReference);
         }
+    }
+
+    protected bool GetItemFiltered(TItem item)
+    {
+        if (ItemFilter != null)
+            return ItemFilter(item);
+        else
+            return false;
     }
 
     [JSInvokable]

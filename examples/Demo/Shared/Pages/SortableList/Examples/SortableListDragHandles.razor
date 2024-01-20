@@ -1,14 +1,12 @@
 ﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
-        <FluentSortableList Id="dragHandles" Handle=".drag-handle" Items="items" OnUpdate="@SortList" Context="item">
-            <SortableItemTemplate>
-                <div class="sortable-item">
-                    <div class="drag-handle sortable-grab">
-                        <FluentIcon Value="@(new Icons.Regular.Size20.ArrowSort())" />
-                    </div>
-                    <div class="sortable-item-content" style="flex-grow: 1;">@item.Name</div>
+        <FluentSortableList Id="dragHandles" Handle=".sortable-grab" Items="items" OnUpdate="@SortList" Context="item">
+            <ItemTemplate>
+                <div class="sortable-grab">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.ArrowSort())" />
                 </div>
-            </SortableItemTemplate>
+                <div class="sortable-item-content" style="flex-grow: 1;">@item.Name</div>
+            </ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
 </FluentGrid>

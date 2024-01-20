@@ -1,17 +1,15 @@
-﻿<style>
-    .fluent-sortable-list > .sortable-item-content.no-move-warning {
-        background: var(--warning);
-    }
-</style>
-
-<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
-         <FluentSortableList Id="filter" Filter=".filtered" Items="items" OnUpdate="@SortList" Context="item">
-             <SortableItemTemplate>
-                <div class="sortable-item sortable-item-content @(item.Disabled ? "filtered no-move-warning" : "sortable-grab")">@item.Name</div>
-             </SortableItemTemplate>
+        <FluentSortableList Id="filter" ItemFilter="@(i => i.Disabled)" Items="items1" OnUpdate="@SortListOne" Context="item">
+             <ItemTemplate>@item.Name</ItemTemplate>
          </FluentSortableList>
      </FluentGridItem>
+
+    <FluentGridItem xs="12" sm="6">
+        <FluentSortableList Id="filter2" ItemFilter="@(i => i.Id > 6)" Items="items2" OnUpdate="@SortListTwo" Context="item" Style="--fluent-sortable-list-filtered: var(--accent-base-color);">
+            <ItemTemplate>@item.Name</ItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
  </FluentGrid>
 
 @code {
@@ -23,18 +21,19 @@
         public bool Disabled { get; set; } = false;
     }
 
-    public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    public List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+    public List<Item> items2 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
     // on initialized, set a random item in the list to disabled
     protected override void OnInitialized()
     {
         var random = new Random();
-        var randomIndex = random.Next(0, items.Count);
-        items[randomIndex].Disabled = true;
+        var randomIndex = random.Next(0, items1.Count);
+        items1[randomIndex].Disabled = true;
     }
 
 
-    private void SortList(FluentSortableListEventArgs args)
+    private void SortListOne(FluentSortableListEventArgs args)
     {
         if (args is null || args.OldIndex == args.NewIndex)
         {
@@ -44,17 +43,41 @@
         var oldIndex = args.OldIndex;
         var newIndex = args.NewIndex;
 
-        var items = this.items;
-        var itemToMove = items[oldIndex];
+        var items = this.items1;
+        var itemToMove = items1[oldIndex];
         items.RemoveAt(oldIndex);
 
-        if (newIndex < items.Count)
+        if (newIndex < items1.Count)
         {
-            items.Insert(newIndex, itemToMove);
+            items1.Insert(newIndex, itemToMove);
         }
         else
         {
-            items.Add(itemToMove);
+            items1.Add(itemToMove);
+        }
+    }
+
+    private void SortListTwo(FluentSortableListEventArgs args)
+    {
+        if (args is null || args.OldIndex == args.NewIndex)
+        {
+            return;
+        }
+
+        var oldIndex = args.OldIndex;
+        var newIndex = args.NewIndex;
+
+        var items = this.items2;
+        var itemToMove = items2[oldIndex];
+        items.RemoveAt(oldIndex);
+
+        if (newIndex < items2.Count)
+        {
+            items2.Insert(newIndex, itemToMove);
+        }
+        else
+        {
+            items2.Add(itemToMove);
         }
     }
 }
