@@ -7,14 +7,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 internal class InternalListContext<TOption>(ListComponentBase<TOption> listComponent) where TOption : notnull
 {
 
-    private readonly List<FluentOption<TOption>> options = [];
+    private readonly ICollection<FluentOption<TOption>> options = [];
 
     public ListComponentBase<TOption> ListComponent { get; } = listComponent;
 
     /// <summary>
     /// Gets the list of all select items inside of this select component.
     /// </summary>
-    public IEnumerable<FluentOption<TOption>> Options => options;
+    public ICollection<FluentOption<TOption>> Options => options;
 
     internal void Register(FluentOption<TOption> option)
     {
@@ -22,8 +22,9 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
             return;
 
         if (!options.Contains(option))
+        {
             options.Add(option);
-
+        }
     }
 
     internal void Unregister(FluentOption<TOption> option)
@@ -31,8 +32,7 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
         if (option is null)
             return;
 
-        if (options.Contains(option))
-            options.Remove(option);
+        options.Remove(option);
     }
 
 

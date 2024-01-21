@@ -3,15 +3,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public abstract class FluentCalendarBase : FluentComponentBase
+public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
 {
     private DateTime? _selectedDate = null;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the calendar is readonly.
-    /// </summary>
-    [Parameter]
-    public bool ReadOnly { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the culture of the component.
@@ -43,7 +37,7 @@ public abstract class FluentCalendarBase : FluentComponentBase
     /// Gets or sets the selected date (two-way bindable).
     /// </summary>
     [Parameter]
-    public virtual DateTime? Value
+    public override DateTime? Value
     {
         get
         {
@@ -63,14 +57,12 @@ public abstract class FluentCalendarBase : FluentComponentBase
             {
                 ValueChanged.InvokeAsync(value);
             }
+            if (FieldBound)
+            {
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
+            }
         }
     }
-
-    /// <summary>
-    /// Fired when the display month changes.
-    /// </summary>
-    [Parameter]
-    public virtual EventCallback<DateTime?> ValueChanged { get; set; }
 
     /// <summary />
     protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)

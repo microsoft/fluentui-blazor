@@ -14,6 +14,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable, IDataGrid<TGridItem>
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
+
     /// <summary>
     /// Gets or sets a queryable source of data for the grid.
     ///
@@ -134,9 +136,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? EmptyContent { get; set; }
 
     [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JS { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private ElementReference _gridReference;
+    private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
     private int _ariaBodyRowCount;
     private ICollection<TGridItem> _currentNonVirtualizedViewItems = Array.Empty<TGridItem>();
@@ -158,9 +160,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnOptionsPosition;
     private bool _manualGrid;
 
-    // The associated ES6 module, which uses document-level event listeners
-    private IJSObjectReference? _jsModule;
     private IJSObjectReference? _jsEventDisposable;
+    private IJSObjectReference? Module { get; set; }
 
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
@@ -230,16 +231,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && _gridReference is not null)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
-            _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
-            _ = _jsModule?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
+            _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
         }
     }
 
@@ -472,9 +473,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 await _jsEventDisposable.DisposeAsync();
             }
 
-            if (_jsModule is not null)
+            if (Module is not null)
             {
-                await _jsModule.DisposeAsync();
+                await Module.DisposeAsync();
             }
         }
         catch (JSDisconnectedException)

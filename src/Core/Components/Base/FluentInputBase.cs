@@ -81,7 +81,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// @bind-Value="model.PropertyName"
     /// </example>
     [Parameter]
-    public TValue? Value { get; set; }
+    public virtual TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
@@ -113,6 +113,13 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     [Parameter]
     public virtual string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets if the derived component is embedded in another component. 
+    /// If true, the ClassValue property will not include the EditContext's FieldCssClass.
+    /// </summary>
+    [Parameter]
+    public virtual bool Embedded { get; set; } = false;
 
     /// <summary>
     /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -258,7 +265,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         get
         {
-            string? fieldClass = FieldBound ? EditContext?.FieldCssClass(FieldIdentifier) : null;
+            string? fieldClass = (FieldBound && !Embedded) ? EditContext?.FieldCssClass(FieldIdentifier) : null;
 
             string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 

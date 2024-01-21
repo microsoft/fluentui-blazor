@@ -1,20 +1,72 @@
-﻿## V4.3
+﻿## V4.3.2
+- - Issue [#1335](https://github.com/microsoft/fluentui-blazor/issues/1335): Consider removing the PageScript component from the public API (renamed to FluentPageScript)
+
+## V4.3.1
+- Issue [#1282](https://github.com/microsoft/fluentui-blazor/issues/1282): Looping behaviour after update to 4.3.0 / FluentDesignTheme
+- Issue [#1283](https://github.com/microsoft/fluentui-blazor/issues/1283): Fix Combobox and Select width property
+- Issue [#1294](https://github.com/microsoft/fluentui-blazor/issues/1294): Issue upgrading from 4.2.1 to 4.3.0; better fix for #1205 en #1225
+- Issue [#1305](https://github.com/microsoft/fluentui-blazor/issues/1305): ComboBox component resetting bound object to null when custom content is entered
+- Issue [#1314](https://github.com/microsoft/fluentui-blazor/issues/1314): Updating FluentTabs ActiveTabId doesn't rerender if data is entered in contained FluentTextInput
+
+- [Splitter] Add parameter to show/hide bar handle
+- [Tabs] Add GotToTabAsync method
+
+## V4.3
 - New: FluentWizard component
-- Fix [#1227](https://github.com/microsoft/fluentui-blazor/issues/1227):Conditionally render span
-- Fix [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215):Fix #1194 #v3 (#1222)
-- Fix [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215):Fix #1205  FluentButton submit does not work outside the EditForm #v3 
-- Fix [#1214](https://github.com/microsoft/fluentui-blazor/issues/1214): Add JS Code to update the FluentSliderLabel MaxWidth
-- Fix [#1189](https://github.com/microsoft/fluentui-blazor/issues/1189): Combobox z-index stack order issue
-- Fix [#1185](https://github.com/microsoft/fluentui-blazor/issues/1185): NavMenu Collapse button behavior in SRR only woks once
-- Fix [#1172](https://github.com/microsoft/fluentui-blazor/issues/1172): Resize the FluentOverflow when a new item is included or exclude
-- Fix [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215): FluentTextField ignores DataList property
-- Fix [#1226](https://github.com/microsoft/fluentui-blazor/issues/1226): FluentAutocomplete does not have an ElementReference
-- Fix [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
-- Fix [#1174](https://github.com/microsoft/fluentui-blazor/issues/1174): Forgot to replace svg with icon in templates
-- Fix [#1173](https://github.com/microsoft/fluentui-blazor/issues/1174): Replace type="image/png" with type="image/x-icon"in templates
+
+- Issue [#1116](https://github.com/microsoft/fluentui-blazor/issues/1116): Create FieldIdentifier when no ValueExpression set
+- Issue [#1121](https://github.com/microsoft/fluentui-blazor/issues/1121): FluentProgress - Add Width, Stroke, Color and BackgroundColor attributes
+- Issue [#1125](https://github.com/microsoft/fluentui-blazor/issues/1125): FluentProgress - Update Stroke enumeration
+- Issue [#1132](https://github.com/microsoft/fluentui-blazor/issues/1132): Some FluentTab changes
+- Issue [#1138](https://github.com/microsoft/fluentui-blazor/issues/1138): Fix: Do not render percent sign for indeterminate ProgressToast
+- Issue [#1140](https://github.com/microsoft/fluentui-blazor/issues/1140): FluentIcon - Add Unit Tests
+- Issue [#1141](https://github.com/microsoft/fluentui-blazor/issues/1141): Update initializersLoader.webview.js
+- Issue [#1144](https://github.com/microsoft/fluentui-blazor/issues/1144): List components - Each item must be instantiated (cannot be null)
+- Issue [#1146](https://github.com/microsoft/fluentui-blazor/issues/1146): FluentButton Loading - Fix button when style is applied
+- Issue [#1149](https://github.com/microsoft/fluentui-blazor/issues/1149): ListComponentBase - maintain consistency between SelectedOption and Value
+- Issue [#1155](https://github.com/microsoft/fluentui-blazor/issues/1155): Use GlobalState, use LocalizationDirection, less var’s
+- Issue [#1156](https://github.com/microsoft/fluentui-blazor/issues/1156): FluentDesignTheme - Add OnLoaded event
+- Issue [#1157](https://github.com/microsoft/fluentui-blazor/issues/1157): FluentDesignTheme - Check if LocalStorage is available
+- Issue [#1158](https://github.com/microsoft/fluentui-blazor/issues/1158): Make NavGroup work with enhanced navigation and SSR
+- Issue [#1161](https://github.com/microsoft/fluentui-blazor/issues/1161): Create separate ts file for PageScript Add SSR project from template for validation purposes (other projects githubbe added later)
+- Issue [#1163](https://github.com/microsoft/fluentui-blazor/issues/1163): FluentDesignTheme - Storage color overload correction
+- Issue [#1165](https://github.com/microsoft/fluentui-blazor/issues/1165): Finih implementation of NavMenu SSR support
+- Issue [#1168](https://github.com/microsoft/fluentui-blazor/issues/1168): Tabs tablist will forever expand despite the tab containers width
+- Issue [#1169](https://github.com/microsoft/fluentui-blazor/issues/1169): Fix: Matched FluentNavLink renders with background that does not have rounded corners
+- Issue [#1172](https://github.com/microsoft/fluentui-blazor/issues/1172): FluentOverflow - Resize when a new element is included or excluded
+- Issue [#1173](https://github.com/microsoft/fluentui-blazor/issues/1173): Replace type="image/png" with type="image/x-icon"in templates
+- Issue [#1174](https://github.com/microsoft/fluentui-blazor/issues/1174): Forgot to replace svg with icon in templates
+- Issue [#1177](https://github.com/microsoft/fluentui-blazor/issues/1177): Docs: fix outdated w3.org link
+- Issue [#1184](https://github.com/microsoft/fluentui-blazor/issues/1184): Docs: fix typo
+- Issue [#1185](https://github.com/microsoft/fluentui-blazor/issues/1185): Fix: Collapse button doesn’t work correctly in Fluent Blazor Web App template
+- Issue [#1189](https://github.com/microsoft/fluentui-blazor/issues/1189): fix Combobox z-index stack order issue
+- Issue [#1191](https://github.com/microsoft/fluentui-blazor/issues/1191): Fix #1185: NavMenu Collapse button behavior in SRR only woks once
+- Issue [#1194](https://github.com/microsoft/fluentui-blazor/issues/1194): Fix: FluentTextField inside FluentTabs, pressing Enter re-renders FluentTab’s content
+- Issue [#1205](https://github.com/microsoft/fluentui-blazor/issues/1205): FluentButton submit does not work outside the EditForm
+- Issue [#1211](https://github.com/microsoft/fluentui-blazor/issues/1211): FluentWizard - New component
+- Issue [#1214](https://github.com/microsoft/fluentui-blazor/issues/1214): FluentSliderLabel - Update the sub-label MaxWidth style
+- Issue [#1215](https://github.com/microsoft/fluentui-blazor/issues/1215): FluentTextField ignores DataList property
+- Issue [#1223](https://github.com/microsoft/fluentui-blazor/issues/1223): DialogService - Add a fake instance of DialogEventArgs
+- Issue [#1225](https://github.com/microsoft/fluentui-blazor/issues/1225): Fix #1205 FluentButton submit does not work outside the EditForm
+- Issue [#1227](https://github.com/microsoft/fluentui-blazor/issues/1227): Fix: FluentTreeItem in that span that renders Text proprty is not conditional and adds unnecessary space when gap githubproperty is applied
+- Issue [#1226](https://github.com/microsoft/fluentui-blazor/issues/1226): FluentAutocomplete does not have an ElementReference
+- Issue [#1229](https://github.com/microsoft/fluentui-blazor/issues/1229): Add NavMenuWidth parameter to FluentMainLayout
+- Issue [#1232](https://github.com/microsoft/fluentui-blazor/issues/1232): Several work items combined in a PR to not push to dev directly
+- Issue [#1233](https://github.com/microsoft/fluentui-blazor/issues/1233): PageScript - Move script visibility inside the web component
+- Issue [#1234](https://github.com/microsoft/fluentui-blazor/issues/1234): Templates - Fix spelling and use FluentValidationSummary
+- Issue [#1241](https://github.com/microsoft/fluentui-blazor/issues/1241): Fix: FluentNavLink OnClick not working
+- Issue [#1245](https://github.com/microsoft/fluentui-blazor/issues/1245): Fix: dragging the splitter bar is inverted with RTL enabled in fluent splitter
+- Issue [#1250](https://github.com/microsoft/fluentui-blazor/issues/1250): Fix: Pagination arrows should reverse in RTL mode
+- Issue [#1268](https://github.com/microsoft/fluentui-blazor/issues/1268): Feat: add "invalid" css-class to/in Default Date Picker field if invalid
+- Issue [#1274](https://github.com/microsoft/fluentui-blazor/issues/1274): Fix: [Width less than 250px does not take effect] in [FluentCombobox and FluentSelect]
+- Issue [#1276](https://github.com/microsoft/fluentui-blazor/issues/1276): FluentTabs shows badge although all tabs are visible
 - [DialogService] Fix trimming on production error 
 - Demo site: menu structure overhaul
 - Add solution with Template generated projects
+
+### Known issues
+- FluentDesignTheme: `Assertion failed` error in console. See [#1182](https://github.com/microsoft/fluentui-blazor/issues/1182) for more information. We are still working on a fix.
+- Confirmation message box (and possibly other dialogs) are not working correctly in WebAssembly trimmed projects. See [#1255](https://github.com/microsoft/fluentui-blazor/issues/1255) for more information. 
 
 ## V4.2.1
 - NavMenu and NevMenuGroups can now expand/collpase in SSR mode

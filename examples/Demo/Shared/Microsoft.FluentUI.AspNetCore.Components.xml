@@ -416,6 +416,12 @@
             Gets or sets the short hint displayed in the input before the user enters a value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Embedded">
+            <summary>
+            Gets or sets if the derived component is embedded in another component. 
+            If true, the ClassValue property will not include the EditContext's FieldCssClass.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.EditContext">
             <summary>
             Gets the associated <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -1686,9 +1692,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StyleValue">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerMonth">
             <summary>
             Gets or sets the current month of the date picker (two-way bindable).
@@ -1797,11 +1800,6 @@
             <param name="year"></param>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ReadOnly">
-            <summary>
-            Gets or sets a value indicating whether the calendar is readonly.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Culture">
             <summary>
             Gets or sets the culture of the component.
@@ -1827,11 +1825,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
             <summary>
             Gets or sets the selected date (two-way bindable).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.ValueChanged">
-            <summary>
-            Fired when the display month changes.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
@@ -1982,52 +1975,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Label">
-            <summary>
-            Text displayed just above the component
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.LabelTemplate">
-            <summary>
-            Content displayed just above the component
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.AriaLabel">
-            <summary>
-            Text used on aria-label attribute.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Appearance">
             <summary>
             Gets or sets the design of this input.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Disabled">
-            <summary>
-            Disables the form control, ensuring it doesn't participate in form submission.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Name">
-            <summary>
-            Gets or sets the name of the element. Allows access by name from the associated form.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Required">
-            <summary>
-            Gets or sets a value indicating whether the element needs to have a value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Autofocus">
-            <summary>
-            Determines if the element should receive document focus on page load.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Placeholder">
-            <summary>
-            Gets or sets the short hint displayed in the input before the user enters a value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
@@ -2553,6 +2503,24 @@
             Callback function for the result.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.OnDialogClosing">
+            <summary>
+            Callback function that is called and awaited before the dialog fully closes.
+            </summary>
+            <remarks>
+            This is a suitable callback to use for animating the Dialog <em>before</em> it fully closes and is removed from the DOM.
+            This method is only called when using the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IDialogService"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.OnDialogOpened">
+            <summary>
+            Callback function that is called and awaited after the dialog renders for the first time.
+            </summary>
+            <remarks>
+            This is a suitable callback to use for animating the Dialog <em>after</em> it is fully rendered in the DOM.
+            This method is only called when using the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IDialogService"/>.
+            </remarks>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters`1">
             <summary>
             Parameters for a dialog.
@@ -2876,7 +2844,7 @@
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.DialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync``1(System.Type,``0,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
@@ -2939,7 +2907,7 @@
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.IDialogService.OnShow">
             <summary>
-            A event that will be invoked when showing a dialog with a custom component
+            An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.Role">
@@ -3526,12 +3494,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnParametersSet">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.ContainsSVG">
-            <summary>
-            Returns true if the icon contains a SVG content.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.GetIconColor">
             <summary>
             Returns FluentIcon.CustomColor, or FluentIcon.Color, or Icon.Color.
@@ -3599,6 +3561,12 @@
             <summary>
             Gets the width of the icon.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Icon.ContainsSVG">
+            <summary>
+            Returns true if the icon contains a SVG content.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Icon.FromType``1">
             <summary>
@@ -6218,6 +6186,12 @@
             Default is 8.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.BarHandle">
+            <summary>
+            Gets or sets a value indicating whether the splitter bar handle is visible.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSplitter.Collapsed">
             <summary>
             Gets or sets a value indicating whether the splitter is collapsed.
@@ -6476,6 +6450,13 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.DisplayMoreTabAsync(Microsoft.FluentUI.AspNetCore.Components.FluentTab)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.GoToTabAsync(System.String)">
+            <summary>
+            Go to a specific tab by specifying an id
+            </summary>
+            <param name="TabId">Id of the tab to goto</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTextArea.Resize">
             <summary>
@@ -11033,6 +11014,11 @@
             FluentUI System Icon size 48x48
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconSize.Custom">
+            <summary>
+            Custom size included in the SVG content.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconVariant">
             <summary>
             The icon variant.
@@ -11072,8 +11058,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.JustifyContent">
             <summary>
-            The size of the emoji (in multiples of 32).
-            Defauts to Size32
+            Defines the alignment of items along the main axis of a flex container.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.JustifyContent.FlexStart">
@@ -11256,11 +11241,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.OfficeColor">
             <summary>
             The official product colors for Microsoft Office apps.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Random">
-            <summary>
-            A random color from the OfficeColor enum
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Default">
