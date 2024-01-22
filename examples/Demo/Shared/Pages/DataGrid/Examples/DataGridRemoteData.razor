@@ -4,7 +4,7 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid ItemsProvider="foodRecallProvider" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
+    <FluentDataGrid Loading="true" ItemsProvider="foodRecallProvider" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" Style="color:burlywood" />
         <PropertyColumn Property="@(c => c!.City)" />
@@ -38,6 +38,9 @@
             });
 
             var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url, req.CancellationToken);
+            
+            // Simulate a slow data retrieval process
+            await Task.Delay(5500);
             return GridItemsProviderResult.From(
                 items: response!.Results,
                 totalItemCount: response!.Meta.Results.Total);
