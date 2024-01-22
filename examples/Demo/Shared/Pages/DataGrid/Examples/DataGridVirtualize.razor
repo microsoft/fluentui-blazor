@@ -1,5 +1,5 @@
 <div style="height: 400px; overflow-y: scroll;">
-    <FluentDataGrid Items="@items" Virtualize="true" ItemSize="54" GridTemplateColumns="1fr 1fr 1fr 1fr">
+    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ItemSize="54" GridTemplateColumns="1fr 1fr 1fr 1fr" Style="height: 100%;">
         <ChildContent>
             <PropertyColumn Property="@(c => c.Item1)" Sortable="true" />
             <PropertyColumn Property="@(c => c.Item2)" />
@@ -7,8 +7,14 @@
             <PropertyColumn Property="@(c => c.Item4)" Align="Align.End" />
         </ChildContent>
         <EmptyContent>
-            <FluentIcon Icon="Icons.Filled.Size24.Crown" Color="@Color.Accent"/>&nbsp; Nothing to see here. Carry on!
+            <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />&nbsp; Nothing to see here. Carry on!
         </EmptyContent>
+        <LoadingContent>
+            <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center">
+                Loading...<br />
+                <FluentProgress Width="240px" />
+            </FluentStack>
+        </LoadingContent>
     </FluentDataGrid>
 </div>
 <br />
@@ -17,9 +23,12 @@
               UncheckedMessage="Clear all results"
               CheckedMessage="Restore all results">
 </FluentSwitch>
+<FluentButton OnClick="SimulateDataLoading">Simulate data loading</FluentButton>
 
 
 @code {
+    FluentDataGrid<SampleGridData>? grid;
+
     bool _clearItems = false;
     public record SampleGridData(string Item1, string Item2, string Item3, string Item4);
 
@@ -43,12 +52,19 @@
     private void ToggleItems()
     {
         if (_clearItems)
-		{
-			items = null;
-		}
-		else
-		{
-			items =GenerateSampleGridData(5000);;
-		}
+        {
+            items = null;
+        }
+        else
+        {
+            items = GenerateSampleGridData(5000);
+        }
+    }
+
+    private async Task SimulateDataLoading()
+    {
+        grid?.SetLoadingState(true);
+        await Task.Delay(2500);
+        grid?.SetLoadingState(false);
     }
 }
