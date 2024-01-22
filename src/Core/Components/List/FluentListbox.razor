@@ -19,26 +19,9 @@
                         multiple="@Multiple"
                         required="@Required"
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
-                        @onchange="@OnChangedHandlerAsync"
                         @onkeydown="@OnKeydownHandlerAsync"
                         @attributes="AdditionalAttributes">
-            @if (OptionTemplate == null || Items == null)
-            {
-                @GetListOptions(Items)
-            }
-            else
-            {
-                foreach (TOption item in Items)
-                {
-                    <FluentOption TOption="TOption"
-                                    Value="@GetOptionValue(item)"
-                                    Selected="@GetOptionSelected(item)"
-                                    Disabled="@(GetOptionDisabled(item) ?? false)"
-                                    OnSelect="@OnSelectCallback(item)">
-                            @OptionTemplate(item)
-                    </FluentOption>
-                }
-            }
+                @_renderOptions
         </fluent-listbox>
     </div>
 </CascadingValue>

@@ -4,16 +4,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentOption<TOption> : FluentComponentBase, IDisposable where TOption : notnull
 {
-    internal string OptionId { get; } = Identifier.NewId();
 
     [CascadingParameter(Name = "ListContext")]
-    internal InternalListContext<TOption> InternalListContext { get; set; } = default!;
+    internal InternalListContext<TOption> _internalListContext { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; }
+    public bool? Disabled { get; set; }
 
     /// <summary>
     /// Gets or sets the value of this option.
@@ -48,26 +47,26 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
 
     protected override Task OnInitializedAsync()
     {
-        InternalListContext.Register(this);
+        _internalListContext.Register(this);
 
         return base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Selected && 
-            InternalListContext != null && 
-            InternalListContext.ValueChanged.HasDelegate &&
-            InternalListContext.ListComponent.Multiple)
+        if (firstRender && Selected &&
+            _internalListContext != null &&
+            _internalListContext.ValueChanged.HasDelegate &&
+            _internalListContext.ListComponent.Multiple)
         {
-            await InternalListContext.ValueChanged.InvokeAsync(Value);
+            await _internalListContext.ValueChanged.InvokeAsync(Value);
         }
     }
 
     /// <summary />
-    protected async Task OnSelectHandler()
+    public async Task OnClickHandlerAsync()
     {
-        if (Disabled)
+        if (Disabled == true)
             return;
 
         Selected = !Selected;
@@ -84,14 +83,24 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
         }
         else
         {
-            if (InternalListContext != null &&
-                InternalListContext.ValueChanged.HasDelegate && 
-                InternalListContext.ListComponent.Items is null)
+            if (_internalListContext != null && _internalListContext.ListComponent.Items is null)
             {
-                await InternalListContext.ValueChanged.InvokeAsync(Value);
+                if (_internalListContext.ValueChanged.HasDelegate)
+                {
+                    await _internalListContext.ValueChanged.InvokeAsync(Value);
+                }
+                if (_internalListContext.SelectedOptionChanged.HasDelegate)
+                {
+                    await _internalListContext.SelectedOptionChanged.InvokeAsync();
+                }
             }
         }
     }
 
-    public void Dispose() => InternalListContext.Unregister(this);
+    public FluentOption()
+    {
+        Id = Identifier.NewId();
+    }
+
+    public void Dispose() => _internalListContext.Unregister(this);
 }

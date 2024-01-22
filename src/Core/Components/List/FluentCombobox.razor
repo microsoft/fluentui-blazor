@@ -21,23 +21,7 @@
                      appearance="@Appearance.ToAttributeValue()"
                      required="@Required"
                      @onchange="@OnChangedHandlerAsync"
-                     @attributes="AdditionalAttributes">        
-        @if (OptionTemplate == null || Items == null)
-        {
-            @GetListOptions(Items)
-        }
-        else
-        {
-            foreach (TOption item in Items)
-            {
-                <FluentOption TOption="TOption"
-                                Value="@GetOptionValue(item)"
-                                Selected="@GetOptionSelected(item)"
-                                Disabled="@(GetOptionDisabled(item) ?? false)"
-                                OnSelect="@OnSelectCallback(item)">
-                        @OptionTemplate(item)
-                </FluentOption>
-            }
-        }
+                     @attributes="AdditionalAttributes">
+        @_renderOptions
     </fluent-combobox>
 </CascadingValue>

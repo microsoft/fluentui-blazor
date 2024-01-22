@@ -4154,7 +4154,7 @@
             Called whenever the selection changed.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnSelectHandler">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnClickHandlerAsync">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPersona">
@@ -4411,9 +4411,6 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OnChangedHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.RemoveSelectedItem(`0)">
