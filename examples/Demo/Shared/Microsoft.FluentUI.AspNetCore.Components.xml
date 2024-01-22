@@ -1269,7 +1269,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
             <summary>
             Gets or sets the content to render when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading"/> is true.
-            A default fragment is used if this is not specified.
+            A default fragment is used if loading content is not specified.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">

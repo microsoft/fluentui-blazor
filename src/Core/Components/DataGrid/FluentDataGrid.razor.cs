@@ -139,7 +139,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets the content to render when <see cref="Loading"/> is true.
-    /// A default fragment is used if this is not specified.
+    /// A default fragment is used if loading content is not specified.
     /// </summary>
     [Parameter] public RenderFragment? LoadingContent { get; set; }
 
