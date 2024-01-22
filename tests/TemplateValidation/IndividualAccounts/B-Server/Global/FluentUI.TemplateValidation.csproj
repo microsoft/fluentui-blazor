@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-FluentUI.TemplateValidation-99448806-69e9-404a-8495-e65adbcebaec</UserSecretsId>
+    <UserSecretsId>aspnet-FluentUI.TemplateValidation-250c4ada-66f1-4692-9795-02312fca456b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +20,5 @@
   <ItemGroup>
 	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-* " />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </ItemGroup>
 </Project>

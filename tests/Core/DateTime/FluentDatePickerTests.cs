@@ -17,6 +17,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
@@ -40,6 +41,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
@@ -65,6 +67,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
         var today = System.DateTime.Today;
 
@@ -88,6 +91,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
@@ -110,6 +114,7 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
@@ -129,8 +134,11 @@ public class FluentDatePickerTests : TestBase
     [Fact]
     public void FluentCalendar_DisabledDate()
     {
+        
+
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act

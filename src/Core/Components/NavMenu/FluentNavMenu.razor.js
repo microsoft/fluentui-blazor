@@ -14,11 +14,12 @@ export function onLoad() {
             };
         }
     }
-}
-export function onUpdate() {
     for (let element of document.getElementsByClassName("fluent-nav-group")) {
         attachEventHandlers(element);
     }
+}
+export function onUpdate() {
+    
 }
 
 function attachEventHandlers(element) {
