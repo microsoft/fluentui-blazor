@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 ![Nuget](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Components?label=NuGet%20Component%20Library)
-![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Templates.FluentUI?label=NuGet%20Templates)
+![Nuget](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Templates?label=NuGet%20Templates)
 
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 [![Gitter](https://img.shields.io/badge/chat%20on-gitter-7289da.svg)](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im)
@@ -67,7 +67,7 @@ As mentioned, we wrap the **Fluent UI Web Components** which are implemented in 
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
-When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
+Even when using **SSR (Static Server Rendering)**, the script will be included and loaded automatically. If you want the script to be loaded before Blazor starts, add it to your `App.razor` file like this:
 
 ```html
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>

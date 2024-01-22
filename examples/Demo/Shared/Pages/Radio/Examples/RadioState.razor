@@ -1,6 +1,6 @@
 ﻿<h4>Checked</h4>
 <FluentRadioGroup @bind-Value=v1 Name="checkedstate">
-    <FluentRadio Name="checkedstate" AriaLabel="Checked" Value=@("checked") Checked="true"></FluentRadio>
+    <FluentRadio Name="checkedstate" Label="Checked" Value=@("checked") Checked="true"></FluentRadio>
 </FluentRadioGroup>
 
 <h4>Required</h4>
@@ -10,7 +10,6 @@
 
 <h4>Disabled</h4>
 <FluentRadioGroup @bind-Value=v3>
-    <FluentRadio Disabled="true" AriaLabel="Empty check"></FluentRadio>
     <FluentRadio Disabled="true" Label="label"></FluentRadio>
     <FluentRadio Disabled="true" Checked="true" Label="checked"></FluentRadio>
 </FluentRadioGroup>

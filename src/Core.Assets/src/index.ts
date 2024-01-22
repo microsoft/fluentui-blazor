@@ -6,7 +6,7 @@ import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
 interface Blazor {
   registerCustomEventType: (
     name: string,
-    options: CustomeventTypeOptions) => void;
+    options: CustomEventTypeOptions) => void;
 
   theme: {
     isSystemDark(): boolean,
@@ -15,7 +15,7 @@ interface Blazor {
   addEventListener: (name: string, callback: (event: any) => void) => void;
 }
 
-interface CustomeventTypeOptions {
+interface CustomEventTypeOptions {
   browserEventName: string;
   createEventArgs: (event: FluentUIEventType) => any;
 }

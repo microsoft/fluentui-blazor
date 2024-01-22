@@ -8,7 +8,6 @@ class FluentPageScript extends HTMLElement {
       return;
     }
 
-    this.style.display = 'none';
     this.src = newValue;
     this.unregisterPageScriptElement(oldValue);
     this.registerPageScriptElement(newValue);
@@ -22,7 +21,7 @@ class FluentPageScript extends HTMLElement {
     if (!src) {
       throw new Error('Must provide a non-empty value for the "src" attribute.');
     }
-
+   
     let pageScriptInfo = pageScriptInfoBySrc.get(src);
 
     if (pageScriptInfo) {
