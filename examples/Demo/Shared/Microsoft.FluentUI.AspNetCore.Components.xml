@@ -6127,6 +6127,77 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ItemTemplate">
+            <summary>
+            Gets or sets the template to be used to define each sortable item in the list.
+            Use the @context parameter to access the item and its properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Items">
+            <summary>
+            Gets or sets the list of items to be displayed in a sortable list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.OnUpdate">
+            <summary>
+            Event callback for when the list is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.OnRemove">
+            <summary>
+            Event callback for when an item is removed from the list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Group">
+            <summary>
+            Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
+            You can only have 1 group with 2 lists.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Clone">
+            <summary>
+            Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Drop">
+            <summary>
+            Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
+            Set to false to disable dropping from another list onto the current list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Sort">
+            <summary>
+            Gets or sets whether the list is sortable.
+            Default is true
+            Disable sorting within a list by setting to false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Handle">
+            <summary>
+            Gets or sets whether the whole item acts as drag handle.
+            Set to true to use an element with classname `.sortable-grab` as the handle.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ItemFilter">
+            <summary>
+            Gets or sets the function to filter out elements that cannot be sorted or moved.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Fallback">
+            <summary>
+            Gets or sets wether ro ignore the HTML5 DnD behaviour and force the fallback to kick in
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.OldIndex">
+            <summary>
+            Gets the index of the item in the list before the update.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.NewIndex">
+            <summary>
+            Gets the index of the item in the list after the update.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentSpacer">
             <summary />
         </member>
