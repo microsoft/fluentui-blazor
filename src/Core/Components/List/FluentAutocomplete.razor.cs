@@ -8,9 +8,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
+    public static string AccessibilitySelected = "Selected {0}";
+    public static string AccessibilityNotFound = "No items found";
+    public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
+    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
+
     private string _valueText = string.Empty;
-    
-    public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
+
 
     public new FluentTextField? Element { get; set; } = default!;
 
@@ -32,7 +36,30 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary />
-    private string StatusMessage => SelectableItem != null ? GetOptionText(SelectableItem) ?? string.Empty : string.Empty;
+    private string AccessibilityStatusMessage
+    {
+        get
+        {
+            // No items found
+            if (IsMultiSelectOpened && Items?.Any() == false)
+            {
+                return AccessibilityNotFound;
+            }
+
+            // Selected {0}
+            if (SelectableItem != null)
+            {
+                return GetOptionText(SelectableItem) ?? string.Empty;
+            }
+
+            if (IsReachedMaxItems)
+            {
+                return AccessibilityReachedMaxItems;
+            }
+
+            return string.Empty;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -382,7 +409,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         if (SelectedOptions != null && SelectedOptions.Any())
         {
-            return string.Join(", ", SelectedOptions.Select(i => GetOptionText(i)));
+            return String.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
         }
         else
         {

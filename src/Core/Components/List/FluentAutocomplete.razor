@@ -6,7 +6,7 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
 
-        <FluentAccessibilityStatus Message="@StatusMessage" />
+        <FluentAccessibilityStatus Message="@AccessibilityStatusMessage" />
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
 
         <FluentTextField role="combobox"
@@ -134,8 +134,7 @@
 
                 @if (FooterContent != null)
                 {
-                    @FooterContent(Items ?? Array.Empty<TOption>())
-                    ;
+                    @FooterContent(Items ?? Array.Empty<TOption>())                    
                 }
             </FluentAnchoredRegion>
         }

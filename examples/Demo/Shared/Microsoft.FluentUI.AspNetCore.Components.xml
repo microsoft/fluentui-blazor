@@ -4,6 +4,12 @@
         <name>Microsoft.FluentUI.AspNetCore.Components</name>
     </assembly>
     <members>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus">
+            <summary>
+            The status message will be read by screen readers.
+            This component must be loaded when the page is rendered (it cannot be displayed or hidden using conditions).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.Message">
             <summary>
             Gets or sets the status message to be read by screen readers.
@@ -3964,7 +3970,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.StatusMessage">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.AccessibilityStatusMessage">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Placeholder">
