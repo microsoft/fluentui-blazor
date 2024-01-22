@@ -37,38 +37,58 @@
                 </FluentDataGridRow>
             }
 
-            @if (_ariaBodyRowCount == 0 && !_manualGrid)
+            @if (Loading)
             {
-                <div class="empty-content-row" role="row">
-                    <div class="empty-content-cell" role="gridcell">
-                        @if (EmptyContent is null)
+                <FluentDataGridRow TGridItem="TGridItem" Class="loading-content-row">
+                    <FluentDataGridCell Class="loading-content-cell">
+                        @if (LoadingContent is null)
                         {
-                            @("No data to show!")
-                            ;
+                            <FluentStack HorizontalGap="3">
+                                <FluentProgressRing Width="24px" /> <div>Loading...</div>
+                            </FluentStack>
                         }
                         else
                         {
-                            @EmptyContent
+                            @LoadingContent
                         }
-                    </div>
-                </div>
+                    </FluentDataGridCell>
+                </FluentDataGridRow>
             }
             else
             {
-                @if (Virtualize)
+                @if (_ariaBodyRowCount == 0 && !_manualGrid)
                 {
-                    <Virtualize @ref="@_virtualizeComponent"
-                                TItem="(int RowIndex, TGridItem Data)"
-                                ItemSize="@ItemSize"
-                                ItemsProvider="@ProvideVirtualizedItems"
-                                ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                                Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                    <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
+                        <FluentDataGridCell Class="empty-content-cell">
+                            @if (EmptyContent is null)
+                            {
+                                @("No data to show!")
+                            }
+                            else
+                            {
+                                @EmptyContent
+                            }
+                        </FluentDataGridCell>
+                    </FluentDataGridRow>
                 }
                 else
                 {
-                    @_renderNonVirtualizedRows
+                    @if (Virtualize)
+                    {
+                        <Virtualize @ref="@_virtualizeComponent"
+                                    TItem="(int RowIndex, TGridItem Data)"
+                                    ItemSize="@ItemSize"
+                                    ItemsProvider="@ProvideVirtualizedItems"
+                                    ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                    Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                    }
+                    else
+                    {
+                        @_renderNonVirtualizedRows
+                    }
                 }
             }
+
             @if (_manualGrid)
             {
                 @ChildContent
@@ -109,7 +129,7 @@
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
-        string? _rowsDataSize = $"height: {ItemSize}px";
+        string? _rowsDataSize = Loading ? "height: 100%;" : $"height: {ItemSize}px;";
 
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)

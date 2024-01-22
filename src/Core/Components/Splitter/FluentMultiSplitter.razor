@@ -1,0 +1,8 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassValue" style="@StyleValue" orientation="@Orientation.ToAttributeValue()">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
