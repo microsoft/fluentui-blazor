@@ -1,0 +1,170 @@
+﻿.fluent-multi-splitter {
+    /* Resize Icon colors */
+    --fluent-multi-splitter-color: var(--neutral-stroke-strong-rest);
+    --fluent-multi-splitter-color-active: var(--neutral-stroke-strong-hover);
+
+    /* Bar colors */
+    --fluent-multi-splitter-background-color: var(--neutral-stroke-rest);
+    --fluent-multi-splitter-background-color-active: var(--neutral-stroke-hover);
+    --fluent-multi-splitter-hover-opacity: 0.8;
+    
+    /* Bar size */
+    --fluent-multi-splitter-bar-size: 8px;
+
+    /* Styles */
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+}
+
+    /* Resize bar */
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar {
+        flex: 0 0 auto;
+        position: relative;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fluent-multi-splitter-color);
+        background-color: var(--fluent-multi-splitter-background-color);
+        opacity: 0.4;
+        user-select: none;
+        font-size: 8px;
+    }
+
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="resize"] {
+            border: 1px solid var(--fluent-multi-splitter-color);
+            border-radius: 1px;
+        }
+
+        /* Collapse button */
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="collapse"] {
+            display: table;
+        }
+
+            .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
+                line-height: normal;
+                display: table-cell;
+            }
+
+            .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:hover {
+                cursor: pointer;
+            }
+
+        /* Expand button */
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="expand"] {
+            display: table;
+        }
+
+            .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
+                line-height: normal;
+                display: table-cell;
+            }
+
+            .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar > span[part="expand"]:hover {
+                cursor: pointer;
+            }
+
+    /* Hover and Active */
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:hover {
+        background-color: var(--fluent-multi-splitter-background-color);
+        opacity: var(--fluent-multi-splitter-hover-opacity);
+    }
+
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:active {
+        background-color: var(--fluent-multi-splitter-background-color-active);
+        opacity: var(--fluent-multi-splitter-hover-opacity);
+    }
+
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:active > span[part="expand"],
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:active > span[part="resize"],
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:active > span[part="collapse"] {
+            color: var(--fluent-multi-splitter-color-active);
+        }
+
+        .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:active > span[part="resize"] {
+            border: 1px solid var(--fluent-multi-splitter-color-active);
+        }
+
+    /* Disabled */
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-bar[status="resizable"]:disabled {
+        opacity: 0.2;
+    }
+
+/* Horizontal bar */
+.fluent-multi-splitter[orientation="horizontal"] {
+    flex-direction: row;
+}
+
+    .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar {
+        flex-direction: column;
+        width: var(--fluent-multi-splitter-bar-size);
+    }
+
+        .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
+            content: '\025C0;';            
+        }
+
+        .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="resize"] {
+            height: 16px;
+            margin: 2px 0;
+        }
+
+        .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
+            content: '\025B6;';
+        }
+
+        .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar[status="resizable"]:hover {
+            cursor: ew-resize;
+        }
+
+/* Vertical bar */
+.fluent-multi-splitter[orientation="vertical"] {
+    flex-direction: column;
+}
+
+    .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar {
+        flex-direction: row;
+        height: var(--fluent-multi-splitter-bar-size);
+    }
+
+        .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
+            content: '\025B2;';
+        }
+
+        .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar > span[part="resize"] {
+            width: 16px;
+            margin: 0 2px;
+        }
+
+        .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
+            content: '\025BC;';
+        }
+
+        .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar[status="resizable"]:hover {
+            cursor: ns-resize;
+        }
+
+/* Pane */
+.fluent-multi-splitter ::deep > .fluent-multi-splitter-pane {
+    overflow: hidden;
+    position: relative;
+    flex: 0 1 auto;
+}
+
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="collapsed"] {
+        flex: 0 1 0% !important;
+        overflow: hidden !important;
+        display: block !important;
+    }
+
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="lastresizable"] {
+        flex: 1 1 auto;
+    }
+
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="resizable"] {
+    }
+
+    .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="locked"] {
+    }
