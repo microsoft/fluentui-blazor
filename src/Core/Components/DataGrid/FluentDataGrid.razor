@@ -129,7 +129,7 @@
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
-        string? _rowsDataSize = Loading ? "height: 100%;" : $"height: {ItemSize}px";
+        string? _rowsDataSize = Loading ? "height: 100%;" : $"height: {ItemSize}px;";
 
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
