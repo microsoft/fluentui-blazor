@@ -13,7 +13,7 @@ body {
 }
 
 .main {
-    height: calc(100dvh - 86px);
+    min-height: calc(100vh - 86px);
     color: var(--neutral-foreground-rest);
 }
 
