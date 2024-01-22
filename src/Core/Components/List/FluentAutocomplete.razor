@@ -6,7 +6,9 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
 
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()">
+            <ChildContent>@LabelTemplate</ChildContent>
+        </FluentInputLabel>
 
         <FluentTextField role="combobox"
                          @ref="@Element"
