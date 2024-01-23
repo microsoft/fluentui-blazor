@@ -33,7 +33,7 @@
                 </FluentDataGridRow>
             }
 
-            @if (Loading)
+            @if (_ariaBodyRowCount == 0 && Loading)
             {
                 <FluentDataGridRow TGridItem="TGridItem" Class="loading-content-row">
                     <FluentDataGridCell Class="loading-content-cell">
@@ -50,38 +50,35 @@
                     </FluentDataGridCell>
                 </FluentDataGridRow>
             }
+            else if (_ariaBodyRowCount == 0 && !Loading && !_manualGrid)
+            {
+                <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
+                    <FluentDataGridCell Class="empty-content-cell">
+                        @if (EmptyContent is null)
+                        {
+                            @("No data to show!")
+                        }
+                        else
+                        {
+                            @EmptyContent
+                        }
+                    </FluentDataGridCell>
+                </FluentDataGridRow>
+            }
             else
             {
-                @if (_ariaBodyRowCount == 0 && !_manualGrid)
+                @if (Virtualize)
                 {
-                    <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
-                        <FluentDataGridCell Class="empty-content-cell">
-                            @if (EmptyContent is null)
-                            {
-                                @("No data to show!")
-                            }
-                            else
-                            {
-                                @EmptyContent
-                            }
-                        </FluentDataGridCell>
-                    </FluentDataGridRow>
+                    <Virtualize @ref="@_virtualizeComponent"
+                                TItem="(int RowIndex, TGridItem Data)"
+                                ItemSize="@ItemSize"
+                                ItemsProvider="@ProvideVirtualizedItems"
+                                ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
                 }
                 else
                 {
-                    @if (Virtualize)
-                    {
-                        <Virtualize @ref="@_virtualizeComponent"
-                                    TItem="(int RowIndex, TGridItem Data)"
-                                    ItemSize="@ItemSize"
-                                    ItemsProvider="@ProvideVirtualizedItems"
-                                    ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                                    Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
-                    }
-                    else
-                    {
-                        @_renderNonVirtualizedRows
-                    }
+                    @_renderNonVirtualizedRows
                 }
             }
 

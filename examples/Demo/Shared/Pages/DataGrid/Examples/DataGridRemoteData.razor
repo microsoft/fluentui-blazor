@@ -32,15 +32,18 @@
         foodRecallProvider = async req =>
         {
             var url = NavManager.GetUriWithQueryParameters("https://api.fda.gov/food/enforcement.json", new Dictionary<string, object?>
-            {
+                    {
                 { "skip", req.StartIndex },
                 { "limit", req.Count },
-            });
+                    });
 
             var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url, req.CancellationToken);
-            
+
             // Simulate a slow data retrieval process
-            await Task.Delay(5500);
+            if (req.Count is null)
+            {
+                await Task.Delay(2500);
+            }
             return GridItemsProviderResult.From(
                 items: response!.Results,
                 totalItemCount: response!.Meta.Results.Total);
