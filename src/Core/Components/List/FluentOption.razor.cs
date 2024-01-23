@@ -31,7 +31,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// Called whenever the selection changed.
     /// </summary>
     [Parameter]
-    public EventCallback<bool?> SelectedChanged { get; set; }
+    public EventCallback<bool> SelectedChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
