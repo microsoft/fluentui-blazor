@@ -135,6 +135,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
 
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid is in a loading data state.
+    /// </summary>
+    [Parameter] public bool Loading { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to render when <see cref="Loading"/> is true.
+    /// A default fragment is used if loading content is not specified.
+    /// </summary>
+    [Parameter] public RenderFragment? LoadingContent { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -314,7 +326,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public async Task RefreshDataAsync()
     {
         await RefreshDataCoreAsync();
-        //StateHasChanged();
+    }
+
+    public void SetLoadingState(bool loading)
+    {
+        Loading = loading;
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
@@ -347,6 +363,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
                 Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
+                if (_ariaBodyRowCount > 0 ) Loading = false;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
         }
@@ -391,6 +408,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
             Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
+            if (_ariaBodyRowCount > 0) Loading = false;
 
             // We're supplying the row _index along with each row's data because we need it for aria-rowindex, and we have to account for
             // the virtualized start _index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have

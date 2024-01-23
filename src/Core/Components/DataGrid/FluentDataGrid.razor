@@ -37,21 +37,37 @@
                 </FluentDataGridRow>
             }
 
-            @if (_ariaBodyRowCount == 0 && !_manualGrid)
+            @if (_ariaBodyRowCount == 0 && Loading)
             {
-                <div class="empty-content-row" role="row">
-                    <div class="empty-content-cell" role="gridcell">
+                <FluentDataGridRow TGridItem="TGridItem" Class="loading-content-row">
+                    <FluentDataGridCell Class="loading-content-cell">
+                        @if (LoadingContent is null)
+                        {
+                            <FluentStack HorizontalGap="3">
+                                <FluentProgressRing Width="24px" /> <div>Loading...</div>
+                            </FluentStack>
+                        }
+                        else
+                        {
+                            @LoadingContent
+                        }
+                    </FluentDataGridCell>
+                </FluentDataGridRow>
+            }
+            else if (_ariaBodyRowCount == 0 && !Loading && !_manualGrid)
+            {
+                <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
+                    <FluentDataGridCell Class="empty-content-cell">
                         @if (EmptyContent is null)
                         {
                             @("No data to show!")
-                            ;
                         }
                         else
                         {
                             @EmptyContent
                         }
-                    </div>
-                </div>
+                    </FluentDataGridCell>
+                </FluentDataGridRow>
             }
             else
             {
@@ -69,6 +85,7 @@
                     @_renderNonVirtualizedRows
                 }
             }
+
             @if (_manualGrid)
             {
                 @ChildContent
@@ -109,7 +126,7 @@
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
-        string? _rowsDataSize = $"height: {ItemSize}px";
+        string? _rowsDataSize = Loading ? "height: 100%;" : $"height: {ItemSize}px;";
 
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
