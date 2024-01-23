@@ -1277,6 +1277,11 @@
             If specified, grids render this fragment when there is no content.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading">
+            <summary>
+            Gets or sets a value indicating whether the grid is in a loading data state.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
             <summary>
             Gets or sets the content to render when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading"/> is true.

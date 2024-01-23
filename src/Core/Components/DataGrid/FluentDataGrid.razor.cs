@@ -333,12 +333,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         Loading = loading;
     }
 
-    public void SetLoadingState(bool loading)
-    {
-        Loading = loading;
-        StateHasChanged();
-    }
-
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
     // because in that case there's going to be a re-render anyway.
     private async Task RefreshDataCoreAsync()
