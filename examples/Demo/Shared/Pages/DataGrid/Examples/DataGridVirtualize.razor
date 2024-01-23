@@ -18,7 +18,8 @@
     </FluentDataGrid>
 </div>
 <br />
-<FluentSwitch @bind-Value="@_clearItems"
+<FluentSwitch @ref="_clearToggle"
+              @bind-Value="@_clearItems"
               @bind-Value:after="ToggleItems"
               UncheckedMessage="Clear all results"
               CheckedMessage="Restore all results">
@@ -28,6 +29,7 @@
 
 @code {
     FluentDataGrid<SampleGridData>? grid;
+    FluentSwitch? _clearToggle;
 
     bool _clearItems = false;
     public record SampleGridData(string Item1, string Item2, string Item3, string Item4);
@@ -63,8 +65,18 @@
 
     private async Task SimulateDataLoading()
     {
+        _clearItems = false;
+        _clearToggle!.Disabled = true;
+
+        items = null;
         grid?.SetLoadingState(true);
+
         await Task.Delay(2500);
-        grid?.SetLoadingState(false);
+
+        items = GenerateSampleGridData(5000);
+
+        _clearToggle!.Disabled = false;
+        //grid?.SetLoadingState(false);
+        
     }
 }
