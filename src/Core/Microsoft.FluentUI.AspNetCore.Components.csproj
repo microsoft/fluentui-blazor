@@ -46,7 +46,6 @@
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
-    <None Include="Components\Accessibility\FluentAccessibilityStatus.razor" />
   </ItemGroup>
 
   <ItemGroup>
