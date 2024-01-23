@@ -1,7 +1,12 @@
 ﻿## V3.5.3
+- PR [#1372](https://github.com/microsoft/fluentui-blazor/pull/1372): List related refactoring and maintenance (#1372)
+- Issue [#1344](https://github.com/microsoft/fluentui-blazor/issues/1344): Fix #1344 for Items based lists (#1356)
+- Issue [#1317](https://github.com/microsoft/fluentui-blazor/issues/1317):[DataGrid] - Add Loading and LoadingContent parameters (#1368)
+- Issue [#1311](https://github.com/microsoft/fluentui-blazor/issues/1311): Fix problems with validation border color / validation classes (#1348)
 - Issue [#1292](https://github.com/microsoft/fluentui-blazor/issues/1292): Accessibility issue in Fluent AutoComplete
 
 - Update Fluent UI System Icons to version 1.1.225
+	
 	**What's new (Name / Size(s) / Variant(s))**
 	- Flowchart / 16, 32 / Filled & Regular
 	- Layer Diagonal Person / 24 / Filled & Regular
@@ -16,6 +21,7 @@
 	- Text Edit Style Character Ga / 32 / Filled & Regular
 	- Window Ad / 24 / Filled & Regular
 	- Wrench Settings / 20, 24 / Filled & Regular
+	
 	**What's updated (Name / Size(s) / Variant(s))**
 	- Add Circle / 32 / Filled & Regular
 	- Arrow Clockwise Dashes / 16, 20, 24, 32 / Filled & Regular
