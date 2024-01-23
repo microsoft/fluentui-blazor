@@ -161,9 +161,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     [Parameter]
     public virtual TOption? SelectedOption { get; set; }
 
-    [Parameter]
-    public virtual FluentOption<TOption>? SelectedFluentOption { get; set; }
-
     /// <summary>
     /// Called whenever the selection changed.
     /// ⚠️ Only available when Multiple = false.
@@ -506,71 +503,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             await ValueChanged.InvokeAsync(InternalValue);
         }
         StateHasChanged();
-    }
-
-    /// <summary />
-    protected virtual RenderFragment? GetListOptions(IEnumerable<TOption>? items)
-    {
-        if (items is not null)
-        {
-            return new RenderFragment(builder =>
-            {
-                foreach (TOption item in items)
-                {
-                    builder.OpenComponent<FluentOption<TOption>>(0);
-                    builder.AddAttribute(1, "Value", GetOptionValue(item));
-                    builder.AddAttribute(2, "Selected", GetOptionSelected(item));
-                    builder.AddAttribute(3, "Disabled", GetOptionDisabled(item));
-
-                    builder.AddAttribute(4, "ChildContent", (RenderFragment)(content =>
-                    {
-                        if (item is null)
-                        {
-                            throw new NullReferenceException($"You cannot use a null element as an option in the {nameof(Items)} property.");
-                        }
-
-                        content.AddContent(5, GetOptionText(item));
-                        if (item.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
-                        {
-                            Option<string>? t = item as Option<string>;
-                            if (t is not null)
-                            {
-                                (Icon Value, Color? Color, string? Slot) = t.Icon;
-                                if (Value != null)
-                                {
-                                    content.OpenComponent<FluentIcon<Icon>>(6);
-                                    content.AddAttribute(7, "Value", Value);
-
-                                    if (Slot is not null)
-                                        content.AddAttribute(8, "Slot", Slot);
-                                    if (Color is not null)
-                                        content.AddAttribute(9, "Color", Color);
-
-                                    content.CloseComponent();
-                                }
-                            }
-                        }
-                    }));
-
-                    // Needed in fluent-listbox and fluent-select with mutliple select enabled
-                    if (this is FluentListbox<TOption> ||
-                       (this is FluentSelect<TOption> && Multiple) ||
-                       (this is FluentAutocomplete<TOption> && Multiple))
-                    {
-                        builder.AddAttribute(10, "OnSelect", OnSelectCallback(item));
-                    }
-
-                    builder.CloseComponent();
-                }
-            });
-        }
-        else
-        {
-            return new RenderFragment(builder =>
-            {
-                builder.AddContent(0, ChildContent);
-            });
-        }
     }
 
     protected virtual async Task OnKeydownHandlerAsync(KeyboardEventArgs e)

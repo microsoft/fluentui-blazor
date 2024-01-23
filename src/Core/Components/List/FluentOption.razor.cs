@@ -12,7 +12,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// Gets or sets a value indicating whether the element is disabled.
     /// </summary>
     [Parameter]
-    public bool? Disabled { get; set; }
+    public bool Disabled { get; set; }
 
     /// <summary>
     /// Gets or sets the value of this option.
@@ -24,7 +24,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// Gets or sets a value indicating whether the element is selected.
     /// </summary>
     [Parameter]
-    public bool? Selected { get; set; }
+    public bool Selected { get; set; }
 
 
     /// <summary>
@@ -54,7 +54,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Selected == true &&
+        if (firstRender && Selected &&
             InternalListContext != null &&
             InternalListContext.ValueChanged.HasDelegate &&
             InternalListContext.ListComponent.Multiple)
@@ -66,7 +66,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// <summary />
     public async Task OnClickHandlerAsync()
     {
-        if (Disabled == true)
+        if (Disabled)
             return;
 
         Selected = !Selected;

@@ -4410,9 +4410,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.RaiseChangedEventsAsync">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.RemoveSelectedItem(`0)">
             <summary />
         </member>

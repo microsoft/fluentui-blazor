@@ -20,7 +20,7 @@
                 <FluentOption TOption="TOption"
                               Value="@GetOptionValue(item)"
                               Selected="@GetOptionSelected(item)"
-                              Disabled="@GetOptionDisabled(item)"
+                              Disabled="@(GetOptionDisabled(item) ?? false)"
                               OnSelect="@OnSelectCallback(item)">
                     @if (OptionTemplate is not null)
                     {
