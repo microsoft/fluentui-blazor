@@ -4,6 +4,17 @@
         <name>Microsoft.Fast.Components.FluentUI</name>
     </assembly>
     <members>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus">
+            <summary>
+            The status message will be read by screen readers.
+            This component must be loaded when the page is rendered (it cannot be displayed or hidden using conditions).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus.Message">
+            <summary>
+            Gets or sets the status message to be read by screen readers.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
@@ -354,27 +365,31 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Name">
             <summary>
-            The name of the element.Allows access by name from the associated form.
+            Gets or sets the name of the element.
+            Allows access by name from the associated form.
+            ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Label">
             <summary>
-            Text displayed just above the component
+            Gets or sets the text to label the input.
+            This is usually displayed just above the input
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.LabelTemplate">
             <summary>
-            Content displayed just above the component
+            Gets or sets the content to label the input component.
+            This is usually displayed just above the input
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.AriaLabel">
             <summary>
-            Text used on aria-label attribute.
+            Gets or sets the text used on aria-label attribute.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Required">
             <summary>
-            Whether the element needs to have a value
+            Gets or sets a value indicating whether the element needs to have a value.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Value">
@@ -416,6 +431,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Placeholder">
             <summary>
             The short hint displayed in the input before the user enters a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.Embedded">
+            <summary>
+            Gets or sets if the derived component is embedded in another component. 
+            If true, the ClassValue property will not include the EditContext's FieldCssClass.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.EditContext">
@@ -1311,6 +1332,17 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.EmptyContent">
             <summary>
             If specified, grids render this fragment when there is no content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Loading">
+            <summary>
+            Gets or sets a value indicating whether the grid is in a loading data state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.LoadingContent">
+            <summary>
+            Gets or sets the content to render when <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.Loading"/> is true.
+            A default fragment is used if loading content is not specified.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.#ctor">
@@ -3705,6 +3737,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Module">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.AccessibilityStatusMessage">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Placeholder">
             <summary>
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -3828,6 +3863,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.DisplayLastSelectedItemAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.GetAutocompleteAriaLabel">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
@@ -6102,18 +6140,18 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Size">
             <summary>
-            Width of the tab items.
+            Gets or sets the width of the tab items.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Width">
             <summary>
-            Width of the tabs component.
+            Gets or sets the width of the tabs component.
             Needs to be a valid CSS value (e.g. 100px, 50%).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.Height">
             <summary>
-            Height of the tabs component.
+            Gets or sets the height of the tabs component.
             Needs to be a valid CSS value (e.g. 100px, 50%).
             </summary>
         </member>
@@ -6129,7 +6167,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ShowActiveIndicator">
             <summary>
-            Whether or not to show the active indicator 
+            Gets or sets a value indicating whether the active indicator is displayed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ChildContent">
@@ -6139,7 +6177,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.OnTabChange">
             <summary>
-            Gets or sets a callback when a tab is changed .
+            Gets or sets a callback when a tab is changed.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.IdMoreButton">

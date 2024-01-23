@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// The status message will be read by screen readers.
