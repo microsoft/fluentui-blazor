@@ -9,9 +9,7 @@
 }
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <div style="@BorderStyle.Build()">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">
-            <ChildContent>@LabelTemplate</ChildContent>
-        </FluentInputLabel>
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required" ChildContent="@LabelTemplate" />
         <fluent-listbox @ref="Element"
                         id="@Id"
                         class="@ClassValue"
