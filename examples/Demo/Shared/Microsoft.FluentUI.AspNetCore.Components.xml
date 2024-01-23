@@ -1277,6 +1277,11 @@
             If specified, grids render this fragment when there is no content.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading">
+            <summary>
+            Gets or sets a value indicating whether the grid is in a loading data state.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
             <summary>
             Gets or sets the content to render when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading"/> is true.
@@ -4171,7 +4176,7 @@
             Called whenever the selection changed.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnSelectHandler">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOption`1.OnClickHandlerAsync">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPersona">
@@ -4425,12 +4430,6 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.RaiseChangedEventsAsync">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.GetListOptions(System.Collections.Generic.IEnumerable{`0})">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.OnChangedHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.RemoveSelectedItem(`0)">

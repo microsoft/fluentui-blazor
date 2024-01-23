@@ -9,7 +9,7 @@
 }
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     <div style="@BorderStyle.Build()">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required" ChildContent="@LabelTemplate" />
         <fluent-listbox @ref="Element"
                         id="@Id"
                         class="@ClassValue"
@@ -19,26 +19,9 @@
                         multiple="@Multiple"
                         required="@Required"
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
-                        @onchange="@OnChangedHandlerAsync"
                         @onkeydown="@OnKeydownHandlerAsync"
                         @attributes="AdditionalAttributes">
-            @if (OptionTemplate == null || Items == null)
-            {
-                @GetListOptions(Items)
-            }
-            else
-            {
-                foreach (TOption item in Items)
-                {
-                    <FluentOption TOption="TOption"
-                                    Value="@GetOptionValue(item)"
-                                    Selected="@GetOptionSelected(item)"
-                                    Disabled="@(GetOptionDisabled(item) ?? false)"
-                                    OnSelect="@OnSelectCallback(item)">
-                            @OptionTemplate(item)
-                    </FluentOption>
-                }
-            }
+                @_renderOptions
         </fluent-listbox>
     </div>
 </CascadingValue>
