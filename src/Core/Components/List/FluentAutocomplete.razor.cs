@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
@@ -9,9 +8,12 @@ namespace Microsoft.Fast.Components.FluentUI;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
+    public static string AccessibilitySelected = "Selected {0}";
+    public static string AccessibilityNotFound = "No items found";
+    public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
     private string _valueText = string.Empty;
     
-    public const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
+    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
 
@@ -31,6 +33,32 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     /// <summary />
     private IJSObjectReference Module { get; set; } = default!;
+
+    /// <summary />
+    private string AccessibilityStatusMessage
+    {
+        get
+        {
+            // No items found
+            if (IsMultiSelectOpened && Items?.Any() == false)
+            {
+                return AccessibilityNotFound;
+            }
+
+            // Selected {0}
+            if (SelectableItem != null)
+            {
+                return GetOptionText(SelectableItem) ?? string.Empty;
+            }
+
+            if (IsReachedMaxItems)
+            {
+                return AccessibilityReachedMaxItems;
+            }
+
+            return string.Empty;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -61,7 +89,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
@@ -224,7 +252,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
             case "Enter":
             case "NumpadEnter":
-                await KeyDown_Enter();
+                if (IsMultiSelectOpened)
+                {
+                    await KeyDown_Enter();
+                }
+                else
+                {
+                    await OnDropDownExpandedAsync();
+                }
                 break;
 
             case "Backspace":
@@ -232,7 +267,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case "ArrowDown":
-                await KeyDown_ArrowDown();
+                if (IsMultiSelectOpened)
+                {
+                    await KeyDown_ArrowDown();
+                }
+                else
+                {
+                    await OnDropDownExpandedAsync();
+                }
                 break;
 
             case "ArrowUp":
@@ -358,6 +400,19 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         if (Module != null)
         {
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
+        }
+    }
+
+    /// <summary />
+    private string? GetAutocompleteAriaLabel()
+    {
+        if (SelectedOptions != null && SelectedOptions.Any())
+        {
+            return String.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
+        }
+        else
+        {
+            return GetAriaLabel() ?? Label ?? Placeholder;
         }
     }
 }
