@@ -11,7 +11,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// <typeparam name="TOption"></typeparam>
 public abstract partial class ListComponentBase<TOption> : FluentComponentBase, IAsyncDisposable where TOption : notnull
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/ListComponentBase.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/ListComponentBase.razor.js";
 
     private bool _multiple = false;
     private List<TOption> _selectedOptions = new();
