@@ -1,0 +1,47 @@
+﻿<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
+    <FluentGridItem xs="12" sm="6">
+        <FluentSortableList Id="dragHandles" Handle="true" Items="items" OnUpdate="@SortList" Context="item">
+            <ItemTemplate>
+                <div class="sortable-grab">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.ArrowSort())" />
+                </div>
+                <div class="sortable-item-content" style="flex-grow: 1;">@item.Name</div>
+            </ItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+</FluentGrid>
+
+@code {
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+
+        public bool Disabled { get; set; } = false;
+    }
+    public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    private void SortList(FluentSortableListEventArgs args)
+    {
+        if (args is null || args.OldIndex == args.NewIndex)
+        {
+            return;
+        }
+
+        var oldIndex = args.OldIndex;
+        var newIndex = args.NewIndex;
+
+        var items = this.items;
+        var itemToMove = items[oldIndex];
+        items.RemoveAt(oldIndex);
+
+        if (newIndex < items.Count)
+        {
+            items.Insert(newIndex, itemToMove);
+        }
+        else
+        {
+            items.Add(itemToMove);
+        }
+    }
+}
