@@ -6,6 +6,7 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
 
+        <FluentAccessibilityStatus Message="@AccessibilityStatusMessage" />
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
 
         <FluentTextField role="combobox"
@@ -17,7 +18,7 @@
                          Placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
-                         aria-label="@(GetAriaLabel() ?? Label ?? Placeholder)"
+                         aria-label="@GetAutocompleteAriaLabel()"
                          Value="@_valueText"
                          Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
@@ -92,8 +93,7 @@
         @if (IsMultiSelectOpened)
         {
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
-            <FluentAnchoredRegion Id="@IdPopup"
-                                  Anchor="@Id"
+            <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
                                   HorizontalInset="true"
                                   VerticalDefaultPosition="@VerticalPosition.Unset"
@@ -104,7 +104,7 @@
                     @HeaderContent(Items ?? Array.Empty<TOption>())
                 }
 
-                <div role="listbox" style="@ListStyleValue" aria-label="List">
+                <div id="@IdPopup" role="listbox" style="@ListStyleValue" tabindex="0">
                     @if (Items != null)
                     {
                         var selectableItem = GetOptionValue(SelectableItem);
@@ -134,8 +134,7 @@
 
                 @if (FooterContent != null)
                 {
-                    @FooterContent(Items ?? Array.Empty<TOption>())
-                    ;
+                    @FooterContent(Items ?? Array.Empty<TOption>())                    
                 }
             </FluentAnchoredRegion>
         }
