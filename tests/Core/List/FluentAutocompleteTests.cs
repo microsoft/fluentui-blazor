@@ -211,7 +211,7 @@ public class FluentAutocompleteTests : TestBase
     }
 
     // Sample data...
-    private IEnumerable<Customer> GetCustomers()
+    private static IEnumerable<Customer> GetCustomers()
     {
         yield return new Customer(1, "Denis Voituron");
         yield return new Customer(2, "Vincent Baaij");

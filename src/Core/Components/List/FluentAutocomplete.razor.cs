@@ -216,7 +216,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
-    protected virtual async Task InputHandlerAsync(ChangeEventArgs e)
+    protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
         _valueText = e.Value?.ToString() ?? string.Empty;
 
@@ -242,7 +242,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected virtual async Task KeyDownHandlerAsync(KeyboardEventArgs e)
+    protected async Task KeyDownHandlerAsync(KeyboardEventArgs e)
     {
         switch (e.Code)
         {
@@ -357,7 +357,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected virtual Task OnDropDownExpandedAsync()
+    protected Task OnDropDownExpandedAsync()
     {
         return InputHandlerAsync(new ChangeEventArgs()
         {
@@ -366,7 +366,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected virtual Task OnClearAsync()
+    protected Task OnClearAsync()
     {
         RemoveAllSelectedItems();
         _valueText = string.Empty;
@@ -383,7 +383,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    public virtual async Task RemoveSelectedItemAsync(TOption? item)
+    public async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item == null)
         {

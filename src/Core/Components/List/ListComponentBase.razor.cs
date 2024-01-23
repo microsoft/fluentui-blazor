@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -8,14 +9,29 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// Component that provides a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-public abstract class ListComponentBase<TOption> : FluentComponentBase where TOption : notnull
+public abstract partial class ListComponentBase<TOption> : FluentComponentBase, IAsyncDisposable where TOption : notnull
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/ListComponentBase.razor.js";
+
     private bool _multiple = false;
     private List<TOption> _selectedOptions = new();
     private TOption? _currentSelectedOption;
+    protected readonly RenderFragment _renderOptions;
 
-    // We cascade the InternalListContext to descendants, which in turn call it to add themselves to the options list
+    private IJSObjectReference? Module { get; set; }
+
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
+    // We cascade the _internalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        }
+    }
 
     /// <summary />
     protected virtual string? ClassValue => new CssBuilder(Class)
@@ -203,6 +219,8 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
 
         OptionText = (item) => item?.ToString() ?? null;
         OptionValue = (item) => OptionText.Invoke(item) ?? item?.ToString() ?? null;
+
+        _renderOptions = RenderOptions;
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
@@ -487,130 +505,18 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
         StateHasChanged();
     }
 
-    /// <summary />
-    protected virtual RenderFragment? GetListOptions(IEnumerable<TOption>? items)
-    {
-        if (items is not null)
-        {
-            return new RenderFragment(builder =>
-            {
-                foreach (TOption item in items)
-                {
-                    builder.OpenComponent<FluentOption<TOption>>(0);
-                    builder.AddAttribute(1, "Value", GetOptionValue(item));
-                    builder.AddAttribute(2, "Selected", GetOptionSelected(item));
-                    builder.AddAttribute(3, "Disabled", GetOptionDisabled(item));
-
-                    builder.AddAttribute(4, "ChildContent", (RenderFragment)(content =>
-                    {
-                        if (item is null)
-                        {
-                            throw new NullReferenceException($"You cannot use a null element as an option in the {nameof(Items)} property.");
-                        }
-
-                        content.AddContent(5, GetOptionText(item));
-                        if (item.GetType().IsGenericType && item.GetType().GetGenericTypeDefinition() == typeof(Option<>))
-                        {
-                            Option<string>? t = item as Option<string>;
-                            if (t is not null)
-                            {
-                                (Icon Value, Color? Color, string? Slot) = t.Icon;
-                                if (Value != null)
-                                {
-                                    content.OpenComponent<FluentIcon<Icon>>(6);
-                                    content.AddAttribute(7, "Value", Value);
-
-                                    if (Slot is not null)
-                                        content.AddAttribute(8, "Slot", Slot);
-                                    if (Color is not null)
-                                        content.AddAttribute(9, "Color", Color);
-
-                                    content.CloseComponent();
-                                }
-                            }
-                        }
-                    }));
-
-                    // Needed in fluent-listbox and fluent-select with mutliple select enabled
-                    if (this is FluentListbox<TOption> ||
-                       (this is FluentSelect<TOption> && Multiple) ||
-                       (this is FluentAutocomplete<TOption> && Multiple))
-                    {
-                        builder.AddAttribute(10, "OnSelect", OnSelectCallback(item));
-                    }
-
-                    builder.CloseComponent();
-                }
-            });
-        }
-        else
-        {
-            return new RenderFragment(builder =>
-            {
-                builder.AddContent(0, ChildContent);
-            });
-        }
-
-        EventCallback<string> OnSelectCallback(TOption? item)
-        {
-            return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
-        }
-    }
-
-    /// <summary />
-    protected virtual async Task OnChangedHandlerAsync(ChangeEventArgs e)
-    {
-        if (e.Value is not null && Items is not null && !Multiple)
-        {
-            TOption? item = Items.FirstOrDefault(i => GetOptionValue(i) == e.Value.ToString());
-
-            await OnSelectedItemChangedHandlerAsync(item);
-        }
-        if (e.Value is not null && Multiple)
-        {
-            InternalValue = e.Value.ToString();
-        }
-    }
-
     protected virtual async Task OnKeydownHandlerAsync(KeyboardEventArgs e)
     {
-        if (e is null || Multiple || Items is null)
+        if (e is null || Multiple)
         {
             return;
         }
 
+        string id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
-        TOption? item = default;
+        FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
 
-        // Get the previous and next options based on selected option
-        // Element at 0:  Previous, 1: Current, 2: Next
-        List<TOption?>? sandwichedItems = FindPrevAndNextOptions().ToList();
-
-        switch (e.Key)
-        {
-            case "Home":
-                item = Items.FirstOrDefault();
-                break;
-            case "ArrowDown":
-            case "NumpadArrowDown":
-                item = sandwichedItems[2];
-                break;
-            case "ArrowUp":
-            case "NumpadArrowUp":
-                item = sandwichedItems[0];
-                break;
-            case "End":
-                item = Items.LastOrDefault();
-                break;
-            case "Enter":
-            case "Escape":
-            default:
-                break;
-        }
-
-        await OnSelectedItemChangedHandlerAsync(item);
-
-
+        await item.OnClickHandlerAsync();
     }
 
     /// <summary />
@@ -652,32 +558,19 @@ public abstract class ListComponentBase<TOption> : FluentComponentBase where TOp
 #pragma warning restore CS0618 // Type or member is obsolete
     }
 
-    private IEnumerable<TOption?> FindPrevAndNextOptions()
+    public async ValueTask DisposeAsync()
     {
-        if (Items is null)
-            yield break;
-
-        using (IEnumerator<TOption> iter = Items.GetEnumerator())
+        try
         {
-            TOption? previous = default;
-            while (iter.MoveNext())
+            if (Module is not null)
             {
-                if (iter.Current.Equals(SelectedOption))
-                {
-                    yield return previous;
-                    yield return iter.Current;
-                    if (iter.MoveNext())
-                        yield return iter.Current;
-                    else
-                        yield return default;
-                    yield break;
-                }
-                previous = iter.Current;
+                await Module.DisposeAsync();
             }
         }
-        // If we get here nothing has been found so return three default values
-        yield return default; // Previous
-        yield return default; // Current
-        yield return default; // Next
+        catch (JSDisconnectedException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }
