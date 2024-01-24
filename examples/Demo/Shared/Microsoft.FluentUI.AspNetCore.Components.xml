@@ -15,6 +15,12 @@
             Gets or sets the status message to be read by screen readers.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing

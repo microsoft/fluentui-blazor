@@ -5,10 +5,10 @@
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
-
+        <FluentKeyCode IncludeOnly="@(new[] { KeyCode.Shift })">
         <FluentAccessibilityStatus Message="@AccessibilityStatusMessage" />
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
-
+        
         <FluentTextField role="combobox"
                          @ref="@Element"
                          Id="@Id"
@@ -152,5 +152,6 @@
                 @MaximumSelectedOptionsMessage
             </FluentAnchoredRegion>
         }
+        </FluentKeyCode>
     </div>
 </CascadingValue>
