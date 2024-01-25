@@ -2,14 +2,12 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-<FluentKeyCode Anchor="@Id" OnKeyDown="@(e => Console.WriteLine(e.Key + " " + e.AltKey))" />
-
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
-        <FluentAccessibilityStatus Message="@AccessibilityStatusMessage" />
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
-        
+        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" />
+
         <FluentTextField role="combobox"
                          @ref="@Element"
                          Id="@Id"
@@ -24,7 +22,6 @@
                          Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
                          @oninput="@InputHandlerAsync"
-                         @onkeydown="@KeyDownHandlerAsync"
                          @onfocusout="@(e => { IsReachedMaxItems = false; })"
                          Style="@ComponentWidth">
             @* Selected Items *@

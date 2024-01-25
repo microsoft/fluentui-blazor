@@ -15,6 +15,17 @@
             Gets or sets the status message to be read by screen readers.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.DebugDisplay">
+            <summary>
+            In Debug mode, you can set this to true to display the status message on the page (on right, in yellow).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.Content">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.AriaHidden">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode">
             <summary>
             Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
@@ -4034,9 +4045,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.AccessibilityStatusMessage">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Placeholder">
             <summary>
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -4141,7 +4149,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnAfterRenderAsync(System.Boolean)">
