@@ -22,6 +22,11 @@
 
 @if (Opened)
 {
+    <style>
+        @($"#{Id} ~ fluent-anchored-region .fluent-datepicker-popup {{ padding: 10px; border-radius: calc(var(--control-corner-radius) * 1px); position: absolute; }}")
+        @($"#{Id} ~ fluent-anchored-region .fluent-datepicker-popup.bottom {{ top: calc((var(--design-unit) * 2) * 1px); }}")
+        @($"#{Id} ~ fluent-anchored-region .fluent-datepicker-popup.top {{ bottom: calc((var(--design-unit) * 2) * 1px); }}")
+    </style>
     <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
     <FluentAnchoredRegion Anchor="@Id"
                           HorizontalDefaultPosition="@HorizontalPosition.Right"
