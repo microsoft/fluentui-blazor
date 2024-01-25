@@ -61,7 +61,6 @@ function toggleGroupExpandedAsync(element, navlink, event) {
 }
 
 function handleExpanderKeyDownAsync(element, event) {
-    console.log(event.code);
     switch (event.code) {
         case "NumpadEnter":
         case "Enter":
