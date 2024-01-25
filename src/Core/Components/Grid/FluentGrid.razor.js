@@ -1,10 +1,10 @@
 ﻿function GetMediaQueries() {
     return [
-        { id: 'xs', items: document._fluentGrid.mediaXS, query: '(max-width: 599px)' },
-        { id: 'sm', items: document._fluentGrid.mediaSM, query: '(min-width: 600px) and (max-width: 959px)' },
-        { id: 'md', items: document._fluentGrid.mediaMD, query: '(min-width: 960px) and (max-width: 1279px)' },
-        { id: 'lg', items: document._fluentGrid.mediaLG, query: '(min-width: 1280px) and (max-width: 1919px)' },
-        { id: 'xl', items: document._fluentGrid.mediaXL, query: '(min-width: 1920px) and (max-width: 2559px)' },
+        { id: 'xs', items: document._fluentGrid.mediaXS, query: '(max-width: 599.98px)' },
+        { id: 'sm', items: document._fluentGrid.mediaSM, query: '(min-width: 600px) and (max-width: 959.98px)' },
+        { id: 'md', items: document._fluentGrid.mediaMD, query: '(min-width: 960px) and (max-width: 1279.98px)' },
+        { id: 'lg', items: document._fluentGrid.mediaLG, query: '(min-width: 1280px) and (max-width: 1919.98px)' },
+        { id: 'xl', items: document._fluentGrid.mediaXL, query: '(min-width: 1920px) and (max-width: 2559.98px)' },
         { id: 'xxl', items: document._fluentGrid.mediaXXL, query: '(min-width: 2560px)' },
     ];
 }
