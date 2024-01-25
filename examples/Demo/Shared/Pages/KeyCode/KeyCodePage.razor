@@ -1,0 +1,27 @@
+@page "/KeyCode"
+
+@using FluentUI.Demo.Shared.Pages.KeyCode.Examples
+
+<h1>KeyCode</h1>
+
+<p>
+    In some circumstances, Blazor does not retrieve all the <b>KeyDown</b> information received from JavaScript.
+    <b>FluentKeyCode</b> retrieves this data, in a similar way to the <a href="https://www.npmjs.com/package/keycode" target="_blank">JavaScript KeyCode library</a>
+    and to <a href="https://www.toptal.com/developers/keycode">this demo sample</a>.
+</p>
+
+<p>The <b>FluentKeyCode</b> component extends the functionality of <b>OnKeyDown</b> by adding the <b>KeyCode</b> property when the <b>OnKeyDown</b> event is raised.</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(KeyCodeExample)">
+    <Description>
+
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentKeyCode)" />
+
+<ApiDocumentation Component="typeof(FluentKeyCodeEventArgs)" />

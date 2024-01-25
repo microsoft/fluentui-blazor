@@ -2,10 +2,11 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
+<FluentKeyCode Anchor="@Id" OnKeyDown="@(e => Console.WriteLine(e.Key + " " + e.AltKey))" />
+
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
-        <FluentKeyCode IncludeOnly="@(new[] { KeyCode.Shift })">
         <FluentAccessibilityStatus Message="@AccessibilityStatusMessage" />
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
         
@@ -152,6 +153,5 @@
                 @MaximumSelectedOptionsMessage
             </FluentAnchoredRegion>
         }
-        </FluentKeyCode>
     </div>
 </CascadingValue>

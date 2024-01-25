@@ -2,24 +2,20 @@
     const element = document.getElementById(id);
     if (!!element) {
         element.addEventListener('keydown', function (e) {
-            const keyCode = event.which || event.keyCode || event.charCode;
+            const keyCode = e.which || e.keyCode || e.charCode;
 
-            console.log(keyCode);
+            if (!!dotNetHelper && !!dotNetHelper.invokeMethodAsync) {
 
-            // Exclude
-            if (excludeCodes.length > 0 && excludeCodes.includes(keyCode)) {
-                return;
-            }
+                // Exclude
+                if (excludeCodes.length > 0 && excludeCodes.includes(keyCode)) {
+                    return;
+                }
 
-            // Include
-            if (onlyCodes.length > 0 && onlyCodes.includes(keyCode)) {
-                dotNetHelper.invokeMethodAsync("OnKeyDownRaised", keyCode);
-                return;
-            }
-
-            if (onlyCodes.length == 0) {
-                dotNetHelper.invokeMethodAsync("OnKeyDownRaised", keyCode);
-                return;
+                // All or Include only
+                if (onlyCodes.length == 0 || (onlyCodes.length > 0 && onlyCodes.includes(keyCode))) {
+                    dotNetHelper.invokeMethodAsync("OnKeyDownRaised", keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location);
+                    return;
+                }
             }
         })
     }

@@ -1,18 +1,17 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentKeyCode : FluentComponentBase
+/// <summary>
+/// Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
+/// The anchor must refer to the ID of an element (or sub-element) accepting the focus.
+/// </summary>
+public partial class FluentKeyCode
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accessibility/FluentKeyCode.razor.js";
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
-
-    public FluentKeyCode()
-    {
-        Id = Identifier.NewId();
-    }
+    private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 
     /// <summary />
     [Inject]
@@ -21,15 +20,38 @@ public partial class FluentKeyCode : FluentComponentBase
     /// <summary />
     private IJSObjectReference? Module { get; set; }
 
+    /// <summary>
+    /// Required. Gets or sets the control identifier associated with the KeyCode engine.
+    /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [EditorRequired]
+    public string Anchor { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Event triggered when a KeyDown event is raised.
+    /// </summary>
     [Parameter]
-    public KeyCode[] IncludeOnly { get; set; } = Array.Empty<KeyCode>();
+    public EventCallback<FluentKeyCodeEventArgs> OnKeyDown { get; set; }
 
+    /// <summary>
+    /// Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
+    /// </summary>
     [Parameter]
-    public KeyCode[] Exclude { get; set; } = Array.Empty<KeyCode>();
+    public bool IgnoreModifier { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets the list of <see cref="KeyCode"/> to accept, and only this list, when evaluating the key code.
+    /// </summary>
+    [Parameter]
+    public KeyCode[] Only { get; set; } = Array.Empty<KeyCode>();
+
+    /// <summary>
+    /// Gets or sets the list of <see cref="KeyCode"/> to ignore when evaluating the key code.
+    /// </summary>
+    [Parameter]
+    public KeyCode[] Ignore { get; set; } = Array.Empty<KeyCode>();
+
+    /// <summary />
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -37,14 +59,40 @@ public partial class FluentKeyCode : FluentComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            await Module.InvokeVoidAsync("RegisterKeyCode", Id, IncludeOnly, Exclude, _dotNetHelper);
+            await Module.InvokeVoidAsync("RegisterKeyCode", Anchor, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, _dotNetHelper);
         }
     }
 
+    /// <summary>
+    /// Internal method.
+    /// </summary>
+    /// <param name="keyCode"></param>
+    /// <param name="value"></param>
+    /// <param name="ctrlKey"></param>
+    /// <param name="shiftKey"></param>
+    /// <param name="altKey"></param>
+    /// <param name="metaKey"></param>
+    /// <param name="location"></param>
+    /// <returns></returns>
     [JSInvokable]
-    public async Task OnKeyDownRaised(int keyCode)
-    {
-        Console.WriteLine(keyCode);
+    public Task OnKeyDownRaised(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location)
+    {        
+        if (OnKeyDown.HasDelegate)
+        {
+            return OnKeyDown.InvokeAsync(new FluentKeyCodeEventArgs
+            {
+                Location = Enum.IsDefined(typeof(KeyLocation), location) ? (KeyLocation)location : KeyLocation.Unknown,
+                Key = Enum.IsDefined(typeof(KeyCode), keyCode) ? (KeyCode)keyCode : KeyCode.Unknown,
+                KeyCode = keyCode,
+                Value = value,
+                CtrlKey = ctrlKey,
+                ShiftKey = shiftKey,
+                AltKey = altKey,
+                MetaKey = metaKey
+            });
+        }
+
+        return Task.CompletedTask;
     }
 }
 
