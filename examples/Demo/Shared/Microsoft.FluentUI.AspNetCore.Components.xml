@@ -5561,6 +5561,12 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.SetProperties(System.Nullable{System.Boolean},System.String)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Dispose">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Dispose(System.Boolean)">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.OverflowItem">
             <summary />
         </member>
