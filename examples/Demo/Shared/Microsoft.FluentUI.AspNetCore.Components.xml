@@ -26,6 +26,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.AriaHidden">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.Style">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode">
             <summary>
             Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.

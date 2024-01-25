@@ -270,6 +270,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 SelectedOptions != null && SelectedOptions.Any())
             {
                 await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
+                IsReachedMaxItems = false;
             }
         }
 
