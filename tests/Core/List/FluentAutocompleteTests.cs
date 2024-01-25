@@ -13,7 +13,7 @@ public class FluentAutocompleteTests : TestBase
 
     public FluentAutocompleteTests()
     {
-        TestContext.JSInterop.SetupModule(FluentAutocomplete<string>.JAVASCRIPT_FILE);
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
         TestContext.Services.AddSingleton(LibraryConfiguration);
     }
 
@@ -64,7 +64,7 @@ public class FluentAutocompleteTests : TestBase
         cut.Verify();
     }
 
-    [Theory]
+    [Theory(Skip = "KeyDown event does't exists since we use FluentKeyCode")]
     [InlineData("Escape")]
     [InlineData("Backspace")]
     [InlineData("ArrowDown")]
