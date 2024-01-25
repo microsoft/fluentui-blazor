@@ -64,13 +64,22 @@ public class FluentAutocompleteTests : TestBase
         cut.Verify();
     }
 
-    [Theory(Skip = "KeyDown event does't exists since we use FluentKeyCode")]
+    [Theory()]
     [InlineData("Escape")]
     [InlineData("Backspace")]
     [InlineData("ArrowDown")]
     [InlineData("ArrowUp")]
     public void FluentAutocomplete_Keyboard(string keyCode)
     {
+        KeyCode code = keyCode switch
+        {
+            "Escape" => KeyCode.Escape,
+            "Backspace" => KeyCode.Backspace,
+            "ArrowDown" => KeyCode.Down,
+            "ArrowUp" => KeyCode.Up,
+            _ => KeyCode.Unknown
+        };
+
         // Arrange
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
@@ -82,7 +91,7 @@ public class FluentAutocompleteTests : TestBase
         // Act
         var input = cut.Find("fluent-text-field");
         input.Click();
-        input.KeyDown(new KeyboardEventArgs() { Code = keyCode });
+        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaised((int)code, "", false, false, false, false, 0);
 
         // Assert
         cut.Verify(suffix: keyCode);

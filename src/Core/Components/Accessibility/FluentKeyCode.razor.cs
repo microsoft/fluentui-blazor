@@ -75,11 +75,11 @@ public partial class FluentKeyCode
     /// <param name="location"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task OnKeyDownRaised(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location)
+    public async Task OnKeyDownRaised(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location)
     {        
         if (OnKeyDown.HasDelegate)
         {
-            return OnKeyDown.InvokeAsync(new FluentKeyCodeEventArgs
+            await OnKeyDown.InvokeAsync(new FluentKeyCodeEventArgs
             {
                 Location = Enum.IsDefined(typeof(KeyLocation), location) ? (KeyLocation)location : KeyLocation.Unknown,
                 Key = Enum.IsDefined(typeof(KeyCode), keyCode) ? (KeyCode)keyCode : KeyCode.Unknown,
@@ -91,8 +91,6 @@ public partial class FluentKeyCode
                 MetaKey = metaKey
             });
         }
-
-        return Task.CompletedTask;
     }
 }
 
