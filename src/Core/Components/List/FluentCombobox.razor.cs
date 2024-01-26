@@ -52,7 +52,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     {
         if (e.Value is not null && Items is not null)
         {
-            string? value = e.Value.ToString();
+            var value = e.Value.ToString();
             TOption? item = Items.FirstOrDefault(i => GetOptionText(i) == value);
 
             if (item is null)

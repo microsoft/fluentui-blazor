@@ -13,7 +13,7 @@ public class FluentTabsTests : TestBase
     public void FluentTabs_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         Orientation orientation = default!;
         Action<FluentTab> onTabSelect = _ => { };
         Action<FluentTab> onTabClose = _ => { };

@@ -33,7 +33,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Generators
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
 
-                string PascalCase = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
+                var PascalCase = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
                 sb.AppendLine($"\tpublic const string {PascalCase} = \"{info.Name}\";");
             }
             sb.AppendLine("}");
@@ -47,8 +47,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Generators
             {
                 context.CancellationToken.ThrowIfCancellationRequested();
 
-                string name = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
-                string type = info.GetValue(null).ToString();
+                var name = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
+                var type = info.GetValue(null).ToString();
 
                 sb.AppendLine("/// <summary>");
                 sb.AppendLine($"/// The {name} design token");

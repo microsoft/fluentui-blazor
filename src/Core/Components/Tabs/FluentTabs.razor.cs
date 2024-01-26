@@ -147,14 +147,14 @@ public partial class FluentTabs : FluentComponentBase
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
 
-            bool horizontal = Orientation == Orientation.Horizontal;
+            var horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }
 
     private async Task HandleOnTabChanged(TabChangeEventArgs args)
     {
-        string? tabId = args?.ActiveId;
+        var tabId = args?.ActiveId;
         if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
         {
             await OnTabChange.InvokeAsync(tab);
@@ -238,7 +238,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-        bool horizontal = Orientation == Orientation.Horizontal;
+        var horizontal = Orientation == Orientation.Horizontal;
         await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 

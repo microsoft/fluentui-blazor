@@ -65,7 +65,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
         {
             if (MaxMessageCount.HasValue)
             {
-                int maxMessages = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
+                var maxMessages = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
 
                 return NewestOnTop
                             ? AllMessagesForCategory.Reverse().TakeLast(maxMessages)

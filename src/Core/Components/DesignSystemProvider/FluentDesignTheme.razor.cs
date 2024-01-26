@@ -177,7 +177,7 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            string? dir = await Module.InvokeAsync<string?>("GetDirection");
+            var dir = await Module.InvokeAsync<string?>("GetDirection");
             if (!string.IsNullOrEmpty(dir))
             {
                 _direction = dir switch

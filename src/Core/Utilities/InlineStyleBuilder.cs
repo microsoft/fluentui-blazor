@@ -53,7 +53,7 @@ public readonly struct InlineStyleBuilder
     /// <returns>string</returns>
     public string? Build(bool newLineSeparator = true)
     {
-        string separator = newLineSeparator ? Environment.NewLine : " ";
+        var separator = newLineSeparator ? Environment.NewLine : " ";
 
         var styles = _styles.Select(item =>
         {

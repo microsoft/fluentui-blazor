@@ -18,7 +18,7 @@ public class FluentRadioGroupTests: TestBase
     public void FluentRadioGroup_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         Orientation? orientation = default!;
         
         var cut = TestContext.RenderComponent<FluentRadioGroup<bool>>(parameters => parameters

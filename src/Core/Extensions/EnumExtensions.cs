@@ -18,12 +18,12 @@ public static class EnumExtensions
         if (!typeof(TEnum).IsEnum)
             return null;
 
-        string? description = value.ToString();
+        var description = value.ToString();
 
         FieldInfo? fieldInfo = value.GetType().GetField(value.ToString() ?? "");
         if (fieldInfo != null)
         {
-            object[]? attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
+            var attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
             if (attributes?.Length > 0)
             {
                 description = ((DescriptionAttribute)attributes[0]).Description;

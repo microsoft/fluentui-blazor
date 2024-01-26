@@ -44,7 +44,7 @@ internal static class EmojiCompress
     /// <summary />
     private static void CopyTo(Stream src, Stream dest)
     {
-        byte[] bytes = new byte[4096];
+        var bytes = new byte[4096];
 
         int cnt;
 

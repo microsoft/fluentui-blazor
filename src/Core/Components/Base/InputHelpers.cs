@@ -9,7 +9,7 @@ internal static class InputHelpers<TValue>
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         TypeCode typeCode = Type.GetTypeCode(targetType);
-        string value = typeCode switch
+        var value = typeCode switch
         {
             TypeCode.Decimal => decimal.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Double => double.MaxValue.ToString(CultureInfo.InvariantCulture),
@@ -32,7 +32,7 @@ internal static class InputHelpers<TValue>
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         TypeCode typeCode = Type.GetTypeCode(targetType);
 
-        string value = typeCode switch
+        var value = typeCode switch
         {
 
             TypeCode.Decimal => decimal.MinValue.ToString(CultureInfo.InvariantCulture),
@@ -54,8 +54,8 @@ internal static class InputHelpers<TValue>
     internal static void ValidateIntegerInputs(string? max, string? min)
     {
 
-        int maxValue = Convert.ToInt32(max);
-        int minValue = Convert.ToInt32(min);
+        var maxValue = Convert.ToInt32(max);
+        var minValue = Convert.ToInt32(min);
 
         if (maxValue < minValue)
         {
@@ -67,8 +67,8 @@ internal static class InputHelpers<TValue>
 
     internal static void ValidateLongInputs(string? max, string? min)
     {
-        long maxValue = Convert.ToInt64(max);
-        long minValue = Convert.ToInt64(min);
+        var maxValue = Convert.ToInt64(max);
+        var minValue = Convert.ToInt64(min);
 
         if (maxValue < minValue)
         {
@@ -88,8 +88,8 @@ internal static class InputHelpers<TValue>
 
     internal static void ValidateShortInputs(string? max, string? min)
     {
-        short maxValue = Convert.ToInt16(max);
-        short minValue = Convert.ToInt16(min);
+        var maxValue = Convert.ToInt16(max);
+        var minValue = Convert.ToInt16(min);
 
         if (maxValue < minValue)
         {
@@ -99,8 +99,8 @@ internal static class InputHelpers<TValue>
 
     internal static void ValidateDoubleInputs(string? max, string? min)
     {
-        double maxValue = Convert.ToDouble(max, CultureInfo.InvariantCulture);
-        double minValue = Convert.ToDouble(min, CultureInfo.InvariantCulture);
+        var maxValue = Convert.ToDouble(max, CultureInfo.InvariantCulture);
+        var minValue = Convert.ToDouble(min, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
@@ -110,8 +110,8 @@ internal static class InputHelpers<TValue>
 
     internal static void ValidateFloatInputs(string? max, string? min)
     {
-        float maxValue = Convert.ToSingle(max, CultureInfo.InvariantCulture);
-        float minValue = Convert.ToSingle(min, CultureInfo.InvariantCulture);
+        var maxValue = Convert.ToSingle(max, CultureInfo.InvariantCulture);
+        var minValue = Convert.ToSingle(min, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {
@@ -121,8 +121,8 @@ internal static class InputHelpers<TValue>
 
     internal static void ValidateDecimalInputs(string? max, string? min)
     {
-        decimal maxValue = Convert.ToDecimal(max, CultureInfo.InvariantCulture);
-        decimal minValue = Convert.ToDecimal(min, CultureInfo.InvariantCulture);
+        var maxValue = Convert.ToDecimal(max, CultureInfo.InvariantCulture);
+        var minValue = Convert.ToDecimal(min, CultureInfo.InvariantCulture);
 
         if (maxValue < minValue)
         {

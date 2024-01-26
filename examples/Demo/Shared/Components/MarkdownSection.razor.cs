@@ -85,7 +85,7 @@ public partial class MarkdownSection : FluentComponentBase
         if (!string.IsNullOrWhiteSpace(value))
         {
             // Convert markdown string to HTML
-            string? html = Markdown.ToHtml(value, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
+            var html = Markdown.ToHtml(value, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
 
             // Return sanitized HTML as a MarkupString that Blazor can render
             return new MarkupString(html);

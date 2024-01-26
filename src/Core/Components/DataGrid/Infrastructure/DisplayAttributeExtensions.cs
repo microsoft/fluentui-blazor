@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 internal static class DisplayAttributeExtensions
@@ -19,7 +19,7 @@ internal static class DisplayAttributeExtensions
         if (propertyInfo == null)
             return null;
 
-        DisplayAttribute? displayAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+        var displayAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
         if (displayAttribute is not null)
             return displayAttribute.GetName();
         else

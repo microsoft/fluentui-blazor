@@ -105,7 +105,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
             // https://github.com/WICG/scroll-to-text-fragment/
 
             _targetId = Href[1..];
-            int index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
+            var index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
             if (index > 0)
             {
                 _targetId = _targetId[..index];

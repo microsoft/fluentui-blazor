@@ -80,7 +80,7 @@ public partial class TableOfContents : IAsyncDisposable
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
             "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+            var mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
                 _expanded = false;
@@ -154,7 +154,7 @@ public partial class TableOfContents : IAsyncDisposable
         {
             return new RenderFragment(builder =>
             {
-                int i = 0;
+                var i = 0;
 
                 builder.OpenElement(i++, "ul");
                 foreach (Anchor item in items)

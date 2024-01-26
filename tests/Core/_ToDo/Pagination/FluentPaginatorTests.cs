@@ -8,7 +8,7 @@ public class FluentPaginatorTests : TestBase
     public void FluentPaginator_Default()
     {
         //Arrange
-        string summaryTemplate = "<b>render me</b>";
+        var summaryTemplate = "<b>render me</b>";
         Action<System.Int32> currentPageIndexChanged = _ => { };
         PaginationState state = default!;
         var cut = TestContext.RenderComponent<FluentPaginator>(parameters => parameters

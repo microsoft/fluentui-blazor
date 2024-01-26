@@ -54,7 +54,7 @@ public partial class SiteSettingsPanel
 
     private async Task ResetSite()
     {
-        string? msg = "Site settings reset and cache cleared!";
+        var msg = "Site settings reset and cache cleared!";
         
         await CacheStorageAccessor.RemoveAllAsync();
         _theme?.ClearLocalStorageAsync();

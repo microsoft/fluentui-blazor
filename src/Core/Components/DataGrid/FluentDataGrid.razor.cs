@@ -224,15 +224,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
        
         // Perform a re-query only if the data source or something else has changed
-        object? _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
-        bool dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
+        var _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
+        var dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
         if (dataSourceHasChanged)
         {
             _lastAssignedItemsOrProvider = _newItemsOrItemsProvider;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
-        bool mustRefreshData = dataSourceHasChanged
+        var mustRefreshData = dataSourceHasChanged
             || (Pagination?.GetHashCode() != _lastRefreshedPaginationStateHash);
 
         // We don't want to trigger the first data load until we've collected the initial set of columns,
@@ -353,7 +353,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
             _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
-            int startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
+            var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
             GridItemsProviderResult<TGridItem> result = await ResolveItemsRequestAsync(request);
@@ -386,8 +386,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         // Combine the query parameters from Virtualize with the ones from PaginationState
-        int startIndex = request.StartIndex;
-        int count = request.Count;
+        var startIndex = request.StartIndex;
+        var count = request.Count;
         if (Pagination is not null)
         {
             startIndex += Pagination.CurrentPageIndex * Pagination.ItemsPerPage;
@@ -430,7 +430,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         else if (Items is not null)
         {
-            int totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
+            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
             _ariaBodyRowCount = totalItemCount;
             IQueryable<TGridItem>? result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
@@ -458,7 +458,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-        string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
+        var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
             return null;
         else
@@ -506,7 +506,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private async Task HandleOnRowFocus(DataGridRowFocusEventArgs args)
     {
-        string? rowId = args.RowId;
+        var rowId = args.RowId;
         if (_internalGridContext.Rows.TryGetValue(rowId!, out FluentDataGridRow<TGridItem>? row))
         {
             await OnRowFocus.InvokeAsync(row);

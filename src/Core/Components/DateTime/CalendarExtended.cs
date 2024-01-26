@@ -42,7 +42,7 @@ internal struct CalendarExtended
         }
 
         var monthFirst = GetFirstDayToDisplay(monthOffset);
-        bool maxLimit = monthFirst.Year == DateTime.MaxValue.Year && monthFirst.Month == DateTime.MaxValue.Month && weekNumber > 3;
+        var maxLimit = monthFirst.Year == DateTime.MaxValue.Year && monthFirst.Month == DateTime.MaxValue.Month && weekNumber > 3;
 
         if (!maxLimit)
         {
@@ -107,7 +107,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames() 
     {
-        for (int i = 0; i < 12; i++)
+        for (var i = 0; i < 12; i++)
         {
             yield return (i + 1, ToTitleCase(Culture.DateTimeFormat.AbbreviatedMonthNames[i]), ToTitleCase(Culture.DateTimeFormat.MonthNames[i]));
         }
@@ -119,13 +119,13 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(int Index, int Year)> GetYearsRange()
     {
-        int max = 12;
+        var max = 12;
         if (Date.Year + max > DateTime.MaxValue.Year)
         {
             max = DateTime.MaxValue.Year - Date.Year + 1;
         }
 
-        for (int i = 0; i < max; i++)
+        for (var i = 0; i < max; i++)
         {
             yield return (i, Date.Year + i);
         }
@@ -156,8 +156,8 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetYearsRangeLabel(int fromYear)
     {
-        int min = fromYear;
-        int max = fromYear + 11;
+        var min = fromYear;
+        var max = fromYear + 11;
 
         if (min < DateTime.MinValue.Year)
         {
@@ -188,13 +188,13 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(string Abbreviated, string Shorted, string Name)> GetDayNames()
     {
-        int firstDayOfWeek = (int)GetFirstDayOfWeek();
+        var firstDayOfWeek = (int)GetFirstDayOfWeek();
         var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
         var names = Culture.DateTimeFormat.DayNames;
         var shorted = Culture.DateTimeFormat.ShortestDayNames;
         var dayNames = new (string Abbreviated, string Shorted, string Name)[7];
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             dayNames[i].Name = ToTitleCase(names[i]);
             dayNames[i].Shorted = shorted[i];

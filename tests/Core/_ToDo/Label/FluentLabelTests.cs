@@ -8,7 +8,7 @@ public class FluentLabelTests : TestBase
     public void FluentLabel_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         Typography typo = default!;
         bool disabled = default!;
         HorizontalAlignment? alignment = default!;

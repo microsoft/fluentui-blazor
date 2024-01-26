@@ -13,7 +13,7 @@ public class FluentMenuTests : TestBase
     public void FluentMenu_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string anchor = default!;
         MouseButton trigger = default!;
         bool open = default!;

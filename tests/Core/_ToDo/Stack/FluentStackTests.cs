@@ -8,7 +8,7 @@ public class FluentStackTests : TestBase
     public void FluentStack_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         HorizontalAlignment horizontalAlignment = default!;
         VerticalAlignment verticalAlignment = default!;
         Orientation orientation = default!;

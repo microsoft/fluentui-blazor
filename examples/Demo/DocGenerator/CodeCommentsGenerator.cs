@@ -33,7 +33,7 @@ namespace FluentUI.Demo.Generators
                     return;
                 }
                 SourceText f = file.GetText(context.CancellationToken);
-                XDocument xml = XDocument.Parse(f.ToString(), LoadOptions.None);
+                var xml = XDocument.Parse(f.ToString(), LoadOptions.None);
 
                 members.AddRange(xml.Descendants("member"));
             }
@@ -53,12 +53,12 @@ namespace FluentUI.Demo.Generators
             sb.AppendLine("\t\tDictionary<string, string> summarydata = new Dictionary<string, string>() {");
             foreach (var m in members)
             {
-                string paramName = CleanupParamName(m.Attribute("name").Value.ToString());
-                string summary = CleanupSummary(m.Descendants().First().ToString());
+                var paramName = CleanupParamName(m.Attribute("name").Value.ToString());
+                var summary = CleanupSummary(m.Descendants().First().ToString());
 
                 sb.AppendLine("\t\t\t[\"" + paramName + "\"] = \"" + summary + "\", ");
             }
-            int lastComma = sb.ToString().LastIndexOf(',');
+            var lastComma = sb.ToString().LastIndexOf(',');
 
             sb.Remove(lastComma, 1);
             sb.AppendLine("\t\t};");

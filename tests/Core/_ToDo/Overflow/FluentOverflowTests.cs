@@ -14,7 +14,7 @@ public class FluentOverflowTests : TestBase
     public void FluentOverflow_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         RenderFragment<FluentOverflow> overflowTemplate = default!;
         RenderFragment<FluentOverflow> moreButtonTemplate = default!;
         Orientation orientation = default!;

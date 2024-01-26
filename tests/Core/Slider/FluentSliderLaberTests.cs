@@ -14,7 +14,7 @@ public class FluentSliderLabelTests : TestBase
     public void FluentSliderLaber_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         int position = default!;
         bool? hideMark = default!;
         bool? disabled = default!;

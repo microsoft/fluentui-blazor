@@ -52,10 +52,10 @@ public partial class PreviewCard
         if (Icon != null)
         {
             // Icons.[IconVariant].[IconSize].[IconName]
-            string value = $"Value=\"@(new Icons.{FullName}())\"";
-            string color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
+            var value = $"Value=\"@(new Icons.{FullName}())\"";
+            var color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
 
-            string code = $"<FluentIcon {value}{color} />";
+            var code = $"<FluentIcon {value}{color} />";
 
             JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             var error = await JSModule.InvokeAsync<string>("copyToClipboard", code);
@@ -73,9 +73,9 @@ public partial class PreviewCard
         if (Emoji != null)
         {
             // Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]
-            string value = $"Value=\"@(new Emojis.{FullName}())\"";
+            var value = $"Value=\"@(new Emojis.{FullName}())\"";
 
-            string code = $"<FluentEmoji {value} />";
+            var code = $"<FluentEmoji {value} />";
 
             JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             var error = await JSModule.InvokeAsync<string>("copyToClipboard", code);

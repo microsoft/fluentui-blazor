@@ -154,7 +154,7 @@ public static class FluentAssert
 
     private static string NameWithoutExtension(this FileInfo file)
     {
-        int nameLength = (int)file.Name.Length - file.Extension.Length;
+        var nameLength = (int)file.Name.Length - file.Extension.Length;
 
         if (nameLength > 0)
         {
@@ -176,7 +176,7 @@ public static class FluentAssert
 
     public static string ReplaceAttribute(this string value, string attribute, string? newValue = "")
     {
-        string newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
+        var newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
         value = Regex.Replace(value, $" {attribute}='[\\w-]+'", newAttributeValue, RegexOptions.IgnoreCase);
         value = Regex.Replace(value, $" {attribute}=\"[\\w-]+\"", newAttributeValue, RegexOptions.IgnoreCase);
         return value;

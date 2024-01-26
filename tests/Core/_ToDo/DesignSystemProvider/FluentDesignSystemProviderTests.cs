@@ -8,7 +8,7 @@ public class FluentDesignSystemProviderTests : TestBase
     public void FluentDesignSystemProvider_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool? noPaint = default!;
         string fillColor = default!;
         string accentBaseColor = default!;

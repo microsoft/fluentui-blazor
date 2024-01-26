@@ -27,7 +27,7 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
-        bool isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out string? validationErrorMessage);
+        var isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out var validationErrorMessage);
 
         if (isValid)
         {

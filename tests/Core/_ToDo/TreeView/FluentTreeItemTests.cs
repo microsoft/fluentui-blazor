@@ -8,7 +8,7 @@ public class FluentTreeItemTests : TestBase
     public void FluentTreeItem_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string text = default!;
         bool expanded = default!;
         Action<System.Boolean> expandedChanged = _ => { };

@@ -118,9 +118,9 @@ public partial class DemoSection : ComponentBase
 
         try
         {
-            foreach (string source in _allFiles)
+            foreach (var source in _allFiles)
             {
-                string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
+                var result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
                 _tabPanelsContent.Add(source, result ?? string.Empty);
             }
         }
@@ -133,7 +133,7 @@ public partial class DemoSection : ComponentBase
     private IEnumerable<string> GetCollocatedFiles()
     {
         yield return $"{Component.Name}.razor";
-        foreach (string ext in CollocatedFiles ?? Enumerable.Empty<string>())
+        foreach (var ext in CollocatedFiles ?? Enumerable.Empty<string>())
         {
             yield return $"{Component.Name}.razor.{ext}";
         }
@@ -141,7 +141,7 @@ public partial class DemoSection : ComponentBase
 
     private IEnumerable<string> GetAdditionalFiles()
     {
-        foreach (string name in AdditionalFiles ?? Enumerable.Empty<string>())
+        foreach (var name in AdditionalFiles ?? Enumerable.Empty<string>())
         {
             yield return name;
         }

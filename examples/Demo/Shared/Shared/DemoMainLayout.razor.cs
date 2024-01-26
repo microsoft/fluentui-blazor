@@ -29,8 +29,8 @@ public partial class DemoMainLayout
         var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>();
         if (versionAttribute != null)
         {
-            string version = versionAttribute.InformationalVersion;
-            int plusIndex = version.IndexOf('+');
+            var version = versionAttribute.InformationalVersion;
+            var plusIndex = version.IndexOf('+');
             if (plusIndex >= 0 && plusIndex + 9 < version.Length)
             {
                 _version = version[..(plusIndex + 9)];

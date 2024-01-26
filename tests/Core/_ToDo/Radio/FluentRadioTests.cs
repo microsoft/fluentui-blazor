@@ -12,8 +12,8 @@ public class FluentRadioTests: TestBase
     public void FluentRadio_Default()
     {
         //Arrange
-        string labelTemplate = "<b>render me</b>";
-        string childContent = "<b>render me</b>";
+        var labelTemplate = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool readOnly = default!;
         string label = default!;
         string ariaLabel = default!;

@@ -8,9 +8,9 @@ public class FluentPopoverTests : TestBase
     public void FluentPopover_Default()
     {
         //Arrange
-        string header = "<b>render me</b>";
-        string body = "<b>render me</b>";
-        string footer = "<b>render me</b>";
+        var header = "<b>render me</b>";
+        var body = "<b>render me</b>";
+        var footer = "<b>render me</b>";
         string anchorId = default!;
         HorizontalPosition? horizontalPosition = default!;
         bool open = default!;

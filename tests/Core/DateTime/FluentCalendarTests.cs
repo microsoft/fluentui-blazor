@@ -141,7 +141,7 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         var firstDate = System.DateTime.Parse("2022-01-30");
 
-        for (int i = 0; i < allDays.Count; i++)
+        for (var i = 0; i < allDays.Count; i++)
         {
             var expectedDay = firstDate.AddDays(i).Day;
             var actualDay = Convert.ToInt32(allDays[i].InnerHtml);

@@ -198,7 +198,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
     {
         FluentNavMenuItemBase? menuItem = null;
 
-        string localPath = new Uri(NavigationManager.Uri).LocalPath;
+        var localPath = new Uri(NavigationManager.Uri).LocalPath;
         if (string.IsNullOrEmpty(localPath))
             localPath = "/";
 
@@ -287,7 +287,7 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
         // tree item. This prevents the user from selecting an item with no Href or custom action.
         if (treeItem?.Selected == true && _allItems.TryGetValue(treeItem.Id!, out _))
         {
-            bool activated = await TryActivateMenuItemAsync(treeItem);
+            var activated = await TryActivateMenuItemAsync(treeItem);
             if (activated)
             {
                 _currentlySelectedTreeItem = treeItem;

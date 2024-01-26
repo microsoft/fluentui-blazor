@@ -60,7 +60,7 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
 
             if (result.Data is not null)
             {
-                SimplePerson? simplePerson = result.Data as SimplePerson;
+                var simplePerson = result.Data as SimplePerson;
                 await Task.Run(() => DemoLogger.WriteLine($"Panel closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age})"));
                 return;
             }

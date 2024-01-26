@@ -8,7 +8,7 @@ public class FluentLayoutTests : TestBase
     public void FluentLayout_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         var cut = TestContext.RenderComponent<FluentLayout>(parameters => parameters
             .AddChildContent(childContent)
         );

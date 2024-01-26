@@ -9,7 +9,7 @@ public class FluentPresenceBadgeTests : TestBase
     {
         //Arrange
         //Services.AddSingleton<GlobalState,/*Add implementation for GlobalState*/>();
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string title = default!;
         PresenceStatus? status = default!;
         string statusTitle = default!;

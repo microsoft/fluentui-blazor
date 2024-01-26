@@ -16,8 +16,8 @@ public class FluentDataGridTests : TestBase
     {
         //Arrange
         //Services.AddSingleton<IServiceProvider,/*Add implementation for IServiceProvider*/>();
-        string childContent = "<b>render me</b>";
-        string emptyContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
+        var emptyContent = "<b>render me</b>";
 
         bool virtualize = default!;
         float itemSize = default!;

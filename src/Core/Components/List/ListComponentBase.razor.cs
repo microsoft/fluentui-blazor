@@ -512,7 +512,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             return;
         }
 
-        string id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
+        var id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
         FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
 

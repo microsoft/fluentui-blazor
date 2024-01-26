@@ -48,7 +48,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
             if (_jsModule != null && _dotNetHelper != null)
             {
-                bool isHorizontal = Orientation == Orientation.Horizontal;
+                var isHorizontal = Orientation == Orientation.Horizontal;
                 InvokeAsync(async () => await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null));
             }
         }
@@ -104,7 +104,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         _dotNetHelper = DotNetObjectReference.Create(this);
 
-        bool isHorizontal = Orientation == Orientation.Horizontal;
+        var isHorizontal = Orientation == Orientation.Horizontal;
         await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null);
     }
 

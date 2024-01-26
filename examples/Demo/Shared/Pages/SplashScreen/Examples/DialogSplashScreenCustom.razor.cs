@@ -23,7 +23,7 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
             };
             _dialog = await DialogService.ShowSplashScreenAsync<CustomSplashScreen>(parameters);
 
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 await Task.Delay(1000);
                 parameters.Content.LoadingText = $"Filling the re-useable bottles... {i + 1}";

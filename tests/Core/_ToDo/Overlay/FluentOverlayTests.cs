@@ -8,7 +8,7 @@ public class FluentOverlayTests : TestBase
     public void FluentOverlay_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool visible = default!;
         Action<System.Boolean> visibleChanged = _ => { };
         Action<Microsoft.AspNetCore.Components.Web.MouseEventArgs> onClose = _ => { };

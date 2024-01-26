@@ -213,10 +213,10 @@ public partial class FluentInputFile : FluentComponentBase
 
         List<FluentInputFileEventArgs>? uploadedFiles = [];
         IReadOnlyList<IBrowserFile>? allFiles = e.GetMultipleFiles(MaximumFileCount);
-        List<UploadedFileDetails>? allFilesSummary = allFiles.Select(i => (new UploadedFileDetails(i.Name, i.Size, i.ContentType))).ToList();
-        long totalFileSizes = allFiles.Sum(i => i.Size);
-        long totalRead = 0L;
-        int fileNumber = 0;
+        var allFilesSummary = allFiles.Select(i => (new UploadedFileDetails(i.Name, i.Size, i.ContentType))).ToList();
+        var totalFileSizes = allFiles.Sum(i => i.Size);
+        var totalRead = 0L;
+        var fileNumber = 0;
 
         foreach (IBrowserFile file in allFiles)
         {
@@ -265,7 +265,7 @@ public partial class FluentInputFile : FluentComponentBase
                 case InputFileMode.SaveToTemporaryFolder:
 
                     // Save to temporary file
-                    string? tempFileName = Path.GetTempFileName();
+                    var tempFileName = Path.GetTempFileName();
                     fileDetails.LocalFile = new FileInfo(tempFileName);
 
                     // Create a local file and write all read buffers
@@ -285,8 +285,8 @@ public partial class FluentInputFile : FluentComponentBase
 
                 case InputFileMode.Stream:
 
-                    long fileSizePart1 = file.Size / 2;
-                    long fileSizePart2 = file.Size - fileSizePart1;
+                    var fileSizePart1 = file.Size / 2;
+                    var fileSizePart2 = file.Size - fileSizePart1;
 
                     // Get a reference to the current file Stream
                     fileDetails.Stream = file.OpenReadStream(MaximumFileSize);
@@ -339,8 +339,8 @@ public partial class FluentInputFile : FluentComponentBase
     private async Task ReadFileToBufferAndRaiseProgressEventAsync(IBrowserFile file, FluentInputFileEventArgs fileDetails, Func<byte[], int, Task> action)
     {
         using Stream readStream = file.OpenReadStream(MaximumFileSize);
-        int bytesRead = 0;
-        byte[]? buffer = new byte[BufferSize];
+        var bytesRead = 0;
+        var buffer = new byte[BufferSize];
 
         // Read file
         while ((bytesRead = await readStream.ReadAsync(buffer)) != 0)

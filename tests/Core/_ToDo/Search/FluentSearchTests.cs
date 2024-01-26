@@ -8,7 +8,7 @@ public class FluentSearchTests : TestBase
     public void FluentSearch_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string dataList = default!;
         int? maxlength = default!;
         int? minlength = default!;
