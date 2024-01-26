@@ -29,8 +29,6 @@ namespace FluentUI.Demo.Shared.Pages.Panel.Examples
             DialogResult result = await _dialog.Result;
             HandlePanel(result);
 
-
-
         }
 
         private async Task OpenPanelLeftAsync()

@@ -8,7 +8,6 @@ internal sealed class InternalDialogContext
 
     public FluentDialogProvider DialogContainer { get; }
 
-
     public InternalDialogContext(FluentDialogProvider container)
     {
         DialogContainer = container;

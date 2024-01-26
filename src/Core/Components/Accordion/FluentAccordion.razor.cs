@@ -26,7 +26,6 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
     /// </summary>

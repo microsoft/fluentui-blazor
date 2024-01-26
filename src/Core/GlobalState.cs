@@ -18,7 +18,6 @@ public class GlobalState
 
     public event Action? OnChange;
 
-
     public void SetDirection(LocalizationDirection dir)
     {
         Dir = dir;

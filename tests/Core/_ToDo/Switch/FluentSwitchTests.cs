@@ -23,8 +23,3 @@ public class FluentSwitchTests : TestBase
     }
 }
 
-
-
-
-
-

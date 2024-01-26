@@ -21,7 +21,6 @@ public partial class DemoSection : ComponentBase
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
 
-
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
@@ -66,7 +65,6 @@ public partial class DemoSection : ComponentBase
     /// </summary>
     [Parameter]
     public bool ShowDownloads { get; set; } = true;
-
 
     /// <summary>
     /// Hide the 'Example' tab

@@ -15,7 +15,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     private string _valueText = string.Empty;
 
-
     public new FluentTextField? Element { get; set; } = default!;
 
     /// <summary>
@@ -120,7 +119,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// </summary>
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
-
 
     /// <summary>
     /// Gets or sets the header content, placed at the top of the popup panel.

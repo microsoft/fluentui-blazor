@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
-
 // Remember to replace the namespace below with your own project's namespace..
 namespace FluentUI.Demo.Shared.Components;
 
@@ -15,7 +14,6 @@ public partial class MarkdownSection : FluentComponentBase
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
-
 
     /// <summary>
     /// Gets or sets the Markdown content 
@@ -40,7 +38,6 @@ public partial class MarkdownSection : FluentComponentBase
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
 
-
             if (OnContentConverted.HasDelegate)
             {
                 OnContentConverted.InvokeAsync();
@@ -51,7 +48,6 @@ public partial class MarkdownSection : FluentComponentBase
     }
 
     public MarkupString HtmlContent { get; private set; }
-
 
     protected override void OnInitialized()
     {

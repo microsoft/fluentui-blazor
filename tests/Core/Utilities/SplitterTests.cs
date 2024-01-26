@@ -3,7 +3,6 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-
 public class SplitterTests
 {
     [Fact]

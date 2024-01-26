@@ -8,7 +8,6 @@ public interface IToastContentComponent
 
 }
 
-
 public interface IToastContentComponent<TContent> : IToastContentComponent
 {
     TContent Content { get; set; }

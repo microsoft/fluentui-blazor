@@ -21,7 +21,6 @@ public partial class FluentNavGroup : FluentNavBase
        .AddStyle("margin", $"{Gap} 0", !string.IsNullOrEmpty(Gap))
        .Build();
 
-
     protected string? ButtonClassValue =>
         new CssBuilder("expand-collapse-button")
             .AddClass("rotate", Expanded)

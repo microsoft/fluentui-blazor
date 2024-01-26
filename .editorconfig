@@ -85,19 +85,22 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 # Field preferences
 dotnet_style_readonly_field = true:error
 
-### ***************************************
-### **** TODO: CONTINUE AFTER THIS LINE ***
-### ***************************************
-
 # Parameter preferences
-dotnet_code_quality_unused_parameters = all
+dotnet_code_quality_unused_parameters = all:warning
+dotnet_diagnostic.IDE0060.severity = warning
 
 # Suppression preferences
 dotnet_remove_unnecessary_suppression_exclusions = none
 
 # New line preferences
-dotnet_style_allow_multiple_blank_lines_experimental = true
-dotnet_style_allow_statement_immediately_after_block_experimental = true
+dotnet_style_allow_multiple_blank_lines_experimental = false:warning
+dotnet_diagnostic.IDE2000.severity = warning
+
+dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
+
+### ***************************************
+### **** TODO: CONTINUE AFTER THIS LINE ***
+### ***************************************
 
 
 # Expression-bodied members

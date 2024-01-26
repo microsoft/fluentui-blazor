@@ -78,7 +78,6 @@ public partial class FluentEmoji<Emoji> : FluentComponentBase
         }
     }
 
-
     /// <summary>
     /// Returns true if the emoji contains a SVG content.
     /// </summary>

@@ -109,7 +109,6 @@ public partial class FluentDesignTheme : ComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     public FluentDesignTheme()
     {
         Id = Identifier.NewId();

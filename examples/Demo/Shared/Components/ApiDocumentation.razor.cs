@@ -83,7 +83,6 @@ public partial class ApiDocumentation
             else
                 obj = Activator.CreateInstance(Component);
 
-
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
 
@@ -99,8 +98,6 @@ public partial class ApiDocumentation
                         if (propertyInfo != null)
                         {
                             var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
-
-
 
                             Type t = propertyInfo.PropertyType;
                             var isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));

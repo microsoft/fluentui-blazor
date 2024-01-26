@@ -224,7 +224,6 @@ public class MessageService : IMessageService, IDisposable
         return message;
     }
 
-
     /// <summary>
     /// Clear all messages (per section, if provided) from the message bar.
     /// </summary>

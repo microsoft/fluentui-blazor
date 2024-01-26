@@ -23,10 +23,8 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenCo
         </svg>
         """;
 
-
     [Parameter]
     public SplashScreenContent Content { get; set; } = default!;
-
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;

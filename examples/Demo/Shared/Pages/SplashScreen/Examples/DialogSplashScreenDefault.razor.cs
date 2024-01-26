@@ -28,7 +28,6 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
             await HandleDefaultSplash(result);
         }
 
-
         private void OpenSplashDefault()
         {
             DemoLogger.WriteLine($"Open default splashscreen for 4 seconds");

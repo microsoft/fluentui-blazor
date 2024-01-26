@@ -19,9 +19,3 @@ public class FluentFooterTests : TestBase
     }
 }
 
-
-
-
-
-
-

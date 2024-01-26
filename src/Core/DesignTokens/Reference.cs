@@ -16,7 +16,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens
             set => Set(value);
         }
 
-
         public void Set(T value)
         {
             _current = value;

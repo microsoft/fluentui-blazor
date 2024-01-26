@@ -12,7 +12,6 @@ public static class EnumExtensions
     public static string? ToAttributeValue<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, Enum
         => GetDescription(value, lowercase);
 
-
     public static string? GetDescription<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, IConvertible
     {
         if (!typeof(TEnum).IsEnum)

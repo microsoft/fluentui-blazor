@@ -129,7 +129,6 @@ public class FluentAutocompleteTests : TestBase
                 return $"<header>Please, select an item</header>";
             });
 
-
             // Add an Item template
             parameters.Add(p => p.OptionTemplate, context =>
             {

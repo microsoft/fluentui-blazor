@@ -6,7 +6,6 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-
 /// <summary>
 /// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.
 /// </summary>
@@ -16,7 +15,6 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
     private Expression<Func<TValue>>? _previousFieldAccessor;
     private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
-
 
     [CascadingParameter] private EditContext CurrentEditContext { get; set; } = default!;
 

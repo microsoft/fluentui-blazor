@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.JSInterop;
 using static Microsoft.FluentUI.AspNetCore.Components.Utilities.LinkerFlags;
 
-
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 internal static class LinkerFlags
@@ -51,7 +50,6 @@ public abstract class JSModule : IAsyncDisposable
 
     protected async ValueTask<T> InvokeAsync<[DynamicallyAccessedMembers(JsonSerialized)] T>(string identifier, params object[]? args)
         => await (await _moduleTask.Value).InvokeAsync<T>(identifier, args);
-
 
     // On disposal, we release the JSRuntime module
     public async ValueTask DisposeAsync()

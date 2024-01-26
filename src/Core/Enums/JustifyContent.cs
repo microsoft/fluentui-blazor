@@ -19,7 +19,6 @@ public enum JustifyContent
     [Description("center")]
     Center,
 
-
     /// <summary>
     /// Justify content flex-end.
     /// </summary>

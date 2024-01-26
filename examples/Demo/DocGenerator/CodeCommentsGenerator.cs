@@ -25,7 +25,6 @@ namespace FluentUI.Demo.Generators
         {
             List<XElement> members = [];
 
-
             foreach (AdditionalText file in files)
             {
                 if (context.CancellationToken.IsCancellationRequested)
@@ -125,7 +124,6 @@ namespace FluentUI.Demo.Generators
                         .Replace("`0", "<U>");
 
         }
-
 
     }
 }

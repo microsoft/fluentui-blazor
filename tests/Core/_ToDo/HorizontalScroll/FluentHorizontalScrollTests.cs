@@ -33,8 +33,3 @@ public class FluentHorizontalScrollTests : TestBase
     }
 }
 
-
-
-
-
-

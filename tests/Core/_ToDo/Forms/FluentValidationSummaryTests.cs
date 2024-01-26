@@ -18,8 +18,3 @@ public class FluentValidationSummaryTests : TestBase
     }
 }
 
-
-
-
-
-

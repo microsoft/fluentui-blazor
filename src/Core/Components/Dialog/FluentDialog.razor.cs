@@ -105,7 +105,6 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public DialogInstance Instance { get; set; } = default!;
 
-
     /// <summary>
     /// Used when not calling the <see cref="DialogService" /> to show a dialog.
     /// </summary>

@@ -41,8 +41,3 @@ public class FluentOverlayTests : TestBase
     }
 }
 
-
-
-
-
-

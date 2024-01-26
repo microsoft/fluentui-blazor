@@ -62,7 +62,6 @@ internal static class InputHelpers<TValue>
             throw new ArgumentException("Integer Max value is smaller then Min value.");
         }
 
-
     }
 
     internal static void ValidateLongInputs(string? max, string? min)

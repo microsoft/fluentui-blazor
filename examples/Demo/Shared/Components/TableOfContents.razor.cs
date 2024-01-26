@@ -73,7 +73,6 @@ public partial class TableOfContents : IAsyncDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

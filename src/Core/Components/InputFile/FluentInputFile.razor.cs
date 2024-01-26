@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -244,7 +243,6 @@ public partial class FluentInputFile : FluentComponentBase
             // Progress
             var title = string.Format(ResourceLoadingInProgress, fileNumber + 1, allFiles.Count, file.Name) ?? string.Empty;
             fileDetails.ProgressTitle = title;
-
 
             switch (Mode)
             {

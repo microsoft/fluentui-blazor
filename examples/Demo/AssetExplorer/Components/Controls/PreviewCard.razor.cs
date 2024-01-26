@@ -13,7 +13,6 @@ public partial class PreviewCard
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-
     [Inject]
     public IToastService ToastService { get; set; } = default!;
 

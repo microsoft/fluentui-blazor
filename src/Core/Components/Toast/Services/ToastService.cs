@@ -12,7 +12,6 @@ public class ToastService : IToastService
     public event Action<string, ToastParameters>? OnUpdate;
     public event Action<string>? OnClose;
 
-
     /// <summary>
     /// A event that will be invoked when clearing all toasts
     /// </summary>
@@ -176,7 +175,6 @@ public class ToastService : IToastService
     public void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (Icon Value, Color Color)? icon = null)
         => ShowConfirmationToast(BuildConfirmationData(ToastIntent.Custom, title, timeout, topAction, callback, icon));
 
-
     public void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters)
         => ShowToast(null, parameters, parameters.Content);
 
@@ -240,8 +238,6 @@ public class ToastService : IToastService
         parameters.Icon ??= GetIntentIcon(parameters.Intent);
         OnShow?.Invoke(component, parameters, content);
     }
-
-
 
     /// <summary>
     /// Updates a toast 

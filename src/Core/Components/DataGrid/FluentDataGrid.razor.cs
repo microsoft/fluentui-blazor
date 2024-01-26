@@ -135,7 +135,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
 
-
     /// <summary>
     /// Gets or sets a value indicating whether the grid is in a loading data state.
     /// </summary>

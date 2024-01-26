@@ -59,7 +59,6 @@ public class FluentNavMenuTests : TestBase
         cut.Verify();
     }
 
-
     [Fact]
     public void FluentNavMenu_CollapsibleCustomTitle()
     {

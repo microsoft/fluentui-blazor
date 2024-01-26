@@ -175,7 +175,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     [Parameter]
     public virtual string? Value { get; set; }
 
-
     /// <summary>
     /// Called whenever the selection changed.
     /// ⚠️ Only available when Multiple = false.
@@ -356,7 +355,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             }
         }
 
-
     }
 
     /// <summary />
@@ -534,7 +532,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         _selectedOptions = [];
         return true;
     }
-
 
     /// <summary />
     protected virtual void AddSelectedItem(TOption? item)

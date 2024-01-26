@@ -6,7 +6,6 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
-
 #nullable enable
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Generators

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -24,8 +23,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
-
-
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -134,7 +131,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
         await InvokeAsync(() => StateHasChanged());
     }
-
 
     internal void AddItem(FluentOverflowItem item)
     {

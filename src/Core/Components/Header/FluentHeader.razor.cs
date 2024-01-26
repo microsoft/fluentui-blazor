@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentHeader : FluentComponentBase

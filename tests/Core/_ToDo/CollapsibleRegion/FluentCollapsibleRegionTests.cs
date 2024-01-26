@@ -71,8 +71,3 @@ public class FluentCollapsibleRegionTests : TestBase
     }
 }
 
-
-
-
-
-

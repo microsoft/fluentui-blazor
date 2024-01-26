@@ -21,7 +21,6 @@ public class HttpBasedStaticAssetService : IStaticAssetService
 
         HttpRequestMessage? message = CreateMessage(assetUrl);
 
-
         if (useCache)
         {
             // Get the result from the cache

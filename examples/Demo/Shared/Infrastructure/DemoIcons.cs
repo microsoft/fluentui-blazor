@@ -13,4 +13,3 @@ namespace FluentUI.Demo.Shared
     }
 }
 
-

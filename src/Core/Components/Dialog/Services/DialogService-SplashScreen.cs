@@ -23,7 +23,6 @@ public partial class DialogService
         where T : IDialogContentComponent<SplashScreenContent>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
 
-
     /// <summary>
     /// Shows a splash screen of the given type with the given parameters.
     /// </summary>
@@ -87,7 +86,6 @@ public partial class DialogService
     public async Task<IDialogReference> ShowSplashScreenAsync<T>(DialogParameters<SplashScreenContent> parameters)
         where T : IDialogContentComponent<SplashScreenContent>
         => await ShowSplashScreenAsync(typeof(T), parameters);
-
 
     /// <summary>
     /// Shows a splash screen of the given type with the given parameters.

@@ -47,8 +47,3 @@ public class FluentTextAreaTests : TestBase
     }
 }
 
-
-
-
-
-

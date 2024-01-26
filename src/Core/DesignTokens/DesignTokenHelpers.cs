@@ -8,5 +8,4 @@ public static class DesignTokenHelpers
 
     public static Swatch ToSwatch(this string s) => new(s);
 
-
 }

@@ -184,7 +184,6 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
             if (BackgroundColor == AspNetCore.Components.Color.Error && GlobalState.Luminance == StandardLuminance.DarkMode)
                 return AspNetCore.Components.Color.FillInverse;
 
-
             return Color;
         }
 

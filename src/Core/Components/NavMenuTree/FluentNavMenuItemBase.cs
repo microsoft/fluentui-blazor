@@ -192,5 +192,4 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         return true;
     }
 
-
 }

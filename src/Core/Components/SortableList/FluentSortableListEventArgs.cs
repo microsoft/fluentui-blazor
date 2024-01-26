@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-
 public class FluentSortableListEventArgs
 {
     public FluentSortableListEventArgs()

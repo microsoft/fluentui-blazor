@@ -1,7 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 /// <summary>

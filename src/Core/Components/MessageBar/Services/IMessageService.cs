@@ -24,7 +24,6 @@ public interface IMessageService : IDisposable
     /// <summary />
     Message ShowMessageBar(string message, MessageIntent intent, string section);
 
-
     /// <summary />
     Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);
 

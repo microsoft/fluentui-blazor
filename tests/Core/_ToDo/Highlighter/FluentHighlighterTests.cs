@@ -27,8 +27,3 @@ public class FluentHighlighterTests : TestBase
     }
 }
 
-
-
-
-
-

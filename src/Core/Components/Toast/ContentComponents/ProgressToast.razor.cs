@@ -5,10 +5,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class ProgressToast : IToastContentComponent<ProgressToastContent>
 {
 
-
     [Parameter]
     public ProgressToastContent Content { get; set; } = default!;
-
 
     [CascadingParameter]
     private FluentToast Toast { get; set; } = default!;

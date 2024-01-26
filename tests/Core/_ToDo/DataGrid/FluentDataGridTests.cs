@@ -27,7 +27,6 @@ public class FluentDataGridTests : TestBase
         GenerateHeaderOption? generateHeader = default!;
         string gridTemplateColumns = default!;
 
-
         var cut = TestContext.RenderComponent<FluentDataGrid<Customer>>(parameters => parameters
             .Add(p => p.Items, GetCustomers().AsQueryable())
 
@@ -47,7 +46,6 @@ public class FluentDataGridTests : TestBase
         //Assert
         cut.Verify();
     }
-
 
     // Sample data...
     private IEnumerable<Customer> GetCustomers()

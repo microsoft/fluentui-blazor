@@ -39,13 +39,11 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     [Parameter]
     public bool NewestOnTop { get; set; } = true;
 
-
     /// <summary>
     /// Clear all (shown and stored) messages when the user navigates to a new page.
     /// </summary>
     [Parameter]
     public bool ClearAfterNavigation { get; set; } = false;
-
 
     /// <summary />
     protected IEnumerable<Message> AllMessagesForCategory

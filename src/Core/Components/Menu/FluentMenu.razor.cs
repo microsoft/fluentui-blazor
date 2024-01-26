@@ -13,7 +13,6 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IJSObjectReference _jsModule = default!;
 
-
     /// <summary />
     internal string? ClassValue => new CssBuilder(Class)
         .Build();

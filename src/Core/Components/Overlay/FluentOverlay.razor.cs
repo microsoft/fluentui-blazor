@@ -94,7 +94,6 @@ public partial class FluentOverlay
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     protected override void OnParametersSet()
     {
         if (!Transparent && Opacity == 0)

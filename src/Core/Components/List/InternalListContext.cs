@@ -35,7 +35,6 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
         options.Remove(option);
     }
 
-
     /// <summary>
     /// Gets the event callback to be invoked when the selected value is changed.
     /// </summary>
@@ -46,6 +45,4 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     /// </summary>
     public EventCallback<TOption?> SelectedOptionChanged { get; set; }
 }
-
-
 

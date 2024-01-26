@@ -20,8 +20,3 @@ public class FluentToastTests : TestBase
     }
 }
 
-
-
-
-
-

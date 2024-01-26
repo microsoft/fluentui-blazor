@@ -12,7 +12,6 @@ public class ComponentParameters : IComponentParameters
         _parameters = [];
     }
 
-
     public object this[string parameterName]
     {
         get => Get<object>(parameterName);

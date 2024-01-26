@@ -17,7 +17,6 @@ public partial class FluentPersona : FluentComponentBase
     protected virtual string? StyleValue =>
         new StyleBuilder(Style).Build();
 
-
     /// <summary>
     /// Gets or sets the initials to display if no image is provided.
     /// By default, the first letters of the <see cref="Name"/> is used.

@@ -135,7 +135,6 @@ public class FluentDatePickerTests : TestBase
     public void FluentCalendar_DisabledDate()
     {
 
-
         // Arrange
         using var ctx = new TestContext();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;

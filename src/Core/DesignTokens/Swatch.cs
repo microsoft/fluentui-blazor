@@ -9,7 +9,6 @@ public class Swatch
     public float B { get; set; }
     public float RelativeLuminance { get; set; }
 
-
     private readonly System.Drawing.Color Color;
 
     public Swatch()

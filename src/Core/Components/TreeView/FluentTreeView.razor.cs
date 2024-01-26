@@ -89,7 +89,6 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         _allItems.Remove(fluentTreeItem.Id!);
     }
 
-
     private async Task HandleCurrentSelectedChangeAsync(TreeChangeEventArgs args)
     {
         if (!_allItems.TryGetValue(args.AffectedId!, out FluentTreeItem? treeItem))
@@ -130,6 +129,5 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
         _disposed = true;
     }
-
 
 }

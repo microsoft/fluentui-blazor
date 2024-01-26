@@ -30,8 +30,3 @@ public class FluentPresenceBadgeTests : TestBase
     }
 }
 
-
-
-
-
-

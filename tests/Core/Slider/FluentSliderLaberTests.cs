@@ -31,8 +31,3 @@ public class FluentSliderLabelTests : TestBase
     }
 }
 
-
-
-
-
-

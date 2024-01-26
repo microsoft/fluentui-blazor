@@ -30,7 +30,6 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
                 await DialogService.UpdateDialogAsync(_dialog.Id, parameters);
             }
 
-
             DialogResult result = await _dialog.Result;
             await HandleCustomSplash(result);
         }
@@ -56,7 +55,6 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
         {
             await Task.Run(() => DemoLogger.WriteLine($"Custom splash closed"));
         }
-
 
     }
 }

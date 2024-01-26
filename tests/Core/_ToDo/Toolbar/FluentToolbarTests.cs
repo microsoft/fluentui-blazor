@@ -21,8 +21,3 @@ public class FluentToolbarTests : TestBase
     }
 }
 
-
-
-
-
-
