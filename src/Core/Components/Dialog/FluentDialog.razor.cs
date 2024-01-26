@@ -280,15 +280,9 @@ public partial class FluentDialog : FluentComponentBase
     {
         StateHasChanged();
 
-        if (_dialogHeader != null)
-        {
-            _dialogHeader.Refresh();
-        }
+        _dialogHeader?.Refresh();
 
-        if (_dialogFooter != null)
-        {
-            _dialogFooter.Refresh();
-        }
+        _dialogFooter?.Refresh();
     }
 
     /// <summary />
