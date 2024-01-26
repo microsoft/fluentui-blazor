@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The ASP.NET Core Blazor hosing models
@@ -9,7 +9,7 @@ public enum BlazorHostingModel
     /// No hosting model is specified
     /// </summary>
     NotSpecified,
-    
+
     /// <summary>
     /// Blazor Server 
     /// </summary>

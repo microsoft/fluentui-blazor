@@ -17,7 +17,7 @@ public class FluentMainTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

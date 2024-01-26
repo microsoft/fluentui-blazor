@@ -17,7 +17,7 @@ public class FluentOverflowItemTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

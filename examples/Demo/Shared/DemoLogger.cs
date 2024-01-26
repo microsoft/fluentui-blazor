@@ -1,4 +1,4 @@
-﻿namespace FluentUI.Demo.Shared;
+namespace FluentUI.Demo.Shared;
 
 public delegate void OnLogHandler(string text);
 

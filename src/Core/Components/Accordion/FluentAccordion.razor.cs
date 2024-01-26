@@ -43,7 +43,7 @@ public partial class FluentAccordion : FluentComponentBase
 
     public FluentAccordion()
     {
-        
+
     }
 
     private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)

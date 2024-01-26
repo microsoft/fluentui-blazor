@@ -1,4 +1,4 @@
-﻿using System.Reflection.Metadata;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -147,7 +147,7 @@ public partial class DemoSection : ComponentBase
         }
     }
 
-    static string GetDisplayName(string name)
+    private static string GetDisplayName(string name)
     {
         if (name.EndsWith(".cs"))
             return "C#";
@@ -164,7 +164,7 @@ public partial class DemoSection : ComponentBase
         return name;
     }
 
-    static string? TabLanguageClass(string tabName)
+    private static string? TabLanguageClass(string tabName)
     {
         if (tabName.EndsWith(".cs"))
             return "language-csharp";

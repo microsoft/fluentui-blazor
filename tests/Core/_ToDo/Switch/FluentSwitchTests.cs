@@ -19,7 +19,7 @@ public class FluentSwitchTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

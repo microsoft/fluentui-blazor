@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -122,7 +122,7 @@ public partial class FluentNavGroup : FluentNavBase
         {
             return;
         }
-       
+
         if (!Owner.Expanded)
         {
             await Owner.ExpandedChanged.InvokeAsync(true);

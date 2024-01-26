@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Bunit;
 using Xunit;
 
@@ -260,7 +260,7 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         var selectedDay = calendar.Find($"div[value='{DAY}']");
-        
+
         Assert.Equal("01", selectedDay.TextContent);
     }
 

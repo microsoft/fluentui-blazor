@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static class ZIndex
 {
@@ -13,7 +13,7 @@ public static class ZIndex
     public static int Menu { get; set; } = 9999;
 
     public static int ComboboxPopup { get; set; } = 9995;
-    
+
     public static int SelectPopup { get; set; } = 9995;
 
     public static int Dialog { get; set; } = 999;

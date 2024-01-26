@@ -1,4 +1,4 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Pages.Icon.Examples
 {

@@ -29,7 +29,7 @@ public class FluentSkeletonTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

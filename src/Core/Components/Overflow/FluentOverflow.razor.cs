@@ -1,4 +1,4 @@
-﻿
+
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -135,7 +135,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         await InvokeAsync(() => StateHasChanged());
     }
 
-   
+
     internal void AddItem(FluentOverflowItem item)
     {
         _items.Add(item);

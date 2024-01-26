@@ -17,7 +17,7 @@ public class FluentToolbarTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

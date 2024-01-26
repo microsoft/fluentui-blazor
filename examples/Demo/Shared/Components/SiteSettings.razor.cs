@@ -6,7 +6,7 @@ namespace FluentUI.Demo.Shared.Components;
 public partial class SiteSettings
 {
     private IDialogReference? _dialog;
-    
+
     private async Task OpenSiteSettingsAsync()
     {
         DemoLogger.WriteLine($"Open site settings");

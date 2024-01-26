@@ -13,7 +13,7 @@ public class FluentTabTests : TestBase
         var childContent = "<b>render me</b>";
         bool disabled = default!;
         string label = default!;
-        Action<System.String> labelChanged = _ => { };
+        Action<string> labelChanged = _ => { };
         string labelClass = default!;
         string labelStyle = default!;
         Icon icon = default!;
@@ -37,7 +37,7 @@ public class FluentTabTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

@@ -14,7 +14,7 @@ public class FluentPopoverTests : TestBase
         string anchorId = default!;
         HorizontalPosition? horizontalPosition = default!;
         bool open = default!;
-        Action<System.Boolean> openChanged = _ => { };
+        Action<bool> openChanged = _ => { };
         var cut = TestContext.RenderComponent<FluentPopover>(parameters => parameters
             .Add(p => p.AnchorId, anchorId)
             .Add(p => p.HorizontalPosition, horizontalPosition)
@@ -27,7 +27,7 @@ public class FluentPopoverTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

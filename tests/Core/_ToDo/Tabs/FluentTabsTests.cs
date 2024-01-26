@@ -22,7 +22,7 @@ public class FluentTabsTests : TestBase
         string width = default!;
         string height = default!;
         string activeTabId = default!;
-        Action<System.String> activeTabIdChanged = _ => { };
+        Action<string> activeTabIdChanged = _ => { };
         bool showActiveIndicator = default!;
         Action<FluentTab> onTabChange = _ => { };
         var cut = TestContext.RenderComponent<FluentTabs>(parameters => parameters
@@ -42,7 +42,7 @@ public class FluentTabsTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

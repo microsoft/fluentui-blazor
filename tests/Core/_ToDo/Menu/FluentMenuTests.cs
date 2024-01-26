@@ -19,7 +19,7 @@ public class FluentMenuTests : TestBase
         bool open = default!;
         HorizontalPosition horizontalPosition = default!;
         string width = default!;
-        Action<System.Boolean> openChanged = _ => { };
+        Action<bool> openChanged = _ => { };
         bool anchored = default!;
         var cut = TestContext.RenderComponent<FluentMenu>(parameters => parameters
             .Add(p => p.Anchor, anchor)
@@ -34,7 +34,7 @@ public class FluentMenuTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

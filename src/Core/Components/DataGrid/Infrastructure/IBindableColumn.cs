@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -8,7 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 /// </summary>
 public interface IBindableColumn
 {
-   PropertyInfo? PropertyInfo { get; }
+    PropertyInfo? PropertyInfo { get; }
 }
 /// <summary>
 /// A column that can bind to a property of model

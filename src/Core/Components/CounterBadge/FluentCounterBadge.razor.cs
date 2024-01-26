@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -106,7 +106,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
 
     protected override Task OnParametersSetAsync()
     {
-        if (BackgroundColor is not null && Color is null || BackgroundColor is null && Color is not null)
+        if ((BackgroundColor is not null && Color is null) || (BackgroundColor is null && Color is not null))
         {
             throw new ArgumentException("Both BackgroundColor and Color must be set.");
         }

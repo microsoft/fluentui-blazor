@@ -23,7 +23,7 @@ public class FluentHighlighterTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

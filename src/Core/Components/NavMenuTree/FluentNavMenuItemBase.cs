@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 
@@ -168,7 +168,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         if (!string.IsNullOrEmpty(Href) && Href != "/")
         {
             // If the current page is the same as the Href, don't navigate
-            if (new Uri(NavigationManager.Uri).LocalPath.Equals((Href), StringComparison.InvariantCultureIgnoreCase))
+            if (new Uri(NavigationManager.Uri).LocalPath.Equals(Href, StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;
             }
@@ -176,7 +176,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
             // If the local path starts with this Href (with an added "/"), don't navigate 
             // Example local path: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
             // Extra "/" is needed to avoid a match on http://.../Panel for https://.../Panels 
-            if (new Uri(NavigationManager.Uri).LocalPath.StartsWith((Href +"/" ), StringComparison.InvariantCultureIgnoreCase))
+            if (new Uri(NavigationManager.Uri).LocalPath.StartsWith(Href + "/", StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;
             }

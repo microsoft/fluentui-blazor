@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.JSInterop;
 using static Microsoft.FluentUI.AspNetCore.Components.Utilities.LinkerFlags;
 
@@ -30,7 +30,7 @@ public abstract class JSModule : IAsyncDisposable
 {
     private bool _isDisposed = false;
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
-    
+
     // On construction, we start loading the JSRuntime module
     protected JSModule(IJSRuntime js, string moduleUrl)
     {
@@ -41,14 +41,14 @@ public abstract class JSModule : IAsyncDisposable
         ArgumentNullException.ThrowIfNull(js);
 
         if (moduleUrl != null && string.IsNullOrWhiteSpace(moduleUrl)) throw new ArgumentException("Argument was empty or whitespace.", nameof(moduleUrl));
-        
-        _moduleTask = new (js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask());
+
+        _moduleTask = new(js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask());
     }
-    
+
     // Methods for invoking exports from the module
     protected async ValueTask InvokeVoidAsync(string identifier, params object[]? args)
         => await (await _moduleTask.Value).InvokeVoidAsync(identifier, args);
-    
+
     protected async ValueTask<T> InvokeAsync<[DynamicallyAccessedMembers(JsonSerialized)] T>(string identifier, params object[]? args)
         => await (await _moduleTask.Value).InvokeAsync<T>(identifier, args);
 

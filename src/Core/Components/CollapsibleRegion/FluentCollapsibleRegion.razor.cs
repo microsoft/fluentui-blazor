@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCollapsibleRegion : FluentComponentBase
 {
-    private bool _expanded;  
+    private bool _expanded;
 
     protected string? StyleValue =>
         new StyleBuilder(Style)
@@ -57,5 +57,5 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     /// Callback for when the Expanded property changes.
     /// </summary>
     [Parameter]
-    public EventCallback<bool> ExpandedChanged { get; set; }   
+    public EventCallback<bool> ExpandedChanged { get; set; }
 }

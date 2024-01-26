@@ -53,7 +53,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     public FluentTreeView()
     {
     }
-    
+
     void IDisposable.Dispose()
     {
         // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
@@ -103,7 +103,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
             CurrentSelected = treeItem?.Selected == true ? treeItem : null;
             if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)
             {
-                foreach(FluentTreeItem item in _allItems.Values)
+                foreach (FluentTreeItem item in _allItems.Values)
                 {
                     if (item != CurrentSelected && item.Selected)
                     {

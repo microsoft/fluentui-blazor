@@ -99,7 +99,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// Callback for when the tooltip is dismissed.
     /// </summary>  
     [Parameter]
-    public EventCallback<EventArgs> OnDismissed{ get; set; }
+    public EventCallback<EventArgs> OnDismissed { get; set; }
 
     /// <summary />
     private bool DrawTooltip => TooltipService == null ||

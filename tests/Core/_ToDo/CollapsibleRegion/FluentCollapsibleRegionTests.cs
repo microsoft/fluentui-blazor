@@ -17,7 +17,7 @@ public class FluentCollapsibleRegionTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 
     [Fact]

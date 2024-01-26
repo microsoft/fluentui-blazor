@@ -1,11 +1,11 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Computes the properties of a month in the calendar.
 /// </summary>
 internal class FluentCalendarMonth
 {
-    FluentCalendar _calendar;
+    private FluentCalendar _calendar;
     private bool _isInDisabledList;
 
     /// <summary>
@@ -49,5 +49,5 @@ internal class FluentCalendarMonth
     /// <summary>
     /// Gets the identifier of the month in the format yyyy-MM.
     /// </summary>
-    public string MonthIdentifier => this.Month.ToString("yyyy-MM");
+    public string MonthIdentifier => Month.ToString("yyyy-MM");
 }

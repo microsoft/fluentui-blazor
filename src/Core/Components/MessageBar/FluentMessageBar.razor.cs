@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -11,7 +11,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     private CountdownTimer? _countdownTimer;
     private Color? _color;
 
-    [Inject] GlobalState GlobalState { get; set; } = default!;
+    [Inject] private GlobalState GlobalState { get; set; } = default!;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -190,7 +190,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
             MessageIntent.Success => Color.Success,
             _ => IconColor,
         };
-        
+
         if (Content.Options.Timeout.HasValue)
         {
             if (Content.Options.Timeout == 0)

@@ -86,7 +86,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             return new CssBuilder(base.ClassValue)
                 .AddClass("checked", when: Value)
-                .AddClass("indeterminate", when: ThreeState && CheckState is null )
+                .AddClass("indeterminate", when: ThreeState && CheckState is null)
                 .Build();
         }
     }
@@ -114,7 +114,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
                 await SetIntermediateAsync(true);
                 break;
         }
-    } 
+    }
 
     /// <summary />
     private async Task SetIntermediateAsync(bool intermediate)
@@ -143,7 +143,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
             // Uncheck -> Intermediate (or Check is ShowIndeterminate is false)
             if (newChecked && !_intermediate)
             {
-                newState = ShowIndeterminate ? null : true;                
+                newState = ShowIndeterminate ? null : true;
             }
 
             // Indeterminate -> Checked

@@ -1,4 +1,4 @@
-﻿//Re-used from https://github.com/loxsmoke/DocXml
+//Re-used from https://github.com/loxsmoke/DocXml
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -351,7 +351,7 @@ namespace FluentUI.Demo.Shared
         /// <summary>
         /// Hash of all possible ValueTuple type definitions for quick check if type is value tuple.
         /// </summary>
-        static HashSet<Type> GenericTuples = new(new Type[] {
+        private static HashSet<Type> GenericTuples = new(new Type[] {
             typeof(ValueTuple<>),
             typeof(ValueTuple<,>),
             typeof(ValueTuple<,,>),

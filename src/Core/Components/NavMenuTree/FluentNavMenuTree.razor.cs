@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -211,16 +211,16 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
             // This will match the first item that has a Href that matches the current URL exactly
             menuItem = _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
-                .FirstOrDefault(x => x.Href != "/" && localPath.Equals((x.Href!), StringComparison.InvariantCultureIgnoreCase));
+                .FirstOrDefault(x => x.Href != "/" && localPath.Equals(x.Href!, StringComparison.InvariantCultureIgnoreCase));
 
             // If not found, try to match the first item that has a Href (ending in a "/") that starts with the current URL 
             // URL: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
             // Extra "/" is needed to avoid matching https://.../Panels with https://.../Panel
             menuItem ??= _allItems.Values
                 .Where(x => !string.IsNullOrEmpty(x.Href))
-                .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith((x.Href! + "/"), StringComparison.InvariantCultureIgnoreCase));
+                .FirstOrDefault(x => x.Href != "/" && localPath.StartsWith(x.Href! + "/", StringComparison.InvariantCultureIgnoreCase));
         }
-        if (menuItem is not null) 
+        if (menuItem is not null)
         {
             _currentlySelectedTreeItem = menuItem.TreeItem;
             _previousSuccessfullySelectedTreeItem = menuItem.TreeItem;

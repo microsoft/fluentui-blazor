@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class FluentCalendarDay
 {
-    FluentCalendar _calendar;
+    private FluentCalendar _calendar;
     private bool _isInDisabledList;
     private bool _isOutsideCurrentMonth;
 
@@ -53,7 +53,7 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets the name of the day and month in current culture.
     /// </summary>
-    public string Title => _calendar.CalendarExtended.GetCalendarDayWithMonthName(this.Date);
+    public string Title => _calendar.CalendarExtended.GetCalendarDayWithMonthName(Date);
 
     /// <summary>
     /// Gets the number of day of the month in the current Culture.
@@ -62,7 +62,7 @@ public class FluentCalendarDay
     {
         get
         {
-            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(this.Date);
+            var day = _calendar.CalendarExtended.GetCalendarDayOfMonth(Date);
 
             return _calendar.DayFormat switch
             {
@@ -75,5 +75,5 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets the identifier of the day in the format yyyy-MM-dd.
     /// </summary>
-    public string DayIdentifier => this.Date.ToString("yyyy-MM-dd");
+    public string DayIdentifier => Date.ToString("yyyy-MM-dd");
 }

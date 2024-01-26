@@ -17,7 +17,7 @@ public class FluentHeaderTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

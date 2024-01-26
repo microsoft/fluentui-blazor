@@ -29,7 +29,7 @@ public class FluentSearchTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

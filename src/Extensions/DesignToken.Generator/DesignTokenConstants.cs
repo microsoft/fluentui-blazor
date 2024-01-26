@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components.Generators;
+namespace Microsoft.FluentUI.AspNetCore.Components.Generators;
 
 /// <summary>
 /// This class contains all the design tokens as const <c ref="string" />s where the value represents 

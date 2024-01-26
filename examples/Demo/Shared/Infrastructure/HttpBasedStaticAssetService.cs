@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared;
 
@@ -18,7 +18,7 @@ public class HttpBasedStaticAssetService : IStaticAssetService
     public async Task<string?> GetAsync(string assetUrl, bool useCache = true)
     {
         string? result = null;
-        
+
         HttpRequestMessage? message = CreateMessage(assetUrl);
 
 
@@ -27,7 +27,7 @@ public class HttpBasedStaticAssetService : IStaticAssetService
             // Get the result from the cache
             result = await _cacheStorageAccessor.GetAsync(message);
         }
-        
+
         if (string.IsNullOrEmpty(result))
         {
             //It not in the cache (or cache not used), download the asset
@@ -51,4 +51,4 @@ public class HttpBasedStaticAssetService : IStaticAssetService
 
     private static HttpRequestMessage CreateMessage(string url) => new(HttpMethod.Get, url);
 }
-    
+

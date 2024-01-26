@@ -1,4 +1,4 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;
@@ -28,7 +28,7 @@ public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/Flue
     {
         var requestMethod = requestMessage.Method.Method;
         var requestBody = await GetRequestBodyAsync(requestMessage);
-        string result = await InvokeAsync<string>("get", requestMessage.RequestUri!, requestMethod, requestBody);
+        var result = await InvokeAsync<string>("get", requestMessage.RequestUri!, requestMethod, requestBody);
 
         return result;
     }

@@ -14,7 +14,7 @@ public class FluentMainLayoutTests : TestBase
         var body = "<b>render me</b>";
         int? headerHeight = default!;
         string navMenuTitle = default!;
-        var  navMenuWidth = 320;
+        var navMenuWidth = 320;
         var cut = TestContext.RenderComponent<FluentMainLayout>(parameters => parameters
             .Add(p => p.Header, header)
             .Add(p => p.SubHeader, subHeader)
@@ -27,7 +27,7 @@ public class FluentMainLayoutTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

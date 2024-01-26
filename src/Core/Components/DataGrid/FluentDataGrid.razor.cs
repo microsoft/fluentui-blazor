@@ -186,7 +186,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private int? _lastRefreshedPaginationStateHash;
     private object? _lastAssignedItemsOrProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
-   
+
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
     public bool? SortByAscending => _sortByAscending;
@@ -222,7 +222,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
         }
-       
+
         // Perform a re-query only if the data source or something else has changed
         var _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
         var dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
@@ -363,7 +363,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
                 Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
-                if (_ariaBodyRowCount > 0 ) Loading = false;
+                if (_ariaBodyRowCount > 0) Loading = false;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
         }

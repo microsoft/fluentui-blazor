@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -91,7 +91,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     /// <summary />
     protected virtual void OnMessageItemsUpdatedHandler()
     {
-        InvokeAsync(StateHasChanged); 
+        InvokeAsync(StateHasChanged);
     }
 
     protected async virtual Task OnMessageItemsUpdatedHandlerAsync()

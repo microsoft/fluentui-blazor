@@ -43,7 +43,7 @@ public class FluentTextAreaTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

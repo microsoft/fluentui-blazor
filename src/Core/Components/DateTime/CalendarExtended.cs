@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -87,7 +87,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthName()
     {
-        return GetMonthName(this.Date);
+        return GetMonthName(Date);
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ internal struct CalendarExtended
     /// Returns the list of month names in the right culture.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames() 
+    public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames()
     {
         for (var i = 0; i < 12; i++)
         {
@@ -211,8 +211,8 @@ internal struct CalendarExtended
     /// <returns></returns>
     public bool IsInCurrentMonth(DateTime date)
     {
-        return date.Year == this.Date.Year &&
-               date.Month == this.Date.Month;
+        return date.Year == Date.Year &&
+               date.Month == Date.Month;
     }
 
     /// <summary>

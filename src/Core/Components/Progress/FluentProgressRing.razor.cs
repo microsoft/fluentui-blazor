@@ -78,11 +78,11 @@ public partial class FluentProgressRing : FluentComponentBase
         _ => throw new NotImplementedException(),
     };
 
-    private string StyleBackground => $"stroke-width: {StrokeDetails.Width}px; " + 
+    private string StyleBackground => $"stroke-width: {StrokeDetails.Width}px; " +
                                       $"r: {StrokeDetails.Radius}px;";
 
-    private string StyleIndicator => $"stroke-width: {StrokeDetails.Width}px; " + 
-                                     $"r: {StrokeDetails.Radius}px; " + 
-                                     $"stroke-dashoffset: {StrokeDetails.Dashoffset}px; " + 
-                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color )};";
+    private string StyleIndicator => $"stroke-width: {StrokeDetails.Width}px; " +
+                                     $"r: {StrokeDetails.Radius}px; " +
+                                     $"stroke-dashoffset: {StrokeDetails.Dashoffset}px; " +
+                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color)};";
 }

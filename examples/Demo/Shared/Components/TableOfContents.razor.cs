@@ -84,7 +84,7 @@ public partial class TableOfContents : IAsyncDisposable
 
             if (mobile)
                 _expanded = false;
-            
+
             await BackToTop();
             await QueryDom();
 

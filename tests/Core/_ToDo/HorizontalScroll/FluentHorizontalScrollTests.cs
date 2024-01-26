@@ -29,7 +29,7 @@ public class FluentHorizontalScrollTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

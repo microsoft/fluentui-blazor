@@ -29,7 +29,7 @@ public class FluentStackTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

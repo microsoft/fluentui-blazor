@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -89,7 +89,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     protected override void OnParametersSet()
     {
         if (_icon == null)
-        {         
+        {
             _icon = new Icon();
         }
 
@@ -116,7 +116,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         {
             return Color.ToAttributeValue() ?? defaultColor;
         }
-        
+
         if (!string.IsNullOrEmpty(_icon.Color))
         {
             return _icon.Color;

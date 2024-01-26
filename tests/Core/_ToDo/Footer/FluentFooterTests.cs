@@ -15,7 +15,7 @@ public class FluentFooterTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

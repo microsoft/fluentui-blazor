@@ -9,7 +9,7 @@ public class FluentToastTests : TestBase
     {
         //Arrange
         ToastInstance instance = default!;
-        
+
         var cut = TestContext.RenderComponent<FluentToast>(parameters => parameters
             .Add(p => p.Instance, instance)
         );

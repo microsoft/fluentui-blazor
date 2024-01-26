@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -402,7 +402,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         // Selected items
         if (SelectedOptions != null && SelectedOptions.Any())
         {
-            return String.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
+            return string.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
         }
 
         // Default

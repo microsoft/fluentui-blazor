@@ -26,7 +26,7 @@ public class FluentPresenceBadgeTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

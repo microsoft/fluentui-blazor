@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -32,7 +32,7 @@ public partial class FluentCalendar : FluentCalendarBase
                 .Build();
         }
     }
-    
+
     /// <summary>
     /// Gets or sets the current month of the date picker (two-way bindable).
     /// This changes when the user browses through the calendar.
@@ -98,7 +98,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <summary>
     /// All days of this current month.
     /// </summary>
-    internal CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(this.Culture, this.PickerMonth);
+    internal CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(Culture, PickerMonth);
 
     /// <summary>
     /// Gets titles to use in the calendar.

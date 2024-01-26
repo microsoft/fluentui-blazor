@@ -1,11 +1,11 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Computes the properties of a year in the calendar.
 /// </summary>
 internal class FluentCalendarYear
 {
-    FluentCalendar _calendar;
+    private FluentCalendar _calendar;
     private bool _isInDisabledList;
 
     /// <summary>
@@ -44,10 +44,10 @@ internal class FluentCalendarYear
     /// <summary>
     /// Gets the title of the year in the format [year].
     /// </summary>
-    public string Title => this.Year.ToString();
+    public string Title => Year.ToString();
 
     /// <summary>
     /// Gets the identifier of the year in the format yyyy.
     /// </summary>
-    public string YearIdentifier => this.Year.ToString("yyyy");
+    public string YearIdentifier => Year.ToString("yyyy");
 }

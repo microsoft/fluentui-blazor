@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -29,7 +29,7 @@ public partial class FluentDesignTheme : ComponentBase
     /// Gets or sets the identifier for the component.
     /// </summary> 
     [Parameter]
-    public string Id { get; set; } 
+    public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the Theme mode: Dark, Light, or browser System theme.
@@ -85,7 +85,7 @@ public partial class FluentDesignTheme : ComponentBase
             _direction = value;
             if (value is not null)
             {
-                GlobalDesign.SetDirection((LocalizationDirection) value);
+                GlobalDesign.SetDirection((LocalizationDirection)value);
             }
             Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue());
         }
@@ -268,7 +268,7 @@ public partial class FluentDesignTheme : ComponentBase
         {
             return Enum.GetName(OfficeColor.Value);
         }
-        
+
         return OfficeColorUtilities.GetRandom().ToAttributeValue();
     }
 

@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -18,7 +18,7 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
     private FieldIdentifier _fieldIdentifier;
 
 
-    [CascadingParameter] EditContext CurrentEditContext { get; set; } = default!;
+    [CascadingParameter] private EditContext CurrentEditContext { get; set; } = default!;
 
     /// <summary>
     /// Specifies the field for which validation messages should be displayed.

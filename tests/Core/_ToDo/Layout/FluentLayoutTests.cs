@@ -15,7 +15,7 @@ public class FluentLayoutTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 

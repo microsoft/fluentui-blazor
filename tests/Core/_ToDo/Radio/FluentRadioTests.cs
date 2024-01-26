@@ -6,7 +6,7 @@ using Bunit;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-public class FluentRadioTests: TestBase
+public class FluentRadioTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
     public void FluentRadio_Default()
@@ -35,9 +35,9 @@ public class FluentRadioTests: TestBase
         //Act
 
         //Assert
-		cut.Verify();
-        }
+        cut.Verify();
     }
+}
 
 
 

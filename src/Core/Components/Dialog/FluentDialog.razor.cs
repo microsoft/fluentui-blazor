@@ -23,7 +23,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddClass("fluent-dialog-main")
         .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
-        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
+        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden) : _parameters.PreventScroll)
         .Build();
 
     /// <summary />
@@ -36,7 +36,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
- 
+
     /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
     /// </summary>

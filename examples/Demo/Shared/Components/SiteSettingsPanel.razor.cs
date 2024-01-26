@@ -19,7 +19,7 @@ public partial class SiteSettingsPanel
 
     [Inject]
     public required GlobalState GlobalState { get; set; }
-    
+
     public DesignThemeModes Mode { get; set; }
 
     public OfficeColor? OfficeColor { get; set; }
@@ -55,10 +55,10 @@ public partial class SiteSettingsPanel
     private async Task ResetSite()
     {
         var msg = "Site settings reset and cache cleared!";
-        
+
         await CacheStorageAccessor.RemoveAllAsync();
         _theme?.ClearLocalStorageAsync();
-        
+
         Logger.LogInformation(msg);
         _status = msg;
 

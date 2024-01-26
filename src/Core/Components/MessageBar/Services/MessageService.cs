@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -11,11 +11,11 @@ public class MessageService : IMessageService, IDisposable
     /// <summary />
     public MessageService()
     {
-        
+
     }
 
     /// <summary />
-    public MessageService(NavigationManager navigationManager) 
+    public MessageService(NavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         _navigationManager.LocationChanged += NavigationManager_LocationChanged;
@@ -100,7 +100,7 @@ public class MessageService : IMessageService, IDisposable
         {
             options.Title = title;
             options.Intent = intent;
-            options.Section = string.Empty; 
+            options.Section = string.Empty;
         });
     }
 
@@ -302,7 +302,7 @@ public class MessageService : IMessageService, IDisposable
             return;
         }
 
-        IEnumerable<Message>? messages = string.IsNullOrEmpty(section) 
+        IEnumerable<Message>? messages = string.IsNullOrEmpty(section)
             ? MessageList
             : MessageList.Where(i => i.Section == section);
 

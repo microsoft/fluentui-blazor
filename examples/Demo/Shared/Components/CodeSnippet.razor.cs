@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------
+// --------------------------------------------------------------
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // --------------------------------------------------------------
 
@@ -13,7 +13,7 @@ using Microsoft.JSInterop;
 public partial class CodeSnippet
 {
     private ElementReference codeElement;
-    
+
     private IJSObjectReference _jsModule = default!;
 
     [Inject]
@@ -32,7 +32,7 @@ public partial class CodeSnippet
     {
         if (firstRender)
         {
-           
+
             await JSRuntime.InvokeVoidAsync("hljs.highlightElement", codeElement);
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/CodeSnippet.razor.js");

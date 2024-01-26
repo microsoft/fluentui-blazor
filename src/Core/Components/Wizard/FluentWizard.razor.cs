@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -149,7 +149,7 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            this.Value = targetIndex;
+            Value = targetIndex;
             StateHasChanged();
         }
     }
@@ -171,7 +171,7 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            this.Value = targetIndex;
+            Value = targetIndex;
             StateHasChanged();
         }
     }

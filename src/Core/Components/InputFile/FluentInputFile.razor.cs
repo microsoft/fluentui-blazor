@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -213,7 +213,7 @@ public partial class FluentInputFile : FluentComponentBase
 
         List<FluentInputFileEventArgs>? uploadedFiles = [];
         IReadOnlyList<IBrowserFile>? allFiles = e.GetMultipleFiles(MaximumFileCount);
-        var allFilesSummary = allFiles.Select(i => (new UploadedFileDetails(i.Name, i.Size, i.ContentType))).ToList();
+        var allFilesSummary = allFiles.Select(i => new UploadedFileDetails(i.Name, i.Size, i.ContentType)).ToList();
         var totalFileSizes = allFiles.Sum(i => i.Size);
         var totalRead = 0L;
         var fileNumber = 0;
@@ -378,7 +378,7 @@ public partial class FluentInputFile : FluentComponentBase
     {
         return UpdateProgressAsync(Convert.ToInt32(decimal.Divide(current, size) * 100), title);
     }
-    
+
     private async Task UpdateProgressAsync(int percent, string title)
     {
         if (ProgressPercent != percent)

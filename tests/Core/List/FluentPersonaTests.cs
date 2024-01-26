@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.List;
@@ -9,7 +9,7 @@ public class FluentPersonaTests : TestBase
 
 
     public FluentPersonaTests()
-    { 
+    {
         TestContext.Services.AddScoped<GlobalState>();
     }
 
