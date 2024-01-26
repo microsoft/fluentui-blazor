@@ -5804,6 +5804,16 @@
             Default is unset. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalPosition"/>
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalThreshold">
+            <summary>
+            How short the space allocated to the default position has to be before the tallest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalThreshold">
+            <summary>
+            How narrow the space allocated to the default position has to be before the widest area is selected for layout.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.Open">
             <summary>
             Gets or sets popover opened state.
