@@ -21,6 +21,7 @@
 </FluentOverflow>
 
 <FluentButton @onclick="@AddNewItemClick">Add</FluentButton>
+<FluentButton @onclick="@RemoveFirstItemClick">Remove</FluentButton>
 
 @code
 {
@@ -33,12 +34,17 @@
     void OverflowHandler(IEnumerable<FluentOverflowItem> items)
     {
         var text = String.Join("; ", items.Select(i => i.Text));
-        
+
     }
 
     void AddNewItemClick()
     {
         var index = new Random().NextInt64(Catalog.Length);
         Items.Add(Catalog[index]);
+    }
+
+    void RemoveFirstItemClick()
+    {
+        Items.RemoveAt(0);
     }
 }

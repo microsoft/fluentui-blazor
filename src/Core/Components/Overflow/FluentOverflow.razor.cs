@@ -141,6 +141,12 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         _items.Add(item);
     }
 
+    internal void RemoveItem(FluentOverflowItem item)
+    {
+        _items.Remove(item);
+        StateHasChanged();
+    }
+
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {

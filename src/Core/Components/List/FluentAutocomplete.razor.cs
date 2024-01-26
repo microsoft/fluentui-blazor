@@ -35,32 +35,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private IJSObjectReference Module { get; set; } = default!;
 
-    /// <summary />
-    private string AccessibilityStatusMessage
-    {
-        get
-        {
-            // No items found
-            if (IsMultiSelectOpened && Items?.Any() == false)
-            {
-                return AccessibilityNotFound;
-            }
-
-            // Selected {0}
-            if (SelectableItem != null)
-            {
-                return GetOptionText(SelectableItem) ?? string.Empty;
-            }
-
-            if (IsReachedMaxItems)
-            {
-                return AccessibilityReachedMaxItems;
-            }
-
-            return string.Empty;
-        }
-    }
-
     /// <summary>
     /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
     /// </summary>
@@ -243,16 +217,15 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected async Task KeyDownHandlerAsync(KeyboardEventArgs e)
+    protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
     {
-        switch (e.Code)
+        switch (e.Key)
         {
-            case "Escape":
+            case KeyCode.Escape:
                 await KeyDown_Escape();
                 break;
 
-            case "Enter":
-            case "NumpadEnter":
+            case KeyCode.Enter:
                 if (IsMultiSelectOpened)
                 {
                     await KeyDown_Enter();
@@ -263,11 +236,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 }
                 break;
 
-            case "Backspace":
+            case KeyCode.Backspace:
                 await KeyDown_Backspace();
                 break;
 
-            case "ArrowDown":
+            case KeyCode.Down:
                 if (IsMultiSelectOpened)
                 {
                     await KeyDown_ArrowDown();
@@ -278,7 +251,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 }
                 break;
 
-            case "ArrowUp":
+            case KeyCode.Up:
                 await KeyDown_ArrowUp();
                 break;
         }
@@ -297,6 +270,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 SelectedOptions != null && SelectedOptions.Any())
             {
                 await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
+                IsReachedMaxItems = false;
             }
         }
 
@@ -407,13 +381,31 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private string? GetAutocompleteAriaLabel()
     {
+        // No items found
+        if (IsMultiSelectOpened && Items?.Any() == false)
+        {
+            return AccessibilityNotFound;
+        }
+
+        // Reached Max Items
+        if (IsReachedMaxItems)
+        {
+            return AccessibilityReachedMaxItems;
+        }
+
+        // Selected {0}
+        if (IsMultiSelectOpened && SelectableItem != null)
+        {
+            return GetOptionText(SelectableItem) ?? string.Empty;
+        }
+
+        // Selected items
         if (SelectedOptions != null && SelectedOptions.Any())
         {
             return String.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
         }
-        else
-        {
-            return GetAriaLabel() ?? Label ?? Placeholder;
-        }
+
+        // Default
+        return GetAriaLabel() ?? Label ?? Placeholder;
     }
 }
