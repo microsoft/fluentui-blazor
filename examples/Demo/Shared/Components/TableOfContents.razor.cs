@@ -12,7 +12,10 @@ public partial class TableOfContents : IAsyncDisposable
     {
         public virtual bool Equals(Anchor? other)
         {
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             if (Level != other.Level ||
                 Text != other.Text ||
@@ -82,7 +85,9 @@ public partial class TableOfContents : IAsyncDisposable
             var mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
+            {
                 _expanded = false;
+            }
 
             await BackToTop();
             await QueryDom();

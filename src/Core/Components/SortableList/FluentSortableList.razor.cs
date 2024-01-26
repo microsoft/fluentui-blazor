@@ -112,9 +112,13 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     protected bool GetItemFiltered(TItem item)
     {
         if (ItemFilter != null)
+        {
             return ItemFilter(item);
+        }
         else
+        {
             return false;
+        }
     }
 
     [JSInvokable]

@@ -112,13 +112,17 @@ public partial class FluentBadge : FluentComponentBase
     protected virtual async Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (OnClick.HasDelegate)
+        {
             await OnClick.InvokeAsync(e);
+        }
     }
 
     protected virtual async Task OnDismissClickHandlerAsync(MouseEventArgs e)
     {
         if (OnDismissClick.HasDelegate)
+        {
             await OnDismissClick.InvokeAsync(e);
+        }
     }
 
 }

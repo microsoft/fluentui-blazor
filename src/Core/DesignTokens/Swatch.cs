@@ -70,9 +70,14 @@ public class Swatch
     private static float Normalize(float value, int min, int max)
     {
         if (value <= min)
+        {
             return 0.0f;
+        }
+
         if (value >= max)
+        {
             return 1.0f;
+        }
 
         return value / (max - min);
     }

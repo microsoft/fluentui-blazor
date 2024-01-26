@@ -137,9 +137,14 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         if (BackgroundColor != null)
         {
             if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
+            {
                 return AspNetCore.Components.Color.FillInverse;
+            }
+
             if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
+            {
                 return AspNetCore.Components.Color.Lightweight;
+            }
 
             return BackgroundColor;
         }
@@ -159,9 +164,14 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         if (BackgroundColor != null)
         {
             if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.DarkMode)
+            {
                 return AspNetCore.Components.Color.FillInverse;
+            }
+
             if (BackgroundColor == AspNetCore.Components.Color.Lightweight && GlobalState.Luminance == StandardLuminance.LightMode)
+            {
                 return AspNetCore.Components.Color.Lightweight;
+            }
 
             return BackgroundColor;
 
@@ -182,7 +192,9 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         if (Color != null)
         {
             if (BackgroundColor == AspNetCore.Components.Color.Error && GlobalState.Luminance == StandardLuminance.DarkMode)
+            {
                 return AspNetCore.Components.Color.FillInverse;
+            }
 
             return Color;
         }

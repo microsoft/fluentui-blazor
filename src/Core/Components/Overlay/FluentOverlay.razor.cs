@@ -116,7 +116,9 @@ public partial class FluentOverlay
 #endif
                 throw new ArgumentException("BackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb).");
             else
+            {
                 _color = BackgroundColor[1..];
+            }
 
             if (_color.Length == 6)
             {

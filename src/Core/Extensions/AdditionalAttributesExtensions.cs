@@ -42,7 +42,10 @@ public static class AdditionalAttributesExtensions
                 continue;
             }
 
-            if (y is null) return false;
+            if (y is null)
+            {
+                return false;
+            }
 
             if (!y.TryGetValue(xKvp.Key, out var yValue) ||
                 !xKvp.Value.Equals(yValue))

@@ -39,7 +39,10 @@ public abstract class JSModule : IAsyncDisposable
 
         ArgumentNullException.ThrowIfNull(js);
 
-        if (moduleUrl != null && string.IsNullOrWhiteSpace(moduleUrl)) throw new ArgumentException("Argument was empty or whitespace.", nameof(moduleUrl));
+        if (moduleUrl != null && string.IsNullOrWhiteSpace(moduleUrl))
+        {
+            throw new ArgumentException("Argument was empty or whitespace.", nameof(moduleUrl));
+        }
 
         _moduleTask = new(js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask());
     }
@@ -60,7 +63,11 @@ public abstract class JSModule : IAsyncDisposable
 
     protected virtual async ValueTask DisposeAsyncCore()
     {
-        if (_isDisposed) return;
+        if (_isDisposed)
+        {
+            return;
+        }
+
         if (_moduleTask.IsValueCreated && !_moduleTask.Value.IsFaulted)
         {
             try

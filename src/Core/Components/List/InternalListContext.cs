@@ -19,7 +19,9 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     internal void Register(FluentOption<TOption> option)
     {
         if (option is null)
+        {
             return;
+        }
 
         if (!options.Contains(option))
         {
@@ -30,7 +32,9 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     internal void Unregister(FluentOption<TOption> option)
     {
         if (option is null)
+        {
             return;
+        }
 
         options.Remove(option);
     }

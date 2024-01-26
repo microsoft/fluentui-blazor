@@ -60,23 +60,33 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
                 SelectedOption = default;
 
                 if (SelectedOptionChanged.HasDelegate)
+                {
                     await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                }
 
                 if (ValueChanged.HasDelegate)
+                {
                     await ValueChanged.InvokeAsync(value);
+                }
 
                 StateHasChanged();
             }
             else
+            {
                 await OnSelectedItemChangedHandlerAsync(item);
+            }
         }
     }
 
     protected override string? GetOptionValue(TOption? item)
     {
         if (item != null)
+        {
             return OptionText.Invoke(item) ?? OptionValue.Invoke(item) ?? item.ToString();
+        }
         else
+        {
             return null;
+        }
     }
 }

@@ -38,7 +38,7 @@ end_of_line = crlf
 # Organize usings
 dotnet_separate_import_directive_groups = false:error
 dotnet_sort_system_directives_first = true:error
-file_header_template = --------------------------------------------------------------\nMIT License - Copyright (c) Microsoft Corporation. All rights reserved.\n--------------------------------------------------------------
+file_header_template = ------------------------------------------------------------------------\nMIT License - Copyright (c) Microsoft Corporation. All rights reserved.\n------------------------------------------------------------------------
 
 # Don't use this. qualifier
 dotnet_style_qualification_for_event = false:error
@@ -98,11 +98,6 @@ dotnet_diagnostic.IDE2000.severity = warning
 
 dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
 
-### ***************************************
-### **** TODO: CONTINUE AFTER THIS LINE ***
-### ***************************************
-
-
 # Expression-bodied members
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_constructors = false:silent
@@ -114,24 +109,40 @@ csharp_style_expression_bodied_operators = false:silent
 csharp_style_expression_bodied_properties = true:silent
 
 # Pattern matching preferences
-csharp_style_pattern_matching_over_as_with_null_check = true
-csharp_style_pattern_matching_over_is_with_cast_check = true
-csharp_style_prefer_extended_property_pattern = true
-csharp_style_prefer_not_pattern = true
-csharp_style_prefer_pattern_matching = true
-csharp_style_prefer_switch_expression = true
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_prefer_extended_property_pattern = true:suggestion
+csharp_style_prefer_not_pattern = true:suggestion
+csharp_style_prefer_pattern_matching = true:silent
+csharp_style_prefer_switch_expression = true:suggestion
 
 # Null-checking preferences
-csharp_style_conditional_delegate_call = true
+csharp_style_conditional_delegate_call = true:suggestion
 
 # Modifier preferences
-csharp_prefer_static_local_function = true
-csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
+csharp_prefer_static_local_function = true:suggestion
+csharp_preferred_modifier_order = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:suggestion
 
 # Code-block preferences
-csharp_prefer_braces = true:silent
-csharp_prefer_simple_using_statement = true:suggestion
-csharp_style_namespace_declarations = block_scoped:silent
+csharp_prefer_braces = true:error
+dotnet_diagnostic.IDE0011.severity = error
+
+csharp_prefer_simple_using_statement = true:warning
+csharp_style_namespace_declarations = file_scoped:warning
+
+# New line preferences
+csharp_new_line_before_catch = true
+csharp_new_line_before_else = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_open_brace = all
+csharp_new_line_between_query_expression_clauses = true
+dotnet_diagnostic.SA1501.severity = error # Statement should not be on a single line
+
+### ***************************************
+### **** TODO: CONTINUE AFTER THIS LINE ***
+### ***************************************
 
 # Expression-level preferences
 csharp_prefer_simple_default_expression = true
@@ -154,17 +165,6 @@ csharp_using_directive_placement = outside_namespace:silent
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true
 csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true
 csharp_style_allow_embedded_statements_on_same_line_experimental = true
-
-#### C# Formatting Rules ####
-
-# New line preferences
-csharp_new_line_before_catch = true
-csharp_new_line_before_else = true
-csharp_new_line_before_finally = true
-csharp_new_line_before_members_in_anonymous_types = true
-csharp_new_line_before_members_in_object_initializers = true
-csharp_new_line_before_open_brace = all
-csharp_new_line_between_query_expression_clauses = true
 
 # Indentation preferences
 csharp_indent_block_contents = true

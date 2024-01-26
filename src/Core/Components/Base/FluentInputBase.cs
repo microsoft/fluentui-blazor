@@ -138,7 +138,9 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
         if (!hasChanged)
+        {
             return;
+        }
 
         _parsingFailed = false;
 

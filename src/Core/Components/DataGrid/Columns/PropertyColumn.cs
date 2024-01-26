@@ -91,9 +91,13 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                 PropertyInfo = memberExpression.Member as PropertyInfo;
                 var daText = memberExpression.Member.DeclaringType?.GetDisplayAttributeString(memberExpression.Member.Name);
                 if (!string.IsNullOrEmpty(daText))
+                {
                     Title = daText;
+                }
                 else
+                {
                     Title = memberExpression.Member.Name;
+                }
             }
         }
     }

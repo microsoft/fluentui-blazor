@@ -22,7 +22,7 @@
     <IsTrimmable>true</IsTrimmable>
     <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
     <IsPackable>true</IsPackable>
-
+    
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
   </PropertyGroup>
 
@@ -32,7 +32,6 @@
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <NoWarn>1701;1702;8669;1591;1816</NoWarn>
-
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

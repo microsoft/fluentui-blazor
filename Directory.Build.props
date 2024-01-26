@@ -17,6 +17,11 @@
 		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
+		
+		<!-- Enable code style analysis -->
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
+
 	</PropertyGroup>
 
 	<ItemGroup>

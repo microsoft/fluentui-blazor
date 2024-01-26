@@ -52,7 +52,9 @@ public partial class MarkdownSection : FluentComponentBase
     protected override void OnInitialized()
     {
         if (Content is null && string.IsNullOrEmpty(FromAsset))
+        {
             throw new ArgumentException("You need to provide either Content or FromAsset parameter");
+        }
 
         InternalContent = Content;
     }

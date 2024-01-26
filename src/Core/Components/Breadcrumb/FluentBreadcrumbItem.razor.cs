@@ -70,7 +70,9 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     {
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+        {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+        }
 
         base.OnParametersSet();
     }

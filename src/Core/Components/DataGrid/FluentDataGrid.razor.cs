@@ -362,7 +362,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
                 Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
-                if (_ariaBodyRowCount > 0) Loading = false;
+                if (_ariaBodyRowCount > 0)
+                {
+                    Loading = false;
+                }
             }
             _internalGridContext.ResetRowIndexes(startIndex);
         }
@@ -407,7 +410,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
             Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
-            if (_ariaBodyRowCount > 0) Loading = false;
+            if (_ariaBodyRowCount > 0)
+            {
+                Loading = false;
+            }
 
             // We're supplying the row _index along with each row's data because we need it for aria-rowindex, and we have to account for
             // the virtualized start _index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have
@@ -459,9 +465,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
+        {
             return null;
+        }
         else
+        {
             return value;
+        }
     }
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch

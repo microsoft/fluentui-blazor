@@ -36,13 +36,19 @@ public class HttpBasedStaticAssetService : IStaticAssetService
             if (response.IsSuccessStatusCode)
             {
                 if (useCache)
+                {
                     // Store the response in the cache and get the result
                     result = await _cacheStorageAccessor.PutAndGetAsync(message, response);
+                }
                 else
+                {
                     result = await response.Content.ReadAsStringAsync();
+                }
             }
             else
+            {
                 result = string.Empty;
+            }
         }
 
         return result;

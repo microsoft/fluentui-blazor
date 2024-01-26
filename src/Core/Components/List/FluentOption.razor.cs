@@ -66,7 +66,9 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     public async Task OnClickHandlerAsync()
     {
         if (Disabled)
+        {
             return;
+        }
 
         Selected = !Selected;
 

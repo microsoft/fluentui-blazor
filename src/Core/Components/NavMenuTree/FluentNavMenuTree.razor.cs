@@ -200,11 +200,16 @@ public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner
 
         var localPath = new Uri(NavigationManager.Uri).LocalPath;
         if (string.IsNullOrEmpty(localPath))
+        {
             localPath = "/";
+        }
 
         if (localPath == "/")
         {
-            if (_allItems.Count > 0) menuItem = _allItems.Values.ElementAt(0);
+            if (_allItems.Count > 0)
+            {
+                menuItem = _allItems.Values.ElementAt(0);
+            }
         }
         else
         {

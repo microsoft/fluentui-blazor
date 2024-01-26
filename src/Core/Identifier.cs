@@ -26,10 +26,14 @@ public static class Identifier
         if (IdentifierContext.Current == null)
         {
             if (length > 16)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length), "length must be less than 16");
+            }
 
             if (length <= 8)
+            {
                 return $"f{_rnd.Next():x}";
+            }
 
             return $"f{_rnd.Next():x}{_rnd.Next():x}"[..length];
         }

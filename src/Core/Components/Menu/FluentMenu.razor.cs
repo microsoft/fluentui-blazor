@@ -110,11 +110,15 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
                 {
                     // Add LeftClick event
                     if (Trigger == MouseButton.Left)
+                    {
                         await _jsModule.InvokeVoidAsync("addEventLeftClick", Anchor, _dotNetHelper);
+                    }
 
                     // Add RightClick event
                     if (Trigger == MouseButton.Right)
+                    {
                         await _jsModule.InvokeVoidAsync("addEventRightClick", Anchor, _dotNetHelper);
+                    }
                 }
             }
         }
