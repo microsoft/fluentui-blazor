@@ -31,7 +31,7 @@ public partial class FluentInputBase<TValue>
 
         if (isValid)
         {
-            await SetCurrentValue(result ?? default);
+            await SetCurrentValueAsync(result ?? default);
         }
         else
         {

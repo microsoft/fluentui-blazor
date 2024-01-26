@@ -34,7 +34,7 @@ public partial class FluentMenuButton : FluentComponentBase
         _visible = !_visible;
     }
 
-    private async Task OnMenuChange(MenuChangeEventArgs args)
+    private async Task OnMenuChangeAsync(MenuChangeEventArgs args)
     {
         if (args is not null && args.Id is not null)
         {

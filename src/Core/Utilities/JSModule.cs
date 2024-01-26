@@ -57,11 +57,11 @@ public abstract class JSModule : IAsyncDisposable
     // On disposal, we release the JSRuntime module
     public async ValueTask DisposeAsync()
     {
-        await DisposeAsyncCore().ConfigureAwait(false);
+        await DisposeCoreAsync().ConfigureAwait(false);
         GC.SuppressFinalize(this);
     }
 
-    protected virtual async ValueTask DisposeAsyncCore()
+    protected virtual async ValueTask DisposeCoreAsync()
     {
         if (_isDisposed)
         {

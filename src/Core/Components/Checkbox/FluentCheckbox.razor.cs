@@ -69,7 +69,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
             if (_checkState != value)
             {
                 _checkState = value;
-                _ = SetCurrentAndIntermediate(value);
+                _ = SetCurrentAndIntermediateAsync(value);
             }
         }
     }
@@ -92,25 +92,25 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     }
 
     /// <summary />
-    private async Task SetCurrentAndIntermediate(bool? value)
+    private async Task SetCurrentAndIntermediateAsync(bool? value)
     {
         switch (value)
         {
             // Checked
             case true:
-                await SetCurrentValue(true);
+                await SetCurrentValueAsync(true);
                 await SetIntermediateAsync(false);
                 break;
 
             // Unchecked
             case false:
-                await SetCurrentValue(false);
+                await SetCurrentValueAsync(false);
                 await SetIntermediateAsync(false);
                 break;
 
             // Indeterminate
             default:
-                await SetCurrentValue(VALUE_FOR_INDETERMINATE);
+                await SetCurrentValueAsync(VALUE_FOR_INDETERMINATE);
                 await SetIntermediateAsync(true);
                 break;
         }
@@ -128,7 +128,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     }
 
     /// <summary />
-    private async Task SetCurrentCheckState(bool newChecked)
+    private async Task SetCurrentCheckStateAsync(bool newChecked)
     {
         bool? newState = null;
 
@@ -186,8 +186,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>
             }
         }
 
-        await SetCurrentAndIntermediate(newState);
-        await UpdateAndRaiseCheckStateEvent(newState);
+        await SetCurrentAndIntermediateAsync(newState);
+        await UpdateAndRaiseCheckStateEventAsync(newState);
     }
 
     /// <summary />
@@ -200,18 +200,18 @@ public partial class FluentCheckbox : FluentInputBase<bool>
 
         if (ThreeState)
         {
-            await SetCurrentCheckState(e.Checked ?? false);
+            await SetCurrentCheckStateAsync(e.Checked ?? false);
         }
         else
         {
-            await SetCurrentValue(e.Checked ?? false);
+            await SetCurrentValueAsync(e.Checked ?? false);
             await SetIntermediateAsync(false);
-            await UpdateAndRaiseCheckStateEvent(e.Checked ?? false);
+            await UpdateAndRaiseCheckStateEventAsync(e.Checked ?? false);
         }
     }
 
     /// <summary />
-    private async Task UpdateAndRaiseCheckStateEvent(bool? value)
+    private async Task UpdateAndRaiseCheckStateEventAsync(bool? value)
     {
         if (_checkState != value)
         {

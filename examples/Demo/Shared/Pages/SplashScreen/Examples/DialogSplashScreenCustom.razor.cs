@@ -31,7 +31,7 @@ public partial class DialogSplashScreenCustom
         }
 
         DialogResult result = await _dialog.Result;
-        await HandleCustomSplash(result);
+        await HandleCustomSplashAsync(result);
     }
     private void OpenSplashCustom()
     {
@@ -48,10 +48,10 @@ public partial class DialogSplashScreenCustom
             Width = "500px",
             Height = "300px",
         };
-        DialogService.ShowSplashScreen<CustomSplashScreen>(this, HandleCustomSplash, parameters);
+        DialogService.ShowSplashScreen<CustomSplashScreen>(this, HandleCustomSplashAsync, parameters);
     }
 
-    private async Task HandleCustomSplash(DialogResult result)
+    private async Task HandleCustomSplashAsync(DialogResult result)
     {
         await Task.Run(() => DemoLogger.WriteLine($"Custom splash closed"));
     }

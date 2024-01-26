@@ -45,7 +45,7 @@ public partial class FluentAccordion : FluentComponentBase
 
     }
 
-    private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
+    private async Task HandleOnAccordionChangedAsync(AccordionChangeEventArgs args)
     {
         if (args is not null)
         {

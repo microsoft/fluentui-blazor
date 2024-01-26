@@ -22,7 +22,7 @@ public partial class DialogPanel
             Content = simplePerson,
             Alignment = HorizontalAlignment.Right,
             Title = $"Hello {simplePerson.Firstname}",
-            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
+            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanelAsync),
             PrimaryAction = "Yes",
             SecondaryAction = "No",
         });
@@ -36,7 +36,7 @@ public partial class DialogPanel
         {
             Content = simplePerson,
             Title = $"Hello {simplePerson.Firstname}",
-            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanel),
+            OnDialogResult = DialogService.CreateDialogCallback(this, HandlePanelAsync),
             Alignment = HorizontalAlignment.Left,
             Modal = false,
             ShowDismiss = false,
@@ -49,7 +49,7 @@ public partial class DialogPanel
 #pragma warning restore CS0618 // Type or member is obsolete
     }
 
-    private async Task HandlePanel(DialogResult result)
+    private async Task HandlePanelAsync(DialogResult result)
     {
         if (result.Cancelled)
         {

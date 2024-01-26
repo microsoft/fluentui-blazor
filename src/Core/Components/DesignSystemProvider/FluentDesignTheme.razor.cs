@@ -190,7 +190,7 @@ public partial class FluentDesignTheme : ComponentBase
             var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
             var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
-            await ApplyLocalStorageValues(theme);
+            await ApplyLocalStorageValuesAsync(theme);
 
             var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance");
             realLuminance = string.IsNullOrWhiteSpace(realLuminance) ? "1.0" : realLuminance;
@@ -214,7 +214,7 @@ public partial class FluentDesignTheme : ComponentBase
     }
 
     /// <summary />
-    private async Task ApplyLocalStorageValues(DataLocalStorage? theme)
+    private async Task ApplyLocalStorageValuesAsync(DataLocalStorage? theme)
     {
         // Mode (Dark / Light / System)
         if (!string.IsNullOrEmpty(theme?.Mode))

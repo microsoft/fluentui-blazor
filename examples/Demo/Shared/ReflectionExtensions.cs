@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 
 namespace FluentUI.Demo.Shared;
 
-
 /// <summary>
 /// Reflection extension methods with supporting properties.
 /// </summary>

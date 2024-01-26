@@ -89,13 +89,13 @@ public partial class TableOfContents : IAsyncDisposable
                 _expanded = false;
             }
 
-            await BackToTop();
-            await QueryDom();
+            await BackToTopAsync();
+            await QueryDomAsync();
 
         }
     }
 
-    private async Task BackToTop()
+    private async Task BackToTopAsync()
     {
         if (_jsModule is null)
         {
@@ -104,7 +104,7 @@ public partial class TableOfContents : IAsyncDisposable
         await _jsModule.InvokeAsync<Anchor[]?>("backToTop");
     }
 
-    private async Task QueryDom()
+    private async Task QueryDomAsync()
     {
         if (_jsModule is null)
         {
@@ -138,8 +138,8 @@ public partial class TableOfContents : IAsyncDisposable
     {
         try
         {
-            await BackToTop();
-            await QueryDom();
+            await BackToTopAsync();
+            await QueryDomAsync();
         }
         catch (Exception)
         {
@@ -147,9 +147,10 @@ public partial class TableOfContents : IAsyncDisposable
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async Task Refresh()
     {
-        await QueryDom();
+        await QueryDomAsync();
     }
 
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)

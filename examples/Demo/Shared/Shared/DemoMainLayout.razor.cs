@@ -55,9 +55,9 @@ public partial class DemoMainLayout
         }
     }
 
-    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
+    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContentsAsync);
 
-    private async Task RefreshTableOfContents()
+    private async Task RefreshTableOfContentsAsync()
     {
         await _toc!.Refresh();
     }

@@ -52,7 +52,7 @@ public partial class SiteSettingsPanel
         Direction = isLeftToRight ? LocalizationDirection.LeftToRight : LocalizationDirection.RightToLeft;
     }
 
-    private async Task ResetSite()
+    private async Task ResetSiteAsync()
     {
         var msg = "Site settings reset and cache cleared!";
 

@@ -25,7 +25,7 @@ public partial class DialogSplashScreenDefault
         };
         _dialog = await DialogService.ShowSplashScreenAsync(parameters);
         DialogResult result = await _dialog.Result;
-        await HandleDefaultSplash(result);
+        await HandleDefaultSplashAsync(result);
     }
 
     private void OpenSplashDefault()
@@ -44,10 +44,10 @@ public partial class DialogSplashScreenDefault
             Width = "640px",
             Height = "480px",
         };
-        DialogService.ShowSplashScreen(this, HandleDefaultSplash, parameters);
+        DialogService.ShowSplashScreen(this, HandleDefaultSplashAsync, parameters);
     }
 
-    private async Task HandleDefaultSplash(DialogResult result)
+    private async Task HandleDefaultSplashAsync(DialogResult result)
     {
         await Task.Run(() => DemoLogger.WriteLine($"Default splash closed"));
     }

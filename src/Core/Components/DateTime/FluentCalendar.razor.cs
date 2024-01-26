@@ -109,9 +109,9 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private async Task OnPreviousButtonHandler(MouseEventArgs e)
+    private async Task OnPreviousButtonHandlerAsync(MouseEventArgs e)
     {
-        await StartNewAnimation(VerticalPosition.Bottom);
+        await StartNewAnimationAsync(VerticalPosition.Bottom);
 
         switch (View)
         {
@@ -130,9 +130,9 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private async Task OnNextButtonHandler(MouseEventArgs e)
+    private async Task OnNextButtonHandlerAsync(MouseEventArgs e)
     {
-        await StartNewAnimation(VerticalPosition.Top);
+        await StartNewAnimationAsync(VerticalPosition.Top);
 
         switch (View)
         {
@@ -204,7 +204,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
 
     /// <summary />
-    private async Task StartNewAnimation(VerticalPosition position)
+    private async Task StartNewAnimationAsync(VerticalPosition position)
     {
         if (CanBeAnimated)
         {
@@ -251,7 +251,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    private async Task PickerMonthSelect(DateTime? month)
+    private async Task PickerMonthSelectAsync(DateTime? month)
     {
         PickerMonth = month ?? DateTime.Today;
         _pickerView = CalendarViews.Days;
@@ -263,7 +263,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private async Task PickerYearSelect(DateTime? year)
+    private async Task PickerYearSelectAsync(DateTime? year)
     {
         PickerMonth = year ?? DateTime.Today;
         _pickerView = CalendarViews.Days;

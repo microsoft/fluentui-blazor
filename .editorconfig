@@ -86,8 +86,8 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_readonly_field = true:error
 
 # Parameter preferences
-dotnet_code_quality_unused_parameters = all:warning
-dotnet_diagnostic.IDE0060.severity = warning
+dotnet_code_quality_unused_parameters = all:none
+dotnet_diagnostic.IDE0060.severity = none
 
 # Suppression preferences
 dotnet_remove_unnecessary_suppression_exclusions = none
@@ -298,7 +298,7 @@ csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 
 #### Tests Projects ####
-[/test/**/*.cs]
+[/tests/**/*.cs]
 dotnet_diagnostic.CS1591.severity = none
 dotnet_diagnostic.IDE0008.severity = none
 dotnet_diagnostic.CA1707.severity = none
@@ -312,6 +312,10 @@ dotnet_diagnostic.VSTHRD200.severity = none
 dotnet_diagnostic.SA0001.severity = none
 dotnet_diagnostic.SA1204.severity = none
 dotnet_diagnostic.VSTHRD111.severity = none
+
+#### Demo projects
+[/examples/**/*.cs]
+dotnet_diagnostic.CS1591.severity = none
 
 # Other files
 [*.{xml,config,*proj,nuspec,props,resx,targets,yml,tasks}]
