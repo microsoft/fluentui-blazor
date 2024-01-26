@@ -15,6 +15,73 @@
             Gets or sets the status message to be read by screen readers.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.DebugDisplay">
+            <summary>
+            In Debug mode, you can set this to true to display the status message on the page (on right, in yellow).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.Content">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.AriaHidden">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.Style">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode">
+            <summary>
+            Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
+            The anchor must refer to the ID of an element (or sub-element) accepting the focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Anchor">
+            <summary>
+            Required. Gets or sets the control identifier associated with the KeyCode engine.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDown">
+            <summary>
+            Event triggered when a KeyDown event is raised.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.IgnoreModifier">
+            <summary>
+            Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Only">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to accept, and only this list, when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Ignore">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to ignore when evaluating the key code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaised(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Internal method.
+            </summary>
+            <param name="keyCode"></param>
+            <param name="value"></param>
+            <param name="ctrlKey"></param>
+            <param name="shiftKey"></param>
+            <param name="altKey"></param>
+            <param name="metaKey"></param>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
@@ -3902,9 +3969,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.AccessibilityStatusMessage">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Placeholder">
             <summary>
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -4009,7 +4073,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnAfterRenderAsync(System.Boolean)">
@@ -10798,6 +10862,46 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.JustifyContent.SpaceEvenly">
             <summary>
             Justify content space-evenly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.KeyLocation">
+            <summary>
+            the location of the key on the keyboard or other input device
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.Unknown">
+            <summary>
+            Not defined
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.Standard">
+            <summary>
+            The key has only one version, or can't be distinguished between the left and right versions of the key, and was not pressed on the numeric keypad or a key that is considered to be part of the keypad.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.Left">
+            <summary>
+            The key was the left-hand version of the key; for example, the left-hand Control key was pressed on a standard 101 key US keyboard. This value is only used for keys that have more than one possible location on the keyboard.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.Right">
+            <summary>
+            The key was the right-hand version of the key; for example, the right-hand Control key is pressed on a standard 101 key US keyboard. This value is only used for keys that have more than one possible location on the keyboard.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.NumPad">
+            <summary>
+            The key was on the numeric keypad, or has a virtual key code that corresponds to the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.Mobile">
+            <summary>
+            The key was on a mobile device; this can be on either a physical keypad or a virtual keyboard.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.KeyLocation.Joystick">
+            <summary>
+            The key was a button on a game controller or a joystick on a mobile device.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.LocalizationDirection">
