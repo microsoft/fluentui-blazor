@@ -1,6 +1,4 @@
 using Bunit;
-using FluentAssertions.Common;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MessageBar;

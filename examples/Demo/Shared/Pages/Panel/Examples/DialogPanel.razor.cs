@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using FluentUI.Demo.Shared.SampleData;
 using Microsoft.FluentUI.AspNetCore.Components;
 

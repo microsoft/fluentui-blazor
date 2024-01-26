@@ -1,9 +1,5 @@
-using System;
-using System.Globalization;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCollapsibleRegion : FluentComponentBase

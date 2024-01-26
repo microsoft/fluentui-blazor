@@ -140,6 +140,54 @@ csharp_new_line_before_open_brace = all
 csharp_new_line_between_query_expression_clauses = true
 dotnet_diagnostic.SA1501.severity = error # Statement should not be on a single line
 
+# Style Analyzer
+dotnet_diagnostic.SA1200.severity = none
+dotnet_diagnostic.SA1202.severity = suggestion
+dotnet_diagnostic.SA1600.severity = suggestion
+dotnet_diagnostic.SA1601.severity = suggestion
+dotnet_diagnostic.SA1602.severity = suggestion
+dotnet_diagnostic.SA1604.severity = suggestion
+dotnet_diagnostic.SA1605.severity = suggestion
+dotnet_diagnostic.SA1606.severity = suggestion
+dotnet_diagnostic.SA1607.severity = suggestion
+dotnet_diagnostic.SA1608.severity = suggestion
+dotnet_diagnostic.SA1609.severity = none
+dotnet_diagnostic.SA1610.severity = suggestion
+dotnet_diagnostic.SA1611.severity = suggestion
+dotnet_diagnostic.SA1612.severity = suggestion
+dotnet_diagnostic.SA1613.severity = suggestion
+dotnet_diagnostic.SA1614.severity = suggestion
+dotnet_diagnostic.SA1615.severity = none
+dotnet_diagnostic.SA1616.severity = suggestion
+dotnet_diagnostic.SA1617.severity = suggestion
+dotnet_diagnostic.SA1618.severity = suggestion
+dotnet_diagnostic.SA1619.severity = suggestion
+dotnet_diagnostic.SA1620.severity = suggestion
+dotnet_diagnostic.SA1621.severity = suggestion
+dotnet_diagnostic.SA1622.severity = suggestion
+dotnet_diagnostic.SA1624.severity = suggestion
+dotnet_diagnostic.SA1625.severity = suggestion
+dotnet_diagnostic.SA1626.severity = suggestion
+dotnet_diagnostic.SA1627.severity = suggestion
+dotnet_diagnostic.SA1629.severity = none
+dotnet_diagnostic.SA1633.severity = silent
+dotnet_diagnostic.SA1634.severity = silent
+dotnet_diagnostic.SA1635.severity = silent
+dotnet_diagnostic.SA1636.severity = silent
+dotnet_diagnostic.SA1637.severity = silent
+dotnet_diagnostic.SA1638.severity = silent
+dotnet_diagnostic.SA1639.severity = silent
+dotnet_diagnostic.SA1640.severity = silent
+dotnet_diagnostic.SA1641.severity = silent
+dotnet_diagnostic.SA1642.severity = suggestion
+dotnet_diagnostic.SA1643.severity = suggestion
+dotnet_diagnostic.SA1648.severity = suggestion
+dotnet_diagnostic.SA1309.severity = silent
+dotnet_diagnostic.SA1310.severity = silent
+dotnet_diagnostic.SA1101.severity = silent
+dotnet_diagnostic.SX1309.severity = warning
+dotnet_diagnostic.IDE0005.severity = error
+
 ### ***************************************
 ### **** TODO: CONTINUE AFTER THIS LINE ***
 ### ***************************************
@@ -248,6 +296,22 @@ dotnet_naming_style.begins_with_i.capitalization = pascal_case
 dotnet_analyzer_diagnostic.category-Usage.severity = none
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
+
+#### Tests Projects ####
+[/test/**/*.cs]
+dotnet_diagnostic.CS1591.severity = none
+dotnet_diagnostic.IDE0008.severity = none
+dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.CA1851.severity = suggestion
+dotnet_diagnostic.CA1854.severity = suggestion
+dotnet_diagnostic.CA2201.severity = suggestion
+dotnet_diagnostic.CA1052.severity = none
+dotnet_diagnostic.SA1124.severity = none
+dotnet_diagnostic.SA1600.severity = none
+dotnet_diagnostic.VSTHRD200.severity = none
+dotnet_diagnostic.SA0001.severity = none
+dotnet_diagnostic.SA1204.severity = none
+dotnet_diagnostic.VSTHRD111.severity = none
 
 # Other files
 [*.{xml,config,*proj,nuspec,props,resx,targets,yml,tasks}]

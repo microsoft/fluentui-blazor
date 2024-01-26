@@ -35,18 +35,6 @@
     <PackageVersion Include="xunit" Version="2.6.5" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.6" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-
-    <!-- Code Analysis -->
-	<!-- 
-	<PackageReference Include="StyleCop.Analyzers" VersionOverride="1.2.0-beta.556">
-	  <PrivateAssets>all</PrivateAssets>
-	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	</PackageReference>
-	<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" VersionOverride="17.8.14">
-	  <PrivateAssets>all</PrivateAssets>
-	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	</PackageReference>			
-	-->
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />			
   </ItemGroup>
 </Project>

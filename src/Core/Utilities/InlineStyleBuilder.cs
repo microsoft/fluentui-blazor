@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;

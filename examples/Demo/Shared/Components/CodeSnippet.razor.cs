@@ -5,8 +5,6 @@
 namespace FluentUI.Demo.Shared.Components;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 /// <summary />

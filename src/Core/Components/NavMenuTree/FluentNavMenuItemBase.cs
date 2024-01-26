@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;

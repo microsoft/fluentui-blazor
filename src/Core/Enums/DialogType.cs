@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
