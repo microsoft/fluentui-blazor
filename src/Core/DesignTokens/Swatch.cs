@@ -78,5 +78,5 @@ public class Swatch
         return value / (max - min);
     }
 
-    private static float Denormalize(float value, int min, int max) => min + value * (max - min);
+    private static float Denormalize(float value, int min, int max) => min + (value * (max - min));
 }

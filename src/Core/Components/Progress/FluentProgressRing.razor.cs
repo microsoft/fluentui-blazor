@@ -74,7 +74,7 @@ public partial class FluentProgressRing : FluentComponentBase
     {
         ProgressStroke.Small => (1, 7, 0),
         ProgressStroke.Normal => (2, 7, 0),
-        ProgressStroke.Large => (4, 6, (int)(0.066 * (Value ?? 0) + 0.22)),
+        ProgressStroke.Large => (4, 6, (int)((0.066 * (Value ?? 0)) + 0.22)),
         _ => throw new NotImplementedException(),
     };
 
