@@ -5,8 +5,10 @@ using Microsoft.Fast.Components.FluentUI.Utilities;
 namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary />
-public partial class FluentOverflowItem
+public partial class FluentOverflowItem : IDisposable
 {
+    private bool _disposed;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("power-overflow-item")
@@ -56,5 +58,33 @@ public partial class FluentOverflowItem
     {
         Overflow = isOverflow == true ? isOverflow : null;
         Text = text ?? string.Empty;
+    }
+
+    /// <summary />
+    public void Dispose()
+    {
+        Dispose(false);
+    }
+
+    /// <summary />
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed) return;
+
+        try
+        {
+            // Release unmanaged resources (natives).
+            // ...
+
+            if (disposing) return;
+
+            // Dispose managed resources.
+            Container.RemoveItem(this);
+        }
+        finally
+        {
+            _disposed = true;
+            if (!disposing) GC.SuppressFinalize(this);
+        }
     }
 }
