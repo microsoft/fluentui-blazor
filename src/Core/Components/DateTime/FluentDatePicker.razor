@@ -3,38 +3,33 @@
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <FluentTextField Id="@Id"
-                 Embedded="true"
-                 Class="@ClassValue"
-                 Style="@StyleValue"
-                 AutoComplete="off"
-                 Autofocus="@Autofocus"
-                 Appearance="@Appearance"
-                 @bind-Value="@CurrentValueAsString"
-                 @onclick="@OnCalendarOpenHandlerAsync" 
-                 ReadOnly="@ReadOnly"
-                 Disabled="@Disabled"
-                 Required="@Required"
-                 Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
-                 Name="@Name"
-                 @attributes="@AdditionalAttributes">
+                    Embedded="true"
+                    Class="@ClassValue"
+                    Style="@StyleValue"
+                    AutoComplete="off"
+                    Autofocus="@Autofocus"
+                    Appearance="@Appearance"
+                    @bind-Value="@CurrentValueAsString"
+                    @onclick="@OnCalendarOpenHandlerAsync" 
+                    ReadOnly="@ReadOnly"
+                    Disabled="@Disabled"
+                    Required="@Required"
+                    Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
+                    Name="@Name"
+                    @attributes="@AdditionalAttributes">
     @((MarkupString)CalendarIcon)
 </FluentTextField>
 
 @if (Opened)
 {
-    <style>
-        @($"#{Id} ~ fluent-anchored-region .fluent-datepicker-popup {{ padding: 10px; border-radius: calc(var(--control-corner-radius) * 1px); position: absolute; }}")
-        @($"#{Id} ~ fluent-anchored-region .fluent-datepicker-popup.bottom {{ top: calc((var(--design-unit) * 2) * 1px); }}")
-        @($"#{Id} ~ fluent-anchored-region .fluent-datepicker-popup.top {{ bottom: calc((var(--design-unit) * 2) * 1px); }}")
-    </style>
     <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
     <FluentAnchoredRegion Anchor="@Id"
-                          HorizontalDefaultPosition="@HorizontalPosition.Right"
-                          HorizontalInset="true"
-                          VerticalDefaultPosition="@VerticalPosition.Unset"
-                          Shadow="ElevationShadow.Flyout"
-                          Class="fluent-datepicker-popup"
-                          Style="@($"z-index: {ZIndex.DatePickerPopup}; padding: 10px;")">
+                            HorizontalDefaultPosition="@HorizontalPosition.Right"
+                            HorizontalInset="true"
+                            VerticalDefaultPosition="@VerticalPosition.Unset"
+                            Shadow="ElevationShadow.Flyout"
+                            Class="fluent-datepicker-popup"
+                            Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
         <FluentCalendar Culture="@Culture"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"
