@@ -13,7 +13,7 @@
 ; To verify the solution:
 ;   $\> dotnet format -v diag --verify-no-changes --no-restore --report <TargetFolder>
 ; To fix a specific Diagnostic Code
-;   $\> dotnet-format style     --no-restore --verbosity diag --diagnostics IDE0065
+;   $\> dotnet-format style     --no-restore --verbosity diag --diagnostics IDE0007
 ;   $\> dotnet-format analyzers --no-restore --verbosity diag --diagnostics SA1210
 
 
@@ -64,33 +64,30 @@ csharp_style_var_for_built_in_types = true:error
 csharp_style_var_when_type_is_apparent = true:error
 csharp_style_var_elsewhere = true:suggestion
 
-
-
-### **** TODO ***
-
-
-
-
 # Expression-level preferences
-dotnet_style_coalesce_expression = true
-dotnet_style_collection_initializer = true
-dotnet_style_explicit_tuple_names = true
-dotnet_style_namespace_match_folder = true
-dotnet_style_null_propagation = true
-dotnet_style_object_initializer = true
+dotnet_style_coalesce_expression = true:warning
+dotnet_style_collection_initializer = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_namespace_match_folder = true:suggestion
+dotnet_style_null_propagation = true:warning
+dotnet_style_object_initializer = true:warning
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
-dotnet_style_prefer_auto_properties = true
-dotnet_style_prefer_compound_assignment = true
-dotnet_style_prefer_conditional_expression_over_assignment = true
-dotnet_style_prefer_conditional_expression_over_return = true
-dotnet_style_prefer_inferred_anonymous_type_member_names = true
-dotnet_style_prefer_inferred_tuple_names = true
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true
-dotnet_style_prefer_simplified_boolean_expressions = true
-dotnet_style_prefer_simplified_interpolation = true
+dotnet_style_prefer_auto_properties = true:silent
+dotnet_style_prefer_compound_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:silent
+dotnet_style_prefer_conditional_expression_over_return = true:silent
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+dotnet_style_prefer_simplified_interpolation = true:suggestion
 
 # Field preferences
-dotnet_style_readonly_field = true
+dotnet_style_readonly_field = true:error
+
+### ***************************************
+### **** TODO: CONTINUE AFTER THIS LINE ***
+### ***************************************
 
 # Parameter preferences
 dotnet_code_quality_unused_parameters = all

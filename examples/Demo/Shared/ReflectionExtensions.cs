@@ -351,7 +351,7 @@ namespace FluentUI.Demo.Shared
         /// <summary>
         /// Hash of all possible ValueTuple type definitions for quick check if type is value tuple.
         /// </summary>
-        private static HashSet<Type> GenericTuples = new(new Type[] {
+        private static readonly HashSet<Type> GenericTuples = new(new Type[] {
             typeof(ValueTuple<>),
             typeof(ValueTuple<,>),
             typeof(ValueTuple<,,>),

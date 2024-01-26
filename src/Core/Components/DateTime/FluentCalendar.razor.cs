@@ -18,7 +18,7 @@ public partial class FluentCalendar : FluentCalendarBase
     internal CalendarViews _pickerView = CalendarViews.Days;
     private VerticalPosition _animationRunning = VerticalPosition.Unset;
     private DateTime? _pickerMonth = null;
-    private CalendarExtended? _calendarExtended = null;
+    private readonly CalendarExtended? _calendarExtended = null;
 
     /// <summary />
     protected override string? ClassValue

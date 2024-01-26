@@ -7,9 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class FluentCalendarDay
 {
-    private FluentCalendar _calendar;
-    private bool _isInDisabledList;
-    private bool _isOutsideCurrentMonth;
+    private readonly FluentCalendar _calendar;
+    private readonly bool _isInDisabledList;
+    private readonly bool _isOutsideCurrentMonth;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentCalendarDay"/> class.
