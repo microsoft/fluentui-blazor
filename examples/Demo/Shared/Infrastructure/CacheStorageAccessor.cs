@@ -1,4 +1,4 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Shared;
@@ -6,18 +6,18 @@ public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/Flue
 {
     public async ValueTask PutAsync(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
     {
-        string requestMethod = requestMessage.Method.Method;
-        string requestBody = await GetRequestBodyAsync(requestMessage);
-        string responseBody = await responseMessage.Content.ReadAsStringAsync();
+        var requestMethod = requestMessage.Method.Method;
+        var requestBody = await GetRequestBodyAsync(requestMessage);
+        var responseBody = await responseMessage.Content.ReadAsStringAsync();
 
         await InvokeVoidAsync("put", requestMessage.RequestUri!, requestMethod, requestBody, responseBody);
     }
 
     public async ValueTask<string> PutAndGetAsync(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
     {
-        string requestMethod = requestMessage.Method.Method;
-        string requestBody = await GetRequestBodyAsync(requestMessage);
-        string responseBody = await responseMessage.Content.ReadAsStringAsync();
+        var requestMethod = requestMessage.Method.Method;
+        var requestBody = await GetRequestBodyAsync(requestMessage);
+        var responseBody = await responseMessage.Content.ReadAsStringAsync();
 
         await InvokeVoidAsync("put", requestMessage.RequestUri!, requestMethod, requestBody, responseBody);
 
@@ -26,17 +26,17 @@ public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/Flue
 
     public async ValueTask<string> GetAsync(HttpRequestMessage requestMessage)
     {
-        string requestMethod = requestMessage.Method.Method;
-        string requestBody = await GetRequestBodyAsync(requestMessage);
-        string result = await InvokeAsync<string>("get", requestMessage.RequestUri!, requestMethod, requestBody);
+        var requestMethod = requestMessage.Method.Method;
+        var requestBody = await GetRequestBodyAsync(requestMessage);
+        var result = await InvokeAsync<string>("get", requestMessage.RequestUri!, requestMethod, requestBody);
 
         return result;
     }
 
     public async ValueTask RemoveAsync(HttpRequestMessage requestMessage)
     {
-        string requestMethod = requestMessage.Method.Method;
-        string requestBody = await GetRequestBodyAsync(requestMessage);
+        var requestMethod = requestMessage.Method.Method;
+        var requestBody = await GetRequestBodyAsync(requestMessage);
 
         await InvokeVoidAsync("remove", requestMessage.RequestUri!, requestMethod, requestBody);
     }
@@ -47,7 +47,7 @@ public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/Flue
     }
     private static async ValueTask<string> GetRequestBodyAsync(HttpRequestMessage requestMessage)
     {
-        string requestBody = string.Empty;
+        var requestBody = string.Empty;
         if (requestMessage.Content is not null)
         {
             requestBody = await requestMessage.Content.ReadAsStringAsync();

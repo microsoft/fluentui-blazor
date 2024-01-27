@@ -45,7 +45,7 @@ public class FluentCheckboxTests : TestBase
     [InlineData("id-parameter")]
     public void FluentCheckbox_IdParameter(string? idParameter)
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -62,7 +62,7 @@ public class FluentCheckboxTests : TestBase
     [Fact]
     public void FluentCheckbox_DisabledParameter()
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -83,7 +83,7 @@ public class FluentCheckboxTests : TestBase
     [InlineData("name-parameter")]
     public void FluentCheckbox_NameParameter(string? nameParameter)
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -100,7 +100,7 @@ public class FluentCheckboxTests : TestBase
     [Fact]
     public void FluentCheckbox_RequiredParameter()
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -117,7 +117,7 @@ public class FluentCheckboxTests : TestBase
     [Fact]
     public void FluentCheckbox_ClassParameter()
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -134,7 +134,7 @@ public class FluentCheckboxTests : TestBase
     [Fact]
     public void FluentCheckbox_StyleParameter()
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -151,7 +151,7 @@ public class FluentCheckboxTests : TestBase
     [Fact]
     public void FluentCheckbox_AdditionalParameter()
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>
@@ -168,7 +168,7 @@ public class FluentCheckboxTests : TestBase
     [Fact]
     public void FluentCheckbox_AdditionalParameters()
     {
-        bool currentValue = true;
+        var currentValue = true;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentCheckbox>(parameters =>

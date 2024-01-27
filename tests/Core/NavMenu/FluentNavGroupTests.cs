@@ -1,4 +1,4 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;

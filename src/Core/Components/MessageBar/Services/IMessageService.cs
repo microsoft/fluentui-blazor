@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public interface IMessageService : IDisposable
@@ -23,7 +23,6 @@ public interface IMessageService : IDisposable
 
     /// <summary />
     Message ShowMessageBar(string message, MessageIntent intent, string section);
-
 
     /// <summary />
     Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);

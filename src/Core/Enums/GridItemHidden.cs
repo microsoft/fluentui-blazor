@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Hide the <see cref="FluentGridItem"/> when a size condition is met.

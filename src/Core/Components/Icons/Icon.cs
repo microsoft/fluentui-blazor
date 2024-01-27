@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,7 +13,7 @@ public class Icon : IconInfo
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
     public Icon() : this(string.Empty, IconVariant.Regular, IconSize.Size24, string.Empty)
-    { 
+    {
         throw new ArgumentNullException("Please use the constructor including parameters.");
     }
 

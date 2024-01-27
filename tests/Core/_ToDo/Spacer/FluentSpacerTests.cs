@@ -15,12 +15,7 @@ public class FluentSpacerTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

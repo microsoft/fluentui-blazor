@@ -95,11 +95,11 @@ public partial class FluentTextField : FluentInputBase<string?>
                 await Module.InvokeVoidAsync("setAutocomplete", Id, AutoComplete);
             }
         }
-            if (DataList != null && !string.IsNullOrEmpty(Id))
-            {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("setDataList", Id, DataList);
-            }
-        
+        if (DataList != null && !string.IsNullOrEmpty(Id))
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("setDataList", Id, DataList);
+        }
+
     }
 }

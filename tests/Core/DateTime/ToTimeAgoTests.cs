@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
@@ -57,7 +57,7 @@ public class ToTimeAgoTests : TestBase
             DayAgo = "Il y a un jour",
             DaysAgo = "Il y a {0} jours",
             MonthAgo = "Il y a un mois",
-            MonthsAgo = "Il y a {0} mois",            
+            MonthsAgo = "Il y a {0} mois",
             YearAgo = "Il y a {0} an",
             YearsAgo = "Il y a {0} ans",
         };
@@ -67,7 +67,7 @@ public class ToTimeAgoTests : TestBase
 
     [Theory]
     [InlineData("000.00:00:02", "Just now")]
-    
+
     public void ToTimeAgo_Ctor(string delayAsString, string expectedValue)
     {
         var delay = TimeSpan.ParseExact(delayAsString, @"ddd\.hh\:mm\:ss", null);

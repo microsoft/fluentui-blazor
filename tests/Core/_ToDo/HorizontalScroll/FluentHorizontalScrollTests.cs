@@ -12,8 +12,8 @@ public class FluentHorizontalScrollTests : TestBase
     public void FluentHorizontalScroll_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
-        int speed = 600;
+        var childContent = "<b>render me</b>";
+        var speed = 600;
         string duration = default!;
         ScrollEasing? easing = ScrollEasing.Linear;
         bool? flippersHiddenFromAt = false;
@@ -29,12 +29,7 @@ public class FluentHorizontalScrollTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

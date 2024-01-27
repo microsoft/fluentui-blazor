@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Values to define the base behavior of a <see cref="FluentAnchoredRegion"/> component on a particular axis.

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 // See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location
 

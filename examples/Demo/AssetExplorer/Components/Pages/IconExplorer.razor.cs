@@ -1,16 +1,16 @@
-﻿using System.Data;
+using System.Data;
 using FluentUI.Demo.AssetExplorer.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 
-namespace FluentUI.Demo.AssetExplorer.Components.Pages; 
+namespace FluentUI.Demo.AssetExplorer.Components.Pages;
 
 public partial class IconExplorer
 {
     private bool SearchInProgress = false;
 
     private readonly IconSearchCriteria Criteria = new();
-    private IconInfo[] IconsFound = Array.Empty<IconInfo>();    
+    private IconInfo[] IconsFound = Array.Empty<IconInfo>();
     private PaginationState PaginationState = new() { ItemsPerPage = 4 * 12 };
 
     [Parameter]

@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Drag;

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -37,7 +36,7 @@ public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
         {
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             await _jsModule.InvokeVoidAsync("setDividerAriaOrientation");
-        }   
+        }
     }
 
     /// <inheritdoc />

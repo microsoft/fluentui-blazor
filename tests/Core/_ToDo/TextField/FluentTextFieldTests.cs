@@ -18,7 +18,7 @@ public class FluentTextFieldTests : TestBase
     public void FluentTextField_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         TextFieldType? textFieldType = default!;
         string dataList = default!;
         int? maxlength = default!;
@@ -43,12 +43,7 @@ public class FluentTextFieldTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

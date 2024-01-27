@@ -89,7 +89,6 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public FluentTab ActiveTab => _tabs.FirstOrDefault(i => i.Key == ActiveTabId).Value ?? _tabs.First().Value;
 
-
     [Parameter]
     public string ActiveTabId { get; set; } = default!;
 
@@ -127,7 +126,6 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
 
     public FluentTabs()
@@ -141,20 +139,19 @@ public partial class FluentTabs : FluentComponentBase
         if (firstRender)
         {
 
-
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
 
-            bool horizontal = Orientation == Orientation.Horizontal;
+            var horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }
 
-    private async Task HandleOnTabChanged(TabChangeEventArgs args)
+    private async Task HandleOnTabChangedAsync(TabChangeEventArgs args)
     {
-        string? tabId = args?.ActiveId;
+        var tabId = args?.ActiveId;
         if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
         {
             await OnTabChange.InvokeAsync(tab);
@@ -233,12 +230,10 @@ public partial class FluentTabs : FluentComponentBase
         await InvokeAsync(() => StateHasChanged());
     }
 
-
-
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-        bool horizontal = Orientation == Orientation.Horizontal;
+        var horizontal = Orientation == Orientation.Horizontal;
         await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 

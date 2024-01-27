@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -18,7 +18,6 @@ public enum JustifyContent
     /// </summary>
     [Description("center")]
     Center,
-
 
     /// <summary>
     /// Justify content flex-end.

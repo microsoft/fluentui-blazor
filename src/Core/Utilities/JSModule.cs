@@ -1,7 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.JSInterop;
 using static Microsoft.FluentUI.AspNetCore.Components.Utilities.LinkerFlags;
-
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -30,7 +29,7 @@ public abstract class JSModule : IAsyncDisposable
 {
     private bool _isDisposed = false;
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
-    
+
     // On construction, we start loading the JSRuntime module
     protected JSModule(IJSRuntime js, string moduleUrl)
     {
@@ -40,29 +39,35 @@ public abstract class JSModule : IAsyncDisposable
 
         ArgumentNullException.ThrowIfNull(js);
 
-        if (moduleUrl != null && string.IsNullOrWhiteSpace(moduleUrl)) throw new ArgumentException("Argument was empty or whitespace.", nameof(moduleUrl));
-        
-        _moduleTask = new (js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask());
+        if (moduleUrl != null && string.IsNullOrWhiteSpace(moduleUrl))
+        {
+            throw new ArgumentException("Argument was empty or whitespace.", nameof(moduleUrl));
+        }
+
+        _moduleTask = new(js.InvokeAsync<IJSObjectReference>("import", moduleUrl).AsTask());
     }
-    
+
     // Methods for invoking exports from the module
     protected async ValueTask InvokeVoidAsync(string identifier, params object[]? args)
         => await (await _moduleTask.Value).InvokeVoidAsync(identifier, args);
-    
+
     protected async ValueTask<T> InvokeAsync<[DynamicallyAccessedMembers(JsonSerialized)] T>(string identifier, params object[]? args)
         => await (await _moduleTask.Value).InvokeAsync<T>(identifier, args);
-
 
     // On disposal, we release the JSRuntime module
     public async ValueTask DisposeAsync()
     {
-        await DisposeAsyncCore().ConfigureAwait(false);
+        await DisposeCoreAsync().ConfigureAwait(false);
         GC.SuppressFinalize(this);
     }
 
-    protected virtual async ValueTask DisposeAsyncCore()
+    protected virtual async ValueTask DisposeCoreAsync()
     {
-        if (_isDisposed) return;
+        if (_isDisposed)
+        {
+            return;
+        }
+
         if (_moduleTask.IsValueCreated && !_moduleTask.Value.IsFaulted)
         {
             try

@@ -22,7 +22,6 @@ public partial class FluentMenuButton : FluentComponentBase
     [Parameter]
     public string? MenuStyle { get; set; }
 
-
     [Parameter]
     public Dictionary<string, string> Items { get; set; } = [];
 
@@ -35,7 +34,7 @@ public partial class FluentMenuButton : FluentComponentBase
         _visible = !_visible;
     }
 
-    private async Task OnMenuChange(MenuChangeEventArgs args)
+    private async Task OnMenuChangeAsync(MenuChangeEventArgs args)
     {
         if (args is not null && args.Id is not null)
         {

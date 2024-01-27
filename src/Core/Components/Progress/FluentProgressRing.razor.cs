@@ -36,7 +36,6 @@ public partial class FluentProgressRing : FluentComponentBase
     [Parameter]
     public int? Value { get; set; }
 
-
     [Parameter]
     public bool Visible { get; set; } = true;
 
@@ -74,15 +73,15 @@ public partial class FluentProgressRing : FluentComponentBase
     {
         ProgressStroke.Small => (1, 7, 0),
         ProgressStroke.Normal => (2, 7, 0),
-        ProgressStroke.Large => (4, 6, (int)(0.066 * (Value ?? 0) + 0.22)),
+        ProgressStroke.Large => (4, 6, (int)((0.066 * (Value ?? 0)) + 0.22)),
         _ => throw new NotImplementedException(),
     };
 
-    private string StyleBackground => $"stroke-width: {StrokeDetails.Width}px; " + 
+    private string StyleBackground => $"stroke-width: {StrokeDetails.Width}px; " +
                                       $"r: {StrokeDetails.Radius}px;";
 
-    private string StyleIndicator => $"stroke-width: {StrokeDetails.Width}px; " + 
-                                     $"r: {StrokeDetails.Radius}px; " + 
-                                     $"stroke-dashoffset: {StrokeDetails.Dashoffset}px; " + 
-                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color )};";
+    private string StyleIndicator => $"stroke-width: {StrokeDetails.Width}px; " +
+                                     $"r: {StrokeDetails.Radius}px; " +
+                                     $"stroke-dashoffset: {StrokeDetails.Dashoffset}px; " +
+                                     $"stroke: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color)};";
 }

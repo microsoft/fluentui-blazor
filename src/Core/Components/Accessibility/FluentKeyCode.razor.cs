@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -75,8 +75,8 @@ public partial class FluentKeyCode
     /// <param name="location"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnKeyDownRaised(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location)
-    {        
+    public async Task OnKeyDownRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location)
+    {
         if (OnKeyDown.HasDelegate)
         {
             await OnKeyDown.InvokeAsync(new FluentKeyCodeEventArgs

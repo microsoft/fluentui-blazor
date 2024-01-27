@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -20,7 +20,6 @@ public partial class FluentNavGroup : FluentNavBase
     internal string? StyleValue => new StyleBuilder(Style)
        .AddStyle("margin", $"{Gap} 0", !string.IsNullOrEmpty(Gap))
        .Build();
-
 
     protected string? ButtonClassValue =>
         new CssBuilder("expand-collapse-button")
@@ -122,7 +121,7 @@ public partial class FluentNavGroup : FluentNavBase
         {
             return;
         }
-       
+
         if (!Owner.Expanded)
         {
             await Owner.ExpandedChanged.InvokeAsync(true);

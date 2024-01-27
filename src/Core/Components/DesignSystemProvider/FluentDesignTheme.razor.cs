@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -29,7 +29,7 @@ public partial class FluentDesignTheme : ComponentBase
     /// Gets or sets the identifier for the component.
     /// </summary> 
     [Parameter]
-    public string Id { get; set; } 
+    public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the Theme mode: Dark, Light, or browser System theme.
@@ -85,7 +85,7 @@ public partial class FluentDesignTheme : ComponentBase
             _direction = value;
             if (value is not null)
             {
-                GlobalDesign.SetDirection((LocalizationDirection) value);
+                GlobalDesign.SetDirection((LocalizationDirection)value);
             }
             Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue());
         }
@@ -108,7 +108,6 @@ public partial class FluentDesignTheme : ComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
 
     public FluentDesignTheme()
     {
@@ -177,7 +176,7 @@ public partial class FluentDesignTheme : ComponentBase
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            string? dir = await Module.InvokeAsync<string?>("GetDirection");
+            var dir = await Module.InvokeAsync<string?>("GetDirection");
             if (!string.IsNullOrEmpty(dir))
             {
                 _direction = dir switch
@@ -191,7 +190,7 @@ public partial class FluentDesignTheme : ComponentBase
             var themeJSON = await Module.InvokeAsync<string>("addThemeChangeEvent", _dotNetHelper, Id);
             var theme = themeJSON == null ? null : JsonSerializer.Deserialize<DataLocalStorage>(themeJSON, JSON_OPTIONS);
 
-            await ApplyLocalStorageValues(theme);
+            await ApplyLocalStorageValuesAsync(theme);
 
             var realLuminance = await Module.InvokeAsync<string>("GetGlobalLuminance");
             realLuminance = string.IsNullOrWhiteSpace(realLuminance) ? "1.0" : realLuminance;
@@ -215,7 +214,7 @@ public partial class FluentDesignTheme : ComponentBase
     }
 
     /// <summary />
-    private async Task ApplyLocalStorageValues(DataLocalStorage? theme)
+    private async Task ApplyLocalStorageValuesAsync(DataLocalStorage? theme)
     {
         // Mode (Dark / Light / System)
         if (!string.IsNullOrEmpty(theme?.Mode))
@@ -268,7 +267,7 @@ public partial class FluentDesignTheme : ComponentBase
         {
             return Enum.GetName(OfficeColor.Value);
         }
-        
+
         return OfficeColorUtilities.GetRandom().ToAttributeValue();
     }
 

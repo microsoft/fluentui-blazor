@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Bunit;
 using Xunit;
 
@@ -141,7 +141,7 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         var firstDate = System.DateTime.Parse("2022-01-30");
 
-        for (int i = 0; i < allDays.Count; i++)
+        for (var i = 0; i < allDays.Count; i++)
         {
             var expectedDay = firstDate.AddDays(i).Day;
             var actualDay = Convert.ToInt32(allDays[i].InnerHtml);
@@ -260,7 +260,7 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         var selectedDay = calendar.Find($"div[value='{DAY}']");
-        
+
         Assert.Equal("01", selectedDay.TextContent);
     }
 

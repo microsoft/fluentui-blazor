@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-
 
 /// <summary>
 /// Describes context for an <see cref="FluentRadio{TValue}"/> component. 

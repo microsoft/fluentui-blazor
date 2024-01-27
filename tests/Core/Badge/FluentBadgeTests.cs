@@ -1,6 +1,5 @@
 using Bunit;
 using FluentAssertions;
-using Microsoft.AspNetCore.Components.Web;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Badge;

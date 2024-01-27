@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -14,7 +13,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     private string _valueText = string.Empty;
-
 
     public new FluentTextField? Element { get; set; } = default!;
 
@@ -120,7 +118,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// </summary>
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
-
 
     /// <summary>
     /// Gets or sets the header content, placed at the top of the popup panel.
@@ -402,7 +399,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         // Selected items
         if (SelectedOptions != null && SelectedOptions.Any())
         {
-            return String.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
+            return string.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
         }
 
         // Default

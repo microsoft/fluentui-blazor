@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -90,7 +90,7 @@ public abstract class FluentNavBase : FluentComponentBase
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    protected async Task OnClickHandler(MouseEventArgs ev)
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
         {

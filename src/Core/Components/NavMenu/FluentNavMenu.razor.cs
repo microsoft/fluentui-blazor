@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -20,7 +20,7 @@ public partial class FluentNavMenu : FluentComponentBase
         .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .AddStyle("min-width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .Build();
-    
+
     /// <summary>
     /// Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
     /// The default icon will be used if this is not specified.
@@ -65,7 +65,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-       
+
     /// <summary>
     /// Navigation manager
     /// </summary>

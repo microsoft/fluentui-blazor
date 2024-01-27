@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
-
 
 public class FluentSortableListEventArgs
 {
     public FluentSortableListEventArgs()
     {
-        
+
     }
 
     public FluentSortableListEventArgs(int oldIndex, int newIndex)

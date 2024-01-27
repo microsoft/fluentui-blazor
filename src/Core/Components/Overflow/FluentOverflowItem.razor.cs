@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -70,14 +70,20 @@ public partial class FluentOverflowItem : IDisposable
     /// <summary />
     protected virtual void Dispose(bool disposing)
     {
-        if (_disposed) return;
+        if (_disposed)
+        {
+            return;
+        }
 
         try
         {
             // Release unmanaged resources (natives).
             // ...
 
-            if (disposing) return;
+            if (disposing)
+            {
+                return;
+            }
 
             // Dispose managed resources.
             Container.RemoveItem(this);
@@ -85,7 +91,10 @@ public partial class FluentOverflowItem : IDisposable
         finally
         {
             _disposed = true;
-            if (!disposing) GC.SuppressFinalize(this);
+            if (!disposing)
+            {
+                GC.SuppressFinalize(this);
+            }
         }
     }
 }

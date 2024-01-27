@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal class CalendarTitles
 {
@@ -35,7 +35,7 @@ internal class CalendarTitles
     /// </summary>
     public bool ReadOnly
     {
-        get 
+        get
         {
             if (_calendar.ReadOnly)
             {

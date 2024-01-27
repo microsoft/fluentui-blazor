@@ -1,10 +1,10 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The size of the icon.
 /// </summary>
 public enum IconSize
-{    
+{
     /// <summary>
     /// FluentUI System Icon size 10x10
     /// </summary>

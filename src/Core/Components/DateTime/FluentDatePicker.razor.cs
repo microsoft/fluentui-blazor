@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -23,8 +23,8 @@ public partial class FluentDatePicker : FluentCalendarBase
             return new CssBuilder(base.ClassValue)
                 .AddClass("fluent-datepicker")
                 .Build();
-                }
-            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the design of this input.
