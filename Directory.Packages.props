@@ -2,8 +2,8 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion>8.0.0</RuntimeVersion>
-    <AspNetCoreVersion>8.0.0</AspNetCoreVersion>
-    <EfCoreVersion>8.0.0</EfCoreVersion>
+    <AspNetCoreVersion>8.0.1</AspNetCoreVersion>
+    <EfCoreVersion>8.0.1</EfCoreVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
@@ -15,7 +15,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(AspNetCoreVersion)" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0-beta1.23525.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />

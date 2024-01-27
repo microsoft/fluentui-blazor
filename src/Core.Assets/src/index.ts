@@ -60,7 +60,7 @@ var afterStartedCalled = false;
 
 export function afterWebStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor);
+    afterStarted(blazor, 'web');
   }
 }
 
@@ -78,7 +78,7 @@ export function beforeWebAssemblyStart(options: any) {
 
 export function afterWebAssemblyStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor);
+    afterStarted(blazor,'wasm');
   }
 }
 
@@ -90,11 +90,11 @@ export function beforeServerStart(options: any) {
 
 export function afterServerStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor);
+    afterStarted(blazor,'server');
   }
 }
 
-export function afterStarted(blazor: Blazor) {
+export function afterStarted(blazor: Blazor, mode: string) {
 
   blazor.registerCustomEventType('radiogroupclick', {
     browserEventName: 'click',
@@ -291,7 +291,8 @@ export function afterStarted(blazor: Blazor) {
     }
   }
 
-  if (typeof blazor.addEventListener === 'function') {
+
+  if (typeof blazor.addEventListener === 'function' && mode === 'web') {
     blazor.addEventListener('enhancedload', onEnhancedLoad);
   }
 
