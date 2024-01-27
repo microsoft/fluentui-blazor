@@ -5,6 +5,7 @@
 
 @if (Owner.Expanded || HasIcon)
 {
+    <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpanderKeyDownAsync" />
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
 
         @if (!string.IsNullOrEmpty(Href))
@@ -25,7 +26,7 @@
         else
         {
             <div class="fluent-nav-link notactive" tabindex="0">
-                <div class="positioning-region" @onclick="ToggleExpandedAsync" @onkeydown="@HandleExpanderKeyDownAsync" title="@(Tooltip ?? Title)">
+                <div class="positioning-region" @onclick="ToggleExpandedAsync"  title="@(Tooltip ?? Title)">
                     <div class="content-region">
                         @_renderContent
                         @_renderButton
@@ -69,8 +70,7 @@
                  tabindex="-1"
                  @onclick="ToggleExpandedAsync"
                  @onclick:stopPropagation="true"
-                 @onclick:preventDefault="true"
-                 @onkeydown="@HandleExpanderKeyDownAsync">
+                 @onclick:preventDefault="true">
                 <FluentIcon Value="@ExpandIcon" Color="@(Disabled ? Color.Disabled : Color.Neutral)" Class="@ExpandIconClassValue" />
             </div>
         }
