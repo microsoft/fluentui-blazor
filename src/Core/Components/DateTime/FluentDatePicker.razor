@@ -29,7 +29,7 @@
                           VerticalDefaultPosition="@VerticalPosition.Unset"
                           Shadow="ElevationShadow.Flyout"
                           Class="fluent-datepicker-popup"
-                          Style="@($"z-index: {ZIndex.DatePickerPopup}; padding: 10px;")">
+                          Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
         <FluentCalendar Culture="@Culture"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"
