@@ -12,7 +12,6 @@ using Microsoft.FluentUI.AspNetCore.Components;
 #if (UseWebAssembly && SampleContent)
 using BlazorWeb_CSharp.Client.Pages;
 #endif
-using BlazorWeb_CSharp.Components;
 #if (IndividualLocalAuth)
 using BlazorWeb_CSharp.Components.Account;
 using BlazorWeb_CSharp.Data;
@@ -33,9 +32,8 @@ builder.Services.AddRazorComponents()
 #elif (UseWebAssembly)
     .AddInteractiveWebAssemblyComponents();
 #endif
-
-builder.Services.AddFluentUIComponents();
 #endif
+builder.Services.AddFluentUIComponents();
 
 #if (IndividualLocalAuth)
 builder.Services.AddCascadingAuthenticationState();

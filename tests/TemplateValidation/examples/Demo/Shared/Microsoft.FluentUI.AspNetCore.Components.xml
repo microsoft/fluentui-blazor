@@ -69,7 +69,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaised(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
             <summary>
             Internal method.
             </summary>
@@ -521,7 +521,7 @@
             Gets or sets the current value of the input, represented as a string.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.SetCurrentValueAsString(System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.SetCurrentValueAsStringAsync(System.String)">
             <summary>
             Attempts to set the current value of the input, represented as a string.
             </summary>
@@ -866,19 +866,19 @@
             Gets or sets a callback that updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.CheckState"/>.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentAndIntermediate(System.Nullable{System.Boolean})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentAndIntermediateAsync(System.Nullable{System.Boolean})">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetIntermediateAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentCheckState(System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.SetCurrentCheckStateAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.OnCheckedChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CheckboxChangeEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.UpdateAndRaiseCheckStateEvent(System.Nullable{System.Boolean})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.UpdateAndRaiseCheckStateEventAsync(System.Nullable{System.Boolean})">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
@@ -1825,10 +1825,10 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnPreviousButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnPreviousButtonHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnNextButtonHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnNextButtonHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectMonthHandlerAsync(System.Int32,System.Int32,System.Boolean)">
@@ -1865,7 +1865,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CanBeAnimated">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StartNewAnimation(Microsoft.FluentUI.AspNetCore.Components.VerticalPosition)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.StartNewAnimationAsync(Microsoft.FluentUI.AspNetCore.Components.VerticalPosition)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.TitleClickHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.CalendarTitles)">
@@ -1875,14 +1875,14 @@
             <param name="title"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerMonthSelect(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerMonthSelectAsync(System.Nullable{System.DateTime})">
             <summary>
             Select a Month and come back to the Days view.
             </summary>
             <param name="month"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerYearSelect(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.PickerYearSelectAsync(System.Nullable{System.DateTime})">
             <summary>
             Select a Year and come back to the Months view.
             </summary>
@@ -2224,7 +2224,7 @@
             Clears the local storage.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValues(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.ApplyLocalStorageValuesAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.DataLocalStorage">
