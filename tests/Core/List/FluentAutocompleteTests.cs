@@ -1,6 +1,5 @@
-﻿using Bunit;
+using Bunit;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -91,7 +90,7 @@ public class FluentAutocompleteTests : TestBase
         // Act
         var input = cut.Find("fluent-text-field");
         input.Click();
-        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaised((int)code, "", false, false, false, false, 0);
+        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0);
 
         // Assert
         cut.Verify(suffix: keyCode);
@@ -128,7 +127,6 @@ public class FluentAutocompleteTests : TestBase
             {
                 return $"<header>Please, select an item</header>";
             });
-
 
             // Add an Item template
             parameters.Add(p => p.OptionTemplate, context =>

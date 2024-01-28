@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,5 +22,5 @@ public class LibraryConfiguration
 
     public LibraryConfiguration()
     {
-    }        
+    }
 }

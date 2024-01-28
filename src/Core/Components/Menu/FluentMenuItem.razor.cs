@@ -87,10 +87,14 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     protected string? GetRole()
     {
         if (Role is not null)
+        {
             return Role.ToAttributeValue();
+        }
         else
             if (Checked)
+        {
             return "menuitemcheckbox";
+        }
 
         return null;
     }

@@ -8,7 +8,7 @@ public class FluentCollapsibleRegionTests : TestBase
     public void FluentCollapsibleRegion_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
 
         var cut = TestContext.RenderComponent<FluentCollapsibleRegion>(parameters => parameters
             .Add(p => p.Expanded, true)
@@ -17,14 +17,14 @@ public class FluentCollapsibleRegionTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 
     [Fact]
     public void FluentCollapsibleRegion_NotExpanded()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         Action<bool> expandedChanged = _ => { };
         var cut = TestContext.RenderComponent<FluentCollapsibleRegion>(parameters => parameters
             .Add(p => p.Expanded, false)
@@ -40,7 +40,7 @@ public class FluentCollapsibleRegionTests : TestBase
     public void FluentCollapsibleRegion_MaxHeight()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         var cut = TestContext.RenderComponent<FluentCollapsibleRegion>(parameters => parameters
             .Add(p => p.Expanded, true)
             .Add(p => p.MaxHeight, "666px")
@@ -56,8 +56,8 @@ public class FluentCollapsibleRegionTests : TestBase
     public void FluentCollapsibleRegion_ExpandedChanged()
     {
         //Arrange
-        bool value = false;
-        string childContent = "<b>render me</b>";
+        var value = false;
+        var childContent = "<b>render me</b>";
         Action<bool> expandedChanged = (e) => { value = e; };
         var cut = TestContext.RenderComponent<FluentCollapsibleRegion>(parameters => parameters
             .Add(p => p.Expanded, true)
@@ -70,9 +70,4 @@ public class FluentCollapsibleRegionTests : TestBase
         cut.Verify();
     }
 }
-
-
-
-
-
 

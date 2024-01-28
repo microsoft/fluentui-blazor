@@ -1,8 +1,6 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
-
 
 public class SplitterTests
 {
@@ -24,7 +22,7 @@ public class SplitterTests
     public void GetFragments_ReturnsEmpty_WhenTextIsEmpty()
     {
         // Arrange
-        string text = string.Empty;
+        var text = string.Empty;
         IEnumerable<string> highlightedTexts = new List<string>();
 
         // Act
@@ -38,7 +36,7 @@ public class SplitterTests
     public void GetFragments_ReturnsFragments_WhenTextAndHighlightedTextsAreValid()
     {
         // Arrange
-        string text = "This is a test string.";
+        var text = "This is a test string.";
         IEnumerable<string> highlightedTexts = new List<string> { "test" };
 
         // Act

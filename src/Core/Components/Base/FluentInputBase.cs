@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
@@ -134,11 +134,13 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
 
     internal bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
 
-    protected async Task SetCurrentValue(TValue? value)
+    protected async Task SetCurrentValueAsync(TValue? value)
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
         if (!hasChanged)
+        {
             return;
+        }
 
         _parsingFailed = false;
 
@@ -167,7 +169,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     protected TValue? CurrentValue
     {
         get => Value;
-        set => _ = SetCurrentValue(value);
+        set => _ = SetCurrentValueAsync(value);
     }
 
     /// <summary>
@@ -180,7 +182,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
         // about the validation error message.
         get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
-        set => _ = SetCurrentValueAsString(value);
+        set => _ = SetCurrentValueAsStringAsync(value);
 
     }
 
@@ -188,7 +190,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Attempts to set the current value of the input, represented as a string.
     /// </summary>
     /// <param name="value"></param>
-    protected async Task SetCurrentValueAsString(string? value)
+    protected async Task SetCurrentValueAsStringAsync(string? value)
     {
         _incomingValueBeforeParsing = value;
         _parsingValidationMessages?.Clear();
@@ -204,7 +206,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         else if (TryParseValueFromString(value, out TValue? parsedValue, out var validationErrorMessage))
         {
             _parsingFailed = false;
-            await SetCurrentValue(parsedValue);
+            await SetCurrentValueAsync(parsedValue);
         }
         else
         {
@@ -265,9 +267,9 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         get
         {
-            string? fieldClass = (FieldBound && !Embedded) ? EditContext?.FieldCssClass(FieldIdentifier) : null;
+            var fieldClass = (FieldBound && !Embedded) ? EditContext?.FieldCssClass(FieldIdentifier) : null;
 
-            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
+            var cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 
             if (!string.IsNullOrEmpty(cssClass) || !string.IsNullOrEmpty(Class))
             {
@@ -332,6 +334,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// <summary>
     /// Exposes the elements FocusAsync() method.
     /// </summary>
+    [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async void FocusAsync()
     {
         await Element!.FocusAsync();
@@ -345,6 +348,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// the document to bring the newly-focused element into view. A value of false for preventScroll (the default) 
     /// means that the browser will scroll the element into view after focusing it. 
     /// If preventScroll is set to true, no scrolling will occur.</param>
+    [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async void FocusAsync(bool preventScroll)
     {
         await Element!.FocusAsync(preventScroll);

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -16,7 +16,6 @@ public partial class FluentPersona : FluentComponentBase
     /// <summary />
     protected virtual string? StyleValue =>
         new StyleBuilder(Style).Build();
-
 
     /// <summary>
     /// Gets or sets the initials to display if no image is provided.
@@ -94,7 +93,7 @@ public partial class FluentPersona : FluentComponentBase
     }
 
     private string GetImageSizeStyle()
-    { 
+    {
         return string.IsNullOrEmpty(ImageSize) ? string.Empty : $"width: {ImageSize}; min-width: {ImageSize}; height: {ImageSize}; min-height: {ImageSize};";
     }
 }

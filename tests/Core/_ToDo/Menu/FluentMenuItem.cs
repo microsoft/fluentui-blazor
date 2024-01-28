@@ -8,8 +8,8 @@ public class FluentMenuItemTests : TestBase
     public void FluentMenuItem_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
-        string menuItems = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
+        var menuItems = "<b>render me</b>";
         string label = default!;
         bool disabled = default!;
         bool expanded = default!;
@@ -31,6 +31,6 @@ public class FluentMenuItemTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }

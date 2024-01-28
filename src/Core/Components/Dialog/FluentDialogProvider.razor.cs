@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -135,7 +135,11 @@ public partial class FluentDialogProvider : IDisposable
         if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id))
         {
             IDialogReference? dialog = GetDialogReference(args.Id);
-            if (dialog == null) return;
+            if (dialog == null)
+            {
+                return;
+            }
+
             if (dialog.Instance.Parameters.PreventDismissOnOverlayClick == false)
             {
                 if (dialog.Instance.Parameters.OnDialogClosing.HasDelegate)

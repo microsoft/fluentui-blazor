@@ -13,7 +13,7 @@
 
                 // All or Include only
                 if (onlyCodes.length == 0 || (onlyCodes.length > 0 && onlyCodes.includes(keyCode))) {
-                    dotNetHelper.invokeMethodAsync("OnKeyDownRaised", keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location);
+                    dotNetHelper.invokeMethodAsync("OnKeyDownRaisedAsync", keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location);
                     return;
                 }
             }

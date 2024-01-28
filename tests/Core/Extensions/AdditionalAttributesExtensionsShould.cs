@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
@@ -116,5 +116,4 @@ public class AdditionalAttributesExtensionsShould
         Assert.Equal(expected, actual);
     }
 
-    
 }

@@ -50,7 +50,7 @@ public partial class FluentAnchorTests : TestContext
     public void FluentAnchor_HrefAttribute(string url, string suffix)
     {
         // Arrange && Act
-        var cut =  RenderComponent<FluentAnchor>(parameters =>
+        var cut = RenderComponent<FluentAnchor>(parameters =>
         {
             parameters.Add(p => p.Href, url);
             parameters.AddChildContent("click me!");

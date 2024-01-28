@@ -26,7 +26,6 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     [Parameter]
     public bool Selected { get; set; }
 
-
     /// <summary>
     /// Called whenever the selection changed.
     /// </summary>
@@ -67,10 +66,11 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     public async Task OnClickHandlerAsync()
     {
         if (Disabled)
+        {
             return;
+        }
 
         Selected = !Selected;
-
 
         if (SelectedChanged.HasDelegate)
         {

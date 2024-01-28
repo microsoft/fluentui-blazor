@@ -53,7 +53,7 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Type { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
@@ -70,8 +70,10 @@ public partial class FluentBreadcrumbItem : FluentComponentBase
     {
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+        {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
-        
+        }
+
         base.OnParametersSet();
     }
 }

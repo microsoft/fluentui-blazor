@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -113,7 +113,7 @@ public partial class FluentSplitter : FluentComponentBase
 
     private void OnCollapsedHandler(SplitterCollapsedEventArgs args)
     {
-        bool status = args.Collapsed;
+        var status = args.Collapsed;
 
         if (OnCollapsed.HasDelegate)
         {

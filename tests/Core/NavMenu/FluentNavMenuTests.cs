@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;
@@ -64,7 +64,6 @@ public class FluentNavMenuTests : TestBase
         // Assert
         cut.Verify();
     }
-
 
     [Fact]
     public void FluentNavMenu_CollapsibleCustomTitle()

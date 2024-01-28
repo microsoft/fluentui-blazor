@@ -33,7 +33,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     /// {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
     /// {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
     /// </summary>
-    [Parameter] 
+    [Parameter]
     public RenderFragment? PaginationTextTemplate { get; set; }
 
     /// <summary>
@@ -54,7 +54,7 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     private bool CanGoForwards => State.CurrentPageIndex < State.LastPageIndex;
 
     private async Task GoToPageAsync(int pageIndex)
-    { 
+    {
         await State.SetCurrentPageIndexAsync(pageIndex);
         if (CurrentPageIndexChanged.HasDelegate)
         {

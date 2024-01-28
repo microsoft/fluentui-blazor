@@ -1,6 +1,5 @@
-﻿#nullable disable
+#nullable disable
 namespace FluentUI.Demo.Shared.SampleData;
-
 
 // Represents the data returned by https://open.fda.gov/apis/food/enforcement/
 // This is a subset of the fields available on that API

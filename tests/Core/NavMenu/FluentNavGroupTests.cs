@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 

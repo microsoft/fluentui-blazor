@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -175,7 +175,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     [Parameter]
     public virtual string? Value { get; set; }
 
-
     /// <summary>
     /// Called whenever the selection changed.
     /// ⚠️ Only available when Multiple = false.
@@ -324,9 +323,14 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         if (this is not FluentListbox<TOption> || Items is null)
         {
             if (_internalListContext.ValueChanged.HasDelegate == false)
+            {
                 _internalListContext.ValueChanged = ValueChanged;
+            }
+
             if (_internalListContext.SelectedOptionChanged.HasDelegate == false)
+            {
                 _internalListContext.SelectedOptionChanged = SelectedOptionChanged;
+            }
         }
 
         if (InternalValue is null && Value is not null) // || InternalValue != Value)
@@ -355,7 +359,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                 InternalValue = GetOptionValue(item);
             }
         }
-
 
     }
 
@@ -421,9 +424,13 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected virtual string? GetOptionValue(TOption? item)
     {
         if (item != null)
+        {
             return OptionValue.Invoke(item) ?? OptionText.Invoke(item) ?? item.ToString();
+        }
         else
+        {
             return null;
+        }
     }
 
     protected virtual bool? GetOptionDisabled(TOption? item)
@@ -431,28 +438,40 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         if (item != null)
         {
             if (OptionDisabled != null)
+            {
                 return OptionDisabled(item);
+            }
             else
+            {
                 return Disabled;
+            }
         }
         else
+        {
             return null;
+        }
     }
 
     /// <summary />
     protected virtual string? GetOptionText(TOption? item)
     {
         if (item != null)
+        {
             return OptionText.Invoke(item) ?? item.ToString();
+        }
         else
+        {
             return null;
+        }
     }
 
     /// <summary />
     protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
         if (Disabled || item == null)
+        {
             return;
+        }
 
         if (Multiple)
         {
@@ -512,7 +531,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             return;
         }
 
-        string id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
+        var id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
         FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
 
@@ -523,7 +542,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected virtual bool RemoveSelectedItem(TOption? item)
     {
         if (item == null)
+        {
             return false;
+        }
 
         return _selectedOptions.Remove(item);
     }
@@ -535,12 +556,13 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         return true;
     }
 
-
     /// <summary />
     protected virtual void AddSelectedItem(TOption? item)
     {
         if (item == null)
+        {
             return;
+        }
 
         _selectedOptions.Add(item);
     }

@@ -19,7 +19,9 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     internal void Register(FluentOption<TOption> option)
     {
         if (option is null)
+        {
             return;
+        }
 
         if (!options.Contains(option))
         {
@@ -30,11 +32,12 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     internal void Unregister(FluentOption<TOption> option)
     {
         if (option is null)
+        {
             return;
+        }
 
         options.Remove(option);
     }
-
 
     /// <summary>
     /// Gets the event callback to be invoked when the selected value is changed.
@@ -46,6 +49,4 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     /// </summary>
     public EventCallback<TOption?> SelectedOptionChanged { get; set; }
 }
-
-
 

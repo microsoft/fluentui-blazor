@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The icon variant.
@@ -13,6 +13,5 @@ public enum IconVariant
     /// FluentUI System Icon font size 12x12
     /// </summary>
     Regular,
-
 
 }

@@ -26,7 +26,6 @@ public partial class FluentAccordion : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
     /// </summary>
@@ -43,14 +42,14 @@ public partial class FluentAccordion : FluentComponentBase
 
     public FluentAccordion()
     {
-        
+
     }
 
-    private async Task HandleOnAccordionChanged(AccordionChangeEventArgs args)
+    private async Task HandleOnAccordionChangedAsync(AccordionChangeEventArgs args)
     {
         if (args is not null)
         {
-            string? Id = args.ActiveId;
+            var Id = args.ActiveId;
             if (Id is not null && items.TryGetValue(Id!, out FluentAccordionItem? item))
             {
                 await OnAccordionItemChange.InvokeAsync(item);

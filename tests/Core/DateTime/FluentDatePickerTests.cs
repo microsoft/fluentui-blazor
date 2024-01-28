@@ -1,6 +1,5 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Bunit;
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -134,7 +133,6 @@ public class FluentDatePickerTests : TestBase
     [Fact]
     public void FluentCalendar_DisabledDate()
     {
-        
 
         // Arrange
         using var ctx = new TestContext();

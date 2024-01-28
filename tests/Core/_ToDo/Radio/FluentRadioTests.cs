@@ -1,19 +1,15 @@
-using Bunit;
-using Xunit;
-
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Radio;
 using Bunit;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
-public class FluentRadioTests: TestBase
+public class FluentRadioTests : TestBase
 {
     [Fact(Skip = "Need to figure out how to do this test")]
     public void FluentRadio_Default()
     {
         //Arrange
-        string labelTemplate = "<b>render me</b>";
-        string childContent = "<b>render me</b>";
+        var labelTemplate = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool readOnly = default!;
         string label = default!;
         string ariaLabel = default!;
@@ -35,12 +31,7 @@ public class FluentRadioTests: TestBase
         //Act
 
         //Assert
-		cut.Verify();
-        }
+        cut.Verify();
     }
-
-
-
-
-
+}
 

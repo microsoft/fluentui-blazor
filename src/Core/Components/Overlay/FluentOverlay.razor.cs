@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -94,7 +94,6 @@ public partial class FluentOverlay
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-   
     protected override void OnParametersSet()
     {
         if (!Transparent && Opacity == 0)
@@ -111,13 +110,15 @@ public partial class FluentOverlay
         {
 
 #if NET7_0_OR_GREATER
-                if (!CheckRGBString().IsMatch(BackgroundColor))
+            if (!CheckRGBString().IsMatch(BackgroundColor))
 #else
             if (!Regex.IsMatch(BackgroundColor, "^(?:#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))"))
 #endif
                 throw new ArgumentException("BackgroundColor must be a valid HTML hex color string (#rrggbb or #rgb).");
             else
+            {
                 _color = BackgroundColor[1..];
+            }
 
             if (_color.Length == 6)
             {

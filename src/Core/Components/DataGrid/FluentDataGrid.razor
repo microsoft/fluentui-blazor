@@ -24,7 +24,7 @@
                           class="@GridClass()"
                           style="@Style"
                           aria-rowcount="@(_ariaBodyRowCount + 1)"
-                          @onrowfocus=HandleOnRowFocus
+                          @onrowfocus=HandleOnRowFocusAsync
                           @onclosecolumnoptions="CloseColumnOptions"
                           @attributes="AdditionalAttributes">
             @if (GenerateHeader != GenerateHeaderOption.None)
@@ -76,7 +76,7 @@
                     <Virtualize @ref="@_virtualizeComponent"
                                 TItem="(int RowIndex, TGridItem Data)"
                                 ItemSize="@ItemSize"
-                                ItemsProvider="@ProvideVirtualizedItems"
+                                ItemsProvider="@ProvideVirtualizedItemsAsync"
                                 ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
                                 Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
                 }

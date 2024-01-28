@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMain: FluentComponentBase
+public partial class FluentMain : FluentComponentBase
 {
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("main")

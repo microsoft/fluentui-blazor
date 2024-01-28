@@ -19,7 +19,7 @@ public partial class SiteSettingsPanel
 
     [Inject]
     public required GlobalState GlobalState { get; set; }
-    
+
     public DesignThemeModes Mode { get; set; }
 
     public OfficeColor? OfficeColor { get; set; }
@@ -52,13 +52,13 @@ public partial class SiteSettingsPanel
         Direction = isLeftToRight ? LocalizationDirection.LeftToRight : LocalizationDirection.RightToLeft;
     }
 
-    private async Task ResetSite()
+    private async Task ResetSiteAsync()
     {
-        string? msg = "Site settings reset and cache cleared!";
-        
+        var msg = "Site settings reset and cache cleared!";
+
         await CacheStorageAccessor.RemoveAllAsync();
         _theme?.ClearLocalStorageAsync();
-        
+
         Logger.LogInformation(msg);
         _status = msg;
 

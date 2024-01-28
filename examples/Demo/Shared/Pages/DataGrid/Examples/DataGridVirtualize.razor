@@ -1,4 +1,4 @@
-<div style="height: 400px; overflow-y: scroll;">
+﻿<div style="height: 400px; overflow-y: scroll;">
     <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ItemSize="54" GridTemplateColumns="1fr 1fr 1fr 1fr" Style="height: 100%;">
         <ChildContent>
             <PropertyColumn Property="@(c => c.Item1)" Sortable="true" />
@@ -66,7 +66,6 @@
     private async Task SimulateDataLoading()
     {
         _clearItems = false;
-        _clearToggle!.Disabled = true;
 
         items = null;
         grid?.SetLoadingState(true);
@@ -74,9 +73,5 @@
         await Task.Delay(2500);
 
         items = GenerateSampleGridData(5000);
-
-        _clearToggle!.Disabled = false;
-        //grid?.SetLoadingState(false);
-        
     }
 }

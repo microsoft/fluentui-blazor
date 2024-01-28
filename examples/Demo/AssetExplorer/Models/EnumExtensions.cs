@@ -1,4 +1,4 @@
-﻿namespace FluentUI.Demo.AssetExplorer.Models;
+namespace FluentUI.Demo.AssetExplorer.Models;
 
 public static class EnumExtensions
 {

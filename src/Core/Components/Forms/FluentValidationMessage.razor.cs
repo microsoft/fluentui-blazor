@@ -1,11 +1,9 @@
-﻿using System.Linq.Expressions;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-
 
 /// <summary>
 /// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.
@@ -17,8 +15,7 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
     private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
 
-
-    [CascadingParameter] EditContext CurrentEditContext { get; set; } = default!;
+    [CascadingParameter] private EditContext CurrentEditContext { get; set; } = default!;
 
     /// <summary>
     /// Specifies the field for which validation messages should be displayed.

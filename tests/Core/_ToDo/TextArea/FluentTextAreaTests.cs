@@ -18,7 +18,7 @@ public class FluentTextAreaTests : TestBase
     public void FluentTextArea_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         TextAreaResize? resize = default!;
         string form = default!;
         string dataList = default!;
@@ -43,12 +43,7 @@ public class FluentTextAreaTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 
