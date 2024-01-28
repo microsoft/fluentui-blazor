@@ -4,6 +4,11 @@ using Xunit;
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MainLayout;
 public class FluentMainLayoutTests : TestBase
 {
+    public FluentMainLayoutTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentMainLayout_Default()
     {
@@ -14,7 +19,7 @@ public class FluentMainLayoutTests : TestBase
         string body = "<b>render me</b>";
         int? headerHeight = default!;
         string navMenuTitle = default!;
-        int  navMenuWidth = 320;
+        int navMenuWidth = 320;
         var cut = TestContext.RenderComponent<FluentMainLayout>(parameters => parameters
             .Add(p => p.Header, header)
             .Add(p => p.SubHeader, subHeader)
@@ -27,7 +32,7 @@ public class FluentMainLayoutTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
 
