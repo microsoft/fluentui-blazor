@@ -3681,6 +3681,11 @@
             for more information.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Disabled">
+            <summary>
+            Disables the form control, ensuring it doesn't participate in form submission.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Mode">
             <summary>
             Gets or sets the type of file reading.
@@ -3690,7 +3695,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.DragDropZoneVisible">
             <summary>
-            Gets or sets a value indicating whether the Drag/Drop zone is visible. 
+            Gets or sets a value indicating whether the Drag/Drop zone is visible.
             Default is true.
             </summary>
         </member>
