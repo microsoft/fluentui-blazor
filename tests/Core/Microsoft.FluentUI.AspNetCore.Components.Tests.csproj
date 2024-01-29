@@ -59,10 +59,6 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
-    <None Update="InputFile\FluentInputFileTests.FluentInputFile_Disabled.verified.razor.html">
-      <ParentFile>FluentInputFileTests</ParentFile>
-      <DependentUpon>FluentInputFileTests.razor</DependentUpon>
-    </None>
     
   </ItemGroup>
 
