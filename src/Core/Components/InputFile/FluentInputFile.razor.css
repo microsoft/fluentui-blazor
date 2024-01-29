@@ -36,3 +36,9 @@
         line-height: 8px;
         font-size: var(--type-ramp-minus-2-font-size);
     }
+
+    .fluent-inputfile-container.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }

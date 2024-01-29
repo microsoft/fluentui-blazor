@@ -34,6 +34,7 @@ public partial class FluentInputFile : FluentComponentBase
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-inputfile-container")
+        .AddClass("disabled", Disabled)
         .Build();
 
     /// <summary />
@@ -79,6 +80,12 @@ public partial class FluentInputFile : FluentComponentBase
     public string Accept { get; set; } = string.Empty;
 
     /// <summary>
+    /// Disables the form control, ensuring it doesn't participate in form submission.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
     /// Gets or sets the type of file reading.
     /// For SaveToTemporaryFolder, use <see cref="FluentInputFileEventArgs.LocalFile" /> to retrieve the file.
     /// For Buffer, use <see cref="FluentInputFileEventArgs.Buffer" /> to retrieve bytes.
@@ -87,7 +94,7 @@ public partial class FluentInputFile : FluentComponentBase
     public InputFileMode Mode { get; set; } = InputFileMode.SaveToTemporaryFolder;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the Drag/Drop zone is visible. 
+    /// Gets or sets a value indicating whether the Drag/Drop zone is visible.
     /// Default is true.
     /// </summary>
     [Parameter]
