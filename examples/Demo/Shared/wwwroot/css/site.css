@@ -1,4 +1,4 @@
-﻿@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
 body {
     height: 100%;
@@ -30,6 +30,11 @@ body {
 
     .siteheader .settings {
         padding-right: 6px;
+        display: flex;
+        align-items: center;
+    }
+
+    .siteheader .navigation {
         display: flex;
         align-items: center;
     }
@@ -284,12 +289,8 @@ code {
 
     .navmenu-icon {
         cursor: pointer;
-        z-index: 10;
         display: block;
-        position: absolute;
-        top: 15px;
-        left: unset;
-        right: 20px;
+        position: relative;
         width: 20px;
         height: 20px;
         border: none;
