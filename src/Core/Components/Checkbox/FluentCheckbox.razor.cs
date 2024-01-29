@@ -85,6 +85,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         get
         {
             return new CssBuilder(base.ClassValue)
+                .AddClass("disabled", when: Disabled)
                 .AddClass("checked", when: Value)
                 .AddClass("indeterminate", when: ThreeState && CheckState is null )
                 .Build();
