@@ -143,6 +143,72 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
+            <summary>
+            Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Href">
+            <summary>
+            Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            Use Target parameter to specify where.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Hreflang">
+            <summary>
+            Hints at the language of the referenced resource. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Ping">
+            <summary>
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Referrerpolicy">
+            <summary>
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Rel">
+            <summary>
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Target">
+            <summary>
+            Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
+            Possible values: _blank | _self | _parent | _top.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Type">
+            <summary>
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance"/>
+            Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconStart">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of anchor content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconEnd">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the end of anchor content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
+            <inheritdoc />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Anchor">
             <summary>
             Gets or sets the HTML ID of the anchor element this region is positioned relative to.
@@ -248,72 +314,6 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
-            <summary>
-            Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Href">
-            <summary>
-            Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            Use Target parameter to specify where.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Hreflang">
-            <summary>
-            Hints at the language of the referenced resource. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Ping">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Referrerpolicy">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Rel">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Target">
-            <summary>
-            Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
-            Possible values: _blank | _self | _parent | _top.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Type">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance">
-            <summary>
-            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance"/>
-            Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconStart">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconEnd">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the end of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
-            <inheritdoc />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.Color">
             <summary>
@@ -3759,6 +3759,11 @@
             for more information.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Disabled">
+            <summary>
+            Disables the form control, ensuring it doesn't participate in form submission.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.Mode">
             <summary>
             Gets or sets the type of file reading.
@@ -3768,7 +3773,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.DragDropZoneVisible">
             <summary>
-            Gets or sets a value indicating whether the Drag/Drop zone is visible. 
+            Gets or sets a value indicating whether the Drag/Drop zone is visible.
             Default is true.
             </summary>
         </member>
@@ -4524,6 +4529,16 @@
             Gets or sets the list of items to display.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMain.Height">
+            <summary>
+            Gets or sets the height of the header (in pixels).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMain.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.Header">
             <summary>
             Gets or sets the header content.
@@ -4557,16 +4572,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMainLayout.Body">
             <summary>
             Gets or sets the content of the body.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMain.Height">
-            <summary>
-            Gets or sets the height of the header (in pixels).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMain.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">
@@ -5113,6 +5118,159 @@
             <param name="section">Optional section</param>
             <returns>int</returns>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase">
+            <summary>
+            Base class for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/> and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Href">
+            <summary>
+            Gets or sets the URL for the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Target">
+            <summary>
+            Gets or sets the target attribute that specifies where to open the group, if Href is specified. 
+            Possible values: _blank | _self | _parent | _top.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon">
+            <summary>
+            Gets or sets the Icon to use if set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.IconColor">
+            <summary>
+            Gets or sets the color of the icon. 
+            It supports the theme colors, default value uses the themes drawer icon color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Disabled">
+            <summary>
+            If true, the button will be disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ChildContent">
+            <summary>
+            Gets or sets the content to be shown.
+            </summary>  
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ActiveClass">
+            <summary>
+            Gets or sets the class names to use to indicate the item is active, separated by space.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Match">
+            <summary>
+            Gets or sets how the link should be matched. 
+            Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Tooltip">
+            <summary>
+            Gets or sets the tooltip to display when the mouse is placed over the item.
+            For  <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup" /> the <c>Title</c> is used as fallback.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
+            <summary>
+            Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.OnClick">
+            <summary>
+            The callback to invoke when the item is clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ForceLoad">
+            <summary>
+            If true, force browser to redirect outside component router-space.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Title">
+            <summary>
+            Gets or sets the text to display for the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded">
+            <summary>
+            If true, expands the nav group, otherwise collapse it. 
+            Two-way bindable
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.HideExpander">
+            <summary>
+            If true, hides expand button at the end of the NavGroup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.MaxHeight">
+            <summary>
+            Explicitly sets the height for the Collapse element to override the css default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
+            <summary>
+            Defines the vertical spacing between the NavGroup and adjecent items. 
+            Needs to be a valid CSS value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.ExpandIcon">
+            <summary>
+            If set, overrides the default expand icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
+            <summary>
+            Allows for specific markup and styling to be applied for the group title 
+            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
+            When specifying both Title and TitleTemplate, both will be rendered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.ExpandedChanged">
+            <summary>
+            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded"/> changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.ExpanderContent">
+            <summary>
+            Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
+            The default icon will be used if this is not specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Title">
+            <summary>
+            Gets or sets the title of the navigation menu using the aria-label attribute.
+            Defaults to "Navigation menu".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Width">
+            <summary>
+            Gets or sets the width of the menu (in pixels).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Collapsible">
+            <summary>
+            Gets or sets whether or not the menu can be collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.ExpandedChanged">
+            <summary>
+            Event callback for when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded"/> property changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Margin">
+            <summary>
+            Adjust the vertical spacing between navlinks.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.NavigationManager">
+            <summary>
+            Navigation manager
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenuGroup.Expanded">
             <summary>
             Returns <see langword="true"/> if the group is expanded,
@@ -5319,159 +5477,6 @@
             when it is being disposed.
             </summary>
             <param name="child"></param>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase">
-            <summary>
-            Base class for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/> and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Href">
-            <summary>
-            Gets or sets the URL for the group.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Target">
-            <summary>
-            Gets or sets the target attribute that specifies where to open the group, if Href is specified. 
-            Possible values: _blank | _self | _parent | _top.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon">
-            <summary>
-            Gets or sets the Icon to use if set.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.IconColor">
-            <summary>
-            Gets or sets the color of the icon. 
-            It supports the theme colors, default value uses the themes drawer icon color.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Disabled">
-            <summary>
-            If true, the button will be disabled.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ChildContent">
-            <summary>
-            Gets or sets the content to be shown.
-            </summary>  
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ActiveClass">
-            <summary>
-            Gets or sets the class names to use to indicate the item is active, separated by space.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Match">
-            <summary>
-            Gets or sets how the link should be matched. 
-            Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Tooltip">
-            <summary>
-            Gets or sets the tooltip to display when the mouse is placed over the item.
-            For  <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup" /> the <c>Title</c> is used as fallback.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
-            <summary>
-            Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.OnClick">
-            <summary>
-            The callback to invoke when the item is clicked.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ForceLoad">
-            <summary>
-            If true, force browser to redirect outside component router-space.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Title">
-            <summary>
-            Gets or sets the text to display for the group.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded">
-            <summary>
-            If true, expands the nav group, otherwise collapse it. 
-            Two-way bindable
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.HideExpander">
-            <summary>
-            If true, hides expand button at the end of the NavGroup.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.MaxHeight">
-            <summary>
-            Explicitly sets the height for the Collapse element to override the css default.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
-            <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items. 
-            Needs to be a valid CSS value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.ExpandIcon">
-            <summary>
-            If set, overrides the default expand icon.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
-            <summary>
-            Allows for specific markup and styling to be applied for the group title 
-            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
-            When specifying both Title and TitleTemplate, both will be rendered.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.ExpandedChanged">
-            <summary>
-            Gets or sets a callback that is triggered whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded"/> changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.ExpanderContent">
-            <summary>
-            Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
-            The default icon will be used if this is not specified.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Title">
-            <summary>
-            Gets or sets the title of the navigation menu using the aria-label attribute.
-            Defaults to "Navigation menu".
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Width">
-            <summary>
-            Gets or sets the width of the menu (in pixels).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Collapsible">
-            <summary>
-            Gets or sets whether or not the menu can be collapsed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded">
-            <inheritdoc/>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.ExpandedChanged">
-            <summary>
-            Event callback for when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded"/> property changes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Margin">
-            <summary>
-            Adjust the vertical spacing between navlinks.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.NavigationManager">
-            <summary>
-            Navigation manager
-            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.HideStep">
             <summary>
