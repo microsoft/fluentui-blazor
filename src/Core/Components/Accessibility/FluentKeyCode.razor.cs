@@ -51,6 +51,12 @@ public partial class FluentKeyCode
     [Parameter]
     public KeyCode[] Ignore { get; set; } = Array.Empty<KeyCode>();
 
+    /// <summary>
+    /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; } = false;
+
     /// <summary />
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
@@ -59,7 +65,7 @@ public partial class FluentKeyCode
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            await Module.InvokeVoidAsync("RegisterKeyCode", Anchor, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, _dotNetHelper);
+            await Module.InvokeVoidAsync("RegisterKeyCode", Anchor, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, _dotNetHelper);
         }
     }
 
@@ -73,10 +79,11 @@ public partial class FluentKeyCode
     /// <param name="altKey"></param>
     /// <param name="metaKey"></param>
     /// <param name="location"></param>
+    /// <param name="targetId"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnKeyDownRaised(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location)
-    {        
+    public async Task OnKeyDownRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId)
+    {
         if (OnKeyDown.HasDelegate)
         {
             await OnKeyDown.InvokeAsync(new FluentKeyCodeEventArgs
@@ -88,7 +95,8 @@ public partial class FluentKeyCode
                 CtrlKey = ctrlKey,
                 ShiftKey = shiftKey,
                 AltKey = altKey,
-                MetaKey = metaKey
+                MetaKey = metaKey,
+                TargetId = targetId,
             });
         }
     }
