@@ -1,3 +1,4 @@
+using Bunit;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 
@@ -5,6 +6,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;
 
 public class FluentNavGroupTests : TestBase
 {
+    public FluentNavGroupTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentNavGroup_Default()
     {

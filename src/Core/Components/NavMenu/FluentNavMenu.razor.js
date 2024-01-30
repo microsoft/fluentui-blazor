@@ -5,7 +5,7 @@ export function onLoad() {
         if (expander) {
             const origStyle = expander.parentElement.style.cssText;
             expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev), true);
-            expander.parentElement.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev), true);
+            expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev), true);
 
             mql.onchange = (e) => {
                 if (e.matches) {

@@ -1,4 +1,4 @@
-﻿@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
 body {
     height: 100%;
@@ -32,10 +32,14 @@ body {
         padding-right: 6px;
         display: flex;
         align-items: center;
+        margin-left: 0;
+        margin-right: 10px;
     }
 
 [dir="rtl"] .siteheader .settings {
     padding: 0 0 0 6px;
+    margin-left: 10px;
+    margin-right: 0;
 }
 
 [dir="rtl"] .siteheader .links {

@@ -1,7 +1,7 @@
-﻿/*  NavMenu */
+/*  NavMenu */
 .fluent-nav-menu {
-    flex-direction: column;
-    align-items: stretch;
+    padding: 0 2px;
+    
 }
 
 ::deep .fluent-nav-item.expander:focus-within {
@@ -9,7 +9,7 @@
 }
 
 ::deep .fluent-nav-item {
-    margin: calc(var(--design-unit) * 1px + 1px) 0;
+    margin: calc(var(--design-unit) * 1px) 0;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -60,7 +60,7 @@
 }
 
 ::deep .fluent-nav-group .fluent-nav-item:last-of-type, .fluent-nav-menu .fluent-nav-item:last-of-type {
-    margin-bottom: 0;
+    margin-bottom: 2px;
 }
 
 /* level indenting */
@@ -81,6 +81,7 @@
 }
 
 ::deep .fluent-nav-text {
+    margin-inline-start: calc(var(--design-unit) * 2px + 2px);
     overflow: hidden;
     text-overflow: ellipsis;
     width: calc(100% - 70px);

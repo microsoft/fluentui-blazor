@@ -17,18 +17,18 @@ else
 {
     @*#if (InteractiveAtRoot) -->
     <FluentDataGrid Id="weathergrid" Items=@forecasts GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem=WeatherForecast>
-        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Sortable="true" Align=Align.Start/>
-        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Sortable="true" Align=Align.Center/>
-        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Sortable="true" Align=Align.Center/>
-        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align=Align.End/>
+        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Sortable="true" Align="Align.Start"/>
+        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Sortable="true" Align="Align.Center"/>
+        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Sortable="true" Align="Align.Center"/>
+        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align="Align.End"/>
     </FluentDataGrid>
     ##else
-    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does offer any interactivity (like sorting). -->
+    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
     <FluentDataGrid Id="weathergrid" Items=@forecasts GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem=WeatherForecast>
-        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Align=Align.Start/>
-        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Align=Align.Center/>
-        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Align=Align.Center/>
-        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Align=Align.End/>
+        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Align=Align.Start"/>
+        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Align="Align.Center"/>
+        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Align="Align.Center"/>
+        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Align="Align.End"/>
     </FluentDataGrid>
     ##endif*@
 }

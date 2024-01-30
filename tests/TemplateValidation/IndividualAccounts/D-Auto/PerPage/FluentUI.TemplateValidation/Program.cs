@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.FluentUI.AspNetCore.Components;
 using FluentUI.TemplateValidation.Client.Pages;
+using Microsoft.FluentUI.AspNetCore.Components;
 using FluentUI.TemplateValidation.Components;
 using FluentUI.TemplateValidation.Components.Account;
 using FluentUI.TemplateValidation.Data;
@@ -13,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
-
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddCascadingAuthenticationState();

@@ -4,6 +4,11 @@ using Xunit;
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MainLayout;
 public class FluentMainLayoutTests : TestBase
 {
+    public FluentMainLayoutTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentMainLayout_Default()
     {
