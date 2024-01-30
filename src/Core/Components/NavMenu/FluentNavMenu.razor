@@ -1,6 +1,6 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-
+<FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
 <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" aria-label="@(Collapsible ? null : @Title)" role="menu" aria-expanded="@Expanded">
     <CascadingValue Value="this" IsFixed="true">
         @if (Collapsible)
@@ -10,8 +10,7 @@
                  role="menuitem"
                  class="fluent-nav-item"
                  tabindex="0"
-                 @onclick="@ToggleExpandedAsync"
-                 @onkeydown="@HandleExpandCollapseKeyDownAsync">
+                 @onclick="@ToggleExpandedAsync">
                 <div class="positioning-region">
                     <div class="content-region">
                         @if (ExpanderContent is not null)

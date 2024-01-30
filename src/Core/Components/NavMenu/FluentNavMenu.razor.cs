@@ -22,16 +22,15 @@ public partial class FluentNavMenu : FluentComponentBase
         .Build();
     
     /// <summary>
-    /// Gets or sets the content to be rendered for the collapse icon
-    /// when the menu is collapsible. The default icon will be used if
-    /// this is not specified.
+    /// Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
+    /// The default icon will be used if this is not specified.
     /// </summary>
     [Parameter]
     public RenderFragment? ExpanderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the navigation menu using the aria-label attribute.
-    /// Defaults to "Navigation menu"
+    /// Defaults to "Navigation menu".
     /// </summary>
     [Parameter]
     public string? Title { get; set; } = "Navigation menu";
@@ -82,16 +81,13 @@ public partial class FluentNavMenu : FluentComponentBase
 
     private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
 
-    private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
+    private async Task HandleExpandCollapseKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        Task handler = args.Code switch
+        Task handler = args.Key switch
         {
-            "NumpadEnter" => SetExpandedAsync(!Expanded),
-            "NumpadArrowRight" => SetExpandedAsync(true),
-            "NumpadArrowLeft" => SetExpandedAsync(false),
-            "Enter" => SetExpandedAsync(value: !Expanded),
-            "ArrowRight" => SetExpandedAsync(true),
-            "ArrowLeft" => SetExpandedAsync(false),
+            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Right => SetExpandedAsync(true),
+            KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;
@@ -111,6 +107,5 @@ public partial class FluentNavMenu : FluentComponentBase
         }
 
         StateHasChanged();
-
     }
 }

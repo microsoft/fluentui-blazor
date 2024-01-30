@@ -41,7 +41,7 @@ public partial class FluentNavGroup : FluentNavBase
         };
     }
     /// <summary>
-    /// The text to display for the group.
+    /// Gets or sets the text to display for the group.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -89,28 +89,25 @@ public partial class FluentNavGroup : FluentNavBase
     /// <summary>
     /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
     /// </summary>
-
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
 
     public FluentNavGroup()
     {
+        Id = Identifier.NewId();
         _renderContent = RenderContent;
         _renderButton = RenderButton;
     }
 
     private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
 
-    private async Task HandleExpanderKeyDownAsync(KeyboardEventArgs args)
+    private async Task HandleExpanderKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        Task handler = args.Code switch
+        Task handler = args.Key switch
         {
-            "NumpadEnter" => SetExpandedAsync(!Expanded),
-            "NumpadArrowRight" => SetExpandedAsync(true),
-            "NumpadArrowLeft" => SetExpandedAsync(false),
-            "Enter" => SetExpandedAsync(!Expanded),
-            "ArrowRight" => SetExpandedAsync(true),
-            "ArrowLeft" => SetExpandedAsync(false),
+            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Right => SetExpandedAsync(true),
+            KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;

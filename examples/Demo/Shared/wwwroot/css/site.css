@@ -1,4 +1,4 @@
-﻿@import '/_content/Microsoft.Fast.Components.FluentUI/css/reboot.css';
+@import '/_content/Microsoft.Fast.Components.FluentUI/css/reboot.css';
 
 /* Hide any web components that haven't been started */
 :not(:defined), .before-started {
@@ -38,6 +38,8 @@ body {
         padding-right: 24px;
         display: flex;
         align-items: center;
+        margin-left: 0;
+        margin-right: 10px;
     }
 
 [dir="rtl"] .siteheader .settings {
@@ -199,6 +201,7 @@ code {
     width: 100%;
     z-index: 1000;
     margin: 20px 0;
+    color: var(--neutral-foreground-rest);
 }
 
     #blazor-error-ui .dismiss {

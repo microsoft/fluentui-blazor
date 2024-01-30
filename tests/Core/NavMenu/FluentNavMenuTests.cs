@@ -1,9 +1,15 @@
-﻿using Xunit;
+﻿using Bunit;
+using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.NavMenu;
 
 public class FluentNavMenuTests : TestBase
 {
+    public FluentNavMenuTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentNavMenu_Default()
     {

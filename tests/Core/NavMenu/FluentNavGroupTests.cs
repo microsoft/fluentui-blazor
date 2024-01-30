@@ -5,6 +5,11 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.NavMenu;
 
 public class FluentNavGroupTests : TestBase
 {
+    public FluentNavGroupTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentNavGroup_Default()
     {
