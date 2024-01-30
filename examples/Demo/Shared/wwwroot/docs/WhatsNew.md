@@ -1,4 +1,26 @@
-﻿## V3.5.3
+﻿## V3.5.4
+
+- Update Fluent UI System Icons to 1.1.226
+    **What's new (Name / Size(s) / Variant(s))**
+    - Building Lighthouse / 24, 32, 48 / Filled & Regular
+    - Calendar Link / 24, 28 / Filled & Regular
+    - Calendar Video / 24, 28 / Filled & Regular
+    - Cookies / 16, 28, 32, 48 / Filled & Regular
+    - Hard Drive / 28, 48 / Filled & Regular
+    - Laptop Settings / 20, 24, 32 / Filled & Regular
+    - Laptop / 32 / Filled & Regular
+    - People Audience / 32 / Filled & Regular
+    - Shopping Bag Add / 20, 24 / Filled & Regular
+    - Street Sign / 20, 24 / Filled & Regular
+    - Video Link / 24, 28 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Cube / 12 / Filled & Regular
+    - Laptop Multiple / 24 / Filled & Regular
+    - Laptop / 24, 28 / Filled & Regular
+    - Prohibited Multiple / 28 / Filled & Regular
+
+## V3.5.3
 - PR [#1372](https://github.com/microsoft/fluentui-blazor/pull/1372): List related refactoring and maintenance (#1372)
 - Issue [#1344](https://github.com/microsoft/fluentui-blazor/issues/1344): Fix #1344 for Items based lists (#1356)
 - Issue [#1317](https://github.com/microsoft/fluentui-blazor/issues/1317):[DataGrid] - Add Loading and LoadingContent parameters (#1368)
