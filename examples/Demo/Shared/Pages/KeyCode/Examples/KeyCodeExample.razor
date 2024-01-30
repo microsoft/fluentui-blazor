@@ -1,8 +1,9 @@
-<FluentKeyCode Anchor="MyCard" OnKeyDown="@KeyDownHandler" />
+﻿<FluentKeyCode Anchor="MyCard" OnKeyDown="@KeyDownHandler" />
+<FluentKeyCode Anchor="MyKey" OnKeyDown="@KeyDownHandler" StopPropagation="true" />
 
 <FluentStack>
-    <FluentCard Id="MyCard" tabindex="0" Width="300px" Height="120px">
-        Click here and press any key to get the event keycode info.
+    <FluentCard Id="MyCard" tabindex="0" Width="300px" Height="140px">
+        Click here and press <span tabindex="0" id="MyKey">any key</span> to get the event keycode info.
     </FluentCard>
 
     <ul>
@@ -44,6 +45,7 @@
             }
         </li>
         <li><span>Location:</span> <code>@LastKeyCode?.Location.ToString()</code></li>
+        <li><span>TargetId:</span> <code>@LastKeyCode?.TargetId</code></li>
     </ul>
 </FluentStack>
 

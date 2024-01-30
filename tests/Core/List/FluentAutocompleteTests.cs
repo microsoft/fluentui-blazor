@@ -90,7 +90,7 @@ public class FluentAutocompleteTests : TestBase
         // Act
         var input = cut.Find("fluent-text-field");
         input.Click();
-        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0);
+        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0, string.Empty);
 
         // Assert
         cut.Verify(suffix: keyCode);
