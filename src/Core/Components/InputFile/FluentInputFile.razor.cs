@@ -34,21 +34,12 @@ public partial class FluentInputFile : FluentComponentBase
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-inputfile-container")
-        .AddClass("disabled", Disabled)
         .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("display", "none", () => !DragDropZoneVisible)
         .Build();
-
-    internal Dictionary<string, object?> Attributes
-    {
-        get => Disabled ? new Dictionary<string, object?>
-    {
-        { "disabled", "true" }
-    } : new Dictionary<string, object?>();
-    }
 
     /// <summary>
     /// To enable multiple file selection and upload, set the Multiple property to true.
