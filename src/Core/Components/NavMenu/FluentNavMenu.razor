@@ -1,9 +1,6 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
-@if (Data is null)
-{
-    <FluentPageScript Src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavMenu.razor.js"></FluentPageScript>
-}
+
 @if (@Collapsible)
 {
     <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
