@@ -15,6 +15,73 @@
             Gets or sets the status message to be read by screen readers.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus.DebugDisplay">
+            <summary>
+            In Debug mode, you can set this to true to display the status message on the page (on right, in yellow).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus.Content">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus.AriaHidden">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus.Style">
+            <summary />
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentKeyCode">
+            <summary>
+            Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
+            The anchor must refer to the ID of an element (or sub-element) accepting the focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Anchor">
+            <summary>
+            Required. Gets or sets the control identifier associated with the KeyCode engine.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDown">
+            <summary>
+            Event triggered when a KeyDown event is raised.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.IgnoreModifier">
+            <summary>
+            Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Only">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to accept, and only this list, when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Ignore">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to ignore when evaluating the key code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDownRaised(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Internal method.
+            </summary>
+            <param name="keyCode"></param>
+            <param name="value"></param>
+            <param name="ctrlKey"></param>
+            <param name="shiftKey"></param>
+            <param name="altKey"></param>
+            <param name="metaKey"></param>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
@@ -3450,6 +3517,11 @@
             for more information.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Disabled">
+            <summary>
+            Disables the form control, ensuring it doesn't participate in form submission.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.Mode">
             <summary>
             Gets or sets the type of file reading.
@@ -3459,7 +3531,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFile.DragDropZoneVisible">
             <summary>
-            Gets or sets a value indicating whether the Drag/Drop zone is visible. 
+            Gets or sets a value indicating whether the Drag/Drop zone is visible.
             Default is true.
             </summary>
         </member>
@@ -3737,9 +3809,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.AccessibilityStatusMessage">
-            <summary />
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Placeholder">
             <summary>
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
@@ -3844,7 +3913,7 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.KeyDownHandlerAsync(Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnAfterRenderAsync(System.Boolean)">
@@ -5067,7 +5136,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavGroup.Title">
             <summary>
-            The text to display for the group.
+            Gets or sets the text to display for the group.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavGroup.Expanded">
@@ -5111,15 +5180,14 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.ExpanderContent">
             <summary>
-            Gets or sets the content to be rendered for the collapse icon
-            when the menu is collapsible. The default icon will be used if
-            this is not specified.
+            Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
+            The default icon will be used if this is not specified.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Title">
             <summary>
             Gets or sets the title of the navigation menu using the aria-label attribute.
-            Defaults to "Navigation menu"
+            Defaults to "Navigation menu".
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Width">
@@ -5301,6 +5369,12 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.SetProperties(System.Nullable{System.Boolean},System.String)">
             <summary />
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Dispose">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentOverflowItem.Dispose(System.Boolean)">
+            <summary />
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.OverflowItem">
             <summary />
         </member>
@@ -5463,38 +5537,48 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.AnchorId">
             <summary>
-            Gets or sets the id of the component the popover is positioned relative to
+            Gets or sets the id of the component the popover is positioned relative to.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition">
             <summary>
-            The default horizontal position of the region relative to the anchor element
+            Gets or sets the default horizontal position of the region relative to the anchor element.
             Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.VerticalThreshold">
+            <summary>
+            How short the space allocated to the default position has to be before the tallest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalThreshold">
+            <summary>
+            How narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Open">
             <summary>
-            Gets or sets popover opened state
+            Gets or sets popover opened state.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.OpenChanged">
             <summary>
-            Callback for when open state changes
+            Callback for when open state changes.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Header">
             <summary>
-            Contents of the header part of the popover
+            Gets or sets the content of the header part of the popover.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Body">
             <summary>
-            Contents of the body part of the popover
+            Gets or sets the content of the body part of the popover.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Footer">
             <summary>
-            Contents of the footer part of the popover
+            Gets or sets the content of the footer part of the popover.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge">
@@ -10671,6 +10755,46 @@
         <member name="F:Microsoft.Fast.Components.FluentUI.JustifyContent.SpaceEvenly">
             <summary>
             Justify content space-evenly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.KeyLocation">
+            <summary>
+            the location of the key on the keyboard or other input device
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.Unknown">
+            <summary>
+            Not defined
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.Standard">
+            <summary>
+            The key has only one version, or can't be distinguished between the left and right versions of the key, and was not pressed on the numeric keypad or a key that is considered to be part of the keypad.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.Left">
+            <summary>
+            The key was the left-hand version of the key; for example, the left-hand Control key was pressed on a standard 101 key US keyboard. This value is only used for keys that have more than one possible location on the keyboard.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.Right">
+            <summary>
+            The key was the right-hand version of the key; for example, the right-hand Control key is pressed on a standard 101 key US keyboard. This value is only used for keys that have more than one possible location on the keyboard.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.NumPad">
+            <summary>
+            The key was on the numeric keypad, or has a virtual key code that corresponds to the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.Mobile">
+            <summary>
+            The key was on a mobile device; this can be on either a physical keypad or a virtual keyboard.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.KeyLocation.Joystick">
+            <summary>
+            The key was a button on a game controller or a joystick on a mobile device.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.LocalizationDirection">

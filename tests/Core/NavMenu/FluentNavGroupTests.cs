@@ -1,4 +1,5 @@
-﻿using Microsoft.Fast.Components.FluentUI.Tests.Extensions;
+﻿using Bunit;
+using Microsoft.Fast.Components.FluentUI.Tests.Extensions;
 using Xunit;
 
 namespace Microsoft.Fast.Components.FluentUI.Tests.NavMenu;

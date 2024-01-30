@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentKeyCode
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accessibility/FluentKeyCode.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Accessibility/FluentKeyCode.razor.js";
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
     private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 

@@ -36,7 +36,7 @@ public partial class FluentInputFile : FluentComponentBase
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-inputfile-container")
-        .AddClass("disabled", Disabled)
+        //.AddClass("disabled", Disabled)
         .Build();
 
     /// <summary />
@@ -386,7 +386,7 @@ public partial class FluentInputFile : FluentComponentBase
     {
         return UpdateProgressAsync(Convert.ToInt32(decimal.Divide(current, size) * 100), title);
     }
-    
+
     private async Task UpdateProgressAsync(int percent, string title)
     {
         if (ProgressPercent != percent)
