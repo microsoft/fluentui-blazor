@@ -4,7 +4,10 @@
 {
     <FluentPageScript Src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavMenu.razor.js"></FluentPageScript>
 }
-<FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
+@if (@Collapsible)
+{
+    <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
+}
 <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" aria-label="@(Collapsible ? null : @Title)" role="menu" aria-expanded="@Expanded">
     <CascadingValue Value="this" IsFixed="true">
         @if (Collapsible)

@@ -34,7 +34,6 @@ public partial class FluentInputFile : FluentComponentBase
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-inputfile-container")
-        .AddClass("disabled", Disabled)
         .Build();
 
     /// <summary />
