@@ -42,6 +42,14 @@ public partial class FluentInputFile : FluentComponentBase
         .AddStyle("display", "none", () => !DragDropZoneVisible)
         .Build();
 
+    internal Dictionary<string, object?> Attributes
+    {
+        get => Disabled ? new Dictionary<string, object?>
+    {
+        { "disabled", "true" }
+    } : new Dictionary<string, object?>();
+    }
+
     /// <summary>
     /// To enable multiple file selection and upload, set the Multiple property to true.
     /// Set <see cref="MaximumFileCount"/> to change the number of allowed files.
