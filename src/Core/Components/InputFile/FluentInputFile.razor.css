@@ -1,4 +1,4 @@
-﻿.fluent-inputfile-container {
+.fluent-inputfile-container {
     display: grid;
     grid-gap: 10px;
     background-color: var(--neutral-fill-hover);
