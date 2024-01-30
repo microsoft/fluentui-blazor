@@ -66,10 +66,15 @@
             Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to ignore when evaluating the key code.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDownRaised(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
             <summary>
             Internal method.
             </summary>
@@ -80,6 +85,7 @@
             <param name="altKey"></param>
             <param name="metaKey"></param>
             <param name="location"></param>
+            <param name="targetId"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ExpandMode">
