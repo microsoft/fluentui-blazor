@@ -13,12 +13,20 @@ body {
 }
 
 .main {
-    min-height: calc(100vh - 86px);
+    min-height: calc(100dvh - 86px);
     color: var(--neutral-foreground-rest);
+    align-items: stretch !important;
+}
+
+.body-content {
+    align-self: stretch;
+    height: unset !important;
+    display: flex;
 }
 
 .content {
     padding: 0.5rem 1.5rem;
+    align-self: stretch !important;
 }
 
 footer {

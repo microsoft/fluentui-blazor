@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 #endif
-#if (UseServer || UseWebAssembly)
-using Microsoft.FluentUI.AspNetCore.Components;
-#endif
 #if (UseWebAssembly && SampleContent)
 using BlazorWeb_CSharp.Client.Pages;
 #endif
+using Microsoft.FluentUI.AspNetCore.Components;
+using BlazorWeb_CSharp.Components;
 #if (IndividualLocalAuth)
 using BlazorWeb_CSharp.Components.Account;
 using BlazorWeb_CSharp.Data;

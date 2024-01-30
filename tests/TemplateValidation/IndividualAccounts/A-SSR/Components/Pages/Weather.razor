@@ -13,7 +13,7 @@
 }
 else
 {
-    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not have any interactivity like sorting. -->
+    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
     <FluentDataGrid Id="weathergrid" Items=@forecasts GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem=WeatherForecast>
         <PropertyColumn Title="Date" Property="@(c => c!.Date)" Align=Align.Start/>
         <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Align=Align.Center/>

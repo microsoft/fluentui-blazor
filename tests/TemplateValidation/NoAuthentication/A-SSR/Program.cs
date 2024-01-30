@@ -1,9 +1,11 @@
+using Microsoft.FluentUI.AspNetCore.Components;
 using FluentUI.TemplateValidation.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
+builder.Services.AddFluentUIComponents();
 
 var app = builder.Build();
 

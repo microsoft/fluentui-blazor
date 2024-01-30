@@ -20,13 +20,13 @@ body {
 
 .body-content {
     align-self: stretch;
-    height: unset;
+    height: unset !important;
     display: flex;
 }
 
 .content {
     padding: 0.5rem 1.5rem;
-    align-self: stretch;
+    align-self: stretch !important;
 }
 
 footer {

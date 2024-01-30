@@ -110,9 +110,6 @@ public partial class FluentNavGroup : FluentNavBase
             KeyCode.Enter => SetExpandedAsync(!Expanded),
             KeyCode.Right => SetExpandedAsync(true),
             KeyCode.Left => SetExpandedAsync(false),
-            //"Enter" => SetExpandedAsync(!Expanded),
-            //"ArrowRight" => SetExpandedAsync(true),
-            //"ArrowLeft" => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;
