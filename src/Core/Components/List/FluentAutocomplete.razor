@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
@@ -6,7 +6,7 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
-        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" />
+        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" StopPropagation="true" PreventDefault="true" />
 
         <FluentTextField role="combobox"
                          @ref="@Element"
@@ -22,7 +22,7 @@
                          Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
                          @oninput="@InputHandlerAsync"
-                         @onfocusout="@(e => { IsReachedMaxItems = false; })"
+                         @onfocusout="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                          Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)

@@ -1,4 +1,5 @@
 ﻿@page "/basicform-fluentui-components"
+@inject DataSource Data
 
 <h1>Starfleet Starship Database</h1>
 <p>
@@ -22,6 +23,17 @@
             <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" />
         </div>
         <div>
+            <FluentAutocomplete TOption="Country"
+                                AutoComplete="off"
+                                Label="Select a country"
+                                Width="250px"
+                                Placeholder="Select countries"
+                                OnOptionsSearch="@OnSearchAsync"
+                                MaximumSelectedOptions="3"
+                                OptionText="@(item => item.Name)"
+                                @bind-SelectedOptions="@SelectedItems" />
+        </div>
+        <div>
             <FluentSelect name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
                 <FluentOption Value="">Select classification ...</FluentOption>
                 <FluentOption Value="Exploration">Exploration</FluentOption>
@@ -31,7 +43,7 @@
             <FluentValidationMessage For="@(() => starship.Classification)" />
         </div>
         <div>
-            <FluentNumberField Name="accomodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required/>
+            <FluentNumberField Name="accomodation" @bind-Value="starship.MaximumAccommodation" Label="Maximum Accommodation" Required />
             <FluentValidationMessage For="@(() => starship.MaximumAccommodation)" />
         </div>
         <div>
@@ -55,7 +67,17 @@
         starship.ProductionDate = DateTime.Now;
     }
 
-    private Starship starship { get; set;}  = new();
+    IEnumerable<Country> SelectedItems = Array.Empty<Country>();
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        var allCountries = await Data.GetCountriesAsync();
+        e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                              .OrderBy(i => i.Name);
+    }
+
+    [SupplyParameterFromForm]
+    private Starship starship { get; set; } = new();
 
     private void HandleValidSubmit()
     {
