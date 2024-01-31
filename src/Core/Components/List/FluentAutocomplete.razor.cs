@@ -213,6 +213,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         SelectableItem = Items.FirstOrDefault();
     }
 
+    private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
+
     /// <summary />
     protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
     {
@@ -263,11 +265,23 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         // Backspace
         async Task KeyDown_Backspace()
         {
+            // Remove last selected item
             if (string.IsNullOrEmpty(_valueText) &&
                 SelectedOptions != null && SelectedOptions.Any())
             {
                 await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
                 IsReachedMaxItems = false;
+                return;
+            }
+
+            // Remove last char
+            if (!string.IsNullOrEmpty(_valueText))
+            {
+                await InputHandlerAsync(new ChangeEventArgs()
+                {
+                    Value = _valueText.Substring(0, _valueText.Length - 1),
+                });
+                return;
             }
         }
 
