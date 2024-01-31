@@ -76,6 +76,12 @@ public partial class FluentTextField : FluentInputBase<string?>
     [Parameter]
     public string? AutoComplete { get; set; }
 
+    /// <summary>
+    /// Gets or sets the input mode. See <see cref="AspNetCore.Components.InputMode"/>
+    /// </summary>
+    [Parameter]
+    public InputMode? InputMode { get; set; }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
@@ -92,9 +98,17 @@ public partial class FluentTextField : FluentInputBase<string?>
             if (AutoComplete != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("setAutocomplete", Id, AutoComplete);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
+            }
+
+            if (InputMode != null && !string.IsNullOrEmpty(Id))
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                var inputModeValue = InputMode.Value.ToString().ToLower();
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", inputModeValue);
             }
         }
+
         if (DataList != null && !string.IsNullOrEmpty(Id))
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);

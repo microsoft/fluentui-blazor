@@ -6982,6 +6982,11 @@
             An Id value must be set to use this property.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTextField.InputMode">
+            <summary>
+            Gets or sets the input mode. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.InputMode"/>
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CommunicationToast.Close">
             <summary>
             Closes the toast
@@ -11470,6 +11475,51 @@
             <summary >
             In Blazor Server, file data is streamed over the SignalR connection into .NET code on the server as the file is read.
             In Blazor WebAssembly, file data is streamed directly into the .NET code within the browser.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputMode">
+            <summary>
+            The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.None">
+            <summary>
+            No virtual keyboard. For when the page implements its own keyboard input control.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Text">
+            <summary>
+            Standard input keyboard for the user's current locale. (default value)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Decimal">
+            <summary>
+            Fractional numeric input keyboard containing the digits and decimal separator for the user's locale (typically . or ,). Devices may or may not show a minus key (-).
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Numeric">
+            <summary>
+            Numeric input keyboard, but only requires the digits 0–9. Devices may or may not show a minus key. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Tel">
+            <summary>
+            A telephone keypad input, including the digits 0–9, the asterisk (*), and the pound (#) key. Inputs that *require* a telephone number should typically use <see cref="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Tel"/> instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Search">
+            <summary>
+            A virtual keyboard optimized for search input. For instance, the return/submit key may be labeled "Search", along with possible other optimizations. Inputs that require a search query should typically use <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSearch"/> instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Email">
+            <summary>
+            A virtual keyboard optimized for entering email addresses. Typically includes the @character as well as other optimizations. Inputs that require email addresses should typically use <see cref="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Email"/> instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Url">
+            <summary>
+            A keypad optimized for entering URLs. This may have the / key more prominent, for example. Enhanced features could include history access and so on. Inputs that require a URL should typically use <see cref="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Url"/> instead. 
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.JustifyContent">
