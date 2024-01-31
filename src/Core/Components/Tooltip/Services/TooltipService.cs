@@ -81,6 +81,12 @@ public class TooltipService : ITooltipService, IDisposable
         OnTooltipUpdated?.Invoke();
     }
 
+    /// <inheritdoc cref="ITooltipService.Refresh"/>
+    public void Refresh()
+    {
+        OnTooltipUpdated?.Invoke();
+    }
+
     /// <summary>
     /// Clears all tooltips from the service.
     /// </summary>
