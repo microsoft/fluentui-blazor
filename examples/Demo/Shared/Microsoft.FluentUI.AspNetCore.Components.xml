@@ -6984,7 +6984,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTextField.InputMode">
             <summary>
-            Gets or sets the input mode. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.InputMode"/>
+            Gets or sets the type of data that can be entered by the user when editing the element or its content. This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CommunicationToast.Close">
@@ -11502,7 +11502,7 @@
             Numeric input keyboard, but only requires the digits 0–9. Devices may or may not show a minus key. 
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Tel">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.InputMode.Telephone">
             <summary>
             A telephone keypad input, including the digits 0–9, the asterisk (*), and the pound (#) key. Inputs that *require* a telephone number should typically use <see cref="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Tel"/> instead. 
             </summary>

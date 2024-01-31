@@ -77,7 +77,7 @@ public partial class FluentTextField : FluentInputBase<string?>
     public string? AutoComplete { get; set; }
 
     /// <summary>
-    /// Gets or sets the input mode. See <see cref="AspNetCore.Components.InputMode"/>
+    /// Gets or sets the type of data that can be entered by the user when editing the element or its content. This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
     /// </summary>
     [Parameter]
     public InputMode? InputMode { get; set; }
@@ -104,8 +104,7 @@ public partial class FluentTextField : FluentInputBase<string?>
             if (InputMode != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                var inputModeValue = InputMode.Value.ToString().ToLower();
-                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", inputModeValue);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.ToAttributeValue());
             }
         }
 
