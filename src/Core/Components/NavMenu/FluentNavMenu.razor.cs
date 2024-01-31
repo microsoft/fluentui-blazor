@@ -7,7 +7,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 public partial class FluentNavMenu : FluentComponentBase
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-
+    
     internal string? ClassValue => new CssBuilder("fluent-nav-menu")
         .AddClass(Class)
         .AddClass("collapsed", () => !Expanded)
@@ -83,6 +83,10 @@ public partial class FluentNavMenu : FluentComponentBase
 
     private async Task HandleExpandCollapseKeyDownAsync(FluentKeyCodeEventArgs args)
     {
+        if (args.TargetId != $"{Id}-expander")
+        {
+            return;
+        }
         Task handler = args.Key switch
         {
             KeyCode.Enter => SetExpandedAsync(!Expanded),
