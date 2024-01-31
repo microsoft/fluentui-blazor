@@ -1,4 +1,17 @@
 ﻿## V3.5.4
+- Issue [#1417](https://github.com/microsoft/fluentui-blazor/issues/1417): Fix Autocomplete Enter key in EditForm
+- Issue [#1414](https://github.com/microsoft/fluentui-blazor/issues/1414): NavMenu / KeyCode optimizations
+- Issue [#1413](https://github.com/microsoft/fluentui-blazor/issues/1413): Add TooltipService.Refresh method
+- Issue [#1411](https://github.com/microsoft/fluentui-blazor/issues/1411): Add inputmode attribute support for FluentTextField
+- Issue [#1408](https://github.com/microsoft/fluentui-blazor/issues/1408): Add StopPropagation and TargetId
+- Issue [#1404](https://github.com/microsoft/fluentui-blazor/issues/1404): [FluentFileInput] adds a "disabled" property to the FluentFileInput component
+- Issue [#1402](https://github.com/microsoft/fluentui-blazor/issues/1402): Fix missing Checkbox "disabled" class
+- Issue [#1393](https://github.com/microsoft/fluentui-blazor/issues/1393): Use FluentKeyCode for NavMenu 
+- Issue [#1386](https://github.com/microsoft/fluentui-blazor/issues/1386): [InputLabel] Fix clicking on required label (*) does not focus input element
+- Issue [#1385](https://github.com/microsoft/fluentui-blazor/issues/1385): Add Overflow RemoveItem method
+- Issue [#1384](https://github.com/microsoft/fluentui-blazor/issues/1384): Add Popover Threshold attributes
+- Issue [#1383](https://github.com/microsoft/fluentui-blazor/issues/1383): [Accessibility] Autocomplete - Fix up/down arrow and labels for screen reader
+
 - Update Fluent UI System Icons to 1.1.226
     **What's new (Name / Size(s) / Variant(s))**
     - Building Lighthouse / 24, 32, 48 / Filled & Regular
@@ -18,7 +31,6 @@
     - Laptop Multiple / 24 / Filled & Regular
     - Laptop / 24, 28 / Filled & Regular
     - Prohibited Multiple / 28 / Filled & Regular
-
 
 ## V3.5.3
 - PR [#1372](https://github.com/microsoft/fluentui-blazor/pull/1372): List related refactoring and maintenance (#1372)
