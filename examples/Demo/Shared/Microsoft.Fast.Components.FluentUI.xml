@@ -71,6 +71,11 @@
             Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.PreventDefault">
+            <summary>
+            Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -6404,6 +6409,11 @@
             An Id value must be set to use this property.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTextField.InputMode">
+            <summary>
+            Gets or sets the type of data that can be entered by the user when editing the element or its content. This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.CommunicationToast.Close">
             <summary>
             Closes the toast
@@ -6892,7 +6902,12 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear">
             <summary>
-            clears all tooltips from the service.
+            Clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Refresh">
+            <summary>
+            Updates all service tooltips.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Remove(System.Guid)">
@@ -7017,6 +7032,9 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Clear">
             <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Clear"/>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Refresh">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.ITooltipService.Refresh"/>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Components.Tooltip.TooltipService.Dispose">
             <summary>
@@ -10726,6 +10744,51 @@
             <summary >
             In Blazor Server, file data is streamed over the SignalR connection into .NET code on the server as the file is read.
             In Blazor WebAssembly, file data is streamed directly into the .NET code within the browser.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.InputMode">
+            <summary>
+            The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.None">
+            <summary>
+            No virtual keyboard. For when the page implements its own keyboard input control.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Text">
+            <summary>
+            Standard input keyboard for the user's current locale. (default value)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Decimal">
+            <summary>
+            Fractional numeric input keyboard containing the digits and decimal separator for the user's locale (typically . or ,). Devices may or may not show a minus key (-).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Numeric">
+            <summary>
+            Numeric input keyboard, but only requires the digits 0–9. Devices may or may not show a minus key. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Telephone">
+            <summary>
+            A telephone keypad input, including the digits 0–9, the asterisk (*), and the pound (#) key. Inputs that *require* a telephone number should typically use <see cref="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Tel"/> instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Search">
+            <summary>
+            A virtual keyboard optimized for search input. For instance, the return/submit key may be labeled "Search", along with possible other optimizations. Inputs that require a search query should typically use <see cref="T:Microsoft.Fast.Components.FluentUI.FluentSearch"/> instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Email">
+            <summary>
+            A virtual keyboard optimized for entering email addresses. Typically includes the @character as well as other optimizations. Inputs that require email addresses should typically use <see cref="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Email"/> instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.InputMode.Url">
+            <summary>
+            A keypad optimized for entering URLs. This may have the / key more prominent, for example. Enhanced features could include history access and so on. Inputs that require a URL should typically use <see cref="F:Microsoft.Fast.Components.FluentUI.TextFieldType.Url"/> instead. 
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.JustifyContent">

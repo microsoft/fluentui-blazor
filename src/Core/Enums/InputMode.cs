@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// The inputmode global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard. 
