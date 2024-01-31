@@ -27,9 +27,14 @@ public interface ITooltipService : IDisposable
     void Add(TooltipOptions options);
 
     /// <summary>
-    /// clears all tooltips from the service.
+    /// Clears all tooltips from the service.
     /// </summary>
     void Clear();
+
+    /// <summary>
+    /// Updates all service tooltips.
+    /// </summary>
+    void Refresh();
 
     /// <summary>
     /// removes a tooltip from the service.
