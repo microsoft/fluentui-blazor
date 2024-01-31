@@ -9,7 +9,7 @@
         @if (Collapsible)
         {
             <FluentKeyCode Anchor="expander" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
-            <div id="@EXPAND_COLLAPSE_BUTTON_ID"
+            <div id="${@Id}-expander"
                  aria-label="@Title"
                  aria-expanded="@(Expanded.ToAttributeValue())"
                  role="menuitem"

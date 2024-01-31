@@ -36,17 +36,26 @@ export function onDispose() {
 
 function attachEventHandlers(element) {
     let navlink = element.getElementsByClassName("fluent-nav-link")[0];
+    if (!navlink) {
+        return;
+    }
     if (!navlink.href) {
         navlink.addEventListener('click', () => toggleGroupExpandedAsync(element));
     }
     navlink.addEventListener('keydown', (ev) => handleExpanderKeyDownAsync(element, ev));
 
     let expandCollapseButton = element.getElementsByClassName("expand-collapse-button")[0];
+    if (!expandCollapseButton) {
+        return;
+    }
     expandCollapseButton.addEventListener('click', (ev) => toggleGroupExpandedAsync(element, navlink, ev));
 }
 
 function detachEventHandlers(element) {
     let navlink = element.getElementsByClassName("fluent-nav-link")[0];
+    if (!navlink) {
+        return;
+    }
     if (!navlink.href) {
         navlink.removeEventListener('click', toggleGroupExpandedAsync);
     }

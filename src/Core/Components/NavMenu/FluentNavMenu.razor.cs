@@ -6,8 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentNavMenu : FluentComponentBase
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    private const string EXPAND_COLLAPSE_BUTTON_ID = "expander";
-
+    
     internal string? ClassValue => new CssBuilder("fluent-nav-menu")
         .AddClass(Class)
         .AddClass("collapsed", () => !Expanded)
@@ -81,7 +80,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     private async Task HandleExpandCollapseKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        if (args.TargetId != EXPAND_COLLAPSE_BUTTON_ID)
+        if (args.TargetId != $"{Id}-expander")
         {
             return;
         }
