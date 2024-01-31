@@ -105,6 +105,10 @@ public partial class FluentNavGroup : FluentNavBase
 
     private async Task HandleExpanderKeyDownAsync(FluentKeyCodeEventArgs args)
     {
+        if (args.TargetId != Id)
+        {
+            return;
+        }
         Task handler = args.Key switch
         {
             KeyCode.Enter => SetExpandedAsync(!Expanded),
