@@ -4,8 +4,8 @@ export function onLoad() {
     for (let expander of document.getElementsByClassName("expander")) {
         if (expander) {
             const origStyle = expander.parentElement.style.cssText;
-            expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev), true);
-            expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev), true);
+            expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev));
+            expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
 
             mql.onchange = (e) => {
                 if (e.matches) {
@@ -22,6 +22,18 @@ export function onUpdate() {
     
 }
 
+export function onDispose() {
+    for (let expander of document.getElementsByClassName("expander")) {
+        if (expander) {
+            expander.removeEventListener('click', toggleMenuExpandedAsync);
+            expander.removeEventListener('keydown', handleMenuExpanderKeyDownAsync);
+        }
+    }
+    for (let element of document.getElementsByClassName("fluent-nav-group")) {
+        detachEventHandlers(element);
+    }
+}
+
 function attachEventHandlers(element) {
     let navlink = element.getElementsByClassName("fluent-nav-link")[0];
     if (!navlink.href) {
@@ -31,6 +43,17 @@ function attachEventHandlers(element) {
 
     let expandCollapseButton = element.getElementsByClassName("expand-collapse-button")[0];
     expandCollapseButton.addEventListener('click', (ev) => toggleGroupExpandedAsync(element, navlink, ev));
+}
+
+function detachEventHandlers(element) {
+    let navlink = element.getElementsByClassName("fluent-nav-link")[0];
+    if (!navlink.href) {
+        navlink.removeEventListener('click', toggleGroupExpandedAsync);
+    }
+    navlink.removeEventListener('keydown', handleExpanderKeyDownAsync);
+
+    let expandCollapseButton = element.getElementsByClassName("expand-collapse-button")[0];
+    expandCollapseButton.removeEventListener('click', toggleGroupExpandedAsync);
 }
 
 function toggleMenuExpandedAsync(element, orig, event) {

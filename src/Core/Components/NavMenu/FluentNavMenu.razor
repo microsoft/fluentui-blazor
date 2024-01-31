@@ -2,17 +2,15 @@
 @inherits FluentComponentBase
 @if (Data is null)
 {
-    <FluentPageScript Src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavMenu.razor.js"></FluentPageScript>
-}
-@if (@Collapsible)
-{
-    <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
+    <FluentPageScript Src="./_content/Microsoft.FluentUI.AspNetCore.Components/Components/NavMenu/FluentNavMenu.razor.js" Interactive="@_isInteractive"></FluentPageScript>
 }
 <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" aria-label="@(Collapsible ? null : @Title)" role="menu" aria-expanded="@Expanded">
     <CascadingValue Value="this" IsFixed="true">
         @if (Collapsible)
         {
-            <div aria-label="@Title"
+            <FluentKeyCode Anchor="expander" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
+            <div id="@EXPAND_COLLAPSE_BUTTON_ID"
+                 aria-label="@Title"
                  aria-expanded="@(Expanded.ToAttributeValue())"
                  role="menuitem"
                  class="fluent-nav-item expander"
