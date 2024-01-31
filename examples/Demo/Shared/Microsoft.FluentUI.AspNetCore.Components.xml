@@ -7476,7 +7476,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Clear">
             <summary>
-            clears all tooltips from the service.
+            Clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Refresh">
+            <summary>
+            Updates all service tooltips.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)">
@@ -7602,6 +7607,9 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Clear">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Clear"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Refresh">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Refresh"/>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Dispose">
             <summary>
