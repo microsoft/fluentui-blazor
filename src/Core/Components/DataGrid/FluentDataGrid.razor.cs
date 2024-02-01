@@ -169,7 +169,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
-    private bool _manualGrid;
+    private bool _manualGrid = false;
+    private bool _shouldRender = true;
 
     private IJSObjectReference? _jsEventDisposable;
     private IJSObjectReference? Module { get; set; }
@@ -253,6 +254,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _checkColumnOptionsPosition = false;
             _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
         }
+    }
+
+    protected override bool ShouldRender()
+    {
+        return _shouldRender;
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -365,6 +371,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 if (_ariaBodyRowCount > 0)
                 {
                     Loading = false;
+                }
+                if (result.Items is null || result.TotalItemCount == 0)
+                {
+                    _shouldRender = false;
                 }
             }
             _internalGridContext.ResetRowIndexes(startIndex);
