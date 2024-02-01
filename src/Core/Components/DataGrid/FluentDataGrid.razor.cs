@@ -169,7 +169,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
-    private bool _manualGrid;
+    private bool _manualGrid = false;
+    private bool _shouldRender = true;
 
     private IJSObjectReference? _jsEventDisposable;
     private IJSObjectReference? Module { get; set; }
@@ -255,6 +256,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
+    protected override bool ShouldRender()
+    {
+        return _shouldRender;
+    }
+
     // Invoked by descendant columns at a special time during rendering
     internal void AddColumn(ColumnBase<TGridItem> column, SortDirection? initialSortDirection, bool isDefaultSortColumn)
     {
@@ -300,7 +306,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         _sortByColumn = column;
 
-        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+        //StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
     }
 
@@ -313,7 +319,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _displayOptionsForColumn = column;
         _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        StateHasChanged();
+        //StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -365,6 +371,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 if (_ariaBodyRowCount > 0)
                 {
                     Loading = false;
+                }
+                if (result.Items is null || result.TotalItemCount == 0)
+                {
+                    _shouldRender = false;
                 }
             }
             _internalGridContext.ResetRowIndexes(startIndex);
@@ -510,7 +520,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void CloseColumnOptions()
     {
         _displayOptionsForColumn = null;
-        StateHasChanged();
+        //StateHasChanged();
     }
 
     private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)

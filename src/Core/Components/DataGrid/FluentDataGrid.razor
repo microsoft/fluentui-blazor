@@ -1,20 +1,13 @@
-@using Microsoft.AspNetCore.Components.Rendering
+﻿@using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
-    @{
-        StartCollectingColumns();
-    }
-    @if (!_manualGrid)
-    {
-        @ChildContent
-    }
+    @{ StartCollectingColumns(); }
+    @ChildContent
     <Defer>
-        @{
-            FinishCollectingColumns();
-        }
+        @{ FinishCollectingColumns(); }
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
 
         <fluent-data-grid @ref=_gridReference
@@ -84,11 +77,6 @@
                 {
                     @_renderNonVirtualizedRows
                 }
-            }
-
-            @if (_manualGrid)
-            {
-                @ChildContent
             }
         </fluent-data-grid>
     </Defer>
