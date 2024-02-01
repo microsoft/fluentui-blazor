@@ -306,7 +306,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         _sortByColumn = column;
 
-        //StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
     }
 
@@ -319,7 +319,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _displayOptionsForColumn = column;
         _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
-        //StateHasChanged();
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -520,7 +520,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void CloseColumnOptions()
     {
         _displayOptionsForColumn = null;
-        //StateHasChanged();
+        StateHasChanged();
     }
 
     private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)
