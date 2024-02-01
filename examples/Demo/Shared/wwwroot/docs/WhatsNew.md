@@ -1,6 +1,25 @@
-## V4.3.2
+## V4.4.0
+New: SortableList component
+New: (experimental) MultiSplitter component
+New: KeyCode component
+Updated: DataGrid - Loading and LoadingContent parameters
+- Issue [#1421](https://github.com/microsoft/fluentui-blazor/issues/1421): @code-block inside FluentDataGrid gets called three times instead of once 
+- Issue [#1391](https://github.com/microsoft/fluentui-blazor/issues/1391): fix: External Authentication in Middleware
+- Issue [#1358](https://github.com/microsoft/fluentui-blazor/issues/1358): fix: value not set in FluentSelect while using keyboard
+- Issue [#1350](https://github.com/microsoft/fluentui-blazor/issues/1350): fix: "i.addEventListener is not a function" in "Microsoft.FluentUI.AspNetCore.Components.lib.module.js"
+- Issue [#1344](https://github.com/microsoft/fluentui-blazor/issues/1344): fix: Keyboard navigation does not trigger value nor option change in Listbox 
 - Issue [#1335](https://github.com/microsoft/fluentui-blazor/issues/1335): Consider removing the PageScript component from the public API (renamed to FluentPageScript)
-
+- Issue [#1333](https://github.com/microsoft/fluentui-blazor/issues/1333): FluentSwitch inside FluentTab does not work anymore (since 4.3.0)
+- Issue [#1328](https://github.com/microsoft/fluentui-blazor/issues/1328): feat: Allow SVG Icon viewBox to be set via configuration instead of reusing icon size feature
+- Issue [#1327](https://github.com/microsoft/fluentui-blazor/issues/1327): fix: FluentLayout expenders stop working after UI updates
+- Issue [#1317](https://github.com/microsoft/fluentui-blazor/issues/1317): feat: add loading indicator to DataGrid feature
+- Issue [#1311](https://github.com/microsoft/fluentui-blazor/issues/1311): fix: Problems with validation border color / validation classes in FluentDatePicker / FluentAutocomplete
+- Issue [#1292](https://github.com/microsoft/fluentui-blazor/issues/1292): Accessibility issue in Fluent AutoComplete
+- Issue [#1255](https://github.com/microsoft/fluentui-blazor/issues/1255): fix: confirmation message box throws exception in production in Azure Static Web Apps
+- Issue [#1182](https://github.com/microsoft/fluentui-blazor/issues/1182): FluentDesignTheme - Assertion failed - heap is currently locked when changing theme
+- PR [#1404](https://github.com/microsoft/fluentui-blazor/pull/1404): [FluentFileInput] adds a "disabled" property to the FluentFileInput component 
+- PR [#1380](https://github.com/microsoft/fluentui-blazor/pull/1380): [Grid] Fix breakpoints not working with fractional pixels
+- PR [#1372](https://github.com/microsoft/fluentui-blazor/pull/1372): Lists related refactoring and maintenance 
 - Demo: Tweak version in footer so it shows Git commit hash in truncated form
 - Demo Fix positioning of hamburger menu in mobile view
 
