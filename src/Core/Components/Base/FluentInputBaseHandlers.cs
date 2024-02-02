@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -27,11 +27,11 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
-        bool isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out string? validationErrorMessage);
+        var isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out var validationErrorMessage);
 
         if (isValid)
         {
-            await SetCurrentValue(result ?? default);
+            await SetCurrentValueAsync(result ?? default);
         }
         else
         {

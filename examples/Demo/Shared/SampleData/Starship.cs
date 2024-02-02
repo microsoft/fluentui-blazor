@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FluentUI.Demo.Shared.SampleData;
@@ -26,4 +26,6 @@ public class Starship
 
     [Required]
     public DateTime? ProductionDate { get; set; }
+
+    public bool HasTeleporter { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public enum FluentInputAppearance
-
 
 {
     /// <summary />

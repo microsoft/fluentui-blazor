@@ -1,10 +1,13 @@
-﻿export function addThemeChangeEvent(dotNetHelper, id) {
+export function addThemeChangeEvent(dotNetHelper, id) {
     const element = document.getElementById(id);
 
     if (element) {
         element.addEventListener("onchange", (e) => {
             try {
-                dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
+                // setTimeout: https://github.com/dotnet/aspnetcore/issues/26809
+                setTimeout(() => {
+                    dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
+                }, 0);
             } catch (error) {
                 console.error(`FluentDesignTheme: failing to call OnChangeRaisedAsync.`, error);
             }

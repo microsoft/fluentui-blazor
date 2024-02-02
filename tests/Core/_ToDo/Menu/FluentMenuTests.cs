@@ -13,13 +13,13 @@ public class FluentMenuTests : TestBase
     public void FluentMenu_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string anchor = default!;
         MouseButton trigger = default!;
         bool open = default!;
         HorizontalPosition horizontalPosition = default!;
         string width = default!;
-        Action<System.Boolean> openChanged = _ => { };
+        Action<bool> openChanged = _ => { };
         bool anchored = default!;
         var cut = TestContext.RenderComponent<FluentMenu>(parameters => parameters
             .Add(p => p.Anchor, anchor)
@@ -34,12 +34,7 @@ public class FluentMenuTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

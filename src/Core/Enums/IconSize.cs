@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The size of the icon.
@@ -36,6 +36,10 @@ public enum IconSize
     /// <summary>
     /// FluentUI System Icon size 48x48
     /// </summary>
-    Size48 = 48
+    Size48 = 48,
 
+    /// <summary>
+    /// Custom size included in the SVG content.
+    /// </summary>
+    Custom = 0
 }

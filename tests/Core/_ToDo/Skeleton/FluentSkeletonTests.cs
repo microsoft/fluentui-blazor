@@ -8,7 +8,7 @@ public class FluentSkeletonTests : TestBase
     public void FluentSkeleton_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string fill = default!;
         SkeletonShape? shape = default!;
         string pattern = default!;
@@ -29,12 +29,7 @@ public class FluentSkeletonTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

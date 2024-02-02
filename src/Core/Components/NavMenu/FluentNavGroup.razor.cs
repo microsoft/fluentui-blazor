@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -20,7 +23,6 @@ public partial class FluentNavGroup : FluentNavBase
     internal string? StyleValue => new StyleBuilder(Style)
        .AddStyle("margin", $"{Gap} 0", !string.IsNullOrEmpty(Gap))
        .Build();
-
 
     protected string? ButtonClassValue =>
         new CssBuilder("expand-collapse-button")
@@ -101,16 +103,17 @@ public partial class FluentNavGroup : FluentNavBase
 
     private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
 
-    private async Task HandleExpanderKeyDownAsync(KeyboardEventArgs args)
+    private async Task HandleExpanderKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        Task handler = args.Code switch
+        if (args.TargetId != Id)
         {
-            "NumpadEnter" => SetExpandedAsync(!Expanded),
-            "NumpadArrowRight" => SetExpandedAsync(true),
-            "NumpadArrowLeft" => SetExpandedAsync(false),
-            "Enter" => SetExpandedAsync(!Expanded),
-            "ArrowRight" => SetExpandedAsync(true),
-            "ArrowLeft" => SetExpandedAsync(false),
+            return;
+        }
+        Task handler = args.Key switch
+        {
+            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Right => SetExpandedAsync(true),
+            KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;
@@ -122,7 +125,7 @@ public partial class FluentNavGroup : FluentNavBase
         {
             return;
         }
-       
+
         if (!Owner.Expanded)
         {
             await Owner.ExpandedChanged.InvokeAsync(true);

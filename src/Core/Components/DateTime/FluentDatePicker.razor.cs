@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -15,7 +14,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         Id = Identifier.NewId();
     }
-    
+
     /// <summary />
     protected override string? ClassValue
     {
@@ -38,32 +37,9 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     public bool Opened { get; set; } = false;
 
-    private string? DateAsString
+    protected override string? FormatValueAsString(DateTime? value)
     {
-        get
-        {
-            return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern);
-        }
-
-        set
-        {
-            var datePattern = Culture.DateTimeFormat.ShortDatePattern;
-            var isValid = DateTime.TryParseExact(
-                Convert.ToString(value),
-                datePattern,
-                Culture,
-                DateTimeStyles.None,
-                out var newDate);
-
-            if (isValid)
-            {
-                Value = newDate + (Value?.TimeOfDay ?? TimeSpan.Zero);
-            }
-            else
-            {
-                Value = null;
-            }
-        }
+        return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern);
     }
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)

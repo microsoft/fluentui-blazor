@@ -1,4 +1,4 @@
-﻿using FluentUI.Demo.AssetExplorer.Models;
+using FluentUI.Demo.AssetExplorer.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 

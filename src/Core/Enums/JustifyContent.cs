@@ -1,10 +1,9 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The size of the emoji (in multiples of 32).
-/// Defauts to Size32
+/// Defines the alignment of items along the main axis of a flex container.
 /// </summary>
 public enum JustifyContent
 {
@@ -19,7 +18,6 @@ public enum JustifyContent
     /// </summary>
     [Description("center")]
     Center,
-
 
     /// <summary>
     /// Justify content flex-end.

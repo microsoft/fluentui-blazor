@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,10 +17,10 @@ public class LibraryConfiguration
 
     public MarkupString RequiredLabel { get; set; } = (MarkupString)
         """
-        <span aria-label="required" aria-hidden="true" style="padding-inline-start: calc(var(--design-unit) * 1px); color: var(--error);">*</span>
+        <span aria-label="required" aria-hidden="true" style="padding-inline-start: calc(var(--design-unit) * 1px); color: var(--error); pointer-events: none;">*</span>
         """;
 
     public LibraryConfiguration()
     {
-    }        
+    }
 }

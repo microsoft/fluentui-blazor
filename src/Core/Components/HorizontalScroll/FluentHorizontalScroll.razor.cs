@@ -46,7 +46,6 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
 
     private IJSObjectReference? _jsModule;
 
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(HorizontalScrollEventArgs))]
 
     public FluentHorizontalScroll()

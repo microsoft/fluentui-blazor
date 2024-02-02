@@ -1,0 +1,38 @@
+@page "/Select"
+
+@using FluentUI.Demo.Shared.Pages.List.Select.Examples
+
+<h1>Select</h1>
+
+<p>An implementation of an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank" rel="noopener noreferrer">HTML select element</a> web-component.</p>
+
+<p>
+    <code>&lt;FluentSelect&gt;</code> wraps the <code>&lt;fluent-select&gt;</code> element, a web component implementation of a select leveraging the
+    Fluent UI design system.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(SelectDefault)"></DemoSection>
+
+<DemoSection Title="From a list of Option<T> items" Component="@typeof(SelectFromListOfOptions)"></DemoSection>
+
+<DemoSection Title="Appearances" Component="@typeof(SelectAppearances)"></DemoSection>
+
+<DemoSection Title="Manual Options" Component="@typeof(SelectManual)"></DemoSection>
+
+<DemoSection Title="Custom indicator" Component="@typeof(SelectCustom)"></DemoSection>
+
+<DemoSection Title="Long list" Component="@typeof(SelectLong)"></DemoSection>
+
+<DemoSection Title="Forced position" Component="@typeof(SelectPositioning)"></DemoSection>
+
+<DemoSection Title="Multiple items" Component="@typeof(SelectMultiple)"></DemoSection>
+
+<DemoSection Title="Multiple items with selected and disabled options" Component="@typeof(SelectMultipleWithFunctions)"></DemoSection>
+
+<DemoSection Title="Option template" Component="@typeof(SelectWithOptionTemplate)"></DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentSelect<>)" GenericLabel="TOption" />

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -39,13 +39,11 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     [Parameter]
     public bool NewestOnTop { get; set; } = true;
 
-
     /// <summary>
     /// Clear all (shown and stored) messages when the user navigates to a new page.
     /// </summary>
     [Parameter]
     public bool ClearAfterNavigation { get; set; } = false;
-
 
     /// <summary />
     protected IEnumerable<Message> AllMessagesForCategory
@@ -65,7 +63,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
         {
             if (MaxMessageCount.HasValue)
             {
-                int maxMessages = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
+                var maxMessages = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
 
                 return NewestOnTop
                             ? AllMessagesForCategory.Reverse().TakeLast(maxMessages)
@@ -91,7 +89,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     /// <summary />
     protected virtual void OnMessageItemsUpdatedHandler()
     {
-        InvokeAsync(StateHasChanged); 
+        InvokeAsync(StateHasChanged);
     }
 
     protected async virtual Task OnMessageItemsUpdatedHandlerAsync()

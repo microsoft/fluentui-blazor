@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -9,9 +7,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
+    public static string AccessibilitySelected = "Selected {0}";
+    public static string AccessibilityNotFound = "No items found";
+    public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
+    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
+
     private string _valueText = string.Empty;
-    
-    public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
 
@@ -118,7 +119,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
 
-
     /// <summary>
     /// Gets or sets the header content, placed at the top of the popup panel.
     /// </summary>
@@ -188,7 +188,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
-    protected virtual async Task InputHandlerAsync(ChangeEventArgs e)
+    protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
         _valueText = e.Value?.ToString() ?? string.Empty;
 
@@ -213,29 +213,44 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         SelectableItem = Items.FirstOrDefault();
     }
 
+    private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
+
     /// <summary />
-    protected virtual async Task KeyDownHandlerAsync(KeyboardEventArgs e)
+    protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
     {
-        switch (e.Code)
+        switch (e.Key)
         {
-            case "Escape":
+            case KeyCode.Escape:
                 await KeyDown_Escape();
                 break;
 
-            case "Enter":
-            case "NumpadEnter":
-                await KeyDown_Enter();
+            case KeyCode.Enter:
+                if (IsMultiSelectOpened)
+                {
+                    await KeyDown_Enter();
+                }
+                else
+                {
+                    await OnDropDownExpandedAsync();
+                }
                 break;
 
-            case "Backspace":
+            case KeyCode.Backspace:
                 await KeyDown_Backspace();
                 break;
 
-            case "ArrowDown":
-                await KeyDown_ArrowDown();
+            case KeyCode.Down:
+                if (IsMultiSelectOpened)
+                {
+                    await KeyDown_ArrowDown();
+                }
+                else
+                {
+                    await OnDropDownExpandedAsync();
+                }
                 break;
 
-            case "ArrowUp":
+            case KeyCode.Up:
                 await KeyDown_ArrowUp();
                 break;
         }
@@ -250,10 +265,23 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         // Backspace
         async Task KeyDown_Backspace()
         {
+            // Remove last selected item
             if (string.IsNullOrEmpty(_valueText) &&
                 SelectedOptions != null && SelectedOptions.Any())
             {
                 await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
+                IsReachedMaxItems = false;
+                return;
+            }
+
+            // Remove last char
+            if (!string.IsNullOrEmpty(_valueText))
+            {
+                await InputHandlerAsync(new ChangeEventArgs()
+                {
+                    Value = _valueText.Substring(0, _valueText.Length - 1),
+                });
+                return;
             }
         }
 
@@ -315,7 +343,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected virtual Task OnDropDownExpandedAsync()
+    protected Task OnDropDownExpandedAsync()
     {
         return InputHandlerAsync(new ChangeEventArgs()
         {
@@ -324,7 +352,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected virtual Task OnClearAsync()
+    protected Task OnClearAsync()
     {
         RemoveAllSelectedItems();
         _valueText = string.Empty;
@@ -341,7 +369,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    public virtual async Task RemoveSelectedItemAsync(TOption? item)
+    public async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item == null)
         {
@@ -359,5 +387,36 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         {
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
         }
+    }
+
+    /// <summary />
+    private string? GetAutocompleteAriaLabel()
+    {
+        // No items found
+        if (IsMultiSelectOpened && Items?.Any() == false)
+        {
+            return AccessibilityNotFound;
+        }
+
+        // Reached Max Items
+        if (IsReachedMaxItems)
+        {
+            return AccessibilityReachedMaxItems;
+        }
+
+        // Selected {0}
+        if (IsMultiSelectOpened && SelectableItem != null)
+        {
+            return GetOptionText(SelectableItem) ?? string.Empty;
+        }
+
+        // Selected items
+        if (SelectedOptions != null && SelectedOptions.Any())
+        {
+            return string.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
+        }
+
+        // Default
+        return GetAriaLabel() ?? Label ?? Placeholder;
     }
 }

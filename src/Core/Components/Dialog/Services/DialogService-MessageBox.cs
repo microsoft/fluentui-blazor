@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -20,7 +20,7 @@ public partial class DialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", 
+        PrimaryAction = "OK",
         SecondaryAction = string.Empty,
     });
 
@@ -40,7 +40,7 @@ public partial class DialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", 
+        PrimaryAction = "OK",
         SecondaryAction = string.Empty,
     });
 
@@ -60,7 +60,7 @@ public partial class DialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", 
+        PrimaryAction = "OK",
         SecondaryAction = string.Empty,
     });
 
@@ -80,7 +80,7 @@ public partial class DialogService
             Message = message,
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK", 
+        PrimaryAction = "OK",
         SecondaryAction = string.Empty,
     });
 
@@ -106,8 +106,8 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, 
-            SecondaryAction = secondaryText, 
+            PrimaryAction = primaryText,
+            SecondaryAction = secondaryText,
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
@@ -116,7 +116,7 @@ public partial class DialogService
     /// (true=PrimaryAction clicked, false=SecondaryAction clicked).
     /// </summary>
     /// <param name="parameters">Parameters to pass to component being displayed.</param>
-        public void ShowMessageBox(DialogParameters<MessageBoxContent> parameters)
+    public void ShowMessageBox(DialogParameters<MessageBoxContent> parameters)
     {
         DialogParameters dialogParameters = new()
         {
@@ -155,7 +155,7 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", 
+            PrimaryAction = "OK",
             SecondaryAction = string.Empty,
         });
 
@@ -176,7 +176,7 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", 
+            PrimaryAction = "OK",
             SecondaryAction = string.Empty,
         });
 
@@ -197,7 +197,7 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", 
+            PrimaryAction = "OK",
             SecondaryAction = string.Empty,
         });
 
@@ -218,7 +218,7 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK", 
+            PrimaryAction = "OK",
             SecondaryAction = string.Empty,
         });
 
@@ -244,8 +244,8 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, 
-            SecondaryAction = secondaryText, 
+            PrimaryAction = primaryText,
+            SecondaryAction = secondaryText,
             OnDialogResult = EventCallback.Factory.Create(receiver, callback)
         });
 
@@ -269,8 +269,8 @@ public partial class DialogService
                 Message = message,
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = primaryText, 
-            SecondaryAction = secondaryText, 
+            PrimaryAction = primaryText,
+            SecondaryAction = secondaryText,
         });
 
     /// <summary>

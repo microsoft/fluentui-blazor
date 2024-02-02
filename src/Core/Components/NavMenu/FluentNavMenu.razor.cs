@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -7,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentNavMenu : FluentComponentBase
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-
+    
     internal string? ClassValue => new CssBuilder("fluent-nav-menu")
         .AddClass(Class)
         .AddClass("collapsed", () => !Expanded)
@@ -20,7 +19,7 @@ public partial class FluentNavMenu : FluentComponentBase
         .AddStyle("width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .AddStyle("min-width", WIDTH_COLLAPSED_MENU, () => !Expanded)
         .Build();
-    
+
     /// <summary>
     /// Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
     /// The default icon will be used if this is not specified.
@@ -65,7 +64,7 @@ public partial class FluentNavMenu : FluentComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-       
+
     /// <summary>
     /// Navigation manager
     /// </summary>
@@ -79,16 +78,17 @@ public partial class FluentNavMenu : FluentComponentBase
 
     private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
 
-    private async Task HandleExpandCollapseKeyDownAsync(KeyboardEventArgs args)
+    private async Task HandleExpandCollapseKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        Task handler = args.Code switch
+        if (args.TargetId != $"{Id}-expander")
         {
-            "NumpadEnter" => SetExpandedAsync(!Expanded),
-            "NumpadArrowRight" => SetExpandedAsync(true),
-            "NumpadArrowLeft" => SetExpandedAsync(false),
-            "Enter" => SetExpandedAsync(value: !Expanded),
-            "ArrowRight" => SetExpandedAsync(true),
-            "ArrowLeft" => SetExpandedAsync(false),
+            return;
+        }
+        Task handler = args.Key switch
+        {
+            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Right => SetExpandedAsync(true),
+            KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;

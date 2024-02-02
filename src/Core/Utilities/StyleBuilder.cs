@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 public readonly struct StyleBuilder
 {
@@ -48,7 +48,7 @@ public readonly struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value, bool when = true) => when ? this.AddStyle(prop, value) : this;
+    public StyleBuilder AddStyle(string prop, string? value, bool when = true) => when ? AddStyle(prop, value) : this;
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -57,7 +57,7 @@ public readonly struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => this.AddStyle(prop, value, when != null && when());
+    public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => AddStyle(prop, value, when != null && when());
 
     /// <summary>
     /// Finalize the completed Style as a string.
@@ -94,7 +94,7 @@ public readonly struct StyleBuilder
         {
             _styles.Add(style.Trim().TrimEnd(';'));
         }
-        
+
         return this;
     }
 }

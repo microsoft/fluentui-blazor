@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -20,7 +20,6 @@ public partial interface IDialogService
     public event Func<string, DialogParameters, Task<IDialogReference?>>? OnUpdateAsync;
 
     public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
-
 
     public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback);
 }

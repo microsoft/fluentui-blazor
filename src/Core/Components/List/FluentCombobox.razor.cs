@@ -48,11 +48,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         await base.SetParametersAsync(ParameterView.Empty);
     }
 
-    protected override async Task OnChangedHandlerAsync(ChangeEventArgs e)
+    protected async Task OnChangedHandlerAsync(ChangeEventArgs e)
     {
         if (e.Value is not null && Items is not null)
         {
-            string? value = e.Value.ToString();
+            var value = e.Value.ToString();
             TOption? item = Items.FirstOrDefault(i => GetOptionText(i) == value);
 
             if (item is null)
@@ -60,23 +60,33 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
                 SelectedOption = default;
 
                 if (SelectedOptionChanged.HasDelegate)
+                {
                     await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                }
 
                 if (ValueChanged.HasDelegate)
+                {
                     await ValueChanged.InvokeAsync(value);
+                }
 
                 StateHasChanged();
             }
             else
+            {
                 await OnSelectedItemChangedHandlerAsync(item);
+            }
         }
     }
 
     protected override string? GetOptionValue(TOption? item)
     {
         if (item != null)
+        {
             return OptionText.Invoke(item) ?? OptionValue.Invoke(item) ?? item.ToString();
+        }
         else
+        {
             return null;
+        }
     }
 }

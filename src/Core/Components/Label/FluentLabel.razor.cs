@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -14,7 +14,7 @@ public partial class FluentLabel : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("color", Color.ToAttributeValue(), () => (Color != null))
+        .AddStyle("color", Color.ToAttributeValue(), () => Color != null)
         .AddStyle("margin-block", MarginBlock, () => !string.IsNullOrEmpty(MarginBlock) && !DefaultMarginBlock)
         .Build();
 

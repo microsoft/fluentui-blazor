@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -24,7 +24,7 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     /// Apply the disabled style to the <see cref="DisabledDateFunc"/> days.
     /// If this is not the case, the days are displayed like the others, but cannot be selected.
     /// </summary>
-    [Parameter] 
+    [Parameter]
     public virtual bool DisabledSelectable { get; set; } = true;
 
     /// <summary>
@@ -56,6 +56,10 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
             if (ValueChanged.HasDelegate)
             {
                 ValueChanged.InvokeAsync(value);
+            }
+            if (FieldBound)
+            {
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
             }
         }
     }

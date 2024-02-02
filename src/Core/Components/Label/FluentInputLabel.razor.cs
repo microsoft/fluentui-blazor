@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -66,7 +66,7 @@ public partial class FluentInputLabel
     }
 
     /// <summary />
-    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) 
+    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId)
                                        && (!string.IsNullOrWhiteSpace(Label) ||
                                            !string.IsNullOrWhiteSpace(AriaLabel));
 }

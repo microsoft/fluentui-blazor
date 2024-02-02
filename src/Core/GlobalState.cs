@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,7 +17,6 @@ public class GlobalState
     public string? Color { get; set; }
 
     public event Action? OnChange;
-
 
     public void SetDirection(LocalizationDirection dir)
     {

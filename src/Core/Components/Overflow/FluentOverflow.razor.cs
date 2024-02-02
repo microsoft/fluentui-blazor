@@ -1,9 +1,8 @@
-﻿
+
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -24,8 +23,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
-
-
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -48,7 +45,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
             if (_jsModule != null && _dotNetHelper != null)
             {
-                bool isHorizontal = Orientation == Orientation.Horizontal;
+                var isHorizontal = Orientation == Orientation.Horizontal;
                 InvokeAsync(async () => await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null));
             }
         }
@@ -104,7 +101,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         _dotNetHelper = DotNetObjectReference.Create(this);
 
-        bool isHorizontal = Orientation == Orientation.Horizontal;
+        var isHorizontal = Orientation == Orientation.Horizontal;
         await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null);
     }
 
@@ -135,10 +132,15 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         await InvokeAsync(() => StateHasChanged());
     }
 
-   
     internal void AddItem(FluentOverflowItem item)
     {
         _items.Add(item);
+    }
+
+    internal void RemoveItem(FluentOverflowItem item)
+    {
+        _items.Remove(item);
+        StateHasChanged();
     }
 
     /// <inheritdoc />

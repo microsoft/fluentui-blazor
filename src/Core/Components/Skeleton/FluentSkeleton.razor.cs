@@ -13,7 +13,6 @@ public partial class FluentSkeleton : FluentComponentBase
         .AddStyle("height", Height, () => !string.IsNullOrWhiteSpace(Height))
         .Build();
 
-
     /// <summary>
     /// Indicates the Skeleton should have a filled style.
     /// </summary>

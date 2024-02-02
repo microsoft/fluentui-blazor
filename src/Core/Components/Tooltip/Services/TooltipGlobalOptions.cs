@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
+namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
 /// <summary>
 /// Global options for tooltips.

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,7 +22,6 @@ public partial class DialogService
     public void ShowSplashScreen<T>(object receiver, Func<DialogResult, Task> callback, DialogParameters<SplashScreenContent> parameters)
         where T : IDialogContentComponent<SplashScreenContent>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
-
 
     /// <summary>
     /// Shows a splash screen of the given type with the given parameters.
@@ -87,7 +86,6 @@ public partial class DialogService
     public async Task<IDialogReference> ShowSplashScreenAsync<T>(DialogParameters<SplashScreenContent> parameters)
         where T : IDialogContentComponent<SplashScreenContent>
         => await ShowSplashScreenAsync(typeof(T), parameters);
-
 
     /// <summary>
     /// Shows a splash screen of the given type with the given parameters.

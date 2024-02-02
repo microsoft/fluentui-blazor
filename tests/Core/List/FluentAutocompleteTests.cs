@@ -1,6 +1,5 @@
-﻿using Bunit;
+using Bunit;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -13,7 +12,7 @@ public class FluentAutocompleteTests : TestBase
 
     public FluentAutocompleteTests()
     {
-        TestContext.JSInterop.SetupModule(FluentAutocomplete<string>.JAVASCRIPT_FILE);
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
         TestContext.Services.AddSingleton(LibraryConfiguration);
     }
 
@@ -64,13 +63,22 @@ public class FluentAutocompleteTests : TestBase
         cut.Verify();
     }
 
-    [Theory]
+    [Theory()]
     [InlineData("Escape")]
     [InlineData("Backspace")]
     [InlineData("ArrowDown")]
     [InlineData("ArrowUp")]
     public void FluentAutocomplete_Keyboard(string keyCode)
     {
+        KeyCode code = keyCode switch
+        {
+            "Escape" => KeyCode.Escape,
+            "Backspace" => KeyCode.Backspace,
+            "ArrowDown" => KeyCode.Down,
+            "ArrowUp" => KeyCode.Up,
+            _ => KeyCode.Unknown
+        };
+
         // Arrange
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
@@ -82,7 +90,7 @@ public class FluentAutocompleteTests : TestBase
         // Act
         var input = cut.Find("fluent-text-field");
         input.Click();
-        input.KeyDown(new KeyboardEventArgs() { Code = keyCode });
+        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0, string.Empty);
 
         // Assert
         cut.Verify(suffix: keyCode);
@@ -119,7 +127,6 @@ public class FluentAutocompleteTests : TestBase
             {
                 return $"<header>Please, select an item</header>";
             });
-
 
             // Add an Item template
             parameters.Add(p => p.OptionTemplate, context =>
@@ -211,7 +218,7 @@ public class FluentAutocompleteTests : TestBase
     }
 
     // Sample data...
-    private IEnumerable<Customer> GetCustomers()
+    private static IEnumerable<Customer> GetCustomers()
     {
         yield return new Customer(1, "Denis Voituron");
         yield return new Customer(2, "Vincent Baaij");

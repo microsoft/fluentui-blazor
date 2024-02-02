@@ -1,4 +1,4 @@
-﻿using Bunit;
+using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -44,7 +44,6 @@ public class FluentCounterBadgeTests : TestBase
         cut.Verify(suffix: appearance.ToString());
     }
 
-
     [Theory]
     [InlineData(Appearance.Hypertext)]
     public void FluentCounterBadge_AppearanceAttributeInvalid(Appearance appearance)
@@ -63,7 +62,6 @@ public class FluentCounterBadgeTests : TestBase
         //Assert.Throws<ArgumentException>("Appearance", () => "CounterBadge Appearance needs to be one of Accent, Lightweight or Neutral.");
 
     }
-
 
     [Fact]
     public void FluentCounterBadge_WithAdditionalCssClass()

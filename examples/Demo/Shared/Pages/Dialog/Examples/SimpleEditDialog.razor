@@ -1,0 +1,91 @@
+﻿@using System.ComponentModel.DataAnnotations
+@implements IDialogContentComponent<SimpleEditDialog.RegisterContent>
+
+<!-- Header -->
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.WindowApps())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<!-- Body -->
+<FluentDialogBody>
+    <EditForm EditContext="@_editContext" FormName="simple_register">
+        <DataAnnotationsValidator />
+
+        <FluentLabel Style="margin-bottom: 16px;">
+            Your name must be between 3 and 20 characters long,
+            and your age between 1 and 99.
+        </FluentLabel>
+
+        <FluentTextField Name="register_name"
+                         @bind-Value="@Content.Name"
+                         Label="Name"
+                         Required />
+        <FluentNumberField Name="register_age"
+                           @bind-Value="@Content.Age"
+                           Label="Age"
+                           Required />
+
+        <div style="color: var(--error);">
+            <FluentValidationSummary />
+        </div>
+    </EditForm>
+</FluentDialogBody>
+
+<!-- Footer -->
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent"
+                  Disabled="@(!_editContext.Validate())"
+                  OnClick="@SaveAsync">
+        Save
+    </FluentButton>
+    <FluentButton Appearance="Appearance.Neutral"
+                  OnClick="@CancelAsync">
+        Cancel
+    </FluentButton>
+</FluentDialogFooter>
+
+@code
+{
+    private EditContext _editContext = default!;
+
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+
+    [Parameter]
+    public SimpleEditDialog.RegisterContent Content { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(Content);
+    }
+
+    private async Task SaveAsync()
+    {
+        if (_editContext.Validate())
+        {
+            await Dialog.CloseAsync(Content);
+        }
+    }
+
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
+    }
+
+    public record RegisterContent
+    {
+        public int Id { get; set; } = 0;
+
+        [MinLength(3)]
+        [MaxLength(20)]
+        public string Name { get; set; } = string.Empty;
+
+        [Range(1, 99)]
+        public int Age { get; set; }
+    }
+}

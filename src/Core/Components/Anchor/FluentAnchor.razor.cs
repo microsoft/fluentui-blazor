@@ -51,7 +51,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public string? Rel { get; set; }
 
     /// <summary>
-    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified.
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>
     [Parameter]
@@ -82,6 +82,9 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     [Parameter]
     public Icon? IconEnd { get; set; }
 
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -92,7 +95,9 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     {
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+        {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+        }
 
         // If the Href has been specified (as it should) and if starts with '#,'
         // we assume the rest of the value contains the id of the element the link points to.
@@ -105,7 +110,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
             // https://github.com/WICG/scroll-to-text-fragment/
 
             _targetId = Href[1..];
-            int index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
+            var index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
             if (index > 0)
             {
                 _targetId = _targetId[..index];
@@ -129,6 +134,10 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
         {
             // If the target ID has been specified, we know this is an anchor link that we need to scroll to
             await _jsModule.InvokeVoidAsync("scrollIntoView", _targetId);
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
         }
     }
 

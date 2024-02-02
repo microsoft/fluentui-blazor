@@ -2,8 +2,6 @@ using Markdig;
 using Microsoft.AspNetCore.Components;
 
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
-
 
 // Remember to replace the namespace below with your own project's namespace..
 namespace FluentUI.Demo.Shared.Components;
@@ -15,7 +13,6 @@ public partial class MarkdownSection : FluentComponentBase
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
-
 
     /// <summary>
     /// Gets or sets the Markdown content 
@@ -40,7 +37,6 @@ public partial class MarkdownSection : FluentComponentBase
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
 
-
             if (OnContentConverted.HasDelegate)
             {
                 OnContentConverted.InvokeAsync();
@@ -52,11 +48,12 @@ public partial class MarkdownSection : FluentComponentBase
 
     public MarkupString HtmlContent { get; private set; }
 
-
     protected override void OnInitialized()
     {
         if (Content is null && string.IsNullOrEmpty(FromAsset))
+        {
             throw new ArgumentException("You need to provide either Content or FromAsset parameter");
+        }
 
         InternalContent = Content;
     }
@@ -85,7 +82,7 @@ public partial class MarkdownSection : FluentComponentBase
         if (!string.IsNullOrWhiteSpace(value))
         {
             // Convert markdown string to HTML
-            string? html = Markdown.ToHtml(value, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
+            var html = Markdown.ToHtml(value, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
 
             // Return sanitized HTML as a MarkupString that Blazor can render
             return new MarkupString(html);

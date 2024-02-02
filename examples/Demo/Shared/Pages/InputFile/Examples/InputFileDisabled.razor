@@ -1,0 +1,22 @@
+﻿<FluentInputFile Id="my-file-uploader-disabled"
+                 Disabled="true"
+                 Style="height: 300px; border: 1px dashed var(--accent-fill-rest);">
+    <ChildContent>
+        <label for="my-file-uploader">
+            <FluentIcon Value="@(new @Icons.Regular.Size24.CircleLine())" />
+        </label>
+
+        <div>
+            This component is disabled. You cannot drag files here,
+            or <label for="my-file-uploader-disabled">browse</label>
+            for them.
+            <br />
+        </div>
+
+    </ChildContent>
+</FluentInputFile>
+
+@code
+{
+
+}
