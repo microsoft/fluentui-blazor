@@ -17,6 +17,8 @@ Updated: DataGrid - Loading and LoadingContent parameters
 - Issue [#1292](https://github.com/microsoft/fluentui-blazor/issues/1292): Accessibility issue in Fluent AutoComplete
 - Issue [#1255](https://github.com/microsoft/fluentui-blazor/issues/1255): fix: confirmation message box throws exception in production in Azure Static Web Apps
 - Issue [#1182](https://github.com/microsoft/fluentui-blazor/issues/1182): FluentDesignTheme - Assertion failed - heap is currently locked when changing theme
+- PR [#1426](https://github.com/microsoft/fluentui-blazor/pull/1426): Remove value and current-value for fluent-switch
+- PR [#1424](https://github.com/microsoft/fluentui-blazor/pull/1424): Not setting current-value for fluent-number-field
 - PR [#1404](https://github.com/microsoft/fluentui-blazor/pull/1404): [FluentFileInput] adds a "disabled" property to the FluentFileInput component 
 - PR [#1380](https://github.com/microsoft/fluentui-blazor/pull/1380): [Grid] Fix breakpoints not working with fractional pixels
 - PR [#1372](https://github.com/microsoft/fluentui-blazor/pull/1372): Lists related refactoring and maintenance 
