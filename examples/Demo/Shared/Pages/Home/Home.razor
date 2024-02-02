@@ -10,43 +10,43 @@
 	<br />
 	<p>
 		The demo and documentation sites for previous versions are also still available:<br />
-		<a href="https://calm-sea-053fa6a03-archivesv3.westeurope.3.azurestaticapps.net/" target="_blank">Version 3.5.3</a> - <a href="https://calm-sea-053fa6a03-archivesv2.westeurope.3.azurestaticapps.net/" target="_blank">Version 2.4.3</a><br />
+		<a href="https://calm-sea-053fa6a03-archivesv3.westeurope.3.azurestaticapps.net/" target="_blank">Version 3.5.4</a> - <a href="https://calm-sea-053fa6a03-archivesv2.westeurope.3.azurestaticapps.net/" target="_blank">Version 2.4.3</a><br />
 		These versions support both .NET 6 and .NET 7.
 	</p>
 </div>
 
 <h2 id="introduction">Introduction</h2>
 <p>
-	The <code>Microsoft.FluentUI.AspNetCore.Components</code> package provides a set of <a href="https://blazor.net">Blazor</a> components. Some of the 
+	The <code>Microsoft.FluentUI.AspNetCore.Components</code> package provides a set of <a href="https://blazor.net">Blazor</a> components. Some of the
 	components are  wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent Design System
 	or make it easier to work with Fluent. To get up and running with the <code>Microsoft.FluentUI.AspNetCore.Components</code> library, see the 'Getting Started'' section below.
 </p>
 <p>
-	The source for the library is hosted in the <a href="https://github.com/microsoft/fluentui-blazor">fluentui-blazor</a> repository at GitHub. 
+	The source for the library is hosted in the <a href="https://github.com/microsoft/fluentui-blazor">fluentui-blazor</a> repository at GitHub.
 </p>
 
 <h2 id="whatsnew">What's new?</h2>
 <p>
-	If you are already up-and-running and upgrading from an earlier version of the library, please see the <a href="/WhatsNew">What's new'</a> section 
+	If you are already up-and-running and upgrading from an earlier version of the library, please see the <a href="/WhatsNew">What's new'</a> section
 	for information on (breaking) changes.
 </p>
 
 <h2 id="getting-started">Getting Started</h2>
 <p>
 	The easiest way to get started is by using our <a href="/Templates">templates</a>. To start using the Fluent UI Blazor components from scratch,
-	you first need to install the main <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/">Nuget package</a> in the 
+	you first need to install the main <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/">Nuget package</a> in the
 	project you want to use the components. You can use the NuGet package manager in your IDE for that or use the following command when using a CLI:
 </p>
 <CodeSnippet>dotnet add package Microsoft.FluentUI.AspNetCore.Components</CodeSnippet>
 
 <h3>Scripts</h3>
 <p>
-	As mentioned, we wrap the Fluent UI Web Components. These components are implemented in a script file which is included in the library itself 
+	As mentioned, we wrap the Fluent UI Web Components. These components are implemented in a script file which is included in the library itself
 	and does not have to be downloaded or pulled from a CDN.
 </p>
 <p>
-	It is dependant on what type of project you are creating, if the script needs to be added to your <code>index.html</code> or 
-	<code>App.razor</code> file. When using SSR, you will need to include the web components script. As there is no Blazor script being loaded/used, 
+	It is dependant on what type of project you are creating, if the script needs to be added to your <code>index.html</code> or
+	<code>App.razor</code> file. When using SSR, you will need to include the web components script. As there is no Blazor script being loaded/used,
 	our script will also not get loaded.
 </p>
 <p>
@@ -55,18 +55,18 @@
 </p>
 <CodeSnippet>&lt;script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async&gt;&lt;/script&gt;</CodeSnippet>
 <p>
-	If you later add interactivity, the Blazor script will kick in and load the web component script again but JavaScript will 
+	If you later add interactivity, the Blazor script will kick in and load the web component script again but JavaScript will
 	handle that gracefully by design.
 </p>
 <p>
-	If you use the templates to create your project, inserting the script will be taken care of based on the choices you make when creating the 
+	If you use the templates to create your project, inserting the script will be taken care of based on the choices you make when creating the
 	application. By including the script in the library we can safeguard that you are always using the best matching script version.
 </p>
 
 <h3>Styles</h3>
 <p>
-	In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by 
-	adding the following line to the <code>&lt;head&gt;</code> section of your <code>index.html</code>, <code>_Layout.cshtml</code> or <code>App.razor</code> file in the 
+	In order for this library to work as expected, you will need to add the composed scoped CSS file for the components. This can be done by
+	adding the following line to the <code>&lt;head&gt;</code> section of your <code>index.html</code>, <code>_Layout.cshtml</code> or <code>App.razor</code> file in the
 	project you installed the package:
 </p>
 <CodeSnippet>&lt;link href="{PROJECT_NAME}.styles.css" rel="stylesheet" /&gt;</CodeSnippet>
@@ -81,17 +81,17 @@
 	It provides an elegant, consistent, and simple baseline to build upon.
 </p>
 <p>
-	If you want to use Reboot, you'll need to add to your <code>index.html</code>, <code>_Layout.cshtml</code> or <code>App.razor</code> file a 
+	If you want to use Reboot, you'll need to add to your <code>index.html</code>, <code>_Layout.cshtml</code> or <code>App.razor</code> file a
 	line that includes the stylesheet (<code>.css</code> file). This can be done by adding the following line to the <code>&lt;head&gt;</code> section:
 <CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" /&gt;</CodeSnippet>
 </p>
 <p>When using the templates to create your application, Reboot is already set-up for you.</p>
 <p>
-	It is entirely possible to build a site without using Reboot. If you do not want to use Reboot and you used the templates as a starting point, just 
+	It is entirely possible to build a site without using Reboot. If you do not want to use Reboot and you used the templates as a starting point, just
 	remove the following line from the <code>app.css</code> file (it is the first line in the file):
 </p>
 <CodeSnippet>@@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';</CodeSnippet>
-	
+
 <h3>Code setup</h3>
 <p>
 	Please refer to the <a href="/CodeSetup">code setup</a> document to learn what needs to be included in your
@@ -110,7 +110,7 @@
 	for more information.
 </p>
 <p>
-	If you want to use icons and/or emoji with applications based on the templates, you still need to make some changes to the project. See the 
+	If you want to use icons and/or emoji with applications based on the templates, you still need to make some changes to the project. See the
 	<a href="/IconsAndEmoji"> Icons and Emoji</a> page for more information.
 </p>
 
@@ -143,15 +143,15 @@
 
 <h2 id="configuring-the-design-system">Configuring the Design System</h2>
 <p>
-	The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while 
-	automatically maintaining accessibility. This is accomplished through setting various &quot;Design Tokens&quot;. The library exposes all of 
-	the available Design Tokens, which you can use both from code as in a declarative way in your <code>.razor</code> pages. The three different 
+	The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while
+	automatically maintaining accessibility. This is accomplished through setting various &quot;Design Tokens&quot;. The library exposes all of
+	the available Design Tokens, which you can use both from code as in a declarative way in your <code>.razor</code> pages. The three different
 	ways of working with design tokens are described in the <a target="top" href="/DesignTokens">design tokens</a> page.
 </p>
 
 <h2 id="blazor-hybrid">Blazor Hybrid</h2>
 <p>
-	It is possible to use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above, 
+	It is possible to use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above,
 	however to get everything to work you'll need to take one extra step:
 </p>
 
@@ -159,7 +159,7 @@
 <p>
 	Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see <a href="https://github.com/microsoft/fluentui-blazor/issues/404">#404</a>.
 	There is also an isue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is
-	a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	script is 
+	a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	script is
 	included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag:
 </p>
 <pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
@@ -175,7 +175,7 @@
 
 <h2>Use the DataGrid component with EF Core</h2>
 <p>
-	If you want to use the <code>FluentDataGrid</code> with data provided through EF Core, you need to install an additional package so the 
+	If you want to use the <code>FluentDataGrid</code> with data provided through EF Core, you need to install an additional package so the
 	grid knows how to resolve queries asynchronously for efficiency.
 </p>
 
@@ -189,7 +189,7 @@ In your <code>Program.cs</code> file you need to add the following after the <co
 
 <h3 id="joining-the-community">Joining the Community</h3>
 <p>
-	Looking to get answers to questions or engage with us in real-time? 
+	Looking to get answers to questions or engage with us in real-time?
 	<ul>
 		<li>Join the community and chat with us in real-time on <a target="top" href="https://app.gitter.im/#/room/#fluentui-blazor:gitter.im">Gitter</a> and <a target="top" href="https://discord.gg/FcSNfg4">Discord</a>.</li>
 		<li>Submit requests and issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/issues/new/choose">GitHub</a>.</li>
