@@ -1,0 +1,47 @@
+@page "/Badge"
+
+@using FluentUI.Demo.Shared.Pages.Badge.Badge.Examples
+
+<h1>Badge</h1>
+
+<p>
+    The <code>&lt;FluentBadge&gt;</code> component is used to highlight an item and attract attention or flag status.
+</p>
+<p>
+    <code>&lt;FluentBadge&gt;</code> wraps the <code>&lt;fluent-badge&gt;</code> element, a web component implementation of a badge leveraging the Fluent UI design system.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Appearances" Component="@typeof(BadgeAppearance)">
+    <Description>
+        <p>
+            Clicking the 'Lightweight' badge will trigger the OnClick event. Clicking the dismiss icon on the 'Bigger' badge will trigger the OnDismissClick event.
+            See the 'Console log' for the generated output.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Circular" Component="@typeof(BadgeCircular)"></DemoSection>
+
+<DemoSection Title="With custom CSS for Fill and Highlight" Component="@typeof(BadgeStyled)" CollocatedFiles="@(new[] {"css"})">
+    <Description>
+        <p>
+            The Fill and Color values can be defined as CSS variables with 'highlight' and 'lowlight' variants:
+        </p>
+        <CodeSnippet Language="language-css">
+fluent-badge {
+    --badge-fill-highlight: #ffd800;
+    --badge-fill-lowlight: #333;
+    --badge-color-highlight: #000;
+    --badge-color-lowlight: #fff;
+}
+        </CodeSnippet>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="In a slot" Component="@typeof(BadgeInSlot)"></DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentBadge)" />

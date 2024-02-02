@@ -1,0 +1,51 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentCollapsibleRegion_Expanded()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCollapsibleRegion Expanded="true">Content</FluentCollapsibleRegion>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCollapsibleRegion_Collapsed()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCollapsibleRegion Expanded="false">Content</FluentCollapsibleRegion>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCollapsibleRegion_MaxHeight()
+    {
+        // Arrange
+        var maxHeight = "200px";
+
+        // Act
+        var cut = Render(@<FluentCollapsibleRegion MaxHeight="@maxHeight">Content</FluentCollapsibleRegion>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCollapsibleRegion_ExpandedChanged()
+    {
+        // Arrange
+        var value = false;
+        Action<bool> expandedChanged = (e) => { value = e; };
+
+        // Act
+        var cut = Render(@<FluentCollapsibleRegion Expanded="true" ExpandedChanged="expandedChanged">Content</FluentCollapsibleRegion>);
+
+        // Assert
+        cut.Verify();
+    }
+}

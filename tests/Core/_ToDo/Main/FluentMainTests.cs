@@ -8,7 +8,7 @@ public class FluentMainTests : TestBase
     public void FluentMain_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         int? height = default!;
         var cut = TestContext.RenderComponent<FluentMain>(parameters => parameters
             .Add(p => p.Height, height)
@@ -17,12 +17,7 @@ public class FluentMainTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

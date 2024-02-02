@@ -8,8 +8,8 @@ public class FluentPaginatorTests : TestBase
     public void FluentPaginator_Default()
     {
         //Arrange
-        string summaryTemplate = "<b>render me</b>";
-        Action<System.Int32> currentPageIndexChanged = _ => { };
+        var summaryTemplate = "<b>render me</b>";
+        Action<int> currentPageIndexChanged = _ => { };
         PaginationState state = default!;
         var cut = TestContext.RenderComponent<FluentPaginator>(parameters => parameters
             .Add(p => p.CurrentPageIndexChanged, currentPageIndexChanged)
@@ -19,12 +19,7 @@ public class FluentPaginatorTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

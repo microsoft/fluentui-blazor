@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static class OfficeColorUtilities
 {
@@ -8,7 +8,7 @@ public static class OfficeColorUtilities
     {
 
         IEnumerable<OfficeColor>? values = AllColors.Skip(skipDefault ? 1 : 0);
-        
+
         return values.ElementAt(new Random().Next(values.Count()));
     }
 }

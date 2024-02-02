@@ -1,0 +1,40 @@
+﻿@page "/CounterBadge"
+@using FluentUI.Demo.Shared.Pages.Badge.CounterBadge.Examples
+
+
+<h1>CounterBadge</h1>
+
+<p>
+    The <code>FluentCounterBadge</code> component is used to display a notification count on top of another component.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Component="typeof(CounterBadgeDefault)" Title="Default">
+    <Description>
+        <p>
+            First example: A "+" can be shown after the <code>Count</code> when its value is larger than the set <code>Max</code> value. To achieve this,
+            set the <code>ShowOverflow</code> parameter to true (which is the default).
+        </p>
+        <p>
+            Last example: The <code>FluentCounterBadge</code> will,  by default, not be shown when the <code>Count</code> equals 0. If you still want to see 
+            the badge, set the <code>ShowZero</code> parameter to true in that case.
+        </p>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentCounterBadge)" />
+
+@code {
+    Dictionary<string, object> FluentCounterBadgeParameters = new()
+    {
+        {"Count", 3},
+        {"ChildContent", (RenderFragment)(builder => {
+                builder.OpenComponent<FluentIcon<Icons.Regular.Size24.FolderMail>>(0);
+                builder.CloseComponent();
+            }
+        )}
+    };
+}

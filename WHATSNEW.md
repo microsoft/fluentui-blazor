@@ -1,4 +1,137 @@
-﻿## V4.3.1
+## V4.4.0
+New: SortableList component
+New: (experimental) MultiSplitter component
+New: KeyCode component
+Updated: DataGrid - Loading and LoadingContent parameters
+- Issue [#1421](https://github.com/microsoft/fluentui-blazor/issues/1421): @code-block inside FluentDataGrid gets called three times instead of once 
+- Issue [#1391](https://github.com/microsoft/fluentui-blazor/issues/1391): fix: External Authentication in Middleware
+- Issue [#1358](https://github.com/microsoft/fluentui-blazor/issues/1358): fix: value not set in FluentSelect while using keyboard
+- Issue [#1350](https://github.com/microsoft/fluentui-blazor/issues/1350): fix: "i.addEventListener is not a function" in "Microsoft.FluentUI.AspNetCore.Components.lib.module.js"
+- Issue [#1344](https://github.com/microsoft/fluentui-blazor/issues/1344): fix: Keyboard navigation does not trigger value nor option change in Listbox 
+- Issue [#1335](https://github.com/microsoft/fluentui-blazor/issues/1335): Consider removing the PageScript component from the public API (renamed to FluentPageScript)
+- Issue [#1333](https://github.com/microsoft/fluentui-blazor/issues/1333): FluentSwitch inside FluentTab does not work anymore (since 4.3.0)
+- Issue [#1328](https://github.com/microsoft/fluentui-blazor/issues/1328): feat: Allow SVG Icon viewBox to be set via configuration instead of reusing icon size feature
+- Issue [#1327](https://github.com/microsoft/fluentui-blazor/issues/1327): fix: FluentLayout expenders stop working after UI updates
+- Issue [#1317](https://github.com/microsoft/fluentui-blazor/issues/1317): feat: add loading indicator to DataGrid feature
+- Issue [#1311](https://github.com/microsoft/fluentui-blazor/issues/1311): fix: Problems with validation border color / validation classes in FluentDatePicker / FluentAutocomplete
+- Issue [#1292](https://github.com/microsoft/fluentui-blazor/issues/1292): Accessibility issue in Fluent AutoComplete
+- Issue [#1255](https://github.com/microsoft/fluentui-blazor/issues/1255): fix: confirmation message box throws exception in production in Azure Static Web Apps
+- Issue [#1182](https://github.com/microsoft/fluentui-blazor/issues/1182): FluentDesignTheme - Assertion failed - heap is currently locked when changing theme
+- PR [#1426](https://github.com/microsoft/fluentui-blazor/pull/1426): Remove value and current-value for fluent-switch
+- PR [#1424](https://github.com/microsoft/fluentui-blazor/pull/1424): Not setting current-value for fluent-number-field
+- PR [#1404](https://github.com/microsoft/fluentui-blazor/pull/1404): [FluentFileInput] adds a "disabled" property to the FluentFileInput component 
+- PR [#1380](https://github.com/microsoft/fluentui-blazor/pull/1380): [Grid] Fix breakpoints not working with fractional pixels
+- PR [#1372](https://github.com/microsoft/fluentui-blazor/pull/1372): Lists related refactoring and maintenance 
+- Demo: Tweak version in footer so it shows Git commit hash in truncated form
+- Demo Fix positioning of hamburger menu in mobile view
+
+- Update Fluent UI System Icons to 1.1.226
+    **What's new (Name / Size(s) / Variant(s))**
+    - Building Lighthouse / 24, 32, 48 / Filled & Regular
+    - Calendar Link / 24, 28 / Filled & Regular
+    - Calendar Video / 24, 28 / Filled & Regular
+    - Cookies / 16, 28, 32, 48 / Filled & Regular
+    - Hard Drive / 28, 48 / Filled & Regular
+    - Laptop Settings / 20, 24, 32 / Filled & Regular
+    - Laptop / 32 / Filled & Regular
+    - People Audience / 32 / Filled & Regular
+    - Shopping Bag Add / 20, 24 / Filled & Regular
+    - Street Sign / 20, 24 / Filled & Regular
+    - Video Link / 24, 28 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Cube / 12 / Filled & Regular
+    - Laptop Multiple / 24 / Filled & Regular
+    - Laptop / 24, 28 / Filled & Regular
+    - Prohibited Multiple / 28 / Filled & Regular
+
+- Update Fluent UI System Icons to 1.1.225
+
+	**What's new (Name / Size(s) / Variant(s))**
+	- Flowchart / 16, 32 / Filled & Regular
+	- Layer Diagonal Person / 24 / Filled & Regular
+	- Layer Diagonal / 24 / Filled & Regular
+	- Poll Off / 16, 20, 24, 32 / Filled & Regular
+	- Rectangle Landscape Sparkle / 48 / Filled & Regular
+	- Rectangle Landscape Sync Off / 16, 20, 24, 28 / Filled & Regular
+	- Rectangle Landscape Sync / 16, 20, 24, 28 / Filled & Regular
+	- Seat Add / 16, 20, 24 / Filled & Regular
+	- Seat / 16, 20, 24 / Filled & Regular
+	- Speaker / 16, 20, 24 / Filled & Regular
+	- Text Edit Style Character Ga / 32 / Filled & Regular
+	- Window Ad / 24 / Filled & Regular
+	- Wrench Settings / 20, 24 / Filled & Regular
+	
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Add Circle / 32 / Filled & Regular
+	- Arrow Clockwise Dashes / 16, 20, 24, 32 / Filled & Regular
+	- Arrow Clockwise / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Arrow Counterclockwise Dashes / 20, 24 / Filled & Regular
+	- Arrow Counterclockwise / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Arrow Reply All / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Arrow Reply Down / 16, 20, 24 / Filled & Regular
+	- Arrow Reply / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Calendar Clock / 24 / Filled & Regular
+	- Calendar Info / 16 / Filled & Regular
+	- Calendar Lock / 16 / Filled & Regular
+	- Calendar Person / 16 / Filled & Regular
+	- Calendar Phone / 16 / Filled & Regular
+	- Calendar Question Mark / 16 / Filled & Regular
+	- Calendar Reply / 16 / Filled & Regular
+	- Calendar Search / 16 / Filled & Regular
+	- Calendar Settings / 16 / Filled & Regular
+	- Calendar Shield / 16 / Filled & Regular
+	- Calendar Star / 16 / Filled & Regular
+	- Calendar Sync / 16 / Filled & Regular
+	- Chat Add / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Cloud Archive / 28, 48 / Filled & Regular
+	- Cloud Arrow Down / 28, 48 / Filled & Regular
+	- Cloud Arrow Up / 28, 48 / Filled & Regular
+	- Cloud Beaker / 28, 48 / Filled & Regular
+	- Cloud Checkmark / 28, 48 / Filled & Regular
+	- Cloud Cube / 28, 48 / Filled & Regular
+	- Cloud Dismiss / 28, 48 / Filled & Regular
+	- Cloud Error / 28, 48 / Filled & Regular
+	- Cloud Off / 28, 48 / Filled & Regular
+	- Cloud Sync / 28, 48 / Filled & Regular
+	- Cloud Words / 28, 48 / Filled & Regular
+	- Cloud / 28, 48 / Filled & Regular
+	- Comment Multiple Checkmark / 16, 20, 24, 28 / Filled & Regular
+	- Comment Multiple Link / 16, 20, 24, 28, 32 / Filled & Regular
+	- Comment Multiple / 16, 20, 24, 28, 32 / Filled & Regular
+	- Credit Card Clock / 24 / Filled & Regular
+	- Document Search / 20, 24 / Filled & Regular
+	- Document Text Clock / 24 / Filled & Regular
+	- Flag Clock / 20, 24 / Filled & Regular
+	- Flag Off / 20 / Filled & Regular
+	- Flag / 20 / Filled & Regular
+	- Globe Clock / 24 / Filled & Regular
+	- History Dismiss / 20, 24, 28, 32, 48 / Filled & Regular
+	- History / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Lock Closed Key / 16, 20, 24 / Filled & Regular
+	- Mail Clock / 24 / Filled & Regular
+	- Person Clock / 24 / Filled & Regular
+	- Prohibited Multiple / 16, 20, 24 / Filled & Regular
+	- Rectangle Landscape Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
+	- Scan Person / 16, 20, 24, 28, 48 / Filled & Regular
+	- Search Info / 24 / Filled & Regular
+	- Search / 24, 28 / Filled & Regular
+	- Send Clock / 24 / Filled & Regular
+	- Text Edit Style Character A / 32 / Filled
+	- Vehicle Car Profile LTR Clock / 24 / Filled & Regular
+	- Video Person Clock / 24 / Filled & Regular
+	- Video Person Sparkle Off / 20, 24 / Filled & Regular
+	- Video Person Sparkle / 16, 20, 24, 28, 48 / Filled & Regular
+	- Window Ad Off / 20 / Filled
+	- Window Ad / 20 / Filled
+	- Window Console / 20 / Filled
+	- Window Dev Edit / 16, 20 / Filled & Regular
+	- Window Dev Tools / 16, 20, 24 / Filled & Regular
+	- Window Edit / 16 / Filled & Regular
+	- Window Shield / 16, 20, 24 / Filled & Regular
+	- Wrench / 24 / Filled & Regular
+    
+## V4.3.1
 - Issue [#1282](https://github.com/microsoft/fluentui-blazor/issues/1282): Looping behaviour after update to 4.3.0 / FluentDesignTheme
 - Issue [#1283](https://github.com/microsoft/fluentui-blazor/issues/1283): Fix Combobox and Select width property
 - Issue [#1294](https://github.com/microsoft/fluentui-blazor/issues/1294): Issue upgrading from 4.2.1 to 4.3.0; better fix for #1205 en #1225

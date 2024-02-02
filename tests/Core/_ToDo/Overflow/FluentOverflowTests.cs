@@ -14,11 +14,11 @@ public class FluentOverflowTests : TestBase
     public void FluentOverflow_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         RenderFragment<FluentOverflow> overflowTemplate = default!;
         RenderFragment<FluentOverflow> moreButtonTemplate = default!;
         Orientation orientation = default!;
-        Action<IEnumerable<FluentOverflowItem >> onOverflowRaised = _ => { };
+        Action<IEnumerable<FluentOverflowItem>> onOverflowRaised = _ => { };
         var cut = TestContext.RenderComponent<FluentOverflow>(parameters => parameters
             .AddChildContent(childContent)
             .Add(p => p.OverflowTemplate, overflowTemplate)
@@ -29,12 +29,7 @@ public class FluentOverflowTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

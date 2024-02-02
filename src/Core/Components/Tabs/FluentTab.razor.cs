@@ -148,7 +148,9 @@ public partial class FluentTab : FluentComponentBase
             Label = label;
 
             if (LabelChanged.HasDelegate)
+            {
                 await LabelChanged.InvokeAsync(label);
+            }
         }
     }
 

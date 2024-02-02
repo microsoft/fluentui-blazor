@@ -45,7 +45,6 @@
                 <TitleTemplate><h3>Form & Inputs</h3></TitleTemplate>
                 <ChildContent>
                     <FluentNavLink Href="/Forms" Icon="@(new Icons.Regular.Size20.Form())">Overview</FluentNavLink>
-                    <FluentNavLink Href="/Autocomplete" Icon="@(new Icons.Regular.Size20.ArrowAutofitContent())">Autocomplete</FluentNavLink>
                     <FluentNavLink Href="/Checkbox" Icon="@(new Icons.Regular.Size20.CheckboxChecked())">Checkbox</FluentNavLink>
                     <FluentNavLink Href="/InputFile" Icon="@(new Icons.Regular.Size20.ArrowUpload())">InputFile</FluentNavLink>
                     <FluentNavLink Href="/NumberField" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())">Number Field</FluentNavLink>
@@ -67,7 +66,7 @@
                     <FluentNavLink Href="/Accordion" Icon="@(new Icons.Regular.Size20.TextCollapse())">Accordion</FluentNavLink>
                     <FluentNavLink Href="/Anchor" Icon="@(new Icons.Regular.Size20.Link())">Anchor</FluentNavLink>
                     <FluentNavLink Href="/AnchoredRegion" Icon="@(new Icons.Regular.Size20.LinkSquare())">Anchored Region</FluentNavLink>
-                    <FluentNavGroup Expanded="true" Title="Badge" Gap="10px">
+                    <FluentNavGroup Expanded="true" Title="Badge" Gap="10px" Icon="@(new Icons.Regular.Size20.Tag())">
                         <FluentNavLink Href="/Badge" Icon="@(new Icons.Regular.Size20.Badge())">Badge</FluentNavLink>
                         <FluentNavLink Href="/CounterBadge" Icon="@(new Icons.Regular.Size20.NumberCircle1())">CounterBadge</FluentNavLink>
                         <FluentNavLink Href="/PresenceBadge" Icon="@(new Icons.Regular.Size20.PresenceAvailable())">PresenceBadge</FluentNavLink>
@@ -75,7 +74,6 @@
                     <FluentNavLink Href="/Breadcrumb" Icon="@(new Icons.Regular.Size20.DocumentChevronDouble())">Breadcrumb</FluentNavLink>
                     <FluentNavLink Href="/Button" Icon="@(new Icons.Regular.Size20.ControlButton())">Button</FluentNavLink>
                     <FluentNavLink Href="/Card" Icon="@(new Icons.Regular.Size20.ContactCardGroup())">Card</FluentNavLink>
-                    <FluentNavLink Href="/Combobox" Icon="@(new Icons.Regular.Size20.BoxEdit())">Combobox</FluentNavLink>
                     <FluentNavLink Href="/DataGrid" Icon="@(new Icons.Regular.Size20.Grid())">Data grid</FluentNavLink>
                     <FluentNavLink Href="/DateTime" Icon="@(new Icons.Regular.Size20.CalendarLtr())">Date & Time</FluentNavLink>
                     <FluentNavLink Href="/Dialog" Icon="@(new Icons.Regular.Size20.AppGeneric())">Dialog</FluentNavLink>
@@ -87,14 +85,19 @@
                     <FluentNavLink Href="/HorizontalScroll" Icon="@(new Icons.Regular.Size20.ArrowForward())">Horizontal Scroll</FluentNavLink>
                     <FluentNavLink Href="/Icon" Icon="@(new Icons.Regular.Size20.Symbols())">Icon</FluentNavLink>
                     <FluentNavLink Href="/Label" Icon="@(new Icons.Regular.Size20.DoorTag())">Label</FluentNavLink>
-                    <FluentNavLink Href="/Listbox" Icon="@(new Icons.Regular.Size20.List())">Listbox</FluentNavLink>
+                    <FluentNavGroup Expanded="true" Title="List" Gap="10px" Icon="@(new Icons.Regular.Size20.List())">
+                        <FluentNavLink Href="/Autocomplete" Icon="@(new Icons.Regular.Size20.ArrowAutofitContent())">Autocomplete</FluentNavLink>
+                        <FluentNavLink Href="/Combobox" Icon="@(new Icons.Regular.Size20.BoxEdit())">Combobox</FluentNavLink>
+                        <FluentNavLink Href="/Listbox" Icon="@(new Icons.Regular.Size20.List())">Listbox</FluentNavLink>
+                        <FluentNavLink Href="/Select" Icon="@(new Icons.Regular.Size20.GroupList())">Select</FluentNavLink>
+                        <FluentNavLink Href="/Option" Icon="@(new Icons.Regular.Size20.MultiselectRtl())">Option</FluentNavLink>
+                    </FluentNavGroup>
                     <FluentNavLink Href="/Menu" Icon="@(new Icons.Regular.Size20.Navigation())">Menu</FluentNavLink>
                     <FluentNavLink Href="/MenuButton" Icon="@(new Icons.Regular.Size20.ChevronCircleDown())">MenuButton</FluentNavLink>
                     <FluentNavLink Href="/MessageBar" Icon="@(new Icons.Regular.Size20.WindowHeaderHorizontal())">MessageBar</FluentNavLink>
                     <FluentNavLink Href="/MessageBox" Icon="@(new Icons.Regular.Size20.MegaphoneLoud())">MessageBox</FluentNavLink>
                     <FluentNavLink Href="/NavMenu" Icon="@(new Icons.Regular.Size20.Navigation())">NavMenu</FluentNavLink>
                     <FluentNavLink Href="/NavMenuTree" Icon="@(new Icons.Regular.Size20.Navigation())">NavMenuTree</FluentNavLink>
-                    <FluentNavLink Href="/Option" Icon="@(new Icons.Regular.Size20.MultiselectRtl())">Option</FluentNavLink>
                     <FluentNavLink Href="/Overflow" Icon="@(new Icons.Regular.Size20.MultiselectRtl())">Overflow</FluentNavLink>
                     <FluentNavLink Href="/Overlay" Icon="@(new Icons.Regular.Size20.CursorHover())">Overlay</FluentNavLink>
                     <FluentNavLink Href="/Panel" Icon="@(new Icons.Regular.Size20.PanelRight())">Panel</FluentNavLink>
@@ -102,8 +105,8 @@
                     <FluentNavLink Href="/Popover" Icon="@(new Icons.Regular.Size20.TooltipQuote())">Popover</FluentNavLink>
                     <FluentNavLink Href="/Progress" Icon="@(new Icons.Regular.Size20.SquareHint())">Progress</FluentNavLink>
                     <FluentNavLink Href="/ProgressRing" Icon="@(new Icons.Regular.Size20.ArrowClockwiseDashes())">Progress Ring</FluentNavLink>
-                    <FluentNavLink Href="/Select" Icon="@(new Icons.Regular.Size20.GroupList())">Select</FluentNavLink>
                     <FluentNavLink Href="/Skeleton" Icon="@(new Icons.Regular.Size20.Shortpick())">Skeleton</FluentNavLink>
+                    <FluentNavLink Href="/SortableList" Icon="@(new Icons.Regular.Size20.ArrowSort())">Sortable List</FluentNavLink>
                     <FluentNavLink Href="/SplashScreen" Icon="@(new Icons.Regular.Size20.Drop())">SplashScreen</FluentNavLink>
                     <FluentNavLink Href="/Tabs" Icon="@(new Icons.Regular.Size20.TabDesktop())">Tabs</FluentNavLink>
                     <FluentNavLink Href="/Toast" Icon="@(new Icons.Regular.Size20.FoodToast())">Toast</FluentNavLink>
@@ -120,6 +123,8 @@
                     <FluentNavLink Href="/Lab/Overview" Icon="@(new Icons.Regular.Size20.Beaker())">Overview</FluentNavLink>
                     <FluentNavLink Href="/Lab/MarkdownSection" Icon="@(new Icons.Regular.Size20.ArrowSortDown())">MarkdownSection</FluentNavLink>
                     <FluentNavLink Href="/Lab/TableOfContents" Icon="@(new Icons.Regular.Size20.DocumentTextLink())">TableOfContents</FluentNavLink>
+                    <FluentNavLink Href="/MultiSplitter" Icon="@(new Icons.Regular.Size20.SplitHorizontal())">Multi Splitter</FluentNavLink>
+                    <FluentNavLink Href="/KeyCode" Icon="@(new Icons.Regular.Size20.Keyboard())">KeyCode</FluentNavLink>
                 </ChildContent>
             </FluentNavGroup>
         </FluentNavMenu>

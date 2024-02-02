@@ -55,6 +55,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{Owner.Grid.ItemSize}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .AddStyle("height", "100%", () => (!Owner.Grid.Virtualize || Owner.Rows.Count == 0) && Owner.Grid.Loading && RowType == DataGridRowType.Default)
        .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
@@ -75,9 +76,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         cells.Remove(cell.CellId);
     }
 
-    private async Task HandleOnCellFocus(DataGridCellFocusEventArgs args)
+    private async Task HandleOnCellFocusAsync(DataGridCellFocusEventArgs args)
     {
-        string? cellId = args.CellId;
+        var cellId = args.CellId;
         if (cells.TryGetValue(cellId!, out FluentDataGridCell<TGridItem>? cell))
         {
             await Owner.Grid.OnCellFocus.InvokeAsync(cell);

@@ -76,6 +76,12 @@ public partial class FluentTextField : FluentInputBase<string?>
     [Parameter]
     public string? AutoComplete { get; set; }
 
+    /// <summary>
+    /// Gets or sets the type of data that can be entered by the user when editing the element or its content. This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
+    /// </summary>
+    [Parameter]
+    public InputMode? InputMode { get; set; }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
@@ -92,14 +98,21 @@ public partial class FluentTextField : FluentInputBase<string?>
             if (AutoComplete != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("setAutocomplete", Id, AutoComplete);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
             }
-        }
-            if (DataList != null && !string.IsNullOrEmpty(Id))
+
+            if (InputMode != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("setDataList", Id, DataList);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.ToAttributeValue());
             }
-        
+        }
+
+        if (DataList != null && !string.IsNullOrEmpty(Id))
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("setDataList", Id, DataList);
+        }
+
     }
 }

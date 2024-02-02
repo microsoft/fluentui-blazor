@@ -1,4 +1,3 @@
-﻿using System.Text;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -45,7 +44,7 @@ public readonly struct InlineStyleBuilder
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
     public InlineStyleBuilder AddStyle(string name, string prop, string? value, Func<bool> when)
-         => this.AddStyle(name, prop, value, when != null && when());
+         => AddStyle(name, prop, value, when != null && when());
 
     /// <summary>
     /// Finalize the completed Style as a string.
@@ -53,7 +52,7 @@ public readonly struct InlineStyleBuilder
     /// <returns>string</returns>
     public string? Build(bool newLineSeparator = true)
     {
-        string separator = newLineSeparator ? Environment.NewLine : " ";
+        var separator = newLineSeparator ? Environment.NewLine : " ";
 
         var styles = _styles.Select(item =>
         {

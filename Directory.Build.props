@@ -12,11 +12,16 @@
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-		<VersionFile>4.3.1</VersionFile>
-		<VersionPrefix>4.3.1</VersionPrefix>
+		<VersionFile>4.4.1</VersionFile>
+		<VersionPrefix>4.4.1</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
+
+        <!-- Enable code style analysis -->
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
+
 	</PropertyGroup>
 
 	<ItemGroup>

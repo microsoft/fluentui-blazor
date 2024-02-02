@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -24,6 +24,18 @@ public partial class FluentPopover : FluentComponentBase
     /// </summary>
     [Parameter]
     public HorizontalPosition? HorizontalPosition { get; set; } = AspNetCore.Components.HorizontalPosition.Unset;
+
+    /// <summary>
+    /// How short the space allocated to the default position has to be before the tallest area is selected for layout.
+    /// </summary>
+    [Parameter]
+    public int VerticalThreshold { get; set; } = 0;
+
+    /// <summary>
+    /// How narrow the space allocated to the default position has to be before the widest area is selected for layout.
+    /// </summary>
+    [Parameter]
+    public int HorizontalThreshold { get; set; } = 0;
 
     /// <summary>
     /// Gets or sets popover opened state.

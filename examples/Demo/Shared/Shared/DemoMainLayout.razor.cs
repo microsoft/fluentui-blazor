@@ -26,7 +26,21 @@ public partial class DemoMainLayout
 
     protected override void OnInitialized()
     {
-        _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        if (versionAttribute != null)
+        {
+            var version = versionAttribute.InformationalVersion;
+            var plusIndex = version.IndexOf('+');
+            if (plusIndex >= 0 && plusIndex + 9 < version.Length)
+            {
+                _version = version[..(plusIndex + 9)];
+            }
+            else
+            {
+                _version = version;
+            }
+        }
+
         _prevUri = NavigationManager.Uri;
         NavigationManager.LocationChanged += LocationChanged;
     }
@@ -41,9 +55,9 @@ public partial class DemoMainLayout
         }
     }
 
-    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
+    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContentsAsync);
 
-    private async Task RefreshTableOfContents()
+    private async Task RefreshTableOfContentsAsync()
     {
         await _toc!.Refresh();
     }

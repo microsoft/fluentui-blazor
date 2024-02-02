@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 internal static class DisplayAttributeExtensions
@@ -17,15 +12,21 @@ internal static class DisplayAttributeExtensions
         //if (PropertyInfo == null && typeof(ICustomTypeProvider).IsAssignableFrom(itemType))
         //    PropertyInfo = ((ICustomTypeProvider)Item).GetCustomType().GetProperty(PropertyName);
         if (propertyInfo == null)
+        {
             return null;
+        }
 
-        DisplayAttribute? displayAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+        var displayAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
         if (displayAttribute is not null)
+        {
             return displayAttribute.GetName();
+        }
         else
         {
             if (itemType.GetCustomAttribute(typeof(MetadataTypeAttribute)) is MetadataTypeAttribute metadata)
+            {
                 return metadata.MetadataClassType.GetDisplayAttributeString(propertyName);
+            }
         }
         return null;
     }

@@ -4,7 +4,7 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid ItemsProvider="foodRecallProvider" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
+    <FluentDataGrid Loading="true" ItemsProvider="foodRecallProvider" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" Style="color:burlywood" />
         <PropertyColumn Property="@(c => c!.City)" />
@@ -32,12 +32,18 @@
         foodRecallProvider = async req =>
         {
             var url = NavManager.GetUriWithQueryParameters("https://api.fda.gov/food/enforcement.json", new Dictionary<string, object?>
-            {
+                    {
                 { "skip", req.StartIndex },
                 { "limit", req.Count },
-            });
+                    });
 
             var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url, req.CancellationToken);
+
+            // Simulate a slow data retrieval process
+            if (req.Count is null)
+            {
+                await Task.Delay(2500);
+            }
             return GridItemsProviderResult.From(
                 items: response!.Results,
                 totalItemCount: response!.Meta.Results.Total);

@@ -3,18 +3,20 @@
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <FluentTextField Id="@Id"
-                    Class="@ClassValue"
-                    Style="@StyleValue"
-                    Autofocus="@Autofocus"
-                    Appearance="@Appearance"
-                    @bind-Value="@DateAsString"
-                    @onclick="@OnCalendarOpenHandlerAsync" 
-                    ReadOnly="@ReadOnly"
-                    Disabled="@Disabled"
-                    Required="@Required"
-                    Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
-                    Name="@Name"
-                    @attributes="@AdditionalAttributes">
+                 Embedded="true"
+                 Class="@ClassValue"
+                 Style="@StyleValue"
+                 AutoComplete="off"
+                 Autofocus="@Autofocus"
+                 Appearance="@Appearance"
+                 @bind-Value="@CurrentValueAsString"
+                 @onclick="@OnCalendarOpenHandlerAsync" 
+                 ReadOnly="@ReadOnly"
+                 Disabled="@Disabled"
+                 Required="@Required"
+                 Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
+                 Name="@Name"
+                 @attributes="@AdditionalAttributes">
     @((MarkupString)CalendarIcon)
 </FluentTextField>
 
@@ -27,7 +29,7 @@
                           VerticalDefaultPosition="@VerticalPosition.Unset"
                           Shadow="ElevationShadow.Flyout"
                           Class="fluent-datepicker-popup"
-                          Style="@($"z-index: {ZIndex.DatePickerPopup}; padding: 10px;")">
+                          Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
         <FluentCalendar Culture="@Culture"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"

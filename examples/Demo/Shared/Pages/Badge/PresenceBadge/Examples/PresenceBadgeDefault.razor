@@ -1,0 +1,55 @@
+﻿
+<style>
+    .face {
+        width: 32px;
+        height: 32px;
+        border: 1px solid silver;
+    }
+</style>
+
+<FluentPresenceBadge Status="PresenceStatus.Available">
+    <img src="@DataSource.ImageFaces[0]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Status="PresenceStatus.Away">
+    <img src="@DataSource.ImageFaces[1]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Status="PresenceStatus.Busy">
+    <img src="@DataSource.ImageFaces[2]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Status="PresenceStatus.DoNotDisturb">
+    <img src="@DataSource.ImageFaces[3]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Status="PresenceStatus.Offline">
+    <img src="@DataSource.ImageFaces[4]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Status="PresenceStatus.OutOfOffice">
+    <img src="@DataSource.ImageFaces[5]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Status="PresenceStatus.Unknown">
+    <img src="@DataSource.ImageFaces[6]" class="face" />
+</FluentPresenceBadge>
+
+<FluentSpacer Width="25" />
+
+<FluentPresenceBadge Title="No status defined">
+    <img src="@DataSource.ImageFaces[7]" class="face" />
+</FluentPresenceBadge>
+

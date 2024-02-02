@@ -22,7 +22,7 @@
     <IsTrimmable>true</IsTrimmable>
     <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
     <IsPackable>true</IsPackable>
-
+    
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
   </PropertyGroup>
 
@@ -32,7 +32,6 @@
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <NoWarn>1701;1702;8669;1591;1816</NoWarn>
-
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -52,6 +51,20 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
+  <!-- Code Analysis -->
+  <ItemGroup>
+    <!-- 
+    <PackageReference Include="StyleCop.Analyzers" VersionOverride="1.2.0-beta.556">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    -->
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" VersionOverride="17.8.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
   <ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
@@ -60,12 +73,10 @@
 	  <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup>
-	  
+  <ItemGroup>	  
     <ProjectReference Include="..\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj" PrivateAssets="All" />
     <ProjectReference Include="..\Extensions\DesignToken.Generator\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
-
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>

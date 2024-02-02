@@ -72,7 +72,7 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
 
     public ValueTask DisposeAsync()
     {
-       if (Module is not null)
+        if (Module is not null)
         {
             return Module.DisposeAsync();
         }

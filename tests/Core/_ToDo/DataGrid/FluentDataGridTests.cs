@@ -16,8 +16,8 @@ public class FluentDataGridTests : TestBase
     {
         //Arrange
         //Services.AddSingleton<IServiceProvider,/*Add implementation for IServiceProvider*/>();
-        string childContent = "<b>render me</b>";
-        string emptyContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
+        var emptyContent = "<b>render me</b>";
 
         bool virtualize = default!;
         float itemSize = default!;
@@ -26,7 +26,6 @@ public class FluentDataGridTests : TestBase
         bool noTabbing = default!;
         GenerateHeaderOption? generateHeader = default!;
         string gridTemplateColumns = default!;
-
 
         var cut = TestContext.RenderComponent<FluentDataGrid<Customer>>(parameters => parameters
             .Add(p => p.Items, GetCustomers().AsQueryable())
@@ -47,7 +46,6 @@ public class FluentDataGridTests : TestBase
         //Assert
         cut.Verify();
     }
-
 
     // Sample data...
     private IEnumerable<Customer> GetCustomers()

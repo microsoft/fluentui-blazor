@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 ///  Defines if a <see cref="FluentAnchoredRegion"/> component updates its position automatically. 

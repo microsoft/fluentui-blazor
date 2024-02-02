@@ -1,0 +1,31 @@
+@page "/Autocomplete"
+
+@using FluentUI.Demo.Shared.Pages.List.Autocomplete.Examples
+
+<h1>Autocomplete</h1>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(AutocompleteDefault)" />
+
+<DemoSection Title="Customized options" Component="@typeof(AutocompleteCustomized)" />
+
+<DemoSection Title="FluentPersona" Component="@typeof(AutocompletePersona)" />
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentAutocomplete<>)" GenericLabel="TOption" />
+
+<ApiDocumentation Component="typeof(FluentPersona)" />
+
+<h2>Accessibility</h2>
+
+This component is compatible with accessibility rules.<br/>
+Except this <a href="https://accessibilityinsights.io/info-examples/web/aria-valid-attr-value/" target="_blank">Invalid ARIA attribute value: aria-controls="[id]-popup"</a> when the list is expanded (will be solved later).
+<br />
+You can customize these 3 messages to be read by screen readers<br/>
+<ul>
+    <li><code>FluentAutocomplete.AccessibilitySelected = "Selected {0}"</code> List of selected items.</li>
+    <li><code>FluentAutocomplete.AccessibilityNotFound = "No items found"</code> When the search criteria returns an empty list.</li>
+    <li><code>FluentAutocomplete.AccessibilityReachedMaxItems = "The maximum number of selected items has been reached."</code> When the maximum number of selected items has been reached.</li>
+</ul>

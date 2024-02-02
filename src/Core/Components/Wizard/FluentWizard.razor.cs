@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -136,7 +136,7 @@ public partial class FluentWizard : FluentComponentBase
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
     {
         // Target step index
-        int targetIndex = Value;
+        var targetIndex = Value;
         do
         {
             targetIndex++;
@@ -149,7 +149,7 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            this.Value = targetIndex;
+            Value = targetIndex;
             StateHasChanged();
         }
     }
@@ -158,7 +158,7 @@ public partial class FluentWizard : FluentComponentBase
     protected virtual async Task OnPreviousHandlerAsync(MouseEventArgs e)
     {
         // Target step index
-        int targetIndex = Value;
+        var targetIndex = Value;
         do
         {
             targetIndex--;
@@ -171,7 +171,7 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            this.Value = targetIndex;
+            Value = targetIndex;
             StateHasChanged();
         }
     }
@@ -224,7 +224,7 @@ public partial class FluentWizard : FluentComponentBase
 
     private void SetCurrentStatusToStep(int stepIndex)
     {
-        for (int i = 0; i < _steps.Count; i++)
+        for (var i = 0; i < _steps.Count; i++)
         {
             // Step disabled
             if (_steps[i].Disabled)

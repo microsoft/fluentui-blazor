@@ -1,4 +1,4 @@
-@page "/Dialog"
+﻿@page "/Dialog"
 
 @using FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
@@ -21,11 +21,11 @@
 
 <p>
     <code>&lt;FluentDialog&gt;</code> wraps the <code>&lt;fluent-dialog&gt;</code> element, a web component implementation of a dialog leveraging
-    the Fluent UI design system. <code>&lt;FluentDialog&gt;</code> acts as a shell for the dialog content, which can be specified in a number of ways. 
+    the Fluent UI design system. <code>&lt;FluentDialog&gt;</code> acts as a shell for the dialog content, which can be specified in a number of ways.
 </p>
 <h2>DialogService</h2>
 <p>
-    The <code>DialogService</code> is a service which is used to show different types of dialogs. It is registered as a scoped service, so it can be injected into 
+    The <code>DialogService</code> is a service which is used to show different types of dialogs. It is registered as a scoped service, so it can be injected into
     pages/components that use it. For more information on the <code>DialogService</code>, see the <a href="DialogService">Dialog Service</a> page.
 </p>
 
@@ -33,12 +33,12 @@
 <p>
     Normally, the dialog content is specified by a component which implements <code>IDialogContentComponent&lt;T&gt;</code>. This component is then
     passed to the <code>DialogService</code> to be shown. The <code>DialogService</code> will then render a <code>&lt;FluentDialog&gt;</code> with
-    the component inside of it. 
+    the component inside of it.
 </p>
 <p>
     Alternatively, the dialog content can be specified manually by setting the <code>ChildContent</code> parameter of <code>&lt;FluentDialog&gt;</code>.
     This is useful if you want to show a simple dialog without having to create a component for it or if you do not want to use the <code>DialogService</code> for it.
-    <br/>
+    <br />
     When using the <code>DialogService</code>, for displaying a regular dialog, the dialog will always be shown centered on the screen.
 </p>
 <blockquote>
@@ -51,8 +51,8 @@
 
 <h2>Exchange data between dialog and calling component</h2>
 <p>
-    There are two ways available to exchange data between the dialog and the component which shows it. The first is by capturing the returned 
-    <code>IDialogReference</code> from one of the <code>DialogService.Show...Async</code> methods and then use that reference to get the dialog's 
+    There are two ways available to exchange data between the dialog and the component which shows it. The first is by capturing the returned
+    <code>IDialogReference</code> from one of the <code>DialogService.Show...Async</code> methods and then use that reference to get the dialog's
     result (of type <code>DialogResult</code>). The second is by using an <code>EventCalback</code> parameter as part of the
     <code>DialogParameters</code>. Both ways are demonstated in the samples below.
 </p>
@@ -65,25 +65,25 @@
 <p>
     <strong>
         For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! <p>
-    <strong>
-        For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
-        either the provider itself of the component the provider is placed in.
-    </strong>
-</p>Be sure to add a <code>@@rendermode</code> to
+            <strong>
+                For the Dialogs to work properly, the <code>&lt;FluentDialogProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
+                either the provider itself of the component the provider is placed in.
+            </strong>
+        </p>Be sure to add a <code>@@rendermode</code> to
         either the provider itself of the component the provider is placed in.
     </strong>
 </p>
 <CodeSnippet>
     &lt;main&gt;
-        &lt;nav&gt;
-        :
-        &lt;/nav&gt;
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;article id=&quot;article&quot;&gt;
-                @@Body
-            &lt;/article&gt;
-        &lt;/div&gt;
-        &lt;FluentDialogProvider /&gt;
+    &lt;nav&gt;
+    :
+    &lt;/nav&gt;
+    &lt;div class=&quot;content&quot;&gt;
+    &lt;article id=&quot;article&quot;&gt;
+    @@Body
+    &lt;/article&gt;
+    &lt;/div&gt;
+    &lt;FluentDialogProvider /&gt;
     &lt;/main&gt;
 </CodeSnippet>
 
@@ -98,7 +98,7 @@
 
 <DemoSection Title="DialogService with IDialogReference" MaxHeight="500px" Component="@typeof(DialogServiceExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
-        This example shows how to use async methods to display a dialog and get the result back from it. 
+        This example shows how to use async methods to display a dialog and get the result back from it.
     </Description>
 </DemoSection>
 
@@ -114,6 +114,14 @@
     </Description>
 </DemoSection>
 
+<DemoSection Title="Editable Dialog" Component="@typeof(DialogEditableExample)" AdditionalFiles="@(new[] { "SimpleEditDialog.razor" })">
+    <Description>
+        <p>
+            This example shows how to open a Dialog containing editable fields.
+        </p>
+    </Description>
+</DemoSection>
+
 <DemoSection Title="DialogService with EventCallback" MaxHeight="500px" Component="@typeof(DialogServiceCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
         This example shows how to use an <code>EventCallback</code> parameter to get data back from the dialog.
@@ -122,7 +130,7 @@
 
 <DemoSection Title="DialogService with Custom Animations" MaxHeight="500px" Component="@typeof(DialogServiceAnimationCallbackExample)" AdditionalFiles="@(new[] {"SimpleDialog.razor"})">
     <Description>
-        This example shows how to use <code>EventCallback</code> parameters to animate dialogs when they appear and disappear.  
+        This example shows how to use <code>EventCallback</code> parameters to animate dialogs when they appear and disappear.
     </Description>
 </DemoSection>
 
@@ -159,7 +167,7 @@
 <h3>Dialog header and footer</h3>
 <p>The dialog header and footer can be changed by using the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> component.</p>
 <p>
-    The default implementation uses the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> components (see documentation below). 
+    The default implementation uses the <code>FluentDialogHeader</code> and <code>FluentDialogFooter</code> components (see documentation below).
     You can use the content of these components as the base for your own implementation:
 </p>
 
@@ -167,12 +175,12 @@
 
 <CodeSnippet>
     &lt;FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Top">
-        &lt;div style="width: 100%;">
-            &lt;FluentLabel Typo="Typography.PaneHeader">&commat;Title&lt;/FluentLabel>
-        &lt;/div>
-        &lt;FluentButton Appearance="Appearance.Stealth">
-            &lt;FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" />
-        &lt;FluentButton>
+    &lt;div style="width: 100%;">
+    &lt;FluentLabel Typo="Typography.PaneHeader">&commat;Title&lt;/FluentLabel>
+    &lt;/div>
+    &lt;FluentButton Appearance="Appearance.Stealth">
+    &lt;FluentIcon Icon="CoreIcons.Regular.Size24.Dismiss" />
+    &lt;FluentButton>
     &lt;/FluentStack>
 </CodeSnippet>
 
@@ -180,12 +188,12 @@
 
 <CodeSnippet>
     &lt;FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Right" VerticalAlignment="VerticalAlignment.Bottom">
-        &lt;FluentButton Title="&commat;PrimaryAction" Appearance="Appearance.Accent" Disabled="&commat;PrimaryActionEnabled">
-            &commat;PrimaryAction
-        &lt;/FluentButton>
-        &lt;FluentButton Title="&commat;SecondaryAction" Appearance="Appearance.Neutral" Disabled="&commat;SecondaryActionEnabled">
-            &commat;SecondaryAction
-        &lt;/FluentButton>
+    &lt;FluentButton Title="&commat;PrimaryAction" Appearance="Appearance.Accent" Disabled="&commat;PrimaryActionEnabled">
+    &commat;PrimaryAction
+    &lt;/FluentButton>
+    &lt;FluentButton Title="&commat;SecondaryAction" Appearance="Appearance.Neutral" Disabled="&commat;SecondaryActionEnabled">
+    &commat;SecondaryAction
+    &lt;/FluentButton>
     &lt;/FluentStack>
 </CodeSnippet>
 

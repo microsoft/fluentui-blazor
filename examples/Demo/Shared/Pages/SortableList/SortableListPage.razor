@@ -1,0 +1,115 @@
+﻿@page "/SortableList"
+
+@using FluentUI.Demo.Shared.Pages.SortableList.Examples
+
+<h1>SortableList</h1>
+
+<p>A <a href="https://sortablejs.github.io/Sortable/">SortableJS library</a> adaptation for Blazor Fluent UI. Allows for reordering elements within a list using drag and drop. Inspired by and based on <a href="https://devblogs.microsoft.com/dotnet/introducing-blazor-sortable/">Burke Holland's article and code</a>. Re-used with permission.</p>
+<p>The <code>FluentSortableList</code> is a generic component that takes a list of items and a <code>ItemTemplate</code> that defines how to render each item in the sortable list.</p>
+
+<p>The following CSS variables have been predefined. These can be overruled by using the component's <code>Style</code> parameter. See the <a href="/SortableList#filtering">filtering</a> example for how to do this.</p>
+
+<code>
+    <pre>
+    .fluent-sortable-list {
+         --fluent-sortable-list-background-color: var(--neutral-layer-2);
+         --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
+         --fluent-sortable-list-filtered: var(--warning);
+    }
+    </pre>
+</code>
+
+<h2 id="how-to-use-it-in-your-own-project">How to use this in your own project</h2
+<p>
+    If you want to use the <code>FluentSortableList</code> component, you will need to include the script to your <code>index.html</code>/<code>_Layout.cshtml</code>/<code>App.razor</code> file. You can either download from the <a href="https://sortablejs.github.io/Sortable/">SortableJS website</a> or use a CDN:
+</p>
+
+<CodeSnippet>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
+<blockquote>
+    <strong>We do not include the needed Sortable script in the library.</strong>
+</blockquote>
+
+<p> See the examples below what is needed to use the component in a page.</p>
+<blockquote>
+    The component does not actually do any sorting or moving of items. It simply provides the hooks to do so. You will need to handle all events yourself. <strong>If you don't handle any events, no sort or move will happen</strong> as Blazor needs to make the changes to the underlying data structures so it can re-render the list.
+</blockquote>
+
+<p>Here is an example of how to reorder your list when the OnUpdate is fired...</p>
+<CodeSnippet>private void SortList(FluentSortableListEventArgs indices)
+{
+     if (args is null || args.OldIndex == args.NewIndex)
+     {
+         return;
+     }
+
+     var oldIndex = args.OldIndex;
+     var newIndex = args.NewIndex;
+
+     var items = this.items;
+     var itemToMove = items[oldIndex];
+     items.RemoveAt(oldIndex);
+
+     if (newIndex &lt; items.Count)
+     {
+         items.Insert(newIndex, itemToMove);
+     }
+     else
+     {
+         items.Add(itemToMove);
+     }
+}
+</CodeSnippet>
+
+<h2>Examples</h2>
+<DemoSection Component="typeof(SortableListDefault)" Title="Simple sortable list" />
+
+<DemoSection Component="typeof(SortableListMoveBetweenLists)" Title="Move items between two lists">
+    <Description>
+        Shared lists are lists where items can be dragged from one list to the other and vice-versa. Providing the same "Group" string name for
+        both lists is what links them together. <br/>
+        Note: When an item is dragged into a different list, it assumes the visual style of that list. This is because Blazor controls the rendering of the list items.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SortableListCloneBetweenLists)" Title="Clone items">
+    <Description>
+        Cloning is enabled by setting the <code>Clone</code> parameter to `true`. This allows cloning of an item by dropping it into a shared list.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SortableListDisabledSorting)" Title="Disabling sorting">
+    <Description>
+        You can disable sorting with the <code>Sort</code> parameter set to `false`. You can also disable dropping items on a list by setting the <code>Drop</code> parameter to `false`. In the example below, you can drag from list 1 to list 2, but not from list 2 to list 1. You can sort list 2, but not list 1.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SortableListDragHandles)" Title="Drag Handles">
+    <Description>
+        When setting the <code>Handle</code> parameter to true, the items can only be sorted using the drag handle itself. The following CSS classes can be used to split the drag functionality from the content:
+        <ul>
+            <li>sortable-grab: the grabable part of the dragable item</li>
+            <li>sortable-item-content: the content part of the draggable item</li>
+        </ul>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SortableListFiltering)" Title="Filtering">
+    <Description>
+        In the lists below, you cannot drag the item in the acccented color. This is because these items are filtered out with an <code>ItemFilter</code> parameter (of type <code>Func&lt;TItem, bool&gt;</code>). 
+        The <code>ItemFilter</code> parameter is a function that takes an item and returns a boolean value. If the function returns true, the item is excluded from dragging in the list. If the function returns false, the item can be dragged.
+        In the left list below, the <code>ItemFilter</code> parameter is set to filter out a random item from the list. In the right list, the <code>ItemFilter</code> parameter is set to filter out items with an Id larger than 6.
+        See the Razor tab for how the different functions are being specified.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SortableListFallback)" Title="Sortable list using fallback behavior">
+    <Description>
+        By setting Fallbak parameter to true, the list will not use native HTML5 drag and drop behavior.
+    </Description>
+</DemoSection>
+
+<h2>Documentation</h2>
+<ApiDocumentation Component="typeof(FluentSortableListEventArgs)"  />
+<ApiDocumentation Component="typeof(FluentSortableList<>)" GenericLabel="TItem" />
+
+
