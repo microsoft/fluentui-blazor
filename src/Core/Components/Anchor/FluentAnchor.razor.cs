@@ -51,7 +51,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public string? Rel { get; set; }
 
     /// <summary>
-    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified.
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>
     [Parameter]
@@ -81,6 +81,9 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -131,6 +134,10 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
         {
             // If the target ID has been specified, we know this is an anchor link that we need to scroll to
             await _jsModule.InvokeVoidAsync("scrollIntoView", _targetId);
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
         }
     }
 
