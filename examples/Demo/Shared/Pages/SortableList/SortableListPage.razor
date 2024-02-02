@@ -85,7 +85,11 @@
 
 <DemoSection Component="typeof(SortableListDragHandles)" Title="Drag Handles">
     <Description>
-        Drag handles are specified by the `Handle` property which specifies which CSS class denotes the drag handle. In the example below, the items can only be sorted using the drag handle itself.
+        When setting the <code>Handle</code> parameter to true, the items can only be sorted using the drag handle itself. The following CSS classes can be used to split the drag functionality from the content:
+        <ul>
+            <li>sortable-grab: the grabable part of the dragable item</li>
+            <li>sortable-item-content: the content part of the draggable item</li>
+        </ul>
     </Description>
 </DemoSection>
 
