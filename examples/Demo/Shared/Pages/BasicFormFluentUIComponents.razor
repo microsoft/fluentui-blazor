@@ -54,6 +54,10 @@
             <FluentDatePicker Name="production_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required />
             <FluentValidationMessage For="@(() => starship.ProductionDate)" />
         </div>
+        <div>
+            <FluentSwitch Name="teleporter" @bind-value="starship.HasTeleporter" Label="Teleporter" CheckedMessage="Fully operational" UncheckedMessage="Under maintenance"/>
+            <FluentValidationMessage For="@(() => starship.HasTeleporter)" />
+        </div>
         <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
     </FluentStack>
 </EditForm>

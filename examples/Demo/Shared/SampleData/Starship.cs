@@ -26,4 +26,6 @@ public class Starship
 
     [Required]
     public DateTime? ProductionDate { get; set; }
+
+    public bool HasTeleporter { get; set; }
 }
