@@ -1,12 +1,10 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<bool>
 <fluent-switch @ref=Element
                class="@ClassValue"
                style="@StyleValue"
                readonly=@ReadOnly
                id=@Id
-               value=@Value
-               current-value=@CurrentValue
                disabled=@Disabled
                name=@Name
                aria-label="@(string.IsNullOrEmpty(AriaLabel) ? Label : AriaLabel)"
