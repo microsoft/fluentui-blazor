@@ -10,6 +10,5 @@ public class FluentKeyCodeEventArgs
     public bool ShiftKey { get; init; }
     public bool AltKey { get; init; }
     public bool MetaKey { get; init; }
-    public int MyProperty { get; set; }
     public string TargetId { get; set; } = string.Empty;
 }
