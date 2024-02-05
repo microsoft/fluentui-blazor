@@ -1,1 +1,35 @@
 ﻿@page "/IssueTester"
+
+
+<PageTitle>Paginator UI Bug</PageTitle>
+
+<FluentSearch @bind-Value="totalCount"></FluentSearch>
+<FluentDataGrid ItemsProvider="LoadData"
+                TGridItem="GridItem"
+                Pagination="@pagination">
+    <PropertyColumn Property="@(x => x.Value)"></PropertyColumn>
+</FluentDataGrid>
+<FluentPaginator State="@pagination"></FluentPaginator>
+
+@code
+{
+    readonly PaginationState pagination = new() { ItemsPerPage = 1 };
+    string totalCount = "10";
+
+    private async ValueTask<GridItemsProviderResult<GridItem>> LoadData(GridItemsProviderRequest<GridItem> request)
+    {
+        if (!int.TryParse(totalCount, out var count))
+        {
+            count = 10;
+        }
+
+        await Task.Delay(100);
+        await ValueTask.FromResult(GridItemsProviderResult.From([new GridItem("hello")], count));
+        return await pagination.SetCurrentPageIndexAsync(count - 1);
+
+
+    }
+
+    record GridItem(string Value);
+
+}
