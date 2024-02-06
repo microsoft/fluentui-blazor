@@ -21,4 +21,7 @@
 	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-* " />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+  </ItemGroup>
 </Project>
