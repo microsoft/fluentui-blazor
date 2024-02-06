@@ -1348,7 +1348,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.NoTabbing">
             <summary>
-            Gets or sets a value indicating whether the component will not add itself to the tab queue. 
+            Gets or sets a value indicating whether the component will not add itself to the tab queue.
             Default is false.
             </summary>
         </member>
@@ -1375,12 +1375,13 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass">
             <summary>
-            Optionally defines a class to be applied to a rendered row. 
+            Optionally defines a class to be applied to a rendered row.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowStyle">
             <summary>
-            Optionally defines a style to be applied to a rendered row. 
+            Optionally defines a style to be applied to a rendered row.
+            Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass"/> instead.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.EmptyContent">

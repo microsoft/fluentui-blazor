@@ -88,7 +88,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public PaginationState? Pagination { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the component will not add itself to the tab queue. 
+    /// Gets or sets a value indicating whether the component will not add itself to the tab queue.
     /// Default is false.
     /// </summary>
     [Parameter]
@@ -120,12 +120,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
-    /// Optionally defines a class to be applied to a rendered row. 
+    /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
 
     /// <summary>
-    /// Optionally defines a style to be applied to a rendered row. 
+    /// Optionally defines a style to be applied to a rendered row.
     /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
@@ -134,7 +134,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// If specified, grids render this fragment when there is no content.
     /// </summary>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
-
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid is in a loading data state.
@@ -146,7 +145,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// A default fragment is used if loading content is not specified.
     /// </summary>
     [Parameter] public RenderFragment? LoadingContent { get; set; }
-
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -172,12 +170,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnOptionsPosition;
     private bool _manualGrid;
 
+    // The associated ES6 module, which uses document-level event listeners
+    private IJSObjectReference? Module;
     private IJSObjectReference? _jsEventDisposable;
-    private IJSObjectReference? Module { get; set; }
 
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
+
+    private readonly RenderFragment _renderEmptyContent;
+    private readonly RenderFragment _renderLoadingContent;
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
@@ -203,6 +205,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
+        _renderEmptyContent = RenderEmptyContent;
+        _renderLoadingContent = RenderLoadingContent;
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -331,6 +335,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public void SetLoadingState(bool loading)
     {
         Loading = loading;
+        StateHasChanged();
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
@@ -339,7 +344,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         // Move into a "loading" state, cancelling any earlier-but-still-pending load
         _pendingDataLoadCancellationTokenSource?.Cancel();
-        CancellationTokenSource? thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
+        var thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
 
         if (_virtualizeComponent is not null)
         {
@@ -363,7 +368,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
                 Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
-                if (_ariaBodyRowCount > 0 ) Loading = false;
+                Loading = false;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
         }
@@ -408,7 +413,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
             Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
-            if (_ariaBodyRowCount > 0) Loading = false;
+            if (_ariaBodyRowCount > 0)
+            {
+                Loading = false;
+            }
 
             // We're supplying the row _index along with each row's data because we need it for aria-rowindex, and we have to account for
             // the virtualized start _index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have
@@ -460,9 +468,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
+        {
             return null;
+        }
         else
+        {
             return value;
+        }
     }
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch

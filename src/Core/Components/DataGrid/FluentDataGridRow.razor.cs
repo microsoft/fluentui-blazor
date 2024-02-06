@@ -24,16 +24,19 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     public int? RowIndex { get; set; }
 
     /// <summary>
-    /// String that gets applied to the css gridTemplateColumns attribute for the row
+    /// Gets or sets the string that gets applied to the css gridTemplateColumns attribute for the row.
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the type of row. See <see cref="DataGridRowType"/>
+    /// Gets or sets the type of row. See <see cref="DataGridRowType"/>.
     /// </summary>
     [Parameter]
     public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
+
+    [Parameter]
+    public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Center;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -75,8 +78,8 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     private async Task HandleOnCellFocus(DataGridCellFocusEventArgs args)
     {
-        string? cellId = args.CellId;
-        if (cells.TryGetValue(cellId!, out FluentDataGridCell<TGridItem>? cell))
+        var cellId = args.CellId;
+        if (cells.TryGetValue(cellId!, out var cell))
         {
             await Owner.Grid.OnCellFocus.InvokeAsync(cell);
         }
