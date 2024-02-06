@@ -1,3 +1,17 @@
+## V4.4.1
+- Issue [#1462](https://github.com/microsoft/fluentui-blazor/issues/1462): FluentMessageBar onclick bug and not using Link?.Target
+- Issue [#1461](https://github.com/microsoft/fluentui-blazor/issues/1461): fluent-data-grid rendered after rows in manual FluentDataGrid
+- Issue [#1450](https://github.com/microsoft/fluentui-blazor/issues/1450): FluentSlider's two-way data binding on Value Property does not update appropriately
+- Issue [#1449](https://github.com/microsoft/fluentui-blazor/issues/1449): [Autocomplete] Fix Disabled item using keyboard and re-enables the ability to click on an element
+- Issue [#1448](https://github.com/microsoft/fluentui-blazor/issues/1448): two key strokes required to change item in FluentSelect
+- Issue [#1444](https://github.com/microsoft/fluentui-blazor/issues/1444): FluentDataGrid 4.4.0 not rendering in default fluentblazor template using StreamRendering and SSR
+- Issue [#1442](https://github.com/microsoft/fluentui-blazor/issues/1442): Fix fluentblazor template 4.4.0
+- Issue [#1437](https://github.com/microsoft/fluentui-blazor/issues/1437): UI does not leave Loading animation if result has 0 items in FluentDataGrid
+- Issue [#1436](https://github.com/microsoft/fluentui-blazor/issues/1436): Profile NavMenu: Labels in Template
+- Issue [#1433](https://github.com/microsoft/fluentui-blazor/issues/1433): FluentDataGrid show no data in version 4.4.0
+- Issue [#1425](https://github.com/microsoft/fluentui-blazor/issues/1425): add OnClick EventCallback to FluentAnchor
+- Issue [#1424](https://github.com/microsoft/fluentui-blazor/issues/1424): Not setting current-value for fluent-number-field
+
 ## V4.4.0
 New: SortableList component
 New: (experimental) MultiSplitter component
