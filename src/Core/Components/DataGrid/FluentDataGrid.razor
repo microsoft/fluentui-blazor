@@ -5,7 +5,9 @@
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
     @{ StartCollectingColumns(); }
-    @ChildContent
+    @if (!_manualGrid) {
+        @ChildContent
+    }
     <Defer>
         @{ FinishCollectingColumns(); }
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
@@ -56,6 +58,10 @@
                 {
                     @_renderNonVirtualizedRows
                 }
+            }
+            @if (_manualGrid)
+            {
+                @ChildContent
             }
         </fluent-data-grid>
     </Defer>
