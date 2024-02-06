@@ -1,4 +1,13 @@
-﻿## V3.5.4
+﻿## V3.5.5
+- Issue [#1437](https://github.com/microsoft/fluentui-blazor/issues/1437): UI does not leave Loading animation if result has 0 items in FluentDataGrid 
+- Issue [#1424](https://github.com/microsoft/fluentui-blazor/issues/1424): Not setting current-value for fluent-number-field
+- Issue [#1425](https://github.com/microsoft/fluentui-blazor/issues/1425): add OnClick EventCallback to FluentAnchor
+- Issue [#1462](https://github.com/microsoft/fluentui-blazor/issues/1462): FluentMessageBar onclick bug and not using Link?.Target
+- Issue [#1450](https://github.com/microsoft/fluentui-blazor/issues/1450): FluentSlider's two-way data binding on Value Property does not update appropriately
+- Issue [#1448](https://github.com/microsoft/fluentui-blazor/issues/1448): two key strokes required to change item in FluentSelect
+- Issue [#1449](https://github.com/microsoft/fluentui-blazor/issues/1449): [Autocomplete] Fix Disabled item using keyboard and re-enables the ability to click on an element
+
+## V3.5.4
 - Issue [#1417](https://github.com/microsoft/fluentui-blazor/issues/1417): Fix Autocomplete Enter key in EditForm
 - Issue [#1414](https://github.com/microsoft/fluentui-blazor/issues/1414): NavMenu / KeyCode optimizations
 - Issue [#1413](https://github.com/microsoft/fluentui-blazor/issues/1413): Add TooltipService.Refresh method

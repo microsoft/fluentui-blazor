@@ -93,6 +93,53 @@
             <param name="targetId"></param>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Location">
+            <summary>
+            Gets an <see cref="T:Microsoft.Fast.Components.FluentUI.KeyLocation" /> representing the location of the key on the keyboard or other input device.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Key">
+            <summary>
+            Gets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.KeyCode"/> equivalent value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.KeyCode">
+            <summary>
+            Gets the system- and implementation-dependent numerical code identifying the unmodified value of the pressed key.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Value">
+            <summary>
+            Gets the value of the key pressed by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.CtrlKey">
+            <summary>
+            Gets a boolean value that indicates if the Control key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.ShiftKey">
+            <summary>
+            Gets a boolean value that indicates if the Shift key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.AltKey">
+            <summary>
+            Gets a boolean value that indicates if the Alt key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.MetaKey">
+            <summary>
+            Gets a boolean value that indicates if the Meta key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.TargetId">
+            <summary>
+            Gets the identifier of the targeted DOM element.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
@@ -292,7 +339,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Target">
             <summary>
-            The target attribute specifies where to open the link, if Href is specified. 
+            Gets or sets the target attribute that specifies where to open the link, if Href is specified.
             Possible values: _blank | _self | _parent | _top.
             </summary>
         </member>
@@ -1371,7 +1418,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.NoTabbing">
             <summary>
-            Gets or sets a value indicating whether the component will not add itself to the tab queue. 
+            Gets or sets a value indicating whether the component will not add itself to the tab queue.
             Default is false.
             </summary>
         </member>
@@ -1398,12 +1445,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass">
             <summary>
-            Optionally defines a class to be applied to a rendered row. 
+            Optionally defines a class to be applied to a rendered row.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowStyle">
             <summary>
-            Optionally defines a style to be applied to a rendered row. 
+            Optionally defines a style to be applied to a rendered row.
             Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RowClass"/> instead.
             </summary>
         </member>
@@ -1496,12 +1543,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.GridTemplateColumns">
             <summary>
-            String that gets applied to the css gridTemplateColumns attribute for the row
+            Gets or sets the string that gets applied to the css gridTemplateColumns attribute for the row.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.RowType">
             <summary>
-            Gets or sets the type of row. See <see cref="T:Microsoft.Fast.Components.FluentUI.DataGridRowType"/>
+            Gets or sets the type of row. See <see cref="T:Microsoft.Fast.Components.FluentUI.DataGridRowType"/>.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.ChildContent">
@@ -4533,7 +4580,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMessageBar.ShowSecondaryAction">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.LinkClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.LinkClickedAsync">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentMessageBar.PrimaryActionClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
