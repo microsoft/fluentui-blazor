@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 <CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
@@ -15,7 +15,6 @@
                    appearance="@Appearance.ToAttributeValue()"
                    current-value="@Value"
                    required="@Required"
-                   
                    @onkeydown="@OnKeydownHandlerAsync"
                    @attributes="AdditionalAttributes">
         @_renderOptions
