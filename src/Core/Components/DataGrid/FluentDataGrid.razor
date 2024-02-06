@@ -5,7 +5,9 @@
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
     @{ StartCollectingColumns(); }
-    @ChildContent
+    @if (!_manualGrid) {
+        @ChildContent
+    }
     <Defer>
         @{ FinishCollectingColumns(); }
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
@@ -30,53 +32,36 @@
                 </FluentDataGridRow>
             }
 
-            @if (_ariaBodyRowCount == 0 && Loading)
+            @if (Loading)
             {
-                <FluentDataGridRow TGridItem="TGridItem" Class="loading-content-row">
-                    <FluentDataGridCell Class="loading-content-cell">
-                        @if (LoadingContent is null)
-                        {
-                            <FluentStack HorizontalGap="3">
-                                <FluentProgressRing Width="24px" /> <div>Loading...</div>
-                            </FluentStack>
-                        }
-                        else
-                        {
-                            @LoadingContent
-                        }
-                    </FluentDataGridCell>
-                </FluentDataGridRow>
-            }
-            else if (_ariaBodyRowCount == 0 && !Loading && !_manualGrid)
-            {
-                <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
-                    <FluentDataGridCell Class="empty-content-cell">
-                        @if (EmptyContent is null)
-                        {
-                            @("No data to show!")
-                        }
-                        else
-                        {
-                            @EmptyContent
-                        }
-                    </FluentDataGridCell>
-                </FluentDataGridRow>
+                @_renderLoadingContent
             }
             else
             {
                 @if (Virtualize)
                 {
-                    <Virtualize @ref="@_virtualizeComponent"
-                                TItem="(int RowIndex, TGridItem Data)"
-                                ItemSize="@ItemSize"
-                                ItemsProvider="@ProvideVirtualizedItemsAsync"
-                                ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                                Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                    if (_ariaBodyRowCount == 0)
+                    {
+                        @_renderEmptyContent
+                    }
+                    else
+                    {
+                        <Virtualize @ref="@_virtualizeComponent"
+                                    TItem="(int RowIndex, TGridItem Data)"
+                                    ItemSize="@ItemSize"
+                                    ItemsProvider="@ProvideVirtualizedItemsAsync"
+                                    ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                    Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                    }
                 }
                 else
                 {
                     @_renderNonVirtualizedRows
                 }
+            }
+            @if (_manualGrid)
+            {
+                @ChildContent
             }
         </fluent-data-grid>
     </Defer>
@@ -87,9 +72,16 @@
     {
         var initialRowIndex = (GenerateHeader != GenerateHeaderOption.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
         var rowIndex = initialRowIndex;
-        foreach (var item in _currentNonVirtualizedViewItems)
+        if (_currentNonVirtualizedViewItems.Any())
         {
-            RenderRow(__builder, rowIndex++, item);
+            foreach (var item in _currentNonVirtualizedViewItems)
+            {
+                RenderRow(__builder, rowIndex++, item);
+            }
+        }
+        else
+        {
+            RenderEmptyContent(__builder);
         }
     }
 
@@ -114,7 +106,7 @@
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
-        string? _rowsDataSize = Loading ? "height: 100%;" : $"height: {ItemSize}px;";
+        string? _rowsDataSize = $"height: {ItemSize}px";
 
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
@@ -152,5 +144,45 @@
                 }
             </FluentDataGridCell>
         }
+    }
+
+    private void RenderEmptyContent(RenderTreeBuilder __builder)
+    {
+        @if (_manualGrid)
+        {
+            return;
+        }
+        // If we use the Blazor components here the renderer gets upset/lost, so we use the web components directly
+        <fluent-data-grid-row class="empty-content-row">
+            <fluent-data-grid-cell class="empty-content-cell">
+                @if (EmptyContent is null)
+                {
+                    @("No data to show!")
+                }
+                else
+                {
+                    @EmptyContent
+                }
+            </fluent-data-grid-cell>
+        </fluent-data-grid-row>
+
+    }
+
+    private void RenderLoadingContent(RenderTreeBuilder __builder)
+    {
+        <FluentDataGridRow TGridItem="TGridItem" Class="loading-content-row">
+            <FluentDataGridCell Class="loading-content-cell">
+                @if (LoadingContent is null)
+                {
+                    <FluentStack HorizontalGap="3">
+                        <FluentProgressRing Width="24px" /> <div>Loading...</div>
+                    </FluentStack>
+                }
+                else
+                {
+                    @LoadingContent
+                }
+            </FluentDataGridCell>
+        </FluentDataGridRow>
     }
 }
