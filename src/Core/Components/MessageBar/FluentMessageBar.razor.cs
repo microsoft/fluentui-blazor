@@ -205,7 +205,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    protected Task LinkClickedAsync(MouseEventArgs e)
+    protected Task LinkClickedAsync()
     {
         if (Link?.OnClick != null)
         {
