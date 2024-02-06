@@ -29,6 +29,10 @@ body {
     align-self: stretch !important;
 }
 
+.manage {
+    width: 100dvw;
+}
+
 footer {
     display: grid;
     grid-template-columns: 10px auto auto 10px;
