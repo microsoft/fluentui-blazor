@@ -22,7 +22,7 @@
                          Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
                          @oninput="@InputHandlerAsync"
-                         @onfocusout="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
+                         @onfocusout="@(e => { IsReachedMaxItems = false; })"
                          Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)

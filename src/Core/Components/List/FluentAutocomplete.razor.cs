@@ -229,7 +229,17 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             case KeyCode.Enter:
                 if (IsMultiSelectOpened)
                 {
-                    await KeyDown_Enter();
+                    var optionDisabled = SelectableItem != null && OptionDisabled != null
+                                       ? OptionDisabled.Invoke(SelectableItem)
+                                       : false;
+                    if (optionDisabled)
+                    {
+                        await KeyDown_Escape();
+                    }
+                    else
+                    {
+                        await KeyDown_Enter();
+                    }
                 }
                 else
                 {
@@ -293,9 +303,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             if (Items != null && Items.Any())
             {
                 var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-                if (index > 0)
+
+                // Previous available item
+                for (var i = index - 1; i >= 0; i--)
                 {
-                    SelectableItem = Items.ElementAt(index - 1);
+                    var item = Items.ElementAt(i);
+                    var disabled = OptionDisabled?.Invoke(item) ?? false;
+
+                    if (!disabled)
+                    {
+                        SelectableItem = Items.ElementAt(i);
+                        break;
+                    }
                 }
             }
 
@@ -308,9 +327,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             if (Items != null && Items.Any())
             {
                 var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-                if (index < Items.Count() - 1)
+
+                // Next available item
+                for (var i = index + 1; i < Items.Count(); i++)
                 {
-                    SelectableItem = Items.ElementAt(index + 1);
+                    var item = Items.ElementAt(i);
+                    var disabled = OptionDisabled?.Invoke(item) ?? false;
+
+                    if (!disabled)
+                    {
+                        SelectableItem = Items.ElementAt(i);
+                        break;
+                    }
                 }
             }
 

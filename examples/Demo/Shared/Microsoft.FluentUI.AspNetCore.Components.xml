@@ -82,6 +82,53 @@
             <param name="location"></param>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Location">
+            <summary>
+            Gets an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyLocation" /> representing the location of the key on the keyboard or other input device.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Key">
+            <summary>
+            Gets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.KeyCode"/> equivalent value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.KeyCode">
+            <summary>
+            Gets the system- and implementation-dependent numerical code identifying the unmodified value of the pressed key.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Value">
+            <summary>
+            Gets the value of the key pressed by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.CtrlKey">
+            <summary>
+            Gets a boolean value that indicates if the Control key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.ShiftKey">
+            <summary>
+            Gets a boolean value that indicates if the Shift key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.AltKey">
+            <summary>
+            Gets a boolean value that indicates if the Alt key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.MetaKey">
+            <summary>
+            Gets a boolean value that indicates if the Meta key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.TargetId">
+            <summary>
+            Gets the identifier of the targeted DOM element.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
