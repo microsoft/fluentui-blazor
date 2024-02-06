@@ -1,4 +1,12 @@
-﻿## V3.5.4
+﻿## V3.5.5
+1447
+1424
+1425
+1462
+1464
+1449
+
+## V3.5.4
 - Issue [#1417](https://github.com/microsoft/fluentui-blazor/issues/1417): Fix Autocomplete Enter key in EditForm
 - Issue [#1414](https://github.com/microsoft/fluentui-blazor/issues/1414): NavMenu / KeyCode optimizations
 - Issue [#1413](https://github.com/microsoft/fluentui-blazor/issues/1413): Add TooltipService.Refresh method
