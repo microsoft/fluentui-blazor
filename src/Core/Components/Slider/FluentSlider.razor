@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 @attribute [CascadingTypeParameter(nameof(TValue))]
@@ -13,7 +13,8 @@
                orientation="@Orientation.ToAttributeValue()"
                mode="@Mode.ToAttributeValue()"
                id="@Id"
-               @bind-value="CurrentValueAsString"
+               @bind-value="@CurrentValueAsString"
+               current-value="@CurrentValueAsString"
                disabled="@Disabled"
                name=@Name
                required=@Required>
