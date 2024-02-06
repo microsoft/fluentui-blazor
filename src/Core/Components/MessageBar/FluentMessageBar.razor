@@ -31,8 +31,8 @@
                 {
                     <FluentAnchor Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
                                   Appearance="Appearance.Hypertext"
-                                  Target="_blank"
-                                  @onclick="@LinkClickedAsync"
+                                  Target="@(Link?.Target ?? "_blank")"
+                                  OnClick="@LinkClickedAsync"
                                   title="Link">
                         @Link?.Text
                     </FluentAnchor>
@@ -42,7 +42,7 @@
                 @if (ShowPrimaryAction)
                 {
                     <FluentButton Appearance="@Appearance.Neutral"
-                                    @onclick="@PrimaryActionClickedAsync"
+                                    OnClick="@PrimaryActionClickedAsync"
                                     title="Alert action"
                                     Class="fluent-messagebar-action">
                         @PrimaryAction?.Text
@@ -51,7 +51,7 @@
                 @if (ShowSecondaryAction)
                 {
                     <FluentButton Appearance="@Appearance.Neutral"
-                                  @onclick="@SecondaryActionClickedAsync"
+                                  OnClick="@SecondaryActionClickedAsync"
                                   title="Alert action"
                                   Class="fluent-messagebar-action">
                         @SecondaryAction?.Text
@@ -107,16 +107,16 @@
                 {
                     <FluentAnchor Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
                                   Appearance="Appearance.Hypertext"
-                                  Target="_blank"
-                                  @onclick="@LinkClickedAsync"
+                                  Target="@(Link?.Target ?? "_blank")"
+                                  OnClick="@LinkClickedAsync"
                                   title="Link">
                         @Link?.Text
                     </FluentAnchor>
                 }
                 @if (ShowPrimaryAction)
                 {
-                    <FluentButton Appearance="Appearance.Hypertext"
-                                  @onclick="@PrimaryActionClickedAsync"
+                    <FluentButton Appearance="Appearance.Neutral"
+                                  OnClick="@PrimaryActionClickedAsync"
                                   title="Notification action"
                                   Class="fluent-messagebar-action">
                         @PrimaryAction?.Text

@@ -4741,7 +4741,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.ShowSecondaryAction">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.LinkClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.LinkClickedAsync">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.PrimaryActionClickedAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
