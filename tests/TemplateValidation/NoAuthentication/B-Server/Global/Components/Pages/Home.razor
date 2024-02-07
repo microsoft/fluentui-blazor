@@ -5,3 +5,39 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new Fluent Blazor app.
+
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+<FluentSelect Items="@strings"></FluentSelect>
+
+
+
+@code {
+    IEnumerable<string>? strings;
+    string? selectedValue;
+
+    private IEnumerable<string> GetLongListOfStrings()
+    {
+        IList<string> longListOfStrings = new List<string>();
+
+        for (int i = 0; i < 100; i++)
+        {
+            longListOfStrings.Add("123456");
+        }
+        return longListOfStrings;
+    }
+
+
+    protected override Task OnParametersSetAsync()
+    {
+        strings = GetLongListOfStrings();
+        return Task.CompletedTask;
+    }
+}
