@@ -34,3 +34,8 @@ In your Program.cs file you need to add the following:
 ```
 builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
+
+## Support
+The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
+supported and isn’t committed to ship updates as part of any official .NET updates. It is built and maintained by Microsoft employees (**and** other contributors)
+and offers support, like most other open source projects, on a best effort base through the GitHub repository **only**.

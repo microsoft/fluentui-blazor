@@ -176,6 +176,10 @@ builder.Services.AddDataGridEntityFrameworkAdapter();
 ## Additional resources
 * The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
 
+## Support
+The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
+supported and isn’t committed to ship updates as part of any official .NET updates. It is built and maintained by Microsoft employees (**and** other contributors)
+and offers support, like most other open source projects, on a best effort base through the GitHub repository **only**.
 
 ## Contributing to the project
 
@@ -192,5 +196,5 @@ We look forward to building an amazing open source community with you!
 ## Contact
 
 * Join the community and chat with us in real-time on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) or [Discord](https://discord.gg/FcSNfg4).
-* Submit requests and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
+* Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
