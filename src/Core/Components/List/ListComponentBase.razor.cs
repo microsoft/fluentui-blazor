@@ -534,7 +534,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         // This delay is needed for WASM to be able to get the updated value of the active descendant.
         // Without it, the value sometimes lags behind and you then need two keypresses to move to the next/prev option.
         await Task.Delay(1);
-        string? id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
+        var id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
         FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
 
