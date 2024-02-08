@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
-    internal string RowId { get; } = Identifier.NewId();
+    internal string RowId { get; set; } = string.Empty;
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
 
     /// <summary>
@@ -61,6 +61,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     protected override void OnInitialized()
     {
+        RowId = $"r{Owner.GetNextRowId()}";
         Owner.Register(this);
     }
 
@@ -68,12 +69,14 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     internal void Register(FluentDataGridCell<TGridItem> cell)
     {
+
+        cell.CellId = $"c{Owner.GetNextCellId()}";
         cells.Add(cell.CellId, cell);
     }
 
     internal void Unregister(FluentDataGridCell<TGridItem> cell)
     {
-        cells.Remove(cell.CellId);
+        cells.Remove(cell.CellId!);
     }
 
     private async Task HandleOnCellFocusAsync(DataGridCellFocusEventArgs args)
