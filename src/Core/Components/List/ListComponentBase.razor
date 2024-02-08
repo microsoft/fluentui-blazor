@@ -7,9 +7,9 @@
 
 @code
 {
+
     private void RenderOptions(RenderTreeBuilder __builder)
     {
-        bool genericItems = false;
 
         if (Items is null)
         {
@@ -17,17 +17,9 @@
         }
         else
         {
-            // get the first item to determine the type
-            TOption firstItem = Items.First();
+            bool optionItems = typeof(TOption).IsGenericType && typeof(TOption).GetGenericTypeDefinition() == typeof(Option<>);
 
-            Type t = firstItem.GetType();
-            if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Option<>))
-            {
-                genericItems = true;
-
-            }
-
-            foreach (TOption item in Items)
+            @foreach (TOption item in Items)
             {
                 <FluentOption TOption="TOption"
                               Value="@GetOptionValue(item)"
@@ -43,18 +35,17 @@
                         @GetOptionText(item)
                     }
 
-                    @if (genericItems)
+                    @if (optionItems)
                     {
-                        PropertyInfo? prop = t.GetProperty("Icon");
+                        var optionIcon = (IOptionIcon)item;
+                        var value = optionIcon.Icon;
 
-                        if (prop is not null)
+                        if (value.HasValue)
                         {
-                            (Icon Value, Color? Color, string? Slot) = ((Icon Value, Color? Color, string? Slot))prop.GetValue(item)!;
-                            if (Value != null)
-                            {
-                                <FluentIcon Value="@Value" Color="@Color" Slot="@Slot" />
-                            }
+                            var icon = value.Value;
+                            <FluentIcon Value="@icon.Value" Color="@icon.Color" Slot="@icon.Slot" />
                         }
+
                     }
                 </FluentOption>
             }
