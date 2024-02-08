@@ -7,6 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 internal sealed class InternalGridContext<TGridItem>
 {
     private int _index = 0;
+    private int _rowId = 0;
+    private int _cellId = 0;
+
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
 
     public FluentDataGrid<TGridItem> Grid { get; }
@@ -15,6 +18,18 @@ internal sealed class InternalGridContext<TGridItem>
     public InternalGridContext(FluentDataGrid<TGridItem> grid)
     {
         Grid = grid;
+    }
+
+    public int GetNextRowId()
+    {
+        Interlocked.Increment(ref _rowId);
+        return _rowId;
+    }
+
+    public int GetNextCellId()
+    {
+        Interlocked.Increment(ref _cellId);
+        return _cellId;
     }
 
     internal void ResetRowIndexes(int start)
