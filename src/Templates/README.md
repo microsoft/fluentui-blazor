@@ -1,5 +1,5 @@
 > **IMPORTANT!!**
-> Just as with the standard Blazor Web App template, Blazor will use SSR by default. If you want to have interactive components, make sure you add a rendermode to the app, page or component!</p>
+> Just as with the standard Blazor Web App template, Blazor will use SSR by default. If you want to have interactive components, make sure you add a rendermode to the app, page or component!
 
 ## Installation
 Install the templates by running the command:
@@ -27,6 +27,6 @@ dotnet new uninstall Microsoft.FluentUI.AspNetCore.Templates
 ```
 
 ## Support
-The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
-supported and isn’t committed to ship updates as part of any official .NET updates. It is built and maintained by Microsoft employees (**and** other contributors)
+The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means itâ€™s **not** officially
+supported and isnâ€™t committed to ship updates as part of any official .NET updates. It is built and maintained by Microsoft employees (**and** other contributors)
 and offers support, like most other open source projects, on a best effort base through the GitHub repository **only**.
