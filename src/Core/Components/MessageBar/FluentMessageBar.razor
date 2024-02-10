@@ -9,10 +9,10 @@
         <div class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
 
             @* Icon *@
-                <div class="fluent-messagebar-icon">
-                    <FluentIcon Value="@Icon" Title="@(Content?.Intent.ToAttributeValue())" Color="@_color" />
-                </div>
-            
+            <div class="fluent-messagebar-icon">
+                <FluentIcon Value="@Icon" Title="@(Content?.Intent.ToAttributeValue())" Color="@_color" />
+            </div>
+
             @* Message *@
             <div class="fluent-messagebar-message">
                 @if (!String.IsNullOrEmpty(Title))
@@ -42,9 +42,9 @@
                 @if (ShowPrimaryAction)
                 {
                     <FluentButton Appearance="@Appearance.Neutral"
-                                    OnClick="@PrimaryActionClickedAsync"
-                                    title="Alert action"
-                                    Class="fluent-messagebar-action">
+                                  OnClick="@PrimaryActionClickedAsync"
+                                  title="Alert action"
+                                  Class="fluent-messagebar-action">
                         @PrimaryAction?.Text
                     </FluentButton>
                 }
@@ -57,10 +57,13 @@
                         @SecondaryAction?.Text
                     </FluentButton>
                 }
-                <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
-                            Color=@Color.Neutral
-                            Class="fluent-messagebar-close"
-                            OnClick="DismissClicked" />
+                @if (AllowDismiss)
+                {
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
+                                Color=@Color.Neutral
+                                Class="fluent-messagebar-close"
+                                OnClick="DismissClicked" />
+                }
             </div>
         </div>
     }
@@ -71,12 +74,11 @@
         <div class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
 
             @* Icon *@
-                <div class="fluent-messagebar-notification-icon">
+            <div class="fluent-messagebar-notification-icon">
                 <FluentIcon Value="@Icon"
-                            
                             Color="@_color"
                             Title="@(Content?.Intent?.ToAttributeValue())" />
-                </div>
+            </div>
 
             @* Message *@
             @if (!String.IsNullOrEmpty(Title))
@@ -87,16 +89,18 @@
             }
 
             @* Close *@
-            
-                <div class="fluent-messagebar-notification-close">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
-                            Color=@Color.Neutral
-                            Class="fluent-messagebar-notification-close"
-                            OnClick="DismissClicked" />
-                </div>
-            
 
-            @* Detailled content *@
+            @if (AllowDismiss)
+            {
+                <div class="fluent-messagebar-notification-close">
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
+                                Color=@Color.Neutral
+                                Class="fluent-messagebar-notification-close"
+                                OnClick="DismissClicked" />
+                </div>
+            }
+
+            @* Detailed content *@
             <div class="fluent-messagebar-notification-content">
                 @ChildContent
                 @if (!String.IsNullOrEmpty(Content?.Body))
@@ -122,7 +126,7 @@
                         @PrimaryAction?.Text
                     </FluentButton>
                 }
-                
+
             </div>
 
             @* Recorded time *@
