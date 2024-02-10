@@ -7,7 +7,7 @@
                     Placeholder="Select countries"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionDisabled="@(e => e.Code == "au")"
-                    MaximumSelectedOptions="3"
+                    MaximumSelectedOptions="5"
                     OptionText="@(item => item.Name)"
                     @bind-SelectedOptions="@SelectedItems" />
 
