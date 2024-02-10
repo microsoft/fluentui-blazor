@@ -1,0 +1,16 @@
+﻿@inject IDialogService _dialogService
+
+<FluentButton OnClick="OpenDialog" Appearance="Appearance.Accent">Open dialog</FluentButton>
+
+@code {
+    private async Task OpenDialog()
+    {
+        await _dialogService.ShowDialogAsync(@<div>
+        Content from your render fragment
+    </div>
+    , new DialogParameters
+    {
+        Title = "Render Fragment Content",
+    });
+    }
+}

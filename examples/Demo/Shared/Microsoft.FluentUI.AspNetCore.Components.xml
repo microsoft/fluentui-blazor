@@ -2780,6 +2780,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowPanelAsync``1(Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowPanelAsync``1(Microsoft.FluentUI.AspNetCore.Components.DialogParameters)"/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowDialogAsync(Microsoft.AspNetCore.Components.RenderFragment,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync(Microsoft.AspNetCore.Components.RenderFragment,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)"/>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowDialog``2(Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``1})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialog``2(Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``1})"/>
         </member>
@@ -3051,6 +3054,14 @@
             </summary>
             <typeparam name="TDialog">Type of component to display.</typeparam>
             <param name="parameters">Parameters to configure the dialog component.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync(Microsoft.AspNetCore.Components.RenderFragment,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
+            <summary>
+            Shows a panel with the the RenderFragment as the body
+            </summary>
+            <param name="renderFragment">Body of the panel</param>
+            <param name="dialogParameters">Parameters to configure the dialog component.</param>
+            <returns></returns>
         </member>
         <member name="E:Microsoft.FluentUI.AspNetCore.Components.IDialogService.OnShow">
             <summary>

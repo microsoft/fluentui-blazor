@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial interface IDialogService
@@ -66,6 +68,14 @@ public partial interface IDialogService
     /// <param name="parameters">Parameters to configure the dialog component.</param>
     Task<IDialogReference> ShowPanelAsync<TDialog>(DialogParameters parameters)
         where TDialog : IDialogContentComponent;
+
+    /// <summary>
+    /// Shows a panel with the the RenderFragment as the body
+    /// </summary>
+    /// <param name="renderFragment">Body of the panel</param>
+    /// <param name="dialogParameters">Parameters to configure the dialog component.</param>
+    /// <returns></returns>
+    Task<IDialogReference> ShowDialogAsync(RenderFragment renderFragment, DialogParameters dialogParameters);
 
     #region Obsolete
 
