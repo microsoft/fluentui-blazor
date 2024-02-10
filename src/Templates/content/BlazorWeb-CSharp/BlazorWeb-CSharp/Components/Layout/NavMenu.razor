@@ -1,7 +1,7 @@
 ﻿@*#if (UseServer && !InteractiveAtRoot) -->
 @rendermode InteractiveServer
-##endif*@
 
+##endif*@
 @*#if (IndividualLocalAuth)
 @implements IDisposable
 
@@ -41,7 +41,6 @@
 
 @code {
     private bool expanded = true;
-
 @*#if (IndividualLocalAuth)
     private string? currentUrl;
 
@@ -63,4 +62,3 @@
     }
 ##endif*@
 }
-

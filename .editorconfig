@@ -60,8 +60,8 @@ dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:err
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:error
 
 # Require var all the time.
-csharp_style_var_for_built_in_types = true:error
-csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
 csharp_style_var_elsewhere = true:suggestion
 
 # Expression-level preferences
