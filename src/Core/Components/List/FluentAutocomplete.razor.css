@@ -1,4 +1,4 @@
-﻿.fluent-autocomplete-multiselect div[role=listbox] {
+.fluent-autocomplete-multiselect div[role=listbox] {
     overflow-y: auto;
     max-height: 300px;
     outline: none;
@@ -20,7 +20,7 @@
             background: var(--neutral-fill-secondary-hover);
         }
 
-.fluent-autocomplete-multiselect fluent-text-field::part(start) {
+.fluent-autocomplete-multiselect ::deep fluent-text-field::part(start) {
     max-width: calc(100% - 80px);
 }
 
