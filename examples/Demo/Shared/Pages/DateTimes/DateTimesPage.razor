@@ -39,6 +39,12 @@
     <code>ToDateTime</code> and <code>ToDateOnly</code> methods.
 </p>
 
+<p>
+    If your variable is of type <code>Nullable&lt;DateTime></code>, you can continue
+    to use <code>@@bind-Value</code>.
+    For other types, you must use the syntax <code>value="..." ValueChanged="..."</code>.
+</p>
+
 <b>Example</b>
 <CodeSnippet>
     &lt;FluentDatePicker Value="@@MyDate.ToDateTime()"
