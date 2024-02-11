@@ -147,6 +147,13 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     [Parameter]
     public Color? IconColor { get; set; } = Color.Accent;
 
+    /// <summary>
+    /// Gets or sets the ability to dismiss the notification.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool AllowDismiss { get; set; } = true;
+
     ///// <summary>
     ///// On app and page level a Message bar should NOT have rounded corners. On component level it should.
     ///// </summary>  
