@@ -27,6 +27,22 @@ public class FluentMessageBarTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentMessageBar_AllowDismiss()
+    {
+        TestContext.Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentMessageBar>(parameters =>
+        {
+            parameters.Add(p => p.Title, "This is a message");
+            parameters.Add(p => p.AllowDismiss, false);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     //[Fact]
     //public void FluentMessageBar_Body_Link()
     //{
