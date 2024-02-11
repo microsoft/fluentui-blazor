@@ -3057,9 +3057,9 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowDialogAsync(Microsoft.AspNetCore.Components.RenderFragment,Microsoft.FluentUI.AspNetCore.Components.DialogParameters)">
             <summary>
-            Shows a panel with the the RenderFragment as the body
+            Shows a dialog with the the RenderFragment as the body
             </summary>
-            <param name="renderFragment">Body of the panel</param>
+            <param name="renderFragment">Body of the dialog</param>
             <param name="dialogParameters">Parameters to configure the dialog component.</param>
             <returns></returns>
         </member>

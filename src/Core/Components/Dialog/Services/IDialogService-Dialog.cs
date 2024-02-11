@@ -70,9 +70,9 @@ public partial interface IDialogService
         where TDialog : IDialogContentComponent;
 
     /// <summary>
-    /// Shows a panel with the the RenderFragment as the body
+    /// Shows a dialog with the the RenderFragment as the body
     /// </summary>
-    /// <param name="renderFragment">Body of the panel</param>
+    /// <param name="renderFragment">Body of the dialog</param>
     /// <param name="dialogParameters">Parameters to configure the dialog component.</param>
     /// <returns></returns>
     Task<IDialogReference> ShowDialogAsync(RenderFragment renderFragment, DialogParameters dialogParameters);
