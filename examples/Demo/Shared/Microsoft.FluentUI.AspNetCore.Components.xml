@@ -12425,6 +12425,88 @@
             <returns></returns>
             <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.DateOnly)">
+            <summary>
+            Converts the DateOnly to an equivalent DateTime.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.TimeOnly)">
+            <summary>
+            Converts the TimeOnly to an equivalent DateTime.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateOnly})">
+            <summary>
+            Converts the nullable DateOnly to an equivalent DateTime.
+            Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.TimeOnly})">
+            <summary>
+            Converts the nullable TimeOnly to an equivalent DateTime.
+            Returns <see cref="F:System.DateTime.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.DateOnly})">
+            <summary>
+            Converts the nullable DateOnly to an equivalent DateTime.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.TimeOnly})">
+            <summary>
+            Converts the nullable TimeOnly to an equivalent DateTime.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the nullable DateTime to an equivalent DateTime.
+            Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnly(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the nullable DateTime to an equivalent DateOnly, removing the time part.
+            Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeOnly(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the nullable DateTime to an equivalent TimeOnly, removing the time part.
+            Returns <see cref="P:System.TimeOnly.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnlyNullable(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the nullable DateTime to an equivalent DateOnly?, removing the time part.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeOnlyNullable(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Add common services required by the Fluent UI Web Components for Blazor library
