@@ -4,7 +4,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 {
-    internal string CellId { get; } = Identifier.NewId();
+    internal string CellId { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the reference to the item that holds this cell's values.

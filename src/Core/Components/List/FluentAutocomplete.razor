@@ -28,7 +28,7 @@
             @if (this.SelectedOptions?.Any() == true)
             {
                 <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
-                    <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToPrevious()"
+                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToPrevious();"
                                     slot="previous-flipper"
                                     aria-hidden="false"
                                     aria-label="@TitleScrollToPrevious"
@@ -37,7 +37,7 @@
                                     tabindex="0"
                                     class="previous fluent-autocomplete-previous"
                                     direction="previous"></fluent-flipper>
-                    <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToNext()"
+                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToNext();"
                                     slot="next-flipper"
                                     aria-hidden="false"
                                     aria-label="@TitleScrollToNext"
