@@ -1,0 +1,25 @@
+﻿<!-- Default usage -->
+<FluentDatePicker @bind-Value="@MyDate0" />
+<b>Date:</b> @(MyDate0?.ToString("yyyy-MM-dd"))
+<br />
+
+<!-- Using conversion methods -->
+<FluentDatePicker Value="@MyDate1" ValueChanged="@(e => MyDate1 = e.ToDateTime())" />
+<b>Date:</b> @(MyDate1.ToString("yyyy-MM-dd"))
+<br />
+
+<FluentDatePicker Value="@MyDate2.ToDateTimeNullable()" ValueChanged="@(e => MyDate2 = e.ToDateOnlyNullable())" />
+<b>Date:</b> @(MyDate2?.ToString("yyyy-MM-dd"))
+<br />
+
+<FluentDatePicker Value="@MyDate3.ToDateTime()" ValueChanged="@(e => MyDate3 = e.ToDateOnly())" />
+<b>Date:</b> @(MyDate3.ToString("yyyy-MM-dd"))
+<br />
+
+@code
+{
+    private DateTime? MyDate0 = DateTime.Today;
+    private DateTime MyDate1 = DateTime.Today;
+    private DateOnly? MyDate2 = DateOnly.FromDateTime(DateTime.Today);
+    private DateOnly MyDate3 = DateOnly.FromDateTime(DateTime.Today);
+}

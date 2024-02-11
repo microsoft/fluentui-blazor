@@ -27,6 +27,17 @@ public class ToDateTimeExtensionsTests : TestBase
 
     [Theory]
     [InlineData("2024-02-11", "2024-02-11 00:00:00")]
+    [InlineData(null, null)]
+    public void DateOnlyNullable_ToDateTimeNullable(string? dateOnly, string? expected)
+    {
+        var value = string.IsNullOrEmpty(dateOnly) ? (DateOnly?)null : DateOnly.Parse(dateOnly);
+        var dateTime = DateTimeExtensions.ToDateTimeNullable(value);
+
+        Assert.Equal(expected, dateTime?.ToString("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    [Theory]
+    [InlineData("2024-02-11", "2024-02-11 00:00:00")]
     [InlineData("2024-02-11 14:23:45", "2024-02-11 14:23:45")]
     [InlineData(null, "0001-01-01 00:00:00")]
     public void DateTimeNullable_ToDateTime(string? dateTime, string expected)
@@ -47,5 +58,17 @@ public class ToDateTimeExtensionsTests : TestBase
         var newDateTime = DateTimeExtensions.ToDateOnly(value);
 
         Assert.Equal(expected, newDateTime.ToString("yyyy-MM-dd"));
+    }
+
+    [Theory]
+    [InlineData("2024-02-11", "2024-02-11")]
+    [InlineData("2024-02-11 14:23:45", "2024-02-11")]
+    [InlineData(null, null)]
+    public void DateTimeNullable_ToDateOnlyNullable(string? dateTime, string? expected)
+    {
+        var value = string.IsNullOrEmpty(dateTime) ? (System.DateTime?)null : System.DateTime.Parse(dateTime);
+        var newDateTime = DateTimeExtensions.ToDateOnlyNullable(value);
+
+        Assert.Equal(expected, newDateTime?.ToString("yyyy-MM-dd"));
     }
 }

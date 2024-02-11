@@ -12434,6 +12434,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.DateOnly})">
+            <summary>
+            Converts the nullable DateOnly to an equivalent DateTime.
+            Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateTime.
@@ -12445,6 +12453,14 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnly(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateOnly, removing the time part.
+            Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnlyNullable(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the nullable DateTime to an equivalent DateOnly?, removing the time part.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
             </summary>
             <param name="value"></param>
