@@ -126,4 +126,47 @@ public static class DateTimeExtensions
 
         throw new NotSupportedException("The DateTime object does not have a supported value.");
     }
+
+    /// <summary>
+    /// Converts the DateOnly to an equivalent DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this DateOnly value)
+    {
+        return value.ToDateTime(TimeOnly.MinValue);
+    }
+
+    /// <summary>
+    /// Converts the nullable DateOnly to an equivalent DateTime.
+    /// Returns <see cref="DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this DateOnly? value)
+    {
+        return value == null ? DateTime.MinValue : value.Value.ToDateTime(TimeOnly.MinValue);
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent DateTime.
+    /// Returns <see cref="DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this DateTime? value)
+    {
+        return value == null ? DateTime.MinValue : value.Value;
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent DateOnly, removing the time part.
+    /// Returns <see cref="DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateOnly ToDateOnly(this DateTime? value)
+    {
+        return value == null ? DateOnly.MinValue : DateOnly.FromDateTime(value.Value);
+    }
 }
