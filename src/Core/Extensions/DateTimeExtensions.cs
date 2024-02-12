@@ -126,4 +126,119 @@ public static class DateTimeExtensions
 
         throw new NotSupportedException("The DateTime object does not have a supported value.");
     }
+
+    /// <summary>
+    /// Converts the DateOnly to an equivalent DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this DateOnly value)
+    {
+        return value.ToDateTime(TimeOnly.MinValue);
+    }
+
+    /// <summary>
+    /// Converts the TimeOnly to an equivalent DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this TimeOnly value)
+    {
+        return new DateTime(value.Ticks);
+    }
+
+    /// <summary>
+    /// Converts the nullable DateOnly to an equivalent DateTime.
+    /// Returns <see cref="DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this DateOnly? value)
+    {
+        return value == null ? DateTime.MinValue : value.Value.ToDateTime(TimeOnly.MinValue);
+    }
+
+    /// <summary>
+    /// Converts the nullable TimeOnly to an equivalent DateTime.
+    /// Returns <see cref="DateTime.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this TimeOnly? value)
+    {
+        return value == null ? DateTime.MinValue : value.Value.ToDateTime();
+    }
+
+    /// <summary>
+    /// Converts the nullable DateOnly to an equivalent DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime? ToDateTimeNullable(this DateOnly? value)
+    {
+        return value == null ? (DateTime?)null : value.Value.ToDateTime(TimeOnly.MinValue);
+    }
+
+    /// <summary>
+    /// Converts the nullable TimeOnly to an equivalent DateTime.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime? ToDateTimeNullable(this TimeOnly? value)
+    {
+        return value == null ? (DateTime?)null : value.Value.ToDateTime();
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent DateTime.
+    /// Returns <see cref="DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateTime ToDateTime(this DateTime? value)
+    {
+        return value == null ? DateTime.MinValue : value.Value;
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent DateOnly, removing the time part.
+    /// Returns <see cref="DateOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateOnly ToDateOnly(this DateTime? value)
+    {
+        return value == null ? DateOnly.MinValue : DateOnly.FromDateTime(value.Value);
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent TimeOnly, removing the time part.
+    /// Returns <see cref="TimeOnly.MinValue"/> if the <paramref name="value"/> is null.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static TimeOnly ToTimeOnly(this DateTime? value)
+    {
+        return value == null ? TimeOnly.MinValue : TimeOnly.FromDateTime(value.Value);
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent DateOnly?, removing the time part.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static DateOnly? ToDateOnlyNullable(this DateTime? value)
+    {
+        return value == null ? (DateOnly?)null : DateOnly.FromDateTime(value.Value);
+    }
+
+    /// <summary>
+    /// Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static TimeOnly? ToTimeOnlyNullable(this DateTime? value)
+    {
+        return value == null ? (TimeOnly?)null : TimeOnly.FromDateTime(value.Value);
+    }
 }
