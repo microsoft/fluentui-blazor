@@ -15,12 +15,21 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
     private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
 
-    [CascadingParameter] private EditContext CurrentEditContext { get; set; } = default!;
+    [CascadingParameter]
+    private EditContext CurrentEditContext { get; set; } = default!;
 
     /// <summary>
-    /// Specifies the field for which validation messages should be displayed.
+    /// Gets or sets the <see cref="FieldIdentifier"/> for which validation messages should be displayed.
+    /// If set, this parameter takes precedence over <see cref="For"/>.
     /// </summary>
-    [Parameter] public Expression<Func<TValue>>? For { get; set; }
+    [Parameter]
+    public FieldIdentifier? Field { get; set; }
+
+    /// <summary>
+    /// Gets or sets the field for which validation messages should be displayed.
+    /// </summary>
+    [Parameter]
+    public Expression<Func<TValue>>? For { get; set; }
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -49,10 +58,14 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
                 $"an {nameof(EditForm)}.");
         }
 
-        if (For == null) // Not possible except if you manually specify T
+        if (Field != null)
         {
-            throw new InvalidOperationException($"{GetType()} requires a value for the " +
-                $"{nameof(For)} parameter.");
+            _fieldIdentifier = Field.Value;
+        }
+        else if (For == null)
+        {
+            throw new InvalidOperationException($"{GetType()} requires a value for either " +
+                $"the {nameof(Field)} or {nameof(For)} parameter.");
         }
         else if (For != _previousFieldAccessor)
         {
