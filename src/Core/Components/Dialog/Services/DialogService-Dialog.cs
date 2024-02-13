@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Components.Dialog.ContentComponents;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService
@@ -61,6 +64,12 @@ public partial class DialogService
         where TDialog : IDialogContentComponent
     {
         return await ShowDialogAsync<object>(typeof(TDialog), default!, FixPanelParameters(parameters));
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync(RenderFragment, DialogParameters)"/>
+    public async Task<IDialogReference> ShowDialogAsync(RenderFragment renderFragment, DialogParameters dialogParameters)
+    {
+        return await ShowDialogAsync(typeof(RenderFragmentDialog), renderFragment, dialogParameters);
     }
 
     private DialogParameters FixPanelParameters(DialogParameters value)

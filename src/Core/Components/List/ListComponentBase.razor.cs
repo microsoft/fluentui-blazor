@@ -15,7 +15,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
 
     private bool _multiple = false;
     private List<TOption> _selectedOptions = [];
-    private TOption? _currentSelectedOption;
+    protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
     private IJSObjectReference? Module { get; set; }
@@ -62,9 +62,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                     // Raise Changed events in another thread
                     RaiseChangedEventsAsync().ConfigureAwait(false);
                 }
+                }
             }
         }
-    }
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -270,9 +270,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                     _currentSelectedOption = newSelectedOption;
                 }
 
-                Value = GetOptionValue(_currentSelectedOption);
-                await ValueChanged.InvokeAsync(Value);
-            }
+                    Value = GetOptionValue(_currentSelectedOption);
+                    await ValueChanged.InvokeAsync(Value);
+                }
             else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
             {
                 newSelectedOption = Items.FirstOrDefault(item => GetOptionValue(item) == newValue);
@@ -285,8 +285,11 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                 {
                     // If the selected option is not in the list of items, reset the selected option
                     _currentSelectedOption = SelectedOption = default;
-                    Value = null;
-                    await ValueChanged.InvokeAsync(Value);
+                    if (this is not FluentCombobox<TOption>)
+                    {
+                        Value = null;
+                        await ValueChanged.InvokeAsync(Value);
+                    }
                 }
 
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
