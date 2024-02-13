@@ -1,0 +1,23 @@
+﻿@inject IDialogService _dialogService
+
+<FluentButton OnClick="OpenDialog" Appearance="Appearance.Accent">Open dialog</FluentButton>
+
+@code {
+    private async Task OpenDialog()
+    {
+        var text = string.Empty;
+        var dialogInstance = await _dialogService.ShowDialogAsync(@<div>
+        <FluentTextField @bind-Value=text Label="Enter a value:" />
+    </div>
+    , new DialogParameters
+    {
+        Title = "Render Fragment Content",
+    });
+
+        var result = await dialogInstance.Result;
+        if (!result.Cancelled)
+        {
+            await _dialogService.ShowSuccessAsync($"You entered: {text}", "Success");
+        }
+    }
+}
