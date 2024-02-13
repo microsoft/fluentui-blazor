@@ -1,4 +1,33 @@
-﻿## V3.5.5
+﻿## V3.5.6
+- Update Fluent UI System Icons to 1.1.226
+  **What's new (Name / Size(s) / Variant(s))**
+- Building Lighthouse / 16 / Filled & Regular
+- Calendar Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Calendar Template / 20, 24, 32 / Filled & Regular
+- Clipboard / 12, 48 / Filled & Regular
+- Compose / 12, 32, 48 / Filled & Regular
+- Globe / 28 / Filled & Regular
+- Guest / 12, 32, 48 / Filled & Regular
+- Laptop Briefcase / 20, 24, 32 / Filled & Regular
+- Layer Diagonal Sparkle / 16, 20, 24 / Filled & Regular
+- Payment Wireless / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Status / 28, 32, 48 / Filled & Regular
+- Video Off / 16 / Filled & Regular
+ 
+  **What's updated (Name / Size(s) / Variant(s))**
+- Building Lighthouse / 20 / Filled & Regular
+- Globe Video / 20, 24, 28, 32, 48 / Filled & Regular
+- Guest / 28 / Filled & Regular
+- Share iOS / 20, 24, 28, 48 / Filled & Regular
+- Status / 24 / Filled & Regular
+- Video Add / 20, 24 / Filled & Regular
+- Video Chat / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Video Link / 24 / Filled & Regular
+- Video Off / 20, 24, 28, 32, 48 / Filled & Regular
+- Video / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ 
+
+## V3.5.5
 - Issue [#1437](https://github.com/microsoft/fluentui-blazor/issues/1437): UI does not leave Loading animation if result has 0 items in FluentDataGrid 
 - Issue [#1424](https://github.com/microsoft/fluentui-blazor/issues/1424): Not setting current-value for fluent-number-field
 - Issue [#1425](https://github.com/microsoft/fluentui-blazor/issues/1425): add OnClick EventCallback to FluentAnchor
