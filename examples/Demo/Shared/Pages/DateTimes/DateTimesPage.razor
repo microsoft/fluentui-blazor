@@ -1,4 +1,4 @@
-@page "/DateTime"
+﻿@page "/DateTime"
 
 @using FluentUI.Demo.Shared.Pages.DateTimes.Examples
 
@@ -30,6 +30,31 @@
 <DemoSection Title="Default Date Picker" Component="@typeof(DatePickerDefault)"></DemoSection>
 
 <DemoSection Title="Default Time Picker" Component="@typeof(TimePickerDefault)"></DemoSection>
+
+<h2 id="conversion">DateOnly, TimeOnly bindings</h2>
+
+<p>
+    By design, the <b>DatePicker</b> component uses a <b>Value</b> property of type <b>DateTime?</b>
+    To facilitate binding to a <b>DateOnly</b> type, you can use the methods
+    <code>ToDateTime</code> and <code>ToDateOnly</code> methods.
+</p>
+
+<p>
+    If your variable is of type <code>Nullable&lt;DateTime></code>, you can continue
+    to use <code>@@bind-Value</code>.
+    For other types, you must use the syntax <code>value="..." ValueChanged="..."</code>.
+</p>
+
+<b>Example</b>
+<CodeSnippet>
+    &lt;FluentDatePicker Value="@@MyDate.ToDateTime()"
+                      ValueChanged="@@(e => MyDate = e.ToDateOnly())" />
+    @@code {
+        private DateOnly MyDate = DateOnly.FromDateTime(DateTime.Today);
+    }
+</CodeSnippet>
+
+<DemoSection Component="@typeof(DateTimeConversionExample)"></DemoSection>
 
 <h2 id="totimeago">ToTimeAgo() method</h2>
 
