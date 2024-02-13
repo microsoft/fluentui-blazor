@@ -15,18 +15,21 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
     private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
 
-    [CascadingParameter] private EditContext CurrentEditContext { get; set; } = default!;
+    [CascadingParameter]
+    private EditContext CurrentEditContext { get; set; } = default!;
 
     /// <summary>
-    /// The <see cref="FieldIdentifier"/> for which validation messages should be displayed.
-    /// If specified, this parameter takes precedence over <see cref="For"/>.
+    /// Gets or sets the <see cref="FieldIdentifier"/> for which validation messages should be displayed.
+    /// If set, this parameter takes precedence over <see cref="For"/>.
     /// </summary>
-    [Parameter] public FieldIdentifier? Field { get; set; }
+    [Parameter]
+    public FieldIdentifier? Field { get; set; }
 
     /// <summary>
-    /// Specifies the field for which validation messages should be displayed.
+    /// Gets or sets the field for which validation messages should be displayed.
     /// </summary>
-    [Parameter] public Expression<Func<TValue>>? For { get; set; }
+    [Parameter]
+    public Expression<Func<TValue>>? For { get; set; }
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
