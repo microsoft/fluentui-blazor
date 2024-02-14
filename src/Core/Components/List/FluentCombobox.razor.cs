@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -45,6 +49,50 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     {
         parameters.SetParameterProperties(this);
 
+        var isSetSelectedOption = false;
+        TOption? newSelectedOption = default;
+
+        foreach (var parameter in parameters)
+        {
+            switch (parameter.Name)
+            {
+                case nameof(SelectedOption):
+                    isSetSelectedOption = true;
+                    newSelectedOption = (TOption?)parameter.Value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
+        {
+            if (Items != null)
+            {
+                if (Items.Contains(newSelectedOption))
+                {
+                    _currentSelectedOption = newSelectedOption;
+                }
+                else
+                {
+                    // If the selected option is not in the list of items, reset the selected option
+                    _currentSelectedOption = SelectedOption = default;
+                    await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                }
+            }
+            else
+            {
+                // If Items is null, we don't know if the selected option is in the list of items, so we just set it
+                _currentSelectedOption = newSelectedOption;
+            }
+            if (_currentSelectedOption is not null)
+            {
+                // An option was selected from the list, so set the value to that
+                Value = GetOptionValue(_currentSelectedOption);
+            }
+            await ValueChanged.InvokeAsync(Value);
+        }
+
         await base.SetParametersAsync(ParameterView.Empty);
     }
 
@@ -66,6 +114,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
                 if (ValueChanged.HasDelegate)
                 {
+                    Value = value;
                     await ValueChanged.InvokeAsync(value);
                 }
 
