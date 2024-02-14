@@ -1,4 +1,4 @@
-﻿export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
+export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
 
     // Create a Add/Remove Observer for <fluent-tab>, started later
     const observerAddRemoveTab = new MutationObserver(mutations => {
@@ -29,7 +29,7 @@
     if (el) {
         resizeObserver.observe(el);
         observerAddRemoveTab.observe(el, { childList: true, subtree: false });
-    }    
+    }
 }
 
 // When the Element[id] is resized, set overflow attribute to all element outside of this element.
@@ -42,7 +42,7 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
         querySelector = ":scope > *";
     }
 
-    let items = container.querySelectorAll(querySelector + ":not([fixed])");      // List of first level element of this container                        
+    let items = container.querySelectorAll(querySelector + ":not([fixed])");      // List of first level element of this container
     let fixedItems = container.querySelectorAll(querySelector + "[fixed]");       // List of element defined as fixed (not "overflowdable")
     let itemsTotalSize = 10;
     let containerMaxSize = isHorizontal ? container.offsetWidth : container.offsetHeight;
