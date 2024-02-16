@@ -52,7 +52,6 @@ public partial class FluentOverflowItem : IDisposable
     /// <summary />
     protected override void OnInitialized()
     {
-        //Id = $"i{Owner.GetNextOverflowItemId()}";
         Owner?.Register(this);
     }
 
