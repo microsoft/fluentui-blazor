@@ -3,8 +3,7 @@
   return element.dispatchEvent(event);
 }
 
-const styleSheet = new CSSStyleSheet();
-styleSheet.replaceSync(`
+const styleString = `
     :host{ display: grid; }
     :host([resizing]){ user-select: none; }
     :host([resizing][direction=row]){ cursor: col-resize; }
@@ -37,7 +36,7 @@ styleSheet.replaceSync(`
     :host([collapsed]) #slot2 { display: none; }
 
     :host([no-barhandle]) #median span[part="handle"] { display: none; }
-`);
+`;
 
 const template = `
     <slot id="slot1" name="1"></slot>
@@ -77,9 +76,19 @@ class SplitPanels extends HTMLElement {
     element.resizeDrag = element.resizeDrag.bind(element);
   }
   render() {
-    const shadow = this.attachShadow({ mode: "open" });
-    shadow.adoptedStyleSheets.push(styleSheet);
-    shadow.innerHTML = template;
+    if (document.adoptedStyleSheets) {
+      const shadow = this.attachShadow({ mode: "open" });
+      const styleSheet = new CSSStyleSheet();
+      styleSheet.replaceSync(styleString);
+      shadow.adoptedStyleSheets.push(styleSheet);
+      shadow.innerHTML = template;
+    }
+    else {
+      var style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = styleString;
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
 
     this.updateBarSizeStyle();
   }
