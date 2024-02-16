@@ -1,7 +1,10 @@
+let resizeObserver;
+let observerAddRemove;
+
 export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
 
-    // Create a Add/Remove Observer for <fluent-tab>, started later
-    const observerAddRemoveTab = new MutationObserver(mutations => {
+    // Create a Add/Remove Observer, started later
+    observerAddRemove = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
 
             // Only new node (type=childList)
@@ -9,7 +12,7 @@ export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
                 return
             }
 
-            // Only <fluent-tab> element
+            // Only for querySelector element
             const node = mutation.addedNodes.length > 0 ? mutation.addedNodes[0] : mutation.removedNodes[0];
             if (node.nodeType !== Node.ELEMENT_NODE || !node.matches(querySelector)) {
                 return;
@@ -20,7 +23,7 @@ export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
     });
 
     // Create a ResizeObserver, started later
-    const resizeObserver = new ResizeObserver((entries) => {
+    resizeObserver = new ResizeObserver((entries) => {
         FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelector);
     });
 
@@ -28,7 +31,7 @@ export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
     var el = document.getElementById(id);
     if (el) {
         resizeObserver.observe(el);
-        observerAddRemoveTab.observe(el, { childList: true, subtree: false });
+        observerAddRemove.observe(el, { childList: true, subtree: false });
     }
 }
 
@@ -38,8 +41,12 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
     let container = document.getElementById(id);                                  // Container
     if (!container) return;
 
+    let overflowCount = prevOverFlowList[dotNetHelper._id];
     if (!querySelector) {
         querySelector = ":scope > *";
+    }
+    else {
+        querySelector = ":scope > " + querySelector;
     }
 
     let items = container.querySelectorAll(querySelector + ":not([fixed])");      // List of first level element of this container
@@ -98,10 +105,18 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
             listOfOverflow.push({
                 Id: element.id,
                 Overflow: element.hasAttribute("overflow"),
-                Text: element.innerText
+                Text: element.innerText.trim()
             });
         });
         dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", JSON.stringify(listOfOverflow));
+    }
+}
+
+export function FluentOverflowDispose(id) {
+    let el = document.getElementById(id);
+    if (el) {
+        resizeObserver.unobserve(el);
+        observerAddRemove.disconnect();
     }
 }
 

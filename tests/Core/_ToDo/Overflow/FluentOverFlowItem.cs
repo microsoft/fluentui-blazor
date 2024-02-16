@@ -12,7 +12,7 @@ public class FluentOverflowItemTests : TestBase
         FluentOverflow container = default!;
         var cut = TestContext.RenderComponent<FluentOverflowItem>(parameters => parameters
             .AddChildContent(childContent)
-            .Add(p => p.Container, container)
+            .Add(p => p.Owner, container)
         );
         //Act
 

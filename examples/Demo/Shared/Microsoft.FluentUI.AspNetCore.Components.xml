@@ -3395,9 +3395,15 @@
             Displays a list of validation messages for a specified field within a cascaded <see cref="T:Microsoft.AspNetCore.Components.Forms.EditContext"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.Field">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Components.Forms.FieldIdentifier"/> for which validation messages should be displayed.
+            If set, this parameter takes precedence over <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.For"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.For">
             <summary>
-            Specifies the field for which validation messages should be displayed.
+            Gets or sets the field for which validation messages should be displayed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentValidationMessage`1.ClassValue">
@@ -5626,7 +5632,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.ChildContent">
             <summary>
-            Gets or sets the content to display. 
+            Gets or sets the content to display.
             All first HTML elements are included in the items flow.
             </summary>
         </member>
@@ -5643,6 +5649,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.Orientation">
             <summary>
             Gets or sets the orientation of the items flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.Selectors">
+            <summary>
+            Gets or sets the CSS selectors of the items to include in the overflow.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.OnOverflowRaised">
@@ -5678,7 +5689,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.StyleValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Container">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Owner">
             <summary>
             Gets or sets the reference to the associated container.
             </summary>
@@ -5706,9 +5717,6 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Dispose">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Dispose(System.Boolean)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.OverflowItem">

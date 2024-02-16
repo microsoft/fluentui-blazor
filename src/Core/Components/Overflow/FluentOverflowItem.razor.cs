@@ -1,3 +1,6 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -7,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentOverflowItem : IDisposable
 {
-    private bool _disposed;
+    //private bool _disposed;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -23,7 +26,7 @@ public partial class FluentOverflowItem : IDisposable
     /// </summary>
     /// <value>The splitter.</value>
     [CascadingParameter]
-    public FluentOverflow Container { get; set; }
+    public FluentOverflow? Owner { get; set; }
 
     /// <summary>
     /// Gets or sets the content to display. All first HTML elements are included in the items flow.
@@ -44,14 +47,12 @@ public partial class FluentOverflowItem : IDisposable
     public FluentOverflowItem()
     {
         Id = Identifier.NewId();
-        Container = new FluentOverflow();
     }
 
     /// <summary />
     protected override void OnInitialized()
     {
-        Container.AddItem(this);
-        base.OnInitialized();
+        Owner?.Register(this);
     }
 
     /// <summary />
@@ -62,39 +63,5 @@ public partial class FluentOverflowItem : IDisposable
     }
 
     /// <summary />
-    public void Dispose()
-    {
-        Dispose(false);
-    }
-
-    /// <summary />
-    protected virtual void Dispose(bool disposing)
-    {
-        if (_disposed)
-        {
-            return;
-        }
-
-        try
-        {
-            // Release unmanaged resources (natives).
-            // ...
-
-            if (disposing)
-            {
-                return;
-            }
-
-            // Dispose managed resources.
-            Container.RemoveItem(this);
-        }
-        finally
-        {
-            _disposed = true;
-            if (!disposing)
-            {
-                GC.SuppressFinalize(this);
-            }
-        }
-    }
+    public void Dispose() => Owner?.Unregister(this);
 }
