@@ -41,7 +41,6 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
     let container = document.getElementById(id);                                  // Container
     if (!container) return;
 
-    let overflowCount = prevOverFlowList[dotNetHelper._id];
     if (!querySelector) {
         querySelector = ":scope > *";
     }
