@@ -45,5 +45,12 @@
     height: 100%;
     background-color: var(--accent-fill-rest);
     border-radius: calc(var(--control-corner-radius) * 1px);
+    top: 0;
     left: calc(var(--design-unit) * 0.5px);
+    right: unset;
+}
+
+[dir='rtl'] * ::deep .appbar-item-navlink.active::before {
+    right: calc(var(--design-unit) * 0.5px);
+    left: unset;
 }
