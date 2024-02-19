@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Xunit;
 @inherits TestContext
 @code
@@ -147,6 +147,19 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentIcon_Icon_WithCustomColorRed()
+    {
+        // Arrange && Act
+        var icon = new SampleIcons.Samples.Info();
+        var cut = Render(@<FluentIcon Value="@(icon.WithColor("red"))" Color="Color.Custom" />);
+
+        // Assert
+        var html = cut.Markup;
+
+        Assert.Contains("red", html);
     }
 
     [Fact]
