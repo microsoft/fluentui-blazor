@@ -4352,12 +4352,22 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.Image">
             <summary>
-            Gets or sets the image to display, in replacement of the initials.
+            Gets or sets the image to display, in replacement of the icon and initials.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.ImageSize">
             <summary>
             Gets or sets the size of the image.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.Icon">
+            <summary>
+            Gets or sets the icon to display, in replacement of the initials.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.IconSize">
+            <summary>
+            Gets or sets the size of the icon.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.Status">
