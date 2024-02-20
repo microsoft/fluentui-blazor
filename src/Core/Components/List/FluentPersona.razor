@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue">
@@ -6,9 +6,18 @@
         <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
             @if (string.IsNullOrEmpty(Image))
             {
-                <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
+                @if (Icon is null)
+                {
+                    <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
                         @(Initials ?? GetDefaultInitials())
-                </div>
+                    </div>
+                }
+                else
+                {
+                    <div style="display: flex; justify-content: center; @GetImageSizeStyle()">
+                        <FluentIcon Value="@Icon" Width="@IconSize" Color="@Color.Fill" />
+                    </div>
+                }
             }
             else
             {
@@ -17,7 +26,7 @@
         </FluentPresenceBadge>
     </div>
     <div class="name">
-        @if (@ChildContent is null)
+        @if (ChildContent is null)
         {
             @Name
         }
