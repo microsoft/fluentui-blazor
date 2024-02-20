@@ -1,4 +1,4 @@
-﻿.fluent-persona {
+.fluent-persona {
     display: flex;
     height: 100%;
     width: fit-content;
@@ -28,7 +28,7 @@
         }
 
     .fluent-persona .name {
-        margin-left: 16px;
+        margin-inline-start: 16px;
     }
 
     .fluent-persona .close {
