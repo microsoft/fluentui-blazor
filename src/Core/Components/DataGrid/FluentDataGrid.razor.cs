@@ -334,7 +334,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public void SetLoadingState(bool loading)
     {
         Loading = loading;
-        StateHasChanged();
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
@@ -367,7 +366,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
                 Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
-                Loading = false;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
         }
@@ -433,7 +431,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (ItemsProvider is not null)
         {
-            return await ItemsProvider(request);
+            var gipr = await ItemsProvider(request);
+            if (gipr.Items is not null)
+            {
+                Loading = false;
+            }
+            return gipr;
         }
         else if (Items is not null)
         {
