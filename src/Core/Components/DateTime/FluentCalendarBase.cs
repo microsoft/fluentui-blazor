@@ -34,6 +34,13 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     public DayFormat? DayFormat { get; set; } = AspNetCore.Components.DayFormat.Numeric;
 
     /// <summary>
+    /// Gets or sets the verification to do when the selected value has changed.
+    /// By default, ValueChanged is called only if the selected value has changed.
+    /// </summary>
+    [Parameter]
+    public bool CheckIfSelectedValueHasChanged { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the selected date (two-way bindable).
     /// </summary>
     [Parameter]
@@ -46,7 +53,7 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
 
         set
         {
-            if (_selectedDate == value)
+            if (CheckIfSelectedValueHasChanged && _selectedDate == value)
             {
                 return;
             }

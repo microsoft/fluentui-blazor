@@ -1969,6 +1969,12 @@
             Gets or sets the Type style for the day (numeric or 2-digits).
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.CheckIfSelectedValueHasChanged">
+            <summary>
+            Gets or sets the verification to do when the selected value has changed.
+            By default, ValueChanged is called only if the selected value has changed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
             <summary>
             Gets or sets the selected date (two-way bindable).
