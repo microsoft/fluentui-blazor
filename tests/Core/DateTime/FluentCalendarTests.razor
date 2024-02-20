@@ -1,4 +1,4 @@
-@using System.Globalization
+﻿@using System.Globalization
 @using Xunit
 @inherits TestContext
 
@@ -174,5 +174,45 @@
 
         // Assert
         calendar.Verify(suffix: view.GetDescription());
+    }
+
+    [Fact]
+    public void FluentCalendar_TitleClick_SameMonthSelected()
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="CalendarViews.Days" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var title = calendar.Find(".label");
+        title!.Click();
+
+        var april = calendar.Find($"div[value='2022-04']");
+        april!.Click();
+
+        // Assert
+        Assert.Equal("April 2022", calendar.Find(".label").TextContent);
+    }
+
+    [Fact]
+    public void FluentCalendar_TitleClick_SameYearSelected()
+    {
+        DateTime? value = DateTime.Parse("2022-04-15");
+        var culture = CultureInfo.GetCultureInfo("en-us");
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar Culture="@culture" View="CalendarViews.Months" Value="@value" AnimatePeriodChanges="false" />);
+
+        // Act
+        var title = calendar.Find(".label");
+        title!.Click();
+
+        var year2022 = calendar.Find($"div[value='2022']");
+        year2022!.Click();
+
+        // Assert
+        Assert.Equal("2022", calendar.Find(".label").TextContent);
     }
 }
