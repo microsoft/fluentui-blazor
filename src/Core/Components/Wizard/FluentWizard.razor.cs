@@ -180,6 +180,7 @@ public partial class FluentWizard : FluentComponentBase
     protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex)
     {
         var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
+        await ValueChanged.InvokeAsync(targetIndex);
         return await OnStepChangeHandlerAsync(stepChangeArgs);
     }
 

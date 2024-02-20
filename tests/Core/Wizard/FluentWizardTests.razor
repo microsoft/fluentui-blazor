@@ -1,4 +1,4 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
@@ -136,6 +136,35 @@
 
         // Assert
         cut.FindAll("li")[1].ToMarkup().Contains("status=\"current\"");
+    }
+
+    [Fact]
+    public void FluentWizard_NavigateWithBindedValue()
+    {
+        int stepIndex = 0;
+
+        // Arrange
+        var cut = Render(@<FluentWizard @bind-Value="@stepIndex">
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        var nextButton = cut.Find("fluent-button[appearance='accent']");
+        nextButton.Click();
+
+        // Assert
+        cut.FindAll("li")[1].ToMarkup().Contains("status=\"current\"");
+        Assert.Equal(1, stepIndex);
     }
 
     [Fact]
