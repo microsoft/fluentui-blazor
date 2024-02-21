@@ -52,7 +52,7 @@ body:has(.prevent-scroll) {
 `;
 
 styleSheet.replaceSync(styles);
-document.adoptedStyleSheets.push(styleSheet);
+document.adoptedStyleSheets = [...document.adoptedStyleSheets,styleSheet]
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
