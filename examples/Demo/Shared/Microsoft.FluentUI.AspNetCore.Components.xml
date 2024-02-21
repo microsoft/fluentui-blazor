@@ -76,6 +76,12 @@
             Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventDefaultOnly">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
+            its default action should not be taken as it normally would be.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -1967,6 +1973,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DayFormat">
             <summary>
             Gets or sets the Type style for the day (numeric or 2-digits).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.CheckIfSelectedValueHasChanged">
+            <summary>
+            Gets or sets the verification to do when the selected value has changed.
+            By default, ValueChanged is called only if the selected value has changed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
