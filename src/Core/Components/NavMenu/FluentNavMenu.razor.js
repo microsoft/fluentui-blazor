@@ -1,37 +1,47 @@
 export function onLoad() {
-    const mql = window.matchMedia("(max-width: 600px)");
+    if (!isRunningInWASM()) {
+        const mql = window.matchMedia("(max-width: 600px)");
 
-    for (let expander of document.getElementsByClassName("expander")) {
-        if (expander) {
-            const origStyle = expander.parentElement.style.cssText;
-            expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev));
-            expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
+        for (let expander of document.getElementsByClassName("expander")) {
+            if (expander) {
+                const origStyle = expander.parentElement.style.cssText;
+                expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev));
+                expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
 
-            mql.onchange = (e) => {
-                if (e.matches) {
-                    setMenuExpanded(expander, origStyle, true)
-                }
-            };
+                mql.onchange = (e) => {
+                    if (e.matches) {
+                        setMenuExpanded(expander, origStyle, true)
+                    }
+                };
+            }
+        }
+        for (let element of document.getElementsByClassName("fluent-nav-group")) {
+            attachEventHandlers(element);
         }
     }
-    for (let element of document.getElementsByClassName("fluent-nav-group")) {
-        attachEventHandlers(element);
-    }
 }
+
 export function onUpdate() {
-    
+
 }
 
 export function onDispose() {
-    for (let expander of document.getElementsByClassName("expander")) {
-        if (expander) {
-            expander.removeEventListener('click', toggleMenuExpandedAsync);
-            expander.removeEventListener('keydown', handleMenuExpanderKeyDownAsync);
+    if (!isRunningInWASM()) {
+        for (let expander of document.getElementsByClassName("expander")) {
+            if (expander) {
+                expander.removeEventListener('click', toggleMenuExpandedAsync);
+                expander.removeEventListener('keydown', handleMenuExpanderKeyDownAsync);
+            }
+        }
+        for (let element of document.getElementsByClassName("fluent-nav-group")) {
+            detachEventHandlers(element);
         }
     }
-    for (let element of document.getElementsByClassName("fluent-nav-group")) {
-        detachEventHandlers(element);
-    }
+}
+
+function isRunningInWASM() {
+    const a = Object.getOwnPropertySymbols(Object.getPrototypeOf(DotNet));
+    return (a.length > 0) && (a[0].description == 'wasm type');
 }
 
 function attachEventHandlers(element) {
