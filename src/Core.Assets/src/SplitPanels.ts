@@ -80,7 +80,8 @@ class SplitPanels extends HTMLElement {
       const shadow = this.attachShadow({ mode: "open" });
       const styleSheet = new CSSStyleSheet();
       styleSheet.replaceSync(styleString);
-      shadow.adoptedStyleSheets.push(styleSheet);
+      // shadow.adoptedStyleSheets.push(styleSheet);
+      shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets, styleSheet];
       shadow.innerHTML = template;
     }
     else {
@@ -279,14 +280,14 @@ class SplitPanels extends HTMLElement {
         this.removeAttribute("no-barhandle");
       } else {
         this.setAttribute("no-barhandle", "");
-        
+
       }
     }
   }
   get barhandle() {
     return this.#barhandle;
   }
- 
+
 }
 
 export { SplitPanels };
