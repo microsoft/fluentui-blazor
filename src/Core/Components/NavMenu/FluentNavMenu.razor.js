@@ -40,8 +40,7 @@ export function onDispose() {
 }
 
 function isRunningInWASM() {
-    const a = Object.getOwnPropertySymbols(Object.getPrototypeOf(DotNet));
-    return (a.length > 0) && (a[0].description == 'wasm type');
+    return Object.getOwnPropertyNames(Blazor.runtime).length > 0;
 }
 
 function attachEventHandlers(element) {
@@ -76,7 +75,6 @@ function detachEventHandlers(element) {
 }
 
 function toggleMenuExpandedAsync(element, orig, event) {
-
     let parent = element.parentElement;
     if (!parent.classList.contains('collapsed')) {
         parent.classList.add('collapsed');
