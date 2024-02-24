@@ -26,16 +26,14 @@ export function onUpdate() {
 }
 
 export function onDispose() {
-    if (!isRunningInWASM()) {
-        for (let expander of document.getElementsByClassName("expander")) {
-            if (expander) {
-                expander.removeEventListener('click', toggleMenuExpandedAsync);
-                expander.removeEventListener('keydown', handleMenuExpanderKeyDownAsync);
-            }
+    for (let expander of document.getElementsByClassName("expander")) {
+        if (expander) {
+            expander.removeEventListener('click', toggleMenuExpandedAsync);
+            expander.removeEventListener('keydown', handleMenuExpanderKeyDownAsync);
         }
-        for (let element of document.getElementsByClassName("fluent-nav-group")) {
-            detachEventHandlers(element);
-        }
+    }
+    for (let element of document.getElementsByClassName("fluent-nav-group")) {
+        detachEventHandlers(element);
     }
 }
 
