@@ -4706,7 +4706,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Trigger">
             <summary>
             Gets or sets the automatic trigger. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.MouseButton"/>
-            Possible values are None (default), Left, Middle, Right, Back, Forward 
+            Possible values are None (default), Left, Middle, Right, Back, Forward
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Open">

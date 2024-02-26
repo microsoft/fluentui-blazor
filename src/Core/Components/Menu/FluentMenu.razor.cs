@@ -10,6 +10,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 {
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;
+    private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IJSObjectReference _jsModule = default!;
 
@@ -118,6 +119,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
                     // Add RightClick event
                     if (Trigger == MouseButton.Right)
                     {
+                        _contextMenu = true;
                         await _jsModule.InvokeVoidAsync("addEventRightClick", Anchor, _dotNetHelper);
                     }
                 }
