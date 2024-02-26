@@ -14,7 +14,7 @@ public partial class DialogSplashScreenDefault
         {
             Content = new()
             {
-                WaitingMilliseconds = 0,    // See Task.Delay below
+                DisplayTime = 0,    // See Task.Delay below
                 Title = "Core components",
                 SubTitle = "Microsoft Fluent UI Blazor library",
                 LoadingText = "Loading...",

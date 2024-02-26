@@ -2753,9 +2753,10 @@
             Can be a URL or a base64 encoded string or an SVG.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.WaitingMilliseconds">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.DisplayTime">
             <summary>
-            Gets or sets the delay to wait before to close the dialog.
+            Gets or sets the delay to wait before to close the dialog (in milliseconds).
+            Default is 4000 milliseconds.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.UpdateLabels(System.String,System.Nullable{Microsoft.AspNetCore.Components.MarkupString})">

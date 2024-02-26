@@ -36,10 +36,10 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenCo
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Content.WaitingMilliseconds > 0)
+        if (firstRender && Content.DisplayTime > 0)
         {
             // Simulation of loading process
-            await Task.Delay(Content.WaitingMilliseconds);
+            await Task.Delay(Content.DisplayTime);
 
             // Close the dialog
             await Dialog.CloseAsync();

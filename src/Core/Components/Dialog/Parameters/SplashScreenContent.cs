@@ -36,9 +36,10 @@ public class SplashScreenContent
     public string? Logo { get; set; }
 
     /// <summary>
-    /// Gets or sets the delay to wait before to close the dialog.
+    /// Gets or sets the delay to wait before to close the dialog (in milliseconds).
+    /// Default is 4000 milliseconds.
     /// </summary>
-    public int WaitingMilliseconds { get; set; } = 4000;
+    public int DisplayTime { get; set; } = 4000;
 
     /// <summary>
     /// Updates the labels of the splash screen.
