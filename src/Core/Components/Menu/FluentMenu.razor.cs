@@ -21,6 +21,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     internal string? StyleValue => new StyleBuilder(Style)
         .AddStyle("min-width: max-content")
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("border-radius: calc(var(--layer-corner-radius) * 1px)")
 
         // For Anchored == false
         .AddStyle("z-index", $"{ZIndex.Menu}", () => !Anchored)
@@ -43,7 +44,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Gets or sets the automatic trigger. See <seealso cref="MouseButton"/>
-    /// Possible values are None (default), Left, Middle, Right, Back, Forward 
+    /// Possible values are None (default), Left, Middle, Right, Back, Forward
     /// </summary>
     [Parameter]
     public MouseButton Trigger { get; set; } = MouseButton.None;
