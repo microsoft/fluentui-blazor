@@ -7489,6 +7489,13 @@
             Gets the default tooltip options.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.HideTooltipOnCursorLeave">
+            <summary>
+            Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+            By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
+            You can configure this behavior globally using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.HideTooltipOnCursorLeave"/> property.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.UseTooltipService">
             <summary>
             Use ITooltipService to create the tooltip, if this service was injected.
@@ -12686,6 +12693,17 @@
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
             If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.RequiredLabel">
+            <summary>
+            Gets or sets the required label for the form fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.HideTooltipOnCursorLeave">
+            <summary>
+            Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+            By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">

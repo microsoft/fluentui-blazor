@@ -1,4 +1,4 @@
-@page "/Tooltip"
+﻿@page "/Tooltip"
 
 @using FluentUI.Demo.Shared.Pages.Tooltip.Examples
 
@@ -56,7 +56,11 @@ and will be written at the end of the HTML page to support the different z-index
 </DemoSection>
 
 <DemoSection Title="Different delays" Component="@typeof(TooltipDelay)">
-    <Description>Hover one of the buttons to have a tooltip appear on hover at the position mentioned.</Description>
+    <Description>
+        Hover one of the buttons to have a tooltip appear on hover at the position mentioned. <br/>
+        Unlike the other tooltip examples, these contain the <code>HideTooltipOnCursorLeave</code> attribute.
+        which hides the tooltip when the cursor leaves (i.e. not hovering) its anchor (even when the cursor hovers the tooltip itself).
+    </Description>
 </DemoSection>
 
 <DemoSection Title="Always visible" Component="@typeof(TooltipVisible)" />
