@@ -68,21 +68,27 @@
             {
                 if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
                 {
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
-                                Width="12px"
-                                Style="cursor: pointer;"
-                                Slot="end"
-                                Title="Clear"
-                                OnClick="@OnClearAsync" />
+                    if (IconDismiss != null)
+                    {
+                        <FluentIcon Value="@IconDismiss"
+                                    Width="12px"
+                                    Style="cursor: pointer;"
+                                    Slot="end"
+                                    Title="Clear"
+                                    OnClick="@OnClearAsync" />
+                    }
                 }
                 else
                 {
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Search())"
-                                Width="16px"
-                                Style="cursor: pointer;"
-                                Slot="end"
-                                Title="Search"
-                                OnClick="@OnDropDownExpandedAsync" />
+                    if (IconSearch != null)
+                    {
+                        <FluentIcon Value="@IconSearch"
+                                    Width="16px"
+                                    Style="cursor: pointer;"
+                                    Slot="end"
+                                    Title="Search"
+                                    OnClick="@OnDropDownExpandedAsync" />
+                    }
                 }
             }
         </FluentTextField>

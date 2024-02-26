@@ -861,16 +861,10 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.CustomStyle">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentButton"/>.
             </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnInitialized">
-            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
@@ -4169,16 +4163,6 @@
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText">
-            <summary>
-            Gets or sets the text field value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueTextChanged">
-            <summary>
-            Gets or sets the callback that is invoked when the text field value changes.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
@@ -4262,11 +4246,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconSearch">
             <summary>
             Gets or sets the icon used for the Search button. By default: Search icon.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShowOverlayOnEmptyResults">
-            <summary>
-            Gets or sets whether the dropdown is shown when there are no items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
@@ -4710,46 +4689,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Button">
-            <summary>
-            Gets or sets a reference to the button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonAppearance">
-            <summary>
-            Gets or sets the button appearance.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Menu">
-            <summary>
-            Gets or sets a reference to the menu.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
-            <summary>
-            Gets or sets the texts shown on th button.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonStyle">
-            <summary>
-            Gets or sets the button style.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.MenuStyle">
-            <summary>
-            Gets or sets the menu style.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Items">
-            <summary>
-            Gets or sets the items to show in the menu.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
-            <summary>
-            The callback to invoke when a menu item is chosen.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">
             <summary />
         </member>
@@ -4767,7 +4706,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Trigger">
             <summary>
             Gets or sets the automatic trigger. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.MouseButton"/>
-            Possible values are None (default), Left, Middle, Right, Back, Forward
+            Possible values are None (default), Left, Middle, Right, Back, Forward 
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Open">
@@ -6921,11 +6860,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.LoadingContent">
-            <summary>
-            Gets or sets the customized loading content message when using deferred loading.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Owner">
