@@ -4238,6 +4238,16 @@
             Gets or sets the title and Aria-Label for the Scroll to next button.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconDismiss">
+            <summary>
+            Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconSearch">
+            <summary>
+            Gets or sets the icon used for the Search button. By default: Search icon.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
