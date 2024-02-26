@@ -9,11 +9,12 @@ public partial class DialogSplashScreenDefault
 
     private async Task OpenSplashDefaultAsync()
     {
-        DemoLogger.WriteLine($"Open default splashscreen for 4 seconds");
+        DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
         DialogParameters<SplashScreenContent> parameters = new()
         {
             Content = new()
             {
+                DisplayTime = 0,    // See Task.Delay below
                 Title = "Core components",
                 SubTitle = "Microsoft Fluent UI Blazor library",
                 LoadingText = "Loading...",
@@ -24,13 +25,25 @@ public partial class DialogSplashScreenDefault
             Height = "480px",
         };
         _dialog = await DialogService.ShowSplashScreenAsync(parameters);
+
+        var splashScreen = (SplashScreenContent)_dialog.Instance.Content;
+
+        // Simulate a first task
+        await Task.Delay(2000);
+
+        // Update the splash screen content and simulate a second task
+        splashScreen.UpdateLabels(loadingText: "Second task...");
+        await Task.Delay(2000);
+
+        await _dialog.CloseAsync();
+
         DialogResult result = await _dialog.Result;
         await HandleDefaultSplashAsync(result);
     }
 
     private void OpenSplashDefault()
     {
-        DemoLogger.WriteLine($"Open default splashscreen for 4 seconds");
+        DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
         DialogParameters<SplashScreenContent> parameters = new()
         {
             Content = new()
