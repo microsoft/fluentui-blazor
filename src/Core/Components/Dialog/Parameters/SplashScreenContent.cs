@@ -31,4 +31,38 @@ public class SplashScreenContent
     /// Can be a URL or a base64 encoded string or an SVG.
     /// </summary>
     public string? Logo { get; set; }
+
+    /// <summary>
+    /// Gets or sets the delay to wait before to close the dialog (in milliseconds).
+    /// Default is 4000 milliseconds.
+    /// </summary>
+    public int DisplayTime { get; set; } = 4000;
+
+    /// <summary>
+    /// Updates the labels of the splash screen.
+    /// </summary>
+    /// <param name="loadingText"></param>
+    /// <param name="message"></param>
+    public void UpdateLabels(string? loadingText = null, MarkupString? message = null)
+    {
+        if (loadingText != null)
+        {
+            LoadingText = loadingText;
+        }
+
+        if (message != null)
+        {
+            Message = message;
+        }
+
+        if (RefreshProperties != null)
+        {
+            RefreshProperties();
+        }
+    }
+
+    /// <summary>
+    /// Action with StateHasChanged assigned in FluentSplashScreen.razor.cs
+    /// </summary>
+    internal Action? RefreshProperties { get; set; }
 }
