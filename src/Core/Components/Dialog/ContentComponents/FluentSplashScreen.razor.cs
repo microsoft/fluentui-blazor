@@ -29,12 +29,17 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenCo
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
+    protected override void OnInitialized()
+    {
+        Content.RefreshProperties = () => StateHasChanged();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && Content.WaitingMilliseconds > 0)
         {
             // Simulation of loading process
-            await Task.Delay(4000);
+            await Task.Delay(Content.WaitingMilliseconds);
 
             // Close the dialog
             await Dialog.CloseAsync();

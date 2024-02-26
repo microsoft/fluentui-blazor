@@ -2753,6 +2753,23 @@
             Can be a URL or a base64 encoded string or an SVG.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.WaitingMilliseconds">
+            <summary>
+            Gets or sets the delay to wait before to close the dialog.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.UpdateLabels(System.String,System.Nullable{Microsoft.AspNetCore.Components.MarkupString})">
+            <summary>
+            Updates the labels of the splash screen.
+            </summary>
+            <param name="loadingText"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SplashScreenContent.RefreshProperties">
+            <summary>
+            Action with StateHasChanged assigned in FluentSplashScreen.razor.cs
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogResult">
             <summary />
         </member>
