@@ -27,7 +27,7 @@ public class LibraryConfiguration
     /// Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
     /// By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
     /// </summary>
-    public bool CloseTooltipOnCursorLeave { get; set; } = false;
+    public bool HideTooltipOnCursorLeave { get; set; } = false;
 
     public LibraryConfiguration()
     {

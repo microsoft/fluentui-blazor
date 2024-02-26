@@ -41,10 +41,10 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// <summary>
     /// Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
     /// By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
-    /// You can configure this behavior globally using the <see cref="LibraryConfiguration.CloseTooltipOnCursorLeave"/> property.
+    /// You can configure this behavior globally using the <see cref="LibraryConfiguration.HideTooltipOnCursorLeave"/> property.
     /// </summary>
     [Parameter]
-    public bool? CloseTooltipOnCursorLeave { get; set; }
+    public bool? HideTooltipOnCursorLeave { get; set; }
 
     /// <summary>
     /// Use ITooltipService to create the tooltip, if this service was injected.
@@ -135,7 +135,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// <summary />
     protected override void OnInitialized()
     {
-        CloseTooltipOnCursorLeave = CloseTooltipOnCursorLeave ?? LibraryConfiguration?.CloseTooltipOnCursorLeave;
+        HideTooltipOnCursorLeave = HideTooltipOnCursorLeave ?? LibraryConfiguration?.HideTooltipOnCursorLeave;
         _tooltipService = ServiceProvider?.GetService<ITooltipService>();
 
         if (TooltipService != null && UseTooltipService)
@@ -156,7 +156,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && !string.IsNullOrEmpty(Anchor) && CloseTooltipOnCursorLeave == true)
+        if (firstRender && !string.IsNullOrEmpty(Anchor) && HideTooltipOnCursorLeave == true)
         {
             JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             await JSModule.InvokeVoidAsync("tooltipHideOnCursorLeave", Anchor);
