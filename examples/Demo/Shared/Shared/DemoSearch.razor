@@ -1,8 +1,4 @@
-﻿@using System.Diagnostics
-@inject DemoNavProvider NavProvider
-@inject NavigationManager NavigationManager
-
-<FluentSearch @bind-Value="@_searchValue"
+﻿<FluentSearch @bind-Value="@_searchValue"
               Immediate
               @bind-Value:after="HandleSearchInput"
               Id="demo-search"

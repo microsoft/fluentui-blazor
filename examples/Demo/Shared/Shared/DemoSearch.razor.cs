@@ -3,11 +3,15 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics;
+using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Shared;
 
 public partial class DemoSearch
 {
+    [Inject] protected DemoNavProvider NavProvider { get; set; } = default!;
+    [Inject] protected NavigationManager NavigationManager { get; set; } = default!;
+
     private string? _searchValue = string.Empty;
 
     private bool _visible;
