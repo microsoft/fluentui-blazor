@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <CascadingValue Value="this" IsFixed="true">
     @if (Open)
@@ -23,6 +23,9 @@
         }
         else
         {
+            if (_contextMenu) {
+                <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
+            }
             <fluent-menu @ref=Element
                          id="@Id"
                          class="@ClassValue"

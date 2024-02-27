@@ -523,7 +523,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var rowId = args.RowId;
         if (_internalGridContext.Rows.TryGetValue(rowId!, out var row))
         {
-            await OnRowFocus.InvokeAsync(row);
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                await OnRowFocus.InvokeAsync(row);
+            }
         }
     }
 }
