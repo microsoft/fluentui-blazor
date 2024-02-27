@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<TValue>
 @typeparam TValue where TValue : new()
 @using System.Globalization;
@@ -24,7 +24,7 @@
                      max="@(ReadOnly ? value : Max)"
                      min="@(ReadOnly ? value : Min)"
                      id=@Id
-                     value="@value"
+                     current-value="@value"
                      disabled="@Disabled"
                      name=@Name
                      required="@Required"
