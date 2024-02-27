@@ -1,0 +1,82 @@
+﻿@using System.Diagnostics
+@inject DemoNavProvider NavProvider
+@inject NavigationManager NavigationManager
+
+<FluentSearch @bind-Value="@_searchValue"
+              Immediate
+              @bind-Value:after=HandleSearchInput
+              Id="demo-search"
+              Placeholder="Search everything..."/>
+
+@if (_searchResults is not null)
+{
+    <FluentMenu Anchor="demo-search"
+                HorizontalPosition="HorizontalPosition.Right"
+                @bind-Open="_visible">
+        @foreach (var searchResult in _searchResults)
+        {
+            var item = NavProvider.FlattenedMenuItems.First(x => x.Title == searchResult);
+
+            <FluentMenuItem OnClick="@(() => HandleSearchClicked(item))">
+                <span slot="start">
+                    <FluentIcon Value="@(item.Icon)" Class="search-result-icon" Color="Color.Neutral" Slot="start"/>
+                </span>
+                @item.Title
+            </FluentMenuItem>
+        }
+    </FluentMenu>
+}
+
+@code {
+    string? _searchValue = string.Empty;
+
+    private bool _visible;
+
+    private void HandleOnClose()
+    {
+        _searchResults = null;
+        _visible = false;
+        InvokeAsync(StateHasChanged);
+    }
+
+    List<string>? _searchResults = DefaultResults();
+    static List<string>? DefaultResults() => null;
+
+    void HandleSearchInput()
+    {
+        if (string.IsNullOrWhiteSpace(_searchValue))
+        {
+            _searchResults = DefaultResults();
+            _searchValue = string.Empty;
+        }
+        else
+        {
+            var searchTerm = _searchValue.ToLower();
+
+            if (searchTerm.Length > 0)
+            {
+                var temp = NavProvider.FlattenedMenuItems
+                    .Where(x => x.Href != null) // Ignore Group headers
+                    .Where(x => x.Title.ToLower().Contains(searchTerm))
+                    .Select(x => x.Title)
+                    .ToList();
+
+                _searchResults = temp.Any()
+                    ? temp
+                    : DefaultResults();
+            }
+        }
+
+        _visible = _searchResults is not null;
+    }
+
+    private void HandleSearchClicked(NavItem item)
+    {
+        _searchValue = string.Empty;
+        _searchResults = DefaultResults();
+        _visible = false;
+        InvokeAsync(StateHasChanged);
+
+        NavigationManager.NavigateTo(item.Href ?? throw new UnreachableException("Item has no href"));
+    }
+}
