@@ -475,3 +475,31 @@ code {
         --dialog-width: 100vw;
     }
 }
+
+/*  Responvive Youtube Video
+
+    <div class="youtube-responsive">
+      <iframe src="https://www.youtube.com/embed/lUZ5mrg2Q8k" frameborder="0" allowfullscreen></iframe>
+    </div>
+*/
+.youtube-responsive {
+    position: relative;
+    height: 0;
+    padding-top: 56%;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+    .youtube-responsive iframe,
+    .youtube-responsive object,
+    .youtube-responsive embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtube-responsive .fluid-vids {
+        position: initial !important
+    }
