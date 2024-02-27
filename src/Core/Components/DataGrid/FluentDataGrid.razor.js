@@ -145,6 +145,8 @@ function enableColumnResizing(gridElement) {
             dragHandle.addEventListener('pointerdown', initResize);
             dragHandle.addEventListener('pointermove', onPointerMove);
             dragHandle.addEventListener('pointerup', onPointerUp);
+            dragHandle.addEventListener('pointercancel', onPointerUp);
+            dragHandle.addEventListener('pointerleave', onPointerUp);
         }
     });
 }
