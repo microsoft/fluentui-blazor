@@ -4163,6 +4163,11 @@
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText">
+            <summary>
+            Gets or sets the text field value.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
@@ -4246,6 +4251,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconSearch">
             <summary>
             Gets or sets the icon used for the Search button. By default: Search icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShowOverlayOnEmptyResults">
+            <summary>
+            Gets or sets whether the dropdown is shown when there are no items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
