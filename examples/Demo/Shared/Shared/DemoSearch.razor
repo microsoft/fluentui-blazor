@@ -4,7 +4,7 @@
 
 <FluentSearch @bind-Value="@_searchValue"
               Immediate
-              @bind-Value:after=HandleSearchInput
+              @bind-Value:after="HandleSearchInput"
               Id="demo-search"
               Placeholder="Search everything..."/>
 
@@ -25,58 +25,4 @@
             </FluentMenuItem>
         }
     </FluentMenu>
-}
-
-@code {
-    string? _searchValue = string.Empty;
-
-    private bool _visible;
-
-    private void HandleOnClose()
-    {
-        _searchResults = null;
-        _visible = false;
-        InvokeAsync(StateHasChanged);
-    }
-
-    List<string>? _searchResults = DefaultResults();
-    static List<string>? DefaultResults() => null;
-
-    void HandleSearchInput()
-    {
-        if (string.IsNullOrWhiteSpace(_searchValue))
-        {
-            _searchResults = DefaultResults();
-            _searchValue = string.Empty;
-        }
-        else
-        {
-            var searchTerm = _searchValue.ToLower();
-
-            if (searchTerm.Length > 0)
-            {
-                var temp = NavProvider.FlattenedMenuItems
-                    .Where(x => x.Href != null) // Ignore Group headers
-                    .Where(x => x.Title.ToLower().Contains(searchTerm))
-                    .Select(x => x.Title)
-                    .ToList();
-
-                _searchResults = temp.Any()
-                    ? temp
-                    : DefaultResults();
-            }
-        }
-
-        _visible = _searchResults is not null;
-    }
-
-    private void HandleSearchClicked(NavItem item)
-    {
-        _searchValue = string.Empty;
-        _searchResults = DefaultResults();
-        _visible = false;
-        InvokeAsync(StateHasChanged);
-
-        NavigationManager.NavigateTo(item.Href ?? throw new UnreachableException("Item has no href"));
-    }
 }
