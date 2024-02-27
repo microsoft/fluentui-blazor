@@ -8,6 +8,10 @@ If checked, the contents of Tab two and three will be loaded after 1 second of p
         Tab one content. This is for testing.
     </FluentTab>
     <FluentTab Label="Tab two" Id="tab-2" DeferredLoading="@DeferredLoading">
+        <LoadingContent>
+            <FluentProgressRing />
+        </LoadingContent>
+        <Content>
         @{
             if (DeferredLoading)
             {
@@ -15,6 +19,7 @@ If checked, the contents of Tab two and three will be loaded after 1 second of p
             }
         }
         Tab two content. This is for testing.
+        </Content>
     </FluentTab>
     <FluentTab Label="Tab three" Id="tab-3" DeferredLoading="@DeferredLoading">
         @{
