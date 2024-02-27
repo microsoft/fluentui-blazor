@@ -100,6 +100,12 @@ public partial class FluentTab : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the customized loading content message when using deferred loading.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LoadingContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the owning FluentTabs component.
     /// </summary>
     [CascadingParameter]
