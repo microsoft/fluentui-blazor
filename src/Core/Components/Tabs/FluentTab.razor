@@ -1,4 +1,4 @@
-@namespace Microsoft.Fast.Components.FluentUI
+﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 <fluent-tab class="@LabelClass"
             style="@LabelStyle"
@@ -24,23 +24,30 @@
     
     @Header
 
-    @if (Owner.ShowClose)
-    {
-        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
-    }
-</fluent-tab>
-<fluent-tab-panel style="@StyleValue" class="@ClassValue">
-    @if (Owner.ActiveTabId == Id || !DeferredLoading)
-    {
-        @Content
-        @ChildContent
-    }
-    else
-    {
-        <FluentProgress />
-    }
-</fluent-tab-panel>
-
+        @if (Owner.ShowClose)
+        {
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Class="fluent-tab-close" Title="Close" OnClick="CloseClickedAsync" />
+        }
+    </fluent-tab>
+    <fluent-tab-panel style="@StyleValue" class="@ClassValue" id="@($"{Id}-panel")">
+        @if (Owner.ActiveTabId == Id || !DeferredLoading)
+        {
+            @Content
+            @ChildContent
+        }
+        else
+        {
+            if (LoadingContent is null)
+            {
+                <FluentProgress />
+            }
+            else
+            {
+                @LoadingContent
+            }
+        }
+    </fluent-tab-panel>
+}
 
 
 
