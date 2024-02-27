@@ -10,9 +10,9 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 {
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;
-    private readonly Dictionary<string, FluentMenuItem> items = new();
+    private bool _contextMenu = false;
+    private readonly Dictionary<string, FluentMenuItem> items = [];
     private IJSObjectReference _jsModule = default!;
-
 
     /// <summary />
     internal string? ClassValue => new CssBuilder(Class)
@@ -22,6 +22,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     internal string? StyleValue => new StyleBuilder(Style)
         .AddStyle("min-width: max-content")
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("border-radius: calc(var(--layer-corner-radius) * 1px)")
 
         // For Anchored == false
         .AddStyle("z-index", $"{ZIndex.Menu}", () => !Anchored)
@@ -37,14 +38,14 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Identifier of the source component clickable by the end user.
+    /// Gets or sets the identifier of the source component clickable by the end user.
     /// </summary>
     [Parameter]
     public string Anchor { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the automatic trigger. See <seealso cref="MouseButton"/>
-    /// Possible values are None (default), Left, Middle, Right, Back, Forward 
+    /// Possible values are None (default), Left, Middle, Right, Back, Forward
     /// </summary>
     [Parameter]
     public MouseButton Trigger { get; set; } = MouseButton.None;
@@ -62,13 +63,13 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Menu position (left or right).
+    /// Gets or sets the menu position (left or right).
     /// </summary>
     [Parameter]
     public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
 
     /// <summary>
-    /// Width of this menu.
+    /// Gets or sets the width of this menu.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
@@ -127,6 +128,8 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 
                     // Add RightClick event
                     if (Trigger == MouseButton.Right)
+                    {
+                        _contextMenu = true;
                         await _jsModule.InvokeVoidAsync("addEventRightClick", Anchor, _dotNetHelper);
                 }
             }
