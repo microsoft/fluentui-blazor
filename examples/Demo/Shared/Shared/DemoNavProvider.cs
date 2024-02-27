@@ -497,7 +497,6 @@ public class DemoNavProvider
                     )
                 ]),
 
-
             new NavGroup(
                 icon: new Icons.Regular.Size20.Beaker(),
                 title: "Incubation lab",
