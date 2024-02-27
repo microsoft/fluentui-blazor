@@ -81,7 +81,10 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         var cellId = args.CellId;
         if (cells.TryGetValue(cellId!, out var cell))
         {
-            await Owner.Grid.OnCellFocus.InvokeAsync(cell);
+            if (cell != null && cell.CellType == DataGridCellType.Default)
+            {
+                await Owner.Grid.OnCellFocus.InvokeAsync(cell);
+            }
         }
     }
 
