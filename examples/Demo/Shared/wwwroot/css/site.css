@@ -17,6 +17,12 @@ body {
         grid-column: 1;
     }
 
+    .siteheader .search {
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+    }
+
     .siteheader .links {
         padding-right: 10px;
         display: flex;
@@ -42,8 +48,17 @@ body {
     margin-right: 0;
 }
 
+[dir="rtl"] .siteheader .search {
+    padding-left: 20px;
+    padding-right: 0;
+}
+
 [dir="rtl"] .siteheader .links {
     padding-left: 10px;
+}
+
+.search-result-icon {
+    vertical-align: middle;
 }
 
 .body-stack {
@@ -260,6 +275,10 @@ code {
         justify-content: flex-start;
     }
 
+        .siteheader .search {
+            display: none;
+        }
+
         .siteheader .logo {
             width: 160px;
             height: 23px;
@@ -272,10 +291,10 @@ code {
     }
 
     nav.sitenav {
-        
+
         width: 100%;
         height: calc(100dvh - 50px);
-        
+
     }
 
     .navmenu {
