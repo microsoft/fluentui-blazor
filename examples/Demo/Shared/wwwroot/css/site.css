@@ -22,6 +22,12 @@ body {
         grid-column: 1;
     }
 
+    .siteheader .search {
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+    }
+
     .siteheader .links {
         padding-right: 10px;
         display: flex;
@@ -43,10 +49,22 @@ body {
     }
 
 [dir="rtl"] .siteheader .settings {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 6px;
+    margin-left: 10px;
+    margin-right: 0;
 }
-[dir="rtl"] .siteheader .notifications {
-    padding: 0 0 0 20px;
+
+[dir="rtl"] .siteheader .search {
+    padding-left: 20px;
+    padding-right: 0;
+}
+
+[dir="rtl"] .siteheader .links {
+    padding-left: 10px;
+}
+
+.search-result-icon {
+    vertical-align: middle;
 }
 
 .body-stack {
@@ -263,6 +281,10 @@ code {
         justify-content: flex-start;
     }
 
+        .siteheader .search {
+            display: none;
+        }
+
         .siteheader .logo {
             width: 160px;
             height: 23px;
@@ -273,10 +295,10 @@ code {
     }
 
     nav.sitenav {
-        display: none;
+
         width: 100%;
         height: calc(100dvh - 50px);
-        overflow-y: auto;
+
     }
 
     .menutoggle {

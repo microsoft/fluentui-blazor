@@ -28,6 +28,11 @@
                 </div>
             </a>
             <FluentSpacer />
+
+            <div class="search">
+                <DemoSearch />
+            </div>
+
             <div class="links">
                 <FluentAnchor Appearance="Appearance.Hypertext"
                               Href="https://github.com/microsoft/fluentui-blazor/tree/archives/v3" Target="_blank" Rel="noreferrer noopener"
@@ -62,11 +67,11 @@
 
                         <FluentMessageBarContainer Section="@App.MESSAGES_TOP" />
 
-                       
+
                                 <CascadingValue Value=@OnRefreshTableOfContents>
                                     @Body
                                 </CascadingValue>
-                           
+
                     </article>
                     <aside>
                         <TableOfContents @ref=_toc />
