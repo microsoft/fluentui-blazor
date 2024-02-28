@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -8,7 +9,6 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Button/FluentButton.razor.js";
 
-    private readonly string _customId = Identifier.NewId();
     private readonly RenderFragment _renderButton;
 
     /// <summary />
@@ -185,19 +185,12 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
         }
     }
 
-    private string? CustomId =>
-        string.IsNullOrEmpty(BackgroundColor) && string.IsNullOrEmpty(Color) ? null : _customId;
-
-    private string? CustomStyle =>
-            $@" fluent-button[custom-id='{_customId}']::part(control) {{
-                  background: padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor};
-                  color: {Color};
-                }}
-
-                fluent-button[custom-id='{_customId}']::part(control):hover {{
-                  opacity: 0.8;
-                }}
-              ";
+    /// <summary />
+    protected virtual MarkupString CustomStyle => new InlineStyleBuilder()
+        .AddStyle($"#{Id}::part(control)", "background", $"padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor}", when: !string.IsNullOrEmpty(BackgroundColor))
+        .AddStyle($"#{Id}::part(control)", "color", $"{Color}", when: !string.IsNullOrEmpty(Color))
+        .AddStyle($"#{Id}::part(control):hover", "opacity", "0.8", when: !string.IsNullOrEmpty(Color) || !string.IsNullOrEmpty(BackgroundColor))
+        .BuildMarkupString();
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentButton"/>.
@@ -205,6 +198,15 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public FluentButton()
     {
         _renderButton = RenderButton;
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(Id) && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
+        {
+            Id = Identifier.NewId();
+        }
     }
 
     /// <summary />
