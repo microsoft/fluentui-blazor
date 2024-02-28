@@ -160,4 +160,21 @@ public class FluentCardTests : TestBase
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentCard_MinimalStyle()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCard>(parameters =>
+        {
+            parameters.Add(p => p.MinimalStyle, true);
+            parameters.Add(p => p.Id, "customId");
+            parameters.Add(p => p.Width, "400px");
+            parameters.Add(p => p.Height, "400px");
+            parameters.AddChildContent("ChildContent");
+        });
+
+        // Assert
+        cut.Verify();
+    }
 }

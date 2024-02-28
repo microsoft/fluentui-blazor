@@ -5,14 +5,15 @@ namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentCard
 {
-    private const string DEFAULT_CARD_WIDTH = "350px";
-    private const string DEFAULT_CARD_HEIGHT = "350px";
-
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("--card-width", Width ?? DEFAULT_CARD_WIDTH)
-        .AddStyle("--card-height", Height ?? DEFAULT_CARD_HEIGHT)
-        .AddStyle("content-visibility", "visible", !AreaRestricted)
-        .AddStyle("contain", "style", !AreaRestricted)
+        .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
+        .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
+        .AddStyle("content-visibility", "visible", !AreaRestricted && !MinimalStyle)
+        .AddStyle("contain", "style", !AreaRestricted && !MinimalStyle)
+        .Build();
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-card-minimal-style", when: MinimalStyle)
         .Build();
 
     /// <summary>
@@ -23,16 +24,19 @@ public partial class FluentCard
     public bool AreaRestricted { get; set; } = true;
 
     /// <summary>
-    /// Specifies the width of the card. Must be a valid CSS measurement.
+    /// Gets or sets the width of the card. Must be a valid CSS measurement.
     /// </summary>  
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Specifies the height of the card. Must be a valid CSS measurement.
+    /// Gets or sets the height of the card. Must be a valid CSS measurement.
     /// </summary>  
     [Parameter]
     public string? Height { get; set; }
+
+    [Parameter]
+    public bool MinimalStyle { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
