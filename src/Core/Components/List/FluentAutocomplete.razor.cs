@@ -214,6 +214,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
+    private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
 
     /// <summary />
     protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
