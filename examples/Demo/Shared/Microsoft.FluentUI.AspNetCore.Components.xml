@@ -4168,6 +4168,11 @@
             Gets or sets the text field value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueTextChanged">
+            <summary>
+            Gets or sets the callback that is invoked when the text field value changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.

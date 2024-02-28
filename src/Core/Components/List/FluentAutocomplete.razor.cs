@@ -43,6 +43,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public string ValueText { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the text field value changes.
+    /// </summary>
     [Parameter]
     public EventCallback<string> ValueTextChanged { get; set; }
 
