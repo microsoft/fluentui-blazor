@@ -25,6 +25,8 @@
             aspect-ratio: 1 / 1;
             width: auto;
             height: auto;
+            margin-left: auto;
+            margin-right: auto;
         }
 
     .fluent-persona .name {
