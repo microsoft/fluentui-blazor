@@ -49,18 +49,6 @@ public partial class FluentPersona : FluentComponentBase
     public string? ImageSize { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to display, in replacement of the initials.
-    /// </summary>
-    [Parameter]
-    public Icon? Icon { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size of the icon.
-    /// </summary>
-    [Parameter]
-    public string? IconSize { get; set; }
-
-    /// <summary>
     /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]

@@ -4,25 +4,16 @@
 <div id="@Id" class="@ClassValue" style="@StyleValue">
     <div class="initials">
         <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
-            @if (string.IsNullOrEmpty(Image))
-            {
-                @if (Icon is null)
+            <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
+                @if (string.IsNullOrEmpty(Image))
                 {
-                    <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
-                        @(Initials ?? GetDefaultInitials())
-                    </div>
+                    @(Initials ?? GetDefaultInitials())
                 }
                 else
                 {
-                    <div style="display: flex; justify-content: center; @GetImageSizeStyle()">
-                        <FluentIcon Value="@Icon" Width="@IconSize" Color="@Color.Fill" />
-                    </div>
+                    <img src="@Image" alt="@Name" title="@Name" style="@($"max-width: {ImageSize}; max-height: {ImageSize}")" />
                 }
-            }
-            else
-            {
-                <img src="@Image" alt="@Name" title="@Name" style="@GetImageSizeStyle()" />
-            }
+            </div>
         </FluentPresenceBadge>
     </div>
     <div class="name">

@@ -23,8 +23,8 @@
         .fluent-persona .initials img {
             border-radius: 50%;
             aspect-ratio: 1 / 1;
-            height: 100%;
-            width: 100%;
+            width: auto;
+            height: auto;
         }
 
     .fluent-persona .name {
