@@ -1,28 +1,29 @@
 ﻿@page "/IssueTester"
-@inject DataSource Data
+@inject AccentBaseColor AccentBaseColor
 
-<FluentButton OnClick="@HandleClick">Select first person</FluentButton>
-<FluentCombobox Items="@Data.People"
-                OptionValue="@(i => i?.PersonId.ToString())"
-                OptionText="@(i => $"{i.FirstName} ({i.LastName})" )"
-                @bind-SelectedOption=@Person
-                @bind-Value="@value">
-    <OptionTemplate>
-        <FluentIcon Value="@(new Icons.Regular.Size16.Person())" Slot="end" OnClick="@(() => DemoLogger.WriteLine($"Icon for {@context?.LastName} selected"))" />
-        @context?.FirstName (@context?.LastName)
-    </OptionTemplate>
-</FluentCombobox>
-<p>
-    Selected: @Person?.FirstName (@Person?.LastName)<br/>
-    Value: @value
-</p>
+<FluentMenuButton Id="anchor" @ref=menubutton Text="Select brand color" Items="@items" OnMenuChanged="HandleOnMenuChanged"></FluentMenuButton>
+
 
 @code {
-    public Person? Person { get; set; } = default!;
-    private string? value;
+    private FluentMenuButton menubutton = new();
 
-    private void HandleClick()
+    private Dictionary<string, string> items = new Dictionary<string, string>()
     {
-        Person = Data.People.FirstOrDefault();
+        {"0078D4","Windows"},
+        {"D83B01","Office"},
+        {"464EB8","Teams"},
+        {"107C10","Xbox"},
+        {"8661C5","Visual Studio"},
+        {"F2C811","Power BI"},
+        {"0066FF","Power Automate"},
+        {"742774","Power Apps"},
+        {"0B556A","Power Virtual Agents"}
+    };
+
+    private async Task HandleOnMenuChanged(MenuChangeEventArgs args)
+    {
+
+        await AccentBaseColor.SetValueFor(menubutton.Button!.Element, $"#{args.Id}".ToSwatch());
     }
+
 }

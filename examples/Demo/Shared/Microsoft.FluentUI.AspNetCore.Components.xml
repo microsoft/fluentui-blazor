@@ -861,10 +861,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.CustomStyle">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentButton"/>.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnInitialized">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
@@ -4243,6 +4249,16 @@
             Gets or sets the title and Aria-Label for the Scroll to next button.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconDismiss">
+            <summary>
+            Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconSearch">
+            <summary>
+            Gets or sets the icon used for the Search button. By default: Search icon.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -4684,6 +4700,46 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Button">
+            <summary>
+            Gets or sets a reference to the button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonAppearance">
+            <summary>
+            Gets or sets the button appearance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Menu">
+            <summary>
+            Gets or sets a reference to the menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
+            <summary>
+            Gets or sets the texts shown on th button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonStyle">
+            <summary>
+            Gets or sets the button style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.MenuStyle">
+            <summary>
+            Gets or sets the menu style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Items">
+            <summary>
+            Gets or sets the items to show in the menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
+            <summary>
+            The callback to invoke when a menu item is chosen.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">
             <summary />
         </member>
@@ -4701,7 +4757,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Trigger">
             <summary>
             Gets or sets the automatic trigger. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.MouseButton"/>
-            Possible values are None (default), Left, Middle, Right, Back, Forward 
+            Possible values are None (default), Left, Middle, Right, Back, Forward
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Open">
@@ -6857,6 +6913,11 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.LoadingContent">
+            <summary>
+            Gets or sets the customized loading content message when using deferred loading.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Owner">
             <summary>
             Gets or sets the owning FluentTabs component.
@@ -7482,6 +7543,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.GlobalOptions">
             <summary>
             Gets the default tooltip options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.HideTooltipOnCursorLeave">
+            <summary>
+            Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+            By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
+            You can configure this behavior globally using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.HideTooltipOnCursorLeave"/> property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.UseTooltipService">
@@ -12681,6 +12749,17 @@
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
             If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.RequiredLabel">
+            <summary>
+            Gets or sets the required label for the form fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.HideTooltipOnCursorLeave">
+            <summary>
+            Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+            By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">

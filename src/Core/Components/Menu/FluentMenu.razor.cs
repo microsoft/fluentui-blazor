@@ -10,6 +10,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 {
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;
+    private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IJSObjectReference _jsModule = default!;
 
@@ -21,6 +22,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     internal string? StyleValue => new StyleBuilder(Style)
         .AddStyle("min-width: max-content")
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("border-radius: calc(var(--layer-corner-radius) * 1px)")
 
         // For Anchored == false
         .AddStyle("z-index", $"{ZIndex.Menu}", () => !Anchored)
@@ -43,7 +45,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Gets or sets the automatic trigger. See <seealso cref="MouseButton"/>
-    /// Possible values are None (default), Left, Middle, Right, Back, Forward 
+    /// Possible values are None (default), Left, Middle, Right, Back, Forward
     /// </summary>
     [Parameter]
     public MouseButton Trigger { get; set; } = MouseButton.None;
@@ -117,6 +119,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
                     // Add RightClick event
                     if (Trigger == MouseButton.Right)
                     {
+                        _contextMenu = true;
                         await _jsModule.InvokeVoidAsync("addEventRightClick", Anchor, _dotNetHelper);
                     }
                 }

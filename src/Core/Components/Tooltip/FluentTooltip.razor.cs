@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -8,6 +9,15 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
 {
     private readonly Guid _guid = Guid.NewGuid();
     private ITooltipService? _tooltipService = null;
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Tooltip/FluentTooltip.razor.js";
+
+    private IJSObjectReference? JSModule { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private LibraryConfiguration? LibraryConfiguration { get; set; }
 
     /// <summary>
     /// Gets or sets a reference to the list of registered services.
@@ -27,6 +37,14 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// Gets the default tooltip options.
     /// </summary>
     protected virtual TooltipGlobalOptions? GlobalOptions => TooltipService?.GlobalOptions;
+
+    /// <summary>
+    /// Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+    /// By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
+    /// You can configure this behavior globally using the <see cref="LibraryConfiguration.HideTooltipOnCursorLeave"/> property.
+    /// </summary>
+    [Parameter]
+    public bool? HideTooltipOnCursorLeave { get; set; }
 
     /// <summary>
     /// Use ITooltipService to create the tooltip, if this service was injected.
@@ -117,6 +135,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// <summary />
     protected override void OnInitialized()
     {
+        HideTooltipOnCursorLeave = HideTooltipOnCursorLeave ?? LibraryConfiguration?.HideTooltipOnCursorLeave;
         _tooltipService = ServiceProvider?.GetService<ITooltipService>();
 
         if (TooltipService != null && UseTooltipService)
@@ -132,6 +151,15 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
                 OnDismissed = OnDismissed,
                 Visible = Visible,
             });
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !string.IsNullOrEmpty(Anchor) && HideTooltipOnCursorLeave == true)
+        {
+            JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await JSModule.InvokeVoidAsync("tooltipHideOnCursorLeave", Anchor);
         }
     }
 
