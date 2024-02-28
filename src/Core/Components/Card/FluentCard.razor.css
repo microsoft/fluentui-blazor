@@ -5,6 +5,7 @@ fluent-card ::deep {
 .fluent-card-minimal-style ::deep {
     height: var(--card-height, 100%);
     width: var(--card-width, 100%);
+    contain: content;
     background: var(--fill-color);
     color: var(--neutral-foreground-rest);
     border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-layer-rest);
