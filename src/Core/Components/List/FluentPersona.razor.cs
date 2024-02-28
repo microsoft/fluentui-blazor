@@ -37,7 +37,7 @@ public partial class FluentPersona : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the image to display, in replacement of the icon and initials.
+    /// Gets or sets the image to display, in replacement of the initials.
     /// </summary>
     [Parameter]
     public string? Image { get; set; }
