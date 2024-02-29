@@ -1,11 +1,8 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering;
 @inherits FluentComponentBase
 
-@if (!String.IsNullOrEmpty(CustomId))
-{
-    <style>@CustomStyle</style>
-}
+@CustomStyle
 
 @if (LoadingOverlay)
 {
@@ -42,7 +39,6 @@ else
                aria-label=@Title
                title=@Title
                appearance=@Appearance.ToAttributeValue()
-               custom-id="@CustomId"
                @onclick="@OnClickHandlerAsync"
                @attributes="AdditionalAttributes">
             @if (IconStart != null)

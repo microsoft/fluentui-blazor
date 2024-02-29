@@ -63,6 +63,13 @@ public partial class FluentKeyCode
     [Parameter]
     public bool PreventDefault { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets the list of <see cref="KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
+    /// its default action should not be taken as it normally would be.
+    /// </summary>
+    [Parameter]
+    public KeyCode[] PreventDefaultOnly { get; set; } = Array.Empty<KeyCode>();
+
     /// <summary />
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
@@ -71,7 +78,7 @@ public partial class FluentKeyCode
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            await Module.InvokeVoidAsync("RegisterKeyCode", Anchor, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, _dotNetHelper);
+            await Module.InvokeVoidAsync("RegisterKeyCode", Anchor, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
         }
     }
 

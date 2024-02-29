@@ -143,6 +143,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public string TitleScrollToNext { get; set; } = "Next";
 
+    /// <summary>
+    /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+    /// </summary>
+    [Parameter]
+    public Icon? IconDismiss { get; set; } = new CoreIcons.Regular.Size16.Dismiss();
+
+    /// <summary>
+    /// Gets or sets the icon used for the Search button. By default: Search icon.
+    /// </summary>
+    [Parameter]
+    public Icon? IconSearch { get; set; } = new CoreIcons.Regular.Size16.Search();
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -214,6 +226,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
+    private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
 
     /// <summary />
     protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)

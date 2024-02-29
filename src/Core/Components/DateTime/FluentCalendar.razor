@@ -135,9 +135,10 @@
 
     @if (_pickerView == CalendarViews.Months)
     {
-        <FluentCalendar  View="CalendarViews.Months"
+        <FluentCalendar View="CalendarViews.Months"
                         Value="@PickerMonth"
                         ValueChanged="@PickerMonthSelectAsync"
+                        CheckIfSelectedValueHasChanged="false"
                         ReadOnly="@ReadOnly"
                         Culture="@Culture"
                         DisabledSelectable="@DisabledSelectable"
@@ -151,6 +152,7 @@
         <FluentCalendar View="CalendarViews.Years"
                         Value="@PickerMonth"
                         ValueChanged="@PickerYearSelectAsync"
+                        CheckIfSelectedValueHasChanged="false"
                         ReadOnly="@ReadOnly"
                         Culture="@Culture"
                         DisabledSelectable="@DisabledSelectable"

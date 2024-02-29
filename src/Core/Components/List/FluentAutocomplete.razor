@@ -5,8 +5,8 @@
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" />
-        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" StopPropagation="true" PreventDefault="true" />
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
+        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" StopPropagation="true" PreventDefaultOnly="@PreventOnly" />
 
         <FluentTextField role="combobox"
                          @ref="@Element"
@@ -68,21 +68,27 @@
             {
                 if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(_valueText))
                 {
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
-                                Width="12px"
-                                Style="cursor: pointer;"
-                                Slot="end"
-                                Title="Clear"
-                                OnClick="@OnClearAsync" />
+                    if (IconDismiss != null)
+                    {
+                        <FluentIcon Value="@IconDismiss"
+                                    Width="12px"
+                                    Style="cursor: pointer;"
+                                    Slot="end"
+                                    Title="Clear"
+                                    OnClick="@OnClearAsync" />
+                    }
                 }
                 else
                 {
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Search())"
-                                Width="16px"
-                                Style="cursor: pointer;"
-                                Slot="end"
-                                Title="Search"
-                                OnClick="@OnDropDownExpandedAsync" />
+                    if (IconSearch != null)
+                    {
+                        <FluentIcon Value="@IconSearch"
+                                    Width="16px"
+                                    Style="cursor: pointer;"
+                                    Slot="end"
+                                    Title="Search"
+                                    OnClick="@OnDropDownExpandedAsync" />
+                    }
                 }
             }
         </FluentTextField>
