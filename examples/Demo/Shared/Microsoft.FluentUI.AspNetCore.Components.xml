@@ -861,10 +861,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.CustomStyle">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentButton"/>.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnInitialized">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
@@ -4702,6 +4708,46 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMain.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Button">
+            <summary>
+            Gets or sets a reference to the button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonAppearance">
+            <summary>
+            Gets or sets the button appearance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Menu">
+            <summary>
+            Gets or sets a reference to the menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
+            <summary>
+            Gets or sets the texts shown on th button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonStyle">
+            <summary>
+            Gets or sets the button style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.MenuStyle">
+            <summary>
+            Gets or sets the menu style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Items">
+            <summary>
+            Gets or sets the items to show in the menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
+            <summary>
+            The callback to invoke when a menu item is chosen.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">

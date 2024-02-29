@@ -1,4 +1,4 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
@@ -7,6 +7,36 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentButton Title="My Title">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_BackgroundColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="MyButton" BackgroundColor="#ff0000">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Color()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="MyButton" Color="#00ff00">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_BackgroundColorColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="MyButton" BackgroundColor="#ff0000" Color="#00ff00">My button</FluentButton>);
 
         // Assert
         cut.Verify();
