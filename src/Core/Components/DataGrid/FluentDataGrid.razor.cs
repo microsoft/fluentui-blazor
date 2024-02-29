@@ -284,7 +284,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
-        _manualGrid = !_columns.Any();
+        _manualGrid = _columns.Count == 0;
+        if (ResizableColumns)
+        {
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference).AsTask();
+        }
     }
 
     /// <summary>
@@ -335,7 +339,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public void SetLoadingState(bool loading)
     {
         Loading = loading;
-        StateHasChanged();
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
@@ -358,17 +361,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
             _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
-            int startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
-            GridItemsProviderRequest<TGridItem> request = new GridItemsProviderRequest<TGridItem>(
+            var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
+            GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
-            GridItemsProviderResult<TGridItem> result = await ResolveItemsRequestAsync(request);
+            var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
                 _currentNonVirtualizedViewItems = result.Items;
                 _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
                 Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
-                Loading = false;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
         }
@@ -391,17 +393,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         // Combine the query parameters from Virtualize with the ones from PaginationState
-        int startIndex = request.StartIndex;
-        int count = request.Count;
+        var startIndex = request.StartIndex;
+        var count = request.Count;
         if (Pagination is not null)
         {
             startIndex += Pagination.CurrentPageIndex * Pagination.ItemsPerPage;
             count = Math.Min(request.Count, Pagination.ItemsPerPage - request.StartIndex);
         }
 
-        GridItemsProviderRequest<TGridItem> providerRequest = new GridItemsProviderRequest<TGridItem>(
+        GridItemsProviderRequest<TGridItem> providerRequest = new(
             startIndex, count, _sortByColumn, _sortByAscending, request.CancellationToken);
-        GridItemsProviderResult<TGridItem> providerResult = await ResolveItemsRequestAsync(providerRequest);
+        var providerResult = await ResolveItemsRequestAsync(providerRequest);
 
         if (!request.CancellationToken.IsCancellationRequested)
         {
@@ -434,18 +436,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (ItemsProvider is not null)
         {
-            return await ItemsProvider(request);
+            var gipr = await ItemsProvider(request);
+            if (gipr.Items is not null)
+            {
+                Loading = false;
+            }
+            return gipr;
         }
         else if (Items is not null)
         {
-            int totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
+            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
             _ariaBodyRowCount = totalItemCount;
-            IQueryable<TGridItem>? result = request.ApplySorting(Items).Skip(request.StartIndex);
+            var result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {
                 result = result.Take(request.Count.Value);
             }
-            TGridItem[]? resultArray = _asyncQueryExecutor is null ? result.ToArray() : await _asyncQueryExecutor.ToArrayAsync(result);
+            var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result);
             return GridItemsProviderResult.From(resultArray, totalItemCount);
         }
         else
@@ -466,7 +473,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-        string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
+        var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
         {
             return null;
@@ -518,10 +525,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)
     {
-        string? rowId = args.RowId;
-        if (_internalGridContext.Rows.TryGetValue(rowId!, out FluentDataGridRow<TGridItem>? row))
+        var rowId = args.RowId;
+        if (_internalGridContext.Rows.TryGetValue(rowId!, out var row))
         {
-            await OnRowFocus.InvokeAsync(row);
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                await OnRowFocus.InvokeAsync(row);
+            }
         }
     }
 }
