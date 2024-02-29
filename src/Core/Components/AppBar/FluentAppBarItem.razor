@@ -3,7 +3,7 @@
 
 @inherits FluentComponentBase
 
-<div @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
+<div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
     <NavLink href="@Href" class="appbar-item-navlink" Match="Match">
         <FluentStack Orientation="Orientation.Vertical"
                      HorizontalAlignment="HorizontalAlignment.Center"

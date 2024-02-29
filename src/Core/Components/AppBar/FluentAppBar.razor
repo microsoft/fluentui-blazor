@@ -1,8 +1,45 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@Style">
-    <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
-        @ChildContent
-    </FluentStack>
-</nav>
+<CascadingValue Value="this" IsFixed="true">
+    <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue">
+        <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
+            @ChildContent
+            @if (AppsOverflow.Any())
+            {
+                <div id="@($"appbar-more-{Id}")" class="appbar-item" fixed title="View more apps" @onclick="@(() => _showMoreItems = !_showMoreItems)">
+                    <FluentStack Orientation="Orientation.Vertical"
+                                 HorizontalAlignment="HorizontalAlignment.Center"
+                                 VerticalAlignment="VerticalAlignment.Center"
+                                 VerticalGap="0"
+                                 Style="width: 100%; --appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); height: 56px;">
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" Class="appbar-item-icon" />
+                    </FluentStack>
+                </div>
+            }
+        </FluentStack>
+        @if (AppsOverflow.Any())
+        {
+            <FluentPopover @bind-Open="_showMoreItems" AnchorId="@($"appbar-more-{Id}")"
+                           HorizontalPosition="HorizontalPosition.End"
+                           HorizontalInset="false"
+                           VerticalPosition="VerticalPosition.Center"
+                           Style="width: 320px; height: 200px; overflow-y: scroll;">
+                <Body>
+                    <FluentSearch @bind-Value="@_searchTerm"
+                                  @bind-Value:after=HandleSearch
+                                  Immediate="true"
+                                  Placeholder="Search for apps" />
+                    <FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: calc(var(--design-unit) * 0.5px)">
+                        @foreach (var item in _searchResults)
+                        {
+                            <FluentGridItem xs="4" Style="width: 100px; height: 85px;">
+                                <FluentAppBarItem Icon="@item.Icon" Text="@item.Text" Href="@item.Href" Class="popover" />
+                            </FluentGridItem>
+                        }
+                    </FluentGrid>
+                </Body>
+            </FluentPopover>
+        }
+    </nav>
+</CascadingValue>

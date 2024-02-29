@@ -379,6 +379,33 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.AppsOverflow">
+            <summary>
+            Gets all tabs with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow"/> assigned to True.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OverflowRaisedAsync(System.String)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Owner">
+            <summary>
+            Gets or sets the owning FluentTabs component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow">
+            <summary>
+            If this tab is outside of visible tab panel area.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.SetProperties(System.Nullable{System.Boolean})">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.Color">
             <summary>
             Gets or sets the color.
@@ -5976,6 +6003,18 @@
             <summary>
             Gets or sets the default horizontal position of the region relative to the anchor element.
             Default is unset. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is true which places the region aligned with the anchor element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalPosition">
+            <summary>
+            Gets or sets the default vertical position of the region relative to the anchor element.
+            Default is unset. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalThreshold">
