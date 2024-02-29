@@ -284,6 +284,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
+        if (ResizableColumns)
+        {
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference).AsTask();
+        }
     }
 
     /// <summary>
