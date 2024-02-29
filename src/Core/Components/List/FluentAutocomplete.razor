@@ -14,7 +14,7 @@
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
-                         Placeholder="@(SelectedOptions?.Any() is not true ? Placeholder : string.Empty)"
+                         Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
