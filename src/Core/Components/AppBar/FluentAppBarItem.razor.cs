@@ -60,7 +60,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     /// </summary>
     public bool? Overflow { get; private set; }
 
-    internal string? ClassValue => new CssBuilder("appbar-item")
+    internal string? ClassValue => new CssBuilder("fluent-appbar-item")
         .AddClass(Class)
         .Build();
 

@@ -4,14 +4,14 @@
 @inherits FluentComponentBase
 
 <div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
-    <NavLink href="@Href" class="appbar-item-navlink" Match="Match">
+    <NavLink role="listitem" href="@Href" Match="Match">
         <FluentStack Orientation="Orientation.Vertical"
                      HorizontalAlignment="HorizontalAlignment.Center"
                      VerticalAlignment="VerticalAlignment.Center"
                      VerticalGap="0">
-            <FluentIcon Value="IconRest" Color="Color.Neutral" Class="appbar-item-icon" />
-            <FluentIcon Value="IconActive ?? IconRest" Class="appbar-item-icon-secondary" />
-            <div class="appbar-item-text">
+            <FluentIcon Value="IconRest" Color="Color.Neutral" part="icon-rest" />
+            <FluentIcon Value="IconActive ?? IconRest" part="icon-active" />
+            <div part="label">
                 @if (Text is not null)
                 {
                     @Text

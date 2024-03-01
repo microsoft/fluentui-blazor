@@ -1,6 +1,6 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
     <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-    <FluentAppBar Style="height: 282px;" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+    <FluentAppBar Style="height: 282px; background-color: var(--neutral-layer-2);" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
         <FluentAppBarItem Href="/AppBarDefault"
                           Match="NavLinkMatch.All"

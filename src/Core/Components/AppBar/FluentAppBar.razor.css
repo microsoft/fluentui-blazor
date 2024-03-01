@@ -1,19 +1,15 @@
-::deep.nav-menu-container {
-    background-color: var(--neutral-layer-4);
-    max-width: 85px;
-    min-width: 68px;
-}
-::deep .appbar-item {
+
+::deep .fluent-appbar-item {
     width: 100%;
     --appbar-active-indicator-width: calc(var(--design-unit) * 0.5px);
     height: 56px;
 }
 
-    ::deep .appbar-item:hover {
+    ::deep .fluent-appbar-item:hover {
         background-color: var(--neutral-fill-secondary-rest);
     }
 
-::deep .appbar-item-navlink {
+::deep a[role="listitem"] {
     color: inherit;
     text-decoration: none;
     font-size: var(--type-ramp-minus-2-font-size);
@@ -24,12 +20,12 @@
     width: 100%;
 }
 
-::deep .appbar-item-navlink .stack-vertical {
+::deep a[role="listitem"] .stack-vertical {
     padding: calc(var(--design-unit) * 1px) calc(var(--appbar-active-indicator-width) + (var(--design-unit) * 1.5px));
     height: 100%;
 }
 
-::deep .appbar-item-text {
+::deep div[part="label"] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -37,7 +33,7 @@
     text-align: center;
 }
 
-::deep .appbar-item:not(.popover) .appbar-item-navlink.active::before {
+::deep .fluent-appbar-item:not(.popover) a[role="listitem"].active::before {
     content: "";
     position: absolute;
     width: var(--appbar-active-indicator-width);
@@ -49,7 +45,7 @@
     right: unset;
 }
 
-[dir='rtl'] * ::deep .appbar-item:not(.popover) .appbar-item-navlink.active::before {
+[dir='rtl'] * ::deep .fluent-appbar-item:not(.popover) a[role="listitem"].active::before {
     right: calc(var(--design-unit) * 0.5px);
     left: unset;
 }

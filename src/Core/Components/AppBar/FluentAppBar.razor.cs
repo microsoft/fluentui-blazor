@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAppBar : FluentComponentBase
 {
-    private const string OVERFLOW_SELECTOR = ".appbar-item";
+    private const string OVERFLOW_SELECTOR = ".fluent-appbar-item";
     private readonly Dictionary<string, FluentAppBarItem> _apps = [];
     private DotNetObjectReference<FluentAppBar>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
