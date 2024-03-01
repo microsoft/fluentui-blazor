@@ -7,7 +7,8 @@
             @ChildContent
             @if (AppsOverflow.Any())
             {
-                <div id="@($"appbar-more-{Id}")" class="appbar-item" fixed title="View more apps" @onclick="@(() => _showMoreItems = !_showMoreItems)">
+                <FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
+                <div id="@($"appbar-more-{Id}")" class="appbar-item" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
                     <FluentStack Orientation="Orientation.Vertical"
                                  HorizontalAlignment="HorizontalAlignment.Center"
                                  VerticalAlignment="VerticalAlignment.Center"
@@ -20,16 +21,20 @@
         </FluentStack>
         @if (AppsOverflow.Any())
         {
+            @*ToDo: Make styling configurable *@
             <FluentPopover @bind-Open="_showMoreItems" AnchorId="@($"appbar-more-{Id}")"
                            HorizontalPosition="HorizontalPosition.End"
                            HorizontalInset="false"
                            VerticalPosition="VerticalPosition.Center"
                            Style="width: 320px; height: 200px; overflow-y: scroll;">
                 <Body>
-                    <FluentSearch @bind-Value="@_searchTerm"
-                                  @bind-Value:after=HandleSearch
-                                  Immediate="true"
-                                  Placeholder="Search for apps" />
+                    @if (PopoverShowSearch)
+                    {
+                        <FluentSearch @bind-Value="@_searchTerm"
+                                      @bind-Value:after=HandleSearch
+                                      Immediate="true"
+                                      Placeholder="Search for apps" />
+                    }
                     <FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: calc(var(--design-unit) * 0.5px)">
                         @foreach (var item in _searchResults)
                         {

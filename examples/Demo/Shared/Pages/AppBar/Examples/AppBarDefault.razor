@@ -1,72 +1,78 @@
-﻿<FluentAppBar Style="height: 282px;">
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
+    <FluentAppBar Style="height: 282px;" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
-    <FluentAppBarItem Href="/AppBarDefault"
-                      Match="NavLinkMatch.All"
-                      Icon="ResourcesIcon()"
-                      SecondaryIcon="ResourcesIcon(secondary: true)"
-                      Text="Resources" />
-    <FluentAppBarItem Href="/AppBar"
-                      Icon="ConsoleLogsIcon()"
-                      SecondaryIcon="ConsoleLogsIcon(secondary: true)"
-                      Text="Console Logs" />
+        <FluentAppBarItem Href="/AppBarDefault"
+                          Match="NavLinkMatch.All"
+                          Icon="ResourcesIcon()"
+                          SecondaryIcon="ResourcesIcon(secondary: true)"
+                          Text="Resources" />
+        <FluentAppBarItem Href="/AppBar"
+                          Icon="ConsoleLogsIcon()"
+                          SecondaryIcon="ConsoleLogsIcon(secondary: true)"
+                          Text="Console Logs" />
 
-    <FluentAppBarItem Href="/StructuredLogs"
-                      Icon="StructuredLogsIcon()"
-                      SecondaryIcon="StructuredLogsIcon(secondary: true)"
-                      Text="Structured Logs" />
-    <FluentAppBarItem Href="/Traces"
-                      Icon="TracesIcon()"
-                      SecondaryIcon="TracesIcon(secondary: true)"
-                      Text="Traces" />
-    <FluentAppBarItem Href="/Metrics"
-                      Icon="MetricsIcon()"
-                      SecondaryIcon="MetricsIcon(secondary: true)"
-                      Text="Metrics" />
-    <FluentAppBarItem Href="/AppBarPage"
-                      Icon="ResourcesIcon()"
-                      SecondaryIcon="ResourcesIcon(secondary: true)"
-                      Text="Resources 2" />
-    <FluentAppBarItem Href="/AppBar"
-                      Icon="ConsoleLogsIcon()"
-                      SecondaryIcon="ConsoleLogsIcon(secondary: true)"
-                      Text="Console Logs 2" />
+        <FluentAppBarItem Href="/StructuredLogs"
+                          Icon="StructuredLogsIcon()"
+                          SecondaryIcon="StructuredLogsIcon(secondary: true)"
+                          Text="Structured Logs" />
+        <FluentAppBarItem Href="/Traces"
+                          Icon="TracesIcon()"
+                          SecondaryIcon="TracesIcon(secondary: true)"
+                          Text="Traces" />
+        <FluentAppBarItem Href="/Metrics"
+                          Icon="MetricsIcon()"
+                          SecondaryIcon="MetricsIcon(secondary: true)"
+                          Text="Metrics" />
+        <FluentAppBarItem Href="/AppBarPage"
+                          Icon="ResourcesIcon()"
+                          SecondaryIcon="ResourcesIcon(secondary: true)"
+                          Text="Resources 2" />
+        <FluentAppBarItem Href="/AppBar"
+                          Icon="ConsoleLogsIcon()"
+                          SecondaryIcon="ConsoleLogsIcon(secondary: true)"
+                          Text="Console Logs 2" />
 
-    <FluentAppBarItem Href="/StructuredLogs"
-                      Icon="StructuredLogsIcon()"
-                      SecondaryIcon="StructuredLogsIcon(secondary: true)"
-                      Text="Structured Logs 2" />
-    <FluentAppBarItem Href="/Traces"
-                      Icon="TracesIcon()"
-                      SecondaryIcon="TracesIcon(secondary: true)"
-                      Text="Traces 2" />
-    <FluentAppBarItem Href="/Metrics"
-                      Icon="MetricsIcon()"
-                      SecondaryIcon="MetricsIcon(secondary: true)"
-                      Text="Metrics 2" />
-    <FluentAppBarItem Href="/AppBarPage"
-                      Icon="ResourcesIcon()"
-                      SecondaryIcon="ResourcesIcon(secondary: true)"
-                      Text="Resources 3" />
-    <FluentAppBarItem Href="/AppBar"
-                      Icon="ConsoleLogsIcon()"
-                      SecondaryIcon="ConsoleLogsIcon(secondary: true)"
-                      Text="Console Logs 3" />
+        <FluentAppBarItem Href="/StructuredLogs"
+                          Icon="StructuredLogsIcon()"
+                          SecondaryIcon="StructuredLogsIcon(secondary: true)"
+                          Text="Structured Logs 2" />
+        <FluentAppBarItem Href="/Traces"
+                          Icon="TracesIcon()"
+                          SecondaryIcon="TracesIcon(secondary: true)"
+                          Text="Traces 2" />
+        <FluentAppBarItem Href="/Metrics"
+                          Icon="MetricsIcon()"
+                          SecondaryIcon="MetricsIcon(secondary: true)"
+                          Text="Metrics 2" />
+        <FluentAppBarItem Href="/AppBarPage"
+                          Icon="ResourcesIcon()"
+                          SecondaryIcon="ResourcesIcon(secondary: true)"
+                          Text="Resources 3" />
+        <FluentAppBarItem Href="/AppBar"
+                          Icon="ConsoleLogsIcon()"
+                          SecondaryIcon="ConsoleLogsIcon(secondary: true)"
+                          Text="Console Logs 3" />
 
-    <FluentAppBarItem Href="/StructuredLogs"
-                      Icon="StructuredLogsIcon()"
-                      SecondaryIcon="StructuredLogsIcon(secondary: true)"
-                      Text="Structured Logs 3" />
-    <FluentAppBarItem Href="/Traces"
-                      Icon="TracesIcon()"
-                      SecondaryIcon="TracesIcon(secondary: true)"
-                      Text="Traces 3" />
-    <FluentAppBarItem Href="/Metrics"
-                      Icon="MetricsIcon()"
-                      SecondaryIcon="MetricsIcon(secondary: true)"
-                      Text="Metrics 3" />
-</FluentAppBar>
+        <FluentAppBarItem Href="/StructuredLogs"
+                          Icon="StructuredLogsIcon()"
+                          SecondaryIcon="StructuredLogsIcon(secondary: true)"
+                          Text="Structured Logs 3" />
+        <FluentAppBarItem Href="/Traces"
+                          Icon="TracesIcon()"
+                          SecondaryIcon="TracesIcon(secondary: true)"
+                          Text="Traces 3" />
+        <FluentAppBarItem Href="/Metrics"
+                          Icon="MetricsIcon()"
+                          SecondaryIcon="MetricsIcon(secondary: true)"
+                          Text="Metrics 3" />
+    </FluentAppBar>
+</FluentStack>
 
 @code {
+
+    private bool _showSearch = true;
+
     private static Icon ResourcesIcon(bool secondary = false) =>
         secondary ? new Icons.Filled.Size24.AppFolder()
                   : new Icons.Regular.Size24.AppFolder();
@@ -86,4 +92,6 @@
     private static Icon MetricsIcon(bool secondary = false) =>
         secondary ? new Icons.Filled.Size24.ChartMultiple()
                   : new Icons.Regular.Size24.ChartMultiple();
+
+    private void HandlePopover(bool visible) => DemoLogger.WriteLine($"Popover visibility changed to {visible}");
 }

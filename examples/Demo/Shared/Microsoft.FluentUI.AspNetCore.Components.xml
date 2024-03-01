@@ -384,7 +384,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.AppsOverflow">
             <summary>
-            Gets all tabs with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow"/> assigned to True.
+            Gets all app items with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow"/> assigned to True.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OnAfterRenderAsync(System.Boolean)">
@@ -395,12 +395,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Owner">
             <summary>
-            Gets or sets the owning FluentTabs component.
+            Gets or sets the owning FluentAppBar component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow">
             <summary>
-            If this tab is outside of visible tab panel area.
+            If this app is outside of visible app bar area.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.SetProperties(System.Nullable{System.Boolean})">

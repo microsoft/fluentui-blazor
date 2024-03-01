@@ -20,6 +20,18 @@ public partial class FluentAppBar : FluentComponentBase
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets if the popover shows the search box.
+    /// </summary>
+    [Parameter]
+    public bool PopoverShowSearch { get; set; } = true;
+
+    /// <summary>
+    /// Event to be called when the visibility of the popover changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> PopoverVisibilityChanged { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -90,6 +102,44 @@ public partial class FluentAppBar : FluentComponentBase
         }
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private void TogglePopover()
+    {
+        _showMoreItems = !_showMoreItems;
+    }
+
+    private Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
+
+    private async Task HandlePopoverKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+            if (args.TargetId != $"appbar-more-{Id}")
+        {
+            return;
+        }
+        Task handler = args.Key switch
+        {
+            KeyCode.Enter => HandlePopoverToggleAsync(!_showMoreItems),
+            KeyCode.Right => HandlePopoverToggleAsync(true),
+            KeyCode.Left => HandlePopoverToggleAsync(false),
+            _ => Task.CompletedTask
+        };
+        await handler;
+    }
+
+    private async Task HandlePopoverToggleAsync(bool value)
+    {
+        if (value == _showMoreItems)
+        {
+            return;
+        }
+         _showMoreItems = value;
+
+        if (PopoverVisibilityChanged.HasDelegate)
+        {
+            await PopoverVisibilityChanged.InvokeAsync(_showMoreItems);
+        }
+        await Task.CompletedTask;
     }
 
     private void HandleSearch()
