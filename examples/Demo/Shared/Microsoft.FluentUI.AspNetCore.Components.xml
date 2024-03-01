@@ -382,6 +382,21 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.JSRuntime">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.PopoverShowSearch">
+            <summary>
+            Gets or sets if the popover shows the search box.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.PopoverVisibilityChanged">
+            <summary>
+            Event to be called when the visibility of the popover changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.ChildContent">
+            <summary>
+            Gets or sets the content to display (the app bar items, <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem"/>).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.AppsOverflow">
             <summary>
             Gets all app items with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow"/> assigned to True.

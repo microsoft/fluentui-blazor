@@ -4,67 +4,67 @@
 
         <FluentAppBarItem Href="/AppBarDefault"
                           Match="NavLinkMatch.All"
-                          Icon="ResourcesIcon()"
-                          SecondaryIcon="ResourcesIcon(secondary: true)"
+                          IconRest="ResourcesIcon()"
+                          IconActive="ResourcesIcon(active: true)"
                           Text="Resources" />
         <FluentAppBarItem Href="/AppBar"
-                          Icon="ConsoleLogsIcon()"
-                          SecondaryIcon="ConsoleLogsIcon(secondary: true)"
+                          IconRest="ConsoleLogsIcon()"
+                          IconActive="ConsoleLogsIcon(active: true)"
                           Text="Console Logs" />
 
         <FluentAppBarItem Href="/StructuredLogs"
-                          Icon="StructuredLogsIcon()"
-                          SecondaryIcon="StructuredLogsIcon(secondary: true)"
+                          IconRest="StructuredLogsIcon()"
+                          IconActive="StructuredLogsIcon(active: true)"
                           Text="Structured Logs" />
         <FluentAppBarItem Href="/Traces"
-                          Icon="TracesIcon()"
-                          SecondaryIcon="TracesIcon(secondary: true)"
+                          IconRest="TracesIcon()"
+                          IconActive="TracesIcon(active: true)"
                           Text="Traces" />
         <FluentAppBarItem Href="/Metrics"
-                          Icon="MetricsIcon()"
-                          SecondaryIcon="MetricsIcon(secondary: true)"
+                          IconRest="MetricsIcon()"
+                          IconActive="MetricsIcon(active: true)"
                           Text="Metrics" />
         <FluentAppBarItem Href="/AppBarPage"
-                          Icon="ResourcesIcon()"
-                          SecondaryIcon="ResourcesIcon(secondary: true)"
+                          IconRest="ResourcesIcon()"
+                          IconActive="ResourcesIcon(active: true)"
                           Text="Resources 2" />
         <FluentAppBarItem Href="/AppBar"
-                          Icon="ConsoleLogsIcon()"
-                          SecondaryIcon="ConsoleLogsIcon(secondary: true)"
+                          IconRest="ConsoleLogsIcon()"
+                          IconActive="ConsoleLogsIcon(active: true)"
                           Text="Console Logs 2" />
 
         <FluentAppBarItem Href="/StructuredLogs"
-                          Icon="StructuredLogsIcon()"
-                          SecondaryIcon="StructuredLogsIcon(secondary: true)"
+                          IconRest="StructuredLogsIcon()"
+                          IconActive="StructuredLogsIcon(active: true)"
                           Text="Structured Logs 2" />
         <FluentAppBarItem Href="/Traces"
-                          Icon="TracesIcon()"
-                          SecondaryIcon="TracesIcon(secondary: true)"
+                          IconRest="TracesIcon()"
+                          IconActive="TracesIcon(active: true)"
                           Text="Traces 2" />
         <FluentAppBarItem Href="/Metrics"
-                          Icon="MetricsIcon()"
-                          SecondaryIcon="MetricsIcon(secondary: true)"
+                          IconRest="MetricsIcon()"
+                          IconActive="MetricsIcon(active: true)"
                           Text="Metrics 2" />
         <FluentAppBarItem Href="/AppBarPage"
-                          Icon="ResourcesIcon()"
-                          SecondaryIcon="ResourcesIcon(secondary: true)"
+                          IconRest="ResourcesIcon()"
+                          IconActive="ResourcesIcon(active: true)"
                           Text="Resources 3" />
         <FluentAppBarItem Href="/AppBar"
-                          Icon="ConsoleLogsIcon()"
-                          SecondaryIcon="ConsoleLogsIcon(secondary: true)"
+                          IconRest="ConsoleLogsIcon()"
+                          IconActive="ConsoleLogsIcon(active: true)"
                           Text="Console Logs 3" />
 
         <FluentAppBarItem Href="/StructuredLogs"
-                          Icon="StructuredLogsIcon()"
-                          SecondaryIcon="StructuredLogsIcon(secondary: true)"
+                          IconRest="StructuredLogsIcon()"
+                          IconActive="StructuredLogsIcon(active: true)"
                           Text="Structured Logs 3" />
         <FluentAppBarItem Href="/Traces"
-                          Icon="TracesIcon()"
-                          SecondaryIcon="TracesIcon(secondary: true)"
+                          IconRest="TracesIcon()"
+                          IconActive="TracesIcon(active: true)"
                           Text="Traces 3" />
         <FluentAppBarItem Href="/Metrics"
-                          Icon="MetricsIcon()"
-                          SecondaryIcon="MetricsIcon(secondary: true)"
+                          IconRest="MetricsIcon()"
+                          IconActive="MetricsIcon(active: true)"
                           Text="Metrics 3" />
     </FluentAppBar>
 </FluentStack>
@@ -73,25 +73,25 @@
 
     private bool _showSearch = true;
 
-    private static Icon ResourcesIcon(bool secondary = false) =>
-        secondary ? new Icons.Filled.Size24.AppFolder()
-                  : new Icons.Regular.Size24.AppFolder();
+    private static Icon ResourcesIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.AppFolder()
+               : new Icons.Regular.Size24.AppFolder();
 
-    private static Icon ConsoleLogsIcon(bool secondary = false) =>
-        secondary ? new Icons.Filled.Size24.SlideText()
-                  : new Icons.Regular.Size24.SlideText();
+    private static Icon ConsoleLogsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.SlideText()
+               : new Icons.Regular.Size24.SlideText();
 
-    private static Icon StructuredLogsIcon(bool secondary = false) =>
-        secondary ? new Icons.Filled.Size24.SlideTextSparkle()
-                  : new Icons.Regular.Size24.SlideTextSparkle();
+    private static Icon StructuredLogsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.SlideTextSparkle()
+               : new Icons.Regular.Size24.SlideTextSparkle();
 
-    private static Icon TracesIcon(bool secondary = false) =>
-        secondary ? new Icons.Filled.Size24.GanttChart()
-                  : new Icons.Regular.Size24.GanttChart();
+    private static Icon TracesIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.GanttChart()
+               : new Icons.Regular.Size24.GanttChart();
 
-    private static Icon MetricsIcon(bool secondary = false) =>
-        secondary ? new Icons.Filled.Size24.ChartMultiple()
-                  : new Icons.Regular.Size24.ChartMultiple();
+    private static Icon MetricsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.ChartMultiple()
+               : new Icons.Regular.Size24.ChartMultiple();
 
     private void HandlePopover(bool visible) => DemoLogger.WriteLine($"Popover visibility changed to {visible}");
 }

@@ -5,7 +5,6 @@ using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-
 public partial class FluentAppBar : FluentComponentBase
 {
     private const string OVERFLOW_SELECTOR = ".appbar-item";
@@ -32,6 +31,9 @@ public partial class FluentAppBar : FluentComponentBase
     [Parameter]
     public EventCallback<bool> PopoverVisibilityChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to display (the app bar items, <see cref="FluentAppBarItem"/>).
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

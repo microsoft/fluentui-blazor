@@ -9,8 +9,8 @@
                      HorizontalAlignment="HorizontalAlignment.Center"
                      VerticalAlignment="VerticalAlignment.Center"
                      VerticalGap="0">
-            <FluentIcon Value="Icon" Color="Color.Neutral" Class="appbar-item-icon" />
-            <FluentIcon Value="SecondaryIcon ?? Icon" Class="appbar-item-icon-secondary" />
+            <FluentIcon Value="IconRest" Color="Color.Neutral" Class="appbar-item-icon" />
+            <FluentIcon Value="IconActive ?? IconRest" Class="appbar-item-icon-secondary" />
             <div class="appbar-item-text">
                 @if (Text is not null)
                 {
