@@ -15,6 +15,8 @@ public partial class FluentAppBar : FluentComponentBase
     private string? _searchTerm = string.Empty;
     private IEnumerable<FluentAppBarItem> _searchResults = [];
 
+    private FluentSearch? _appSearch;
+
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -47,6 +49,7 @@ public partial class FluentAppBar : FluentComponentBase
         .Build();
 
     internal string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("display: flex")
         .Build();
 
     protected override void OnInitialized()
@@ -141,6 +144,13 @@ public partial class FluentAppBar : FluentComponentBase
         {
             await PopoverVisibilityChanged.InvokeAsync(_showMoreItems);
         }
+
+        //if (_showMoreItems)
+        //{
+            //StateHasChanged();
+            //_appSearch?.FocusAsync();
+        //}
+
         await Task.CompletedTask;
     }
 
