@@ -29,14 +29,46 @@ public class FluentPersonaTests : TestBase
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentPersona_Initials()
+    [Theory]
+    [InlineData("Denis Voituron")]
+    [InlineData("Denis    Voituron")]
+    public void FluentPersona_Initials(string name)
     {
         // Arrange
         var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Name, "Denis Voituron");
+            parameters.Add(p => p.Name, name);
+            parameters.Add(p => p.DismissTitle, "Remove this people");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPersona_InitialsOneName()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Name, "Denis");
+            parameters.Add(p => p.DismissTitle, "Remove this people");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPersona_InitialsNoName()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Name, string.Empty);
             parameters.Add(p => p.DismissTitle, "Remove this people");
         });
 
