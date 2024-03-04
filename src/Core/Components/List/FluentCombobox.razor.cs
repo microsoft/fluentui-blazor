@@ -85,11 +85,10 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
                 // If Items is null, we don't know if the selected option is in the list of items, so we just set it
                 _currentSelectedOption = newSelectedOption;
             }
-            if (_currentSelectedOption is not null)
-            {
-                // An option was selected from the list, so set the value to that
-                Value = GetOptionValue(_currentSelectedOption);
-            }
+
+            // Sync Value from selected option.
+            // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
+            Value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
             await ValueChanged.InvokeAsync(Value);
         }
 
