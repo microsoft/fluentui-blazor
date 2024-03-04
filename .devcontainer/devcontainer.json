@@ -3,7 +3,7 @@
 {
   "name": "C# (.NET)",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/dotnet:1-${templateOption:imageVariant}",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:8.0-bookworm",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
