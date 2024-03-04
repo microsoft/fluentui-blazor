@@ -31,7 +31,8 @@ public class FluentPersonaTests : TestBase
 
     [Theory]
     [InlineData("Denis Voituron")]
-    [InlineData("Denis    Voituron")]
+    [InlineData("Denis   Voituron")]
+    [InlineData("Denis   Voituron  Senior")]
     public void FluentPersona_Initials(string name)
     {
         // Arrange
@@ -43,7 +44,7 @@ public class FluentPersonaTests : TestBase
         });
 
         // Assert
-        cut.Verify();
+        cut.Verify(suffix: name);
     }
 
     [Fact]
