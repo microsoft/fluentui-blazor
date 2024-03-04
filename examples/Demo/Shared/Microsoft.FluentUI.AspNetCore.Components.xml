@@ -4377,6 +4377,12 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetAutocompleteAriaLabel">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autocomplete">
             <summary>
             Gets or sets a value indicating whether the element auto completes. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.ComboboxAutocomplete"/>
