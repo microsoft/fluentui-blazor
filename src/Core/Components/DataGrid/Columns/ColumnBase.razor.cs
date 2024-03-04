@@ -65,12 +65,19 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public RenderFragment? ColumnOptions { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether whether the data should be sortable by this column.
+    /// Gets or sets a value indicating whether the data should be sortable by this column.
     ///
     /// The default value may vary according to the column type (for example, a <see cref="TemplateColumn{TGridItem}" />
     /// is sortable by default if any <see cref="TemplateColumn{TGridItem}.SortBy" /> parameter is specified).
     /// </summary>
     [Parameter] public bool? Sortable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the data is currently filtered by this column.
+    ///
+    /// The default value is false.
+    /// </summary>
+    [Parameter] public bool? Filtered { get; set; }
 
     /// <summary>
     /// Gets or sets the sorting rules for a column.
@@ -84,7 +91,7 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public SortDirection InitialSortDirection { get; set; } = default;
 
     /// <summary>
-    /// Gets or sets a value indicating whether whether this column should be sorted by default.
+    /// Gets or sets a value indicating whether this column should be sorted by default.
     /// </summary>
     [Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 
