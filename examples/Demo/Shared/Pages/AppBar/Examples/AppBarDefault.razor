@@ -1,79 +1,75 @@
-﻿<FluentGrid Justify="JustifyContent.FlexStart"
-            Style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical;">
-    <FluentGridItem Style="min-height: 282px;">
-        <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
-            <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-            <FluentAppBar Style="height: 100%; background-color: var(--neutral-layer-2);" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+﻿<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 282px; padding: 10px;">
+    <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
+        <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
+        <FluentAppBar Style="height: 100%; background-color: var(--neutral-layer-2);" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
-                <FluentAppBarItem Href="/AppBarDefault"
-                                  Match="NavLinkMatch.All"
-                                  IconRest="ResourcesIcon()"
-                                  IconActive="ResourcesIcon(active: true)"
-                                  Text="Resources" />
-                <FluentAppBarItem Href="/AppBar"
-                                  IconRest="ConsoleLogsIcon()"
-                                  IconActive="ConsoleLogsIcon(active: true)"
-                                  Text="Console Logs" />
+            <FluentAppBarItem Href="/AppBarDefault"
+                              Match="NavLinkMatch.All"
+                              IconRest="ResourcesIcon()"
+                              IconActive="ResourcesIcon(active: true)"
+                              Text="Resources" />
+            <FluentAppBarItem Href="/AppBar"
+                              IconRest="ConsoleLogsIcon()"
+                              IconActive="ConsoleLogsIcon(active: true)"
+                              Text="Console Logs" />
 
-                <FluentAppBarItem Href="/StructuredLogs"
-                                  IconRest="StructuredLogsIcon()"
-                                  IconActive="StructuredLogsIcon(active: true)"
-                                  Text="Structured Logs" />
-                <FluentAppBarItem Href="/Traces"
-                                  IconRest="TracesIcon()"
-                                  IconActive="TracesIcon(active: true)"
-                                  Text="Traces" />
-                <FluentAppBarItem Href="/Metrics"
-                                  IconRest="MetricsIcon()"
-                                  IconActive="MetricsIcon(active: true)"
-                                  Text="Metrics" />
-                <FluentAppBarItem Href="/AppBarPage"
-                                  IconRest="ResourcesIcon()"
-                                  IconActive="ResourcesIcon(active: true)"
-                                  Text="Resources 2" />
-                <FluentAppBarItem Href="/AppBar"
-                                  IconRest="ConsoleLogsIcon()"
-                                  IconActive="ConsoleLogsIcon(active: true)"
-                                  Text="Console Logs 2" />
+            <FluentAppBarItem Href="/StructuredLogs"
+                              IconRest="StructuredLogsIcon()"
+                              IconActive="StructuredLogsIcon(active: true)"
+                              Text="Structured Logs" />
+            <FluentAppBarItem Href="/Traces"
+                              IconRest="TracesIcon()"
+                              IconActive="TracesIcon(active: true)"
+                              Text="Traces" />
+            <FluentAppBarItem Href="/Metrics"
+                              IconRest="MetricsIcon()"
+                              IconActive="MetricsIcon(active: true)"
+                              Text="Metrics" />
+            <FluentAppBarItem Href="/AppBarPage"
+                              IconRest="ResourcesIcon()"
+                              IconActive="ResourcesIcon(active: true)"
+                              Text="Resources 2" />
+            <FluentAppBarItem Href="/AppBar"
+                              IconRest="ConsoleLogsIcon()"
+                              IconActive="ConsoleLogsIcon(active: true)"
+                              Text="Console Logs 2" />
 
-                <FluentAppBarItem Href="/StructuredLogs"
-                                  IconRest="StructuredLogsIcon()"
-                                  IconActive="StructuredLogsIcon(active: true)"
-                                  Text="Structured Logs 2" />
-                <FluentAppBarItem Href="/Traces"
-                                  IconRest="TracesIcon()"
-                                  IconActive="TracesIcon(active: true)"
-                                  Text="Traces 2" />
-                <FluentAppBarItem Href="/Metrics"
-                                  IconRest="MetricsIcon()"
-                                  IconActive="MetricsIcon(active: true)"
-                                  Text="Metrics 2" />
-                <FluentAppBarItem Href="/AppBarPage"
-                                  IconRest="ResourcesIcon()"
-                                  IconActive="ResourcesIcon(active: true)"
-                                  Text="Resources 3" />
-                <FluentAppBarItem Href="/AppBar"
-                                  IconRest="ConsoleLogsIcon()"
-                                  IconActive="ConsoleLogsIcon(active: true)"
-                                  Text="Console Logs 3" />
+            <FluentAppBarItem Href="/StructuredLogs"
+                              IconRest="StructuredLogsIcon()"
+                              IconActive="StructuredLogsIcon(active: true)"
+                              Text="Structured Logs 2" />
+            <FluentAppBarItem Href="/Traces"
+                              IconRest="TracesIcon()"
+                              IconActive="TracesIcon(active: true)"
+                              Text="Traces 2" />
+            <FluentAppBarItem Href="/Metrics"
+                              IconRest="MetricsIcon()"
+                              IconActive="MetricsIcon(active: true)"
+                              Text="Metrics 2" />
+            <FluentAppBarItem Href="/AppBarPage"
+                              IconRest="ResourcesIcon()"
+                              IconActive="ResourcesIcon(active: true)"
+                              Text="Resources 3" />
+            <FluentAppBarItem Href="/AppBar"
+                              IconRest="ConsoleLogsIcon()"
+                              IconActive="ConsoleLogsIcon(active: true)"
+                              Text="Console Logs 3" />
 
-                <FluentAppBarItem Href="/StructuredLogs"
-                                  IconRest="StructuredLogsIcon()"
-                                  IconActive="StructuredLogsIcon(active: true)"
-                                  Text="Structured Logs 3" />
-                <FluentAppBarItem Href="/Traces"
-                                  IconRest="TracesIcon()"
-                                  IconActive="TracesIcon(active: true)"
-                                  Text="Traces 3" />
-                <FluentAppBarItem Href="/Metrics"
-                                  IconRest="MetricsIcon()"
-                                  IconActive="MetricsIcon(active: true)"
-                                  Text="Metrics 3" />
-            </FluentAppBar>
-        </FluentStack>
-    </FluentGridItem>
-
-</FluentGrid>
+            <FluentAppBarItem Href="/StructuredLogs"
+                              IconRest="StructuredLogsIcon()"
+                              IconActive="StructuredLogsIcon(active: true)"
+                              Text="Structured Logs 3" />
+            <FluentAppBarItem Href="/Traces"
+                              IconRest="TracesIcon()"
+                              IconActive="TracesIcon(active: true)"
+                              Text="Traces 3" />
+            <FluentAppBarItem Href="/Metrics"
+                              IconRest="MetricsIcon()"
+                              IconActive="MetricsIcon(active: true)"
+                              Text="Metrics 3" />
+        </FluentAppBar>
+    </FluentStack>
+</div>
 
 
 @code {

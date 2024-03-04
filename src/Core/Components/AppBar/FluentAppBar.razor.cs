@@ -15,7 +15,8 @@ public partial class FluentAppBar : FluentComponentBase
     private string? _searchTerm = string.Empty;
     private IEnumerable<FluentAppBarItem> _searchResults = [];
 
-    private FluentSearch? _appSearch;
+    // ToDo: Implement focus on popup
+    //private FluentSearch? _appSearch;
 
     /// <summary />
     [Inject]
@@ -122,7 +123,7 @@ public partial class FluentAppBar : FluentComponentBase
         {
             return;
         }
-        Task handler = args.Key switch
+        var handler = args.Key switch
         {
             KeyCode.Enter => HandlePopoverToggleAsync(!_showMoreItems),
             KeyCode.Right => HandlePopoverToggleAsync(true),
