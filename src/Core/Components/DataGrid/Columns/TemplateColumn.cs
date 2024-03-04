@@ -27,7 +27,7 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     protected internal override string? RawCellContent(TGridItem item)
     {
         var cachedFunc = ExpressionCache<TGridItem, string?>.CachedCompile(TooltipText!);
-        return cachedFunc(item);
+        return cachedFunc?.Invoke(item);
     }
 
     /// <inheritdoc />
