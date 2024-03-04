@@ -22,9 +22,7 @@
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                     @if(Filtered.GetValueOrDefault())
                     {
-                        <FluentPresenceBadge Status="PresenceStatus.Busy">
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
-                        </FluentPresenceBadge>
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
                     }
                     else
                     {
@@ -32,7 +30,7 @@
                     }
                 </FluentButton>
             }
-            
+
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
@@ -58,15 +56,13 @@
                     <div class="col-title-text" title="@tooltip">@Title</div>
                 </div>
             }
-            
+
             @if (ColumnOptions is not null && Align == Align.End)
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                     @if(Filtered.GetValueOrDefault())
                     {
-                        <FluentPresenceBadge Status="PresenceStatus.Busy">
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
-                        </FluentPresenceBadge>
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
                     }
                     else
                     {
