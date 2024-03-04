@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -24,7 +25,10 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
         => builder.AddContent(0, ChildContent(item));
 
     protected internal override string? RawCellContent(TGridItem item)
-        => TooltipText?.Compile()(item);
+    {
+        var cachedFunc = ExpressionCache<TGridItem, string?>.CachedCompile(TooltipText!);
+        return cachedFunc(item);
+    }
 
     /// <inheritdoc />
     protected override bool IsSortableByDefault()
