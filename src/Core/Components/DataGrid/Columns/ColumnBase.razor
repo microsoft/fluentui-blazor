@@ -20,7 +20,16 @@
             @if (ColumnOptions is not null && (Align == Align.Start || Align == Align.Center))
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                    @if(Filtered.GetValueOrDefault())
+                    {
+                        <FluentPresenceBadge Status="PresenceStatus.Busy">
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                        </FluentPresenceBadge>
+                    }
+                    else
+                    {
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                    }
                 </FluentButton>
             }
             
@@ -53,7 +62,16 @@
             @if (ColumnOptions is not null && Align == Align.End)
             {
                 <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                    @if(Filtered.GetValueOrDefault())
+                    {
+                        <FluentPresenceBadge Status="PresenceStatus.Busy">
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                        </FluentPresenceBadge>
+                    }
+                    else
+                    {
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                    }
                 </FluentButton>
             }
         }
