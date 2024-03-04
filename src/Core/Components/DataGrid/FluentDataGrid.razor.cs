@@ -284,6 +284,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
+        if (ResizableColumns)
+        {
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference).AsTask();
+        }
     }
 
     /// <summary>
@@ -523,7 +527,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var rowId = args.RowId;
         if (_internalGridContext.Rows.TryGetValue(rowId!, out var row))
         {
-            await OnRowFocus.InvokeAsync(row);
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                await OnRowFocus.InvokeAsync(row);
+            }
         }
     }
 }

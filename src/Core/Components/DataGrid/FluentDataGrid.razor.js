@@ -86,13 +86,13 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
-function enableColumnResizing(gridElement) {
+export function enableColumnResizing(gridElement) {
     const columns = [];
     let min = 50;
     let headerBeingResized;
     let resizeHandle;
 
-    gridElement.querySelectorAll('.column-header').forEach(header => {
+    gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
         columns.push({ header });
         const onPointerMove = (e) => requestAnimationFrame(() => {
             //console.log(`onPointerMove${headerBeingResized ? '' : ' [not resizing]'}`);
@@ -115,7 +115,11 @@ function enableColumnResizing(gridElement) {
             // Set initial sizes
             columns.forEach((column) => {
                 if (column.size === undefined) {
-                    column.size = column.header.clientWidth + 'px';
+                    if (column.header.clientWidth === undefined || column.header.clientWidth === 0) {
+                        column.size = '50px';
+                    } else {
+                        column.size = column.header.clientWidth + 'px';
+                    }
                 }
             });
 
@@ -145,6 +149,8 @@ function enableColumnResizing(gridElement) {
             dragHandle.addEventListener('pointerdown', initResize);
             dragHandle.addEventListener('pointermove', onPointerMove);
             dragHandle.addEventListener('pointerup', onPointerUp);
+            dragHandle.addEventListener('pointercancel', onPointerUp);
+            dragHandle.addEventListener('pointerleave', onPointerUp);
         }
     });
 }
