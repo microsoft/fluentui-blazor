@@ -4,12 +4,22 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentCombobox.razor.js";
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the element auto completes. See <seealso cref="AspNetCore.Components.ComboboxAutocomplete"/>
     /// </summary>
@@ -44,6 +54,20 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     protected override string? StyleValue => new StyleBuilder(base.StyleValue)
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(Id))
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", "off");
+            }
+        }
+    }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
