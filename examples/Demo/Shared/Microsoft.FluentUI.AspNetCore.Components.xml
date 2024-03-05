@@ -3839,6 +3839,11 @@
             Gets the HTML markup of the icon.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Icon.ToDataUri(System.String,System.String)">
+            <summary>
+            Gets the data URI of the icon.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.Icon.Width">
             <summary>
             Gets the width of the icon.
