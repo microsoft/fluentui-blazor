@@ -4,14 +4,14 @@
 <div id="@Id" class="@ClassValue" style="@StyleValue">
     <div class="initials">
         <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
-            <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
+            <div style="display: table-cell; vertical-align: middle; @GetImageMinSizeStyle()">
                 @if (string.IsNullOrEmpty(Image))
                 {
                     @(Initials ?? GetDefaultInitials())
                 }
                 else
                 {
-                    <img src="@Image" alt="@Name" title="@Name" style="@($"max-width: {ImageSize}; max-height: {ImageSize}")" />
+                    <img src="@Image" alt="@Name" title="@Name" style="@GetImageMaxSizeStyle()" />
                 }
             </div>
         </FluentPresenceBadge>
