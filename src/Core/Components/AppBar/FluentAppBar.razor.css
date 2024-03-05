@@ -1,0 +1,62 @@
+
+::deep .fluent-appbar-item {
+    width: 100%;
+    --appbar-active-indicator-width: calc(var(--design-unit) * 0.5px);
+    height: 56px;
+}
+
+    ::deep .fluent-appbar-item:hover {
+        background-color: var(--neutral-fill-secondary-rest);
+    }
+
+::deep a[role="listitem"] {
+    color: inherit;
+    text-decoration: none;
+    font-size: var(--type-ramp-minus-2-font-size);
+    line-height: var(--type-ramp-minus-2-line-height);
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+::deep a[role="listitem"] .stack-vertical {
+    padding: calc(var(--design-unit) * 1px) calc(var(--appbar-active-indicator-width) + (var(--design-unit) * 1.5px));
+    height: 100%;
+}
+
+::deep div[part="label"] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    text-align: center;
+}
+
+::deep .fluent-appbar-item:not(.popover) a[role="listitem"].active::before {
+    content: "";
+    position: absolute;
+    width: var(--appbar-active-indicator-width);
+    height: 100%;
+    background-color: var(--accent-fill-rest);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    top: 0;
+    left: calc(var(--design-unit) * 0.5px);
+    right: unset;
+}
+
+[dir='rtl'] * ::deep .fluent-appbar-item:not(.popover) a[role="listitem"].active::before {
+    right: calc(var(--design-unit) * 0.5px);
+    left: unset;
+}
+
+::deep .fluent-popover-content .fluent-popover-body {
+    margin-top: 0 !important;
+}
+
+::deep .fluent-appbar-item[role="listitem"]:hover svg[part="icon-rest"],
+::deep .fluent-appbar-item[role="listitem"]:not(:hover):not(.active) svg[part="icon-active"],
+::deep .fluent-appbar-item[role="listitem"]:not(:hover).active svg[part="icon-rest"],
+::deep .fluent-appbar-item[overflow] {
+    display: none;
+}
