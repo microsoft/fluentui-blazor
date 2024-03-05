@@ -53,3 +53,10 @@
 ::deep .fluent-popover-content .fluent-popover-body {
     margin-top: 0 !important;
 }
+
+::deep .fluent-appbar-item[role="listitem"]:hover svg[part="icon-rest"],
+::deep .fluent-appbar-item[role="listitem"]:not(:hover):not(.active) svg[part="icon-active"],
+::deep .fluent-appbar-item[role="listitem"]:not(:hover).active svg[part="icon-rest"],
+::deep .fluent-appbar-item[overflow] {
+    display: none;
+}
