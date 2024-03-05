@@ -45,7 +45,7 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
         querySelector = ":scope > *";
     }
     else {
-        querySelector = ":scope > " + querySelector;
+        querySelector = ":scope " + querySelector;
     }
 
     let items = container.querySelectorAll(querySelector + ":not([fixed])");      // List of first level element of this container
