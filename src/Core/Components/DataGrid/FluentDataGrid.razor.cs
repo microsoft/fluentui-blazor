@@ -249,7 +249,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (firstRender && _gridReference is not null)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            try
+            {
+                _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            }
+            catch (JSException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)

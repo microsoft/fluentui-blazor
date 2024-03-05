@@ -5,9 +5,9 @@
 {
     <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent=true FullScreen=true />
     <FluentAnchoredRegion Anchor="@AnchorId"
-                          HorizontalInset="true"
+                          HorizontalInset="@HorizontalInset"
                           HorizontalDefaultPosition="@HorizontalPosition"
-                          VerticalDefaultPosition="@VerticalPosition.Bottom"
+                          VerticalDefaultPosition="@VerticalPosition"
                           VerticalThreshold="@VerticalThreshold"
                           HorizontalThreshold="@HorizontalThreshold"
                           Shadow="@ElevationShadow.Flyout"
