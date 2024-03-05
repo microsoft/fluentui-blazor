@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -7,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAppBar : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
     private const string OVERFLOW_SELECTOR = ".fluent-appbar-item";
     private readonly Dictionary<string, FluentAppBarItem> _apps = [];
     private DotNetObjectReference<FluentAppBar>? _dotNetHelper = null;
@@ -65,8 +70,7 @@ public partial class FluentAppBar : FluentComponentBase
         {
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
-            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
+            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
 
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, false, OVERFLOW_SELECTOR);
         }
@@ -79,7 +83,9 @@ public partial class FluentAppBar : FluentComponentBase
 
     internal void Register(FluentAppBarItem app)
     {
-        _apps.Add(app.Id!, app);
+        ArgumentNullException.ThrowIfNull(app.Id);
+
+        _apps.Add(app.Id, app);
     }
 
     internal void Unregister(FluentAppBarItem app)
@@ -103,8 +109,11 @@ public partial class FluentAppBar : FluentComponentBase
 
         foreach (var item in items)
         {
-            var tab = _apps.FirstOrDefault(i => i.Value.Id == item.Id).Value;
-            tab?.SetProperties(item.Overflow);
+            if (item.Id is not null)
+            {
+                var app = _apps[item.Id];
+                app?.SetProperties(item.Overflow);
+            }
         }
 
         await InvokeAsync(StateHasChanged);
@@ -119,7 +128,7 @@ public partial class FluentAppBar : FluentComponentBase
 
     private async Task HandlePopoverKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-            if (args.TargetId != $"appbar-more-{Id}")
+        if (args.TargetId != $"appbar-more-{Id}")
         {
             return;
         }
@@ -139,7 +148,7 @@ public partial class FluentAppBar : FluentComponentBase
         {
             return;
         }
-         _showMoreItems = value;
+        _showMoreItems = value;
 
         if (PopoverVisibilityChanged.HasDelegate)
         {
@@ -148,8 +157,8 @@ public partial class FluentAppBar : FluentComponentBase
 
         //if (_showMoreItems)
         //{
-            //StateHasChanged();
-            //_appSearch?.FocusAsync();
+        //StateHasChanged();
+        //_appSearch?.FocusAsync();
         //}
 
         await Task.CompletedTask;
@@ -157,22 +166,14 @@ public partial class FluentAppBar : FluentComponentBase
 
     private void HandleSearch()
     {
-        if (string.IsNullOrWhiteSpace(_searchTerm))
+        if (string.IsNullOrEmpty(_searchTerm))
         {
             _searchResults = AppsOverflow;
         }
         else
         {
-            _searchTerm = _searchTerm.ToLower();
-
-            if (_searchTerm.Length > 0)
-            {
-                var temp = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                if (temp.Count > 0)
-                {
-                    _searchResults = temp;
-                }
-            }
+            var filterdAppBarItems = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            _searchResults = filterdAppBarItems;
         }
     }
 }

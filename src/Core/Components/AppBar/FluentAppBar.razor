@@ -8,13 +8,14 @@
             @if (AppsOverflow.Any())
             {
                 <FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-                <div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
+                <div id="@($"appbar-more-{Id}")" role="listitem" class="fluent-appbar-item" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
                     <FluentStack Orientation="Orientation.Vertical"
                                  HorizontalAlignment="HorizontalAlignment.Center"
                                  VerticalAlignment="VerticalAlignment.Center"
                                  VerticalGap="0"
                                  Style="width: 100%; --appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); height: 56px;">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" class="fluent-appbar-item-icon" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" part="icon-rest" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" part="icon-active" />
                     </FluentStack>
                 </div>
             }
