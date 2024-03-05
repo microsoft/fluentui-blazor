@@ -1,4 +1,5 @@
 using Bunit;
+using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -214,6 +215,51 @@ public class FluentAutocompleteTests : TestBase
         cut.Find("fluent-badge svg").Click();
 
         // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ValueText()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.ValueText, "Preselected value");
+        });
+
+        // Assert
+        var textField = cut.Find("fluent-text-field");
+
+        var valueAttribute = textField.Attributes["value"];
+        var currentValueAttribute = textField.Attributes["current-value"];
+
+        valueAttribute.Should().NotBeNull();
+        valueAttribute!.Value.Should().Be("Preselected value");
+
+        currentValueAttribute.Should().NotBeNull();
+        currentValueAttribute!.Value.Should().Be("Preselected value");
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ValueText_Clears()
+    {
+        // Arrange & Act
+        var valueText = "Preselected value";
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
+        });
+
+        valueText.Should().NotBeNullOrEmpty();
+
+        // Act
+        cut.Find("svg").Click(); // Clear button
+
+        // Assert
+        valueText.Should().BeNullOrEmpty();
+
         cut.Verify();
     }
 
