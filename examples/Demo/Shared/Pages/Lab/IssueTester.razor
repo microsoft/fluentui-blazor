@@ -1,1 +1,50 @@
 ﻿@page "/IssueTester"
+<FluentDataGrid Items="@people">
+    <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" Tooltip="true" TooltipText="p => p.PersonId.ToString()" />
+    <PropertyColumn Property="@(p => p.Name)" Sortable="true" Tooltip="true" TooltipText="p => p.Name" />
+    <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" Tooltip="true" TooltipText="p => p.BirthDate.ToLongDateString()" />
+
+    <TemplateColumn Title="Action 1" Align="@Align.End" Tooltip="true" TooltipText="p => p.Name">
+        <FluentButton IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
+
+    </TemplateColumn>
+    <TemplateColumn Title="Action 2" Align="@Align.End" Tooltip="true" TooltipText="p => p.BirthDate.ToLongDateString()">
+
+        <FluentButton IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
+    </TemplateColumn>
+</FluentDataGrid>
+
+@code {
+    IQueryable<Person>? people;
+    record Person(int PersonId, string Name, DateOnly BirthDate);
+
+    // generate 1500 rows of person data with a unique id, random name and random birthdate
+
+    private IQueryable<Person> GeneratePeople()
+    {
+        var random = new Random();
+        var names = new[] { "Jean Martin", "António Langa", "Julie Smith", "Nur Sari", "Jose Hernandez", "Kenji Sato" };
+        var people = new List<Person>();
+        for (int i = 0; i < 1500; i++)
+        {
+            var name = names[random.Next(names.Length)];
+            var birthDate = new DateOnly(1920 + random.Next(100), 1 + random.Next(12), 1 + random.Next(28));
+            people.Add(new Person(i, name, birthDate));
+        }
+        return people.AsQueryable();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // call the generatepeople method every second
+        if (firstRender)
+        {
+            while (true)
+            {
+                await Task.Delay(1500);
+                people = GeneratePeople();
+                StateHasChanged();
+            }
+        }
+    }
+}
