@@ -62,11 +62,4 @@
     
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="List\FluentPersonaTests.FluentPersona_Initials-Denis[space][space][space]Voituron[space][space]Jr.verified.html">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
-    </None>
-  </ItemGroup>
-
 </Project>
