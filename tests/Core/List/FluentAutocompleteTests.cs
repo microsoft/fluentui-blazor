@@ -249,6 +249,7 @@ public class FluentAutocompleteTests : TestBase
         var valueText = "Preselected value";
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
+            parameters.Add(p => p.Id, "myComponent");
             parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
         });
 
@@ -269,6 +270,7 @@ public class FluentAutocompleteTests : TestBase
         // Arrange
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
+            parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.ValueText, "Some text here");
         });
 
@@ -286,6 +288,7 @@ public class FluentAutocompleteTests : TestBase
         // Arrange
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
+            parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.ValueText, "Some text here");
             parameters.Add(p => p.ShowOverlayOnEmptyResults, false);
         });
