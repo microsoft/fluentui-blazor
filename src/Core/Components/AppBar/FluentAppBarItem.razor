@@ -1,0 +1,24 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+
+@inherits FluentComponentBase
+
+<div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
+    <NavLink role="listitem" href="@Href" Match="Match">
+        <FluentStack Orientation="Orientation.Vertical"
+                     HorizontalAlignment="HorizontalAlignment.Center"
+                     VerticalAlignment="VerticalAlignment.Center"
+                     VerticalGap="0">
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                <FluentIcon Value="IconRest" Color="Color.Neutral" part="icon-rest" />
+                <FluentIcon Value="IconActive ?? IconRest" part="icon-active" />
+                <div part="label">@Text</div>
+            }
+        </FluentStack>
+    </NavLink>
+</div>
