@@ -30,10 +30,12 @@ public class FluentPersonaTests : TestBase
     }
 
     [Theory]
-    [InlineData("Denis Voituron")]
-    [InlineData("Denis   Voituron")]
-    [InlineData("Denis   Voituron  Senior")]
-    public void FluentPersona_Initials(string name)
+    [InlineData("OneSpace", "Denis Voituron")]
+    [InlineData("MultipleSpaces", "Denis   Voituron")]
+    [InlineData("MultipleWords", "Denis   Voituron  Senior")]
+    [InlineData("OneName", "Denis")]
+    [InlineData("NoName", "")]
+    public void FluentPersona_Initials(string id, string name)
     {
         // Arrange
         var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
@@ -44,36 +46,6 @@ public class FluentPersonaTests : TestBase
         });
 
         // Assert
-        cut.Verify(suffix: name);
-    }
-
-    [Fact]
-    public void FluentPersona_InitialsOneName()
-    {
-        // Arrange
-        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
-        {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Name, "Denis");
-            parameters.Add(p => p.DismissTitle, "Remove this people");
-        });
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentPersona_InitialsNoName()
-    {
-        // Arrange
-        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
-        {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Name, string.Empty);
-            parameters.Add(p => p.DismissTitle, "Remove this people");
-        });
-
-        // Assert
-        cut.Verify();
+        cut.Verify(suffix: id);
     }
 }
