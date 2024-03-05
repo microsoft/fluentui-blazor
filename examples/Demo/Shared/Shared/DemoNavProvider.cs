@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
@@ -256,6 +256,11 @@ public class DemoNavProvider
                         href: "/AnchoredRegion",
                         icon: new Icons.Regular.Size20.LinkSquare(),
                         title: "Anchored Region"
+                    ),
+                    new NavLink(
+                        href: "/AppBar",
+                        icon: new Icons.Regular.Size20.AppsList(),
+                        title: "AppBar"
                     ),
                     new NavGroup(
                         title: "Badge",

@@ -29,18 +29,23 @@ public class FluentPersonaTests : TestBase
         cut.Verify();
     }
 
-    [Fact]
-    public void FluentPersona_Initials()
+    [Theory]
+    [InlineData("OneSpace", "Denis Voituron")]
+    [InlineData("MultipleSpaces", "Denis   Voituron")]
+    [InlineData("MultipleWords", "Denis   Voituron  Senior")]
+    [InlineData("OneName", "Denis")]
+    [InlineData("NoName", "")]
+    public void FluentPersona_Initials(string id, string name)
     {
         // Arrange
         var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Name, "Denis Voituron");
+            parameters.Add(p => p.Name, name);
             parameters.Add(p => p.DismissTitle, "Remove this people");
         });
 
         // Assert
-        cut.Verify();
+        cut.Verify(suffix: id);
     }
 }

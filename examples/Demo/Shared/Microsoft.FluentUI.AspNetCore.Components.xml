@@ -379,6 +379,81 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.PopoverShowSearch">
+            <summary>
+            Gets or sets if the popover shows the search box.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.PopoverVisibilityChanged">
+            <summary>
+            Event to be called when the visibility of the popover changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.ChildContent">
+            <summary>
+            Gets or sets the content to display (the app bar items, <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem"/>).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.AppsOverflow">
+            <summary>
+            Gets all app items with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow"/> assigned to True.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OverflowRaisedAsync(System.String)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Href">
+            <summary>
+            Gets or sets the URL for this item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Match">
+            <summary>
+            Gets or sets how the link should be matched.
+            Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.IconRest">
+            <summary>
+            Gets or sets the Icon to use when the item is not hovered/selected/active.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.IconActive">
+            <summary>
+            Gets or sets the Icon to use when the item is hovered/selected/active.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Text">
+            <summary>
+            Gets or sets the text to show under the icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Tooltip">
+            <summary>
+            Gets or sets the tooltip to show when the item is hovered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
+            <summary>
+             Gets or sets the content to be shown.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Owner">
+            <summary>
+            Gets or sets the owning FluentAppBar component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow">
+            <summary>
+            If this app is outside of visible app bar area.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.Color">
             <summary>
             Gets or sets the color.
@@ -1111,10 +1186,17 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Sortable">
              <summary>
-             Gets or sets a value indicating whether whether the data should be sortable by this column.
+             Gets or sets a value indicating whether the data should be sortable by this column.
             
              The default value may vary according to the column type (for example, a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1" />
              is sortable by default if any <see cref="P:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.SortBy" /> parameter is specified).
+             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Filtered">
+             <summary>
+             Gets or sets a value indicating whether the data is currently filtered by this column.
+            
+             The default value is false.
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.SortBy">
@@ -1130,7 +1212,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.IsDefaultSortColumn">
             <summary>
-            Gets or sets a value indicating whether whether this column should be sorted by default.
+            Gets or sets a value indicating whether this column should be sorted by default.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.PlaceholderTemplate">
@@ -4307,6 +4389,12 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetAutocompleteAriaLabel">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autocomplete">
             <summary>
             Gets or sets a value indicating whether the element auto completes. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.ComboboxAutocomplete"/>
@@ -5981,6 +6069,18 @@
             <summary>
             Gets or sets the default horizontal position of the region relative to the anchor element.
             Default is unset. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is true which places the region aligned with the anchor element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalPosition">
+            <summary>
+            Gets or sets the default vertical position of the region relative to the anchor element.
+            Default is unset. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.VerticalThreshold">
