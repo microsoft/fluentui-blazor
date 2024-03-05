@@ -224,6 +224,7 @@ public class FluentAutocompleteTests : TestBase
         // Arrange & Act
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
+            parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.ValueText, "Preselected value");
         });
 
