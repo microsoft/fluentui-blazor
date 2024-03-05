@@ -245,7 +245,7 @@ public class FluentAutocompleteTests : TestBase
     [Fact]
     public void FluentAutocomplete_ValueText_Clears()
     {
-        // Arrange & Act
+        // Arrange
         var valueText = "Preselected value";
         var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
@@ -260,6 +260,41 @@ public class FluentAutocompleteTests : TestBase
         // Assert
         valueText.Should().BeNullOrEmpty();
 
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnClear_ShowOverlay()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.ValueText, "Some text here");
+        });
+
+        // Act
+        cut.Find("svg").Click(); // Clear button
+
+        // Assert
+        cut.Find("fluent-anchored-region").Should().NotBeNull();
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnClearWithOverlayHiddenOnEmpty_HasNoOverlay()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.ValueText, "Some text here");
+            parameters.Add(p => p.ShowOverlayOnEmptyResults, false);
+        });
+
+        // Act
+        cut.Find("svg").Click(); // Clear button
+
+        // Assert
+        cut.FindAll("fluent-anchored-region").Should().BeNullOrEmpty();
         cut.Verify();
     }
 
