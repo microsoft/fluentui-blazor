@@ -25,7 +25,9 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
         => builder.AddContent(0, ChildContent(item));
 
     protected internal override string? RawCellContent(TGridItem item)
-        => TooltipText?.Compile()(item);
+    {
+        return TooltipText?.Invoke(item);
+    }
 
     /// <inheritdoc />
     protected override bool IsSortableByDefault()

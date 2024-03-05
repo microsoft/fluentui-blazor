@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -44,7 +43,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Defines the value to be used as the tooltip and aria-label in this column's cells
     /// </summary>
-    [Parameter] public Expression<Func<TGridItem, string?>>? TooltipText { get; set; }
+    [Parameter] public Func<TGridItem, string?>? TooltipText { get; set; }
 
     /// <summary>
     /// An optional template for this column's header cell. If not specified, the default header template

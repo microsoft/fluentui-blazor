@@ -79,12 +79,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 			_sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
 	    }
 
-        Func<TGridItem, string?>? compiledTooltipTextExpression = TooltipText?.Compile();            
-        
-        _cellTooltipTextFunc = compiledTooltipTextExpression is not null 
-            ? (item => compiledTooltipTextExpression(item)?.ToString()) 
-            : _cellTextFunc;
-
+        _cellTooltipTextFunc = TooltipText ?? _cellTextFunc;
         if (Property.Body is MemberExpression memberExpression)
 		{
 			if (Title is null)
