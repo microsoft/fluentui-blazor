@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
