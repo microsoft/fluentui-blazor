@@ -84,8 +84,8 @@ public class DemoNavProvider
                         title: "Services",
                         expanded: false,
                         gap: "10px",
-                        children:
-                        [
+                        children: new List<NavItem>
+                        {
                             new NavLink(
                                 href: "/DialogService",
                                 icon: new Icons.Regular.Size20.AppGeneric(),
@@ -103,7 +103,7 @@ public class DemoNavProvider
                                 icon: new Icons.Regular.Size20.FoodToast(),
                                 title: "ToastService"
                             )
-                        ]
+                        }
                     )
                 }
             ),
