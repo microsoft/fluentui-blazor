@@ -1,6 +1,8 @@
 ﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 
-<div id="@GetId()" class="@ClassValue" style="@StyleValue" spacing="@Spacing" @attributes="AdditionalAttributes">
-    @ChildContent
+<div class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    <div id="@GetId()" class="fluent-grid" style="@($"justify-content: {Justify.ToAttributeValue()};")" spacing="@Spacing">
+        @ChildContent
+    </div>
 </div>
