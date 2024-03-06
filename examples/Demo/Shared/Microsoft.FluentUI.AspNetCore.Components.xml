@@ -4879,6 +4879,16 @@
             using the mouse coordinates (false).
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalThreshold">
+            <summary>
+            Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalThreshold">
+            <summary>
+            Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>

@@ -7,15 +7,17 @@
         {
             <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Anchor"
-                HorizontalDefaultPosition="@HorizontalPosition"
-                HorizontalInset="true"
-                HorizontalViewportLock="true"
-                HorizontalThreshold="200"
-                VerticalDefaultPosition="@VerticalPosition.Bottom"
-                Shadow="@ElevationShadow.None"
-                Class="@ClassValue"
-                Style="@StyleValue"
-                @attributes="AdditionalAttributes">
+                                  HorizontalDefaultPosition="@HorizontalPosition"
+                                  VerticalDefaultPosition="@VerticalPosition.Bottom"
+                                  HorizontalInset="true"
+                                  VerticalInset="false"
+                                  HorizontalViewportLock="true"
+                                  HorizontalThreshold="@HorizontalThreshold"
+                                  VerticalThreshold="@VerticalThreshold"
+                                  Shadow="@ElevationShadow.None"
+                                  Class="@ClassValue"
+                                  Style="@StyleValue"
+                                  @attributes="AdditionalAttributes">
                 <fluent-menu @ref=Element id="@Id">
                     @ChildContent
                 </fluent-menu>
@@ -23,7 +25,8 @@
         }
         else
         {
-            if (_contextMenu) {
+            if (_contextMenu)
+            {
                 <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
             }
             <fluent-menu @ref=Element
