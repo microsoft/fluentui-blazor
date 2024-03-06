@@ -9,6 +9,7 @@
                     Placeholder="Select countries"
                     MaximumOptionsSearch="-1"
                     MaximumSelectedOptions="2"
+                    Virtualize="true"
                     OptionText="@(item => $"{item.DisplayName} - {item.Name}")"
                     @bind-SelectedOptions="@SelectedCultures" />
 
