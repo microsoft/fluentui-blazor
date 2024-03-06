@@ -57,7 +57,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// Gets or sets the CSS selectors of the items to include in the overflow.
     /// </summary>
     [Parameter]
-    public string? Selectors { get; set; } = "*";
+    public string? Selectors { get; set; } = string.Empty;
     /// <summary>
     /// Event raised when a <see cref="FluentOverflowItem"/> enter or leave the current panel.
     /// </summary>
@@ -74,6 +74,8 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// </summary>
     public string IdMoreButton => $"{Id}-more";
 
+    private bool IsHorizontal => Orientation == Orientation.Horizontal;
+
     public FluentOverflow()
     {
         Id = Identifier.NewId();
@@ -87,8 +89,8 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            var isHorizontal = Orientation == Orientation.Horizontal;
-            await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, Selectors);
+
+            await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
         }
     }
 
@@ -116,7 +118,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             await OnOverflowRaised.InvokeAsync(ItemsOverflow);
         }
 
-        await InvokeAsync(() => StateHasChanged());
+        StateHasChanged();
     }
     internal void Register(FluentOverflowItem item)
     {
@@ -127,7 +129,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     {
         _items.Remove(item);
         _jsModule?.InvokeVoidAsync("FluentOverflowDispose", item.Id);
-
     }
 
     /// <inheritdoc />
