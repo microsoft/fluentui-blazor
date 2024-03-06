@@ -15,7 +15,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
 
     private bool _multiple = false;
     private List<TOption> _selectedOptions = new();
-    private TOption? _currentSelectedOption;
+    protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
     private IJSObjectReference? Module { get; set; }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -71,7 +71,7 @@ public partial class FluentMenuButton : FluentComponentBase
         _visible = !_visible;
     }
 
-    private async Task OnMenuChange(MenuChangeEventArgs args)
+    private async Task OnMenuChangeAsync(MenuChangeEventArgs args)
     {
         if (args is not null && args.Id is not null)
         {

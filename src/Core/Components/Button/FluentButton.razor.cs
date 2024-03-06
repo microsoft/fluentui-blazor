@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -89,7 +89,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the element. 
+    /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
     /// </summary>
     [Parameter]

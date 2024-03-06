@@ -103,4 +103,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="_ToDo\Icons\" />
+  </ItemGroup>
+
 </Project>

@@ -49,18 +49,7 @@
         </FluentHeader>
 
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
-            <div class="menutoggle">
-                <label for="menu-toggle" class="menu-icon">
-                    <FluentIcon Icon="Icons.Regular.Size20.Navigation" Color="Color.Neutral" />
-                </label>
-                <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
-
-
-                <nav class="sitenav"
-                     onclick="document.getElementById('menu-toggle').click()">
-                    <DemoNavMenu />
-                </nav>
-            </div>
+            <DemoNavMenu />
             <FluentBodyContent id="body-content" Style="height: calc(100dvh - 90px);">
                 <div class="content">
                     <article id="article">

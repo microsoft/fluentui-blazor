@@ -75,7 +75,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
 
     /// <summary>
-    /// Gets or sets the tooltip's position. See <see cref="AspNetCore.Components.TooltipPosition"/>.
+    /// Gets or sets the tooltip's position. See <see cref="TooltipPosition"/>.
     /// Don't set this if you want the tooltip to use the best position.
     /// </summary>
     [Parameter]
@@ -135,7 +135,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     /// <summary />
     protected override void OnInitialized()
     {
-        HideTooltipOnCursorLeave = HideTooltipOnCursorLeave ?? LibraryConfiguration?.HideTooltipOnCursorLeave;
+        HideTooltipOnCursorLeave ??= LibraryConfiguration?.HideTooltipOnCursorLeave;
         _tooltipService = ServiceProvider?.GetService<ITooltipService>();
 
         if (TooltipService != null && UseTooltipService)

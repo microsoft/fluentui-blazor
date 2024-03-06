@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared;
 

@@ -4,7 +4,7 @@
 
 using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Shared;
 

@@ -76,6 +76,12 @@
             Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.PreventDefaultOnly">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
+            its default action should not be taken as it normally would be.
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -801,7 +807,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.Name">
             <summary>
-            Gets or sets the name of the element. 
+            Gets or sets the name of the element.
             Allows access by name from the associated form.
             </summary>
         </member>
@@ -861,10 +867,16 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentButton.CustomStyle">
+            <summary />
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentButton"/>.
             </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnInitialized">
+            <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentButton.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
@@ -877,12 +889,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.Width">
             <summary>
-            Specifies the width of the card. Must be a valid CSS measurement.
+            Gets or sets the width of the card. Must be a valid CSS measurement.
             </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.Height">
             <summary>
-            Specifies the height of the card. Must be a valid CSS measurement.
+            Gets or sets the height of the card. Must be a valid CSS measurement.
             </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCard.ChildContent">
@@ -1156,15 +1168,22 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Sortable">
              <summary>
-             Indicates whether the data should be sortable by this column.
+             Gets or sets a value indicating whether the data should be sortable by this column.
             
              The default value may vary according to the column type (for example, a <see cref="T:Microsoft.Fast.Components.FluentUI.TemplateColumn`1" />
              is sortable by default if any <see cref="P:Microsoft.Fast.Components.FluentUI.TemplateColumn`1.SortBy" /> parameter is specified).
              </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Filtered">
+             <summary>
+             Gets or sets a value indicating whether the data is currently filtered by this column.
+            
+             The default value is false.
+             </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.SortBy">
             <summary>
-            Specifies sorting rules for a column.
+            Gets or sets the sorting rules for a column.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.InitialSortDirection">
@@ -1175,7 +1194,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.IsDefaultSortColumn">
             <summary>
-            Indicates whether this column should be sorted by default.
+            Gets or sets a value indicating whether this column should be sorted by default.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.PlaceholderTemplate">
@@ -2542,6 +2561,24 @@
             Can be a URL or a base64 encoded string or an SVG.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.DisplayTime">
+            <summary>
+            Gets or sets the delay to wait before to close the dialog (in milliseconds).
+            Default is 4000 milliseconds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.SplashScreenContent.UpdateLabels(System.String,System.Nullable{Microsoft.AspNetCore.Components.MarkupString})">
+            <summary>
+            Updates the labels of the splash screen.
+            </summary>
+            <param name="loadingText"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.SplashScreenContent.RefreshProperties">
+            <summary>
+            Action with StateHasChanged assigned in FluentSplashScreen.razor.cs
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.DialogResult">
             <summary />
         </member>
@@ -3872,6 +3909,16 @@
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ValueText">
+            <summary>
+            Gets or sets the text field value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ValueTextChanged">
+            <summary>
+            Gets or sets the callback that is invoked when the text field value changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1"/>, this property must be True.
@@ -3947,6 +3994,21 @@
             Gets or sets the title and Aria-Label for the Scroll to next button.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IconDismiss">
+            <summary>
+            Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.IconSearch">
+            <summary>
+            Gets or sets the icon used for the Search button. By default: Search icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ShowOverlayOnEmptyResults">
+            <summary>
+            Gets or sets whether the dropdown is shown when there are no items.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -3995,30 +4057,36 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.GetAutocompleteAriaLabel">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Autocomplete">
             <summary>
-            Gets or sets if the element is auto completes. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete"/>
+            Gets or sets a value indicating whether the element auto completes. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.ComboboxAutocomplete"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Open">
             <summary>
-            The open attribute.
+            Gets or sets the open attribute.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Placeholder">
             <summary>
-            Sets the placeholder value of the element, generally used to provide a hint to the user.
+            Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Position">
             <summary>
-            The placement for the listbox when the combobox is open.
+            Gets or sets the placement for the listbox when the combobox is open.
             See <seealso cref="T:Microsoft.Fast.Components.FluentUI.SelectPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
+            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.Appearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentListbox`1.Size">
@@ -4383,6 +4451,46 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.Button">
+            <summary>
+            Gets or sets a reference to the button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.ButtonAppearance">
+            <summary>
+            Gets or sets the button appearance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.Menu">
+            <summary>
+            Gets or sets a reference to the menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.Text">
+            <summary>
+            Gets or sets the texts shown on th button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.ButtonStyle">
+            <summary>
+            Gets or sets the button style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.MenuStyle">
+            <summary>
+            Gets or sets the menu style.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.Items">
+            <summary>
+            Gets or sets the items to show in the menu.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.OnMenuChanged">
+            <summary>
+            The callback to invoke when a menu item is chosen.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.ClassValue">
             <summary />
         </member>
@@ -4394,13 +4502,13 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Anchor">
             <summary>
-            Identifier of the source component clickable by the end user.
+            Gets or sets the identifier of the source component clickable by the end user.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Trigger">
             <summary>
             Gets or sets the automatic trigger. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.MouseButton"/>
-            Possible values are None (default), Left, Middle, Right, Back, Forward 
+            Possible values are None (default), Left, Middle, Right, Back, Forward
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Open">
@@ -4415,12 +4523,12 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.HorizontalPosition">
             <summary>
-            Menu position (left or right).
+            Gets or sets the menu position (left or right).
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Width">
             <summary>
-            Width of this menu.
+            Gets or sets the width of this menu.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.OpenChanged">
@@ -4432,6 +4540,16 @@
             <summary>
             Draw the menu below the component clicked (true) or
             using the mouse coordinates (false).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.VerticalThreshold">
+            <summary>
+            Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.HorizontalThreshold">
+            <summary>
+            Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenu.OnAfterRenderAsync(System.Boolean)">
@@ -6219,9 +6337,14 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.LoadingContent">
+            <summary>
+            Gets or sets the customized loading content message when using deferred loading.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Owner">
             <summary>
-            Gets or sets the owning FluentTabs component
+            Gets or sets the owning FluentTabs component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTab.Overflow">
@@ -6846,6 +6969,13 @@
             Gets the default tooltip options.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.HideTooltipOnCursorLeave">
+            <summary>
+            Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+            By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
+            You can configure this behavior globally using the <see cref="P:Microsoft.Fast.Components.FluentUI.LibraryConfiguration.HideTooltipOnCursorLeave"/> property.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.UseTooltipService">
             <summary>
             Use ITooltipService to create the tooltip, if this service was injected.
@@ -6855,7 +6985,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Visible">
             <summary>
-            Gets or sets if the tooltip is visible
+            Gets or sets a value indicating whether the tooltip is visible.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Anchor">
@@ -6865,7 +6995,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Delay">
             <summary>
-            Gets or sets the delay (in milliseconds). Default is 300.
+            Gets or sets the delay (in milliseconds). 
+            Default is 300.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.Position">
@@ -6882,18 +7013,18 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.AutoUpdateMode">
             <summary>
             Controls when the tooltip updates its position, default is anchor which only updates when
-            the anchor is resized.  auto will update on scroll/resize events.
+            the anchor is resized. Auto will update on scroll/resize events.
             Corresponds to anchored-region auto-update-mode.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.HorizontalViewportLock">
             <summary>
-            Gets or sets whether the horizontal viewport is locked
+            Gets or sets whether the horizontal viewport is locked.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.VerticalViewportLock">
             <summary>
-            Gets or sets whether the vertical viewport is locked
+            Gets or sets whether the vertical viewport is locked.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.ChildContent">
@@ -6903,7 +7034,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.OnDismissed">
             <summary>
-            Callback for when the tooltip is dismissed
+            Callback for when the tooltip is dismissed.
             </summary>  
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTooltip.DrawTooltip">
@@ -10756,6 +10887,11 @@
             FluentUI System Icon size 48x48
             </summary>
         </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconSize.Custom">
+            <summary>
+            Custom size included in the SVG content.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.IconVariant">
             <summary>
             The icon variant.
@@ -11750,6 +11886,17 @@
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
             If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.LibraryConfiguration.RequiredLabel">
+            <summary>
+            Gets or sets the required label for the form fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.LibraryConfiguration.HideTooltipOnCursorLeave">
+            <summary>
+            Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
+            By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.Resources.TimeAgoResource">

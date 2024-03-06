@@ -17,7 +17,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     private IJSObjectReference? Module { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element auto completes. See <seealso cref="AspNetCore.Components.ComboboxAutocomplete"/>
+    /// Gets or sets a value indicating whether the element auto completes. See <seealso cref="ComboboxAutocomplete"/>
     /// </summary>
     [Parameter]
     public ComboboxAutocomplete? Autocomplete { get; set; }
@@ -36,13 +36,13 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
     /// <summary>
     /// Gets or sets the placement for the listbox when the combobox is open.
-    /// See <seealso cref="AspNetCore.Components.SelectPosition"/>
+    /// See <seealso cref="SelectPosition"/>
     /// </summary>
     [Parameter]
     public SelectPosition? Position { get; set; } = SelectPosition.Below;
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }

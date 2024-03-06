@@ -37,7 +37,7 @@ With the package installed, you can begin using the **Fluent UI Blazor component
 After the package is added, you need to add the following in your  `_Imports.razor`
 
 ```razor
-@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.Fast.Components.FluentUI
 ```
 
 ### Quick Start
@@ -62,7 +62,7 @@ Currently when using the WebView to run Blazor (so all Hybrid variants) the web-
 There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
 ```xml
-<script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
+<script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.Fast.Components.FluentUI/js/initializersLoader.webview.js"></script>
 <script src="_framework/blazor.webview.js"></script>
 ```
 

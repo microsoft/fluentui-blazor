@@ -7,60 +7,60 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
     {
         private IDialogReference? _dialog;
 
-    private async Task OpenSplashDefaultAsync()
-    {
-        DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
-        DialogParameters<SplashScreenContent> parameters = new()
+        private async Task OpenSplashDefaultAsync()
         {
-            Content = new()
+            DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
+            DialogParameters<SplashScreenContent> parameters = new()
             {
-                DisplayTime = 0,    // See Task.Delay below
-                Title = "Core components",
-                SubTitle = "Microsoft Fluent UI Blazor library",
-                LoadingText = "Loading...",
-                Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
-                Logo = FluentSplashScreen.LOGO,
-            },
-            Width = "640px",
-            Height = "480px",
-        };
-        _dialog = await DialogService.ShowSplashScreenAsync(parameters);
+                Content = new()
+                {
+                    DisplayTime = 0,    // See Task.Delay below
+                    Title = "Core components",
+                    SubTitle = "Microsoft Fluent UI Blazor library",
+                    LoadingText = "Loading...",
+                    Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
+                    Logo = FluentSplashScreen.LOGO,
+                },
+                Width = "640px",
+                Height = "480px",
+            };
+            _dialog = await DialogService.ShowSplashScreenAsync(parameters);
 
-        var splashScreen = (SplashScreenContent)_dialog.Instance.Content;
+            var splashScreen = (SplashScreenContent)_dialog.Instance.Content;
 
-        // Simulate a first task
-        await Task.Delay(2000);
+            // Simulate a first task
+            await Task.Delay(2000);
 
-        // Update the splash screen content and simulate a second task
-        splashScreen.UpdateLabels(loadingText: "Second task...");
-        await Task.Delay(2000);
+            // Update the splash screen content and simulate a second task
+            splashScreen.UpdateLabels(loadingText: "Second task...");
+            await Task.Delay(2000);
 
-        await _dialog.CloseAsync();
+            await _dialog.CloseAsync();
 
-        DialogResult result = await _dialog.Result;
-        await HandleDefaultSplashAsync(result);
-    }
+            DialogResult result = await _dialog.Result;
+            await HandleDefaultSplashAsync(result);
+        }
 
-    private void OpenSplashDefault()
-    {
-        DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
-        DialogParameters<SplashScreenContent> parameters = new()
+        private void OpenSplashDefault()
         {
-            Content = new()
+            DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
+            DialogParameters<SplashScreenContent> parameters = new()
             {
-                Title = "Core components",
-                SubTitle = "Microsoft Fluent UI Blazor library",
-                LoadingText = "Loading...",
-                Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
-                Logo = FluentSplashScreen.LOGO,
-            },
-            Width = "640px",
-            Height = "480px",
-        };
-        DialogService.ShowSplashScreen(this, HandleDefaultSplashAsync, parameters);
-    }
+                Content = new()
+                {
+                    Title = "Core components",
+                    SubTitle = "Microsoft Fluent UI Blazor library",
+                    LoadingText = "Loading...",
+                    Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
+                    Logo = FluentSplashScreen.LOGO,
+                },
+                Width = "640px",
+                Height = "480px",
+            };
+            DialogService.ShowSplashScreen(this, HandleDefaultSplashAsync, parameters);
+        }
 
-        private async Task HandleDefaultSplash(DialogResult result)
+        private async Task HandleDefaultSplashAsync(DialogResult result)
         {
             await Task.Run(() => DemoLogger.WriteLine($"Default splash closed"));
         }

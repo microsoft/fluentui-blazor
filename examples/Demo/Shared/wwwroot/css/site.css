@@ -157,19 +157,19 @@ aside {
     width: 18rem;
 }
 
-#menu-toggle {
+#navmenu-toggle {
     display: none;
 }
 
-.menu-icon {
+.navmenu-icon {
     display: none;
 }
 
-#menu-toggle:checked > nav {
+#navmenu-toggle:checked > nav {
     width: 0px;
 }
 
-[dir="rtl"] #menu-toggle:checked ~ nav {
+[dir="rtl"] #navmenu-toggle:checked ~ nav {
     right: 0px;
 }
 
@@ -295,38 +295,49 @@ code {
     }
 
     nav.sitenav {
-
         width: 100%;
         height: calc(100dvh - 50px);
-
     }
 
-    .menutoggle {
+    .navmenu {
         width: 100%;
     }
 
-    .menu-icon {
-        z-index: 10;
-        display: block;
-        visibility: visible;
-        position: absolute;
-        top: 15px;
-        right: 20px;
+    #navmenu-toggle {
+        appearance: none;
     }
 
-    #menu-toggle ~ nav {
+    .navmenu-icon {
+        cursor: pointer;
+        z-index: 10;
+        display: block;
+        position: absolute;
+        top: 15px;
+        left: unset;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        border: none;
+    }
+
+    [dir="rtl"] .navmenu-icon {
+        left: 20px;
+        right: unset
+    }
+
+    #navmenu-toggle ~ nav {
         display: none;
     }
 
-    #menu-toggle:checked ~ nav {
+    #navmenu-toggle:checked ~ nav {
         display: block;
     }
 
-    #menu-toggle ~ article {
+    #navmenu-toggle ~ article {
         display: block;
     }
 
-    #menu-toggle:checked ~ article {
+    #navmenu-toggle:checked ~ article {
         display: none;
     }
 

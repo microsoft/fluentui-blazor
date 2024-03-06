@@ -126,7 +126,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
             return CustomColor;
         }
 
-        if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(_icon.Color))
+        if (Color == FluentUI.Color.Custom && !string.IsNullOrEmpty(_icon.Color))
         {
             return _icon.Color;
         }
