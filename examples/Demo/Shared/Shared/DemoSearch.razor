@@ -1,24 +1,18 @@
-﻿<FluentSearch @bind-Value="@_searchValue"
-              Immediate
-              @bind-Value:after="HandleSearchInput"
-              Id="demo-search"
-              Placeholder="Search everything..."/>
-
-@if (_searchResults is not null)
-{
-    <FluentMenu Anchor="demo-search"
-                HorizontalPosition="HorizontalPosition.Right"
-                @bind-Open="_visible">
-        @foreach (var searchResult in _searchResults)
-        {
-            var item = NavProvider.FlattenedMenuItems.First(x => x.Title == searchResult);
-
-            <FluentMenuItem OnClick="@(() => HandleSearchClicked(item))">
-                <span slot="start">
-                    <FluentIcon Value="@(item.Icon)" Class="search-result-icon" Color="Color.Neutral" Slot="start"/>
-                </span>
-                @item.Title
-            </FluentMenuItem>
-        }
-    </FluentMenu>
-}
+﻿<FluentAutocomplete TOption="NavItem"
+                    Width="200px"
+                    AutoComplete="off"
+                    Placeholder="Search everything..."
+                    MaximumSelectedOptions="1"
+                    OptionText="@(item => item.Title)"
+                    @bind-ValueText="@_searchTerm"
+                    @bind-SelectedOptions="_selectedOptions"
+                    @bind-SelectedOptions:after="HandleSearchClicked"
+                    OnOptionsSearch="@HandleSearchInput"
+                    ShowOverlayOnEmptyResults="false">
+    <OptionTemplate>
+        <span slot="start">
+            <FluentIcon Value="@(context.Icon)" Class="search-result-icon" Color="Color.Neutral" Slot="start"/>
+        </span>
+        @context.Title
+    </OptionTemplate>
+</FluentAutocomplete>
