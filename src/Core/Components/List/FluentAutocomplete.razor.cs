@@ -110,6 +110,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     /// <summary>
     /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
+    /// If the value is smaller than 0, all search results are shown.
     /// Default value is 9.
     /// </summary>
     [Parameter]
@@ -244,7 +245,15 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         await OnOptionsSearch.InvokeAsync(args);
 
-        Items = args.Items?.Take(MaximumOptionsSearch);
+        if (MaximumOptionsSearch < 0)
+        {
+            Items = args.Items;
+        }
+        else
+        {
+            Items = args.Items?.Take(MaximumOptionsSearch);
+        }
+
         SelectableItem = Items != null
             ? Items.FirstOrDefault()
             : default;
