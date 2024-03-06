@@ -2,6 +2,11 @@ let resizeObserver;
 let observerAddRemove;
 
 export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
+    var localSelector = querySelector;
+    if (!localSelector) {
+        // cannot use :scope for node.matches() further down
+        localSelector = ".fluent-overflow-item";
+    }
 
     // Create a Add/Remove Observer, started later
     observerAddRemove = new MutationObserver(mutations => {
@@ -12,9 +17,9 @@ export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
                 return
             }
 
-            // Only for querySelector element
+            // Only for localSelector element
             const node = mutation.addedNodes.length > 0 ? mutation.addedNodes[0] : mutation.removedNodes[0];
-            if (node.nodeType !== Node.ELEMENT_NODE || !node.matches(querySelector)) {
+            if (node.nodeType !== Node.ELEMENT_NODE || !node.matches(localSelector)) {
                 return;
             }
 
@@ -42,7 +47,7 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
     if (!container) return;
 
     if (!querySelector) {
-        querySelector = ":scope > *";
+        querySelector = ":scope .fluent-overflow-item";
     }
     else {
         querySelector = ":scope " + querySelector;
