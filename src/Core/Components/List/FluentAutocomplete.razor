@@ -14,11 +14,11 @@
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
-                         Placeholder="@(this.SelectedOptions?.Any() == false ? Placeholder : string.Empty)"
+                         Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
-                         Value="@_valueText"
+                         Value="@ValueText"
                          Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
                          @oninput="@InputHandlerAsync"
@@ -66,7 +66,7 @@
             }
             @if (!Disabled)
             {
-                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(_valueText))
+                if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
                 {
                     if (IconDismiss != null)
                     {
@@ -94,7 +94,7 @@
         </FluentTextField>
 
         @* List of available items *@
-        @if (IsMultiSelectOpened)
+        @if (IsMultiSelectOpened && (ShowOverlayOnEmptyResults || Items?.Any() == true))
         {
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
