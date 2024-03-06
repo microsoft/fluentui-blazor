@@ -26,6 +26,20 @@ public partial class FluentPopover : FluentComponentBase
     public HorizontalPosition? HorizontalPosition { get; set; } = AspNetCore.Components.HorizontalPosition.Unset;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+    /// Default is true which places the region aligned with the anchor element.
+    /// </summary>
+    [Parameter]
+    public bool HorizontalInset { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the default vertical position of the region relative to the anchor element.
+    /// Default is unset. See <seealso cref="VerticalPosition"/>
+    /// </summary>
+    [Parameter]
+    public VerticalPosition? VerticalPosition { get; set; } = AspNetCore.Components.VerticalPosition.Bottom;
+
+    /// <summary>
     /// How short the space allocated to the default position has to be before the tallest area is selected for layout.
     /// </summary>
     [Parameter]

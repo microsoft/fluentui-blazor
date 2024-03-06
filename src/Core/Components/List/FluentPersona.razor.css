@@ -1,4 +1,4 @@
-﻿.fluent-persona {
+.fluent-persona {
     display: flex;
     height: 100%;
     width: fit-content;
@@ -23,12 +23,14 @@
         .fluent-persona .initials img {
             border-radius: 50%;
             aspect-ratio: 1 / 1;
-            height: 100%;
-            width: 100%;
+            width: auto;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
         }
 
     .fluent-persona .name {
-        margin-left: 16px;
+        margin-inline-start: 16px;
     }
 
     .fluent-persona .close {

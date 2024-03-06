@@ -1,23 +1,23 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue">
     <div class="initials">
         <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
-            @if (string.IsNullOrEmpty(Image))
-            {
-                <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
-                        @(Initials ?? GetDefaultInitials())
-                </div>
-            }
-            else
-            {
-                <img src="@Image" alt="@Name" title="@Name" style="@GetImageSizeStyle()" />
-            }
+            <div style="display: table-cell; vertical-align: middle; @GetImageMinSizeStyle()">
+                @if (string.IsNullOrEmpty(Image))
+                {
+                    @(Initials ?? GetDefaultInitials())
+                }
+                else
+                {
+                    <img src="@Image" alt="@Name" title="@Name" style="@GetImageMaxSizeStyle()" />
+                }
+            </div>
         </FluentPresenceBadge>
     </div>
     <div class="name">
-        @if (@ChildContent is null)
+        @if (ChildContent is null)
         {
             @Name
         }

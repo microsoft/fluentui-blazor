@@ -82,7 +82,7 @@ public partial class FluentPersona : FluentComponentBase
     /// <summary />
     private string GetDefaultInitials()
     {
-        var parts = Name.ToUpper().Split(' ');
+        var parts = Name.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return parts == null
                 || parts.Length == 0
                 || (parts.Length == 1 && parts[0] == string.Empty)
@@ -92,8 +92,13 @@ public partial class FluentPersona : FluentComponentBase
             : $"{parts[0][0]}";
     }
 
-    private string GetImageSizeStyle()
+    private string GetImageMinSizeStyle()
     {
         return string.IsNullOrEmpty(ImageSize) ? string.Empty : $"width: {ImageSize}; min-width: {ImageSize}; height: {ImageSize}; min-height: {ImageSize};";
+    }
+
+    private string GetImageMaxSizeStyle()
+    {
+        return string.IsNullOrEmpty(ImageSize) ? string.Empty : $"max-width: {ImageSize}; max-height: {ImageSize};";
     }
 }
