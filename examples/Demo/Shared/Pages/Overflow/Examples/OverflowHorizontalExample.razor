@@ -1,27 +1,29 @@
-﻿<FluentOverflow OnOverflowRaised="OverflowHandler" Style="border: 1px solid lightgray">
-    <ChildContent>
-        @foreach (var item in Items)
-        {
-            <FluentOverflowItem><FluentBadge>@item</FluentBadge></FluentOverflowItem>
-        }
-    </ChildContent>
-    <MoreButtonTemplate>
-        <FluentBadge Style="min-width: 32px; max-width:32px;">
-            @($"+{context.ItemsOverflow.Count()}")
-        </FluentBadge>
-    </MoreButtonTemplate>
-    <OverflowTemplate>
-        <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
-            @foreach (var item in context.ItemsOverflow)
+﻿<div style="background-color: var(--neutral-layer-4); overflow: auto; resize: horizontal; padding: 10px;">
+    <FluentOverflow OnOverflowRaised="OverflowHandler" Style="width: 100%; border: 1px solid darkgray; padding: 2px; margin-bottom: 4px;">
+        <ChildContent>
+            @foreach (var item in Items)
             {
-                <div style="margin: 5px;">@item.Text</div>
+                <FluentOverflowItem><FluentBadge>@item</FluentBadge></FluentOverflowItem>
             }
-        </FluentTooltip>
-    </OverflowTemplate>
-</FluentOverflow>
+        </ChildContent>
+        <MoreButtonTemplate>
+            <FluentBadge Style="min-width: 32px; max-width:32px;">
+                @($"+{context.ItemsOverflow.Count()}")
+            </FluentBadge>
+        </MoreButtonTemplate>
+        <OverflowTemplate>
+            <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
+                @foreach (var item in context.ItemsOverflow)
+                {
+                    <div style="margin: 5px;">@item.Text</div>
+                }
+            </FluentTooltip>
+        </OverflowTemplate>
+    </FluentOverflow>
+</div>
 
 <FluentButton @onclick="@AddNewItemClick">Add</FluentButton>
-<FluentButton @onclick="@RemoveFirstItemClick">Remove</FluentButton>
+<FluentButton @onclick="@RemoveLastItemClick">Remove</FluentButton>
 
 @code
 {
@@ -43,8 +45,8 @@
         Items.Add(Catalog[index]);
     }
 
-    void RemoveFirstItemClick()
+    void RemoveLastItemClick()
     {
-        Items.RemoveAt(0);
+        Items.RemoveAt(Items.Count-1);
     }
 }

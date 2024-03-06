@@ -12,7 +12,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Overflow/FluentOverflow.razor.js";
     private readonly List<FluentOverflowItem> _items = new();
-    private RenderFragment? _childContent = null;
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
     private IJSObjectReference _jsModule = default!;
 
@@ -25,42 +24,23 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
-
-
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Content to display. All first HTML elements are included in the items flow.
+    /// Gets or sets the content to display.
+    /// All first HTML elements are included in the items flow.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent
-    {
-        get
-        {
-            return _childContent;
-        }
-
-        set
-        {
-            _childContent = value;
-
-            if (_jsModule != null && _dotNetHelper != null)
-            {
-                bool isHorizontal = Orientation == Orientation.Horizontal;
-                InvokeAsync(async () => await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null));
-            }
-        }
-    }
-
+    public RenderFragment? ChildContent { get; set; }
     /// <summary>
-    /// Template to display <see cref="ItemsOverflow"/> elements.
+    /// Gets or sets the template to display <see cref="ItemsOverflow"/> elements.
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
 
     /// <summary>
-    /// Template to display the More button.
+    /// Gets or sets the template to display the More button.
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? MoreButtonTemplate { get; set; }
@@ -71,6 +51,11 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
+    /// <summary>
+    /// Gets or sets the CSS selectors of the items to include in the overflow.
+    /// </summary>
+    [Parameter]
+    public string? Selectors { get; set; } = string.Empty;
     /// <summary>
     /// Event raised when a <see cref="FluentOverflowItem"/> enter or leave the current panel.
     /// </summary>
@@ -87,6 +72,8 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// </summary>
     public string IdMoreButton => $"{Id}-more";
 
+    private bool IsHorizontal => Orientation == Orientation.Horizontal;
+
     public FluentOverflow()
     {
         Id = Identifier.NewId();
@@ -95,16 +82,14 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender)
+        if (firstRender)
         {
-            return;
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _dotNetHelper = DotNetObjectReference.Create(this);
+
+
+            await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
         }
-
-        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        _dotNetHelper = DotNetObjectReference.Create(this);
-
-        bool isHorizontal = Orientation == Orientation.Horizontal;
-        await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, isHorizontal, null);
     }
 
     /// <summary />
@@ -131,7 +116,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             await OnOverflowRaised.InvokeAsync(ItemsOverflow);
         }
 
-        await InvokeAsync(() => StateHasChanged());
+        StateHasChanged();
     }
 
 
@@ -143,7 +128,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     internal void RemoveItem(FluentOverflowItem item)
     {
         _items.Remove(item);
-        StateHasChanged();
+        _jsModule?.InvokeVoidAsync("FluentOverflowDispose", item.Id);
     }
 
     /// <inheritdoc />
