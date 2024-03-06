@@ -11,9 +11,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public static string AccessibilitySelected = "Selected {0}";
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
-    private string _valueText = string.Empty;
-    
-    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
+    private string _valueText = string.Empty;  
+
+    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
 
@@ -41,6 +41,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets the text field value.
+    /// </summary>
+    [Parameter]
+    public string ValueText { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the text field value changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string> ValueTextChanged { get; set; }
+
+    /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
     /// Set the <see cref="MaximumSelectedOptions"/> property to 1 to select just one item.
     /// </summary>
@@ -63,7 +75,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
@@ -120,7 +132,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
 
-
     /// <summary>
     /// Gets or sets the header content, placed at the top of the popup panel.
     /// </summary>
@@ -144,6 +155,24 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// </summary>
     [Parameter]
     public string TitleScrollToNext { get; set; } = "Next";
+
+    /// <summary>
+    /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+    /// </summary>
+    [Parameter]
+    public Icon? IconDismiss { get; set; } = new CoreIcons.Regular.Size16.Dismiss();
+
+    /// <summary>
+    /// Gets or sets the icon used for the Search button. By default: Search icon.
+    /// </summary>
+    [Parameter]
+    public Icon? IconSearch { get; set; } = new CoreIcons.Regular.Size16.Search();
+
+    /// <summary>
+    /// Gets or sets whether the dropdown is shown when there are no items.
+    /// </summary>
+    [Parameter]
+    public bool ShowOverlayOnEmptyResults { get; set; } = true;
 
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
@@ -192,7 +221,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
-        _valueText = e.Value?.ToString() ?? string.Empty;
+        ValueText = e.Value?.ToString() ?? string.Empty;
+        await ValueTextChanged.InvokeAsync(ValueText);
 
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
@@ -206,16 +236,19 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         var args = new OptionsSearchEventArgs<TOption>()
         {
             Items = Items ?? Array.Empty<TOption>(),
-            Text = _valueText,
+            Text = ValueText,
         };
 
         await OnOptionsSearch.InvokeAsync(args);
 
-        Items = args.Items.Take(MaximumOptionsSearch);
-        SelectableItem = Items.FirstOrDefault();
+        Items = args.Items?.Take(MaximumOptionsSearch);
+        SelectableItem = Items != null
+            ? Items.FirstOrDefault()
+            : default;
     }
 
     private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
+    private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
 
     /// <summary />
     protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
@@ -278,7 +311,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         async Task KeyDown_Backspace()
         {
             // Remove last selected item
-            if (string.IsNullOrEmpty(_valueText) &&
+            if (string.IsNullOrEmpty(ValueText) &&
                 SelectedOptions != null && SelectedOptions.Any())
             {
                 await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
@@ -287,11 +320,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             }
 
             // Remove last char
-            if (!string.IsNullOrEmpty(_valueText))
+            if (!string.IsNullOrEmpty(ValueText))
             {
                 await InputHandlerAsync(new ChangeEventArgs()
                 {
-                    Value = _valueText.Substring(0, _valueText.Length - 1),
+                    Value = ValueText[..^1],
                 });
                 return;
             }
@@ -377,22 +410,25 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         return InputHandlerAsync(new ChangeEventArgs()
         {
-            Value = _valueText,
+            Value = ValueText,
         });
     }
 
     /// <summary />
-    protected Task OnClearAsync()
+    protected async Task OnClearAsync()
     {
         RemoveAllSelectedItems();
-        _valueText = string.Empty;
-        return RaiseChangedEventsAsync();
+        ValueText = string.Empty;
+        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseChangedEventsAsync();
     }
 
     /// <summary />
     protected override async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
-        _valueText = string.Empty;
+        ValueText = string.Empty;
+        await ValueTextChanged.InvokeAsync(ValueText);
+
         IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
         await DisplayLastSelectedItemAsync();

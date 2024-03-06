@@ -1,4 +1,5 @@
 ﻿using Bunit;
+using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -216,6 +217,90 @@ public class FluentAutocompleteTests : TestBase
         cut.Find("fluent-badge svg").Click();
 
         // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ValueText()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.ValueText, "Preselected value");
+        });
+
+        // Assert
+        var textField = cut.Find("fluent-text-field");
+
+        var valueAttribute = textField.Attributes["value"];
+        var currentValueAttribute = textField.Attributes["current-value"];
+
+        valueAttribute.Should().NotBeNull();
+        valueAttribute!.Value.Should().Be("Preselected value");
+
+        currentValueAttribute.Should().NotBeNull();
+        currentValueAttribute!.Value.Should().Be("Preselected value");
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ValueText_Clears()
+    {
+        // Arrange
+        var valueText = "Preselected value";
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
+        });
+
+        valueText.Should().NotBeNullOrEmpty();
+
+        // Act
+        cut.Find("svg").Click(); // Clear button
+
+        // Assert
+        valueText.Should().BeNullOrEmpty();
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnClear_ShowOverlay()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.ValueText, "Some text here");
+        });
+
+        // Act
+        cut.Find("svg").Click(); // Clear button
+
+        // Assert
+        cut.Find("fluent-anchored-region").Should().NotBeNull();
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_OnClearWithOverlayHiddenOnEmpty_HasNoOverlay()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.ValueText, "Some text here");
+            parameters.Add(p => p.ShowOverlayOnEmptyResults, false);
+        });
+
+        // Act
+        cut.Find("svg").Click(); // Clear button
+
+        // Assert
+        cut.FindAll("fluent-anchored-region").Should().BeNullOrEmpty();
         cut.Verify();
     }
 
