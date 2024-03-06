@@ -17,7 +17,7 @@ public partial class DemoSearch
     protected NavigationManager NavigationManager { get; set; } = default!;
 
     private string? _searchTerm = "";
-    private IEnumerable<NavItem>? _selectedOptions = [];
+    private IEnumerable<NavItem>? _selectedOptions;
 
     private void HandleSearchInput(OptionsSearchEventArgs<NavItem> e)
     {
@@ -39,7 +39,7 @@ public partial class DemoSearch
     {
         _searchTerm = null;
         var targetHref = _selectedOptions?.SingleOrDefault()?.Href;
-        _selectedOptions = [];
+        _selectedOptions = null;
         InvokeAsync(StateHasChanged);
 
         // Ignore clearing the search bar

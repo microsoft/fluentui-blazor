@@ -15,8 +15,8 @@ public class DemoNavProvider
 
     public DemoNavProvider()
     {
-        NavMenuItems =
-        [
+        NavMenuItems = new List<NavItem>
+        {
             new NavLink(
                 href: "/",
                 match: NavLinkMatch.All,
@@ -29,8 +29,8 @@ public class DemoNavProvider
                 title: "Getting Started",
                 expanded: true,
                 gap: "10px",
-                children:
-                [
+                children: new List<NavItem>
+                {
                     new NavLink(
                         href: "/WhatsNew",
                         icon: new Icons.Regular.Size20.Info(),
@@ -105,15 +105,15 @@ public class DemoNavProvider
                             )
                         ]
                     )
-                ]
+                }
             ),
             new NavGroup(
                 icon: new Icons.Regular.Size20.ContentViewGallery(),
                 title: "Layout",
                 expanded: false,
                 gap: "10px",
-                children:
-                [
+                children: new List<NavItem>
+                {
                     new NavLink(
                         href: "/Header",
                         icon: new Icons.Regular.Size20.DocumentHeader(),
@@ -159,14 +159,14 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.Stack(),
                         title: "Stack"
                     )
-                ]),
+                }),
             new NavGroup(
                 icon: new Icons.Regular.Size20.Form(),
                 title: "Form & Inputs",
                 expanded: false,
                 gap: "10px",
-                children:
-                [
+                children: new List<NavItem>
+                {
                     new NavLink(
                         href: "/Forms",
                         icon: new Icons.Regular.Size20.Form(),
@@ -227,7 +227,7 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.Clock(),
                         title: "Time picker"
                     )
-                ]
+                }
             ),
 
             new NavGroup(
@@ -235,8 +235,8 @@ public class DemoNavProvider
                 title: "Components",
                 expanded: false,
                 gap: "10px",
-                children:
-                [
+                children: new List<NavItem>
+                {
                     new NavLink(
                         href: "/FluentComponentBase",
                         icon: new Icons.Regular.Size20.PuzzleCubePiece(),
@@ -262,8 +262,8 @@ public class DemoNavProvider
                         expanded: true,
                         gap: "10px",
                         icon: new Icons.Regular.Size20.Tag(),
-                        children:
-                        [
+                        children: new List<NavItem>
+                        {
                             new NavLink(
                                 href: "/Badge",
                                 icon: new Icons.Regular.Size20.Badge(),
@@ -279,7 +279,7 @@ public class DemoNavProvider
                                 icon: new Icons.Regular.Size20.PresenceAvailable(),
                                 title: "PresenceBadge"
                             )
-                        ]
+                        }
                     ),
                     new NavLink(
                         href: "/Breadcrumb",
@@ -356,8 +356,8 @@ public class DemoNavProvider
                         expanded: true,
                         gap: "10px",
                         icon: new Icons.Regular.Size20.List(),
-                        children:
-                        [
+                        children: new List<NavItem>
+                        {
                             new NavLink(
                                 href: "/Autocomplete",
                                 icon: new Icons.Regular.Size20.ArrowAutofitContent(),
@@ -383,7 +383,7 @@ public class DemoNavProvider
                                 icon: new Icons.Regular.Size20.MultiselectRtl(),
                                 title: "Option"
                             )
-                        ]
+                        }
                     ),
                     new NavLink(
                         href: "/Menu",
@@ -456,11 +456,6 @@ public class DemoNavProvider
                         title: "Skeleton"
                     ),
                     new NavLink(
-                        href: "/SortableList",
-                        icon: new Icons.Regular.Size20.ArrowSort(),
-                        title: "Sortable List"
-                    ),
-                    new NavLink(
                         href: "/SplashScreen",
                         icon: new Icons.Regular.Size20.Drop(),
                         title: "SplashScreen"
@@ -495,15 +490,15 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.TextBulletListTree(),
                         title: "Wizard"
                     )
-                ]),
+                }),
 
             new NavGroup(
                 icon: new Icons.Regular.Size20.Beaker(),
                 title: "Incubation lab",
                 expanded: false,
                 gap: "10px",
-                children:
-                [
+                children: new List<NavItem>
+                {
                     new NavLink(
                         href: "/Lab/Overview",
                         icon: new Icons.Regular.Size20.Beaker(),
@@ -533,9 +528,9 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.Keyboard(),
                         title: "KeyCode"
                     )
-                ]
+                }
             )
-        ];
+        };
 
         FlattenedMenuItems = GetFlattenedMenuItems(NavMenuItems)
             .ToList()

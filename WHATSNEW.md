@@ -1,6 +1,33 @@
-﻿## V3.5.6
+﻿## V3.6.0
+
+
+- Update Fluent UI System Icons to 1.1.230
+
+  **What's new (Name / Size(s) / Variant(s))**
+- Checkmark Circle Warning / 16, 20, 24 / Filled & Regular
+- Cloud Arrow Right / 16, 20, 24 / Filled & Regular
+- Document Arrow Down / 24 / Filled & Regular
+- Document Signature / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Home Garage / 20, 24 / Filled & Regular
+- Image Split / 20, 24 / Filled & Regular
+- Laptop / 48 / Filled & Regular
+- Line Flow Diagonal Up Right / 16, 20, 24, 32 / Filled & Regular
+- Mail Arrow Clockwise / 16, 20, 24 / Filled & Regular
+- Person Passkey / 16, 20, 24, 28, 32, 48 / Filled & Regular
+- Person Prohibited / 32 / Filled & Regular
+- Person Ribbon / 24 / Filled & Regular
+- Plant Cattail / 20, 24 / Filled & Regular
+- Storage / 16, 28, 32, 48 / Filled & Regular
+- Video Clip Wand / 16, 20, 24 / Filled & Regular
+- Window Fingerprint / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ 
+  **What's updated (Name / Size(s) / Variant(s))**
+- Video Add / 20, 24 / Filled & Regular
+- 
+## V3.5.6
 - Update Fluent UI System Icons to 1.1.226
-  **What's new (Name / Size(s) / Variant(s))**
+
+  **What's new (Name / Size(s) / Variant(s))**
 - Building Lighthouse / 16 / Filled & Regular
 - Calendar Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
 - Calendar Template / 20, 24, 32 / Filled & Regular
