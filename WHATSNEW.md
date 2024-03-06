@@ -1,5 +1,30 @@
 ﻿## V3.6.0
-
+- [[FluentGrid] Fix the Grid "external margins" (#1646)](https://github.com/microsoft/fluentui-blazor/pull/1646)
+- [Add VerticalThreshold to menu (#1644)](https://github.com/microsoft/fluentui-blazor/pull/1644)
+- [Remove Expression from TooltipText (#1635)](https://github.com/microsoft/fluentui-blazor/pull/1635)
+- [Fix bug in FluentPersona when the names contains more than one space. (#1623)](https://github.com/microsoft/fluentui-blazor/pull/1623)
+- [Adds a Filtered property and visual indicator to PropretyColumn in FluentDataGrid (#1625)](https://github.com/microsoft/fluentui-blazor/pull/1625)
+- [Fix native autocomplete for combobox (#1629)](https://github.com/microsoft/fluentui-blazor/pull/1629)
+- [Add .resizable class to header cell when ResizableColumns is true (#1606)](https://github.com/microsoft/fluentui-blazor/pull/1606)
+- [[FluentCard] Add MinimalStyle property (#1595) ](https://github.com/microsoft/fluentui-blazor/pull/1595)
+- [MenuButton changes and additions (#1602) ](https://github.com/microsoft/fluentui-blazor/pull/1602)
+- [Update the FluentButton custom style for BackgroundColor and Color properties (#1603)](https://github.com/microsoft/fluentui-blazor/pull/1603)
+- [Fix #1582 by adding pointercancel and pointerleave event listeners (#1591](https://github.com/microsoft/fluentui-blazor/pull/1591)
+- [feat: Add global search bar (#1583)](https://github.com/microsoft/fluentui-blazor/pull/1583)
+- [refactor: Migrate Demo Search to use FluentAutocomplete (#1599)](https://github.com/microsoft/fluentui-blazor/pull/1599)
+- [Add LoadingContent parameter to FluentTab (#1587)](https://github.com/microsoft/fluentui-blazor/pull/1587)
+- [Fix OnRowwFocus and sorting for DataGrid (#1577)](https://github.com/microsoft/fluentui-blazor/pull/1577)
+- [FluentMenu fixes (#1574) ](https://github.com/microsoft/fluentui-blazor/pull/1574)
+- [Render out Id for FluentNavLink + add test (#1580)](https://github.com/microsoft/fluentui-blazor/pull/1580)
+- [Fix #1531 by using web components current-value instead of value. (#1576)](https://github.com/microsoft/fluentui-blazor/pull/1576)
+- [Add IconDismiss adn IconSearch (#1573) ](https://github.com/microsoft/fluentui-blazor/pull/1573)
+- [[FluentTooltip] Add the HideTooltipOnCursorLeave property (#1571)](https://github.com/microsoft/fluentui-blazor/pull/1571)
+- [[FluentSplashScreen] Add WaitingMilliseconds and UpdateLabels (#1570) ](https://github.com/microsoft/fluentui-blazor/pull/1570)
+- [Fix Loading issues (#1512)](https://github.com/microsoft/fluentui-blazor/pull/1512)
+- [Add FluentKeyCode.PreventDefaultOnly and fix the Autocomplete Backspace keycode (#1544)](https://github.com/microsoft/fluentui-blazor/pull/1544)
+- [fix: add required binding to the autocomplete label (#1543)](https://github.com/microsoft/fluentui-blazor/pull/1543)
+- [Fix Icon color using ColorWith and a CustomColor attribute (#1539)](https://github.com/microsoft/fluentui-blazor/pull/1539)
+- [Update NavMenuPage.razor (#1518) ](https://github.com/microsoft/fluentui-blazor/pull/1518)
 
 - Update Fluent UI System Icons to 1.1.230
 
@@ -23,36 +48,7 @@
  
   **What's updated (Name / Size(s) / Variant(s))**
 - Video Add / 20, 24 / Filled & Regular
-- 
-## V3.5.6
-- Update Fluent UI System Icons to 1.1.226
 
-  **What's new (Name / Size(s) / Variant(s))**
-- Building Lighthouse / 16 / Filled & Regular
-- Calendar Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
-- Calendar Template / 20, 24, 32 / Filled & Regular
-- Clipboard / 12, 48 / Filled & Regular
-- Compose / 12, 32, 48 / Filled & Regular
-- Globe / 28 / Filled & Regular
-- Guest / 12, 32, 48 / Filled & Regular
-- Laptop Briefcase / 20, 24, 32 / Filled & Regular
-- Layer Diagonal Sparkle / 16, 20, 24 / Filled & Regular
-- Payment Wireless / 16, 20, 24, 28, 32, 48 / Filled & Regular
-- Status / 28, 32, 48 / Filled & Regular
-- Video Off / 16 / Filled & Regular
- 
-  **What's updated (Name / Size(s) / Variant(s))**
-- Building Lighthouse / 20 / Filled & Regular
-- Globe Video / 20, 24, 28, 32, 48 / Filled & Regular
-- Guest / 28 / Filled & Regular
-- Share iOS / 20, 24, 28, 48 / Filled & Regular
-- Status / 24 / Filled & Regular
-- Video Add / 20, 24 / Filled & Regular
-- Video Chat / 16, 20, 24, 28, 32, 48 / Filled & Regular
-- Video Link / 24 / Filled & Regular
-- Video Off / 20, 24, 28, 32, 48 / Filled & Regular
-- Video / 16, 20, 24, 28, 32, 48 / Filled & Regular
- 
 
 ## V3.5.5
 - Issue [#1437](https://github.com/microsoft/fluentui-blazor/issues/1437): UI does not leave Loading animation if result has 0 items in FluentDataGrid 

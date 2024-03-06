@@ -12,8 +12,8 @@
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-		<VersionFile>3.5.6</VersionFile>
-		<VersionPrefix>3.5.6</VersionPrefix>
+		<VersionFile>3.6.0</VersionFile>
+		<VersionPrefix>3.6.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
