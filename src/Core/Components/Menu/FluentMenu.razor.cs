@@ -86,6 +86,18 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     [Parameter]
     public bool Anchored { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
+    /// </summary>
+    [Parameter]
+    public int VerticalThreshold { get; set; } = 0;
+
+    /// <summary>
+    /// Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
+    /// </summary>
+    [Parameter]
+    public int HorizontalThreshold { get; set; } = 200;
+
     protected override void OnInitialized()
     {
         if (Anchored && string.IsNullOrEmpty(Anchor))
