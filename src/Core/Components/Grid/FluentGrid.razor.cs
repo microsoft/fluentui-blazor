@@ -57,12 +57,10 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass($"fluent-grid")
         .Build();
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("justify-content", Justify.ToAttributeValue())
         .Build();
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
