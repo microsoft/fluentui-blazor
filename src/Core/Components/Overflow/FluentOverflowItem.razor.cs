@@ -11,7 +11,7 @@ public partial class FluentOverflowItem : IDisposable
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("power-overflow-item")
+        .AddClass("fluent-overflow-item")
         .Build();
 
     /// <summary />
