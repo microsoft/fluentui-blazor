@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 <h4>Select the best song from the list or type your own</h4>
-<FluentCombobox Label="Best song" Items="@Data.Hits" @bind-Value="@hit" Height="200px" />
+<FluentCombobox Label="Best song" Autofocus="true" Items="@Data.Hits" @bind-Value="@hit" Height="200px" />
 <p>
     Selected hit: @hit
 </p>
