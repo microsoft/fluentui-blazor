@@ -18,6 +18,8 @@ Titles have been altered and sorted here to provide a bit more uniformity.
 * [Autocomplete] Add 'required' binding to the autocomplete label ([#1543](https://github.com/microsoft/fluentui-blazor/pull/1543))
 * [Autocomplete] Fix Backspace usage ([#1544](https://github.com/microsoft/fluentui-blazor/pull/1544))
 * [Autocomplete] Fix the left-right navigation (v3) ([#1491](https://github.com/microsoft/fluentui-blazor/pull/1491))
+* [Autocomplete] Add autofocus to Autocomplete & Combobox [#1650](https://github.com/microsoft/fluentui-blazor/pull/1650)
+* [Autocomplete] Add Virtualization [#1647](https://github.com/microsoft/fluentui-blazor/pull/1647)
 * [Button] Update the Button custom style for BackgroundColor and Color properties ([#1603](https://github.com/microsoft/fluentui-blazor/pull/1603))
 * [Card] Add MinimalStyle property ([#1595](https://github.com/microsoft/fluentui-blazor/pull/1595))
 * [Combobox] Allow FluentCombobox to be cleared from code ([#1613](https://github.com/microsoft/fluentui-blazor/pull/1613))
