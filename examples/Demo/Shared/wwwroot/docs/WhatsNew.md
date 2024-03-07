@@ -1,3 +1,69 @@
+## V4.5.0
+From now on we will just list the PRs that have been merged. The related issues can be found by looking at the PR details on GitHub.
+
+Titles have been altered and sorted here to provide a bit more uniformity.
+
+### Demo site, documentation and miscellaneous
+* [Demo & docs] Add global search bar ([#1583](https://github.com/microsoft/fluentui-blazor/pull/1583))
+* [Demo & docs] Add video on Demo site ([#1586](https://github.com/microsoft/fluentui-blazor/pull/1586))
+* [Demo & docs] Migrate Demo Search to use FluentAutocomplete ([#1599](https://github.com/microsoft/fluentui-blazor/pull/1599))
+* [Demo & docs] Nuget badge links to nuget ([#1529](https://github.com/microsoft/fluentui-blazor/pull/1529))
+* [Demo & docs] Update NavMenuPage.razor - corrects grammar ([#1518](https://github.com/microsoft/fluentui-blazor/pull/1518))
+* [Misc] Rider files not ignored ([#1649](https://github.com/microsoft/fluentui-blazor/pull/1649))
+* [Misc] Update devcontainer to Dotnet 8 ([#1630](https://github.com/microsoft/fluentui-blazor/pull/1630))
+
+### Components
+* [AppBar] Adding .NET Aspire's AppBar ([#1527](https://github.com/microsoft/fluentui-blazor/pull/1527))
+* [Autocomplete] Add IconDismiss adn IconSearch ([#1573](https://github.com/microsoft/fluentui-blazor/pull/1573))
+* [Autocomplete] Add 'required' binding to the autocomplete label ([#1543](https://github.com/microsoft/fluentui-blazor/pull/1543))
+* [Autocomplete] Fix Backspace usage ([#1544](https://github.com/microsoft/fluentui-blazor/pull/1544))
+* [Autocomplete] Fix the left-right navigation (v3) ([#1491](https://github.com/microsoft/fluentui-blazor/pull/1491))
+* [Button] Update the Button custom style for BackgroundColor and Color properties ([#1603](https://github.com/microsoft/fluentui-blazor/pull/1603))
+* [Card] Add MinimalStyle property ([#1595](https://github.com/microsoft/fluentui-blazor/pull/1595))
+* [Combobox] Allow FluentCombobox to be cleared from code ([#1613](https://github.com/microsoft/fluentui-blazor/pull/1613))
+* [Combobox] Fix 1485 by overriding SetParametersAsync ([#1506](https://github.com/microsoft/fluentui-blazor/pull/1506))
+* [Combobox] Re-use/re-purpose FluentTextField script for FluentCombobox (browser autocomplete) ([#1629](https://github.com/microsoft/fluentui-blazor/pull/1629))
+* [DatagGrid] Remove Expression from TooltipText ([#1635](https://github.com/microsoft/fluentui-blazor/pull/1635))
+* [DataGrid] Adds a Filtered property and visual indicator to PropretyColumn in FluentDataGrid ([#1625](https://github.com/microsoft/fluentui-blazor/pull/1625))
+* [DataGrid] Fix #1582 by adding pointercancel and pointerleave event listeners ([#1591](https://github.com/microsoft/fluentui-blazor/pull/1591))
+* [DataGrid] Fix #1616 by adding a try..catch block ([#1637](https://github.com/microsoft/fluentui-blazor/pull/1637))
+* [DataGrid] Fix Loading issues ([#1512](https://github.com/microsoft/fluentui-blazor/pull/1512))
+* [DataGrid] Fix OnRowwFocus and sorting for DataGrid ([#1577](https://github.com/microsoft/fluentui-blazor/pull/1577))
+* [DataGrid] Use specific ids for rows and cells ([#1480](https://github.com/microsoft/fluentui-blazor/pull/1480))
+* [DatePicker] Add DateOnly and TimeOnly extensions  ([#1500](https://github.com/microsoft/fluentui-blazor/pull/1500))
+* [DatePicker] Allow to select the existing selected month ([#1545](https://github.com/microsoft/fluentui-blazor/pull/1545))
+* [DesignTheme] Fix the Random color annoys other fillers ([#1475](https://github.com/microsoft/fluentui-blazor/pull/1475))
+* [Dialog] Allows showing a dialog by only providing a RenderFragment. ([#1496](https://github.com/microsoft/fluentui-blazor/pull/1496))
+* [Grid] Fix the Grid "external margins" ([#1646](https://github.com/microsoft/fluentui-blazor/pull/1646))
+* [Icons] Fix Icon color using `ColorWith` and a `CustomColor` attribute ([#1539](https://github.com/microsoft/fluentui-blazor/pull/1539))
+* [Icons] Update Fluent UI System Icons to v1.1.230 ([#1648](https://github.com/microsoft/fluentui-blazor/pull/1648))
+* [Icons] Update to Fluent UI System Icons 1.1.227 ([#1513](https://github.com/microsoft/fluentui-blazor/pull/1513))
+* [Lists] Small performance update for rendering list items ([#1476](https://github.com/microsoft/fluentui-blazor/pull/1476))
+* [Menu] Add Threshold attributes ([#1644](https://github.com/microsoft/fluentui-blazor/pull/1644))
+* [Menu] Several fixes ([#1574](https://github.com/microsoft/fluentui-blazor/pull/1574))
+* [MenuButton] Changes and additions ([#1602](https://github.com/microsoft/fluentui-blazor/pull/1602))
+* [MessageBar] Allow the ability to hide the dismissal button ([#1495](https://github.com/microsoft/fluentui-blazor/pull/1495))
+* [NavMenu] Fix FluentNavMenu.razor.js for non SSR ([#1560](https://github.com/microsoft/fluentui-blazor/pull/1560))
+* [NavMenu] Render out Id for FluentNavLink + add test ([#1580](https://github.com/microsoft/fluentui-blazor/pull/1580))
+* [NumberField] Fix #1531 by using web components current-value instead of value. ([#1576](https://github.com/microsoft/fluentui-blazor/pull/1576))
+* [Overflow] Better samples and better selector detection ([#1645](https://github.com/microsoft/fluentui-blazor/pull/1645))
+* [Overflow] Misc work ([#1523](https://github.com/microsoft/fluentui-blazor/pull/1523))
+* [Pagination] Fix #1596 (very long title, see description) ([#1606](https://github.com/microsoft/fluentui-blazor/pull/1606))
+* [Paginator] Remove background color ([#1503](https://github.com/microsoft/fluentui-blazor/pull/1503))
+* [Persona] Add support for icons ([#1546](https://github.com/microsoft/fluentui-blazor/pull/1546))
+* [Persona] Fix bug in FluentPersona when the names contains more than one space. ([#1623](https://github.com/microsoft/fluentui-blazor/pull/1623))
+* [SortableList] Fix typo/spelling errors for Sortable List Page ([#1600](https://github.com/microsoft/fluentui-blazor/pull/1600))
+* [SplashScreen] Add WaitingMilliseconds and UpdateLabels ([#1570](https://github.com/microsoft/fluentui-blazor/pull/1570))
+* [Splitter] Fix adoptedStyleSheets is frozen in earlier versions by @CV-souryu ([#1557](https://github.com/microsoft/fluentui-blazor/pull/1557))
+* [Splitter] Update SplitPanels.ts ([#1520](https://github.com/microsoft/fluentui-blazor/pull/1520))
+* [Tabs] Add LoadingContent parameter to FluentTab ([#1587](https://github.com/microsoft/fluentui-blazor/pull/1587))
+* [Templates] Makes code created from fluentblazorwasm template neater ([#1501](https://github.com/microsoft/fluentui-blazor/pull/1501))
+* [Templates] Minor clean up ([#1488](https://github.com/microsoft/fluentui-blazor/pull/1488))
+* [Tooltip] Add the HideTooltipOnCursorLeave property ([#1571](https://github.com/microsoft/fluentui-blazor/pull/1571))
+* [ValidationMessage] Adds FieldIdentifier parameter ([#1489](https://github.com/microsoft/fluentui-blazor/pull/1489))
+* [Wizard] Fix ValueChanged never trigerred in FluentWizard ([#1538](https://github.com/microsoft/fluentui-blazor/pull/1538))
+
+
 ## V4.4.1
 - Issue [#1462](https://github.com/microsoft/fluentui-blazor/issues/1462): FluentMessageBar onclick bug and not using Link?.Target
 - Issue [#1461](https://github.com/microsoft/fluentui-blazor/issues/1461): fluent-data-grid rendered after rows in manual FluentDataGrid
