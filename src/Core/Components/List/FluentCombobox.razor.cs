@@ -51,6 +51,12 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     [Parameter]
     public Appearance? Appearance { get; set; }
 
+    /// <summary>
+    /// Determines if the element should receive document focus on page load.
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; } = false;
+
     protected override string? StyleValue => new StyleBuilder(base.StyleValue)
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();

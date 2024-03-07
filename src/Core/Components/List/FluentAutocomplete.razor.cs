@@ -50,6 +50,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public EventCallback<string> ValueTextChanged { get; set; }
 
     /// <summary>
+    /// Determines if the element should receive document focus on page load.
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; } = false;
+
+    /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
     /// Set the <see cref="MaximumSelectedOptions"/> property to 1 to select just one item.
     /// </summary>
