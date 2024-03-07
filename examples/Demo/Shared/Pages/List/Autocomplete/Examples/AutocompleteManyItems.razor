@@ -7,7 +7,7 @@
                     Width="250px"
                     OnOptionsSearch="OnSearch"
                     Placeholder="Select countries"
-                    MaximumOptionsSearch="-1"
+                    MaximumOptionsSearch="int.MaxValue"
                     MaximumSelectedOptions="2"
                     Virtualize="true"
                     OptionText="@(item => $"{item.DisplayName} - {item.Name}")"

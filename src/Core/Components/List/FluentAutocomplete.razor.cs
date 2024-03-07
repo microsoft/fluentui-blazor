@@ -112,7 +112,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     /// <summary>
     /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
-    /// If the value is smaller than 0, all search results are shown.
     /// Default value is 9.
     /// </summary>
     [Parameter]
@@ -188,8 +187,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="ItemSize"/> and must
     /// ensure that every row renders with the same constant height.
     ///
-    /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered
-    /// is small or if you are using pagination.
+    /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered is small.
     /// </summary>
     [Parameter] public bool Virtualize { get; set; }
 
@@ -267,14 +265,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         await OnOptionsSearch.InvokeAsync(args);
 
-        if (MaximumOptionsSearch < 0)
-        {
-            Items = args.Items;
-        }
-        else
-        {
-            Items = args.Items?.Take(MaximumOptionsSearch);
-        }
+        Items = args.Items?.Take(MaximumOptionsSearch);
 
         SelectableItem = Items != null
             ? Items.FirstOrDefault()

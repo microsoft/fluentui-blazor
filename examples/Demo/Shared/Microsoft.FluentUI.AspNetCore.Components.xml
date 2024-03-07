@@ -4301,7 +4301,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaximumOptionsSearch">
             <summary>
             Gets or sets the number of maximum options (items) returned by <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnOptionsSearch"/>.
-            If the value is smaller than 0, all search results are shown.
             Default value is 9.
             </summary>
         </member>
@@ -4366,8 +4365,7 @@
              If you use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ItemSize"/> and must
              ensure that every row renders with the same constant height.
             
-             Generally it's preferable not to use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/> if the amount of data being rendered
-             is small or if you are using pagination.
+             Generally it's preferable not to use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/> if the amount of data being rendered is small.
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ItemSize">
