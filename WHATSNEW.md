@@ -54,6 +54,7 @@ Titles have been altered and sorted here to provide a bit more uniformity.
 * [Paginator] Remove background color ([#1503](https://github.com/microsoft/fluentui-blazor/pull/1503))
 * [Persona] Add support for icons ([#1546](https://github.com/microsoft/fluentui-blazor/pull/1546))
 * [Persona] Fix bug in FluentPersona when the names contains more than one space. ([#1623](https://github.com/microsoft/fluentui-blazor/pull/1623))
+* [Script] Fix #1652 by also checking for OperationCanceledException ([#1653](https://github.com/microsoft/fluentui-blazor/pull/1653))
 * [SortableList] Fix typo/spelling errors for Sortable List Page ([#1600](https://github.com/microsoft/fluentui-blazor/pull/1600))
 * [SplashScreen] Add WaitingMilliseconds and UpdateLabels ([#1570](https://github.com/microsoft/fluentui-blazor/pull/1570))
 * [Splitter] Fix adoptedStyleSheets is frozen in earlier versions by @CV-souryu ([#1557](https://github.com/microsoft/fluentui-blazor/pull/1557))
