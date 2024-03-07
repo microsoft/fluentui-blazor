@@ -1,4 +1,5 @@
 ﻿## V3.6.0
+- [feat: Add autofocus to Autocomplete & Combobox (#1650)](https://github.com/microsoft/fluentui-blazor/pull/1650)
 - [[FluentGrid] Fix the Grid "external margins" (#1646)](https://github.com/microsoft/fluentui-blazor/pull/1646)
 - [Add VerticalThreshold to menu (#1644)](https://github.com/microsoft/fluentui-blazor/pull/1644)
 - [Remove Expression from TooltipText (#1635)](https://github.com/microsoft/fluentui-blazor/pull/1635)
