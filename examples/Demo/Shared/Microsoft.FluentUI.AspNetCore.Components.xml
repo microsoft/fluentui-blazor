@@ -454,72 +454,6 @@
             If this app is outside of visible app bar area.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
-            <summary>
-            Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Href">
-            <summary>
-            Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            Use Target parameter to specify where.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Hreflang">
-            <summary>
-            Hints at the language of the referenced resource. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Ping">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Referrerpolicy">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Rel">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Target">
-            <summary>
-            Gets or sets the target attribute that specifies where to open the link, if Href is specified.
-            Possible values: _blank | _self | _parent | _top.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Type">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance">
-            <summary>
-            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance"/>
-            Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconStart">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconEnd">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the end of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
-            <inheritdoc />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.Color">
             <summary>
             Gets or sets the color.
@@ -4322,6 +4256,16 @@
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText">
+            <summary>
+            Gets or sets the text field value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueTextChanged">
+            <summary>
+            Gets or sets the callback that is invoked when the text field value changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
@@ -4405,6 +4349,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.IconSearch">
             <summary>
             Gets or sets the icon used for the Search button. By default: Search icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShowOverlayOnEmptyResults">
+            <summary>
+            Gets or sets whether the dropdown is shown when there are no items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
@@ -4943,6 +4892,16 @@
             <summary>
             Draw the menu below the component clicked (true) or
             using the mouse coordinates (false).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalThreshold">
+            <summary>
+            Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalThreshold">
+            <summary>
+            Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">

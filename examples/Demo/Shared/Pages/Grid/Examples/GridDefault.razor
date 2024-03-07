@@ -1,12 +1,16 @@
-﻿<FluentSelect Items=@(Enum.GetValues<JustifyContent>())
-              OptionValue="@(c => c.ToAttributeValue())"
-              TOption="JustifyContent"
-              Position="SelectPosition.Below"
-              @bind-SelectedOption="@Justification" />
-<br />
-<br />
+﻿<FluentStack Style="margin-bottom: 24px;" VerticalAlignment="VerticalAlignment.Center">
+    <FluentLabel>Justify</FluentLabel>
+    <FluentSelect Items=@(Enum.GetValues<JustifyContent>())
+                  OptionValue="@(c => c.ToAttributeValue())"
+                  TOption="JustifyContent"
+                  Position="SelectPosition.Below"
+                  @bind-SelectedOption="@Justification" />
 
-<FluentGrid Spacing="3" OnBreakpointEnter="@OnBreakpointEnterHandler" Justify="@Justification" Style="background-color: var(--neutral-layer-3);">
+    <FluentLabel>Spacing</FluentLabel>
+    <FluentSlider @bind-Value="@Spacing" Min="0" Max="10" Step="1" Style="max-width: 300px; margin-top: 18px;" />
+</FluentStack>
+
+<FluentGrid Spacing="@Spacing" OnBreakpointEnter="@OnBreakpointEnterHandler" Justify="@Justification" Style="background-color: var(--neutral-layer-3); padding: 4px; ">
     <FluentGridItem xs="12">
         <div class="card">
             xs="12"
@@ -52,6 +56,7 @@
 @code
 {
     JustifyContent Justification = JustifyContent.FlexStart;
+    int Spacing = 3;
 
     void OnBreakpointEnterHandler(GridItemSize size)
     {
