@@ -79,7 +79,8 @@ public abstract class JSModule : IAsyncDisposable
             {
                 // This can be called too early when using prerendering
             }
-            catch (JSDisconnectedException)
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
             {
                 // The JSRuntime side may routinely be gone already if the reason we're disposing is that
                 // the client disconnected. This is not an error.
