@@ -53,7 +53,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// Determines if the element should receive document focus on page load.
     /// </summary>
     [Parameter]
-    public virtual bool Autofocus { get; set; } = false;
+    public bool Autofocus { get; set; } = false;
 
     /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
