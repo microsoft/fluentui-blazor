@@ -304,6 +304,20 @@ public class FluentAutocompleteTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentAutocomplete_AutofocusAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Autofocus, true);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     // Sample data...
     private static IEnumerable<Customer> GetCustomers()
     {
