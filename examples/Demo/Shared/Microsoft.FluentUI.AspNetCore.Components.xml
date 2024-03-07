@@ -4356,6 +4356,25 @@
             Gets or sets whether the dropdown is shown when there are no items.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize">
+             <summary>
+             If true, the options list will be rendered with virtualization. This is normally used in conjunction with
+             scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
+             This can greatly improve the performance when scrolling through large data sets.
+            
+             If you use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ItemSize"/> and must
+             ensure that every row renders with the same constant height.
+            
+             Generally it's preferable not to use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/> if the amount of data being rendered is small.
+             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ItemSize">
+            <summary>
+            This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/>. It defines an expected height in pixels for
+            each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
+            size and to ensure accurate scrolling.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>

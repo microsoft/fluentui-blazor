@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -13,6 +14,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
+    private Virtualize<TOption>? VirtualizationContainer { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -177,6 +179,25 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public bool ShowOverlayOnEmptyResults { get; set; } = true;
 
+    /// <summary>
+    /// If true, the options list will be rendered with virtualization. This is normally used in conjunction with
+    /// scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
+    /// This can greatly improve the performance when scrolling through large data sets.
+    ///
+    /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="ItemSize"/> and must
+    /// ensure that every row renders with the same constant height.
+    ///
+    /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered is small.
+    /// </summary>
+    [Parameter] public bool Virtualize { get; set; }
+
+    /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
+    /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
+    /// size and to ensure accurate scrolling.
+    /// </summary>
+    [Parameter] public float ItemSize { get; set; } = 50;
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -245,9 +266,31 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         await OnOptionsSearch.InvokeAsync(args);
 
         Items = args.Items?.Take(MaximumOptionsSearch);
+
         SelectableItem = Items != null
             ? Items.FirstOrDefault()
             : default;
+
+        if (VirtualizationContainer != null)
+        {
+            await VirtualizationContainer.RefreshDataAsync();
+        }
+    }
+
+    private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)
+    {
+        if (Items is null)
+        {
+            return ValueTask.FromResult(
+                new ItemsProviderResult<TOption>(
+                    Array.Empty<TOption>(),
+                    0));
+        }
+
+        return ValueTask.FromResult(
+            new ItemsProviderResult<TOption>(
+                Items.Skip(request.StartIndex).Take(request.Count),
+                Items.Count()));
     }
 
     private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
