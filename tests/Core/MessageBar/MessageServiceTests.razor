@@ -1,0 +1,69 @@
+﻿@using Xunit;
+@inherits TestContext
+
+@code {
+    [Fact]
+    public async Task FluentMessageBarService_Default()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="TOP_SECTION" />);
+        var messageService = Services.GetRequiredService<IMessageService>();
+
+        // Act
+        var messageBar = await messageService.ShowMessageBarAsync("This is a message");
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentMessageBarService_AllowDismissAsync1()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider />);
+        var messageService = Services.GetRequiredService<IMessageService>();
+
+        // Act
+        var messageBar = await messageService.ShowMessageBarAsync("This is a message", false);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentMessageBarService_AllowDismissAsync2()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider />);
+        var messageService = Services.GetRequiredService<IMessageService>();
+
+        // Act
+        var messageBar = await messageService.ShowMessageBarAsync("This is a message", MessageIntent.Warning, false);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentMessageBarService_AllowDismissAsync3()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider />);
+        var messageService = Services.GetRequiredService<IMessageService>();
+
+        // Act
+        var messageBar = await messageService.ShowMessageBarAsync("This is a message", MessageIntent.Warning, "TOP_SECTION", false);
+
+        // Assert
+        cut.Verify();
+    }
+}
+}
