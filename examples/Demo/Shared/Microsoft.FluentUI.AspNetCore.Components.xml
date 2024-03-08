@@ -4266,6 +4266,11 @@
             Gets or sets the callback that is invoked when the text field value changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
@@ -4453,6 +4458,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.Size">
