@@ -92,22 +92,6 @@ public class MessageService : IMessageService, IDisposable
     /// Show a message based on the provided parameters in a message bar.
     /// </summary>
     /// <param name="title">Main info</param>
-    /// <param name="allowDismiss">Specified whether the message should be dismissible</param>
-    /// <returns></returns>
-    public Message ShowMessageBar(string title, bool allowDismiss)
-    {
-        return ShowMessageBar(options =>
-        {
-            options.Title = title;
-            options.Intent = MessageIntent.Info;
-            options.AllowDismiss = allowDismiss;
-        });
-    }
-
-    /// <summary>
-    /// Show a message based on the provided parameters in a message bar.
-    /// </summary>
-    /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
     /// <returns></returns>
     public Message ShowMessageBar(string title, MessageIntent intent)
@@ -125,24 +109,6 @@ public class MessageService : IMessageService, IDisposable
     /// </summary>
     /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
-    /// <param name="allowDismiss">Specified whether the message should be dismissible</param>
-    /// <returns></returns>
-    public Message ShowMessageBar(string title, MessageIntent intent, bool allowDismiss)
-    {
-        return ShowMessageBar(options =>
-        {
-            options.Title = title;
-            options.Intent = intent;
-            options.Section = string.Empty;
-            options.AllowDismiss = allowDismiss;
-        });
-    }
-
-    /// <summary>
-    /// Show a message based on the provided parameters in a message bar.
-    /// </summary>
-    /// <param name="title">Main info</param>
-    /// <param name="intent">Intent of the message</param>
     /// <param name="section">Section to show the message bar in </param>
     /// <returns></returns>
     public Message ShowMessageBar(string title, MessageIntent intent, string section)
@@ -152,25 +118,6 @@ public class MessageService : IMessageService, IDisposable
             options.Title = title;
             options.Intent = intent;
             options.Section = section;
-        });
-    }
-
-    /// <summary>
-    /// Show a message based on the provided parameters in a message bar.
-    /// </summary>
-    /// <param name="title">Main info</param>
-    /// <param name="intent">Intent of the message</param>
-    /// <param name="section">Section to show the message bar in </param>
-    /// <param name="allowDismiss">Specified whether the message should be dismissible</param>
-    /// <returns></returns>
-    public Message ShowMessageBar(string title, MessageIntent intent, string section, bool allowDismiss)
-    {
-        return ShowMessageBar(options =>
-        {
-            options.Title = title;
-            options.Intent = intent;
-            options.Section = section;
-            options.AllowDismiss = allowDismiss;
         });
     }
 
@@ -220,22 +167,6 @@ public class MessageService : IMessageService, IDisposable
     /// Show a message based on the provided parameters in a message bar.
     /// </summary>
     /// <param name="title">Main info</param>
-    /// <param name="allowDismiss">Specified whether the message should be dismissible</param>
-    /// <returns></returns>
-    public async Task<Message> ShowMessageBarAsync(string title, bool allowDismiss)
-    {
-        return await ShowMessageBarAsync(options =>
-        {
-            options.Title = title;
-            options.Intent = MessageIntent.Info;
-            options.AllowDismiss = allowDismiss;
-        });
-    }
-
-    /// <summary>
-    /// Show a message based on the provided parameters in a message bar.
-    /// </summary>
-    /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
     /// <returns></returns>
     public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent)
@@ -253,24 +184,6 @@ public class MessageService : IMessageService, IDisposable
     /// </summary>
     /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
-    /// <param name="allowDismiss">Specified whether the message should be dismissible</param>
-    /// <returns></returns>
-    public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, bool allowDismiss)
-    {
-        return await ShowMessageBarAsync(options =>
-        {
-            options.Title = title;
-            options.Intent = intent;
-            options.Section = string.Empty;
-            options.AllowDismiss = allowDismiss;
-        });
-    }
-
-    /// <summary>
-    /// Show a message based on the provided parameters in a message bar.
-    /// </summary>
-    /// <param name="title">Main info</param>
-    /// <param name="intent">Intent of the message</param>
     /// <param name="section">Section to show the message bar in </param>
     /// <returns></returns>
     public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section)
@@ -280,25 +193,6 @@ public class MessageService : IMessageService, IDisposable
             options.Title = title;
             options.Intent = intent;
             options.Section = section;
-        });
-    }
-
-    /// <summary>
-    /// Show a message based on the provided parameters in a message bar.
-    /// </summary>
-    /// <param name="title">Main info</param>
-    /// <param name="intent">Intent of the message</param>
-    /// <param name="section">Section to show the message bar in </param>
-    /// <param name="allowDismiss">Specified whether the message should be dismissible</param>
-    /// <returns></returns>
-    public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section, bool allowDismiss)
-    {
-        return await ShowMessageBarAsync(options =>
-        {
-            options.Title = title;
-            options.Intent = intent;
-            options.Section = section;
-            options.AllowDismiss = allowDismiss;
         });
     }
 
