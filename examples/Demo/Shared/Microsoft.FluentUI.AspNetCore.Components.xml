@@ -4266,6 +4266,11 @@
             Gets or sets the callback that is invoked when the text field value changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
@@ -4453,6 +4458,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.Size">
@@ -5206,10 +5216,19 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,System.Boolean)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.Boolean)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
@@ -5218,10 +5237,19 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,System.Boolean)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.Boolean)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.Clear(System.String)">
@@ -5295,6 +5323,11 @@
             Gets or sets the timeout in milliseconds after which the message bar is removed. Default is null.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar can be dismissed.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.MessageService">
             <summary />
         </member>
@@ -5336,12 +5369,29 @@
             <param name="title">Main info</param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.String,System.Boolean)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="allowDismiss">Specified whether the message should be dismissible</param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent)">
             <summary>
             Show a message based on the provided parameters in a message bar.
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.Boolean)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="allowDismiss">Specified whether the message should be dismissible</param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
@@ -5351,6 +5401,16 @@
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
             <param name="section">Section to show the messagebar in </param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String,System.Boolean)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="section">Section to show the messagebar in </param>
+            <param name="allowDismiss">Specified whether the message should be dismissible</param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
@@ -5367,12 +5427,29 @@
             <param name="title">Main info</param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.String,System.Boolean)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="allowDismiss">Specified whether the message should be dismissible</param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent)">
             <summary>
             Show a message based on the provided parameters in a message bar.
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.Boolean)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="allowDismiss">Specified whether the message should be dismissible</param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
@@ -5382,6 +5459,16 @@
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
             <param name="section">Section to show the messagebar in </param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String,System.Boolean)">
+            <summary>
+            Show a message based on the provided parameters in a message bar.
+            </summary>
+            <param name="title">Main info</param>
+            <param name="intent">Intent of the message</param>
+            <param name="section">Section to show the messagebar in </param>
+            <param name="allowDismiss">Specified whether the message should be dismissible</param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">

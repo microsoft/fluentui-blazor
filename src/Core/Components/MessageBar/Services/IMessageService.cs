@@ -16,25 +16,43 @@ public interface IMessageService : IDisposable
     Message ShowMessageBar(Action<MessageOptions> options);
 
     /// <summary />
-    Message ShowMessageBar(string message);
+    Message ShowMessageBar(string title);
 
     /// <summary />
-    Message ShowMessageBar(string message, MessageIntent intent);
+    Message ShowMessageBar(string title, bool allowDismiss);
 
     /// <summary />
-    Message ShowMessageBar(string message, MessageIntent intent, string section);
+    Message ShowMessageBar(string title, MessageIntent intent);
+
+    /// <summary />
+    Message ShowMessageBar(string title, MessageIntent intent, bool allowDismiss);
+
+    /// <summary />
+    Message ShowMessageBar(string title, MessageIntent intent, string section);
+
+    /// <summary />
+    Message ShowMessageBar(string title, MessageIntent intent, string section, bool allowDismiss);
 
     /// <summary />
     Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);
 
     /// <summary />
-    Task<Message> ShowMessageBarAsync(string message);
+    Task<Message> ShowMessageBarAsync(string title);
 
     /// <summary />
-    Task<Message> ShowMessageBarAsync(string message, MessageIntent intent);
+    Task<Message> ShowMessageBarAsync(string title, bool allowDismiss);
 
     /// <summary />
-    Task<Message> ShowMessageBarAsync(string message, MessageIntent intent, string section);
+    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, bool allowDismiss);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section, bool allowDismiss);
 
     /// <summary />
     void Clear(string? section = null);
