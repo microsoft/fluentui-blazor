@@ -5185,6 +5185,11 @@
             Gets or sets the message to be shown in the message bar.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Message.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar is dismissible.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.Message.Link">
             <summary>
             Gets or sets the link to be shown in the message bar (after the body).
@@ -5305,6 +5310,11 @@
             Gets or sets the timeout in milliseconds after which the message bar is removed. Default is null.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar can be dismissed.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.MessageService">
             <summary />
         </member>
@@ -5360,7 +5370,7 @@
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
+            <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
@@ -5391,7 +5401,7 @@
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
+            <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
