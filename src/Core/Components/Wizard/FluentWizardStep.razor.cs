@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -133,5 +134,28 @@ public partial class FluentWizardStep : FluentComponentBase
 
         Index = FluentWizard.AddStep(this);
         base.OnInitialized();
+    }
+
+    private List<EditContext> _editContexts = new List<EditContext>();
+    public void RegisterEditContext(EditContext editContext)
+    {
+        if (!_editContexts.Contains(editContext))
+        {
+            _editContexts.Add(editContext);
+        }
+    }
+
+    public bool ValidateEditContexts()
+    {
+        var isValid = true;
+        foreach (var editContext in _editContexts)
+        {
+            var contextIsValid = editContext.Validate();
+            if (!contextIsValid)
+            {
+                isValid = false;
+            }
+        }
+        return isValid;
     }
 }

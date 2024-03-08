@@ -4046,7 +4046,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnInitializedAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnUploadFilesHandlerAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
@@ -8128,7 +8128,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnPreviousHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs)">
@@ -8228,6 +8228,21 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.IsCancelled">
             <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator">
+            <summary>
+            Component used to register the EditContext with the WizardStep
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.WizardStep">
+            <summary>
+            Wizard Step to register the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.EditContext"/> with.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.EditContext">
+            <summary>
+            EditContext that should be registered to the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep"/>
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>

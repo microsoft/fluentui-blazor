@@ -1,4 +1,4 @@
-@page "/Wizard"
+﻿@page "/Wizard"
 
 @using FluentUI.Demo.Shared.Pages.Wizard.Examples
 
@@ -51,6 +51,22 @@
 <DemoSection Title="Default" Component="@typeof(WizardDefault)"/>
 
 <DemoSection Title="Customized" Component="@typeof(WizardCustomized)" />
+
+<DemoSection Title="Edit Form" Component="@typeof(WizardEditForms)">
+    <Description>
+        <blockquote>
+            <b>note</b>: In order for the Wizard component to automatically validate your EditForms, you must place the following component inside your EditForm:
+        </blockquote>
+
+        <CodeSnippet>
+&lt;FluentWizardStep>
+    &lt;EditForm>
+        &lt;FluentWizardStepFormValidator />
+    &lt;/EditForm>
+&lt;/FluentWizardStep>
+        </CodeSnippet>
+    </Description>
+</DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
