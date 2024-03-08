@@ -75,20 +75,16 @@
             </FluentBodyContent>
         </FluentStack>
 
-        <FluentFooter Style="@("height: 40px; color: white;")">
+        <FluentFooter Style="@("height: 40px; color: white;  font-size: var(--type-ramp-minus-2-font-size); line-height: var(--type-ramp-base-line-height);")">
             <div class="version">
-                <small>
-                    Version: @_version
-                    &nbsp;-&nbsp;
-                    <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
-                </small>
+                Version: @_version
+                &nbsp;-&nbsp;
+                <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
             </div>
             <FluentSpacer />
-
             <div class="copy">
-                <small>Microsoft © 2023. All rights reserved.</small>
+                Microsoft © 2023. All rights reserved.
             </div>
         </FluentFooter>
-
     </FluentLayout>
 </div>

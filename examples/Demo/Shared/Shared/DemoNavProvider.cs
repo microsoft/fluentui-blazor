@@ -496,7 +496,7 @@ public class DemoNavProvider
                         title: "Tree View"
                     ),
                     new NavLink(
-                        href: "/new Icons.Regular.Size20.ArrowStepInRight()",
+                        href: "/Wizard",
                         icon: new Icons.Regular.Size20.TextBulletListTree(),
                         title: "Wizard"
                     )
