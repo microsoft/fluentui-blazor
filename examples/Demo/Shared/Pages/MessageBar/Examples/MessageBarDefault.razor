@@ -86,6 +86,12 @@
     {
         var message = $"Simple non-dismissible message #{counter++}";
         var type = Enum.GetValues<MessageIntent>()[counter % 4];
-        await MessageService.ShowMessageBarAsync(message, type, App.MESSAGES_TOP, false);
+        await MessageService.ShowMessageBarAsync(options =>
+        {
+            options.Title = message;
+            options.Intent = type;
+            options.Section = App.MESSAGES_TOP;
+            options.AllowDismiss = false;
+        });
     }
 }

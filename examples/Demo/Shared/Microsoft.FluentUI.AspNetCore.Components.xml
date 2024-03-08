@@ -5221,19 +5221,10 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,System.Boolean)">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.Boolean)">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBar(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
@@ -5242,19 +5233,10 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,System.Boolean)">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.Boolean)">
-            <summary />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.ShowMessageBarAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.MessageIntent,System.String,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMessageService.Clear(System.String)">

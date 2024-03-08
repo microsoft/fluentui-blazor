@@ -19,19 +19,10 @@ public interface IMessageService : IDisposable
     Message ShowMessageBar(string title);
 
     /// <summary />
-    Message ShowMessageBar(string title, bool allowDismiss);
-
-    /// <summary />
     Message ShowMessageBar(string title, MessageIntent intent);
 
     /// <summary />
-    Message ShowMessageBar(string title, MessageIntent intent, bool allowDismiss);
-
-    /// <summary />
     Message ShowMessageBar(string title, MessageIntent intent, string section);
-
-    /// <summary />
-    Message ShowMessageBar(string title, MessageIntent intent, string section, bool allowDismiss);
 
     /// <summary />
     Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);
@@ -40,19 +31,10 @@ public interface IMessageService : IDisposable
     Task<Message> ShowMessageBarAsync(string title);
 
     /// <summary />
-    Task<Message> ShowMessageBarAsync(string title, bool allowDismiss);
-
-    /// <summary />
     Task<Message> ShowMessageBarAsync(string title, MessageIntent intent);
 
     /// <summary />
-    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, bool allowDismiss);
-
-    /// <summary />
     Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section);
-
-    /// <summary />
-    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section, bool allowDismiss);
 
     /// <summary />
     void Clear(string? section = null);

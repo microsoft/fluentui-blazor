@@ -28,7 +28,12 @@
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
-        var messageBar = await messageService.ShowMessageBarAsync("This is a message", false);
+        var messageBar = await messageService.ShowMessageBarAsync(options =>
+        {
+            options.Title = "This is a message";
+            options.Intent = MessageIntent.Info;
+            options.AllowDismiss = false;
+        });
 
         // Assert
         cut.Verify();
@@ -44,7 +49,12 @@
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
-        var messageBar = await messageService.ShowMessageBarAsync("This is a message", MessageIntent.Warning, false);
+        var messageBar = await messageService.ShowMessageBarAsync(options =>
+        {
+            options.Title = "This is a message";
+            options.Intent = MessageIntent.Warning;
+            options.AllowDismiss = false;
+        });
 
         // Assert
         cut.Verify();
@@ -60,7 +70,13 @@
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
-        var messageBar = await messageService.ShowMessageBarAsync("This is a message", MessageIntent.Warning, "TOP_SECTION", false);
+        var messageBar = await messageService.ShowMessageBarAsync(options =>
+        {
+            options.Title = "This is a message";
+            options.Intent = MessageIntent.Warning;
+            options.Section = "TOP_SECTION";
+            options.AllowDismiss = false;
+        });
 
         // Assert
         cut.Verify();
