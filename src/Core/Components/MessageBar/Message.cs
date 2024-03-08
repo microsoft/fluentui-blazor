@@ -20,7 +20,8 @@ public class Message
     internal MessageOptions Options { get; }
 
     /// <summary>
-    /// Intent of the message bar. Default is MessageIntent.Info. 
+    /// Gets or sets the intent of the message bar. 
+    /// Default is MessageIntent.Info. 
     /// See <see cref="MessageIntent"/> for more details.
     /// </summary>
     public MessageIntent? Intent => Options.Intent;
@@ -31,6 +32,7 @@ public class Message
     public string? Section => Options.Section;
 
     /// <summary>
+    /// Gets or sets the title.
     /// Most important info to be shown in the message bar.
     /// </summary>
     public string? Title
@@ -47,7 +49,7 @@ public class Message
     }
 
     /// <summary>
-    /// Message to be shown in the message bar.
+    /// Gets or sets the message to be shown in the message bar.
     /// </summary>
     public string? Body
     {
@@ -63,7 +65,22 @@ public class Message
     }
 
     /// <summary>
-    /// Link to be shown in the message bar (after the body).
+    /// Gets or sets whether the message bar is dismissible.
+    /// </summary>
+    public bool AllowDismiss
+    {
+        get
+        {
+            return Options.AllowDismiss;
+        }
+        set
+        {
+            Options.AllowDismiss = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the link to be shown in the message bar (after the body).
     /// </summary>
     public ActionLink<Message>? Link
     {

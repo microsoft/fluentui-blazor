@@ -7,7 +7,7 @@
     <div @attributes="AdditionalAttributes" class="fluent-messagebar-container @ClassValue" style="@StyleValue">
         @foreach (var message in MessagesToShow)
         {
-            <FluentMessageBar Content="@message" Type="@Type" Style="@(Type == MessageType.Notification ? "border-top: 1px solid lightgray;" : "")" />
+            <FluentMessageBar Content="@message" Type="@Type" Style="@(Type == MessageType.Notification ? "border-top: 1px solid lightgray;" : "")" AllowDismiss="@message.AllowDismiss" />
         }
     </div>
 }
