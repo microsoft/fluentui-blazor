@@ -136,26 +136,50 @@ public partial class FluentWizardStep : FluentComponentBase
         base.OnInitialized();
     }
 
-    private List<EditContext> _editContexts = new List<EditContext>();
-    public void RegisterEditContext(EditContext editContext)
+    private Dictionary<EditForm, EditContext> _editForms = new Dictionary<EditForm, EditContext>();
+    public void RegisterEditFormAndContext(EditForm editForm, EditContext editContext)
     {
-        if (!_editContexts.Contains(editContext))
+        if (!_editForms.ContainsKey(editForm))
         {
-            _editContexts.Add(editContext);
+            _editForms.Add(editForm, editContext);
         }
     }
 
     public bool ValidateEditContexts()
     {
         var isValid = true;
-        foreach (var editContext in _editContexts)
+        foreach (var editForm in _editForms)
         {
-            var contextIsValid = editContext.Validate();
+            var contextIsValid = editForm.Value.Validate();
             if (!contextIsValid)
             {
                 isValid = false;
             }
         }
         return isValid;
+    }
+
+    public async Task InvokeOnValidSubmitForEditForms()
+    {
+        foreach (var editForm in _editForms)
+        {
+            await editForm.Key.OnValidSubmit.InvokeAsync(editForm.Value);
+        }
+    }
+
+    public async Task InvokeOnInValidSubmitForEditForms()
+    {
+        foreach (var editForm in _editForms)
+        {
+            await editForm.Key.OnInvalidSubmit.InvokeAsync(editForm.Value);
+        }
+    }
+
+    public async Task InvokeOnSubmitForEditForms()
+    {
+        foreach (var editForm in _editForms)
+        {
+            await editForm.Key.OnSubmit.InvokeAsync(editForm.Value);
+        }
     }
 }

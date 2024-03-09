@@ -180,13 +180,26 @@ public partial class FluentWizard : FluentComponentBase
     protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
-        if(validateEditContexts)
+        if (validateEditContexts)
         {
             var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
             stepChangeArgs.IsCancelled = !allEditContextsAreValid;
+
+            if (!allEditContextsAreValid)
+            {
+                await _steps[Value].InvokeOnInValidSubmitForEditForms();
+            }
+            if (!stepChangeArgs.IsCancelled && allEditContextsAreValid)
+            {
+                // Invoke the 'OnValidSubmit' handlers for the Edit Forms
+                await _steps[Value].InvokeOnValidSubmitForEditForms();
+            }
+
+            await _steps[Value].InvokeOnSubmitForEditForms();
         }
 
         await ValueChanged.InvokeAsync(targetIndex);
+
         return await OnStepChangeHandlerAsync(stepChangeArgs);
     }
 
@@ -202,23 +215,27 @@ public partial class FluentWizard : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual Task OnFinishHandlerAsync(MouseEventArgs e)
+    protected virtual async Task OnFinishHandlerAsync(MouseEventArgs e)
     {
         // Validate any form edit contexts
         var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
         if (!allEditContextsAreValid)
         {
-            return Task.CompletedTask;
+            // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
+            await _steps[Value].InvokeOnInValidSubmitForEditForms();
+            return;
         }
+
+        // Invoke the 'OnValidSubmit' handlers for the edit forms.
+        await _steps[Value].InvokeOnValidSubmitForEditForms();
+        await _steps[Value].InvokeOnSubmitForEditForms();
 
         _steps[Value].Status = WizardStepStatus.Previous;
 
         if (OnFinish.HasDelegate)
         {
-            return OnFinish.InvokeAsync();
+            await OnFinish.InvokeAsync();
         }
-
-        return Task.CompletedTask;
     }
 
     internal int AddStep(FluentWizardStep step)

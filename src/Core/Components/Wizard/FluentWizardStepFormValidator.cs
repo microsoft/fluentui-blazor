@@ -24,13 +24,19 @@ public class FluentWizardStepFormValidator : ComponentBase
     [CascadingParameter]
     public EditContext? EditContext { get; set; }
 
+    /// <summary>
+    /// EditForm of the EditContext
+    /// </summary>
+    [CascadingParameter]
+    public EditForm? EditForm { get; set; }
+
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        if (WizardStep is not null && EditContext is not null)
+        if (WizardStep is not null && EditContext is not null && EditForm is not null)
         {
-            WizardStep.RegisterEditContext(EditContext);
+            WizardStep.RegisterEditFormAndContext(EditForm, EditContext);
         }
     }
 }

@@ -14,21 +14,19 @@
     <Steps>
         <FluentWizardStep Label="Personal Info"
                           OnChange="@OnStepChange">
-            <EditForm Model="_formData1" FormName="personalInfo" method="post">
+            <FluentEditForm Model="_formData1" FormName="personalInfo" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
                 <DataAnnotationsValidator />
-                <FluentWizardStepFormValidator />
                 <FluentStack Orientation="Orientation.Vertical">
                     <FluentTextField Placeholder="First Name" @bind-Value="_formData1.FirstName" />
                     <FluentTextField Placeholder="Last Name" @bind-Value="_formData1.LastName" />
                 </FluentStack>
                 <FluentValidationSummary style="color:darkred" />
-            </EditForm>
+            </FluentEditForm>
         </FluentWizardStep>
         <FluentWizardStep Label="Address Info"
                           OnChange="@OnStepChange">
-            <EditForm Model="_formData2" FormName="addressInfo" method="post">
+            <FluentEditForm Model="_formData2" FormName="addressInfo" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
                 <DataAnnotationsValidator />
-                <FluentWizardStepFormValidator />
                 <FluentStack Orientation="Orientation.Vertical">
                     <FluentTextField Placeholder="Address Line 1" @bind-Value="_formData2.AddressLine1" />
                     <FluentTextField Placeholder="Address Line 2" @bind-Value="_formData2.AddressLine2" />
@@ -38,7 +36,7 @@
                     <FluentTextField Placeholder="Postal Code" @bind-Value="_formData2.PostalCode" />
                 </FluentStack>
                 <FluentValidationSummary style="color:darkred" />
-            </EditForm>
+            </FluentEditForm>
         </FluentWizardStep>
         <FluentWizardStep Label="Set budget"
                           Summary="Identify the best price"
@@ -55,23 +53,30 @@
                           Height="300px" />
         </FluentWizardStep>
         <FluentWizardStep Label="Finish">
-            <EditForm Model="_finishFormData" FormName="finishForm" method="post">
+            <FluentEditForm Model="_finishFormData" FormName="finishForm" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
                 <DataAnnotationsValidator />
-                <FluentWizardStepFormValidator />
                 <FluentStack Orientation="Orientation.Vertical">
                     <FluentTextField Label="Signature" Placeholder="Type your signature" @bind-Value="_finishFormData.Signature" />
                 </FluentStack>
                 <FluentValidationSummary style="color:darkred" />
-            </EditForm>
+            </FluentEditForm>
         </FluentWizardStep>
     </Steps>
 </FluentWizard>
+
+<FluentOverlay @bind-Visible=@_overlayIsVisible
+               Opacity="0.4"
+               Alignment="Align.Center"
+               Justification="@JustifyContent.Center">
+    <FluentProgressRing />
+</FluentOverlay>
 
 @code
 {
     private FormData1 _formData1 = new FormData1();
     private FormData2 _formData2 = new FormData2();
     private FinishFormData _finishFormData = new FinishFormData();
+    private bool _overlayIsVisible = false;
 
     void OnStepChange(FluentWizardStepChangeEventArgs e)
     {
@@ -81,6 +86,20 @@
     async Task OnFinishedAsync()
     {
         await DialogService.ShowInfoAsync("Wizard completed");
+    }
+
+    async Task OnValidSubmit()
+    {
+        DemoLogger.WriteLine($"OnValidSubmit called");
+
+        _overlayIsVisible = true;
+        await Task.Delay(2000);
+        _overlayIsVisible = false;
+    }
+
+    void OnInvalidSubmit()
+    {
+        DemoLogger.WriteLine($"OnInvalidSubmit called");
     }
 
     private class FormData1
