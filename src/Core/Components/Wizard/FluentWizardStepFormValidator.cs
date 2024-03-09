@@ -24,9 +24,9 @@ public class FluentWizardStepFormValidator : ComponentBase
     [CascadingParameter]
     public EditContext? EditContext { get; set; }
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         if (WizardStep is not null && EditContext is not null)
         {
