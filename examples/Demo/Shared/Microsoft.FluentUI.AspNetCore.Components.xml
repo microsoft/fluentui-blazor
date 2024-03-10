@@ -3345,6 +3345,68 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.AdditionalAttributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created <c>form</c> element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext">
+            <summary>
+            Supplies the edit context explicitly. If using this parameter, do not
+            also supply <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.Model"/>, since the model value will be taken
+            from the <see cref="P:Microsoft.AspNetCore.Components.Forms.EditContext.Model"/> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.Enhance">
+             <summary>
+             If enabled, form submission is performed without fully reloading the page. This is
+             equivalent to adding <code>data-enhance</code> to the form.
+            
+             This flag is only relevant in server-side rendering (SSR) scenarios. For interactive
+             rendering, the flag has no effect since there is no full-page reload on submit anyway.
+             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.Model">
+            <summary>
+            Specifies the top-level model object for the form. An edit context will
+            be constructed for this model. If using this parameter, do not also supply
+            a value for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditForm"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnSubmit">
+             <summary>
+             A callback that will be invoked when the form is submitted.
+            
+             If using this parameter, you are responsible for triggering any validation
+             manually, e.g., by calling <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/>.
+             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnValidSubmit">
+            <summary>
+            A callback that will be invoked when the form is submitted and the
+            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext"/> is determined to be valid.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnInvalidSubmit">
+            <summary>
+            A callback that will be invoked when the form is submitted and the
+            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext"/> is determined to be invalid.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.FormName">
+            <summary>
+            Gets or sets the form handler name. This is required for posting it to a server-side endpoint.
+            It is not used during interactive rendering.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnParametersSet">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Emoji">
             <summary>
             FluentUI Emoji content.
@@ -3502,68 +3564,6 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.AdditionalAttributes">
-            <summary>
-            Gets or sets a collection of additional attributes that will be applied to the created <c>form</c> element.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext">
-            <summary>
-            Supplies the edit context explicitly. If using this parameter, do not
-            also supply <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.Model"/>, since the model value will be taken
-            from the <see cref="P:Microsoft.AspNetCore.Components.Forms.EditContext.Model"/> property.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.Enhance">
-             <summary>
-             If enabled, form submission is performed without fully reloading the page. This is
-             equivalent to adding <code>data-enhance</code> to the form.
-            
-             This flag is only relevant in server-side rendering (SSR) scenarios. For interactive
-             rendering, the flag has no effect since there is no full-page reload on submit anyway.
-             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.Model">
-            <summary>
-            Specifies the top-level model object for the form. An edit context will
-            be constructed for this model. If using this parameter, do not also supply
-            a value for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.ChildContent">
-            <summary>
-            Specifies the content to be rendered inside this <see cref="T:Microsoft.AspNetCore.Components.Forms.EditForm"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnSubmit">
-             <summary>
-             A callback that will be invoked when the form is submitted.
-            
-             If using this parameter, you are responsible for triggering any validation
-             manually, e.g., by calling <see cref="M:Microsoft.AspNetCore.Components.Forms.EditContext.Validate"/>.
-             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnValidSubmit">
-            <summary>
-            A callback that will be invoked when the form is submitted and the
-            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext"/> is determined to be valid.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnInvalidSubmit">
-            <summary>
-            A callback that will be invoked when the form is submitted and the
-            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.EditContext"/> is determined to be invalid.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.FormName">
-            <summary>
-            Gets or sets the form handler name. This is required for posting it to a server-side endpoint.
-            It is not used during interactive rendering.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentEditForm.OnParametersSet">
-            <inheritdoc />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentFooter.ChildContent">
             <summary>
