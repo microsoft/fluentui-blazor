@@ -1,13 +1,13 @@
-.pull-container {
+.fluent-pull-container {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
-    .pull-container > .pull-wrapper {
+    .fluent-pull-container > .pull-wrapper {
         position: relative;
     }
 
-.pull-tip {
+.fluent-pull-tip {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,10 +18,10 @@
     width: 100%;
 }
 
-.pull-down-tip {
+.fluent-pull-down-tip {
     position: absolute;
     transform: translateY(-100%);
 }
 
-.pull-up-tip {
+.fluent-pull-up-tip {
 }

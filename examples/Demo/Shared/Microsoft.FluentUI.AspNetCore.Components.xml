@@ -4046,7 +4046,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnInitializedAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnUploadFilesHandlerAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
@@ -6315,6 +6315,20 @@
             <summary>
             Gets or sets the color to be used for the progress ring. If not set, the default theme color is used.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnRefreshing">
+            <summary>
+            returns whether there is more data
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Context">
             <summary>
@@ -12223,6 +12237,46 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus.Unknown">
             <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullDirection.Down">
+            <summary>
+            Pull down
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullDirection.Up">
+            <summary>
+            Pull up
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Awaiting">
+            <summary>
+            Not started yet
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Pulling">
+            <summary>
+            Pulling down has started and triggerpoint has not been reached
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.WaitingForRelease">
+            <summary>
+            Reached the triggerpoint and waiting to let loose
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Loading">
+            <summary>
+            Already let loose, refreshing
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Completed">
+            <summary>
+            The refresh is complete
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.NoData">
+            <summary>
+            The refresh completes, but there is no more data to load
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ScrollEasing">
             <summary>

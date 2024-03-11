@@ -1,0 +1,39 @@
+﻿@page "/pull-up"
+@layout EmptyLayout
+@inject IJSRuntime js
+
+<FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshing="OnRefresh">
+
+    <div style="user-select: none; display:flex; flex-direction:column; align-items: flex-end">
+        pull up Refresh times @count
+
+        @for (int i = 0; i < count; i++)
+        {
+            <h1 @key="i">item @i</h1>
+        }
+    </div>
+
+</FluentPullToRefresh>
+
+
+@code {
+    int count = 20;
+    public async Task<bool> OnRefresh()
+    {
+        if (count < 60)
+        {
+            await Task.Delay(1000);
+            count += 20;
+            return true;
+        }
+        return false;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.InvokeVoidAsync("loadTouchEmulator");
+        }
+    }
+}

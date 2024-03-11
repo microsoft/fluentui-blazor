@@ -456,6 +456,11 @@ public class DemoNavProvider
                         title: "Progress Ring"
                     ),
                     new NavLink(
+                        href: "/PullToRefresh",
+                        icon: new Icons.Regular.Size20.ArrowClockwise(),
+                        title: "Pull to refresh"
+                    ),
+                    new NavLink(
                         href: "/Skeleton",
                         icon: new Icons.Regular.Size20.Shortpick(),
                         title: "Skeleton"
