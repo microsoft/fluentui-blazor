@@ -1,0 +1,13 @@
+﻿﻿<div class="pull-container"
+      @ontouchstart="OnTouchStart"
+      @ontouchmove="OnTouchMove"
+      @ontouchend="OnTouchEnd"
+>
+    <div class="pull-wrapper" style="@GetWrapperStyle()">
+        <div class="pull-tip pull-down-tip">
+            @GetTipHtml()
+        </div>
+        @ChildContent
+    </div>
+</div>
+
