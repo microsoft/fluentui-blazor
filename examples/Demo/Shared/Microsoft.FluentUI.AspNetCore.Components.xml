@@ -4046,7 +4046,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnInitializedAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnUploadFilesHandlerAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
