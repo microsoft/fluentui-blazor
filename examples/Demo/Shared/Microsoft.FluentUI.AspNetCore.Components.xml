@@ -8239,26 +8239,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.IsCancelled">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator">
-            <summary>
-            Component used to register the EditContext with the WizardStep
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.WizardStep">
-            <summary>
-            Wizard Step to register the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.EditContext"/> with.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.EditContext">
-            <summary>
-            EditContext that should be registered to the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepFormValidator.EditForm">
-            <summary>
-            EditForm of the EditContext
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
             Gets the name of this design token 

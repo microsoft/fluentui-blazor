@@ -6,6 +6,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentWizardStep : FluentComponentBase
 {
+    private readonly Dictionary<EditForm, EditContext> _editForms = new Dictionary<EditForm, EditContext>();
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class).Build();
 
@@ -136,7 +138,6 @@ public partial class FluentWizardStep : FluentComponentBase
         base.OnInitialized();
     }
 
-    private Dictionary<EditForm, EditContext> _editForms = new Dictionary<EditForm, EditContext>();
     public void RegisterEditFormAndContext(EditForm editForm, EditContext editContext)
     {
         if (!_editForms.ContainsKey(editForm))
@@ -159,7 +160,7 @@ public partial class FluentWizardStep : FluentComponentBase
         return isValid;
     }
 
-    public async Task InvokeOnValidSubmitForEditForms()
+    internal async Task InvokeOnValidSubmitForEditFormsAsync()
     {
         foreach (var editForm in _editForms)
         {
@@ -167,7 +168,7 @@ public partial class FluentWizardStep : FluentComponentBase
         }
     }
 
-    public async Task InvokeOnInValidSubmitForEditForms()
+    internal async Task InvokeOnInValidSubmitForEditFormsAsync()
     {
         foreach (var editForm in _editForms)
         {
@@ -175,7 +176,7 @@ public partial class FluentWizardStep : FluentComponentBase
         }
     }
 
-    public async Task InvokeOnSubmitForEditForms()
+    internal async Task InvokeOnSubmitForEditFormsAsync()
     {
         foreach (var editForm in _editForms)
         {

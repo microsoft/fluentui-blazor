@@ -187,15 +187,15 @@ public partial class FluentWizard : FluentComponentBase
 
             if (!allEditContextsAreValid)
             {
-                await _steps[Value].InvokeOnInValidSubmitForEditForms();
+                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
             }
             if (!stepChangeArgs.IsCancelled && allEditContextsAreValid)
             {
                 // Invoke the 'OnValidSubmit' handlers for the Edit Forms
-                await _steps[Value].InvokeOnValidSubmitForEditForms();
+                await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
             }
 
-            await _steps[Value].InvokeOnSubmitForEditForms();
+            await _steps[Value].InvokeOnSubmitForEditFormsAsync();
         }
 
         await ValueChanged.InvokeAsync(targetIndex);
@@ -222,13 +222,13 @@ public partial class FluentWizard : FluentComponentBase
         if (!allEditContextsAreValid)
         {
             // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
-            await _steps[Value].InvokeOnInValidSubmitForEditForms();
+            await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
             return;
         }
 
         // Invoke the 'OnValidSubmit' handlers for the edit forms.
-        await _steps[Value].InvokeOnValidSubmitForEditForms();
-        await _steps[Value].InvokeOnSubmitForEditForms();
+        await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
+        await _steps[Value].InvokeOnSubmitForEditFormsAsync();
 
         _steps[Value].Status = WizardStepStatus.Previous;
 
