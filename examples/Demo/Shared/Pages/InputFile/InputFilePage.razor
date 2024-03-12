@@ -59,7 +59,7 @@
     Starting with .NET 6, the <code>InputFile</code> component does not work in Server-Side Blazor applications using Autofac IoC containers. This issue is being tracked here: <a href="https://github.com/dotnet/aspnetcore/issues/38842" target="_blank" rel="noopener noreferrer">aspnetcore#38842</a>
     <br />
     <br />
-    Enable HubOptions <a href="https://learn.microsoft.com/en-us/dotnet/api/Microsoft.AspNetCore.SignalR.HubOptions.DisableImplicitFromServicesParameters?view=aspnetcore-7.0&viewFallbackFrom=net-7.0" target="_blank" rel="noopener noreferrer">DisableImplicitFromServicesParameters</a> in program/startup to workaround this issue.
+    Enable HubOptions <a href="https://learn.microsoft.com/en-us/dotnet/api/Microsoft.AspNetCore.SignalR.HubOptions.DisableImplicitFromServicesParameters" target="_blank" rel="noopener noreferrer">DisableImplicitFromServicesParameters</a> in program/startup to workaround this issue.
 </p>
 <CodeSnippet>
     builder.Services
