@@ -4559,6 +4559,11 @@
             Default is ExtraSmall.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.OnClick">
+            <summary>
+            Gets or sets the event raised when the user clicks on this Persona.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.OnDismissClick">
             <summary>
             Gets or sets the event raised when the user clicks on the dismiss button.

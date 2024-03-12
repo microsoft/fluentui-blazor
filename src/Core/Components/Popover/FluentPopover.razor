@@ -13,19 +13,19 @@
                           Shadow="@ElevationShadow.Flyout"
                           Class="@ClassValue"
                           Style="@StyleValue">
-        <FluentStack Orientation="Orientation.Vertical" >
+        <FluentStack Orientation="Orientation.Vertical">
             <div class="fluent-popover-content">
                 @if (Header is not null)
                 {
-                    <div class="fluent-popover-header">@Header</div>
+                    <div part="header">@Header</div>
                 }
                 @if (Body is not null)
                 {
-                    <div class="fluent-popover-body">@Body</div>
+                    <div part="body">@Body</div>
                 }
                 @if (Footer is not null)
                 {
-                    <div class="fluent-popover-footer">@Footer</div>
+                    <div part="footer">@Footer</div>
                 }
             </div>
         </FluentStack>

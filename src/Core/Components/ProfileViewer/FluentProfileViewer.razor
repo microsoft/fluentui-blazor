@@ -1,0 +1,18 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<FluentPersona Id="@Id" Image="@Image" ImageSize="50px" OnClick="@(e => PopoverVisible = !PopoverVisible)" Style="height: 50px;" />
+
+<FluentPopover AnchorId="@Id" @bind-Open="@PopoverVisible" ContentClassName="fluent-profile-viewer-content">
+    <Body>
+        dsqdq <br/>
+        hello World <br/>
+        hello World
+        <br />hello World
+        <br />hello World
+        <br />hello World
+        <br />hello World
+        <br />hello World
+        <br />
+    </Body>
+</FluentPopover>
