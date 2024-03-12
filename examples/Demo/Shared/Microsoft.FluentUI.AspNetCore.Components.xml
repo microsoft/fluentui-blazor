@@ -6231,6 +6231,16 @@
             Default is Small.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileViewer.Status">
+            <summary>
+            Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileViewer.StatusTitle">
+            <summary>
+            Gets or sets the title to show on hover. If not provided, the status will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
             <summary>
             Gets or sets the minimum value.

@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div id="@Id" class="@ClassValue" style="@StyleValue">
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
     <div class="initials" @onclick="@OnClick" style="@(OnClick.HasDelegate ? $"cursor: pointer;" : null)">
         <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
             <div style="display: table-cell; vertical-align: middle; @GetImageMinSizeStyle()">

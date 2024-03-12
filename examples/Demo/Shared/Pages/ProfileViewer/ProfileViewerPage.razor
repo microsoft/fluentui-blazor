@@ -2,6 +2,11 @@
 
 <h1>ProfileViewer</h1>
 
-456
-<FluentProfileViewer Image="@DataSource.SamplePicture" />
-123
+<FluentStack HorizontalAlignment="@HorizontalAlignment.Center">
+    <FluentProfileViewer Image="@DataSource.SamplePicture"
+                         Status="@PresenceStatus.Available"
+                         CompanyName="Microsoft"
+                         Initials="BG"
+                         FullName="Bill Gates"
+                         EMail="bill.gates@microsoft.com" />
+</FluentStack>

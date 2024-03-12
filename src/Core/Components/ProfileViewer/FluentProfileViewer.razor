@@ -1,18 +1,79 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<FluentPersona Id="@Id" Image="@Image" ImageSize="50px" OnClick="@(e => PopoverVisible = !PopoverVisible)" Style="height: 50px;" />
+<div class="fluent-profile-viewer">
+    <FluentPersona Id="@Id"
+                   Image="@Image"
+                   Name="@FullName"
+                   ImageSize="@ButtonSize"
+                   Status="@Status"
+                   StatusTitle="@StatusTitle"
+                   Initials="@Initials"
+                   Style="height: inherit;"
+                   OnClick="@(e => PopoverVisible = !PopoverVisible)" />
 
-<FluentPopover AnchorId="@Id" @bind-Open="@PopoverVisible" ContentClassName="fluent-profile-viewer-content">
-    <Body>
-        dsqdq <br/>
-        hello World <br/>
-        hello World
-        <br />hello World
-        <br />hello World
-        <br />hello World
-        <br />hello World
-        <br />hello World
-        <br />
-    </Body>
-</FluentPopover>
+    <FluentPopover AnchorId="@Id"
+                   Class="@Class"
+                   Style="@Style"
+                   HorizontalPosition="@HorizontalPosition.Start"
+                   @bind-Open="@PopoverVisible"
+                   @attributes="@AdditionalAttributes">
+        <Header>
+            @if (HeaderTemplate is null && (!string.IsNullOrEmpty(CompanyName) || !string.IsNullOrEmpty(SignOutLabel)))
+            {
+                <FluentStack VerticalAlignment="@VerticalAlignment.Center">
+                    @if (!string.IsNullOrEmpty(CompanyName))
+                    {
+                        <FluentLabel>@CompanyName</FluentLabel>
+                    }
+                    @if (!string.IsNullOrEmpty(SignOutLabel))
+                    {
+                        <FluentSpacer />
+                        <FluentButton Appearance="@Appearance.Stealth" OnClick="@OnSignOut">@SignOutLabel</FluentButton>
+                    }
+                </FluentStack>
+            }
+            else
+            {
+                @HeaderTemplate
+            }
+        </Header>
+
+        <Body>
+            @if (ChildContent is null)
+            {
+                <FluentStack>
+                    <FluentPersona Image="@Image"
+                                   ImageSize="@ImageSize"
+                                   Initials="@Initials"
+                                   Style="align-items: normal;">
+                        <FluentLabel Typo="@Typography.Header" Style="font-weight: bold;">@FullName</FluentLabel>
+                        <FluentLabel>@EMail</FluentLabel>
+                    </FluentPersona>
+
+                </FluentStack>
+            }
+            else
+            {
+                @ChildContent
+            }
+        </Body>
+
+        <Footer>
+            @if (FooterTemplate is null && !string.IsNullOrEmpty(ViewAccountLabel))
+            {
+                <FluentStack VerticalAlignment="@VerticalAlignment.Center">
+                    @if (!string.IsNullOrEmpty(ViewAccountLabel))
+                    {
+                        <FluentSpacer />
+                        <FluentAnchor Appearance="@Appearance.Hypertext" Href="#" OnClick="@OnViewAccount">@ViewAccountLabel</FluentAnchor>
+                    }
+                </FluentStack>
+            }
+            else
+            {
+                @HeaderTemplate
+            }
+        </Footer>
+    </FluentPopover>
+</div>
