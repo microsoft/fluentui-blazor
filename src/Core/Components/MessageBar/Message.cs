@@ -65,6 +65,21 @@ public class Message
     }
 
     /// <summary>
+    /// Gets or sets whether the message bar is dismissible.
+    /// </summary>
+    public bool AllowDismiss
+    {
+        get
+        {
+            return Options.AllowDismiss;
+        }
+        set
+        {
+            Options.AllowDismiss = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the link to be shown in the message bar (after the body).
     /// </summary>
     public ActionLink<Message>? Link

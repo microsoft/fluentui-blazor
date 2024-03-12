@@ -454,72 +454,6 @@
             If this app is outside of visible app bar area.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
-            <summary>
-            Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Href">
-            <summary>
-            Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            Use Target parameter to specify where.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Hreflang">
-            <summary>
-            Hints at the language of the referenced resource. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Ping">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Referrerpolicy">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Rel">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Target">
-            <summary>
-            Gets or sets the target attribute that specifies where to open the link, if Href is specified.
-            Possible values: _blank | _self | _parent | _top.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Type">
-            <summary>
-            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance">
-            <summary>
-            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Appearance"/>
-            Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconStart">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.IconEnd">
-            <summary>
-            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the end of anchor content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.ChildContent">
-            <summary>
-            Gets or sets the content to be rendered inside the component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
-            <inheritdoc />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.Color">
             <summary>
             Gets or sets the color.
@@ -4112,7 +4046,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnInitializedAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnUploadFilesHandlerAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
@@ -4322,6 +4256,21 @@
             Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText">
+            <summary>
+            Gets or sets the text field value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueTextChanged">
+            <summary>
+            Gets or sets the callback that is invoked when the text field value changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
             <summary>
             For <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/>, this property must be True.
@@ -4407,6 +4356,30 @@
             Gets or sets the icon used for the Search button. By default: Search icon.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShowOverlayOnEmptyResults">
+            <summary>
+            Gets or sets whether the dropdown is shown when there are no items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize">
+             <summary>
+             If true, the options list will be rendered with virtualization. This is normally used in conjunction with
+             scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
+             This can greatly improve the performance when scrolling through large data sets.
+            
+             If you use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ItemSize"/> and must
+             ensure that every row renders with the same constant height.
+            
+             Generally it's preferable not to use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/> if the amount of data being rendered is small.
+             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ItemSize">
+            <summary>
+            This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Virtualize"/>. It defines an expected height in pixels for
+            each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
+            size and to ensure accurate scrolling.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -4485,6 +4458,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autofocus">
+            <summary>
+            Determines if the element should receive document focus on page load.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.Size">
@@ -4945,6 +4923,16 @@
             using the mouse coordinates (false).
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalThreshold">
+            <summary>
+            Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalThreshold">
+            <summary>
+            Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -5197,6 +5185,11 @@
             Gets or sets the message to be shown in the message bar.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Message.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar is dismissible.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.Message.Link">
             <summary>
             Gets or sets the link to be shown in the message bar (after the body).
@@ -5317,6 +5310,11 @@
             Gets or sets the timeout in milliseconds after which the message bar is removed. Default is null.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageOptions.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar can be dismissed.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.MessageService">
             <summary />
         </member>
@@ -5372,7 +5370,7 @@
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
+            <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBar(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
@@ -5403,7 +5401,7 @@
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
+            <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MessageService.ShowMessageBarAsync(System.Action{Microsoft.FluentUI.AspNetCore.Components.MessageOptions})">
