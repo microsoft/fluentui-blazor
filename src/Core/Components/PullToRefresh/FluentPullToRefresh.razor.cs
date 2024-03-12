@@ -1,8 +1,8 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
+// Based on https://github.com/BcdLib/PullComponent
 
-//using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -14,6 +14,10 @@ public partial class FluentPullToRefresh : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/PullToRefresh/FluentPullToRefresh.razor.js";
     private IJSObjectReference _jsModule = default!;
+    private PullStatus _pullStatus = PullStatus.Awaiting;
+    private double _startY = 0;
+    private int _moveDistance = 0;
+    private string _wrapperStyle = "";
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -42,7 +46,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Parameter]
     public RenderFragment PullingTip { get; set; } = builder =>
     {
-        builder.AddContent(0, "Pull to refresh");
+        builder.AddContent(0, "Pull down to refresh");
     };
 
     [Parameter]
@@ -67,7 +71,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     public RenderFragment NoDataTip { get; set; } = builder =>
     {
         builder.AddContent(0, "No more data");
-    };
+};
 
     [Parameter]
     public int MaxDistance { get; set; } = 50;
@@ -80,9 +84,6 @@ public partial class FluentPullToRefresh : FluentComponentBase
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
     }
-
-    private PullStatus _pullStatus = PullStatus.Awaiting;
-
     private RenderFragment GetTipHtml()
     {
         var renderFragment = _pullStatus switch
@@ -101,13 +102,9 @@ public partial class FluentPullToRefresh : FluentComponentBase
         return _pullStatus switch
         {
             PullStatus.Awaiting => "",
-            _ => wrapperStyle,
+            _ => _wrapperStyle,
         };
     }
-
-    private double startY = 0;
-    private int moveDistance = 0;
-    private string wrapperStyle = "";
 
     private void OnTouchStart(TouchEventArgs e)
     {
@@ -120,9 +117,9 @@ public partial class FluentPullToRefresh : FluentComponentBase
         {
             SetPullStatus(PullStatus.Pulling);
             // Gets the initial y-axis position
-            startY = e.TargetTouches[0].ClientY;
+            _startY = e.TargetTouches[0].ClientY;
             // When the touch starts, the animation time and movement distance are set to 0
-            moveDistance = 0;
+            _moveDistance = 0;
         }
     }
 
@@ -152,7 +149,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
             return;
         }
 
-        var move = e.TargetTouches[0].ClientY - startY;
+        var move = e.TargetTouches[0].ClientY - _startY;
         // Only a positive number means that the user has pulled down.
         if (move > 0)
         {
@@ -170,7 +167,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
             return;
         }
 
-        var move = startY - e.TargetTouches[0].ClientY;
+        var move = _startY - e.TargetTouches[0].ClientY;
         // Only a positive number means that the user has pulled down.
         if (move > 0)
         {
@@ -203,17 +200,18 @@ public partial class FluentPullToRefresh : FluentComponentBase
                 await Task.Delay(1000);
             }
 #endif
-            wrapperStyle = $"transform: translate3d(0, 0, 0);";
+            _wrapperStyle = $"transform: translate3d(0, 0, 0);";
             if (!hasMoreData)
             {
                 SetPullStatus(PullStatus.NoData);
+                await Task.Delay(800);
             }
             else
             {
                 SetPullStatus(PullStatus.Completed);
             }
-            StateHasChanged();
-            await Task.Delay(800);
+            //StateHasChanged();
+
             SetDistance(-1);
         }
         else if (_pullStatus == PullStatus.Awaiting || _pullStatus == PullStatus.Pulling)
@@ -233,8 +231,8 @@ public partial class FluentPullToRefresh : FluentComponentBase
         if (moveDist < 0)
         {
             SetPullStatus(PullStatus.Awaiting);
-            moveDistance = 0;
-            wrapperStyle = "";
+            _moveDistance = 0;
+            _wrapperStyle = "";
             StateHasChanged();
         }
         else
@@ -248,16 +246,16 @@ public partial class FluentPullToRefresh : FluentComponentBase
                 SetPullStatus(PullStatus.WaitingForRelease);
                 moveDist = MaxDistance;
             }
-            if (moveDistance != moveDist)
+            if (_moveDistance != moveDist)
             {
-                moveDistance = moveDist;
+                _moveDistance = moveDist;
                 if (Direction == PullDirection.Down)
                 {
-                    wrapperStyle = $"transform: translate3d(0, {moveDist}px, 0);";
+                    _wrapperStyle = $"transform: translate3d(0, {moveDist}px, 0);";
                 }
                 else
                 {
-                    wrapperStyle = $"transform: translate3d(0, -{moveDist}px, 0);";
+                    _wrapperStyle = $"transform: translate3d(0, -{moveDist}px, 0);";
                 }
                 StateHasChanged();
             }

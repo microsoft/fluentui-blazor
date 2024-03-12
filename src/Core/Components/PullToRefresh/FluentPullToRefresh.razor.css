@@ -3,7 +3,7 @@
     flex-direction: column;
     flex-grow: 1;
 }
-    .fluent-pull-container > .pull-wrapper {
+    .fluent-pull-container > .fluent-pull-wrapper {
         position: relative;
     }
 
@@ -11,17 +11,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #eeeff3;
-    color: #999;
+    background-color: var(--neutral-layer-2);
+    color: var(--neutral-base-color);
     padding: 0.5rem;
-    height: var(--pull-refresh-head-height, 50px);
+    height: var(--fluent-pull-refresh-head-height, 50px);
     width: 100%;
 }
 
 .fluent-pull-down-tip {
-    position: absolute;
-    transform: translateY(-100%);
+    position: relative;
+    top: 0px;
+
 }
 
 .fluent-pull-up-tip {
+    position: relative;
+    bottom: 0px;
 }

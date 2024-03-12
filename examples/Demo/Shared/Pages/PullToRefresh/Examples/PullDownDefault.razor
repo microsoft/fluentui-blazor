@@ -1,0 +1,34 @@
+﻿@inject IJSRuntime js
+
+<div style="height: 48vh; width: 400px; border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-rest); border-radius: calc(var(--control-corner-radius)* 1px); overflow: auto;">
+    <FluentPullToRefresh Direction="@PullDirection.Down" OnRefreshing="OnRefresh">
+        <div style="user-select: none; display:flex; flex-direction:column; align-items: flex-start; padding: calc(var(--design-unit) * 1px);">
+            @for (int i = 1; i <= count; i++)
+            {
+                <span @key="i">item @i</span>
+            }
+        </div>
+    </FluentPullToRefresh>
+</div>
+
+@code {
+    int refreshcount = 0;
+    int count = 20;
+
+    public async Task<bool> OnRefresh()
+    {
+        refreshcount++;
+        DemoLogger.WriteLine($"Pull down refresh count {refreshcount}");
+        await Task.Delay(500);
+        count += 20;
+        return true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.InvokeVoidAsync("loadTouchEmulator");
+        }
+    }
+}

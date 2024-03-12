@@ -1,7 +1,6 @@
 ﻿@page "/PullToRefresh"
+@using FluentUI.Demo.Shared.Pages.PullToRefresh.Examples
 
-<div>
-    <iframe src="/pull-down" style="height: 80vh; width: 400px; border: 2px solid #efefef; user-select: none;"></iframe>
+<DemoSection Title="Pull down" Component="typeof(PullDownDefault)"></DemoSection>
 
-    <iframe src="/pull-up" style="height: 80vh; width: 400px; border: 2px solid #efefef; user-select: none;"></iframe>
-</div>
+<DemoSection Title="Pull up" Component="typeof(PullUpDefault)"></DemoSection>
