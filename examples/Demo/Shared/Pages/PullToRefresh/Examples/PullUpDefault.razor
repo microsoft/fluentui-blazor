@@ -1,10 +1,26 @@
 ﻿@inject IJSRuntime js
+<style>
+    .pull-demo {
+        height: 51.2vh;
+        max-width: 400px;
+        border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-rest);
+        border-radius: calc(var(--control-corner-radius)* 1px);
+        overflow: auto;
+    }
+    .pull-content {
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: calc(var(--design-unit) * 2px);
+    }
+</style>
 
-<div style="height: 48vh; width: 400px; border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-rest); border-radius: calc(var(--control-corner-radius)* 1px); overflow: auto;">
-    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshing="OnRefresh">
-        <PullingTip>Pull up to refresh</PullingTip>
+<div class="pull-demo">
+    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefresh="OnRefresh">
+        <PullingTemplate>Pull up to refresh</PullingTemplate>
         <ChildContent>
-        <div style="user-select: none; display:flex; flex-direction:column; align-items: flex-end; padding: calc(var(--design-unit) * 1px);">
+        <div class="pull-content">
             @for (int i = 1; i <= count; i++)
             {
                 <span @key="i">item @i</span>
@@ -37,6 +53,8 @@
     {
         if (firstRender)
         {
+            // Load touch emulator. This is included to enable touch events on desktop and to add compatibility
+            // with all browsers. It is not needed for the actual component.
             await js.InvokeVoidAsync("loadTouchEmulator");
         }
     }

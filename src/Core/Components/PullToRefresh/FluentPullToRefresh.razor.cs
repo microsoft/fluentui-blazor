@@ -41,34 +41,36 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// returns whether there is more data
     /// </summary>
     [Parameter]
-    public Func<Task<bool>>? OnRefreshing { get; set; }
+    public Func<Task<bool>>? OnRefresh { get; set; }
 
     [Parameter]
-    public RenderFragment PullingTip { get; set; } = builder =>
+    public RenderFragment PullingTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "Pull down to refresh");
     };
 
     [Parameter]
-    public RenderFragment WaitingTip { get; set; } = builder =>
+    public RenderFragment WaitingTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "Release to update");
     };
 
     [Parameter]
-    public RenderFragment LoadingTip { get; set; } = builder =>
+    public RenderFragment LoadingTemplate { get; set; } = builder =>
     {
-        builder.AddContent(0, "Updating...");
+        builder.OpenComponent(0, typeof(FluentProgressRing));
+        builder.AddAttribute(1, "Stroke", ProgressStroke.Small);
+        builder.CloseComponent();
     };
 
     [Parameter]
-    public RenderFragment CompletedTip { get; set; } = builder =>
+    public RenderFragment CompletedTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "The update is complete");
     };
 
     [Parameter]
-    public RenderFragment NoDataTip { get; set; } = builder =>
+    public RenderFragment NoDataTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "No more data");
 };
@@ -88,11 +90,11 @@ public partial class FluentPullToRefresh : FluentComponentBase
     {
         var renderFragment = _pullStatus switch
         {
-            PullStatus.WaitingForRelease => WaitingTip,
-            PullStatus.Loading => LoadingTip,
-            PullStatus.Completed => CompletedTip,
-            PullStatus.NoData => NoDataTip,
-            _ => PullingTip,
+            PullStatus.WaitingForRelease => WaitingTemplate,
+            PullStatus.Loading => LoadingTemplate,
+            PullStatus.Completed => CompletedTemplate,
+            PullStatus.NoData => NoDataTemplate,
+            _ => PullingTemplate,
         };
         return renderFragment;
     }
@@ -182,11 +184,11 @@ public partial class FluentPullToRefresh : FluentComponentBase
             SetPullStatus(PullStatus.Loading);
 
             var hasMoreData = true;
-            if (OnRefreshing is not null)
+            if (OnRefresh is not null)
             {
                 try
                 {
-                    hasMoreData = await OnRefreshing.Invoke();
+                    hasMoreData = await OnRefresh.Invoke();
                 }
                 catch (Exception)
                 {
