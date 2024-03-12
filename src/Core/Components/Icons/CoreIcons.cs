@@ -44,7 +44,6 @@ internal static partial class CoreIcons
         }
     }
 
-
     internal static partial class Filled
     {
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
