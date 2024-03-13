@@ -4,11 +4,11 @@
 
 ### Machine setup
 
-To begin you'll need Git and .NET setup on your machine.
+To begin you'll need Git, .NET, and NodeJS setup on your machine.
 
-The `fluentui-blazor` repo uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
+The `fluentui-blazor` repository uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
-Once Git is installed, you'll also need .NET. Instructions and downloads for your preferred OS can be found [here](https://dotnet.microsoft.com/download).
+Once Git is installed, you'll also need .NET and NodeJS. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org).
 
 :::important
 The above steps are a one-time setup for your machine and do not need to be repeated after the initial configuration.
@@ -16,20 +16,21 @@ The above steps are a one-time setup for your machine and do not need to be repe
 
 ### Cloning the repository
 
-Now that your machine is setup, you can clone the `FAST-Blazor` repository. Open a terminal and run this command:
+Now that your machine is setup, you can clone the `fluentui-blazor` repository. Open a terminal and run this command:
 
 ```shell
 git clone https://github.com/microsoft/fluentui-blazor.git
 ```
+
 Cloning via SSH:
 
 ```shell
-git clone git@github.com:microsoft/fluent-blazor.git
+git clone git@github.com:microsoft/fluentui-blazor.git
 ```
 
 ### Installing and building
 
-From within the folder where you've cloned the repo, install all package dependencies and build the project with the following command.
+From within the folder where you've cloned the repo, build the project with the following command.
 
 ```bash
 dotnet build
@@ -42,7 +43,6 @@ If you'd like to contribute by fixing a bug, implementing a feature, or even cor
 ### Merging a pull request
 
 If you are merging a pull request, be sure to use the pull request title as the commit title. The title should follow the [conventional commit guidelines](https://www.conventionalcommits.org/). It is recommended that if you are merging in pull requests regularly that you add a browser extension that will auto-correct the title for you. A few that should do this are [Refined GitHub](https://github.com/sindresorhus/refined-github) and [Squashed Merge Message](https://github.com/zachwhaley/squashed-merge-message).
-
 
 ## Contribution policy
 
