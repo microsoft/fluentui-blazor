@@ -8,6 +8,7 @@ public partial class FluentMenuButton : FluentComponentBase
 {
     private bool _visible;
     private Color _iconColor = Color.Fill;
+    private string? _buttonId;
 
     protected string? MenuStyleValue => new StyleBuilder(MenuStyle)
         .AddStyle("position", "relative")
@@ -60,6 +61,11 @@ public partial class FluentMenuButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MenuChangeEventArgs> OnMenuChanged { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _buttonId = Identifier.NewId();
+    }
 
     protected override void OnParametersSet()
     {
