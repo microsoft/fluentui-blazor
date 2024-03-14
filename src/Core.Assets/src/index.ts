@@ -143,6 +143,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
       if (event.target!.localName == 'fluent-accordion-item') {
         return {
           activeId: event.target!.id,
+          expanded: event.target!._expanded
         }
       };
       return null;
