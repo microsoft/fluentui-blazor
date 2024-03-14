@@ -1,5 +1,5 @@
 ﻿<FluentAccordion>
-    <FluentAccordionItem Heading="@($"Just an item (status: {(accordionOpen!.Value ? "open" : "closed")})")" @bind-Expanded="@accordionOpen">
+    <FluentAccordionItem Heading="@($"Just an item (status: {(accordionOpen ? "open" : "closed")})")" @bind-Expanded="@accordionOpen">
         This accordion item can programatically be opened and closed. Use the buttons below to manipulate the state
     </FluentAccordionItem>
 </FluentAccordion>
@@ -9,11 +9,9 @@
 <FluentButton OnClick="ToggleAccordion">Toggle</FluentButton>
 
 
-
-
 @code
 {
-    private bool? accordionOpen = false;
+    private bool accordionOpen = false;
 
     private void OpenAccordion()
     {

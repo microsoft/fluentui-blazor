@@ -30,13 +30,13 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// Gets or sets a value indicating whether the item is expanded or collapsed.
     /// </summary>
     [Parameter]
-    public bool? Expanded { get; set; }
+    public bool Expanded { get; set; } = false;
 
     /// <summary>
     /// Gets or sets a callback for when the expanded state changes.
     /// </summary>
     [Parameter]
-    public EventCallback<bool?> ExpandedChanged { get; set; }
+    public EventCallback<bool> ExpandedChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the heading element.
