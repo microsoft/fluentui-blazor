@@ -132,6 +132,11 @@
             Gets or sets a value indicating whether the item is expanded or collapsed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.ExpandedChanged">
+            <summary>
+            Gets or sets a callback for when the expanded state changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.HeadingLevel">
             <summary>
             Gets or sets the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the heading element.
