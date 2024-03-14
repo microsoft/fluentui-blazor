@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-accordion-item @ref=Element
                        id="@Id"
@@ -6,6 +6,7 @@
                        style="@Style"
                        heading-level=@HeadingLevel
                        expanded="@Expanded"
+                       @onaccordionchange="HandleOnAccordionItemChangedAsync"
                        @attributes="AdditionalAttributes">
     @if (Heading is not null)
     {

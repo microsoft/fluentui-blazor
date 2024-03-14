@@ -1,0 +1,30 @@
+﻿<FluentAccordion>
+    <FluentAccordionItem Heading="@($"Just an item (status: {(accordionOpen ? "open" : "closed")})")" @bind-Expanded="@accordionOpen">
+        This accordion item can programatically be opened and closed. Use the buttons below to manipulate the state
+    </FluentAccordionItem>
+</FluentAccordion>
+
+<FluentButton OnClick="OpenAccordion">Open</FluentButton>
+<FluentButton OnClick="CloseAccordion">Close</FluentButton>
+<FluentButton OnClick="ToggleAccordion">Toggle</FluentButton>
+
+
+@code
+{
+    private bool accordionOpen = false;
+
+    private void OpenAccordion()
+    {
+        accordionOpen = true;
+    }
+
+    private void CloseAccordion()
+    {
+        accordionOpen = false;
+    }
+
+    private void ToggleAccordion()
+    {
+        accordionOpen = !accordionOpen;
+    }
+}
