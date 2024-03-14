@@ -66,9 +66,8 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
         if (args is not null)
         {
             var id = args.ActiveId;
-            if (id is not null && Id == id)
+            if (id is not null && Id == id && ExpandedChanged.HasDelegate)
             {
-
                 await ExpandedChanged.InvokeAsync(args.Expanded);
             }
         }
