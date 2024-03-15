@@ -8311,6 +8311,13 @@
             </summary>
             <returns>the value</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.SwatchExtensions.ToColorHex(Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Swatch)">
+            <summary>
+            Gives a RGB hex value for a Swatch
+            </summary>
+            <param name="swatch">The Swatch to convert</param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Direction">
             <summary>
             The Direction design token

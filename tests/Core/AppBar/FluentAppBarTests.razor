@@ -1,0 +1,78 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit
+@inherits TestContext
+
+
+@code
+{
+    BunitJSModuleInterop? keyModule, overflowModule;
+
+    public FluentAppBarTests()
+    {
+        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accessibility/FluentKeyCode.razor.js");
+        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
+        JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
+    [Fact]
+    public void FluentAppBar_ChildContent()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar><div>Child content</div></FluentAppBar>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBar_Overflow()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBar>(
+            @<FluentAppBar Id="appbar">
+                <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item tooltip">
+                </FluentAppBarItem>
+                <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item 2 tooltip">
+                </FluentAppBarItem>
+                </FluentAppBar>
+            );
+
+        // This does not contribute to html output but helps for code coverage testing
+        cut.InvokeAsync(() => cut.Instance.OverflowRaisedAsync("""[{"Id":"id1","Overflow":false,"Text":"My item"},{"Id":"id2","Overflow":true,"Text":"My item 2"}]"""));
+        var item = cut.FindComponent<FluentAppBarItem>();
+        item.Instance.SetProperties(true);
+
+        cut.Render();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBar_NoPopoverSearch()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBar>(
+    @<FluentAppBar Id="appbar" PopoverShowSearch="false">
+        <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item tooltip">
+        </FluentAppBarItem>
+        <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item 2 tooltip">
+        </FluentAppBarItem>
+    </FluentAppBar>
+        );
+
+        // This does not contribute to html output but helps for code coverage testing
+        cut.InvokeAsync(() => cut.Instance.OverflowRaisedAsync("""[{"Id":"id1","Overflow":false,"Text":"My item"},{"Id":"id2","Overflow":true,"Text":"My item 2"}]"""));
+        var item = cut.FindComponent<FluentAppBarItem>();
+        item.Instance.SetProperties(true);
+
+        cut.Render();
+
+        // Assert
+        cut.Verify();
+    }
+}

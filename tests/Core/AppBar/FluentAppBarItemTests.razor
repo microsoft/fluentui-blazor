@@ -1,0 +1,93 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit
+@inherits TestContext
+
+
+@code
+{
+    public FluentAppBarItemTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
+    [Fact]
+    public void FluentAppBarItem_ChildContent()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" IconRest="@SampleIcons.Info" Text="My item">
+                    <div>Child content</div>
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBarItem_Default()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@SampleIcons.Info">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBarItem_NoText()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" IconRest="@SampleIcons.Info">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBarItem_IconActive()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBarItem_Tooltip()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item tooltip">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+}
