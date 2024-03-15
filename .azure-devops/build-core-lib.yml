@@ -10,8 +10,6 @@ trigger:
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-# pool:
-#   vmImage: 'windows-2022'
 pool:
   name: Fluent-Blazor-1ESPT
    
