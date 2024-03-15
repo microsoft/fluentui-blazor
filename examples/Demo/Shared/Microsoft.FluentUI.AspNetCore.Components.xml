@@ -444,9 +444,19 @@
             Gets or sets the tooltip to show when the item is hovered.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ForceLoad">
+            <summary>
+            If true, force browser to redirect outside component router-space.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
             <summary>
              Gets or sets the content to be shown.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.OnClick">
+            <summary>
+            The callback to invoke when the item is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Owner">
