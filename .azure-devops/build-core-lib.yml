@@ -8,13 +8,9 @@ trigger: none   # Build via Build-All-Lib.yml
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-# pool:
-#   vmImage: 'windows-2022'
 pool:
-  name: HostedDVO
-  demands:
-   - agent.name -equals Hosted-FluentUI
-   
+  name: Fluent-Blazor-1ESPT
+  
 extends:
   template: common/template-to-build-projects.yml
   parameters:
