@@ -1,0 +1,22 @@
+﻿<FluentPersona Name="Lydia Bauer"
+               ImageSize="50px"
+               HideName=@hideName
+               @onmouseover="OnMouseOver"
+               @onmouseout="OnMouseOut"
+               Status="PresenceStatus.Busy"
+               StatusSize="PresenceBadgeSize.Small">
+</FluentPersona>
+
+@code {
+    bool hideName = true;
+
+    private void OnMouseOver()
+    {
+        hideName = false;
+    }
+
+    private void OnMouseOut()
+    {
+        hideName = true;
+    }
+}
