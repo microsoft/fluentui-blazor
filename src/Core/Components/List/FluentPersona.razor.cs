@@ -98,7 +98,7 @@ public partial class FluentPersona : FluentComponentBase
         return parts == null
                 || parts.Length == 0
                 || (parts.Length == 1 && parts[0] == string.Empty)
-            ? "--"
+            ? string.Empty
             : parts.Length > 1
             ? $"{parts[0][0]}{parts[1][0]}"
             : $"{parts[0][0]}";

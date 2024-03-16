@@ -66,4 +66,23 @@
         Assert.Equal("Log off", signOut.InnerHtml);
         Assert.Equal("Account", viewAccount.InnerHtml);
     }
+
+    [Fact]
+    public void FluentProfileMenu_Customized()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentProfileMenu Initials="DV">
+                <HeaderTemplate>Header</HeaderTemplate>
+                <ChildContent>Body</ChildContent>
+                <FooterTemplate>Footer</FooterTemplate>
+            </FluentProfileMenu>);
+
+        // Open the Popover
+        var button = cut.Find(".initials");
+        button.Click();
+
+        // Assert
+        cut.Verify();
+    }
 }
