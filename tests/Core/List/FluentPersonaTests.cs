@@ -48,4 +48,27 @@ public class FluentPersonaTests : TestBase
         // Assert
         cut.Verify(suffix: id);
     }
+
+    [Theory]
+    [InlineData("NameNoChildContent", "Denis Voituron", null)]
+    [InlineData("ChildContentNoName", "", null)]
+    [InlineData("ChildContentName", "Denis Voituron", "Denis Voituron")]
+    [InlineData("NoNameNoChildContent", "", null)]
+    public void FluentPersona_HideName(string id, string name, string? childContent)
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Name, name);
+            parameters.Add(p => p.HideName, !string.IsNullOrWhiteSpace(name) || childContent is not null);
+            parameters.Add(p => p.ChildContent, context =>
+            {
+                context.AddContent(0, childContent);
+            });
+        });
+
+        // Assert
+        cut.Verify(suffix: id);
+    }
 }

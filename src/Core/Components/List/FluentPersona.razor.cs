@@ -31,6 +31,12 @@ public partial class FluentPersona : FluentComponentBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// When true, <see cref="Name"/> will not be rendered.
+    /// </summary>
+    [Parameter]
+    public bool HideName { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to display under the <see cref="Name"/>.
     /// </summary>
     [Parameter]
