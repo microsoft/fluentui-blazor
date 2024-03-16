@@ -15,12 +15,24 @@ public partial class FluentProfileMenu : FluentComponentBase
 
     private bool PopoverVisible { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets the content to be displayed in the header section of the popover.
+    /// Using this property will override the <see cref="CompanyName" /> and <see cref="SignOutLabel"/> properties.
+    /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be displayed in the main section (body) of the popover.
+    /// Using this property will override the <see cref="EMail"/>, <see cref="FullName"/>, <see cref="Image"/> properties.
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be displayed in the footer section of the popover.
+    /// Using this property will override the <see cref="ViewAccountLabel" /> property.
+    /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
 
@@ -38,7 +50,7 @@ public partial class FluentProfileMenu : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the initials to display if no image is provided.
-    /// By default, the first letters of the <see cref="Name"/> is used.
+    /// By default, the first letters of the <see cref="FullName"/> is used.
     /// </summary>
     [Parameter]
     public string? Initials { get; set; }
