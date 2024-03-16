@@ -446,9 +446,9 @@ public class DemoNavProvider
                         title: "Popover"
                     ),
                     new NavLink(
-                        href: "/ProfileViewer",
+                        href: "/ProfileMenu",
                         icon: new Icons.Regular.Size20.PeopleList(),
-                        title: "ProfileViewer"
+                        title: "ProfileMenu"
                     ),
                     new NavLink(
                         href: "/Progress",

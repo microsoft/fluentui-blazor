@@ -59,6 +59,10 @@
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Include="Pages\ProfileMenu\Examples\ProfileMenuDefault.razor" />
+	</ItemGroup>
+
 	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />

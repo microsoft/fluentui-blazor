@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentProfileViewer : FluentComponentBase
+public partial class FluentProfileMenu : FluentComponentBase
 {
-    public FluentProfileViewer()
+    public FluentProfileMenu()
     {
         Id = Identifier.NewId();
     }
