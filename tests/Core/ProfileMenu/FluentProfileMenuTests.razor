@@ -1,0 +1,69 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    private string SamplePicture = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+
+    public FluentProfileMenuTests()
+    {
+        this.Services.AddScoped<GlobalState>();
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Default()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentProfileMenu Image="@SamplePicture"
+                   ButtonSize="20px"
+                   ImageSize="48px"
+                   Status="@PresenceStatus.Available"
+                   StatusTitle="I'm available"
+                   CompanyName="Microsoft"
+                   Initials="BG"
+                   FullName="Bill Gates"
+                   EMail="bill.gates@microsoft.com" />);
+
+        // Open the Popover
+        var button = cut.Find(".initials");
+        button.Click();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Buttons()
+    {
+        bool viewAccountClicked = false;
+        bool signOutClicked = false;
+
+        // Arrange && Act
+        var cut = Render(
+            @<FluentProfileMenu ButtonSize="20px"
+                   SignOutLabel="Log off"
+                   ViewAccountLabel="Account"
+                   OnSignOut="@(e => signOutClicked = true)"
+                   OnViewAccount="@(e => viewAccountClicked = true)" />
+    );
+
+        // Open the Popover
+        var button = cut.Find(".initials");
+        button.Click();
+
+        // sign out
+        var signOut = cut.Find("fluent-button");
+        signOut.Click();
+
+        // viewAccount
+        var viewAccount = cut.Find("fluent-anchor");
+        viewAccount.Click();
+
+        // Assert
+        Assert.True(viewAccountClicked);
+        Assert.True(signOutClicked);
+        Assert.Equal("Log off", signOut.InnerHtml);
+        Assert.Equal("Account", viewAccount.InnerHtml);
+    }
+}

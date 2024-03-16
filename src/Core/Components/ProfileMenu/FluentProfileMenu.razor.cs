@@ -36,36 +36,70 @@ public partial class FluentProfileMenu : FluentComponentBase
     [Parameter]
     public string? StatusTitle { get; set; }
 
+    /// <summary>
+    /// Gets or sets the initials to display if no image is provided.
+    /// By default, the first letters of the <see cref="Name"/> is used.
+    /// </summary>
     [Parameter]
     public string? Initials { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name to display.
+    /// </summary>
     [Parameter]
     public string? FullName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the company name to display.
+    /// </summary>
     [Parameter]
     public string? CompanyName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the email to display.
+    /// </summary>
     [Parameter]
     public string? EMail { get; set; }
 
+    /// <summary>
+    /// Gets or sets the image to display, in replacement of the initials.
+    /// </summary>
     [Parameter]
     public string? Image { get; set; }
 
+    /// <summary>
+    /// Gets or sets the size of the image, in the popover.
+    /// </summary>
     [Parameter]
     public string? ImageSize { get; set; } = "64px";
 
+    /// <summary>
+    /// Gets or sets the size of the main button image (button clickable to display the popover).
+    /// </summary>
     [Parameter]
     public string? ButtonSize { get; set; } = "32px";
 
+    /// <summary>
+    /// Gets or sets the "Sign out" button label.
+    /// </summary>
     [Parameter]
     public string? SignOutLabel { get; set; } = "Sign out";
 
+    /// <summary>
+    /// Event raised when the user clicks on the "Sign out" button.
+    /// </summary>
     [Parameter]
     public EventCallback OnSignOut { get; set; }
 
+    /// <summary>
+    /// Gets or sets the "View account" hyperlink label.
+    /// </summary>
     [Parameter]
-    public string? ViewAccountLabel { get; set; } = "View Account";
+    public string? ViewAccountLabel { get; set; } = "View account";
 
+    /// <summary>
+    /// Event raised when the user clicks on the "View account" link.
+    /// </summary>
     [Parameter]
     public EventCallback OnViewAccount { get; set; }
 }

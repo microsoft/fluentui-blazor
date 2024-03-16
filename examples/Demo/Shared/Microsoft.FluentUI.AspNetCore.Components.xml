@@ -6251,6 +6251,62 @@
             Gets or sets the title to show on hover. If not provided, the status will be used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Initials">
+            <summary>
+            Gets or sets the initials to display if no image is provided.
+            By default, the first letters of the <see cref="!:Name"/> is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FullName">
+            <summary>
+            Gets or sets the name to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.CompanyName">
+            <summary>
+            Gets or sets the company name to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.EMail">
+            <summary>
+            Gets or sets the email to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Image">
+            <summary>
+            Gets or sets the image to display, in replacement of the initials.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.ImageSize">
+            <summary>
+            Gets or sets the size of the image, in the popover.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.ButtonSize">
+            <summary>
+            Gets or sets the size of the main button image (button clickable to display the popover).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.SignOutLabel">
+            <summary>
+            Gets or sets the "Sign out" button label.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OnSignOut">
+            <summary>
+            Event raised when the user clicks on the "Sign out" button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.ViewAccountLabel">
+            <summary>
+            Gets or sets the "View account" hyperlink label.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OnViewAccount">
+            <summary>
+            Event raised when the user clicks on the "View account" link.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
             <summary>
             Gets or sets the minimum value.
