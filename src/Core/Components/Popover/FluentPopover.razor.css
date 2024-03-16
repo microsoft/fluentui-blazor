@@ -17,7 +17,7 @@
     }
 
     .fluent-popover-content div[part="body"] {
-
+        height: 100%;
     }
 
     .fluent-popover-content div[part="footer"] {

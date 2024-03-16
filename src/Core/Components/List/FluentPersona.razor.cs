@@ -89,6 +89,11 @@ public partial class FluentPersona : FluentComponentBase
     /// <summary />
     private string GetDefaultInitials()
     {
+        if (string.IsNullOrEmpty(Name))
+        {
+            return string.Empty;
+        }
+
         var parts = Name.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return parts == null
                 || parts.Length == 0

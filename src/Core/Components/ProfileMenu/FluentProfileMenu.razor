@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div class="fluent-profile-viewer">
+<div class="fluent-profile-menu">
     <FluentPersona Id="@Id"
                    Image="@Image"
                    Name="@FullName"
@@ -42,7 +42,7 @@
         <Body>
             @if (ChildContent is null)
             {
-                <FluentStack>
+                <FluentStack Style="height: 100%;">
                     <FluentPersona Image="@Image"
                                    ImageSize="@ImageSize"
                                    Initials="@Initials"
@@ -72,7 +72,7 @@
             }
             else
             {
-                @HeaderTemplate
+                @FooterTemplate
             }
         </Footer>
     </FluentPopover>

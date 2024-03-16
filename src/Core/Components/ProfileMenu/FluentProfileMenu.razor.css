@@ -1,6 +1,6 @@
-.fluent-profile-viewer {
+.fluent-profile-menu {
 }
 
-    .fluent-profile-viewer ::deep > .fluent-persona > .name {
+    .fluent-profile-menu ::deep > .fluent-persona > .name {
         display: none;
     }
