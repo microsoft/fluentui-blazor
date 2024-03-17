@@ -444,11 +444,6 @@
             Gets or sets the tooltip to show when the item is hovered.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ForceLoad">
-            <summary>
-            If true, force browser to redirect outside component router-space.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
             <summary>
              Gets or sets the content to be shown.
@@ -4572,6 +4567,11 @@
             <summary>
             Gets or sets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.Status"/> size to use.
             Default is ExtraSmall.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.OnClick">
+            <summary>
+            Gets or sets the event raised when the user clicks on this Persona.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.OnDismissClick">
