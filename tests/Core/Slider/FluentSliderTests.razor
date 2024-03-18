@@ -1,4 +1,4 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
@@ -14,7 +14,8 @@
     public void FluentSlider_Default()
     {
         // Arrange && Act
-        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10"></FluentSlider>);
+        int value = 3;
+        var cut = Render(@<FluentSlider Min="0" Max="100" Step="10" @bind-Value="@value"></FluentSlider>);
 
         // Assert
         cut.Verify();
