@@ -886,7 +886,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Name">
             <summary>
-            Gets or sets the name of the element. 
+            Gets or sets the name of the element.
             Allows access by name from the associated form.
             </summary>
         </member>

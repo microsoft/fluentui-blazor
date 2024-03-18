@@ -45,7 +45,7 @@ else
             {
                 if (Loading)
                 {
-                    <FluentProgressRing slot="start" Style="@RingStyle(IconStart)" />
+                    <FluentProgressRing slot="@(ChildContent != null ? "start" : null)" Style="@RingStyle(IconStart)" />
                 }
                 else
                 {
@@ -58,7 +58,7 @@ else
             {
                 if (Loading && IconStart == null)
                 {
-                    <FluentProgressRing slot="end" Style="@RingStyle(IconEnd)" />
+                    <FluentProgressRing slot="@(ChildContent != null ? "end" : null)" Style="@RingStyle(IconEnd)" />
                 }
                 else
                 {
