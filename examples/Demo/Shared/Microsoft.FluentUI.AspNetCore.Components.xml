@@ -4569,6 +4569,11 @@
             Default is ExtraSmall.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.OnClick">
+            <summary>
+            Gets or sets the event raised when the user clicks on this Persona.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.OnDismissClick">
             <summary>
             Gets or sets the event raised when the user clicks on the dismiss button.
@@ -8145,7 +8150,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnPreviousHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs)">
