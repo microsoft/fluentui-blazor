@@ -6066,6 +6066,11 @@
             A component that provides a user interface for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PaginationState"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.Disabled">
+            <summary>
+            Disables the pagination buttons
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.State">
             <summary>
             Gets or sets the associated <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PaginationState"/>. This parameter is required.
