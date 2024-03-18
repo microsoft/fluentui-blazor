@@ -886,7 +886,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Name">
             <summary>
-            Gets or sets the name of the element. 
+            Gets or sets the name of the element.
             Allows access by name from the associated form.
             </summary>
         </member>
@@ -6064,6 +6064,11 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator">
             <summary>
             A component that provides a user interface for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PaginationState"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.Disabled">
+            <summary>
+            Disables the pagination buttons
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.State">
