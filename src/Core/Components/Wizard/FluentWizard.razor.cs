@@ -144,7 +144,7 @@ public partial class FluentWizard : FluentComponentBase
         while (_steps[targetIndex].Disabled && targetIndex < _steps.Count - 1);
 
         // StepChange event
-        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex);
+        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, true);
         var isCanceled = stepChangeArgs?.IsCancelled ?? false;
 
         if (!isCanceled)
@@ -166,7 +166,7 @@ public partial class FluentWizard : FluentComponentBase
         while (_steps[targetIndex].Disabled && targetIndex > 0);
 
         // StepChange event
-        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex);
+        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, false);
         var isCanceled = stepChangeArgs?.IsCancelled ?? false;
 
         if (!isCanceled)
@@ -177,10 +177,29 @@ public partial class FluentWizard : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex)
+    protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
+        if (validateEditContexts)
+        {
+            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+            stepChangeArgs.IsCancelled = !allEditContextsAreValid;
+
+            if (!allEditContextsAreValid)
+            {
+                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
+            }
+            if (!stepChangeArgs.IsCancelled && allEditContextsAreValid)
+            {
+                // Invoke the 'OnValidSubmit' handlers for the Edit Forms
+                await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
+            }
+
+            await _steps[Value].InvokeOnSubmitForEditFormsAsync();
+        }
+
         await ValueChanged.InvokeAsync(targetIndex);
+
         return await OnStepChangeHandlerAsync(stepChangeArgs);
     }
 
@@ -196,16 +215,27 @@ public partial class FluentWizard : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual Task OnFinishHandlerAsync(MouseEventArgs e)
+    protected virtual async Task OnFinishHandlerAsync(MouseEventArgs e)
     {
+        // Validate any form edit contexts
+        var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+        if (!allEditContextsAreValid)
+        {
+            // Invoke the 'OnInvalidSubmit' handlers for the edit forms.
+            await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
+            return;
+        }
+
+        // Invoke the 'OnValidSubmit' handlers for the edit forms.
+        await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
+        await _steps[Value].InvokeOnSubmitForEditFormsAsync();
+
         _steps[Value].Status = WizardStepStatus.Previous;
 
         if (OnFinish.HasDelegate)
         {
-            return OnFinish.InvokeAsync();
+            await OnFinish.InvokeAsync();
         }
-
-        return Task.CompletedTask;
     }
 
     internal int AddStep(FluentWizardStep step)
