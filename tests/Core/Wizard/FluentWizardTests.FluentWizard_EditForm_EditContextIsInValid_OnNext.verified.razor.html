@@ -1,0 +1,48 @@
+
+<div style="width: 100%; height: 400px;" class="fluent-wizard" position="left" b-l81u9o5gjc="">
+  <ol b-l81u9o5gjc="">
+    <li status="current" style="height: 100%;" b-a5o5s1yurv="">
+      <div class="fluent-wizard-icon" b-a5o5s1yurv="">
+        <svg style="width: 24px; fill: var(--accent-fill-rest); width: var(--fluent-wizard-circle-size);" focusable="false" viewBox="0 0 24 24" aria-hidden="true" blazor:onclick="2">
+          <path d="M2 12a10 10 0 1120 0 10 10 0 01-20 0z"></path>
+        </svg>
+      </div>
+      <div hidden-when="xs" b-a5o5s1yurv="">
+        <p typo="body" class="fluent-typography fluent-wizard-title" b-1nnnfjehkp=""></p>
+        <p typo="body" class="fluent-typography fluent-wizard-summary" b-1nnnfjehkp=""></p>
+      </div>
+    </li>
+    <li status="next" style="height: 100%;" b-a5o5s1yurv="">
+      <div class="fluent-wizard-icon" b-a5o5s1yurv="">
+        <svg style="width: 24px; fill: var(--accent-fill-rest); width: var(--fluent-wizard-circle-size);" focusable="false" viewBox="0 0 24 24" aria-hidden="true" blazor:onclick="3">
+          <path d="M12 3.5a8.5 8.5 0 100 17 8.5 8.5 0 000-17zM2 12a10 10 0 1120 0 10 10 0 01-20 0z"></path>
+        </svg>
+      </div>
+      <div hidden-when="xs" b-a5o5s1yurv="">
+        <p typo="body" class="fluent-typography fluent-wizard-title" b-1nnnfjehkp=""></p>
+        <p typo="body" class="fluent-typography fluent-wizard-summary" b-1nnnfjehkp=""></p>
+      </div>
+    </li>
+  </ol>
+  <div class="fluent-wizard-content" b-l81u9o5gjc="">
+    <div style="" b-l81u9o5gjc="">
+      <form blazor:onsubmit="5">
+        <div>
+          <ul class="validation-errors">
+            <li class="validation-message">The field NumberBetween1and10 must be between 1 and 10.</li>
+          </ul>
+        </div>
+        <fluent-number-field class="invalid" maxlength="14" minlength="1" size="20" step="1" id="xxx" current-value="15" appearance="outline" blazor:onchange="7" blazor:oninput="8" aria-invalid="true" blazor:elementreference=""></fluent-number-field>
+      </form>
+    </div>
+    <div style="display: none;" b-l81u9o5gjc="">
+      <form blazor:onsubmit="6">
+        <fluent-number-field class="valid" maxlength="14" minlength="1" size="20" step="1" id="xxx" current-value="15" appearance="outline" blazor:onchange="9" blazor:oninput="10" blazor:elementreference=""></fluent-number-field>
+      </form>
+    </div>
+  </div>
+  <div class="fluent-wizard-buttons" b-l81u9o5gjc="">
+    <span style="margin-right: 10px" b-l81u9o5gjc=""></span>
+    <fluent-button style="width: 80px;;" type="button" appearance="accent" blazor:onclick="4" b-x1200685t0="" blazor:elementreference="">Next</fluent-button>
+  </div>
+</div>

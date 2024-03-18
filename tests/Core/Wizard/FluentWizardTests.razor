@@ -1,7 +1,17 @@
 ﻿@using Xunit;
+@using System.ComponentModel.DataAnnotations
 @inherits TestContext
+
 @code
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentWizardTests()
+    {
+        this.Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentWizard_Left()
     {
@@ -256,5 +266,167 @@
         {
             return $"{args.Index} - {(args.Active ? "Active" : "Inactive")}";
         }
+    }
+
+    [Fact]
+    public void FluentWizard_EditForm_EditContextIsValid()
+    {
+        var testRecord1 = new TestRecord
+            {
+                NumberBetween1and10 = 5,
+            };
+
+        var testRecord2 = new TestRecord
+            {
+                NumberBetween1and10 = 7,
+            };
+
+        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
+        <Steps>
+            <FluentWizardStep>
+                <FluentEditForm Model="testRecord1">
+                    <DataAnnotationsValidator />
+                    <FluentValidationSummary />
+                    <FluentNumberField @bind-Value=testRecord1.NumberBetween1and10 />
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep>
+                <FluentEditForm Model="testRecord2">
+                    <DataAnnotationsValidator />
+                    <FluentValidationSummary />
+                    <FluentNumberField @bind-Value=testRecord2.NumberBetween1and10 />
+                </FluentEditForm>
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        bool finishHandled = false;
+
+        for (var i = 0; i < 2; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify();
+
+        void OnFinishHandler()
+        {
+            finishHandled = true;
+        }
+
+        Assert.Equal(finishHandled, true);
+    }
+
+    [Fact]
+    public void FluentWizard_EditForm_EditContextIsInValid_OnNext()
+    {
+        var testRecord1 = new TestRecord
+            {
+                NumberBetween1and10 = 15,
+            };
+
+        var testRecord2 = new TestRecord
+            {
+                NumberBetween1and10 = 15,
+            };
+
+        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
+        <Steps>
+            <FluentWizardStep>
+                <FluentEditForm Model="testRecord1">
+                    <DataAnnotationsValidator />
+                    <FluentValidationSummary />
+                    <FluentNumberField @bind-Value=testRecord1.NumberBetween1and10 />
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep>
+                <FluentEditForm Model="testRecord2">
+                    <DataAnnotationsValidator />
+                    <FluentValidationSummary />
+                    <FluentNumberField @bind-Value=testRecord2.NumberBetween1and10 />
+                </FluentEditForm>
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        bool finishHandled = false;
+
+        for (var i = 0; i < 2; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify();
+
+        void OnFinishHandler()
+        {
+            finishHandled = true;
+        }
+
+        Assert.Equal(finishHandled, false);
+    }
+
+    [Fact]
+    public void FluentWizard_EditForm_EditContextIsInValid_OnFinish()
+    {
+        var testRecord1 = new TestRecord
+            {
+                NumberBetween1and10 = 5,
+            };
+
+        var testRecord2 = new TestRecord
+            {
+                NumberBetween1and10 = 15,
+            };
+
+        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
+        <Steps>
+            <FluentWizardStep>
+                <FluentEditForm Model="testRecord1">
+                    <DataAnnotationsValidator />
+                    <FluentValidationSummary />
+                    <FluentNumberField @bind-Value=testRecord1.NumberBetween1and10 />
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep>
+                <FluentEditForm Model="testRecord2">
+                    <DataAnnotationsValidator />
+                    <FluentValidationSummary />
+                    <FluentNumberField @bind-Value=testRecord2.NumberBetween1and10 />
+                </FluentEditForm>
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        bool finishHandled = false;
+
+        for (var i = 0; i < 2; i++)
+        {
+            var nextButton = cut.Find("fluent-button[appearance='accent']");
+            nextButton.Click();
+        }
+
+        // Assert
+        cut.Verify();
+
+        void OnFinishHandler()
+        {
+            finishHandled = true;
+        }
+
+        Assert.Equal(finishHandled, false);
+    }
+
+    private record TestRecord
+    {
+        [Range(1, 10)]
+        public int? NumberBetween1and10 { get; set; }
     }
 }
