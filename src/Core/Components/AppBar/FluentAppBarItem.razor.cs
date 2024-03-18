@@ -1,11 +1,19 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAppBarItem : FluentComponentBase, IDisposable
 {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the URL for this item.
     /// </summary>
@@ -50,6 +58,12 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// The callback to invoke when the item is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentAppBarItem> OnClick { get; set; }
+
+    /// <summary>
     /// Gets or sets the owning FluentAppBar component.
     /// </summary>
     [CascadingParameter]
@@ -77,6 +91,14 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     internal void SetProperties(bool? overflow)
     {
         Overflow = overflow == true ? overflow : null;
+    }
+
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(this);
+        }
     }
 
     public void Dispose()

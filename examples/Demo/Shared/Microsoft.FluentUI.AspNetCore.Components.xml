@@ -196,6 +196,11 @@
             Gets or sets a value indicating whether the item is expanded or collapsed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.ExpandedChanged">
+            <summary>
+            Gets or sets a callback for when the expanded state changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordionItem.HeadingLevel">
             <summary>
             Gets or sets the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the heading element.
@@ -439,9 +444,19 @@
             Gets or sets the tooltip to show when the item is hovered.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ForceLoad">
+            <summary>
+            If true, force browser to redirect outside component router-space.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
             <summary>
              Gets or sets the content to be shown.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.OnClick">
+            <summary>
+            The callback to invoke when the item is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Owner">
@@ -8305,6 +8320,13 @@
             Convert a hex color string to a value the DesignToken can work with
             </summary>
             <returns>the value</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.SwatchExtensions.ToColorHex(Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Swatch)">
+            <summary>
+            Gives a RGB hex value for a Swatch
+            </summary>
+            <param name="swatch">The Swatch to convert</param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Direction">
             <summary>
