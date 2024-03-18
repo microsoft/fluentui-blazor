@@ -8219,7 +8219,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnPreviousHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(System.Int32,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnStepChangeHandlerAsync(Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs)">
