@@ -79,7 +79,7 @@ export function beforeWebAssemblyStart(options: any) {
 
 export function afterWebAssemblyStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor,'wasm');
+    afterStarted(blazor, 'wasm');
   }
 }
 
@@ -91,7 +91,7 @@ export function beforeServerStart(options: any) {
 
 export function afterServerStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor,'server');
+    afterStarted(blazor, 'server');
   }
 }
 
@@ -295,6 +295,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
 
 
   if (typeof blazor.addEventListener === 'function' && mode === 'web') {
+    customElements.define('fluent-page-script', FluentPageScript);
     blazor.addEventListener('enhancedload', onEnhancedLoad);
   }
 
@@ -304,7 +305,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
 export function beforeStart(options: any) {
   customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
-  customElements.define('fluent-page-script', FluentPageScript);
 
   beforeStartCalled = true;
 }
