@@ -1,0 +1,6 @@
+.fluent-profile-menu {
+}
+
+    .fluent-profile-menu ::deep > .fluent-persona > .name {
+        display: none;
+    }

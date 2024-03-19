@@ -4,7 +4,7 @@
 @inherits FluentComponentBase
 
 <div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
-    <NavLink role="listitem" href="@Href" Match="Match">
+    <NavLink role="listitem" href="@Href" Match="Match" @onclick="OnClickHandlerAsync">
         <FluentStack Orientation="Orientation.Vertical"
                      HorizontalAlignment="HorizontalAlignment.Center"
                      VerticalAlignment="VerticalAlignment.Center"
