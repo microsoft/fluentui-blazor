@@ -78,6 +78,9 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Parameter]
     public int MaxDistance { get; set; } = 50;
 
+    [Parameter]
+    public int PullTipHeight { get; set; } = 50;
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -86,7 +89,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
     }
-    private RenderFragment GetTipHtml()
+    private RenderFragment GetTipContent()
     {
         var renderFragment = _pullStatus switch
         {
@@ -114,8 +117,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
         {
             return;
         }
-        if (_pullStatus == PullStatus.Awaiting || _pullStatus == PullStatus.Completed
-        )
+        if (_pullStatus == PullStatus.Awaiting || _pullStatus == PullStatus.Completed)
         {
             SetPullStatus(PullStatus.Pulling);
             // Gets the initial y-axis position
@@ -143,37 +145,43 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     private async Task OnTouchMoveDownAsync(TouchEventArgs e)
     {
-        // If document is a scroll bar, touch sliding is a simple way to scroll up and down the page
-        var distToTop = await _jsModule.InvokeAsync<int>("getScrollDistToTop");
-        ;
-        if (distToTop > 0)
-        {
-            return;
-        }
+        if (_jsModule is not null)
+{
+            // If document is a scroll bar, touch sliding is a simple way to scroll up and down the page
+            var distToTop = await _jsModule.InvokeAsync<int>("getScrollDistToTop");
 
-        var move = e.TargetTouches[0].ClientY - _startY;
-        // Only a positive number means that the user has pulled down.
-        if (move > 0)
-        {
-            SetDistance(CalcMoveDistance(move));
+            if (distToTop > 0)
+            {
+                return;
+            }
+
+            var move = e.TargetTouches[0].ClientY - _startY;
+            // Only a positive number means that the user has pulled down.
+            if (move > 0)
+            {
+                SetDistance(CalcMoveDistance(move));
+            }
         }
     }
 
     private async Task OnTouchMoveUpAsync(TouchEventArgs e)
     {
-        // If document is a scroll bar, touch sliding is a simple way to scroll up and down the page
-        var distToBottom = await _jsModule.InvokeAsync<int>("getScrollDistToBottom");
-        ;
-        if (distToBottom > 0)
+        if (_jsModule is not null)
         {
-            return;
-        }
+            // If document is a scroll bar, touch sliding is a simple way to scroll up and down the page
+            var distToBottom = await _jsModule.InvokeAsync<int>("getScrollDistToBottom");
 
-        var move = _startY - e.TargetTouches[0].ClientY;
-        // Only a positive number means that the user has pulled down.
-        if (move > 0)
-        {
-            SetDistance(CalcMoveDistance(move));
+            //if (distToBottom <= 0)
+            //{
+            //    return;
+            //}
+
+            var move = _startY - e.TargetTouches[0].ClientY;
+            // Only a positive number means that the user has pulled down.
+            if (move > 0)
+            {
+                SetDistance(CalcMoveDistance(move));
+            }
         }
     }
 

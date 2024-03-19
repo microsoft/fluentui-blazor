@@ -17,8 +17,11 @@
 </style>
 
 <div class="pull-demo">
-    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefresh="OnRefresh">
+    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefresh="OnRefresh" PullTipHeight="32">
         <PullingTemplate>Pull up to refresh</PullingTemplate>
+        <LoadingTemplate>
+            <FluentProgress Width="150px;"/>
+        </LoadingTemplate>
         <ChildContent>
         <div class="pull-content">
             @for (int i = 1; i <= count; i++)
@@ -37,7 +40,7 @@
     public async Task<bool> OnRefresh()
     {
         refreshcount++;
-        if (count < 60)
+        if (count < 100)
         {
             await Task.Delay(1000);
             count += 20;
