@@ -17,7 +17,7 @@ public partial class FluentProfileMenu : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the content to be displayed in the header section of the popover.
-    /// Using this property will override the <see cref="CompanyName" /> and <see cref="SignOutLabel"/> properties.
+    /// Using this property will override the <see cref="HeaderLabel" /> and <see cref="HeaderButton"/> properties.
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -31,7 +31,7 @@ public partial class FluentProfileMenu : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the content to be displayed in the footer section of the popover.
-    /// Using this property will override the <see cref="ViewAccountLabel" /> property.
+    /// Using this property will override the <see cref="FooterLink" /> property.
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -62,16 +62,16 @@ public partial class FluentProfileMenu : FluentComponentBase
     public string? FullName { get; set; }
 
     /// <summary>
-    /// Gets or sets the company name to display.
-    /// </summary>
-    [Parameter]
-    public string? CompanyName { get; set; }
-
-    /// <summary>
     /// Gets or sets the email to display.
     /// </summary>
     [Parameter]
     public string? EMail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the header label (e.g Company Name) to display on the top-left.
+    /// </summary>
+    [Parameter]
+    public string? HeaderLabel { get; set; }
 
     /// <summary>
     /// Gets or sets the image to display, in replacement of the initials.
@@ -92,26 +92,32 @@ public partial class FluentProfileMenu : FluentComponentBase
     public string? ButtonSize { get; set; } = "32px";
 
     /// <summary>
-    /// Gets or sets the "Sign out" button label.
+    /// Gets or sets the Header Button label (e.g. Sign out) on the top-right.
     /// </summary>
     [Parameter]
-    public string? SignOutLabel { get; set; } = "Sign out";
+    public string? HeaderButton { get; set; } = "Sign out";
 
     /// <summary>
-    /// Event raised when the user clicks on the "Sign out" button.
+    /// Event raised when the user clicks on the Header Button (e.g. Sign out).
     /// </summary>
     [Parameter]
-    public EventCallback OnSignOut { get; set; }
+    public EventCallback OnHeaderButtonClick { get; set; }
 
     /// <summary>
-    /// Gets or sets the "View account" hyperlink label.
+    /// Gets or sets the footer label to display on the bottom-left.
     /// </summary>
     [Parameter]
-    public string? ViewAccountLabel { get; set; } = "View account";
+    public string? FooterLabel { get; set; }
 
     /// <summary>
-    /// Event raised when the user clicks on the "View account" link.
+    /// Gets or sets the Footer hyperlink label (e.g. View account) on the bottom-right.
     /// </summary>
     [Parameter]
-    public EventCallback OnViewAccount { get; set; }
+    public string? FooterLink { get; set; } = "View account";
+
+    /// <summary>
+    /// Event raised when the user clicks on the Footer hyperlink (e.g. View account).
+    /// </summary>
+    [Parameter]
+    public EventCallback OnFooterLinkClick { get; set; }
 }

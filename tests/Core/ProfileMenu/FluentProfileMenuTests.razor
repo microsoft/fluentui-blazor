@@ -20,7 +20,8 @@
                    ImageSize="48px"
                    Status="@PresenceStatus.Available"
                    StatusTitle="I'm available"
-                   CompanyName="Microsoft"
+                   HeaderLabel="Microsoft"
+                   FooterLabel="v 3.14"
                    Initials="BG"
                    FullName="Bill Gates"
                    EMail="bill.gates@microsoft.com" />);
@@ -42,10 +43,10 @@
         // Arrange && Act
         var cut = Render(
             @<FluentProfileMenu ButtonSize="20px"
-                   SignOutLabel="Log off"
-                   ViewAccountLabel="Account"
-                   OnSignOut="@(e => signOutClicked = true)"
-                   OnViewAccount="@(e => viewAccountClicked = true)" />
+                   HeaderButton="Log off"
+                   FooterLink="Account"
+                   OnHeaderButtonClick="@(e => signOutClicked = true)"
+                   OnFooterLinkClick="@(e => viewAccountClicked = true)" />
     );
 
         // Open the Popover

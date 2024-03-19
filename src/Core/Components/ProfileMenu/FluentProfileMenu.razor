@@ -19,17 +19,17 @@
                    @bind-Open="@PopoverVisible"
                    @attributes="@AdditionalAttributes">
         <Header>
-            @if (HeaderTemplate is null && (!string.IsNullOrEmpty(CompanyName) || !string.IsNullOrEmpty(SignOutLabel)))
+            @if (HeaderTemplate is null && (!string.IsNullOrEmpty(HeaderLabel) || !string.IsNullOrEmpty(HeaderButton)))
             {
                 <FluentStack VerticalAlignment="@VerticalAlignment.Center">
-                    @if (!string.IsNullOrEmpty(CompanyName))
+                    @if (!string.IsNullOrEmpty(HeaderLabel))
                     {
-                        <FluentLabel>@CompanyName</FluentLabel>
+                        <FluentLabel part="header-label">@HeaderLabel</FluentLabel>
                     }
-                    @if (!string.IsNullOrEmpty(SignOutLabel))
+                    @if (!string.IsNullOrEmpty(HeaderButton))
                     {
                         <FluentSpacer />
-                        <FluentButton Appearance="@Appearance.Stealth" OnClick="@OnSignOut">@SignOutLabel</FluentButton>
+                        <FluentButton part="header-button" Appearance="@Appearance.Stealth" OnClick="@OnHeaderButtonClick">@HeaderButton</FluentButton>
                     }
                 </FluentStack>
             }
@@ -47,8 +47,8 @@
                                    ImageSize="@ImageSize"
                                    Initials="@Initials"
                                    Style="align-items: normal;">
-                        <FluentLabel Typo="@Typography.Header" Style="font-weight: bold;">@FullName</FluentLabel>
-                        <FluentLabel>@EMail</FluentLabel>
+                        <FluentLabel part="fullname" Typo="@Typography.Header" Style="font-weight: bold;">@FullName</FluentLabel>
+                        <FluentLabel part="email">@EMail</FluentLabel>
                     </FluentPersona>
 
                 </FluentStack>
@@ -60,13 +60,17 @@
         </Body>
 
         <Footer>
-            @if (FooterTemplate is null && !string.IsNullOrEmpty(ViewAccountLabel))
+            @if (FooterTemplate is null && !string.IsNullOrEmpty(FooterLink))
             {
                 <FluentStack VerticalAlignment="@VerticalAlignment.Center">
-                    @if (!string.IsNullOrEmpty(ViewAccountLabel))
+                    @if (!string.IsNullOrEmpty(FooterLabel))
+                    {
+                        <FluentLabel part="footer-label">@FooterLabel</FluentLabel>
+                    }
+                    @if (!string.IsNullOrEmpty(FooterLink))
                     {
                         <FluentSpacer />
-                        <FluentAnchor Appearance="@Appearance.Hypertext" Href="#" OnClick="@OnViewAccount">@ViewAccountLabel</FluentAnchor>
+                        <FluentAnchor part="footer-link" Appearance="@Appearance.Hypertext" Href="#" OnClick="@OnFooterLinkClick">@FooterLink</FluentAnchor>
                     }
                 </FluentStack>
             }
