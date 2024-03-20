@@ -4,6 +4,7 @@
 		<DebugAssetsDirectory>dist\</DebugAssetsDirectory>
 		<StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
 		<IsPackable>false</IsPackable>
+		<BuildCommand>npm run build</BuildCommand>
 	</PropertyGroup>
 
 	<Target Name="Pack" />
