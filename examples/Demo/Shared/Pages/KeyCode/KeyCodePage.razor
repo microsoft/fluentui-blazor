@@ -36,7 +36,7 @@
         KeyCodeService.RegisterListener(OnKeyDownAsync);
     }
 
-    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    async Task IKeyCodeListener.OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
         Console.WriteLine(args.Value);
         await Task.CompletedTask;
