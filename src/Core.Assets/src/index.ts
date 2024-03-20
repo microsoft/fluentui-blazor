@@ -2,6 +2,7 @@ export * from '@fluentui/web-components/dist/web-components'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
+import { TouchEmulator } from './TouchEmulator' 
 
 interface Blazor {
   registerCustomEventType: (
@@ -305,6 +306,8 @@ export function afterStarted(blazor: Blazor, mode: string) {
 export function beforeStart(options: any) {
   customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
+
+  new TouchEmulator();
 
   beforeStartCalled = true;
 }
