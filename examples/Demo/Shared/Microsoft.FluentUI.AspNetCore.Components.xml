@@ -29,123 +29,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccessibilityStatus.Style">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode">
-            <summary>
-            Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
-            The anchor must refer to the ID of an element (or sub-element) accepting the focus.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Anchor">
-            <summary>
-            Required. Gets or sets the control identifier associated with the KeyCode engine.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDown">
-            <summary>
-            Event triggered when a KeyDown event is raised.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.IgnoreModifier">
-            <summary>
-            Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Only">
-            <summary>
-            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to accept, and only this list, when evaluating the key code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Ignore">
-            <summary>
-            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to ignore when evaluating the key code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.StopPropagation">
-            <summary>
-            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventDefault">
-            <summary>
-            Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventDefaultOnly">
-            <summary>
-            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
-            its default action should not be taken as it normally would be.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
-            <summary>
-            Internal method.
-            </summary>
-            <param name="keyCode"></param>
-            <param name="value"></param>
-            <param name="ctrlKey"></param>
-            <param name="shiftKey"></param>
-            <param name="altKey"></param>
-            <param name="metaKey"></param>
-            <param name="location"></param>
-            <param name="targetId"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Location">
-            <summary>
-            Gets an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyLocation" /> representing the location of the key on the keyboard or other input device.
-            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Key">
-            <summary>
-            Gets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.KeyCode"/> equivalent value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.KeyCode">
-            <summary>
-            Gets the system- and implementation-dependent numerical code identifying the unmodified value of the pressed key.
-            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Value">
-            <summary>
-            Gets the value of the key pressed by the user
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.CtrlKey">
-            <summary>
-            Gets a boolean value that indicates if the Control key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.ShiftKey">
-            <summary>
-            Gets a boolean value that indicates if the Shift key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.AltKey">
-            <summary>
-            Gets a boolean value that indicates if the Alt key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.MetaKey">
-            <summary>
-            Gets a boolean value that indicates if the Meta key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.TargetId">
-            <summary>
-            Gets the identifier of the targeted DOM element.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
@@ -4157,6 +4040,123 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.IsCancelled">
             <summary>
             Set this property to True to cancel the current upload file.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode">
+            <summary>
+            Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
+            The anchor must refer to the ID of an element (or sub-element) accepting the focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Anchor">
+            <summary>
+            Required. Gets or sets the control identifier associated with the KeyCode engine.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDown">
+            <summary>
+            Event triggered when a KeyDown event is raised.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.IgnoreModifier">
+            <summary>
+            Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Only">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to accept, and only this list, when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Ignore">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to ignore when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventDefault">
+            <summary>
+            Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventDefaultOnly">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
+            its default action should not be taken as it normally would be.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Internal method.
+            </summary>
+            <param name="keyCode"></param>
+            <param name="value"></param>
+            <param name="ctrlKey"></param>
+            <param name="shiftKey"></param>
+            <param name="altKey"></param>
+            <param name="metaKey"></param>
+            <param name="location"></param>
+            <param name="targetId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Location">
+            <summary>
+            Gets an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyLocation" /> representing the location of the key on the keyboard or other input device.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Key">
+            <summary>
+            Gets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.KeyCode"/> equivalent value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.KeyCode">
+            <summary>
+            Gets the system- and implementation-dependent numerical code identifying the unmodified value of the pressed key.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Value">
+            <summary>
+            Gets the value of the key pressed by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.CtrlKey">
+            <summary>
+            Gets a boolean value that indicates if the Control key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.ShiftKey">
+            <summary>
+            Gets a boolean value that indicates if the Shift key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.AltKey">
+            <summary>
+            Gets a boolean value that indicates if the Alt key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.MetaKey">
+            <summary>
+            Gets a boolean value that indicates if the Meta key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.TargetId">
+            <summary>
+            Gets the identifier of the targeted DOM element.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.JSRuntime">
