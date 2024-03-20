@@ -1,8 +1,12 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
