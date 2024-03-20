@@ -1,4 +1,6 @@
-@page "/KeyCode"
+﻿@page "/KeyCode"
+@implements IKeyCodeListener
+@inject IKeyCodeService KeyCodeService
 
 @using FluentUI.Demo.Shared.Pages.KeyCode.Examples
 
@@ -25,3 +27,18 @@
 <ApiDocumentation Component="typeof(FluentKeyCode)" />
 
 <ApiDocumentation Component="typeof(FluentKeyCodeEventArgs)" />
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        //KeyCodeService.RegisterListener(this);
+        KeyCodeService.RegisterListener(OnKeyDownAsync);
+    }
+
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        Console.WriteLine(args.Value);
+        await Task.CompletedTask;
+    }
+}
