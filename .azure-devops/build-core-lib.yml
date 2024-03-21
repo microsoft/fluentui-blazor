@@ -11,8 +11,8 @@ trigger:
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
-  name: Fluent-Blazor-1ESPT
-   
+  name: NetCore1ESPool-Internal
+
 extends:
   template: common/template-to-build-projects.yml
   parameters:
