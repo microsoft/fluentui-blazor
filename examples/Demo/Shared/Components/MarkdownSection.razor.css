@@ -1,0 +1,9 @@
+::deep th {
+    padding: 0 5px 0 5px;
+    border-width: 1px;
+}
+
+::deep td {
+    padding: 0 5px 0 5px;
+    border-width: 1px;
+}

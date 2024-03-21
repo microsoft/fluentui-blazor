@@ -52,7 +52,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         {
             if (value != null && OptionValue != null && Items != null)
             {
-                TOption? item = Items.FirstOrDefault(i => GetOptionValue(i) == value);
+                var item = Items.FirstOrDefault(i => GetOptionValue(i) == value);
 
                 if (!Equals(item, SelectedOption))
                 {

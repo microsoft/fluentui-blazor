@@ -21,9 +21,10 @@
     <FluentSelect Items="@Items"
                   OptionValue="@(i => $"tab-{i.Index}")"
                   @bind-Value="@SelectedTabId" />
-    <FluentButton @onclick="@AddAndSelect">Add and select</FluentButton>
+    <FluentButton OnClick="@AddAndSelect">Add and select</FluentButton>
 @code
 {
+    private FluentTabs? tabs;
     List<DataSource.MonthItem> Items = new List<DataSource.MonthItem>(DataSource.AllMonths);
     string SelectedTabId = "tab-03";
     int i = 20;
@@ -45,7 +46,7 @@
         return index % 2 == 0;
     }
 
-    void AddAndSelect()
+    async Task AddAndSelect()
     {
         i++;
         var item = new DataSource.MonthItem()
@@ -54,6 +55,7 @@
                 Name = $"New {i:00}",
             };
         Items.Add(item);
+        await Task.Delay(1);
         SelectedTabId = $"tab-{item.Index}";
     }
 }
