@@ -116,7 +116,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// Gets or sets the distance the <see cref="ChildContent"/> needs to be pulled (in pixels) to initiate a refresh action.
     /// </summary>
     [Parameter]
-    public int DragDistance { get; set; } = 50;
+    public int DragDistance { get; set; } = 32;
 
     /// <summary>
     /// Gets or sets the height (in pixels) of the tip fragment (if shown).
