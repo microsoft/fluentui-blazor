@@ -25,6 +25,9 @@ public interface IMessageService : IDisposable
     Message ShowMessageBar(string title, MessageIntent intent, string section);
 
     /// <summary />
+    Message ShowMessageBar(string title, MessageIntent intent, string section, int timeout);
+
+    /// <summary />
     Task<Message> ShowMessageBarAsync(Action<MessageOptions> options);
 
     /// <summary />
@@ -35,6 +38,9 @@ public interface IMessageService : IDisposable
 
     /// <summary />
     Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section);
+
+    /// <summary />
+    Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section, int timeout);
 
     /// <summary />
     void Clear(string? section = null);

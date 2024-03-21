@@ -122,6 +122,25 @@ public class MessageService : IMessageService, IDisposable
     }
 
     /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <param name="section">Section to show the message bar in </param>
+    /// <param name="timeout">Number of milliseconds after which the message bar dissapears</param>
+    /// <returns></returns>
+    public Message ShowMessageBar(string title, MessageIntent intent, string section, int timeout)
+    {
+        return ShowMessageBar(options =>
+        {
+            options.Title = title;
+            options.Intent = intent;
+            options.Section = section;
+            options.Timeout = timeout;
+        });
+    }
+
+    /// <summary>
     /// Show a message based on the provided options in a message bar.
     /// </summary>
     /// <param name="options">Message options</param>
@@ -193,6 +212,25 @@ public class MessageService : IMessageService, IDisposable
             options.Title = title;
             options.Intent = intent;
             options.Section = section;
+        });
+    }
+
+    /// <summary>
+    /// Show a message based on the provided parameters in a message bar.
+    /// </summary>
+    /// <param name="title">Main info</param>
+    /// <param name="intent">Intent of the message</param>
+    /// <param name="section">Section to show the message bar in </param>
+    /// <param name="timeout">Number of milliseconds after which the message bar dissapears</param>
+    /// <returns></returns>
+    public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section, int timeout)
+    {
+        return await ShowMessageBarAsync(options =>
+        {
+            options.Title = title;
+            options.Intent = intent;
+            options.Section = section;
+            options.Timeout = timeout;
         });
     }
 
