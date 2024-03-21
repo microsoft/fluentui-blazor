@@ -3,32 +3,44 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-<div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
-    @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
-    {
-        <NavLink class="@LinkClassValue"
-                 @attributes="@Attributes"
-                 Match="@Match"
-                 ActiveClass="@ActiveClass"
-                 title="@Tooltip">
-            <div class="positioning-region">
+@if (OwnerMenu == null)
+{
+    <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
+        @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
+        {
+            <NavLink class="@LinkClassValue"
+                     @attributes="@Attributes"
+                     Match="@Match"
+                     ActiveClass="@ActiveClass"
+                     title="@Tooltip">
+                <div class="positioning-region">
+                    <div class="content-region">
+                        @_renderContent
+                    </div>
+                </div>
+            </NavLink>
+        }
+        else
+        {
+            <div class="positioning-region" title="@Tooltip">
                 <div class="content-region">
-                    @_renderContent
+                    <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
+                        @_renderContent
+                    </div>
                 </div>
             </div>
-        </NavLink>
-    }
-    else
-    {
-        <div class="positioning-region" title="@Tooltip">
-            <div class="content-region">
-                <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
-                    @_renderContent
-                </div>
-            </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <FluentMenuItem>
+        @ChildContent
+        <span slot="start" >
+            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+        </span>
+    </FluentMenuItem>
+}
 
 @code {
     private void RenderContent(RenderTreeBuilder __builder)

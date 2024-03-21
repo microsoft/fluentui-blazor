@@ -70,6 +70,9 @@ public abstract class FluentNavBase : FluentComponentBase
     [CascadingParameter]
     public FluentNavMenu Owner { get; set; } = default!;
 
+    [CascadingParameter]
+    public FluentMenu? OwnerMenu { get; set; }
+
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
     /// </summary>
