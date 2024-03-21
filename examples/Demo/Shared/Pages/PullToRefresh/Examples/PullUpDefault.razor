@@ -17,13 +17,13 @@
 </style>
 
 <div class="pull-up-demo">
-    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshAsync="OnRefreshAsync" TipHeight="50">
+    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshAsync="OnRefreshAsync" TipHeight="50" DragDistance="100" >
         <PullingTemplate>Pull up to refresh</PullingTemplate>
         <LoadingTemplate>
             <FluentProgress Width="150px;"/>
         </LoadingTemplate>
         <ChildContent>
-            <div class="pull-content">
+            <div class="pull-content">   
                 @for (int i = 1; i <= count; i++)
                 {
                     <span @key="i">item @i</span>
