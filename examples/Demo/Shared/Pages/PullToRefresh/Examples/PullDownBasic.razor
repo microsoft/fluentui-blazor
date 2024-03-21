@@ -1,0 +1,28 @@
+﻿<style>
+    .pull-demo-basic {
+        border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-rest);
+        border-radius: calc(var(--control-corner-radius)* 1px);
+        width: 100%;
+    }
+</style>
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="5">
+    <FluentSwitch @bind-Value="@disabled" CheckedMessage="Pull is disabled" UncheckedMessage="Pull is enabled" />
+    <FluentPullToRefresh Class="pull-demo-basic" Direction="@PullDirection.Down" Disabled="@disabled" OnRefreshAsync="OnRefreshAsync">
+        <div style="height: 150px; width: 100%; padding: 5px;">
+            My content to refresh: @Counter
+        </div>
+    </FluentPullToRefresh>
+</FluentStack>
+
+@code {
+    bool disabled = false;
+    int Counter = 0;
+
+    async Task<bool> OnRefreshAsync()
+    {
+        Counter++;
+        await Task.Delay(250);
+        return true;
+    }
+}

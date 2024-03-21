@@ -1,0 +1,75 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentPullToRefreshTests()
+    {
+        this.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
+    // write some unit tests here
+    [Fact]
+    public void FluentPullToRefresh_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh>Content that can be refreshed</FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DirectionDown()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh Direction="@PullDirection.Down">Content that can be refreshed</FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DirectionUp()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh Direction="@PullDirection.Up">Content that can be refreshed</FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_Disabled()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh Disabled="true">Content that can be refreshed</FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_DoNotShowStaticTip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh ShowStaticTip="false">Content that can be refreshed</FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPullToRefresh_LoadingTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPullToRefresh>
+            <PullingTemplate>Pull to refresh...</PullingTemplate>
+            <ChildContent>Content that can be refreshed</ChildContent>
+         </FluentPullToRefresh>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+}

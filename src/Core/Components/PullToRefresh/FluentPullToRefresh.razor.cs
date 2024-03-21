@@ -1,7 +1,6 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-// Based on https://github.com/BcdLib/PullComponent
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -18,6 +17,9 @@ public partial class FluentPullToRefresh : FluentComponentBase
     private double _startY = 0;
     private int _moveDistance = 0;
     private string _wrapperStyle = "";
+    private bool _originalShowStaticTip;
+    //private bool _showStaticTip = true;
+    private bool _internalShowStaticTip = true;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -31,55 +33,107 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets the direction to pull the <see cref="ChildContent"/>.
+    /// </summary>
     [Parameter]
     public PullDirection Direction { get; set; } = PullDirection.Down;
 
+    /// <summary>
+    /// Gets or sets if the pull action is disabled.
+    /// Deaults to false.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets if a tip is shown when <see cref="ChildContent"/> is not being pulled.
+    /// </summary>
+    [Parameter]
+    public bool ShowStaticTip { get; set; } = true;
+
+    /// <summary>
+    /// Gets or set the content to show.
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// returns whether there is more data
+    /// Returns whether there is more data available.
     /// </summary>
     [Parameter]
-    public Func<Task<bool>>? OnRefresh { get; set; }
+    public Func<Task<bool>>? OnRefreshAsync { get; set; }
 
+    /// <summary>
+    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> can be refreshed by a pull down/up action.
+    /// </summary>
     [Parameter]
     public RenderFragment PullingTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "Pull down to refresh");
     };
 
+    /// <summary>
+    /// Gets or sets the the content to indicate the pulled <see cref="ChildContent"/> must be released to start the refresh action.
+    /// </summary>
     [Parameter]
-    public RenderFragment WaitingTemplate { get; set; } = builder =>
+    public RenderFragment ReleaseTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "Release to update");
     };
 
+    /// <summary>
+    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> is being refreshed.
+    /// </summary>
     [Parameter]
     public RenderFragment LoadingTemplate { get; set; } = builder =>
     {
         builder.OpenComponent(0, typeof(FluentProgressRing));
         builder.AddAttribute(1, "Stroke", ProgressStroke.Small);
+        builder.AddAttribute(2, "Width", "20px");
         builder.CloseComponent();
     };
 
+    /// <summary>
+    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> has been refreshed.
+    /// </summary>
     [Parameter]
     public RenderFragment CompletedTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "The update is complete");
     };
 
+    /// <summary>
+    /// Gets or sets the the content to indicate the <see cref="ChildContent"/> can not be refreshed anymore.
+    /// </summary>
     [Parameter]
     public RenderFragment NoDataTemplate { get; set; } = builder =>
     {
         builder.AddContent(0, "No more data");
-};
+    };
 
+    /// <summary>
+    /// Gets or sets the distance the <see cref="ChildContent"/> needs to be pulled (in pixels) to initiate a refresh action.
+    /// </summary>
     [Parameter]
-    public int MaxDistance { get; set; } = 50;
+    public int DragDistance { get; set; } = 50;
 
+    /// <summary>
+    /// Gets or sets the height (in pixels) of the tip fragment (if shown).
+    /// </summary>
     [Parameter]
-    public int PullTipHeight { get; set; } = 50;
+    public int TipHeight { get; set; } = 32;
+
+    /// <summary>
+    /// Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
+    /// </summary>
+    [Parameter]
+    public int StatusUpdateMessageTimeout { get; set; } = 750;
+
+    protected override void OnInitialized()
+    {
+        _originalShowStaticTip = _internalShowStaticTip = ShowStaticTip;
+    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -87,13 +141,15 @@ public partial class FluentPullToRefresh : FluentComponentBase
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+
+            await _jsModule.InvokeVoidAsync("initTouchEmulator");
         }
     }
     private RenderFragment GetTipContent()
     {
         var renderFragment = _pullStatus switch
         {
-            PullStatus.WaitingForRelease => WaitingTemplate,
+            PullStatus.WaitingForRelease => ReleaseTemplate,
             PullStatus.Loading => LoadingTemplate,
             PullStatus.Completed => CompletedTemplate,
             PullStatus.NoData => NoDataTemplate,
@@ -102,33 +158,30 @@ public partial class FluentPullToRefresh : FluentComponentBase
         return renderFragment;
     }
 
-    private string GetWrapperStyle()
-    {
-        return _pullStatus switch
-        {
-            PullStatus.Awaiting => "",
-            _ => _wrapperStyle,
-        };
-    }
+    protected virtual string? WrapperStyle => new StyleBuilder()
+         .AddStyle("position", "relative")
+         .AddStyle("user-select", "none")
+         .AddStyle(_pullStatus == PullStatus.Awaiting ? null : _wrapperStyle)
+         .Build();
 
-    private void OnTouchStart(TouchEventArgs e)
+    private Task OnTouchStartAsync(TouchEventArgs e)
     {
-        if (_pullStatus == PullStatus.NoData)
-        {
-            return;
-        }
+        if (Disabled) { return Task.CompletedTask; }
+
         if (_pullStatus == PullStatus.Awaiting || _pullStatus == PullStatus.Completed)
         {
             SetPullStatus(PullStatus.Pulling);
-            // Gets the initial y-axis position
             _startY = e.TargetTouches[0].ClientY;
-            // When the touch starts, the animation time and movement distance are set to 0
             _moveDistance = 0;
         }
+        return Task.CompletedTask;
     }
 
     private async Task OnTouchMoveAsync(TouchEventArgs e)
     {
+        if (Disabled) { return; }
+
+        _internalShowStaticTip = true;
         if (_pullStatus == PullStatus.Pulling || _pullStatus == PullStatus.WaitingForRelease)
         {
             if (Direction == PullDirection.Down)
@@ -139,15 +192,13 @@ public partial class FluentPullToRefresh : FluentComponentBase
             {
                 await OnTouchMoveUpAsync(e);
             }
-
         }
     }
 
     private async Task OnTouchMoveDownAsync(TouchEventArgs e)
     {
         if (_jsModule is not null)
-{
-            // If document is a scroll bar, touch sliding is a simple way to scroll up and down the page
+        {
             var distToTop = await _jsModule.InvokeAsync<int>("getScrollDistToTop");
 
             if (distToTop > 0)
@@ -156,7 +207,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
             }
 
             var move = e.TargetTouches[0].ClientY - _startY;
-            // Only a positive number means that the user has pulled down.
+
             if (move > 0)
             {
                 SetDistance(CalcMoveDistance(move));
@@ -164,39 +215,32 @@ public partial class FluentPullToRefresh : FluentComponentBase
         }
     }
 
-    private async Task OnTouchMoveUpAsync(TouchEventArgs e)
+    private Task OnTouchMoveUpAsync(TouchEventArgs e)
     {
-        if (_jsModule is not null)
+        var move = _startY - e.TargetTouches[0].ClientY;
+
+        if (move > 0)
         {
-            // If document is a scroll bar, touch sliding is a simple way to scroll up and down the page
-            var distToBottom = await _jsModule.InvokeAsync<int>("getScrollDistToBottom");
-
-            //if (distToBottom <= 0)
-            //{
-            //    return;
-            //}
-
-            var move = _startY - e.TargetTouches[0].ClientY;
-            // Only a positive number means that the user has pulled down.
-            if (move > 0)
-            {
-                SetDistance(CalcMoveDistance(move));
-            }
+            SetDistance(CalcMoveDistance(move));
         }
+        return Task.CompletedTask;
+
     }
 
     private async Task OnTouchEndAsync(TouchEventArgs e)
     {
+        if (Disabled) { return; }
+
         if (_pullStatus == PullStatus.WaitingForRelease)
         {
             SetPullStatus(PullStatus.Loading);
 
             var hasMoreData = true;
-            if (OnRefresh is not null)
+            if (OnRefreshAsync is not null)
             {
                 try
                 {
-                    hasMoreData = await OnRefresh.Invoke();
+                    hasMoreData = await OnRefreshAsync.Invoke();
                 }
                 catch (Exception)
                 {
@@ -204,23 +248,20 @@ public partial class FluentPullToRefresh : FluentComponentBase
                     throw;
                 }
             }
-#if DEBUG
-            else
-            {
-                await Task.Delay(1000);
-            }
-#endif
+
             _wrapperStyle = $"transform: translate3d(0, 0, 0);";
             if (!hasMoreData)
             {
                 SetPullStatus(PullStatus.NoData);
-                await Task.Delay(800);
+                await Task.Delay(750);
             }
             else
             {
                 SetPullStatus(PullStatus.Completed);
+                StateHasChanged();
+                await Task.Delay(750);
+                _internalShowStaticTip = _originalShowStaticTip;
             }
-            //StateHasChanged();
 
             SetDistance(-1);
         }
@@ -232,7 +273,6 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     private static int CalcMoveDistance(double moveDist)
     {
-        // Simulated resistance
         return (int)Math.Pow(moveDist, 0.8);
     }
 
@@ -247,14 +287,14 @@ public partial class FluentPullToRefresh : FluentComponentBase
         }
         else
         {
-            if (moveDist < MaxDistance)
+            if (moveDist < DragDistance)
             {
                 SetPullStatus(PullStatus.Pulling);
             }
             else
             {
                 SetPullStatus(PullStatus.WaitingForRelease);
-                moveDist = MaxDistance;
+                moveDist = DragDistance;
             }
             if (_moveDistance != moveDist)
             {
