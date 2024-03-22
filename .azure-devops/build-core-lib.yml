@@ -222,3 +222,31 @@ extends:
             command: 'build'
             projects: ${{ parameters.Projects }}
             arguments: '--configuration Release'
+
+        # Test and generate Code Coverage
+        - task: DotNetCoreCLI@2
+          condition: eq(variables['ShouldTest'], 'true')
+          displayName: 'Test and Code Coverage'
+          inputs:
+            command: test
+            projects: ${{ parameters.Tests }}
+            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+            publishTestResults: true
+
+        # Coverage Generation
+        - task: reportgenerator@5
+          condition: eq(variables['ShouldTest'], 'true')
+          displayName: Generate reports
+          inputs:
+            reports: '**/*.cobertura.xml'
+            targetdir: 'CoverageFolder'
+            reporttypes: 'HtmlInline_AzurePipelines'
+
+        # Publish code coverage
+        - task: PublishCodeCoverageResults@2
+          condition: eq(variables['ShouldTest'], 'true')
+          displayName: 'Publish code coverage'
+          inputs:
+            codeCoverageTool: Cobertura
+            summaryFileLocation: '**/*.cobertura.xml'
+            reportDirectory: CoverageFolder
