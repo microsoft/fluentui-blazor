@@ -1,15 +1,10 @@
 # Build and test Core project.
-
 pr:
-- main
-- dev
+  - main
+  - dev
 trigger:
-- main
-- dev
-
-# Build.BuildNumber (see versioning.yml)
-name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
-
+  - main
+  - dev
 
 # The `resources` specify the location and version of the 1ES PT.
 resources:
@@ -21,6 +16,7 @@ resources:
 
 extends:
   # The pipeline extends the 1ES PT which will inject different SDL and compliance tasks.
+  # For non-production pipelines, use "Unofficial" as defined below.
   # For productions pipelines, use "Official".
   template: v1/1ES.Official.PipelineTemplate.yml@1esPipelines
   parameters:
@@ -44,10 +40,4 @@ extends:
         # Define the steps that the pipeline will run.
         # In most cases, copy and paste the steps from the original pipeline.
         steps:
-        - powershell: echo "Running common/template-to-build-projects-1ES"
-        - template: .azure-devops/common/template-to-build-projects-1ES.yml@self
-          parameters:
-            Projects: |
-              **/Microsoft.FluentUI.AspNetCore.Components.csproj
-            Tests: |
-              **/Microsoft.FluentUI.AspNetCore.Components.Tests.csprojparameters:
+        - powershell: echo "Hello World from host"
