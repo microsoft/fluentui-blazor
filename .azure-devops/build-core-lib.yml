@@ -6,7 +6,6 @@ trigger:
 - main
 - dev
 
-
 # The `resources` specify the location and version of the 1ES PT.
 resources:
   repositories:
@@ -20,8 +19,6 @@ name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 extends:
   # The pipeline extends the 1ES PT which will inject different SDL and compliance tasks.
-  # For non-production pipelines, use "Unofficial" as defined below.
-  # For productions pipelines, use "Official".
   template: v1/1ES.Official.PipelineTemplate.yml@1esPipelines
   parameters:
     # Update the pool with your team's 1ES hosted pool.
@@ -41,21 +38,15 @@ extends:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)'
             artifactName: myPipelineArtifact
-        # Define the steps that the pipeline will run.
-        parameters:
-          - name: Projects  	    # List of projects to build
-            type: string
-            default: '**/Microsoft.FluentUI.AspNetCore.Components.csproj'
-
-          - name: Tests		        # List of Unit-Test projects to run
-            type: string
-            default: ' **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
-
-          - name: IsDemo		        # Projects to publish
-            type: boolean
-            default: false
         variables:
           - template: versioning.yml  # Versions
+          - name: Projects  	    # List of projects to build
+            value: '**/Microsoft.FluentUI.AspNetCore.Components.csproj'
+          - name: Tests		        # List of Unit-Test projects to run
+            value: ' **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
+          - name: IsDemo		        # Projects to publish
+            value: 'false'
+
         # In most cases, copy and paste the steps from the original pipeline.
         steps:
         - powershell: |
@@ -251,22 +242,22 @@ extends:
             publishTestResults: true
 
         # Coverage Generation
-        - task: reportgenerator@5
-          condition: eq(variables['ShouldTest'], 'true')
-          displayName: Generate reports
-          inputs:
-            reports: '**/*.cobertura.xml'
-            targetdir: 'CoverageFolder'
-            reporttypes: 'HtmlInline_AzurePipelines'
+        # - task: reportgenerator@5
+        #   condition: eq(variables['ShouldTest'], 'true')
+        #   displayName: Generate reports
+        #   inputs:
+        #     reports: '**/*.cobertura.xml'
+        #     targetdir: 'CoverageFolder'
+        #     reporttypes: 'HtmlInline_AzurePipelines'
 
         # Publish code coverage
-        - task: PublishCodeCoverageResults@2
-          condition: eq(variables['ShouldTest'], 'true')
-          displayName: 'Publish code coverage'
-          inputs:
-            codeCoverageTool: Cobertura
-            summaryFileLocation: '**/*.cobertura.xml'
-            reportDirectory: CoverageFolder
+        # - task: PublishCodeCoverageResults@2
+        #   condition: eq(variables['ShouldTest'], 'true')
+        #   displayName: 'Publish code coverage'
+        #   inputs:
+        #     codeCoverageTool: Cobertura
+        #     summaryFileLocation: '**/*.cobertura.xml'
+        #     reportDirectory: CoverageFolder
 
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2
