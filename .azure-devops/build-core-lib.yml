@@ -45,7 +45,7 @@ extends:
         # In most cases, copy and paste the steps from the original pipeline.
         steps:
         - powershell: echo "Running common/template-to-build-projects-1ES"
-        - template: common/template-to-build-projects.yml@self
+        - template: common/template-to-build-projects-1ES.yml@self
           parameters:
             Projects: |
               **/Microsoft.FluentUI.AspNetCore.Components.csproj
