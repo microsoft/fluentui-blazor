@@ -250,3 +250,29 @@ extends:
             codeCoverageTool: Cobertura
             summaryFileLocation: '**/*.cobertura.xml'
             reportDirectory: CoverageFolder
+
+        # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
+        - task: CopyFiles@2
+          displayName: 'Pack $(Build.BuildNumber)'
+          condition: eq(variables['ShouldPublish'], 'false')
+          inputs:
+            SourceFolder: '$(Build.SourcesDirectory)'
+            Contents: '**/*$(PackageVersion).nupkg'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+            CleanTargetFolder: true
+            OverWrite: true
+            flattenFolders: true
+
+        # ESRP Code Signing SC
+
+        # Publish the projects
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish $(Build.BuildNumber)'
+          condition: eq(variables['ShouldPublish'], 'true')
+          inputs:
+            command: 'publish'
+            publishWebProjects: false  # True to build all Web Projects
+            projects: ${{ parameters.Projects }}
+            arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+            zipAfterPublish: false
+            workingDirectory: '$(Build.SourcesDirectory)'
