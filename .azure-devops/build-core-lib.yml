@@ -1,5 +1,6 @@
 # Build and test Core project.
-name: BuildAndTestCore
+name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
 pr:
   - main
   - dev
