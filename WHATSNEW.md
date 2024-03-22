@@ -1,3 +1,25 @@
+## V4.6.0
+
+### Demo site, documentation and miscellaneous
+* [Demo & docs] Add InputFile 'known issues' section ([#1680](https://github.com/microsoft/fluentui-blazor/pull/1680))
+* [Demo & docs] Corrects spelling and grammar in templates page ([#1716](https://github.com/microsoft/fluentui-blazor/pull/1716))
+* [Demo & docs] Fix Wizard link in navigation menu ([#1660](https://github.com/microsoft/fluentui-blazor/pull/1660))
+* [Demo & docs] Minor corrections to CONTRIBUTING.md ([#1681](https://github.com/microsoft/fluentui-blazor/pull/1681))
+* [Misc] Add required .csproj settings for generating snupkg packages ([#1675](https://github.com/microsoft/fluentui-blazor/pull/1675))
+* [Misc] Add ToColorHex extension to Swatch ([#1691](https://github.com/microsoft/fluentui-blazor/pull/1691))
+
+### Components
+* [Accordion] Add expanded value to custom event handler ([#1689](https://github.com/microsoft/fluentui-blazor/pull/1689))
+* [AppBarItem] Add OnClick event callback ([#1698](https://github.com/microsoft/fluentui-blazor/pull/1698))
+* [Button] Avoid padding on loading spinner when no text is shown ([#1714](https://github.com/microsoft/fluentui-blazor/pull/1714))
+* [InputFile] Replace OnInitializedAsync with OnAfterRenderAsync ([#1661](https://github.com/microsoft/fluentui-blazor/pull/1661))
+* [MenuButton] Make the menu anchored to the button so can float ([#1676](https://github.com/microsoft/fluentui-blazor/pull/1676))
+* [Pagination] Add Disabled parameter ([#1713](https://github.com/microsoft/fluentui-blazor/pull/1713))
+* [Persona] Manage the empty Name ([#1710](https://github.com/microsoft/fluentui-blazor/pull/1710))
+* [ProfileMenu] New component `FluentProfileMenu` ([#1705](https://github.com/microsoft/fluentui-blazor/pull/1705))
+* [PullToRefresh] New component `FluentPullToRefresh` ([#1679](https://github.com/microsoft/fluentui-blazor/pull/1679))
+* [Wizard] Add the ability to automatically validate an EditForm ([#1663](https://github.com/microsoft/fluentui-blazor/pull/1663))
+ 
 ## V4.5.0
 From now on we will just list the PRs that have been merged. The related issues can be found by looking at the PR details on GitHub.
 
