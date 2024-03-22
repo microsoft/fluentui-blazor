@@ -24,6 +24,12 @@ parameters:
 variables:
   - template: common/versioning.yml@self  # Versions
 
+  - name: SignType
+    value: 'test'
+
+  - name: TeamName
+    value: 'FluentUI-Blazor'
+
 # The `resources` specify the location and version of the 1ES PT.
 resources:
   repositories:
@@ -214,6 +220,14 @@ extends:
             command: 'restore'
             projects: ${{ parameters.Projects }}
 
+        # Sign the packages
+        - task: MicroBuildSigningPlugin@4
+          inputs:
+          signType: '$(SignType)'
+          feedSource: 'https://devdiv.pkgs.visualstudio.com/DefaultCollection/_packaging/MicroBuildToolset/nuget/v3/index.json'
+          env:
+            TeamName: '$(TeamName)'
+
         # Build the projects
         - task: DotNetCoreCLI@2
           displayName: 'Build $(Build.BuildNumber)'
@@ -263,7 +277,12 @@ extends:
             OverWrite: true
             flattenFolders: true
 
-        # ESRP Code Signing SC
+        # Sign
+        - task: MSBuild@1
+          displayName: 'Sign NuGet Packages'
+          inputs:
+            solution: 'Microsoft.FluentUI.signproj'
+            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory) /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)'
 
         # Publish the projects
         - task: DotNetCoreCLI@2
