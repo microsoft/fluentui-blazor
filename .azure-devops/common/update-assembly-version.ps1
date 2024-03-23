@@ -84,7 +84,7 @@ function Update-PropertyGroup {
   $propertyTag.InnerText = $propertyValue
 
   # Save the updated XML back to the file
-  # $xmlDoc.Save($fileName)
+  $xmlDoc.Save($fileName)
 }
 
 # ------------------------------------------
@@ -100,7 +100,7 @@ $filteredFiles = Get-FilesFromDirectory -includePattern $includePattern -exclude
 foreach ($file in $filteredFiles) {
   $name = $file.Name
   $fileName = $file.FullName
-  Write-Host " .. Updating $name" -ForegroundColor Yellow
+  Write-Host " .. Updating $name"
   Update-PropertyGroup -fileName $fileName -propertyName "VersionNumber" -propertyValue $assemblyVersion
   Update-PropertyGroup -fileName $fileName -propertyName "FileVersionNumber" -propertyValue $assemblyVersion
   Update-PropertyGroup -fileName $fileName -propertyName "InformationalVersion" -propertyValue $assemblyVersion
