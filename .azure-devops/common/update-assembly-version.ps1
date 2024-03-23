@@ -101,8 +101,8 @@ foreach ($file in $filteredFiles) {
   $name = $file.Name
   $fileName = $file.FullName
   Write-Host " .. Updating $name"
-  Update-PropertyGroup -fileName $fileName -propertyName "VersionNumber" -propertyValue $assemblyVersion
-  Update-PropertyGroup -fileName $fileName -propertyName "FileVersionNumber" -propertyValue $assemblyVersion
+  Update-PropertyGroup -fileName $fileName -propertyName "AssemblyVersion" -propertyValue $assemblyVersion
+  Update-PropertyGroup -fileName $fileName -propertyName "FileVersion" -propertyValue $assemblyVersion
   Update-PropertyGroup -fileName $fileName -propertyName "InformationalVersion" -propertyValue $assemblyVersion
-  Update-PropertyGroup -fileName $fileName -propertyName "PackageVersion" -propertyValue $packageVersion
+  Update-PropertyGroup -fileName $fileName -propertyName "Version" -propertyValue $packageVersion
 }
