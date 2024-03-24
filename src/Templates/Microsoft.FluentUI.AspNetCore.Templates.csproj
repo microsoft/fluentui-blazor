@@ -36,4 +36,11 @@
 		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
 </Project>

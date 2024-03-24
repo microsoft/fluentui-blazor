@@ -1,22 +1,297 @@
 # Build and test Core project.
-
-pr:
-- main
-- dev
-trigger:
-- main
-- dev
-
-# Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-pool:
-  name: Fluent-Blazor-1ESPT
-   
+pr:
+  - main
+  - dev
+trigger:
+  - main
+  - dev
+
+parameters:
+  - name: Projects  	    # List of projects to build
+    type: string
+    default: '**/Microsoft.FluentUI.AspNetCore.Components.csproj'
+
+  - name: Tests		        # List of Unit-Test projects to run
+    type: string
+    default: '**/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
+
+  - name: IsDemo		        # Projects to publish
+    type: boolean
+    default: false
+
+variables:
+  - template: common/versioning.yml@self  # Versions
+
+  - name: SignType
+    value: 'test'
+
+  - name: TeamName
+    value: 'FluentUI-Blazor'
+
+# The `resources` specify the location and version of the 1ES PT.
+resources:
+  repositories:
+  - repository: 1esPipelines
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
+
 extends:
-  template: common/template-to-build-projects.yml
+  # The pipeline extends the 1ES PT which will inject different SDL and compliance tasks.
+  # For non-production pipelines, use "Unofficial" as defined below.
+  # For productions pipelines, use "Official".
+  template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
   parameters:
-      Projects: |
-       **/Microsoft.FluentUI.AspNetCore.Components.csproj
-      Tests: |
-       **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
+    # Update the pool with your team's 1ES hosted pool.
+    pool:
+      name: NetCore1ESPool-Internal  # Name of your hosted pool
+      image: 1es-windows-2022  # Name of the image in your pool. If not specified, first image of the pool is used
+      os: windows  # OS of the image. This value cannot be a variable. Allowed values: windows, linux, macOS
+
+    stages:
+    - stage: Stage
+      jobs:
+      - job: HostJob
+        # If the pipeline publishes artifacts, use `templateContext` to define the artifacts.
+        # This will enable 1ES PT to run SDL analysis tools on the artifacts and then upload them.
+        templateContext:
+          outputs:
+          - output: pipelineArtifact
+            targetPath: '$(Build.ArtifactStagingDirectory)'
+            artifactName: build-core-artifact
+        # Define the steps that the pipeline will run.
+        # In most cases, copy and paste the steps from the original pipeline.
+        steps:
+        # Compute AssemblyVersion and PackageVersion
+        # -> Update Versioning.yml
+        - powershell: |
+
+            # Example with FileVersion: "1.2.4" and PackageSuffix: "RC.1"
+            # Build.BuildNumber = 1.2.4.23296.1
+            #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+            # Default values
+            $branch = "PR"
+            $package = ""
+            $demo = "${{ parameters.IsDemo }}".toLower()
+
+            # To Sign and To Test
+            $sign = "false"
+            $toTest = "true"
+
+            # BranchName = dev, main, archive or PR
+            if ("$(Build.SourceBranch)" -eq "refs/heads/main")
+            {
+                $branch = "main"
+            }
+            elseif ("$(Build.SourceBranch)" -eq "refs/heads/dev")
+            {
+                $branch = "dev"
+            }
+            elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
+            {
+                $branch = "archive"
+            }
+            else
+            {
+                $branch = "PR"
+            }
+
+            # Debug Only - To remove
+            # if ("$(PublicVersion)" -ne "")
+            # {
+            #     $branch = "$(PublicVersion)"
+            # }
+
+            # [1, 2, 4, 23296, 1]
+            $builds = "$(Build.BuildNumber)".Split('.')
+
+            # 1.2.4.23296
+            $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
+
+            # Main or Archive without PackageSuffix: 1.2.4
+            # Main or Archive with    PackageSuffix: 1.2.4-rc.1
+            if ("$branch" -eq "main" -or "$branch" -eq "archive")
+            {
+                # Main without PackageSuffix
+                if ("$(PackageSuffix)" -eq "")
+                {
+                    $package = "$($builds[0]).$($builds[1]).$($builds[2])"
+                }
+
+                # Main with PackageSuffix
+                else
+                {
+                    $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
+                }
+
+                $sign = "true"
+                $toTest = "true"
+            }
+
+            # Dev: 1.2.4-preview-23296-1
+            elseif ("$branch" -eq "dev")
+            {
+                $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
+                $sign = "true"
+                $toTest = "true"
+            }
+
+            # Other branches: 1.2.4-preview-23296-1
+            else
+            {
+                $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
+                $sign = "false"
+                $toTest = "true"
+            }
+
+            if ("${{ parameters.Tests }}" -eq "")
+            {
+                $toTest = "false"
+            }
+
+            if ("$demo" -eq "true")
+            {
+                $sign = "false"
+            }
+
+            # Set the output variable for use in other tasks.
+            Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
+            Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
+            Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
+            Write-Host "##vso[task.setvariable variable=ShouldSign]${sign}"
+            Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
+            Write-Host "##vso[task.setvariable variable=ShouldPublish]${demo}"
+          displayName: Compute AssemblyVersion and PackageVersion
+
+        # Display computed variables
+        - script: |
+            echo 🔸 FileVersion            = $(FileVersion)
+            echo 🔸 PackageSuffix          = $(PackageSuffix)
+            echo 🔸 Build.BuildNumber      = $(Build.BuildNumber)
+            echo 🔸 Build.SourceBranch     = $(Build.SourceBranch)
+            echo -----------------------------------------------
+            echo 🔸 BranchName             = $(BranchName)
+            echo 🔸 AssemblyVersion        = $(AssemblyVersion)
+            echo 🔸 PackageVersion         = $(PackageVersion)
+            echo -----------------------------------------------
+            echo 🔸 ShouldSign             = $(ShouldSign)
+            echo 🔸 ShouldTest             = $(ShouldTest)
+            echo 🔸 ShouldPublish          = $(ShouldPublish)
+          displayName: Display computed variables
+
+        # Install NuGet tools
+        - task: NuGetToolInstaller@1
+          displayName: Install NuGet tools
+
+        # Install .NET 6.0
+        - task: UseDotNet@2
+          displayName: Install .NET 6.0
+          inputs:
+            version: 6.0.x
+            includePreviewVersions: true
+
+        # Install .NET 7.0
+        - task: UseDotNet@2
+          displayName: 'Install .NET 7.0'
+          inputs:
+            version: 7.0.x
+            includePreviewVersions: true
+
+        # Install .NET 8.0
+        - task: UseDotNet@2
+          displayName: 'Install .NET 8.0'
+          inputs:
+            version: 8.0.x
+            includePreviewVersions: true
+
+        # Install nodejs
+        - task: NodeTool@0
+          displayName: 'Install nodejs'
+          inputs:
+            versionSpec: '20.x'
+
+        # Install dependencies
+        - task: DotNetCoreCLI@2
+          displayName: Install dependencies
+          inputs:
+            command: 'restore'
+            projects: ${{ parameters.Projects }}
+
+        # Sign the packages
+        - task: MicroBuildSigningPlugin@4
+          inputs:
+            signType: '$(SignType)'
+            feedSource: 'https://devdiv.pkgs.visualstudio.com/DefaultCollection/_packaging/MicroBuildToolset/nuget/v3/index.json'
+          env:
+            TeamName: '$(TeamName)'
+
+        # Build the projects
+        - task: DotNetCoreCLI@2
+          displayName: 'Build $(Build.BuildNumber)'
+          condition: eq(variables['ShouldPublish'], 'false')
+          inputs:
+            command: 'build'
+            projects: ${{ parameters.Projects }}
+            arguments: '--configuration Release'
+
+        # Test and generate Code Coverage
+        - task: DotNetCoreCLI@2
+          condition: eq(variables['ShouldTest'], 'true')
+          displayName: 'Test and Code Coverage'
+          inputs:
+            command: test
+            projects: ${{ parameters.Tests }}
+            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+            publishTestResults: true
+
+        # Coverage Generation
+        - task: reportgenerator@5
+          condition: eq(variables['ShouldTest'], 'true')
+          displayName: Generate reports
+          inputs:
+            reports: '**/*.cobertura.xml'
+            targetdir: 'CoverageFolder'
+            reporttypes: 'HtmlInline_AzurePipelines'
+
+        # Publish code coverage
+        - task: PublishCodeCoverageResults@2
+          condition: eq(variables['ShouldTest'], 'true')
+          displayName: 'Publish code coverage'
+          inputs:
+            codeCoverageTool: Cobertura
+            summaryFileLocation: '**/*.cobertura.xml'
+            reportDirectory: CoverageFolder
+
+        # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
+        - task: CopyFiles@2
+          displayName: 'Pack $(Build.BuildNumber)'
+          condition: eq(variables['ShouldPublish'], 'false')
+          inputs:
+            SourceFolder: '$(Build.SourcesDirectory)'
+            Contents: '**/*$(PackageVersion).nupkg'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+            CleanTargetFolder: true
+            OverWrite: true
+            flattenFolders: true
+
+        # Sign
+        - task: MSBuild@1
+          displayName: 'Sign NuGet Packages'
+          inputs:
+            solution: 'Microsoft.FluentUI.signproj'
+            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory) /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)'
+
+        # Publish the projects
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish $(Build.BuildNumber)'
+          condition: eq(variables['ShouldPublish'], 'true')
+          inputs:
+            command: 'publish'
+            publishWebProjects: false  # True to build all Web Projects
+            projects: ${{ parameters.Projects }}
+            arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+            zipAfterPublish: false
+            workingDirectory: '$(Build.SourcesDirectory)'
