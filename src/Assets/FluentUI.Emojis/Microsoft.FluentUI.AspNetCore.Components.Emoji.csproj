@@ -33,6 +33,17 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
+
+  <ItemGroup>
+    <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.Emoji.dll">
+      <Authenticode>Microsoft400</Authenticode>
+      <StrongName>MicrosoftFluentUIAspNetCoreComponentsEmoji</StrongName>
+    </FilesToSign>
+  </ItemGroup>
 
 </Project>

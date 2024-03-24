@@ -1,0 +1,83 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div class="fluent-profile-menu">
+    <FluentPersona Id="@Id"
+                   Image="@Image"
+                   Name="@FullName"
+                   ImageSize="@ButtonSize"
+                   Status="@Status"
+                   StatusTitle="@StatusTitle"
+                   Initials="@Initials"
+                   Style="height: inherit;"
+                   OnClick="@(e => PopoverVisible = !PopoverVisible)" />
+
+    <FluentPopover AnchorId="@Id"
+                   Class="@Class"
+                   Style="@Style"
+                   HorizontalPosition="@HorizontalPosition.Start"
+                   @bind-Open="@PopoverVisible"
+                   @attributes="@AdditionalAttributes">
+        <Header>
+            @if (HeaderTemplate is null && (!string.IsNullOrEmpty(HeaderLabel) || !string.IsNullOrEmpty(HeaderButton)))
+            {
+                <FluentStack VerticalAlignment="@VerticalAlignment.Center">
+                    @if (!string.IsNullOrEmpty(HeaderLabel))
+                    {
+                        <FluentLabel part="header-label">@HeaderLabel</FluentLabel>
+                    }
+                    @if (!string.IsNullOrEmpty(HeaderButton))
+                    {
+                        <FluentSpacer />
+                        <FluentButton part="header-button" Appearance="@Appearance.Stealth" OnClick="@OnHeaderButtonClick">@HeaderButton</FluentButton>
+                    }
+                </FluentStack>
+            }
+            else
+            {
+                @HeaderTemplate
+            }
+        </Header>
+
+        <Body>
+            @if (ChildContent is null)
+            {
+                <FluentStack Style="height: 100%;">
+                    <FluentPersona Image="@Image"
+                                   ImageSize="@ImageSize"
+                                   Initials="@Initials"
+                                   Style="align-items: normal;">
+                        <FluentLabel part="fullname" Typo="@Typography.Header" Style="font-weight: bold;">@FullName</FluentLabel>
+                        <FluentLabel part="email">@EMail</FluentLabel>
+                    </FluentPersona>
+
+                </FluentStack>
+            }
+            else
+            {
+                @ChildContent
+            }
+        </Body>
+
+        <Footer>
+            @if (FooterTemplate is null && !string.IsNullOrEmpty(FooterLink))
+            {
+                <FluentStack VerticalAlignment="@VerticalAlignment.Center">
+                    @if (!string.IsNullOrEmpty(FooterLabel))
+                    {
+                        <FluentLabel part="footer-label">@FooterLabel</FluentLabel>
+                    }
+                    @if (!string.IsNullOrEmpty(FooterLink))
+                    {
+                        <FluentSpacer />
+                        <FluentAnchor part="footer-link" Appearance="@Appearance.Hypertext" Href="#" OnClick="@OnFooterLinkClick">@FooterLink</FluentAnchor>
+                    }
+                </FluentStack>
+            }
+            else
+            {
+                @FooterTemplate
+            }
+        </Footer>
+    </FluentPopover>
+</div>

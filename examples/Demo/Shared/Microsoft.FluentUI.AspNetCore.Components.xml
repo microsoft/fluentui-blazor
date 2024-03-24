@@ -886,7 +886,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Name">
             <summary>
-            Gets or sets the name of the element. 
+            Gets or sets the name of the element.
             Allows access by name from the associated form.
             </summary>
         </member>
@@ -6066,6 +6066,11 @@
             A component that provides a user interface for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PaginationState"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.Disabled">
+            <summary>
+            Disables the pagination buttons
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPaginator.State">
             <summary>
             Gets or sets the associated <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PaginationState"/>. This parameter is required.
@@ -6239,6 +6244,95 @@
             <summary>
             Gets or sets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge.Status"/> size to use.
             Default is Small.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the header section of the popover.
+            Using this property will override the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderLabel" /> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderButton"/> properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.ChildContent">
+            <summary>
+            Gets or sets the content to be displayed in the main section (body) of the popover.
+            Using this property will override the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.EMail"/>, <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FullName"/>, <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Image"/> properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the footer section of the popover.
+            Using this property will override the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterLink" /> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Status">
+            <summary>
+            Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.StatusTitle">
+            <summary>
+            Gets or sets the title to show on hover. If not provided, the status will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Initials">
+            <summary>
+            Gets or sets the initials to display if no image is provided.
+            By default, the first letters of the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FullName"/> is used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FullName">
+            <summary>
+            Gets or sets the name to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.EMail">
+            <summary>
+            Gets or sets the email to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderLabel">
+            <summary>
+            Gets or sets the header label (e.g Company Name) to display on the top-left.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Image">
+            <summary>
+            Gets or sets the image to display, in replacement of the initials.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.ImageSize">
+            <summary>
+            Gets or sets the size of the image, in the popover.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.ButtonSize">
+            <summary>
+            Gets or sets the size of the main button image (button clickable to display the popover).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderButton">
+            <summary>
+            Gets or sets the Header Button label (e.g. Sign out) on the top-right.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OnHeaderButtonClick">
+            <summary>
+            Event raised when the user clicks on the Header Button (e.g. Sign out).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterLabel">
+            <summary>
+            Gets or sets the footer label to display on the bottom-left.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterLink">
+            <summary>
+            Gets or sets the Footer hyperlink label (e.g. View account) on the bottom-right.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.OnFooterLinkClick">
+            <summary>
+            Event raised when the user clicks on the Footer hyperlink (e.g. View account).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
