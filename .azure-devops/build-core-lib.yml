@@ -275,7 +275,7 @@ extends:
             SourceFolder: '$(Build.SourcesDirectory)'
             Contents: '**/*$(PackageVersion).nupkg'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
-            CleanTargetFolder: true
+            CleanTargetFolder: false
             OverWrite: true
             flattenFolders: true
 
