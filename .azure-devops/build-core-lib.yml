@@ -222,9 +222,11 @@ extends:
 
         # Sign the packages
         - task: MicroBuildSigningPlugin@4
+          displayName: Install MicroBuild plugin
           inputs:
-            signType: '$(SignType)'
-            feedSource: 'https://devdiv.pkgs.visualstudio.com/DefaultCollection/_packaging/MicroBuildToolset/nuget/v3/index.json'
+            signType: $(SignType)
+            zipSources: false
+            feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
           env:
             TeamName: '$(TeamName)'
 
@@ -273,7 +275,7 @@ extends:
             SourceFolder: '$(Build.SourcesDirectory)'
             Contents: '**/*$(PackageVersion).nupkg'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
-            CleanTargetFolder: true
+            CleanTargetFolder: false
             OverWrite: true
             flattenFolders: true
 
