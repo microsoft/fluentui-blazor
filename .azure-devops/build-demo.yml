@@ -9,7 +9,7 @@ trigger:
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
-  name: Default
+  name: HostedDVO
 
 extends:
   template: common/template-to-build-projects.yml
