@@ -18,5 +18,3 @@ extends:
        **/Microsoft.FluentUI.AspNetCore.Components.csproj
        **/Microsoft.FluentUI.AspNetCore.Templates.csproj
        **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
-      Tests: |
-       **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj

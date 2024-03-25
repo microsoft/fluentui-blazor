@@ -31,8 +31,8 @@
         arguments: > # Use this to avoid newline characters in multiline string
           -sourcePath "$(System.DefaultWorkingDirectory)/"
           -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
-          -assemblyVersion "$AssemblyVersion"
-          -packageVersion "$PackageVersion"
+          -assemblyVersion "$(AssemblyVersion)"
+          -packageVersion "$(PackageVersion)"
 #>
 
 param (
