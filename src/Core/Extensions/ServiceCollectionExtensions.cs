@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDialogService, DialogService>();
         services.AddScoped<IMessageService, MessageService>();
 
-        LibraryConfiguration options = configuration ?? new();
+        var options = configuration ?? new();
         if (options.UseTooltipServiceProvider)
         {
             services.AddScoped<ITooltipService, TooltipService>();
