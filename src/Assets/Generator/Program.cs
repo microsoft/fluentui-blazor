@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
-
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 
 internal class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         var configuration = new Configuration(args);
 
@@ -43,7 +40,7 @@ internal class Program
                 var assets = factoryIcons.ReadAllAssets()
                                          // All names (if not specified) or Only specified names
                                          .Where(i => configuration.Names.Any() == false ||
-                                                     configuration.Names.Any(name => String.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0))
+                                                     configuration.Names.Any(name => string.Compare(name.Replace("_", string.Empty), i.Key.Replace("_", string.Empty), StringComparison.InvariantCultureIgnoreCase) == 0))
                                          // All sizes (if not specified) or Only specified sizes
                                          .Where(i => configuration.Sizes.Any() == false ||
                                                      configuration.Sizes.Contains(i.Size));
@@ -73,7 +70,7 @@ internal class Program
                 var emojis = factoryEmojis.ReadAllAssets()
                                           // All names (if not specified) or Only specified names
                                           .Where(i => configuration.Names.Any() == false ||
-                                                     configuration.Names.Any(name => String.Compare(name + ".svg", i.File.Name, StringComparison.InvariantCultureIgnoreCase) == 0));
+                                                     configuration.Names.Any(name => string.Compare(name + ".svg", i.File.Name, StringComparison.InvariantCultureIgnoreCase) == 0));
 
                 // Remove the duplicates
                 var duplicateBoy = emojis.FirstOrDefault(i => i.File.Name == "boy_high_contrast_default.svg");
