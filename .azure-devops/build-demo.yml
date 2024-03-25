@@ -9,7 +9,7 @@ trigger:
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
-  name: Default
+  vmImage: ubuntu-latest
 
 extends:
   template: common/template-to-build-projects.yml
