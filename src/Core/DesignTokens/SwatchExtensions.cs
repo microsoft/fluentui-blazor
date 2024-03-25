@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.Fast.Components.FluentUI.DesignTokens;
+
 namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public static class SwatchExtensions
