@@ -1,8 +1,10 @@
 # Build Demo project.
+
 pr: none      # Disable pull request triggers.
 trigger:
 - main
 - dev
+
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
