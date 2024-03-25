@@ -19,7 +19,7 @@ parameters:
 
   - name: IsDemo		        # Projects to publish
     type: boolean
-    default: false
+    default: true
 
 variables:
   - template: common/versioning.yml@self  # Versions
