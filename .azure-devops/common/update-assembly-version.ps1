@@ -21,6 +21,18 @@
 .EXAMPLE
     $> .\update-assembly-version -sourcePath "./" -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj" -assemblyVersion "1.2.3" -packageVersion "1.2.3"
 
+.EXAMPLE
+    # Set version number (exclude some folders)
+    - task: PowerShell@2
+      displayName: 'Versioning $(Build.BuildNumber)'
+      inputs:
+        targetType: 'filePath'
+        filePath: $(System.DefaultWorkingDirectory)/.azure-devops/common/update-assembly-version.ps1
+        arguments: > # Use this to avoid newline characters in multiline string
+          -sourcePath "$(System.DefaultWorkingDirectory)/"
+          -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
+          -assemblyVersion "$AssemblyVersion"
+          -packageVersion "$PackageVersion"
 #>
 
 param (
