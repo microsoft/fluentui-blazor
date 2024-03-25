@@ -9,7 +9,7 @@ trigger:
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 pool:
-  name: Fluent-Blazor-1ESPT
+  name: Default
 
 extends:
   template: common/template-to-build-projects.yml
