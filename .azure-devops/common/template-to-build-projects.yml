@@ -164,25 +164,18 @@ steps:
     displayName: 'Install nodejs'
     inputs:
       versionSpec: '20.x'
-  
-  # Set version number (exclude Templates/content)
-  - task: Assembly-Info-NetCore@3
+
+  # Set version number (exclude some folders)
+  - task: PowerShell@2
     displayName: 'Versioning $(Build.BuildNumber)'
     inputs:
-      Path: '$(Build.SourcesDirectory)'
-      FileNames: |
-        **/*.csproj
-        !**/src/Templates/content/**/*.csproj
-      InsertAttributes: true
-      FileEncoding: 'auto'
-      WriteBOM: false
-      VersionNumber: '$(AssemblyVersion)'
-      FileVersionNumber: '$(AssemblyVersion)'
-      InformationalVersion: '$(AssemblyVersion)'
-      PackageVersion: '$(PackageVersion)'
-      LogLevel: 'verbose'
-      FailOnWarning: false
-      DisableTelemetry: false
+      targetType: 'filePath'
+      filePath: $(System.DefaultWorkingDirectory)/.azure-devops/common/update-assembly-version.ps1
+      arguments: > # Use this to avoid newline characters in multiline string
+        -sourcePath "$(System.DefaultWorkingDirectory)/"
+        -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
+        -assemblyVersion "$(AssemblyVersion)"
+        -packageVersion "$(PackageVersion)"
   
   # Install dependencies
   - task: DotNetCoreCLI@2
