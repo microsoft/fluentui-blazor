@@ -5740,7 +5740,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded">
             <summary>
-            If true, expands the nav group, otherwise collapse it. 
+            If true, expands the nav group, otherwise collapse it.
             Two-way bindable
             </summary>
         </member>
@@ -5756,7 +5756,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
             <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items. 
+            Defines the vertical spacing between the NavGroup and adjecent items.
             Needs to be a valid CSS value.
             </summary>
         </member>
@@ -5767,7 +5767,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
             <summary>
-            Allows for specific markup and styling to be applied for the group title 
+            Allows for specific markup and styling to be applied for the group title
             When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
             When specifying both Title and TitleTemplate, both will be rendered.
             </summary>
@@ -5779,7 +5779,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.ExpanderContent">
             <summary>
-            Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
+            Gets or sets the content to be rendered for the collapse icon when the menu is collapsible.
             The default icon will be used if this is not specified.
             </summary>
         </member>
@@ -6791,7 +6791,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Drop">
             <summary>
-            Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
+            Gets or sets wether it is possible to drop items into the current list from another list in the same group.
             Set to false to disable dropping from another list onto the current list.
             </summary>
         </member>
@@ -6841,9 +6841,6 @@
             This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
             Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
             </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.#ctor">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ChildContent">
             <summary>

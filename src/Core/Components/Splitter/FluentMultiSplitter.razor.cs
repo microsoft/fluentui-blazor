@@ -23,12 +23,6 @@ public partial class FluentMultiSplitter : FluentComponentBase
 
     internal List<FluentMultiSplitterPane> Panes { get; } = new();
 
-    /// <summary />
-    public FluentMultiSplitter()
-    {
-        Id = Identifier.NewId();
-    }
-
     /// <summary>
     /// Gets or sets the child content.
     /// </summary>
@@ -326,7 +320,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
             {
                 await Module.InvokeVoidAsync(
                     "startSplitterResize",
-                    Id,
+                    Element,
                     _objRef,
                     pane.Id,
                     paneNextResizable?.Id,
@@ -343,10 +337,19 @@ public partial class FluentMultiSplitter : FluentComponentBase
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        try
         {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            _objRef = DotNetObjectReference.Create(this);
+            if (firstRender)
+            {
+                Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                _objRef = DotNetObjectReference.Create(this);
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                           ex is OperationCanceledException)
+        {
+            // This exception is expected when the user navigates away from the page
+            // and the component is disposed. We can ignore it.
         }
     }
 }

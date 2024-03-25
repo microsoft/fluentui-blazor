@@ -10,11 +10,6 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js";
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
 
-    public FluentSortableList()
-    {
-        Id = Identifier.NewId();
-    }
-
     /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
     /// Use the @context parameter to access the item and its properties.
@@ -54,7 +49,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     public bool Clone { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
+    /// Gets or sets wether it is possible to drop items into the current list from another list in the same group.
     /// Set to false to disable dropping from another list onto the current list.
     /// </summary>
     [Parameter]
@@ -101,11 +96,20 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        try
         {
-            _selfReference = DotNetObjectReference.Create(this);
-            IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await module.InvokeAsync<string>("init", Id, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
+            if (firstRender)
+            {
+                _selfReference = DotNetObjectReference.Create(this);
+                IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                await module.InvokeAsync<string>("init", Element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                           ex is OperationCanceledException)
+        {
+            // This exception is expected when the user navigates away from the page
+            // and the component is disposed. We can ignore it.
         }
     }
 
