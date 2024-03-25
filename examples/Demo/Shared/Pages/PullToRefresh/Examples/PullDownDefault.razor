@@ -1,46 +1,33 @@
-﻿<style>
-    .pull-down-demo {
-        height: 51vh;
-        max-width: 400px;
-        border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-rest);
-        border-radius: calc(var(--control-corner-radius)* 1px);
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-</style>
-<div class="pull-down-demo">
-    <FluentPullToRefresh Direction="@PullDirection.Down" OnRefreshAsync="OnRefreshAsync" ShowStaticTip="false">
-        <PullingTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size24.ArrowCircleDown())" />
-        </PullingTemplate>
-        <ReleaseTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size24.ArrowSyncCircle())" />
-        </ReleaseTemplate>
-        <CompletedTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size24.CheckmarkCircle())" />
-        </CompletedTemplate>
+﻿<FluentPullToRefresh Direction="@PullDirection.Down"
+                     OnRefreshAsync="OnRefreshAsync"
+                     ShowStaticTip="false"
+                     Style="height: 400px; width: 400px; ">
+    <PullingTemplate>
+        Pull to refresh
+    </PullingTemplate>
+    <ReleaseTemplate>
+        Release to update
+    </ReleaseTemplate>
+    <CompletedTemplate>
+        Update completed
+    </CompletedTemplate>
 
-        <ChildContent>
-            <div style="user-select: none; display:flex; flex-direction:column; align-items: flex-start; padding: calc(var(--design-unit) * 1px);">
-                @for (int i = 1; i <= count; i++)
-                {
-                    <span @key="i">item @i</span>
-                }
-            </div>
-        </ChildContent>
-    </FluentPullToRefresh>
-</div>
+    <ChildContent>
+        <FluentListbox Height="300px" Items="@Enumerable.Range(1, ItemsCount).Select(i => $"Item {i}")" />
+    </ChildContent>
+</FluentPullToRefresh>
+
 
 @code {
-    int refreshcount = 0;
-    int count = 20;
+    int RefreshCount = 0;
+    int ItemsCount = 2;
 
     public async Task<bool> OnRefreshAsync()
     {
-        refreshcount++;
-        DemoLogger.WriteLine($"Pull down refresh count {refreshcount}");
+        RefreshCount++;
+        DemoLogger.WriteLine($"Pull down refresh count {RefreshCount}");
         await Task.Delay(1000);
-        count += 20;
+        ItemsCount += 3;
         return true;
     }
 }

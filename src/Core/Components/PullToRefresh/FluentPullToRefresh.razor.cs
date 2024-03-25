@@ -47,6 +47,13 @@ public partial class FluentPullToRefresh : FluentComponentBase
     public bool Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets if the component should work on non-touch devices (by using an emulation script).
+    /// Deaults to true.
+    /// </summary>
+    [Parameter]
+    public bool EmulateTouch { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets if a tip is shown when <see cref="ChildContent"/> is not being pulled.
     /// </summary>
     [Parameter]
@@ -68,10 +75,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// Gets or sets the the content to indicate the <see cref="ChildContent"/> can be refreshed by a pull down/up action.
     /// </summary>
     [Parameter]
-    public RenderFragment PullingTemplate { get; set; } = builder =>
-    {
-        builder.AddContent(0, "Pull down to refresh");
-    };
+    public RenderFragment? PullingTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the the content to indicate the pulled <see cref="ChildContent"/> must be released to start the refresh action.
@@ -79,7 +83,9 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Parameter]
     public RenderFragment ReleaseTemplate { get; set; } = builder =>
     {
-        builder.AddContent(0, "Release to update");
+        builder.OpenComponent(0, typeof(FluentIcon<Icon>));
+        builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size24.ArrowSyncCircle());
+        builder.CloseComponent();
     };
 
     /// <summary>
@@ -100,7 +106,9 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Parameter]
     public RenderFragment CompletedTemplate { get; set; } = builder =>
     {
-        builder.AddContent(0, "The update is complete");
+        builder.OpenComponent(0, typeof(FluentIcon<Icon>));
+        builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size24.CheckmarkCircle());
+        builder.CloseComponent();
     };
 
     /// <summary>
@@ -126,6 +134,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
+    /// Default is 750
     /// </summary>
     [Parameter]
     public int StatusUpdateMessageTimeout { get; set; } = 750;
@@ -133,19 +142,35 @@ public partial class FluentPullToRefresh : FluentComponentBase
     protected override void OnInitialized()
     {
         _originalShowStaticTip = _internalShowStaticTip = ShowStaticTip;
+
+        PullingTemplate ??= builder =>
+        {
+            builder.OpenComponent(0, typeof(FluentIcon<Icon>));
+            if (Direction == PullDirection.Down)
+            {
+                builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size24.ArrowCircleDown());
+            }
+            else
+            {
+                builder.AddAttribute(1, "Value", new CoreIcons.Regular.Size24.ArrowCircleUp());
+            }
+            builder.CloseComponent();
+
+        };
+
     }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && EmulateTouch)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
 
             await _jsModule.InvokeVoidAsync("initTouchEmulator");
         }
     }
-    private RenderFragment GetTipContent()
+    private RenderFragment? GetTipContent()
     {
         var renderFragment = _pullStatus switch
         {
@@ -161,6 +186,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     protected virtual string? WrapperStyle => new StyleBuilder()
          .AddStyle("position", "relative")
          .AddStyle("user-select", "none")
+         .AddStyle("height", "100%")
          .AddStyle(_pullStatus == PullStatus.Awaiting ? null : _wrapperStyle)
          .Build();
 
@@ -253,13 +279,13 @@ public partial class FluentPullToRefresh : FluentComponentBase
             if (!hasMoreData)
             {
                 SetPullStatus(PullStatus.NoData);
-                await Task.Delay(750);
+                await Task.Delay(StatusUpdateMessageTimeout);
             }
             else
             {
                 SetPullStatus(PullStatus.Completed);
                 StateHasChanged();
-                await Task.Delay(750);
+                await Task.Delay(StatusUpdateMessageTimeout);
                 _internalShowStaticTip = _originalShowStaticTip;
             }
 

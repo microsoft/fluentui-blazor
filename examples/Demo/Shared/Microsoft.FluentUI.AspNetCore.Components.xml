@@ -6442,6 +6442,12 @@
             Deaults to false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.EmulateTouch">
+            <summary>
+            Gets or sets if the component should work on non-touch devices (by using an emulation script).
+            Deaults to true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ShowStaticTip">
             <summary>
             Gets or sets if a tip is shown when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> is not being pulled.
@@ -6495,6 +6501,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.StatusUpdateMessageTimeout">
             <summary>
             Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
+            Default is 750
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnAfterRenderAsync(System.Boolean)">

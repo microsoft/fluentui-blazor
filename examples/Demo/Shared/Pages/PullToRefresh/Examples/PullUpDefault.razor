@@ -13,17 +13,17 @@
         flex-direction: column;
         align-items: flex-end;
         padding: calc(var(--design-unit) * 2px);
+        height: calc(100% - 50px);
     }
 </style>
 
 <div class="pull-up-demo">
     <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshAsync="OnRefreshAsync" TipHeight="50" DragDistance="100" >
-        <PullingTemplate>Pull up to refresh</PullingTemplate>
         <LoadingTemplate>
             <FluentProgress Width="150px;"/>
         </LoadingTemplate>
         <ChildContent>
-            <div class="pull-content">   
+            <div class="pull-content">
                 @for (int i = 1; i <= count; i++)
                 {
                     <span @key="i">item @i</span>
@@ -35,15 +35,15 @@
 
 @code {
     int refreshcount = 0;
-    int count = 20;
+    int count = 3;
 
     public async Task<bool> OnRefreshAsync()
     {
         refreshcount++;
-        if (count < 100)
+        if (count < 15)
         {
             await Task.Delay(1000);
-            count += 20;
+            count += 3;
             DemoLogger.WriteLine($"Pull up refresh count {refreshcount}");
 
             return true;
