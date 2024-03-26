@@ -245,7 +245,7 @@ extends:
         # Build the projects
         - task: DotNetCoreCLI@2
           displayName: 'Build $(Build.BuildNumber)'
-          condition: eq(variables['ShouldPublish'], 'false')
+          condition: eq(variables['ShouldPublish'], 'true')
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
