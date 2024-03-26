@@ -70,11 +70,8 @@ extends:
           #     TeamName: '$(TeamName)'
           outputs:
           - output: pipelineArtifact
-            targetPath: '$(Build.ArtifactStagingDirectory)'
+            targetPath: '$(Build.ArtifactStagingDirectory)\MySignedPackages'
             artifactName: build-core-artifacts
-          - output: pipelineArtifact
-            targetPath: '$(Build.ArtifactStagingDirectory)\sign'
-            artifactName: build-core-artifacts-signed
 
         steps:
         # Compute AssemblyVersion and PackageVersion
@@ -323,3 +320,15 @@ extends:
         #     arguments: '--configuration Release --framework net8.0 --output $(Build.ArtifactStagingDirectory)'
         #     zipAfterPublish: false
         #     workingDirectory: '$(Build.SourcesDirectory)'
+
+        # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
+        - task: CopyFiles@2
+          displayName: 'Pack $(Build.BuildNumber)'
+          condition: eq(variables['ShouldPublish'], 'true')
+          inputs:
+            SourceFolder: '$(Build.SourcesDirectory)'
+            Contents: '**/*$(PackageVersion).nupkg'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)\MySignedPackages'
+            CleanTargetFolder: false
+            OverWrite: true
+            flattenFolders: true
