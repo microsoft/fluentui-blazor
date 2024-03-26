@@ -309,7 +309,7 @@ extends:
           displayName: 'Sign NuGet Packages'
           inputs:
             solution: 'Microsoft.FluentUI.signproj'
-            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\sign'
+            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\sign\'
 
         # Publish the projects
         # - task: DotNetCoreCLI@2
