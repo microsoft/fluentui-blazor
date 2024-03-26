@@ -347,6 +347,11 @@ public class DemoNavProvider
                         title: "Icon"
                     ),
                     new NavLink(
+                        href: "/KeyCode",
+                        icon: new Icons.Regular.Size20.Keyboard(),
+                        title: "KeyCode"
+                    ),
+                    new NavLink(
                         href: "/Label",
                         icon: new Icons.Regular.Size20.DoorTag(),
                         title: "Label"
