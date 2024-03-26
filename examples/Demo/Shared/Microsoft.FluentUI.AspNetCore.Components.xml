@@ -6425,6 +6425,88 @@
             Gets or sets the color to be used for the progress ring. If not set, the default theme color is used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.Direction">
+            <summary>
+            Gets or sets the direction to pull the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.Disabled">
+            <summary>
+            Gets or sets if the pull action is disabled.
+            Deaults to false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.EmulateTouch">
+            <summary>
+            Gets or sets if the component should work on non-touch devices (by using an emulation script).
+            Deaults to true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ShowStaticTip">
+            <summary>
+            Gets or sets if a tip is shown when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> is not being pulled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent">
+            <summary>
+            Gets or set the content to show.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnRefreshAsync">
+            <summary>
+            Returns whether there is more data available.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.PullingTemplate">
+            <summary>
+            Gets or sets the the content to indicate the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> can be refreshed by a pull down/up action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ReleaseTemplate">
+            <summary>
+            Gets or sets the the content to indicate the pulled <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> must be released to start the refresh action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.LoadingTemplate">
+            <summary>
+            Gets or sets the the content to indicate the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> is being refreshed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.CompletedTemplate">
+            <summary>
+            Gets or sets the the content to indicate the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> has been refreshed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.NoDataTemplate">
+            <summary>
+            Gets or sets the the content to indicate the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> can not be refreshed anymore.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.DragDistance">
+            <summary>
+            Gets or sets the distance the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> needs to be pulled (in pixels) to initiate a refresh action.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.TipHeight">
+            <summary>
+            Gets or sets the height (in pixels) of the tip fragment (if shown).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.StatusUpdateMessageTimeout">
+            <summary>
+            Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
+            Default is 750
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Context">
             <summary>
             Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>. 
@@ -6709,7 +6791,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.Drop">
             <summary>
-            Gets or sets wether it is possible to drop items into the current list from another list in the same group. 
+            Gets or sets wether it is possible to drop items into the current list from another list in the same group.
             Set to false to disable dropping from another list onto the current list.
             </summary>
         </member>
@@ -6759,9 +6841,6 @@
             This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
             Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
             </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.#ctor">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ChildContent">
             <summary>
@@ -12339,6 +12418,46 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus.Unknown">
             <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullDirection.Down">
+            <summary>
+            Pull down
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullDirection.Up">
+            <summary>
+            Pull up
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Awaiting">
+            <summary>
+            Not started yet
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Pulling">
+            <summary>
+            Pulling down has started and triggerpoint has not been reached
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.WaitingForRelease">
+            <summary>
+            Reached the triggerpoint and waiting to let loose
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Loading">
+            <summary>
+            Already let loose, refreshing
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.Completed">
+            <summary>
+            The refresh is complete
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PullStatus.NoData">
+            <summary>
+            The refresh completes, but there is no more data to load
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ScrollEasing">
             <summary>

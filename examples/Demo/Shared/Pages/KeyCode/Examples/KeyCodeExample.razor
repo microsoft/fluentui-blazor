@@ -1,16 +1,16 @@
-﻿<FluentKeyCode Anchor="MyCard" OnKeyDown="@KeyDownHandler" />
-<FluentKeyCode Anchor="MyKey" OnKeyDown="@KeyDownHandler" StopPropagation="true" />
+﻿<FluentKeyCode Anchor="myCard"  OnKeyDown="@KeyDownHandler" />
+<FluentKeyCode Anchor="myKey" OnKeyDown="@KeyDownHandler" StopPropagation="true" />
 
 <FluentStack>
-    <FluentCard Id="MyCard" tabindex="0" Width="300px" Height="140px">
-        Click here and press <span tabindex="0" id="MyKey">any key</span> to get the event keycode info.
+    <FluentCard Id="myCard" tabindex="0" Width="300px" Height="140px">
+        Click here and press <span tabindex="0" id="myKey">any key</span> to get the event keycode info.
     </FluentCard>
 
     <ul>
         <li><span>Value:</span> <code>@LastKeyCode?.Value</code></li>
         <li><span>Key:</span> <code>@LastKeyCode?.Key.ToString()</code></li>
         <li><span>Code:</span> <code>@LastKeyCode?.KeyCode</code></li>
-        <li><span>Meta:</span> 
+        <li><span>Meta:</span>
             @if (LastKeyCode?.ShiftKey == true)
             {
                 <FluentIcon Value="@(new Icons.Filled.Size20.KeyboardShift())" />

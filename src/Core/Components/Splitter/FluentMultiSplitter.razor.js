@@ -1,5 +1,5 @@
-﻿export function startSplitterResize(
-    id,
+export function startSplitterResize(
+    el,
     splitter,
     paneId,
     paneNextId,
@@ -10,7 +10,7 @@
     minNextValue,
     maxNextValue) {
 
-    var el = document.getElementById(id);
+    //var el = document.getElementById(id);
     var pane = document.getElementById(paneId);
     var paneNext = document.getElementById(paneNextId);
     var paneLength;
