@@ -306,6 +306,6 @@ extends:
             command: 'publish'
             publishWebProjects: false  # True to build all Web Projects
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+            arguments: '--configuration Release --framework net8.0 --output $(Build.ArtifactStagingDirectory)'
             zipAfterPublish: false
             workingDirectory: '$(Build.SourcesDirectory)'
