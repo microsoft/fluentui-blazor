@@ -71,7 +71,7 @@ extends:
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)'
-            artifactName: build-core-artifact
+            artifactName: build-core-artifacts
 
         steps:
         # Compute AssemblyVersion and PackageVersion
@@ -306,7 +306,7 @@ extends:
           displayName: 'Sign NuGet Packages'
           inputs:
             solution: 'Microsoft.FluentUI.signproj'
-            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\'
+            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\build-core-artifacts\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\build-core-artifacts\'
 
         # Publish the projects
         - task: DotNetCoreCLI@2
