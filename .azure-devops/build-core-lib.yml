@@ -25,10 +25,10 @@ variables:
   - template: common/versioning.yml@self  # Versions
 
   - name: SignType
-    value: 'test'
+    value: 'real'
 
   - name: TeamName
-    value: 'FluentUI-Blazor'
+    value: 'fluentui-blazor'
 
 # The `resources` specify the location and version of the 1ES PT.
 resources:
