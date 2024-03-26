@@ -29,11 +29,6 @@
         return Task.CompletedTask;
     }
 
-    private Task OnKeyDownAsync2(FluentKeyCodeEventArgs args)
-    {
-        return Task.CompletedTask;
-    }
-
     public ValueTask DisposeAsync()
     {
         KeyCodeService.UnregisterListener(OnKeyDownAsync);

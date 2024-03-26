@@ -35,6 +35,14 @@ private IKeyCodeService KeyCodeService { get; set; }
 protected override void OnInitialized()
 {
     KeyCodeService.RegisterListener(OnKeyDownAsync);
+}
+
+public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
+
+public ValueTask DisposeAsync()
+{
+    KeyCodeService.UnregisterListener(OnKeyDownAsync);
+    return ValueTask.CompletedTask;
 }</CodeSnippet>
         </li>
         <li>
@@ -51,9 +59,10 @@ protected override void OnInitialized()
 
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         KeyCodeService.UnregisterListener(this);
+        return ValueTask.CompletedTask;
     }
 }</CodeSnippet>
         </li>
