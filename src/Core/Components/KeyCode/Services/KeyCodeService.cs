@@ -4,11 +4,14 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <inheritdoc cref="IKeyCodeService" />
 public class KeyCodeService : IKeyCodeService
-{
+{    
     private ReaderWriterLockSlim ServiceLock { get; } = new ReaderWriterLockSlim();
+
     private IList<(Guid, IKeyCodeListener)> ListenerList { get; } = new List<(Guid, IKeyCodeListener)>();
 
+    /// <inheritdoc cref="IKeyCodeService.Listeners" />
     public IEnumerable<IKeyCodeListener> Listeners
     {
         get
@@ -25,6 +28,7 @@ public class KeyCodeService : IKeyCodeService
         }
     }
 
+    /// <inheritdoc cref="IKeyCodeService.RegisterListener(IKeyCodeListener)" />
     public Guid RegisterListener(IKeyCodeListener listener)
     {
         ServiceLock.EnterWriteLock();
@@ -40,6 +44,7 @@ public class KeyCodeService : IKeyCodeService
         }
     }
 
+    /// <inheritdoc cref="IKeyCodeService.RegisterListener(Func{FluentKeyCodeEventArgs, Task})" />
     public Guid RegisterListener(Func<FluentKeyCodeEventArgs, Task> handler)
     {
         ServiceLock.EnterWriteLock();
@@ -56,33 +61,57 @@ public class KeyCodeService : IKeyCodeService
         }
     }
 
+    /// <inheritdoc cref="IKeyCodeService.UnregisterListener(IKeyCodeListener)" />
     public void UnregisterListener(IKeyCodeListener listener)
     {
-        //_listeners.Remove(listener, out _);
+        var item = ListenerList.FirstOrDefault(i => i.Item2 == listener);
+
+        if (item.Item1 != Guid.Empty)
+        {
+            ListenerList.Remove(item);
+        }
     }
 
+    /// <inheritdoc cref="IKeyCodeService.UnregisterListener(Func{FluentKeyCodeEventArgs, Task})" />
+    public void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> handler)
+    {
+        var item = ListenerList.FirstOrDefault(i => (i.Item2 as KeyCodeListener)?.Handler == handler);
+
+        if (item.Item1 != Guid.Empty)
+        {
+            ListenerList.Remove(item);
+        }
+    }
+
+    /// <inheritdoc cref="IKeyCodeService.Clear" />
     public void Clear()
     {
-        //_listeners.Clear();
+        ListenerList.Clear();
     }
 
+    /// <summary>
+    /// Dispose the service and unregister all listeners.
+    /// </summary>
     public void Dispose()
     {        
         Clear();
     }
 
+    /// <summary>
+    /// Private KeyCodeListener
+    /// </summary>
     private class KeyCodeListener : IKeyCodeListener
     {
-        private readonly Func<FluentKeyCodeEventArgs, Task> _handler;
-
         public KeyCodeListener(Func<FluentKeyCodeEventArgs, Task> handler)
         {
-            _handler = handler;
+            Handler = handler;
         }
+
+        public Func<FluentKeyCodeEventArgs, Task> Handler { get; }
 
         public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
         {
-            return _handler.Invoke(args);
+            return Handler.Invoke(args);
         }
     }
 }

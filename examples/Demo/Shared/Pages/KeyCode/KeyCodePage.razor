@@ -1,10 +1,9 @@
 ﻿@page "/KeyCode"
-@implements IKeyCodeListener
-@inject IKeyCodeService KeyCodeService
-
 @using FluentUI.Demo.Shared.Pages.KeyCode.Examples
 
 <h1>KeyCode</h1>
+
+<h2 id="section">Section</h2>
 
 <p>
     In some circumstances, Blazor does not retrieve all the <b>KeyDown</b> information received from JavaScript.
@@ -14,13 +13,55 @@
 
 <p>The <b>FluentKeyCode</b> component extends the functionality of <b>OnKeyDown</b> by adding the <b>KeyCode</b> property when the <b>OnKeyDown</b> event is raised.</p>
 
-<h2 id="example">Examples</h2>
+<DemoSection Title="" Component="@typeof(KeyCodeExample)" />
 
-<DemoSection Title="Default" Component="@typeof(KeyCodeExample)">
-    <Description>
+<h2 id="global">Global</h2>
 
-    </Description>
-</DemoSection>
+<p>
+    You can also capture keystrokes globally on the current page.
+    To do this, we provide you with a <b>IKeyCodeService</b> injected by the <b>AddFluentUIComponents</b> method.
+    Add the following component at the end of your <code>MainLayout.razor</code> file.
+    <b>&lt;FluentKeyCodeProvider /></b>
+</p>
+
+<p>
+    Once the provider and service have been injected, you can <br/>
+    <ul>
+        <li>
+            Retrieve the service and register the method that will capture the keys:<br />
+            <CodeSnippet Language="CSharp">[Inject]
+private IKeyCodeService KeyCodeService { get; set; }
+
+protected override void OnInitialized()
+{
+    KeyCodeService.RegisterListener(OnKeyDownAsync);
+}</CodeSnippet>
+        </li>
+        <li>
+            Implement the interface <b>IKeyCodeListener</b>, retrieve the service and register the method that will capture the keys:<br />
+            <CodeSnippet Language="CSharp">public partial MyPage : IKeyCodeListener, IDisposableAsync
+{
+    [Inject]
+    private IKeyCodeService KeyCodeService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(this);
+    }
+
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
+
+    public async ValueTask DisposeAsync()
+    {
+        KeyCodeService.UnregisterListener(this);
+    }
+}</CodeSnippet>
+        </li>
+    </ul>
+    
+</p>
+
+<DemoSection Title="" Component="@typeof(KeyCodeGlobalExample)" />
 
 <h2 id="documentation">Documentation</h2>
 
@@ -28,17 +69,3 @@
 
 <ApiDocumentation Component="typeof(FluentKeyCodeEventArgs)" />
 
-@code
-{
-    protected override void OnInitialized()
-    {
-        //KeyCodeService.RegisterListener(this);
-        KeyCodeService.RegisterListener(OnKeyDownAsync);
-    }
-
-    async Task IKeyCodeListener.OnKeyDownAsync(FluentKeyCodeEventArgs args)
-    {
-        Console.WriteLine(args.Value);
-        await Task.CompletedTask;
-    }
-}

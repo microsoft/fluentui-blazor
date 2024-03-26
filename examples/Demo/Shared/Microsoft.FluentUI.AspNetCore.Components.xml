@@ -4159,6 +4159,93 @@
             Gets the identifier of the targeted DOM element.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.ToString">
+            <summary>
+            Returns a string that represents the key pressed.
+            Example: "Ctrl + Shift + A"
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener.OnKeyDownAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
+            <summary>
+            Method called when a key is pressed.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService">
+            <summary>
+            Service registered by <see cref="M:Microsoft.FluentUI.AspNetCore.Components.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)"/>
+            to catch all keys events and notify all registered listeners.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.Listeners">
+            <summary>
+            Gets the list of all active keystroke listeners.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)">
+            <summary>
+            Register the listener component or page, and returns a unique identifier.
+            </summary>
+            <param name="listener"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Register the <paramref name="handler"/> method as a listener, and returns a unique identifier.
+            </summary>
+            <param name="handler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)">
+            <summary>
+            Unregister the listener component or page.
+            </summary>
+            <param name="listener"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Unregister the listener method.
+            </summary>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.Clear">
+            <summary>
+            Unregister all listeners.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService">
+            <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService" />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.Listeners">
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.Listeners" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.RegisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.UnregisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.Clear">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.Clear" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.Dispose">
+            <summary>
+            Dispose the service and unregister all listeners.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.KeyCodeListener">
+            <summary>
+            Private KeyCodeListener
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.JSRuntime">
             <summary />
         </member>

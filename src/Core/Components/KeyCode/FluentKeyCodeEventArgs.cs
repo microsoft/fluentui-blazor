@@ -48,4 +48,23 @@ public class FluentKeyCodeEventArgs
     /// Gets the identifier of the targeted DOM element.
     /// </summary>
     public string TargetId { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Returns a string that represents the key pressed.
+    /// Example: "Ctrl + Shift + A"
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        var keys = new string[]
+            {
+                CtrlKey ? "Ctrl" : string.Empty,
+                ShiftKey ? "Shift" : string.Empty,
+                AltKey ? "Alt" : string.Empty,
+                MetaKey ? "Meta" : string.Empty,
+                Value.Length == 1 ? (Value == " " ? "Space" :Value.ToUpper()) : Value
+            };
+
+        return string.Join(" + ", keys.Where(i => !string.IsNullOrEmpty(i)));
+    }
 }

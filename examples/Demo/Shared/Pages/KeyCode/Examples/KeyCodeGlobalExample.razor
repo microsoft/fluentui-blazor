@@ -1,0 +1,42 @@
+﻿@inject IKeyCodeService KeyCodeService
+@implements IAsyncDisposable
+
+<FluentCard>
+    @if (!KeyPressed.Any())
+    {
+        <div>Press any key to get the keycode info.</div>
+    }
+
+    @foreach (var key in KeyPressed)
+    {
+        <span class="key">@key</span>
+    }
+</FluentCard>
+
+@code
+{
+    private List<string> KeyPressed = new();
+
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(OnKeyDownAsync);
+    }
+
+    private Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        KeyPressed.Add(args.ToString());
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnKeyDownAsync2(FluentKeyCodeEventArgs args)
+    {
+        return Task.CompletedTask;
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        KeyCodeService.UnregisterListener(OnKeyDownAsync);
+        return ValueTask.CompletedTask;
+    }
+}
