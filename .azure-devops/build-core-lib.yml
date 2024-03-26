@@ -199,19 +199,20 @@ extends:
         - task: NuGetToolInstaller@1
           displayName: Install NuGet tools
 
-        # Install .NET 6.0
-        - task: UseDotNet@2
-          displayName: Install .NET 6.0
-          inputs:
-            version: 6.0.x
-            includePreviewVersions: true
+        - ${{ if eq(variables['Build.SourceBranchName'], 'v3') }}:
+          # Install .NET 6.0
+          - task: UseDotNet@2
+            displayName: Install .NET 6.0
+            inputs:
+              version: 6.0.x
+              includePreviewVersions: true
 
-        # Install .NET 7.0
-        - task: UseDotNet@2
-          displayName: 'Install .NET 7.0'
-          inputs:
-            version: 7.0.x
-            includePreviewVersions: true
+          # Install .NET 7.0
+          - task: UseDotNet@2
+            displayName: 'Install .NET 7.0'
+            inputs:
+              version: 7.0.x
+              includePreviewVersions: true
 
         # Install .NET 8.0
         - task: UseDotNet@2
