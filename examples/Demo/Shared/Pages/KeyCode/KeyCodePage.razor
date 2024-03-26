@@ -70,6 +70,11 @@ public ValueTask DisposeAsync()
     
 </p>
 
+<blockquote>
+    Some keystrokes are used by the browser (e.g. <code>Ctrl + A</code>). You can disable this function using the <b>PreventDefault</b> attribute with the <b>FluentKeyCodeProvider</b> component.
+    <code>&lt;FluentKeyCodeProvider PreventDefault="true" /></code>
+</blockquote>
+
 <DemoSection Title="" Component="@typeof(KeyCodeGlobalExample)" />
 
 <h2 id="documentation">Documentation</h2>
@@ -78,3 +83,4 @@ public ValueTask DisposeAsync()
 
 <ApiDocumentation Component="typeof(FluentKeyCodeEventArgs)" />
 
+<ApiDocumentation Component="typeof(FluentKeyCodeProvider)" />
