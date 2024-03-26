@@ -57,20 +57,19 @@ extends:
         # If the pipeline publishes artifacts, use `templateContext` to define the artifacts.
         # This will enable 1ES PT to run SDL analysis tools on the artifacts and then upload them.
         templateContext:
-          mb:
-            signing:
-            enabled: true
-            signType: $(SignType)
-            zipSources: false
-            #feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
-            env:
-              TeamName: '$(TeamName)'
+          # mb:
+          #   signing:
+          #   enabled: true
+          #   signType: $(SignType)
+          #   zipSources: false
+          #   #feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
+          #   env:
+          #     TeamName: '$(TeamName)'
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)'
             artifactName: build-core-artifact
-        # Define the steps that the pipeline will run.
-        # In most cases, copy and paste the steps from the original pipeline.
+
         steps:
         # Compute AssemblyVersion and PackageVersion
         # -> Update Versioning.yml
@@ -241,14 +240,14 @@ extends:
             projects: ${{ parameters.Projects }}
 
         # Sign the packages
-        # - task: MicroBuildSigningPlugin@4
-        #   displayName: Install MicroBuild plugin
-        #   inputs:
-        #     signType: $(SignType)
-        #     zipSources: false
-        #     feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
-        #   env:
-        #     TeamName: '$(TeamName)'
+        - task: MicroBuildSigningPlugin@4
+          displayName: Install MicroBuild plugin
+          inputs:
+            signType: $(SignType)
+            zipSources: false
+            feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
+          env:
+            TeamName: '$(TeamName)'
 
         # Build the projects
         - task: DotNetCoreCLI@2
