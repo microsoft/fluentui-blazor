@@ -72,6 +72,9 @@ extends:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)'
             artifactName: build-core-artifacts
+          - output: pipelineArtifact
+            targetPath: '$(Build.ArtifactStagingDirectory)\sign'
+            artifactName: build-core-artifacts-signed
 
         steps:
         # Compute AssemblyVersion and PackageVersion
@@ -306,16 +309,16 @@ extends:
           displayName: 'Sign NuGet Packages'
           inputs:
             solution: 'Microsoft.FluentUI.signproj'
-            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\build-core-artifacts\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\build-core-artifacts\'
+            msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\sign'
 
         # Publish the projects
-        - task: DotNetCoreCLI@2
-          displayName: 'Publish $(Build.BuildNumber)'
-          condition: eq(variables['ShouldPublish'], 'true')
-          inputs:
-            command: 'publish'
-            publishWebProjects: false  # True to build all Web Projects
-            projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release --framework net8.0 --output $(Build.ArtifactStagingDirectory)'
-            zipAfterPublish: false
-            workingDirectory: '$(Build.SourcesDirectory)'
+        # - task: DotNetCoreCLI@2
+        #   displayName: 'Publish $(Build.BuildNumber)'
+        #   condition: eq(variables['ShouldPublish'], 'true')
+        #   inputs:
+        #     command: 'publish'
+        #     publishWebProjects: false  # True to build all Web Projects
+        #     projects: ${{ parameters.Projects }}
+        #     arguments: '--configuration Release --framework net8.0 --output $(Build.ArtifactStagingDirectory)'
+        #     zipAfterPublish: false
+        #     workingDirectory: '$(Build.SourcesDirectory)'
