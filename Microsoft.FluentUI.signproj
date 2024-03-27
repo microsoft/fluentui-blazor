@@ -20,7 +20,7 @@
       <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
     </PropertyGroup>
     <ItemGroup>
-      <FilesToSign Include="$(OutDir)**\*.nupkg">
+      <FilesToSign Include="$(OutDir)**\*.*nupkg">
         <Authenticode>NuGet</Authenticode>
       </FilesToSign>
     </ItemGroup>
