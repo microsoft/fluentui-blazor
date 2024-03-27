@@ -28,7 +28,6 @@ internal class MarkdownSectionPreCodeExtension : IMarkdownExtension
                 new MarkdownSectionPreCodeRendererOptions
                 {
                     PreTagAttributes = "{.snippet .hljs-copy-wrapper}",
-                    CodeTagAttributes = "{style=\"tab-size: 2em;\"}"
                 })
             );
     }
