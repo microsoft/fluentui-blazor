@@ -26,6 +26,7 @@
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="$(RuntimeVersion)" />
+    <PackageVersion Include="Microsoft.SourceLink.AzureRepos.Git" Version="$(RuntimeVersion)" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.9.28" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion)" />

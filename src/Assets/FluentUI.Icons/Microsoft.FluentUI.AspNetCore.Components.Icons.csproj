@@ -20,8 +20,7 @@
 		<PackageIcon>icon.png</PackageIcon>
 
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>embedded</DebugType>
 
 		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
 	</PropertyGroup>
@@ -37,6 +36,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" PrivateAssets="All" />
 	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -46,7 +47,7 @@
   <ItemGroup>
     <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.Icons.dll">
       <Authenticode>Microsoft400</Authenticode>
-      <StrongName>MicrosoftFluentUIAspNetCoreComponentsIcons</StrongName>
+      <StrongName>StrongName</StrongName>
     </FilesToSign>
   </ItemGroup>
 

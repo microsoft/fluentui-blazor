@@ -16,9 +16,9 @@
 		<SignAssembly>true</SignAssembly>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -42,6 +42,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -64,7 +65,7 @@
   <ItemGroup>
     <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.dll">
       <Authenticode>Microsoft400</Authenticode>
-      <StrongName>MicrosoftFluentUIAspNetCoreComponentsDataGridEntityFrameworkAdapter</StrongName>
+      <StrongName>StrongName</StrongName>
     </FilesToSign>
   </ItemGroup>
 </Project>
