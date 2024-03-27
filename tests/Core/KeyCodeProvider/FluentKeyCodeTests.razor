@@ -1,0 +1,195 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public async Task FluentKeyCode_KeyA()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyDown="@(e => pressed = e)" /></div>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, pressed.Key);
+        Assert.Equal("A", pressed.Value);
+
+        Assert.False(pressed.CtrlKey);
+        Assert.False(pressed.ShiftKey);
+        Assert.False(pressed.AltKey);
+        Assert.False(pressed.MetaKey);
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_ChildContent()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<FluentKeyCode OnKeyDown="@(e => pressed = e)">Hello World</FluentKeyCode>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, pressed.Key);
+        Assert.Equal("A", pressed.Value);
+
+        Assert.False(pressed.CtrlKey);
+        Assert.False(pressed.ShiftKey);
+        Assert.False(pressed.AltKey);
+        Assert.False(pressed.MetaKey);
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_CtrlShiftAltMeta()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyDown="@(e => pressed = e)" /></div>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", true, true, true, true, 0, "myZone");
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, pressed.Key);
+        Assert.Equal("A", pressed.Value);
+
+        Assert.True(pressed.CtrlKey);
+        Assert.True(pressed.ShiftKey);
+        Assert.True(pressed.AltKey);
+        Assert.True(pressed.MetaKey);
+    }
+
+    [Theory]
+    [InlineData(false, false, false, false, "A")]
+    [InlineData(true, false, false, false, "Ctrl + A")]
+    [InlineData(false, true, false, false, "Shift + A")]
+    [InlineData(false, false, true, false, "Alt + A")]
+    [InlineData(false, false, false, true, "Meta + A")]
+    [InlineData(true, true, true, true, "Ctrl + Shift + Alt + Meta + A")]
+    public async Task FluentKeyCode_KeyA_ToString(bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, string expected)
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyDown="@(e => pressed = e)" /></div>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", ctrlKey, shiftKey, altKey, metaKey, 0, "myZone");
+
+        // Assert
+        Assert.Equal(expected, pressed.ToString());
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_Provider_Function()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+
+        // Arrange
+        var cut = Render(@<div id="myZone"><FluentKeyCodeProvider /></div>);
+        keycodeService.RegisterListener(OnKeyHandlerAsync);
+
+        // Act
+        await keycodeService.Listeners.First().OnKeyDownAsync(new FluentKeyCodeEventArgs() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" });
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, pressed.Key);
+        Assert.Equal("A", pressed.Value);
+
+        // Dispose
+        keycodeService.UnregisterListener(OnKeyHandlerAsync);
+        Assert.Empty(keycodeService.Listeners);
+
+        // Local Handler
+        Task OnKeyHandlerAsync(FluentKeyCodeEventArgs args)
+        {
+            pressed = args;
+            return Task.CompletedTask;
+        }
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_Provider_Interface()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+
+        // Create a listener
+        var listener = new MyKeyCodeListener(e => pressed = e);
+
+        // Arrange
+        var cut = Render(@<div id="myZone"><FluentKeyCodeProvider /></div>);
+        keycodeService.RegisterListener(listener);
+
+        // Act
+        await keycodeService.Listeners.First().OnKeyDownAsync(new FluentKeyCodeEventArgs() { Key = KeyCode.KeyA, KeyCode = 65, Value = "A" });
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, pressed.Key);
+        Assert.Equal("A", pressed.Value);
+
+        // Dispose
+        keycodeService.Clear();
+        Assert.Empty(keycodeService.Listeners);
+
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_AnchorOrChildContent_Required()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var exception = Assert.Throws<ArgumentNullException>(() =>
+        {
+            var cut = Render(@<FluentKeyCode OnKeyDown="@(e => pressed = e)"></FluentKeyCode>        );
+        });
+
+        Assert.Equal("The Anchor parameter must be set to the ID of an element. Or the ChildContent must be set to apply the KeyCode engine to this content.", exception.Message);
+
+        // To avoid warning on "async Task"
+        await Task.CompletedTask;
+    }
+
+    private class MyKeyCodeListener : IKeyCodeListener
+    {
+        private Action<FluentKeyCodeEventArgs> _action;
+
+        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> action)
+        {
+            _action = action;
+        }
+
+        public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+        {
+            _action.Invoke(args);
+            return Task.CompletedTask;
+        }
+    }
+}
