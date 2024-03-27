@@ -32,6 +32,11 @@
         margin-inline-start: 16px;
     }
 
+        .fluent-persona .name.image-position-right {
+            margin-inline-start: 0px;
+            margin-inline-end: 16px;
+        }
+
     .fluent-persona .close {
         display: flex;
         text-align: center;
