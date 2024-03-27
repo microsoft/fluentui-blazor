@@ -26,6 +26,29 @@
     }
 
     [Fact]
+    public async Task FluentKeyCode_ChildContent()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<FluentKeyCode OnKeyDown="@(e => pressed = e)">Hello World</FluentKeyCode>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+        Assert.Equal(KeyCode.KeyA, pressed.Key);
+        Assert.Equal("A", pressed.Value);
+
+        Assert.False(pressed.CtrlKey);
+        Assert.False(pressed.ShiftKey);
+        Assert.False(pressed.AltKey);
+        Assert.False(pressed.MetaKey);
+    }
+
+    [Fact]
     public async Task FluentKeyCode_CtrlShiftAltMeta()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -133,6 +156,25 @@
         keycodeService.Clear();
         Assert.Empty(keycodeService.Listeners);
 
+    }
+
+    [Fact]
+    public async Task FluentKeyCode_AnchorOrChildContent_Required()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var exception = Assert.Throws<ArgumentNullException>(() =>
+        {
+            var cut = Render(@<FluentKeyCode OnKeyDown="@(e => pressed = e)"></FluentKeyCode>        );
+        });
+
+        Assert.Equal("The Anchor parameter must be set to the ID of an element. Or the ChildContent must be set to apply the KeyCode engine to this content.", exception.Message);
+
+        // To avoid warning on "async Task"
+        await Task.CompletedTask;
     }
 
     private class MyKeyCodeListener : IKeyCodeListener

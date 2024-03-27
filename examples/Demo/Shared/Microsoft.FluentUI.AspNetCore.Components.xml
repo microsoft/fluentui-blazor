@@ -4054,9 +4054,24 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Element">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.GlobalDocument">
+            <summary>
+            Gets or sets whether the KeyCode engine is global (using document DOM element) or not (only for <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Anchor"/> or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.ChildContent"/>).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Anchor">
             <summary>
-            Required. Gets or sets the control identifier associated with the KeyCode engine.
+            Gets or sets the control identifier associated with the KeyCode engine.
+            If not set, the KeyCode will be applied to the FluentKeyCode content: see <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.ChildContent"/>.
+            This attribute is ignored when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.ChildContent" /> is used..
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.ChildContent">
+            <summary>
+            Gets or sets the content to be managed by the KeyCode engine.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDown">
@@ -4093,6 +4108,11 @@
             <summary>
             Gets or sets the list of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
             its default action should not be taken as it normally would be.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.AdditionalAttributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created element.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
