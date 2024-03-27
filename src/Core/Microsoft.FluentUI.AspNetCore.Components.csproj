@@ -117,7 +117,7 @@
   <ItemGroup>
     <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.dll">
       <Authenticode>Microsoft400</Authenticode>
-      <StrongName>MicrosoftFluentUIAspNetCoreComponents</StrongName>
+      <StrongName>StrongName</StrongName>
     </FilesToSign>
   </ItemGroup>
 </Project>

@@ -65,7 +65,7 @@
   <ItemGroup>
     <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.dll">
       <Authenticode>Microsoft400</Authenticode>
-      <StrongName>MicrosoftFluentUIAspNetCoreComponentsDataGridEntityFrameworkAdapter</StrongName>
+      <StrongName>StrongName</StrongName>
     </FilesToSign>
   </ItemGroup>
 </Project>
