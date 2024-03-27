@@ -1,1 +1,8 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+@if (ChildContent is not null)
+{
+    <span @ref="@Element" @attributes="@AdditionalAttributes">
+        @ChildContent
+    </span>
+}
