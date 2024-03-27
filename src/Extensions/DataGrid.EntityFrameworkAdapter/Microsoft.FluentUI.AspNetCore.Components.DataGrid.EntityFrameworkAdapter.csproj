@@ -16,6 +16,7 @@
 		<SignAssembly>true</SignAssembly>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
