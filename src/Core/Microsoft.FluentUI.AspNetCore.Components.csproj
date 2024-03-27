@@ -68,8 +68,6 @@
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Http" />
-	  <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" PrivateAssets="All" />
 	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
