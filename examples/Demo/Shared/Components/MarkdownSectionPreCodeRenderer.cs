@@ -1,3 +1,5 @@
+using Markdig.Extensions.GenericAttributes;
+using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
@@ -12,12 +14,12 @@ namespace FluentUI.Demo.Shared.Components;
 internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
 {
     private HashSet<string>? _blocksAsDiv;
-    private readonly string? _preTagClass;
-    public MarkdownSectionPreCodeRenderer(string? PreTagClass = null)
-    {
-        _preTagClass = PreTagClass;
-    }
+    private readonly MarkdownSectionPreCodeRendererOptions? _options;
 
+    public MarkdownSectionPreCodeRenderer(MarkdownSectionPreCodeRendererOptions? options)
+    {
+        _options = options;
+    }
     public bool OutputAttributesOnPre { get; set; }
 
     /// <summary>
@@ -56,26 +58,13 @@ internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
         {
             if (renderer.EnableHtmlForBlock)
             {
-                if (_preTagClass is string)
-                {
-                    renderer.Write($"<pre class=\"{_preTagClass}\"");
-                }
-                else
-                {
-                    renderer.Write("<pre");
-                }
+                renderer.Write("<pre");
 
-                if (OutputAttributesOnPre)
-                {
-                    renderer.WriteAttributes(obj);
-                }
+                WritePreAttributes(renderer, obj, _options?.PreTagAttributes);
 
                 renderer.Write("><code");
 
-                if (!OutputAttributesOnPre)
-                {
-                    renderer.WriteAttributes(obj);
-                }
+                WriteCodeAttributes(renderer, obj, _options?.CodeTagAttributes);
 
                 renderer.Write('>');
             }
@@ -89,5 +78,60 @@ internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
         }
 
         renderer.EnsureLine();
+    }
+
+    private void WritePreAttributes(HtmlRenderer renderer, CodeBlock obj, string? preGenericAttributes)
+    {
+        HtmlAttributes? orig = null;
+
+        if (OutputAttributesOnPre)
+        {
+            orig = obj.TryGetAttributes();
+        }
+
+        WriteElementAttributes(renderer, orig, preGenericAttributes);
+    }
+
+    private void WriteCodeAttributes(HtmlRenderer renderer, CodeBlock obj, string? codeGenericAttributes)
+    {
+        HtmlAttributes? orig = null;
+
+        if (!OutputAttributesOnPre)
+        {
+            orig = obj.TryGetAttributes();
+        }
+
+        WriteElementAttributes(renderer, orig, codeGenericAttributes);
+    }
+    static private void WriteElementAttributes(HtmlRenderer renderer, HtmlAttributes? fromCodeBlock, string? genericAttributes)
+    {
+        // origin code block had no attributes
+        fromCodeBlock ??= new HtmlAttributes();
+
+        // append if any additional attributes provided
+        var ss = new StringSlice(genericAttributes);
+        if (!ss.IsEmpty && GenericAttributesParser.TryParse(ref ss, out var attributes))
+        {
+            if (fromCodeBlock != null)
+            {
+                if (attributes.Classes != null)
+                {
+                    foreach (var a in attributes.Classes)
+                    {
+                        fromCodeBlock.AddClass(a);
+                    }
+                }
+                if (attributes.Properties != null)
+                {
+                    foreach (var pr in attributes.Properties)
+                    {
+                        fromCodeBlock.AddProperty(pr.Key, pr.Value!);
+                    }
+                }
+            }
+        }
+
+        //
+        renderer.WriteAttributes(fromCodeBlock);
     }
 }

@@ -24,6 +24,11 @@ internal class MarkdownSectionPreCodeExtension : IMarkdownExtension
             htmlRenderer.ObjectRenderers.Remove(originalCodeBlockRenderer);
         }
 
-        htmlRenderer.ObjectRenderers.AddIfNotAlready(new MarkdownSectionPreCodeRenderer("snippet hljs-copy-wrapper"));
+        htmlRenderer.ObjectRenderers.AddIfNotAlready(new MarkdownSectionPreCodeRenderer(
+                new MarkdownSectionPreCodeRendererOptions
+                {
+                    PreTagAttributes = "{.snippet .hljs-copy-wrapper}",
+                })
+            );
     }
 }
