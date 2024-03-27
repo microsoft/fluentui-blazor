@@ -18,8 +18,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
     <DebugType>embedded</DebugType>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>

@@ -21,9 +21,7 @@
 
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
+    
 		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
 	</PropertyGroup>
 
