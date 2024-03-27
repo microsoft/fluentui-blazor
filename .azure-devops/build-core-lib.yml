@@ -38,7 +38,7 @@ extends:
   # For non-production pipelines, use "Unofficial" as defined below.
   # For productions pipelines, use "Official".
   #template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
-  template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
+  template: azure-pipelines/MicroBuild.1ES.UnOfficial.yml@MicroBuildTemplate
   parameters:
     # Update the pool with your team's 1ES hosted pool.
     pool:
@@ -216,16 +216,6 @@ extends:
             command: 'restore'
             projects: ${{ parameters.Projects }}
 
-        # Sign the packages
-        # - task: MicroBuildSigningPlugin@4
-        #   displayName: Install MicroBuild plugin
-        #   inputs:
-        #     signType: $(SignType)
-        #     zipSources: false
-        #     feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
-        #   env:
-        #     TeamName: 'fluentui-blazor'
-
         # Build the projects
         - task: DotNetCoreCLI@2
           displayName: 'Build $(Build.BuildNumber)'
@@ -267,7 +257,7 @@ extends:
           displayName: 'Pack $(Build.BuildNumber)'
           inputs:
             SourceFolder: '$(Build.SourcesDirectory)'
-            Contents: '**/*$(PackageVersion).*nupkg'
+            Contents: '**/*$(PackageVersion).nupkg'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
             CleanTargetFolder: false
             OverWrite: true
@@ -285,7 +275,7 @@ extends:
           displayName: 'Copy signed packages to pickup folder'
           inputs:
             SourceFolder: '$(Build.SourcesDirectory)'
-            Contents: '**/*$(PackageVersion).*nupkg'
+            Contents: '**/*$(PackageVersion).nupkg'
             TargetFolder: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             CleanTargetFolder: false
             OverWrite: true
