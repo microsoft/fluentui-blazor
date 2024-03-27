@@ -14,12 +14,12 @@ namespace FluentUI.Demo.Shared.Components;
 internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
 {
     private HashSet<string>? _blocksAsDiv;
-    private readonly string? _preTagClass;
-    public MarkdownSectionPreCodeRenderer(string? PreTagClass = null)
-    {
-        _preTagClass = PreTagClass;
-    }
+    private readonly MarkdownSectionPreCodeRendererOptions? _options;
 
+    public MarkdownSectionPreCodeRenderer(MarkdownSectionPreCodeRendererOptions? options)
+    {
+        _options = options;
+    }
     public bool OutputAttributesOnPre { get; set; }
 
     /// <summary>
@@ -60,11 +60,11 @@ internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
             {
                 renderer.Write("<pre");
 
-                WritePreAttributes(renderer, obj, _preTagClass);
+                WritePreAttributes(renderer, obj, _options?.PreTagAttributes);
 
                 renderer.Write("><code");
 
-                WriteCodeAttributes(renderer, obj, null);
+                WriteCodeAttributes(renderer, obj, _options?.CodeTagAttributes);
 
                 renderer.Write('>');
             }
