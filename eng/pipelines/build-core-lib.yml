@@ -54,7 +54,7 @@ variables:
   - template: /eng/pipelines/version.yml@self
 
   - name: SignType
-    value: real
+    value: test
 
 # The `resources` specify the location and version of the 1ES PT.
 resources:
