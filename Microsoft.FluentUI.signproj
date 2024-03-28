@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" Sdk="Microsoft.Build.NoTargets/3.7.56">
+  <PropertyGroup>
+    <SolutionDir Condition="'$(SolutionDir)'==''">..\..\</SolutionDir>
+    <SolutionDir Condition="!HasTrailingSlash('$(SolutionDir)')">$(SolutionDir)\</SolutionDir>
+    <OutDir Condition="'$(OutDir)'==''">$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir Condition="!HasTrailingSlash('$(OutDir)')">$(OutDir)\</OutDir>
+    <IntermediateOutputPath Condition="'$(IntermediateOutputPath)'==''">$(SolutionDir)obj\$(Configuration)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core" version="1.0.0" />
+  </ItemGroup>
+
+  <Target Name="Sign" DependsOnTargets="$(SignDependsOn)" AfterTargets="AfterBuild">
+    <PropertyGroup>
+      <OutDir Condition="!HasTrailingSlash('$(OutDir)')">$(OutDir)\</OutDir>
+      <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <FilesToSign Include="$(OutDir)**\*.nupkg">
+        <Authenticode>NuGet</Authenticode>
+      </FilesToSign>
+    </ItemGroup>
+  </Target>
+</Project>

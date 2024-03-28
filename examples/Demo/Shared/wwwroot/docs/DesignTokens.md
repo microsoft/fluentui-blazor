@@ -26,7 +26,7 @@ The most common need for setting a token is to switch between light and dark mod
 - `BaseLayerLuminance`: Set to `StandardLuminance.DarkMode` to switch into dark mode.
 
 This is a decimal value, and the `LightMode` and `DarkMode` constants represent the standard points for light and dark mode. You could set it to any value `0` (black) to `1` (white) depending on your needs.
->**note:** To get the corresponding value from the `StandardLuminance` enum, use the `GetLuminanceValue()` extension method. 
+>**Note:** To get the corresponding value from the `StandardLuminance` enum, use the `GetLuminanceValue()` extension method. 
 
 #### Layers and fill color
 
@@ -269,28 +269,27 @@ private FluentButton? ref4;
 
 protected override async Task OnAfterRenderAsync(bool firstRender)
 {
-if (firstRender)
-{
-	//Set to dark mode
-	await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
+	if (firstRender)
+	{
+		//Set to dark mode
+		await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
 
-	//Set to Excel color
-	await AccentBaseColor.SetValueFor(ref2!.Element, "#185ABD".ToSwatch());
+		//Set to Excel color
+		await AccentBaseColor.SetValueFor(ref2!.Element, "#185ABD".ToSwatch());
 
-	//Set the font
-	await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
+		//Set the font
+		await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");
 
-	//Set 'border' width for ref4
-	await StrokeWidth.SetValueFor(ref4!.Element, 7);
-	//And change conrner radius as well
-	await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
+		//Set 'border' width for ref4
+		await StrokeWidth.SetValueFor(ref4!.Element, 7);
+		//And change conrner radius as well
+		await ControlCornerRadius.SetValueFor(ref4!.Element, 15);
 
-	// If you would like to change the BaseLayerLuminance  value for the whole site, you can use the WithDefault method
-	await BaseLayerLuminance.WithDefault((float)0.15);
+		// If you would like to change the BaseLayerLuminance  value for the whole site, you can use the WithDefault method
+		await BaseLayerLuminance.WithDefault((float)0.15);
 
-	StateHasChanged();
-}
-
+		StateHasChanged();
+	}
 }
 
 public async Task OnClick()

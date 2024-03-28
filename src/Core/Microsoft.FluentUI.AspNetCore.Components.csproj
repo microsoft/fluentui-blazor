@@ -10,7 +10,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
 
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>False</SignAssembly>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
@@ -21,8 +21,7 @@
     <IsPackable>true</IsPackable>
 
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>embedded</DebugType>
 
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
   </PropertyGroup>
@@ -69,7 +68,10 @@
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Http" />
-	  <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

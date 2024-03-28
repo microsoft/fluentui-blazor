@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentKeyCode
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accessibility/FluentKeyCode.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/KeyCode/FluentKeyCode.razor.js";
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
     private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 
@@ -20,12 +20,28 @@ public partial class FluentKeyCode
     /// <summary />
     private IJSObjectReference? Module { get; set; }
 
+    /// <summary />
+    private ElementReference Element { get; set; }
+
     /// <summary>
-    /// Required. Gets or sets the control identifier associated with the KeyCode engine.
+    /// Gets or sets whether the KeyCode engine is global (using document DOM element) or not (only for <see cref="Anchor"/> or <see cref="ChildContent"/>).
     /// </summary>
     [Parameter]
-    [EditorRequired]
+    public bool GlobalDocument { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the control identifier associated with the KeyCode engine.
+    /// If not set, the KeyCode will be applied to the FluentKeyCode content: see <see cref="ChildContent"/>.
+    /// This attribute is ignored when the <see cref="ChildContent" /> is used..
+    /// </summary>
+    [Parameter]
     public string Anchor { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the content to be managed by the KeyCode engine.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Event triggered when a KeyDown event is raised.
@@ -70,15 +86,26 @@ public partial class FluentKeyCode
     [Parameter]
     public KeyCode[] PreventDefaultOnly { get; set; } = Array.Empty<KeyCode>();
 
+    /// <summary>
+    /// Gets or sets a collection of additional attributes that will be applied to the created element.
+    /// </summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
     /// <summary />
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            if (ChildContent is null && string.IsNullOrEmpty(Anchor) && !GlobalDocument)
+            {
+                throw new ArgumentNullException(Anchor, $"The {nameof(Anchor)} parameter must be set to the ID of an element. Or the {nameof(ChildContent)} must be set to apply the KeyCode engine to this content.");
+            }
+
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            await Module.InvokeVoidAsync("RegisterKeyCode", Anchor, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
+            await Module.InvokeVoidAsync("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
         }
     }
 

@@ -5,12 +5,8 @@
 
 @code
 {
-    BunitJSModuleInterop? keyModule, overflowModule;
-
     public FluentAppBarTests()
     {
-        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accessibility/FluentKeyCode.razor.js");
-        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
         JSInterop.Mode = JSRuntimeMode.Loose;
     }
 
