@@ -239,7 +239,7 @@ extends:
           displayName: 'Versioning $(Build.BuildNumber)'
           inputs:
             targetType: 'filePath'
-            filePath: /eng/pipelines/update-assembly-version.ps1
+            filePath: $(System.DefaultWorkingDirectory)/eng/pipelines/update-assembly-version.ps1
             arguments: > # Use this to avoid newline characters in multiline string
               -sourcePath "$(System.DefaultWorkingDirectory)/"
               -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
