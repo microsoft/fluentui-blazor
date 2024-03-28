@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -68,6 +69,12 @@ public partial class FluentPersona : FluentComponentBase
     public PresenceBadgeSize StatusSize { get; set; } = PresenceBadgeSize.ExtraSmall;
 
     /// <summary>
+    /// Gets or sets the event raised when the user clicks on this Persona.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
     /// Gets or sets the event raised when the user clicks on the dismiss button.
     /// </summary>
     [Parameter]
@@ -82,11 +89,16 @@ public partial class FluentPersona : FluentComponentBase
     /// <summary />
     private string GetDefaultInitials()
     {
+        if (string.IsNullOrEmpty(Name))
+        {
+            return string.Empty;
+        }
+
         var parts = Name.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return parts == null
                 || parts.Length == 0
                 || (parts.Length == 1 && parts[0] == string.Empty)
-            ? "--"
+            ? string.Empty
             : parts.Length > 1
             ? $"{parts[0][0]}{parts[1][0]}"
             : $"{parts[0][0]}";

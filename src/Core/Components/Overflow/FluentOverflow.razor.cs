@@ -89,7 +89,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-
             await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
         }
     }

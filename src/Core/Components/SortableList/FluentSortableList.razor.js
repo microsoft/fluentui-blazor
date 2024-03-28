@@ -1,5 +1,5 @@
-export function init(id, group, pull, put, sort, handle, filter, fallback, component) {
-    var sortable = new Sortable(document.getElementById(id), {
+export function init(list, group, pull, put, sort, handle, filter, fallback, component) {
+    new Sortable(list, {
         animation: 200,
         group: {
             name: group,

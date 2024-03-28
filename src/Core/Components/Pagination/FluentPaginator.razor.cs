@@ -14,6 +14,12 @@ public partial class FluentPaginator : FluentComponentBase, IDisposable
     public EventCallback<int> CurrentPageIndexChanged { get; set; }
 
     /// <summary>
+    /// Disables the pagination buttons
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
     /// Gets or sets the associated <see cref="PaginationState"/>. This parameter is required.
     /// </summary>
     [Parameter, EditorRequired]

@@ -89,7 +89,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the element. 
+    /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
     /// </summary>
     [Parameter]
@@ -228,7 +228,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     private string RingStyle(Icon icon)
     {
-        var size = icon.Width;
+        var size = icon.Width - 4;
         var inverse = Appearance == AspNetCore.Components.Appearance.Accent ? " filter: invert(1);" : string.Empty;
 
         return $"width: {size}px; height: {size}px;{inverse}";

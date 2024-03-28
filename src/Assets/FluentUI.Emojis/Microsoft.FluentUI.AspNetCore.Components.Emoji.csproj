@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
@@ -11,6 +11,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <SignAssembly>false</SignAssembly>
 
 		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
 		<PackageTags>Emoji, Fluent UI, Blazor, .NET8</PackageTags>
@@ -18,6 +19,9 @@
 		<Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
 
 		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
 	</PropertyGroup>
@@ -29,6 +33,17 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
+
+  <ItemGroup>
+    <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.Emoji.dll">
+      <Authenticode>Microsoft400</Authenticode>
+      <StrongName>StrongName</StrongName>
+    </FilesToSign>
+  </ItemGroup>
 
 </Project>

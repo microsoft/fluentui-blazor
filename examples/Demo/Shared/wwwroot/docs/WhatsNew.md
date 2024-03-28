@@ -1,3 +1,82 @@
+## V4.6.0
+
+### Demo site, documentation and miscellaneous
+- [Demo & docs] Add InputFile 'known issues' section ([#1680](https://github.com/microsoft/fluentui-blazor/pull/1680))
+- [Demo & docs] Corrects spelling and grammar in templates page ([#1716](https://github.com/microsoft/fluentui-blazor/pull/1716))
+- [Demo & docs] Fix Wizard link in navigation menu ([#1660](https://github.com/microsoft/fluentui-blazor/pull/1660))
+- [Demo & docs] Minor corrections to CONTRIBUTING.md ([#1681](https://github.com/microsoft/fluentui-blazor/pull/1681))
+- [MarkdownSection] Fixes border not showing in Markdown tables ([#1721](https://github.com/microsoft/fluentui-blazor/pull/1721))
+- [MarkdownSection] Adds code highlighting ([#1737](https://github.com/microsoft/fluentui-blazor/pull/1737))
+- [MarkdownSection] Fixes and enhancements ([#1751](https://github.com/microsoft/fluentui-blazor/pull/1751))
+- [Misc] Add required .csproj settings for generating snupkg packages ([#1675](https://github.com/microsoft/fluentui-blazor/pull/1675))
+- [Misc] Add ToColorHex extension to Swatch ([#1691](https://github.com/microsoft/fluentui-blazor/pull/1691))
+
+### Components
+- [Accordion] Add expanded value to custom event handler ([#1689](https://github.com/microsoft/fluentui-blazor/pull/1689))
+- [AppBarItem] Add OnClick event callback ([#1698](https://github.com/microsoft/fluentui-blazor/pull/1698))
+- [Button] Avoid padding on loading spinner when no text is shown ([#1714](https://github.com/microsoft/fluentui-blazor/pull/1714))
+- [InputFile] Replace OnInitializedAsync with OnAfterRenderAsync ([#1661](https://github.com/microsoft/fluentui-blazor/pull/1661))
+- [KeyCode] Allow content to avoid using the Anchor property ([#1743](https://github.com/microsoft/fluentui-blazor/pull/1743))
+- **[KeyCodeProvider]** Add a global service to capture keystrokes ([#1740](https://github.com/microsoft/fluentui-blazor/pull/1740))
+- [MenuButton] Make the menu anchored to the button so can float ([#1676](https://github.com/microsoft/fluentui-blazor/pull/1676))
+- [Pagination] Add Disabled parameter ([#1713](https://github.com/microsoft/fluentui-blazor/pull/1713))
+- [Persona] Manage the empty Name ([#1710](https://github.com/microsoft/fluentui-blazor/pull/1710))
+- **[ProfileMenu]**  Add a new `FluentProfileMenu` ([#1705](https://github.com/microsoft/fluentui-blazor/pull/1705))
+- **[PullToRefresh]** Add a new `FluentPullToRefresh` ([#1679](https://github.com/microsoft/fluentui-blazor/pull/1679))
+- [Wizard] Add the ability to automatically validate an EditForm ([#1663](https://github.com/microsoft/fluentui-blazor/pull/1663))
+
+
+- Update Fluent UI System Icons to 1.1.233
+
+  **What's new (Name / Size(s) / Variant(s))**
+	- Classification / 32 / Filled & Regular
+	- Document Target / 20, 24, 32 / Filled & Regular
+	- Emoji Meme / 16, 20, 24 / Filled & Regular
+	- Hand Point / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Mail Read Briefcase / 48 / Filled & Regular
+	- People Subtract / 20, 24, 32 / Filled & Regular
+	- Person Alert Off / 16, 20, 24, 32 / Filled & Regular
+	- Shopping Bag Add / 16 / Filled & Regular
+	- Spatula Spoon / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Accessibility Error / 20, 24 / Filled & Regular
+	- Accessibility Question Mark / 20, 24 / Filled & Regular
+	- Arrow Down Exclamation / 24 / Filled & Regular
+	- Arrow Sort Up Lines / 16, 20, 24 / Filled & Regular
+	- Arrow Up Exclamation / 16, 20, 24 / Filled & Regular
+	- Bench / 20, 24 / Filled & Regular
+	- Building Lighthouse / 28 / Filled & Regular
+	- Clock Bill / 16, 20, 24, 32 / Filled & Regular
+	- Data Usage Settings / 16, 24 / Filled & Regular
+	- Data Usage / 16 / Filled & Regular
+	- Edit Person / 20, 24 / Filled & Regular
+	- Highway / 20, 24 / Filled & Regular
+	- Laptop Person / 20, 24, 48 / Filled & Regular
+	- Location Ripple / 16, 20, 24 / Filled & Regular
+	- Mail Arrow Double Back / 32 / Filled & Regular
+	- Mail Briefcase / 48 / Filled & Regular
+	- People Add / 32 / Filled & Regular
+	- Person Alert / 32 / Filled & Regular
+	- Road / 20, 24 / Filled & Regular
+	- Save / 32 / Filled & Regular
+	- Tab Desktop Multiple Sparkle / 16, 20, 24 / Filled & Regular
+	- Tab Desktop Multiple / 24 / Filled & Regular
+	- Vehicle Tractor / 20, 24 / Filled & Regular
+ 
+  **What's updated (Name / Size(s) / Variant(s))**
+	- Classification / 20, 24 / Filled & Regular
+	- Emoji Add / 20 / Filled & Regular
+	- Emoji Edit / 20 / Filled & Regular
+	- Emoji Sparkle / 20 / Filled & Regular
+	- Emoji / 20 / Filled & Regular
+	- Accessibility Checkmark / 24 / Filled & Regular
+	- Arrow Down Exclamation / 16, 20 / Filled & Regular
+	- Arrow Sort Down Lines / 16, 20, 24 / Filled & Regular
+	- Building Lighthouse / 48 / Filled & Regular
+	- Calendar Video / 20, 24, 28 / Filled & Regular
+	- Options / 16, 28, 32 / Filled & Regular
+	- Person Alert / 16, 20, 24 / Filled & Regular
+	- Tab Desktop Multiple Bottom / 24 / Filled 
+
 ## V4.5.0
 From now on we will just list the PRs that have been merged. The related issues can be found by looking at the PR details on GitHub.
 

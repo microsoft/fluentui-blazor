@@ -109,7 +109,7 @@ public class MessageService : IMessageService, IDisposable
     /// </summary>
     /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
-    /// <param name="section">Section to show the messagebar in </param>
+    /// <param name="section">Section to show the message bar in </param>
     /// <returns></returns>
     public Message ShowMessageBar(string title, MessageIntent intent, string section)
     {
@@ -184,7 +184,7 @@ public class MessageService : IMessageService, IDisposable
     /// </summary>
     /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
-    /// <param name="section">Section to show the messagebar in </param>
+    /// <param name="section">Section to show the message bar in </param>
     /// <returns></returns>
     public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section)
     {

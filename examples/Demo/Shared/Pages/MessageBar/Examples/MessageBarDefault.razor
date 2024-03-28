@@ -2,11 +2,10 @@
 @inject IDialogService DialogService
 @using FluentUI.Demo.Shared.Pages.Dialog.Examples;
 
-
-
 <FluentButton OnClick="@AddInTopBar" Appearance="Appearance.Accent">Add on top</FluentButton>
 <FluentButton OnClick="@AddInNotificationCenter" Appearance="Appearance.Accent">Add in Notification Center</FluentButton>
 <FluentButton OnClick="@AddInDialog" Appearance="Appearance.Accent">Add in a dialog</FluentButton>
+<FluentButton OnClick="@AddNonDismissibleMessage" Appearance="Appearance.Accent">Add non-dismissible on top</FluentButton>
 
 <FluentButton Appearance="Appearance.Neutral" OnClick="@((e) => MessageService.Clear())">Clear all alerts</FluentButton>
 
@@ -28,11 +27,11 @@
 
     int counter = 0;
 
-    void AddInTopBar()
+    async Task AddInTopBar()
     {
         var message = $"Simple message #{counter++}";
         var type = Enum.GetValues<MessageIntent>()[counter % 4];
-        MessageService.ShowMessageBarAsync(message, type, App.MESSAGES_TOP);
+        await MessageService.ShowMessageBarAsync(message, type, App.MESSAGES_TOP);
     }
 
     void AddInNotificationCenter()
@@ -81,5 +80,18 @@
 
         IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog>(simplePerson, parameters);
         DialogResult? result = await dialog.Result;
+    }
+
+    private async Task AddNonDismissibleMessage()
+    {
+        var message = $"Simple non-dismissible message #{counter++}";
+        var type = Enum.GetValues<MessageIntent>()[counter % 4];
+        await MessageService.ShowMessageBarAsync(options =>
+        {
+            options.Title = message;
+            options.Intent = type;
+            options.Section = App.MESSAGES_TOP;
+            options.AllowDismiss = false;
+        });
     }
 }

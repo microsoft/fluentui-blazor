@@ -352,6 +352,11 @@ public class DemoNavProvider
                         title: "Icon"
                     ),
                     new NavLink(
+                        href: "/KeyCode",
+                        icon: new Icons.Regular.Size20.Keyboard(),
+                        title: "KeyCode"
+                    ),
+                    new NavLink(
                         href: "/Label",
                         icon: new Icons.Regular.Size20.DoorTag(),
                         title: "Label"
@@ -446,6 +451,11 @@ public class DemoNavProvider
                         title: "Popover"
                     ),
                     new NavLink(
+                        href: "/ProfileMenu",
+                        icon: new Icons.Regular.Size20.PeopleList(),
+                        title: "ProfileMenu"
+                    ),
+                    new NavLink(
                         href: "/Progress",
                         icon: new Icons.Regular.Size20.SquareHint(),
                         title: "Progress"
@@ -454,6 +464,11 @@ public class DemoNavProvider
                         href: "/ProgressRing",
                         icon: new Icons.Regular.Size20.ArrowClockwiseDashes(),
                         title: "Progress Ring"
+                    ),
+                    new NavLink(
+                        href: "/PullToRefresh",
+                        icon: new Icons.Regular.Size20.ArrowClockwise(),
+                        title: "Pull to refresh"
                     ),
                     new NavLink(
                         href: "/Skeleton",
@@ -532,12 +547,6 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.SplitHorizontal(),
                         title: "Multi Splitter"
                     ),
-
-                    new NavLink(
-                        href: "/KeyCode",
-                        icon: new Icons.Regular.Size20.Keyboard(),
-                        title: "KeyCode"
-                    )
                 ]
             )
         ];

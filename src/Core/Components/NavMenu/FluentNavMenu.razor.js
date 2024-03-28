@@ -1,28 +1,25 @@
 export function onLoad() {
-    if (!isRunningInWASM()) {
-        const mql = window.matchMedia("(max-width: 600px)");
+    const mql = window.matchMedia("(max-width: 600px)");
 
-        for (let expander of document.getElementsByClassName("expander")) {
-            if (expander) {
-                const origStyle = expander.parentElement.style.cssText;
-                expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev));
-                expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
+    for (let expander of document.getElementsByClassName("expander")) {
+        if (expander) {
+            const origStyle = expander.parentElement.style.cssText;
+            expander.addEventListener('click', (ev) => toggleMenuExpandedAsync(expander, origStyle, ev));
+            expander.addEventListener('keydown', (ev) => handleMenuExpanderKeyDownAsync(expander, origStyle, ev));
 
-                mql.onchange = (e) => {
-                    if (e.matches) {
-                        setMenuExpanded(expander, origStyle, true)
-                    }
-                };
-            }
-        }
-        for (let element of document.getElementsByClassName("fluent-nav-group")) {
-            attachEventHandlers(element);
+            mql.onchange = (e) => {
+                if (e.matches) {
+                    setMenuExpanded(expander, origStyle, true)
+                }
+            };
         }
     }
+    for (let element of document.getElementsByClassName("fluent-nav-group")) {
+        attachEventHandlers(element);
+    }
 }
-
 export function onUpdate() {
-
+    
 }
 
 export function onDispose() {
@@ -35,10 +32,6 @@ export function onDispose() {
     for (let element of document.getElementsByClassName("fluent-nav-group")) {
         detachEventHandlers(element);
     }
-}
-
-function isRunningInWASM() {
-    return Object.getOwnPropertyNames(Blazor.runtime).length > 0;
 }
 
 function attachEventHandlers(element) {
@@ -73,6 +66,7 @@ function detachEventHandlers(element) {
 }
 
 function toggleMenuExpandedAsync(element, orig, event) {
+
     let parent = element.parentElement;
     if (!parent.classList.contains('collapsed')) {
         parent.classList.add('collapsed');

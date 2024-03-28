@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 <CascadingValue Value="this">
@@ -19,7 +19,9 @@
             @foreach (var step in _steps.Where(i => i.Index == Value || !i.DeferredLoading))
             {
                 <div style="@(step.Index == Value ? "" : "display: none;")">
-                    @(step.ChildContent)
+                    <CascadingValue Value="step">
+                        @(step.ChildContent)
+                    </CascadingValue>
                 </div>
             }
         </div>

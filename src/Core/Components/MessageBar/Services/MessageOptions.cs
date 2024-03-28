@@ -65,4 +65,9 @@ public class MessageOptions
     /// Gets or sets the timeout in milliseconds after which the message bar is removed. Default is null.
     /// </summary>
     public int? Timeout { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the message bar can be dismissed.
+    /// </summary>
+    public bool AllowDismiss { get; set; } = true;
 }

@@ -186,9 +186,9 @@ public partial class FluentInputFile : FluentComponentBase
     }
 
     /// <summary />
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!string.IsNullOrEmpty(AnchorId))
+        if (firstRender && !string.IsNullOrEmpty(AnchorId))
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
 
