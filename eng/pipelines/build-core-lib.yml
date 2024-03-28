@@ -103,7 +103,7 @@ extends:
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
-            artifactName: build-core-artifacts
+            artifactName: PackageArtifacts
 
         steps:
         # Compute AssemblyVersion and PackageVersion

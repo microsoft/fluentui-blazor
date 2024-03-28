@@ -1,8 +1,8 @@
 # Build all projects.
 
 # Build only manually
-pr: none         # Disable pull request triggers.
 trigger: none    # Disable dev and main branches.
+pr: none         # Disable pull request triggers.
 
 # Build.BuildNumber (see versioning.yml)
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
@@ -72,7 +72,7 @@ extends:
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
-            artifactName: build-core-artifacts
+            artifactName: PackageArtifacts
 
         steps:
         # Compute AssemblyVersion and PackageVersion
