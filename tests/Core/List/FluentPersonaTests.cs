@@ -29,6 +29,24 @@ public class FluentPersonaTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentPersona_Image_Position_Right()
+    {
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Name, "Denis Voituron");
+            parameters.Add(p => p.Image, $"data:image/png;base64, {SamplePicture}");
+            parameters.Add(p => p.ImageSize, "32px");
+            parameters.Add(p => p.ImagePosition, PersonaImagePosition.Right);
+            parameters.Add(p => p.DismissTitle, "Remove this people");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData("OneSpace", "Denis Voituron")]
     [InlineData("MultipleSpaces", "Denis   Voituron")]

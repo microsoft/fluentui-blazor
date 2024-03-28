@@ -4665,6 +4665,11 @@
             Gets or sets the size of the image.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.ImagePosition">
+            <summary>
+            Gets or sets the position of the image.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.Status">
             <summary>
             Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
@@ -12498,6 +12503,21 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical">
             <summary>
             The component is oriented vertically.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.PersonaImagePosition">
+            <summary>
+            Describes the position at which a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPersona"/> image is shown.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PersonaImagePosition.Left">
+            <summary>
+            The tooltip is positioned to the left of the anchor element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.PersonaImagePosition.Right">
+            <summary>
+            The tooltip is positioned to the right of the anchor element.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.PresenceBadgeSize">
