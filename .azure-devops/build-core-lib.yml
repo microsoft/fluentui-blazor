@@ -21,7 +21,7 @@ variables:
   - template: common/versioning.yml@self  # Versions
 
   - name: SignType
-    value: 'test'
+    value: 'real'
 
 # The `resources` specify the location and version of the 1ES PT.
 resources:
