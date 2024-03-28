@@ -5,6 +5,9 @@
 - [Demo & docs] Corrects spelling and grammar in templates page ([#1716](https://github.com/microsoft/fluentui-blazor/pull/1716))
 - [Demo & docs] Fix Wizard link in navigation menu ([#1660](https://github.com/microsoft/fluentui-blazor/pull/1660))
 - [Demo & docs] Minor corrections to CONTRIBUTING.md ([#1681](https://github.com/microsoft/fluentui-blazor/pull/1681))
+- [MarkdownSection] Fixes border not showing in Markdown tables ([#1721](https://github.com/microsoft/fluentui-blazor/pull/1721))
+- [MarkdownSection] Adds code highlighting ([#1737](https://github.com/microsoft/fluentui-blazor/pull/1737))
+- [MarkdownSection] Fixes and enhancements ([#1751](https://github.com/microsoft/fluentui-blazor/pull/1751))
 - [Misc] Add required .csproj settings for generating snupkg packages ([#1675](https://github.com/microsoft/fluentui-blazor/pull/1675))
 - [Misc] Add ToColorHex extension to Swatch ([#1691](https://github.com/microsoft/fluentui-blazor/pull/1691))
 
@@ -13,12 +16,15 @@
 - [AppBarItem] Add OnClick event callback ([#1698](https://github.com/microsoft/fluentui-blazor/pull/1698))
 - [Button] Avoid padding on loading spinner when no text is shown ([#1714](https://github.com/microsoft/fluentui-blazor/pull/1714))
 - [InputFile] Replace OnInitializedAsync with OnAfterRenderAsync ([#1661](https://github.com/microsoft/fluentui-blazor/pull/1661))
+- [KeyCode] Allow content to avoid using the Anchor property ([#1743](https://github.com/microsoft/fluentui-blazor/pull/1743))
+- **[KeyCodeProvider]** Add a global service to capture keystrokes ([#1740](https://github.com/microsoft/fluentui-blazor/pull/1740))
 - [MenuButton] Make the menu anchored to the button so can float ([#1676](https://github.com/microsoft/fluentui-blazor/pull/1676))
 - [Pagination] Add Disabled parameter ([#1713](https://github.com/microsoft/fluentui-blazor/pull/1713))
 - [Persona] Manage the empty Name ([#1710](https://github.com/microsoft/fluentui-blazor/pull/1710))
-- [ProfileMenu] New component `FluentProfileMenu` ([#1705](https://github.com/microsoft/fluentui-blazor/pull/1705))
-- [PullToRefresh] New component `FluentPullToRefresh` ([#1679](https://github.com/microsoft/fluentui-blazor/pull/1679))
+- **[ProfileMenu]**  Add a new `FluentProfileMenu` ([#1705](https://github.com/microsoft/fluentui-blazor/pull/1705))
+- **[PullToRefresh]** Add a new `FluentPullToRefresh` ([#1679](https://github.com/microsoft/fluentui-blazor/pull/1679))
 - [Wizard] Add the ability to automatically validate an EditForm ([#1663](https://github.com/microsoft/fluentui-blazor/pull/1663))
+
 
 - Update Fluent UI System Icons to 1.1.233
 

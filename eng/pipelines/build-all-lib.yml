@@ -1,11 +1,8 @@
-# Build all projects.
+# Build all projects (manual).
+name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
-# Build only manually
 trigger: none    # Disable dev and main branches.
 pr: none         # Disable pull request triggers.
-
-# Build.BuildNumber (see versioning.yml)
-name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 parameters:
   - name: Projects  	    # List of projects to build
