@@ -41,8 +41,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

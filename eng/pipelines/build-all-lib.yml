@@ -1,27 +1,31 @@
-# Build and test Core project.
-name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+# Build all projects.
 
-pr:
-  - main
-  - dev
-trigger:
-  - main
-  - dev
+# Build only manually
+pr: none         # Disable pull request triggers.
+trigger: none    # Disable dev and main branches.
+
+# Build.BuildNumber (see versioning.yml)
+name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 parameters:
   - name: Projects  	    # List of projects to build
     type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.csproj'
+    default: |
+      **/Microsoft.FluentUI.AspNetCore.Components.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj
+      **/Microsoft.FluentUI.AspNetCore.Templates.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
     type: string
     default: '**/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
 
 variables:
-  - template: common/version.yml@self
+  - template: /eng/pipelines/version.yml@self
 
   - name: SignType
-    value: test
+    value: real
 
   - name: TeamName
     value: fluentui-blazor
@@ -45,16 +49,19 @@ extends:
   parameters:
     # Update the pool with your team's 1ES hosted pool.
     pool:
-      name: NetCore1ESPool-Internal  # Name of your hosted pool
-      image: 1es-windows-2022  # Name of the image in your pool. If not specified, first image of the pool is used
-      os: windows  # OS of the image. This value cannot be a variable. Allowed values: windows, linux, macOS
+      name: NetCore1ESPool-Internal
+      image: windows.vs2022preview.amd64
+      os: windows
 
     stages:
-    - stage: Stage
+
+    # ----------------------------------------------------------------
+    # This stage performs build, test, packaging
+    # ----------------------------------------------------------------
+    - stage: build
+      displayName: Build
       jobs:
-      - job: HostJob
-        # If the pipeline publishes artifacts, use `templateContext` to define the artifacts.
-        # This will enable 1ES PT to run SDL analysis tools on the artifacts and then upload them.
+      - job: BuildTestPackJob
         templateContext:
           mb:
             signing:
@@ -62,8 +69,6 @@ extends:
               signType: $(SignType)
               zipSources: false
               feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
-              env:
-                TeamName: 'fluentui-blazor'
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
@@ -71,7 +76,7 @@ extends:
 
         steps:
         # Compute AssemblyVersion and PackageVersion
-        # -> Update Versioning.yml
+        # -> Update version.yml
         - powershell: |
 
             # Example with FileVersion: "1.2.4" and PackageSuffix: "RC.1"
@@ -148,7 +153,6 @@ extends:
             }
 
             # Set the output variable for use in other tasks.
-            Write-Host "##vso[task.setvariable variable=BranchName]${branch}"
             Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
             Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
             Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
@@ -161,7 +165,6 @@ extends:
             echo 🔸 Build.BuildNumber      = $(Build.BuildNumber)
             echo 🔸 Build.SourceBranch     = $(Build.SourceBranch)
             echo -----------------------------------------------
-            echo 🔸 BranchName             = $(BranchName)
             echo 🔸 AssemblyVersion        = $(AssemblyVersion)
             echo 🔸 PackageVersion         = $(PackageVersion)
             echo -----------------------------------------------
@@ -172,7 +175,7 @@ extends:
         - task: NuGetToolInstaller@1
           displayName: Install NuGet tools
 
-        - ${{ if eq(variables['BranchName'], 'archive') }}:
+        - ${{ if eq(variables['Build.SourceBranchName'], 'v3') }}:
           # Install .NET 6.0
           - task: UseDotNet@2
             displayName: Install .NET 6.0
@@ -205,7 +208,7 @@ extends:
           displayName: 'Versioning $(Build.BuildNumber)'
           inputs:
             targetType: 'filePath'
-            filePath: $(System.DefaultWorkingDirectory)/.azure-devops/common/update-assembly-version.ps1
+            filePath: /eng/pipelines/update-assembly-version.ps1
             arguments: > # Use this to avoid newline characters in multiline string
               -sourcePath "$(System.DefaultWorkingDirectory)/"
               -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
