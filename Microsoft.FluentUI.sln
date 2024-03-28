@@ -3,19 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{805140F8-CC9F-4C32-BB72-3D67D13BEBA7}"
-	ProjectSection(SolutionItems) = preProject
-		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		CONTRIBUTING.md = CONTRIBUTING.md
-		LICENSE = LICENSE
-		README.md = README.md
-		SECURITY.md = SECURITY.md
-		unit-tests.md = unit-tests.md
-		WHATSNEW.md = WHATSNEW.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{558E0FEA-094D-4AA4-994A-8ED67ABEDED4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{141FEF3E-C665-4D50-8E51-B9507C98040E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{9468ADD1-3660-410D-8231-6F89384D135D}"
