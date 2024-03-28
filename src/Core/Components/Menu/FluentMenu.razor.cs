@@ -63,10 +63,29 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the menu position (left or right).
+    /// Gets or sets the horizontal menu position.
     /// </summary>
     [Parameter]
     public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+    /// Default is false which places the region adjacent to the anchor element.
+    /// </summary>
+    [Parameter]
+    public bool HorizontalInset { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the vertical menu position.
+    /// </summary>
+    [Parameter]
+    public VerticalPosition VerticalPosition { get; set; } = VerticalPosition.Bottom;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
+    /// </summary>
+    [Parameter]
+    public bool VerticalInset { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the width of this menu.

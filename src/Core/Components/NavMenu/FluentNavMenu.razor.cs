@@ -46,6 +46,9 @@ public partial class FluentNavMenu : FluentComponentBase
     [Parameter]
     public bool Collapsible { get; set; }
 
+    [Parameter]
+    public bool CollapsedHierarchy { get; set; } = false;
+
     /// <inheritdoc/>
     [Parameter]
     public bool Expanded { get; set; } = true;
