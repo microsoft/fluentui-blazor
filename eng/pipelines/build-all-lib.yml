@@ -9,17 +9,15 @@ name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
 
 parameters:
   - name: Projects  	    # List of projects to build
-    type: string
     default: |
-      **/Microsoft.FluentUI.AspNetCore.Components.csproj;
-      **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj;
-      **/Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj;
-      **/Microsoft.FluentUI.AspNetCore.Templates.csproj;
+      **/Microsoft.FluentUI.AspNetCore.Components.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj
+      **/Microsoft.FluentUI.AspNetCore.Templates.csproj
       **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
-    type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
+    default: **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
