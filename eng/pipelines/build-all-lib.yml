@@ -27,6 +27,9 @@ variables:
   - name: SignType
     value: real
 
+  - name: TeamName
+    value: fluentui-blazor
+
 # The `resources` specify the location and version of the 1ES PT.
 resources:
   repositories:
@@ -66,8 +69,6 @@ extends:
               signType: $(SignType)
               zipSources: false
               feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
-              env:
-                TeamName: 'fluentui-blazor'
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
