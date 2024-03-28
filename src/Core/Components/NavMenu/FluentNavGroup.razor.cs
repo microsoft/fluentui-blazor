@@ -129,8 +129,14 @@ public partial class FluentNavGroup : FluentNavBase
 
         if (!Owner.Expanded)
         {
-            //await Owner.ExpandedChanged.InvokeAsync(true);
-            _open = !_open;
+            if (Owner.CollapsedHierarchy)
+            {
+                _open = !_open;
+            }
+            else
+            {
+                await Owner.ExpandedChanged.InvokeAsync(true);
+            }
         }
         else
         {

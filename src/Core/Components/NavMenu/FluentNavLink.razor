@@ -2,8 +2,9 @@
 @inherits FluentNavBase
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
+@inject NavigationManager NavigationManager
 
-@if (OwnerMenu == null)
+@if (!Owner.CollapsedHierarchy || OwnerMenu == null)
 {
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
         @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
@@ -34,12 +35,20 @@
 }
 else
 {
-    <FluentMenuItem>
-        @ChildContent
-        <span slot="start" >
-            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
-        </span>
-    </FluentMenuItem>
+    <div>
+        <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
+            <NavLink class="@LinkClassValue"
+                     @attributes="@Attributes"
+                     Match="@Match"
+                     ActiveClass="@ActiveClass"
+                     title="@Tooltip">
+                @ChildContent
+            </NavLink>
+            <span slot="start" >
+                <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
+            </span>
+        </FluentMenuItem>
+    </div>
 }
 
 @code {
@@ -56,7 +65,5 @@ else
         <div class="fluent-nav-text">
             @ChildContent
         </div>
-
-
     }
 }

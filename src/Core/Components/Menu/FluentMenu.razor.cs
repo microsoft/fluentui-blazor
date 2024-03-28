@@ -63,7 +63,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the menu position (left or right).
+    /// Gets or sets the horizontal menu position.
     /// </summary>
     [Parameter]
     public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;

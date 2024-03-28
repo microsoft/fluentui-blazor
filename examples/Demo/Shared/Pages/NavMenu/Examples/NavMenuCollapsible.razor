@@ -2,21 +2,26 @@
 
 <FluentStack Orientation="Orientation.Horizontal" Width="100%">
     <div>
-        <FluentNavMenu @bind-Expanded="@Expanded" Width="250" Collapsible="true" Title="Collapsible demo">
+        <FluentNavMenu @bind-Expanded="@Expanded" Width="250" Collapsible="true" CollapsedHierarchy="@EnableCollapsedHierarchy" Title="Collapsible demo">
             <FluentNavLink Icon="@(new Icons.Regular.Size24.Home())" Tooltip="Item 1 tooltip">Item 1</FluentNavLink>
-            <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())" Tooltip="Item 2 tooltip">Item 2</FluentNavLink>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())" Disabled="true" Tooltip="Item 2 tooltip">Item 2</FluentNavLink>
             <FluentNavGroup Title="Item 3" Tooltip="Item 3 tooltip" Icon="@(new Icons.Regular.Size24.EarthLeaf())" >
                 <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())" Tooltip="Item 3.1 tooltip">Item 3.1</FluentNavLink>
-                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Tooltip="Item 3.2 tooltip">Item 3.2</FluentNavLink>
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Disabled="true" Tooltip="Item 3.2 tooltip">Item 3.2</FluentNavLink>
                 <FluentNavGroup Title="Item 3.3" Tooltip="Item 3.3 tooltip" Icon="@(new Icons.Regular.Size24.LeafThree())">
-                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Tooltip="Item 3.3.1 tooltip">Item 3.3.1</FluentNavLink>
+                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Href="https://microsoft.com" Tooltip="Item 3.3.1 tooltip">https://microsoft.com</FluentNavLink>
                 </FluentNavGroup>
-            </FluentNavGroup> 
-            <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="true" Href="https://microsoft.com" Tooltip="Item 4 tooltip1">Item 4</FluentNavLink>
+                <FluentNavGroup Title="Item 3.4" Tooltip="Item 3.4 tooltip" Icon="@(new Icons.Regular.Size24.TreeDeciduous())" Disabled="true">
+                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Href="https://microsoft.com" Tooltip="Item 3.4.1 tooltip">https://microsoft.com</FluentNavLink>
+                </FluentNavGroup>
+            </FluentNavGroup>
+            <FluentNavLink Tooltip="Item 4 tooltip">Item 4</FluentNavLink>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="true" Href="https://microsoft.com" Tooltip="Item 5 tooltip">Item 5</FluentNavLink>
         </FluentNavMenu>
     </div>
     <div style="width: 100%;">
-        
+        <FluentSwitch @bind-Value="EnableCollapsedHierarchy" CheckedMessage="Disable collapsed menus" UncheckedMessage="Enable collapsed menus"></FluentSwitch>
+        <div>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
             Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
             Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
@@ -26,11 +31,12 @@
             Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
             Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
             Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        
+        </div>
     </div>
 </FluentStack>
 
 @code
 {
     bool Expanded = true;
+    bool EnableCollapsedHierarchy = true;
 }
