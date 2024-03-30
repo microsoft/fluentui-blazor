@@ -62,11 +62,4 @@
     
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="List\FluentPersonaTests.FluentPersona_Image_Position_Right.verified.html">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
-    </None>
-  </ItemGroup>
-
 </Project>
