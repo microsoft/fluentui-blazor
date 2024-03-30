@@ -1,4 +1,4 @@
-﻿/* Wizard with steps */
+/* Wizard with steps */
 .fluent-wizard > ol > li {
     position: relative;
     display: flex;
@@ -47,11 +47,18 @@
         content: "";
         position: absolute;
         left: calc(50% + calc(var(--fluent-wizard-circle-size) / 2 + var(--fluent-wizard-spacing)));
+        right: unset;
         top: calc(var(--fluent-wizard-circle-size) / 2);
         width: calc(100% - var(--fluent-wizard-circle-size) - calc(var(--fluent-wizard-spacing) * 2));
         height: 2px;
         order: -1;
         background-color: var(--neutral-stroke-hover);
+    }
+
+
+    [dir="rtl"] .fluent-wizard[position="top"] > ol > li:not(:last-child):after {
+        left: unset;
+        right: calc(50% + calc(var(--fluent-wizard-circle-size) / 2 + var(--fluent-wizard-spacing)));
     }
 
 /* Icon */
