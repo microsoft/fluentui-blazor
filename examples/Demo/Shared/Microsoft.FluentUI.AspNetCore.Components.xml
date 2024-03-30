@@ -12773,11 +12773,6 @@
             The text is positioned before avatar/presence.
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextPosition.Below">
-            <summary>
-            The text is positioned below avatar/presence.
-            </summary>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ToastIntent">
             <summary />
         </member>

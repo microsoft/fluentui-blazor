@@ -13,10 +13,5 @@ public enum TextPosition
     /// <summary>
     /// The text is positioned before avatar/presence.
     /// </summary>
-    Start,
-
-    /// <summary>
-    /// The text is positioned below avatar/presence.
-    /// </summary>
-    Below,
+    Start
 }
