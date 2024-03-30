@@ -50,6 +50,13 @@ public partial class FluentPersona : FluentComponentBase
     public string? ImageSize { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="Microsoft.FluentUI.AspNetCore.Components.TextPosition"/> of the text.
+    /// Default is End.
+    /// </summary>
+    [Parameter]
+    public TextPosition TextPosition { get; set; }
+
+    /// <summary>
     /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]
