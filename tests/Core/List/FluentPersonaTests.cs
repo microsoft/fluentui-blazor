@@ -30,7 +30,7 @@ public class FluentPersonaTests : TestBase
     }
 
     [Fact]
-    public void FluentPersona_Image_Position_Right()
+    public void FluentPersona_Text_Position_Start()
     {
         // Arrange
         var cut = TestContext.RenderComponent<FluentPersona>(parameters =>
@@ -39,7 +39,7 @@ public class FluentPersonaTests : TestBase
             parameters.Add(p => p.Name, "Denis Voituron");
             parameters.Add(p => p.Image, $"data:image/png;base64, {SamplePicture}");
             parameters.Add(p => p.ImageSize, "32px");
-            parameters.Add(p => p.ImagePosition, PersonaImagePosition.Right);
+            parameters.Add(p => p.TextPosition, TextPosition.Start);
             parameters.Add(p => p.DismissTitle, "Remove this people");
         });
 

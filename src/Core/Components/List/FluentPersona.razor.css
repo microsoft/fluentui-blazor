@@ -19,6 +19,10 @@
         aspect-ratio: 1/1;
     }
 
+    .fluent-persona[position='start'] .initials {
+        order: 3;
+    }
+
         .fluent-persona .initials img {
             border-radius: 50%;
             aspect-ratio: 1 / 1;
@@ -32,10 +36,11 @@
         margin-inline-start: 16px;
     }
 
-        .fluent-persona .name.image-position-right {
-            margin-inline-start: 0px;
-            margin-inline-end: 16px;
-        }
+    .fluent-persona[position='start'] .name {
+        order: 1;
+        margin-inline-start: 0px;
+        margin-inline-end: 16px;
+    } 
 
     .fluent-persona .close {
         display: flex;
@@ -43,4 +48,8 @@
         align-items: center;
         justify-content: center;
         margin: 0px 4px;
+    }
+
+    .fluent-persona[position='start'] .close {
+        order: 2;
     }
