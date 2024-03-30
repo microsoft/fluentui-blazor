@@ -4665,6 +4665,12 @@
             Gets or sets the size of the image.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.TextPosition">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TextPosition"/> of the text.
+            Default is End.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.Status">
             <summary>
             Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
@@ -12750,6 +12756,21 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Url">
             <summary>
             A text field that is used for URL input.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TextPosition">
+            <summary>
+            The position of the text relative to the avatar/presence in <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPersona"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextPosition.End">
+            <summary>
+            The text is positioned after avatar/presence.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextPosition.Start">
+            <summary>
+            The text is positioned before avatar/presence.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ToastIntent">
