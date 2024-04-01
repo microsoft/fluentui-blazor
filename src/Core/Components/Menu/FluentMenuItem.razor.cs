@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
