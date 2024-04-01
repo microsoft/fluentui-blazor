@@ -1108,6 +1108,12 @@
             Gets or sets a value indicating whether this column should be sorted by default.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.AllowRawHtml">
+            <summary>
+            Gets or sets a value indicating whether this column allows to display raw HTML.
+            (only valid for PropertyColumn)
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.PlaceholderTemplate">
             <summary>
             If specified, virtualized grids will use this template to render cells whose data has not yet been loaded.
@@ -1124,6 +1130,14 @@
             </summary>
             <param name="builder">The current <see cref="T:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder" />.</param>
             <param name="item">The data for the row being rendered.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0,System.Boolean)">
+            <summary>
+            Overridden by derived components to provide rendering logic for the column's cells.
+            </summary>
+            <param name="builder">The current <see cref="T:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder" />.</param>
+            <param name="item">The data for the row being rendered.</param>
+            <param name="allowRawHtml"></param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.RawCellContent(`0)">
             <summary>
@@ -1264,6 +1278,9 @@
             <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0,System.Boolean)">
             <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.IsSortableByDefault">

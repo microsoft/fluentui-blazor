@@ -95,6 +95,12 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets a value indicating whether this column allows to display raw HTML.
+    /// (only valid for PropertyColumn)
+    /// </summary>
+    [Parameter] public bool AllowRawHtml { get; set; } = false;
+
+    /// <summary>
     /// If specified, virtualized grids will use this template to render cells whose data has not yet been loaded.
     /// </summary>
     [Parameter] public RenderFragment<PlaceholderContext>? PlaceholderTemplate { get; set; }
@@ -110,6 +116,14 @@ public abstract partial class ColumnBase<TGridItem>
     /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
     /// <param name="item">The data for the row being rendered.</param>
     protected internal abstract void CellContent(RenderTreeBuilder builder, TGridItem item);
+
+    /// <summary>
+    /// Overridden by derived components to provide rendering logic for the column's cells.
+    /// </summary>
+    /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
+    /// <param name="item">The data for the row being rendered.</param>
+    /// <param name="allowRawHtml"></param>
+    protected internal abstract void CellContent(RenderTreeBuilder builder, TGridItem item, bool allowRawHtml);
 
     /// <summary>
     /// Overridden by derived components to provide the raw content for the column's cells.

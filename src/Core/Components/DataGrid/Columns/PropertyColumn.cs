@@ -99,7 +99,10 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
-        => builder.AddContent(0, _cellTextFunc?.Invoke(item));
+    => CellContent(builder, item, false);
+
+    protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item, bool allowRawHtml)
+    => builder.AddContent(0, new MarkupString(_cellTextFunc?.Invoke(item) ?? string.Empty));
 
     protected internal override string? RawCellContent(TGridItem item)
         => _cellTooltipTextFunc?.Invoke(item);

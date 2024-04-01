@@ -23,6 +23,10 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
 
+    /// <inheritdoc />
+    protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item, bool allowRawHtml)
+        => CellContent(builder, item);
+
     protected internal override string? RawCellContent(TGridItem item)
     {
         return TooltipText?.Invoke(item);
