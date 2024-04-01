@@ -44,7 +44,7 @@ footer {
 
     footer .link1 {
         grid-column: 2;
-        justify-content: start;
+        justify-self: start;
     }
 
     footer .link2 {
