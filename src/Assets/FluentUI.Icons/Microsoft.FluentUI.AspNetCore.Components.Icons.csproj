@@ -11,11 +11,12 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <SignAssembly>false</SignAssembly>
 
-		<Summary>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Summary>
+		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Summary>
 		<PackageTags>Icons, Fluent UI, Blazor, .NET8</PackageTags>
-		<Title>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Title>
-		<Description>A set of icons wrapping Microsoft’s official Fluent UI Icon library.</Description>
+		<Title>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Title>
+		<Description>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 

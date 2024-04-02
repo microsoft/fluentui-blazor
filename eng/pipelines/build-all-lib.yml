@@ -1,15 +1,11 @@
-# Build all projects.
-
-# Build only manually
-pr: none         # Disable pull request triggers.
-trigger: none    # Disable dev and main branches.
-
-# Build.BuildNumber (see versioning.yml)
+# Build all projects (manual).
 name: $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
+
+trigger: none    # Disable dev and main branches.
+pr: none         # Disable pull request triggers.
 
 parameters:
   - name: Projects  	    # List of projects to build
-    type: string
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
       **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj
@@ -18,8 +14,8 @@ parameters:
       **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
-    type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
+    default: |
+      **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -50,7 +46,8 @@ extends:
     # Update the pool with your team's 1ES hosted pool.
     pool:
       name: NetCore1ESPool-Internal
-      image: windows.vs2022preview.amd64
+      #image: windows.vs2022preview.amd64
+      image: 1es-windows-2022
       os: windows
 
     stages:
@@ -72,7 +69,7 @@ extends:
           outputs:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
-            artifactName: build-core-artifacts
+            artifactName: PackageArtifacts
 
         steps:
         # Compute AssemblyVersion and PackageVersion

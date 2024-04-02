@@ -13,7 +13,7 @@
 		<PackageTags>Fluent UI, Blazor, DataGrid, .NET8</PackageTags>
 		<Title>Microsoft Fluent UI DataGrid adapter for Entity Framework</Title>
 		<Description>An adapter for using the Fluent UI Blazor DataGrid with Entity Framework.</Description>
-		<SignAssembly>true</SignAssembly>
+		<SignAssembly>false</SignAssembly>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
     <DebugType>embedded</DebugType>
