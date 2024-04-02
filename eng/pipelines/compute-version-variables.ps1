@@ -9,7 +9,7 @@
 .PARAMETER buildNumber
     The name of the completed build, also known as the run number.
     This value is formatted like "[Major].[Minor].[Revision].[Year:00].[DayOfYear].[BuildRevision]" (e.g. "4.6.1.24123.3")
-    Please, use $((Build.BuildNumber)
+    Please, use $(Build.BuildNumber)
 
 .PARAMETER packageSuffix
     Suffix to add to the computed version. Example "Preview", "RC.1", ...
@@ -22,6 +22,20 @@
 
 .EXAMPLE
     $> .\compute-version-variables -branchName "dev" -buildNumber "4.6.1.24123.3" -packageSuffix "Preview"
+
+.EXAMPLE
+    # Compute AssemblyVersion and PackageVersion
+    # -> Update version.yml
+    - task: PowerShell@2
+      displayName: 'Compute AssemblyVersion and PackageVersion'
+      inputs:
+          targetType: 'filePath'
+          filePath: $(System.DefaultWorkingDirectory)/eng/pipelines/compute-version-variables.ps1
+          arguments: > # Use this to avoid newline characters in multiline string
+          -branchName "$(Build.SourceBranchName)"
+          -buildNumber "$(Build.BuildNumber)"
+          -packageSuffix "$(PackageSuffix)"
+          -testProjects "${{ parameters.Tests }}"
 
 #>
 
