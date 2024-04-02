@@ -42,16 +42,6 @@ footer {
     padding: 10px 10px;
 }
 
-    footer .link1 {
-        grid-column: 2;
-        justify-self: start;
-    }
-
-    footer .link2 {
-        grid-column: 3;
-        justify-self: end;
-    }
-
     footer a {
         color: var(--neutral-foreground-rest);
         text-decoration: none;
