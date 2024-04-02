@@ -1,8 +1,7 @@
-﻿.footer {
-    display: grid;
+.footer {
+    display: flex;
     z-index: 10;
-    flex-direction: column;
-    position: relative;
+    flex-direction: row;
     font-family: var(--body-font);
     font-weight: normal;
     font-size: var(--type-ramp-minus-1-font-size);
