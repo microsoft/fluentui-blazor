@@ -1,6 +1,6 @@
 <#
 .DESCRIPTION
-    XXX
+    Compute AssemblyVersion and PackageVersion
 
 .PARAMETER branchName
     The branch of the trigger repo for which the build has been queued.
@@ -47,6 +47,7 @@ param (
 )
 
 Write-Host "Compute AssemblyVersion and PackageVersion."
+Write-Host ""
 
 # Default values
 $branch = "PR"
@@ -117,6 +118,7 @@ Write-Host "##vso[task.setvariable variable=PackageVersion]$package"
 Write-Host "##vso[task.setvariable variable=ShouldTest]$toTest"
 
 # Display computed versions
+Write-Host ""
 Write-Host "----------------------------------------------- "
 Write-Host " -  Branch                 = $branch "
 Write-Host " -  BuildNumber            = $buildNumber "
