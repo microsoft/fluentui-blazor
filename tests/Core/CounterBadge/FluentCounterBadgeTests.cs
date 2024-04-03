@@ -118,7 +118,7 @@ public class FluentCounterBadgeTests : TestBase
     {
         // Arrange && Act
         TestContext.Services.AddSingleton(GlobalState);
-        IRenderedComponent<FluentCounterBadge>? cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Accent);
             parameters.Add(p => p.Color, Color.Fill);
@@ -137,7 +137,7 @@ public class FluentCounterBadgeTests : TestBase
         TestContext.Services.AddSingleton(GlobalState);
         GlobalState.SetLuminance(StandardLuminance.DarkMode);
 
-        IRenderedComponent<FluentCounterBadge>? cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Lightweight);
             parameters.Add(p => p.Color, Color.Fill);
@@ -156,7 +156,7 @@ public class FluentCounterBadgeTests : TestBase
         TestContext.Services.AddSingleton(GlobalState);
         GlobalState.SetLuminance(StandardLuminance.LightMode);
 
-        IRenderedComponent<FluentCounterBadge>? cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BackgroundColor, Color.Lightweight);
             parameters.Add(p => p.Color, Color.Fill);
@@ -385,7 +385,7 @@ public class FluentCounterBadgeTests : TestBase
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BadgeContent, "badgecontent");
-            parameters.Add(p => p.Count, null);
+            parameters.Add(p => p.Count, 0);
         });
 
         // Assert
@@ -401,6 +401,37 @@ public class FluentCounterBadgeTests : TestBase
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
             parameters.Add(p => p.BadgeContent, (RenderFragment?)null);
+            parameters.Add(p => p.Count, 1);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_Dot()
+    {
+        // Arrange && Act
+        TestContext.Services.AddSingleton(GlobalState);
+
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        {
+            parameters.Add(p => p.Dot, true);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCounterBadge_DotWithCount()
+    {
+        // Arrange && Act
+        TestContext.Services.AddSingleton(GlobalState);
+
+        var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
+        {
+            parameters.Add(p => p.Dot, true);
             parameters.Add(p => p.Count, 1);
         });
 

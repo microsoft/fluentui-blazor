@@ -1,6 +1,7 @@
-﻿.counterbadge-container {
+.counterbadge-container {
+    display: inline;
     position: relative;
-    display: inline-block;
+    height: 100%;
 }
 
 .counterbadge {
@@ -20,6 +21,12 @@
     cursor: default;
 }
 
-    .counterbadge:empty {
+    .counterbadge:not(.dot):empty {
         display: none;
     }
+
+.dot {
+    width: var(--design-unit);
+    min-width: unset;
+    height: var(--design-unit);
+}
