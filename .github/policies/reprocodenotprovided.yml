@@ -6,6 +6,8 @@ configuration:
     resourceManagementConfiguration:
     scheduledSearches:
       - frequencies:
+          - hourly:
+              hour: 1
           - daily:
               time: 12:00
         filters:
@@ -13,7 +15,7 @@ configuration:
           - hasLabel:
               label: 'needs: repro code or repository'
           - noActivitySince:
-              days: 4
+              days: 0
         actions:
           - addReply:
               reply: "Closing issue as no reproduction code is provided"
