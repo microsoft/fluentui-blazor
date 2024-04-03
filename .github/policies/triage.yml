@@ -12,9 +12,7 @@ configuration:
           - and:
               - isOpen
               - not:
-                  and:
-                    - isAssignedToSomeone
-                    - isLabeled
+                - isLabeled
         then:
           - addLabel:
               label: triage
