@@ -1,0 +1,20 @@
+name: Reproduction code not provided
+description: Close issues that where author has not provided reproduction code or repo
+resource: repository
+
+configuration:
+    resourceManagementConfiguration:
+    scheduledSearches:
+      - frequencies:
+          - daily:
+              time: 12:00
+        filters:
+          - isOpen
+          - hasLabel:
+              label: 'needs: repro code or repository'
+          - noActivitySince:
+              days: 4
+        actions:
+          - addReply:
+              reply: "Closing issue as no reproduction code is provided"
+          - closeIssue
