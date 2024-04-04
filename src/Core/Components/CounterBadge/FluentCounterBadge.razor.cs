@@ -12,8 +12,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("counterbadge")
-        .AddClass("dot", Dot)
+        .AddClass("fluentui-counterbadge")
         .Build();
 
     /// <summary />
@@ -37,13 +36,20 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// Can be enriched with a plus sign with <see cref="ShowOverflow"/>
     /// </summary>
     [Parameter]
-    public int Count { get; set; } = 0;
+    public int? Count { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content you want inside the badge, to customize the badge content.
+    /// </summary>
+    [Obsolete("This parameter will be removed in a future version. Use BadgeTemplate instead.")]
+    [Parameter]
+    public RenderFragment? BadgeContent { get; set; }
 
     /// <summary>
     /// Gets or sets the content you want inside the badge, to customize the badge content.
     /// </summary>
     [Parameter]
-    public RenderFragment? BadgeContent { get; set; }
+    public RenderFragment<int?>? BadgeTemplate{ get; set; }
 
     /// <summary>
     /// Gets or sets the maximum number that can be displayed inside the badge.
@@ -66,7 +72,8 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// </summary>
     [Obsolete("This parameter will be removed in a future version. Use VerticalPosition instead.")]
     [Parameter]
-    public int BottomPosition {
+    public int BottomPosition
+    {
         get => VerticalPosition;
         set => VerticalPosition = value;
     }
@@ -119,7 +126,7 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     /// Default the badge shows when the count is greater than 0.
     /// </summary>
     [Parameter]
-    public Func<int, bool> ShowWhen { get; set; } = Count => Count > 0;
+    public Func<int?, bool> ShowWhen { get; set; } = Count => Count > 0;
 
     /// <summary>
     /// If an plus sign should be displayed when the <see cref="Count"/> is greater than <see cref="Max"/>.
@@ -127,11 +134,6 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
     ///</summary>
     [Parameter]
     public bool ShowOverflow { get; set; } = true;
-
-    public FluentCounterBadge()
-    {
-
-    }
 
     protected override Task OnParametersSetAsync()
     {

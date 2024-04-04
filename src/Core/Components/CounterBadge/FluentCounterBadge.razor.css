@@ -1,10 +1,10 @@
-.counterbadge-container {
+.fluentui-counterbadge-container {
     display: inline;
     position: relative;
     height: 100%;
 }
 
-.counterbadge {
+.fluentui-counterbadge {
     position: absolute;
     z-index: 10;
     font-size: var(--type-ramp-minus-2-font-size);
@@ -21,12 +21,8 @@
     cursor: default;
 }
 
-    .counterbadge:not(.dot):empty {
-        display: none;
+    .fluentui-counterbadge[dot-only] {
+        width: var(--design-unit);
+        min-width: unset;
+        height: var(--design-unit);
     }
-
-.dot {
-    width: var(--design-unit);
-    min-width: unset;
-    height: var(--design-unit);
-}
