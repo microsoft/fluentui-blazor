@@ -6396,6 +6396,11 @@
             Default is Small.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
+            <summary>
+            Gets or sets whether popover should be forced to top right or top left (RTL).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderTemplate">
             <summary>
             Gets or sets the content to be displayed in the header section of the popover.

@@ -4,3 +4,15 @@
     .fluent-profile-menu ::deep > .fluent-persona > .name {
         display: none;
     }
+
+    .fluent-profile-menu[top-corner] ::deep fluent-anchored-region {
+        transform: unset !important;
+        left: unset;
+        right: -4px;
+    }
+
+[dir="rtl"] .fluent-profile-menu[top-corner] ::deep fluent-anchored-region {
+    transform: unset !important;
+    left: -4px;
+    right: unset;
+}
