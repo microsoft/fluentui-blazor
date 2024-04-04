@@ -5,6 +5,11 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.AnchoredRegion;
 
 public class FluentAnchoredRegionTests : TestBase
 {
+    public FluentAnchoredRegionTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentAnchoredRegion_AttributeDefaultValues()
     {
