@@ -10,6 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentKeyCode : IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/KeyCode/FluentKeyCode.razor.js";
+    private string _javaScriptEventId = string.Empty;
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
     private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 
@@ -105,7 +106,8 @@ public partial class FluentKeyCode : IAsyncDisposable
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            await Module.InvokeVoidAsync("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
+            _javaScriptEventId = await Module.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
+            Console.WriteLine("Registered: " + _javaScriptEventId);
         }
     }
 
@@ -143,8 +145,10 @@ public partial class FluentKeyCode : IAsyncDisposable
 
     public ValueTask DisposeAsync()
     {
-        //return Module?.InvokeVoidAsync("UnregisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element)
-        //    ?? ValueTask.CompletedTask;
+        if (Module != null && !string.IsNullOrEmpty(_javaScriptEventId))
+        {
+            return Module.InvokeVoidAsync("UnregisterKeyCode", _javaScriptEventId);
+        }
 
         return ValueTask.CompletedTask;
     }
