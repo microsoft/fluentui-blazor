@@ -95,6 +95,9 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Anchor">
             <summary>
             Gets or sets the HTML ID of the anchor element this region is positioned relative to.
@@ -200,6 +203,26 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.AutoFocus">
+            <summary>
+            Gets or sets whether the element should receive the focus when the component is loaded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.FocusToNextElementAsync">
+            <summary>
+            Moves the focus to the next element included in this anchor region only.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.FocusToOriginalElementAsync">
+            <summary>
+            Moves the focus to the initial element that triggered the anchor region.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
             <summary>
@@ -422,7 +445,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Id">
             <summary>
-            Gets or sets the unique identifier. If not provided, a random value will be generated.
+            Gets or sets the unique identifier.
             The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
             </summary>
         </member>
@@ -6351,6 +6374,34 @@
             <summary>
             Gets or sets the content of the footer part of the popover.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.AutoFocus">
+            <summary>
+            Gets or sets whether the element should receive the focus when the component is loaded.
+            If this is the case, the user cannot navigate to other elements of the page while the Popup is open.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseKeys">
+            <summary>
+            Gets or sets the keys that can be used to close the popover.
+            By default, Escape
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAndTabKeys">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnParametersSet">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseOnKeyAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge">
             <summary>
