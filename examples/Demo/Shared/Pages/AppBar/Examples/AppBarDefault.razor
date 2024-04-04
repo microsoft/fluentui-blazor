@@ -1,4 +1,4 @@
-﻿<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 282px; padding: 10px;">
+﻿<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 295px; padding: 10px;">
     <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
         <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
         <FluentAppBar Style="height: 100%; background-color: var(--neutral-layer-2);" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
@@ -16,7 +16,8 @@
             <FluentAppBarItem Href="/StructuredLogs"
                               IconRest="StructuredLogsIcon()"
                               IconActive="StructuredLogsIcon(active: true)"
-                              Text="Structured Logs" />
+                              Text="Structured Logs"
+                              Count="4"/>
             <FluentAppBarItem Href="/Traces"
                               IconRest="TracesIcon()"
                               IconActive="TracesIcon(active: true)"
