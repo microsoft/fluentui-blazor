@@ -5,9 +5,14 @@
 
 @code
 {
+    [Inject]
+    public GlobalState GlobalState { get; set; } = new GlobalState();
+
     public FluentAppBarItemTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
+
+        Services.AddSingleton(GlobalState);
     }
 
     [Fact]

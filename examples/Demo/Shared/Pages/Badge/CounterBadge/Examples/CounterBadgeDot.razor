@@ -1,0 +1,14 @@
+﻿<FluentStack Orientation="Orientation.Vertical">
+
+    <FluentSwitch @bind-Value="_showDot" Label="Show dot" />
+
+    <FluentCounterBadge BackgroundColor="@Color.Error" Color="Color.Fill" Dot="@_showDot">
+        <FluentButton Appearance="Appearance.Neutral">
+            <FluentIcon Value="@(new Icons.Regular.Size24.Mail())" Color="@Color.FillInverse" />
+        </FluentButton>
+    </FluentCounterBadge>
+</FluentStack>
+
+@code {
+    bool _showDot = true;
+}

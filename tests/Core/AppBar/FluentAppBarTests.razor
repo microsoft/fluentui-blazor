@@ -5,13 +5,13 @@
 
 @code
 {
-    BunitJSModuleInterop? keyModule, overflowModule;
+    [Inject]
+    public GlobalState GlobalState { get; set; } = new GlobalState();
 
     public FluentAppBarTests()
     {
-        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accessibility/FluentKeyCode.razor.js");
-        JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
         JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(GlobalState);
     }
 
     [Fact]

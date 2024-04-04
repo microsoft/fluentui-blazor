@@ -1,5 +1,8 @@
-export function RegisterKeyCode(id, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper) {
-    const element = document.getElementById(id);
+export function RegisterKeyCode(globalDocument, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper) {
+    const element = globalDocument
+        ? document
+        : elementRef == null ? document.getElementById(id) : elementRef;
+
     if (!!element) {
         element.addEventListener('keydown', function (e) {
             const keyCode = e.which || e.keyCode || e.charCode;

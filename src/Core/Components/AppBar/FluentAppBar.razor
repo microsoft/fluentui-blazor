@@ -42,7 +42,7 @@
                         @foreach (var item in _searchResults)
                         {
                             <FluentGridItem xs="4" Style="width: 100px; height: 85px;">
-                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Class="popover" />
+                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" Class="popover" />
                             </FluentGridItem>
                         }
                     </FluentGrid>

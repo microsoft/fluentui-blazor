@@ -11,7 +11,7 @@
     <p>
         The demo and documentation sites for previous version is also still available:<br />
         <a href="https://calm-sea-053fa6a03-archivesv3.westeurope.3.azurestaticapps.net/" target="_blank">Version 3.6.0</a><br />
-        These versions support both .NET 6 and .NET 7.
+        This version supports both .NET 6 and .NET 7.
     </p>
 </div>
 
@@ -25,31 +25,33 @@
     The source for the library is hosted in the <a href="https://github.com/microsoft/fluentui-blazor">fluentui-blazor</a> repository at GitHub.
 </p>
 
-<b>Open at Microsoft - 2024</b>
-<br />
 <FluentGrid Justify="JustifyContent.Center">
     <FluentGridItem xs="12" sm="4">
+        <b style="white-space: nowrap;">Open at Microsoft - 2024</b> <br />
         <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/lUZ5mrg2Q8k" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="4">
+        <br />
         <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/jOv9ioCVDFU" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="4">
+        <br />
         <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/HTUemhV9W-M" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
+    <FluentGridItem xs="12" sm="4">
+        <b style="white-space: nowrap;">.NET Conf 2024</b> <br />
+        <div class="youtube-responsive">
+            <b>.NET Conf 2023</b><br />
+            <iframe src="https://www.youtube.com/embed/a0xOqNemRoY" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </FluentGridItem>
 </FluentGrid>
-<br />
-<br />
-<div style="text-align: center;">
-    <b>.NET Conf 2023</b><br />
-    <iframe src="https://www.youtube.com/embed/a0xOqNemRoY" frameborder="0" allowfullscreen></iframe>
-</div>
 
 <h2 id="whatsnew">What's new?</h2>
 <p>
@@ -97,9 +99,14 @@
 </p>
 <CodeSnippet>&lt;link href="{PROJECT_NAME}.styles.css" rel="stylesheet" /&gt;</CodeSnippet>
 <p>
-    It is possible that the line is already there (but commented out). <br />
-    <b>IMPORTANT:</b> When you change the root namespace/assembly name of your project, you need to update the {PROJECT_NAME} in your copy of the code above accordingly.
+    It is possible that the line is already there (but commented out).
 </p>
+<blockquote>
+    <p><strong>IMPORTANT:</strong></p>
+    <p>
+        When you change the root namespace/assembly name of your project, you need to update the {PROJECT_NAME} in your copy of the code above accordingly.
+    </p>
+</blockquote>
 
 <h4>Reboot</h4>
 <p>
@@ -151,13 +158,12 @@
     </Description>
     <ChildContent>
         <CodeSnippet>
-            @@using Microsoft.FluentUI.AspNetCore.Components.
+@@using Microsoft.FluentUI.AspNetCore.Components.
 
-            &lt;FluentCard Width="400px" Height="250px"&gt;
-            &lt;h2&gt;Hello World!&lt;/h2&gt;
-            &lt;FluentButton Appearance=&quot;@@Appearance.Accent&quot;&gt;Click Me&lt;/FluentButton&gt;
-            &lt;/FluentCard&gt;
-        </CodeSnippet>
+&lt;FluentCard Width="400px" Height="250px"&gt;
+    &lt;h2&gt;Hello World!&lt;/h2&gt;
+    &lt;FluentButton Appearance=&quot;@@Appearance.Accent&quot;&gt;Click Me&lt;/FluentButton&gt;
+&lt;/FluentCard&gt;</CodeSnippet>
         <p>Renders as:</p>
     </ChildContent>
 </DemoSection>
@@ -181,19 +187,20 @@
     however to get everything to work you'll need to take one extra step:
 </p>
 
-<h3 id="tempory-workaround-for-mauiwpfwindows-forms-issues">Tempory workaround for MAUI/WPF/Windows Forms issues</h3>
+<h3 id="temporary-workaround-for-mauiwpfwindows-forms-issues">Temporary workaround for MAUI/WPF/Windows Forms issues</h3>
 <p>
-    Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see <a href="https://github.com/microsoft/fluentui-blazor/issues/404">#404</a>.
-    There is also an isue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is
-    a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers file (created by build). The needed	script is
-    included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag:
+    Currently when using WebView to run Blazor (in all Hybrid variants), the web-components script is not imported automatically (see <a href="https://github.com/microsoft/fluentui-blazor/issues/404">#404</a>).
+    There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is
+    a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers (created by the build). The needed script is
+    included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag.
 </p>
-<pre><code class="language-xml">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
-</code></pre>
+
+<CodeSnippet Language="language-html">&lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;</CodeSnippet>
+
 <p>
-    The <code>app-name</code> attribute needs to match your app's assembly name - the script uses 'app-name' to resolve name of the file with initializers.
-    The 'initializersLoader' part of the script replaces standard <code>fetch</code> function with one which provides the correct file in place of the empty <code>blazor.modules.json</code>. <code>fetch</code> is restored to its original state once <code>_framework/blazor.modules.json</code> request is intercepted.
+    The <code>app-name</code> attribute needs to match your app's assembly name - the script uses 'app-name' to resolve the name of the file with initializers.
+    The 'initializersLoader' part of the script replaces the standard <code>fetch</code> function with one which provides the correct file in place of the empty <code>blazor.modules.json</code>. <code>fetch</code> is restored to its original state once the <code>_framework/blazor.modules.json</code> request is intercepted.
 </p>
 <p>
     For more information regarding this bug, see issue <a href="https://github.com/dotnet/maui/issues/15234">15234</a> in the MAUI repo.

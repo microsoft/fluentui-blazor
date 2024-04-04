@@ -1,22 +1,37 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-@if (Count.HasValue && Count != 0 || ShowZero && Count == 0 )
-{
-    <div class="counterbadge-container">
-        @ChildContent
-        @if (Count.HasValue || BadgeContent != null)
+<div class="fluentui-counterbadge-container">
+    @ChildContent
+
+    @if (Dot)
+    {
+        <div class="@ClassValue" style="@StyleValue" dot-only></div>
+    }
+    else
+    {
+        @* TODO: Remove the below 3 lines once obsolete BadgeContent is removed *@
+        if (BadgeContent is not null)
         {
-            @* 
-                Need to write Badge and BadgeContent on the same line 
-                to use :empty' css correctly.
-            *@
-            string? text = Count.ToString();
-            if (Count > Max)
-            {
-                text = $@"{Max}{(ShowOverflow ? "+" : "")}";
-            }
-            <div class="@ClassValue" style="@StyleValue" title="@Count">@text@BadgeContent</div>
+            <div class="@ClassValue" style="@StyleValue" title="@Count">@BadgeContent</div>
         }
-    </div>
-}
+
+        if (BadgeTemplate is not null)
+        {
+            <div class="@ClassValue" style="@StyleValue" title="@Count">@BadgeTemplate(Count)</div>
+        }
+        else
+        {
+            @* TODO: Remove obsolete ShowZero check once it is removed *@
+            if (ShowZero && Count == 0 || ShowWhen.Invoke(Count))
+            {
+                string? text = Count.ToString();
+                if (Count > Max)
+                {
+                    text = $@"{Max}{(ShowOverflow ? "+" : "")}";
+                }
+                <div class="@ClassValue" style="@StyleValue" title="@Count">@text</div>
+            }
+        }
+    }
+</div>

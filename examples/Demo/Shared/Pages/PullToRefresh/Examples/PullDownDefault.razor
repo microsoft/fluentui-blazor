@@ -1,0 +1,33 @@
+﻿<FluentPullToRefresh Direction="@PullDirection.Down"
+                     OnRefreshAsync="OnRefreshAsync"
+                     ShowStaticTip="false"
+                     Style="height: 400px; width: 400px; ">
+    <PullingTemplate>
+        Pull to refresh
+    </PullingTemplate>
+    <ReleaseTemplate>
+        Release to update
+    </ReleaseTemplate>
+    <CompletedTemplate>
+        Update completed
+    </CompletedTemplate>
+
+    <ChildContent>
+        <FluentListbox Height="300px" Items="@Enumerable.Range(1, ItemsCount).Select(i => $"Item {i}")" />
+    </ChildContent>
+</FluentPullToRefresh>
+
+
+@code {
+    int RefreshCount = 0;
+    int ItemsCount = 2;
+
+    public async Task<bool> OnRefreshAsync()
+    {
+        RefreshCount++;
+        DemoLogger.WriteLine($"Pull down refresh count {RefreshCount}");
+        await Task.Delay(1000);
+        ItemsCount += 3;
+        return true;
+    }
+}

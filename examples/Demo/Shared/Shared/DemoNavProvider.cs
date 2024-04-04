@@ -352,6 +352,11 @@ public class DemoNavProvider
                         title: "Icon"
                     ),
                     new NavLink(
+                        href: "/KeyCode",
+                        icon: new Icons.Regular.Size20.Keyboard(),
+                        title: "KeyCode"
+                    ),
+                    new NavLink(
                         href: "/Label",
                         icon: new Icons.Regular.Size20.DoorTag(),
                         title: "Label"
@@ -461,6 +466,11 @@ public class DemoNavProvider
                         title: "Progress Ring"
                     ),
                     new NavLink(
+                        href: "/PullToRefresh",
+                        icon: new Icons.Regular.Size20.ArrowClockwise(),
+                        title: "Pull to refresh"
+                    ),
+                    new NavLink(
                         href: "/Skeleton",
                         icon: new Icons.Regular.Size20.Shortpick(),
                         title: "Skeleton"
@@ -537,12 +547,6 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.SplitHorizontal(),
                         title: "Multi Splitter"
                     ),
-
-                    new NavLink(
-                        href: "/KeyCode",
-                        icon: new Icons.Regular.Size20.Keyboard(),
-                        title: "KeyCode"
-                    )
                 ]
             )
         ];
