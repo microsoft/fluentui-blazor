@@ -5,6 +5,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentPopover : FluentComponentBase
 {
+    private FluentAnchoredRegion AnchoredRegion = default!;
+
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
@@ -81,11 +83,22 @@ public partial class FluentPopover : FluentComponentBase
     public RenderFragment? Footer { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the element should receive the focus when the component is loaded.
+    /// If this is the case, the user cannot navigate to other elements of the page while the Popup is open.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool AutoFocus { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the keys that can be used to close the popover.
     /// By default, Escape
     /// </summary>
     [Parameter]
     public KeyCode[]? CloseKeys { get; set; } = new[] { KeyCode.Escape };
+
+    /// <summary />
+    private KeyCode[] CloseAndTabKeys => CloseKeys?.Any() == true ? CloseKeys.Union(new[] { KeyCode.Tab }).ToArray() : new[] { KeyCode.Tab };
 
     /// <summary />
     protected override void OnInitialized()
@@ -109,9 +122,24 @@ public partial class FluentPopover : FluentComponentBase
     protected virtual async Task CloseAsync()
     {
         Open = false;
+        await AnchoredRegion.FocusToOriginalElementAsync();
         if (OpenChanged.HasDelegate)
         {
             await OpenChanged.InvokeAsync(Open);
+        }
+    }
+
+    /// <summary />
+    protected virtual async Task CloseOnKeyAsync(FluentKeyCodeEventArgs e)
+    {
+        if (CloseKeys != null && CloseKeys.Contains(e.Key))
+        {
+            await CloseAsync();
+        }
+
+        if (AutoFocus && e.Key == KeyCode.Tab)
+        {
+            await AnchoredRegion.FocusToNextElementAsync();
         }
     }
 }
