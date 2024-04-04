@@ -12,7 +12,10 @@
     <FluentPopover Style="width: 300px;" VerticalThreshold="170" AnchorId="myPopoverButtonl" @bind-Open="_visibleL">
         <Header>Callout Header</Header>
         <Body>
-            Callout Body
+            <FluentStack Orientation="Orientation.Vertical">
+                <FluentCheckbox Id="Item1">Item 1</FluentCheckbox>
+                <FluentCheckbox>Item 2</FluentCheckbox>
+            </FluentStack>
         </Body>
         <Footer>Callout Footer</Footer>
     </FluentPopover>

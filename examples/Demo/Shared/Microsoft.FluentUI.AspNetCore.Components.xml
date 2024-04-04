@@ -95,6 +95,9 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Anchor">
             <summary>
             Gets or sets the HTML ID of the anchor element this region is positioned relative to.
@@ -417,7 +420,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Id">
             <summary>
-            Gets or sets the unique identifier. If not provided, a random value will be generated.
+            Gets or sets the unique identifier.
             The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
             </summary>
         </member>

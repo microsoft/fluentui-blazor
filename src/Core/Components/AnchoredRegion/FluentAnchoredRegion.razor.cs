@@ -1,9 +1,23 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentAnchoredRegion : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
+
+    public FluentAnchoredRegion()
+    {
+        Id = Identifier.NewId();
+    }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
@@ -140,4 +154,22 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !string.IsNullOrEmpty(Id))
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);            
+        }
+    }
+
+    private async Task GoToNextFocusableElement(FluentKeyCodeEventArgs e)
+    {
+        Console.WriteLine(e.KeyCode);
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("goToNextFocusableElement", Id);
+        }
+    }
 }

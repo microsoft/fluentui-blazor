@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
 /// The anchor must refer to the ID of an element (or sub-element) accepting the focus.
 /// </summary>
-public partial class FluentKeyCode
+public partial class FluentKeyCode : IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/KeyCode/FluentKeyCode.razor.js";
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
@@ -139,6 +139,14 @@ public partial class FluentKeyCode
                 TargetId = targetId,
             });
         }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        //return Module?.InvokeVoidAsync("UnregisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element)
+        //    ?? ValueTask.CompletedTask;
+
+        return ValueTask.CompletedTask;
     }
 }
 
