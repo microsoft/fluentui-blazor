@@ -50,7 +50,7 @@ public partial class FluentNavMenu : FluentComponentBase
     /// Gets or sets whether a menu with all child links is shown for <see cref="FluentNavGroup"/>s when the navigation menu is collapsed.
     /// </summary>
     [Parameter]
-    public bool CollapsedChildNav { get; set; } = false;
+    public bool CollapsedChildNavigation { get; set; } = false;
 
     /// <inheritdoc/>
     [Parameter]

@@ -71,7 +71,7 @@ public abstract class FluentNavBase : FluentComponentBase
     public FluentNavMenu Owner { get; set; } = default!;
 
     [CascadingParameter]
-    public FluentMenu? OwnerMenu { get; set; }
+    public FluentMenu? SubMenu { get; set; }
 
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
@@ -109,7 +109,7 @@ public abstract class FluentNavBase : FluentComponentBase
         }
         else
         {
-            if (!Owner.Expanded && !Owner.CollapsedChildNav && OwnerMenu == null)
+            if (!Owner.Expanded && !Owner.CollapsedChildNavigation && SubMenu == null)
             {
                 await Owner.ExpandedChanged.InvokeAsync(true);
             }

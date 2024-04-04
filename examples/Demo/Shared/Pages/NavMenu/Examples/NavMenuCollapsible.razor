@@ -2,7 +2,7 @@
 
 <FluentStack Orientation="Orientation.Horizontal" Width="100%">
     <div>
-        <FluentNavMenu @bind-Expanded="@Expanded" Width="250" Collapsible="true" CollapsedChildNav="@EnableCollapsedHierarchy" Title="Collapsible demo">
+        <FluentNavMenu @bind-Expanded="@Expanded" Width="250" Collapsible="true" CollapsedChildNavigation="@EnableCollapsedChildNavigation" Title="Collapsible demo">
             <FluentNavLink Icon="@(new Icons.Regular.Size24.Home())" Tooltip="Item 1 tooltip">Item 1</FluentNavLink>
             <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())" Disabled="true" Tooltip="Item 2 tooltip">Item 2</FluentNavLink>
             <FluentNavGroup Title="Item 3" Tooltip="Item 3 tooltip" Icon="@(new Icons.Regular.Size24.EarthLeaf())" >
@@ -23,7 +23,9 @@
         </FluentNavMenu>
     </div>
     <div style="width: 100%;">
-        <FluentSwitch @bind-Value="EnableCollapsedHierarchy" CheckedMessage="Disable collapsed menus" UncheckedMessage="Enable collapsed menus"></FluentSwitch>
+        <div style="margin-bottom: 12px;">
+            <FluentSwitch @bind-Value="EnableCollapsedChildNavigation" CheckedMessage="Disable collapsed child navigation" UncheckedMessage="Enable collapsed child navigation"></FluentSwitch>
+        </div>
         <div>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
             Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
@@ -41,5 +43,5 @@
 @code
 {
     bool Expanded = true;
-    bool EnableCollapsedHierarchy = true;
+    bool EnableCollapsedChildNavigation = true;
 }

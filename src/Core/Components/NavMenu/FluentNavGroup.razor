@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-@if (Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNav || OwnerMenu == null)))
+@if (Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
     <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpanderKeyDownAsync" />
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
@@ -42,14 +42,19 @@
         </FluentCollapsibleRegion>
     </div>
 
-    if (Owner.CollapsedChildNav && OwnerMenu == null)
+    if (Owner.CollapsedChildNavigation && SubMenu == null)
     {
-        <FluentMenu @bind-Open="_open" Anchor="@Id" HorizontalPosition="@HorizontalPosition.End" HorizontalInset="@false" VerticalPosition="@VerticalPosition.Bottom" VerticalInset="@true">
+        <FluentMenu @bind-Open="_open"
+                    Anchor="@Id"
+                    HorizontalPosition="@HorizontalPosition.End"
+                    HorizontalInset="@false"
+                    VerticalPosition="@VerticalPosition.Bottom"
+                    VerticalInset="@true">
             @ChildContent
         </FluentMenu>
     }
 }
-else if (!Owner.Expanded && Owner.CollapsedChildNav && OwnerMenu != null)
+else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
 {
     <div>
         <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">

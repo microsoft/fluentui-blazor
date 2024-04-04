@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Components.Routing
 @inject NavigationManager NavigationManager
 
-@if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNav || OwnerMenu == null)))
+@if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
         @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
@@ -33,7 +33,7 @@
         }
     </div>
 }
-else if (!Owner.Expanded && Owner.CollapsedChildNav && OwnerMenu != null)
+else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
 {
     <div>
         <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
