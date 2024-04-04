@@ -1,4 +1,6 @@
-﻿<FluentStack Orientation="Orientation.Vertical" Style="height: 330px;">
+﻿@inject IDialogService DialogService
+
+<FluentStack Orientation="Orientation.Vertical" Style="height: 330px;">
     <FluentAppBar Style="height: 100%;">
         <FluentAppBarItem Href="/"
                           Match="NavLinkMatch.All"
@@ -11,16 +13,16 @@
                           IconActive="AppBarIcon(active: true)"
                           Text="AppBar"
                           OnClick="HandleOnClick" />
-        <FluentAppBarItem Href="/WhatsNew"
+        <FluentAppBarItem Href="@(null)"
                           IconRest="WhatsNewIcon()"
                           IconActive="WhatsNewIcon(active: true)"
                           Text="What's New'"
-                          OnClick="HandleOnClick" />
-        <FluentAppBarItem Href="/Icon"
+                          OnClick="ShowSuccessAsync" />
+        <FluentAppBarItem Href="@(null)"
                           IconRest="IconsIcon()"
                           IconActive="IconsIcon(active: true)"
                           Text="Icons"
-                          OnClick="HandleOnClick" />
+                          OnClick="ShowWarningAsync" />
         <FluentAppBarItem Href="/Dialog"
                           IconRest="DialogIcon()"
                           IconActive="DialogIcon(active: true)"
@@ -53,6 +55,19 @@
 
     private void HandleOnClick(FluentAppBarItem item)
     {
+
         DemoLogger.WriteLine($"Clicked {item.Text}!");
+    }
+
+    private async Task ShowSuccessAsync(FluentAppBarItem item)
+    {
+        var dialog = await DialogService.ShowSuccessAsync($"You clicked {item.Text}");
+        var result = await dialog.Result;
+    }
+
+    private async Task ShowWarningAsync(FluentAppBarItem item)
+    {
+        var dialog = await DialogService.ShowWarningAsync($"Are you sure? {item.Text}");
+        var result = await dialog.Result;
     }
 }
