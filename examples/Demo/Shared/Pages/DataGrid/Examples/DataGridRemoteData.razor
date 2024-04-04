@@ -6,13 +6,13 @@
 <div style="height: 434px; overflow:auto;" tabindex="-1">
     <FluentDataGrid Loading="true" ItemsProvider="foodRecallProvider" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
-        <PropertyColumn Property="@(c => c!.State)" Style="color:burlywood" />
+        <PropertyColumn Property="@(c => c!.State)" Style="color: #af5f00 ;" />
         <PropertyColumn Property="@(c => c!.City)" />
         <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true"/>
         <PropertyColumn Property="@(c => c!.Status)" />
         <TemplateColumn Title="Actions" Align="@Align.End">
-            <FluentButton IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
-            <FluentButton IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
+            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
         </TemplateColumn>
     </FluentDataGrid>
 </div>
