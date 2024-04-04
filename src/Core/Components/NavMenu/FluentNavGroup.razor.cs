@@ -129,7 +129,7 @@ public partial class FluentNavGroup : FluentNavBase
 
         if (!Owner.Expanded)
         {
-            if (Owner.CollapsedHierarchy)
+            if (Owner.CollapsedChildNav)
             {
                 _open = !_open;
             }

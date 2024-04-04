@@ -109,7 +109,7 @@ public abstract class FluentNavBase : FluentComponentBase
         }
         else
         {
-            if (!Owner.Expanded && !Owner.CollapsedHierarchy && OwnerMenu == null)
+            if (!Owner.Expanded && !Owner.CollapsedChildNav && OwnerMenu == null)
             {
                 await Owner.ExpandedChanged.InvokeAsync(true);
             }

@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Components.Routing
 @inject NavigationManager NavigationManager
 
-@if (!Owner.CollapsedHierarchy || OwnerMenu == null)
+@if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNav || OwnerMenu == null)))
 {
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
         @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
@@ -33,7 +33,7 @@
         }
     </div>
 }
-else
+else if (!Owner.Expanded && Owner.CollapsedChildNav && OwnerMenu != null)
 {
     <div>
         <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
@@ -44,9 +44,13 @@ else
                      title="@Tooltip">
                 @ChildContent
             </NavLink>
-            <span slot="start" >
-                <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
-            </span>
+
+            @if (Icon is not null)
+            {
+                <span slot="start">
+                    <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
+                </span>
+            }
         </FluentMenuItem>
     </div>
 }

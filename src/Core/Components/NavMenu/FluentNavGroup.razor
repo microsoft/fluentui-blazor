@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-@if (Owner.Expanded || (HasIcon && (!Owner.CollapsedHierarchy || OwnerMenu == null)))
+@if (Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNav || OwnerMenu == null)))
 {
     <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpanderKeyDownAsync" />
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
@@ -42,23 +42,27 @@
         </FluentCollapsibleRegion>
     </div>
 
-    if (Owner.CollapsedHierarchy && OwnerMenu == null)
+    if (Owner.CollapsedChildNav && OwnerMenu == null)
     {
         <FluentMenu @bind-Open="_open" Anchor="@Id" HorizontalPosition="@HorizontalPosition.End" HorizontalInset="@false" VerticalPosition="@VerticalPosition.Bottom" VerticalInset="@true">
             @ChildContent
         </FluentMenu>
     }
 }
-else if (Owner.CollapsedHierarchy)
+else if (!Owner.Expanded && Owner.CollapsedChildNav && OwnerMenu != null)
 {
     <div>
         <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
             <ChildContent>
                 @Title
                 @TitleTemplate
-                <span slot="start">
-                    <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
-                </span>
+
+                @if (Icon is not null)
+                {
+                    <span slot="start">
+                        <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+                    </span>
+                }
             </ChildContent>
             <MenuItems>
                 @ChildContent
