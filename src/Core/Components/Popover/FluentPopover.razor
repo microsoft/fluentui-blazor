@@ -4,7 +4,19 @@
 @if (Open)
 {
     <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent=true FullScreen=true />
-    <FluentAnchoredRegion Anchor="@AnchorId"
+    @if (CloseKeys != null && CloseKeys.Any())
+    {
+        if (!string.IsNullOrEmpty(Id))
+        {
+            <FluentKeyCode Anchor="@Id" Only="@CloseKeys" OnKeyDown="@CloseAsync" />
+        }
+        if (!string.IsNullOrEmpty(AnchorId))
+        {
+            <FluentKeyCode Anchor="@AnchorId" Only="@CloseKeys" OnKeyDown="@CloseAsync" />
+        }
+    }
+    <FluentAnchoredRegion Id="@Id"
+                          Anchor="@AnchorId"
                           HorizontalInset="@HorizontalInset"
                           HorizontalDefaultPosition="@HorizontalPosition"
                           VerticalDefaultPosition="@VerticalPosition"

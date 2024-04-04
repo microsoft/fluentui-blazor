@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -81,6 +80,23 @@ public partial class FluentPopover : FluentComponentBase
     [Parameter]
     public RenderFragment? Footer { get; set; }
 
+    /// <summary>
+    /// Gets or sets the keys that can be used to close the popover.
+    /// By default, Escape
+    /// </summary>
+    [Parameter]
+    public KeyCode[]? CloseKeys { get; set; } = new[] { KeyCode.Escape };
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        if (CloseKeys != null && CloseKeys.Any() && string.IsNullOrEmpty(Id))
+        {
+            Id = Identifier.NewId();
+        }
+    }
+
+    /// <summary />
     protected override void OnParametersSet()
     {
         if (Header is null && Body is null && Footer is null)
@@ -89,7 +105,8 @@ public partial class FluentPopover : FluentComponentBase
         }
     }
 
-    protected virtual async Task CloseAsync(MouseEventArgs e)
+    /// <summary />
+    protected virtual async Task CloseAsync()
     {
         Open = false;
         if (OpenChanged.HasDelegate)
