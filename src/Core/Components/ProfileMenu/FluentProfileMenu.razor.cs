@@ -16,6 +16,12 @@ public partial class FluentProfileMenu : FluentComponentBase
     private bool PopoverVisible { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets whether popover should be forced to top right or top left (RTL).
+    /// </summary>
+    [Parameter]
+    public bool TopCorner { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets the content to be displayed in the header section of the popover.
     /// Using this property will override the <see cref="HeaderLabel" /> and <see cref="HeaderButton"/> properties.
     /// </summary>
