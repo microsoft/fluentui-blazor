@@ -4,12 +4,28 @@
 @if (Open)
 {
     <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent=true FullScreen=true />
-    <FluentAnchoredRegion Anchor="@AnchorId"
+    @if (CloseKeys != null && CloseKeys.Any())
+    {
+        // Button or AnchorId element
+        if (!string.IsNullOrEmpty(AnchorId))
+        {
+            <FluentKeyCode Anchor="@AnchorId" Only="@CloseAndTabKeys" OnKeyDown="@CloseOnKeyAsync" PreventDefaultOnly="@(AutoFocus ? CloseAndTabKeys : CloseKeys)" />
+        }
+        // Popover content
+        if (!string.IsNullOrEmpty(Id))
+        {
+            <FluentKeyCode Anchor="@Id" Only="@CloseAndTabKeys" OnKeyDown="@CloseOnKeyAsync" PreventDefaultOnly="@CloseAndTabKeys" />
+        }
+    }
+    <FluentAnchoredRegion @ref="AnchoredRegion"
+                          Id="@Id"
+                          Anchor="@AnchorId"
                           HorizontalInset="@HorizontalInset"
                           HorizontalDefaultPosition="@HorizontalPosition"
                           VerticalDefaultPosition="@VerticalPosition"
                           VerticalThreshold="@VerticalThreshold"
                           HorizontalThreshold="@HorizontalThreshold"
+                          AutoFocus="@AutoFocus"
                           Shadow="@ElevationShadow.Flyout"
                           Class="@ClassValue"
                           Style="@StyleValue">

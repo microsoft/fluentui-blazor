@@ -1,10 +1,16 @@
 export function RegisterKeyCode(globalDocument, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper) {
     const element = globalDocument
-        ? document
-        : elementRef == null ? document.getElementById(id) : elementRef;
+                  ? document
+                  : elementRef == null ? document.getElementById(id) : elementRef;
+
+    if (document.fluentKeyCodeEvents == null) {
+        document.fluentKeyCodeEvents = {};
+    }
 
     if (!!element) {
-        element.addEventListener('keydown', function (e) {
+
+        const eventId = Math.random().toString(36).slice(2);
+        const handler = function (e) {
             const keyCode = e.which || e.keyCode || e.charCode;
 
             if (!!dotNetHelper && !!dotNetHelper.invokeMethodAsync) {
@@ -36,6 +42,26 @@ export function RegisterKeyCode(globalDocument, id, elementRef, onlyCodes, exclu
                     return;
                 }
             }
-        })
+        };
+
+        element.addEventListener('keydown', handler)
+        document.fluentKeyCodeEvents[eventId] = { source: element, handler };
+
+        return eventId;
+    }
+
+    return "";
+}
+
+export function UnregisterKeyCode(eventId) {
+
+    if (document.fluentKeyCodeEvents != null) {
+        const keyEvent = document.fluentKeyCodeEvents[eventId];
+        const element = keyEvent.source;
+        const handler = keyEvent.handler;
+
+        element.removeEventListener("keydown", handler);
+
+        delete document.fluentKeyCodeEvents[eventId];
     }
 }
