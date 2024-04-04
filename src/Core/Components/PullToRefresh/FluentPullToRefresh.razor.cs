@@ -294,6 +294,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
         else if (_pullStatus == PullStatus.Awaiting || _pullStatus == PullStatus.Pulling)
         {
             SetDistance(-1);
+            _internalShowStaticTip = _originalShowStaticTip;
         }
     }
 
