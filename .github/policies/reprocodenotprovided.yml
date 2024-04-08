@@ -8,8 +8,6 @@ configuration:
       - frequencies:
           - hourly:
               hour: 1
-          - daily:
-              time: 12:00
         filters:
           - isOpen
           - hasLabel:
