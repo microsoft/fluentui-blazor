@@ -7,24 +7,25 @@ namespace FluentUI.Demo.Shared.Pages.SplashScreen.Examples
     {
         private IDialogReference? _dialog;
 
-        private async Task OpenSplashDefaultAsync()
+    private async Task OpenSplashDefaultAsync()
+    {
+        DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
+        DialogParameters<SplashScreenContent> parameters = new()
         {
-            DemoLogger.WriteLine($"Open default SplashScreen for 4 seconds");
-            DialogParameters<SplashScreenContent> parameters = new()
+            Content = new()
             {
-                Content = new()
-                {
-                    DisplayTime = 0,    // See Task.Delay below
-                    Title = "Core components",
-                    SubTitle = "Microsoft Fluent UI Blazor library",
-                    LoadingText = "Loading...",
-                    Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
-                    Logo = FluentSplashScreen.LOGO,
-                },
-                Width = "640px",
-                Height = "480px",
-            };
-            _dialog = await DialogService.ShowSplashScreenAsync(parameters);
+                DisplayTime = 0,    // See Task.Delay below
+                Title = "Core components",
+                SubTitle = "Microsoft Fluent UI Blazor library",
+                LoadingText = "Loading...",
+                Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
+                Logo = FluentSplashScreen.LOGO,
+            },
+            PreventDismissOnOverlayClick = true,
+            Width = "640px",
+            Height = "480px",
+        };
+        _dialog = await DialogService.ShowSplashScreenAsync(parameters);
 
             var splashScreen = (SplashScreenContent)_dialog.Instance.Content;
 

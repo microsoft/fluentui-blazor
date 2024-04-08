@@ -96,109 +96,134 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.Anchor">
             <summary>
-            The HTML ID of the anchor element this region is positioned relative to
+            Gets or sets the HTML ID of the anchor element this region is positioned relative to.
             This must be set for the component positioning logic to be active.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.Viewport">
             <summary>
-            The HTML ID of the viewport element this region is positioned relative to
+            Gets or sets the HTML ID of the viewport element this region is positioned relative to.
             If unset the parent element of the anchored region is used.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalPositioningMode">
             <summary>
             Sets what logic the component uses to determine horizontal placement.
-            Locktodefault forces the default position
-            Dynamic decides placement based on available space
-            Uncontrolled (default) does not control placement on the horizontal axis
+            Locktodefault forces the default position.
+            Dynamic decides placement based on available space.
+            Uncontrolled (default) does not control placement on the horizontal axis.
             See <seealso cref="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalDefaultPosition">
             <summary>
-            The default horizontal position of the region relative to the anchor element
+            Gets or sets the default horizontal position of the region relative to the anchor element.
             Default is unset. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.HorizontalPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalViewportLock">
             <summary>
-            Whether the region remains in the viewport (ie. detaches from the anchor) on the horizontal axis
+            Gets or sets a value indicating whether the region remains in the viewport (ie. detaches from the anchor) on the horizontal axis.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalInset">
             <summary>
-            Whether the region overlaps the anchor on the horizontal axis. Default is false which places the region adjacent to the anchor element.
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is false which places the region adjacent to the anchor element.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalThreshold">
             <summary>
-            How narrow the space allocated to the default position has to be before the widest area
-            is selected for layout
+            How narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.HorizontalScaling">
             <summary>
-            Defines how the width of the region is calculated
+            Defines how the width of the region is calculated.
             Default is "Content". See <seealso cref="T:Microsoft.Fast.Components.FluentUI.AxisScalingMode"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalPositioningMode">
             <summary>
             Sets what logic the component uses to determine vertical placement.
-            Locktodefault forces the default position
-            Dynamic decides placement based on available space
-            Uncontrolled (default) does not control placement on the vertical axis
+            Locktodefault forces the default position.
+            Dynamic decides placement based on available space.
+            Uncontrolled (default) does not control placement on the vertical axis.
             See <seealso cref="T:Microsoft.Fast.Components.FluentUI.AxisPositioningMode"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalDefaultPosition">
             <summary>
-            The default vertical position of the region relative to the anchor element
+            Gets or sets the default vertical position of the region relative to the anchor element.
             Default is "Unset".See <seealso cref="T:Microsoft.Fast.Components.FluentUI.VerticalPosition"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalViewportLock">
             <summary>
-            Whether the region remains in the viewport (ie. detaches from the anchor) on the vertical axis
+            Gets or sets a value indicating whether the region remains in the viewport (ie. detaches from the anchor) on the vertical axis.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalInset">
-             <summary>
-            Whether the region overlaps the anchor on the vertical axis
-             </summary>
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
+            </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalThreshold">
             <summary>
             How short the space allocated to the default position has to be before the tallest area
-            is selected for layout
+            is selected for layout.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.VerticalScaling">
             <summary>
-            Defines how the height of the region is calculated
+            Defines how the height of the region is calculated.
             Default is "Content". See <seealso cref="T:Microsoft.Fast.Components.FluentUI.AxisScalingMode"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.FixedPlacement">
             <summary>
-            Whether the region is positioned using css "position: fixed".
+            Gets or sets a value indicating whether the region is positioned using css "position: fixed".
             Otherwise the region uses "position: absolute".
-            Fixed placement allows the region to break out of parent containers,
+            Fixed placement allows the region to break out of parent containers.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.AutoUpdateMode">
             <summary>
-            Defines what triggers the anchored region to revaluate positioning
-            Default is "Anchor". In 'anchor' mode only anchor resizes and attribute changes will provoke an update. In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.AutoUpdateMode"/>
+            Defines what triggers the anchored region to revaluate positioning.
+            Default is "Anchor". 
+            In 'anchor' mode only anchor resizes and attribute changes will provoke an update. 
+            In 'auto' mode the component also updates because of - any scroll event on the document, window resizes and viewport resizes. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.AutoUpdateMode"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.AutoFocus">
+            <summary>
+            Gets or sets whether the element should receive the focus when the component is loaded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.FocusToNextElementAsync">
+            <summary>
+            Moves the focus to the next element included in this anchor region only.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAnchoredRegion.FocusToOriginalElementAsync">
+            <summary>
+            Moves the focus to the initial element that triggered the anchor region.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAnchor.Download">
             <summary>
@@ -5873,6 +5898,12 @@
             Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is true which places the region aligned with the anchor element.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.VerticalPosition">
             <summary>
             Gets or sets the default vertical position of the region relative to the anchor element.
@@ -5920,6 +5951,34 @@
             <summary>
             Gets or sets the content of the footer part of the popover.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.AutoFocus">
+            <summary>
+            Gets or sets whether the element should receive the focus when the component is loaded.
+            If this is the case, the user cannot navigate to other elements of the page while the Popup is open.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.CloseKeys">
+            <summary>
+            Gets or sets the keys that can be used to close the popover.
+            By default, Escape
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.CloseAndTabKeys">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPopover.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPopover.OnParametersSet">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPopover.CloseAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentPopover.CloseOnKeyAsync(Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs)">
+            <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentPresenceBadge">
             <summary>
