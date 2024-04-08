@@ -3,8 +3,7 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
 
-
-@if (Owner.Expanded || HasIcon)
+@if (Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
     <FluentKeyCode Anchor="@Id" PreventDefaultOnly="new[] { KeyCode.Enter, KeyCode.Left, KeyCode.Right }" StopPropagation="@true" OnKeyDown="@HandleExpanderKeyDownAsync" />
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
@@ -16,7 +15,7 @@
                      Match="@Match"
                      ActiveClass="@ActiveClass"
                      title="@(Tooltip ?? Title)">
-                <div class="positioning-region" >
+                <div class="positioning-region">
                     <div class="content-region">
                         @_renderContent
                         @_renderButton
@@ -43,7 +42,7 @@
         </FluentCollapsibleRegion>
     </div>
 
-    if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu == null)
+    if (Owner.CollapsedChildNavigation && SubMenu == null)
     {
         <FluentMenu @bind-Open="_open"
                     Anchor="@Id"
@@ -54,31 +53,28 @@
             @ChildContent
         </FluentMenu>
     }
-    else
-    {
-        _open = false;
-    }
 }
 else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
 {
-    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
-        <ChildContent>
-            @Title
-            @TitleTemplate
+    <div>
+        <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
+            <ChildContent>
+                @Title
+                @TitleTemplate
 
-            @if (Icon is not null)
-            {
-                <span slot="start">
-                    <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
-                </span>
-            }
-        </ChildContent>
-        <MenuItems>
-            @ChildContent
-        </MenuItems>
-    </FluentMenuItem>
+                @if (Icon is not null)
+                {
+                    <span slot="start">
+                        <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+                    </span>
+                }
+            </ChildContent>
+            <MenuItems>
+                @ChildContent
+            </MenuItems>
+        </FluentMenuItem>
+    </div>
 }
-
 
 @code {
     private string _data = "no-pagescript";

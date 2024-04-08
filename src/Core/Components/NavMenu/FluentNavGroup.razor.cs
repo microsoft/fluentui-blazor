@@ -132,11 +132,16 @@ public partial class FluentNavGroup : FluentNavBase
 
     private async Task SetExpandedAsync(bool value)
     {
+        if (value == Expanded)
+        {
+            return;
+        }
+
         if (!Owner.Expanded)
         {
             if (Owner.CollapsedChildNavigation)
             {
-                _open = value;
+                _open = !_open;
             }
             else
             {
@@ -145,11 +150,6 @@ public partial class FluentNavGroup : FluentNavBase
         }
         else
         {
-            if (value == Expanded)
-            {
-                return;
-            }
-
             Expanded = value;
 
             if (ExpandedChanged.HasDelegate)

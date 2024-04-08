@@ -70,7 +70,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    protected async Task OnClickHandlerAsync()
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
         {
@@ -82,7 +82,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             await Owner.CloseAsync();
         }
 
-        await OnClick.InvokeAsync();
+        await OnClick.InvokeAsync(ev);
     }
 
     protected string? GetRole()

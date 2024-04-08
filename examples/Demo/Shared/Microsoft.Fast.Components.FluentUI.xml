@@ -4772,7 +4772,23 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.HorizontalPosition">
             <summary>
-            Gets or sets the menu position (left or right).
+            Gets or sets the horizontal menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is false which places the region adjacent to the anchor element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.VerticalPosition">
+            <summary>
+            Gets or sets the vertical menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.VerticalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenu.Width">
@@ -4868,7 +4884,7 @@
             Event raised when the user click on this item.
             </summary>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.FluentMessageBar">

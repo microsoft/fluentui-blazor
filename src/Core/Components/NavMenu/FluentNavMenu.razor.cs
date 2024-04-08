@@ -53,7 +53,6 @@ public partial class FluentNavMenu : FluentComponentBase
     [Parameter]
     public bool CollapsedChildNavigation { get; set; } = false;
 
-
     /// <inheritdoc/>
     [Parameter]
     public bool Expanded { get; set; } = true;
