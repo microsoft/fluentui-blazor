@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -56,7 +57,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     /// Event raised when the user click on this item.
     /// </summary>
     [Parameter]
-    public EventCallback OnClick { get; set; }
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     public FluentMenuItem()
     {
@@ -69,7 +70,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    protected async Task OnClickHandlerAsync()
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
         {
@@ -81,7 +82,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             await Owner.CloseAsync();
         }
 
-        await OnClick.InvokeAsync();
+        await OnClick.InvokeAsync(ev);
     }
 
     protected string? GetRole()
