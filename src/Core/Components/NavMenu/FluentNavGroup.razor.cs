@@ -11,6 +11,7 @@ public partial class FluentNavGroup : FluentNavBase
 {
     private readonly RenderFragment _renderContent;
     private readonly RenderFragment _renderButton;
+    private bool _open;
 
     protected string? ClassValue =>
         new CssBuilder("fluent-nav-group")
@@ -128,7 +129,14 @@ public partial class FluentNavGroup : FluentNavBase
 
         if (!Owner.Expanded)
         {
-            await Owner.ExpandedChanged.InvokeAsync(true);
+            if (Owner.CollapsedChildNavigation)
+            {
+                _open = !_open;
+            }
+            else
+            {
+                await Owner.ExpandedChanged.InvokeAsync(true);
+            }
         }
         else
         {
