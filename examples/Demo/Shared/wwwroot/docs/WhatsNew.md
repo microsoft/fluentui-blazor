@@ -15,7 +15,34 @@ Titles have been altered and sorted here to provide a bit more uniformity.
 - [InputFile] Replace OnInitializedAsync with OnAfterRenderAsync ([#1661](https://github.com/microsoft/fluentui-blazor/pull/1661))
 - [MenuButton] Make the menu anchored to the button so can float ([#1676](https://github.com/microsoft/fluentui-blazor/pull/1676)) 
 - [Toast] Do not render percent sign for indeterminate ProgressToast (#1138)](https://github.com/microsoft/fluentui-blazor/pull/1138)
+- Update Fluent UI System Icons to 1.1.234
 
+	**What's new (Name / Size(s) / Variant(s))**
+
+	- Apps Settings / 16, 20 / Filled & Regular
+	- Apps Shield / 16, 20 / Filled & Regular
+	- Arrow Upload / 32 / Filled & Regular
+	- Calendar Edit / 32 / Filled & Regular
+	- Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
+	- Haptic Strong / 16, 20, 24 / Filled & Regular
+	- Haptic Weak / 16, 20, 24 / Filled & Regular
+	- Hexagon Sparkle / 20, 24 / Filled & Regular
+	- Mail Edit / 32 / Filled & Regular
+	- Password Clock / 48 / Filled & Regular
+	- Password Reset / 48 / Filled & Regular
+	- Password / 24, 32, 48 / Filled & Regular
+	- People Eye / 16, 20 / Filled & Regular
+	- Pin Globe / 16, 20 / Filled & Regular
+	- Run / 28, 32, 48 / Filled & Regular
+	- Tab Group / 16, 20, 24 / Filled & Regular
+
+	**What's updated (Name / Size(s) / Variant(s))**
+ 
+	- Arrow Upload / 24 / Filled & Regular
+	- Calendar Edit / 16, 20, 24 / Filled & Regular
+	- Mail Read / 20 / Filled & Regular
+	- Password / 24 / Filled & Regular
+	- Run / 16, 20, 24 / Filled & Regular
 - Update Fluent UI System Icons to 1.1.233
 
   **What's new (Name / Size(s) / Variant(s))**
