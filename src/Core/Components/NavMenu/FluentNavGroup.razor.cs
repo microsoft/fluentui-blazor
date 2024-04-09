@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -8,6 +11,7 @@ public partial class FluentNavGroup : FluentNavBase
 {
     private readonly RenderFragment _renderContent;
     private readonly RenderFragment _renderButton;
+    private bool _open;
 
     protected string? ClassValue =>
         new CssBuilder("fluent-nav-group")
@@ -18,9 +22,8 @@ public partial class FluentNavGroup : FluentNavBase
             .Build();
 
     internal string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("margin", $"{Gap} 0" , !string.IsNullOrEmpty(Gap))
+       .AddStyle("margin", $"{Gap} 0", !string.IsNullOrEmpty(Gap))
        .Build();
-
 
     protected string? ButtonClassValue =>
         new CssBuilder("expand-collapse-button")
@@ -41,7 +44,7 @@ public partial class FluentNavGroup : FluentNavBase
         };
     }
     /// <summary>
-    /// The text to display for the group.
+    /// Gets or sets the text to display for the group.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -84,33 +87,34 @@ public partial class FluentNavGroup : FluentNavBase
     /// When specifying both Title and TitleTemplate, both will be rendered.
     /// </summary>
     [Parameter]
-    public RenderFragment? TitleTemplate { get; set; } 
+    public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that is triggered whenever <see cref="Expanded"/> changes.
     /// </summary>
-
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
 
     public FluentNavGroup()
     {
+        Id = Identifier.NewId();
         _renderContent = RenderContent;
         _renderButton = RenderButton;
     }
 
     private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
-   
-    private async Task HandleExpanderKeyDownAsync(KeyboardEventArgs args)
+
+    private async Task HandleExpanderKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        Task handler = args.Code switch
+        if (args.TargetId != Id)
         {
-            "NumpadEnter" => SetExpandedAsync(!Expanded),
-            "NumpadArrowRight" => SetExpandedAsync(true),
-            "NumpadArrowLeft" => SetExpandedAsync(false),
-            "Enter" => SetExpandedAsync(!Expanded),
-            "ArrowRight" => SetExpandedAsync(true),
-            "ArrowLeft" => SetExpandedAsync(false),
+            return;
+        }
+        Task handler = args.Key switch
+        {
+            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Right => SetExpandedAsync(true),
+            KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
         };
         await handler;
@@ -123,10 +127,25 @@ public partial class FluentNavGroup : FluentNavBase
             return;
         }
 
-        Expanded = value;
-        if (ExpandedChanged.HasDelegate)
+        if (!Owner.Expanded)
         {
-            await ExpandedChanged.InvokeAsync(value);
+            if (Owner.CollapsedChildNavigation)
+            {
+                _open = !_open;
+            }
+            else
+            {
+                await Owner.ExpandedChanged.InvokeAsync(true);
+            }
+        }
+        else
+        {
+            Expanded = value;
+
+            if (ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(value);
+            }
         }
     }
 }

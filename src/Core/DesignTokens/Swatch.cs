@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
@@ -8,7 +8,6 @@ public class Swatch
     public float G { get; set; }
     public float B { get; set; }
     public float RelativeLuminance { get; set; }
-
 
     private readonly System.Drawing.Color Color;
 
@@ -71,12 +70,17 @@ public class Swatch
     private static float Normalize(float value, int min, int max)
     {
         if (value <= min)
+        {
             return 0.0f;
+        }
+
         if (value >= max)
+        {
             return 1.0f;
+        }
 
         return value / (max - min);
     }
 
-    private static float Denormalize(float value, int min, int max) => min + value * (max - min);
+    private static float Denormalize(float value, int min, int max) => min + (value * (max - min));
 }

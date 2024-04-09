@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Describes the position at which a <see cref="FluentTooltip"/> is shown.
@@ -31,7 +31,7 @@ public enum TooltipPosition
     Start,
 
     /// <summary>
-    /// The tooltip is positioned at the end of the enachor elemenet.
+    /// The tooltip is positioned at the end of the anchor element.
     /// </summary>
     End
 }

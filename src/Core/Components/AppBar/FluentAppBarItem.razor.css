@@ -1,0 +1,6 @@
+::deep.fluent-appbar-item:hover a[role="listitem"] svg[part="icon-rest"],
+::deep.fluent-appbar-item:not(:hover) a[role="listitem"]:not(.active) svg[part="icon-active"],
+::deep.fluent-appbar-item:not(:hover) a[role="listitem"].active svg[part="icon-rest"],
+::deep.fluent-appbar-item[overflow] {
+    display: none;
+}

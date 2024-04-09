@@ -8,7 +8,6 @@
     font-size: var(--type-ramp-plus-1-font-size);
     line-height: var(--type-ramp-plus-1-line-height);
     color: var(--fill-color);
-    margin-bottom: 0.5rem;
 }
 
     .header .header-gutters {

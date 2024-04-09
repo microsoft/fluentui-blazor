@@ -11,36 +11,14 @@
 </p>
 <p>
     <code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation
-    of a data grid leveraging the Fluent  UI design system. Internally <code>&lt;FluentDataGrid&gt;</code> is using the code from
-    <a href="https://aspnet.github.io/quickgridsamples">QuickGrid</a> with a few adjustments to parameter names to stay in-line
-    with the fluent-data-grid web component (see table below)
-
-    <table title="Parameter name changes">
-        <tr>
-            <th align="left" style="width: 8rem;">QuickGrid</th>
-            <th align="left" style="width: 8rem;">FluentDataGrid</th>
-        </tr>
-        <tr>
-            <td>Items</td>
-            <td>RowsData</td>
-        </tr>
-        <tr>
-            <td>ItemsProvider</td>
-            <td>RowsDataProvider</td>
-        </tr>
-        <tr>
-            <td>ItemSize</td>
-            <td>RowsDataSize</td>
-        </tr>
-        <tr>
-            <td>ItemKey</td>
-            <td>RowsDataKey</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+    of a data grid leveraging the Fluent  UI design system. Besides this we also provide wrappers for the <code>&lt;fluent-data-grid-row&gt;</code> and
+    <code>&lt;fluent-data-grid-cell&gt;</code>
+    web components. Internally <code>&lt;FluentDataGrid&gt;</code> is using the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/quickgrid?view=aspnetcore-8.0">QuickGrid</a>
+    code where all the rendering is replaced with the web components. We also added some extras like column resizing and row/column specific styling.
+</p>
+<p>
+    Do not use the <code>RowStyle</code> parameter to dynamically update a row style after rendering (for example to highlight a row which was clicked on)
+    as this will interfere with the DataGrid scripts that use this attribute as well. Use the <code>RowClass</code> instead.
 </p>
 
 <h2 id="example">Examples</h2>
@@ -91,12 +69,12 @@
             Here is an example of connecting a grid to the public <a href="https://open.fda.gov/apis/food/enforcement/" target="_blank">OpenFDA Food Enforcement database</a>.
         </p>
         <p>
-            This grid is using a 'sticky' header (i.e. the header is always visible when scrolling). The buttons in the last column disappear under the header when scrolling. 
+            This grid is using a 'sticky' header (i.e. the header is always visible when scrolling). The buttons in the last column disappear under the header when scrolling.
             In this example they don't relly do anything more than writting a message in the console log'
         </p>
         <p>
-            The second column has a custom <code>Style</code> parameter set and applied to it. The 4th column has its <code>Tooltip</code> 
-            parameter set to true. This will show the full content of the cell when hovering over it. See the 'Razor' tab for how these 
+            The second column has a custom <code>Style</code> parameter set and applied to it. The 4th column has its <code>Tooltip</code>
+            parameter set to true. This will show the full content of the cell when hovering over it. See the 'Razor' tab for how these
             parameters have been applied.
         </p>
     </Description>
@@ -118,8 +96,16 @@
         </p>
         <p>
             Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
-            properly and reliably, every row rendered must have the same known height. <strong>This is handeled by the 
+            properly and reliably, every row rendered must have the same known height. <strong>This is handeled by the
             <code>FluentDataGrid</code> code</strong>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Intermittent loading" Component="@typeof(DataGridNotVirtualizedLoadingAndEmpty)">
+    <Description>
+        <p>
+            Use the options below the grid to togle the content of this non virtualized gri on and off and to simulate a loading state
         </p>
     </Description>
 </DemoSection>
@@ -145,7 +131,9 @@
     <Description>
         Here a custom comparer is being used to sort counties by the length of their name.<br/>
         The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
-        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.
+        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.<br />
+        <br />
+        This example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
     </Description>
 </DemoSection>
 
@@ -173,7 +161,7 @@
 
 <DemoSection Title="Column headers" Component="@typeof(DataGridColumnHeaderGeneration)">
     <Description>
-        The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties 
+        The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties
         shown in the grid.
         <br/>
         See the 'Razor' tab on how these attributes have been applied to the class properties.
@@ -182,7 +170,6 @@
 
 <DemoSection Title="Multiline text content" Component="@typeof(DataGridMultilineText)">
     <Description>
-        
         Example of using the <code>Class</code> parameter to style parts of the grid. Note that the class used in the example (<code>multiline-text</code>) has been added to the FluentDataGridCell css.
     </Description>
 </DemoSection>
@@ -204,3 +191,30 @@
 <ApiDocumentation Component="typeof(FluentDataGridRow<>)" GenericLabel="TGridItem" />
 
 <ApiDocumentation Component="typeof(FluentDataGridCell<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(FluentPaginator)" />
+
+<ApiDocumentation Component="typeof(PaginationState)" />
+
+<h3>Refreshing data programmatically</h3>
+<p>
+    Sometimes you might know that the data source's contents will have changed. For example, the user may have saved some changes that will affect the data, or they might have changed the current query parameters. In any such case, you can call the grid's <code>RefreshDataAsync</code> method:
+</p>
+
+<CodeSnippet>
+&lt;FluentDataGrid ... @@ref="myGrid">
+    ...
+&lt;/FluentDataGrid>
+
+@@code {
+    FluentDataGrid&lt;MyDataType> myGrid;
+
+    async Task HandleSomeEvent()
+    {
+        ...
+
+        // We can force the grid to reload the current data
+        await myGrid.RefreshDataAsync();
+    }
+}
+</CodeSnippet>

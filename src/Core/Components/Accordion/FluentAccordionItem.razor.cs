@@ -5,7 +5,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 {
     /// <summary>
-    /// Gets or sets the owning FluentTreeView
+    /// Gets or sets the owning FluentTreeView.
     /// </summary>
     [CascadingParameter]
     public FluentAccordion Owner { get; set; } = default!;
@@ -27,14 +27,19 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     public RenderFragment? HeadingTemplate { get; set; }
 
     /// <summary>
-    /// Expands or collapses the item.
+    /// Gets or sets a value indicating whether the item is expanded or collapsed.
     /// </summary>
     [Parameter]
-    public bool? Expanded { get; set; }
+    public bool Expanded { get; set; } = false;
 
     /// <summary>
-    /// Configures the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
-    /// heading element.
+    /// Gets or sets a callback for when the expanded state changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the heading element.
     /// Possible values: 1 | 2 | 3 | 4 | 5 | 6
     /// </summary>
     [Parameter]
@@ -54,6 +59,18 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     protected override void OnInitialized()
     {
         Owner?.Register(this);
+    }
+
+    private async Task HandleOnAccordionItemChangedAsync(AccordionChangeEventArgs args)
+    {
+        if (args is not null)
+        {
+            var id = args.ActiveId;
+            if (id is not null && Id == id && ExpandedChanged.HasDelegate)
+            {
+                await ExpandedChanged.InvokeAsync(args.Expanded);
+            }
+        }
     }
 
     public void Dispose() => Owner?.Unregister(this);

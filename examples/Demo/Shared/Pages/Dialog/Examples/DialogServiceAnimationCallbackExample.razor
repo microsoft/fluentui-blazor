@@ -1,0 +1,80 @@
+﻿@inject IDialogService DialogService
+@inject IJSRuntime JS
+
+<div>
+    <p>
+        When 'Open Dialog' is clicked, a dialog should fade in. When that dialog is closed, it should fade out.
+    </p>
+</div>
+<div style="margin-top: 1rem;">
+    <FluentButton OnClick="@OpenDialogAsync" Appearance="Appearance.Accent">
+        Open Dialog
+    </FluentButton>
+</div>
+
+@code {
+    SimplePerson simplePerson = new()
+        {
+            Firstname = "Steve",
+            Lastname = "Roth",
+            Age = 39,
+        };
+
+    private async Task OpenDialogAsync()
+    {
+        DemoLogger.WriteLine($"Open dialog centered");
+
+        await DialogService.ShowDialogAsync<SimpleDialog>(simplePerson, new DialogParameters()
+            {
+                Title = $"Hello {simplePerson.Firstname}",
+                OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async (instance) =>
+                {
+                    /**
+                     * Because of the JS code below, this `await` will block until the animation completes or is interrupted.
+                     * Asynchronous code inside the "OnDialogClosing" callback will prevent the dialog from being removed until it has completed.
+                     *
+                     * WARNING: Don't use `eval`, it's dangerous! This is just a proof-of-concept demonstrating the OnDialogClosing/OnDialogOpened EventCallbacks.
+                     */
+                    await JS.InvokeVoidAsync("eval", $@"
+                        async function func() {{
+                            let dialog = document.getElementById('{instance.Id}')?.dialog;
+                            if (!dialog) return;
+                            dialog.style.opacity = '0.0';
+                            let animation = dialog.animate([
+                                {{ opacity: '1', transform: '' }},
+                                {{ opacity: '0', transform: 'translateX(-100%)' }}
+                            ], {{
+                                duration: 2000,
+                            }});
+                            return animation.finished; // promise that resolves when the animation is complete or interrupted
+                        }};
+                        func();
+                    ");
+                }),
+                OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async (instance) =>
+                {
+                    /**
+                     * Because of the JS code below, this `await` will block until the animation completes or is interrupted.
+                     * 
+                     * WARNING: Don't use `eval`, it's dangerous! This is just a proof-of-concept demonstrating the OnDialogClosing/OnDialogOpened EventCallbacks.
+                     */
+                    await JS.InvokeVoidAsync("eval", $@"
+                        async function func() {{
+                            let dialog = document.getElementById('{instance.Id}')?.dialog;
+                            if (!dialog) return;
+                            let animation = dialog.animate([
+                                {{ opacity: '0', transform: 'translateX(-100%)' }},
+                                {{ opacity: '1', transform: '' }},
+                            ], {{
+                                duration: 2000,
+                            }});
+                            return animation.finished; // promise that resolves when the animation is complete or interrupted
+                        }};
+                        func();
+                    ");
+                }),
+                Width = "500px",
+                Height = "500px",
+            });
+    }
+}

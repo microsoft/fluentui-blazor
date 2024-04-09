@@ -1,15 +1,10 @@
-using System;
-using System.Globalization;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
-
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCollapsibleRegion : FluentComponentBase
 {
-    private bool _expanded;  
+    private bool _expanded;
 
     protected string? StyleValue =>
         new StyleBuilder(Style)
@@ -48,7 +43,7 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     public string? MaxHeight { get; set; }
 
     /// <summary>
-    /// Child content of component.
+    /// Gets or sets the child content of component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -58,5 +53,4 @@ public partial class FluentCollapsibleRegion : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
-   
 }

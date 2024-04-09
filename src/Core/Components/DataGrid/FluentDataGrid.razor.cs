@@ -14,8 +14,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
     /// <summary>
-    /// A queryable source of data for the grid.
+    /// Gets or sets a queryable source of data for the grid.
     ///
     /// This could be in-memory data converted to queryable using the
     /// <see cref="System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)"/> extension method,
@@ -26,14 +27,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public IQueryable<TGridItem>? Items { get; set; }
 
     /// <summary>
-    /// A callback that supplies data for the rid.
+    /// Gets or sets a callback that supplies data for the rid.
     ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
     [Parameter] public GridItemsProvider<TGridItem>? ItemsProvider { get; set; }
 
     /// <summary>
-    /// Defines the child components of this instance. For example, you may define columns by adding
+    /// Gets or sets the child components of this instance. For example, you may define columns by adding
     /// components derived from the <see cref="ColumnBase{TGridItem}"/> base class.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -85,45 +86,46 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public PaginationState? Pagination { get; set; }
 
-
     /// <summary>
-    /// When true the component will not add itself to the tab queue. Default is false.
+    /// Gets or sets a value indicating whether the component will not add itself to the tab queue.
+    /// Default is false.
     /// </summary>
     [Parameter]
     public bool NoTabbing { get; set; }
 
     /// <summary>
-    /// Whether the grid should automatically generate a header row and its type
+    /// Gets or sets a value indicating whether the grid should automatically generate a header row and its type.
     /// See <see cref="GenerateHeaderOption"/>
     /// </summary>
     [Parameter]
     public GenerateHeaderOption? GenerateHeader { get; set; } = GenerateHeaderOption.Default;
 
     /// <summary>
-    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows
+    /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets a callback when a row is focused
+    /// Gets or sets a callback when a row is focused.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowFocus { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a row is focused
+    /// Gets or sets a callback when a row is focused.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
-    /// Optionally defines a class to be applied to a rendered row. 
+    /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
 
     /// <summary>
-    /// Optionally defines a style to be applied to a rendered row. 
+    /// Optionally defines a style to be applied to a rendered row.
+    /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
 
@@ -132,10 +134,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
 
-    [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JS { get; set; } = default!;
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid is in a loading data state.
+    /// </summary>
+    [Parameter] public bool Loading { get; set; }
 
-    private ElementReference _gridReference;
+    /// <summary>
+    /// Gets or sets the content to render when <see cref="Loading"/> is true.
+    /// A default fragment is used if loading content is not specified.
+    /// </summary>
+    [Parameter] public RenderFragment? LoadingContent { get; set; }
+    [Inject] private IServiceProvider Services { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
     private int _ariaBodyRowCount;
     private ICollection<TGridItem> _currentNonVirtualizedViewItems = Array.Empty<TGridItem>();
@@ -158,12 +170,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _manualGrid;
 
     // The associated ES6 module, which uses document-level event listeners
-    private IJSObjectReference? _jsModule;
+    private IJSObjectReference? Module;
     private IJSObjectReference? _jsEventDisposable;
 
     // Caches of method->delegate conversions
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
+
+    private readonly RenderFragment _renderEmptyContent;
+    private readonly RenderFragment _renderLoadingContent;
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
@@ -172,7 +187,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private int? _lastRefreshedPaginationStateHash;
     private object? _lastAssignedItemsOrProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
-   
+
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
     public bool? SortByAscending => _sortByAscending;
@@ -184,16 +199,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridRowFocusEventArgs))]
     public FluentDataGrid()
     {
-        _columns = new();
+        _columns = [];
         _internalGridContext = new(this);
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
+        _renderEmptyContent = RenderEmptyContent;
+        _renderLoadingContent = RenderLoadingContent;
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
         // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
-        EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new EventCallbackSubscriber<object?>(
+        EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
             EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
     }
@@ -208,17 +225,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
         }
-       
+
         // Perform a re-query only if the data source or something else has changed
-        object? _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
-        bool dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
+        var _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
+        var dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
         if (dataSourceHasChanged)
         {
             _lastAssignedItemsOrProvider = _newItemsOrItemsProvider;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
-        bool mustRefreshData = dataSourceHasChanged
+        var mustRefreshData = dataSourceHasChanged
             || (Pagination?.GetHashCode() != _lastRefreshedPaginationStateHash);
 
         // We don't want to trigger the first data load until we've collected the initial set of columns,
@@ -229,16 +246,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && _gridReference is not null)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
-            _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            try
+            {
+                _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
+            }
+            catch (JSException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
-            _ = _jsModule?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
+            _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
         }
     }
 
@@ -266,7 +290,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
-        _manualGrid = !_columns.Any();
+        _manualGrid = _columns.Count == 0;
+        if (ResizableColumns)
+        {
+            _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference).AsTask();
+        }
     }
 
     /// <summary>
@@ -312,7 +340,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public async Task RefreshDataAsync()
     {
         await RefreshDataCoreAsync();
-        //StateHasChanged();
+    }
+
+    public void SetLoadingState(bool loading)
+    {
+        Loading = loading;
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
@@ -321,7 +353,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         // Move into a "loading" state, cancelling any earlier-but-still-pending load
         _pendingDataLoadCancellationTokenSource?.Cancel();
-        CancellationTokenSource? thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
+        var thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
 
         if (_virtualizeComponent is not null)
         {
@@ -335,10 +367,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
             _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
-            int startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
-            GridItemsProviderRequest<TGridItem> request = new GridItemsProviderRequest<TGridItem>(
+            var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
+            GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
-            GridItemsProviderResult<TGridItem> result = await ResolveItemsRequestAsync(request);
+            var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
                 _currentNonVirtualizedViewItems = result.Items;
@@ -353,7 +385,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
-    private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItems(ItemsProviderRequest request)
+    private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
     {
         _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
 
@@ -367,17 +399,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         // Combine the query parameters from Virtualize with the ones from PaginationState
-        int startIndex = request.StartIndex;
-        int count = request.Count;
+        var startIndex = request.StartIndex;
+        var count = request.Count;
         if (Pagination is not null)
         {
             startIndex += Pagination.CurrentPageIndex * Pagination.ItemsPerPage;
             count = Math.Min(request.Count, Pagination.ItemsPerPage - request.StartIndex);
         }
 
-        GridItemsProviderRequest<TGridItem> providerRequest = new GridItemsProviderRequest<TGridItem>(
+        GridItemsProviderRequest<TGridItem> providerRequest = new(
             startIndex, count, _sortByColumn, _sortByAscending, request.CancellationToken);
-        GridItemsProviderResult<TGridItem> providerResult = await ResolveItemsRequestAsync(providerRequest);
+        var providerResult = await ResolveItemsRequestAsync(providerRequest);
 
         if (!request.CancellationToken.IsCancellationRequested)
         {
@@ -389,6 +421,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
             Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
+            if (_ariaBodyRowCount > 0)
+            {
+                Loading = false;
+            }
 
             // We're supplying the row _index along with each row's data because we need it for aria-rowindex, and we have to account for
             // the virtualized start _index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have
@@ -406,18 +442,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (ItemsProvider is not null)
         {
-            return await ItemsProvider(request);
+            var gipr = await ItemsProvider(request);
+            if (gipr.Items is not null)
+            {
+                Loading = false;
+            }
+            return gipr;
         }
         else if (Items is not null)
         {
-            int totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
+            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
             _ariaBodyRowCount = totalItemCount;
-            IQueryable<TGridItem>? result = request.ApplySorting(Items).Skip(request.StartIndex);
+            var result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {
                 result = result.Take(request.Count.Value);
             }
-            TGridItem[]? resultArray = _asyncQueryExecutor is null ? result.ToArray() : await _asyncQueryExecutor.ToArrayAsync(result);
+            var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result);
             return GridItemsProviderResult.From(resultArray, totalItemCount);
         }
         else
@@ -438,11 +479,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-        string? value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
+        var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
         if (string.IsNullOrEmpty(value))
+        {
             return null;
+        }
         else
+        {
             return value;
+        }
     }
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
@@ -466,12 +511,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 await _jsEventDisposable.DisposeAsync();
             }
 
-            if (_jsModule is not null)
+            if (Module is not null)
             {
-                await _jsModule.DisposeAsync();
+                await Module.DisposeAsync();
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
@@ -484,12 +530,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         StateHasChanged();
     }
 
-    private async Task HandleOnRowFocus(DataGridRowFocusEventArgs args)
+    private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)
     {
-        string? rowId = args.RowId;
-        if (_internalGridContext.Rows.TryGetValue(rowId!, out FluentDataGridRow<TGridItem>? row))
+        var rowId = args.RowId;
+        if (_internalGridContext.Rows.TryGetValue(rowId!, out var row))
         {
-            await OnRowFocus.InvokeAsync(row);
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                await OnRowFocus.InvokeAsync(row);
+            }
         }
     }
 }

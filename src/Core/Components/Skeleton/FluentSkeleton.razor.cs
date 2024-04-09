@@ -13,7 +13,6 @@ public partial class FluentSkeleton : FluentComponentBase
         .AddStyle("height", Height, () => !string.IsNullOrWhiteSpace(Height))
         .Build();
 
-
     /// <summary>
     /// Indicates the Skeleton should have a filled style.
     /// </summary>
@@ -27,31 +26,31 @@ public partial class FluentSkeleton : FluentComponentBase
     public SkeletonShape? Shape { get; set; } = SkeletonShape.Rect;
 
     /// <summary>
-    /// Gets or sets the skeleton pattern
+    /// Gets or sets the skeleton pattern.
     /// </summary>
     [Parameter]
     public string? Pattern { get; set; }
 
     /// <summary>
-    /// Gets or sets if the skeleton is shimmered
+    /// Gets or sets a value indicating whether the skeleton is shimmered.
     /// </summary>
     [Parameter]
     public bool? Shimmer { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the skeleton
+    /// Gets or sets the width of the skeleton.
     /// </summary>
     [Parameter]
     public string Width { get; set; } = "50px";
 
     /// <summary>
-    /// Gets or sets the height of the skeleton
+    /// Gets or sets the height of the skeleton.
     /// </summary>
     [Parameter]
     public string Height { get; set; } = "50px";
 
     /// <summary>
-    /// Gets or sets whether the skeleton is visible
+    /// Gets or sets a value indicating whether the skeleton is visible.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; } = true;

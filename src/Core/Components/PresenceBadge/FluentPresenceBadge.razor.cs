@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-
 
 /// <summary>
 /// A presence badge is a badge that displays a status indicator such as available, away, or busy.
@@ -27,22 +26,21 @@ public partial class FluentPresenceBadge : FluentComponentBase, IDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     /// <summary>
-    /// The title to show on hover the component.
+    /// Gets or sets the title to show on hover the component.
     /// If not provided, the <see cref="StatusTitle"/> will be used.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    /// The status to show. See <see cref="PresenceStatus"/> for options.
+    /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]
     public PresenceStatus? Status { get; set; }
 
     /// <summary>
-    /// The title to show on hover the status. If not provided, the status will be used.
+    /// Gets or sets the title to show on hover the status. If not provided, the status will be used.
     /// </summary>
     [Parameter]
     public string? StatusTitle { get; set; }

@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -56,7 +55,7 @@ public partial class FluentToastProvider
     public FluentToastProvider()
     {
         _internalToastContext = new(this);
-        _toastList = new();
+        _toastList = [];
         _toastWaitingQueue = new();
         _renderToasts = RenderToasts;
     }

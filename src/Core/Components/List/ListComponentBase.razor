@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@using System.Reflection
+
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@typeparam TOption
+
+@code
+{
+
+    private void RenderOptions(RenderTreeBuilder __builder)
+    {
+
+        if (Items is null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            bool optionItems = typeof(TOption).IsGenericType && typeof(TOption).GetGenericTypeDefinition() == typeof(Option<>);
+
+            @foreach (TOption item in Items)
+            {
+                <FluentOption TOption="TOption"
+                              Value="@GetOptionValue(item)"
+                              Selected="@GetOptionSelected(item)"
+                              Disabled="@(GetOptionDisabled(item) ?? false)"
+                              OnSelect="@OnSelectCallback(item)">
+                    @if (OptionTemplate is not null)
+                    {
+                        @OptionTemplate(item)
+                    }
+                    else
+                    {
+                        @GetOptionText(item)
+                    }
+
+                    @if (optionItems)
+                    {
+                        var optionIcon = (IOptionIcon)item;
+                        var value = optionIcon.Icon;
+
+                        if (value.HasValue)
+                        {
+                            var icon = value.Value;
+                            <FluentIcon Value="@icon.Value" Color="@icon.Color" Slot="@icon.Slot" />
+                        }
+
+                    }
+                </FluentOption>
+            }
+        }
+    }
+}

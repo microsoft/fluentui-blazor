@@ -1,0 +1,18 @@
+﻿<FluentAutocomplete TOption="NavItem"
+                    Width="200px"
+                    AutoComplete="off"
+                    Placeholder="Search everything..."
+                    MaximumSelectedOptions="1"
+                    OptionText="@(item => item.Title)"
+                    @bind-ValueText="@_searchTerm"
+                    @bind-SelectedOptions="_selectedOptions"
+                    @bind-SelectedOptions:after="HandleSearchClicked"
+                    OnOptionsSearch="@HandleSearchInput"
+                    ShowOverlayOnEmptyResults="false">
+    <OptionTemplate>
+        <span slot="start">
+            <FluentIcon Value="@(context.Icon)" Class="search-result-icon" Color="Color.Neutral" Slot="start"/>
+        </span>
+        @context.Title
+    </OptionTemplate>
+</FluentAutocomplete>

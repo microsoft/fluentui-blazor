@@ -1,21 +1,21 @@
 using Markdig;
 using Microsoft.AspNetCore.Components;
-
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+using Microsoft.JSInterop;
 
-
-// Remember to replace the namespace below with your own project's namespace..
 namespace FluentUI.Demo.Shared.Components;
 
 public partial class MarkdownSection : FluentComponentBase
 {
     private string? _content;
     private bool _raiseContentConverted;
+    private IJSObjectReference _jsModule = default!;
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
-
 
     /// <summary>
     /// Gets or sets the Markdown content 
@@ -40,7 +40,6 @@ public partial class MarkdownSection : FluentComponentBase
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
 
-
             if (OnContentConverted.HasDelegate)
             {
                 OnContentConverted.InvokeAsync();
@@ -52,21 +51,29 @@ public partial class MarkdownSection : FluentComponentBase
 
     public MarkupString HtmlContent { get; private set; }
 
-
     protected override void OnInitialized()
     {
         if (Content is null && string.IsNullOrEmpty(FromAsset))
+        {
             throw new ArgumentException("You need to provide either Content or FromAsset parameter");
+        }
 
         InternalContent = Content;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
-        if (firstRender && !string.IsNullOrEmpty(FromAsset))
+        if (firstRender)
         {
-            InternalContent = await StaticAssetService.GetAsync(FromAsset);
+            if (!string.IsNullOrEmpty(FromAsset))
+            {
+                InternalContent = await StaticAssetService.GetAsync(FromAsset);
+            }
+            // add highlight for any code blocks
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
+            await _jsModule.InvokeVoidAsync("highlight");
+            await _jsModule.InvokeVoidAsync("addCopyButton");
         }
 
         if (_raiseContentConverted)
@@ -84,8 +91,14 @@ public partial class MarkdownSection : FluentComponentBase
     {
         if (!string.IsNullOrWhiteSpace(value))
         {
+            var builder = new MarkdownPipelineBuilder()
+                    .UseAdvancedExtensions()
+                    .Use<MarkdownSectionPreCodeExtension>();
+
+            var pipeline = builder.Build();
+
             // Convert markdown string to HTML
-            string? html = Markdown.ToHtml(value, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
+            var html = Markdown.ToHtml(value, pipeline);
 
             // Return sanitized HTML as a MarkupString that Blazor can render
             return new MarkupString(html);

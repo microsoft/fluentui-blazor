@@ -7,7 +7,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Button;
 
 public partial class FluentButtonTests : TestContext
 {
-    private TestContext TestContext => new(); // TODO: To remove and to use the `RenderComponent` inherited method.
+    private static TestContext TestContext => new(); // TODO: To remove and to use the `RenderComponent` inherited method.
+
+    public FluentButtonTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
 
     [Fact]
     public void FluentButton_Default()
@@ -396,7 +401,7 @@ public partial class FluentButtonTests : TestContext
     [Fact]
     public void FluentButton_OnClick_Disabled()
     {
-        bool clicked = false;
+        var clicked = false;
 
         // Arrange
         var cut = TestContext.RenderComponent<FluentButton>(parameters =>

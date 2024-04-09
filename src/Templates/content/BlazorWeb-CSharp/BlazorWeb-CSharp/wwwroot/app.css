@@ -8,33 +8,38 @@ body {
     margin: 0;
 }
 
+.navmenu-icon {
+    display: none;
+}
+
 .main {
-    height: calc(100dvh - 102px);
+    min-height: calc(100dvh - 86px);
     color: var(--neutral-foreground-rest);
+    align-items: stretch !important;
+}
+
+.body-content {
+    align-self: stretch;
+    height: unset !important;
+    display: flex;
 }
 
 .content {
-    margin: 0 10px;
+    padding: 0.5rem 1.5rem;
+    align-self: stretch !important;
+    width: 100%;
+}
+
+.manage {
+    width: 100dvw;
 }
 
 footer {
-    display: grid;
-    grid-template-columns: 10px auto auto 10px;
     background: var(--neutral-layer-4);
     color: var(--neutral-foreground-rest);
     align-items: center;
     padding: 10px 10px;
 }
-
-    footer .link1 {
-        grid-column: 2;
-        justify-content: start;
-    }
-
-    footer .link2 {
-        grid-column: 3;
-        justify-self: end;
-    }
 
     footer a {
         color: var(--neutral-foreground-rest);
@@ -121,4 +126,52 @@ footer {
 
 code {
     color: #c02d76;
+}
+
+@media (max-width: 600px) {
+    .main {
+        flex-direction: column !important;
+        row-gap: 0 !important;
+    }
+
+    nav.sitenav {
+        width: 100%;
+        height: 100%;
+    }
+
+    #main-menu {
+        width: 100% !important;
+    }
+
+        #main-menu > div:first-child:is(.expander) {
+            display: none;
+        }
+
+    .navmenu {
+        width: 100%;
+    }
+
+    #navmenu-toggle {
+        appearance: none;
+    }
+
+        #navmenu-toggle ~ nav {
+            display: none;
+        }
+
+        #navmenu-toggle:checked ~ nav {
+            display: block;
+        }
+
+    .navmenu-icon {
+        cursor: pointer;
+        z-index: 10;
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        border: none;
+    }
 }

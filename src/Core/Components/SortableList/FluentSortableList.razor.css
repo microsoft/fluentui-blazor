@@ -1,0 +1,71 @@
+/* 
+  you need the ::deep identifier if you are using scoped styles like this
+  because scoped styles are only applied to markup in the component, not
+  to the markup inside the render fragment.
+*/
+
+.fluent-sortable-list {
+    --fluent-sortable-list-background-color: var(--neutral-layer-2);
+    --fluent-sortable-list-item-height: calc(var(--design-unit) * 8px);
+    --fluent-sortable-list-filtered: var(--warning);
+    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-input-active);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    padding: calc(var(--design-unit) * 1px);
+    min-height: var(--fluent-sortable-list-item-height);
+}
+
+    /*Not sure yet if this can be deleted. Need to test on iOS*/
+    /*.fluent-sortable-list ::deep .sortable-fallback {
+        opacity: 1 !important
+    }*/
+
+    .fluent-sortable-list ::deep .sortable-grab {
+        cursor: grab;
+        background-color: var(--neutral-layer-1);
+        display: flex;
+        position: relative;
+        height: 100%;
+        left: calc(var(--design-unit) * -2px);
+        right: unset;
+        border-radius: calc(var(--control-corner-radius)* 1px) 0 0 calc(var(--control-corner-radius)* 1px);
+        width: 32px;
+        padding: 0 5px;
+    }
+
+    [dir='rtl'] .fluent-sortable-list ::deep .sortable-grab {
+        left: unset;
+        right: calc(var(--design-unit) * -2px);
+        border-radius: 0 calc(var(--control-corner-radius)* 1px) calc(var(--control-corner-radius)* 1px) 0;
+    }
+
+.fluent-sortable-list ::deep .sortable-item {
+    display: flex;
+    align-items: center;
+    height: var(--fluent-sortable-list-item-height) !important;
+    background-color: var(--fluent-sortable-list-background-color);
+    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-input-active);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 0 calc(var(--design-unit) * 2px);
+    margin-bottom: 2px;
+}
+
+    .fluent-sortable-list ::deep .sortable-item:last-of-type {
+        margin-bottom: 0;
+    }
+
+.fluent-sortable-list ::deep .sortable-ghost > .sortable-item-content {
+    background-color: var(--neutral-layer-1) !important;
+}
+
+.fluent-sortable-list ::deep .sortable-ghost {
+    background: var(--neutral-layer-1) !important;
+    border: calc(var(--stroke-width) * 1px) dotted var(--accent-fill-rest) !important;
+}
+
+.fluent-sortable-list > .sortable-item:is(.filtered) {
+    background: var(--fluent-sortable-list-filtered);
+}

@@ -1,12 +1,12 @@
 .loading-button {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    justify-content: center;
+    position: relative;
 }
 
     .loading-button ::deep fluent-progress-ring {
         position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 16px;
         height: 16px;
         cursor: not-allowed;

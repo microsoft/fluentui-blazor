@@ -1,10 +1,9 @@
-
 # Microsoft Fluent UI Blazor components
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET C#](https://img.shields.io/badge/.NET-C%23-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-![Nuget](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Components?label=NuGet%20Component%20Library)
-![Nuget](https://img.shields.io/nuget/v/Microsoft.Fast.Templates.FluentUI?label=NuGet%20Templates)
+[![NuGet](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Components?label=NuGet%20Component%20Library)](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components)
+[![NuGet](https://img.shields.io/nuget/v/Microsoft.FluentUI.AspNetCore.Templates?label=NuGet%20Templates)](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates)
 
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 [![Gitter](https://img.shields.io/badge/chat%20on-gitter-7289da.svg)](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im)
@@ -12,7 +11,7 @@
 
 :star:  We appreciate your star, it helps!
 
-**This package is for use in .NET 8 Blazor projects. If you are using .NET 6 or 7, please use the v3 version f the package which is named `Microsoft.Fast.Components.FluentUI`**
+**This package is for use in .NET 8 Blazor projects. If you are using .NET 6 or 7, please use the v3 version of the package which is named `Microsoft.Fast.Components.FluentUI`**
 
 ## Introduction
 
@@ -67,10 +66,10 @@ As mentioned, we wrap the **Fluent UI Web Components** which are implemented in 
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
-When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
+Even when using **SSR (Static Server Rendering)**, the script will be included and loaded automatically. If you want the script to be loaded before Blazor starts, add it to your `App.razor` file like this:
 
 ```html
-<script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/web-components-v2.5.16.min.js" type="module" async></script>
+<script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>
 ```
 If you add interactivity later, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
@@ -177,21 +176,25 @@ builder.Services.AddDataGridEntityFrameworkAdapter();
 ## Additional resources
 * The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
 
+## Support
+The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
+supported and isn’t committed to ship updates as part of any official .NET updates. It is built and maintained by Microsoft employees (**and** other contributors)
+and offers support, like most other open source projects, on a best effort base through the GitHub repository **only**.
 
 ## Contributing to the project
 
-We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/main/CONTRIBUTING.md). 
-We alo have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/main/unit-tests.md)
+We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/main/docs/contributing.md). 
+We also have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/main/docs/unit-tests.md)
 
 ## Joining the Community
 
 Looking to get answers to questions or engage with us in real-time? Our community is  active on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) and [Discord](https://discord.gg/FcSNfg4). Submit requests 
-and issues on [GitHub](https://github.com/microsoft/blazor-fluentui/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
+and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
 ## Contact
 
 * Join the community and chat with us in real-time on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) or [Discord](https://discord.gg/FcSNfg4).
-* Submit requests and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
+* Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
 * Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).

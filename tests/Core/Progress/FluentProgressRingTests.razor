@@ -1,0 +1,86 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentProgressRing_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgressRing_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Width="64px" />);
+
+        // Assert
+        cut.Verify();
+
+    }
+
+    [Fact]
+    public void FluentProgressRing_Content()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="10" Max="80">My content</FluentProgressRing>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgressRing_Visible()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Visible="false" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgressRing_Paused()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Paused="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentProgressRing_Stroke()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Stroke="ProgressStroke.Large" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgressRing_Stroke_Indeterminate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Stroke="ProgressStroke.Small" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgressRing_Colors()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgressRing Min="0" Max="100" Value="30" Color="red" BackgroundColor="gray" />);
+
+        // Assert
+        cut.Verify();
+    }
+}

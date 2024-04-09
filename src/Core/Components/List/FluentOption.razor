@@ -2,13 +2,13 @@
 @inherits FluentComponentBase
 @typeparam TOption
 <fluent-option @ref=Element
+               id="@Id"
                class="@Class"
                style="@Style"
-               id="@OptionId"
                disabled="@Disabled"
                value="@Value"
                selected="@Selected"
-               @onclick="@OnSelectHandler"
+               @onclick="@OnClickHandlerAsync"
                @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-option>

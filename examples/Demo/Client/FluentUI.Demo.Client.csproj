@@ -1,10 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -12,6 +14,13 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
 	</ItemGroup>
 
+	<!-- For WASM, Trim Icons and Emojis Libs, -->
+	<!-- but not Core and Shared libs -->
+	<ItemGroup>
+		<TrimmerRootAssembly Include="Microsoft.FluentUI.AspNetCore.Components" />
+		<TrimmerRootAssembly Include="FluentUI.Demo.Shared" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\Shared\FluentUI.Demo.Shared.csproj" />
 	</ItemGroup>

@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -42,10 +42,15 @@ internal struct CalendarExtended
         }
 
         var monthFirst = GetFirstDayToDisplay(monthOffset);
-        var weekFirst = monthFirst.AddDays(weekNumber * 7).StartOfWeek(GetFirstDayOfWeek());
-        for (var i = 0; i < 7; i++)
+        var maxLimit = monthFirst.Year == DateTime.MaxValue.Year && monthFirst.Month == DateTime.MaxValue.Month && weekNumber > 3;
+
+        if (!maxLimit)
         {
-            yield return weekFirst.AddDays(i);
+            var weekFirst = monthFirst.AddDays(weekNumber * 7).StartOfWeek(GetFirstDayOfWeek());
+            for (var i = 0; i < 7; i++)
+            {
+                yield return weekFirst.AddDays(i);
+            }
         }
     }
 
@@ -82,7 +87,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthName()
     {
-        return GetMonthName(this.Date);
+        return GetMonthName(Date);
     }
 
     /// <summary>
@@ -97,6 +102,36 @@ internal struct CalendarExtended
     }
 
     /// <summary>
+    /// Returns the list of month names in the right culture.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames()
+    {
+        for (var i = 0; i < 12; i++)
+        {
+            yield return (i + 1, ToTitleCase(Culture.DateTimeFormat.AbbreviatedMonthNames[i]), ToTitleCase(Culture.DateTimeFormat.MonthNames[i]));
+        }
+    }
+
+    /// <summary>
+    /// Returns the list of 12 years.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<(int Index, int Year)> GetYearsRange()
+    {
+        var max = 12;
+        if (Date.Year + max > DateTime.MaxValue.Year)
+        {
+            max = DateTime.MaxValue.Year - Date.Year + 1;
+        }
+
+        for (var i = 0; i < max; i++)
+        {
+            yield return (i, Date.Year + i);
+        }
+    }
+
+    /// <summary>
     /// Returns the name of the month in the right culture, followed by the year.
     /// </summary>
     /// <returns></returns>
@@ -107,18 +142,59 @@ internal struct CalendarExtended
     }
 
     /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <returns></returns>
+    public string GetYear()
+    {
+        return $"{Date.Year}";
+    }
+
+    /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <returns></returns>
+    public string GetYearsRangeLabel(int fromYear)
+    {
+        var min = fromYear;
+        var max = fromYear + 11;
+
+        if (min < DateTime.MinValue.Year)
+        {
+            min = DateTime.MinValue.Year;
+        }
+
+        if (max > DateTime.MaxValue.Year)
+        {
+            max = DateTime.MaxValue.Year;
+        }
+
+        return min == max ? $"{min}" : $"{min} - {max}";
+    }
+
+    /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public string GetYear(DateTime date)
+    {
+        return $"{date.Year}";
+    }
+
+    /// <summary>
     /// Returns a list of days, abbreviated and complete (Mon, Monday), ...,(Sun, Sunday) in the correct culture.
     /// </summary>
     /// <returns></returns>
     public IEnumerable<(string Abbreviated, string Shorted, string Name)> GetDayNames()
     {
-        int firstDayOfWeek = (int)GetFirstDayOfWeek();
+        var firstDayOfWeek = (int)GetFirstDayOfWeek();
         var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
         var names = Culture.DateTimeFormat.DayNames;
         var shorted = Culture.DateTimeFormat.ShortestDayNames;
         var dayNames = new (string Abbreviated, string Shorted, string Name)[7];
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             dayNames[i].Name = ToTitleCase(names[i]);
             dayNames[i].Shorted = shorted[i];
@@ -135,8 +211,8 @@ internal struct CalendarExtended
     /// <returns></returns>
     public bool IsInCurrentMonth(DateTime date)
     {
-        return date.Year == this.Date.Year &&
-               date.Month == this.Date.Month;
+        return date.Year == Date.Year &&
+               date.Month == Date.Month;
     }
 
     /// <summary>

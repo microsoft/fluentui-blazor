@@ -1,14 +1,24 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.TextArea;
 public class FluentTextAreaTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentTextAreaTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentTextArea_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         TextAreaResize? resize = default!;
         string form = default!;
         string dataList = default!;
@@ -33,12 +43,7 @@ public class FluentTextAreaTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

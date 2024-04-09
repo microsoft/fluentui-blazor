@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-
 /// <summary>
 /// Groups child <see cref="FluentRadio{TValue}"/> components. 
 /// </summary>

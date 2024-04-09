@@ -1,0 +1,38 @@
+@page "/Listbox"
+
+@using FluentUI.Demo.Shared.Pages.List.Listbox.Examples
+
+<h1>Listbox</h1>
+
+<p>
+    An implementation of a <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" target="_blank" rel="noopener noreferrer">listbox</a>. While any
+    DOM content is permissible as a child of the listbox, only <code>FluentOption</code> elements,
+    <code>option</code> elements, and slotted items with <code>role="option"</code> will be treated as options and receive keyboard support.
+</p>
+<p>
+    The <code>&lt;FluentListbox&gt</code> supports data binding, but does not hook in any events.
+</p>
+<p>
+    <code>&lt;FluentListbox&gt;</code> wraps the <code>&lt;fluent-listbox&gt;</code> element, a web component implementation of a listbox leveraging the
+    Fluent UI design system.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Manual" Component="@typeof(ListboxManual)"></DemoSection>
+
+<DemoSection Title="Default" Component="@typeof(ListboxDefault)"></DemoSection>
+
+<DemoSection Title="From a list of Option<T> items" Component="@typeof(ListboxFromListOfOptions)"></DemoSection>
+
+<DemoSection Title="Long list" Component="@typeof(ListboxLong)"></DemoSection>
+
+<DemoSection Title="Long list with Width and Height" Component="@typeof(ListboxSize)"></DemoSection>
+
+<DemoSection Title="Multiple (not working yet!!)" Component="@typeof(ListboxMultiple)"></DemoSection>
+
+<DemoSection Title="Option template" Component="@typeof(ListboxWithOptionTemplate)"></DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentListbox<>)" GenericLabel="TOption"/>

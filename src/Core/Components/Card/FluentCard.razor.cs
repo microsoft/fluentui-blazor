@@ -8,8 +8,12 @@ public partial class FluentCard
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
         .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
-        .AddStyle("content-visibility", "visible", !AreaRestricted)
-        .AddStyle("contain", "style", !AreaRestricted)
+        .AddStyle("content-visibility", "visible", !AreaRestricted && !MinimalStyle)
+        .AddStyle("contain", "style", !AreaRestricted && !MinimalStyle)
+        .Build();
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-card-minimal-style", when: MinimalStyle)
         .Build();
 
     /// <summary>
@@ -20,16 +24,19 @@ public partial class FluentCard
     public bool AreaRestricted { get; set; } = true;
 
     /// <summary>
-    /// Specifies the width of the card. Must be a valid CSS measurement.
+    /// Gets or sets the width of the card. Must be a valid CSS measurement.
     /// </summary>  
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Specifies the height of the card. Must be a valid CSS measurement.
+    /// Gets or sets the height of the card. Must be a valid CSS measurement.
     /// </summary>  
     [Parameter]
     public string? Height { get; set; }
+
+    [Parameter]
+    public bool MinimalStyle { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

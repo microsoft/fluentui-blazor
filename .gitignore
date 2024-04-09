@@ -397,6 +397,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.idea/
 
 # Verify Test generated Files
 *.received.html
@@ -408,3 +409,6 @@ Microsoft.Fast.Components.FluentUI.xml
 /examples/Demo/Shared/wwwroot/sources/*.txt
 /examples/Demo/Shared/FluentUI.Demo.Shared.xml
 /examples/Demo/Shared/Microsoft.Fast.Components.FluentUI.xml
+/tests/TemplateValidation/**/Data/Migrations
+/tests/TemplateValidation/**/Data/*
+/global.json

@@ -45,4 +45,4 @@ Search open/closed issues before submitting. Someone may have reported the same 
 
 * OS & Device: [e.g. MacOS, iOS, Windows, Linux] on [iPhone 7, PC]
 * Browser [e.g. Microsoft Edge, Google Chrome, Apple Safari, Mozilla FireFox]
-* .NET and FAST Version [e.g. 1.8.0]
+* .NET and Fluent UI Blazor library Version [e.g. 8.0.2 and 4.4.1]

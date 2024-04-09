@@ -1,0 +1,39 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+
+        public bool Disabled { get; set; } = false;
+    }
+
+    public List<Item> items = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+    public FluentSortableListTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        //JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js");
+        //JSInterop.Setup<IJSObjectReference>("init", _ => true);
+    }
+
+    [Fact]
+    public void FluentSortableList_Default()
+    {
+        // Arrange && Act
+       
+        var cut = Render(@<FluentSortableList Items="items">
+                             <ItemTemplate>
+                                <div class="sortable-item">@context.Name</div>
+                             </ItemTemplate>
+                          </FluentSortableList>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+
+}

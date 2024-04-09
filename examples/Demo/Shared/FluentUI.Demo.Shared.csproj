@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
@@ -18,7 +18,7 @@
 		<WarningLevel>6</WarningLevel>
 		<NullableReferenceTypes>true</NullableReferenceTypes>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-		<NoWarn>1701;1702;8669;1591;1816</NoWarn>
+		<NoWarn>612;618;1701;1702;8669;1591;1816</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -28,18 +28,31 @@
 		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 	</PropertyGroup>
 
-	<ItemGroup>
+  <!-- Code Analysis -->
+  <ItemGroup>
+    <!--
+    <PackageReference Include="StyleCop.Analyzers" VersionOverride="1.2.0-beta.556">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    -->
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" VersionOverride="17.8.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
 		<PackageReference Include="Markdig" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-  </ItemGroup>
+		<ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
@@ -49,7 +62,9 @@
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
 			<Sources Include="$(ProjectDir)\Pages\Lab\**" />
+			<Sources Include="$(ProjectDir)\Pages\BasicForm*" />
 			<Sources Include="$(ProjectDir)\Components\*" />
+			<Sources Include="$(ProjectDir)\SampleData\*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 	</Target>

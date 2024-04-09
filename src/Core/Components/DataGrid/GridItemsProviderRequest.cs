@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public readonly struct GridItemsProviderRequest<TGridItem>
 {
     /// <summary>
-    /// The zero-based index of the first item to be supplied.
+    /// Gets or sets the zero-based index of the first item to be supplied.
     /// </summary>
     public int StartIndex { get; init; }
 
@@ -17,7 +17,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     public int? Count { get; init; }
 
     /// <summary>
-    /// Specifies which column represents the sort order.
+    /// Gets or sets which column represents the sort order.
     ///
     /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
     /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
@@ -25,7 +25,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     public ColumnBase<TGridItem>? SortByColumn { get; init; }
 
     /// <summary>
-    /// Specifies the current sort direction.
+    /// Gets or sets thecurrent sort direction.
     ///
     /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
     /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
@@ -33,7 +33,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     public bool SortByAscending { get; init; }
 
     /// <summary>
-    /// A token that indicates if the request should be cancelled.
+    /// Gets or sets a token that indicates if the request should be cancelled.
     /// </summary>
     public CancellationToken CancellationToken { get; init; }
 

@@ -102,7 +102,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         _disposed = true;
     }
 
-
     internal async Task SetSelectedAsync(bool value)
     {
         if (value == Selected)
@@ -168,6 +167,5 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             await tree.ItemSelectedChangeAsync(this);
         }
     }
-
 
 }

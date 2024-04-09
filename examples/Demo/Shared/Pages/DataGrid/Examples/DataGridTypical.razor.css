@@ -4,10 +4,3 @@
     margin: auto;
     border: 1px solid var(--neutral-layer-3);
 }
-
-
-/* Stop country name text from wrapping, and truncate with ellipsis */
-::deep .country-name::part(control) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}

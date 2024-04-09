@@ -1,7 +1,6 @@
-﻿.fluent-popover-content  {
+.fluent-popover-content  {
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
-    color: rgb(50, 49, 48);
     line-height: 27px;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -10,22 +9,20 @@
     padding: 1em;
 }
 
-    .fluent-popover-content .fluent-popover-header {
+    .fluent-popover-content div[part="header"] {
         font-size: 20px;
         font-weight: 600;
         width: inherit;
+        margin-bottom: 12px;
     }
 
-    .fluent-popover-content .fluent-popover-body {
+    .fluent-popover-content div[part="body"] {
         height: 100%;
-        width: inherit;
-        margin-top: 1em;
-        display: flex;
     }
 
-    .fluent-popover-content .fluent-popover-footer {
+    .fluent-popover-content div[part="footer"] {
         font-size: 14px;
         font-weight: normal;
         width: inherit;
-        margin-top: 1em;
+        margin-top: 12px;
     }

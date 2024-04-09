@@ -1,20 +1,14 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public abstract class FluentCalendarBase : FluentComponentBase
+public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
 {
     private DateTime? _selectedDate = null;
 
     /// <summary>
-    /// Gets or sets if the calendar is readonly 
-    /// </summary>
-    [Parameter]
-    public bool ReadOnly { get; set; } = false;
-
-    /// <summary>
-    /// The culture of the component.
+    /// Gets or sets the culture of the component.
     /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
     /// </summary>
     [Parameter]
@@ -30,20 +24,27 @@ public abstract class FluentCalendarBase : FluentComponentBase
     /// Apply the disabled style to the <see cref="DisabledDateFunc"/> days.
     /// If this is not the case, the days are displayed like the others, but cannot be selected.
     /// </summary>
-    [Parameter] 
+    [Parameter]
     public virtual bool DisabledSelectable { get; set; } = true;
 
     /// <summary>
-    /// Type style for the day (numeric or 2-digits).
+    /// Gets or sets the Type style for the day (numeric or 2-digits).
     /// </summary>
     [Parameter]
     public DayFormat? DayFormat { get; set; } = AspNetCore.Components.DayFormat.Numeric;
 
     /// <summary>
-    /// Selected date (two-way bindable).
+    /// Gets or sets the verification to do when the selected value has changed.
+    /// By default, ValueChanged is called only if the selected value has changed.
     /// </summary>
     [Parameter]
-    public virtual DateTime? Value
+    public bool CheckIfSelectedValueHasChanged { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the selected date (two-way bindable).
+    /// </summary>
+    [Parameter]
+    public override DateTime? Value
     {
         get
         {
@@ -52,7 +53,7 @@ public abstract class FluentCalendarBase : FluentComponentBase
 
         set
         {
-            if (_selectedDate == value)
+            if (CheckIfSelectedValueHasChanged && _selectedDate == value)
             {
                 return;
             }
@@ -63,14 +64,12 @@ public abstract class FluentCalendarBase : FluentComponentBase
             {
                 ValueChanged.InvokeAsync(value);
             }
+            if (FieldBound)
+            {
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
+            }
         }
     }
-
-    /// <summary>
-    /// Fired when the display month changes.
-    /// </summary>
-    [Parameter]
-    public virtual EventCallback<DateTime?> ValueChanged { get; set; }
 
     /// <summary />
     protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
@@ -84,7 +83,7 @@ public abstract class FluentCalendarBase : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value, bool dayDisabled)
+    protected virtual async Task OnSelectDayHandlerAsync(DateTime? value, bool dayDisabled)
     {
         if (!dayDisabled)
         {

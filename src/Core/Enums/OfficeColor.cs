@@ -12,13 +12,13 @@ public enum OfficeColor
     /// </summary>
     [Description("default")]
     Default,
-    
+
     /// <summary/>
     [Description("#a4373a")]
     Access,
 
     /// <summary/>
-    [Description("#00a99d")] 
+    [Description("#00a99d")]
     Booking,
 
     /// <summary/>
@@ -30,7 +30,7 @@ public enum OfficeColor
     Excel,
 
     /// <summary/>
-    [Description("#00bcf2")] 
+    [Description("#00bcf2")]
     GroupMe,
 
     /// <summary/>
@@ -58,7 +58,7 @@ public enum OfficeColor
     PowerApps,
 
     /// <summary/>
-    [Description("#f2c811")] 
+    [Description("#f2c811")]
     PowerBI,
 
     /// <summary/>
@@ -82,7 +82,7 @@ public enum OfficeColor
     Skype,
 
     /// <summary/>
-    [Description("#bc1948")] 
+    [Description("#bc1948")]
     Stream,
 
     /// <summary/>
@@ -98,7 +98,7 @@ public enum OfficeColor
     Visio,
 
     /// <summary/>
-    [Description("#0078d4")] 
+    [Description("#0078d4")]
     Windows,
 
     /// <summary/>

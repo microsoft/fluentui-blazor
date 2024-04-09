@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static class AdditionalAttributesExtensions
 {
@@ -42,7 +42,10 @@ public static class AdditionalAttributesExtensions
                 continue;
             }
 
-            if (y is null) return false;
+            if (y is null)
+            {
+                return false;
+            }
 
             if (!y.TryGetValue(xKvp.Key, out var yValue) ||
                 !xKvp.Value.Equals(yValue))

@@ -1,0 +1,43 @@
+@page "/Combobox"
+
+@using FluentUI.Demo.Shared.Pages.List.Combobox.Examples;
+
+<h1>Combobox</h1>
+
+<p>As defined by the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" target="_blank" rel="noopener noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A combobox is an input widget with an associated popup that enables users to select a value for the combobox from a collection
+        of possible values. In some implementations, the popup presents allowed values, while in other implementations, the popup presents suggested
+        values, and users may either select one of the suggestions or type a value. The popup may be a listbox, grid, tree, or dialog. Many
+        implementations also include a third optional element -- a graphical Open button adjacent to the combobox, which indicates availability of
+        the popup. Activating the Open button displays the popup if suggestions are available.
+    </p>
+</blockquote>
+<p>
+    <code>&lt;FluentCombobox&gt;</code> wraps the <code>&lt;fluent-combobox&gt;</code> element, a web component implementation of a combobox.
+</p>
+
+<p>
+    Due to the fact that a combobox allows the user to enter a value, it is impossible to return an <code>OptionValue</code>
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default examples" Component="@typeof(ComboboxDefault)"></DemoSection>
+
+<DemoSection Title="From a list of Option<T> items" Component="@typeof(ComboboxFromListOfOptions)"></DemoSection>
+
+<DemoSection Title="Disabled examples" Component="@typeof(ComboboxDisabled)"></DemoSection>
+
+<DemoSection Title="Appearance example" Component="@typeof(ComboboxAppearance)"></DemoSection>
+
+<DemoSection Title="Autocomplete examples" Component="@typeof(ComboboxAutocompleteDemo)"></DemoSection>
+
+<DemoSection Title="List examples" Component="@typeof(ComboboxList)"></DemoSection>
+
+<DemoSection Title="Option template" Component="@typeof(ComboboxWithOptionTemplate)"></DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentCombobox<>)" GenericLabel="TOption" />

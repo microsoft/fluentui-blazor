@@ -6,6 +6,9 @@
                 Title="Copy to clipboard" />
     @if (Icon is not null)
     {
+        <FluentLabel Class="size" title="Size">
+            @TopLeftLabel
+        </FluentLabel>
         <FluentIcon Class="image"
                     Value="@Icons.GetInstance(Icon)"
                     Color="@IconColor"

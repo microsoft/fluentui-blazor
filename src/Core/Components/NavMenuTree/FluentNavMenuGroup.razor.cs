@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -8,7 +8,7 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 {
     internal const string ICON_WIDTH = "20px";
 
-    private readonly List<FluentNavMenuItemBase> _childItems = new();
+    private readonly List<FluentNavMenuItemBase> _childItems = [];
     private bool HasChildIcons => ((INavMenuItemsOwner)this).HasChildIcons;
     private bool Visible => NavMenu.Expanded || HasIcon;
 
@@ -91,18 +91,18 @@ public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOw
 
     protected internal override async ValueTask ExecuteAsync(NavMenuActionArgs args)
     {
-        bool _justExpanded = false;
+        var _justExpanded = false;
         await base.ExecuteAsync(args);
 
         if (!args.Handled)
         {
-            bool shouldExpand = Collapsed || NavMenu.Collapsed;
+            var shouldExpand = Collapsed || NavMenu.Collapsed;
             if (shouldExpand)
             {
                 await SetExpandedAsync(true);
                 _justExpanded = true;
             }
-            bool shouldCollapse = Expanded && !NavMenu.Collapsed;
+            var shouldCollapse = Expanded && !NavMenu.Collapsed;
             if (shouldCollapse && !_justExpanded)
             {
                 await SetExpandedAsync(false);

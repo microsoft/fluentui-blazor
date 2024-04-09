@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,7 +22,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddClass("fluent-dialog-main")
         .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
-        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
+        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden) : _parameters.PreventScroll)
         .Build();
 
     /// <summary />
@@ -36,7 +35,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
- 
+
     /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
     /// </summary>
@@ -44,14 +43,14 @@ public partial class FluentDialog : FluentComponentBase
     public bool PreventScroll { get; set; } = true;
 
     /// <summary>
-    /// Indicates the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
-    /// overlay.  Clicks on the overlay will cause the dialog to emit a "dismiss" event.
+    /// Gets or sets a value indicating whether the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
+    /// overlay. Clicks on the overlay will cause the dialog to emit a "dismiss" event.
     /// </summary>
     [Parameter]
     public bool? Modal { get; set; }
 
     /// <summary>
-    /// Gets or sets if the dialog is hidden
+    /// Gets or sets a value indicating whether the dialog is hidden.
     /// </summary>
     [Parameter]
     public bool Hidden
@@ -76,35 +75,34 @@ public partial class FluentDialog : FluentComponentBase
     public EventCallback<bool> HiddenChanged { get; set; }
 
     /// <summary>
-    /// Indicates that the dialog should trap focus.
+    /// Gets or sets a value indicating whether that the dialog should trap focus.
     /// </summary>
     [Parameter]
     public bool? TrapFocus { get; set; }
 
     /// <summary>
-    /// The id of the element describing the dialog.
+    /// Gets or sets the id of the element describing the dialog.
     /// </summary>
     [Parameter]
     public string? AriaDescribedby { get; set; }
 
     /// <summary>
-    /// The id of the element labeling the dialog.
+    /// Gets or sets the id of the element labeling the dialog.
     /// </summary>
     [Parameter]
     public string? AriaLabelledby { get; set; }
 
     /// <summary>
-    /// The label surfaced to assistive technologies.
+    /// Gets or sets the label surfaced to assistive technologies.
     /// </summary>
     [Parameter]
     public string? AriaLabel { get; set; }
 
     /// <summary>
-    /// The instance containing the programmatic API for the dialog.
+    /// Gets or sets the instance containing the programmatic API for the dialog.
     /// </summary>
     [Parameter]
     public DialogInstance Instance { get; set; } = default!;
-
 
     /// <summary>
     /// Used when not calling the <see cref="DialogService" /> to show a dialog.
@@ -150,6 +148,14 @@ public partial class FluentDialog : FluentComponentBase
         if (firstRender)
         {
             await Element.FocusAsync();
+
+            if (Instance is not null)
+            {
+                if (Instance.Parameters.OnDialogOpened.HasDelegate)
+                {
+                    await Instance.Parameters.OnDialogOpened.InvokeAsync(Instance);
+                }
+            }
         }
     }
 
@@ -222,6 +228,13 @@ public partial class FluentDialog : FluentComponentBase
     /// </summary>
     public async Task CloseAsync(DialogResult dialogResult)
     {
+        if (Instance is not null)
+        {
+            if (Instance.Parameters.OnDialogClosing.HasDelegate)
+            {
+                await Instance.Parameters.OnDialogClosing.InvokeAsync(Instance);
+            }
+        }
         DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
         if (Instance is not null)
         {
@@ -265,15 +278,9 @@ public partial class FluentDialog : FluentComponentBase
     {
         StateHasChanged();
 
-        if (_dialogHeader != null)
-        {
-            _dialogHeader.Refresh();
-        }
+        _dialogHeader?.Refresh();
 
-        if (_dialogFooter != null)
-        {
-            _dialogFooter.Refresh();
-        }
+        _dialogFooter?.Refresh();
     }
 
     /// <summary />

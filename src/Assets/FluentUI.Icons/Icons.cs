@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 

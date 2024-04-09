@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,20 +23,23 @@ public partial class FluentSplashScreen : IDialogContentComponent<SplashScreenCo
         </svg>
         """;
 
-
     [Parameter]
     public SplashScreenContent Content { get; set; } = default!;
-
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
+    protected override void OnInitialized()
+    {
+        Content.RefreshProperties = () => StateHasChanged();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && Content.DisplayTime > 0)
         {
             // Simulation of loading process
-            await Task.Delay(4000);
+            await Task.Delay(Content.DisplayTime);
 
             // Close the dialog
             await Dialog.CloseAsync();

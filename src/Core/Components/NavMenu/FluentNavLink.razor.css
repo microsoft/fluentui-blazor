@@ -6,18 +6,17 @@
     display: flex;
 }
 
-::deep .fluent-nav-icon {
-    margin-inline-end: calc(var(--design-unit) * 2px + 2px);
+::deep :not(fluent-menu-item) .fluent-nav-icon {
     min-width: 20px;
 }
 
-::deep .fluent-nav-link.disabled {
+::deep :not(fluent-menu-item) .fluent-nav-link.disabled {
     color: var(--neutral-fill-secondary-rest) !important;
-    cursor: not-allowed ;
+    cursor: not-allowed;
     pointer-events: none;
 }
 
 
-::deep .fluent-nav-link.disabled .fluent-nav-icon {
-    fill: var(--neutral-stroke-rest) !important;
-}
+    ::deep :not(fluent-menu-item) .fluent-nav-link.disabled .fluent-nav-icon {
+        fill: var(--neutral-stroke-rest) !important;
+    }

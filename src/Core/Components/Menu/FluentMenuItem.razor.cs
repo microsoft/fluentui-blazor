@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,25 +18,25 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     public string? Label { get; set; }
 
     /// <summary>
-    /// Gets or sets if the element is disabled.
+    /// Gets or sets a value indicating whether the element is disabled.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The expanded state of the element.
+    /// Gets or sets the expanded state of the element.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; }
 
     /// <summary>
-    /// The role of the element.
+    /// Gets or sets the role of the element.
     /// </summary>
     [Parameter]
     public MenuItemRole? Role { get; set; }
 
     /// <summary>
-    /// Gets or sets if the element is checked.
+    /// Gets or sets a value indicating whether the element is checked.
     /// </summary>
     [Parameter]
     public bool Checked { get; set; }
@@ -47,7 +48,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// List of sub-menu items.
+    /// Gets or sets the list of sub-menu items.
     /// </summary>
     [Parameter]
     public RenderFragment? MenuItems { get; set; }
@@ -56,7 +57,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     /// Event raised when the user click on this item.
     /// </summary>
     [Parameter]
-    public EventCallback OnClick { get; set; }
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     public FluentMenuItem()
     {
@@ -69,7 +70,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    protected async Task OnClickHandlerAsync()
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
         {
@@ -81,16 +82,20 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
             await Owner.CloseAsync();
         }
 
-        await OnClick.InvokeAsync();
+        await OnClick.InvokeAsync(ev);
     }
 
     protected string? GetRole()
     {
         if (Role is not null)
+        {
             return Role.ToAttributeValue();
+        }
         else
             if (Checked)
+        {
             return "menuitemcheckbox";
+        }
 
         return null;
     }

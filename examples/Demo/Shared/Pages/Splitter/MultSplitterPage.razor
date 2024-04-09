@@ -1,0 +1,60 @@
+﻿@page "/MultiSplitter"
+@using FluentUI.Demo.Shared.Pages.Splitter.Examples
+@{
+#pragma warning disable FluentMultiSplitter
+}
+
+<h1>MultiSplitter (Experimental)</h1>
+
+<blockquote style="font-style: normal;">
+    ⚠️ <b>This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.</b>.<br />
+    To use it, you need to add the following line to the top of your razor file <br />
+    <code>@($"@{{ #pragma warning disable FluentMultiSplitter }}")</code>
+</blockquote>
+
+<p>The <b>MultiSplitter</b> splits the page into multiple sections and allows the user to control the page layout.</p>
+
+<p>
+    You can include as many <b>Pane</b>s as you like in a container.
+    By default, panes are resizable, but the <code>Resizable</code> property can be used to block this functionality.
+    The initial <code>Size</code> is in percent or pixels and has a <code>Min</code> and <code>Max</code> value.
+    A Panel can be fully collapsed by setting the <code>Collapsible</code> property to True.
+</p>
+
+<p>These CSS variables are predefined with these values, but can be overwritten (using <code>Style</code> property)</p>
+
+<code>
+    <pre>
+    .fluent-multi-splitter {
+        /* Resize Icon colors */
+        --fluent-multi-splitter-color: var(--neutral-stroke-strong-rest);
+        --fluent-multi-splitter-color-active: var(--neutral-stroke-strong-hover);
+
+        /* Bar colors */
+        --fluent-multi-splitter-background-color: var(--neutral-stroke-rest);
+        --fluent-multi-splitter-background-color-active: var(--neutral-stroke-hover);
+        --fluent-multi-splitter-hover-opacity: 0.8;
+
+        /* Bar size */
+        --fluent-multi-splitter-bar-size: 8px;
+    }
+    </pre>
+</code>
+
+<blockquote>
+    <p>Why have we created this new component when FluentSplitter already exists?</p>
+    <p>We want to generalize this component by making it easier to have several (>2) panels per container. We've also used CSS variables to simplify the customization of colors and sizes.</p>
+    <p>Give us your feedback</p>
+</blockquote>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Component="typeof(MultiSplitterDefault)" Title="Default">
+    <Description>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentMultiSplitter)" />
+<ApiDocumentation Component="typeof(FluentMultiSplitterPane)" />

@@ -1,16 +1,23 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
 public class FluentDatePickerTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
     [Fact]
     public void FluentDatePicker_Closed()
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
@@ -33,6 +40,8 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>();
@@ -57,6 +66,8 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
         var today = System.DateTime.Today;
 
         // Act
@@ -79,6 +90,8 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
@@ -100,6 +113,8 @@ public class FluentDatePickerTests : TestBase
     {
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
@@ -118,8 +133,11 @@ public class FluentDatePickerTests : TestBase
     [Fact]
     public void FluentCalendar_DisabledDate()
     {
+
         // Arrange
         using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
 
         // Act
         var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>

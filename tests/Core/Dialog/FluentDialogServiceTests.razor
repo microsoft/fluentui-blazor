@@ -1,4 +1,4 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
@@ -37,6 +37,30 @@
         var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(new DialogParameters()
             {
                 Title = "Sample title",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDialog_RenderFragment()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentDialogProvider />);
+        var dialogService = Services.GetRequiredService<IDialogService>();
+
+        // Act
+        var dialog = await dialogService.ShowDialogAsync(@<div>
+This is from a render fragment
+            </div>,
+            new DialogParameters()
+            {
+                Title = "Render Fragment Example",
                 PreventDismissOnOverlayClick = true,
                 PreventScroll = true,
             });

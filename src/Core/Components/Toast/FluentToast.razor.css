@@ -22,7 +22,9 @@
     user-select: none;
     overflow: hidden;
     pointer-events: auto;
-    animation: fadein 1.5s;
+    animation-name: fadein;
+    animation-duration: 0.5s;
+    animation-delay: 0s;
 }
 
 

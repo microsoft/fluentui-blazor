@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
+    /// <summary />
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+    public DialogService()
+    {
+    }
+
     /// <summary>
     /// Convenience method to create a <see cref="EventCallback"/> for a dialog result.
     /// You can also call <code>EventCallback.Factory.Create</code> directly.
@@ -18,10 +25,10 @@ public partial class DialogService : IDialogService
         return CloseAsync(dialog, DialogResult.Ok<object?>(null));
     }
 
-    public async Task CloseAsync(DialogReference dialog, DialogResult result)
+    public Task CloseAsync(DialogReference dialog, DialogResult result)
     {
-        await Task.Run(() => { });  // To avoid warning
         OnDialogCloseRequested?.Invoke(dialog, result);
+        return Task.CompletedTask;
     }
 
     internal virtual IDialogReference CreateReference(string id)
@@ -30,7 +37,7 @@ public partial class DialogService : IDialogService
     }
 
     /// <summary>
-    /// A event that will be invoked when showing a dialog with a custom component
+    /// An event that will be invoked when showing a dialog with a custom component
     /// </summary>
     public event Action<IDialogReference, Type?, DialogParameters, object>? OnShow;
 

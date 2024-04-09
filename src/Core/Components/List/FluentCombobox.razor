@@ -2,15 +2,12 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-@if (!String.IsNullOrEmpty(Height))
-{
-    <style>
-        @($"#{Id}::part(listbox) {{ max-height: {Height}; z-index: {ZIndex.ComboboxPopup} }}")
-    </style>
-}
+<style>
+    @($"#{Id}::part(listbox) {{ {(string.IsNullOrEmpty(Height) ? null : $"max-height: {Height};")} z-index: {ZIndex.ComboboxPopup} }}")
+</style>
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" />
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required" ChildContent="@LabelTemplate" />
     <fluent-combobox @ref=Element
                      id="@Id"
                      class="@ClassValue"
@@ -22,8 +19,10 @@
                      position=@Position.ToAttributeValue()
                      disabled=@Disabled
                      appearance="@Appearance.ToAttributeValue()"
+                     required="@Required"
                      @onchange="@OnChangedHandlerAsync"
-                     @attributes="AdditionalAttributes">        
-        @GetListOptions(Items)
+                     autofocus="@Autofocus"
+                     @attributes="AdditionalAttributes">
+        @_renderOptions
     </fluent-combobox>
 </CascadingValue>

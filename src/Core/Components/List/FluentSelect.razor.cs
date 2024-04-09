@@ -4,7 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentSelect<TOption> : ListComponentBase<TOption>
+public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     /// <summary />
     protected virtual MarkupString InlineStyleValue => new InlineStyleBuilder()
@@ -16,8 +16,12 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption>
         .AddStyle($"#{Id}::part(selected-value)", "text-overflow", "ellipsis")
         .BuildMarkupString();
 
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
+        .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
+        .Build();
+
     /// <summary>
-    /// The open attribute.
+    /// Gets or sets the open attribute.
     /// </summary>
     [Parameter]
     public bool? Open { get; set; }

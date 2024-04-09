@@ -1,10 +1,11 @@
 ﻿@inject IToastService ToastService
 
-<FluentStack>
+<FluentStack Wrap=true>
     <FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Progress toast example 1</FluentButton>
     <FluentButton @ref=_button Appearance="Appearance.Neutral" @onclick=UpdateProgress>Update</FluentButton>
     <FluentButton Appearance="Appearance.Neutral" @onclick=Reset>Reset</FluentButton>
     <FluentButton Appearance="Appearance.Neutral" @onclick=Close>Close</FluentButton>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@ShowIndeterminateExample">Indeterminate progress toast</FluentButton>
 </FluentStack>
 
 @code {
@@ -13,6 +14,7 @@
     private CancellationTokenSource _cancel = new();
 
     private ToastParameters<ProgressToastContent> _progressToastData;
+    private ToastParameters<ProgressToastContent> _progressToastDataIndeterminate;
 
     public ToastProgressToasts()
     {
@@ -31,6 +33,17 @@
                 },
             };
 
+        _progressToastDataIndeterminate = new()
+            {
+                Id = $"{_id}Indeterminate",
+                Intent = ToastIntent.Progress,
+                Title = "Creating resource",
+                Content = new ProgressToastContent()
+                {
+                    Details = "This will close after the default timeout of 7000 milliseconds.",
+                },
+            };
+
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -45,6 +58,11 @@
     {
         _button!.SetDisabled(false);
         ToastService.ShowProgressToast(_progressToastData);
+    }
+
+    private void ShowIndeterminateExample()
+    {
+        ToastService.ShowProgressToast(_progressToastDataIndeterminate);
     }
 
     private static void ClickedCancel()

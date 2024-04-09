@@ -1,8 +1,8 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal sealed class InternalToastContext
 {
-    public Dictionary<string, FluentToast> References { get; set; } = new();
+    public Dictionary<string, FluentToast> References { get; set; } = [];
 
     public FluentToastProvider ToastProvider { get; }
 

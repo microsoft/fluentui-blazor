@@ -1,15 +1,21 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
 
 public class FluentTimePickerTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
     [Fact]
     public void FluentTimePicker_Value_0123()
     {
         // Arrange
         using var ctx = new Bunit.TestContext();
+        ctx.Services.AddSingleton(LibraryConfiguration);
         System.DateTime? value = new System.DateTime(2000, 02, 03, 01, 23, 00); // 01:23
 
         // Act
@@ -35,7 +41,7 @@ public class FluentTimePickerTests : TestBase
         var picker = new TestTimePicker();
 
         // Act
-        bool _ = picker.CallTryParseValueFromString(value, out var resultDate, out var _);
+        var _ = picker.CallTryParseValueFromString(value, out var resultDate, out var _);
 
         // Assert
         if (resultDate != null)

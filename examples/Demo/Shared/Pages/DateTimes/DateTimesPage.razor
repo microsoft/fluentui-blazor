@@ -1,4 +1,4 @@
-@page "/DateTime"
+﻿@page "/DateTime"
 
 @using FluentUI.Demo.Shared.Pages.DateTimes.Examples
 
@@ -15,6 +15,10 @@
     The <code>&lt;FluentTimePicker&gt;</code> allows for picking a specific time of day by selecting hour, minutes and AM/PM
 </p>
 
+<blockquote>
+    <b>note</b>: FluentCalendar and FluentDatePicker are not yet fully compatible with accessibility.
+</blockquote>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default calendar" Component="@typeof(CalendarDefault)"></DemoSection>
@@ -26,6 +30,31 @@
 <DemoSection Title="Default Date Picker" Component="@typeof(DatePickerDefault)"></DemoSection>
 
 <DemoSection Title="Default Time Picker" Component="@typeof(TimePickerDefault)"></DemoSection>
+
+<h2 id="conversion">DateOnly, TimeOnly bindings</h2>
+
+<p>
+    By design, the <b>DatePicker</b> component uses a <b>Value</b> property of type <b>DateTime?</b>
+    To facilitate binding to a <b>DateOnly</b> type, you can use the methods
+    <code>ToDateTime</code> and <code>ToDateOnly</code> methods.
+</p>
+
+<p>
+    If your variable is of type <code>Nullable&lt;DateTime></code>, you can continue
+    to use <code>@@bind-Value</code>.
+    For other types, you must use the syntax <code>value="..." ValueChanged="..."</code>.
+</p>
+
+<b>Example</b>
+<CodeSnippet>
+    &lt;FluentDatePicker Value="@@MyDate.ToDateTime()"
+                      ValueChanged="@@(e => MyDate = e.ToDateOnly())" />
+    @@code {
+        private DateOnly MyDate = DateOnly.FromDateTime(DateTime.Today);
+    }
+</CodeSnippet>
+
+<DemoSection Title="Conversion examples" Component="@typeof(DateTimeConversionExample)"></DemoSection>
 
 <h2 id="totimeago">ToTimeAgo() method</h2>
 

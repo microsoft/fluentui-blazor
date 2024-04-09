@@ -1,0 +1,53 @@
+﻿@page "/PresenceBadge"
+
+@using FluentUI.Demo.Shared.Pages.Badge.PresenceBadge.Examples
+
+<h1>PresenceBadge</h1>
+
+<p>
+    The <code>FluentPresenceBadge</code> component is used to display a status indicator such as available, away, or busy.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Component="typeof(PresenceBadgeSizes)" Title="Available sizes">
+    <Description>
+        <p>
+            A presence badge supports <code>Tiny</code>, <code>ExtraSmall</code>, <code>Small</code>, <code>Medium</code>,
+            and <code>Large</code> size. The default size is <code>Small</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(PresenceBadgeDefault)" Title="Default options">
+    <Description>
+        <p>
+            A presence badge supports <code>Available</code>, <code>Away</code>, <code>Busy</code>, <code>DoNotDisturb</code>,
+            <code>Offline</code>, <code>OutOfOffice</code> and <code>Unknown</code> status. The default status is <code>Available</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(PresenceBadgeOOF)" Title="Out Of Office options">
+    <Description>
+        <p>
+            A presence badge supports <code>Available</code>, <code>Away</code>, <code>Busy</code>, <code>DoNotDisturb</code>, 
+            <code>Offline</code>, <code>OutOfOffice</code> and <code>Unknown</code> status when <code>OutOfOffice</code> is set to <code>true</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentPresenceBadge)" />
+
+@code{
+    Dictionary<string, object> PresenceBadgeParameters = new()
+    {
+        {"ChildContent", (RenderFragment)(builder => {
+                builder.OpenComponent<FluentIcon<Icons.Regular.Size48.Person>>(0);
+                builder.CloseComponent();
+            }
+        )}
+    };
+}

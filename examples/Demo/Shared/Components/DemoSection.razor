@@ -23,7 +23,14 @@
                         @ChildContent
                         @if (Component is not null)
                         {
-                            <DynamicComponent Type="Component" Parameters="ComponentParameters" />
+                            <ErrorBoundary @ref="errorBoundary">
+                                <ChildContent>
+                                    <DynamicComponent Type="Component" Parameters="ComponentParameters" />
+                                </ChildContent>
+                                <ErrorContent Context="ex">
+                                    <div class="blazor-error-boundary">@ex.Message</div>
+                                </ErrorContent>
+                            </ErrorBoundary>
                         }
                     </div>
                 </Content>

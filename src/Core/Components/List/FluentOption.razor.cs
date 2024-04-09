@@ -2,15 +2,14 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
+public partial class FluentOption<TOption> : FluentComponentBase, IDisposable where TOption : notnull
 {
-    internal string OptionId { get; } = Identifier.NewId();
 
     [CascadingParameter(Name = "ListContext")]
     internal InternalListContext<TOption> InternalListContext { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets if the element is disabled
+    /// Gets or sets a value indicating whether the element is disabled.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
@@ -22,11 +21,10 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
     public string? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets if the element is selected
+    /// Gets or sets a value indicating whether the element is selected.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
-
 
     /// <summary>
     /// Called whenever the selection changed.
@@ -55,8 +53,8 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Selected && 
-            InternalListContext != null && 
+        if (firstRender && Selected &&
+            InternalListContext != null &&
             InternalListContext.ValueChanged.HasDelegate &&
             InternalListContext.ListComponent.Multiple)
         {
@@ -65,13 +63,14 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    protected async Task OnSelectHandler()
+    public async Task OnClickHandlerAsync()
     {
         if (Disabled)
+        {
             return;
+        }
 
         Selected = !Selected;
-
 
         if (SelectedChanged.HasDelegate)
         {
@@ -84,13 +83,23 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable
         }
         else
         {
-            if (InternalListContext != null &&
-                InternalListContext.ValueChanged.HasDelegate && 
-                InternalListContext.ListComponent.Items is null)
+            if (InternalListContext != null && InternalListContext.ListComponent.Items is null)
             {
-                await InternalListContext.ValueChanged.InvokeAsync(Value);
+                if (InternalListContext.ValueChanged.HasDelegate)
+                {
+                    await InternalListContext.ValueChanged.InvokeAsync(Value);
+                }
+                if (InternalListContext.SelectedOptionChanged.HasDelegate)
+                {
+                    await InternalListContext.SelectedOptionChanged.InvokeAsync();
+                }
             }
         }
+    }
+
+    public FluentOption()
+    {
+        Id = Identifier.NewId();
     }
 
     public void Dispose() => InternalListContext.Unregister(this);

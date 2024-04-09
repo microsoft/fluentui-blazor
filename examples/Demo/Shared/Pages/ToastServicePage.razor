@@ -3,11 +3,11 @@
 <h1>ToastService</h1>
 
 <p>
-    The ToastService is a service that can be used to show toasts. It can be injected into a page and used to show 
+    The ToastService is a service that can be used to show toasts. It can be injected into a page and used to show
     different type of toasts.
 </p>
 <p>
-    For a component to be useable by the ToastService, it needs to implement <code>IToastContentComponent&lt;T&gt;</code> 
+    For a component to be useable by the ToastService, it needs to implement <code>IToastContentComponent&lt;T&gt;</code>
     where <code>T</code> represent the type of the data to be shown in the toast.
 </p>
 <p>
@@ -37,6 +37,14 @@
     &lt;/main&gt;
 </CodeSnippet>
 
+<strong>IMPORTANT!!</strong>
+<p>
+    <strong>
+        For the <code>&lt;FluentToastProvider/&gt;</code> to work properly, it needs interactivity! If you are using "per page" interactivity or ASP.NET Core 8
+        or above with <strong>Server Side Rendering</strong> , make sure to add a <code>@@rendermode</code> to
+        either the provider itself or the component the provider is placed in.
+    </strong>
+</p>
 <p>
     See the documentation below for more information about the <code>FluentToastProvider</code> parameters.
 </p>

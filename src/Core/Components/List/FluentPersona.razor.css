@@ -1,6 +1,5 @@
-﻿.fluent-persona {
+.fluent-persona {
     display: flex;
-    height: 100%;
     width: fit-content;
     border-radius: 999px;
     align-items: center;
@@ -20,16 +19,28 @@
         aspect-ratio: 1/1;
     }
 
+    .fluent-persona[position='start'] .initials {
+        order: 3;
+    }
+
         .fluent-persona .initials img {
             border-radius: 50%;
             aspect-ratio: 1 / 1;
-            height: 100%;
-            width: 100%;
+            width: auto;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
         }
 
     .fluent-persona .name {
-        margin-left: 16px;
+        margin-inline-start: 16px;
     }
+
+    .fluent-persona[position='start'] .name {
+        order: 1;
+        margin-inline-start: 0px;
+        margin-inline-end: 16px;
+    } 
 
     .fluent-persona .close {
         display: flex;
@@ -37,4 +48,8 @@
         align-items: center;
         justify-content: center;
         margin: 0px 4px;
+    }
+
+    .fluent-persona[position='start'] .close {
+        order: 2;
     }

@@ -19,6 +19,13 @@
         display: none;
     }
 
+    .card ::deep .size {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        font-size: 8px;
+    }
+
     .card:hover ::deep .copy {
         display: block;
     }

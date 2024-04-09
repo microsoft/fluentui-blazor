@@ -8,20 +8,14 @@ public class FluentFooterTests : TestBase
     public void FluentFooter_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         var cut = TestContext.RenderComponent<FluentFooter>(parameters => parameters
             .AddChildContent(childContent)
         );
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
-
 

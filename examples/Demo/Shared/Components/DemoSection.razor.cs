@@ -1,24 +1,24 @@
-﻿using System.Reflection.Metadata;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace FluentUI.Demo.Shared.Components;
 public partial class DemoSection : ComponentBase
 {
     private bool _hasCode = false;
-    private readonly Dictionary<string, string> _tabPanelsContent = new();
-    private readonly List<string> _allFiles = new();
+    private readonly Dictionary<string, string> _tabPanelsContent = [];
+    private readonly List<string> _allFiles = [];
     private string? _ariaId;
 
-    private readonly Regex _pattern = new(@"[;,<>&(){}!$^#@=/\ ]");
+    private readonly Regex _pattern = Pattern();
+    private ErrorBoundary? errorBoundary;
 
     [Inject]
     private HttpClient HttpClient { get; set; } = default!;
 
     [Inject]
     private IStaticAssetService StaticAssetService { get; set; } = default!;
-
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
@@ -30,7 +30,7 @@ public partial class DemoSection : ComponentBase
     public RenderFragment? Description { get; set; }
 
     /// <summary>
-    /// The component for which the example will be shown. Enter the type (typeof(...)) _name 
+    /// Gets or sets the component for which the example will be shown. Enter the type (typeof(...)) _name 
     /// </summary>
     [Parameter, EditorRequired]
     public Type Component { get; set; } = default!;
@@ -65,7 +65,6 @@ public partial class DemoSection : ComponentBase
     [Parameter]
     public bool ShowDownloads { get; set; } = true;
 
-
     /// <summary>
     /// Hide the 'Example' tab
     /// </summary>
@@ -92,7 +91,10 @@ public partial class DemoSection : ComponentBase
         _allFiles.AddRange(GetAdditionalFiles());
 
         _ariaId = _pattern.Replace(Title.ToLower(), "");
-        if (_ariaId.Length > 20) _ariaId = _ariaId[..20];
+        if (_ariaId.Length > 20)
+        {
+            _ariaId = _ariaId[..20];
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -105,15 +107,20 @@ public partial class DemoSection : ComponentBase
         }
     }
 
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
+
     protected async Task SetCodeContentsAsync()
     {
         HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
 
         try
         {
-            foreach (string source in _allFiles)
+            foreach (var source in _allFiles)
             {
-                string? result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
+                var result = await StaticAssetService.GetAsync($"./_content/FluentUI.Demo.Shared/sources/{source}.txt");
                 _tabPanelsContent.Add(source, result ?? string.Empty);
             }
         }
@@ -126,7 +133,7 @@ public partial class DemoSection : ComponentBase
     private IEnumerable<string> GetCollocatedFiles()
     {
         yield return $"{Component.Name}.razor";
-        foreach (string ext in CollocatedFiles ?? Enumerable.Empty<string>())
+        foreach (var ext in CollocatedFiles ?? Enumerable.Empty<string>())
         {
             yield return $"{Component.Name}.razor.{ext}";
         }
@@ -134,43 +141,62 @@ public partial class DemoSection : ComponentBase
 
     private IEnumerable<string> GetAdditionalFiles()
     {
-        foreach (string name in AdditionalFiles ?? Enumerable.Empty<string>())
+        foreach (var name in AdditionalFiles ?? Enumerable.Empty<string>())
         {
             yield return name;
         }
     }
 
-    static string GetDisplayName(string name)
+    private static string GetDisplayName(string name)
     {
         if (name.EndsWith(".cs"))
+        {
             return "C#";
+        }
 
         if (name.EndsWith(".razor"))
+        {
             return "Razor";
+        }
 
         if (name.EndsWith(".css"))
+        {
             return "CSS";
+        }
 
         if (name.EndsWith(".js"))
+        {
             return "JavaScript";
+        }
 
         return name;
     }
 
-    static string? TabLanguageClass(string tabName)
+    private static string? TabLanguageClass(string tabName)
     {
         if (tabName.EndsWith(".cs"))
+        {
             return "language-csharp";
+        }
 
         if (tabName.EndsWith(".razor"))
+        {
             return "language-cshtml-razor";
+        }
 
         if (tabName.EndsWith(".css"))
+        {
             return "language-css";
+        }
 
         if (tabName.EndsWith(".js"))
+        {
             return "language-javascript";
+        }
 
         return null;
     }
+
+    [GeneratedRegex(@"[;,<>&(){}!$^#@=/\ ]")]
+    private static partial Regex Pattern();
 }

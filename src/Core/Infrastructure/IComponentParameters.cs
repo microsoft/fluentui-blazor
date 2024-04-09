@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public interface IComponentParameters : IEnumerable<KeyValuePair<string, object>>
 {

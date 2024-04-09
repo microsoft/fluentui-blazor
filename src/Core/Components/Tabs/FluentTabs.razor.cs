@@ -1,15 +1,19 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTabs : FluentComponentBase
 {
     private const string FLUENT_TAB_TAG = "fluent-tab";
-    private readonly Dictionary<string, FluentTab> _tabs = new();
+    private readonly Dictionary<string, FluentTab> _tabs = [];
     //private string _activeId = string.Empty;
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
@@ -65,20 +69,20 @@ public partial class FluentTabs : FluentComponentBase
     public bool ShowClose { get; set; } = false;
 
     /// <summary>
-    /// Width of the tab items.
+    /// Gets or sets the width of the tab items.
     /// </summary>
     [Parameter]
     public TabSize? Size { get; set; } = TabSize.Medium;
 
     /// <summary>
-    /// Width of the tabs component.
+    /// Gets or sets the width of the tabs component.
     /// Needs to be a valid CSS value (e.g. 100px, 50%).
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Height of the tabs component.
+    /// Gets or sets the height of the tabs component.
     /// Needs to be a valid CSS value (e.g. 100px, 50%).
     /// </summary>
     [Parameter]
@@ -89,7 +93,6 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public FluentTab ActiveTab => _tabs.FirstOrDefault(i => i.Key == ActiveTabId).Value ?? _tabs.First().Value;
 
-
     [Parameter]
     public string ActiveTabId { get; set; } = default!;
 
@@ -99,9 +102,8 @@ public partial class FluentTabs : FluentComponentBase
     [Parameter]
     public EventCallback<string> ActiveTabIdChanged { get; set; }
 
-
     /// <summary>
-    /// Whether or not to show the active indicator 
+    /// Gets or sets a value indicating whether the active indicator is displayed.
     /// </summary>
     [Parameter]
     public bool ShowActiveIndicator { get; set; } = true;
@@ -113,7 +115,7 @@ public partial class FluentTabs : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a tab is changed .
+    /// Gets or sets a callback when a tab is changed.
     /// </summary>
     [Parameter]
     public EventCallback<FluentTab> OnTabChange { get; set; }
@@ -128,7 +130,6 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
 
     public FluentTabs()
@@ -142,29 +143,26 @@ public partial class FluentTabs : FluentComponentBase
         if (firstRender)
         {
 
-
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
 
-            bool horizontal = Orientation == Orientation.Horizontal;
+            var horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }
 
-    private async Task HandleOnTabChanged(TabChangeEventArgs args)
+    private async Task HandleOnTabChangedAsync(TabChangeEventArgs args)
     {
-        if (args is not null)
+        var tabId = args?.ActiveId;
+        if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
         {
-            string? tabId = args.ActiveId;
-            if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
-            {
-                await OnTabChange.InvokeAsync(tab);
-                ActiveTabId = tabId;
-                await ActiveTabIdChanged.InvokeAsync(tabId);
-            }
+            await OnTabChange.InvokeAsync(tab);
+            ActiveTabId = tabId;
+            await ActiveTabIdChanged.InvokeAsync(tabId);
         }
+
     }
 
     internal int RegisterTab(FluentTab tab)
@@ -236,12 +234,10 @@ public partial class FluentTabs : FluentComponentBase
         await InvokeAsync(() => StateHasChanged());
     }
 
-
-
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-        bool horizontal = Orientation == Orientation.Horizontal;
+        var horizontal = Orientation == Orientation.Horizontal;
         await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 
@@ -252,5 +248,19 @@ public partial class FluentTabs : FluentComponentBase
         {
             ActiveId = tab.Id,
         });
+    }
+
+    /// <summary>
+    /// Go to a specific tab by specifying an id
+    /// </summary>
+    /// <param name="TabId">Id of the tab to goto</param>
+    /// <returns></returns>
+    public async Task GoToTabAsync(string TabId)
+    {
+        await OnTabChangeHandlerAsync(new TabChangeEventArgs()
+        {
+            ActiveId = TabId,
+        });
+
     }
 }

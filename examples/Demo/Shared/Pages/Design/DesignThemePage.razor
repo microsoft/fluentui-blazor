@@ -1,0 +1,173 @@
+﻿@page "/DesignTheme"
+@using FluentUI.Demo.Shared.Pages.Design.Examples
+
+<h1>Themes</h1>
+
+<p>
+    The <code>FluentDesignTheme</code> component lets you quickly manage the primary/main color and mode (dark/light) of your <strong>entire</strong> application. <br />
+    If you'd like to customize all of the design details of your application, or just a very specific part, please use the <a href="/DesignTokens">DesignTokens</a>
+</p>
+
+<h2>Quick guide</h2>
+
+<p>
+    1. First, choose a <b>name</b> to save the theme <b>mode</b> (dark/bright) and <b>color</b>, in the browser's local storage.
+    for example: <code>theme</code>.
+</p>
+
+<p>
+    2. Next, add this line to your <b>App.razor</b> file (or your Layout page),
+    to automatically apply the theme to all your pages.
+
+    <CodeSnippet Language="xml">@(@"<FluentDesignTheme StorageName=""theme"" />")</CodeSnippet>
+</p>
+
+<p>
+    3. (optional) To avoid a "flash" effect when the page loads (mainly in dark mode), as described below,
+    we recommend you add these lines of code to the <code>index.html</code> or <code>App.razor</code> file (or <code>_layout.cshtml</code> file if 
+    you upgraded you project from an earlier .NET version).
+
+    <CodeSnippet Language="xml">
+@(@"<!-- Set the default theme -->
+<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
+<loading-theme storage-name=""theme""></loading-theme>")
+    </CodeSnippet>
+</p>
+<p>
+    4. Finally, you can add a button or page that allows the user to choose their theme.
+    To do this, you need to use a <b>FluentDesignTheme</b> component on which you can bind the <b>Mode</b> and
+    the <b>OfficeColor</b> properties, and to set a <b>StorageName</b> to save all this in the LocalStorage.
+
+    <CodeSnippet Language="xml">
+@(@"<FluentDesignTheme @bind-Mode=""@Mode"" @bind-OfficeColor=""@OfficeColor"" StorageName=""theme"" />")
+    </CodeSnippet>
+</p>
+
+<h2 id="DesignTheme">FluentDesignTheme</h2>
+
+<p>
+    <strong>FluentDesignTheme</strong> is a Blazor component. It comes with an additional web component (<code>fluent-design-theme</code>) that can be used in HTML before
+    Blazor has started and components are rendered. This avoids a "flash" of dark or white at page startup. Particularly so when using a
+    WebAssembly project, which in general requires more time to download the assemblies needed to run the application.
+    <br />
+    <br />
+    <b>Example in HTML</b><br />
+    <CodeSnippet Language="xml">
+@(@"<fluent-design-theme mode=""dark"" primary-color=""word"" />
+<fluent-design-theme mode=""light"" primary-color=""#ff0000"" />")
+    </CodeSnippet>
+
+    <b>Example in Blazor</b><br />
+    <CodeSnippet Language="xml">
+@(@"<FluentDesignTheme Mode=""DesignThemeModes.Dark"" OfficeColor=""OfficeColor.Word"" />
+<FluentDesignTheme Mode=""DesignThemeModes.Light"" CustomColor=""#ff0000"" />")
+    </CodeSnippet>
+</p>
+
+<h3>Mode</h3>
+
+<p>
+    For the Blazor <b>FluentDesignTheme</b> component, you can define the <b>mode</b> of your application.
+    <ul>
+        <li><b>System</b>: respects the browser's appearance.</li>
+        <li><b>Dark</b>: forces the appearance in Dark theme.</li>
+        <li><b>Light</b>: forces the appearance in Light theme.</li>
+    </ul>
+</p>
+
+<h3>OnLuminanceChanged</h3>
+
+<p>
+    When the theme is updated, the <b>OnLuminanceChanged</b> event is triggered.
+    <FluentDataGrid Items="@ModeCombinations" Style="border: 1px solid silver;">
+        <PropertyColumn Property="@(p => p.FluentDesignTheme)" Title="FluentDesignTheme.Mode" />
+        <PropertyColumn Property="@(p => p.Browser)" Title="Browser theme" />
+        <PropertyColumn Property="@(p => p.OnLuminanceChanged)" Title="OnLuminanceChanged event" />
+    </FluentDataGrid>
+
+    @code
+    {
+        record ModeCombination(string FluentDesignTheme, string Browser, string OnLuminanceChanged);
+        IQueryable<ModeCombination> ModeCombinations = new[]
+        {
+    new ModeCombination("System", "Light", "{ Mode: \"System\", IsDark: false }"),
+    new ModeCombination("System", "Dark", "{ Mode: \"System\", IsDark: true}"),
+    new ModeCombination("Light", "NA", "{ Mode: \"Light\", IsDark: false }"),
+    new ModeCombination("Dark", "NA", "{ Mode: \"Dark\", IsDark: true }"),
+    }.AsQueryable();
+    }
+</p>
+
+<h3>LocalStorage</h3>
+
+<p>
+    The <b>FluentDesignTheme</b> component contains an optional <b>StorageName</b> attribute to
+    define the name of the local storage to automatically save and retrieve the selected <b>Mode</b> and <b>PrimaryColor</b>.
+</p>
+<p>
+    Don't set/use this property, if you want your application users to be able set your application's theme manually.
+    On the other hand, do set a value (e.g. <i>theme</i>) to automatically let the component save the theme choice and retrieve
+    it the next time the application is visited.
+    <br /><br />
+    Theme settings are saved in the browser's LocalStorage section.
+    <CodeSnippet Language="json">@("\"theme\" = {\"mode\": \"light\", \"primaryColor\": \"word\"}")</CodeSnippet>
+</p>
+
+<h3>How to remove the "bright flash" on loading</h3>
+
+<p>
+    Depending on the size of the file to be downloaded or the user's bandwidth,
+    there may be a "bright flash" effect when the page is loaded.
+    (a white page displayed some milliseconds before the Dark theme is present).
+    This is due to the fact that Blazor's complete engine cannot display a Dark page
+    until the code (JS and WebAssembly) has been downloaded and executed.
+</p>
+<p>
+    To avoid this, we propose a component separate from the main library,
+    whose only purpose is to detect the dark/light mode to be displayed,
+    until the main components are loaded.
+</p>
+
+<CodeSnippet Language="xml">
+@(@"<script src=""_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"" type=""text/javascript""></script>
+<loading-theme storage-name=""theme""></loading-theme>")
+</CodeSnippet>
+
+<p>
+    In this example, the <strong>storage-name="theme"</strong> searches for a optional
+    theme saved in the browser's LocalStorage. <br />
+    You can also "force" the Dark theme using a syntax like <code>&lt;loading-theme mode="dark" /&gt;</code>
+</p>
+
+<p>
+    Technically, this <b>loading-theme</b> component adds a <b>hidden-body</b> class
+    (<code>visibility: hidden; background-color: #272727;</code>) to the <b>body</b> tag during the loading time
+    of all FluentUI Blazor components.
+    Once they are integrated into the browser, this class is removed and the content is displayed.
+</p>
+
+<h3>Example</h3>
+
+<DemoSection Title="" Component="@typeof(DesignThemeDefault)" />
+
+<h2 id="DesignSystemProvider">FluentDesignSystemProvider</h2>
+
+<DemoSection Title="" Component="@typeof(DesignTokenEmbeddedDefault)">
+    <Description>
+        This panel is customized using the <strong>FluentDesignSystemProvider</strong> component,
+        where <b>AccentBaseColor</b> is red, <b>StrokeWidth</b> is 4 and <b>FillColor</b> is light gray.
+
+        <p>
+            See this <a href="/DesignTokens">"Design tokens" page</a> for more details.
+        </p>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentDesignTheme)" />
+
+<br />
+<br />
+
+<ApiDocumentation Component="typeof(FluentDesignSystemProvider)" />

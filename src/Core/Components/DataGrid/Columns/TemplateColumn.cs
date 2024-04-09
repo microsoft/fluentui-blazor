@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -13,7 +12,7 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     private static readonly RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
 
     /// <summary>
-    /// Specifies the content to be rendered for each row in the table.
+    /// Gets or sets the content to be rendered for each row in the table.
     /// </summary>
     [Parameter] public RenderFragment<TGridItem> ChildContent { get; set; } = EmptyChildContent;
 
@@ -25,7 +24,9 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
         => builder.AddContent(0, ChildContent(item));
 
     protected internal override string? RawCellContent(TGridItem item)
-        => TooltipText?.Compile()(item);
+    {
+        return TooltipText?.Invoke(item);
+    }
 
     /// <inheritdoc />
     protected override bool IsSortableByDefault()

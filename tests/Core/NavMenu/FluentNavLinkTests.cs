@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
@@ -47,6 +47,20 @@ public class FluentNavLinkTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentNavLink_Id()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
+        {
+            parameters.Add(p => p.Id, "nav-link-id");
+            parameters.Add(p => p.Href, "/NavMenu");
+            parameters.AddChildContent("NavLink text");
+        });
+
+        // Assert
+        cut.Verify();
+    }
     [Fact]
     public void FluentNavLink_Target()
     {
@@ -110,9 +124,10 @@ public class FluentNavLinkTests : TestBase
     public void FluentNavLink_IconAndIconColor()
     {
         // Arrange & Act
+        var m = new FluentNavMenu();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
-            parameters.Add(p => p.NavMenuExpanded, true);
+            parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.Icon, SampleIcons.Info);
             parameters.Add(p => p.IconColor, Color.Neutral);
             parameters.AddChildContent("NavLink text");
@@ -128,8 +143,10 @@ public class FluentNavLinkTests : TestBase
         Action<MouseEventArgs> onClickHandler = _ => { };
 
         // Arrange & Act
+        var m = new FluentNavMenu();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
+            parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.OnClick, onClickHandler);
             parameters.AddChildContent("NavLink text");
         });

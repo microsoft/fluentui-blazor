@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Bunit;
 using Xunit;
 
@@ -40,15 +40,15 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         title.MarkupMatches(@$"<div class=""title"" part=""title"" aria-label=""February 2022"">
-                                 <span part=""month"" class=""month"">February 2022</span>
-                                 <span part=""move"" class=""change-month"">
-                                   <div class=""previous-month"" title=""January"">
+                                 <div part=""label"" class=""label"">February 2022</div>
+                                 <div part=""move"" class=""change-period"">
+                                   <div class=""previous"" title=""January"">
                                      {FluentCalendar.ArrowUp}
                                    </div>
-                                   <div title=""March"" class=""next-month"">
+                                   <div class=""next"" title=""March"">
                                      {FluentCalendar.ArrowDown}
                                    </div>
-                                 </span>
+                                 </div>
                                </div>");
     }
 
@@ -141,7 +141,7 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         var firstDate = System.DateTime.Parse("2022-01-30");
 
-        for (int i = 0; i < allDays.Count; i++)
+        for (var i = 0; i < allDays.Count; i++)
         {
             var expectedDay = firstDate.AddDays(i).Day;
             var actualDay = Convert.ToInt32(allDays[i].InnerHtml);
@@ -163,7 +163,7 @@ public partial class FluentCalendarTests : TestContext
             parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
             parameters.Add(p => p.PickerMonth, new System.DateTime(2022, 06, 15));
         });
-        var monthName = calendar.Find(".month").InnerHtml;
+        var monthName = calendar.Find(".label").InnerHtml;
         var juneFirst = System.DateTime.Parse("2022-06-01");
 
         // Assert
@@ -209,11 +209,11 @@ public partial class FluentCalendarTests : TestContext
         });
 
         // Click on Previous Month button
-        var buttonMove = calendar.Find(".previous-month");
+        var buttonMove = calendar.Find(".previous");
         buttonMove.Click();
 
         // Assert
-        var monthName = calendar.Find(".month").InnerHtml;
+        var monthName = calendar.Find(".label").InnerHtml;
         Assert.Equal("May 2022", monthName);
     }
 
@@ -231,11 +231,11 @@ public partial class FluentCalendarTests : TestContext
         });
 
         // Click on Previous Month button
-        var buttonMove = calendar.Find(".next-month");
+        var buttonMove = calendar.Find(".next");
         buttonMove.Click();
 
         // Assert
-        var monthName = calendar.Find(".month").InnerHtml;
+        var monthName = calendar.Find(".label").InnerHtml;
         Assert.Equal("July 2022", monthName);
     }
 
@@ -260,7 +260,7 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         var selectedDay = calendar.Find($"div[value='{DAY}']");
-        
+
         Assert.Equal("01", selectedDay.TextContent);
     }
 

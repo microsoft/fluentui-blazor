@@ -10,6 +10,16 @@
     Fluent UI design system. 
 </p>
 
+<blockquote>
+    <p> <strong>Note:</strong> 
+        With the <code>TextFieldType.Password</code> some warnings might show up in your browser's developer tools about non-uniques id's being used. The
+        warning is wrong. The (Chromium) dev tools are not taking the shadow DOM into consideration when scanning for unique id's. Each <code>id=control</code> 
+        is being applied in a component' shadow DOM and <strong>is</strong> unique to that component.<br/>        
+        Chromium is doing some fancy extra check (with a link on creating beautiful login forms) whichwe can not prevent and the warning cannot be 
+        removed from our side.
+    </p>
+</blockquote>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default" Component="@typeof(TextFieldDefault)"></DemoSection>

@@ -1,14 +1,20 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Label;
 public class FluentInputLabelTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
     [Fact]
     public void FluentInputLabel_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+        var childContent = "<b>render me</b>";
         string forId = default!;
         string label = default!;
         string ariaLabel = default!;
@@ -23,12 +29,7 @@ public class FluentInputLabelTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

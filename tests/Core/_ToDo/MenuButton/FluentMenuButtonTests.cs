@@ -13,7 +13,7 @@ public class FluentMenuButtonTests : TestBase
         string text = default!;
         string buttonStyle = default!;
         string menuStyle = default!;
-        Dictionary<string,string > items = default!;
+        Dictionary<string, string> items = default!;
         Action<MenuChangeEventArgs> onMenuChanged = _ => { };
         var cut = TestContext.RenderComponent<FluentMenuButton>(parameters => parameters
             .Add(p => p.Button, button)
@@ -27,12 +27,7 @@ public class FluentMenuButtonTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

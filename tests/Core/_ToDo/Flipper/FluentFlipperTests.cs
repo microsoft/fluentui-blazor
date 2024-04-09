@@ -8,7 +8,7 @@ public class FluentFlipperTests : TestBase
     public void FluentFlipper_Previous()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool? disabled = false;
         bool? ariaHidden = false;
         FlipperDirection? direction = FlipperDirection.Previous;
@@ -21,14 +21,14 @@ public class FluentFlipperTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 
     [Fact]
     public void FluentFlipper_Next()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool? disabled = true;
         bool? ariaHidden = true;
         FlipperDirection? direction = FlipperDirection.Next;
@@ -44,10 +44,4 @@ public class FluentFlipperTests : TestBase
         cut.Verify();
     }
 }
-
-
-
-
-
-
 

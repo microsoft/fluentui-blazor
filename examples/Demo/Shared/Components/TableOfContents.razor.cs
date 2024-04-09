@@ -12,7 +12,10 @@ public partial class TableOfContents : IAsyncDisposable
     {
         public virtual bool Equals(Anchor? other)
         {
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             if (Level != other.Level ||
                 Text != other.Text ||
@@ -60,7 +63,7 @@ public partial class TableOfContents : IAsyncDisposable
     public string Heading { get; set; } = "In this article";
 
     /// <summary>
-    /// Gets or sets if a 'Back to top' button should be rendered.
+    /// Gets or sets a value indicating whether a 'Back to top' button should be rendered.
     /// Defaults to true
     /// </summary>
     [Parameter]
@@ -73,28 +76,35 @@ public partial class TableOfContents : IAsyncDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Remember to replace the location of the script with your own project specific location.
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
             "./_content/FluentUI.Demo.Shared/Components/TableOfContents.razor.js");
-            bool mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
+            var mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)
+            {
                 _expanded = false;
-            await QueryDom();
+            }
+
+            await BackToTopAsync();
+            await QueryDomAsync();
+
         }
     }
 
-    private async Task BackToTop()
+    private async Task BackToTopAsync()
     {
+        if (_jsModule is null)
+        {
+            return;
+        }
         await _jsModule.InvokeAsync<Anchor[]?>("backToTop");
     }
 
-    private async Task QueryDom()
+    private async Task QueryDomAsync()
     {
         if (_jsModule is null)
         {
@@ -114,8 +124,8 @@ public partial class TableOfContents : IAsyncDisposable
 
     private bool AnchorsEqual(Anchor[]? firstSet, Anchor[]? secondSet)
     {
-        return (firstSet ?? Array.Empty<Anchor>())
-            .SequenceEqual(secondSet ?? Array.Empty<Anchor>());
+        return (firstSet ?? [])
+            .SequenceEqual(secondSet ?? []);
     }
 
     protected override void OnInitialized()
@@ -128,7 +138,8 @@ public partial class TableOfContents : IAsyncDisposable
     {
         try
         {
-            await QueryDom();
+            await BackToTopAsync();
+            await QueryDomAsync();
         }
         catch (Exception)
         {
@@ -136,9 +147,10 @@ public partial class TableOfContents : IAsyncDisposable
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async Task Refresh()
     {
-        await QueryDom();
+        await QueryDomAsync();
     }
 
     private RenderFragment? GetTocItems(IEnumerable<Anchor>? items)
@@ -147,7 +159,7 @@ public partial class TableOfContents : IAsyncDisposable
         {
             return new RenderFragment(builder =>
             {
-                int i = 0;
+                var i = 0;
 
                 builder.OpenElement(i++, "ul");
                 foreach (Anchor item in items)
@@ -180,8 +192,6 @@ public partial class TableOfContents : IAsyncDisposable
 
     }
 
-
-
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         try
@@ -194,7 +204,8 @@ public partial class TableOfContents : IAsyncDisposable
                 await _jsModule.DisposeAsync();
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.

@@ -8,12 +8,12 @@ public class FluentTreeItemTests : TestBase
     public void FluentTreeItem_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string text = default!;
         bool expanded = default!;
-        Action<System.Boolean> expandedChanged = _ => { };
+        Action<bool> expandedChanged = _ => { };
         bool selected = default!;
-        Action<System.Boolean> selectedChanged = _ => { };
+        Action<bool> selectedChanged = _ => { };
         bool disabled = default!;
         bool initiallyExpanded = default!;
         bool initiallySelected = default!;
@@ -31,12 +31,7 @@ public class FluentTreeItemTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

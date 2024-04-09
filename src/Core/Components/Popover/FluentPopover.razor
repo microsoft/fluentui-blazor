@@ -4,26 +4,44 @@
 @if (Open)
 {
     <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent=true FullScreen=true />
-    <FluentAnchoredRegion Anchor="@AnchorId"
-                          HorizontalInset="true"
+    @if (CloseKeys != null && CloseKeys.Any())
+    {
+        // Button or AnchorId element
+        if (!string.IsNullOrEmpty(AnchorId))
+        {
+            <FluentKeyCode Anchor="@AnchorId" Only="@CloseAndTabKeys" OnKeyDown="@CloseOnKeyAsync" PreventDefaultOnly="@(AutoFocus ? CloseAndTabKeys : CloseKeys)" />
+        }
+        // Popover content
+        if (!string.IsNullOrEmpty(Id))
+        {
+            <FluentKeyCode Anchor="@Id" Only="@CloseAndTabKeys" OnKeyDown="@CloseOnKeyAsync" PreventDefaultOnly="@CloseAndTabKeys" />
+        }
+    }
+    <FluentAnchoredRegion @ref="AnchoredRegion"
+                          Id="@Id"
+                          Anchor="@AnchorId"
+                          HorizontalInset="@HorizontalInset"
                           HorizontalDefaultPosition="@HorizontalPosition"
-                          VerticalDefaultPosition="@VerticalPosition.Bottom"
+                          VerticalDefaultPosition="@VerticalPosition"
+                          VerticalThreshold="@VerticalThreshold"
+                          HorizontalThreshold="@HorizontalThreshold"
+                          AutoFocus="@AutoFocus"
                           Shadow="@ElevationShadow.Flyout"
                           Class="@ClassValue"
                           Style="@StyleValue">
-        <FluentStack Orientation="Orientation.Vertical" >
+        <FluentStack Orientation="Orientation.Vertical">
             <div class="fluent-popover-content">
                 @if (Header is not null)
                 {
-                    <div class="fluent-popover-header">@Header</div>
+                    <div part="header">@Header</div>
                 }
                 @if (Body is not null)
                 {
-                    <div class="fluent-popover-body">@Body</div>
+                    <div part="body">@Body</div>
                 }
                 @if (Footer is not null)
                 {
-                    <div class="fluent-popover-footer">@Footer</div>
+                    <div part="footer">@Footer</div>
                 }
             </div>
         </FluentStack>

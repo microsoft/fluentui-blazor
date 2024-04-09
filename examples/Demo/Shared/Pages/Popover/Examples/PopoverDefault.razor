@@ -9,15 +9,19 @@
         Open Callout 2
     </FluentButton>
 
-    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonl" @bind-Open="_visibleL">
+    <FluentPopover Style="width: 300px;" VerticalThreshold="170" AnchorId="myPopoverButtonl" @bind-Open="_visibleL">
         <Header>Callout Header</Header>
         <Body>
-            Callout Body
+            <FluentStack Orientation="Orientation.Vertical">
+                <FluentCheckbox>Item 1</FluentCheckbox>
+                <FluentCheckbox>Item 2</FluentCheckbox>
+                <FluentTextField tabindex="0"></FluentTextField>
+            </FluentStack>
         </Body>
         <Footer>Callout Footer</Footer>
     </FluentPopover>
 
-    <FluentPopover Style="width: 300px;" AnchorId="myPopoverButtonr" @bind-Open="_visibleR">
+    <FluentPopover Style="width: 300px;" VerticalThreshold="170" AnchorId="myPopoverButtonr" @bind-Open="_visibleR">
         <Header>Callout Header</Header>
         <Body>
             Callout Body

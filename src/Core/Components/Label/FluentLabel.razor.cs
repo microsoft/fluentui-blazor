@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -14,7 +14,7 @@ public partial class FluentLabel : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("color", Color.ToAttributeValue(), () => (Color != null))
+        .AddStyle("color", Color.ToAttributeValue(), () => Color != null)
         .AddStyle("margin-block", MarginBlock, () => !string.IsNullOrEmpty(MarginBlock) && !DefaultMarginBlock)
         .Build();
 
@@ -31,25 +31,26 @@ public partial class FluentLabel : FluentComponentBase
     public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Set the text-align on the component.
+    /// Gets or sets the text-align on the component.
     /// </summary>
     [Parameter]
     public HorizontalAlignment? Alignment { get; set; }
 
     /// <summary>
-    /// The color of the component. It supports the theme colors.
+    /// Gets or sets the color of the component. It supports the theme colors.
     /// </summary>
     [Parameter]
     public Color? Color { get; set; }
 
-    /// <summary>7
-    /// The front weight of the component:
+    /// <summary>
+    /// Gets or sets the font weight of the component:
     /// Normal (400), Bold (600) or Bolder (800).
     /// </summary>
     [Parameter]
     public FontWeight Weight { get; set; } = FontWeight.Normal;
 
     /// <summary>
+    /// Gets or sets the margin block of the component.
     /// "default" to use the margin-block prefefined by browser.
     /// If not set, the MarginBlock will be 0px.
     /// </summary>
@@ -57,7 +58,7 @@ public partial class FluentLabel : FluentComponentBase
     public string? MarginBlock { get; set; }
 
     /// <summary>
-    /// Child content of component.
+    /// Gets or sets the child content of component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

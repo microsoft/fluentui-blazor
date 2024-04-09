@@ -1,10 +1,10 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<CascadingValue Value="this" IsFixed="true">
+<CascadingValue Value="this">
     <div id="@Id" class="@ClassValue" style="@StyleValue" orientation="@(Orientation.ToAttributeValue())">
         @ChildContent
-        <div id="@IdMoreButton" class="power-overflow-more" style="@(ItemsOverflow.Count() <= 0 ? "display: none;" : "")" fixed>
+        <div id="@IdMoreButton" class="fluent-overflow-more" style="@(ItemsOverflow.Count() <= 0 ? "display: none;" : "")" fixed>
             @if (MoreButtonTemplate != null)
             {
                 @MoreButtonTemplate(this)
@@ -18,12 +18,12 @@
         </div>
     </div>
     @if (OverflowTemplate != null)
-    {     
+    {
         @OverflowTemplate(this)
     }
     else
     {
-        <FluentTooltip UseTooltipService="false" Anchor="@IdMoreButton">            
+        <FluentTooltip UseTooltipService="false" Anchor="@IdMoreButton">
             @foreach (var item in ItemsOverflow)
             {
                 <div style="margin: 5px;">@item.Text</div>

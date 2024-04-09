@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------
+// --------------------------------------------------------------
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // --------------------------------------------------------------
 
@@ -12,8 +12,10 @@ public partial class CodeSnippet
 {
     private ElementReference codeElement;
 
+    private IJSObjectReference _jsModule = default!;
+
     [Inject]
-    private IJSRuntime JS { get; set; } = default!;
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
@@ -28,7 +30,11 @@ public partial class CodeSnippet
     {
         if (firstRender)
         {
-            await JS.InvokeVoidAsync("hljs.highlightElement", codeElement);
+
+            await JSRuntime.InvokeVoidAsync("hljs.highlightElement", codeElement);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/FluentUI.Demo.Shared/Components/CodeSnippet.razor.js");
+            await _jsModule.InvokeVoidAsync("addCopyButton");
         }
     }
 }

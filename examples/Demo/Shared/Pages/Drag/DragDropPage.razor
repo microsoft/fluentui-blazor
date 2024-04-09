@@ -21,13 +21,3 @@
 <ApiDocumentation Component="typeof(FluentDragContainer<>)" InstanceTypes="@(new[] {typeof(object)})" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(FluentDropZone<>)" InstanceTypes="@(new[] {typeof(object)})" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(FluentDragEventArgs<>)" InstanceTypes="@(new[] {typeof(object)})" GenericLabel="TItem" />
-
-@code
-{
-    // Hack to force the compiler to include this class in the final library
-    // (WASM publishing)
-    // TODO: To find a better solution
-    FluentDragContainer<object> temp1 = new FluentDragContainer<object>();
-    FluentDropZone<object> temp2 = new FluentDropZone<object>();
-    FluentDragEventArgs<object> temp3 = new FluentDragEventArgs<object>();
-}

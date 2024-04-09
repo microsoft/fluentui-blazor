@@ -5,8 +5,7 @@
 
     <FluentStack>
         <FluentSpacer />
-        
-        <FluentAnchor Appearance="@Appearance.Hypertext" Href="" @onclick="@(e => MessageService.Clear(App.MESSAGES_NOTIFICATION_CENTER) )">
+        <FluentAnchor Appearance="@Appearance.Hypertext" Href="" OnClick="@(e => MessageService.Clear(App.MESSAGES_NOTIFICATION_CENTER) )">
             Dismiss all
         </FluentAnchor>
     </FluentStack>

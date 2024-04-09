@@ -28,31 +28,31 @@ public partial class FluentTextField : FluentInputBase<string?>
     public string? DataList { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum length
+    /// Gets or sets the maximum length.
     /// </summary>
     [Parameter]
     public int? Maxlength { get; set; }
 
     /// <summary>
-    /// Gets or sets the minimum length
+    /// Gets or sets the minimum length.
     /// </summary>
     [Parameter]
     public int? Minlength { get; set; }
 
     /// <summary>
-    /// A regular expression that the value must match to pass validation.
+    /// Gets or sets a regular expression that the value must match to pass validation.
     /// </summary>
     [Parameter]
     public string? Pattern { get; set; }
 
     /// <summary>
-    /// Gets or sets the size of the text field
+    /// Gets or sets the size of the text field.
     /// </summary>
     [Parameter]
     public int? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the if spellcheck should be used
+    /// Gets or sets a value indicating whether spellcheck should be used.
     /// </summary>
     [Parameter]
     public bool? Spellcheck { get; set; }
@@ -76,6 +76,12 @@ public partial class FluentTextField : FluentInputBase<string?>
     [Parameter]
     public string? AutoComplete { get; set; }
 
+    /// <summary>
+    /// Gets or sets the type of data that can be entered by the user when editing the element or its content. This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
+    /// </summary>
+    [Parameter]
+    public InputMode? InputMode { get; set; }
+
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
@@ -92,8 +98,21 @@ public partial class FluentTextField : FluentInputBase<string?>
             if (AutoComplete != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("setAutocomplete", Id, AutoComplete);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
+            }
+
+            if (InputMode != null && !string.IsNullOrEmpty(Id))
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.ToAttributeValue());
             }
         }
+
+        if (DataList != null && !string.IsNullOrEmpty(Id))
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await Module.InvokeVoidAsync("setDataList", Id, DataList);
+        }
+
     }
 }

@@ -1,13 +1,20 @@
->**If you are upgrading from a previous version of the library and you were alreasy using icons and/or emoji, please see the [Upgrade Guide](https://www.fluentui-blazor.net/UpgradeGuide) for more information.**
+>**If you are upgrading from a previous version of the library and you were alreasy using icons and/or emoji, please see the [Upgrade Guide](https://www.fluentui-blazor.net/UpgradeGuide) for additional information.**
 
-Starting with v3, the assets for the icons and emoji are removed from the library package and are provided through additional (separate) packages for 
-both the icon and emoji resources. The components, and icons that are used by the library itself, are still part of the package. 
-Adding the [Microsoft.FluentUI.AspNetCore.Components.Icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons) and/or [Microsoft.FluentUI.AspNetCore.Components.Emoji](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji) packages 
+Icons and Emoji are provided through additional packages (except for the icons that are used by the library itself). Adding the 
+[Microsoft.FluentUI.AspNetCore.Components.Icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons) and/or 
+[Microsoft.FluentUI.AspNetCore.Components.Emoji](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji) packages 
 is enough to make the resources available to your code.
  
-We use the [.NET trimming capabilities](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer) to publish only those assests that are actually being used in your program. Usually this results in some very small DLL's that only contain the resources that are actually being used in your application.
+We use the [.NET trimming capabilities](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer) to publish only those 
+assests that are actually being used in your program. Usually this results in some very small DLL's that only contain the resources that are 
+actually being used in your application.
  
-We support the **complete** [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) and [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) collections.
+We support the **complete** [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) and 
+[Fluent Emoji](https://github.com/microsoft/fluentui-emoji) collections.
+
+To browse the collections, use the following links:
+- [Icon explorer](/Icon#explorer)
+- [Emoji explorer](/Emoji#explore-emojis)
  
 ## Getting Started
  
@@ -25,6 +32,9 @@ dotnet add package FluentUI.AspNetCore.Components.Emojis
 
  
 #### Using the `FluentIcon` component
+
+> **Note:** Use the [Icon explorer](/Icon#explorer) to search through the entire collection of icons. You can easily copy a complete icon component 
+instance from the explorer by clicking the clipboard in the results list.
  
 To use the icons, you add a `FluentIcon` component in your code like this:
 
@@ -33,6 +43,7 @@ To use the icons, you add a `FluentIcon` component in your code like this:
 ```
 
 > **Note:** Icon names are structured like this: `Icons.[IconVariant].[IconSize].[IconName]`
+
 
 Following this structure in combination with Visual Studio's IntelliSense makes it easier to find the icon you need.
  
@@ -69,6 +80,8 @@ After adding the class, you can start using this custom icon like a "normal" Flu
 ```
  
 #### Using the `FluentEmoji` component
+> **Note:** Use the [Emoji explorer](/Emoji#explore-emojis) to search through the entire collection of emoji. You can easily copy a complete emoji component 
+instance from the explorer by clicking the clipboard in the results list.
  
 To use the emoji, you add a `FleuntEmoji` component in your code like this:
 

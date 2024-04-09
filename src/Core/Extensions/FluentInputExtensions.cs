@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal static class FluentInputExtensions
 {

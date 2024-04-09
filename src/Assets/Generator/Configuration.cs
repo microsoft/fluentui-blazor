@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
@@ -152,7 +152,7 @@ internal class Configuration
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    static string GetThisFilePath([CallerFilePath] string? path = null)
+    private static string GetThisFilePath([CallerFilePath] string? path = null)
     {
         if (Debugger.IsAttached)
         {

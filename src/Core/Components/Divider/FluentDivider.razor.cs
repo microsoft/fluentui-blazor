@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,15 +11,15 @@ public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
-    
+
     /// <summary>
-    /// The role of the element.
+    /// Gets or sets the role of the element.
     /// </summary>
     [Parameter]
     public DividerRole? Role { get; set; }
 
     /// <summary>
-    /// The orientation of the divider.
+    /// Gets or sets the orientation of the divider.
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; } = AspNetCore.Components.Orientation.Horizontal;
@@ -37,7 +36,7 @@ public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
         {
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             await _jsModule.InvokeVoidAsync("setDividerAriaOrientation");
-        }   
+        }
     }
 
     /// <inheritdoc />
@@ -50,7 +49,8 @@ public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
                 await _jsModule.DisposeAsync();
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.

@@ -1,8 +1,4 @@
-﻿using System.Runtime.Versioning;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
-using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
-using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace FluentUI.Demo.Shared;
 
@@ -17,6 +13,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<CacheStorageAccessor>();
         services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
+        services.AddSingleton<DemoNavProvider>();
 
         return services;
     }

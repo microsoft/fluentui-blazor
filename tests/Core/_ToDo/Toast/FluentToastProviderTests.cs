@@ -24,12 +24,7 @@ public class FluentToastProviderTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

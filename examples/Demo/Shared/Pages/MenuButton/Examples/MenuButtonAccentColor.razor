@@ -21,7 +21,6 @@
 
     private async Task HandleOnMenuChanged(MenuChangeEventArgs args)
     {
-
         await AccentBaseColor.SetValueFor(menubutton.Button!.Element, $"#{args.Id}".ToSwatch());
     }
 

@@ -30,6 +30,15 @@
     &lt;/main&gt;
 </CodeSnippet>
 
+<strong>IMPORTANT!!</strong>
+<p>
+    <strong>
+        For the <code>&lt;FluentMessageBarProvider/&gt;</code> to work porperly, it needs interactivity! If you are using "per page" interactivity or ASP.NET Core 8
+        or above with <strong>Server Side Rendering</strong> , make sure to add a <code>@@rendermode</code> to
+        either the provider itself of the component the provider is placed in.
+    </strong>
+</p>
+
 <p>
     It is also possible to have message bars appear in a dialog or card. In that case you need to add the <code>&lt;FluentMessageBarProvider /&gt;</code>
     component to the specification the dialog or card using the <code>Section</code> parameter as an identification.<br />

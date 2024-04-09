@@ -1,4 +1,4 @@
-﻿
+
 namespace FluentUI.Demo.Shared.Pages.MessageBar.Examples;
 
 /// <summary />

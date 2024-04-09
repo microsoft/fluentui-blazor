@@ -52,7 +52,6 @@ public class PaginationState
         return CurrentPageItemsChanged.InvokeCallbacksAsync(this);
     }
 
-
     public Task SetTotalItemCountAsync(int totalItemCount)
     {
         if (totalItemCount == TotalItemCount)
@@ -66,13 +65,11 @@ public class PaginationState
         {
             // If the number of items has reduced such that the current page index is no longer valid, move
             // automatically to the final valid page index and trigger a further data load.
-            return SetCurrentPageIndexAsync(LastPageIndex.Value);
+            SetCurrentPageIndexAsync(LastPageIndex.Value);
         }
-        else
-        {
-            // Under normal circumstances, we just want any associated pagination UI to update
-            TotalItemCountChanged?.Invoke(this, TotalItemCount);
-            return TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
-        }
+
+        // Under normal circumstances, we just want any associated pagination UI to update
+        TotalItemCountChanged?.Invoke(this, TotalItemCount);
+        return TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
     }
 }

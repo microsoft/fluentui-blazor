@@ -1,0 +1,54 @@
+﻿@inject IJSRuntime js
+<style>
+    .pull-up-demo {
+        height: 51.2vh;
+        max-width: 400px;
+        border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-rest);
+        border-radius: calc(var(--control-corner-radius)* 1px);
+        overflow: auto;
+    }
+    .pull-content {
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: calc(var(--design-unit) * 2px);
+        height: calc(100% - 50px);
+    }
+</style>
+
+<div class="pull-up-demo">
+    <FluentPullToRefresh Direction="@PullDirection.Up" OnRefreshAsync="OnRefreshAsync" TipHeight="50" DragDistance="100" >
+        <LoadingTemplate>
+            <FluentProgress Width="150px;"/>
+        </LoadingTemplate>
+        <ChildContent>
+            <div class="pull-content">
+                @for (int i = 1; i <= count; i++)
+                {
+                    <span @key="i">item @i</span>
+                }
+            </div>
+        </ChildContent>
+    </FluentPullToRefresh>
+</div>
+
+@code {
+    int refreshcount = 0;
+    int count = 3;
+
+    public async Task<bool> OnRefreshAsync()
+    {
+        refreshcount++;
+        if (count < 15)
+        {
+            await Task.Delay(1000);
+            count += 3;
+            DemoLogger.WriteLine($"Pull up refresh count {refreshcount}");
+
+            return true;
+        }
+
+        return false;
+    }
+}

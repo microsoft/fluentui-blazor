@@ -25,7 +25,6 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     private ValidationMessageStore? _parsingValidationMessages;
     private Type? _nullableUnderlyingType;
 
-
     [CascadingParameter]
     private EditContext? CascadedEditContext { get; set; }
 
@@ -42,31 +41,35 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// The name of the element.Allows access by name from the associated form.
+    /// Gets or sets the name of the element.
+    /// Allows access by name from the associated form.
+    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Text displayed just above the component
+    /// Gets or sets the text to label the input.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// Content displayed just above the component
+    /// Gets or sets the content to label the input component.
+    /// This is usually displayed just above the input
     /// </summary>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
     /// <summary>
-    /// Text used on aria-label attribute.
+    /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Whether the element needs to have a value
+    /// Gets or sets a value indicating whether the element needs to have a value.
     /// </summary>
     [Parameter]
     public bool Required { get; set; }
@@ -78,7 +81,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// @bind-Value="model.PropertyName"
     /// </example>
     [Parameter]
-    public TValue? Value { get; set; }
+    public virtual TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
@@ -106,10 +109,17 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual bool Autofocus { get; set; } = false;
 
     /// <summary>
-    /// The short hint displayed in the input before the user enters a value.
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
     public virtual string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets if the derived component is embedded in another component. 
+    /// If true, the ClassValue property will not include the EditContext's FieldCssClass.
+    /// </summary>
+    [Parameter]
+    public virtual bool Embedded { get; set; } = false;
 
     /// <summary>
     /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
@@ -124,11 +134,13 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
 
     internal bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
 
-    protected async Task SetCurrentValue(TValue? value)
+    protected async Task SetCurrentValueAsync(TValue? value)
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
         if (!hasChanged)
+        {
             return;
+        }
 
         _parsingFailed = false;
 
@@ -157,7 +169,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     protected TValue? CurrentValue
     {
         get => Value;
-        set => _ = SetCurrentValue(value);
+        set => _ = SetCurrentValueAsync(value);
     }
 
     /// <summary>
@@ -170,7 +182,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
         // about the validation error message.
         get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
-        set => _ = SetCurrentValueAsString(value);
+        set => _ = SetCurrentValueAsStringAsync(value);
 
     }
 
@@ -178,7 +190,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Attempts to set the current value of the input, represented as a string.
     /// </summary>
     /// <param name="value"></param>
-    protected async Task SetCurrentValueAsString(string? value)
+    protected async Task SetCurrentValueAsStringAsync(string? value)
     {
         _incomingValueBeforeParsing = value;
         _parsingValidationMessages?.Clear();
@@ -194,7 +206,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         else if (TryParseValueFromString(value, out TValue? parsedValue, out var validationErrorMessage))
         {
             _parsingFailed = false;
-            await SetCurrentValue(parsedValue);
+            await SetCurrentValueAsync(parsedValue);
         }
         else
         {
@@ -255,9 +267,9 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         get
         {
-            string? fieldClass = FieldBound ? EditContext?.FieldCssClass(FieldIdentifier) : null;
+            var fieldClass = (FieldBound && !Embedded) ? EditContext?.FieldCssClass(FieldIdentifier) : null;
 
-            string? cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
+            var cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
 
             if (!string.IsNullOrEmpty(cssClass) || !string.IsNullOrEmpty(Class))
             {
@@ -287,7 +299,10 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
             }
-
+            else if (ValueChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => Value);
+            }
 
             if (CascadedEditContext != null)
             {
@@ -315,14 +330,17 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
+    // TODO: #vNext: Make it proper async Task
     /// <summary>
     /// Exposes the elements FocusAsync() method.
     /// </summary>
+    [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async void FocusAsync()
     {
         await Element!.FocusAsync();
     }
 
+    // TODO: #vNext: Make it proper async Task
     /// <summary>
     /// Exposes the elements FocusAsync(bool preventScroll) method.
     /// </summary>
@@ -330,6 +348,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// the document to bring the newly-focused element into view. A value of false for preventScroll (the default) 
     /// means that the browser will scroll the element into view after focusing it. 
     /// If preventScroll is set to true, no scrolling will occur.</param>
+    [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async void FocusAsync(bool preventScroll)
     {
         await Element!.FocusAsync(preventScroll);
@@ -398,7 +417,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         var newDictionaryCreated = true;
         if (source == null)
         {
-            result = new Dictionary<string, object>();
+            result = [];
         }
         else if (source is Dictionary<string, object> currentDictionary)
         {
@@ -407,7 +426,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         }
         else
         {
-            result = new Dictionary<string, object>();
+            result = [];
             foreach (var item in source)
             {
                 result.Add(item.Key, item.Value);

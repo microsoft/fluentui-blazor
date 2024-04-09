@@ -1,0 +1,76 @@
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentProgress_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="0" Max="100" Value="30" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgress_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="0" Max="100" Value="30" Width="64px" />);
+
+        // Assert
+        cut.Verify();
+
+    }
+
+    [Fact]
+    public void FluentProgress_Content()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="10" Max="80">My content</FluentProgress>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgress_Visible()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="0" Max="100" Value="30" Visible="false" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgress_Paused()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="0" Max="100" Value="30" Paused="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentProgress_Stroke()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="0" Max="100" Value="30" Stroke="ProgressStroke.Large" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgress_Colors()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProgress Min="0" Max="100" Value="30" Color="red" BackgroundColor="gray" />);
+
+        // Assert
+        cut.Verify();
+    }
+}

@@ -6,12 +6,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public readonly struct SortedProperty
 {
     /// <summary>
-    /// The property name for the sorting rule.
+    /// Gets or sets the property name for the sorting rule.
     /// </summary>
     public /*required*/ string PropertyName { get; init; }
 
     /// <summary>
-    /// The direction to sort by.
+    /// Gets or sets the direction to sort by.
     /// </summary>
     public SortDirection Direction { get; init; }
 }

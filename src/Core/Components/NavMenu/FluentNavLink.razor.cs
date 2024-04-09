@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -18,7 +17,7 @@ public partial class FluentNavLink : FluentNavBase
 
     internal Dictionary<string, object?> Attributes
     {
-        get => Disabled ? new Dictionary<string, object?>() : new Dictionary<string, object?>
+        get => Disabled ? [] : new Dictionary<string, object?>
         {
             { "href", Href },
             { "target", Target },

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -17,10 +18,9 @@ public partial class FluentPersona : FluentComponentBase
     protected virtual string? StyleValue =>
         new StyleBuilder(Style).Build();
 
-
     /// <summary>
     /// Gets or sets the initials to display if no image is provided.
-    /// Byt default, the first letters of the <see cref="Name"/> is used.
+    /// By default, the first letters of the <see cref="Name"/> is used.
     /// </summary>
     [Parameter]
     public string? Initials { get; set; }
@@ -50,13 +50,20 @@ public partial class FluentPersona : FluentComponentBase
     public string? ImageSize { get; set; }
 
     /// <summary>
-    /// The status to show. See <see cref="PresenceStatus"/> for options.
+    /// Gets or sets the <see cref="Microsoft.FluentUI.AspNetCore.Components.TextPosition"/> of the text.
+    /// Default is End.
+    /// </summary>
+    [Parameter]
+    public TextPosition TextPosition { get; set; }
+
+    /// <summary>
+    /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]
     public PresenceStatus? Status { get; set; }
 
     /// <summary>
-    /// The title to show on hover. If not provided, the status will be used.
+    /// Gets or sets the title to show on hover. If not provided, the status will be used.
     /// </summary>
     [Parameter]
     public string? StatusTitle { get; set; }
@@ -67,6 +74,12 @@ public partial class FluentPersona : FluentComponentBase
     /// </summary>
     [Parameter]
     public PresenceBadgeSize StatusSize { get; set; } = PresenceBadgeSize.ExtraSmall;
+
+    /// <summary>
+    /// Gets or sets the event raised when the user clicks on this Persona.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
     /// Gets or sets the event raised when the user clicks on the dismiss button.
@@ -83,18 +96,28 @@ public partial class FluentPersona : FluentComponentBase
     /// <summary />
     private string GetDefaultInitials()
     {
-        var parts = Name.ToUpper().Split(' ');
+        if (string.IsNullOrEmpty(Name))
+        {
+            return string.Empty;
+        }
+
+        var parts = Name.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return parts == null
                 || parts.Length == 0
                 || (parts.Length == 1 && parts[0] == string.Empty)
-            ? "--"
+            ? string.Empty
             : parts.Length > 1
             ? $"{parts[0][0]}{parts[1][0]}"
             : $"{parts[0][0]}";
     }
 
-    private string GetImageSizeStyle()
-    { 
+    private string GetImageMinSizeStyle()
+    {
         return string.IsNullOrEmpty(ImageSize) ? string.Empty : $"width: {ImageSize}; min-width: {ImageSize}; height: {ImageSize}; min-height: {ImageSize};";
+    }
+
+    private string GetImageMaxSizeStyle()
+    {
+        return string.IsNullOrEmpty(ImageSize) ? string.Empty : $"max-width: {ImageSize}; max-height: {ImageSize};";
     }
 }

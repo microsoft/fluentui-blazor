@@ -1,8 +1,8 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 @attribute [CascadingTypeParameter(nameof(TValue))]
-<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" style="margin-bottom: calc(var(--design-unit) * 3px);">@LabelTemplate</FluentInputLabel>
+<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" style="margin-bottom: calc(var(--design-unit) * 3px);" />
 <fluent-slider @ref=Element
                class="@ClassValue"
                style="@StyleValue"
@@ -13,7 +13,7 @@
                orientation="@Orientation.ToAttributeValue()"
                mode="@Mode.ToAttributeValue()"
                id="@Id"
-               @bind-value="CurrentValueAsString"
+               @bind-value="@CurrentValueAsString"
                disabled="@Disabled"
                name=@Name
                required=@Required>

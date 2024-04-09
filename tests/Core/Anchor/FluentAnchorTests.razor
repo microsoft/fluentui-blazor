@@ -1,0 +1,17 @@
+﻿@using Xunit
+@inherits TestContext
+
+@code
+{
+    [Fact]
+    public void FluentAnchor_IdAttribute()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAnchor Id="my_id" Href="https://www.fluentui-blazor.net">
+                            My Anchor
+                          </FluentAnchor>);
+        // Assert
+        cut.Verify();
+    }
+}

@@ -20,7 +20,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public string? Download { get; set; }
 
     /// <summary>
-    /// The URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
+    /// Gets or sets the URL the hyperlink references. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
     /// Use Target parameter to specify where.
     /// </summary>
     [Parameter, EditorRequired]
@@ -51,7 +51,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public string? Rel { get; set; }
 
     /// <summary>
-    /// The target attribute specifies where to open the link, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the link, if Href is specified.
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>
     [Parameter]
@@ -71,16 +71,19 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the start of anchor content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of anchor content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// <see cref="Icon"/> displayed at the end of anchor content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of anchor content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -92,7 +95,9 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     {
         string[] values = { "_self", "_blank", "_parent", "_top" };
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
+        {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
+        }
 
         // If the Href has been specified (as it should) and if starts with '#,'
         // we assume the rest of the value contains the id of the element the link points to.
@@ -105,7 +110,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
             // https://github.com/WICG/scroll-to-text-fragment/
 
             _targetId = Href[1..];
-            int index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
+            var index = _targetId.IndexOf(":~:", StringComparison.Ordinal);
             if (index > 0)
             {
                 _targetId = _targetId[..index];
@@ -130,6 +135,10 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
             // If the target ID has been specified, we know this is an anchor link that we need to scroll to
             await _jsModule.InvokeVoidAsync("scrollIntoView", _targetId);
         }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
     }
 
     /// <inheritdoc />
@@ -142,7 +151,8 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
                 await _jsModule.DisposeAsync();
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.

@@ -2,26 +2,24 @@
 
 <h1>Starfleet Starship Database</h1>
 
-<p>
-    This form uses the standard Blazor input components. It uses a <code>DataAnnotationsValidator</code> and a <code>FluentValidationSummary</code>
-</p
-
 <h2>New Ship Entry Form</h2>
 
 <EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
-    <FluentValidationSummary />
+    <ValidationSummary />
 
     <p>
         <label>
             Identifier:
             <InputText @bind-Value="starship.Identifier" />
+            <ValidationMessage For="@(() => starship.Identifier)" />
         </label>
     </p>
     <p>
         <label>
             Description (optional):
             <InputTextArea @bind-Value="starship.Description" />
+            <ValidationMessage For="@(() => starship.Description)" />
         </label>
     </p>
     <p>
@@ -33,24 +31,28 @@
                 <option value="Diplomacy">Diplomacy</option>
                 <option value="Defense">Defense</option>
             </InputSelect>
+            <ValidationMessage For="@(() => starship.Classification)" />
         </label>
     </p>
     <p>
         <label>
             Maximum Accommodation:
             <InputNumber @bind-Value="starship.MaximumAccommodation" />
+            <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
         </label>
     </p>
     <p>
         <label>
             Engineering Approval:
             <InputCheckbox @bind-Value="starship.IsValidatedDesign" />
+            <ValidationMessage For="@(() => starship.IsValidatedDesign)" />
         </label>
     </p>
     <p>
         <label>
             Production Date:
             <InputDate @bind-Value="starship.ProductionDate" />
+            <ValidationMessage For="@(() => starship.ProductionDate)" />
         </label>
     </p>
 
@@ -64,7 +66,7 @@
 </EditForm>
 
 @code {
-    private Starship starship = new() { ProductionDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day) };
+    private Starship starship = new() { ProductionDate = DateTime.Now };
 
     private void HandleValidSubmit()
     {

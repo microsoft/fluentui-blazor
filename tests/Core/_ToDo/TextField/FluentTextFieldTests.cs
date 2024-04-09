@@ -1,14 +1,24 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.TextField;
 public class FluentTextFieldTests : TestBase
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentTextFieldTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentTextField_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         TextFieldType? textFieldType = default!;
         string dataList = default!;
         int? maxlength = default!;
@@ -33,12 +43,7 @@ public class FluentTextFieldTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

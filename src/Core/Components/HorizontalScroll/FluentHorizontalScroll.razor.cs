@@ -7,31 +7,31 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposable
 {
     /// <summary>
-    /// Description: Scroll speed in pixels per second
+    /// Gets or sets the scroll speed in pixels per second.
     /// </summary>
     [Parameter]
     public int Speed { get; set; } = 600;
 
     /// <summary>
-    /// The CSS time value for the scroll transition duration. Overrides the `speed` attribute.
+    /// Gets or sets the CSS time value for the scroll transition duration. Overrides the `speed` attribute.
     /// </summary>
     [Parameter]
     public string? Duration { get; set; }
 
     /// <summary>
-    /// Attribute used for easing, defaults to ease-in-out
+    /// Gets or sets the attribute used for easing, defaults to ease-in-out.
     /// </summary>
     [Parameter]
     public ScrollEasing? Easing { get; set; } = ScrollEasing.EaseInOut;
 
     /// <summary>
-    /// Attribute to hide flippers from assistive technology
+    /// Gets or sets the attribute to hide flippers from assistive technology.
     /// </summary>
     [Parameter]
     public bool? FlippersHiddenFromAt { get; set; }
 
     /// <summary>
-    /// View: default | mobile
+    /// Gets or sets the view: default | mobile.
     /// </summary>
     [Parameter]
     public HorizontalScrollView? View { get; set; } = AspNetCore.Components.HorizontalScrollView.Default;
@@ -45,7 +45,6 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
     private IJSObjectReference? _jsModule;
-
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(HorizontalScrollEventArgs))]
 
@@ -85,7 +84,8 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
                 await _jsModule.DisposeAsync();
             }
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
         {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.

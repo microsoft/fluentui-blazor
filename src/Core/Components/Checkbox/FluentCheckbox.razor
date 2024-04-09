@@ -5,20 +5,24 @@
                  style="@StyleValue"
                  readonly="@ReadOnly"
                  id=@Id
-                 value=@Value
+                 value=@(bool.TrueString)
                  current-value=@CurrentValue
                  disabled=@Disabled
                  name=@Name
                  required="@Required"
                  current-checked="@CurrentValue"
-                 @oncheckedchange="@((e) => SetCurrentValue(e.Checked))"
+                 @oncheckedchange="@OnCheckedChangeHandlerAsync"
                  @attributes="@AdditionalAttributes">
     @if (!string.IsNullOrEmpty(Label) || !string.IsNullOrEmpty(AriaLabel) || LabelTemplate is not null)
     {
         <span aria-label="@AriaLabel">
             @Label
             @LabelTemplate
-        </span>    
+        </span>
+        if (Required)
+        {
+            <span aria-label="required" aria-hidden="true" style="color: var(--error);">*</span>
+        }
     }
     @ChildContent
 </fluent-checkbox>

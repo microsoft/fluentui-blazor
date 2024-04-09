@@ -8,7 +8,7 @@ public class FluentTreeViewTests : TestBase
     public void FluentTreeView_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool renderCollapsedNodes = default!;
         FluentTreeItem currentSelected = default!;
         Action<FluentTreeItem?> currentSelectedChanged = _ => { };
@@ -28,9 +28,4 @@ public class FluentTreeViewTests : TestBase
         cut.Verify();
     }
 }
-
-
-
-
-
 

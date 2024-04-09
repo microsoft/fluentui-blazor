@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,7 +13,7 @@ public class Icon : IconInfo
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
     public Icon() : this(string.Empty, IconVariant.Regular, IconSize.Size24, string.Empty)
-    { 
+    {
         throw new ArgumentNullException("Please use the constructor including parameters.");
     }
 
@@ -37,7 +38,7 @@ public class Icon : IconInfo
     public virtual string Content { get; }
 
     /// <summary>
-    /// Gets the color of the icon (set.
+    /// Gets the color of the icon.
     /// </summary>
     internal virtual string? Color { get; private set; }
 
@@ -87,15 +88,66 @@ public class Icon : IconInfo
     /// </summary>
     public virtual MarkupString ToMarkup(string? size = null, string? color = null)
     {
-        var styleWidth = size ?? $"{(int)Size}px";
-        var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
-        return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+        if (Size != IconSize.Custom && ContainsSVG)
+        {
+            var styleWidth = size ?? $"{(int)Size}px";
+            var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
+            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
+            {
+                return new MarkupString(Content);
+            }
+            else
+            {
+                var attributes = new StyleBuilder()
+                    .AddStyle("display", "inline-block")
+                    .AddStyle("fill", color, when: !string.IsNullOrEmpty(color))
+                    .AddStyle("width", size, when: !string.IsNullOrEmpty(size))
+                    .Build();
+
+                return new MarkupString($"<div style=\"{attributes}\">{Content}</div>");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the data URI of the icon.
+    /// </summary>
+    public virtual string ToDataUri(string? size = null, string? color = null)
+    {
+        var svg = ToMarkup(size, color).Value;
+
+        // Attribute xmlns="http://www.w3.org/2000/svg" is required for SVG data URI.
+        svg = svg.Contains("http://www.w3.org/2000/svg") ? svg : svg.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ");
+
+        var base64Svg = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(svg));
+        return $"data:image/svg+xml;base64,{base64Svg}";
     }
 
     /// <summary>
     /// Gets the width of the icon.
     /// </summary>
-    protected internal virtual int Width => (int)Size;
+    protected internal virtual int Width => Size == IconSize.Custom ? 20 : (int)Size;
+
+    /// <summary>
+    /// Returns true if the icon contains a SVG content.
+    /// </summary>
+    /// <returns></returns>
+    protected internal bool ContainsSVG
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(Content) &&
+                   (Content.StartsWith("<path ") ||
+                    Content.StartsWith("<rect ") ||
+                    Content.StartsWith("<g ") ||
+                    Content.StartsWith("<circle ") ||
+                    Content.StartsWith("<mark "));
+        }
+    }
 
     /// <summary>
     /// Returns an icon instance.

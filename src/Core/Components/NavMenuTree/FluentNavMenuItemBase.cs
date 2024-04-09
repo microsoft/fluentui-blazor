@@ -1,5 +1,3 @@
-﻿using System;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -43,7 +41,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public EventCallback<NavMenuActionArgs> OnAction { get; set; }
 
     /// <summary>
-    /// Gets or sets if the item is selected.
+    /// Gets or sets a value indicating whether the item is selected.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
@@ -89,10 +87,9 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
     public bool HasIcon => Icon != null;
 
     /// <summary>
-    /// The tree item associated with this menu item.
+    /// Gets or sets the tree item associated with this menu item.
     /// </summary>
     protected internal FluentTreeItem TreeItem { get; set; } = null!;
-
 
     void IDisposable.Dispose()
     {
@@ -169,7 +166,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
         if (!string.IsNullOrEmpty(Href) && Href != "/")
         {
             // If the current page is the same as the Href, don't navigate
-            if (new Uri(NavigationManager.Uri).LocalPath.Equals((Href), StringComparison.InvariantCultureIgnoreCase))
+            if (new Uri(NavigationManager.Uri).LocalPath.Equals(Href, StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;
             }
@@ -177,7 +174,7 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
             // If the local path starts with this Href (with an added "/"), don't navigate 
             // Example local path: https://.../Panel/Panel2 starts with Href: https://.../Panel + "/"  
             // Extra "/" is needed to avoid a match on http://.../Panel for https://.../Panels 
-            if (new Uri(NavigationManager.Uri).LocalPath.StartsWith((Href +"/" ), StringComparison.InvariantCultureIgnoreCase))
+            if (new Uri(NavigationManager.Uri).LocalPath.StartsWith(Href + "/", StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;
             }
@@ -192,6 +189,5 @@ public abstract class FluentNavMenuItemBase : FluentComponentBase, IDisposable
 
         return true;
     }
-
 
 }
