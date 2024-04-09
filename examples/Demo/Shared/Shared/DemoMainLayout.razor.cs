@@ -26,20 +26,7 @@ public partial class DemoMainLayout
 
     protected override void OnInitialized()
     {
-        var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-        if (versionAttribute != null)
-        {
-            var version = versionAttribute.InformationalVersion;
-            var plusIndex = version.IndexOf('+');
-            if (plusIndex >= 0 && plusIndex + 9 < version.Length)
-            {
-                _version = version[..(plusIndex + 9)];
-            }
-            else
-            {
-                _version = version;
-            }
-        }
+        _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
 
         _prevUri = NavigationManager.Uri;
         NavigationManager.LocationChanged += LocationChanged;

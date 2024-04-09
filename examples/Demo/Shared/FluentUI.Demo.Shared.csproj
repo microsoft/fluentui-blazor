@@ -6,7 +6,8 @@
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 		<IsTrimmable>false</IsTrimmable>
-		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+    <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
