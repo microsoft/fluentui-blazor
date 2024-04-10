@@ -8,7 +8,7 @@
         Services.AddFluentUIComponents();
 
         // Arrange
-        var cut = Render(@<FluentMessageBarProvider Section="TOP_SECTION" />);
+        var cut = Render(@<FluentMessageBarContainer Section="TOP_SECTION" />);
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
@@ -24,7 +24,7 @@
         Services.AddFluentUIComponents();
 
         // Arrange
-        var cut = Render(@<FluentMessageBarProvider />);
+        var cut = Render(@<FluentMessageBarContainer />);
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
@@ -45,7 +45,7 @@
         Services.AddFluentUIComponents();
 
         // Arrange
-        var cut = Render(@<FluentMessageBarProvider />);
+        var cut = Render(@<FluentMessageBarContainer />);
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
@@ -66,7 +66,7 @@
         Services.AddFluentUIComponents();
 
         // Arrange
-        var cut = Render(@<FluentMessageBarProvider />);
+        var cut = Render(@<FluentMessageBarContainer />);
         var messageService = Services.GetRequiredService<IMessageService>();
 
         // Act
