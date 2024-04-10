@@ -325,7 +325,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="column">The column to check against the current sorted on column.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public async Task<bool> RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
+    public Task RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
     {
         if (_sortByColumn == column && !column.IsDefaultSortColumn)
         {
@@ -334,9 +334,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
-        await RefreshDataCoreAsync();
-
-        return true;
+        return RefreshDataCoreAsync();
     }
 
     /// <summary>
