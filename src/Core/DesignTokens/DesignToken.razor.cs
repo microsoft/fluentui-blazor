@@ -68,7 +68,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     private async Task InitJSReference()
     {
         _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-            "./_content/Microsoft.Fast.Components.FluentUI/js/web-components-v2.5.17.min.js");
+            "./_content/Microsoft.Fast.Components.FluentUI/js/web-components-v2.6.1.min.js");
     }
 
     /// <summary>

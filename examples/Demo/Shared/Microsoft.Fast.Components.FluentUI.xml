@@ -196,6 +196,11 @@
             Expands or collapses the item.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.ExpandedChanged">
+            <summary>
+            Gets or sets a callback for when the expanded state changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordionItem.HeadingLevel">
             <summary>
             Configures the <see href="https://www.w3.org/TR/wai-aria-1.1/#aria-level">level</see> of the
@@ -3701,7 +3706,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnInitializedAsync">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputFile.OnUploadFilesHandlerAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
@@ -4780,7 +4785,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Intent">
             <summary>
-            Intent of the message bar. Default is MessageIntent.Info. 
+            Gets or sets the intent of the message bar. 
+            Default is MessageIntent.Info. 
             See <see cref="T:Microsoft.Fast.Components.FluentUI.MessageIntent"/> for more details.
             </summary>
         </member>
@@ -4791,17 +4797,23 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Title">
             <summary>
+            Gets or sets the title.
             Most important info to be shown in the message bar.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Body">
             <summary>
-            Message to be shown in the message bar.
+            Gets or sets the message to be shown in the message bar.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.Message.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar is dismissible.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.Message.Link">
             <summary>
-            Link to be shown in the message bar (after the body).
+            Gets or sets the link to be shown in the message bar (after the body).
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.Message.Close">
@@ -4917,6 +4929,11 @@
             Timeout in seconds after which the message bar is removed. Default is null.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.MessageOptions.AllowDismiss">
+            <summary>
+            Gets or sets whether the message bar can be dismissed.
+            </summary>
+        </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.MessageService">
             <summary />
         </member>
@@ -4972,7 +4989,7 @@
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
+            <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBar(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
@@ -5003,7 +5020,7 @@
             </summary>
             <param name="title">Main info</param>
             <param name="intent">Intent of the message</param>
-            <param name="section">Section to show the messagebar in </param>
+            <param name="section">Section to show the message bar in </param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.MessageService.ShowMessageBarAsync(System.Action{Microsoft.Fast.Components.FluentUI.MessageOptions})">
@@ -12198,6 +12215,13 @@
             </summary>
             <param name="style"></param>
             <returns>StyleBuilder</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.SwatchExtensions.ToColorHex(Microsoft.Fast.Components.FluentUI.DesignTokens.Swatch)">
+            <summary>
+            Gives a RGB hex value for a Swatch
+            </summary>
+            <param name="swatch">The Swatch to convert</param>
+            <returns></returns>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.CheckRGBString_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CheckRGBString method.</summary>

@@ -31,11 +31,11 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework)=='net6.0' ">
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.29" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework)=='net7.0' ">
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
 	</ItemGroup>
 
 	<ItemGroup>
