@@ -7,7 +7,7 @@
     <OutDir Condition="!HasTrailingSlash('$(OutDir)')">$(OutDir)\</OutDir>
     <IntermediateOutputPath Condition="'$(IntermediateOutputPath)'==''">$(SolutionDir)obj\$(Configuration)\</IntermediateOutputPath>
     <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

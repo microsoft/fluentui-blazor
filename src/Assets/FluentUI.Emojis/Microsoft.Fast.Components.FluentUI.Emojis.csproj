@@ -28,5 +28,12 @@
 		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.*-*" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
 
 </Project>
