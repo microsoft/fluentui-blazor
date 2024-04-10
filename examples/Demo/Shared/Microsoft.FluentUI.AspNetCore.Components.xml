@@ -1471,6 +1471,13 @@
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
+            <summary>
+            Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+            </summary>
+            <param name="column">The column to check against the current sorted on column.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
             Displays the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions"/> UI for the specified column, closing any other column

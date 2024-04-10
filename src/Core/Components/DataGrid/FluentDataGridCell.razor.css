@@ -1,4 +1,4 @@
-﻿fluent-data-grid-cell {
+fluent-data-grid-cell {
     text-overflow: ellipsis;
 }
 
@@ -26,12 +26,18 @@
         justify-content: center;
     }
 
-    .column-header > ::deep .col-sort-button {
+    .column-header > ::deep .col-sort-container {
+        display: flex;
+        flex-grow: 1;
+
+    }
+
+    .column-header > ::deep .col-sort-container .col-sort-button {
         flex-grow: 1;
         padding-inline-end: 5px;
     }
 
-        .column-header > ::deep .col-sort-button::part(content) {
+        .column-header > ::deep .col-sort-container .col-sort-button::part(content) {
             overflow: hidden;
             text-overflow: ellipsis;
         }

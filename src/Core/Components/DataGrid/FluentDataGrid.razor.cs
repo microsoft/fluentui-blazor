@@ -277,6 +277,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 _sortByColumn = column;
                 _sortByAscending = initialSortDirection.Value != SortDirection.Descending;
+                _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
             }
         }
     }
@@ -320,6 +321,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+    /// </summary>
+    /// <param name="column">The column to check against the current sorted on column.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public async Task<bool> RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
+    {
+        if (_sortByColumn == column && !column.IsDefaultSortColumn)
+        {
+            _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
+            _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != SortDirection.Descending;
+        }
+
+        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+        await RefreshDataCoreAsync();
+
+        return true;
+    }
+
+    /// <summary>
     /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column, closing any other column
     /// options UI that was previously displayed.
     /// </summary>
@@ -331,6 +351,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         StateHasChanged();
         return Task.CompletedTask;
     }
+    public void SetLoadingState(bool loading)
+    {
+        Loading = loading;
+    }
 
     /// <summary>
     /// Instructs the grid to re-fetch and render the current data from the supplied data source
@@ -340,11 +364,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public async Task RefreshDataAsync()
     {
         await RefreshDataCoreAsync();
-    }
-
-    public void SetLoadingState(bool loading)
-    {
-        Loading = loading;
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
