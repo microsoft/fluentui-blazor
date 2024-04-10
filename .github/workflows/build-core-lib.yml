@@ -26,7 +26,7 @@ jobs:
 
     env:
       PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
-      TESTS: "/tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
+      TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
 
     steps:
      - name: Checkout source
