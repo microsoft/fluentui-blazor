@@ -95,7 +95,7 @@ extends:
             {
                 $branch = "dev"
             }
-            elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
+            elseif ("$(Build.SourceBranchName)" -eq "archives-v3")
             {
                 $branch = "archive"
             }
