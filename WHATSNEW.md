@@ -1,3 +1,56 @@
+## V4.6.1
+
+### Demo site and documentation 
+- [Demo & docs] Fix documentation error ([#1767](https://github.com/microsoft/fluentui-blazor/pull/1767))
+- [Demo & docs] Home page cleanup ([#1763](https://github.com/microsoft/fluentui-blazor/pull/1763))
+- [Demo & docs] Removes caching of markdown files for Server demo app ([#1822](https://github.com/microsoft/fluentui-blazor/pull/1822))
+- [Demo & docs] Fix footer styling ([#1778](https://github.com/microsoft/fluentui-blazor/pull/1778))
+- [Demo & docs] CSS files improvements ([#1807](https://github.com/microsoft/fluentui-blazor/pull/1807))
+- [Demo & docs] The empty CSS rule in site.css has been removed ([#1809](https://github.com/microsoft/fluentui-blazor/pull/1809))
+
+
+### Components
+- [AppBar] Add Count parameter and facilitate OnClick without navigation ([#1790](https://github.com/microsoft/fluentui-blazor/pull/1790))
+- [CounterBadge] Add ShowWhen, Dot, and VerticalPosition ([#1786](https://github.com/microsoft/fluentui-blazor/pull/1786))
+- [KeyCode, AnchoredRegion, Popover] Add key navigation in AnchoredRegion / Popup ([#1800](https://github.com/microsoft/fluentui-blazor/pull/1800))
+- [NavMenu] Show child items via `FluentMenu` when collapsed ([#1730](https://github.com/microsoft/fluentui-blazor/pull/1730))
+- [Persona] Add capability for the name to appear before or after initials. ([#1750](https://github.com/microsoft/fluentui-blazor/pull/1750))
+- [ProfileMenu] TopCorner property ([#1795](https://github.com/microsoft/fluentui-blazor/pull/1795))
+- [SplashScreen] Fix ESC on SplashScreen ([#1811](https://github.com/microsoft/fluentui-blazor/pull/1811))
+
+### Miscellaneous
+- [Misc] Update to latest NuGet packages, SDK and Web Components script
+- [Templates] CSS fixes and use specific package versions ([#1797](https://github.com/microsoft/fluentui-blazor/pull/1797))
+- [Templates] Fixed CSS styling of the Blazor Fluent UI template AND fixed broken links in readme.md ([#1768](https://github.com/microsoft/fluentui-blazor/pull/1768))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.234 ([#1823](https://github.com/microsoft/fluentui-blazor/pull/1823))
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Apps Settings / 16, 20 / Filled & Regular
+    - Apps Shield / 16, 20 / Filled & Regular
+    - Arrow Upload / 32 / Filled & Regular
+    - Calendar Edit / 32 / Filled & Regular
+    - Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
+    - Haptic Strong / 16, 20, 24 / Filled & Regular
+    - Haptic Weak / 16, 20, 24 / Filled & Regular
+    - Hexagon Sparkle / 20, 24 / Filled & Regular
+    - Mail Edit / 32 / Filled & Regular
+    - Password Clock / 48 / Filled & Regular
+    - Password Reset / 48 / Filled & Regular
+    - Password / 24, 32, 48 / Filled & Regular
+    - People Eye / 16, 20 / Filled & Regular
+    - Pin Globe / 16, 20 / Filled & Regular
+    - Run / 28, 32, 48 / Filled & Regular
+    - Tab Group / 16, 20, 24 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Upload / 24 / Filled & Regular
+    - Calendar Edit / 16, 20, 24 / Filled & Regular
+    - Mail Read / 20 / Filled & Regular
+    - Password / 24 / Filled & Regular
+    - Run / 16, 20, 24 / Filled & Regular
+
 ## V4.6.0
 
 ### Demo site, documentation and miscellaneous
