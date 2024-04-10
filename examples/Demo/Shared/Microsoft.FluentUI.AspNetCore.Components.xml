@@ -5092,7 +5092,23 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalPosition">
             <summary>
-            Gets or sets the menu position (left or right).
+            Gets or sets the horizontal menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is false which places the region adjacent to the anchor element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalPosition">
+            <summary>
+            Gets or sets the vertical menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Width">
@@ -5188,7 +5204,7 @@
             Event raised when the user click on this item.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar">
@@ -5970,6 +5986,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Collapsible">
             <summary>
             Gets or sets whether or not the menu can be collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.CollapsedChildNavigation">
+            <summary>
+            Gets or sets whether a menu with all child links is shown for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s when the navigation menu is collapsed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded">
