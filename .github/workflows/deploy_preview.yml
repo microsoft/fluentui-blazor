@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-      - archives/v2
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
@@ -13,7 +12,6 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - dev
-      - archives/v2
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
@@ -21,7 +19,6 @@ on:
   workflow_dispatch:
     branches:
       - dev
-      - archives/v2
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
