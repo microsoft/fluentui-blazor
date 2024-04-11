@@ -14,20 +14,20 @@ public abstract partial class ColumnBase<TGridItem>
     [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the title text for the column. 
+    /// Gets or sets the title text for the column.
     /// This is rendered automatically if <see cref="HeaderCellItemTemplate" /> is not used.
     /// </summary>
     [Parameter] public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the an optional CSS class name. 
+    /// Gets or sets the an optional CSS class name.
     /// If specified, this is included in the class attribute of header and grid cells
     /// for this column.
     /// </summary>
     [Parameter] public string? Class { get; set; }
 
     /// <summary>
-    /// Gets or sets an optional CSS style specification. 
+    /// Gets or sets an optional CSS style specification.
     /// If specified, this is included in the style attribute of header and grid cells
     /// for this column.
     /// </summary>
@@ -49,7 +49,7 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public Func<TGridItem, string?>? TooltipText { get; set; }
 
     /// <summary>
-    /// Gets or sets an optional template for this column's header cell. 
+    /// Gets or sets an optional template for this column's header cell.
     /// If not specified, the default header template includes the <see cref="Title" /> along with any applicable sort indicators and options buttons.
     /// </summary>
     [Parameter] public RenderFragment<ColumnBase<TGridItem>>? HeaderCellItemTemplate { get; set; }
@@ -134,6 +134,14 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     /// <returns>True if the column should be sortable by default, otherwise false.</returns>
     protected virtual bool IsSortableByDefault() => false;
+
+    protected void HandleKeyDown(FluentKeyCodeEventArgs e)
+    {
+        if (e.CtrlKey && e.Key == KeyCode.Enter)
+        {
+            Grid.RemoveSortByColumnAsync(this);
+        }
+    }
 
     public bool ShowSortIcon;
 

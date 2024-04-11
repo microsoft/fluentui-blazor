@@ -33,6 +33,7 @@
 
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
+                <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture">
                 <span class="col-sort-container" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" @oncontextmenu:preventDefault>
                     <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
                         <div class="col-title-text" title="@tooltip">@Title</div>
@@ -51,6 +52,7 @@
 
                     </FluentButton>
                 </span>
+                </FluentKeyCode>
             }
             else
             {
