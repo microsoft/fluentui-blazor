@@ -294,6 +294,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 _sortByColumn = column;
                 _sortByAscending = initialSortDirection.Value != SortDirection.Descending;
+                _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
             }
         }
     }

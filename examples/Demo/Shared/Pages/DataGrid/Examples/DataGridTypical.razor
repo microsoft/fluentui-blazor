@@ -37,7 +37,7 @@
         .ByDescending(x => x.Medals.Gold)
         .ThenDescending(x => x.Medals.Silver)
         .ThenDescending(x => x.Medals.Bronze);
-    
+
     Func<Country, string?> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : null;
     Func<Country, string?> rowStyle = x => x.Name.StartsWith("Au") ? "background-color: var(--highlight-bg);" : null;
 
@@ -56,9 +56,12 @@
         }
     }
 
-    private void HandleClear(string? value)
+    private void HandleClear()
     {
-        nameFilter = value ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            nameFilter = string.Empty;
+        }
     }
 
     private async Task ToggleItemsAsync()

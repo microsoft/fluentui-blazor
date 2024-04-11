@@ -9,12 +9,27 @@ internal sealed class InternalGridContext<TGridItem>
     private int _index = 0;
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();
 
+    public (ColumnBase<TGridItem>? Column, SortDirection? Direction) DefaultSortColumn { get; set; }
+    //public SortDirection? DefaultSortDirection { get; set; }
+
     public FluentDataGrid<TGridItem> Grid { get; }
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();
 
     public InternalGridContext(FluentDataGrid<TGridItem> grid)
     {
         Grid = grid;
+    }
+
+    public int GetNextRowId()
+    {
+        Interlocked.Increment(ref _rowId);
+        return _rowId;
+    }
+
+    public int GetNextCellId()
+    {
+        Interlocked.Increment(ref _cellId);
+        return _cellId;
     }
 
     internal void ResetRowIndexes(int start)

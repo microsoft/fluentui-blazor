@@ -14,18 +14,21 @@ public abstract partial class ColumnBase<TGridItem>
     [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
-    /// Title text for the column. This is rendered automatically if <see cref="HeaderCellItemTemplate" /> is not used.
+    /// Gets or sets the title text for the column.
+    /// This is rendered automatically if <see cref="HeaderCellItemTemplate" /> is not used.
     /// </summary>
     [Parameter] public string? Title { get; set; }
 
     /// <summary>
-    /// An optional CSS class name. If specified, this is included in the class attribute of header and grid cells
+    /// Gets or sets the an optional CSS class name.
+    /// If specified, this is included in the class attribute of header and grid cells
     /// for this column.
     /// </summary>
     [Parameter] public string? Class { get; set; }
 
     /// <summary>
-    /// An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
+    /// Gets or sets an optional CSS style specification.
+    /// If specified, this is included in the style attribute of header and grid cells
     /// for this column.
     /// </summary>
     [Parameter] public string? Style { get; set; }
@@ -36,18 +39,18 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public Align Align { get; set; }
 
     /// <summary>
-    /// If true, generate a title and aria-label attribute for the cell contents
+    /// If true, generates a title and aria-label attribute for the cell contents
     /// </summary>
     [Parameter] public bool Tooltip { get; set; } = false;
 
     /// <summary>
-    /// Defines the value to be used as the tooltip and aria-label in this column's cells
+    /// Gets or sets the value to be used as the tooltip and aria-label in this column's cells
     /// </summary>
     [Parameter] public Func<TGridItem, string?>? TooltipText { get; set; }
 
     /// <summary>
-    /// An optional template for this column's header cell. If not specified, the default header template
-    /// includes the <see cref="Title" /> along with any applicable sort indicators and options buttons.
+    /// Gets or sets an optional template for this column's header cell.
+    /// If not specified, the default header template includes the <see cref="Title" /> along with any applicable sort indicators and options buttons.
     /// </summary>
     [Parameter] public RenderFragment<ColumnBase<TGridItem>>? HeaderCellItemTemplate { get; set; }
 
@@ -81,7 +84,7 @@ public abstract partial class ColumnBase<TGridItem>
     public abstract GridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary>
-    /// Indicates which direction to sort in
+    /// Gets or sets the initial sort direction.
     /// if <see cref="IsDefaultSortColumn"/> is true.
     /// </summary>
     [Parameter] public SortDirection InitialSortDirection { get; set; } = default;
@@ -123,7 +126,7 @@ public abstract partial class ColumnBase<TGridItem>
     protected internal RenderFragment HeaderContent { get; protected set; }
 
     /// <summary>
-    /// Get a value indicating whether this column should act as sortable if no value was set for the
+    /// Gets a value indicating whether this column should act as sortable if no value was set for the
     /// <see cref="ColumnBase{TGridItem}.Sortable" /> parameter. The default behavior is not to be
     /// sortable unless <see cref="ColumnBase{TGridItem}.Sortable" /> is true.
     ///
@@ -131,6 +134,14 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     /// <returns>True if the column should be sortable by default, otherwise false.</returns>
     protected virtual bool IsSortableByDefault() => false;
+
+    protected void HandleKeyDown(FluentKeyCodeEventArgs e)
+    {
+        if (e.CtrlKey && e.Key == KeyCode.Enter)
+        {
+            Grid.RemoveSortByColumnAsync(this);
+        }
+    }
 
     public bool ShowSortIcon;
 

@@ -63,7 +63,13 @@ public partial class DialogService
         return await ShowDialogAsync<object>(typeof(TDialog), default!, FixPanelParameters(parameters));
     }
 
-    private DialogParameters FixPanelParameters(DialogParameters value)
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync(RenderFragment, DialogParameters)"/>
+    public async Task<IDialogReference> ShowDialogAsync(RenderFragment renderFragment, DialogParameters dialogParameters)
+    {
+        return await ShowDialogAsync(typeof(RenderFragmentDialog), renderFragment, dialogParameters);
+    }
+
+    private static DialogParameters FixPanelParameters(DialogParameters value)
     {
         value.DialogType = DialogType.Panel;
 
