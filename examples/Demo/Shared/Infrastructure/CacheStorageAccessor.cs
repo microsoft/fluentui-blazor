@@ -4,6 +4,8 @@ using Microsoft.JSInterop;
 namespace FluentUI.Demo.Shared;
 public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/FluentUI.Demo.Shared/js/CacheStorageAccessor.js")
 {
+    private bool Initialized = false;
+
     public async ValueTask PutAsync(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
     {
         var requestMethod = requestMessage.Method.Method;
@@ -26,6 +28,12 @@ public class CacheStorageAccessor(IJSRuntime js) : JSModule(js, "./_content/Flue
 
     public async ValueTask<string> GetAsync(HttpRequestMessage requestMessage)
     {
+        if (!Initialized)
+        {
+            await RemoveAllAsync();
+            Initialized = true;
+        }
+
         var requestMethod = requestMessage.Method.Method;
         var requestBody = await GetRequestBodyAsync(requestMessage);
         var result = await InvokeAsync<string>("get", requestMessage.RequestUri!, requestMethod, requestBody);
