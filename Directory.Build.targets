@@ -1,0 +1,18 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Set DisableSourceLinkUrlTranslation to true when building a tool for internal use where sources only come from internal URIs -->
+    <DisableSourceLinkUrlTranslation Condition="'$(DisableSourceLinkUrlTranslation)' == ''">false</DisableSourceLinkUrlTranslation>
+    <_TranslateUrlPattern>(https://dev\.azure\.com/dnceng/internal/_git)/([^/-]+)-(.+)</_TranslateUrlPattern>
+    <_TranslateUrlReplacement>https://github.com/$2/$3</_TranslateUrlReplacement>
+  </PropertyGroup>
+
+  <Target Name="_TranslateAzureDevOpsUrlToGitHubUrl" Condition="'$(DisableSourceLinkUrlTranslation)' == 'false'" DependsOnTargets="$(SourceControlManagerUrlTranslationTargets)" BeforeTargets="SourceControlManagerPublishTranslatedUrls">
+    <ItemGroup>
+      <SourceRoot Update="@(SourceRoot)">
+        <ScmRepositoryUrl>$([System.Text.RegularExpressions.Regex]::Replace(%(SourceRoot.ScmRepositoryUrl), $(_TranslateUrlPattern), $(_TranslateUrlReplacement)))</ScmRepositoryUrl>
+      </SourceRoot>
+    </ItemGroup>
+  </Target>
+
+</Project>
