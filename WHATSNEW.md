@@ -1,3 +1,8 @@
+## v4.6.2
+
+### Components
+[DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+
 ## V4.6.1
 
 ### Demo site and documentation 

@@ -1084,20 +1084,20 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title">
             <summary>
-            Gets or sets the title text for the column. 
+            Gets or sets the title text for the column.
             This is rendered automatically if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
             <summary>
-            Gets or sets the an optional CSS class name. 
+            Gets or sets the an optional CSS class name.
             If specified, this is included in the class attribute of header and grid cells
             for this column.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Style">
             <summary>
-            Gets or sets an optional CSS style specification. 
+            Gets or sets an optional CSS style specification.
             If specified, this is included in the style attribute of header and grid cells
             for this column.
             </summary>
@@ -1119,7 +1119,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate">
             <summary>
-            Gets or sets an optional template for this column's header cell. 
+            Gets or sets an optional template for this column's header cell.
             If not specified, the default header template includes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title" /> along with any applicable sort indicators and options buttons.
             </summary>
         </member>
@@ -1469,6 +1469,13 @@
             </summary>
             <param name="column">The column that defines the new sort order.</param>
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
+            <summary>
+            Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+            </summary>
+            <param name="column">The column to check against the current sorted on column.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">

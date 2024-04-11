@@ -1,3 +1,8 @@
+## v4.6.2
+
+### Components
+[DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+
 ## V4.6.1
 
 ### Demo site and documentation 
@@ -7,7 +12,6 @@
 - [Demo & docs] Fix footer styling ([#1778](https://github.com/microsoft/fluentui-blazor/pull/1778))
 - [Demo & docs] CSS files improvements ([#1807](https://github.com/microsoft/fluentui-blazor/pull/1807))
 - [Demo & docs] The empty CSS rule in site.css has been removed ([#1809](https://github.com/microsoft/fluentui-blazor/pull/1809))
-
 
 ### Components
 - [AppBar] Add Count parameter and facilitate OnClick without navigation ([#1790](https://github.com/microsoft/fluentui-blazor/pull/1790))
