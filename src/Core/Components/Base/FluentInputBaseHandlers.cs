@@ -27,11 +27,13 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
-        bool isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out string? validationErrorMessage);
+        var _notifyCalled = false;
+        var isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out var validationErrorMessage);
 
         if (isValid)
         {
-            await SetCurrentValue(result ?? default);
+            await SetCurrentValueAsync(result ?? default);
+            _notifyCalled = true;
         }
         else
         {
@@ -43,7 +45,7 @@ public partial class FluentInputBase<TValue>
                 _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");
             }
         }
-        if (FieldBound)
+        if (FieldBound && !_notifyCalled)
         {
             CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
         }
