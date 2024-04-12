@@ -5062,6 +5062,12 @@
             Gets or sets the items to show in the menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ChildContent">
+            <summary>
+            Gets or sets the content to be shown in the menu.
+            Should consist of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem"/> components.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
@@ -6288,7 +6294,7 @@
             <summary>
             Optionally supplies a template for rendering the pagination summary.
             The following values can be included:
-            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.CurrentPageIndex (zero-based, so +1 for the current page number)
             {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
