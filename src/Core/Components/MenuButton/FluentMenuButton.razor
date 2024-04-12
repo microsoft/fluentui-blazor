@@ -9,16 +9,10 @@
     </FluentButton>
     <FluentOverlay @bind-Visible="@_visible" Transparent="true" FullScreen="true" />
     <FluentMenu @ref="Menu" Anchor="@_buttonId" aria-labelledby="button" Style="@MenuStyleValue" @bind-Open=@_visible @onmenuchange=OnMenuChangeAsync>
-        @if (Items is not null)
+        @foreach (KeyValuePair<string, string> item in Items)
         {
-            @foreach (KeyValuePair<string, string> item in Items)
-            {
-                <FluentMenuItem Id="@item.Key">@item.Value</FluentMenuItem>
-            }
+            <FluentMenuItem Id="@item.Key">@item.Value</FluentMenuItem>
         }
-        else
-        {
-            @ChildContent
-        }
+        @ChildContent
     </FluentMenu>
 </div>
