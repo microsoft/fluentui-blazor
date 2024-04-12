@@ -35,9 +35,14 @@ body {
     }
 
     .siteheader .settings {
-        padding-right: 6px;
         display: flex;
         align-items: center;
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+    .siteheader .profile {
+        padding-right: 16px;
         margin-left: 0;
         margin-right: 10px;
     }
