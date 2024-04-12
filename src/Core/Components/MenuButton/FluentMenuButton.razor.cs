@@ -57,6 +57,13 @@ public partial class FluentMenuButton : FluentComponentBase
     public Dictionary<string, string> Items { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets the content to be shown in the menu.
+    /// Should consist of <see cref="FluentMenuItem"/> components.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// The callback to invoke when a menu item is chosen.
     /// </summary>
     [Parameter]
