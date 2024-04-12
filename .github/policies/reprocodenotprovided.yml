@@ -5,16 +5,18 @@ resource: repository
 configuration:
     resourceManagementConfiguration:
     scheduledSearches:
+      - description: "Close issues that where author has not provided reproduction code or repo"
       - frequencies:
           - hourly:
-              hour: 1
+              hour: 3
         filters:
           - isOpen
+          - is:issue
           - hasLabel:
               label: 'needs: repro code or repository'
           - noActivitySince:
               days: 1
         actions:
           - addReply:
-              reply: "Closing issue as no reproduction code is provided"
+              reply: "This issue has been automatically closed as no reproduction code has been provided within **4 days**."
           - closeIssue
