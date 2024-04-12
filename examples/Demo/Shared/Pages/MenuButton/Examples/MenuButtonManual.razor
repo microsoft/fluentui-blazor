@@ -1,0 +1,24 @@
+﻿@inject AccentBaseColor AccentBaseColor
+
+<FluentMenuButton @ref=menubuttonm Text="Select brand color" OnMenuChanged="HandleOnMenuChanged">
+    <FluentMenuItem Id="0078D4">Windows</FluentMenuItem>
+    <FluentMenuItem Id="D83B01" Disabled="true">Office</FluentMenuItem>
+    <FluentMenuItem Id="464EB8">Teams</FluentMenuItem>
+    <FluentMenuItem Id="107C10" Disabled="true">Xbox</FluentMenuItem>
+    <FluentMenuItem Id="8661C5">Visual Studio</FluentMenuItem>
+    <FluentMenuItem Id="F2C811" Disabled="true">Power BI</FluentMenuItem>
+    <FluentMenuItem Id="0066FF">Power Automate</FluentMenuItem>
+    <FluentMenuItem Id="742774" Disabled="true">Power Apps</FluentMenuItem>
+    <FluentMenuItem Id="0B556A">Power Virtual Agents</FluentMenuItem>
+
+</FluentMenuButton>
+
+@code {
+    private FluentMenuButton menubuttonm = new();
+
+    private async Task HandleOnMenuChanged(MenuChangeEventArgs args)
+    {
+        await AccentBaseColor.SetValueFor(menubuttonm.Button!.Element, $"#{args.Id}".ToSwatch());
+    }
+
+}
