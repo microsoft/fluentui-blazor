@@ -233,7 +233,14 @@ A special layer for floating layers, like flyouts or menus. It will be lighter t
 > **The Design Tokens are manipulated through JavaScript interop working with an `ElementReference`. There is no JavaScript element until after the component 
 is rendered. This means you can only work with the Design Tokens from code after the component has been rendered in `OnAfterRenderAsync` and not in any earlier 
 lifecycle methods**.
- 
+
+There are a couple of methods available **per design token** to get or set its value:
+- `{DesignTokenName}.SetValueFor(ElementReference element, T value)` - Sets the value for the given element.
+- `{DesignTokenName}.DeleteValueFor(ElementReference element)` - Deletes the value for the given element.
+- `{DesignTokenName}.WithDefault(T value)` - Sets the default value for the whole design system use.
+- `{DesignTokenName}.GetValueFor(ElementReference element)` - Gets the value for the given element.- `
+
+#### Example
 Given the following `.razor` page fragment:
 
 ```cshtml
@@ -329,10 +336,11 @@ To make this work, a link needs to be created between the Design Token component
 > Only one Design Token component at a time can be used this way. If you need to set more tokens, use the code approach as described in Option 1 above.
 
 
-### Using the `<FluentDesignSystemProvider>`
-Another way to customize the design in Blazor is to wrap the entire block you want to manipulate in a `<FluentDesignSystemProvider>`. This special element 
-has a number of properties you can set to configure a subset of the tokens. **Not all tokens are available/supported** and we recommend this to only be 
-used as a fall-back mechanism. The preferred method of working with the design tokens is to manipulate them from code as described above. 
+### Using the `<FluentDesignSystemProvider>` (**Deprecated**)
+In previous web components script versions, the only way to customize the design was with the `<fluent-design-system-provider>`. That translated
+to wrapping the entire block you want to manipulate in a `<FluentDesignSystemProvider>`. This element has
+has a number of parameters you can set to configure a subset of the tokens. **Not all tokens are available/supported** and we recommend to not use this
+anymore. The preferred method of working with the design tokens is to manipulate them from code as described above. 
 
 Here's an example of changing the "accent base color" and switching the system into dark mode (in the file `app.razor`):
 
