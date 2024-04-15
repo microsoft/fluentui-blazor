@@ -64,6 +64,8 @@ jobs:
        with:
          reports: '**/coverage.cobertura.xml'
          targetdir: 'CoverageReports'
+         title: 'Unit Tests Code Coverage Summary'
+         classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
      
      - name: Upload coverage report
