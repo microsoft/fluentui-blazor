@@ -59,17 +59,14 @@ jobs:
        run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
        working-directory: ${{ github.workspace }}
 
-     # Test Coverage
-
-    #  - name: Test
-    #    run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
-    #    working-directory: ${{ github.workspace }}
-
      - name: Extract Failed Tests
        if: always()
        shell: pwsh
        run: |
-         $failedTests = (Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value
+         $failedTests = (Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value -join " - ❌ "
+         if (-not $failedTests) {
+           $failedTests = "- ✅ All tests have been successfully completed."
+         }
          Write-Host "Failed tests: $failedTests"
          echo "test_results=$failedTests" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
        working-directory: ${{ github.workspace }}
@@ -80,10 +77,10 @@ jobs:
        with:
          header: Test Results
          message: |
-           ```
            # Failed Unit Tests
            ${{ env.test_results }}
-           ```
+
+     # Test Coverage
 
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
