@@ -31,6 +31,10 @@ jobs:
 
     runs-on: windows-latest
 
+    permissions:
+      checks: write
+      pull-requests: write
+
     steps:
      - name: Checkout source
        uses: actions/checkout@v4
@@ -52,9 +56,8 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: Publish Code Coverage Summary
-       uses: EnricoMi/publish-unit-test-result-action/windows@v2
+       uses: EnricoMi/publish-unit-test-result-action/windows@v2       
+       if: always()
        with:
-         filename: '**/coverage.opencover.xml'
-         badge: true
-         fail_below_min: true
-         format: markdown
+         files: |
+           **/coverage.*.xml
