@@ -27,9 +27,9 @@ env:
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
 
 jobs:
-  build:
+  Build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
      - name: Checkout source
@@ -46,9 +46,11 @@ jobs:
      - name: Build
        run: dotnet build ${{ env.PROJECTS }} --configuration Release
 
-  test:
+  Test:
 
-    runs-on: windows-latest
+    needs: Build
+
+    runs-on: ubuntu-latest
 
     steps:
      - name: Test
