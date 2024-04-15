@@ -69,8 +69,9 @@ jobs:
          echo "$test_results" >> $GITHUB_ENV
          echo "EOF" >> $GITHUB_ENV
 
-     - name: Update Pull Request Comment
+     - name: Publish unit tests summary
        uses: marocchino/sticky-pull-request-comment@v2
+       if: always()
        with:
          header: Test Results
          message: |
