@@ -26,6 +26,7 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">Library configuration</param>
     public static IServiceCollection AddFluentUIDemoServerServices(this IServiceCollection services)
     {
+        services.AddScoped<CacheStorageAccessor>();
         services.AddHttpClient<IStaticAssetService, ServerStaticAssetService>();
         services.AddSingleton<DemoNavProvider>();
 
