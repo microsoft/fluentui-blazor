@@ -63,9 +63,9 @@ jobs:
        if: always()
        shell: pwsh
        run: |
-         $failedTests = (Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value -join " - ❌ "
+         $failedTests = ((Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value) -join " - ❌ "
          if (-not $failedTests) {
-           $failedTests = "- ✅ All tests have been successfully completed."
+           $failedTests = "✅ All tests have been successfully completed."
          }
          Write-Host "Failed tests: $failedTests"
          echo "test_results=$failedTests" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
