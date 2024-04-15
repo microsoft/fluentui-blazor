@@ -143,7 +143,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// Gets or sets the threshold distance the <see cref="ChildContent"/> needs to be pulled (in pixels) to start the tip pull action.
     /// </summary>
     [Parameter]
-    public int DragThreshold { get; set; } = 32;
+    public int DragThreshold { get; set; } = 0;
 
     protected override void OnInitialized()
     {
@@ -333,14 +333,14 @@ public partial class FluentPullToRefresh : FluentComponentBase
             if (_moveDistance != moveDist)
             {
                 _moveDistance = moveDist;
-                    if (Direction == PullDirection.Down)
-                    {
-                        _wrapperStyle = $"transform: translate3d(0, {moveDist}px, 0);";
-                    }
-                    else
-                    {
-                        _wrapperStyle = $"transform: translate3d(0, -{moveDist}px, 0);";
-                    }
+                if (Direction == PullDirection.Down)
+                {
+                    _wrapperStyle = $"transform: translate3d(0, {moveDist}px, 0);";
+                }
+                else
+                {
+                    _wrapperStyle = $"transform: translate3d(0, -{moveDist}px, 0);";
+                }
                 StateHasChanged();
             }
         }
