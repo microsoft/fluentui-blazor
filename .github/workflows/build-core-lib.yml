@@ -52,7 +52,7 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: Test
-       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:DebugType=Full
+       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true
        working-directory: ${{ github.workspace }}
 
      - name: Publish Code Coverage Summary
@@ -60,4 +60,5 @@ jobs:
        if: always()
        with:
          files: |
-           **/coverage.*.xml
+           **/coverage*.xml
+           **/coverage*.json
