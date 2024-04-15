@@ -52,7 +52,7 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: Publish Code Coverage Summary
-       uses: EnricoMi/publish-unit-test-result-action@v2
+       uses: EnricoMi/publish-unit-test-result-action/windows@v2
        with:
          filename: '**/coverage.opencover.xml'
          badge: true
