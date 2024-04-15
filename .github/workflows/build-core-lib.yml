@@ -75,4 +75,4 @@ jobs:
      - name: Publish coverage summary
        uses: marocchino/sticky-pull-request-comment@v2
        with:
-         path: CoverageReports/Summary.md
+         path: CoverageReports/SummaryGithub.md
