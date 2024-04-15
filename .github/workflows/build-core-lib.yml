@@ -64,7 +64,7 @@ jobs:
        with:
          reports: '**/coverage.cobertura.xml'
          targetdir: 'CoverageReports'
-         reporttypes: 'HtmlInline;MarkdownSummary'
+         reporttypes: 'HtmlInline;MarkdownSummaryGithub'
      
      - name: Upload coverage report
        uses: actions/upload-artifact@v2
