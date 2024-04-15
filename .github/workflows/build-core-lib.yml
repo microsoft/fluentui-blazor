@@ -55,16 +55,35 @@ jobs:
 
      # Test Coverage
 
-     - name: Test
-       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
-       working-directory: ${{ github.workspace }}
+    #  - name: Test
+    #    run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+    #    working-directory: ${{ github.workspace }}
+
+     - name: Run Tests and Capture Results
+       run: |
+         # Run your tests and capture the results (e.g., store in an environment variable)
+         # Replace this with your actual test command
+         test_results=$(dotnet test ${{ env.TESTS }} --no-restore --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full | grep "Failed:")
+         # Set the test results as an environment variable
+         echo "test_results<<EOF" >> $GITHUB_ENV
+         echo "$test_results" >> $GITHUB_ENV
+         echo "EOF" >> $GITHUB_ENV
+
+     - name: Update Pull Request Comment
+       uses: marocchino/sticky-pull-request-comment@v2
+       with:
+         header: Test Results
+         message: |
+           ```
+           ${{ env.test_results }}
+           ```
 
      - name: ReportGenerator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
          reports: '**/coverage.cobertura.xml'
          targetdir: 'CoverageReports'
-         title: 'Unit Tests Code Coverage Summary'
+         title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
      
@@ -77,4 +96,4 @@ jobs:
      - name: Publish coverage summary
        uses: marocchino/sticky-pull-request-comment@v2
        with:
-         path: CoverageReports/SummaryGithub.md
+         path: CoverageReports/SummaryGithub.md         
