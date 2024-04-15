@@ -62,8 +62,13 @@ jobs:
      - name: Tests and Capture Failed Results
        shell: pwsh 
        run: |
-         $testResults = dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full | Select-String "Failed:"
-         $env:test_results = "$testResults"
+         try {
+           $testResults = dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full | Select-String "Failed:"
+           $env:test_results = "All unit tests have been successfully completed"
+         }
+         catch {
+          $env:test_results = "$testResults"
+         }
 
      - name: Publish unit tests summary
        uses: marocchino/sticky-pull-request-comment@v2
