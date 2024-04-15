@@ -60,14 +60,19 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: ReportGenerator
-       uses: danielpalme/ReportGenerator-GitHub-Action@5
+       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
          reports: '**/coverage.cobertura.xml'
          targetdir: 'CoverageReports'
-         reporttypes: 'HtmlInline;Cobertura'
+         reporttypes: 'HtmlInline;MarkdownSummary'
      
      - name: Upload coverage report
        uses: actions/upload-artifact@v2
        with:
          name: CoverageReports
          path: CoverageReports
+
+     - name: Publish coverage summary
+       uses: marocchino/sticky-pull-request-comment@v2
+       with:
+         path: CoverageReports/Summary.md
