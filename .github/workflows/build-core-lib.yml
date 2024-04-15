@@ -67,7 +67,7 @@ jobs:
            $env:test_results = "All unit tests have been successfully completed"
          }
          catch {
-          $env:test_results = "$testResults"
+           $env:test_results = "$testResults"
          }
 
      - name: Publish unit tests summary
