@@ -43,9 +43,6 @@
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
-    <None Include="Components\DateTime\FluentCalendar.razor" />
-    <None Include="Components\DateTime\FluentDatePicker.razor" />
-    <None Include="Components\DateTime\FluentTimePicker.razor" />
   </ItemGroup>
 
   <ItemGroup>

@@ -168,7 +168,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(string Abbreviated, string Shorted, string Name)> GetDayNames()
     {
-        var firstDayOfWeek = Culture.DateTimeFormat.FirstDayOfWeek;
+        var firstDayOfWeek = (int)Culture.DateTimeFormat.FirstDayOfWeek;
         var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
         var names = Culture.DateTimeFormat.DayNames;
         var shorted = Culture.DateTimeFormat.ShortestDayNames;
@@ -181,7 +181,7 @@ internal struct CalendarExtended
             dayNames[i].Abbreviated = ToTitleCase(abbreviated[i]);
         }
 
-        return Shift(dayNames, (int)firstDayOfWeek);
+        return Shift(dayNames, firstDayOfWeek);
     }
 
     /// <summary>

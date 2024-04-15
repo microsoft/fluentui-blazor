@@ -58,15 +58,6 @@
 		<AdditionalFiles Include="$(ProjectDir)/*.xml" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Include="Pages\DateTimes\Examples\CalendarDayCustomized.razor" />
-	  <None Include="Pages\DateTimes\Examples\CalendarDefault.razor" />
-	  <None Include="Pages\DateTimes\Examples\CalendarReadonly.razor" />
-	  <None Include="Pages\DateTimes\Examples\DatePickerDefault.razor" />
-	  <None Include="Pages\DateTimes\Examples\DateTimeConversionExample.razor" />
-	  <None Include="Pages\DateTimes\Examples\TimePickerDefault.razor" />
-	</ItemGroup>
-
 	<Target Name="CopySources" BeforeTargets="BeforeBuild">
 		<ItemGroup>
 			<Sources Include="$(ProjectDir)\Pages\**\Examples\*" />

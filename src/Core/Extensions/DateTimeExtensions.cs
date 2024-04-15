@@ -60,6 +60,23 @@ public static class DateTimeExtensions
         var days = culture.Calendar.GetDaysInMonth(year, month);
         return culture.Calendar.ToDateTime(year, month, days, 0, 0, 0, 0);
     }
+    /// <summary>
+    /// Returns the first day of the week.
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="firstDayOfWeek"></param>
+    /// <returns></returns>
+    [Obsolete("Please use the override with CultureInfo argument.")]
+    public static DateTime StartOfWeek(this DateTime self, DayOfWeek firstDayOfWeek)
+    {
+        var diff = (7 + (self.DayOfWeek - firstDayOfWeek)) % 7;
+        if (self.Year == 1 && self.Month == 1 && (self.Day - diff) < 1)
+        {
+            return self.Date;
+        }
+
+        return self.AddDays(-1 * diff).Date;
+    }
 
     /// <summary>
     /// Returns the first day of the week.
