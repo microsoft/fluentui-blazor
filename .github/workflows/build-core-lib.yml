@@ -53,26 +53,30 @@ jobs:
        run: dotnet build ${{ env.PROJECTS }} --configuration Release
        working-directory: ${{ github.workspace }}
 
+     # Unit Tests
+
+     - name: Tests
+       run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       working-directory: ${{ github.workspace }}
+
      # Test Coverage
 
     #  - name: Test
     #    run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
     #    working-directory: ${{ github.workspace }}
 
-     - name: Tests and Capture Failed Results
-       shell: pwsh 
+     - name: Extract Failed Tests
+       if: always()
+       shell: pwsh
        run: |
-         try {
-           $testResults = dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full | Select-String "Failed:"
-           $env:test_results = "All unit tests have been successfully completed"
-         }
-         catch {
-           $env:test_results = "$testResults"
-         }
+         $failedTests = (Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value
+         Write-Host "Failed tests: $failedTests"
+         $env:test_results = "$failedTests"
+       working-directory: ${{ github.workspace }}
 
      - name: Publish unit tests summary
-       uses: marocchino/sticky-pull-request-comment@v2
        if: always()
+       uses: marocchino/sticky-pull-request-comment@v2
        with:
          header: Test Results
          message: |
