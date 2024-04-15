@@ -1,8 +1,10 @@
+let initialGridTemplateColumns = '';
 export function init(gridElement) {
     if (gridElement === undefined || gridElement === null) {
         return;
     };
 
+    initialGridTemplateColumns = gridElement.gridTemplateColumns;
     enableColumnResizing(gridElement);
 
     const bodyClickHandler = event => {
@@ -154,4 +156,47 @@ export function enableColumnResizing(gridElement) {
             dragHandle.addEventListener('pointerleave', onPointerUp);
         }
     });
+}
+
+export function resetColumnWidths(gridElement) {
+
+    gridElement.gridTemplateColumns = initialGridTemplateColumns
+}
+
+export function resizeColumn(gridElement, change) {
+    const columns = [];
+    let headerBeingResized = document.activeElement;
+    let min;
+
+    gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
+        columns.push({ header });
+    });
+
+    const column = columns.find(({ header }) => header === headerBeingResized);
+    min = headerBeingResized.querySelector('.col-options-button') ? 75 : 50;
+
+    const width = headerBeingResized.getBoundingClientRect().width;
+
+    if (change < 0) {
+        column.size = Math.max(min, (width + change)) + 'px';
+    }
+    else {
+        column.size = (width + change) + 'px';
+    }
+
+    // Set initial sizes
+    columns.forEach((column) => {
+        if (column.size === undefined) {
+            if (column.header.clientWidth === undefined || column.header.clientWidth === 0) {
+                column.size = '50px';
+            } else {
+                column.size = column.header.clientWidth + 'px';
+            }
+        }
+    });
+
+    gridElement.gridTemplateColumns = columns
+        .map(({ size }) => size)
+        .join(' ');
+
 }

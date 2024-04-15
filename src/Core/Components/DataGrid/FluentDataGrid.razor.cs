@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
-public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
+public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IKeyCodeListener, IHandleEvent, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
     /// <summary>
@@ -146,6 +146,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? LoadingContent { get; set; }
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -213,6 +214,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
             EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
+    }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(OnKeyDownAsync);
     }
 
     /// <inheritdoc />
@@ -558,4 +565,40 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
     }
+
+    public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        if (args.ShiftKey == true && args.Key == KeyCode.KeyR)
+        {
+            ResetColumnWidths();
+        }
+
+        if (args.Key == KeyCode.NumpadSubtract || args.Key == KeyCode.Minus2)
+        {
+            SetColumnWidth(-10);
+        }
+        if (args.Key == KeyCode.NumpadAdd || (args.ShiftKey == true && (args.Key == KeyCode.Equal || args.Key == KeyCode.Equal2)))
+        {
+            //  Resize column up
+            SetColumnWidth(10);
+        }
+        return Task.CompletedTask;
+    }
+
+    private void SetColumnWidth(float widthChange)
+    {
+        if (_gridReference is not null)
+        {
+            _ = Module?.InvokeVoidAsync("resizeColumn", _gridReference, widthChange).AsTask();
+        }
+    }
+
+    private void ResetColumnWidths()
+    {
+        if (_gridReference is not null)
+        {
+            _ = Module?.InvokeVoidAsync("resetColumnWidths", _gridReference).AsTask();
+        }
+    }
+
 }
