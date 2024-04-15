@@ -1,4 +1,5 @@
 export * from '@fluentui/web-components/dist/web-components'
+export { parseColorHexRGB } from '@microsoft/fast-colors'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
