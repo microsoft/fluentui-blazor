@@ -66,7 +66,6 @@ public static class DateTimeExtensions
     /// <param name="self"></param>
     /// <param name="firstDayOfWeek"></param>
     /// <returns></returns>
-    [Obsolete("Please use the override with CultureInfo argument.")]
     public static DateTime StartOfWeek(this DateTime self, DayOfWeek firstDayOfWeek)
     {
         var diff = (7 + (self.DayOfWeek - firstDayOfWeek)) % 7;
