@@ -29,7 +29,7 @@ env:
 jobs:
   Build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
      - name: Checkout source
@@ -45,16 +45,18 @@ jobs:
        
      - name: Build
        run: dotnet build ${{ env.PROJECTS }} --configuration Release
+       working-directory: ${{ github.workspace }}
 
   Test:
 
     needs: Build
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
      - name: Test
        run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:DebugType=Full
+       working-directory: ${{ github.workspace }}
 
      - name: Publish Code Coverage Summary
        uses: EnricoMi/publish-unit-test-result-action@v2
