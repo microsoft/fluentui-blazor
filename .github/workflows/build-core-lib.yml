@@ -4,6 +4,9 @@
 name: Build and Test Code Lib
 
 on:
+  # Allow manually running the workflow
+  workflow_dispatch:
+
   push:
     branches:
       - dev
