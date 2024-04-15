@@ -44,6 +44,8 @@ jobs:
        with:
         dotnet-version: 8.0.x
 
+     # Build
+
      - name: Restore
        run: dotnet restore
        
@@ -51,14 +53,21 @@ jobs:
        run: dotnet build ${{ env.PROJECTS }} --configuration Release
        working-directory: ${{ github.workspace }}
 
+     # Test Coverage
+
      - name: Test
-       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
        working-directory: ${{ github.workspace }}
 
-     - name: Publish Code Coverage Summary
-       uses: EnricoMi/publish-unit-test-result-action/windows@v2       
-       if: always()
+     - name: ReportGenerator
+       uses: danielpalme/ReportGenerator-GitHub-Action@5
        with:
-         files: |
-           **/coverage*.xml
-           **/coverage*.json
+         reports: '**/coverage.cobertura.xml'
+         targetdir: 'CoverageReports'
+         reporttypes: 'HtmlInline;Cobertura'
+     
+     - name: Upload coverage report
+       uses: actions/upload-artifact@v2
+       with:
+         name: CoverageReports
+         path: CoverageReports
