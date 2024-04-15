@@ -63,12 +63,30 @@ jobs:
        if: always()
        shell: pwsh
        run: |
-         $failedTests = ((Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value) -join " - ❌ "
-         if (-not $failedTests) {
-           $failedTests = "✅ All tests have been successfully completed."
+         # Get the latest TRX file in the TestResults folder
+         $latestTrxFile = Get-ChildItem -Path ./TestResults -Filter *.trx | Sort-Object LastWriteTime | Select-Object -Last 1
+
+         $trxContent = Get-Content -Path $latestTrxFile.FullName
+         
+         # Load the content of the latest TRX file
+         $trxContent = Get-Content -Path $latestTrxFile.FullName
+
+         # Extract failed test names
+         $failedTests = $trxContent | Select-String -Pattern 'outcome="Failed"' | ForEach-Object {
+             $_.Line -match 'testName="([^"]+)"'
+             $matches[1]
          }
-         Write-Host "Failed tests: $failedTests"
-         echo "test_results=$failedTests" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+         # Check if any failed tests were found
+         if ($failedTests.Count -eq 0) {
+             $TestResults = "All tests have been successfully completed."
+         } else {
+             $TestResults = ($failedTests | ForEach-Object { "- $_" }) -join "`n"
+             $TestResults = "# Failed tests: `n $TestResults"
+         }
+          
+         Write-Host "$TestResults"
+         echo "test_results=$TestResults" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
        working-directory: ${{ github.workspace }}
 
      - name: Publish unit tests summary
