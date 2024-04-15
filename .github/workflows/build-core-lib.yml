@@ -59,52 +59,54 @@ jobs:
        run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
        working-directory: ${{ github.workspace }}
 
-     - name: Upload dotnet test results
-       if: ${{ always() }}
-       uses: actions/upload-artifact@v4
+     - name: Publish Unit Tests
+       uses: dorny/test-reporter@v1
        with:
-         name: test-results
-         path: ./TestResults/*.trx
+         artifact: test-results            # artifact name
+         name: DotNet Tests                # Name of the check run which will be created
+         path: './TestResults/*.trx'       # Path to test results (inside artifact .zip)
+         reporter: dotnet-trx              # Format of test results
 
-     - name: Extract Failed Tests
-       if: always()
-       shell: pwsh
-       run: |
-         $xxx = ((Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value) -join " - ❌ "
-         Write-Host $xxx
+    #  - name: Extract Failed Tests
+    #    if: always()
+    #    shell: pwsh
+    #    run: |
+    #      $xxx = ((Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value) -join " - ❌ "
+    #      Write-Host $xxx
+    #      Write-Host "---------------------"
+
+    #      # Get the latest TRX file in the TestResults folder
+    #      $latestTrxFile = Get-ChildItem -Path ./TestResults -Filter *.trx | Sort-Object LastWriteTime | Select-Object -Last 1
+
+    #      $trxContent = Get-Content -Path $latestTrxFile.FullName
          
-         # Get the latest TRX file in the TestResults folder
-         $latestTrxFile = Get-ChildItem -Path ./TestResults -Filter *.trx | Sort-Object LastWriteTime | Select-Object -Last 1
+    #      # Load the content of the latest TRX file
+    #      $trxContent = Get-Content -Path $latestTrxFile.FullName
 
-         $trxContent = Get-Content -Path $latestTrxFile.FullName
-         
-         # Load the content of the latest TRX file
-         $trxContent = Get-Content -Path $latestTrxFile.FullName
+    #      # Extract failed test names
+    #      $failedTests = $trxContent | Select-String -Pattern 'outcome="Failed"' | ForEach-Object {
+    #          $_.Line -match 'testName="([^"]+)"'
+    #          $matches[1]
+    #      }
 
-         # Extract failed test names
-         $failedTests = $trxContent | Select-String -Pattern 'outcome="Failed"' | ForEach-Object {
-             $_.Line -match 'testName="([^"]+)"'
-             $matches[1]
-         }
-
-         # Check if any failed tests were found
-         if ($failedTests.Count -eq 0) {
-             $TestResults = "All tests have been successfully completed."
-         } else {
-             $TestResults = "# Failed tests: `n " + ($failedTests | ForEach-Object { "- $_" }) -join "`n"
-         }
+    #      # Check if any failed tests were found
+    #      if ($failedTests.Count -eq 0) {
+    #          $TestResults = "All tests have been successfully completed."
+    #      } else {
+    #          $TestResults = "# Failed tests: `n " + ($failedTests | ForEach-Object { "- $_" }) -join "`n"
+    #      }
           
-         Write-Host "$TestResults"
-         echo "test_results=$TestResults" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-       working-directory: ${{ github.workspace }}
+    #      Write-Host "$TestResults"
+    #      echo "test_results=$TestResults" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    #    working-directory: ${{ github.workspace }}
 
-     - name: Publish unit tests summary
-       if: always()
-       uses: marocchino/sticky-pull-request-comment@v2
-       with:
-         header: Test Results
-         message: |
-           ${{ env.test_results }}
+    #  - name: Publish unit tests summary
+    #    if: always()
+    #    uses: marocchino/sticky-pull-request-comment@v2
+    #    with:
+    #      header: Test Results
+    #      message: |
+    #        ${{ env.test_results }}
 
      # Test Coverage
 
