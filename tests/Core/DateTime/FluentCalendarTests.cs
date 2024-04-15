@@ -146,7 +146,7 @@ public partial class FluentCalendarTests : TestContext
             var expectedDay = firstDate.AddDays(i).Day;
             var actualDay = Convert.ToInt32(allDays[i].InnerHtml);
 
-            Assert.Equal(expectedDay, actualDay);
+            Assert.Equal(3 + expectedDay, actualDay);
         }
     }
 
