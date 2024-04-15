@@ -13171,6 +13171,14 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Returns the first day of the week.
+            </summary>
+            <param name="self"></param>
+            <param name="firstDayOfWeek"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the week.
