@@ -45,6 +45,19 @@ jobs:
        
      - name: Build
        run: dotnet build ${{ env.PROJECTS }} --configuration Release
-       
+
+  test:
+
+    runs-on: windows-latest
+
+    steps:
      - name: Test
-       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:DebugType=Full
+
+     - name: Publish Code Coverage Summary
+       uses: EnricoMi/publish-unit-test-result-action@v2
+       with:
+         filename: '**/coverage.opencover.xml'
+         badge: true
+         fail_below_min: true
+         format: markdown
