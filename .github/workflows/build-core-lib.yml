@@ -1,0 +1,50 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build and Test Code Lib
+
+on:
+  # Allow manually running the workflow
+  workflow_dispatch:
+
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - dev
+    paths-ignore:
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    env:
+      PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
+      TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
+
+    steps:
+     - name: Checkout source
+       uses: actions/checkout@v4
+
+     - name: Setup .NET 8.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 8.0.x
+
+     - name: Restore
+       run: dotnet restore
+       
+     - name: Build
+       run: dotnet build ${{ env.PROJECTS }} --configuration Release
+       
+     - name: Test
+       run: dotnet test ${{ env.TESTS }} --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full

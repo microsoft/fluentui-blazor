@@ -16,7 +16,7 @@ internal class FluentCalendarYear
     internal FluentCalendarYear(FluentCalendar calendar, DateTime year)
     {
         _calendar = calendar;
-        Year = year.Day == 1 && year.Month == 1 ? year : new DateTime(year.Year, 1, 1);
+        Year = year.GetDay(_calendar.Culture) == 1 && year.GetMonth(_calendar.Culture) == 1 ? year : year.StartOfYear(_calendar.Culture);
 
         _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Year) ?? false;
     }
@@ -39,7 +39,7 @@ internal class FluentCalendarYear
     /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
-    public bool IsSelected => Year.Year == _calendar.Value?.Year;
+    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.Value?.GetYear(_calendar.Culture);
 
     /// <summary>
     /// Gets the title of the year in the format [year].
@@ -49,5 +49,5 @@ internal class FluentCalendarYear
     /// <summary>
     /// Gets the identifier of the year in the format yyyy.
     /// </summary>
-    public string YearIdentifier => Year.ToString("yyyy");
+    public string YearIdentifier => Year.ToString("yyyy", _calendar.Culture);
 }

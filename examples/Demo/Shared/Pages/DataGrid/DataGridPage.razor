@@ -21,6 +21,24 @@
     as this will interfere with the DataGrid scripts that use this attribute as well. Use the <code>RowClass</code> instead.
 </p>
 
+<h2 id="a11y">Accessibility</h2>
+<p>
+    You can use the <kbd>Arrow</kbd> keys to navigate through a DataGrid. When a header cell is focused and the column is sortable, you can use the <kbd>Tab</kbd> key to select the sort button.
+    Pressing the <kbd>Enter</kbd> key will toggle the sorting direction. Pressing <kbd>Ctrl+Enter</kbd> removes the column sorting and restores the default/start situation with regards to sorting.
+    <em>You cannot not remove the default grid sorting with this key combination.</em>
+</p>
+<p>
+    When a header cell is focused and the column allows setting options, you can use the <kbd>Tab</kbd> key to select the options button.
+    Pressing the <kbd>Enter</kbd> key then will toggle the options popover. Pressing <kbd>Esc</kbd> closes the popover
+    .
+</p>
+
+<h2 id="sorting">Sorting</h2>
+<p>
+    The DataGrid supports sorting by clicking on the column headers. The default sort direction is ascending. Clicking on the same column header again will toggle the sort direction.
+    A sort can be removed by right clicking on the header column (with exception of the default sort).
+</p>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">

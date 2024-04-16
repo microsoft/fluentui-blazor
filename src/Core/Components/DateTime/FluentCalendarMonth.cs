@@ -16,7 +16,7 @@ internal class FluentCalendarMonth
     internal FluentCalendarMonth(FluentCalendar calendar, DateTime month)
     {
         _calendar = calendar;
-        Month = month.Day == 1 ? month : new DateTime(month.Year, month.Day, 1);
+        Month = month.GetDay(_calendar.Culture) == 1 ? month : month.StartOfMonth(_calendar.Culture);
 
         _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month) ?? false;
     }
@@ -39,15 +39,15 @@ internal class FluentCalendarMonth
     /// <summary>
     /// Whether the month is selected by the user
     /// </summary>
-    public bool IsSelected => Month.Year == _calendar.Value?.Year && Month.Month == _calendar.Value?.Month;
+    public bool IsSelected => Month.GetYear(_calendar.Culture) == _calendar.Value?.GetYear(_calendar.Culture) && Month.GetMonth(_calendar.Culture) == _calendar.Value?.GetMonth(_calendar.Culture);
 
     /// <summary>
     /// Gets the title of the month in the format [month] [year].
     /// </summary>
-    public string Title => $"{_calendar.CalendarExtended.GetMonthName(Month)} {Month.Year:0000}";
+    public string Title => $"{_calendar.CalendarExtended.GetMonthName(Month)} {Month.GetYear(_calendar.Culture):0000}";
 
     /// <summary>
     /// Gets the identifier of the month in the format yyyy-MM.
     /// </summary>
-    public string MonthIdentifier => Month.ToString("yyyy-MM");
+    public string MonthIdentifier => Month.ToString("yyyy-MM", _calendar.Culture);
 }

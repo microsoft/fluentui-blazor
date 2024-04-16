@@ -54,7 +54,6 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     [Parameter]
     public int Count { get; set; } = 0;
 
-
     /// <summary>
     ///  Gets or sets the content to be shown.
     /// </summary>

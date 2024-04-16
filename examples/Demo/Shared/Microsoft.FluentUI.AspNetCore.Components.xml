@@ -1084,20 +1084,20 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title">
             <summary>
-            Gets or sets the title text for the column. 
+            Gets or sets the title text for the column.
             This is rendered automatically if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
             <summary>
-            Gets or sets the an optional CSS class name. 
+            Gets or sets the an optional CSS class name.
             If specified, this is included in the class attribute of header and grid cells
             for this column.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Style">
             <summary>
-            Gets or sets an optional CSS style specification. 
+            Gets or sets an optional CSS style specification.
             If specified, this is included in the style attribute of header and grid cells
             for this column.
             </summary>
@@ -1119,7 +1119,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate">
             <summary>
-            Gets or sets an optional template for this column's header cell. 
+            Gets or sets an optional template for this column's header cell.
             If not specified, the default header template includes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title" /> along with any applicable sort indicators and options buttons.
             </summary>
         </member>
@@ -1471,6 +1471,13 @@
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
+            <summary>
+            Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+            </summary>
+            <param name="column">The column to check against the current sorted on column.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
             Displays the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions"/> UI for the specified column, closing any other column
@@ -1734,24 +1741,6 @@
             <param name="monthOffset">offset from _picker_month.</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetFirstDayToDisplay(System.Int32)">
-            <summary>
-            Gets the first day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetLastDayToDisplay(System.Int32)">
-            <summary>
-            Returns the last day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetFirstDayOfWeek">
-            <summary>
-            Returns the first day of the week.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthName">
             <summary>
             Returns the name of the month in the right culture.
@@ -1789,17 +1778,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
-            <summary>
-            Returns the year value.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear(System.DateTime)">
             <summary>
             Returns the year value.
             </summary>
             <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
+            <summary>
+            Returns the year value.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetDayNames">
@@ -1958,9 +1947,6 @@
             </summary>
             <param name="year"></param>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CanBeAnimated">
             <summary />
@@ -5055,6 +5041,12 @@
             Gets or sets the items to show in the menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ChildContent">
+            <summary>
+            Gets or sets the content to be shown in the menu.
+            Should consist of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem"/> components.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
@@ -5092,7 +5084,23 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalPosition">
             <summary>
-            Gets or sets the menu position (left or right).
+            Gets or sets the horizontal menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is false which places the region adjacent to the anchor element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalPosition">
+            <summary>
+            Gets or sets the vertical menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Width">
@@ -5188,7 +5196,7 @@
             Event raised when the user click on this item.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar">
@@ -5972,6 +5980,11 @@
             Gets or sets whether or not the menu can be collapsed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.CollapsedChildNavigation">
+            <summary>
+            Gets or sets whether a menu with all child links is shown for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s when the navigation menu is collapsed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded">
             <inheritdoc/>
         </member>
@@ -6260,7 +6273,7 @@
             <summary>
             Optionally supplies a template for rendering the pagination summary.
             The following values can be included:
-            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.CurrentPageIndex (zero-based, so +1 for the current page number)
             {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
@@ -6708,6 +6721,11 @@
             <summary>
             Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
             Default is 750
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.DragThreshold">
+            <summary>
+            Gets or sets the threshold distance the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> needs to be pulled (in pixels) to start the tip pull action.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnAfterRenderAsync(System.Boolean)">
@@ -13142,6 +13160,14 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the first day of the year
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the last day of the month.
@@ -13156,6 +13182,14 @@
             </summary>
             <param name="self"></param>
             <param name="firstDayOfWeek"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the first day of the week.
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
@@ -13247,6 +13281,68 @@
             Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
             </summary>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the year
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the month
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the day
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            days to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="days"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            months to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="months"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            years to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="years"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the name of the month
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">

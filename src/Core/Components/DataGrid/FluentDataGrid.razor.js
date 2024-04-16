@@ -16,6 +16,7 @@ export function init(gridElement) {
         if (columnOptionsElement) {
             if (event.key === "Escape") {
                 gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+                gridElement.focus();
             }
             columnOptionsElement.addEventListener(
                 "keydown",
