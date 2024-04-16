@@ -64,7 +64,7 @@ jobs:
        uses: dorny/test-reporter@v1
        with:
          name: DotNet Tests                # Name of the check run which will be created
-         path: /TestResults/*.trx          # Path to test results (inside artifact .zip)
+         path: '**/*.trx'                  # Path to test results (inside artifact .zip)
          reporter: dotnet-trx              # Format of test results
 
     #  - name: Extract Failed Tests
