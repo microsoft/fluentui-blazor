@@ -99,7 +99,7 @@ jobs:
              $failedTests = "✅ All tests passed successfully"
          }
         
-         $failedTests += "`n Details on [your Workflow](/microsoft/fluentui-blazor/actions/workflows/build-core-lib.yml) / Core Tests page."
+         $failedTests += "`n`n Details on [your Workflow / Core Tests](/microsoft/fluentui-blazor/actions/workflows/build-core-lib.yml) page."
 
          Write-Host "$failedTests"
          Set-Content -Path ./TestResults/ExtractedTests.md -Value $failedTests         

@@ -146,7 +146,7 @@ public partial class FluentCalendarTests : TestContext
             var expectedDay = firstDate.AddDays(i).Day;
             var actualDay = Convert.ToInt32(allDays[i].InnerHtml);
 
-            Assert.Equal(3 + expectedDay, actualDay);
+            Assert.Equal(expectedDay, actualDay);
         }
 
         Assert.Fail();
@@ -169,7 +169,7 @@ public partial class FluentCalendarTests : TestContext
         var juneFirst = System.DateTime.Parse("2022-06-01");
 
         // Assert
-        Assert.Equal("TO FAIL: June 2022", monthName);
+        Assert.Equal("June 2022", monthName);
         Assert.Equal(juneFirst, calendar.Instance.PickerMonth);
     }
 
