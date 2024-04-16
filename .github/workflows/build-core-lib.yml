@@ -77,7 +77,7 @@ jobs:
          $testResults = Get-Content -Path $trxFilePath
          
          # Initialize an empty array to store failed test names
-         $failedTests = "# Failed Tests"
+         $failedTests = "# Unit Tests"
          $failedTestsCount = 0
          
          # Search for failed test names in the TRX file
@@ -90,15 +90,17 @@ jobs:
                  if ($matches.Success) {
                      $failedTestsCount++
                      $testName = $matches.Groups[1].Value
-                     $failedTests += "`n- [FAILED] $testName"
+                     $failedTests += "`n- ❌[FAILED] $testName"
                  }
              }
          }
          
          if ($failedTestsCount -eq 0) {
-             $failedTests = "All tests passed successfully"
+             $failedTests = "✅ All tests passed successfully"
          }
-          
+        
+         $failedTests += "`n Details on [your Workflow](/microsoft/fluentui-blazor/actions/workflows/build-core-lib.yml) / Core Tests page."
+
          Write-Host "$failedTests"
          Set-Content -Path ./TestResults/ExtractedTests.md -Value $failedTests         
        working-directory: ${{ github.workspace }}
