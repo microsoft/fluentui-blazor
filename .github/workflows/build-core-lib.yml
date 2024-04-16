@@ -100,7 +100,7 @@ jobs:
          }
           
          Write-Host "$failedTests"
-         echo "test_results=$failedTests" >> "$GITHUB_ENV"
+         Set-Content -Path ./TestResults/ExtractedTests.md -Value $failedTests         
        working-directory: ${{ github.workspace }}
 
      - name: Publish unit tests summary
@@ -108,8 +108,7 @@ jobs:
        uses: marocchino/sticky-pull-request-comment@v2
        with:
          header: Test Results
-         message: |
-           ${{ env.test_results }}
+         path: ./TestResults/ExtractedTests.md
 
      # Test Coverage
 
