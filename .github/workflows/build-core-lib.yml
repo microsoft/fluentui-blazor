@@ -90,13 +90,13 @@ jobs:
                  if ($matches.Success) {
                      $failedTestsCount++
                      $testName = $matches.Groups[1].Value
-                     $failedTests += "`n- ❌$testName"
+                     $failedTests += "`n- [FAILED] $testName"
                  }
              }
          }
          
          if ($failedTestsCount -eq 0) {
-             $failedTests = "✅ All tests passed successfully"
+             $failedTests = "All tests passed successfully"
          }
           
          Write-Host "$failedTests"
