@@ -60,6 +60,7 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
+       if: always()
        uses: dorny/test-reporter@v1
        with:
          artifact: test-results            # artifact name
