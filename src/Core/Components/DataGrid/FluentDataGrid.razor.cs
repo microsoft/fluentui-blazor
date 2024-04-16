@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
-public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IKeyCodeListener, IHandleEvent, IAsyncDisposable
+public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
     /// <summary>
@@ -566,38 +566,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IKeyCodeLi
         }
     }
 
-    public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
         if (args.ShiftKey == true && args.Key == KeyCode.KeyR)
         {
-            ResetColumnWidths();
+            await ResetColumnWidthsAsync();
         }
 
-        if (args.Key == KeyCode.NumpadSubtract || args.Key == KeyCode.Minus2)
+        if (args.Value == "-")
         {
-            SetColumnWidth(-10);
+           await SetColumnWidthAsync(-10);
         }
-        if (args.Key == KeyCode.NumpadAdd || (args.ShiftKey == true && (args.Key == KeyCode.Equal || args.Key == KeyCode.Equal2)))
+        if (args.Value == "+")
         {
             //  Resize column up
-            SetColumnWidth(10);
+            await SetColumnWidthAsync(10);
         }
-        return Task.CompletedTask;
+        //return Task.CompletedTask;
     }
 
-    private void SetColumnWidth(float widthChange)
+    private async Task SetColumnWidthAsync(float widthChange)
     {
-        if (_gridReference is not null)
+        if (_gridReference is not null && Module is not null)
         {
-            _ = Module?.InvokeVoidAsync("resizeColumn", _gridReference, widthChange).AsTask();
+            await Module.InvokeVoidAsync("resizeColumn", _gridReference, widthChange);
         }
     }
 
-    private void ResetColumnWidths()
+    private async Task ResetColumnWidthsAsync()
     {
-        if (_gridReference is not null)
+        if (_gridReference is not null && Module is not null)
         {
-            _ = Module?.InvokeVoidAsync("resetColumnWidths", _gridReference).AsTask();
+            await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
     }
 

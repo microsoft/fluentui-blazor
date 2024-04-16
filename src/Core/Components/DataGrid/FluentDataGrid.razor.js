@@ -1,11 +1,14 @@
-let initialGridTemplateColumns = '';
+let initialColumnsWidths = '';
 export function init(gridElement) {
     if (gridElement === undefined || gridElement === null) {
         return;
     };
 
-    initialGridTemplateColumns = gridElement.gridTemplateColumns;
-    enableColumnResizing(gridElement);
+    if (gridElement.querySelectorAll('.column-header.resizable').length >= 0) {
+        initialColumnsWidths = gridElement.gridTemplateColumns;
+        gridElement.gridTemplateColumns = initialColumnsWidths;
+        enableColumnResizing(gridElement);
+    }
 
     const bodyClickHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
@@ -63,8 +66,6 @@ export function init(gridElement) {
     };
 }
 
-
-
 export function checkColumnOptionsPosition(gridElement) {
     const colOptions = gridElement?._rowItems[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables
     if (colOptions) {
@@ -98,8 +99,6 @@ export function enableColumnResizing(gridElement) {
     gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
         columns.push({ header });
         const onPointerMove = (e) => requestAnimationFrame(() => {
-            //console.log(`onPointerMove${headerBeingResized ? '' : ' [not resizing]'}`);
-
             if (!headerBeingResized) {
                 return;
             }
@@ -132,15 +131,11 @@ export function enableColumnResizing(gridElement) {
         });
 
         const onPointerUp = () => {
-            //console.log('onPointerUp');
-
             headerBeingResized = undefined;
             resizeHandle = undefined;
         };
 
         const initResize = ({ target, pointerId }) => {
-            //console.log('initResize');
-
             resizeHandle = target;
             headerBeingResized = target.parentNode;
 
@@ -160,43 +155,45 @@ export function enableColumnResizing(gridElement) {
 
 export function resetColumnWidths(gridElement) {
 
-    gridElement.gridTemplateColumns = initialGridTemplateColumns
+    gridElement.gridTemplateColumns = initialColumnsWidths;
 }
 
 export function resizeColumn(gridElement, change) {
+
+    if (!(document.activeElement.classList.contains("column-header") && document.activeElement.classList.contains("resizable"))) {
+        return;
+    }
     const columns = [];
     let headerBeingResized = document.activeElement;
-    let min;
+    let min = 50;
 
     gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
+        if (header === headerBeingResized) {
+            min = headerBeingResized.querySelector('.col-options-button') ? 75 : 50;
+
+            const width = headerBeingResized.getBoundingClientRect().width + change;
+
+            if (change < 0) {
+                header.size = Math.max(min, width) + 'px';
+            }
+            else {
+                header.size = width + 'px';
+            }
+        }
+        else {
+            if (header.size === undefined) {
+                if (header.clientWidth === undefined || header.clientWidth === 0) {
+                    header.size = min + 'px';
+                } else {
+                    header.size = header.clientWidth + 'px';
+                }
+            }
+        }
+
         columns.push({ header });
     });
 
-    const column = columns.find(({ header }) => header === headerBeingResized);
-    min = headerBeingResized.querySelector('.col-options-button') ? 75 : 50;
-
-    const width = headerBeingResized.getBoundingClientRect().width;
-
-    if (change < 0) {
-        column.size = Math.max(min, (width + change)) + 'px';
-    }
-    else {
-        column.size = (width + change) + 'px';
-    }
-
-    // Set initial sizes
-    columns.forEach((column) => {
-        if (column.size === undefined) {
-            if (column.header.clientWidth === undefined || column.header.clientWidth === 0) {
-                column.size = '50px';
-            } else {
-                column.size = column.header.clientWidth + 'px';
-            }
-        }
-    });
-
     gridElement.gridTemplateColumns = columns
-        .map(({ size }) => size)
+        .map(({ header }) => header.size)
         .join(' ');
-
 }
