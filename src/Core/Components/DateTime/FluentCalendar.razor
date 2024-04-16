@@ -92,7 +92,7 @@
                     <div class="months" part="months">
                         @foreach (var month in CalendarExtended.GetMonthNames())
                         {
-                            var year = PickerMonth.Year;
+                            var year = PickerMonth.GetYear(Culture);
                             var monthProperties = GetMonthProperties(year, month.Index);
 
                             <div class="@GetAnimationClass("month")"

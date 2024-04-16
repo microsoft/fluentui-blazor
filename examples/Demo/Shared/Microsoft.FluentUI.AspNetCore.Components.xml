@@ -1744,24 +1744,6 @@
             <param name="monthOffset">offset from _picker_month.</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetFirstDayToDisplay(System.Int32)">
-            <summary>
-            Gets the first day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetLastDayToDisplay(System.Int32)">
-            <summary>
-            Returns the last day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetFirstDayOfWeek">
-            <summary>
-            Returns the first day of the week.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthName">
             <summary>
             Returns the name of the month in the right culture.
@@ -1799,17 +1781,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
-            <summary>
-            Returns the year value.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear(System.DateTime)">
             <summary>
             Returns the year value.
             </summary>
             <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
+            <summary>
+            Returns the year value.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetDayNames">
@@ -1968,9 +1950,6 @@
             </summary>
             <param name="year"></param>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CanBeAnimated">
             <summary />
@@ -6745,6 +6724,11 @@
             <summary>
             Gets or sets the amount of time (in milliseconds) a status update message will be displayed.
             Default is 750
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.DragThreshold">
+            <summary>
+            Gets or sets the threshold distance the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> needs to be pulled (in pixels) to start the tip pull action.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnAfterRenderAsync(System.Boolean)">
@@ -13179,6 +13163,14 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the first day of the year
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the last day of the month.
@@ -13193,6 +13185,14 @@
             </summary>
             <param name="self"></param>
             <param name="firstDayOfWeek"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the first day of the week.
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
@@ -13284,6 +13284,68 @@
             Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
             </summary>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the year
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the month
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the day
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            days to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="days"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            months to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="months"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            years to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="years"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the name of the month
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
