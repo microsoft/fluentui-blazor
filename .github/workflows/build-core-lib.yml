@@ -60,12 +60,11 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
-       if: always()
+       if: success() || failure()
        uses: dorny/test-reporter@v1
        with:
-         artifact: test-results            # artifact name
          name: DotNet Tests                # Name of the check run which will be created
-         path: './TestResults/*.trx'       # Path to test results (inside artifact .zip)
+         path: /TestResults/*.trx          # Path to test results (inside artifact .zip)
          reporter: dotnet-trx              # Format of test results
 
     #  - name: Extract Failed Tests
