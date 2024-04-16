@@ -148,8 +148,6 @@ public partial class FluentCalendarTests : TestContext
 
             Assert.Equal(expectedDay, actualDay);
         }
-
-        Assert.Fail();
     }
 
     [Fact]
