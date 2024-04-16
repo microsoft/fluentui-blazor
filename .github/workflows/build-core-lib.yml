@@ -69,46 +69,47 @@ jobs:
          list-tests: failed
          fail-on-error: false         
 
-    #  - name: Extract Failed Tests
-    #    if: always()
-    #    shell: pwsh
-    #    run: |
-    #      $xxx = ((Select-Xml -Path ./TestResults/*.trx -XPath "//ns:UnitTestResult[@outcome='Failed']/@testName" -Namespace @{"ns"="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"}).Node.Value) -join " - ❌ "
-    #      Write-Host $xxx
-    #      Write-Host "---------------------"
-
-    #      # Get the latest TRX file in the TestResults folder
-    #      $latestTrxFile = Get-ChildItem -Path ./TestResults -Filter *.trx | Sort-Object LastWriteTime | Select-Object -Last 1
-
-    #      $trxContent = Get-Content -Path $latestTrxFile.FullName
+     - name: Extract Failed Tests
+       if: success() || failure()
+       shell: pwsh
+       run: |
+         $trxFilePath = Get-ChildItem -Path .\TestResults -Filter *.trx | Sort-Object LastWriteTime | Select-Object -Last 1
+         $testResults = Get-Content -Path $trxFilePath
          
-    #      # Load the content of the latest TRX file
-    #      $trxContent = Get-Content -Path $latestTrxFile.FullName
-
-    #      # Extract failed test names
-    #      $failedTests = $trxContent | Select-String -Pattern 'outcome="Failed"' | ForEach-Object {
-    #          $_.Line -match 'testName="([^"]+)"'
-    #          $matches[1]
-    #      }
-
-    #      # Check if any failed tests were found
-    #      if ($failedTests.Count -eq 0) {
-    #          $TestResults = "All tests have been successfully completed."
-    #      } else {
-    #          $TestResults = "# Failed tests: `n " + ($failedTests | ForEach-Object { "- $_" }) -join "`n"
-    #      }
+         # Initialize an empty array to store failed test names
+         $failedTests = "# Failed Tests"
+         $failedTestsCount = 0
+         
+         # Search for failed test names in the TRX file
+         foreach ($line in $testResults) {
+         
+             if ($line.Contains(" outcome=`"Failed`" "))
+             {
+                 $matches = [regex]::Match($line, '(?<=testName=")([^"]+)')
+         
+                 if ($matches.Success) {
+                     $failedTestsCount++
+                     $testName = $matches.Groups[1].Value
+                     $failedTests += "`n- ❌$testName"
+                 }
+             }
+         }
+         
+         if ($failedTestsCount -eq 0) {
+             $failedTests = "✅ All tests passed successfully"
+         }
           
-    #      Write-Host "$TestResults"
-    #      echo "test_results=$TestResults" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-    #    working-directory: ${{ github.workspace }}
+         Write-Host "$failedTests"
+         echo "test_results=$failedTests" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+       working-directory: ${{ github.workspace }}
 
-    #  - name: Publish unit tests summary
-    #    if: always()
-    #    uses: marocchino/sticky-pull-request-comment@v2
-    #    with:
-    #      header: Test Results
-    #      message: |
-    #        ${{ env.test_results }}
+     - name: Publish unit tests summary
+       if: success() || failure()
+       uses: marocchino/sticky-pull-request-comment@v2
+       with:
+         header: Test Results
+         message: |
+           ${{ env.test_results }}
 
      # Test Coverage
 
