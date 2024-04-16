@@ -4,9 +4,8 @@ export function init(gridElement) {
         return;
     };
 
-    if (gridElement.querySelectorAll('.column-header.resizable').length >= 0) {
+    if (gridElement.querySelectorAll('.column-header.resizable').length > 0) {
         initialColumnsWidths = gridElement.gridTemplateColumns;
-        gridElement.gridTemplateColumns = initialColumnsWidths;
         enableColumnResizing(gridElement);
     }
 
@@ -160,6 +159,11 @@ export function resetColumnWidths(gridElement) {
 
 export function resizeColumn(gridElement, change) {
 
+    let headers = gridElement.querySelectorAll('.column-header.resizable');
+    if (headers.length <= 0) {
+        return
+    }
+
     if (!(document.activeElement.classList.contains("column-header") && document.activeElement.classList.contains("resizable"))) {
         return;
     }
@@ -167,7 +171,7 @@ export function resizeColumn(gridElement, change) {
     let headerBeingResized = document.activeElement;
     let min = 50;
 
-    gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
+    headers.forEach(header => {
         if (header === headerBeingResized) {
             min = headerBeingResized.querySelector('.col-options-button') ? 75 : 50;
 
