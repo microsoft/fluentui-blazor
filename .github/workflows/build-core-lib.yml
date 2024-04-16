@@ -100,7 +100,7 @@ jobs:
          }
           
          Write-Host "$failedTests"
-         echo "test_results=$failedTests" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+         echo "test_results=$failedTests" >> "$GITHUB_ENV"
        working-directory: ${{ github.workspace }}
 
      - name: Publish unit tests summary
