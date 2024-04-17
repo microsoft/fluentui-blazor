@@ -146,6 +146,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? LoadingContent { get; set; }
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -213,6 +214,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         EventCallbackSubscriber<object?>? columnsFirstCollectedSubscriber = new(
             EventCallback.Factory.Create<object?>(this, RefreshDataCoreAsync));
         columnsFirstCollectedSubscriber.SubscribeOrMove(_internalGridContext.ColumnsFirstCollected);
+    }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(OnKeyDownAsync);
     }
 
     /// <inheritdoc />
@@ -558,4 +565,40 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
     }
+
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        if (args.ShiftKey == true && args.Key == KeyCode.KeyR)
+        {
+            await ResetColumnWidthsAsync();
+        }
+
+        if (args.Value == "-")
+        {
+           await SetColumnWidthAsync(-10);
+        }
+        if (args.Value == "+")
+        {
+            //  Resize column up
+            await SetColumnWidthAsync(10);
+        }
+        //return Task.CompletedTask;
+    }
+
+    private async Task SetColumnWidthAsync(float widthChange)
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resizeColumn", _gridReference, widthChange);
+        }
+    }
+
+    private async Task ResetColumnWidthsAsync()
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
+        }
+    }
+
 }
