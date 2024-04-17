@@ -601,7 +601,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (args.Value == "-")
         {
-            await SetColumnWidthAsync(-10);
+           await SetColumnWidthAsync(-10);
         }
         if (args.Value == "+")
         {
