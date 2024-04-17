@@ -5,6 +5,7 @@ name: Build and Test Core Lib
 
 permissions:
   pull-requests: write
+  contents: read
 
 on:
   # Allow manually running the workflow
