@@ -1137,7 +1137,8 @@
              Gets or sets a value indicating whether the data should be sortable by this column.
             
              The default value may vary according to the column type (for example, a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1" />
-             is sortable by default if any <see cref="P:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.SortBy" /> parameter is specified).
+             or <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2" /> is sortable by default if any<see cref="P:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.SortBy" />
+             or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.SortBy" /> parameter is specified).
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Filtered">
@@ -6976,6 +6977,12 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Module">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
             <summary>

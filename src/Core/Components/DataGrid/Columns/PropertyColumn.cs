@@ -18,6 +18,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     private Func<TGridItem, string?>? _cellTextFunc;
     private Func<TGridItem, string?>? _cellTooltipTextFunc;
     private GridSort<TGridItem>? _sortBuilder;
+    private GridSort<TGridItem>? _customSortBy;
 
     public PropertyInfo? PropertyInfo { get; private set; }
 
@@ -40,10 +41,10 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     /// </summary>
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
 
-    public override GridSort<TGridItem>? SortBy
+    [Parameter] public override GridSort<TGridItem>? SortBy
     {
-        get => _sortBuilder;
-        set => throw new NotSupportedException($"PropertyColumn generates this member internally. For custom sorting rules, see '{typeof(TemplateColumn<TGridItem>)}'.");
+        get => _customSortBy ?? _sortBuilder;
+        set => _customSortBy = value;
     }
 
     /// <inheritdoc />
@@ -103,4 +104,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
     protected internal override string? RawCellContent(TGridItem item)
         => _cellTooltipTextFunc?.Invoke(item);
+
+    protected override bool IsSortableByDefault()
+        => SortBy is not null;
 }

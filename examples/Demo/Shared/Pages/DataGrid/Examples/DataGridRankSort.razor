@@ -9,11 +9,9 @@
 
 <p>Keep numbers always sorted ascending inside the group when sorting by group</p>
 <FluentDataGrid Items="@_gridData" ResizableColumns=true GridTemplateColumns="0.5fr 0.5fr">
-    <PropertyColumn Sortable="true" Property="x => x.Number" Title="Number" />
 
-    <TemplateColumn Sortable="true" SortBy="groupRankNumberAlwaysAscending" Title="Group">
-        @context.Group
-    </TemplateColumn>
+    <PropertyColumn Sortable="true" Property="x => x.Number" Title="Number" />
+    <PropertyColumn Property="x => x.Group" SortBy="groupRankNumberAlwaysAscending" Title="Group" />
 
 </FluentDataGrid>
 
