@@ -3,12 +3,22 @@ using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSlider<TValue> : FluentInputBase<TValue>
+public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDisposable
     where TValue : System.Numerics.INumber<TValue>
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSlider.razor.js";
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     /// <summary>
     /// Gets or sets the slider's minimal value.
     /// </summary>
@@ -60,6 +70,15 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         ArgumentNullException.ThrowIfNull(Min, nameof(Min));
         ArgumentNullException.ThrowIfNull(Max, nameof(Max));
         ArgumentNullException.ThrowIfNull(Step, nameof(Step));
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        }
+        await Module!.InvokeVoidAsync("updateSlider", Element);
     }
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
@@ -118,5 +137,14 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         {
             throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
         }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        if (Module is not null)
+        {
+            return Module.DisposeAsync();
+        }
+        return ValueTask.CompletedTask;
     }
 }
