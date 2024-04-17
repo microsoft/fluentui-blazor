@@ -48,7 +48,7 @@ public class FluentCalendarDay
     /// <summary>
     /// Gets or sets a value indicating whether the day is selected by the user.
     /// </summary>
-    public bool IsSelected => Date.DayOfYear == _calendar.Value.GetValueOrDefault().DayOfYear;
+    public bool IsSelected => Date.Date == _calendar.Value?.Date;
 
     /// <summary>
     /// Gets the name of the day and month in current culture.
