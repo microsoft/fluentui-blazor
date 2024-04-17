@@ -206,6 +206,14 @@ code {
     background-color: var(--neutral-fill-secondary-hover);
 }
 
+kbd {
+    padding: 0.10rem 0.25rem;
+    font-size: 0.875em;
+    color: var(--neutral-foreground-rest);
+    background-color: var(--neutral-fill-secondary-rest);
+    border-radius: 0.25rem;
+    border: 1px solid var(--accent-fill-rest);
+}
 
 #blazor-error-ui {
     background: lightyellow;
