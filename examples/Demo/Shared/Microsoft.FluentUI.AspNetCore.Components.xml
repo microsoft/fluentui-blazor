@@ -1241,6 +1241,16 @@
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ByDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Produces a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
+            using the specified <paramref name="comparer"/>, descending.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
@@ -1249,12 +1259,64 @@
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
             </summary>
             <typeparam name="U">The type of the expression's value.</typeparam>
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2">
