@@ -3,6 +3,9 @@
 
 name: Build and Test Core Lib
 
+permissions:
+  pull-requests: write
+
 on:
   # Allow manually running the workflow
   workflow_dispatch:
