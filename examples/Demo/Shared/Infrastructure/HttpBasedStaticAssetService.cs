@@ -12,7 +12,6 @@ public class HttpBasedStaticAssetService : IStaticAssetService
         _httpClient = httpClient;
         _httpClient.BaseAddress ??= new Uri(navigationManager.BaseUri);
         _cacheStorageAccessor = cacheStorageAccessor;
-
     }
 
     public async Task<string?> GetAsync(string assetUrl, bool useCache = true)
