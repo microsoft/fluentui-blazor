@@ -3,10 +3,6 @@
 
 name: Build and Test Core Lib
 
-permissions:
-  pull-requests: write
-  contents: read
-
 on:
   # Allow manually running the workflow
   workflow_dispatch:
@@ -38,6 +34,7 @@ jobs:
 
     permissions:
       checks: write
+      contents: read
       pull-requests: write
 
     steps:
@@ -112,6 +109,7 @@ jobs:
 
      - name: Publish unit tests summary
        if: success() || failure()
+       continue-on-error: true
        uses: marocchino/sticky-pull-request-comment@v2
        with:
          header: Test Results
@@ -136,5 +134,6 @@ jobs:
 
      - name: Publish coverage summary
        uses: marocchino/sticky-pull-request-comment@v2
+       continue-on-error: true
        with:
-         path: CoverageReports/SummaryGithub.md         
+         path: CoverageReports/SummaryGithub.md
