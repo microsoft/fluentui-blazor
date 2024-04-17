@@ -106,5 +106,5 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
         => _cellTooltipTextFunc?.Invoke(item);
 
     protected override bool IsSortableByDefault()
-        => SortBy is not null;
+        => _customSortBy is not null;
 }
