@@ -29,6 +29,7 @@ env:
 jobs:
   Build:
 
+    name: Build and Test Code Lib 
     runs-on: windows-latest
 
     permissions:
