@@ -21,8 +21,7 @@ configuration:
           - addReply:
               reply: "This issue has been automatically closed as no reproduction code has been provided within **4 days**."
           - closeIssue
-
-    eventResponderTasks:
+   eventResponderTasks:
       - description: Add labels to unassigned issue
         triggerOnOwnActions: false
         if:
