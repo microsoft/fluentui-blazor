@@ -5,7 +5,7 @@ disabled: false
 where:
 configuration:
   resourceManagementConfiguration:
-   scheduledSearches:
+    scheduledSearches:
       - description: "Close issues that where author has not provided reproduction code or repo"
       - frequencies:
           - hourly:
@@ -14,10 +14,24 @@ configuration:
           - isOpen
           - is:issue
           - hasLabel:
-              label: 'needs: repro code or repository'
+              label: "needs: repro code or repository"
           - noActivitySince:
               days: 1
         actions:
           - addReply:
               reply: "This issue has been automatically closed as no reproduction code has been provided within **4 days**."
           - closeIssue
+    eventResponderTasks:
+    - description: Add labels to unassigned issue
+      triggerOnOwnActions: false
+      if:
+        - payloadType: Issues
+        - and:
+            - isOpen
+            - not:
+                or:
+                  - isAssignedToSomeone
+                  - isLabeled
+      then:
+        - addLabel:
+            label: triage

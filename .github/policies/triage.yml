@@ -1,7 +1,7 @@
 name: Issue Triage
 description: Assign label to new issues without a label
 resource: repository
-disabled: false
+disabled: true
 where:
 configuration:
   resourceManagementConfiguration:
