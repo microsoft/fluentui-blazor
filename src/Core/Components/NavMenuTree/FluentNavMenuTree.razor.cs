@@ -5,7 +5,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-//[Obsolete("This component has been replaced with the FluentNavMenu and will be removed in a future version.")]
+[Obsolete("This component has been replaced with the FluentNavMenu and will be removed in a future version.")]
 public partial class FluentNavMenuTree : FluentComponentBase, INavMenuItemsOwner, IDisposable
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";

@@ -3,7 +3,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-//[Obsolete("This component has been replaced with the FluentNavGroup and will be removed in a future version.")]
+[Obsolete("This component has been replaced with the FluentNavGroup and will be removed in a future version.")]
 public partial class FluentNavMenuGroup : FluentNavMenuItemBase, INavMenuItemsOwner, IDisposable
 {
     internal const string ICON_WIDTH = "20px";
