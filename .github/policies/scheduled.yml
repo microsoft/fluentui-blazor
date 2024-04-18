@@ -14,7 +14,7 @@ configuration:
           - isOpen
           - is:issue
           - hasLabel:
-              label: Needs-repro-code-or-repository
+              label: Needs repro code or repository
           - noActivitySince:
               days: 1
         actions:
