@@ -157,7 +157,7 @@ public partial class ApiDocumentation
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"ERROR - ApiDocumentation - Cannot found {Component.FullName} -> {memberInfo.Name}");
+                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot found {Component.FullName} -> {memberInfo.Name}");
                     throw;
                 }
             }

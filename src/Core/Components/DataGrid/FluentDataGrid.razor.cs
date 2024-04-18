@@ -262,7 +262,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
             catch (JSException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("[FluentDataGrid] " + ex.Message);
             }
         }
 

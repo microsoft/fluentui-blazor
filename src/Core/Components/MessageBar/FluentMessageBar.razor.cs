@@ -252,13 +252,13 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
 
     protected void PauseTimeout()
     {
-        Console.WriteLine("PauseTimeout");
+        Console.WriteLine("[FluentMessageBar] Pause Timeout");
         _countdownTimer?.Pause();
     }
 
     protected void ResumeTimeout()
     {
-        Console.WriteLine("ResumeTimeout");
+        Console.WriteLine("[FluentMessageBar] Resume Timeout");
         _countdownTimer?.Resume();
     }
 
