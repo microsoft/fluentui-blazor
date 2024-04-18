@@ -9,7 +9,7 @@ import {
   neutralBaseColor,
   accentBaseColor,
   SwatchRGB
-} from "@fluentui/web-components/dist/web-components";
+} from "@fluentui/tokens";
 import { ThemeStorage } from "./Design/ThemeStorage";
 import { Synchronization } from "./Design/Synchronization";
 

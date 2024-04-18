@@ -1,7 +1,6 @@
-export * from '@fluentui/web-components/dist/web-components'
-export { parseColorHexRGB } from '@microsoft/fast-colors'
+export * from '@fluentui/web-components'
 import { SplitPanels } from './SplitPanels'
-import { DesignTheme } from './DesignTheme'
+/*import { DesignTheme } from './DesignTheme'*/
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
 
 interface Blazor {
@@ -304,7 +303,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
 }
 
 export function beforeStart(options: any) {
-  customElements.define("fluent-design-theme", DesignTheme);
+  //customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
 
   beforeStartCalled = true;

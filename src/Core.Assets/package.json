@@ -12,17 +12,17 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@microsoft/fast-element": "1.13.0",
-    "@microsoft/fast-foundation": "2.49.6",
+    "@fluentui/tokens": "1.0.0-alpha.16",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
     "esbuild": "^0.20.2",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "8.57.0",
     "rimraf": "^5.0.5",
+    "tabbable": "^6.2.0",
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "@fluentui/web-components": "2.6.1"
+    "@fluentui/web-components": "^3.0.0-beta.25"
   }
 }
