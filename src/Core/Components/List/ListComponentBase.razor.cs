@@ -444,15 +444,8 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             {
                 return OptionDisabled(item);
             }
-            else
-            {
-                return Disabled;
-            }
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /// <summary />
