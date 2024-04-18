@@ -53,6 +53,14 @@ public partial class FluentPopover : FluentComponentBase
     public int HorizontalThreshold { get; set; } = 0;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+    /// Otherwise the region uses "position: absolute".
+    /// Fixed placement allows the region to break out of parent containers.
+    /// </summary>
+    [Parameter]
+    public bool? FixedPlacement { get; set; }
+
+    /// <summary>
     /// Gets or sets popover opened state.
     /// </summary>
     [Parameter]
