@@ -1,11 +1,11 @@
-name: Issue Triage
-description: Assign label to new issues without a label
+name: Scheduled Issue updates
+description:
 resource: repository
 disabled: false
 where:
 configuration:
   resourceManagementConfiguration:
-    scheduledSearches:
+   scheduledSearches:
       - description: "Close issues that where author has not provided reproduction code or repo"
       - frequencies:
           - hourly:
@@ -21,17 +21,3 @@ configuration:
           - addReply:
               reply: "This issue has been automatically closed as no reproduction code has been provided within **4 days**."
           - closeIssue
-    eventResponderTasks:
-      - description: Add labels to unassigned issue
-        triggerOnOwnActions: false
-        if:
-          - payloadType: Issues
-          - and:
-              - isOpen
-              - not:
-                  or:
-                    - isAssignedToSomeone
-                    - isLabeled
-        then:
-          - addLabel:
-              label: triage
