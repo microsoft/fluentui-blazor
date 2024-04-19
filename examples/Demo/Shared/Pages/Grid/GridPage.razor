@@ -55,6 +55,12 @@
     e.g. <code>GridItemHidden.Md | GridItemHidden.Lg</code> will display the element for all screen sizes, except on medium and large devices.
 </p>
 <p>
+    <b>AdaptiveRendering</b> allows you not to generate the HTML code of the <b>FluentGridItem</b> that respects the <code>HiddenWhen</code>.
+    In other words, when <code>AdaptiveRendering=false</code> (default), the content of the <b>FluentGridItem</b> is simply hidden by CSS styles,
+    whereas if <code>AdaptiveRendering=true</code>, the content of the <b>FluentGridItem</b> is not rendered by Blazor.
+    In certain cases where this content is important, it may be more efficient not to generate the HTML code instead of simply hiding it.
+</p>
+<p>
     <FluentDataGrid Items="@AllHiddenValues" GridTemplateColumns="28fr 12fr 12fr 12fr 12fr 12fr 12fr" ItemKey="@(i => new Random().Next())">
         <TemplateColumn Align="Align.Start" Style="align-self: unset;">
             <HeaderCellItemTemplate>GridItemHidden</HeaderCellItemTemplate>
