@@ -1902,6 +1902,11 @@
             </summary>
             <param name="calendar"></param>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.DateTimeFormat">
+            <summary>
+            Gets the user defined DateTimeFormat to use for the calendar.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.CalendarExtended">
             <summary>
             Gets the CalendarExtended to use for the calendar.
@@ -1953,11 +1958,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.DaysTemplate">
             <summary>
             Defines the appearance of a Day cell.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.View">
-            <summary>
-            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
@@ -2067,6 +2067,16 @@
             <summary>
             Gets or sets the verification to do when the selected value has changed.
             By default, ValueChanged is called only if the selected value has changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.View">
+            <summary>
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DateTimeFormat">
+            <summary>
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
@@ -6427,6 +6437,13 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalThreshold">
             <summary>
             How narrow the space allocated to the default position has to be before the widest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.FixedPlacement">
+            <summary>
+            Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+            Otherwise the region uses "position: absolute".
+            Fixed placement allows the region to break out of parent containers.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.Open">

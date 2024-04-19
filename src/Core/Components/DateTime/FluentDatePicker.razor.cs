@@ -39,7 +39,7 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override string? FormatValueAsString(DateTime? value)
     {
-        return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture);
+        return Value?.ToString(DateTimeFormat ?? Culture.DateTimeFormat.ShortDatePattern, Culture);
     }
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)

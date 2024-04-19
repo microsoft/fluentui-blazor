@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentCalendarBase
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
@@ -31,6 +31,8 @@
                           Class="fluent-datepicker-popup"
                           Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
         <FluentCalendar Culture="@Culture"
+                        View="@View"
+                        DateTimeFormat="@DateTimeFormat"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"
                         DisabledSelectable="@DisabledSelectable"

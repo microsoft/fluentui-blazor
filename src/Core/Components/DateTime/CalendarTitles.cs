@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal class CalendarTitles
@@ -13,7 +15,14 @@ internal class CalendarTitles
         _calendar = calendar;
         CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth);
         View = calendar.View;
+        DateTimeFormat = calendar.DateTimeFormat;
     }
+    
+    /// <summary>
+    /// Gets the user defined DateTimeFormat to use for the calendar.
+    /// </summary>
+
+    public string? DateTimeFormat { get; set; }
 
     /// <summary>
     /// Gets the CalendarExtended to use for the calendar.
