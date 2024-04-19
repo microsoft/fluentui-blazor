@@ -6429,6 +6429,13 @@
             How narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.FixedPlacement">
+            <summary>
+            Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+            Otherwise the region uses "position: absolute".
+            Fixed placement allows the region to break out of parent containers.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.Open">
             <summary>
             Gets or sets popover opened state.
