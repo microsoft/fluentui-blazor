@@ -3517,6 +3517,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.CurrentSize">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Spacing">
             <summary>
             Gets or sets the distance between flexbox items, using a multiple of 4px.
@@ -3526,6 +3529,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Justify">
             <summary>
             Defines how the browser distributes space between and around content items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ChildContent">
@@ -3591,6 +3600,12 @@
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenWhen">
             <summary>
             Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
@@ -3606,6 +3621,12 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenAttribute">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.RenderChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.ConvertToHidden(Microsoft.FluentUI.AspNetCore.Components.GridItemSize)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.GetHiddenAttribute(System.Nullable{Microsoft.FluentUI.AspNetCore.Components.GridItemHidden})">
