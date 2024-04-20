@@ -1,7 +1,17 @@
-﻿<FluentDatePicker Label="Meeting date" @bind-Value="@SelectedValue" ReadOnly />
-<FluentDatePicker AriaLabel="To" @bind-Value="@SelectedValue" />
-<FluentDatePicker AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" DateTimeFormat="yyyy MMMM" />
-<FluentDatePicker AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" DateTimeFormat="yyyy" />
+﻿<div style="display: flex; flex-direction:row;  ">
+    <div style="margin-right: 10px;">
+        <FluentDatePicker Label="Meeting date" @bind-Value="@SelectedValue" ReadOnly />
+    </div>
+    <div style="margin-right: 10px;">
+        <FluentDatePicker Label="Days view" AriaLabel="To" @bind-Value="@SelectedValue" />
+    </div>
+    <div style="margin-right: 10px;">
+        <FluentDatePicker Label="Months view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" DateTimeFormat="yyyy MMMM" />
+    </div>
+    <div>
+        <FluentDatePicker Label="Years view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" DateTimeFormat="yyyy-01-01 - yyyy-12-31" />
+    </div>
+</div>
 <p>Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
 @code
 {
