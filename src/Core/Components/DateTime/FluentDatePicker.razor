@@ -1,6 +1,16 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentCalendarBase
 
+@code {
+    private string FormatAccardingToView()
+    => View switch
+    {
+        CalendarViews.Years => "yyyy",
+        CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+        _ => Culture.DateTimeFormat.ShortDatePattern
+    };
+}
+
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <FluentTextField Id="@Id"
                  Embedded="true"
@@ -10,11 +20,11 @@
                  Autofocus="@Autofocus"
                  Appearance="@Appearance"
                  @bind-Value="@CurrentValueAsString"
-                 @onclick="@OnCalendarOpenHandlerAsync" 
+                 @onclick="@OnCalendarOpenHandlerAsync"
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
-                 Placeholder="@(Placeholder ?? DateTimeFormat ?? Culture.DateTimeFormat.ShortDatePattern)"
+                 Placeholder="@(Placeholder ?? FormatAccardingToView())"
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     @((MarkupString)CalendarIcon)
@@ -32,7 +42,6 @@
                           Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
         <FluentCalendar Culture="@Culture"
                         View="@View"
-                        DateTimeFormat="@DateTimeFormat"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"
                         DisabledSelectable="@DisabledSelectable"

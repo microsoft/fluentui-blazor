@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -39,7 +40,13 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override string? FormatValueAsString(DateTime? value)
     {
-        return Value?.ToString(DateTimeFormat ?? Culture.DateTimeFormat.ShortDatePattern, Culture);
+        return Value?.ToString(View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+
+        }, Culture);
     }
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)
@@ -76,7 +83,14 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        BindConverter.TryConvertTo(value, Culture, out result);
+        if (Regex.IsMatch(value ?? "", @"^\d{4}$"))
+        {
+            result = new DateTime(Convert.ToInt32(value), 1, 1);
+        }
+        else
+        {
+            BindConverter.TryConvertTo(value, Culture, out result);
+        }
         validationErrorMessage = null;
         return true;
     }

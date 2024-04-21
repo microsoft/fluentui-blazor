@@ -47,12 +47,6 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
-    /// </summary>
-    [Parameter]
-    public virtual string? DateTimeFormat { get; set; } = null;
-    
-    /// <summary>
     /// Gets or sets the selected date (two-way bindable).
     /// </summary>
     [Parameter]

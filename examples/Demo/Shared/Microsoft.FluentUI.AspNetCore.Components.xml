@@ -1902,11 +1902,6 @@
             </summary>
             <param name="calendar"></param>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.DateTimeFormat">
-            <summary>
-            Gets the user defined DateTimeFormat to use for the calendar.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.CalendarTitles.CalendarExtended">
             <summary>
             Gets the CalendarExtended to use for the calendar.
@@ -2070,11 +2065,6 @@
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.View">
-            <summary>
-            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DateTimeFormat">
             <summary>
             Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
