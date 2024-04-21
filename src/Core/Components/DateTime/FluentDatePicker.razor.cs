@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -85,12 +86,11 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         if (Regex.IsMatch(value ?? "", @"^\d{4}$"))
         {
-            result = new DateTime(Convert.ToInt32(value), 1, 1);
+            value = new DateTime(Convert.ToInt32(value), 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
         }
-        else
-        {
-            BindConverter.TryConvertTo(value, Culture, out result);
-        }
+
+        BindConverter.TryConvertTo(value, Culture, out result);
+
         validationErrorMessage = null;
         return true;
     }
