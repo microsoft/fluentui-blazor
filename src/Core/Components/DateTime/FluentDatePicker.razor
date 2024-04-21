@@ -1,16 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentCalendarBase
 
-@code {
-    private string PlaceholderAccordingToView()
-    => View switch
-    {
-        CalendarViews.Years => "yyyy",
-        CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
-        _ => Culture.DateTimeFormat.ShortDatePattern
-    };
-}
-
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <FluentTextField Id="@Id"
                  Embedded="true"

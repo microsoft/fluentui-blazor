@@ -15,7 +15,7 @@ internal class CalendarTitles
         CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth);
         View = calendar.View;
     }
-    
+
     /// <summary>
     /// Gets the CalendarExtended to use for the calendar.
     /// </summary>

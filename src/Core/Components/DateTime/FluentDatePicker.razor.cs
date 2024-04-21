@@ -83,9 +83,9 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        if (Regex.IsMatch(value ?? "", @"^\d{4}$"))
+        if (View == CalendarViews.Years && int.TryParse(value, out var year))
         {
-            value = new DateTime(Convert.ToInt32(value), 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
+            value = new DateTime(year, 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
         }
 
         BindConverter.TryConvertTo(value, Culture, out result);
@@ -93,4 +93,12 @@ public partial class FluentDatePicker : FluentCalendarBase
         validationErrorMessage = null;
         return true;
     }
+
+    private string PlaceholderAccordingToView()
+        => View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+        };
 }
