@@ -2,7 +2,7 @@
 @inherits FluentCalendarBase
 
 @code {
-    private string FormatAccardingToView()
+    private string PlaceholderAccordingToView()
     => View switch
     {
         CalendarViews.Years => "yyyy",
@@ -24,7 +24,7 @@
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
-                 Placeholder="@(Placeholder ?? FormatAccardingToView())"
+                 Placeholder="@(Placeholder ?? PlaceholderAccordingToView())"
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     @((MarkupString)CalendarIcon)
