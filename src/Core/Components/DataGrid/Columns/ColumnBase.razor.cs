@@ -100,6 +100,13 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter] public RenderFragment<PlaceholderContext>? PlaceholderTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the width of the column.
+    /// Use either this or the <see cref="FluentDataGrid{TGridItem}"/> GridTemplateColumns parameter but not both.
+    /// Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
+    /// </summary>
+    [Parameter] public string? Width { get; set; }
+
+    /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
     public FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;

@@ -16,7 +16,7 @@
         <fluent-data-grid @ref=_gridReference
                           no-tabbing=@NoTabbing
                           generate-header="none"
-                          grid-template-columns=@GridTemplateColumns
+                          grid-template-columns=@_internalGridTemplateColumns
                           class="@GridClass()"
                           style="@Style"
                           aria-rowcount="@(_ariaBodyRowCount + 1)"
@@ -92,7 +92,7 @@
         var rowClass = RowClass?.Invoke(item) ?? null;
         var rowStyle = RowStyle?.Invoke(item) ?? null;
         Loading = false;
-        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@GridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
+        <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@_internalGridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];

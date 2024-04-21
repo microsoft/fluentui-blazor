@@ -107,6 +107,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
+    /// Can be specified here or on the column level with the Width parameter but not both.
+    /// Needs to be a valid CSS string of space-separated values, such as "auto 1fr 2fr 100px".
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
@@ -187,6 +189,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
+
+    private string? _internalGridTemplateColumns;
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such

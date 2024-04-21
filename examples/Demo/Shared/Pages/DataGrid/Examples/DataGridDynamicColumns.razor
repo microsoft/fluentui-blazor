@@ -7,17 +7,21 @@
 </p>
 
 
-    <FluentDataGrid Items="@Data.People" GridTemplateColumns="0.5fr 1fr 1fr" style="width: 500px;">
-        <PropertyColumn Title="ID" Property="@(c => c.PersonId)" Sortable="true" />
+    <FluentDataGrid Items="@Data.People" Style="width: 500px;">
+        <PropertyColumn Title="ID" Property="@(c => c.PersonId)" Sortable="true" Width="100px" />
         @if (showName)
         {
-            <TemplateColumn Title="Name">
+            <TemplateColumn Title="Name" Width="200px">
                 <strong>@context.LastName</strong>, @context.FirstName
             </TemplateColumn>
         }
         @if (showBirthDate)
         {
-            <PropertyColumn Title="Birth date" Property="@(c => c.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+            <PropertyColumn Title="Birth date"
+                            Property="@(c => c.BirthDate)"
+                            Format="yyyy-MM-dd"
+                            Sortable="true"
+                            Width="200px"/>
         }
     </FluentDataGrid>
 

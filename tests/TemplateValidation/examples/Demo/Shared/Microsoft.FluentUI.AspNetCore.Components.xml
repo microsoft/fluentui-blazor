@@ -1277,11 +1277,11 @@
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.Comparer">
-            <summary>
-            Optionally specifies how to compare values in this column when sorting.
+             <summary>
+             Optionally specifies how to compare values in this column when sorting.
             
-            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
-            </summary>
+             Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
