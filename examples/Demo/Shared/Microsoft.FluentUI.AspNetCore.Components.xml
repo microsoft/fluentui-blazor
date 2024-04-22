@@ -1340,11 +1340,11 @@
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.Comparer">
-            <summary>
-            Optionally specifies how to compare values in this column when sorting.
+             <summary>
+             Optionally specifies how to compare values in this column when sorting.
             
-            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
-            </summary>
+             Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
@@ -1955,11 +1955,6 @@
             Defines the appearance of a Day cell.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.View">
-            <summary>
-            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
             <summary>
             Gets ot sets if the calendar items are animated during a period change.
@@ -2067,6 +2062,11 @@
             <summary>
             Gets or sets the verification to do when the selected value has changed.
             By default, ValueChanged is called only if the selected value has changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.View">
+            <summary>
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">

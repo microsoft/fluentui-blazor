@@ -39,7 +39,13 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override string? FormatValueAsString(DateTime? value)
     {
-        return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture);
+        return Value?.ToString(View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+
+        }, Culture);
     }
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)
@@ -76,8 +82,22 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        if (View == CalendarViews.Years && int.TryParse(value, out var year))
+        {
+            value = new DateTime(year, 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
+        }
+
         BindConverter.TryConvertTo(value, Culture, out result);
+
         validationErrorMessage = null;
         return true;
     }
+
+    private string PlaceholderAccordingToView()
+        => View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+        };
 }
