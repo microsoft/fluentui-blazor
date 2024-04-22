@@ -107,7 +107,6 @@ public partial class FluentKeyCode : IAsyncDisposable
             _dotNetHelper = DotNetObjectReference.Create(this);
 
             _javaScriptEventId = await Module.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
-            Console.WriteLine("[FluentKeyCode] Registered: " + _javaScriptEventId);
         }
     }
 
