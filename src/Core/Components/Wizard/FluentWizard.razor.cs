@@ -132,6 +132,7 @@ public partial class FluentWizard : FluentComponentBase
     [Parameter]
     public GridItemHidden? StepTitleHiddenWhen { get; set; } = GridItemHidden.XsAndDown;
 
+    /// Default is <see cref="WizardFlexibleSteps.Linear"/>.
     /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
     {
