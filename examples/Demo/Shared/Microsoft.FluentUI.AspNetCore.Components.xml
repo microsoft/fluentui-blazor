@@ -1169,6 +1169,13 @@
             If specified, virtualized grids will use this template to render cells whose data has not yet been loaded.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Width">
+            <summary>
+            Gets or sets the width of the column.
+            Use either this or the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> GridTemplateColumns parameter but not both.
+            Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
@@ -1479,6 +1486,8 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns">
             <summary>
             Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
+            Can be specified here or on the column level with the Width parameter but not both.
+            Needs to be a valid CSS string of space-separated values, such as "auto 1fr 2fr 100px".
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowFocus">
@@ -3554,7 +3563,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.CurrentSize">
@@ -7012,7 +7021,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
