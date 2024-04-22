@@ -69,10 +69,11 @@
 
 /* Icon Number */
 .fluent-wizard > ol > li .fluent-wizard-icon-number {
-    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 3px);
+    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 4px);
     font-size: small;
     color: var(--accent-fill-rest);
     text-align: center;
+    align-content: center;
 }
 
 .fluent-wizard[position="top"] > ol > li .fluent-wizard-icon-number {
