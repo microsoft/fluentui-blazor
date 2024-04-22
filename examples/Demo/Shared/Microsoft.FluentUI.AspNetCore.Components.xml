@@ -13242,26 +13242,26 @@
             Gets the size of the panel 2 (bottom/right) after a resize operation.
             </summary>  
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary> Determines whether two sets of attributes are equal when rendered. </summary>
             <param name="x">The compared set</param>
             <param name="y">The set to compare with</param>
             <remarks></remarks>
             <returns><c>true</c> if both sets render the same attributes; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions">
             <summary>
             Extension methods for <see cref="T:System.DateTime"/>.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToIsoDateString(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToIsoDateString(System.Nullable{System.DateTime})">
             <summary>
             Returns a string in the ISO format yyyy-MM-dd.
             </summary>
             <param name="self"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the month.
             </summary>
@@ -13269,7 +13269,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the year
             </summary>
@@ -13277,7 +13277,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the last day of the month.
             </summary>
@@ -13285,7 +13285,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
             <summary>
             Returns the first day of the week.
             </summary>
@@ -13293,7 +13293,7 @@
             <param name="firstDayOfWeek"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the week.
             </summary>
@@ -13301,7 +13301,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
             <summary>
             Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
             </summary>
@@ -13310,21 +13310,21 @@
             <returns></returns>
             <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.DateOnly)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.DateOnly)">
             <summary>
             Converts the DateOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.TimeOnly)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.TimeOnly)">
             <summary>
             Converts the TimeOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.Nullable{System.DateOnly})">
             <summary>
             Converts the nullable DateOnly to an equivalent DateTime.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13332,7 +13332,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.TimeOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.Nullable{System.TimeOnly})">
             <summary>
             Converts the nullable TimeOnly to an equivalent DateTime.
             Returns <see cref="F:System.DateTime.MinValue"/> if the <paramref name="value"/> is null.
@@ -13340,21 +13340,21 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.DateOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.DateOnly})">
             <summary>
             Converts the nullable DateOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.TimeOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.TimeOnly})">
             <summary>
             Converts the nullable TimeOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateTime.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13362,7 +13362,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnly(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateOnly(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateOnly, removing the time part.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13370,7 +13370,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeOnly(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeOnly(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent TimeOnly, removing the time part.
             Returns <see cref="P:System.TimeOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13378,21 +13378,21 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnlyNullable(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateOnlyNullable(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateOnly?, removing the time part.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeOnlyNullable(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeOnlyNullable(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the year
             </summary>
@@ -13400,7 +13400,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the month
             </summary>
@@ -13408,7 +13408,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the day
             </summary>
@@ -13416,7 +13416,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
             <summary>
             Returns the DateTime resulting from adding the given number of
             days to the specified DateTime.
@@ -13426,7 +13426,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
             <summary>
             Returns the DateTime resulting from adding the given number of
             months to the specified DateTime.
@@ -13436,7 +13436,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
             <summary>
             Returns the DateTime resulting from adding the given number of
             years to the specified DateTime.
@@ -13446,7 +13446,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the name of the month
             </summary>
@@ -13467,9 +13467,6 @@
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.StringExtensions.ToPercentage(System.Decimal)">
-            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GlobalState">
             <summary>
