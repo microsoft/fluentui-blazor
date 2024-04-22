@@ -1,4 +1,5 @@
 using System.Collections;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
