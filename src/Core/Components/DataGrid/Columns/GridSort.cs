@@ -60,6 +60,18 @@ public sealed class GridSort<TGridItem>
             (expression, false));
 
     /// <summary>
+    /// Produces a <see cref="GridSort{T}"/> instance that sorts according to the specified <paramref name="expression"/> 
+    /// using the specified <paramref name="comparer"/>, descending.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public static GridSort<TGridItem> ByDescending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+        => new((queryable, asc) => asc ? queryable.OrderByDescending(expression, comparer) : queryable.OrderBy(expression, comparer),
+            (expression, false));
+
+    /// <summary>
     /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
     /// </summary>
     /// <typeparam name="U">The type of the expression's value.</typeparam>
@@ -67,13 +79,25 @@ public sealed class GridSort<TGridItem>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public GridSort<TGridItem> ThenAscending<U>(Expression<Func<TGridItem, U>> expression)
     {
-        _then ??= [];
-        _thenExpressions ??= [];
-        _then.Add((queryable, asc) => asc ? queryable.ThenBy(expression) : queryable.ThenByDescending(expression));
-        _thenExpressions.Add((expression, true));
-        _cachedPropertyListAscending = null;
-        _cachedPropertyListDescending = null;
-        return this;
+        return AddThenExpression(
+            (queryable, asc) => asc ? queryable.ThenBy(expression) : queryable.ThenByDescending(expression),
+            (expression, true)
+        );
+    }
+
+    /// <summary>
+    /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public GridSort<TGridItem> ThenAscending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+    {
+        return AddThenExpression(
+            (queryable, asc) => asc ? queryable.ThenBy(expression, comparer) : queryable.ThenByDescending(expression, comparer),
+            (expression, true)
+        );
     }
 
     /// <summary>
@@ -84,12 +108,91 @@ public sealed class GridSort<TGridItem>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public GridSort<TGridItem> ThenDescending<U>(Expression<Func<TGridItem, U>> expression)
     {
+        return AddThenExpression(
+            (queryable, asc) => asc ? queryable.ThenByDescending(expression) : queryable.ThenBy(expression),
+            (expression, false));
+    }
+
+    /// <summary>
+    /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public GridSort<TGridItem> ThenDescending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+    {
+        return AddThenExpression(
+            (queryable, asc) => asc ? queryable.ThenByDescending(expression, comparer) : queryable.ThenBy(expression, comparer),
+            (expression, false)
+        );
+    }
+
+    /// <summary>
+    /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public GridSort<TGridItem> ThenAlwaysAscending<U>(Expression<Func<TGridItem, U>> expression)
+    {
+        return AddThenExpression(
+            (queryable, _) => queryable.ThenBy(expression),
+            (expression, true));
+    }
+
+    /// <summary>
+    /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public GridSort<TGridItem> ThenAlwaysAscending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+    {
+        return AddThenExpression(
+            (queryable, _) => queryable.ThenBy(expression, comparer),
+            (expression, true)
+        );
+    }
+
+    /// <summary>
+    /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public GridSort<TGridItem> ThenAlwaysDescending<U>(Expression<Func<TGridItem, U>> expression)
+    {
+        return AddThenExpression(
+            (queryable, _) => queryable.ThenByDescending(expression),
+            (expression, false));
+    }
+
+    /// <summary>
+    /// Updates a <see cref="GridSort{T}"/> instance by appending a further sorting rule.
+    /// </summary>
+    /// <typeparam name="U">The type of the expression's value.</typeparam>
+    /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+    /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+    /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+    public GridSort<TGridItem> ThenAlwaysDescending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+    {
+        return AddThenExpression(
+            (queryable, _) => queryable.ThenByDescending(expression, comparer),
+            (expression, false)
+        );
+    }
+
+    private GridSort<TGridItem> AddThenExpression(Func<IOrderedQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>> thenSortExpression, (LambdaExpression, bool) thenExpression)
+    {
         _then ??= [];
         _thenExpressions ??= [];
-        _then.Add((queryable, asc) => asc ? queryable.ThenByDescending(expression) : queryable.ThenBy(expression));
-        _thenExpressions.Add((expression, false));
+        _then.Add(thenSortExpression);
+        _thenExpressions.Add(thenExpression);
         _cachedPropertyListAscending = null;
         _cachedPropertyListDescending = null;
+
         return this;
     }
 

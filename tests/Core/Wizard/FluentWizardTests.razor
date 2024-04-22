@@ -317,7 +317,7 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, true);
+        Assert.True(finishHandled);
     }
 
     [Fact]
@@ -369,7 +369,7 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, false);
+        Assert.False(finishHandled);
     }
 
     [Fact]
@@ -421,7 +421,7 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, false);
+        Assert.False(finishHandled);
     }
 
     private record TestRecord

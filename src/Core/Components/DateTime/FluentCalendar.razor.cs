@@ -44,12 +44,12 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         get
         {
-            return FirstDayOfMonth(_pickerMonth ?? Value ?? DateTime.Today);
+            return (_pickerMonth ?? Value ?? DateTime.Today).StartOfMonth(Culture);
         }
 
         set
         {
-            var month = FirstDayOfMonth(value);
+            var month = value.StartOfMonth(Culture);
 
             if (month == _pickerMonth)
             {
@@ -72,12 +72,6 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     [Parameter]
     public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
-
-    /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
-    /// </summary>
-    [Parameter]
-    public CalendarViews View { get; set; } = CalendarViews.Days;
 
     /// <summary>
     /// Gets ot sets if the calendar items are animated during a period change.
@@ -116,15 +110,15 @@ public partial class FluentCalendar : FluentCalendarBase
         switch (View)
         {
             case CalendarViews.Days:
-                PickerMonth = PickerMonth.AddMonths(-1);
+                PickerMonth = PickerMonth.AddMonths(-1, Culture);
                 break;
 
             case CalendarViews.Months:
-                PickerMonth = PickerMonth.AddYears(-1);
+                PickerMonth = PickerMonth.AddYears(-1, Culture);
                 break;
 
             case CalendarViews.Years:
-                PickerMonth = PickerMonth.AddYears(-12);
+                PickerMonth = PickerMonth.AddYears(-12, Culture);
                 break;
         }
     }
@@ -137,15 +131,15 @@ public partial class FluentCalendar : FluentCalendarBase
         switch (View)
         {
             case CalendarViews.Days:
-                PickerMonth = PickerMonth.AddMonths(+1);
+                PickerMonth = PickerMonth.AddMonths(+1, Culture);
                 break;
 
             case CalendarViews.Months:
-                PickerMonth = PickerMonth.AddYears(+1);
+                PickerMonth = PickerMonth.AddYears(+1, Culture);
                 break;
 
             case CalendarViews.Years:
-                PickerMonth = PickerMonth.AddYears(+12);
+                PickerMonth = PickerMonth.AddYears(+12, Culture);
                 break;
         }
     }
@@ -155,7 +149,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         if (!isReadOnly)
         {
-            Value = new DateTime(year, month, 1);
+            Value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
         }
         return Task.CompletedTask;
     }
@@ -165,7 +159,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         if (!isReadOnly)
         {
-            Value = new DateTime(year, 1, 1);
+            Value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
         }
         return Task.CompletedTask;
     }
@@ -183,22 +177,14 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <param name="year"></param>
     /// <param name="month"></param>
     /// <returns></returns>
-    private FluentCalendarMonth GetMonthProperties(int? year, int? month) => new(this, new DateTime(year ?? PickerMonth.Year, month ?? PickerMonth.Month, 1));
+    private FluentCalendarMonth GetMonthProperties(int? year, int? month) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), month ?? PickerMonth.GetMonth(Culture), 1, 0, 0, 0, 0));
 
     /// <summary>
     /// Returns the class name to display a year (year, inactive, disable).
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private FluentCalendarYear GetYearProperties(int? year) => new(this, new DateTime(year ?? PickerMonth.Year, 1, 1));
-
-    /// <summary />
-    private DateTime FirstDayOfMonth(DateTime value)
-    {
-        return View == CalendarViews.Years
-             ? value.Day == 1 && value.Month == 1 ? value : new DateTime(value.Year, 1, 1)
-             : value.Day == 1 ? value : new DateTime(value.Year, value.Month, 1);
-    }
+    private FluentCalendarYear GetYearProperties(int? year) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), 1, 1, 0, 0, 0, 0));
 
     /// <summary />
     private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);

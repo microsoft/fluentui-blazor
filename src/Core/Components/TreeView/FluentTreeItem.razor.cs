@@ -167,5 +167,4 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             await tree.ItemSelectedChangeAsync(this);
         }
     }
-
 }

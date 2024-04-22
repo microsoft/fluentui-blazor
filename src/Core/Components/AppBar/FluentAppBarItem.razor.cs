@@ -11,9 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAppBarItem : FluentComponentBase, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
     /// <summary>
     /// Gets or sets the URL for this item.
     /// </summary>
@@ -52,6 +49,12 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     public string? Tooltip { get; set; }
 
     /// <summary>
+    /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
+    /// </summary>
+    [Parameter]
+    public int Count { get; set; } = 0;
+
+    /// <summary>
     ///  Gets or sets the content to be shown.
     /// </summary>
     [Parameter]
@@ -86,6 +89,11 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     protected override void OnInitialized()
     {
         Owner!.Register(this);
+
+        if (string.IsNullOrWhiteSpace(Href))
+        {
+            Match = NavLinkMatch.All;
+        }
     }
 
     internal void SetProperties(bool? overflow)

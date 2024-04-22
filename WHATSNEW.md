@@ -1,3 +1,95 @@
+## v4.7.0
+
+### Breaking change
+- [Extensions] Add a namespace for extension methods to prevent possible naming clashes ([#1776](https://github.com/microsoft/fluentui-blazor/pull/1776))
+
+### Demo site and documentation 
+- [Docs] Update Progress stroke examples dropdowns ([#1835](https://github.com/microsoft/fluentui-blazor/pull/1835))
+- [Docs] Update KeyCodeGlobalExample.razor.css to fix dark mode visuals ([#1834](https://github.com/microsoft/fluentui-blazor/pull/1834))
+- [Docs] Update Highlighter example to use FluentTextField instead of input ([#1833](https://github.com/microsoft/fluentui-blazor/pull/1833))
+- [Demo] Fix the Profile Menu position ([#1841](https://github.com/microsoft/fluentui-blazor/pull/1841))
+- [Demo] Clears demo site cache on startup if new version ([#1839](https://github.com/microsoft/fluentui-blazor/pull/1839))
+
+### Components
+- [AppBar] Apply role requirements ([#1871](https://github.com/microsoft/fluentui-blazor/pull/1871))
+- [Calendar] Use provided Culture for calendar operations ([#1862](https://github.com/microsoft/fluentui-blazor/pull/1862))
+- [DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+- [DataGrid] Add column Width parameter ([#1902](https://github.com/microsoft/fluentui-blazor/pull/1902))
+- [DataGrid] Add SortBy parameter support for PropertyColumn ([#1877](https://github.com/microsoft/fluentui-blazor/pull/1877))
+- [DataGrid] Extend GridSort possibilities ([#1860](https://github.com/microsoft/fluentui-blazor/pull/1860))
+- [DatePicker] Enhance for month /year selection  ([#1903](https://github.com/microsoft/fluentui-blazor/pull/1903))
+- [Grid] Add AdaptiveRendering property ([#1899](https://github.com/microsoft/fluentui-blazor/pull/1899))
+- [Input] NotifyFieldChanged is called twice for all FluentInputBase derived components ([#1846](https://github.com/microsoft/fluentui-blazor/pull/1846))
+- [MenuButton] Add ChildContent so items can be supplied manually ([#1848](https://github.com/microsoft/fluentui-blazor/pull/1848))
+- [Paginator] spelling issue in FluentPaginator.razor.cs ([#1829](https://github.com/microsoft/fluentui-blazor/pull/1829))
+- [Popover] adds FixedPlacement parameter ([#1894](https://github.com/microsoft/fluentui-blazor/pull/1894))
+- [PullToRefresh] Add DragThreshold to PullToRefresh ([#1858](https://github.com/microsoft/fluentui-blazor/pull/1858))
+- [Select] Allow value to be set when component is disabled ([#1892](https://github.com/microsoft/fluentui-blazor/pull/1892))
+- [Slider] Fixes thumb redraw issues (Fix for #1836) ([#1873](https://github.com/microsoft/fluentui-blazor/pull/1873))
+- [Wizard] Fix the Wizard bullet number style ([#1905](https://github.com/microsoft/fluentui-blazor/pull/1905))
+
+### Miscellaneous
+- [Aspire] Fix #3364 by adding IKeyCodeListner and handler ([#1866](https://github.com/microsoft/fluentui-blazor/pull/1866))
+- [Pipeline] Add Code Coverage Report ([#1861](https://github.com/microsoft/fluentui-blazor/pull/1861))
+
+## v4.6.2
+
+### Components
+[DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+
+## V4.6.1
+
+### Demo site and documentation 
+- [Demo & docs] Fix documentation error ([#1767](https://github.com/microsoft/fluentui-blazor/pull/1767))
+- [Demo & docs] Home page cleanup ([#1763](https://github.com/microsoft/fluentui-blazor/pull/1763))
+- [Demo & docs] Removes caching of markdown files for Server demo app ([#1822](https://github.com/microsoft/fluentui-blazor/pull/1822))
+- [Demo & docs] Fix footer styling ([#1778](https://github.com/microsoft/fluentui-blazor/pull/1778))
+- [Demo & docs] CSS files improvements ([#1807](https://github.com/microsoft/fluentui-blazor/pull/1807))
+- [Demo & docs] The empty CSS rule in site.css has been removed ([#1809](https://github.com/microsoft/fluentui-blazor/pull/1809))
+
+
+### Components
+- [AppBar] Add Count parameter and facilitate OnClick without navigation ([#1790](https://github.com/microsoft/fluentui-blazor/pull/1790))
+- [CounterBadge] Add ShowWhen, Dot, and VerticalPosition ([#1786](https://github.com/microsoft/fluentui-blazor/pull/1786))
+- [KeyCode, AnchoredRegion, Popover] Add key navigation in AnchoredRegion / Popup ([#1800](https://github.com/microsoft/fluentui-blazor/pull/1800))
+- [NavMenu] Show child items via `FluentMenu` when collapsed ([#1730](https://github.com/microsoft/fluentui-blazor/pull/1730))
+- [Persona] Add capability for the name to appear before or after initials. ([#1750](https://github.com/microsoft/fluentui-blazor/pull/1750))
+- [ProfileMenu] TopCorner property ([#1795](https://github.com/microsoft/fluentui-blazor/pull/1795))
+- [SplashScreen] Fix ESC on SplashScreen ([#1811](https://github.com/microsoft/fluentui-blazor/pull/1811))
+
+### Miscellaneous
+- [Misc] Update to latest NuGet packages, SDK and Web Components script
+- [Templates] CSS fixes and use specific package versions ([#1797](https://github.com/microsoft/fluentui-blazor/pull/1797))
+- [Templates] Fixed CSS styling of the Blazor Fluent UI template AND fixed broken links in readme.md ([#1768](https://github.com/microsoft/fluentui-blazor/pull/1768))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.234 ([#1823](https://github.com/microsoft/fluentui-blazor/pull/1823))
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Apps Settings / 16, 20 / Filled & Regular
+    - Apps Shield / 16, 20 / Filled & Regular
+    - Arrow Upload / 32 / Filled & Regular
+    - Calendar Edit / 32 / Filled & Regular
+    - Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
+    - Haptic Strong / 16, 20, 24 / Filled & Regular
+    - Haptic Weak / 16, 20, 24 / Filled & Regular
+    - Hexagon Sparkle / 20, 24 / Filled & Regular
+    - Mail Edit / 32 / Filled & Regular
+    - Password Clock / 48 / Filled & Regular
+    - Password Reset / 48 / Filled & Regular
+    - Password / 24, 32, 48 / Filled & Regular
+    - People Eye / 16, 20 / Filled & Regular
+    - Pin Globe / 16, 20 / Filled & Regular
+    - Run / 28, 32, 48 / Filled & Regular
+    - Tab Group / 16, 20, 24 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Upload / 24 / Filled & Regular
+    - Calendar Edit / 16, 20, 24 / Filled & Regular
+    - Mail Read / 20 / Filled & Regular
+    - Password / 24 / Filled & Regular
+    - Run / 16, 20, 24 / Filled & Regular
+
 ## V4.6.0
 
 ### Demo site, documentation and miscellaneous

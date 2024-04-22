@@ -1,15 +1,14 @@
-
 ::deep .fluent-appbar-item {
     width: 100%;
     --appbar-active-indicator-width: calc(var(--design-unit) * 0.5px);
-    height: 56px;
+    height: var(--appbar-item-height, 56px);
 }
 
     ::deep .fluent-appbar-item:hover {
         background-color: var(--neutral-fill-secondary-rest);
     }
 
-::deep a[role="listitem"] {
+::deep a {
     color: inherit;
     text-decoration: none;
     font-size: var(--type-ramp-minus-2-font-size);
@@ -20,7 +19,7 @@
     width: 100%;
 }
 
-::deep a[role="listitem"] .stack-vertical {
+::deep a .stack-vertical {
     padding: calc(var(--design-unit) * 1px) calc(var(--appbar-active-indicator-width) + (var(--design-unit) * 1.5px));
     height: 100%;
 }
@@ -33,7 +32,7 @@
     text-align: center;
 }
 
-::deep .fluent-appbar-item:not(.popover) a[role="listitem"].active::before {
+::deep .fluent-appbar-item:not(.popover) a.active::before {
     content: "";
     position: absolute;
     width: var(--appbar-active-indicator-width);
@@ -45,7 +44,7 @@
     right: unset;
 }
 
-[dir='rtl'] * ::deep .fluent-appbar-item:not(.popover) a[role="listitem"].active::before {
+[dir='rtl'] * ::deep .fluent-appbar-item:not(.popover) a.active::before {
     right: calc(var(--design-unit) * 0.5px);
     left: unset;
 }
@@ -54,9 +53,9 @@
     margin-top: 0 !important;
 }
 
-::deep .fluent-appbar-item[role="listitem"]:hover svg[part="icon-rest"],
-::deep .fluent-appbar-item[role="listitem"]:not(:hover):not(.active) svg[part="icon-active"],
-::deep .fluent-appbar-item[role="listitem"]:not(:hover).active svg[part="icon-rest"],
+::deep .fluent-appbar-item:hover svg[part="icon-rest"],
+::deep .fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
+::deep .fluent-appbar-item:not(:hover).active svg[part="icon-rest"],
 ::deep .fluent-appbar-item[overflow] {
     display: none;
 }

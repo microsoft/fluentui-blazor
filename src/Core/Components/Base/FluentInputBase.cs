@@ -203,7 +203,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             _parsingFailed = false;
             CurrentValue = default!;
         }
-        else if (TryParseValueFromString(value, out TValue? parsedValue, out var validationErrorMessage))
+        else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
         {
             _parsingFailed = false;
             await SetCurrentValueAsync(parsedValue);

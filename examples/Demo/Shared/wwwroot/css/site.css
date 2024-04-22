@@ -35,9 +35,14 @@ body {
     }
 
     .siteheader .settings {
-        padding-right: 6px;
         display: flex;
         align-items: center;
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+    .siteheader .profile {
+        padding-right: 16px;
         margin-left: 0;
         margin-right: 10px;
     }
@@ -201,6 +206,14 @@ code {
     background-color: var(--neutral-fill-secondary-hover);
 }
 
+kbd {
+    padding: 0.10rem 0.25rem;
+    font-size: 0.875em;
+    color: var(--neutral-foreground-rest);
+    background-color: var(--neutral-fill-secondary-rest);
+    border-radius: 0.25rem;
+    border: 1px solid var(--accent-fill-rest);
+}
 
 #blazor-error-ui {
     background: lightyellow;
@@ -379,9 +392,6 @@ code {
             nav ul {
                 margin: 0 0;
             }
-
-                nav ul li {
-                }
     }
 }
 

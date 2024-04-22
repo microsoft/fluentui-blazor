@@ -55,13 +55,13 @@ public partial class FluentToast : FluentComponentBase, IDisposable
 
     public void PauseTimeout()
     {
-        Console.WriteLine("PauseTimeout");
+        Console.WriteLine("[FluentToast] Pause Timeout");
         _countdownTimer?.Pause();
     }
 
     public void ResumeTimeout()
     {
-        Console.WriteLine("ResumeTimeout");
+        Console.WriteLine("[FluentToast] Resume Timeout");
         _countdownTimer?.Resume();
     }
 

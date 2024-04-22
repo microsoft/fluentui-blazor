@@ -95,6 +95,9 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Anchor">
             <summary>
             Gets or sets the HTML ID of the anchor element this region is positioned relative to.
@@ -200,6 +203,26 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.AutoFocus">
+            <summary>
+            Gets or sets whether the element should receive the focus when the component is loaded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.FocusToNextElementAsync">
+            <summary>
+            Moves the focus to the next element included in this anchor region only.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.FocusToOriginalElementAsync">
+            <summary>
+            Moves the focus to the initial element that triggered the anchor region.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
             <summary>
@@ -327,6 +350,11 @@
             Gets or sets the tooltip to show when the item is hovered.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Count">
+            <summary>
+            Gets or sets the count to show on the item with a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
             <summary>
              Gets or sets the content to be shown.
@@ -417,7 +445,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Id">
             <summary>
-            Gets or sets the unique identifier. If not provided, a random value will be generated.
+            Gets or sets the unique identifier.
             The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
             </summary>
         </member>
@@ -967,6 +995,11 @@
             Gets or sets the content you want inside the badge, to customize the badge content.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.BadgeTemplate">
+            <summary>
+            Gets or sets the content you want inside the badge, to customize the badge content.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.Max">
             <summary>
             Gets or sets the maximum number that can be displayed inside the badge.
@@ -975,14 +1008,21 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.HorizontalPosition">
             <summary>
-            Gets or sets the left position of the badge in percentage.
-            By default, this value is 50 to center the badge.
+            Gets or sets the horizontal position of the badge in percentage in relation to the left of the container (right in RTL).
+            Default value is 60 (80 when Dot=true).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.BottomPosition">
             <summary>
             Gets or sets the bottom position of the badge in percentage.
-            By default, this value is 50 to center the badge.
+            [Obsolete] This parameter will be removed in a future version. Use VerticalPosition instead.
+            Default value is 60 (80 when Dot=true).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.VerticalPosition">
+            <summary>
+            Gets or sets the vertical position of the badge in percentage in relation to the bottom of the container.
+            Default value is 60 (80 when Dot=true).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.Appearance">
@@ -1000,10 +1040,25 @@
             Gets or sets the font color to replace the color inferred from property.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.Dot">
+            <summary>
+             Gets or sets if just a dot should be displayed. Count will be ignored if this is set to true.
+             Defaults to false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.ShowZero">
              <summary>
              If the counter badge should be displayed when the count is zero.
              Defaults to false.
+             [Obsolete] This parameter will be removed in a future version. Use ShowWhen with a lambda expression instead
+             For getting the same behavior as before, you can use ShowWhen="@(Count => Count >= 0)"
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.ShowWhen">
+            <summary>
+            Gets or sets if the counter badge is displayed based on the specified lambda expression.
+            For example to show the badge when the count greater than 4, use ShowWhen=@(Count => Count > 4)
+            Default the badge shows when the count is greater than 0.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.ShowOverflow">
@@ -1029,20 +1084,20 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title">
             <summary>
-            Gets or sets the title text for the column. 
+            Gets or sets the title text for the column.
             This is rendered automatically if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
             <summary>
-            Gets or sets the an optional CSS class name. 
+            Gets or sets the an optional CSS class name.
             If specified, this is included in the class attribute of header and grid cells
             for this column.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Style">
             <summary>
-            Gets or sets an optional CSS style specification. 
+            Gets or sets an optional CSS style specification.
             If specified, this is included in the style attribute of header and grid cells
             for this column.
             </summary>
@@ -1064,7 +1119,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate">
             <summary>
-            Gets or sets an optional template for this column's header cell. 
+            Gets or sets an optional template for this column's header cell.
             If not specified, the default header template includes the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Title" /> along with any applicable sort indicators and options buttons.
             </summary>
         </member>
@@ -1082,7 +1137,8 @@
              Gets or sets a value indicating whether the data should be sortable by this column.
             
              The default value may vary according to the column type (for example, a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1" />
-             is sortable by default if any <see cref="P:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.SortBy" /> parameter is specified).
+             or <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2" /> is sortable by default if any<see cref="P:Microsoft.FluentUI.AspNetCore.Components.TemplateColumn`1.SortBy" />
+             or <see cref="P:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.SortBy" /> parameter is specified).
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Filtered">
@@ -1186,6 +1242,16 @@
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ByDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Produces a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance that sorts according to the specified <paramref name="expression"/> 
+            using the specified <paramref name="comparer"/>, descending.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
@@ -1194,12 +1260,64 @@
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
             </summary>
             <typeparam name="U">The type of the expression's value.</typeparam>
             <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysAscending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.GridSort`1.ThenAlwaysDescending``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Updates a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance by appending a further sorting rule.
+            </summary>
+            <typeparam name="U">The type of the expression's value.</typeparam>
+            <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
+            <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2">
@@ -1222,11 +1340,11 @@
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.Comparer">
-            <summary>
-            Optionally specifies how to compare values in this column when sorting.
+             <summary>
+             Optionally specifies how to compare values in this column when sorting.
             
-            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
-            </summary>
+             Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
@@ -1405,6 +1523,9 @@
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnInitialized">
+            <inheritdoc />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnParametersSetAsync">
             <inheritdoc />
         </member>
@@ -1414,6 +1535,13 @@
             </summary>
             <param name="column">The column that defines the new sort order.</param>
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
+            <summary>
+            Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+            </summary>
+            <param name="column">The column to check against the current sorted on column.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
@@ -1679,24 +1807,6 @@
             <param name="monthOffset">offset from _picker_month.</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetFirstDayToDisplay(System.Int32)">
-            <summary>
-            Gets the first day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetLastDayToDisplay(System.Int32)">
-            <summary>
-            Returns the last day of the n-th month.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetFirstDayOfWeek">
-            <summary>
-            Returns the first day of the week.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetMonthName">
             <summary>
             Returns the name of the month in the right culture.
@@ -1734,17 +1844,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
-            <summary>
-            Returns the year value.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYear(System.DateTime)">
             <summary>
             Returns the year value.
             </summary>
             <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetYearsRangeLabel(System.Int32)">
+            <summary>
+            Returns the year value.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.CalendarExtended.GetDayNames">
@@ -1845,11 +1955,6 @@
             Defines the appearance of a Day cell.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.View">
-            <summary>
-            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
             <summary>
             Gets ot sets if the calendar items are animated during a period change.
@@ -1904,9 +2009,6 @@
             <param name="year"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.FirstDayOfMonth(System.DateTime)">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.CanBeAnimated">
             <summary />
         </member>
@@ -1960,6 +2062,11 @@
             <summary>
             Gets or sets the verification to do when the selected value has changed.
             By default, ValueChanged is called only if the selected value has changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.View">
+            <summary>
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
@@ -3450,6 +3557,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.CurrentSize">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Spacing">
             <summary>
             Gets or sets the distance between flexbox items, using a multiple of 4px.
@@ -3459,6 +3569,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Justify">
             <summary>
             Defines how the browser distributes space between and around content items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ChildContent">
@@ -3524,6 +3640,12 @@
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenWhen">
             <summary>
             Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
@@ -3539,6 +3661,12 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenAttribute">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.RenderChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.ConvertToHidden(Microsoft.FluentUI.AspNetCore.Components.GridItemSize)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.GetHiddenAttribute(System.Nullable{Microsoft.FluentUI.AspNetCore.Components.GridItemHidden})">
@@ -5000,6 +5128,12 @@
             Gets or sets the items to show in the menu.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ChildContent">
+            <summary>
+            Gets or sets the content to be shown in the menu.
+            Should consist of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem"/> components.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
@@ -5037,7 +5171,23 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalPosition">
             <summary>
-            Gets or sets the menu position (left or right).
+            Gets or sets the horizontal menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Default is false which places the region adjacent to the anchor element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalPosition">
+            <summary>
+            Gets or sets the vertical menu position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.VerticalInset">
+            <summary>
+            Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Width">
@@ -5133,7 +5283,7 @@
             Event raised when the user click on this item.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar">
@@ -5917,6 +6067,11 @@
             Gets or sets whether or not the menu can be collapsed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.CollapsedChildNavigation">
+            <summary>
+            Gets or sets whether a menu with all child links is shown for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s when the navigation menu is collapsed.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu.Expanded">
             <inheritdoc/>
         </member>
@@ -6205,7 +6360,7 @@
             <summary>
             Optionally supplies a template for rendering the pagination summary.
             The following values can be included:
-            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.CurrentPageIndex (zero-based, so +1 for the current page number)
             {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
@@ -6295,6 +6450,13 @@
             How narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.FixedPlacement">
+            <summary>
+            Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+            Otherwise the region uses "position: absolute".
+            Fixed placement allows the region to break out of parent containers.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.Open">
             <summary>
             Gets or sets popover opened state.
@@ -6319,6 +6481,34 @@
             <summary>
             Gets or sets the content of the footer part of the popover.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.AutoFocus">
+            <summary>
+            Gets or sets whether the element should receive the focus when the component is loaded.
+            If this is the case, the user cannot navigate to other elements of the page while the Popup is open.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseKeys">
+            <summary>
+            Gets or sets the keys that can be used to close the popover.
+            By default, Escape
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAndTabKeys">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.OnParametersSet">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.CloseOnKeyAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge">
             <summary>
@@ -6362,6 +6552,11 @@
             <summary>
             Gets or sets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPresenceBadge.Status"/> size to use.
             Default is Small.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
+            <summary>
+            Gets or sets whether popover should be forced to top right or top left (RTL).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.HeaderTemplate">
@@ -6622,6 +6817,11 @@
             Default is 750
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.DragThreshold">
+            <summary>
+            Gets or sets the threshold distance the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/> needs to be pulled (in pixels) to start the tip pull action.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
@@ -6808,6 +7008,12 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Module">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
             <summary>
@@ -13054,6 +13260,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the last day of the month.
@@ -13159,6 +13366,68 @@
             Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
             </summary>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the year
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the month
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the day
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            days to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="days"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            months to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="months"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the DateTime resulting from adding the given number of
+            years to the specified DateTime.
+            </summary>
+            <param name="value"></param>
+            <param name="years"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the name of the month
+            </summary>
+            <param name="value"></param>
+            <param name="culture"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">

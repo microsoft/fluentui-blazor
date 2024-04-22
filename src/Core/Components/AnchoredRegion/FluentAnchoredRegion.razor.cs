@@ -1,9 +1,18 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentAnchoredRegion : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
 
@@ -140,4 +149,49 @@ public partial class FluentAnchoredRegion : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the element should receive the focus when the component is loaded.
+    /// </summary>
+    [Parameter]
+    public bool AutoFocus { get; set; } = false;
+
+    /// <summary />
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+
+            // Go to the first Focusable element (after a delay of 100ms, to allow the DOM to render the Web Components)
+            if (AutoFocus)
+            {
+                await Module.InvokeVoidAsync("goToNextFocusableElement", Element, false, 100);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Moves the focus to the next element included in this anchor region only.
+    /// </summary>
+    /// <returns></returns>
+    public async Task FocusToNextElementAsync()
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("goToNextFocusableElement", Element, false);
+        }
+    }
+
+    /// <summary>
+    /// Moves the focus to the initial element that triggered the anchor region.
+    /// </summary>
+    /// <returns></returns>
+    public async Task FocusToOriginalElementAsync()
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("goToNextFocusableElement", Element, true);
+        }
+    }
 }

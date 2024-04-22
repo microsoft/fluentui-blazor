@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Grid/FluentGrid.razor.js";
-    private DotNetObjectReference<FluentGrid>? _dotNetHelper = null;
+    private DotNetObjectReference<FluentGrid>? _dotNetHelper = null;    
 
     public FluentGrid()
     {
@@ -30,6 +30,9 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     /// <summary />
     private IJSObjectReference? Module { get; set; }
 
+    /// <summary />
+    internal GridItemSize? CurrentSize { get; private set; }
+
     /// <summary>
     /// Gets or sets the distance between flexbox items, using a multiple of 4px.
     /// Only values from 0 to 10 are possible.
@@ -42,6 +45,13 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public JustifyContent Justify { get; set; } = JustifyContent.FlexStart;
+
+    /// <summary>
+    /// Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+    /// Default is false.
+    /// </summary>
+    [Parameter]
+    public bool AdaptiveRendering { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the child content of component.
@@ -76,9 +86,12 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     [JSInvokable]
     public async Task FluentGrid_MediaChangedAsync(string size)
     {
+        bool valid = Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum);
+        CurrentSize = valid ? sizeEnum : null;
+
         if (OnBreakpointEnter.HasDelegate)
         {
-            if (Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum))
+            if (valid)
             {
                 await OnBreakpointEnter.InvokeAsync(sizeEnum);
             }

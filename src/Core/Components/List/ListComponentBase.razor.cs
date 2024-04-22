@@ -336,7 +336,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             }
         }
 
-        if (InternalValue is null && Value is not null) // || InternalValue != Value)
+        if (Value is not null &&  (InternalValue is null || InternalValue != Value))
         {
             InternalValue = Value;
         }
@@ -444,15 +444,8 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             {
                 return OptionDisabled(item);
             }
-            else
-            {
-                return Disabled;
-            }
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /// <summary />

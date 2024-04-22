@@ -1,0 +1,21 @@
+name: Issue Triage
+description: Assign label to new issues without a label
+resource: repository
+disabled: false
+where:
+configuration:
+  resourceManagementConfiguration:
+    eventResponderTasks:
+      - description: Add labels to unassigned issue
+        triggerOnOwnActions: false
+        if:
+          - payloadType: Issues
+          - and:
+              - isOpen
+              - not:
+                  or:
+                    - isAssignedToSomeone
+                    - isLabeled
+        then:
+          - addLabel:
+              label: triage

@@ -139,6 +139,12 @@ public partial class FluentPullToRefresh : FluentComponentBase
     [Parameter]
     public int StatusUpdateMessageTimeout { get; set; } = 750;
 
+    /// <summary>
+    /// Gets or sets the threshold distance the <see cref="ChildContent"/> needs to be pulled (in pixels) to start the tip pull action.
+    /// </summary>
+    [Parameter]
+    public int DragThreshold { get; set; } = 0;
+
     protected override void OnInitialized()
     {
         _originalShowStaticTip = _internalShowStaticTip = ShowStaticTip;
@@ -207,7 +213,6 @@ public partial class FluentPullToRefresh : FluentComponentBase
     {
         if (Disabled) { return; }
 
-        _internalShowStaticTip = true;
         if (_pullStatus == PullStatus.Pulling || _pullStatus == PullStatus.WaitingForRelease)
         {
             if (Direction == PullDirection.Down)
@@ -232,10 +237,11 @@ public partial class FluentPullToRefresh : FluentComponentBase
                 return;
             }
 
-            var move = e.TargetTouches[0].ClientY - _startY;
+            var move = e.TargetTouches[0].ClientY - (_startY + DragThreshold);
 
             if (move > 0)
             {
+                _internalShowStaticTip = true;
                 SetDistance(CalcMoveDistance(move));
             }
         }
@@ -243,10 +249,11 @@ public partial class FluentPullToRefresh : FluentComponentBase
 
     private Task OnTouchMoveUpAsync(TouchEventArgs e)
     {
-        var move = _startY - e.TargetTouches[0].ClientY;
+        var move = _startY - (e.TargetTouches[0].ClientY + DragThreshold);
 
         if (move > 0)
         {
+            _internalShowStaticTip = true;
             SetDistance(CalcMoveDistance(move));
         }
         return Task.CompletedTask;
@@ -294,6 +301,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
         else if (_pullStatus == PullStatus.Awaiting || _pullStatus == PullStatus.Pulling)
         {
             SetDistance(-1);
+            _internalShowStaticTip = _originalShowStaticTip;
         }
     }
 

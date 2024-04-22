@@ -2,5 +2,8 @@
 @inherits FluentComponentBase
 
 <div class="@ClassValue" style="@StyleValue" xs="@(NoBreakpointsDefined() ? 0 : xs)" sm=@sm md=@md lg=@lg xl=@xl xxl=@xxl hidden-when="@HiddenAttribute" @attributes="AdditionalAttributes">
-    @ChildContent
+    @if (RenderChildContent())
+    {
+        @ChildContent
+    }
 </div>
