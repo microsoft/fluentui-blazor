@@ -8653,6 +8653,12 @@
             The default value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndDown"/> to adapt to mobile devices.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.FlexibleSteps">
+            <summary>
+            Gets or sets the way to navigate in the Wizard Steps.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.WizardFlexibleSteps.Linear"/>.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnNextHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
@@ -13220,6 +13226,22 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.All">
             <summary />
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardFlexibleSteps.Linear">
+            <summary>
+            The user can go to the next/previous step only, using the Next/Previous button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardFlexibleSteps.Any">
+            <summary>
+            The use can go to any steps (not disabled) clicking on an item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardFlexibleSteps.Visited">
+            <summary>
+            The user can go to the next step using the Next button,
+            or go to any previous step, already visited.
+            </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.WizardStepStatus">
             <summary>

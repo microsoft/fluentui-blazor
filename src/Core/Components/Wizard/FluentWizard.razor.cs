@@ -12,6 +12,7 @@ public partial class FluentWizard : FluentComponentBase
 
     private readonly List<FluentWizardStep> _steps = new();
     private int _value = 0;
+    internal int _maxStepVisited = 0;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -100,6 +101,8 @@ public partial class FluentWizard : FluentComponentBase
                 _value = value;
             }
 
+            _maxStepVisited = Math.Max(_value, _maxStepVisited);
+
             SetCurrentStatusToStep(_value);
         }
     }
@@ -132,7 +135,13 @@ public partial class FluentWizard : FluentComponentBase
     [Parameter]
     public GridItemHidden? StepTitleHiddenWhen { get; set; } = GridItemHidden.XsAndDown;
 
+    /// <summary>
+    /// Gets or sets the way to navigate in the Wizard Steps.
     /// Default is <see cref="WizardFlexibleSteps.Linear"/>.
+    /// </summary>
+    [Parameter]
+    public WizardFlexibleSteps FlexibleSteps { get; set; } = WizardFlexibleSteps.Linear;
+
     /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
     {
@@ -239,8 +248,17 @@ public partial class FluentWizard : FluentComponentBase
         }
     }
 
-    internal async Task<FluentWizardStepChangeEventArgs> GoToStep(int targetIndex, bool validateEditContexts)
-    { }
+    internal async Task GoToStepAsync(int targetIndex, bool validateEditContexts)
+    {
+        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, validateEditContexts);
+        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
+
+        if (!isCanceled)
+        {
+            Value = targetIndex;
+            StateHasChanged();
+        }
+    }
 
     internal int AddStep(FluentWizardStep step)
     {

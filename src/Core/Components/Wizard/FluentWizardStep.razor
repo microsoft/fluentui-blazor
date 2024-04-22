@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <li id="@Id" status="@Status.ToAttributeValue()"
-    @onclick="@OnClickHandler"
+    @onclick="@OnClickHandlerAsync"
     disabled="@Disabled"
     class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
     @if (StepTemplate is null)
