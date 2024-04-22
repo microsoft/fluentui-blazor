@@ -1,4 +1,16 @@
-﻿## Breaking changes v4.0.0
+## Breaking changes v4.7.0
+
+Most projects add `@using Microsoft.FluentUI.AspNetCore.Components` to `_Imports.razor`. To avoid conflicts with existing methods in other
+libraries, we've decided to place all our extension methods in an **Extensions** (sub)namespace. This can be a **minor breaking-change** which
+requires you to just add an new `using` statement for the new namespace to fix any errors.
+
+For existing projects:
+1. Add `@using Microsoft.FluentUI.AspNetCore.Components.Extensions` to `_Imports.razor` file.
+2. Add `using Microsoft.FluentUI.AspNetCore.Components.Extensions` to the top of the C# files where you use the extension methods.
+
+In the case of a conflict, you can remove these lines to distinguish the methods of **FluentUI.AspNetCore.Components** from those of other libraries.
+
+## Breaking changes v4.0.0
 The most obvious breaking change of course is namespace change from 
 `Microsoft.Fast.Components.FluentUI` to `Microsoft.FluentUI.AspNetCore.Components`. 
 This means you will need to change all `usings` in your code, change your `_Imports.razor`, etc.
