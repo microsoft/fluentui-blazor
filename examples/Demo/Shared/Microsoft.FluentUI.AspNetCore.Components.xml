@@ -735,7 +735,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Autofocus">
@@ -4188,7 +4188,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Element">
@@ -7064,7 +7064,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Position">

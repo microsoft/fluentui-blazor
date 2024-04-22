@@ -18,7 +18,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -29,7 +29,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     {
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
     }
 
@@ -530,7 +530,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         // This delay is needed for WASM to be able to get the updated value of the active descendant.
         // Without it, the value sometimes lags behind and you then need two keypresses to move to the next/prev option.
         await Task.Delay(1);
-        var id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
+        var id = await _jsModule!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
         FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
 
@@ -583,9 +583,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     {
         try
         {
-            if (Module is not null)
+            if (_jsModule is not null)
             {
-                await Module.DisposeAsync();
+                await _jsModule.DisposeAsync();
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
