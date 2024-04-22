@@ -238,6 +238,9 @@ public partial class FluentWizard : FluentComponentBase
         }
     }
 
+    internal async Task<FluentWizardStepChangeEventArgs> GoToStep(int targetIndex, bool validateEditContexts)
+    { }
+
     internal int AddStep(FluentWizardStep step)
     {
         _steps.Add(step);

@@ -183,4 +183,15 @@ public partial class FluentWizardStep : FluentComponentBase
             await editForm.Key.OnSubmit.InvokeAsync(editForm.Value);
         }
     }
-}
+
+    private async Task OnClickHandler()
+    {
+        // StepChange event
+        var stepChangeArgs = await FluentWizard.OnStepChangeHandlerAsync(Index, true);
+        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
+
+        if (!isCanceled)
+        {
+            Value = Index;
+        }
+    }
