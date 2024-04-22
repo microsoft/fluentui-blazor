@@ -74,12 +74,6 @@ public partial class FluentCalendar : FluentCalendarBase
     public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
 
     /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
-    /// </summary>
-    [Parameter]
-    public CalendarViews View { get; set; } = CalendarViews.Days;
-
-    /// <summary>
     /// Gets ot sets if the calendar items are animated during a period change.
     /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
     /// </summary>

@@ -41,6 +41,12 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     public bool CheckIfSelectedValueHasChanged { get; set; } = true;
 
     /// <summary>
+    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
+    /// </summary>
+    [Parameter]
+    public virtual CalendarViews View { get; set; } = CalendarViews.Days;
+
+    /// <summary>
     /// Gets or sets the selected date (two-way bindable).
     /// </summary>
     [Parameter]

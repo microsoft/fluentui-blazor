@@ -1,3 +1,4 @@
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal class CalendarTitles

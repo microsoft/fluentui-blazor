@@ -131,6 +131,47 @@ public class FluentDatePickerTests : TestBase
     }
 
     [Fact]
+    public void FluentDatePicker_MonthsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.View, CalendarViews.Months);
+        });
+        var textfield = picker.Find("fluent-text-field");
+
+        // Assert
+        Assert.Equal("MMMM yyyy", textfield.Attributes["placeholder"].Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_YearsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.View, CalendarViews.Years);
+        });
+        var textfield = picker.Find("fluent-text-field");
+        
+        // Assert
+        Assert.Equal("yyyy", textfield.Attributes["placeholder"].Value);
+    }
+
+
+    [Fact]
     public void FluentCalendar_DisabledDate()
     {
 
