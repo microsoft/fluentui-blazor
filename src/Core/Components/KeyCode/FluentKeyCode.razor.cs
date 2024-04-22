@@ -19,7 +19,7 @@ public partial class FluentKeyCode : IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary />
     private ElementReference Element { get; set; }
@@ -103,10 +103,10 @@ public partial class FluentKeyCode : IAsyncDisposable
                 throw new ArgumentNullException(Anchor, $"The {nameof(Anchor)} parameter must be set to the ID of an element. Or the {nameof(ChildContent)} must be set to apply the KeyCode engine to this content.");
             }
 
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            _javaScriptEventId = await Module.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
+            _javaScriptEventId = await _jsModule.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
         }
     }
 
@@ -142,14 +142,22 @@ public partial class FluentKeyCode : IAsyncDisposable
         }
     }
 
-    public ValueTask DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        if (Module != null && !string.IsNullOrEmpty(_javaScriptEventId))
+        try
         {
-            return Module.InvokeVoidAsync("UnregisterKeyCode", _javaScriptEventId);
+            if (_jsModule != null && !string.IsNullOrEmpty(_javaScriptEventId))
+            {
+                await _jsModule.InvokeVoidAsync("UnregisterKeyCode", _javaScriptEventId);
+                await _jsModule.DisposeAsync();
+            }
         }
-
-        return ValueTask.CompletedTask;
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }
 

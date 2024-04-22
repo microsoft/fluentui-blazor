@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -17,7 +18,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary>
     /// Gets or sets the slider's minimal value.
@@ -76,9 +77,12 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     {
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
-        await Module!.InvokeVoidAsync("updateSlider", Element);
+        if (_jsModule is not null)
+        {
+            await _jsModule!.InvokeVoidAsync("updateSlider", Element);
+        }
     }
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
@@ -139,12 +143,20 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
         }
     }
 
-    public ValueTask DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        if (Module is not null)
+        try
         {
-            return Module.DisposeAsync();
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
         }
-        return ValueTask.CompletedTask;
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

@@ -1,6 +1,6 @@
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
-public static class AdditionalAttributesExtensions
+internal static class AdditionalAttributesExtensions
 {
     /// <summary> Determines whether two sets of attributes are equal when rendered. </summary>
     /// <param name="x">The compared set</param>
