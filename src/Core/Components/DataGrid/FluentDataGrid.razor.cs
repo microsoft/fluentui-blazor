@@ -214,7 +214,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
-
+        _internalGridTemplateColumns = GridTemplateColumns;
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
