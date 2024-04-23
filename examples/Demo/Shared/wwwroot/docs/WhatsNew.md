@@ -1,4 +1,44 @@
-﻿From now on we will just list the PRs that have been merged. The related issues can be found by looking at the PR details on GitHub.
+﻿# v3.6.2
+
+### Demo site and documentation 
+- [Docs] Update Progress stroke examples dropdowns ([#1835](https://github.com/microsoft/fluentui-blazor/pull/1835))
+- [Docs] Update Highlighter example to use FluentTextField instead of input ([#1833](https://github.com/microsoft/fluentui-blazor/pull/1833))
+
+### Components
+- [Input] NotifyFieldChanged is called twice for all FluentInputBase derived components ([#1846](https://github.com/microsoft/fluentui-blazor/pull/1846))
+- [MenuButton] Add ChildContent so items can be supplied manually ([#1848](https://github.com/microsoft/fluentui-blazor/pull/1848))
+- [Paginator] spelling issue in FluentPaginator.razor.cs ([#1829](https://github.com/microsoft/fluentui-blazor/pull/1829))
+- [Popover] adds FixedPlacement parameter ([#1894](https://github.com/microsoft/fluentui-blazor/pull/1894))
+- [Select] Allow value to be set when component is disabled ([#1892](https://github.com/microsoft/fluentui-blazor/pull/1892))
+- [Slider] Fixes thumb redraw issues (Fix for #1836) ([#1873](https://github.com/microsoft/fluentui-blazor/pull/1873))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.237 
+
+	**What's new (Name / Size(s) / Variant(s))**
+	- Book / 48 / Filled & Regular
+	- Camera Arrow Up / 16, 20, 24 / Filled & Regular
+	- Chat Settings / 16 / Filled & Regular
+	- Circle Highlight / 20, 24 / Filled & Regular
+	- Circle Hint / 24 / Filled & Regular
+	- Circle Shadow / 20, 24 / Filled & Regular
+	- Content View / 16 / Filled & Regular
+	- Double Tap Swipe Down / 16 / Filled & Regular
+	- Double Tap Swipe Up / 16 / Filled & Regular
+	- Flash Sparkle / 16 / Filled & Regular
+	- Location Ripple / 12 / Filled & Regular
+	- Search Square / 16 / Filled & Regular
+	- Settings Chat / 16 / Filled & Regular
+	- Share Multiple / 16, 20, 24 / Filled & Regular
+	- Slide Play / 20, 24 / Filled & Regular
+ 
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Book Add / 28 / Filled & Regular
+	- Book Contacts / 20, 24, 28, 32 / Filled & Regular
+	- Book / 28 / Filled & Regular   
+
+
+From now on we will just list the PRs that have been merged. The related issues can be found by looking at the PR details on GitHub.
 
 Titles have been altered and sorted here to provide a bit more uniformity.
 
