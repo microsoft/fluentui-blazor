@@ -32,6 +32,31 @@
 - [Aspire] Fix #3364 by adding IKeyCodeListner and handler ([#1866](https://github.com/microsoft/fluentui-blazor/pull/1866))
 - [Pipeline] Add Code Coverage Report ([#1861](https://github.com/microsoft/fluentui-blazor/pull/1861))
 
+### Icons
+- Update to Fluent UI System Icons 1.1.237 
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Book / 48 / Filled & Regular
+    - Camera Arrow Up / 16, 20, 24 / Filled & Regular
+    - Chat Settings / 16 / Filled & Regular
+    - Circle Highlight / 20, 24 / Filled & Regular
+    - Circle Hint / 24 / Filled & Regular
+    - Circle Shadow / 20, 24 / Filled & Regular
+    - Content View / 16 / Filled & Regular
+    - Double Tap Swipe Down / 16 / Filled & Regular
+    - Double Tap Swipe Up / 16 / Filled & Regular
+    - Flash Sparkle / 16 / Filled & Regular
+    - Location Ripple / 12 / Filled & Regular
+    - Search Square / 16 / Filled & Regular
+    - Settings Chat / 16 / Filled & Regular
+    - Share Multiple / 16, 20, 24 / Filled & Regular
+    - Slide Play / 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Book Add / 28 / Filled & Regular
+    - Book Contacts / 20, 24, 28, 32 / Filled & Regular
+    - Book / 28 / Filled & Regular   
+
 ## v4.6.2
 
 ### Components
