@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using Microsoft.Fast.Components.FluentUI.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -431,6 +431,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         if (item != null)
         {
             if (OptionDisabled != null)
+            {
                 return OptionDisabled(item);
             }
         }
@@ -498,7 +499,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         }
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(InternalValue);         
+            await ValueChanged.InvokeAsync(InternalValue);
         }
         StateHasChanged();
     }

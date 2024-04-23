@@ -32,7 +32,7 @@ public partial class FluentInputBase<TValue>
 
         if (isValid)
         {
-            await SetCurrentValueAsync(result ?? default);
+            await SetCurrentValue(result ?? default);
             _notifyCalled = true;
         }
         else

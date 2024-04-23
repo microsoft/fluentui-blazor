@@ -8,9 +8,9 @@ using Microsoft.JSInterop;
 namespace Microsoft.Fast.Components.FluentUI;
 
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDisposable
-    where TValue : System.Numerics.INumber<TValue>
+     where TValue : IComparable, IComparable<TValue>, IConvertible, IEquatable<TValue>, IFormattable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSlider.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Slider/FluentSlider.razor.js";
 
     /// <summary />
     [Inject]

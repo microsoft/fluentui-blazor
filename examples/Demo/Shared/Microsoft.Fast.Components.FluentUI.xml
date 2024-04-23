@@ -4501,6 +4501,12 @@
             Gets or sets the items to show in the menu.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.ChildContent">
+            <summary>
+            Gets or sets the content to be shown in the menu.
+            Should consist of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentMenuItem"/> components.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
@@ -5687,7 +5693,7 @@
             <summary>
             Optionally supplies a template for rendering the pagination summary.
             The following values can be included:
-            {your State parameter name}.CurrentPageIndex (zero-basedd, so +1 for the current page number)
+            {your State parameter name}.CurrentPageIndex (zero-based, so +1 for the current page number)
             {your State parameter name}.LastPageIndex (zero-based, so +1 for the total number of pages)
             </summary>
         </member>
@@ -5755,6 +5761,12 @@
             Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalPosition"/>
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.VerticalPosition">
+            <summary>
+            Gets or sets the default vertical position of the region relative to the anchor element.
+            Default is unset. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentPopover.VerticalPosition"/>
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.VerticalThreshold">
             <summary>
             How short the space allocated to the default position has to be before the tallest area is selected for layout.
@@ -5763,6 +5775,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.HorizontalThreshold">
             <summary>
             How narrow the space allocated to the default position has to be before the widest area is selected for layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.FixedPlacement">
+            <summary>
+            Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+            Otherwise the region uses "position: absolute".
+            Fixed placement allows the region to break out of parent containers.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentPopover.Open">
@@ -6107,6 +6126,12 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Module">
+            <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentSlider`1.Min">
             <summary>
