@@ -8,6 +8,7 @@
     public FluentSliderTests()
     {
         Services.AddSingleton(LibraryConfiguration);
+        JSInterop.Mode = JSRuntimeMode.Loose;
     }
 
     [Fact]
