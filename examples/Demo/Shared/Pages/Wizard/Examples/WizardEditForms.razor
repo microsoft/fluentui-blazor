@@ -5,6 +5,7 @@
 @inject IDialogService DialogService
 
 <FluentWizard StepperPosition="StepperPosition.Left"
+              StepSequence="@WizardStepSequence.Visited"
               DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
               Border="WizardBorder.Outside"
               StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
