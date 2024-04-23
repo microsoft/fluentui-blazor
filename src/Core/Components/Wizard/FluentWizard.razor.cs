@@ -137,10 +137,10 @@ public partial class FluentWizard : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the way to navigate in the Wizard Steps.
-    /// Default is <see cref="WizardFlexibleSteps.Linear"/>.
+    /// Default is <see cref="WizardStepSequence.Linear"/>.
     /// </summary>
     [Parameter]
-    public WizardFlexibleSteps FlexibleSteps { get; set; } = WizardFlexibleSteps.Linear;
+    public WizardStepSequence StepSequence { get; set; } = WizardStepSequence.Linear;
 
     /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)

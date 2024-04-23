@@ -209,12 +209,12 @@ public partial class FluentWizardStep : FluentComponentBase
                 return false;
             }
 
-            if (FluentWizard.FlexibleSteps == WizardFlexibleSteps.Linear)
+            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
             {
                 return false;
             }
 
-            if (FluentWizard.FlexibleSteps == WizardFlexibleSteps.Visited &&
+            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
                 Index > FluentWizard._maxStepVisited)
             {
                 return false;

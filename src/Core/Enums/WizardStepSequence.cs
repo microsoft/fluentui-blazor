@@ -4,7 +4,7 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public enum WizardFlexibleSteps
+public enum WizardStepSequence
 {
     /// <summary>
     /// The user can go to the next/previous step only, using the Next/Previous button.

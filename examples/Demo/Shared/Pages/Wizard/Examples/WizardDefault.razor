@@ -7,14 +7,14 @@
                   UncheckedMessage="Left"
                   CheckedMessage="Top" />
 
-    WizardFlexibleSteps:
+    WizardStepSequence:
     <FluentSelect Width="150px"
-                  Items="@(Enum.GetValues<WizardFlexibleSteps>())"
-                  @bind-SelectedOption="@FlexibleStep" />
+                  Items="@(Enum.GetValues<WizardStepSequence>())"
+                  @bind-SelectedOption="@StepSequence" />
 </FluentStack>
 
 <FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
-              FlexibleSteps="@FlexibleStep"
+              StepSequence="@StepSequence"
               DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
               Border="WizardBorder.Outside"
               StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
@@ -67,7 +67,7 @@
 @code
 {
     bool IsTop = false;
-    WizardFlexibleSteps FlexibleStep = WizardFlexibleSteps.Linear;
+    WizardStepSequence StepSequence = WizardStepSequence.Linear;
 
     void OnStepChange(FluentWizardStepChangeEventArgs e)
     {

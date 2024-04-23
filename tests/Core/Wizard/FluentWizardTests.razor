@@ -425,16 +425,16 @@
     }
 
     [Theory]
-    [InlineData(WizardFlexibleSteps.Linear, 0, 0, 0, 2)]
-    [InlineData(WizardFlexibleSteps.Visited, 0, 1, 2, 0)]
-    [InlineData(WizardFlexibleSteps.Any, 2, 2, 2, 0)]
-    public void FluentWizard_FlexibleSteps(WizardFlexibleSteps flexible,
+    [InlineData(WizardStepSequence.Linear, 0, 0, 0, 2)]
+    [InlineData(WizardStepSequence.Visited, 0, 1, 2, 0)]
+    [InlineData(WizardStepSequence.Any, 2, 2, 2, 0)]
+    public void FluentWizard_StepSequences(WizardStepSequence flexible,
         int clickable1, int clickable2, int clickable3, int indexFirstItem)
     {
         var currentIndex = 0;
 
         // Arrange && Act
-        var cut = Render(@<FluentWizard FlexibleSteps="@flexible" @bind-Value="@currentIndex">
+        var cut = Render(@<FluentWizard StepSequence="@flexible" @bind-Value="@currentIndex">
         <Steps>
             <FluentWizardStep Label="Step1" Summary="Summary 1">
                 Content 1
