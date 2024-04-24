@@ -7628,7 +7628,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleValues">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleValue">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleMoreValues">
