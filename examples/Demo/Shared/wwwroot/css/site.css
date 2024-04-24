@@ -508,3 +508,12 @@ kbd {
     .youtube-responsive .fluid-vids {
         position: initial !important
     }
+
+.youtube-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    min-height: 24px;
+}
