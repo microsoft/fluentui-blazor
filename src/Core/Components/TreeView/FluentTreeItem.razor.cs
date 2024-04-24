@@ -6,6 +6,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
     private bool _disposed;
 
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? Items { get; set; }
+
     /// <summary>
     /// Gets or sets the text of the tree item
     /// </summary>
@@ -136,6 +139,8 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
     private async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
     {
+        Console.WriteLine("HandleExpandedChangeAsync");
+
         if (args.AffectedId != Id || args.Expanded is null || args.Expanded == Expanded)
         {
             return;
@@ -155,6 +160,8 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
     private async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
     {
+        Console.WriteLine("HandleSelectedChangeAsync");
+
         if (args.AffectedId != Id || args.Selected is null || args.Selected == Selected)
         {
             return;

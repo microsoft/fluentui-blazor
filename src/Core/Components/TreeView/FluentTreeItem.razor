@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-tree-item @ref=Element
                   class="@Class"
@@ -17,4 +17,12 @@
         <span class="treeitem-text">@Text</span>
     }
     @ChildContent
+
+    @if (Items != null)
+    {
+        foreach (var item in Items)
+        {
+            <FluentTreeItem Text="@item.Text" Items="@item.Items" />
+        }
+    }
 </fluent-tree-item>

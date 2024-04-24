@@ -1,0 +1,36 @@
+﻿<FluentTreeView Items="@Items" />
+
+Total items: @Count
+
+@code
+{
+    private int Count = -1;
+    private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
+
+    protected override void OnInitialized()
+    {
+        Items = CreateTree(maxLevel: 5, itemsPerLevel: 3).Items;
+    }
+
+    // Recursive method to create tree
+    public TreeViewItem CreateTree(int maxLevel, int itemsPerLevel, int level = 0)
+    {
+        Count++;
+
+        var treeItem = new TreeViewItem
+            {
+                Text = $"Item {level}",
+                Items = level == maxLevel
+                              ? null
+                              : new List<TreeViewItem>(Enumerable.Range(1, itemsPerLevel).Select(i => CreateTree(maxLevel, itemsPerLevel, level + 1)))
+            };
+        return treeItem;
+    }
+
+
+    public class TreeViewItem : ITreeViewItem
+    {
+        public string Text { get; set; } = "";
+        public IEnumerable<ITreeViewItem>? Items { get; set; }
+    }
+}

@@ -10,6 +10,9 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     private readonly Debouncer _currentSelectedChangedDebouncer = new();
     private bool _disposed;
 
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? Items { get; set; }
+
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
     /// Defaults to false
@@ -91,6 +94,8 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
     private async Task HandleCurrentSelectedChangeAsync(TreeChangeEventArgs args)
     {
+        Console.WriteLine("HandleCurrentSelectedChangeAsync");
+
         if (!_allItems.TryGetValue(args.AffectedId!, out FluentTreeItem? treeItem))
         {
             return;

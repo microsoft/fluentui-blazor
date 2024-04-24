@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <CascadingValue Value="this" IsFixed="true">
     <fluent-tree-view @ref=Element
@@ -8,5 +8,13 @@
                       @onselectedchange="@HandleCurrentSelectedChangeAsync"
                       @attributes="AdditionalAttributes">
         @ChildContent
+
+        @if (Items != null)
+        {
+            foreach (var item in Items)
+            {
+                <FluentTreeItem Text="@item.Text" Items="@item.Items" />
+            }
+        }
     </fluent-tree-view>
 </CascadingValue>

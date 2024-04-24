@@ -8576,6 +8576,16 @@
             item within the tree.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text">
+            <summary>
+            Gets or sets the text of the tree item
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items">
+            <summary>
+            Gets or sets the sub-items of the tree item
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ClassValue">
             <summary />
         </member>
