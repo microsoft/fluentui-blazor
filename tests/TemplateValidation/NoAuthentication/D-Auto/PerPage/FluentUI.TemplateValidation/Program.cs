@@ -1,5 +1,5 @@
-using Microsoft.FluentUI.AspNetCore.Components;
 using FluentUI.TemplateValidation.Client.Pages;
+using Microsoft.FluentUI.AspNetCore.Components;
 using FluentUI.TemplateValidation.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
-
 builder.Services.AddFluentUIComponents();
 
 var app = builder.Build();

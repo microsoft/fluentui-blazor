@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,7 +22,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddClass("fluent-dialog-main")
         .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
         .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
-        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden): _parameters.PreventScroll)
+        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden) : _parameters.PreventScroll)
         .Build();
 
     /// <summary />
@@ -36,7 +35,7 @@ public partial class FluentDialog : FluentComponentBase
         .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
         .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
         .Build();
- 
+
     /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
     /// </summary>
@@ -105,7 +104,6 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public DialogInstance Instance { get; set; } = default!;
 
-
     /// <summary>
     /// Used when not calling the <see cref="DialogService" /> to show a dialog.
     /// </summary>
@@ -150,6 +148,14 @@ public partial class FluentDialog : FluentComponentBase
         if (firstRender)
         {
             await Element.FocusAsync();
+
+            if (Instance is not null)
+            {
+                if (Instance.Parameters.OnDialogOpened.HasDelegate)
+                {
+                    await Instance.Parameters.OnDialogOpened.InvokeAsync(Instance);
+                }
+            }
         }
     }
 
@@ -222,6 +228,13 @@ public partial class FluentDialog : FluentComponentBase
     /// </summary>
     public async Task CloseAsync(DialogResult dialogResult)
     {
+        if (Instance is not null)
+        {
+            if (Instance.Parameters.OnDialogClosing.HasDelegate)
+            {
+                await Instance.Parameters.OnDialogClosing.InvokeAsync(Instance);
+            }
+        }
         DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
         if (Instance is not null)
         {
@@ -265,15 +278,9 @@ public partial class FluentDialog : FluentComponentBase
     {
         StateHasChanged();
 
-        if (_dialogHeader != null)
-        {
-            _dialogHeader.Refresh();
-        }
+        _dialogHeader?.Refresh();
 
-        if (_dialogFooter != null)
-        {
-            _dialogFooter.Refresh();
-        }
+        _dialogFooter?.Refresh();
     }
 
     /// <summary />

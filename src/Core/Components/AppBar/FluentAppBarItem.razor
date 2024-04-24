@@ -1,0 +1,32 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
+    <FluentCounterBadge Count="@Count"
+                        Max="99"
+                        ShowOverflow="true"
+                        Appearance="Appearance.Accent"
+                        BackgroundColor="@Color.Error"
+                        Color="Color.Fill"
+                        HorizontalPosition="55"
+                        VerticalPosition="70">
+        <NavLink href="@Href" Match="Match" @onclick="OnClickHandlerAsync">
+            <FluentStack Orientation="Orientation.Vertical"
+                         HorizontalAlignment="HorizontalAlignment.Center"
+                         VerticalAlignment="VerticalAlignment.Center"
+                         VerticalGap="0"
+                         Style="height: 100%;">
+                @if (ChildContent is not null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <FluentIcon Value="IconRest" Color="Color.Neutral" part="icon-rest" />
+                    <FluentIcon Value="IconActive ?? IconRest" part="icon-active" />
+                    <div part="label">@Text</div>
+                }
+            </FluentStack>
+        </NavLink>
+    </FluentCounterBadge>
+</div>

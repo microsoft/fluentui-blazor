@@ -92,6 +92,19 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentSplitter_BarHandle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitter Id="split-test" BarSize="4" BarHandle="false">
+        <Panel1>render me</Panel1>
+        <Panel2>render me</Panel2>
+        </FluentSplitter>);
+
+        // Assert
+        cut.Verify();
+    }
     
     [Fact]
     public void FluentSplitter_Panel1MinSizePercent()

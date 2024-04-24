@@ -1,8 +1,12 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,8 +17,6 @@ public partial class FluentTabs : FluentComponentBase
     //private string _activeId = string.Empty;
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
-
-    private bool _shouldRender = true;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -91,7 +93,6 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public FluentTab ActiveTab => _tabs.FirstOrDefault(i => i.Key == ActiveTabId).Value ?? _tabs.First().Value;
 
-
     [Parameter]
     public string ActiveTabId { get; set; } = default!;
 
@@ -129,7 +130,6 @@ public partial class FluentTabs : FluentComponentBase
     /// </summary>
     public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
 
     public FluentTabs()
@@ -143,39 +143,26 @@ public partial class FluentTabs : FluentComponentBase
         if (firstRender)
         {
 
-
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
 
-            bool horizontal = Orientation == Orientation.Horizontal;
+            var horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }
 
-    protected override bool ShouldRender()
+    private async Task HandleOnTabChangedAsync(TabChangeEventArgs args)
     {
-        return _shouldRender;
-    }
+        var tabId = args?.ActiveId;
+        if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
+        {
+            await OnTabChange.InvokeAsync(tab);
+            ActiveTabId = tabId;
+            await ActiveTabIdChanged.InvokeAsync(tabId);
+        }
 
-    private async Task HandleOnTabChanged(TabChangeEventArgs args)
-    {
-        if (args is not null)
-        {
-            string? tabId = args.ActiveId;
-            if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
-            {
-                await OnTabChange.InvokeAsync(tab);
-                ActiveTabId = tabId;
-                await ActiveTabIdChanged.InvokeAsync(tabId);
-            }
-            _shouldRender = true;
-        }
-        else
-        {
-            _shouldRender = false;
-        }
     }
 
     internal int RegisterTab(FluentTab tab)
@@ -247,12 +234,10 @@ public partial class FluentTabs : FluentComponentBase
         await InvokeAsync(() => StateHasChanged());
     }
 
-
-
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-        bool horizontal = Orientation == Orientation.Horizontal;
+        var horizontal = Orientation == Orientation.Horizontal;
         await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 
@@ -263,5 +248,19 @@ public partial class FluentTabs : FluentComponentBase
         {
             ActiveId = tab.Id,
         });
+    }
+
+    /// <summary>
+    /// Go to a specific tab by specifying an id
+    /// </summary>
+    /// <param name="TabId">Id of the tab to goto</param>
+    /// <returns></returns>
+    public async Task GoToTabAsync(string TabId)
+    {
+        await OnTabChangeHandlerAsync(new TabChangeEventArgs()
+        {
+            ActiveId = TabId,
+        });
+
     }
 }

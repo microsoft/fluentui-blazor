@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 ///  Defines the possible options for mouse buttons. 
@@ -28,7 +28,7 @@ public enum MouseButton
     /// <summary>
     /// X1 button (back).
     /// </summary>
-    Back = 3, 
+    Back = 3,
 
     /// <summary>
     /// X2 button (forward).

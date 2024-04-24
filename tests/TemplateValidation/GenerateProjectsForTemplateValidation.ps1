@@ -59,19 +59,19 @@ if ($auth -eq 'individual' -or $auth -eq 'all' )
 	if ($interactivity -eq "server" -or $interactivity -eq "all")
 	{
 		# Interactivity: Server / Auth: Individual / All Interactive: False
-		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\B-Server\Global --interactivity server --auth Individual --all-interactive false --force
+		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\B-Server\Global --interactivity server --auth Individual --all-interactive true --force
 
 		# Interactivity: Server / Auth: Individual / All Interactive: True
-		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\B-Server\PerPage --interactivity server --auth Individual --all-interactive true --force
+		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\B-Server\PerPage --interactivity server --auth Individual --all-interactive false --force
 	}
 
 	if ($interactivity -eq "webassembly" -or $interactivity -eq "all")
 	{
 		# Interactivity: WebAssembly / Auth: Individual / All Interactive: False
-		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\C-Wasm\Global --interactivity webassembly --auth Individual --all-interactive false --force
+		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\C-Wasm\Global --interactivity webassembly --auth Individual --all-interactive true --force
 
 		# Interactivity: WebAssembly / Auth: Individual / All Interactive: True
-		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\C-Wasm\PerPage --interactivity webassembly --auth Individual --all-interactive true --force
+		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\C-Wasm\PerPage --interactivity webassembly --auth Individual --all-interactive false --force
 	}
 
 	if ($interactivity -eq "auto" -or $interactivity -eq "all")
@@ -86,3 +86,8 @@ if ($auth -eq 'individual' -or $auth -eq 'all' )
 		dotnet new fluentblazor -n FluentUI.TemplateValidation -o IndividualAccounts\D-Auto\NoSamplePages --interactivity auto --auth Individual --all-interactive true --empty true --force
 	}
 }
+
+# Wasm Standalone
+dotnet new fluentblazorwasm -n FluentUI.TemplateValidation -o WasmStandalone\NoSamplePages --empty true --force
+dotnet new fluentblazorwasm -n FluentUI.TemplateValidation -o WasmStandalone\IndividualAccounts --auth individual --force
+dotnet new fluentblazorwasm -n FluentUI.TemplateValidation -o WasmStandalone\NoAuthentication --auth none --force

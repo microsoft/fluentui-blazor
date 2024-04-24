@@ -43,9 +43,14 @@ public partial class FluentCard : IAsyncDisposable
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
         .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
-        .AddStyle("content-visibility", "visible", !AreaRestricted)
-        .AddStyle("contain", "style", !AreaRestricted)
+
         .AddStyle("overflow", "visible", !AreaRestricted && V2Mode)
+        .AddStyle("content-visibility", "visible", !AreaRestricted && !MinimalStyle)
+        .AddStyle("contain", "style", !AreaRestricted && !MinimalStyle)
+        .Build();
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-card-minimal-style", when: MinimalStyle)
         .Build();
 
     protected string? ClassValue => new CssBuilder()
@@ -77,6 +82,9 @@ public partial class FluentCard : IAsyncDisposable
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
+
+    [Parameter]
+    public bool MinimalStyle { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

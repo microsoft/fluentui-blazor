@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
+namespace Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 
 /// <inheritdoc cref="ITooltipService"/>
 public class TooltipService : ITooltipService, IDisposable
@@ -17,7 +17,7 @@ public class TooltipService : ITooltipService, IDisposable
     /// <param name="options">Default global options</param>
     public TooltipService(TooltipGlobalOptions options)
     {
-        this.GlobalOptions = options;
+        GlobalOptions = options;
     }
 
     /// <inheritdoc cref="ITooltipService.OnTooltipUpdated"/>
@@ -81,12 +81,18 @@ public class TooltipService : ITooltipService, IDisposable
         OnTooltipUpdated?.Invoke();
     }
 
+    /// <inheritdoc cref="ITooltipService.Refresh"/>
+    public void Refresh()
+    {
+        OnTooltipUpdated?.Invoke();
+    }
+
     /// <summary>
     /// Clears all tooltips from the service.
     /// </summary>
     public void Dispose()
     {
-        this.Clear();
+        Clear();
     }
 
     /// <inheritdoc cref="ITooltipService.Remove(Guid)"/>

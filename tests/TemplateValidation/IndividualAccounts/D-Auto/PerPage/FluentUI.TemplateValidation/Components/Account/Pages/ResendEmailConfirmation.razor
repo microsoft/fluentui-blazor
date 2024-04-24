@@ -22,7 +22,7 @@
     <FluentGridItem xs="8" sm="4">
         <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
+            <FluentValidationSummary class="text-danger" role="alert" />
             <FluentTextField Name="Input.Email" @bind-Value="Input.Email" class="form-control" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%;" />
             <FluentValidationMessage For="() => Input.Email" class="text-danger" />
             <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Resend</FluentButton>

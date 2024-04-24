@@ -1,7 +1,6 @@
-﻿namespace FluentUI.Demo.Shared
+namespace FluentUI.Demo.Shared;
+
+public class MyToastData
 {
-    public class MyToastData
-    {
-        public string? ToastParam { get; set; }
-    }
+    public string? ToastParam { get; set; }
 }

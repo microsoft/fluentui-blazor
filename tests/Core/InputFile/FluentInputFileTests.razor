@@ -109,6 +109,27 @@
     }
 
     [Fact]
+    public void FluentInputFile_Disabled()
+    {
+        int ProgressPercent = 0;
+
+        // Arrange && Act
+        var cut = Render(@<FluentInputFile Id="my-file-uploader"
+                                           Mode="InputFileMode.SaveToTemporaryFolder"
+                                           Multiple="true"
+                                           MaximumFileCount="4"
+                                           MaximumFileSize="@(10*1024*1024)"
+                                           Accept="image/*"
+                                           @bind-ProgressPercent="@ProgressPercent"
+                                           Disabled="true"
+                                           OnCompleted="@(e => { } )">Sample description</FluentInputFile>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
     public void FluentInputFile_ProgressEventsRaised()
     {
         bool completed = false;

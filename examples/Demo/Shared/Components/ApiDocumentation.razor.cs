@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
 
@@ -62,7 +62,7 @@ public partial class ApiDocumentation
     [SuppressMessage("Trimming", "IL2055:Either the type on which the MakeGenericType is called can't be statically determined, or the type parameters to be used for generic arguments can't be statically determined.", Justification = "Just for demo/documentation purposes")]
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {
-        string[] MEMBERS_TO_EXCLUDE = new[] { "Id", "AdditionalAttributes", "ParentReference", "Element", "Class", "Style", "Data", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
+        var MEMBERS_TO_EXCLUDE = new[] { "Id", "AdditionalAttributes", "ParentReference", "Element", "Class", "Style", "Data", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
 
         if (_allMembers == null)
         {
@@ -71,10 +71,11 @@ public partial class ApiDocumentation
             object? obj = null;
             if (Component.GetConstructors().Any(x => x.GetParameters().Length == 0))
             {
-                if (Component.IsGenericType)
+                if (InstanceTypes is null)
                 {
-                    if (InstanceTypes is null)
-                        throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
+                    throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
+                }
+
 
                     // Supply the type to create the generic instance with (needs to be an array)
                     Type[] typeArgs = InstanceTypes;
@@ -84,6 +85,10 @@ public partial class ApiDocumentation
                 }
                 else
                     obj = Activator.CreateInstance(Component);
+            }
+            else
+            {
+                obj = Activator.CreateInstance(Component);
             }
 
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
@@ -95,17 +100,15 @@ public partial class ApiDocumentation
                 {
                     if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || Component.Name == "FluentComponentBase")
                     {
-                        PropertyInfo? propertyInfo = memberInfo as PropertyInfo;
-                        MethodInfo? methodInfo = memberInfo as MethodInfo;
+                        var propertyInfo = memberInfo as PropertyInfo;
+                        var methodInfo = memberInfo as MethodInfo;
 
                         if (propertyInfo != null)
                         {
-                            bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
-
-
+                            var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
 
                             Type t = propertyInfo.PropertyType;
-                            bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
+                            var isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
                             // Parameters/properties
                             if (!isEvent)
@@ -125,7 +128,7 @@ public partial class ApiDocumentation
                             // Events
                             if (isEvent)
                             {
-                                string eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
+                                var eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
                                 members.Add(new MemberDescription()
                                 {
                                     MemberType = MemberTypes.Event,
@@ -139,7 +142,7 @@ public partial class ApiDocumentation
                         // Methods
                         if (methodInfo != null)
                         {
-                            string genericArguments = "";
+                            var genericArguments = "";
                             if (methodInfo.IsGenericMethod)
                             {
                                 genericArguments = "<" + string.Join(", ", methodInfo.GetGenericArguments().Select(i => i.Name)) + ">";
@@ -158,7 +161,7 @@ public partial class ApiDocumentation
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"ERROR - ApiDocumentation - Cannot found {Component.FullName} -> {memberInfo.Name}");
+                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot found {Component.FullName} -> {memberInfo.Name}");
                     throw;
                 }
             }

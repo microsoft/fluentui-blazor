@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;
 using Bunit;
@@ -38,7 +38,7 @@ public static class FluentAssert
 
     /// <summary>
     /// Verifies that the rendered markup from the <paramref name="actual"/> <see cref="IRenderedFragment"/> matches
-    /// the ".verified.html" file content, using the <see cref="HtmlComparer"/> type.
+    /// the ".verified.html" file content, using the <see cref="Bunit.Diffing.HtmlComparer"/> type.
     /// If the contents are not the same, a new ".received.html" file is created to allow comparison.
     /// ".received.html" and ".verified.html" extension is configurable using <see cref="Options"/>.
     /// </summary>
@@ -46,6 +46,7 @@ public static class FluentAssert
     /// <param name="received"></param>
     /// <param name="filename"></param>
     /// <param name="memberName"></param>
+    /// <param name="suffix"></param>
     /// <exception cref="ArgumentNullException"></exception>
     public static void Verify(this IRenderedFragment? actual,
         Func<string, string>? received = null,
@@ -154,7 +155,7 @@ public static class FluentAssert
 
     private static string NameWithoutExtension(this FileInfo file)
     {
-        int nameLength = (int)file.Name.Length - file.Extension.Length;
+        var nameLength = (int)file.Name.Length - file.Extension.Length;
 
         if (nameLength > 0)
         {
@@ -176,7 +177,7 @@ public static class FluentAssert
 
     public static string ReplaceAttribute(this string value, string attribute, string? newValue = "")
     {
-        string newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
+        var newAttributeValue = string.IsNullOrEmpty(newValue) ? string.Empty : $" {attribute}=\"{newValue}\"";
         value = Regex.Replace(value, $" {attribute}='[\\w-]+'", newAttributeValue, RegexOptions.IgnoreCase);
         value = Regex.Replace(value, $" {attribute}=\"[\\w-]+\"", newAttributeValue, RegexOptions.IgnoreCase);
         return value;

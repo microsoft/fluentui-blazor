@@ -19,7 +19,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_Default()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -35,7 +35,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_ReadOnlyParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -52,7 +52,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_AutoFocusParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -69,7 +69,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_HideStepParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -86,7 +86,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_PlaceholderParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -103,7 +103,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_DataListParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -120,7 +120,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_MaxLengthParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -137,7 +137,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_MinLengthParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -154,7 +154,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_SizeParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -171,7 +171,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_StepParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -188,7 +188,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_MaxParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -205,7 +205,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_MinParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -222,7 +222,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_IdParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -239,7 +239,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_DisabledParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -256,7 +256,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_NameParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -273,7 +273,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_RequiredParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -292,7 +292,7 @@ public class FluentNumberFieldTests : TestBase
     [InlineData(FluentInputAppearance.Outline)]
     public void FluentNumberField_AppearanceParameter(FluentInputAppearance appearance)
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -309,7 +309,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_Throw_WhenIntMaxIsSmallerThanMin()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Act
         Action action = () =>
@@ -332,7 +332,7 @@ public class FluentNumberFieldTests : TestBase
     [InlineData(" ", "2147483647")]
     public void FluentNumberField_Throw_WhenIntMinOrMax_NullOrEmptyOrWhitespace(string min, string max)
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Act
         Action action = () =>
@@ -374,7 +374,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_Throw_WhenShortMaxIsSmallerThanMin()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Act
         Action action = () =>
@@ -416,7 +416,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_Throw_WhenDoubleMaxIsSmallerThanMin()
     {
-        double currentValue = 1.4;
+        var currentValue = 1.4;
 
         // Act
         Action action = () =>
@@ -437,7 +437,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_Throw_WhenDecimalMaxIsSmallerThanMin()
     {
-        decimal currentValue = 1.1E6m;
+        var currentValue = 1.1E6m;
 
         // Act
         Action action = () =>
@@ -458,7 +458,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_ClassParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -475,7 +475,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_StyleParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -492,7 +492,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_AdditionalParameter()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -509,7 +509,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_AdditionalParameters()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -527,7 +527,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_LabelTemplate()
     {
-        int currentValue = 100;
+        var currentValue = 100;
 
         // Arrange && Act
         var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
@@ -544,7 +544,7 @@ public class FluentNumberFieldTests : TestBase
     [Fact]
     public void FluentNumberField_Label()
     {
-        int currentValue = 100;
+        var currentValue = 100;
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
 
         // Arrange && Act

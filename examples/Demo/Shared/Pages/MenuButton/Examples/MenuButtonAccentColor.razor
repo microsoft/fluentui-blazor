@@ -1,5 +1,4 @@
-﻿@namespace FluentUI.Demo.Shared
-@inject AccentBaseColor AccentBaseColor
+﻿@inject AccentBaseColor AccentBaseColor
 
 <FluentMenuButton @ref=menubutton Text="Select brand color" Items="@items" OnMenuChanged="HandleOnMenuChanged"></FluentMenuButton>
 
@@ -21,7 +20,6 @@
 
     private async Task HandleOnMenuChanged(MenuChangeEventArgs args)
     {
-
         await AccentBaseColor.SetValueFor(menubutton.Button!.Element, $"#{args.Id}".ToSwatch());
     }
 

@@ -72,6 +72,21 @@ class ThemeStorage {
     }
   }
 
+  public clearLocalStorage(): void {
+    // If LocalStorage is not available, do nothing.
+      if (localStorage == null) {
+        return;
+      }
+  
+      // Check if storageName attribute is defined
+      if (this.storageName == null) {
+        return;
+      }
+  
+      // Clear the localstorage
+      localStorage.removeItem(this.storageName);
+  }
+
   /**
  * Return null or the specified value
  * @param value

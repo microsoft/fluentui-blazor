@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,7 +23,6 @@ public partial class DialogService
         where T : IDialogContentComponent<SplashScreenContent>
         => ShowSplashScreen(typeof(T), receiver, callback, parameters);
 
-
     /// <summary>
     /// Shows a splash screen of the given type with the given parameters.
     /// </summary>
@@ -37,7 +36,8 @@ public partial class DialogService
         {
             DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
-            Modal = false,
+            Modal = true,
+            PreventDismissOnOverlayClick = parameters.PreventDismissOnOverlayClick,
             ShowDismiss = false,
             ShowTitle = false,
             PrimaryAction = null,
@@ -88,7 +88,6 @@ public partial class DialogService
         where T : IDialogContentComponent<SplashScreenContent>
         => await ShowSplashScreenAsync(typeof(T), parameters);
 
-
     /// <summary>
     /// Shows a splash screen of the given type with the given parameters.
     /// </summary>
@@ -103,6 +102,7 @@ public partial class DialogService
             DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
+            PreventDismissOnOverlayClick = parameters.PreventDismissOnOverlayClick,
             ShowDismiss = false,
             ShowTitle = false,
             PrimaryAction = null,
@@ -129,6 +129,7 @@ public partial class DialogService
             DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
             Modal = false,
+            PreventDismissOnOverlayClick = parameters.PreventDismissOnOverlayClick,
             ShowDismiss = false,
             ShowTitle = false,
             PrimaryAction = null,

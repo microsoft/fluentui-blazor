@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -21,7 +22,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         .AddStyle("width", Width ?? $"{_icon.Width}px")
         .AddStyle("fill", GetIconColor())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
-        .AddStyle("display", "inline-block", !ContainsSVG())
+        .AddStyle("display", "inline-block", !_icon.ContainsSVG)
         .Build();
 
     /// <summary>
@@ -89,7 +90,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     protected override void OnParametersSet()
     {
         if (_icon == null)
-        {         
+        {
             _icon = new Icon();
         }
 
@@ -100,37 +101,28 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     }
 
     /// <summary>
-    /// Returns true if the icon contains a SVG content.
-    /// </summary>
-    /// <returns></returns>
-    private bool ContainsSVG()
-    {
-        return !string.IsNullOrEmpty(_icon.Content) &&
-               (_icon.Content.StartsWith("<path ") ||
-                _icon.Content.StartsWith("<rect ") ||
-                _icon.Content.StartsWith("<g ") ||
-                _icon.Content.StartsWith("<circle ") ||
-                _icon.Content.StartsWith("<mark "));
-    }
-
-    /// <summary>
     /// Returns FluentIcon.CustomColor, or FluentIcon.Color, or Icon.Color.
     /// </summary>
     /// <returns></returns>
     private string GetIconColor()
     {
-        string defaultColor = AspNetCore.Components.Color.Accent.ToAttributeValue()!;
+        var defaultColor = AspNetCore.Components.Color.Accent.ToAttributeValue()!;
 
         if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(CustomColor))
         {
             return CustomColor;
         }
 
+        if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(_icon.Color))
+        {
+            return _icon.Color;
+        }
+
         if (Color != null)
         {
             return Color.ToAttributeValue() ?? defaultColor;
         }
-        
+
         if (!string.IsNullOrEmpty(_icon.Color))
         {
             return _icon.Color;

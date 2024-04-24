@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
-    internal string RowId { get; } = Identifier.NewId();
+    internal string RowId { get; set; } = string.Empty;
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
 
     /// <summary>
@@ -55,11 +55,13 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{Owner.Grid.ItemSize}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .AddStyle("height", "100%", () => (!Owner.Grid.Virtualize || Owner.Rows.Count == 0) && Owner.Grid.Loading && RowType == DataGridRowType.Default)
        .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
     protected override void OnInitialized()
     {
+        RowId = $"r{Owner.GetNextRowId()}";
         Owner.Register(this);
     }
 
@@ -67,20 +69,25 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
     internal void Register(FluentDataGridCell<TGridItem> cell)
     {
+
+        cell.CellId = $"c{Owner.GetNextCellId()}";
         cells.Add(cell.CellId, cell);
     }
 
     internal void Unregister(FluentDataGridCell<TGridItem> cell)
     {
-        cells.Remove(cell.CellId);
+        cells.Remove(cell.CellId!);
     }
 
-    private async Task HandleOnCellFocus(DataGridCellFocusEventArgs args)
+    private async Task HandleOnCellFocusAsync(DataGridCellFocusEventArgs args)
     {
-        string? cellId = args.CellId;
-        if (cells.TryGetValue(cellId!, out FluentDataGridCell<TGridItem>? cell))
+        var cellId = args.CellId;
+        if (cells.TryGetValue(cellId!, out var cell))
         {
-            await Owner.Grid.OnCellFocus.InvokeAsync(cell);
+            if (cell != null && cell.CellType == DataGridCellType.Default)
+            {
+                await Owner.Grid.OnCellFocus.InvokeAsync(cell);
+            }
         }
     }
 

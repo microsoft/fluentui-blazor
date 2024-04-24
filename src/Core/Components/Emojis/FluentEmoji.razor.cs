@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -77,7 +77,6 @@ public partial class FluentEmoji<Emoji> : FluentComponentBase
             _emoji = new Emoji();
         }
     }
-
 
     /// <summary>
     /// Returns true if the emoji contains a SVG content.

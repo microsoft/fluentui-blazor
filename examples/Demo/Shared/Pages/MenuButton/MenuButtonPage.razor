@@ -1,9 +1,28 @@
 ﻿@page "/MenuButton"
 
+@using FluentUI.Demo.Shared.Pages.MenuButton.Examples
+
+<PageTitle>@App.PageTitle("MenuButton")</PageTitle>
+
 <h1>MenuButton</h1>
 
-<p>A menu button is a button with a chevron icon after the text used to trigger a menu.</p>
+<p>A menu button is a button with a chevron icon after the text used to trigger a menu. Menu items can be supplied by both
+   an <code>Items</code> parameter as well as manually as the <code>ChildContent</code> (at the same time).
+</p>
 
 <h2 id="example">Example</h2>
 
 <DemoSection Component="typeof(MenuButtonAccentColor)" Title="MenuButton to select accent color"  />
+
+<DemoSection Component="typeof(MenuButtonManual)" Title="MenuButton with manually supplied items">
+    <Description>
+        Besides using the <code>Items</code> parameter, you can also directly enter <code>FluentMenuItem</code>s manually. This way you can
+        use all that component's parameters and, for example, disable certain items.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(MenuButtonAppearance)" Title="Different button appearances" />
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentMenuButton)" />

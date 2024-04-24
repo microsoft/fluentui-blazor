@@ -1,0 +1,58 @@
+﻿@page "/CounterBadge"
+@using FluentUI.Demo.Shared.Pages.Badge.CounterBadge.Examples
+
+<PageTitle>@App.PageTitle("CounterBadge")</PageTitle>
+
+<h1>CounterBadge</h1>
+
+<p>
+    The <code>FluentCounterBadge</code> component is used to display a notification count on top of another component.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Component="typeof(CounterBadgeAppearances)" Title="Appearances">
+    <Description>
+        <p>
+            First example: A "+" can be shown after the <code>Count</code> when its value is larger than the set <code>Max</code> value. To achieve this,
+            set the <code>ShowOverflow</code> parameter to true (which is the default).
+        </p>
+        <p>
+            Second example: The <code>HorizontalPosition</code> and <code>VerticalPosition</code> parameters (int, used as a percentage) can be used to
+            position the counter badge. The default values for both are 50(%). It is possible to supply negative values as is shown in this example.
+        </p>
+        <p>
+            Last example: When the <code>Dot</code> parameter is set to 'true', the <code>Count</code> will be ignored. Just a dot will be displayed.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(CounterBadgeDot)" Title="Dot">
+    <Description>
+        When the <code>Dot</code> parameter is set to 'true', the <code>Count</code> will be ignored. Just a dot will be displayed.
+    </Description>
+</DemoSection>
+
+
+<DemoSection Component="typeof(CounterBadgeConditions)" Title="Conditions">
+    <Description>
+        <p>
+            The counter badge will, by default, not be shown when the <code>Count</code> equals 0. It is possible to control the
+            conditions when the counter will be shown on the badge by using the <code>ShowWhen</code> parameter. By default, the counter will not
+            be shown when the <code>Count</code> value equals 0 (first example). Several examples are shown here.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(CounterBadgeBadgeContent)" Title="Specific content">
+    <Description>
+        <p>
+            The <code>BadgeTemplate</code> parameter can be used to display specific content on the badge. The <code>Count</code> value
+            is available within the template through the <code>@@context</code> parameter.
+        </p>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentCounterBadge)" />

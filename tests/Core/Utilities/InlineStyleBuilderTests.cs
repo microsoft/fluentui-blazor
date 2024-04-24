@@ -1,4 +1,4 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
@@ -40,7 +40,7 @@ public class InlineStyleBuilderTests : TestBase
         var styleBuilder = new InlineStyleBuilder();
 
         // Act
-        styleBuilder.AddStyle("div", "color", "red", () => true) ;
+        styleBuilder.AddStyle("div", "color", "red", () => true);
 
         // Assert - Values are sorted
         Assert.Equal(@"<style> div { color: red; } </style>", styleBuilder.Build(newLineSeparator: false));
@@ -81,7 +81,7 @@ public class InlineStyleBuilderTests : TestBase
 
         // Act
         styleBuilder.AddStyle("div", "color", "red", true);
-        styleBuilder.AddStyle("div", "color", "green",false);
+        styleBuilder.AddStyle("div", "color", "green", false);
 
         // Assert 
         Assert.Equal("<style>\r\ndiv { color: red; }\r\n</style>", styleBuilder.BuildMarkupString().Value);

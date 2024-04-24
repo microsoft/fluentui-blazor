@@ -8,7 +8,7 @@ public class FluentToolbarTests : TestBase
     public void FluentToolbar_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         Orientation? orientation = default!;
         var cut = TestContext.RenderComponent<FluentToolbar>(parameters => parameters
             .Add(p => p.Orientation, orientation)
@@ -17,12 +17,7 @@ public class FluentToolbarTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

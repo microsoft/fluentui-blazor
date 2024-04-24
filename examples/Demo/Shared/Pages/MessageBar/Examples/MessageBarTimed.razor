@@ -49,7 +49,7 @@
             options.Body = MessageBarSamples.OneRandomMessage;
             options.Link = link;
             options.Timestamp = DateTime.Now;
-            options.Timeout = 3;
+            options.Timeout = 3000;
             options.Section = App.MESSAGES_NOTIFICATION_CENTER;
         });
     }
@@ -63,7 +63,7 @@
             options.Title = $"Simple message #{counter++}";
             options.Body = MessageBarSamples.OneRandomMessage;
             options.Link = link;
-            options.Timeout = 5;
+            options.Timeout = 5000;
             options.Timestamp = DateTime.Now;
             options.Section = App.MESSAGES_DIALOG;
         });

@@ -4,7 +4,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentOption<TOption> : FluentComponentBase, IDisposable where TOption : notnull
 {
-    internal string OptionId { get; } = Identifier.NewId();
 
     [CascadingParameter(Name = "ListContext")]
     internal InternalListContext<TOption> InternalListContext { get; set; } = default!;
@@ -26,7 +25,6 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
-
 
     /// <summary>
     /// Called whenever the selection changed.
@@ -55,8 +53,8 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Selected && 
-            InternalListContext != null && 
+        if (firstRender && Selected &&
+            InternalListContext != null &&
             InternalListContext.ValueChanged.HasDelegate &&
             InternalListContext.ListComponent.Multiple)
         {
@@ -65,13 +63,14 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     }
 
     /// <summary />
-    protected async Task OnSelectHandler()
+    public async Task OnClickHandlerAsync()
     {
         if (Disabled)
+        {
             return;
+        }
 
         Selected = !Selected;
-
 
         if (SelectedChanged.HasDelegate)
         {
@@ -84,13 +83,23 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
         }
         else
         {
-            if (InternalListContext != null &&
-                InternalListContext.ValueChanged.HasDelegate && 
-                InternalListContext.ListComponent.Items is null)
+            if (InternalListContext != null && InternalListContext.ListComponent.Items is null)
             {
-                await InternalListContext.ValueChanged.InvokeAsync(Value);
+                if (InternalListContext.ValueChanged.HasDelegate)
+                {
+                    await InternalListContext.ValueChanged.InvokeAsync(Value);
+                }
+                if (InternalListContext.SelectedOptionChanged.HasDelegate)
+                {
+                    await InternalListContext.SelectedOptionChanged.InvokeAsync();
+                }
             }
         }
+    }
+
+    public FluentOption()
+    {
+        Id = Identifier.NewId();
     }
 
     public void Dispose() => InternalListContext.Unregister(this);

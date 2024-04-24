@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -9,11 +8,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
-    private string _valueText = string.Empty;
-    
-    public const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
+    public static string AccessibilitySelected = "Selected {0}";
+    public static string AccessibilityNotFound = "No items found";
+    public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
+    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
+    private Virtualize<TOption>? VirtualizationContainer { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -37,6 +38,24 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text field value.
+    /// </summary>
+    [Parameter]
+    public string ValueText { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the text field value changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string> ValueTextChanged { get; set; }
+
+    /// <summary>
+    /// Determines if the element should receive document focus on page load.
+    /// </summary>
+    [Parameter]
+    public bool Autofocus { get; set; } = false;
 
     /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
@@ -118,7 +137,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
 
-
     /// <summary>
     /// Gets or sets the header content, placed at the top of the popup panel.
     /// </summary>
@@ -142,6 +160,43 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// </summary>
     [Parameter]
     public string TitleScrollToNext { get; set; } = "Next";
+
+    /// <summary>
+    /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+    /// </summary>
+    [Parameter]
+    public Icon? IconDismiss { get; set; } = new CoreIcons.Regular.Size16.Dismiss();
+
+    /// <summary>
+    /// Gets or sets the icon used for the Search button. By default: Search icon.
+    /// </summary>
+    [Parameter]
+    public Icon? IconSearch { get; set; } = new CoreIcons.Regular.Size16.Search();
+
+    /// <summary>
+    /// Gets or sets whether the dropdown is shown when there are no items.
+    /// </summary>
+    [Parameter]
+    public bool ShowOverlayOnEmptyResults { get; set; } = true;
+
+    /// <summary>
+    /// If true, the options list will be rendered with virtualization. This is normally used in conjunction with
+    /// scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
+    /// This can greatly improve the performance when scrolling through large data sets.
+    ///
+    /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="ItemSize"/> and must
+    /// ensure that every row renders with the same constant height.
+    ///
+    /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered is small.
+    /// </summary>
+    [Parameter] public bool Virtualize { get; set; }
+
+    /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
+    /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
+    /// size and to ensure accurate scrolling.
+    /// </summary>
+    [Parameter] public float ItemSize { get; set; } = 50;
 
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
@@ -188,9 +243,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
-    protected virtual async Task InputHandlerAsync(ChangeEventArgs e)
+    protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
-        _valueText = e.Value?.ToString() ?? string.Empty;
+        ValueText = e.Value?.ToString() ?? string.Empty;
+        await ValueTextChanged.InvokeAsync(ValueText);
 
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
@@ -204,38 +260,88 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         var args = new OptionsSearchEventArgs<TOption>()
         {
             Items = Items ?? Array.Empty<TOption>(),
-            Text = _valueText,
+            Text = ValueText,
         };
 
         await OnOptionsSearch.InvokeAsync(args);
 
-        Items = args.Items.Take(MaximumOptionsSearch);
-        SelectableItem = Items.FirstOrDefault();
+        Items = args.Items?.Take(MaximumOptionsSearch);
+
+        SelectableItem = Items != null
+            ? Items.FirstOrDefault()
+            : default;
+
+        if (VirtualizationContainer != null)
+        {
+            await VirtualizationContainer.RefreshDataAsync();
+        }
     }
 
-    /// <summary />
-    protected virtual async Task KeyDownHandlerAsync(KeyboardEventArgs e)
+    private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)
     {
-        switch (e.Code)
+        if (Items is null)
         {
-            case "Escape":
+            return ValueTask.FromResult(
+                new ItemsProviderResult<TOption>(
+                    Array.Empty<TOption>(),
+                    0));
+        }
+
+        return ValueTask.FromResult(
+            new ItemsProviderResult<TOption>(
+                Items.Skip(request.StartIndex).Take(request.Count),
+                Items.Count()));
+    }
+
+    private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
+    private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
+
+    /// <summary />
+    protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case KeyCode.Escape:
                 await KeyDown_Escape();
                 break;
 
-            case "Enter":
-            case "NumpadEnter":
-                await KeyDown_Enter();
+            case KeyCode.Enter:
+                if (IsMultiSelectOpened)
+                {
+                    var optionDisabled = SelectableItem != null && OptionDisabled != null
+                                       ? OptionDisabled.Invoke(SelectableItem)
+                                       : false;
+                    if (optionDisabled)
+                    {
+                        await KeyDown_Escape();
+                    }
+                    else
+                    {
+                        await KeyDown_Enter();
+                    }
+                }
+                else
+                {
+                    await OnDropDownExpandedAsync();
+                }
                 break;
 
-            case "Backspace":
+            case KeyCode.Backspace:
                 await KeyDown_Backspace();
                 break;
 
-            case "ArrowDown":
-                await KeyDown_ArrowDown();
+            case KeyCode.Down:
+                if (IsMultiSelectOpened)
+                {
+                    await KeyDown_ArrowDown();
+                }
+                else
+                {
+                    await OnDropDownExpandedAsync();
+                }
                 break;
 
-            case "ArrowUp":
+            case KeyCode.Up:
                 await KeyDown_ArrowUp();
                 break;
         }
@@ -250,10 +356,23 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         // Backspace
         async Task KeyDown_Backspace()
         {
-            if (string.IsNullOrEmpty(_valueText) &&
+            // Remove last selected item
+            if (string.IsNullOrEmpty(ValueText) &&
                 SelectedOptions != null && SelectedOptions.Any())
             {
                 await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
+                IsReachedMaxItems = false;
+                return;
+            }
+
+            // Remove last char
+            if (!string.IsNullOrEmpty(ValueText))
+            {
+                await InputHandlerAsync(new ChangeEventArgs()
+                {
+                    Value = ValueText[..^1],
+                });
+                return;
             }
         }
 
@@ -263,9 +382,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             if (Items != null && Items.Any())
             {
                 var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-                if (index > 0)
+
+                // Previous available item
+                for (var i = index - 1; i >= 0; i--)
                 {
-                    SelectableItem = Items.ElementAt(index - 1);
+                    var item = Items.ElementAt(i);
+                    var disabled = OptionDisabled?.Invoke(item) ?? false;
+
+                    if (!disabled)
+                    {
+                        SelectableItem = Items.ElementAt(i);
+                        break;
+                    }
                 }
             }
 
@@ -278,9 +406,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             if (Items != null && Items.Any())
             {
                 var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-                if (index < Items.Count() - 1)
+
+                // Next available item
+                for (var i = index + 1; i < Items.Count(); i++)
                 {
-                    SelectableItem = Items.ElementAt(index + 1);
+                    var item = Items.ElementAt(i);
+                    var disabled = OptionDisabled?.Invoke(item) ?? false;
+
+                    if (!disabled)
+                    {
+                        SelectableItem = Items.ElementAt(i);
+                        break;
+                    }
                 }
             }
 
@@ -315,33 +452,36 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary />
-    protected virtual Task OnDropDownExpandedAsync()
+    protected Task OnDropDownExpandedAsync()
     {
         return InputHandlerAsync(new ChangeEventArgs()
         {
-            Value = _valueText,
+            Value = ValueText,
         });
     }
 
     /// <summary />
-    protected virtual Task OnClearAsync()
+    protected async Task OnClearAsync()
     {
         RemoveAllSelectedItems();
-        _valueText = string.Empty;
-        return RaiseChangedEventsAsync();
+        ValueText = string.Empty;
+        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseChangedEventsAsync();
     }
 
     /// <summary />
     protected override async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
-        _valueText = string.Empty;
+        ValueText = string.Empty;
+        await ValueTextChanged.InvokeAsync(ValueText);
+
         IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
         await DisplayLastSelectedItemAsync();
     }
 
     /// <summary />
-    public virtual async Task RemoveSelectedItemAsync(TOption? item)
+    public async Task RemoveSelectedItemAsync(TOption? item)
     {
         if (item == null)
         {
@@ -359,5 +499,36 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         {
             await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
         }
+    }
+
+    /// <summary />
+    private string? GetAutocompleteAriaLabel()
+    {
+        // No items found
+        if (IsMultiSelectOpened && Items?.Any() == false)
+        {
+            return AccessibilityNotFound;
+        }
+
+        // Reached Max Items
+        if (IsReachedMaxItems)
+        {
+            return AccessibilityReachedMaxItems;
+        }
+
+        // Selected {0}
+        if (IsMultiSelectOpened && SelectableItem != null)
+        {
+            return GetOptionText(SelectableItem) ?? string.Empty;
+        }
+
+        // Selected items
+        if (SelectedOptions != null && SelectedOptions.Any())
+        {
+            return string.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
+        }
+
+        // Default
+        return GetAriaLabel() ?? Label ?? Placeholder;
     }
 }

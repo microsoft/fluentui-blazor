@@ -36,6 +36,16 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
                 "/Account/ExternalLogin",
                 QueryString.Create(query));
 
+            // Temporary workaround for FluentButton returning a provider value twice
+            // Split the comma-separated list of strings
+            var providers = provider.Split(',');
+
+            // Find the value that appears twice in the list
+            provider = providers.GroupBy(p => p)
+                                .Where(g => g.Count() == 2)
+                                .Select(g => g.Key)
+                                .First();
+
             var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return TypedResults.Challenge(properties, [provider]);
         });

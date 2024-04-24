@@ -2,6 +2,7 @@ fluent-card ::deep {
     padding: calc(var(--design-unit) * 5px);
 }
 
+
 .fluent-card {
     --card-height: fit-content;
     --card-width: 100%;
@@ -311,3 +312,15 @@ fluent-card ::deep {
 .fluent-card:not(:has(> :is(.fluent-card-preview, .fluent-card-header, .fluent-card-footer)))::after {
     border-color: var(--colorNeutralStroke1, var(--neutral-stroke-rest));
 }*/
+
+.fluent-card-minimal-style ::deep {
+    height: var(--card-height, 100%);
+    width: var(--card-width, 100%);
+    contain: content;
+    background: var(--fill-color);
+    color: var(--neutral-foreground-rest);
+    border: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-layer-rest);
+    border-radius: calc(var(--layer-corner-radius)* 1px);
+    box-shadow: var(--elevation-shadow-card-rest);
+    padding: calc(var(--design-unit)* 5px);
+}

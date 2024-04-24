@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components.Generators;
+namespace Microsoft.FluentUI.AspNetCore.Components.Generators;
 
 /// <summary>
 /// This class contains all the design tokens as const <c ref="string" />s where the value represents 
@@ -208,7 +208,6 @@ public class DesignTokenConstants
 
     public const string neutralFillStrongFocus = "Swatch";
 
-
     // Neutral Foreground
     public const string neutralForegroundRest = "Swatch";
 
@@ -218,10 +217,8 @@ public class DesignTokenConstants
 
     public const string neutralForegroundFocus = "Swatch";
 
-
     // Neutral Foreground Hint
     public const string neutralForegroundHint = "Swatch";
-
 
     // Neutral Stroke
     public const string neutralStrokeRest = "Swatch";
@@ -234,7 +231,6 @@ public class DesignTokenConstants
     public const string neutralStrokeControlHover = "Swatch";
     public const string neutralStrokeControlActive = "Swatch";
     public const string neutralStrokeControlFocus = "Swatch";
-
 
     // Neutral Stroke Divider
     public const string neutralStrokeDividerRest = "Swatch";

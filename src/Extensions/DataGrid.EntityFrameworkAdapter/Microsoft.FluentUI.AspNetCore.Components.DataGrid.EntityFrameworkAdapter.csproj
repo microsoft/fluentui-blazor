@@ -13,11 +13,12 @@
 		<PackageTags>Fluent UI, Blazor, DataGrid, .NET8</PackageTags>
 		<Title>Microsoft Fluent UI DataGrid adapter for Entity Framework</Title>
 		<Description>An adapter for using the Fluent UI Blazor DataGrid with Entity Framework.</Description>
-		<SignAssembly>true</SignAssembly>
+		<SignAssembly>false</SignAssembly>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<DebugType>embedded</DebugType>
+
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -40,7 +41,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,4 +59,11 @@
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
+
+  <ItemGroup>
+    <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.dll">
+      <Authenticode>Microsoft400</Authenticode>
+      <StrongName>StrongName</StrongName>
+    </FilesToSign>
+  </ItemGroup>
 </Project>

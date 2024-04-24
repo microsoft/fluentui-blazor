@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 [DebuggerDisplay("{Name} {Variant} {Size}")]
 internal class Icon
 {
-    private string[] LangageSubFolders = new[] { "bg", "ca", "da", "de", "en", "es", "et", "fr", "gl", "hu", "it", "kk", "ko", "lt", "lv", "ms", "no", "pt", "ru", "sl", "sr-cyrl", "sr-latn", "sv" };
+    private readonly string[] LangageSubFolders = new[] { "bg", "ca", "da", "de", "en", "es", "et", "fr", "gl", "hu", "it", "kk", "ko", "lt", "lv", "ms", "no", "pt", "ru", "sl", "sr-cyrl", "sr-latn", "sv" };
 
     /// <summary>
     /// Convert the file to an icon

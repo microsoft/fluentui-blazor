@@ -14,7 +14,7 @@ public class FluentInputLabelTests : TestBase
     {
         //Arrange
         TestContext.Services.AddSingleton(LibraryConfiguration);
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string forId = default!;
         string label = default!;
         string ariaLabel = default!;
@@ -29,12 +29,7 @@ public class FluentInputLabelTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

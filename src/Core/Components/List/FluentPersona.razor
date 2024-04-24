@@ -1,31 +1,34 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div id="@Id" class="@ClassValue" style="@StyleValue">
-    <div class="initials">
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes" position="@TextPosition.ToAttributeValue()">
+    <div class="initials" @onclick="@OnClick" style="@(OnClick.HasDelegate ? $"cursor: pointer;" : null)">
         <FluentPresenceBadge Status="@Status" Size="@StatusSize" StatusTitle="@StatusTitle">
-            @if (string.IsNullOrEmpty(Image))
+            <div style="display: table-cell; vertical-align: middle; @GetImageMinSizeStyle()">
+                @if (string.IsNullOrEmpty(Image))
+                {
+                    @(Initials ?? GetDefaultInitials())
+                }
+                else
+                {
+                    <img src="@Image" alt="@Name" title="@Name" style="@GetImageMaxSizeStyle()" />
+                }
+            </div>
+        </FluentPresenceBadge>
+    </div>
+    @if (ChildContent is not null || !String.IsNullOrEmpty(Name))
+    {
+        <div class="name" @onclick="@OnClick" style="@(OnClick.HasDelegate ? $"cursor: pointer;" : null)">
+            @if (ChildContent is null)
             {
-                <div style="display: table-cell; vertical-align: middle; @GetImageSizeStyle()">
-                        @(Initials ?? GetDefaultInitials())
-                </div>
+                @Name
             }
             else
             {
-                <img src="@Image" alt="@Name" title="@Name" style="@GetImageSizeStyle()" />
+                @ChildContent
             }
-        </FluentPresenceBadge>
-    </div>
-    <div class="name">
-        @if (@ChildContent is null)
-        {
-            @Name
-        }
-        else
-        {
-            @ChildContent
-        }
-    </div>
+        </div>
+    }
     @if (OnDismissClick.HasDelegate)
     {
         <div class="close">

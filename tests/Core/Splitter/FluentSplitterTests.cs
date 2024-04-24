@@ -10,8 +10,8 @@ public partial class FluentSplitterTests : TestContext
     public void FluentSplitter_Default()
     {
         //Arrange
-        string panel1 = "<b>render me</b>";
-        string panel2 = "<b>render me</b>";
+        var panel1 = "<b>render me</b>";
+        var panel2 = "<b>render me</b>";
         Orientation orientation = default!;
         string panel1Size = default!;
         string panel2Size = default!;
@@ -28,9 +28,4 @@ public partial class FluentSplitterTests : TestContext
         cut.Verify();
     }
 }
-
-
-
-
-
 

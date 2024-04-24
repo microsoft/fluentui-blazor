@@ -1,6 +1,8 @@
-@page "/Accordion"
+﻿@page "/Accordion"
 
 @using FluentUI.Demo.Shared.Pages.Accordion.Examples
+
+<PageTitle>@App.PageTitle("Accordion")</PageTitle>
 
 <h1>Accordion</h1>
 
@@ -22,6 +24,8 @@
 </DemoSection>
 
 <DemoSection Title="Accordion with single expand mode" Component="@typeof(AccordionSingleExpand)"></DemoSection>
+
+<DemoSection Title="Control from code" Component="@typeof(AccordionControlItem)"></DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 

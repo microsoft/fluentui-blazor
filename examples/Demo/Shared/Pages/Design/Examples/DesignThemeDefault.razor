@@ -1,6 +1,5 @@
 <FluentDesignTheme @bind-Mode="@Mode"
-                   OfficeColor="@OfficeColor"
-                   OfficeColorChanged="@(e => { OfficeColor = e ?? OfficeColor.Default; StateHasChanged(); })"
+                   @bind-OfficeColor="@OfficeColor"
                    OnLoaded="@OnLoaded"
                    OnLuminanceChanged="@OnLuminanceChanged"
                    StorageName="theme" />
@@ -9,24 +8,27 @@
     <FluentGrid>
         <FluentGridItem>
             <FluentSelect Label="Theme"
+                          Width="250px"
                           Items="@(Enum.GetValues<DesignThemeModes>())"
                           @bind-SelectedOption="@Mode" />
         </FluentGridItem>
 
         <FluentGridItem>
             <FluentSelect Label="Color"
-                          Items="@(Enum.GetValues<OfficeColor>())"
+                          Items="@(Enum.GetValues<OfficeColor>().Select(i => (OfficeColor?)i))"
                           Height="200px"
+                          Width="250px"
                           @bind-SelectedOption="@OfficeColor">
                 <OptionTemplate>  
                     <FluentStack>
                         <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
                                     Color="Color.Custom"
-                                    CustomColor="@context.ToAttributeValue()" />
+                                    CustomColor="@(@context.ToAttributeValue() != "default" ? context.ToAttributeValue() : "#036ac4" )" />
                         <FluentLabel>@context</FluentLabel>  
                     </FluentStack>
                 </OptionTemplate> 
             </FluentSelect>
+            <FluentButton Appearance="Appearance.Accent" OnClick="PickRandomColor">Feeling lucky?</FluentButton>
         </FluentGridItem>
     </FluentGrid>
 
@@ -42,7 +44,9 @@
 {
     public DesignThemeModes Mode { get; set; }
 
-    public OfficeColor OfficeColor { get; set; }
+
+
+    public OfficeColor? OfficeColor { get; set; }
 
     void OnLoaded(LoadedEventArgs e)
     {
@@ -52,5 +56,10 @@
     void OnLuminanceChanged(LuminanceChangedEventArgs e)
     {
         DemoLogger.WriteLine($"Changed: {(e.Mode == DesignThemeModes.System ? "System" : "")} {(e.IsDark ? "Dark" : "Light")}");
+    }
+
+    void PickRandomColor()
+    {
+        OfficeColor = OfficeColorUtilities.GetRandom();
     }
 }

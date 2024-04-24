@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
@@ -47,6 +47,20 @@ public class FluentNavLinkTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentNavLink_Id()
+    {
+        // Arrange & Act
+        var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
+        {
+            parameters.Add(p => p.Id, "nav-link-id");
+            parameters.Add(p => p.Href, "/NavMenu");
+            parameters.AddChildContent("NavLink text");
+        });
+
+        // Assert
+        cut.Verify();
+    }
     [Fact]
     public void FluentNavLink_Target()
     {

@@ -23,7 +23,7 @@
                     }
                     else
                     {
-                        <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandler">
+                        <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync">
                             @((MarkupString)ArrowUp)
                         </div>
                     }
@@ -33,7 +33,7 @@
                     }
                     else
                     {
-                        <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandler">
+                        <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync">
                             @((MarkupString)ArrowDown)
                         </div>
                     }
@@ -92,7 +92,7 @@
                     <div class="months" part="months">
                         @foreach (var month in CalendarExtended.GetMonthNames())
                         {
-                            var year = PickerMonth.Year;
+                            var year = PickerMonth.GetYear(Culture);
                             var monthProperties = GetMonthProperties(year, month.Index);
 
                             <div class="@GetAnimationClass("month")"
@@ -135,9 +135,10 @@
 
     @if (_pickerView == CalendarViews.Months)
     {
-        <FluentCalendar  View="CalendarViews.Months"
+        <FluentCalendar View="CalendarViews.Months"
                         Value="@PickerMonth"
-                        ValueChanged="@PickerMonthSelect"
+                        ValueChanged="@PickerMonthSelectAsync"
+                        CheckIfSelectedValueHasChanged="false"
                         ReadOnly="@ReadOnly"
                         Culture="@Culture"
                         DisabledSelectable="@DisabledSelectable"
@@ -150,7 +151,8 @@
     {
         <FluentCalendar View="CalendarViews.Years"
                         Value="@PickerMonth"
-                        ValueChanged="@PickerYearSelect"
+                        ValueChanged="@PickerYearSelectAsync"
+                        CheckIfSelectedValueHasChanged="false"
                         ReadOnly="@ReadOnly"
                         Culture="@Culture"
                         DisabledSelectable="@DisabledSelectable"

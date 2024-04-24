@@ -1,15 +1,20 @@
-﻿
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverflowItem
+public partial class FluentOverflowItem : IDisposable
 {
+    //private bool _disposed;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("power-overflow-item")
+        .AddClass("fluent-overflow-item")
         .Build();
 
     /// <summary />
@@ -21,7 +26,7 @@ public partial class FluentOverflowItem
     /// </summary>
     /// <value>The splitter.</value>
     [CascadingParameter]
-    public FluentOverflow Container { get; set; }
+    public FluentOverflow? Owner { get; set; }
 
     /// <summary>
     /// Gets or sets the content to display. All first HTML elements are included in the items flow.
@@ -42,14 +47,12 @@ public partial class FluentOverflowItem
     public FluentOverflowItem()
     {
         Id = Identifier.NewId();
-        Container = new FluentOverflow();
     }
 
     /// <summary />
     protected override void OnInitialized()
     {
-        Container.AddItem(this);
-        base.OnInitialized();
+        Owner?.Register(this);
     }
 
     /// <summary />
@@ -58,4 +61,7 @@ public partial class FluentOverflowItem
         Overflow = isOverflow == true ? isOverflow : null;
         Text = text ?? string.Empty;
     }
+
+    /// <summary />
+    public void Dispose() => Owner?.Unregister(this);
 }

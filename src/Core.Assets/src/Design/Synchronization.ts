@@ -43,7 +43,8 @@ class Synchronization {
     for (let i = 0; i < components.length; i++) {
       const component = components[i] as DesignTheme;
       if (component.synchronization.synchronizeAttribute instanceof Function) {
-        component.synchronization.synchronizeAttribute(this._designTheme.id, name, value);
+        setTimeout(component.synchronization.synchronizeAttribute, 0, this._designTheme.id, name, value);
+        //component.synchronization.synchronizeAttribute(this._designTheme.id, name, value);
       }
     }
   }

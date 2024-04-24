@@ -1,6 +1,6 @@
 ﻿// To avoid Flash of Unstyled Content, the body is hidden.
 // Here we'll find the first web component and wait for it to be upgraded.
-// When it is, we'll remove this visibility from the body.
+// When it is, we'll remove this invisibility from the body.
 
 class LoadingTheme extends HTMLElement {
 
@@ -59,6 +59,7 @@ class LoadingTheme extends HTMLElement {
         style.appendChild(document.createTextNode(css));
 
         document.body.classList.add(this.className);
+
 
         // Add a <fluent-design-theme mode="dark|light" /> sub-element
         // Do not add the "storage-name"" to avoid unwanted local storage.

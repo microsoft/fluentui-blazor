@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Bunit;
 using Xunit;
 
@@ -46,6 +46,36 @@ public partial class FluentCalendarTests : TestContext
                                      {FluentCalendar.ArrowUp}
                                    </div>
                                    <div class=""next"" title=""March"">
+                                     {FluentCalendar.ArrowDown}
+                                   </div>
+                                 </div>
+                               </div>");
+    }
+
+    [Theory]
+    [InlineData(2022, 02, 15, "en-US", "February 2022", "January", "March")]
+    [InlineData(2022, 02, 15, "fa-IR", "بهمن 1400", "دی", "اسفند")]
+    public void FluentCalendar_Title_ByCulture(int year, int month, int day, string cultureName, string monthNameWithYear, string prevMonthName, string nextMonthName)
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.Value, new System.DateTime(year, month, day));
+        });
+        var title = calendar.Find(".title");
+
+        // Assert
+        title.MarkupMatches(@$"<div class=""title"" part=""title"" aria-label=""{monthNameWithYear}"">
+                                 <div part=""label"" class=""label"">{monthNameWithYear}</div>
+                                 <div part=""move"" class=""change-period"">
+                                   <div class=""previous"" title=""{prevMonthName}"">
+                                     {FluentCalendar.ArrowUp}
+                                   </div>
+                                   <div class=""next"" title=""{nextMonthName}"">
                                      {FluentCalendar.ArrowDown}
                                    </div>
                                  </div>
@@ -141,7 +171,7 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         var firstDate = System.DateTime.Parse("2022-01-30");
 
-        for (int i = 0; i < allDays.Count; i++)
+        for (var i = 0; i < allDays.Count; i++)
         {
             var expectedDay = firstDate.AddDays(i).Day;
             var actualDay = Convert.ToInt32(allDays[i].InnerHtml);
@@ -169,6 +199,29 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         Assert.Equal("June 2022", monthName);
         Assert.Equal(juneFirst, calendar.Instance.PickerMonth);
+    }
+
+    [Theory]
+    [InlineData("en-US", "June 2022", "2022-06-01")]
+    [InlineData("fa-IR", "خرداد 1401", "2022-05-22")]
+    public void FluentCalendar_SetPickerMonth_ByCulture(string cultureName, string expectedMonthName, string expectedPickerMonthFirst)
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.Value, new System.DateTime(2022, 02, 15));
+            parameters.Add(p => p.PickerMonth, new System.DateTime(2022, 06, 15));
+        });
+        var monthName = calendar.Find(".label").InnerHtml;
+        var pickerMonthFirst = System.DateTime.Parse(expectedPickerMonthFirst);
+
+        // Assert
+        Assert.Equal(expectedMonthName, monthName);
+        Assert.Equal(pickerMonthFirst, calendar.Instance.PickerMonth);
     }
 
     [Fact]
@@ -217,6 +270,30 @@ public partial class FluentCalendarTests : TestContext
         Assert.Equal("May 2022", monthName);
     }
 
+    [Theory]
+    [InlineData("en-US", "May 2022")]
+    [InlineData("fa-IR", "اردیبهشت 1401")]
+    public void FluentCalendar_ClickPreviousMonth_ByCulture(string cultureName, string expectedMonthName)
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
+        });
+
+        // Click on Previous Month button
+        var buttonMove = calendar.Find(".previous");
+        buttonMove.Click();
+
+        // Assert
+        var monthName = calendar.Find(".label").InnerHtml;
+        Assert.Equal(expectedMonthName, monthName);
+    }
+
     [Fact]
     public void FluentCalendar_ClickNextMonth()
     {
@@ -237,6 +314,30 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         var monthName = calendar.Find(".label").InnerHtml;
         Assert.Equal("July 2022", monthName);
+    }
+
+    [Theory]
+    [InlineData("en-US", "July 2022")]
+    [InlineData("fa-IR", "تیر 1401")]
+    public void FluentCalendar_ClickNextMonth_ByCulture(string cultureName, string expectedMonthName)
+    {
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse("2022-06-15"));
+        });
+
+        // Click on Previous Month button
+        var buttonMove = calendar.Find(".next");
+        buttonMove.Click();
+
+        // Assert
+        var monthName = calendar.Find(".label").InnerHtml;
+        Assert.Equal(expectedMonthName, monthName);
     }
 
     [Fact]
@@ -260,7 +361,7 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         var selectedDay = calendar.Find($"div[value='{DAY}']");
-        
+
         Assert.Equal("01", selectedDay.TextContent);
     }
 
@@ -287,5 +388,33 @@ public partial class FluentCalendarTests : TestContext
         var selectedDay = calendar.Find($"div[value='{DAY}']");
 
         Assert.Equal("1", selectedDay.TextContent);
+    }
+
+    [Theory]
+    [InlineData("en-US", "1")]
+    [InlineData("fa-IR", "11")]
+    public void FluentCalendar_GetDayOfMonthNumeric_ByCulture(string cultureName, string expectedDayNumber)
+    {
+        const string DAY = "2022-06-01";
+
+        // Arrange
+        using var ctx = new TestContext();
+
+        // Act
+        var calendar = ctx.RenderComponent<FluentCalendar>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo(cultureName));
+            parameters.Add(p => p.PickerMonth, System.DateTime.Parse(DAY));
+            parameters.Add(p => p.DayFormat, DayFormat.Numeric);
+        });
+
+        // Click to select 2022-06-01
+        var day = calendar.Find($"div[value='{DAY}']");
+        day?.Click();
+
+        // Assert
+        var selectedDay = calendar.Find($"div[value='{DAY}']");
+
+        Assert.Equal(expectedDayNumber, selectedDay.TextContent);
     }
 }

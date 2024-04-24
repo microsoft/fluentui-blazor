@@ -1,13 +1,15 @@
 export * from '@fluentui/web-components/dist/web-components'
 export * from './FocusManager'
+export { parseColorHexRGB } from '@microsoft/fast-colors'
+
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
-import { PageScript, onEnhancedLoad } from './PageScript'
+import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
 
 interface Blazor {
   registerCustomEventType: (
     name: string,
-    options: CustomeventTypeOptions) => void;
+    options: CustomEventTypeOptions) => void;
 
   theme: {
     isSystemDark(): boolean,
@@ -16,7 +18,7 @@ interface Blazor {
   addEventListener: (name: string, callback: (event: any) => void) => void;
 }
 
-interface CustomeventTypeOptions {
+interface CustomEventTypeOptions {
   browserEventName: string;
   createEventArgs: (event: FluentUIEventType) => any;
 }
@@ -53,7 +55,8 @@ body:has(.prevent-scroll) {
 `;
 
 styleSheet.replaceSync(styles);
-document.adoptedStyleSheets.push(styleSheet);
+// document.adoptedStyleSheets.push(styleSheet);
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
@@ -61,7 +64,7 @@ var afterStartedCalled = false;
 
 export function afterWebStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor);
+    afterStarted(blazor, 'web');
   }
 }
 
@@ -79,7 +82,7 @@ export function beforeWebAssemblyStart(options: any) {
 
 export function afterWebAssemblyStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor);
+    afterStarted(blazor, 'wasm');
   }
 }
 
@@ -91,11 +94,11 @@ export function beforeServerStart(options: any) {
 
 export function afterServerStarted(blazor: any) {
   if (!afterStartedCalled) {
-    afterStarted(blazor);
+    afterStarted(blazor, 'server');
   }
 }
 
-export function afterStarted(blazor: Blazor) {
+export function afterStarted(blazor: Blazor, mode: string) {
 
   blazor.registerCustomEventType('radiogroupclick', {
     browserEventName: 'click',
@@ -143,6 +146,7 @@ export function afterStarted(blazor: Blazor) {
       if (event.target!.localName == 'fluent-accordion-item') {
         return {
           activeId: event.target!.id,
+          expanded: event.target!._expanded
         }
       };
       return null;
@@ -300,7 +304,11 @@ export function afterStarted(blazor: Blazor) {
     }
   }
 
-  blazor.addEventListener('enhancedload', onEnhancedLoad);
+
+  if (typeof blazor.addEventListener === 'function' && mode === 'web') {
+    customElements.define('fluent-page-script', FluentPageScript);
+    blazor.addEventListener('enhancedload', onEnhancedLoad);
+  }
 
   afterStartedCalled = true;
 }
@@ -308,7 +316,6 @@ export function afterStarted(blazor: Blazor) {
 export function beforeStart(options: any) {
   customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
-  customElements.define('page-script', PageScript);
 
   beforeStartCalled = true;
 }

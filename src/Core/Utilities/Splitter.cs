@@ -1,6 +1,5 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
-
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -44,7 +43,7 @@ internal class Splitter
         builder.Append("((?:");
 
         // this becomes true if `AppendPattern` was called at least once.
-        bool hasAtLeastOnePattern = false;
+        var hasAtLeastOnePattern = false;
         if (highlightedTexts is not null)
         {
             foreach (var substring in highlightedTexts)

@@ -16,6 +16,10 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TO
         .AddStyle($"#{Id}::part(selected-value)", "text-overflow", "ellipsis")
         .BuildMarkupString();
 
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
+        .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
+        .Build();
+
     /// <summary>
     /// Gets or sets the open attribute.
     /// </summary>

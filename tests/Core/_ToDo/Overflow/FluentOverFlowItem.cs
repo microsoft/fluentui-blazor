@@ -8,21 +8,16 @@ public class FluentOverflowItemTests : TestBase
     public void FluentOverFlowItem_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         FluentOverflow container = default!;
         var cut = TestContext.RenderComponent<FluentOverflowItem>(parameters => parameters
             .AddChildContent(childContent)
-            .Add(p => p.Container, container)
+            .Add(p => p.Owner, container)
         );
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

@@ -8,7 +8,7 @@ public class FluentSwitchTests : TestBase
     public void FluentSwitch_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string checkedMessage = default!;
         string uncheckedMessage = default!;
         var cut = TestContext.RenderComponent<FluentSwitch>(parameters => parameters
@@ -19,12 +19,7 @@ public class FluentSwitchTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

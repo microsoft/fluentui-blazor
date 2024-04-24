@@ -1,4 +1,7 @@
 ﻿@page "/Templates"
+
+<PageTitle>@App.PageTitle("Templates")</PageTitle>
+
 <h1><FluentIcon Value="@(new Icons.Regular.Size24.Classification())" /> Project templates</h1>
 
 <p>
@@ -19,13 +22,17 @@
 </p>
 <p><em>*) It depends on the type of project and the choices made during project creation, which pages will be available in the generated app.</em></p>
 
+<blockquote>
+<strong>IMPORTANT!!</strong>
+<p>Just as with the standard Blazor Web App template, Blazor will use SSR by default. If you want to have interactive components, make sure you add a rendermode to the app, page or component.!</p>
+</blockquote>
 
 <h2 id="installation">Installation</h2>
 <p>
 	Install the templates by running this command:
 </p>
 
-<CodeSnippet>dotnet new install {path to package}\Microsoft.FluentUI.AspNetCore.Templates.{version}.nupkg</CodeSnippet>
+<CodeSnippet>dotnet new install Microsoft.FluentUI.AspNetCore.Templates</CodeSnippet>
 
 <p>
 	The current version can be found on the <a href="https://www.nuget.org/packages/Microsoft.FLuentUI.AspNetCore.Templates/" rel="noopener noreferrer nofollow">NuGet page</a>.
@@ -58,8 +65,8 @@
 
 <h3>Blazor Web App details</h3>
 <p>
-	The rendermode and interactivity choices made when creating an application with the template determine the behavoir of the NavMenu and wether we include the web
-	components scrip in <code>App.razor</code>. Starting with v4.2.1 of the templates, the result of that choices are described in the table below:
+	The rendermode and interactivity choices made when creating an application with the template determine the behavior of the NavMenu and whether we include the web
+	components script in <code>App.razor</code>. Starting with v4.2.1 of the templates, the result of that choices is described in the table below:
 
 	<table width="90%">
 		<thead>

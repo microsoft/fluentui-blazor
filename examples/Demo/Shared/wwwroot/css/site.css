@@ -1,4 +1,4 @@
-﻿@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
 body {
     height: 100%;
@@ -17,6 +17,12 @@ body {
         grid-column: 1;
     }
 
+    .siteheader .search {
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+    }
+
     .siteheader .links {
         padding-right: 10px;
         display: flex;
@@ -24,23 +30,35 @@ body {
     }
 
     .siteheader .notifications {
-        padding-right: 10px;
         display: flex;
         align-items: center;
     }
 
     .siteheader .settings {
-        padding-right: 24px;
+        padding-right: 6px;
         display: flex;
         align-items: center;
+        margin-left: 0;
+        margin-right: 10px;
     }
 
 [dir="rtl"] .siteheader .settings {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 6px;
+    margin-left: 10px;
+    margin-right: 0;
 }
 
-[dir="rtl"] .siteheader .notifications {
-    padding: 0 0 0 20px;
+[dir="rtl"] .siteheader .search {
+    padding-left: 20px;
+    padding-right: 0;
+}
+
+[dir="rtl"] .siteheader .links {
+    padding-left: 10px;
+}
+
+.search-result-icon {
+    vertical-align: middle;
 }
 
 .body-stack {
@@ -183,6 +201,14 @@ code {
     background-color: var(--neutral-fill-secondary-hover);
 }
 
+kbd {
+    padding: 0.10rem 0.25rem;
+    font-size: 0.875em;
+    color: var(--neutral-foreground-rest);
+    background-color: var(--neutral-fill-secondary-rest);
+    border-radius: 0.25rem;
+    border: 1px solid var(--accent-fill-rest);
+}
 
 #blazor-error-ui {
     background: lightyellow;
@@ -257,6 +283,10 @@ code {
         justify-content: flex-start;
     }
 
+        .siteheader .search {
+            display: none;
+        }
+
         .siteheader .logo {
             width: 160px;
             height: 23px;
@@ -269,10 +299,10 @@ code {
     }
 
     nav.sitenav {
-        
+
         width: 100%;
         height: calc(100dvh - 50px);
-        
+
     }
 
     .navmenu {
@@ -289,10 +319,16 @@ code {
         display: block;
         position: absolute;
         top: 15px;
+        left: unset;
         right: 20px;
         width: 20px;
         height: 20px;
         border: none;
+    }
+
+    [dir="rtl"] .navmenu-icon {
+        left: 20px;
+        right: unset
     }
 
     #navmenu-toggle ~ nav {
@@ -332,7 +368,7 @@ code {
 
         .footer .version {
             grid-column: 2;
-            justify-content: start;
+            justify-self: start;
         }
 
         .footer .copy {
@@ -351,9 +387,6 @@ code {
             nav ul {
                 margin: 0 0;
             }
-
-                nav ul li {
-                }
     }
 }
 
@@ -446,4 +479,41 @@ code {
     .fluent-dialog-main {
         --dialog-width: 100vw;
     }
+}
+
+/*  Responvive Youtube Video
+
+    <div class="youtube-responsive">
+      <iframe src="https://www.youtube.com/embed/lUZ5mrg2Q8k" frameborder="0" allowfullscreen></iframe>
+    </div>
+*/
+.youtube-responsive {
+    position: relative;
+    height: 0;
+    padding-top: 56%;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+    .youtube-responsive iframe,
+    .youtube-responsive object,
+    .youtube-responsive embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtube-responsive .fluid-vids {
+        position: initial !important
+    }
+
+.youtube-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    min-height: 24px;
 }

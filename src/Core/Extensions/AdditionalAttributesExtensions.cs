@@ -1,6 +1,6 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
-public static class AdditionalAttributesExtensions
+internal static class AdditionalAttributesExtensions
 {
     /// <summary> Determines whether two sets of attributes are equal when rendered. </summary>
     /// <param name="x">The compared set</param>
@@ -42,7 +42,10 @@ public static class AdditionalAttributesExtensions
                 continue;
             }
 
-            if (y is null) return false;
+            if (y is null)
+            {
+                return false;
+            }
 
             if (!y.TryGetValue(xKvp.Key, out var yValue) ||
                 !xKvp.Value.Equals(yValue))

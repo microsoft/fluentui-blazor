@@ -401,7 +401,7 @@ public partial class FluentButtonTests : TestContext
     [Fact]
     public void FluentButton_OnClick_Disabled()
     {
-        bool clicked = false;
+        var clicked = false;
 
         // Arrange
         var cut = TestContext.RenderComponent<FluentButton>(parameters =>

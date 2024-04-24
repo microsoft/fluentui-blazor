@@ -6,18 +6,19 @@
     display: flex;
 }
 
-::deep .fluent-nav-icon {
-    margin-inline-end: calc(var(--design-unit) * 2px + 2px);
+::deep .fluent-nav-icon:not(fluent-menu-item) {
     min-width: 20px;
 }
 
-::deep .fluent-nav-link.disabled {
-    color: var(--neutral-fill-secondary-rest) !important;
-    cursor: not-allowed ;
+::deep .fluent-nav-link.disabled:not(fluent-menu-item) {
+    color: var(--neutral-foreground-rest) !important;
+    opacity: var(--disabled-opacity);
+    cursor: not-allowed;
     pointer-events: none;
 }
 
 
 ::deep .fluent-nav-link.disabled .fluent-nav-icon {
-    fill: var(--neutral-stroke-rest) !important;
+    fill: var(--neutral-foreground-rest) !important;
+    opacity: var(--disabled-opacity);
 }

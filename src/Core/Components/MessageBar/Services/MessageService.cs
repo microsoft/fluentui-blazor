@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -11,11 +11,11 @@ public class MessageService : IMessageService, IDisposable
     /// <summary />
     public MessageService()
     {
-        
+
     }
 
     /// <summary />
-    public MessageService(NavigationManager navigationManager) 
+    public MessageService(NavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         _navigationManager.LocationChanged += NavigationManager_LocationChanged;
@@ -100,7 +100,7 @@ public class MessageService : IMessageService, IDisposable
         {
             options.Title = title;
             options.Intent = intent;
-            options.Section = string.Empty; 
+            options.Section = string.Empty;
         });
     }
 
@@ -109,7 +109,7 @@ public class MessageService : IMessageService, IDisposable
     /// </summary>
     /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
-    /// <param name="section">Section to show the messagebar in </param>
+    /// <param name="section">Section to show the message bar in </param>
     /// <returns></returns>
     public Message ShowMessageBar(string title, MessageIntent intent, string section)
     {
@@ -184,7 +184,7 @@ public class MessageService : IMessageService, IDisposable
     /// </summary>
     /// <param name="title">Main info</param>
     /// <param name="intent">Intent of the message</param>
-    /// <param name="section">Section to show the messagebar in </param>
+    /// <param name="section">Section to show the message bar in </param>
     /// <returns></returns>
     public async Task<Message> ShowMessageBarAsync(string title, MessageIntent intent, string section)
     {
@@ -223,7 +223,6 @@ public class MessageService : IMessageService, IDisposable
 
         return message;
     }
-
 
     /// <summary>
     /// Clear all messages (per section, if provided) from the message bar.
@@ -302,7 +301,7 @@ public class MessageService : IMessageService, IDisposable
             return;
         }
 
-        IEnumerable<Message>? messages = string.IsNullOrEmpty(section) 
+        IEnumerable<Message>? messages = string.IsNullOrEmpty(section)
             ? MessageList
             : MessageList.Where(i => i.Section == section);
 

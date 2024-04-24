@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 public readonly struct CssBuilder
 {

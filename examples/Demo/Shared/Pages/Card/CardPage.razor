@@ -1,6 +1,7 @@
-@page "/Card"
+﻿@page "/Card"
 
 @using FluentUI.Demo.Shared.Pages.Card.Examples
+
 
 <style>
     .multiple-examples-container {
@@ -22,6 +23,9 @@
     }
 </style>
 
+<PageTitle>@App.PageTitle("Card")</PageTitle>
+
+
 <h1>Card</h1>
 
 <p>The <code>&lt;FluentCard&gt;</code> component is a visual container without semantics that takes children. Cards are snapshots of content that are typically used in a group to present collections of related information.</p>
@@ -41,6 +45,7 @@
         </p>
     </Description>
 </DemoSection>
+
 
 <DemoSection Title="Appearance example" Component="@typeof(CardAppearances)">
     <Description>Cards can have different styles depending on the situation and where it is placed.</Description>
@@ -64,11 +69,27 @@
 
 <DemoSection Title="Focus Mode examples" Component="@typeof(CardFocusMode)">
     <Description><p>Cards can be focusable and manage the focus of their contents in several different strategies. Using the <code>FocusMode</code> parameter, the following can be achieved:</p></Description>
+
+<DemoSection Title="Minimal Style" Component="@typeof(CardMinimalStyle)">
+    <Description>
+        <p>
+            By default the <b>FluentCard</b> component is a visual container and design system provider. Cards are snapshots of content that are typically used in a group to present collections of related information.
+            Thus, by design, the <b>FluentCard</b> component includes all the styles required for a good representation of the other components included in it.
+            This adds a large number of styles such as <code>justify-content; align-items; gap; width;</code> and over <b>80 CSS variables</b>.
+            The code generated can therefore become very important, especially if you use this component several times, for example in a list or during a <code>foreach</code>.
+        </p>
+        <p>
+            To avoid this, you can use the <code>MinimalStyle</code> property. This will remove all the default styles from the <b>FluentCard</b> component.
+            This will allow you to use the <b>FluentCard</b> component as a simple container without any style, except the styles to draw the <code>box-shadow</code> (and some minimal styles).
+        </p>
+    </Description>
+
 </DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentCard)" />
+
 
 <ApiDocumentation Component="typeof(FluentCardHeader)" />
 
@@ -77,3 +98,4 @@
 <ApiDocumentation Component="typeof(FluentCardFooter)" />
 
 <ApiDocumentation Component="typeof(FluentCardFloatingAction)" />
+

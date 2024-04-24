@@ -1,0 +1,9 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@* based on code from https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/static-server-rendering?view=aspnetcore-8.0 *@
+<fluent-page-script src="@Src" style="display:none;"></fluent-page-script>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public string Src { get; set; } = default!;
+}

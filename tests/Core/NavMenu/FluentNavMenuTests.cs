@@ -1,9 +1,15 @@
-﻿using Xunit;
+using Bunit;
+using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;
 
 public class FluentNavMenuTests : TestBase
 {
+    public FluentNavMenuTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void FluentNavMenu_Default()
     {
@@ -58,7 +64,6 @@ public class FluentNavMenuTests : TestBase
         // Assert
         cut.Verify();
     }
-
 
     [Fact]
     public void FluentNavMenu_CollapsibleCustomTitle()

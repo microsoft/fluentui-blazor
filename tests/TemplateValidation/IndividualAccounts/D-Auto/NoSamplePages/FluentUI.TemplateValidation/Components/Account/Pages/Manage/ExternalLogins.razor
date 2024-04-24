@@ -54,7 +54,7 @@
             <p>
                 @foreach (var provider in otherLogins)
                 {
-                                        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Name="Provider" Value="@provider.Name" Title="@($"Log in using your {provider.DisplayName} account")">
+                    <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Name="Provider" Value="@provider.Name" Title="@($"Log in using your {provider.DisplayName} account")">
                         @provider.DisplayName
                     </FluentButton>
                 }

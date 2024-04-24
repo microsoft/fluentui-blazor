@@ -1,5 +1,4 @@
 using Bunit;
-using Bunit.Rendering;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Accordion;

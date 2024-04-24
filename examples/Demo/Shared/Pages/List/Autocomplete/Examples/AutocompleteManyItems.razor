@@ -1,0 +1,31 @@
+﻿@using System.Globalization
+@inject DataSource Data
+
+<FluentAutocomplete TOption="CultureInfo"
+                    AutoComplete="off"
+                    Label="Select Culture"
+                    Width="250px"
+                    OnOptionsSearch="OnSearch"
+                    Placeholder="Select countries"
+                    MaximumOptionsSearch="int.MaxValue"
+                    MaximumSelectedOptions="2"
+                    Virtualize="true"
+                    OptionText="@(item => $"{item.DisplayName} - {item.Name}")"
+                    @bind-SelectedOptions="@SelectedCultures" />
+
+<p>
+    <b>Selected</b>: @(String.Join(" - ", SelectedCultures.Select(i => i.Name)))
+</p>
+
+@code
+{
+    IEnumerable<CultureInfo> SelectedCultures = Array.Empty<CultureInfo>();
+    CultureInfo[] Cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+
+    private void OnSearch(OptionsSearchEventArgs<CultureInfo> e)
+    {
+        e.Items = Cultures.Where(culture =>
+            culture.Name.Contains(e.Text, StringComparison.OrdinalIgnoreCase) ||
+            culture.DisplayName.Contains(e.Text, StringComparison.OrdinalIgnoreCase));
+    }
+}

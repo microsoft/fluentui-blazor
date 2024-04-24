@@ -1,4 +1,4 @@
-﻿using Timer = System.Timers.Timer;
+using Timer = System.Timers.Timer;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -38,7 +38,7 @@ internal sealed class Debouncer : IDisposable
                 }
                 finally
                 {
-                    lock(_syncRoot)
+                    lock (_syncRoot)
                     {
                         if (_timer == newTimer)
                         {

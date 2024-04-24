@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -50,7 +50,6 @@ public interface IToastService
     void ShowCustom(string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null, (Icon Value, Color Color)? icon = null);
     void ShowConfirmationToast(ToastParameters<ConfirmationToastContent> parameters);
 
-
     //Communication toasts.
     void ShowCommunicationToast(ToastParameters<CommunicationToastContent> parameters);
 
@@ -59,8 +58,7 @@ public interface IToastService
 
     // No type given, defaults to ConfirmationToast with timeout set by <see cref="FluentToastContainer"/>.
     //void ShowToast(ToastIntent intent, string title, Action<ToastAction>? action = null, int? timout = null);
-    void ShowToast(ToastIntent intent, string title, int? timout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
-
+    void ShowToast(ToastIntent intent, string title, int? timeout = null, string? topAction = null, EventCallback<ToastResult>? callback = null);
 
     //void ShowToast<TContent>(Type? toastComponent, ToastParameters<TContent> data, Action<ToastParameters>? settings = null)
     //    where TContent : class;

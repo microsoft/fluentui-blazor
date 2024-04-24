@@ -1,0 +1,43 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     status="@GetClassStatus()" 
+     class="@ClassValue" 
+     style="@StyleValue" 
+     data-index="@Index" 
+     @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+
+@if (!IsLast)
+{
+    <div class="fluent-multi-splitter-bar"
+         status="@GetClassStatus()"
+         @onmousedown="@(e => Splitter.ResizeExecAsync(e, Index))"
+         @onclick:preventDefault="true"
+         @onclick:stopPropagation="true">
+
+        @if (IsCollapsible)
+        {
+            <span part="collapse"
+                  @onmousedown="@(e => Splitter.CollapseExecAsync(e, Index))"
+                  @onmousedown:preventDefault="true" 
+                  @onmousedown:stopPropagation="true" />
+        }
+
+        @if (IsResizable)
+        {
+            <span part="resize" />
+        }
+
+        @if (IsExpandable)
+        {
+            <span part="expand"
+                  @onmousedown="@(e => Splitter.ExpandExecAsync(e, Index))"
+                  @onmousedown:preventDefault="true" 
+                  @onmousedown:stopPropagation="true" />
+        }
+    </div>
+}

@@ -1,4 +1,3 @@
-﻿using System.Reflection.Emit;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
@@ -88,7 +87,7 @@ public class StyleBuilderTests : TestBase
 
     [Fact]
     public void StyleBuilder_PropValue()
-    { 
+    {
         // Assert
         var styleBuilder = new StyleBuilder();
 

@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @if (Visible)
 {
@@ -39,7 +39,14 @@
         }
         else
         {
-            <FluentProgress />
+            if (LoadingContent is null)
+            {
+                <FluentProgress />
+            }
+            else
+            {
+                @LoadingContent
+            }
         }
     </fluent-tab-panel>
 }

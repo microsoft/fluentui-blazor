@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,7 +23,7 @@ public enum DayFormat
 /// Defines the view display in a <see cref="FluentCalendar"/> component.
 /// </summary>
 public enum CalendarViews
-{ 
+{
     /// <summary>
     /// Display the Days View only
     /// </summary>

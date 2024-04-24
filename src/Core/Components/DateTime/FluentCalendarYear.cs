@@ -1,12 +1,14 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Computes the properties of a year in the calendar.
 /// </summary>
 internal class FluentCalendarYear
 {
-    FluentCalendar _calendar;
-    private bool _isInDisabledList;
+    private readonly FluentCalendar _calendar;
+    private readonly bool _isInDisabledList;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentCalendarYear"/> class.
@@ -16,7 +18,7 @@ internal class FluentCalendarYear
     internal FluentCalendarYear(FluentCalendar calendar, DateTime year)
     {
         _calendar = calendar;
-        Year = year.Day == 1 && year.Month == 1 ? year : new DateTime(year.Year, 1, 1);
+        Year = year.GetDay(_calendar.Culture) == 1 && year.GetMonth(_calendar.Culture) == 1 ? year : year.StartOfYear(_calendar.Culture);
 
         _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Year) ?? false;
     }
@@ -39,15 +41,15 @@ internal class FluentCalendarYear
     /// <summary>
     /// Whether the year is selected by the user
     /// </summary>
-    public bool IsSelected => Year.Year == _calendar.Value?.Year;
+    public bool IsSelected => Year.GetYear(_calendar.Culture) == _calendar.Value?.GetYear(_calendar.Culture);
 
     /// <summary>
     /// Gets the title of the year in the format [year].
     /// </summary>
-    public string Title => this.Year.ToString();
+    public string Title => Year.ToString();
 
     /// <summary>
     /// Gets the identifier of the year in the format yyyy.
     /// </summary>
-    public string YearIdentifier => this.Year.ToString("yyyy");
+    public string YearIdentifier => Year.ToString("yyyy", _calendar.Culture);
 }

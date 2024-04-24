@@ -1,5 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
-
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Determines the vertical alignment of the content within the <see cref="FluentStack"/>.

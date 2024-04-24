@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -11,7 +11,6 @@ public class ComponentParameters : IComponentParameters
     {
         _parameters = [];
     }
-
 
     public object this[string parameterName]
     {

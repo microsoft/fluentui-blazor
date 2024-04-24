@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -70,6 +70,9 @@ public abstract class FluentNavBase : FluentComponentBase
     [CascadingParameter]
     public FluentNavMenu Owner { get; set; } = default!;
 
+    [CascadingParameter]
+    public FluentMenu? SubMenu { get; set; }
+
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
     /// </summary>
@@ -90,7 +93,7 @@ public abstract class FluentNavBase : FluentComponentBase
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    protected async Task OnClickHandler(MouseEventArgs ev)
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
         {
@@ -98,11 +101,15 @@ public abstract class FluentNavBase : FluentComponentBase
         }
         if (!string.IsNullOrEmpty(Href))
         {
+            if (OnClick.HasDelegate)
+            {
+                await OnClick.InvokeAsync(ev);
+            }
             NavigationManager.NavigateTo(Href, ForceLoad);
         }
         else
         {
-            if (!Owner.Expanded)
+            if (!Owner.Expanded && !Owner.CollapsedChildNavigation && SubMenu == null)
             {
                 await Owner.ExpandedChanged.InvokeAsync(true);
             }

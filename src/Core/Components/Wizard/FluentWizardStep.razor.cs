@@ -1,11 +1,13 @@
-﻿using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentWizardStep : FluentComponentBase
 {
+    private readonly Dictionary<EditForm, EditContext> _editForms = new Dictionary<EditForm, EditContext>();
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class).Build();
 
@@ -13,6 +15,7 @@ public partial class FluentWizardStep : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
         .AddStyle("height", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .AddStyle("cursor", "pointer", when: IsStepClickable)
         .Build();
 
     /// <summary>
@@ -134,5 +137,90 @@ public partial class FluentWizardStep : FluentComponentBase
 
         Index = FluentWizard.AddStep(this);
         base.OnInitialized();
+    }
+
+    public void RegisterEditFormAndContext(EditForm editForm, EditContext editContext)
+    {
+        if (!_editForms.ContainsKey(editForm))
+        {
+            _editForms.Add(editForm, editContext);
+        }
+    }
+
+    public bool ValidateEditContexts()
+    {
+        var isValid = true;
+        foreach (var editForm in _editForms)
+        {
+            var contextIsValid = editForm.Value.Validate();
+            if (!contextIsValid)
+            {
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    internal async Task InvokeOnValidSubmitForEditFormsAsync()
+    {
+        foreach (var editForm in _editForms)
+        {
+            await editForm.Key.OnValidSubmit.InvokeAsync(editForm.Value);
+        }
+    }
+
+    internal async Task InvokeOnInValidSubmitForEditFormsAsync()
+    {
+        foreach (var editForm in _editForms)
+        {
+            await editForm.Key.OnInvalidSubmit.InvokeAsync(editForm.Value);
+        }
+    }
+
+    internal async Task InvokeOnSubmitForEditFormsAsync()
+    {
+        foreach (var editForm in _editForms)
+        {
+            await editForm.Key.OnSubmit.InvokeAsync(editForm.Value);
+        }
+    }
+
+    private async Task OnClickHandlerAsync()
+    {
+        if (!IsStepClickable)
+        {
+            return;
+        }
+
+        await FluentWizard.GoToStepAsync(Index, validateEditContexts: Index > FluentWizard.Value);
+    }
+
+    private bool IsStepClickable
+    {
+        get
+        {
+            if (Disabled)
+            {
+                return false;
+            }
+
+            if (FluentWizard.Value == Index)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
+                Index > FluentWizard._maxStepVisited)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

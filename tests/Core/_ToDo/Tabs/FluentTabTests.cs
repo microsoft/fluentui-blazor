@@ -8,12 +8,12 @@ public class FluentTabTests : TestBase
     public void FluentTab_Default()
     {
         //Arrange
-        string header = "<b>render me</b>";
-        string content = "<b>render me</b>";
-        string childContent = "<b>render me</b>";
+        var header = "<b>render me</b>";
+        var content = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool disabled = default!;
         string label = default!;
-        Action<System.String> labelChanged = _ => { };
+        Action<string> labelChanged = _ => { };
         string labelClass = default!;
         string labelStyle = default!;
         Icon icon = default!;
@@ -37,12 +37,7 @@ public class FluentTabTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

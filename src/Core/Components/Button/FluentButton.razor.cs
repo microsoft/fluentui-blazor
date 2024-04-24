@@ -9,7 +9,6 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Button/FluentButton.razor.js";
 
-    private readonly string _customId = Identifier.NewId();
     private readonly RenderFragment _renderButton;
 
     /// <summary />
@@ -17,7 +16,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
@@ -90,7 +89,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the element. 
+    /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
     /// </summary>
     [Parameter]
@@ -161,7 +160,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     protected override void OnParametersSet()
     {
-        string[] values = { "_self", "_blank", "_parent", "_top" };
+        string[] values = ["_self", "_blank", "_parent", "_top"];
         if (!string.IsNullOrEmpty(Target) && !values.Contains(Target))
         {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
@@ -181,24 +180,17 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender && Id is not null && Type != ButtonType.Button)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await Module.InvokeVoidAsync("updateProxy", Id);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await _jsModule.InvokeVoidAsync("updateProxy", Id);
         }
     }
 
-    private string? CustomId =>
-        string.IsNullOrEmpty(BackgroundColor) && string.IsNullOrEmpty(Color) ? null : _customId;
-
-    private string? CustomStyle =>
-            $@" fluent-button[custom-id='{_customId}']::part(control) {{
-                  background: padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor};
-                  color: {Color};
-                }}
-
-                fluent-button[custom-id='{_customId}']::part(control):hover {{
-                  opacity: 0.8;
-                }}
-              ";
+    /// <summary />
+    protected virtual MarkupString CustomStyle => new InlineStyleBuilder()
+        .AddStyle($"#{Id}::part(control)", "background", $"padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor}", when: !string.IsNullOrEmpty(BackgroundColor))
+        .AddStyle($"#{Id}::part(control)", "color", $"{Color}", when: !string.IsNullOrEmpty(Color))
+        .AddStyle($"#{Id}::part(control):hover", "opacity", "0.8", when: !string.IsNullOrEmpty(Color) || !string.IsNullOrEmpty(BackgroundColor))
+        .BuildMarkupString();
 
     /// <summary>
     /// Constructs an instance of <see cref="FluentButton"/>.
@@ -206,6 +198,15 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public FluentButton()
     {
         _renderButton = RenderButton;
+    }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(Id) && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
+        {
+            Id = Identifier.NewId();
+        }
     }
 
     /// <summary />
@@ -227,17 +228,25 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     private string RingStyle(Icon icon)
     {
-        int size = Convert.ToInt32(icon.Size);
-        string inverse = Appearance == AspNetCore.Components.Appearance.Accent ? " filter: invert(1);" : string.Empty;
+        var size = icon.Width - 4;
+        var inverse = Appearance == AspNetCore.Components.Appearance.Accent ? " filter: invert(1);" : string.Empty;
 
         return $"width: {size}px; height: {size}px;{inverse}";
     }
-    public ValueTask DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        if (Module is not null)
+        try
         {
-            return Module.DisposeAsync();
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
         }
-        return ValueTask.CompletedTask;
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

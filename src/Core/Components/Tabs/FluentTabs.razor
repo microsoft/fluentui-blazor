@@ -8,7 +8,7 @@
                  orientation=@Orientation.ToAttributeValue()
                  activeid=@ActiveTabId
                  activeindicator="@(ShowActiveIndicator.ToString().ToLower())"
-                 @ontabchange="HandleOnTabChanged"
+                 @ontabchange="HandleOnTabChangedAsync"
                  @attributes="AdditionalAttributes">
         @ChildContent
         @if (TabsOverflow.Any())

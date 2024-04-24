@@ -8,7 +8,7 @@ public class FluentSearchTests : TestBase
     public void FluentSearch_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         string dataList = default!;
         int? maxlength = default!;
         int? minlength = default!;
@@ -29,12 +29,7 @@ public class FluentSearchTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

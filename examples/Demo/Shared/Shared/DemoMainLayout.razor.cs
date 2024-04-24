@@ -1,5 +1,5 @@
-using System.Reflection;
 using FluentUI.Demo.Shared.Components;
+using FluentUI.Demo.Shared.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
@@ -26,7 +26,8 @@ public partial class DemoMainLayout
 
     protected override void OnInitialized()
     {
-        _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        _version = AppVersionService.GetVersionFromAssembly();
+
         _prevUri = NavigationManager.Uri;
         NavigationManager.LocationChanged += LocationChanged;
     }
@@ -41,9 +42,9 @@ public partial class DemoMainLayout
         }
     }
 
-    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContents);
+    public EventCallback OnRefreshTableOfContents => EventCallback.Factory.Create(this, RefreshTableOfContentsAsync);
 
-    private async Task RefreshTableOfContents()
+    private async Task RefreshTableOfContentsAsync()
     {
         await _toc!.Refresh();
     }

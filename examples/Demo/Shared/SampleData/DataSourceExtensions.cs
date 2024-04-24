@@ -1,4 +1,4 @@
-﻿namespace FluentUI.Demo.Shared.SampleData;
+namespace FluentUI.Demo.Shared.SampleData;
 
 public static class DataSourceExtensions
 {

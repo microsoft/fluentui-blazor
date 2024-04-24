@@ -14,7 +14,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddFluentUIComponents();
-builder.Services.AddFluentUIDemoServices();
+builder.Services.AddFluentUIDemoServerServices();
 
 builder.Services.AddScoped<DataSource>();
 
@@ -33,7 +33,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

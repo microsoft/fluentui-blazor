@@ -1,6 +1,4 @@
-﻿using Bunit;
-using FluentAssertions.Common;
-using Microsoft.Extensions.DependencyInjection;
+using Bunit;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MessageBar;
@@ -13,16 +11,32 @@ public class FluentMessageBarTests : TestBase
     {
         TestContext.JSInterop.SetupModule(FluentAnchorRazorJs);
     }
-    
+
     [Fact]
     public void FluentMessageBar_Default()
     {
         TestContext.Services.AddFluentUIComponents();
-        
+
         // Arrange
         var cut = TestContext.RenderComponent<FluentMessageBar>(parameters =>
         {
             parameters.Add(p => p.Title, "This is a message");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMessageBar_AllowDismiss()
+    {
+        TestContext.Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentMessageBar>(parameters =>
+        {
+            parameters.Add(p => p.Title, "This is a message");
+            parameters.Add(p => p.AllowDismiss, false);
         });
 
         // Assert
@@ -46,7 +60,7 @@ public class FluentMessageBarTests : TestBase
 
     //        parameters.ShowMessageBar(p => p.Title, "This is a message");
     //        parameters.ShowMessageBar(p => p.Content, content);
-        
+
     //    });
 
     //    // Assert

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 // Inspiration: https://dvoituron.com/2020/01/22/UnitTest-DateTime/
 public sealed class IdentifierContext : IDisposable

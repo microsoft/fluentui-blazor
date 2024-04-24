@@ -6,12 +6,10 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 #endif
-#if (UseServer || UseWebAssembly)
-using Microsoft.FluentUI.AspNetCore.Components;
-#endif
 #if (UseWebAssembly && SampleContent)
 using BlazorWeb_CSharp.Client.Pages;
 #endif
+using Microsoft.FluentUI.AspNetCore.Components;
 using BlazorWeb_CSharp.Components;
 #if (IndividualLocalAuth)
 using BlazorWeb_CSharp.Components.Account;
@@ -33,9 +31,8 @@ builder.Services.AddRazorComponents()
 #elif (UseWebAssembly)
     .AddInteractiveWebAssemblyComponents();
 #endif
-
-builder.Services.AddFluentUIComponents();
 #endif
+builder.Services.AddFluentUIComponents();
 
 #if (IndividualLocalAuth)
 builder.Services.AddCascadingAuthenticationState();
@@ -123,9 +120,7 @@ app.MapRazorComponents<App>()
 #else
 app.MapRazorComponents<App>();
 #endif
-#if (UseWebAssembly && SampleContent)
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
-#elif (UseWebAssembly)
+#if (UseWebAssembly)
     .AddAdditionalAssemblies(typeof(BlazorWeb_CSharp.Client._Imports).Assembly);
 #endif
 

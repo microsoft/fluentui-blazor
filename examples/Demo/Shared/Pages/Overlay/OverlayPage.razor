@@ -2,6 +2,8 @@
 
 @using FluentUI.Demo.Shared.Pages.Overlay.Examples
 
+<PageTitle>@App.PageTitle("Overlay")</PageTitle>
+
 <h1>Overlay</h1>
 
 <p>Overlays are used to temporarily overlay screen content to focus a dialog, progress or other information/interaction.</p>
@@ -10,6 +12,10 @@
 
 <DemoSection Title="Default" Component="typeof(OverlayDefault)" >
     <Description>Overlay with a default white background</Description>
+</DemoSection>
+
+<DemoSection Title="Timed" Component="typeof(OverlayTimed)">
+    <Description>A timed overlay that hides after being shown for 3 seconds</Description>
 </DemoSection>
 
 <DemoSection Title="Transparent overlay" Component="typeof(OverlayTransparent)">

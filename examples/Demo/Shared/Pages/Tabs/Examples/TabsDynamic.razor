@@ -1,5 +1,5 @@
 ﻿@using FluentUI.Demo.Shared.SampleData
-@using FluentUI.Demo.Shared.Pages.Listbox.Examples;
+@using FluentUI.Demo.Shared.Pages.List.Listbox.Examples;
 
 <FluentTabs ShowClose="true"
             @bind-ActiveTabId="@SelectedTabId"
@@ -21,7 +21,7 @@
     <FluentSelect Items="@Items"
                   OptionValue="@(i => $"tab-{i.Index}")"
                   @bind-Value="@SelectedTabId" />
-    <FluentButton @onclick="@AddAndSelect">Add and select</FluentButton>
+    <FluentButton OnClick="@AddAndSelect">Add and select</FluentButton>
 @code
 {
     List<DataSource.MonthItem> Items = new List<DataSource.MonthItem>(DataSource.AllMonths);
@@ -45,7 +45,7 @@
         return index % 2 == 0;
     }
 
-    void AddAndSelect()
+    async Task AddAndSelect()
     {
         i++;
         var item = new DataSource.MonthItem()
@@ -54,6 +54,7 @@
                 Name = $"New {i:00}",
             };
         Items.Add(item);
+        await Task.Delay(1);
         SelectedTabId = $"tab-{item.Index}";
     }
 }

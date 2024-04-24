@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.290479-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.824748">
 	<PropertyGroup>
 		<DefaultProjectTypeGuid Condition="'$(BuildingInsideVisualStudio)' == 'false'">FAE04EC0-301F-11D3-BF4B-00C04F79EFBC</DefaultProjectTypeGuid>
 		<DebugAssetsDirectory>dist\</DebugAssetsDirectory>
 		<StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
 		<IsPackable>false</IsPackable>
+		<BuildCommand>npm run build</BuildCommand>
 	</PropertyGroup>
 
 	<Target Name="Pack" />

@@ -7,7 +7,6 @@ public partial class CommunicationToast : IToastContentComponent<CommunicationTo
     [Parameter]
     public CommunicationToastContent Content { get; set; } = default!;
 
-
     [CascadingParameter]
     private FluentToast Toast { get; set; } = default!;
 

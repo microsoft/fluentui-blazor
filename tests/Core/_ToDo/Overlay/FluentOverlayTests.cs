@@ -8,9 +8,9 @@ public class FluentOverlayTests : TestBase
     public void FluentOverlay_Default()
     {
         //Arrange
-        string childContent = "<b>render me</b>";
+        var childContent = "<b>render me</b>";
         bool visible = default!;
-        Action<System.Boolean> visibleChanged = _ => { };
+        Action<bool> visibleChanged = _ => { };
         Action<Microsoft.AspNetCore.Components.Web.MouseEventArgs> onClose = _ => { };
         bool transparent = default!;
         double? opacity = default!;
@@ -37,12 +37,7 @@ public class FluentOverlayTests : TestBase
         //Act
 
         //Assert
-		cut.Verify();
+        cut.Verify();
     }
 }
-
-
-
-
-
 

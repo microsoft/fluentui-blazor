@@ -8,21 +8,12 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="FluentUI.TemplateValidation.styles.css" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <HeadOutlet @rendermode="@RenderModeForPage" />
+    <HeadOutlet />
 </head>
 
 <body>
-    <Routes @rendermode="@RenderModeForPage" />
+    <Routes />
     <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>
-
-@code {
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
-
-    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/Account")
-        ? null
-        : InteractiveWebAssembly;
-}

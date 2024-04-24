@@ -83,7 +83,7 @@ public partial class FluentProgress : FluentComponentBase
         ProgressStroke.Normal => (3, 1, "--neutral-stroke-strong-rest"),
         ProgressStroke.Large => (9, 6, "--neutral-stroke-rest"),
         _ => throw new NotImplementedException(),
-    };    
+    };
     private string StyleProgress => $"height: calc((var(--stroke-width) * {StrokeDetails.BackgroundHeight}) * 1px); " +
                                     $"background-color: {(string.IsNullOrEmpty(BackgroundColor) ? $"var({StrokeDetails.DefaultBackgroundColor})" : BackgroundColor)};";
 

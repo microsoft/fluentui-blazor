@@ -1,0 +1,88 @@
+﻿@page "/KeyCode"
+@using FluentUI.Demo.Shared.Pages.KeyCode.Examples
+
+<PageTitle>@App.PageTitle("KeyCode")</PageTitle>
+
+<h1>KeyCode</h1>
+
+<h2 id="section">Section</h2>
+
+<p>
+    In some circumstances, Blazor does not retrieve all the <b>KeyDown</b> information received from JavaScript.
+    <b>FluentKeyCode</b> retrieves this data, in a similar way to the <a href="https://www.npmjs.com/package/keycode" target="_blank">JavaScript KeyCode library</a>
+    and to <a href="https://www.toptal.com/developers/keycode">this demo sample</a>.
+</p>
+
+<p>The <b>FluentKeyCode</b> component extends the functionality of <b>OnKeyDown</b> by adding the <b>KeyCode</b> property when the <b>OnKeyDown</b> event is raised.</p>
+
+<DemoSection Title="" Component="@typeof(KeyCodeExample)" />
+
+<h2 id="global">Global</h2>
+
+<p>
+    You can also capture keystrokes globally on the current page.
+    To do this, we provide you with a <b>IKeyCodeService</b> injected by the <b>AddFluentUIComponents</b> method.
+    Add the following component at the end of your <code>MainLayout.razor</code> file.
+    <b>&lt;FluentKeyCodeProvider /></b>
+</p>
+
+<p>
+    Once the provider and service have been injected, you can <br/>
+    <ul>
+        <li>
+            Retrieve the service and register the method that will capture the keys:<br />
+            <CodeSnippet Language="CSharp">[Inject]
+private IKeyCodeService KeyCodeService { get; set; }
+
+protected override void OnInitialized()
+{
+    KeyCodeService.RegisterListener(OnKeyDownAsync);
+}
+
+public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
+
+public ValueTask DisposeAsync()
+{
+    KeyCodeService.UnregisterListener(OnKeyDownAsync);
+    return ValueTask.CompletedTask;
+}</CodeSnippet>
+        </li>
+        <li>
+            Implement the interface <b>IKeyCodeListener</b>, retrieve the service and register the method that will capture the keys:<br />
+            <CodeSnippet Language="CSharp">public partial MyPage : IKeyCodeListener, IDisposableAsync
+{
+    [Inject]
+    private IKeyCodeService KeyCodeService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(this);
+    }
+
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args) => { // ... }
+
+    public ValueTask DisposeAsync()
+    {
+        KeyCodeService.UnregisterListener(this);
+        return ValueTask.CompletedTask;
+    }
+}</CodeSnippet>
+        </li>
+    </ul>
+    
+</p>
+
+<blockquote>
+    Some keystrokes are used by the browser (e.g. <code>Ctrl + A</code>). You can disable this function using the <b>PreventDefault</b> attribute with the <b>FluentKeyCodeProvider</b> component.
+    <code>&lt;FluentKeyCodeProvider PreventDefault="true" /></code>
+</blockquote>
+
+<DemoSection Title="" Component="@typeof(KeyCodeGlobalExample)" />
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentKeyCode)" />
+
+<ApiDocumentation Component="typeof(FluentKeyCodeEventArgs)" />
+
+<ApiDocumentation Component="typeof(FluentKeyCodeProvider)" />

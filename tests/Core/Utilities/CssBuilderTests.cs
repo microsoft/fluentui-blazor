@@ -1,4 +1,4 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
@@ -59,7 +59,7 @@ public class CssBuilderTests : TestBase
 
         // Assert
         Assert.Equal("my-class-1 my-class-2", cssBuilder.Build());
-    }  
+    }
 
     [Fact]
     public void CssBuilder_WhenBoolean()

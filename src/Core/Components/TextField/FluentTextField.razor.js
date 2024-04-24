@@ -1,8 +1,8 @@
-export function setAutocomplete(id, value) {
+export function setControlAttribute(id, attrName, value) {
     const fieldElement = document.querySelector("#" + id)?.shadowRoot?.querySelector("#control");
 
     if (!!fieldElement) {
-        fieldElement?.setAttribute("autocomplete", value);
+        fieldElement?.setAttribute(attrName, value);
     }
 }
 

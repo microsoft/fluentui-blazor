@@ -34,7 +34,7 @@
                                       Appearance="Appearance.Hypertext"
                                       @onfocusin="@PauseTimeout"
                                       @onfocusout="@ResumeTimeout"
-                                      @onclick="HandleTopActionClick">
+                                      OnClick="HandleTopActionClick">
                             @_parameters.TopAction
                         </FluentAnchor>
                         break;
@@ -56,7 +56,7 @@
                                   Appearance="Appearance.Hypertext"
                                   @onfocusin="@PauseTimeout"
                                   @onfocusout="@ResumeTimeout"
-                                  @onclick="HandlePrimaryActionClick">
+                                  OnClick="HandlePrimaryActionClick">
                         @_parameters.PrimaryAction
                     </FluentAnchor>
                 }
@@ -68,7 +68,7 @@
                                   Appearance="Appearance.Hypertext"
                                   @onfocusin="@PauseTimeout"
                                   @onfocusout="@ResumeTimeout"
-                                  @onclick="HandleSecondaryActionClick">
+                                  OnClick="HandleSecondaryActionClick">
                         @_parameters.SecondaryAction
                     </FluentAnchor>
                 }

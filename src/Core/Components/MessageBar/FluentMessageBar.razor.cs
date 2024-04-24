@@ -1,4 +1,3 @@
-﻿using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -11,7 +10,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     private CountdownTimer? _countdownTimer;
     private Color? _color;
 
-    [Inject] GlobalState GlobalState { get; set; } = default!;
+    [Inject] private GlobalState GlobalState { get; set; } = default!;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -148,6 +147,13 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     [Parameter]
     public Color? IconColor { get; set; } = Color.Accent;
 
+    /// <summary>
+    /// Gets or sets the ability to dismiss the notification.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool AllowDismiss { get; set; } = true;
+
     ///// <summary>
     ///// On app and page level a Message bar should NOT have rounded corners. On component level it should.
     ///// </summary>  
@@ -190,7 +196,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
             MessageIntent.Success => Color.Success,
             _ => IconColor,
         };
-        
+
         if (Content.Options.Timeout.HasValue)
         {
             if (Content.Options.Timeout == 0)
@@ -206,7 +212,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    protected Task LinkClickedAsync(MouseEventArgs e)
+    protected Task LinkClickedAsync()
     {
         if (Link?.OnClick != null)
         {
@@ -246,13 +252,13 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
 
     protected void PauseTimeout()
     {
-        Console.WriteLine("PauseTimeout");
+        Console.WriteLine("[FluentMessageBar] Pause Timeout");
         _countdownTimer?.Pause();
     }
 
     protected void ResumeTimeout()
     {
-        Console.WriteLine("ResumeTimeout");
+        Console.WriteLine("[FluentMessageBar] Resume Timeout");
         _countdownTimer?.Resume();
     }
 

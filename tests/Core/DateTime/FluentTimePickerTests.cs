@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -41,7 +41,7 @@ public class FluentTimePickerTests : TestBase
         var picker = new TestTimePicker();
 
         // Act
-        bool _ = picker.CallTryParseValueFromString(value, out var resultDate, out var _);
+        var _ = picker.CallTryParseValueFromString(value, out var resultDate, out var _);
 
         // Assert
         if (resultDate != null)

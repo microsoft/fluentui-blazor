@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -26,7 +26,7 @@ public abstract class FluentComponentBase : ComponentBase
     }
 
     /// <summary>
-    /// Gets or sets the unique identifier. If not provided, a random value will be generated.
+    /// Gets or sets the unique identifier.
     /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
     /// </summary>
     [Parameter]

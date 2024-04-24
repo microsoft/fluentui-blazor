@@ -1,10 +1,13 @@
-﻿export function addThemeChangeEvent(dotNetHelper, id) {
+export function addThemeChangeEvent(dotNetHelper, id) {
     const element = document.getElementById(id);
 
     if (element) {
         element.addEventListener("onchange", (e) => {
             try {
-                dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
+                // setTimeout: https://github.com/dotnet/aspnetcore/issues/26809
+                setTimeout(() => {
+                    dotNetHelper.invokeMethodAsync("OnChangeRaisedAsync", e.detail.name, e.detail.newValue ?? "system");
+                }, 0);
             } catch (error) {
                 console.error(`FluentDesignTheme: failing to call OnChangeRaisedAsync.`, error);
             }
@@ -27,4 +30,12 @@ export function GetDirection() {
 
 export function GetGlobalLuminance() {
     return getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
+}
+
+export function ClearLocalStorage(id) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.themeStorage.clearLocalStorage();
+    }
 }

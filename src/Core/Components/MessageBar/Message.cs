@@ -1,4 +1,4 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public class Message
@@ -61,6 +61,21 @@ public class Message
         set
         {
             Options.Body = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets whether the message bar is dismissible.
+    /// </summary>
+    public bool AllowDismiss
+    {
+        get
+        {
+            return Options.AllowDismiss;
+        }
+        set
+        {
+            Options.AllowDismiss = value;
         }
     }
 

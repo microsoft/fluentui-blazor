@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+using System.Globalization;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -41,44 +42,18 @@ internal struct CalendarExtended
             throw new ArgumentException("Index must be between 0 and 5");
         }
 
-        var monthFirst = GetFirstDayToDisplay(monthOffset);
-        bool maxLimit = monthFirst.Year == DateTime.MaxValue.Year && monthFirst.Month == DateTime.MaxValue.Month && weekNumber > 3;
+        var monthFirst = Date.AddMonths(monthOffset, Culture);
+        var maxDate = Culture.Calendar.MaxSupportedDateTime;
+        var maxLimit = monthFirst.Year == maxDate.Year && monthFirst.Month == maxDate.Month && weekNumber > 3;
 
         if (!maxLimit)
         {
-            var weekFirst = monthFirst.AddDays(weekNumber * 7).StartOfWeek(GetFirstDayOfWeek());
+            var weekFirst = monthFirst.AddDays(weekNumber * 7, Culture).StartOfWeek(Culture);
             for (var i = 0; i < 7; i++)
             {
-                yield return weekFirst.AddDays(i);
+                yield return weekFirst.AddDays(i, Culture);
             }
         }
-    }
-
-    /// <summary>
-    /// Gets the first day of the n-th month.
-    /// </summary>
-    /// <returns></returns>
-    public DateTime GetFirstDayToDisplay(int monthOffset = 0)
-    {
-        return Culture.Calendar.AddMonths(Date, monthOffset);
-    }
-
-    /// <summary>
-    /// Returns the last day of the n-th month.
-    /// </summary>
-    /// <returns></returns>
-    public DateTime GetLastDayToDisplay(int monthOffset = 0)
-    {
-        return Culture.Calendar.AddMonths(Date, monthOffset).EndOfMonth(Culture);
-    }
-
-    /// <summary>
-    /// Returns the first day of the week.
-    /// </summary>
-    /// <returns></returns>
-    public DayOfWeek GetFirstDayOfWeek()
-    {
-        return Culture.DateTimeFormat.FirstDayOfWeek;
     }
 
     /// <summary>
@@ -87,7 +62,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthName()
     {
-        return GetMonthName(this.Date);
+        return GetMonthName(Date);
     }
 
     /// <summary>
@@ -97,17 +72,17 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthName(DateTime date)
     {
-        var monthIndex = date.Month <= 1 ? 0 : date.Month - 1;
-        return ToTitleCase(Culture.DateTimeFormat.MonthNames[monthIndex]);
+        return ToTitleCase(date.GetMonthName(Culture));
     }
 
     /// <summary>
     /// Returns the list of month names in the right culture.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames() 
+    public IEnumerable<(int Index, string Abbreviated, string Name)> GetMonthNames()
     {
-        for (int i = 0; i < 12; i++)
+        var max = Culture.Calendar.GetMonthsInYear(Date.GetYear(Culture));
+        for (var i = 0; i < max; i++)
         {
             yield return (i + 1, ToTitleCase(Culture.DateTimeFormat.AbbreviatedMonthNames[i]), ToTitleCase(Culture.DateTimeFormat.MonthNames[i]));
         }
@@ -119,15 +94,18 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(int Index, int Year)> GetYearsRange()
     {
-        int max = 12;
-        if (Date.Year + max > DateTime.MaxValue.Year)
+        var maxCount = 12;
+        var maxYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
+        var year = Date.GetYear(Culture);
+
+        if (year + maxCount > maxYear)
         {
-            max = DateTime.MaxValue.Year - Date.Year + 1;
+            maxCount = maxYear - year + 1;
         }
 
-        for (int i = 0; i < max; i++)
+        for (var i = 0; i < maxCount; i++)
         {
-            yield return (i, Date.Year + i);
+            yield return (i, year + i);
         }
     }
 
@@ -137,7 +115,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetMonthNameAndYear()
     {
-        var result = $"{GetMonthName(Date)} {Date.Year}";
+        var result = $"{GetMonthName(Date)} {Date.GetYear(Culture)}";
         return result;
     }
 
@@ -147,29 +125,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetYear()
     {
-        return $"{Date.Year}";
-    }
-
-    /// <summary>
-    /// Returns the year value.
-    /// </summary>
-    /// <returns></returns>
-    public string GetYearsRangeLabel(int fromYear)
-    {
-        int min = fromYear;
-        int max = fromYear + 11;
-
-        if (min < DateTime.MinValue.Year)
-        {
-            min = DateTime.MinValue.Year;
-        }
-
-        if (max > DateTime.MaxValue.Year)
-        {
-            max = DateTime.MaxValue.Year;
-        }
-
-        return min == max ? $"{min}" : $"{min} - {max}";
+        return GetYear(Date);
     }
 
     /// <summary>
@@ -179,7 +135,32 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetYear(DateTime date)
     {
-        return $"{date.Year}";
+        return date.GetYear(Culture).ToString();
+    }
+
+    /// <summary>
+    /// Returns the year value.
+    /// </summary>
+    /// <returns></returns>
+    public string GetYearsRangeLabel(int fromYear)
+    {
+        var min = fromYear;
+        var max = fromYear + 11;
+
+        var minSupportedYear = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
+        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
+
+        if (min < minSupportedYear)
+        {
+            min = minSupportedYear;
+        }
+
+        if (max > maxSupportedYear)
+        {
+            max = maxSupportedYear;
+        }
+
+        return min == max ? $"{min}" : $"{min} - {max}";
     }
 
     /// <summary>
@@ -188,13 +169,13 @@ internal struct CalendarExtended
     /// <returns></returns>
     public IEnumerable<(string Abbreviated, string Shorted, string Name)> GetDayNames()
     {
-        int firstDayOfWeek = (int)GetFirstDayOfWeek();
+        var firstDayOfWeek = (int)Culture.DateTimeFormat.FirstDayOfWeek;
         var abbreviated = Culture.DateTimeFormat.AbbreviatedDayNames;
         var names = Culture.DateTimeFormat.DayNames;
         var shorted = Culture.DateTimeFormat.ShortestDayNames;
         var dayNames = new (string Abbreviated, string Shorted, string Name)[7];
 
-        for (int i = 0; i < 7; i++)
+        for (var i = 0; i < 7; i++)
         {
             dayNames[i].Name = ToTitleCase(names[i]);
             dayNames[i].Shorted = shorted[i];
@@ -211,8 +192,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public bool IsInCurrentMonth(DateTime date)
     {
-        return date.Year == this.Date.Year &&
-               date.Month == this.Date.Month;
+        return date >= Date.StartOfMonth(Culture) && date <= Date.EndOfMonth(Culture);
     }
 
     /// <summary>
@@ -222,7 +202,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public int GetCalendarDayOfMonth(DateTime date)
     {
-        return Culture.Calendar.GetDayOfMonth(date);
+        return date.GetDay(Culture);
     }
 
     /// <summary>
