@@ -1,14 +1,14 @@
-@namespace Microsoft.Fast.Components.FluentUI
+﻿@namespace Microsoft.Fast.Components.FluentUI
 @inherits FluentComponentBase
 <CascadingValue Value="this" IsFixed="true">
     <fluent-tabs @ref=Element
                  id="@Id"
-                 class="@Class"
-                 style="@Style"
+                 class="@ClassValue"
+                 style="@StyleValue"
                  orientation=@Orientation.ToAttributeValue()
                  activeid=@ActiveTabId
                  activeindicator="@(ShowActiveIndicator.ToString().ToLower())"
-                 @ontabchange="HandleOnTabChanged"
+                 @ontabchange="HandleOnTabChangedAsync"
                  @attributes="AdditionalAttributes">
         @ChildContent
         @if (TabsOverflow.Any())
