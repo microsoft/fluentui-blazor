@@ -190,4 +190,35 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             await tree.ItemSelectedChangeAsync(this);
         }
     }
+
+    internal static RenderFragment GetFluentTreeItem(FluentTreeView owner, ITreeViewItem item)
+    {
+        RenderFragment fluentTreeItem = builder =>
+        {
+            int i = 0;
+            builder.OpenComponent<FluentTreeItem>(i++);
+            builder.AddAttribute(i++, "Items", item.Items);
+            builder.AddAttribute(i++, "Text", owner.ItemTemplate == null ? item.Text : string.Empty);
+            builder.AddAttribute(i++, "Disabled", item.Disabled);
+            builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
+            builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);
+
+            if (owner.ItemTemplate != null)
+            {
+                builder.AddAttribute(i++, "ChildContent", owner.ItemTemplate(item));
+                //builder.AddContent(i++, owner.ItemTemplate(item));
+            }
+
+            builder.CloseComponent();
+
+            //builder.AddAttribute(i++, "Expanded", Expanded);
+            //builder.AddAttribute(i++, "ExpandedChanged", EventCallback.Factory.Create<bool>(this, HandleExpandedChangeAsync));
+            //builder.AddAttribute(i++, "Selected", Selected);
+            //builder.AddAttribute(i++, "SelectedChanged", EventCallback.Factory.Create<bool>(this, HandleSelectedChangeAsync));
+            //builder.AddAttribute(i++, "InitiallyExpanded", InitiallyExpanded);
+            //builder.AddAttribute(i++, "InitiallySelected", InitiallySelected); builder.CloseComponent();
+        };
+
+        return fluentTreeItem;
+    }
 }

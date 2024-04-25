@@ -52,6 +52,9 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
 
+    [Parameter]
+    public RenderFragment<ITreeViewItem>? ItemTemplate { get; set; }
+
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
     public FluentTreeView()
     {

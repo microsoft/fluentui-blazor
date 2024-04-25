@@ -27,11 +27,7 @@
     {
         foreach (var item in Items)
         {
-            <FluentTreeItem Text="@item.Text"
-                            Items="@item.Items"
-                            Disabled="@item.Disabled"
-                            IconExpanded="@item.IconExpanded"
-                            IconCollapsed="@item.IconCollapsed" />
+            @FluentTreeItem.GetFluentTreeItem(Owner, item)
         }
     }
 </fluent-tree-item>

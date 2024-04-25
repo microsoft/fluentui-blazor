@@ -1,4 +1,11 @@
-﻿<FluentTreeView Items="@Items" />
+﻿<FluentTreeView Items="@Items">
+    <ItemTemplate>
+        @context.Text
+        <span style="color: var(--accent-fill-rest); margin: 0 4px;">
+            @(context.Items == null ? "" : $"[{context.Items.Count()}]")
+        </span>
+    </ItemTemplate>
+</FluentTreeView>
 
 Total items: @Count
 
@@ -9,13 +16,15 @@ Total items: @Count
 
     protected override void OnInitialized()
     {
-        Items = CreateTree(maxLevel: 5, itemsPerLevel: 3).Items;
+        Items = CreateTree(maxLevel: 5).Items;
     }
 
     // Recursive method to create tree
-    public TreeViewItem CreateTree(int maxLevel, int itemsPerLevel, int level = 0)
+    public TreeViewItem CreateTree(int maxLevel = 5, int maxItemsPerLevel = 5, int level = 0)
     {
         Count++;
+
+        int nbItems = 4; // Random.Shared.Next(3, maxItemsPerLevel);
 
         var treeItem = new TreeViewItem
             {
@@ -24,8 +33,8 @@ Total items: @Count
                 IconCollapsed = new Icons.Regular.Size20.Folder(),
                 IconExpanded = new Icons.Regular.Size20.FolderOpen(),
                 Items = level == maxLevel
-                              ? null
-                              : new List<TreeViewItem>(Enumerable.Range(1, itemsPerLevel).Select(i => CreateTree(maxLevel, itemsPerLevel, level + 1)))
+                                                  ? null
+                                                      : new List<TreeViewItem>(Enumerable.Range(1, nbItems).Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1)))
             };
         return treeItem;
     }
