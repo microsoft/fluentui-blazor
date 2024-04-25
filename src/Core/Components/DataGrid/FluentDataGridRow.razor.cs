@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -53,8 +57,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     [CascadingParameter]
     private InternalGridContext<TGridItem> Owner { get; set; } = default!;
 
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("hover", when: Owner.Grid.ShowHover)
+        .Build();
+
     protected string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("height", $"{Owner.Grid.ItemSize}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
+       .AddStyle("height", $"{Owner.Grid.ItemSize:0}px", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default)
        .AddStyle("height", "100%", () => (!Owner.Grid.Virtualize || Owner.Rows.Count == 0) && Owner.Grid.Loading && RowType == DataGridRowType.Default)
        .AddStyle("align-items", "center", () => Owner.Grid.Virtualize && RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
