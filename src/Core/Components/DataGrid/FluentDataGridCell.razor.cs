@@ -50,7 +50,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     private InternalGridContext<TGridItem> GridContext { get; set; } = default!;
 
     protected string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("height", $"{GridContext.Grid.ItemSize}px", () => GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
+       .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
        .AddStyle("align-content", "center", () => GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
