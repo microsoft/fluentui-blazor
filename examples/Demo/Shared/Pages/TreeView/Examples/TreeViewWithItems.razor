@@ -33,8 +33,8 @@ Total items: @Count
                 IconCollapsed = new Icons.Regular.Size20.Folder(),
                 IconExpanded = new Icons.Regular.Size20.FolderOpen(),
                 Items = level == maxLevel
-                                                  ? null
-                                                      : new List<TreeViewItem>(Enumerable.Range(1, nbItems).Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1)))
+                      ? null
+                      : new List<TreeViewItem>(Enumerable.Range(1, nbItems).Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1)))
             };
         return treeItem;
     }
