@@ -43,7 +43,7 @@
 
     protected override void OnInitialized()
     {
-        items = GenerateSampleGridData(10);
+        items = GenerateSampleGridData(100);
     }
 
     private async Task SimulateDataLoading()
@@ -55,7 +55,7 @@
 
         await Task.Delay(2500);
 
-        items = GenerateSampleGridData(10);
+        items = GenerateSampleGridData(100);
         grid?.SetLoadingState(false);
     }
 
@@ -67,7 +67,7 @@
         }
         else
         {
-            items = GenerateSampleGridData(10);
+            items = GenerateSampleGridData(100);
         }
     }
 }
