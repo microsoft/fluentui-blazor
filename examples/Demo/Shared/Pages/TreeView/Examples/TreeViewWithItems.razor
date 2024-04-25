@@ -20,6 +20,9 @@ Total items: @Count
         var treeItem = new TreeViewItem
             {
                 Text = $"Item {level}",
+                Disabled = Count % 5 == 0,
+                IconCollapsed = new Icons.Regular.Size20.Folder(),
+                IconExpanded = new Icons.Regular.Size20.FolderOpen(),
                 Items = level == maxLevel
                               ? null
                               : new List<TreeViewItem>(Enumerable.Range(1, itemsPerLevel).Select(i => CreateTree(maxLevel, itemsPerLevel, level + 1)))
@@ -32,5 +35,8 @@ Total items: @Count
     {
         public string Text { get; set; } = "";
         public IEnumerable<ITreeViewItem>? Items { get; set; }
+        public Icon? IconCollapsed { get; set; }
+        public Icon? IconExpanded { get; set; }
+        public bool Disabled { get; set; }
     }
 }

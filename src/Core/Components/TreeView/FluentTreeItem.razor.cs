@@ -67,6 +67,22 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     public bool InitiallySelected { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of tree item,
+    /// when the node is collapsed.
+    /// If this icon is not set, the <see cref="IconExpanded"/> will be used.
+    /// </summary>
+    [Parameter]
+    public Icon? IconCollapsed { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of tree item,
+    /// when the node is expanded.
+    /// If this icon is not set, the <see cref="IconCollapsed"/> will be used.
+    /// </summary>
+    [Parameter]
+    public Icon? IconExpanded { get; set; }
+
+    /// <summary>
     /// Gets or sets the owning FluentTreeView
     /// </summary>
     [CascadingParameter]

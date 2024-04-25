@@ -13,7 +13,11 @@
         {
             foreach (var item in Items)
             {
-                <FluentTreeItem Text="@item.Text" Items="@item.Items" />
+                <FluentTreeItem Text="@item.Text"
+                                Items="@item.Items"
+                                Disabled="@item.Disabled"
+                                IconExpanded="@item.IconExpanded"
+                                IconCollapsed="@item.IconCollapsed" />
             }
         }
     </fluent-tree-view>

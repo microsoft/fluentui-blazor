@@ -8537,6 +8537,20 @@
             be selected when it is created.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconCollapsed">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is collapsed.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconExpanded"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconExpanded">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is expanded.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconCollapsed"/> will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
@@ -8589,6 +8603,26 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items">
             <summary>
             Gets or sets the sub-items of the tree item
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is collapsed.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is expanded.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled">
+            <summary>
+            When true, the control will be immutable by user interaction.
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ClassValue">
