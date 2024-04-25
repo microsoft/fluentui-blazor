@@ -1,4 +1,10 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -36,6 +42,18 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// </summary>
     [CascadingParameter(Name = "OwningRow")]
     public FluentDataGridRow<TGridItem> Owner { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
+    /// </summary>
+    [CascadingParameter]
+    private InternalGridContext<TGridItem> GridContext { get; set; } = default!;
+
+    protected string? StyleValue => new StyleBuilder(Style)
+       .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
+       .AddStyle("align-content", "center", () => GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
+       .Build();
+
 
     protected override void OnInitialized()
     {
