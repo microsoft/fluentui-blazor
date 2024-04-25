@@ -1521,6 +1521,11 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridContext">
+            <summary>
+            Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">
             <summary>
             Gets or sets the reference to the item that holds this row's values.
