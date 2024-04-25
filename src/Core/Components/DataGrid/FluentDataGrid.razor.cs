@@ -1,9 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -131,6 +135,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
 
+
+    [Parameter] public bool ShowHover { get; set; }
+
     /// <summary>
     /// If specified, grids render this fragment when there is no content.
     /// </summary>
@@ -211,7 +218,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
-        
+
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -593,7 +600,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (args.Value == "-")
         {
-           await SetColumnWidthAsync(-10);
+            await SetColumnWidthAsync(-10);
         }
         if (args.Value == "+")
         {
