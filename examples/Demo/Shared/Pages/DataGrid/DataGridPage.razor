@@ -118,8 +118,10 @@
         </p>
         <p>
             Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
-            properly and reliably, every row rendered must have the same known height. <strong>This is handeled by the 
-            <code>FluentDataGrid</code> code</strong>.
+            properly and reliably, every row rendered must have the same known height. <strong>
+                This is handeled by the
+                <code>FluentDataGrid</code> code
+            </strong>.
         </p>
     </Description>
 </DemoSection>
@@ -151,11 +153,20 @@
 
 <DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] { "css" })">
     <Description>
-        Here a custom comparer is being used to sort counties by the length of their name.<br/>
-        The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
-        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.<br />
-        <br />
-        This example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
+        <p>
+            Here a custom comparer is being used to sort counties by the length of their name. The code has examples for both
+            <code>PropertyColumn</code> and <code>TemplateColumn</code> implementations (see the Razor tab).<br />
+            For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it
+            could of couse be placed in its own file.
+        </p>
+        <p>
+            For the paginator, this example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
+        </p>
+        <p>
+            This example also shows using an <code>OnRowFocus</code> event callback to detect which row the cursor is over. By setting <code>ShowHover</code>
+            to true, the current row will be highlighted. By default the system will use the designated hover color for this but you can specify an alternative
+            color by setting the <code>--datagrid-hover-color</code> CSS variable. See the Razor tab for how this is done in this example.
+        </p>
     </Description>
 </DemoSection>
 
@@ -183,9 +194,9 @@
 
 <DemoSection Title="Column headers" Component="@typeof(DataGridColumnHeaderGeneration)">
     <Description>
-        The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties 
+        The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties
         shown in the grid.
-        <br/>
+        <br />
         See the 'Razor' tab on how these attributes have been applied to the class properties.
     </Description>
 </DemoSection>
@@ -203,7 +214,7 @@
 
 <ApiDocumentation Component="typeof(PropertyColumn<,>)" GenericLabel="TGridItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
 
-<ApiDocumentation Component="typeof(TemplateColumn<>)" GenericLabel="TGridItem"  />
+<ApiDocumentation Component="typeof(TemplateColumn<>)" GenericLabel="TGridItem" />
 
 <div class="demopanel">
     <p>
@@ -217,4 +228,27 @@
 
 <ApiDocumentation Component="typeof(FluentPaginator)" />
 
-<ApiDocumentation Component="typeof(PaginationState)" /> 
+<ApiDocumentation Component="typeof(PaginationState)" />
+
+<h3>Refreshing data programmatically</h3>
+<p>
+    Sometimes you might know that the data source's contents will have changed. For example, the user may have saved some changes that will affect the data, or they might have changed the current query parameters. In any such case, you can call the grid's <code>RefreshDataAsync</code> method:
+</p>
+
+<CodeSnippet>
+    &lt;FluentDataGrid ... @@ref="myGrid">
+    ...
+    &lt;/FluentDataGrid>
+
+    @@code {
+    FluentDataGrid&lt;MyDataType> myGrid;
+
+    async Task HandleSomeEvent()
+    {
+    ...
+
+    // We can force the grid to reload the current data
+    await myGrid.RefreshDataAsync();
+    }
+    }
+</CodeSnippet>
