@@ -2,7 +2,7 @@
     <SelectColumn TGridItem="Person"
                   Property="@(e => e.Selected)"
                   OnSelect="@(e => e.Selected = !e.Selected)"
-                  SelectAllChanged="@(all => people.ToList().ForEach(p => p.Selected = all))"/>
+                  SelectAllChanged="@(all => people.ToList().ForEach(p => p.Selected = (all == true)))" />
     <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
     <PropertyColumn Width="300px" Property="@(p => p.Name)" />
     <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
@@ -11,7 +11,7 @@
 Selected: @String.Join("; ", people.Where(p => p.Selected).Select(p => p.Name))
 
 @code {
-
+    bool AllSelected = false;
 
     record Person(int PersonId, string Name, DateOnly BirthDate)
     {

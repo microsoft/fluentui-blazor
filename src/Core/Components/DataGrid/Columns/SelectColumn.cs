@@ -52,7 +52,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public EventCallback<TGridItem> OnSelect { get; set; }
 
     [Parameter]
-    public bool SelectAll { get; set; } = false;
+    public bool? SelectAll { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the action to be executed when the [All] checkbox is clicked.
@@ -60,7 +60,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// This action is required to update you data model.
     /// </summary>
     [Parameter]
-    public EventCallback<bool> SelectAllChanged { get; set; }
+    public EventCallback<bool?> SelectAllChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
@@ -72,8 +72,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     [Parameter]
     public override GridSort<TGridItem>? SortBy { get; set; }
 
+    /// <summary />
     internal async Task InverseSelectionAsync(TGridItem item)
     {
+        SelectAll = null;
         await OnSelect.InvokeAsync(item);
     }
 
@@ -87,7 +89,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             HeaderContent = new RenderFragment((builder) =>
             {
                 builder.OpenComponent<FluentIcon<Icon>>(0);
-                builder.AddAttribute(1, "Value", SelectAll ? IconChecked : IconUnchecked);
+                builder.AddAttribute(1, "Value", SelectAll == true ? IconChecked : IconUnchecked);
                 builder.AddAttribute(2, "all-selected", SelectAll);
                 builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
                 builder.CloseComponent();
@@ -114,7 +116,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             return;
         }
 
-        SelectAll = !SelectAll;
+        SelectAll = !(SelectAll == true);
         if (SelectAllChanged.HasDelegate)
         {
             await SelectAllChanged.InvokeAsync(SelectAll);

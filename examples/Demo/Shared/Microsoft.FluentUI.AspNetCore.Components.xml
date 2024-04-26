@@ -1401,6 +1401,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.InverseSelectionAsync(`0)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnParametersSet">
             <inheritdoc />
         </member>
