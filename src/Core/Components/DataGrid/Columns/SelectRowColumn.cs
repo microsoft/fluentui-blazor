@@ -34,13 +34,13 @@ public class SelectRowColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the Icon to be rendered when the row is non selected.
     /// </summary>
     [Parameter]
-    public required Icon IconUnchecked { get; set; } //= new Icons.Regular.Size20.Circle();
+    public required Icon IconUnchecked { get; set; } = new CoreIcons.Regular.Size20.CheckboxUnchecked().WithColor(Color.FillInverse);
 
     /// <summary>
     /// Gets or sets the Icon to be rendered when the row is selected.
     /// </summary>
     [Parameter]
-    public required Icon IconChecked { get; set; } //= new Icons.Regular.Size20.Circle();
+    public required Icon IconChecked { get; set; } = new CoreIcons.Filled.Size20.CheckboxChecked();
 
     /// <summary>
     /// Gets or sets the action to be executed when the row is selected or unselected.

@@ -1,5 +1,5 @@
 ﻿<FluentDataGrid Items="@people" ShowHover="true" TGridItem="Person">
-    <SelectRowColumn Property="@(p => p.Selected)" SelectChanged="@(e => e.Selected = !e.Selected)" IconChecked="@(new Icons.Filled.Size20.CheckmarkCircle())" IconUnchecked="@(new Icons.Regular.Size20.Circle())" />
+    <SelectRowColumn Property="@(p => p.Selected)" SelectChanged="@(e => e.Selected = !e.Selected)" />
     <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
     <PropertyColumn Width="300px" Property="@(p => p.Name)" />
     <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
