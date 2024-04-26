@@ -1,22 +1,34 @@
-﻿<FluentDataGrid Items="@people" ShowHover="true" TGridItem="Person">
+﻿<FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
     <SelectColumn TGridItem="Person"
+                  SelectMode="@DataGridSelectMode.Multiple"
+                  IconIndeterminate="@null"
+                  @bind-SelectedItems="@SelectedItems"
                   Property="@(e => e.Selected)"
                   OnSelect="@(e => e.Selected = !e.Selected)"
-                  SelectAllChanged="@(all => people.ToList().ForEach(p => p.Selected = (all == true)))" />
+                  SelectAllChanged="@(all => People.ToList().ForEach(p => p.Selected = (all == true)))" />
     <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
     <PropertyColumn Width="300px" Property="@(p => p.Name)" />
     <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
 </FluentDataGrid>
 
-Selected: @String.Join("; ", people.Where(p => p.Selected).Select(p => p.Name))
+<div>
+    <b style="min-width: 150px; display: inline-block;">SelectedItems:</b>
+    @String.Join("; ", SelectedItems.Select(p => p.Name))
+</div>
+<div>
+    <b style="min-width: 150px; display: inline-block;">Peoples:</b>
+    @String.Join("; ", People.Where(p => p.Selected).Select(p => p.Name))
+</div>
 
 @code {
+    List<Person> SelectedItems = new(People.Where(p => p.Selected));
+
     record Person(int PersonId, string Name, DateOnly BirthDate)
     {
         public bool Selected { get; set; }
     };
 
-    IQueryable<Person> people = new[]
+    static IQueryable<Person> People = new[]
     {
         new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)) { Selected = true },
         new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),

@@ -10,20 +10,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 {
+    private List<TGridItem> _selectedItems = new List<TGridItem>();
+
     public SelectColumn()
     {
-        RenderFragment<TGridItem> DefaultChildContent = (context) => new RenderFragment((builder) =>
-        {
-            var selected = Property.Invoke(context);
-
-            builder.OpenComponent<FluentIcon<Icon>>(0);
-            builder.AddAttribute(1, "Value", selected ? IconChecked : IconUnchecked);
-            builder.AddAttribute(2, "row-selected", selected);
-            builder.CloseComponent();
-        });
-
         Width = "50px";
-        ChildContent = DefaultChildContent;
+        ChildContent = GetDefaultChildContent();
     }
 
     /// <summary>
@@ -31,6 +23,31 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// </summary>
     [Parameter]
     public RenderFragment<TGridItem> ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list of selected items.
+    /// </summary>
+    [Parameter]
+    public List<TGridItem> SelectedItems
+    {
+        get => _selectedItems;
+        set
+        {
+            if (_selectedItems != value)
+            {
+                _selectedItems = value;
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<List<TGridItem>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selection mode (Single or Multiple).
+    /// </summary>
+    [Parameter]
+    public DataGridSelectMode SelectMode { get; set; } = DataGridSelectMode.Single;
 
     /// <summary>
     /// Gets or sets the Icon to be rendered when the row is non selected.
@@ -45,12 +62,22 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public required Icon IconChecked { get; set; } = new CoreIcons.Filled.Size20.CheckboxChecked();
 
     /// <summary>
+    /// Gets or sets the Icon to be rendered when some but not all rows are selected.
+    /// </summary>
+    [Parameter]
+    public Icon? IconIndeterminate { get; set; } = new CoreIcons.Filled.Size20.CheckboxIndeterminate();
+
+    /// <summary>
     /// Gets or sets the action to be executed when the row is selected or unselected.
     /// This action is required to update you data model.
     /// </summary>
     [Parameter]
     public EventCallback<TGridItem> OnSelect { get; set; }
 
+    /// <summary>
+    /// Gets or sets the value indicating whether the [All] checkbox is selected.
+    /// Null is undefined.
+    /// </summary>
     [Parameter]
     public bool? SelectAll { get; set; } = false;
 
@@ -73,27 +100,85 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public override GridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary />
-    internal async Task InverseSelectionAsync(TGridItem item)
+    internal async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
-        SelectAll = null;
-        await OnSelect.InvokeAsync(item);
+        if (item != null)
+        {
+            if (SelectedItems.Contains(item))
+            {
+                SelectedItems.Remove(item);
+            }
+            else
+            {
+                SelectedItems.Add(item);
+            }
+
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
+
+            SelectAll = null;
+            await OnSelect.InvokeAsync(item);
+
+            RefreshHeaderContent();
+        }
+    }
+
+    /// <summary />
+    private RenderFragment<TGridItem> GetDefaultChildContent()
+    {
+        return (item) => new RenderFragment((builder) =>
+        {
+            var selected = SelectedItems.Contains(item) || Property.Invoke(item);
+
+            builder.OpenComponent<FluentIcon<Icon>>(0);
+            builder.AddAttribute(1, "Value", selected ? IconChecked : IconUnchecked);
+            builder.AddAttribute(2, "row-selected", selected);
+            builder.CloseComponent();
+        });
+    }
+
+    /// <summary />
+    private RenderFragment GetHeaderContent()
+    {
+        var iconAllChecked = (SelectAll == null && IconIndeterminate != null)
+            ? IconIndeterminate
+            : (SelectAll == true ? IconChecked : IconUnchecked);
+
+        return new RenderFragment((builder) =>
+        {
+            builder.OpenComponent<FluentIcon<Icon>>(0);
+            builder.AddAttribute(1, "Value", iconAllChecked);
+            builder.AddAttribute(2, "all-selected", SelectAll);
+            builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+            builder.CloseComponent();
+        });
+    }
+
+    /// <summary />
+    private void RefreshHeaderContent()
+    {
+        if (SelectMode == DataGridSelectMode.Multiple)
+        {
+            if (!SelectedItems.Any())
+            {
+                SelectAll = false;
+            }
+
+            HeaderContent = GetHeaderContent();
+        }
     }
 
     /// <inheritdoc />
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
+        base.OnInitialized();
 
-        if (SelectAllChanged.HasDelegate)
+        if (SelectMode == DataGridSelectMode.Multiple)
         {
-            HeaderContent = new RenderFragment((builder) =>
-            {
-                builder.OpenComponent<FluentIcon<Icon>>(0);
-                builder.AddAttribute(1, "Value", SelectAll == true ? IconChecked : IconUnchecked);
-                builder.AddAttribute(2, "all-selected", SelectAll);
-                builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
-                builder.CloseComponent();
-            });
+            SelectAll = SelectedItems.Any() ? null : false;
+            RefreshHeaderContent();
         }
     }
 
@@ -101,6 +186,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
 
+    /// <inheritdoc />
     protected internal override string? RawCellContent(TGridItem item)
     {
         return TooltipText?.Invoke(item);
@@ -109,6 +195,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <inheritdoc />
     protected override bool IsSortableByDefault() => SortBy is not null;
 
+    /// <summary />
     private async Task OnClickAllAsync(MouseEventArgs e)
     {
         if (Grid.Items == null)
@@ -116,10 +203,20 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             return;
         }
 
+        // SelectAllChanged
         SelectAll = !(SelectAll == true);
         if (SelectAllChanged.HasDelegate)
         {
             await SelectAllChanged.InvokeAsync(SelectAll);
         }
+
+        // SelectedItems
+        SelectedItems.Clear();
+        if (SelectAll == true)
+        {
+            SelectedItems.AddRange(Grid.Items);
+        }
+
+        RefreshHeaderContent();
     }
 }

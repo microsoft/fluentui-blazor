@@ -103,14 +103,15 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         if (Owner.Rows.TryGetValue(rowId, out var row))
         {
+
+            await Owner.Grid.OnRowClick.InvokeAsync(row);
+
             if (row != null && row.RowType == DataGridRowType.Default)
             {
-                await Owner.Grid.OnRowClick.InvokeAsync(row);
-
                 var selectedColumn = Owner.Grid.SelectedRowColumn;
-                if (selectedColumn != null && selectedColumn.OnSelect.HasDelegate && row.Item != null)
+                if (selectedColumn != null)
                 {
-                    await selectedColumn.InverseSelectionAsync(row.Item);                    
+                    await selectedColumn.AddOrRemoveSelectedItemAsync(Item);
                 }
             }
         }

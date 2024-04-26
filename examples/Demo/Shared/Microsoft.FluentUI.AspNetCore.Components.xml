@@ -1370,6 +1370,16 @@
             Gets or sets the content to be rendered for each row in the table.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItems">
+            <summary>
+            Gets or sets the list of selected items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode">
+            <summary>
+            Gets or sets the selection mode (Single or Multiple).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconUnchecked">
             <summary>
             Gets or sets the Icon to be rendered when the row is non selected.
@@ -1380,10 +1390,21 @@
             Gets or sets the Icon to be rendered when the row is selected.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconIndeterminate">
+            <summary>
+            Gets or sets the Icon to be rendered when some but not all rows are selected.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnSelect">
             <summary>
             Gets or sets the action to be executed when the row is selected or unselected.
             This action is required to update you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAll">
+            <summary>
+            Gets or sets the value indicating whether the [All] checkbox is selected.
+            Null is undefined.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllChanged">
@@ -1401,17 +1422,32 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.InverseSelectionAsync(`0)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.AddOrRemoveSelectedItemAsync(`0)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnParametersSet">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.GetDefaultChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.GetHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RefreshHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnInitialized">
             <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RawCellContent(`0)">
+            <inheritdoc />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IsSortableByDefault">
             <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnClickAllAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.SortedProperty">
             <summary>
@@ -11838,6 +11874,16 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType.StickyHeader">
             <summary>
             A sticky header row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Single">
+            <summary>
+            Allow only one selected row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Multiple">
+            <summary>
+            Allow multiple selected rows.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes">
