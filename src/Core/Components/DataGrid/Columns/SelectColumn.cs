@@ -111,6 +111,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             }
             else
             {
+                if (SelectMode == DataGridSelectMode.Single)
+                {
+                    _selectedItems.Clear();
+                }
+
                 _selectedItems.Add(item);
             }
 
@@ -199,7 +204,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     private async Task OnClickAllAsync(MouseEventArgs e)
     {
-        if (Grid.Items == null)
+        if (Grid.Items == null || SelectMode != DataGridSelectMode.Multiple)
         {
             return;
         }
