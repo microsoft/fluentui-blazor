@@ -321,7 +321,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
+            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "1fr"));
         }
 
         if (ResizableColumns)
