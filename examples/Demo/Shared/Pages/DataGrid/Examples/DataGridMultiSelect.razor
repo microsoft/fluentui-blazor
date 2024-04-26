@@ -11,8 +11,6 @@
 Selected: @String.Join("; ", people.Where(p => p.Selected).Select(p => p.Name))
 
 @code {
-    bool AllSelected = false;
-
     record Person(int PersonId, string Name, DateOnly BirthDate)
     {
         public bool Selected { get; set; }
