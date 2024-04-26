@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 {
-    private List<TGridItem> _selectedItems = new List<TGridItem>();
+    private readonly List<TGridItem> _selectedItems = new List<TGridItem>();
 
     public SelectColumn()
     {
@@ -28,20 +28,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the list of selected items.
     /// </summary>
     [Parameter]
-    public List<TGridItem> SelectedItems
+    public IEnumerable<TGridItem> SelectedItems
     {
         get => _selectedItems;
         set
         {
             if (_selectedItems != value)
             {
-                _selectedItems = value;
+                _selectedItems.Clear();
+                _selectedItems.AddRange(value);
             }
         }
     }
 
     [Parameter]
-    public EventCallback<List<TGridItem>> SelectedItemsChanged { get; set; }
+    public EventCallback<IEnumerable<TGridItem>> SelectedItemsChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the selection mode (Single or Multiple).
@@ -106,11 +107,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         {
             if (SelectedItems.Contains(item))
             {
-                SelectedItems.Remove(item);
+                _selectedItems.Remove(item);
             }
             else
             {
-                SelectedItems.Add(item);
+                _selectedItems.Add(item);
             }
 
             if (SelectedItemsChanged.HasDelegate)
@@ -211,10 +212,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         }
 
         // SelectedItems
-        SelectedItems.Clear();
+        _selectedItems.Clear();
         if (SelectAll == true)
         {
-            SelectedItems.AddRange(Grid.Items);
+            _selectedItems.AddRange(Grid.Items);
         }
 
         RefreshHeaderContent();

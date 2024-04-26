@@ -21,7 +21,7 @@
 </div>
 
 @code {
-    List<Person> SelectedItems = new(People.Where(p => p.Selected));
+    IEnumerable<Person> SelectedItems = People.Where(p => p.Selected);
 
     record Person(int PersonId, string Name, DateOnly BirthDate)
     {
