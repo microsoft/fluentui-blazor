@@ -60,3 +60,7 @@
 ::deep .rotate.expand-collapse-button svg {
     transform: rotate(90deg);
 }
+
+:not(.expanded) ::deep .items {
+    display: none;
+} 
