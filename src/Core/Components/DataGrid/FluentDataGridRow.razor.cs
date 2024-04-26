@@ -99,6 +99,23 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
+    private async Task HandleOnRowClickAsync(string rowId)
+    {
+        if (Owner.Rows.TryGetValue(rowId, out var row))
+        {
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                await Owner.Grid.OnRowClick.InvokeAsync(row);
+
+                if (Owner.Grid.SelectedRowColumn != null && row.Item != null)
+                {
+                    Owner.Grid.SelectedRowColumn.SelectChanged.Invoke(row.Item);
+                    StateHasChanged();
+                }
+            }
+        }
+    }
+
     Task IHandleEvent.HandleEventAsync(
        EventCallbackWorkItem callback, object? arg) => callback.InvokeAsync(arg);
 }

@@ -125,6 +125,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a row is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TGridItem>> OnRowClick { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
@@ -135,7 +141,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
 
-
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid should show a hover effect on rows.
+    /// </summary>
     [Parameter] public bool ShowHover { get; set; }
 
     /// <summary>
@@ -153,9 +161,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// A default fragment is used if loading content is not specified.
     /// </summary>
     [Parameter] public RenderFragment? LoadingContent { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
     [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
+
+    /// <summary>
+    /// Gets the first (optional) SelectRowColumn
+    /// </summary>
+    internal SelectRowColumn<TGridItem>? SelectedRowColumn => _columns.FirstOrDefault(col => col is SelectRowColumn<TGridItem>) as SelectRowColumn<TGridItem>;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -218,7 +232,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
-
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data

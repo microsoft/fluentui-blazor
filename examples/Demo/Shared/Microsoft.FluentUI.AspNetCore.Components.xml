@@ -1359,6 +1359,47 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1">
+            <summary>
+            Represents a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> column whose cells render a selected checkbox updated when the user click on a row.
+            </summary>
+            <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered for each row in the table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.IconUnchecked">
+            <summary>
+            Gets or sets the Icon to be rendered when the row is non selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.IconChecked">
+            <summary>
+            Gets or sets the Icon to be rendered when the row is selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.SelectChanged">
+            <summary>
+            Gets or sets the action to be executed when the row is selected or unselected.
+            This action is required to update you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.Property">
+            <summary>
+            Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.SortBy">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.IsSortableByDefault">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.SortedProperty">
             <summary>
             Holds the name of a property and the direction to sort by.
@@ -1500,6 +1541,11 @@
             Gets or sets a callback when a row is focused.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowClick">
+            <summary>
+            Gets or sets a callback when a row is clicked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass">
             <summary>
             Optionally defines a class to be applied to a rendered row.
@@ -1509,6 +1555,11 @@
             <summary>
             Optionally defines a style to be applied to a rendered row.
             Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass"/> instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowHover">
+            <summary>
+            Gets or sets a value indicating whether the grid should show a hover effect on rows.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.EmptyContent">
@@ -1525,6 +1576,11 @@
             <summary>
             Gets or sets the content to render when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading"/> is true.
             A default fragment is used if loading content is not specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectedRowColumn">
+            <summary>
+            Gets the first (optional) SelectRowColumn
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
