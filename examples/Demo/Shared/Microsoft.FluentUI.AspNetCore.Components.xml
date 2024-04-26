@@ -8489,6 +8489,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Items">
+            <summary>
+            Gets or sets the list of sub-items to bind to the tree item
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item
@@ -8593,6 +8603,16 @@
             <summary>
             Called whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Expanded"/> changes on an
             item within the tree.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.ItemTemplate">
+            <summary>
+            Gets or sets the template for rendering tree items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.LazyLoadItems">
+            <summary>
+            Gets or sets whether the tree should use lazy loading when expanding nodes
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text">

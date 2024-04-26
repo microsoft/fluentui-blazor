@@ -10,6 +10,8 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     private readonly Debouncer _currentSelectedChangedDebouncer = new();
     private bool _disposed;
 
+    public static string LoadingMessage = "Loading...";
+
     [Parameter]
     public IEnumerable<ITreeViewItem>? Items { get; set; }
 
@@ -52,8 +54,17 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
 
+    /// <summary>
+    /// Gets or sets the template for rendering tree items.
+    /// </summary>
     [Parameter]
     public RenderFragment<ITreeViewItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the tree should use lazy loading when expanding nodes
+    /// </summary>
+    [Parameter]
+    public bool LazyLoadItems { get; set; } = false;
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
     public FluentTreeView()

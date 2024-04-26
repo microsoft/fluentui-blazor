@@ -12,10 +12,12 @@
                   @onselectedchange="@HandleSelectedChangeAsync"
                   @onexpandedchange="@HandleExpandedChangeAsync"
                   @attributes="AdditionalAttributes">
+
     @if (!string.IsNullOrWhiteSpace(Text))
     {
         <span class="treeitem-text">@Text</span>
     }
+
     @if (IconExpanded != null || IconCollapsed != null)
     {
         <FluentIcon Value="@(Expanded ? (IconExpanded ?? IconCollapsed) : (IconCollapsed ?? IconExpanded))" Slot="start" />
@@ -25,9 +27,18 @@
 
     @if (Items != null)
     {
-        foreach (var item in Items)
+        @if (Owner.LazyLoadItems && Items.Any() && !Expanded)
         {
-            @FluentTreeItem.GetFluentTreeItem(Owner, item)
+            @* Lazy loading required a "fake" sub-item to simulate the [+] *@
+            <fluent-tree-item>@FluentTreeView.LoadingMessage</fluent-tree-item>
+        }
+        else
+        {
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(Owner, item)
+            }
         }
     }
+
 </fluent-tree-item>

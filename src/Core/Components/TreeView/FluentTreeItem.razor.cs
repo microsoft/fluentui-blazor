@@ -6,6 +6,17 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 {
     private bool _disposed;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTreeItem"/> class.
+    /// </summary>
+    public FluentTreeItem()
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary>
+    /// Gets or sets the list of sub-items to bind to the tree item
+    /// </summary>
     [Parameter]
     public IEnumerable<ITreeViewItem>? Items { get; set; }
 
@@ -94,11 +105,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     /// </summary>
     public bool Collapsed => !Expanded;
 
-    public FluentTreeItem()
-    {
-        Id = Identifier.NewId();
-    }
-
     void IDisposable.Dispose()
     {
         // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
@@ -155,14 +161,13 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
     private async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
     {
-        Console.WriteLine("HandleExpandedChangeAsync");
-
         if (args.AffectedId != Id || args.Expanded is null || args.Expanded == Expanded)
         {
             return;
         }
 
         Expanded = args.Expanded.Value;
+
         if (ExpandedChanged.HasDelegate)
         {
             await ExpandedChanged.InvokeAsync(Expanded);
@@ -176,8 +181,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
     private async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
     {
-        Console.WriteLine("HandleSelectedChangeAsync");
-
         if (args.AffectedId != Id || args.Selected is null || args.Selected == Selected)
         {
             return;
@@ -206,7 +209,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             if (owner.ItemTemplate != null)
             {
                 builder.AddAttribute(i++, "ChildContent", owner.ItemTemplate(item));
-                //builder.AddContent(i++, owner.ItemTemplate(item));
             }
 
             builder.CloseComponent();
