@@ -55,7 +55,19 @@
 
 <DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
     <Description>
-        The same example, adding a <code>SelectRowColumn</code> column, to allow multi-select rows.
+        The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.
+
+        <blockquote>
+            By default, FluentUI only recommends selecting the checkbox for the selected line.
+            But you can use a CSS style like this one to grey the background of selected lines.
+            <code>
+                <pre>
+fluent-data-grid-row:has([row-selected]) {
+    background-color: var(--neutral-fill-stealth-hover)
+}</pre>
+            </code>
+        </blockquote>
+
     </Description>
 </DemoSection>
 

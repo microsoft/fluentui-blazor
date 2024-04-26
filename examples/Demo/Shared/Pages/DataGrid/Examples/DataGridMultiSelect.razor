@@ -1,4 +1,10 @@
-﻿<FluentDataGrid Items="@people" ShowHover="true" TGridItem="Person">
+﻿<style>
+    fluent-data-grid-row:has([row-selected]) {
+        background-color: var(--neutral-fill-stealth-hover)
+    }
+</style>
+
+<FluentDataGrid Items="@people" ShowHover="true" TGridItem="Person">
     <SelectColumn TGridItem="Person"
                   Property="@(e => e.Selected)"
                   OnSelect="@(e => e.Selected = !e.Selected)"
