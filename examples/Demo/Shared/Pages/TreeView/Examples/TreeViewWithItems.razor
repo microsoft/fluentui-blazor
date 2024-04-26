@@ -37,7 +37,8 @@ Total items: @Count
                 IconExpanded = IconExpanded,
                 Items = level == maxLevel
                       ? null
-                      : new List<TreeViewItem>(Enumerable.Range(1, nbItems).Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1)))
+                      : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
+                                                         .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1)))
             };
         return treeItem;
     }
