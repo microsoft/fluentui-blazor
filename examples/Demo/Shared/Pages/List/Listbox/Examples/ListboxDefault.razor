@@ -7,7 +7,7 @@
                Height="150px"
                OptionValue="@(p => p.PersonId.ToString())"
                OptionText="@(p => p.LastName + ", " + p.FirstName)"
-               @bind-Value="@SelectedValue"
+               @bind-Value="@SelectedItem"
                @bind-SelectedOption="@SelectedItem" />
 
 <p>

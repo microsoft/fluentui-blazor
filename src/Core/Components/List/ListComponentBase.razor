@@ -22,7 +22,7 @@
             @foreach (TOption item in Items)
             {
                 <FluentOption TOption="TOption"
-                              Value="@GetOptionValue(item)"
+                              Value="@item"
                               Selected="@GetOptionSelected(item)"
                               Disabled="@(GetOptionDisabled(item) ?? false)"
                               OnSelect="@OnSelectCallback(item)">

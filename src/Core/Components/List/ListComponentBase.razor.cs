@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -58,13 +62,13 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                 {
                     SelectedOption = item;
 
-                    Value = value;
+                    Value = item;
                     // Raise Changed events in another thread
                     RaiseChangedEventsAsync().ConfigureAwait(false);
                 }
-                }
             }
         }
+    }
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -173,14 +177,14 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     /// When Multiple = true this only reflects the first selected option value.
     /// </summary>
     [Parameter]
-    public virtual string? Value { get; set; }
+    public virtual TOption? Value { get; set; }
 
     /// <summary>
     /// Called whenever the selection changed.
     /// ⚠️ Only available when Multiple = false.
     /// </summary>
     [Parameter]
-    public virtual EventCallback<string?> ValueChanged { get; set; }
+    public virtual EventCallback<TOption?> ValueChanged { get; set; }
 
     /// <summary>
     /// If true, the user can select multiple elements.
@@ -270,9 +274,10 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                     _currentSelectedOption = newSelectedOption;
                 }
 
-                    Value = GetOptionValue(_currentSelectedOption);
-                    await ValueChanged.InvokeAsync(Value);
-                }
+                //Value = GetOptionValue(_currentSelectedOption);
+                Value = _currentSelectedOption;
+                await ValueChanged.InvokeAsync(Value);
+            }
             else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
             {
                 newSelectedOption = Items.FirstOrDefault(item => GetOptionValue(item) == newValue);
@@ -287,7 +292,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                     _currentSelectedOption = SelectedOption = default;
                     if (this is not FluentCombobox<TOption>)
                     {
-                        Value = null;
+                        Value = default;
                         await ValueChanged.InvokeAsync(Value);
                     }
                 }
@@ -336,9 +341,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             }
         }
 
-        if (Value is not null &&  (InternalValue is null || InternalValue != Value))
+        if (Value is not null && (InternalValue is null || InternalValue != GetOptionValue(Value)))
         {
-            InternalValue = Value;
+            InternalValue = GetOptionValue(Value);
         }
 
         if (Multiple)
@@ -515,7 +520,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         }
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(InternalValue);
+            await ValueChanged.InvokeAsync(Value);
         }
         StateHasChanged();
     }
@@ -566,9 +571,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         _selectedOptions.Add(item);
     }
 
-    protected EventCallback<string> OnSelectCallback(TOption? item)
+    protected EventCallback<TOption> OnSelectCallback(TOption? item)
     {
-        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
+        return EventCallback.Factory.Create<TOption>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
     }
 
     /// <summary />

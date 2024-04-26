@@ -10,7 +10,7 @@
                       Width="200px"
                       OptionValue="@(p => p.PersonId.ToString())"
                       OptionText="@(p => p.LastName + ", " + p.FirstName)"
-                      @bind-Value="@SelectedValueART"
+                      @bind-Value="@SelectedPersonART"
                       @bind-SelectedOption="@SelectedPersonART" />
 
     </FluentCard>
@@ -23,7 +23,7 @@
                       Width="200px"
                       OptionValue="@(p => p.PersonId.ToString())"
                       OptionText="@(p => p.LastName + ", " + p.FirstName)"
-                      @bind-Value="@SelectedValueARF"
+                      @bind-Value="@SelectedPersonARF"
                       @bind-SelectedOption="@SelectedPersonARF" />
 
     </FluentCard>

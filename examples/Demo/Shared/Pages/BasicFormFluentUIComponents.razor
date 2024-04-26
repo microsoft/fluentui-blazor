@@ -37,10 +37,10 @@
         </div>
         <div>
             <FluentSelect name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
-                <FluentOption Value="">Select classification ...</FluentOption>
-                <FluentOption Value="Exploration">Exploration</FluentOption>
-                <FluentOption Value="Diplomacy">Diplomacy</FluentOption>
-                <FluentOption Value="Defense">Defense</FluentOption>
+                <FluentOption Value="@("")">Select classification ...</FluentOption>
+                <FluentOption Value="@("Exploration")">Exploration</FluentOption>
+                <FluentOption Value="@("Diplomacy")">Diplomacy</FluentOption>
+                <FluentOption Value="@("Defense")">Defense</FluentOption>
             </FluentSelect>
             <FluentValidationMessage For="@(() => starship.Classification)" />
         </div>

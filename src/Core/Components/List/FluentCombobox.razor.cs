@@ -118,7 +118,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
             // Sync Value from selected option.
             // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
-            Value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
+            InternalValue = GetOptionValue(_currentSelectedOption) ?? string.Empty;
             await ValueChanged.InvokeAsync(Value);
         }
 
@@ -143,8 +143,8 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
                 if (ValueChanged.HasDelegate)
                 {
-                    Value = value;
-                    await ValueChanged.InvokeAsync(value);
+                    InternalValue = value;
+                    //await ValueChanged.InvokeAsync(value);
                 }
 
                 StateHasChanged();

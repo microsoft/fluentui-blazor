@@ -18,7 +18,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// Gets or sets the value of this option.
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public TOption? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is selected.
@@ -42,7 +42,7 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// Called whenever the selection changed.
     /// </summary>
     [Parameter]
-    public EventCallback<string> OnSelect { get; set; }
+    public EventCallback<TOption> OnSelect { get; set; }
 
     protected override Task OnInitializedAsync()
     {

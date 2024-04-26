@@ -17,9 +17,9 @@
             <div>
                 <p><label for="SelectValue">Select Value</label></p>
             <FluentSelect Name="SelectValue" @bind-SelectedOption="Form.SelectValue" TOption="string">
-                    <FluentOption Value="One">One</FluentOption>
-                    <FluentOption Value="Two">Two</FluentOption>
-                    <FluentOption Value="Three">Three</FluentOption>
+                    <FluentOption Value="@("One")">One</FluentOption>
+                    <FluentOption Value="@("Two")">Two</FluentOption>
+                    <FluentOption Value="@("Three")">Three</FluentOption>
                 </FluentSelect>
             </div>
 
@@ -119,9 +119,9 @@
                 <div>
                     <p><label for="SelectValue">Select Value</label></p>
                 <FluentSelect Name="SelectValue" @bind-Value="Form.SelectValue" TOption="string">
-                        <FluentOption Value="One">One</FluentOption>
-                        <FluentOption Value="Two">Two</FluentOption>
-                        <FluentOption Value="Three">Three</FluentOption>
+                    <FluentOption Value="@("One")">One</FluentOption>
+                    <FluentOption Value="@("Two")">Two</FluentOption>
+                    <FluentOption Value="@("Three")">Three</FluentOption>
                     </FluentSelect>
                     <span>
                         <ValidationMessage For="() => Form.SelectValue" />

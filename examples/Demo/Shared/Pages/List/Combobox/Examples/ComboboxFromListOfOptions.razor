@@ -2,11 +2,12 @@
 <p>Second item in the list is initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
 
 <FluentCombobox Items=@stringOptions
+                TOption="Option<string>"
                 OptionText="@(i => i.Text)" 
                 OptionValue="@(i => i.Value)" 
                 OptionSelected="@(i => i.Selected)"
                 @bind-SelectedOption="@selectedStringOption"
-                @bind-Value="@stringValue" />
+                @bind-Value="@selectedStringOption" />
 <p>
     Selected Value: @stringValue<br />
     Selected Item (strongly typed): <br />
@@ -24,7 +25,7 @@
                 OptionValue="@(i => i.Value.ToString())" 
                 OptionDisabled="@(i => i.Disabled)"
                 @bind-SelectedOption="@selectedIntOption"
-                @bind-Value="@intValue" />
+                @bind-Value="@selectedIntOption" />
 <p>
     Selected Value: @intValue<br />
     Selected Item (strongly typed): <br />

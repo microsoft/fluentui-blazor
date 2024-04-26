@@ -1,11 +1,12 @@
 ﻿<h4>From a List of Option&lt;string&gt; items</h4>
 <p>Second item in the list is initially selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
 
-<FluentListbox Items=@stringOptions 
+<FluentListbox Items=@stringOptions
+               TOption="Option<string>"
                OptionText="@(i => i.Text)" 
                OptionValue="@(i => i.Value)"
                OptionSelected="@(i => i.Selected)"
-               @bind-Value="@stringValue" />
+               @bind-Value="@selectedStringOption" />
 <p>
     Selected Value: @stringValue<br />
 </p>
@@ -20,7 +21,7 @@
                OptionValue="@(i => i.Value.ToString())"
                OptionDisabled="@(i => i.Disabled)"
                @bind-SelectedOption="@selectedIntOption"
-               @bind-Value="@intValue" />
+               @bind-Value="@selectedIntOption" />
 <p>
     Selected Value: @intValue<br />
     Selected Item (strongly typed): <br />
@@ -31,6 +32,7 @@
 @code {
     string? stringValue;
     string? intValue;
+    Option<string> selectedStringOption = default!;
     Option<int>? selectedIntOption;
     
     List<Option<string>> stringOptions = new()

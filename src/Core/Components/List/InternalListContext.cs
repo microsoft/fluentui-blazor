@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -42,7 +46,7 @@ internal class InternalListContext<TOption>(ListComponentBase<TOption> listCompo
     /// <summary>
     /// Gets the event callback to be invoked when the selected value is changed.
     /// </summary>
-    public EventCallback<string?> ValueChanged { get; set; }
+    public EventCallback<TOption?> ValueChanged { get; set; }
 
     /// <summary>
     /// Gets the event callback to be invoked when the selected value is changed.

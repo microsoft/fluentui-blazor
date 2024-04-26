@@ -19,11 +19,13 @@
     SelectedTab ID
     <br />
     <FluentSelect Items="@Items"
+                   TOption="@DataSource.MonthItem"
                   OptionValue="@(i => $"tab-{i.Index}")"
-                  @bind-Value="@SelectedTabId" />
+                  @bind-Value="@item" />
     <FluentButton OnClick="@AddAndSelect">Add and select</FluentButton>
 @code
 {
+    DataSource.MonthItem? item;
     List<DataSource.MonthItem> Items = new List<DataSource.MonthItem>(DataSource.AllMonths);
     string SelectedTabId = "tab-03";
     int i = 20;

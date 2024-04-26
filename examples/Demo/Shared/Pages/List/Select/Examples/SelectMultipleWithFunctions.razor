@@ -13,7 +13,7 @@
                   OptionText="@(p => p.LastName + ", " + p.FirstName)"
                   OptionDisabled="@(p => p.BirthDate.Year > 1990 )"
                   OptionSelected="@(p => p.FirstName.StartsWith("J"))"
-                  @bind-Value="@SelectedValue"
+                  
                   @bind-SelectedOptions="@SelectedOptions" />
 </div>
 
