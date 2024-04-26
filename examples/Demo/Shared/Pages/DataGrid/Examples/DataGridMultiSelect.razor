@@ -1,13 +1,14 @@
 ﻿<FluentDataGrid Items="@people" ShowHover="true" TGridItem="Person">
-    <SelectColumn Property="@(p => p.Selected)" OnSelect="@(c => c.Selected = !c.Selected)" TGridItem="Person" />
+    <SelectColumn TGridItem="Person"
+                  Property="@(e => e.Selected)"
+                  OnSelect="@(e => e.Selected = !e.Selected)"
+                  SelectAllChanged="@(all => people.ToList().ForEach(p => p.Selected = all))"/>
     <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
     <PropertyColumn Width="300px" Property="@(p => p.Name)" />
     <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
 </FluentDataGrid>
 
 Selected: @String.Join("; ", people.Where(p => p.Selected).Select(p => p.Name))
-
-<FluentButton OnClick="@(e => StateHasChanged())">Refresh</FluentButton>
 
 @code {
 
