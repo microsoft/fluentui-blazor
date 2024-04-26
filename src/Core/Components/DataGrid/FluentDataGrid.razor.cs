@@ -167,9 +167,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
     /// <summary>
-    /// Gets the first (optional) SelectRowColumn
+    /// Gets the first (optional) SelectColumn
     /// </summary>
-    internal SelectRowColumn<TGridItem>? SelectedRowColumn => _columns.FirstOrDefault(col => col is SelectRowColumn<TGridItem>) as SelectRowColumn<TGridItem>;
+    internal SelectColumn<TGridItem>? SelectedRowColumn => _columns.FirstOrDefault(col => col is SelectColumn<TGridItem>) as SelectColumn<TGridItem>;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;

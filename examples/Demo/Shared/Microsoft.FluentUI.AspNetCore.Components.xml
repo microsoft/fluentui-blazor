@@ -1359,45 +1359,45 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1">
             <summary>
             Represents a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> column whose cells render a selected checkbox updated when the user click on a row.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.ChildContent">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered for each row in the table.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.IconUnchecked">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconUnchecked">
             <summary>
             Gets or sets the Icon to be rendered when the row is non selected.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.IconChecked">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconChecked">
             <summary>
             Gets or sets the Icon to be rendered when the row is selected.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.SelectChanged">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnSelect">
             <summary>
             Gets or sets the action to be executed when the row is selected or unselected.
             This action is required to update you data model.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.Property">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Property">
             <summary>
             Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.SortBy">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectRowColumn`1.IsSortableByDefault">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IsSortableByDefault">
             <inheritdoc />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.SortedProperty">
@@ -1580,7 +1580,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectedRowColumn">
             <summary>
-            Gets the first (optional) SelectRowColumn
+            Gets the first (optional) SelectColumn
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">

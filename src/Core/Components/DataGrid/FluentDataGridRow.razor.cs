@@ -107,9 +107,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             {
                 await Owner.Grid.OnRowClick.InvokeAsync(row);
 
-                if (Owner.Grid.SelectedRowColumn != null && row.Item != null)
+                if (Owner.Grid.SelectedRowColumn != null && Owner.Grid.SelectedRowColumn.OnSelect.HasDelegate && row.Item != null)
                 {
-                    Owner.Grid.SelectedRowColumn.SelectChanged.Invoke(row.Item);
+                    await Owner.Grid.SelectedRowColumn.OnSelect.InvokeAsync(row.Item);
                     StateHasChanged();
                 }
             }

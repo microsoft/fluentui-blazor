@@ -1,5 +1,5 @@
 ﻿<FluentDataGrid Items="@people" ShowHover="true" TGridItem="Person">
-    <SelectRowColumn Property="@(p => p.Selected)" SelectChanged="@(e => e.Selected = !e.Selected)" />
+    <SelectColumn Property="@(p => p.Selected)" OnSelect="@(e => e.Selected = !e.Selected)" />
     <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
     <PropertyColumn Width="300px" Property="@(p => p.Name)" />
     <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
@@ -19,7 +19,7 @@ Selected: @String.Join("; ", people.Where(p => p.Selected).Select(p => p.Name))
 
     IQueryable<Person> people = new[]
     {
-        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)),
+        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)) { Selected = true },
         new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
         new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
         new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27)),

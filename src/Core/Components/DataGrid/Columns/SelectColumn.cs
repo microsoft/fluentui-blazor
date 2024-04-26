@@ -7,9 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Represents a <see cref="FluentDataGrid{TGridItem}"/> column whose cells render a selected checkbox updated when the user click on a row.
 /// </summary>
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
-public class SelectRowColumn<TGridItem> : ColumnBase<TGridItem>
+public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 {
-    public SelectRowColumn()
+    public SelectColumn()
     {
         RenderFragment<TGridItem> DefaultChildContent = (context) => new RenderFragment(async (builder) =>
         {
@@ -47,8 +47,7 @@ public class SelectRowColumn<TGridItem> : ColumnBase<TGridItem>
     /// This action is required to update you data model.
     /// </summary>
     [Parameter]
-    [EditorRequired]
-    public Action<TGridItem> SelectChanged { get; set; } = (item) => { };
+    public EventCallback<TGridItem> OnSelect { get; set; }
 
     /// <summary>
     /// Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
