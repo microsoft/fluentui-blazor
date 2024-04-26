@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
-<div class="grid">
-    <FluentDataGrid Items="@itemsQueryable" Pagination="@pagination">
+<div class="grid" style="width: 100%; overflow-x:auto;">
+    <FluentDataGrid Items="@itemsQueryable" Pagination="@pagination"  Style="width: 1000px;">
         <PropertyColumn Property="@(c => c.Name)" Sortable="true" Class="country-name" />
         <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.End" />
         <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.End" />
