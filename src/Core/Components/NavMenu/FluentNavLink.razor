@@ -2,33 +2,56 @@
 @inherits FluentNavBase
 @using Microsoft.AspNetCore.Components.Rendering
 @using Microsoft.AspNetCore.Components.Routing
+@inject NavigationManager NavigationManager
 
-<div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
-    @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
-    {
-        <NavLink class="@LinkClassValue"
-                 @attributes="@Attributes"
-                 Match="@Match"
-                 ActiveClass="@ActiveClass"
-                 title="@Tooltip">
-            <div class="positioning-region">
+@if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
+{
+    <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
+        @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
+        {
+            <NavLink class="@LinkClassValue"
+                     @attributes="@Attributes"
+                     Match="@Match"
+                     ActiveClass="@ActiveClass"
+                     title="@Tooltip">
+                <div class="positioning-region">
+                    <div class="content-region">
+                        @_renderContent
+                    </div>
+                </div>
+            </NavLink>
+        }
+        else
+        {
+            <div class="positioning-region" title="@Tooltip">
                 <div class="content-region">
-                    @_renderContent
+                    <div class="@LinkClassValue" @onclick="OnClickHandlerAsync">
+                        @_renderContent
+                    </div>
                 </div>
             </div>
+        }
+    </div>
+}
+else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
+{
+    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync" @onmenuchange="async ev => await OnClickHandlerAsync(null)">
+        <NavLink class="@LinkClassValue"
+                    @attributes="@Attributes"
+                    Match="@Match"
+                    ActiveClass="@ActiveClass"
+                    title="@Tooltip">
+            @ChildContent
         </NavLink>
-    }
-    else
-    {
-        <div class="positioning-region" title="@Tooltip">
-            <div class="content-region">
-                <div class="@LinkClassValue" @onclick="OnClickHandler">
-                    @_renderContent
-                </div>
-            </div>
-        </div>
-    }
-</div>
+
+        @if (Icon is not null)
+        {
+            <span slot="start">
+                <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
+            </span>
+        }
+    </FluentMenuItem>
+}
 
 @code {
     private void RenderContent(RenderTreeBuilder __builder)
@@ -44,7 +67,5 @@
         <div class="fluent-nav-text">
             @ChildContent
         </div>
-
-       
     }
 }

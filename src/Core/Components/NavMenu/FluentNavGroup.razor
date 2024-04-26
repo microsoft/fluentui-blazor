@@ -6,7 +6,7 @@
 
 @if (Owner.Expanded || HasIcon)
 {
-    <FluentKeyCode Anchor="@Id" OnKeyDown="@HandleExpanderKeyDownAsync" />
+    <FluentKeyCode Anchor="@Id" PreventDefaultOnly="new[] { KeyCode.Enter, KeyCode.Left, KeyCode.Right }" StopPropagation="@true" OnKeyDown="@HandleExpanderKeyDownAsync" />
     <div id="@Id" @ref="@Element" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@StyleValue" role="menuitem">
 
         @if (!string.IsNullOrEmpty(Href))
@@ -26,8 +26,8 @@
         }
         else
         {
-            <div class="fluent-nav-link notactive" tabindex="0">
-                <div class="positioning-region" @onclick="ToggleExpandedAsync"  title="@(Tooltip ?? Title)">
+            <div class="fluent-nav-link notactive" tabindex="@(Disabled ? "-1" : "0")">
+                <div class="positioning-region" @onclick="ToggleExpandedAsync" title="@(Tooltip ?? Title)">
                     <div class="content-region">
                         @_renderContent
                         @_renderButton
@@ -37,13 +37,51 @@
         }
 
         <FluentCollapsibleRegion @bind-Expanded="@Expanded" MaxHeight="@MaxHeight" Class="items" role="group">
-            <FluentNavMenu>
+            <FluentNavMenu Data="_data">
                 @ChildContent
             </FluentNavMenu>
         </FluentCollapsibleRegion>
     </div>
+
+    if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu == null)
+    {
+        <FluentMenu @bind-Open="_open"
+                    Anchor="@Id"
+                    HorizontalPosition="@HorizontalPosition.End"
+                    HorizontalInset="@false"
+                    VerticalPosition="@VerticalPosition.Bottom"
+                    VerticalInset="@true">
+            @ChildContent
+        </FluentMenu>
+    }
+    else
+    {
+        _open = false;
+    }
 }
+else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
+{
+    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
+        <ChildContent>
+            @Title
+            @TitleTemplate
+
+            @if (Icon is not null)
+            {
+                <span slot="start">
+                    <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+                </span>
+            }
+        </ChildContent>
+        <MenuItems>
+            @ChildContent
+        </MenuItems>
+    </FluentMenuItem>
+}
+
+
 @code {
+    private string _data = "no-pagescript";
     private void RenderContent(RenderTreeBuilder __builder)
     {
         @if (Icon is not null)
@@ -72,7 +110,6 @@
                  @onclick:preventDefault="true">
                 <FluentIcon Value="@ExpandIcon" Color="@(Disabled ? Color.Disabled : Color.Neutral)" Class="@ExpandIconClassValue" />
             </div>
-
         }
     }
 }
