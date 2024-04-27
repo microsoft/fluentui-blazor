@@ -20,6 +20,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     /// Defaults to false
     /// </summary>
     [Parameter]
+    [Obsolete("Please, prefer to use the `LazyLoadItems` attribute.")]
     public bool RenderCollapsedNodes { get; set; }
 
     /// <summary>
