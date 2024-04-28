@@ -72,16 +72,51 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public required Icon IconUnchecked { get; set; } = new CoreIcons.Regular.Size20.CheckboxUnchecked().WithColor(Color.FillInverse);
 
     /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "Row unselected".
+    /// </summary>
+    [Parameter]
+    public string TitleUnchecked { get; set; } = "Row unselected";
+
+    /// <summary>
     /// Gets or sets the Icon to be rendered when the row is selected.
     /// </summary>
     [Parameter]
     public required Icon IconChecked { get; set; } = new CoreIcons.Filled.Size20.CheckboxChecked();
 
     /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "Row selected".
+    /// </summary>
+    [Parameter]
+    public string TitleChecked { get; set; } = "Row selected.";
+
+    /// <summary>
     /// Gets or sets the Icon to be rendered when some but not all rows are selected.
     /// </summary>
     [Parameter]
     public Icon? IconIndeterminate { get; set; } = new CoreIcons.Filled.Size20.CheckboxIndeterminate();
+
+    /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "All rows are selected.".
+    /// </summary>
+    [Parameter]
+    public string TitleAllChecked { get; set; } = "All rows are selected.";
+
+    /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "No rows are selected.".
+    /// </summary>
+    [Parameter]
+    public string TitleAllUnchecked { get; set; } = "No rows are selected.";
+
+    /// <summary>
+    /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
+    /// The default text is "Some rows are selected.".
+    /// </summary>
+    [Parameter]
+    public string TitleAllIndeterminate { get; set; } = "Some rows are selected.";
 
     /// <summary>
     /// Gets or sets the action to be executed when the row is selected or unselected.
@@ -204,6 +239,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
             builder.AddAttribute(1, "Value", selected ? IconChecked : IconUnchecked);
+            builder.AddAttribute(1, "Title", selected ? TitleChecked : TitleUnchecked);
             builder.AddAttribute(2, "row-selected", selected);
             builder.CloseComponent();
         });
@@ -229,6 +265,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                     builder.AddAttribute(1, "Value", iconAllChecked);
                     builder.AddAttribute(2, "all-selected", SelectAll);
                     builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                    builder.AddAttribute(4, "Style", "margin-left: 12px;");
+                    builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
+                                                        ? TitleAllIndeterminate
+                                                        : (iconAllChecked == IconChecked ? TitleAllChecked : TitleAllUnchecked));
                     builder.CloseComponent();
                 });
 

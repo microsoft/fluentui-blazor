@@ -1385,14 +1385,44 @@
             Gets or sets the Icon to be rendered when the row is non selected.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleUnchecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Row unselected".
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconChecked">
             <summary>
             Gets or sets the Icon to be rendered when the row is selected.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleChecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Row selected".
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconIndeterminate">
             <summary>
             Gets or sets the Icon to be rendered when some but not all rows are selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllChecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "All rows are selected.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllUnchecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "No rows are selected.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllIndeterminate">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Some rows are selected.".
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnSelect">
