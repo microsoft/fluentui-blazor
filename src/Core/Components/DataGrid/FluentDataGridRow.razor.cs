@@ -136,7 +136,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     private async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
     {
         // Enter when a SelectColumn is defined.
-        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        if (SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
         {
             if (Owner.Rows.TryGetValue(rowId, out var row))
             {

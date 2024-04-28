@@ -1365,6 +1365,16 @@
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.KEYBOARD_SELECT_KEYS">
+            <summary>
+            List of keys to press, to select/unselect a row.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered for each row in the table.
@@ -1373,6 +1383,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItems">
             <summary>
             Gets or sets the list of selected items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItemsChanged">
+            <summary>
+            Gets or sets a callback when list of selected items changed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode">
@@ -1462,6 +1477,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RefreshHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.GetSelectAll">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">

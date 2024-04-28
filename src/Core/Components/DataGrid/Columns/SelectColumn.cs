@@ -10,9 +10,17 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 {
+    /// <summary>
+    /// List of keys to press, to select/unselect a row.
+    /// </summary>
+    public static string[] KEYBOARD_SELECT_KEYS = ["Enter", "NumpadEnter"];
+
     private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
     private readonly List<TGridItem> _selectedItems = new List<TGridItem>();
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="SelectColumn{TGridItem}"/>.
+    /// </summary>
     public SelectColumn()
     {
         Width = "50px";
@@ -42,6 +50,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         }
     }
 
+    /// <summary>
+    /// Gets or sets a callback when list of selected items changed.
+    /// </summary>
     [Parameter]
     public EventCallback<IEnumerable<TGridItem>> SelectedItemsChanged { get; set; }
 
@@ -283,6 +294,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         HeaderContent = GetHeaderContent();
     }
 
+    /// <summary />
     private bool? GetSelectAll()
     {
         // Using SelectedItems only
