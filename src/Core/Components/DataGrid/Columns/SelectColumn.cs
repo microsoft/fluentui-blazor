@@ -10,6 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 {
+    private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
     private readonly List<TGridItem> _selectedItems = new List<TGridItem>();
 
     public SelectColumn()
@@ -48,7 +49,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the selection mode (Single or Multiple).
     /// </summary>
     [Parameter]
-    public DataGridSelectMode SelectMode { get; set; } = DataGridSelectMode.Single;
+    public DataGridSelectMode SelectMode
+    {
+        get => _selectMode;
+        set
+        {
+            _selectMode = value;
+
+            if (value == DataGridSelectMode.Single)
+            {
+                KeepOnlyFirstSelectedItemAsync().Wait();
+            }
+
+            RefreshHeaderContent();
+        }
+    }
 
     /// <summary>
     /// Gets or sets the Icon to be rendered when the row is non selected.
@@ -73,7 +88,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// This action is required to update you data model.
     /// </summary>
     [Parameter]
-    public EventCallback<TGridItem> OnSelect { get; set; }
+    public EventCallback<(TGridItem Item, bool Selected)> OnSelect { get; set; }
 
     /// <summary>
     /// Gets or sets the value indicating whether the [All] checkbox is selected.
@@ -108,15 +123,21 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             if (SelectedItems.Contains(item))
             {
                 _selectedItems.Remove(item);
+                await CallOnSelect(item, false);
             }
             else
             {
                 if (SelectMode == DataGridSelectMode.Single)
                 {
+                    foreach (var previous in _selectedItems)
+                    {
+                        await CallOnSelect(previous, false);
+                    }
                     _selectedItems.Clear();
                 }
 
                 _selectedItems.Add(item);
+                await CallOnSelect(item, true);
             }
 
             if (SelectedItemsChanged.HasDelegate)
@@ -125,10 +146,40 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             }
 
             SelectAll = null;
-            await OnSelect.InvokeAsync(item);
-
             RefreshHeaderContent();
         }
+
+        Task CallOnSelect(TGridItem item, bool isSelected)
+        {
+            return OnSelect.HasDelegate
+                ? OnSelect.InvokeAsync((item, isSelected))
+                : Task.CompletedTask;
+        }
+    }
+
+    private async Task KeepOnlyFirstSelectedItemAsync()
+    {
+        if (_selectedItems.Count() <= 1)
+        {
+            return;
+        }
+
+        // Unselect all except the first
+        foreach (var item in _selectedItems.Skip(1))
+        {
+            await OnSelect.InvokeAsync((item, false));
+        }
+
+        // Keep the first selected item
+        _selectedItems.RemoveRange(1, _selectedItems.Count - 1);
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_selectedItems);
+        }
+
+        // Indeterminate
+        SelectAll = null;
     }
 
     /// <summary />
@@ -148,44 +199,36 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     private RenderFragment GetHeaderContent()
     {
-        var iconAllChecked = (SelectAll == null && IconIndeterminate != null)
-            ? IconIndeterminate
-            : (SelectAll == true ? IconChecked : IconUnchecked);
+        SelectAll = SelectedItems.Any() ? null : false;
 
-        return new RenderFragment((builder) =>
+        switch (SelectMode)
         {
-            builder.OpenComponent<FluentIcon<Icon>>(0);
-            builder.AddAttribute(1, "Value", iconAllChecked);
-            builder.AddAttribute(2, "all-selected", SelectAll);
-            builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
-            builder.CloseComponent();
-        });
+            case DataGridSelectMode.Single:
+                return new RenderFragment((builder) => { });
+
+            case DataGridSelectMode.Multiple:
+                var iconAllChecked = (SelectAll == null && IconIndeterminate != null)
+                                    ? IconIndeterminate
+                                    : (SelectAll == true ? IconChecked : IconUnchecked);
+
+                return new RenderFragment((builder) =>
+                {
+                    builder.OpenComponent<FluentIcon<Icon>>(0);
+                    builder.AddAttribute(1, "Value", iconAllChecked);
+                    builder.AddAttribute(2, "all-selected", SelectAll);
+                    builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                    builder.CloseComponent();
+                });
+
+            default:
+                return new RenderFragment((builder) => { });
+        }
     }
 
     /// <summary />
     private void RefreshHeaderContent()
     {
-        if (SelectMode == DataGridSelectMode.Multiple)
-        {
-            if (!SelectedItems.Any())
-            {
-                SelectAll = false;
-            }
-
-            HeaderContent = GetHeaderContent();
-        }
-    }
-
-    /// <inheritdoc />
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (SelectMode == DataGridSelectMode.Multiple)
-        {
-            SelectAll = SelectedItems.Any() ? null : false;
-            RefreshHeaderContent();
-        }
+        HeaderContent = GetHeaderContent();
     }
 
     /// <inheritdoc />

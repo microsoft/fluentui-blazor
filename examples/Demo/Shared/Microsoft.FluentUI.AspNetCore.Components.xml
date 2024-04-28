@@ -1434,9 +1434,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RefreshHeaderContent">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnInitialized">
-            <inheritdoc />
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
         </member>

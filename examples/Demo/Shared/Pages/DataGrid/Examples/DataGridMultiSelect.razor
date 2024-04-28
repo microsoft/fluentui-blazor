@@ -1,39 +1,58 @@
-﻿<FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
-    <SelectColumn TGridItem="Person"
-                  SelectMode="@Mode"
-                  IconIndeterminate="@null"
-                  @bind-SelectedItems="@SelectedItems"
-                  Property="@(e => e.Selected)"
-                  OnSelect="@(e =>
-                    {
-                        if (Mode == DataGridSelectMode.Single)
-                        {
-                            bool selected = !e.Selected;
-                            People.ToList().ForEach(p => p.Selected = false);
-                            e.Selected = selected;
-                        }
-                        else
-                        {
-                            e.Selected = !e.Selected;
-                        }
-                    })"
-                  SelectAllChanged="@(all => People.ToList().ForEach(p => p.Selected = (all == true)))" />
-    <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
-    <PropertyColumn Width="300px" Property="@(p => p.Name)" />
-    <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
-</FluentDataGrid>
+﻿<FluentStack VerticalAlignment="VerticalAlignment.Center">
+    <FluentSelect Items="@(Enum.GetValues<DataGridSelectMode>())"
+                  @bind-SelectedOption="@Mode" />
+    <FluentCheckbox @bind-Value="@UseSelectedItems"
+                    Label="Use `SelectedItems` property" />
+</FluentStack>
 
-<div>
-    <b style="min-width: 150px; display: inline-block;">SelectedItems:</b>
-    @String.Join("; ", SelectedItems.Select(p => p.Name))
-</div>
-<div>
-    <b style="min-width: 150px; display: inline-block;">Peoples:</b>
-    @String.Join("; ", People.Where(p => p.Selected).Select(p => p.Name))
-</div>
+@if (UseSelectedItems)
+{
+    @* Sample using SelectedItems  *@
+    <div>Using SelectedItems</div>
+
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@Mode"
+                      IconIndeterminate="@null"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
+        <PropertyColumn Width="300px" Property="@(p => p.Name)" />
+        <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+    </FluentDataGrid>
+
+    <div>
+        <b>SelectedItems:</b>
+        @String.Join("; ", SelectedItems.Select(p => p.Name))
+    </div>
+}
+else
+{
+    @* Sample using Property and OnSelect  *@
+    <div>Using Property and OnSelect</div>
+
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@Mode"
+                      IconIndeterminate="@null"
+                      Property="@(e => e.Selected)"
+                      OnSelect="@(e => e.Item.Selected = e.Selected)"
+                      SelectAll="@(People.All(p => p.Selected))"
+                      SelectAllChanged="@(all => People.ToList().ForEach(p => p.Selected = (all == true)))" />
+        <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
+        <PropertyColumn Width="300px" Property="@(p => p.Name)" />
+        <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+    </FluentDataGrid>
+
+    <div>
+        <b>Peoples:</b>
+        @String.Join("; ", People.Where(p => p.Selected).Select(p => p.Name))
+    </div>
+}
 
 @code {
+    bool UseSelectedItems = false;
     DataGridSelectMode Mode = DataGridSelectMode.Single;
+
     IEnumerable<Person> SelectedItems = People.Where(p => p.Selected);
 
     record Person(int PersonId, string Name, DateOnly BirthDate)
