@@ -102,7 +102,17 @@ public partial class FluentNavGroup : FluentNavBase
         _renderButton = RenderButton;
     }
 
-    private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
+    private Task ToggleExpandedAsync()
+    {
+        if (!Owner.Expanded && Owner.CollapsedChildNavigation)
+        {
+            return SetExpandedAsync(!_open);
+        }
+        else
+        {
+            return SetExpandedAsync(!Expanded);
+        }
+    }
 
     private async Task HandleExpanderKeyDownAsync(FluentKeyCodeEventArgs args)
     {
@@ -112,7 +122,7 @@ public partial class FluentNavGroup : FluentNavBase
         }
         Task handler = args.Key switch
         {
-            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Enter => ToggleExpandedAsync(),
             KeyCode.Right => SetExpandedAsync(true),
             KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
@@ -122,16 +132,11 @@ public partial class FluentNavGroup : FluentNavBase
 
     private async Task SetExpandedAsync(bool value)
     {
-        if (value == Expanded)
-        {
-            return;
-        }
-
         if (!Owner.Expanded)
         {
             if (Owner.CollapsedChildNavigation)
             {
-                _open = !_open;
+                _open = value;
             }
             else
             {
@@ -140,6 +145,11 @@ public partial class FluentNavGroup : FluentNavBase
         }
         else
         {
+            if (value == Expanded)
+            {
+                return;
+            }
+
             Expanded = value;
 
             if (ExpandedChanged.HasDelegate)
