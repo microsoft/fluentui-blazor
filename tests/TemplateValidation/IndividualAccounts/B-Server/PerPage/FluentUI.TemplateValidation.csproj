@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-FluentUI.TemplateValidation-8603a5dc-22ce-45e4-9442-a3ade2f55a2c</UserSecretsId>
+    <UserSecretsId>aspnet-FluentUI.TemplateValidation-6d218ba5-2be5-4b4d-9931-1d3d1b209182</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,13 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.*-*" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.*-*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.*-*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.*-*" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3" />
   </ItemGroup>
   <ItemGroup>
-	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-* " />
   </ItemGroup>
 </Project>
