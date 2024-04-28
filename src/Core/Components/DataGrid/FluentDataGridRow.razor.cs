@@ -99,11 +99,15 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
+    /// <summary />
     private async Task HandleOnRowClickAsync(string rowId)
     {
         if (Owner.Rows.TryGetValue(rowId, out var row))
         {
-            await Owner.Grid.OnRowClick.InvokeAsync(row);
+            if (Owner.Grid.OnRowClick.HasDelegate)
+            {
+                await Owner.Grid.OnRowClick.InvokeAsync(row);
+            }
 
             if (row != null && row.RowType == DataGridRowType.Default)
             {
@@ -116,6 +120,19 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
-    Task IHandleEvent.HandleEventAsync(
-       EventCallbackWorkItem callback, object? arg) => callback.InvokeAsync(arg);
+    /// <summary />
+    private async Task HandleOnRowDoubleClickAsync(string rowId)
+    {
+        if (Owner.Rows.TryGetValue(rowId, out var row))
+        {
+            if (Owner.Grid.OnRowDoubleClick.HasDelegate)
+            {
+                await Owner.Grid.OnRowDoubleClick.InvokeAsync(row);
+            }
+        }
+    }
+
+    /// <summary />
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        => callback.InvokeAsync(arg);
 }

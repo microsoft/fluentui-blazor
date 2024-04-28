@@ -1622,6 +1622,11 @@
             Gets or sets a callback when a row is clicked.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowDoubleClick">
+            <summary>
+            Gets or sets a callback when a row is double-clicked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass">
             <summary>
             Optionally defines a class to be applied to a rendered row.
@@ -1763,6 +1768,15 @@
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowDoubleClickAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Microsoft#AspNetCore#Components#IHandleEvent#HandleEventAsync(Microsoft.AspNetCore.Components.EventCallbackWorkItem,System.Object)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemsProvider`1">
             <summary>

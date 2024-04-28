@@ -10,6 +10,7 @@
                           grid-template-columns=@GridTemplateColumns
                           row-type=@RowType.ToAttributeValue()
                           @onclick="@(e => HandleOnRowClickAsync(RowId))"
+                          @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"
                           @attributes="AdditionalAttributes"
                           @oncellfocus=HandleOnCellFocusAsync>
         @ChildContent

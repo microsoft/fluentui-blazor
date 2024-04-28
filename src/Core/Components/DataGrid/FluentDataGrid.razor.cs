@@ -131,6 +131,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowClick { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a row is double-clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
