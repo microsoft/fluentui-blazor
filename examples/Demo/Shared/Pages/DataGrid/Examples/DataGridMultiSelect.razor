@@ -2,6 +2,7 @@
     <FluentSelect Items="@(Enum.GetValues<DataGridSelectMode>())"
                   @bind-SelectedOption="@Mode" />
     <FluentCheckbox @bind-Value="@UseSelectedItems"
+                    @bind-Value:after="@(() => ResetSelectItems())"
                     Label="Use `SelectedItems` property" />
 </FluentStack>
 
@@ -32,7 +33,6 @@ else
     <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
         <SelectColumn TGridItem="Person"
                       SelectMode="@Mode"
-                      IconIndeterminate="@null"
                       Property="@(e => e.Selected)"
                       OnSelect="@(e => e.Item.Selected = e.Selected)"
                       SelectAll="@(People.All(p => p.Selected))"
@@ -68,4 +68,11 @@ else
         new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3)),
         new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
     }.AsQueryable();
+
+    private void ResetSelectItems()
+    {
+        People.ToList().ForEach(i => i.Selected = false);
+        People.First().Selected = true;
+        SelectedItems = People.Where(p => p.Selected);
+    }
 }

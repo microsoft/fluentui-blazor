@@ -145,7 +145,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 await SelectedItemsChanged.InvokeAsync(SelectedItems);
             }
 
-            SelectAll = null;
             RefreshHeaderContent();
         }
 
@@ -180,6 +179,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
         // Indeterminate
         SelectAll = null;
+        if (SelectAllChanged.HasDelegate)
+        {
+            await SelectAllChanged.InvokeAsync(SelectAll);
+        }
     }
 
     /// <summary />
@@ -187,7 +190,17 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     {
         return (item) => new RenderFragment((builder) =>
         {
-            var selected = SelectedItems.Contains(item) || Property.Invoke(item);
+            var selected = _selectedItems.Contains(item) || Property.Invoke(item);
+
+            // Sync with SelectedItems list
+            if (selected && !_selectedItems.Contains(item))
+            {
+                _selectedItems.Add(item);
+            }
+            else if (!selected && _selectedItems.Contains(item))
+            {
+                _selectedItems.Remove(item);
+            }
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
             builder.AddAttribute(1, "Value", selected ? IconChecked : IconUnchecked);
@@ -199,17 +212,16 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     private RenderFragment GetHeaderContent()
     {
-        SelectAll = SelectedItems.Any() ? null : false;
-
         switch (SelectMode)
         {
             case DataGridSelectMode.Single:
                 return new RenderFragment((builder) => { });
 
             case DataGridSelectMode.Multiple:
-                var iconAllChecked = (SelectAll == null && IconIndeterminate != null)
+                var selectedAll = GetSelectAll();
+                var iconAllChecked = (selectedAll == null && IconIndeterminate != null)
                                     ? IconIndeterminate
-                                    : (SelectAll == true ? IconChecked : IconUnchecked);
+                                    : (selectedAll == true ? IconChecked : IconUnchecked);
 
                 return new RenderFragment((builder) =>
                 {
@@ -231,6 +243,30 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         HeaderContent = GetHeaderContent();
     }
 
+    private bool? GetSelectAll()
+    {
+        // Using SelectedItems only
+        if (InternalGridContext != null && Grid.Items != null)
+        {
+            if (!SelectedItems.Any())
+            {
+                return false;
+            }
+            else if (SelectedItems.Count() == Grid.Items.Count())
+            {
+                return true;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
@@ -247,7 +283,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     private async Task OnClickAllAsync(MouseEventArgs e)
     {
-        if (Grid.Items == null || SelectMode != DataGridSelectMode.Multiple)
+        if (Grid == null || Grid.Items == null || SelectMode != DataGridSelectMode.Multiple)
         {
             return;
         }
@@ -264,6 +300,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         if (SelectAll == true)
         {
             _selectedItems.AddRange(Grid.Items);
+        }
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
         }
 
         RefreshHeaderContent();
