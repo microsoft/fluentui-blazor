@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -111,10 +112,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
             if (row != null && row.RowType == DataGridRowType.Default)
             {
-                var selectedColumn = Owner.Grid.SelectedRowColumn;
-                if (selectedColumn != null)
+                foreach (var selColumn in Owner.Grid.SelectColumns)
                 {
-                    await selectedColumn.AddOrRemoveSelectedItemAsync(Item);
+                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
                 }
             }
         }
@@ -128,6 +128,25 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             if (Owner.Grid.OnRowDoubleClick.HasDelegate)
             {
                 await Owner.Grid.OnRowDoubleClick.InvokeAsync(row);
+            }
+        }
+    }
+
+    /// <summary />
+    private async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
+    {
+        // Enter when a SelectColumn is defined.
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            if (Owner.Rows.TryGetValue(rowId, out var row))
+            {
+                if (row != null && row.RowType == DataGridRowType.Default)
+                {
+                    foreach (var selColumn in Owner.Grid.SelectColumns)
+                    {
+                        await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                    }
+                }
             }
         }
     }
