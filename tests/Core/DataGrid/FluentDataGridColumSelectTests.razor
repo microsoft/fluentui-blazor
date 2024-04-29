@@ -1,0 +1,47 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_SingleSelect()
+    {
+        IEnumerable<Person> SelectedItems = People.Where(p => p.Selected);
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Single"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Width="300px" Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+    }
+
+    /// <summary>
+    /// Simulate a click on the DataGrid row number <paramref name="row"/>.
+    /// </summary>
+    /// <param name="cut"></param>
+    /// <param name="row"></param>
+    /// <returns></returns>
+    private async Task ClickOnRowAsync(IRenderedFragment cut, int row)
+    {
+        var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
+        await item.Instance.HandleOnRowClickAsync(item.Instance.RowId);
+        cut.FindComponent<FluentDataGrid<Person>>().Render();
+    }
+}

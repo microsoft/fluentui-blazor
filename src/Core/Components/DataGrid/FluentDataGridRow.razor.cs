@@ -101,7 +101,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     }
 
     /// <summary />
-    private async Task HandleOnRowClickAsync(string rowId)
+    internal async Task HandleOnRowClickAsync(string rowId)
     {
         if (Owner.Rows.TryGetValue(rowId, out var row))
         {
@@ -121,7 +121,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     }
 
     /// <summary />
-    private async Task HandleOnRowDoubleClickAsync(string rowId)
+    internal async Task HandleOnRowDoubleClickAsync(string rowId)
     {
         if (Owner.Rows.TryGetValue(rowId, out var row))
         {
@@ -133,7 +133,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     }
 
     /// <summary />
-    private async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
+    internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
     {
         // Enter when a SelectColumn is defined.
         if (SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
