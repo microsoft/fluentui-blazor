@@ -1,4 +1,29 @@
-﻿# v3.6.2
+﻿# v3.7.0
+
+### Demo site and documentation 
+- [Docs] Update KeyCodeGlobalExample.razor.css to fix dark mode visuals ([#1834](https://github.com/microsoft/fluentui-blazor/pull/1834))
+
+### Components
+- [Badge] Fix displaying badge by not using a div (block element) in an inline element (#1921)([#1921](https://github.com/microsoft/fluentui-blazor/pull/1921))
+- [DataGrid] Add column Width parameter ([#1902](https://github.com/microsoft/fluentui-blazor/pull/1902))
+- [DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+- [DataGrid] Add ShowHover parameter and implement row hover effect ([#1939](https://github.com/microsoft/fluentui-blazor/pull/1939))
+- [DataGrid] Apply ItemSize (CSS height) to cells when grid is virtualized ([#1936](https://github.com/microsoft/fluentui-blazor/pull/1936))
+- [DataGrid] Change column width when using generated value ([#1955](https://github.com/microsoft/fluentui-blazor/pull/1955))
+- [DataGrid] Add resizing columns by keyboard ([#1866](https://github.com/microsoft/fluentui-blazor/pull/1866))
+- [Grid] Add AdaptiveRendering property ([#1899](https://github.com/microsoft/fluentui-blazor/pull/1899))
+- [Input] NotifyFieldChanged is called twice for all FluentInputBase derived components ([#1846](https://github.com/microsoft/fluentui-blazor/pull/1846))
+- [KeyCode] Allow content to avoid using the Anchor property ([#1743](https://github.com/microsoft/fluentui-blazor/pull/1743))
+- [KeyCode, AnchoredRegion, Popover] Add key navigation in AnchoredRegion / Popup ([#1800](https://github.com/microsoft/fluentui-blazor/pull/1800))
+- **[KeyCodeProvider]** Add a global service to capture keystrokes ([#1740](https://github.com/microsoft/fluentui-blazor/pull/1740))
+- [Lists] Also set Value (and InternalValue) when SelectedOption is set ([#1970](https://github.com/microsoft/fluentui-blazor/pull/1970))
+- [NavMenu] Show child items via `FluentMenu` when collapsed ([#1730](https://github.com/microsoft/fluentui-blazor/pull/1730))
+- [NavMenu] Fix keyboard navigation ([#1950](https://github.com/microsoft/fluentui-blazor/pull/1950))
+- [Popover] adds FixedPlacement parameter ([#1894](https://github.com/microsoft/fluentui-blazor/pull/1894))
+- [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
+
+
+# v3.6.2
 
 ### Demo site and documentation 
 - [Docs] Update Progress stroke examples dropdowns ([#1835](https://github.com/microsoft/fluentui-blazor/pull/1835))
