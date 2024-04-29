@@ -3,17 +3,35 @@
 @code
 {
     [Fact]
-    public async Task FluentDataGrid_ColumSelect_SingleSelect()
+    public void FluentDataGrid_ColumSelect_SingleSelect_Rendering()
     {
-        IEnumerable<Person> SelectedItems = People.Where(p => p.Selected);
+        IEnumerable<Person> SelectedItems = new[] { People.ElementAt(1) };
 
         // Arrange
         var cut = Render(
-    @<FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+    @<FluentDataGrid Items="@People" TGridItem="Person">
         <SelectColumn TGridItem="Person"
                       SelectMode="@DataGridSelectMode.Single"
                       @bind-SelectedItems="@SelectedItems" />
-        <PropertyColumn Width="300px" Property="@(p => p.Name)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_SingleSelect()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Single"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
     );
 
@@ -32,6 +50,91 @@
         Assert.Single(SelectedItems);
     }
 
+    [Fact]
+    public void FluentDataGrid_ColumSelect_MultiSelect_Rendering()
+    {
+        IEnumerable<Person> SelectedItems = new[] { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_MultiSelect()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(2, SelectedItems.Count());
+
+        // Act - Click and unselect Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_MultiSelect_SelectAll()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click on All checkbox to select all
+        await ClickOnAllAsync(cut);
+        Assert.Equal(3, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(3, SelectedItems.Count());
+
+        // Act - Click on All checkbox to unselect all
+        await ClickOnAllAsync(cut);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+    }
+
     /// <summary>
     /// Simulate a click on the DataGrid row number <paramref name="row"/>.
     /// </summary>
@@ -42,6 +145,18 @@
     {
         var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
         await item.Instance.HandleOnRowClickAsync(item.Instance.RowId);
+        cut.FindComponent<FluentDataGrid<Person>>().Render();
+    }
+
+    /// <summary>
+    /// Simulate a click on the All Checkbox.
+    /// </summary>
+    /// <param name="cut"></param>
+    /// <returns></returns>
+    private async Task ClickOnAllAsync(IRenderedFragment cut)
+    {
+        var col = cut.FindComponent<SelectColumn<Person>>();
+        await col.Instance.OnClickAllAsync(new MouseEventArgs());
         cut.FindComponent<FluentDataGrid<Person>>().Render();
     }
 }

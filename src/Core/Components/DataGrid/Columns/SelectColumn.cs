@@ -333,7 +333,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     protected override bool IsSortableByDefault() => SortBy is not null;
 
     /// <summary />
-    private async Task OnClickAllAsync(MouseEventArgs e)
+    internal async Task OnClickAllAsync(MouseEventArgs e)
     {
         if (Grid == null || Grid.Items == null || SelectMode != DataGridSelectMode.Multiple)
         {
