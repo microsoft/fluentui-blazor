@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Fast.Components.FluentUI.Utilities;
 using Microsoft.JSInterop;
@@ -18,7 +22,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -29,7 +33,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     {
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
     }
 
@@ -175,7 +179,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     [Parameter]
     public virtual string? Value { get; set; }
 
-
     /// <summary>
     /// Called whenever the selection changed.
     /// ⚠️ Only available when Multiple = false.
@@ -286,8 +289,11 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                 {
                     // If the selected option is not in the list of items, reset the selected option
                     _currentSelectedOption = SelectedOption = default;
-                    Value = null;
-                    await ValueChanged.InvokeAsync(Value);
+                    if (this is not FluentCombobox<TOption>)
+                    {
+                        Value = null;
+                        await ValueChanged.InvokeAsync(Value);
+                    }
                 }
 
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
@@ -324,12 +330,17 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         if (this is not FluentListbox<TOption> || Items is null)
         {
             if (_internalListContext.ValueChanged.HasDelegate == false)
+            {
                 _internalListContext.ValueChanged = ValueChanged;
+            }
+
             if (_internalListContext.SelectedOptionChanged.HasDelegate == false)
+            {
                 _internalListContext.SelectedOptionChanged = SelectedOptionChanged;
+            }
         }
 
-        if (InternalValue is null && Value is not null) // || InternalValue != Value)
+        if (Value is not null && (InternalValue is null || InternalValue != Value))
         {
             InternalValue = Value;
         }
@@ -355,7 +366,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                 InternalValue = GetOptionValue(item);
             }
         }
-
 
     }
 
@@ -424,6 +434,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             return OptionValue.Invoke(item) ?? OptionText.Invoke(item) ?? item.ToString();
         else
             return null;
+        }
     }
 
     protected virtual bool? GetOptionDisabled(TOption? item)
@@ -445,13 +456,16 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             return OptionText.Invoke(item) ?? item.ToString();
         else
             return null;
+        }
     }
 
     /// <summary />
     protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
         if (Disabled || item == null)
+        {
             return;
+        }
 
         if (Multiple)
         {
@@ -475,6 +489,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             if (!Equals(item, SelectedOption))
             {
                 SelectedOption = item;
+                InternalValue = Value = GetOptionValue(item);
                 await RaiseChangedEventsAsync();
             }
         }
@@ -514,7 +529,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         // This delay is needed for WASM to be able to get the updated value of the active descendant.
         // Without it, the value sometimes lags behind and you then need two keypresses to move to the next/prev option.
         await Task.Delay(1);
-        string? id = await Module!.InvokeAsync<string>("getAriaActiveDescendant", Id);
+        var id = await _jsModule!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
         FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
 
@@ -525,7 +540,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected virtual bool RemoveSelectedItem(TOption? item)
     {
         if (item == null)
+        {
             return false;
+        }
 
         return _selectedOptions.Remove(item);
     }
@@ -541,7 +558,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected virtual void AddSelectedItem(TOption? item)
     {
         if (item == null)
+        {
             return;
+        }
 
         _selectedOptions.Add(item);
     }
@@ -563,9 +582,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     {
         try
         {
-            if (Module is not null)
+            if (_jsModule is not null)
             {
-                await Module.DisposeAsync();
+                await _jsModule.DisposeAsync();
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
