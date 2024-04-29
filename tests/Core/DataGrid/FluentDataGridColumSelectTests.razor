@@ -15,7 +15,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         cut.Verify();
     }
@@ -33,7 +33,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -64,7 +64,7 @@
                       OnSelect="@(e => e.Item.Selected = e.Selected)" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -94,7 +94,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         cut.Verify();
     }
@@ -112,7 +112,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -149,7 +149,7 @@
                       OnSelect="@(e => e.Item.Selected = e.Selected)" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -185,7 +185,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -235,6 +235,36 @@
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
 
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumSelect_SwitchMultiToSingleSelect()
+    {
+        IEnumerable<Person> selectedItems = new[] { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      @bind-SelectedItems="@selectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Before the switch
+        Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(2, selectedItems.Count());
+
+        // Act
+        cut.FindComponent<SelectColumn<Person>>().Instance.SelectMode = DataGridSelectMode.Single;
+        cut.FindComponent<FluentDataGrid<Person>>().Render();
+
+        var x = cut.Markup;
+
+        // After the switch
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(selectedItems);
     }
 
     /// <summary>
