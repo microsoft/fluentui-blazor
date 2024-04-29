@@ -39,6 +39,10 @@
     width is done in steps of 10 pixels at a time. You can reset to the original initial column widths by pressing <kbd>Shift</kbd> + <kbd>r</kbd>.
 </p>
 
+<p>
+    When a row cell is focused and the grid contains a <code>SelectColumn</code> column, you can use the <kbd>Enter</kbd> key to select or unselect the current row.
+</p>
+
 <h2 id="sorting">Sorting</h2>
 <p>
     The DataGrid supports sorting by clicking on the column headers. The default sort direction is ascending. Clicking on the same column header again will toggle the sort direction.
@@ -55,7 +59,25 @@
 
 <DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
     <Description>
-        The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.
+        <p>The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.</p>
+        <p>To utilize the new SelectColumn feature in the Fluent DataGrid, there are two approaches available:</p>
+
+        <p>
+            <b>Automatic Management via <code>SelectedItems</code></b>
+            <ul>
+                <li>Provide a list of data via the <code>Items</code> property.</li>
+                <li>Let the grid handle selected rows entirely through the <code>SelectedItems</code> property.</li>
+            </ul>
+        </p>
+        <p>
+            <b>Manual Management via <code>Property</code> and <code>OnSelect</code>:</b>
+            <ul>
+                <li>Control how selected lines are saved manually.</li>
+                <li>Utilize the <code>Property</code>, <code>OnSelect</code>, and <code>SelectAll</code> attributes.</li>
+            </ul>
+            This method offers more flexibility but requires additional configuration, making it particularly useful when
+            using <code>Virtualize</code> or directly managing a custom <code>IsSelected</code> property.
+        </p>
 
         <blockquote>
             By default, FluentUI only recommends selecting the checkbox for the selected line.
