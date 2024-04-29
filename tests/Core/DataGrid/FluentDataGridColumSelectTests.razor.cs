@@ -23,7 +23,7 @@ public partial class FluentDataGridColumSelectTests
         public bool Selected { get; set; }
     };
 
-    private static readonly IQueryable<Person> People = new[]
+    private readonly IQueryable<Person> People = new[]
     {
         new Person(1, "Jean Martin", new DateOnly(1985, 3, 16)),
         new Person(2, "Kenji Sato", new DateOnly(2004, 1, 9)),
