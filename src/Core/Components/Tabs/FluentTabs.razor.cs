@@ -152,7 +152,7 @@ public partial class FluentTabs : FluentComponentBase
         }
     }
 
-    private async Task HandleOnTabChanged(TabChangeEventArgs args)
+    private async Task HandleOnTabChangedAsync(TabChangeEventArgs args)
     {
         string? tabId = args?.ActiveId;
         if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))

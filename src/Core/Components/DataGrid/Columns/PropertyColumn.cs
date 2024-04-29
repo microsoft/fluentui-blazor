@@ -14,18 +14,18 @@ namespace Microsoft.Fast.Components.FluentUI;
 public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindableColumn<TGridItem, TProp>
 {
 
-	private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
-	private Func<TGridItem, string?>? _cellTextFunc;
+    private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
+    private Func<TGridItem, string?>? _cellTextFunc;
     private Func<TGridItem, string?>? _cellTooltipTextFunc;
     private GridSort<TGridItem>? _sortBuilder;
+    private GridSort<TGridItem>? _customSortBy;
 
+    public PropertyInfo? PropertyInfo { get; private set; }
 
-	public PropertyInfo? PropertyInfo { get; private set; }
-
-	/// <summary>
-	/// Defines the value to be displayed in this column's cells.
-	/// </summary>
-	[Parameter, EditorRequired] public Expression<Func<TGridItem, TProp>> Property { get; set; } = default!;
+    /// <summary>
+    /// Defines the value to be displayed in this column's cells.
+    /// </summary>
+    [Parameter, EditorRequired] public Expression<Func<TGridItem, TProp>> Property { get; set; } = default!;
 
     /// <summary>
     /// Optionally specifies a format string for the value.
@@ -41,7 +41,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     /// </summary>
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
 
-    [Parameter] public override GridSort<TGridItem>? SortBy
+    [Parameter]
+    public override GridSort<TGridItem>? SortBy
     {
         get => _customSortBy ?? _sortBuilder;
         set => _customSortBy = value;

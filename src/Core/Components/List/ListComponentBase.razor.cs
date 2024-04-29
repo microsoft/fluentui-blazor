@@ -431,11 +431,15 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected virtual string? GetOptionValue(TOption? item)
     {
         if (item != null)
+        {
             return OptionValue.Invoke(item) ?? OptionText.Invoke(item) ?? item.ToString();
+        }
         else
+        {
             return null;
         }
     }
+
 
     protected virtual bool? GetOptionDisabled(TOption? item)
     {
@@ -453,8 +457,11 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     protected virtual string? GetOptionText(TOption? item)
     {
         if (item != null)
+        {
             return OptionText.Invoke(item) ?? item.ToString();
+        }
         else
+        {
             return null;
         }
     }

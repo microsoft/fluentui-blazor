@@ -143,7 +143,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
 
     internal bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
 
-    protected async Task SetCurrentValue(TValue? value)
+    protected async Task SetCurrentValueAsync(TValue? value)
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
         if (!hasChanged)
@@ -180,7 +180,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     protected TValue? CurrentValue
     {
         get => Value;
-        set => _ = SetCurrentValue(value);
+        set => _ = SetCurrentValueAsync(value);
     }
 
     /// <summary>
@@ -217,7 +217,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         else if (TryParseValueFromString(value, out TValue? parsedValue, out var validationErrorMessage))
         {
             _parsingFailed = false;
-            await SetCurrentValue(parsedValue);
+            await SetCurrentValueAsync(parsedValue);
         }
         else
         {

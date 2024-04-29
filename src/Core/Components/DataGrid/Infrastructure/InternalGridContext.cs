@@ -7,6 +7,9 @@ namespace Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 internal sealed class InternalGridContext<TGridItem>
 {
     private int _index = 0;
+    private int _rowId = 0;
+    private int _cellId = 0;
+
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new();
 
     public (ColumnBase<TGridItem>? Column, SortDirection? Direction) DefaultSortColumn { get; set; }

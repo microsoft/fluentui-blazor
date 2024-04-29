@@ -575,7 +575,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ImmediateDelay">
             <summary>
-            Delay, in milliseconds, before to raise the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ValueChanged"/> event.
+            Gets or sets the delay, in milliseconds, before to raise the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ValueChanged"/> event.
             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentInputBase`1.ChangeHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
@@ -1034,18 +1034,21 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Title">
             <summary>
-            Title text for the column. This is rendered automatically if <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
+            Gets or sets the title text for the column.
+            This is rendered automatically if <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Class">
             <summary>
-            An optional CSS class name. If specified, this is included in the class attribute of header and grid cells
+            Gets or sets the an optional CSS class name.
+            If specified, this is included in the class attribute of header and grid cells
             for this column.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Style">
             <summary>
-            An optional CSS style specification. If specified, this is included in the style attribute of header and grid cells
+            Gets or sets an optional CSS style specification.
+            If specified, this is included in the style attribute of header and grid cells
             for this column.
             </summary>
         </member>
@@ -1056,18 +1059,18 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Tooltip">
             <summary>
-            If true, generate a title and aria-label attribute for the cell contents
+            If true, generates a title and aria-label attribute for the cell contents
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.TooltipText">
             <summary>
-            Defines the value to be used as the tooltip and aria-label in this column's cells
+            Gets or sets the value to be used as the tooltip and aria-label in this column's cells
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.HeaderCellItemTemplate">
             <summary>
-            An optional template for this column's header cell. If not specified, the default header template
-            includes the <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Title" /> along with any applicable sort indicators and options buttons.
+            Gets or sets an optional template for this column's header cell.
+            If not specified, the default header template includes the <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Title" /> along with any applicable sort indicators and options buttons.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.ColumnOptions">
@@ -1101,7 +1104,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.InitialSortDirection">
             <summary>
-            Indicates which direction to sort in
+            Gets or sets the initial sort direction.
             if <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.IsDefaultSortColumn"/> is true.
             </summary>
         </member>
@@ -1113,6 +1116,13 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.PlaceholderTemplate">
             <summary>
             If specified, virtualized grids will use this template to render cells whose data has not yet been loaded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Width">
+            <summary>
+            Gets or sets the width of the column.
+            Use either this or the <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> GridTemplateColumns parameter but not both.
+            Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Grid">
@@ -1143,7 +1153,7 @@
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.ColumnBase`1.IsSortableByDefault">
              <summary>
-             Get a value indicating whether this column should act as sortable if no value was set for the
+             Gets a value indicating whether this column should act as sortable if no value was set for the
              <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Sortable" /> parameter. The default behavior is not to be
              sortable unless <see cref="P:Microsoft.Fast.Components.FluentUI.ColumnBase`1.Sortable" /> is true.
             
@@ -1224,11 +1234,11 @@
              </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.Comparer">
-            <summary>
-            Optionally specifies how to compare values in this column when sorting.
+             <summary>
+             Optionally specifies how to compare values in this column when sorting.
             
-            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
-            </summary>
+             Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+             </summary>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
@@ -1363,6 +1373,8 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.GridTemplateColumns">
             <summary>
             Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
+            Can be specified here or on the column level with the Width parameter but not both.
+            Needs to be a valid CSS string of space-separated values, such as "auto 1fr 2fr 100px".
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnRowFocus">
@@ -1407,6 +1419,9 @@
             Constructs an instance of <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/>.
             </summary>
         </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnInitialized">
+            <inheritdoc />
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.OnParametersSetAsync">
             <inheritdoc />
         </member>
@@ -1416,6 +1431,13 @@
             </summary>
             <param name="column">The column that defines the new sort order.</param>
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.Fast.Components.FluentUI.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0})">
+            <summary>
+            Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+            </summary>
+            <param name="column">The column to check against the current sorted on column.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1.ShowColumnOptionsAsync(Microsoft.Fast.Components.FluentUI.ColumnBase{`0})">
@@ -1460,6 +1482,11 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.Owner">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1"/> component
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridCell`1.GridContext">
+            <summary>
+            Gets or sets the owning <see cref="T:Microsoft.Fast.Components.FluentUI.FluentDataGrid`1"/> component
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentDataGridRow`1.Item">
@@ -3173,6 +3200,9 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.Module">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.CurrentSize">
+            <summary />
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.Spacing">
             <summary>
             Gets or sets the distance between flexbox items, using a multiple of 4px.
@@ -3182,6 +3212,12 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.Justify">
             <summary>
             Defines how the browser distributes space between and around content items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.ChildContent">
@@ -3200,6 +3236,42 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGrid.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.xs">
+            <summary>
+            The number of columns the item should span in the 12-column grid system.
+            Extra Small (xs) devices (portrait phones, less than 600px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.sm">
+            <summary>
+            The number of columns the item should span in the 12-column grid system.
+            Small (sm) devices (landscape phones, less than 960px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.md">
+            <summary>
+            The number of columns the item should span in the 12-column grid system.
+            Medium (md) devices (tablets, less than 1280px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.lg">
+            <summary>
+            The number of columns the item should span in the 12-column grid system.
+            Large (lg) devices (desktops, less than 1920px wide)
+            </summary> 
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.xl">
+            <summary>
+            The number of columns the item should span in the 12-column grid system.
+            Extra large (xl) devices (large desktops, less than 2560px wide)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.xxl">
+            <summary>
+            The number of columns the item should span in the 12-column grid system.
+            Extra extra large (xxl) devices (larger desktops, more than 2560px wide)
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.Justify">
             <summary>
             Defines how the browser distributes space between and around content items.
@@ -3207,8 +3279,14 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.Gap">
             <summary>
-            Defines the gaps (gutters) between rows and columns.
+            Gets or sets the gaps (gutters) between rows and columns.
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.HiddenWhen">
@@ -3227,6 +3305,19 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentGridItem.HiddenAttribute">
             <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentGridItem.RenderChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentGridItem.ConvertToHidden(Microsoft.Fast.Components.FluentUI.GridItemSize)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentGridItem.GetHiddenAttribute(System.Nullable{Microsoft.Fast.Components.FluentUI.GridItemHidden})">
+            <summary>
+            Returns the hidden attribute value for the specified <see cref="T:Microsoft.Fast.Components.FluentUI.GridItemHidden"/> value.
+            </summary>
+            <param name="hiddenWhen"></param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentHeader.Height">
             <summary>
@@ -5546,6 +5637,11 @@
             Gets or sets whether or not the menu can be collapsed.
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.CollapsedChildNavigation">
+            <summary>
+            Gets or sets whether a menu with all child links is shown for <see cref="T:Microsoft.Fast.Components.FluentUI.FluentNavGroup"/>s when the navigation menu is collapsed.
+            </summary>
+        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentNavMenu.Expanded">
             <inheritdoc/>
         </member>
@@ -6596,7 +6692,7 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.StyleValues">
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.StyleValue">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentTabs.StyleMoreValues">

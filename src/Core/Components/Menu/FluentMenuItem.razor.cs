@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -56,7 +57,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     /// Event raised when the user click on this item.
     /// </summary>
     [Parameter]
-    public EventCallback OnClick { get; set; }
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     public FluentMenuItem()
     {

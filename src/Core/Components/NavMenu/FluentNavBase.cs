@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.Utilities;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -72,6 +70,9 @@ public abstract class FluentNavBase : FluentComponentBase
     [CascadingParameter]
     public FluentNavMenu Owner { get; set; } = default!;
 
+    [CascadingParameter]
+    public FluentMenu? SubMenu { get; set; }
+
     /// <summary>
     /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
     /// </summary>
@@ -92,7 +93,7 @@ public abstract class FluentNavBase : FluentComponentBase
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    protected async Task OnClickHandler(MouseEventArgs ev)
+    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (Disabled)
         {

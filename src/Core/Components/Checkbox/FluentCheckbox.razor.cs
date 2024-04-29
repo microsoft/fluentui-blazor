@@ -87,7 +87,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
             return new CssBuilder(base.ClassValue)
                 .AddClass("disabled", when: Disabled)
                 .AddClass("checked", when: Value)
-                .AddClass("indeterminate", when: ThreeState && CheckState is null )
+                .AddClass("indeterminate", when: ThreeState && CheckState is null)
                 .Build();
         }
     }
@@ -99,23 +99,23 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         {
             // Checked
             case true:
-                await SetCurrentValue(true);
+                await SetCurrentValueAsync(true);
                 await SetIntermediateAsync(false);
                 break;
 
             // Unchecked
             case false:
-                await SetCurrentValue(false);
+                await SetCurrentValueAsync(false);
                 await SetIntermediateAsync(false);
                 break;
 
             // Indeterminate
             default:
-                await SetCurrentValue(VALUE_FOR_INDETERMINATE);
+                await SetCurrentValueAsync(VALUE_FOR_INDETERMINATE);
                 await SetIntermediateAsync(true);
                 break;
         }
-    } 
+    }
 
     /// <summary />
     private async Task SetIntermediateAsync(bool intermediate)
@@ -144,7 +144,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
             // Uncheck -> Intermediate (or Check is ShowIndeterminate is false)
             if (newChecked && !_intermediate)
             {
-                newState = ShowIndeterminate ? null : true;                
+                newState = ShowIndeterminate ? null : true;
             }
 
             // Indeterminate -> Checked
@@ -205,7 +205,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         }
         else
         {
-            await SetCurrentValue(e.Checked ?? false);
+            await SetCurrentValueAsync(e.Checked ?? false);
             await SetIntermediateAsync(false);
             await UpdateAndRaiseCheckStateEvent(e.Checked ?? false);
         }

@@ -2,12 +2,12 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Fast.Components.FluentUI.DataGrid.Infrastructure;
 using Microsoft.Fast.Components.FluentUI.Infrastructure;
 using Microsoft.JSInterop;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Fast.Components.FluentUI;
 
@@ -156,6 +156,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? LoadingContent { get; set; }
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -321,7 +322,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
+            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "1fr"));
         }
 
         if (ResizableColumns)
