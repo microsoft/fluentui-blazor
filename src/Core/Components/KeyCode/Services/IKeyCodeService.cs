@@ -2,10 +2,10 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
-/// Service registered by <see cref="ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration?)"/>
+/// Service registered by <see cref="ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Fast.Components.FluentUI.LibraryConfiguration?)"/>
 /// to catch all keys events and notify all registered listeners.
 /// </summary>
 public interface IKeyCodeService

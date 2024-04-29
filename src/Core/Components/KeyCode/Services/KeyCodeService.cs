@@ -2,11 +2,11 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <inheritdoc cref="IKeyCodeService" />
 public class KeyCodeService : IKeyCodeService
-{    
+{
     private ReaderWriterLockSlim ServiceLock { get; } = new ReaderWriterLockSlim();
 
     private IList<(Guid, IKeyCodeListener)> ListenerList { get; } = new List<(Guid, IKeyCodeListener)>();
@@ -93,7 +93,7 @@ public class KeyCodeService : IKeyCodeService
     /// Dispose the service and unregister all listeners.
     /// </summary>
     public void Dispose()
-    {        
+    {
         Clear();
     }
 

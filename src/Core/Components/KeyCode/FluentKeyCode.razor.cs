@@ -9,7 +9,7 @@ namespace Microsoft.Fast.Components.FluentUI;
 /// </summary>
 public partial class FluentKeyCode
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/Accessibility/FluentKeyCode.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/KeyCode/FluentKeyCode.razor.js";
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
     private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 

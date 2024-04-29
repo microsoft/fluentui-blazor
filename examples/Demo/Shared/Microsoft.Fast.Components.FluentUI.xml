@@ -29,123 +29,6 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccessibilityStatus.Style">
             <summary />
         </member>
-        <member name="T:Microsoft.Fast.Components.FluentUI.FluentKeyCode">
-            <summary>
-            Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
-            The anchor must refer to the ID of an element (or sub-element) accepting the focus.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.JSRuntime">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Module">
-            <summary />
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Anchor">
-            <summary>
-            Required. Gets or sets the control identifier associated with the KeyCode engine.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDown">
-            <summary>
-            Event triggered when a KeyDown event is raised.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.IgnoreModifier">
-            <summary>
-            Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Only">
-            <summary>
-            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to accept, and only this list, when evaluating the key code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Ignore">
-            <summary>
-            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to ignore when evaluating the key code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.StopPropagation">
-            <summary>
-            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.PreventDefault">
-            <summary>
-            Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.PreventDefaultOnly">
-            <summary>
-            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
-            its default action should not be taken as it normally would be.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
-            <summary />
-        </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
-            <summary>
-            Internal method.
-            </summary>
-            <param name="keyCode"></param>
-            <param name="value"></param>
-            <param name="ctrlKey"></param>
-            <param name="shiftKey"></param>
-            <param name="altKey"></param>
-            <param name="metaKey"></param>
-            <param name="location"></param>
-            <param name="targetId"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Location">
-            <summary>
-            Gets an <see cref="T:Microsoft.Fast.Components.FluentUI.KeyLocation" /> representing the location of the key on the keyboard or other input device.
-            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Key">
-            <summary>
-            Gets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.KeyCode"/> equivalent value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.KeyCode">
-            <summary>
-            Gets the system- and implementation-dependent numerical code identifying the unmodified value of the pressed key.
-            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Value">
-            <summary>
-            Gets the value of the key pressed by the user
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.CtrlKey">
-            <summary>
-            Gets a boolean value that indicates if the Control key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.ShiftKey">
-            <summary>
-            Gets a boolean value that indicates if the Shift key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.AltKey">
-            <summary>
-            Gets a boolean value that indicates if the Alt key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.MetaKey">
-            <summary>
-            Gets a boolean value that indicates if the Meta key was pressed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.TargetId">
-            <summary>
-            Gets the identifier of the targeted DOM element.
-            </summary>
-        </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAccordion.ExpandMode">
             <summary>
             Controls the expand mode of the Accordion, either allowing
@@ -3807,6 +3690,235 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputFileEventArgs.IsCancelled">
             <summary>
             Set this property to True to cancel the current upload file.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.FluentKeyCode">
+            <summary>
+            Extends the OnKeyDown blazor event to provide a more fluent way to evaluate the key code.
+            The anchor must refer to the ID of an element (or sub-element) accepting the focus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Module">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Element">
+            <summary />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.GlobalDocument">
+            <summary>
+            Gets or sets whether the KeyCode engine is global (using document DOM element) or not (only for <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Anchor"/> or <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.ChildContent"/>).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Anchor">
+            <summary>
+            Gets or sets the control identifier associated with the KeyCode engine.
+            If not set, the KeyCode will be applied to the FluentKeyCode content: see <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.ChildContent"/>.
+            This attribute is ignored when the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.ChildContent" /> is used..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.ChildContent">
+            <summary>
+            Gets or sets the content to be managed by the KeyCode engine.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDown">
+            <summary>
+            Event triggered when a KeyDown event is raised.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.IgnoreModifier">
+            <summary>
+            Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Only">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to accept, and only this list, when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.Ignore">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to ignore when evaluating the key code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.PreventDefault">
+            <summary>
+            Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.PreventDefaultOnly">
+            <summary>
+            Gets or sets the list of <see cref="T:Microsoft.Fast.Components.FluentUI.KeyCode"/> to tells the user agent that if the event does not get explicitly handled,
+            its default action should not be taken as it normally would be.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCode.AdditionalAttributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Internal method.
+            </summary>
+            <param name="keyCode"></param>
+            <param name="value"></param>
+            <param name="ctrlKey"></param>
+            <param name="shiftKey"></param>
+            <param name="altKey"></param>
+            <param name="metaKey"></param>
+            <param name="location"></param>
+            <param name="targetId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Location">
+            <summary>
+            Gets an <see cref="T:Microsoft.Fast.Components.FluentUI.KeyLocation" /> representing the location of the key on the keyboard or other input device.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Key">
+            <summary>
+            Gets the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.KeyCode"/> equivalent value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.KeyCode">
+            <summary>
+            Gets the system- and implementation-dependent numerical code identifying the unmodified value of the pressed key.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.Value">
+            <summary>
+            Gets the value of the key pressed by the user
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.CtrlKey">
+            <summary>
+            Gets a boolean value that indicates if the Control key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.ShiftKey">
+            <summary>
+            Gets a boolean value that indicates if the Shift key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.AltKey">
+            <summary>
+            Gets a boolean value that indicates if the Alt key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.MetaKey">
+            <summary>
+            Gets a boolean value that indicates if the Meta key was pressed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.TargetId">
+            <summary>
+            Gets the identifier of the targeted DOM element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs.ToString">
+            <summary>
+            Returns a string that represents the key pressed.
+            Example: "Ctrl + Shift + A"
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentKeyCodeProvider.PreventDefault">
+            <summary>
+            Gets or sets a way to tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IKeyCodeListener.OnKeyDownAsync(Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs)">
+            <summary>
+            Method called when a key is pressed.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.IKeyCodeService">
+            <summary>
+            Service registered by <see cref="M:Microsoft.Fast.Components.FluentUI.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Fast.Components.FluentUI.LibraryConfiguration)"/>
+            to catch all keys events and notify all registered listeners.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.IKeyCodeService.Listeners">
+            <summary>
+            Gets the list of all active keystroke listeners.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.RegisterListener(Microsoft.Fast.Components.FluentUI.IKeyCodeListener)">
+            <summary>
+            Register the listener component or page, and returns a unique identifier.
+            </summary>
+            <param name="listener"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.RegisterListener(System.Func{Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Register the <paramref name="handler"/> method as a listener, and returns a unique identifier.
+            </summary>
+            <param name="handler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.UnregisterListener(Microsoft.Fast.Components.FluentUI.IKeyCodeListener)">
+            <summary>
+            Unregister the listener component or page.
+            </summary>
+            <param name="listener"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.UnregisterListener(System.Func{Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Unregister the listener method.
+            </summary>
+            <param name="handler"></param>
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.Clear">
+            <summary>
+            Unregister all listeners.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.KeyCodeService">
+            <inheritdoc cref="T:Microsoft.Fast.Components.FluentUI.IKeyCodeService" />
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.KeyCodeService.Listeners">
+            <inheritdoc cref="P:Microsoft.Fast.Components.FluentUI.IKeyCodeService.Listeners" />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.KeyCodeService.RegisterListener(Microsoft.Fast.Components.FluentUI.IKeyCodeListener)">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.RegisterListener(Microsoft.Fast.Components.FluentUI.IKeyCodeListener)" />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.KeyCodeService.RegisterListener(System.Func{Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.RegisterListener(System.Func{Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.KeyCodeService.UnregisterListener(Microsoft.Fast.Components.FluentUI.IKeyCodeListener)">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.UnregisterListener(Microsoft.Fast.Components.FluentUI.IKeyCodeListener)" />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.KeyCodeService.UnregisterListener(System.Func{Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.UnregisterListener(System.Func{Microsoft.Fast.Components.FluentUI.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.KeyCodeService.Clear">
+            <inheritdoc cref="M:Microsoft.Fast.Components.FluentUI.IKeyCodeService.Clear" />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.KeyCodeService.Dispose">
+            <summary>
+            Dispose the service and unregister all listeners.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Fast.Components.FluentUI.KeyCodeService.KeyCodeListener">
+            <summary>
+            Private KeyCodeListener
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.JSRuntime">
