@@ -60,7 +60,7 @@
 <DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
     <Description>
         <p>The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.</p>
-        <p>To utilize the new SelectColumn feature in the Fluent DataGrid, there are two approaches available:</p>
+        <p>To utilize the <b>SelectColumn</b> feature in the Fluent DataGrid, there are two approaches available:</p>
 
         <p>
             <b>Automatic Management via <code>SelectedItems</code></b>
@@ -80,8 +80,8 @@
         </p>
 
         <blockquote>
-            By default, FluentUI only recommends selecting the checkbox for the selected line.
-            But you can use a CSS style like this one to grey the background of selected lines.
+            By default the Fluent Design System recommends to only use the checkbox to indicate selected rows.
+            It is possible to change this behavior by using a CSS style like this to set a background on selected rows:
             <code>
                 <pre>
 fluent-data-grid-row:has([row-selected]) {

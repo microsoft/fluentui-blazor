@@ -15,6 +15,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// </summary>
     public static string[] KEYBOARD_SELECT_KEYS = ["Enter", "NumpadEnter"];
 
+    private readonly Icon IconUnselectedMultiple = new CoreIcons.Regular.Size20.CheckboxUnchecked().WithColor(Color.FillInverse);
+    private readonly Icon IconSelectedMultiple = new CoreIcons.Filled.Size20.CheckboxChecked();
+    private readonly Icon IconUnselectedSingle = new CoreIcons.Regular.Size20.RadioButton().WithColor(Color.FillInverse);
+    private readonly Icon IconSelectedSingle = new CoreIcons.Filled.Size20.RadioButton();
+
     private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
     private readonly List<TGridItem> _selectedItems = new List<TGridItem>();
 
@@ -80,7 +85,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the Icon to be rendered when the row is non selected.
     /// </summary>
     [Parameter]
-    public required Icon IconUnchecked { get; set; } = new CoreIcons.Regular.Size20.CheckboxUnchecked().WithColor(Color.FillInverse);
+    public Icon? IconUnchecked { get; set; }
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
@@ -93,7 +98,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the Icon to be rendered when the row is selected.
     /// </summary>
     [Parameter]
-    public required Icon IconChecked { get; set; } = new CoreIcons.Filled.Size20.CheckboxChecked();
+    public Icon? IconChecked { get; set; }
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
@@ -104,6 +109,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     /// <summary>
     /// Gets or sets the Icon to be rendered when some but not all rows are selected.
+    /// Only when <see cref="SelectMode"/> is Multiple.
     /// </summary>
     [Parameter]
     public Icon? IconIndeterminate { get; set; } = new CoreIcons.Filled.Size20.CheckboxIndeterminate();
@@ -202,6 +208,26 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         }
     }
 
+    private Icon GetIcon(bool? selected)
+    {
+        if (selected == true)
+        {
+            return IconChecked ?? SelectMode switch
+            {
+                DataGridSelectMode.Single => IconSelectedSingle,
+                _ => IconSelectedMultiple
+            };
+        }
+        else
+        {
+            return IconUnchecked ?? SelectMode switch
+            {
+                DataGridSelectMode.Single => IconUnselectedSingle,
+                _ => IconUnselectedMultiple
+            };
+        }
+    }
+
     private async Task KeepOnlyFirstSelectedItemAsync()
     {
         if (_selectedItems.Count() <= 1)
@@ -249,7 +275,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             }
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
-            builder.AddAttribute(1, "Value", selected ? IconChecked : IconUnchecked);
+            builder.AddAttribute(1, "Value", GetIcon(selected));
             builder.AddAttribute(1, "Title", selected ? TitleChecked : TitleUnchecked);
             builder.AddAttribute(2, "row-selected", selected);
             builder.CloseComponent();
@@ -268,7 +294,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 var selectedAll = GetSelectAll();
                 var iconAllChecked = (selectedAll == null && IconIndeterminate != null)
                                     ? IconIndeterminate
-                                    : (selectedAll == true ? IconChecked : IconUnchecked);
+                                    : GetIcon(selectedAll);
 
                 return new RenderFragment((builder) =>
                 {
@@ -279,7 +305,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                     builder.AddAttribute(4, "Style", "margin-left: 12px;");
                     builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
                                                         ? TitleAllIndeterminate
-                                                        : (iconAllChecked == IconChecked ? TitleAllChecked : TitleAllUnchecked));
+                                                        : (iconAllChecked == GetIcon(true) ? TitleAllChecked : TitleAllUnchecked));
                     builder.CloseComponent();
                 });
 

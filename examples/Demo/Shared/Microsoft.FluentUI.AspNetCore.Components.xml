@@ -1420,6 +1420,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconIndeterminate">
             <summary>
             Gets or sets the Icon to be rendered when some but not all rows are selected.
+            Only when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode"/> is Multiple.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllChecked">
