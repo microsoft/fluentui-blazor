@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -99,6 +100,58 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
-    Task IHandleEvent.HandleEventAsync(
-       EventCallbackWorkItem callback, object? arg) => callback.InvokeAsync(arg);
+    /// <summary />
+    internal async Task HandleOnRowClickAsync(string rowId)
+    {
+        if (Owner.Rows.TryGetValue(rowId, out var row))
+        {
+            if (Owner.Grid.OnRowClick.HasDelegate)
+            {
+                await Owner.Grid.OnRowClick.InvokeAsync(row);
+            }
+
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                foreach (var selColumn in Owner.Grid.SelectColumns)
+                {
+                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                }
+            }
+        }
+    }
+
+    /// <summary />
+    internal async Task HandleOnRowDoubleClickAsync(string rowId)
+    {
+        if (Owner.Rows.TryGetValue(rowId, out var row))
+        {
+            if (Owner.Grid.OnRowDoubleClick.HasDelegate)
+            {
+                await Owner.Grid.OnRowDoubleClick.InvokeAsync(row);
+            }
+        }
+    }
+
+    /// <summary />
+    internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
+    {
+        // Enter when a SelectColumn is defined.
+        if (SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        {
+            if (Owner.Rows.TryGetValue(rowId, out var row))
+            {
+                if (row != null && row.RowType == DataGridRowType.Default)
+                {
+                    foreach (var selColumn in Owner.Grid.SelectColumns)
+                    {
+                        await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary />
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        => callback.InvokeAsync(arg);
 }

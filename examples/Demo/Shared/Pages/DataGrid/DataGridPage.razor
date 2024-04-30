@@ -39,6 +39,10 @@
     width is done in steps of 10 pixels at a time. You can reset to the original initial column widths by pressing <kbd>Shift</kbd> + <kbd>r</kbd>.
 </p>
 
+<p>
+    When a row cell is focused and the grid contains a <code>SelectColumn</code> column, you can use the <kbd>Enter</kbd> key to select or unselect the current row.
+</p>
+
 <h2 id="sorting">Sorting</h2>
 <p>
     The DataGrid supports sorting by clicking on the column headers. The default sort direction is ascending. Clicking on the same column header again will toggle the sort direction.
@@ -50,6 +54,42 @@
 <DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
     <Description>
         The example and code below show what you need to add to one of your Blazor page components to render a very simple grid (with sortable columns)
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
+    <Description>
+        <p>The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.</p>
+        <p>To utilize the <b>SelectColumn</b> feature in the Fluent DataGrid, there are two approaches available:</p>
+
+        <p>
+            <b>Automatic Management via <code>SelectedItems</code></b>
+            <ul>
+                <li>Provide a list of data via the <code>Items</code> property.</li>
+                <li>Let the grid handle selected rows entirely through the <code>SelectedItems</code> property.</li>
+            </ul>
+        </p>
+        <p>
+            <b>Manual Management via <code>Property</code> and <code>OnSelect</code>:</b>
+            <ul>
+                <li>Control how selected lines are saved manually.</li>
+                <li>Utilize the <code>Property</code>, <code>OnSelect</code>, and <code>SelectAll</code> attributes.</li>
+            </ul>
+            This method offers more flexibility but requires additional configuration, making it particularly useful when
+            using <code>Virtualize</code> or directly managing a custom <code>IsSelected</code> property.
+        </p>
+
+        <blockquote>
+            By default the Fluent Design System recommends to only use the checkbox to indicate selected rows.
+            It is possible to change this behavior by using a CSS style like this to set a background on selected rows:
+            <code>
+                <pre>
+fluent-data-grid-row:has([row-selected]) {
+    background-color: var(--neutral-fill-stealth-hover)
+}</pre>
+            </code>
+        </blockquote>
+
     </Description>
 </DemoSection>
 
@@ -228,6 +268,8 @@
 <ApiDocumentation Component="typeof(PropertyColumn<,>)" GenericLabel="TGridItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
 
 <ApiDocumentation Component="typeof(TemplateColumn<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(SelectColumn<>)" GenericLabel="TGridItem" />
 
 <div class="demopanel">
     <p>
