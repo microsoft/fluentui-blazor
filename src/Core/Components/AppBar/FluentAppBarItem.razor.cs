@@ -78,7 +78,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     public bool? Overflow { get; private set; }
 
     internal string? ClassValue => new CssBuilder("fluent-appbar-item")
-        .AddClass("fluent-appbar-item-local", when: Href == null)
+        .AddClass("fluent-appbar-item-local", when: string.IsNullOrEmpty(Href))
         .AddClass(Class)
         .Build();
 
