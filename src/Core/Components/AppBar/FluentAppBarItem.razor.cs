@@ -14,8 +14,8 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     /// <summary>
     /// Gets or sets the URL for this item.
     /// </summary>
-    [Parameter, EditorRequired]
-    public required string Href { get; set; }
+    [Parameter]
+    public string? Href { get; set; }
 
     /// <summary>
     /// Gets or sets how the link should be matched.
@@ -78,6 +78,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     public bool? Overflow { get; private set; }
 
     internal string? ClassValue => new CssBuilder("fluent-appbar-item")
+        .AddClass("fluent-appbar-item-local", when: string.IsNullOrEmpty(Href))
         .AddClass(Class)
         .Build();
 

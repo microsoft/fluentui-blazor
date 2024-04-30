@@ -1,5 +1,5 @@
 /*
- * Microsoft Fluent UI Blazor library - Reboot v1.0.1
+ * Microsoft Fluent UI Blazor library - Reboot v1.0.2
  * Copyright 2024 Microsoft
  *
  * Normalization of HTML elements, copied and ajusted from Bootstrap's Reboot which is based on Normalize.css
@@ -22,7 +22,7 @@ html {
     font-family: var(--body-font);
 }
 
-body {
+body, .body {
     margin: 0;
     font-family: var(--body-font);
     font-size: var(--type-ramp-base-font-size);
