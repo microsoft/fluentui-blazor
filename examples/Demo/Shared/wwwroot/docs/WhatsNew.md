@@ -1,4 +1,4 @@
-﻿# v3.7.0
+﻿## v3.7.0
 
 ### Demo site and documentation 
 - [Docs] Update KeyCodeGlobalExample.razor.css to fix dark mode visuals ([#1834](https://github.com/microsoft/fluentui-blazor/pull/1834))
@@ -22,7 +22,7 @@
 - [Popover] adds FixedPlacement parameter ([#1894](https://github.com/microsoft/fluentui-blazor/pull/1894))
 - [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
 
-# v3.6.2
+## v3.6.2
 
 ### Demo site and documentation 
 - [Docs] Update Progress stroke examples dropdowns ([#1835](https://github.com/microsoft/fluentui-blazor/pull/1835))
