@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -62,9 +66,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                     // Raise Changed events in another thread
                     RaiseChangedEventsAsync().ConfigureAwait(false);
                 }
-                }
             }
         }
+    }
 
     /// <summary>
     /// Gets or sets the width of the component.
@@ -270,9 +274,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                     _currentSelectedOption = newSelectedOption;
                 }
 
-                    Value = GetOptionValue(_currentSelectedOption);
-                    await ValueChanged.InvokeAsync(Value);
-                }
+                Value = GetOptionValue(_currentSelectedOption);
+                await ValueChanged.InvokeAsync(Value);
+            }
             else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
             {
                 newSelectedOption = Items.FirstOrDefault(item => GetOptionValue(item) == newValue);
@@ -336,7 +340,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             }
         }
 
-        if (Value is not null &&  (InternalValue is null || InternalValue != Value))
+        if (Value is not null && (InternalValue is null || InternalValue != Value))
         {
             InternalValue = Value;
         }
@@ -491,6 +495,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             if (!Equals(item, SelectedOption))
             {
                 SelectedOption = item;
+                InternalValue = Value = GetOptionValue(item);
                 await RaiseChangedEventsAsync();
             }
         }
