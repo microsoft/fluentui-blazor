@@ -20,7 +20,7 @@ body {
 
 .body-content {
     align-self: stretch;
-    height: unset !important;
+    height: calc(100dvh - 86px) !important;
     display: flex;
 }
 
