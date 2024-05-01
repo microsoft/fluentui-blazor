@@ -64,7 +64,7 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
         {
             <span class="fluent-nav-icon" style="min-width: 20px;"></span>
         }
-        <div class="fluent-nav-text">
+        <div class="fluent-nav-text @(Disabled ? "disabled" : "")">
             @ChildContent
         </div>
     }
