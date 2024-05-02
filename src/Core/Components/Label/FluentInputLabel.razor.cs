@@ -3,8 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -66,12 +64,6 @@ public partial class FluentInputLabel
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    protected string? ClassValue => new CssBuilder("fluent-input-label")
-        .AddClass("fluent-input-label-" + Orientation.ToAttributeValue(), when: Orientation == Orientation.Horizontal)
-        .Build();
-
-    //fluent-input-label
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
