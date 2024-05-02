@@ -4615,6 +4615,13 @@
             If not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Label"/> will be used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Orientation">
+            <summary>
+            Gets or sets the orientation of the label with respect to the input.
+            horizontal: label is displayed to the left of the input.
+            vertical: label is displayed above the input.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.AdditionalAttributes">
             <summary>
             Gets or sets a collection of additional attributes that will be applied to the created element.
