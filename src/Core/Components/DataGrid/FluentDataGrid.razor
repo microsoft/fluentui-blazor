@@ -155,7 +155,7 @@
             return;
         }
         // If we use the Blazor components here the renderer gets upset/lost, so we use the web components directly
-        <fluent-data-grid-row class="empty-content-row">
+        <fluent-data-grid-row class="empty-content-row" row-id="empty-row">
             <fluent-data-grid-cell class="empty-content-cell">
                 @if (EmptyContent is null)
                 {
