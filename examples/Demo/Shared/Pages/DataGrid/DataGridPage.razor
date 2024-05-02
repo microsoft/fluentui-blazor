@@ -39,6 +39,10 @@
     width is done in steps of 10 pixels at a time. You can reset to the original initial column widths by pressing <kbd>Shift</kbd> + <kbd>r</kbd>.
 </p>
 
+<p>
+    When a row cell is focused and the grid contains a <code>SelectColumn</code> column, you can use the <kbd>Enter</kbd> key to select or unselect the current row.
+</p>
+
 <h2 id="sorting">Sorting</h2>
 <p>
     The DataGrid supports sorting by clicking on the column headers. The default sort direction is ascending. Clicking on the same column header again will toggle the sort direction.
@@ -50,6 +54,42 @@
 <DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
     <Description>
         The example and code below show what you need to add to one of your Blazor page components to render a very simple grid (with sortable columns)
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
+    <Description>
+        <p>The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.</p>
+        <p>To utilize the <b>SelectColumn</b> feature in the Fluent DataGrid, there are two approaches available:</p>
+
+        <p>
+            <b>Automatic Management via <code>SelectedItems</code></b>
+            <ul>
+                <li>Provide a list of data via the <code>Items</code> property.</li>
+                <li>Let the grid handle selected rows entirely through the <code>SelectedItems</code> property.</li>
+            </ul>
+        </p>
+        <p>
+            <b>Manual Management via <code>Property</code> and <code>OnSelect</code>:</b>
+            <ul>
+                <li>Control how selected lines are saved manually.</li>
+                <li>Utilize the <code>Property</code>, <code>OnSelect</code>, and <code>SelectAll</code> attributes.</li>
+            </ul>
+            This method offers more flexibility but requires additional configuration, making it particularly useful when
+            using <code>Virtualize</code> or directly managing a custom <code>IsSelected</code> property.
+        </p>
+
+        <blockquote>
+            By default the Fluent Design System recommends to only use the checkbox to indicate selected rows.
+            It is possible to change this behavior by using a CSS style like this to set a background on selected rows:
+            <code>
+                <pre>
+fluent-data-grid-row:has([row-selected]) {
+    background-color: var(--neutral-fill-stealth-hover)
+}</pre>
+            </code>
+        </blockquote>
+
     </Description>
 </DemoSection>
 
@@ -128,8 +168,10 @@
         </p>
         <p>
             Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
-            properly and reliably, every row rendered must have the same known height. <strong>This is handeled by the
-            <code>FluentDataGrid</code> code</strong>.
+            properly and reliably, every row rendered must have the same known height. <strong>
+                This is handeled by the
+                <code>FluentDataGrid</code> code
+            </strong>.
         </p>
     </Description>
 </DemoSection>
@@ -165,11 +207,20 @@
 
 <DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] { "css" })">
     <Description>
-        Here a custom comparer is being used to sort counties by the length of their name.<br/>
-        The code has examples for both <code>PropertyColumn</code> and <code>TemplateColumn</code>.<br />
-        For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it could be placed in its own file of course.<br />
-        <br />
-        This example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
+        <p>
+            Here a custom comparer is being used to sort counties by the length of their name. The code has examples for both
+            <code>PropertyColumn</code> and <code>TemplateColumn</code> implementations (see the Razor tab).<br />
+            For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it
+            could of couse be placed in its own file.
+        </p>
+        <p>
+            For the paginator, this example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
+        </p>
+        <p>
+            This example also shows using an <code>OnRowFocus</code> event callback to detect which row the cursor is over. By setting <code>ShowHover</code>
+            to true, the current row will be highlighted. By default the system will use the designated hover color for this but you can specify an alternative
+            color by setting the <code>--datagrid-hover-color</code> CSS variable. See the Razor tab for how this is done in this example.
+        </p>
     </Description>
 </DemoSection>
 
@@ -199,7 +250,7 @@
     <Description>
         The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties
         shown in the grid.
-        <br/>
+        <br />
         See the 'Razor' tab on how these attributes have been applied to the class properties.
     </Description>
 </DemoSection>
@@ -216,7 +267,9 @@
 
 <ApiDocumentation Component="typeof(PropertyColumn<,>)" GenericLabel="TGridItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
 
-<ApiDocumentation Component="typeof(TemplateColumn<>)" GenericLabel="TGridItem"  />
+<ApiDocumentation Component="typeof(TemplateColumn<>)" GenericLabel="TGridItem" />
+
+<ApiDocumentation Component="typeof(SelectColumn<>)" GenericLabel="TGridItem" />
 
 <div class="demopanel">
     <p>
@@ -238,19 +291,19 @@
 </p>
 
 <CodeSnippet>
-&lt;FluentDataGrid ... @@ref="myGrid">
+    &lt;FluentDataGrid ... @@ref="myGrid">
     ...
-&lt;/FluentDataGrid>
+    &lt;/FluentDataGrid>
 
-@@code {
+    @@code {
     FluentDataGrid&lt;MyDataType> myGrid;
 
     async Task HandleSomeEvent()
     {
-        ...
+    ...
 
-        // We can force the grid to reload the current data
-        await myGrid.RefreshDataAsync();
+    // We can force the grid to reload the current data
+    await myGrid.RefreshDataAsync();
     }
-}
+    }
 </CodeSnippet>

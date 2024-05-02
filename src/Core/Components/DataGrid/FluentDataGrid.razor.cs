@@ -1,9 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -121,6 +125,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a row is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TGridItem>> OnRowClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback when a row is double-clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
@@ -130,6 +146,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid should show a hover effect on rows.
+    /// </summary>
+    [Parameter] public bool ShowHover { get; set; }
 
     /// <summary>
     /// If specified, grids render this fragment when there is no content.
@@ -146,9 +167,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// A default fragment is used if loading content is not specified.
     /// </summary>
     [Parameter] public RenderFragment? LoadingContent { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
     [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
+
+    /// <summary>
+    /// Gets the first (optional) SelectColumn
+    /// </summary>
+    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -211,7 +238,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
-        
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -314,7 +340,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
+            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "1fr"));
         }
 
         if (ResizableColumns)
@@ -593,7 +619,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (args.Value == "-")
         {
-           await SetColumnWidthAsync(-10);
+            await SetColumnWidthAsync(-10);
         }
         if (args.Value == "+")
         {

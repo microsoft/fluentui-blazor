@@ -35,24 +35,22 @@
 }
 else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
 {
-    <div>
-        <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
-            <NavLink class="@LinkClassValue"
-                     @attributes="@Attributes"
-                     Match="@Match"
-                     ActiveClass="@ActiveClass"
-                     title="@Tooltip">
-                @ChildContent
-            </NavLink>
+    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync" @onmenuchange="async ev => await OnClickHandlerAsync(null)">
+        <NavLink class="@LinkClassValue"
+                    @attributes="@Attributes"
+                    Match="@Match"
+                    ActiveClass="@ActiveClass"
+                    title="@Tooltip">
+            @ChildContent
+        </NavLink>
 
-            @if (Icon is not null)
-            {
-                <span slot="start">
-                    <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
-                </span>
-            }
-        </FluentMenuItem>
-    </div>
+        @if (Icon is not null)
+        {
+            <span slot="start">
+                <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
+            </span>
+        }
+    </FluentMenuItem>
 }
 
 @code {
@@ -66,7 +64,7 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
         {
             <span class="fluent-nav-icon" style="min-width: 20px;"></span>
         }
-        <div class="fluent-nav-text">
+        <div class="fluent-nav-text @(Disabled ? "disabled" : "")">
             @ChildContent
         </div>
     }

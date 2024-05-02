@@ -1,5 +1,4 @@
-﻿
-@implements IDisposable
+﻿@implements IDisposable
 
 @inject NavigationManager NavigationManager
 
@@ -31,7 +30,6 @@
 
 @code {
     private bool expanded = true;
-
     private string? currentUrl;
 
     protected override void OnInitialized()
@@ -51,4 +49,3 @@
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
 }
-
