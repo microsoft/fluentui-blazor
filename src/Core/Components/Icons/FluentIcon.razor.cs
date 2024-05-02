@@ -38,12 +38,6 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     public string? Title { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex">tabindex</see> for the icon.
-    /// </summary>
-    [Parameter]
-    public int? TabIndex { get; set; } = null;
-
-    /// <summary>
     /// Gets or sets the icon drawing and fill color. 
     /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
     /// </summary>

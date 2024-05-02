@@ -3944,11 +3944,6 @@
             Gets or sets the title for the icon.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.TabIndex">
-            <summary>
-            Gets or sets the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex">tabindex</see> for the icon.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.Color">
             <summary>
             Gets or sets the icon drawing and fill color. 
