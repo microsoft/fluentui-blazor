@@ -167,7 +167,7 @@ public partial class FluentTabs : FluentComponentBase
 
     internal int RegisterTab(FluentTab tab)
     {
-        _tabs.Add(tab.Id!, tab);
+        _ = _tabs.TryAdd(tab.Id!, tab);
         return _tabs.Count - 1;
     }
 
