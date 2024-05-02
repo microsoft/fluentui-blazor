@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -24,7 +28,7 @@ public class Message
     /// Default is MessageIntent.Info. 
     /// See <see cref="MessageIntent"/> for more details.
     /// </summary>
-    public MessageIntent? Intent => Options.Intent;
+    public MessageIntent? Intent => Options.Intent ?? MessageIntent.Info;
 
     /// <summary>
     /// Indication of in which message bar the message needs to be shown. Default is null.
