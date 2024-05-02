@@ -1,4 +1,10 @@
-﻿namespace Microsoft.Fast.Components.FluentUI;
+﻿// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using System.ComponentModel;
+
+namespace Microsoft.Fast.Components.FluentUI;
 
 /// <summary>
 /// The orientation of a component.
@@ -8,10 +14,12 @@ public enum Orientation
     /// <summary>
     /// The component is oriented horizontally.
     /// </summary>
+    [Description("horizontal")]
     Horizontal,
 
     /// <summary>
     /// The component is oriented vertically.
     /// </summary>
+    [Description("vertical")]
     Vertical
 }

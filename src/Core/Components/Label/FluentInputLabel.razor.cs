@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Microsoft.Fast.Components.FluentUI;
@@ -22,7 +26,8 @@ public partial class FluentInputLabel
     public string? ForId { get; set; }
 
     /// <summary>
-    /// Gets or sets the text to be displayed as a label, just above the component.
+    /// Gets or sets the text to label the input.
+    /// This is usually displayd just above the component.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
@@ -47,6 +52,14 @@ public partial class FluentInputLabel
     public string? AriaLabel { get; set; }
 
     /// <summary>
+    /// Gets or sets the orientation of the label with respect to the input.
+    /// horizontal: label is displayed to the left of the input.
+    /// vertical: label is displayed above the input.
+    /// </summary>
+    [Parameter]
+    public Orientation Orientation { get; set; } = Orientation.Vertical;
+
+    /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
@@ -65,7 +78,7 @@ public partial class FluentInputLabel
     }
 
     /// <summary />
-    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId) 
+    private bool ShouldRenderAriaLabel => !string.IsNullOrWhiteSpace(ForId)
                                        && (!string.IsNullOrWhiteSpace(Label) ||
                                            !string.IsNullOrWhiteSpace(AriaLabel));
 }
