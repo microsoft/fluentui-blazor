@@ -4,9 +4,9 @@
 
 @if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
 {
-    var orientation = Orientation == Orientation.Horizontal ? Orientation.ToAttributeValue() : null; 
+    var _orientation = Orientation == Orientation.Horizontal ? Orientation.ToAttributeValue() : null; 
 
-    <label for="@ForId" class="fluent-input-label" orientation=@orientation @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
+    <label for="@ForId" class="fluent-input-label" orientation="@_orientation"" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
         @Label
         @ChildContent
         @if (Required)
