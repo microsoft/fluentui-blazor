@@ -241,15 +241,17 @@ There are a couple of methods available **per design token** to get or set its v
 Given the following `.razor` page fragment:
 
 ```cshtml
-<FluentButton @ref="ref1" Appearance="Appearance.Filled">A button</FluentButton>
-<FluentButton @ref="ref2" Appearance="Appearance.Filled">Another button</FluentButton>
-<FluentButton @ref="ref3" Appearance="Appearance.Filled">And one more</FluentButton>
-<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Last button</FluentButton>
+<FluentButton @ref="ref1">A button</FluentButton>
+<FluentButton @ref="ref2" Appearance.Accent>Another button</FluentButton>
+<FluentButton @ref="ref3">And one more</FluentButton>
+<FluentButton @ref="ref4" @onclick=OnClick>Last button</FluentButton>
 ```
 
 You can use Design Tokens to manipulate the styles from C# code as follows:
 
 ```csharp
+@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+
 [Inject]
 private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
