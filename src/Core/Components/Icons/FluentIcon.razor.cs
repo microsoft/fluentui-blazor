@@ -38,6 +38,12 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     public string? Title { get; set; } = null;
 
     /// <summary>
+    /// Gets or sets the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex">tabindex</see> for the icon.
+    /// </summary>
+    [Parameter]
+    public int? TabIndex { get; set; } = null;
+
+    /// <summary>
     /// Gets or sets the icon drawing and fill color. 
     /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
     /// </summary>
@@ -81,6 +87,20 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         if (OnClick.HasDelegate)
         {
             return OnClick.InvokeAsync(e);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    protected virtual Task OnKeyDownAsync(KeyboardEventArgs e)
+    {
+        if (OnClick.HasDelegate)
+        {
+            if (e.Key == "Enter" || e.Key == "NumpadEnter")
+            {
+                return OnClickHandlerAsync(new MouseEventArgs());
+            }
         }
 
         return Task.CompletedTask;

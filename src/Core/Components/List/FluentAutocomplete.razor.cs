@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -467,6 +468,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         ValueText = string.Empty;
         await ValueTextChanged.InvokeAsync(ValueText);
         await RaiseChangedEventsAsync();
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", Id);
+        }
     }
 
     /// <summary />
