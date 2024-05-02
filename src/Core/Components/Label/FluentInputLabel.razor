@@ -4,7 +4,9 @@
 
 @if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
 {
-    <label for="@ForId" class="@ClassValue" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
+    var orientation = Orientation == Orientation.Horizontal ? Orientation.ToAttributeValue() : null; 
+
+    <label for="@ForId" class="@ClassValue" orientation=@orientation @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
         @Label
         @ChildContent
         @if (Required)

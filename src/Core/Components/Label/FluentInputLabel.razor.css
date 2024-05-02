@@ -11,6 +11,6 @@
     align-items: center;
 }
 
-.fluent-input-label-horizontal {
-    margin-bottom: 0;
-}
+    .fluent-input-label[orientation='horizontal'] {
+        margin-bottom: 0;
+    }
