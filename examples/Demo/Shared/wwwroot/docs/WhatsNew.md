@@ -5,6 +5,7 @@
 
 ### Components
 - [AppBar] Allow for omitting Href on AppBarItems and don't show active status when Href is null or not specified ([#1976](https://github.com/microsoft/fluentui-blazor/pull/1976))
+- [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
 - [Badge] Do not use a div (block element) in an inline element ([#1921](https://github.com/microsoft/fluentui-blazor/pull/1921))
 - [DataGrid] Add ShowHover parameter and implement row hover effect ([#1939](https://github.com/microsoft/fluentui-blazor/pull/1939))
 - [DataGrid] Apply ItemSize (CSS height) to cells when grid is virtualized.  ([#1936](https://github.com/microsoft/fluentui-blazor/pull/1936))
