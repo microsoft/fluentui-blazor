@@ -117,10 +117,13 @@ extends:
           displayName: 'Install nodejs'
           inputs:
             versionSpec: '20.x'
+
         # Authenticate to npm
-        - task: npmAuthenticate@0
+        - task: Npm@1
+          displayName: "npm install"
           inputs:
-            workingFile: "/src/Core.Assets/.npmrc"
+            command: "install"
+            workingDir: "src/Core.Assets"
 
         # Set version number (exclude some folders)
         - task: PowerShell@2

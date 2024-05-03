@@ -152,6 +152,12 @@ extends:
           displayName: 'Install nodejs'
           inputs:
             versionSpec: '20.x'
+        # Authenticate to npm
+        - task: Npm@1
+          displayName: "npm install"
+          inputs:
+            command: "install"
+            workingDir: "src/Core.Assets"
 
         # Authenticate to npm
         - task: npmAuthenticate@0
