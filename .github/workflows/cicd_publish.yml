@@ -47,8 +47,11 @@ jobs:
           dotnet-version: |
             8.0.x
           include-prerelease: true
+
       - name: NPM Install
         uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
 
       - run: npm install "src/Core.Assets/"
 
