@@ -50,7 +50,7 @@ jobs:
       - name: NPM Install
         uses: actions/setup-node@v4
 
-      - run: npm install "/src/Core.Assets"
+      - run: npm install "src/Core.Assets"
 
       - name: .NET Builld
         run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
