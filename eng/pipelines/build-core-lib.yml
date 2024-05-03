@@ -153,6 +153,11 @@ extends:
           inputs:
             versionSpec: '20.x'
 
+        # Authenticate to npm
+        - task: npmAuthenticate@0
+          inputs:
+            workingFile: .npmrc
+
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
