@@ -114,13 +114,13 @@ extends:
 
         # Install nodejs
         - task: NodeTool@0
-          displayName: 'Install nodejs'
+          displayName: 'Install NodeJS'
           inputs:
             versionSpec: '20.x'
 
         # Authenticate to npm
         - task: Npm@1
-          displayName: "npm install"
+          displayName: "NPM install"
           inputs:
             command: "install"
             workingDir: "src/Core.Assets"
