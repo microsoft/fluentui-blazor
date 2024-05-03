@@ -120,7 +120,7 @@ extends:
         # Authenticate to npm
         - task: npmAuthenticate@0
           inputs:
-            workingFile: .npmrc
+            workingFile: /src/Core.Assets/.npmrc
 
         # Set version number (exclude some folders)
         - task: PowerShell@2
