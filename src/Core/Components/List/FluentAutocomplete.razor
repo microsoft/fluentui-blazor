@@ -6,7 +6,7 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue">
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
-        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" StopPropagation="true" PreventDefault="true" />
+        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
         <FluentTextField role="combobox"
                          @ref="@Element"
@@ -29,7 +29,7 @@
             @if (this.SelectedOptions?.Any() == true)
             {
                 <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
-                    <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToPrevious()"
+                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToPrevious();"
                                     slot="previous-flipper"
                                     aria-hidden="false"
                                     aria-label="@TitleScrollToPrevious"
@@ -38,7 +38,7 @@
                                     tabindex="0"
                                     class="previous fluent-autocomplete-previous"
                                     direction="previous"></fluent-flipper>
-                    <fluent-flipper onclick="document.getElementById('@IdScroll').scrollToNext()"
+                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToNext();"
                                     slot="next-flipper"
                                     aria-hidden="false"
                                     aria-label="@TitleScrollToNext"
@@ -76,6 +76,8 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Clear"
+                                    tabindex="0"
+                                    role="button"
                                     OnClick="@OnClearAsync" />
                     }
                 }
@@ -88,6 +90,8 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Search"
+                                    tabindex="0"
+                                    role="button"
                                     OnClick="@OnDropDownExpandedAsync" />
                     }
                 }
@@ -113,26 +117,19 @@
                     @if (Items != null)
                     {
                         var selectableItem = GetOptionValue(SelectableItem);
-                        foreach (TOption item in Items)
+
+                        @if (Virtualize)
                         {
-                            var value = GetOptionValue(item);
-                            <FluentOption TOption="TOption"
-                                          Value="@value"
-                                          Style="@OptionStyle"
-                                          Class="@OptionClass"
-                                          Selected="@GetOptionSelected(item)"
-                                          Disabled="@(GetOptionDisabled(item) ?? false)"
-                                          OnSelect="@OnSelectCallback(item)"
-                                          selectable="@(value == selectableItem)">
-                                @if (OptionTemplate == null)
-                                {
-                                    @GetOptionText(item)
-                                }
-                                else
-                                {
-                                    @OptionTemplate(item)
-                                }
-                            </FluentOption>
+                            <Virtualize ItemsProvider="LoadFilteredItemsAsync" @ref="VirtualizationContainer" ItemSize="ItemSize">
+                                @RenderOption((context, selectableItem))
+                            </Virtualize>
+                        }
+                        else
+                        {
+                            foreach (TOption item in Items)
+                            {
+                                @RenderOption((item, selectableItem))
+                            }
                         }
                     }
                 </div>
@@ -159,3 +156,28 @@
         }
     </div>
 </CascadingValue>
+
+@code {
+    private RenderFragment<(TOption Item, string? SelectableItem)> RenderOption => context => __builder =>
+    {
+        var optionValue = GetOptionValue(context.Item);
+        <FluentOption TOption="TOption"
+                      @key="@context.Item"
+                      Value="@optionValue"
+                      Style="@OptionStyle"
+                      Class="@OptionClass"
+                      Selected="@GetOptionSelected(context.Item)"
+                      Disabled="@(GetOptionDisabled(context.Item) ?? false)"
+                      OnSelect="@OnSelectCallback(context.Item)"
+                      selectable="@(optionValue == context.SelectableItem)">
+            @if (OptionTemplate == null)
+            {
+                @GetOptionText(context.Item)
+            }
+            else
+            {
+                @OptionTemplate(context.Item)
+            }
+        </FluentOption>
+    };
+}

@@ -86,6 +86,20 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     }
 
     /// <summary />
+    protected virtual Task OnKeyDownAsync(KeyboardEventArgs e)
+    {
+        if (OnClick.HasDelegate)
+        {
+            if (e.Key == "Enter" || e.Key == "NumpadEnter")
+            {
+                return OnClickHandlerAsync(new MouseEventArgs());
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
     protected override void OnParametersSet()
     {
         if (_icon == null)
