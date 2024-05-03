@@ -48,7 +48,7 @@ jobs:
             8.0.x
           include-prerelease: true
       - name: NPM Install
-        uses: action/setup-node@v4
+        uses: actions/setup-node@v4
 
       - run: npm install "/src/Core.Assets"
 
