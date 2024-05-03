@@ -176,6 +176,7 @@ extends:
         - task: DotNetCoreCLI@2
           displayName: Install dependencies
           inputs:
+            includeNuGetOrg: false
             command: 'restore'
             projects: ${{ parameters.Projects }}
 
