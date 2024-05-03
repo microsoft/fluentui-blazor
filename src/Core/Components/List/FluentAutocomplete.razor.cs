@@ -467,6 +467,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         ValueText = string.Empty;
         await ValueTextChanged.InvokeAsync(ValueText);
         await RaiseChangedEventsAsync();
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", Id);
+        }
     }
 
     /// <summary />

@@ -3976,6 +3976,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnKeyDownAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnParametersSet">
             <summary />
         </member>

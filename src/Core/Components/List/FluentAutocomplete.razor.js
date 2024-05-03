@@ -1,4 +1,4 @@
-﻿export function displayLastSelectedItem(id) {
+export function displayLastSelectedItem(id) {
     var item = document.getElementById(id);
     var scroll = document.getElementById(id + "-scroll");
     if (!!item && !!scroll) {
@@ -14,5 +14,15 @@
         catch (e) {
             console.warn("fluent-horizontal-scroll.scrollToNext fails.");
         }
+    }
+}
+
+export function focusOn(id) {
+    var item = document.getElementById(id);
+    if (!!item) {
+        // Delay to let the UI refresh the control
+        setTimeout(function () {
+            item.focus();
+        }, 200);
     }
 }
