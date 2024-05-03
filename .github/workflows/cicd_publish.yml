@@ -52,6 +52,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: 'npm'
+          cache-dependency-path: src/Core.Assets/package-lock.json
 
       - run: npm install "src/Core.Assets/"
 
