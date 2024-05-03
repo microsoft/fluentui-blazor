@@ -12,13 +12,14 @@
 - [DataGrid] Give empty row an id ([#2001](https://github.com/microsoft/fluentui-blazor/pull/2001))
 - [DataGrid] Multiselect feature, adding a `SelectColumn` ([#1952](https://github.com/microsoft/fluentui-blazor/pull/1952))
 - [DataGrid] Revert setting height on DataGrid header cell. Was not necessary and lead to issues on Safari
-- [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
 - [InputLabel] Add Orientation parameter  ([#1994](https://github.com/microsoft/fluentui-blazor/pull/1994))
 - [Lists] Also set Value (and InternalValue) when SelectedOption is set ([#1970](https://github.com/microsoft/fluentui-blazor/pull/1970))
 - [MessageBar] Supply a default value for the message intent when using MessageOptions ([#1993](https://github.com/microsoft/fluentui-blazor/pull/1993))
 - [NavMenu] Fix keyboard navigation ([#1950](https://github.com/microsoft/fluentui-blazor/pull/1950))
 - [NavMenu] Make sure text is shown when in mobile view in SSR. 
 - [ProfileMenu] Remove ProfileMenu from demo site header and change examples ([#1924](https://github.com/microsoft/fluentui-blazor/pull/1924))
+- [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
+- [Tabs] Prevent error 'An item with the same key has already been added ([#2006](https://github.com/microsoft/fluentui-blazor/pull/2006))
 
 
 ### Miscellaneous
@@ -31,7 +32,7 @@
 ### Components
 - [Wizard] Add StepSequence attribute ([#1909](https://github.com/microsoft/fluentui-blazor/pull/1909))
 - [DataGrid] Fix GridTemplateColumns initialization was done in the wrong place (related to new Width option for columns
-
+*
 ## v4.7.0
 
 ### Breaking change
