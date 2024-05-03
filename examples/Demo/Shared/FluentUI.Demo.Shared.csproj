@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-		<PackageReference Include="Markdig" />
+		<PackageReference Include="Markdig.Signed" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
