@@ -172,10 +172,15 @@ extends:
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 
-        # Install dependencies
+        # NuGet Authenticate
+        - task: NuGetAuthenticate@1
+          displayName: 'Authenticate to AzDO Feeds'
+
+        # Restore packages
         - task: DotNetCoreCLI@2
-          displayName: Install dependencies
+          displayName: Restore packages
           inputs:
+            feedsToUse: config
             includeNuGetOrg: false
             command: 'restore'
             projects: ${{ parameters.Projects }}
