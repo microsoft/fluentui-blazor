@@ -181,6 +181,7 @@ extends:
           displayName: Restore packages
           inputs:
             feedsToUse: config
+            nugetConfigPath: '$(System.DefaultWorkingDirectory)/NuGet.config'
             includeNuGetOrg: false
             command: 'restore'
             projects: ${{ parameters.Projects }}
