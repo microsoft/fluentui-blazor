@@ -6789,6 +6789,16 @@
             Gets or sets the title to show on hover. If not provided, the status will be used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PopoverClass">
+            <summary>
+            Gets or sets the Class to apply to the Profile Popup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PopoverStyle">
+            <summary>
+            Gets or sets the Style to apply to the Profile Popup.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Initials">
             <summary>
             Gets or sets the initials to display if no image is provided.

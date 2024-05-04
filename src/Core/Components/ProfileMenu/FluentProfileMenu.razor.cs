@@ -75,6 +75,18 @@ public partial class FluentProfileMenu : FluentComponentBase
     public string? StatusTitle { get; set; }
 
     /// <summary>
+    /// Gets or sets the Class to apply to the Profile Popup.
+    /// </summary>
+    [Parameter]
+    public virtual string? PopoverClass { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the Style to apply to the Profile Popup.
+    /// </summary>
+    [Parameter]
+    public virtual string? PopoverStyle { get; set; } = null;
+
+    /// <summary>
     /// Gets or sets the initials to display if no image is provided.
     /// By default, the first letters of the <see cref="FullName"/> is used.
     /// </summary>
