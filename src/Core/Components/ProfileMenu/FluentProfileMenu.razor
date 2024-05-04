@@ -1,18 +1,19 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div class="fluent-profile-menu" top-corner="@TopCorner">
-    <FluentPersona Id="@Id"
+<div id="@Id" class="@ClassValue" style="@StyleValue" top-corner="@TopCorner"
+     @onclick="@(e => PopoverVisible = !PopoverVisible)">
+    @StartTemplate
+    <FluentPersona Id="@PersonaId"
                    Image="@Image"
                    Name="@FullName"
                    ImageSize="@ButtonSize"
                    Status="@Status"
                    StatusTitle="@StatusTitle"
                    Initials="@Initials"
-                   Style="height: inherit;"
-                   OnClick="@(e => PopoverVisible = !PopoverVisible)" />
+                   Style="height: inherit;" />
 
-    <FluentPopover AnchorId="@Id"
+    <FluentPopover AnchorId="@PersonaId"
                    Class="@Class"
                    Style="@Style"
                    HorizontalPosition="@HorizontalPosition.Start"
@@ -80,4 +81,5 @@
             }
         </Footer>
     </FluentPopover>
+    @EndTemplate
 </div>

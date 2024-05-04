@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,6 +13,13 @@ public partial class FluentProfileMenu : FluentComponentBase
     {
         Id = Identifier.NewId();
     }
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-profile-menu")
+        .Build();
+
+    protected string? StyleValue => new StyleBuilder(Style)
+        .Build();
 
     private bool PopoverVisible { get; set; } = false;
 
@@ -41,6 +49,18 @@ public partial class FluentProfileMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be displayed in the start (left) section of the Profile button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? StartTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be displayed in the end (right) section of the Profile button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? EndTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
@@ -126,4 +146,7 @@ public partial class FluentProfileMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback OnFooterLinkClick { get; set; }
+
+    /// <summary />
+    private string PersonaId => $"{Id}-persona";
 }

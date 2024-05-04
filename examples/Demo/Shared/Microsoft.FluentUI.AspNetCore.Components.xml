@@ -6769,6 +6769,16 @@
             Using this property will override the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterLink" /> property.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.StartTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the start (left) section of the Profile button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.EndTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the end (right) section of the Profile button.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Status">
             <summary>
             Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
@@ -6839,6 +6849,9 @@
             <summary>
             Event raised when the user clicks on the Footer hyperlink (e.g. View account).
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PersonaId">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
             <summary>
