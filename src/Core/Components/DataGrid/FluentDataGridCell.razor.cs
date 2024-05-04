@@ -54,7 +54,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
        .AddStyle("align-content", "center", () => GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
-
     protected override void OnInitialized()
     {
         Owner.Register(this);

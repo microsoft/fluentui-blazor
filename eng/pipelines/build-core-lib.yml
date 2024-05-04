@@ -74,7 +74,7 @@ extends:
   # For non-production pipelines, use "Unofficial" as defined below.
   # For productions pipelines, use "Official".
   #template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
-  template: azure-pipelines/MicroBuild.1ES.Unofficial.yml@MicroBuildTemplate
+  template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
   parameters:
     # Update the pool with your team's 1ES hosted pool.
     pool:
@@ -149,9 +149,16 @@ extends:
 
         # Install nodejs
         - task: NodeTool@0
-          displayName: 'Install nodejs'
+          displayName: 'Install NodeJS'
           inputs:
             versionSpec: '20.x'
+
+        # Authenticate to npm
+        - task: Npm@1
+          displayName: "NPM install"
+          inputs:
+            command: "install"
+            workingDir: "src/Core.Assets"
 
         # Set version number (exclude some folders)
         - task: PowerShell@2
@@ -165,10 +172,17 @@ extends:
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 
-        # Install dependencies
+        # NuGet Authenticate
+        - task: NuGetAuthenticate@1
+          displayName: 'Authenticate to AzDO Feeds'
+
+        # Restore packages
         - task: DotNetCoreCLI@2
-          displayName: Install dependencies
+          displayName: Restore packages
           inputs:
+            feedsToUse: config
+            nugetConfigPath: '$(System.DefaultWorkingDirectory)/NuGet.config'
+            includeNuGetOrg: false
             command: 'restore'
             projects: ${{ parameters.Projects }}
 
