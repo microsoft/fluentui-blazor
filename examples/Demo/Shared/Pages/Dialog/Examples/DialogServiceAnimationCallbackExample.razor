@@ -29,12 +29,12 @@
                 Title = $"Hello {simplePerson.Firstname}",
                 OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async (instance) =>
                 {
-                    /**
-                     * Because of the JS code below, this `await` will block until the animation completes or is interrupted.
-                     * Asynchronous code inside the "OnDialogClosing" callback will prevent the dialog from being removed until it has completed.
-                     *
-                     * WARNING: Don't use `eval`, it's dangerous! This is just a proof-of-concept demonstrating the OnDialogClosing/OnDialogOpened EventCallbacks.
-                     */
+                    //
+                    // * Because of the JS code below, this `await` will block until the animation completes or is interrupted.
+                    // * Asynchronous code inside the "OnDialogClosing" callback will prevent the dialog from being removed until it has completed.
+                    // *
+                    // * WARNING: Don't use `eval`, it's dangerous! This is just a proof-of-concept demonstrating the OnDialogClosing/OnDialogOpened EventCallbacks.
+                    //
                     await JS.InvokeVoidAsync("eval", $@"
                         async function func() {{
                             let dialog = document.getElementById('{instance.Id}')?.dialog;
@@ -53,11 +53,11 @@
                 }),
                 OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async (instance) =>
                 {
-                    /**
-                     * Because of the JS code below, this `await` will block until the animation completes or is interrupted.
-                     * 
-                     * WARNING: Don't use `eval`, it's dangerous! This is just a proof-of-concept demonstrating the OnDialogClosing/OnDialogOpened EventCallbacks.
-                     */
+                    //
+                    // * Because of the JS code below, this `await` will block until the animation completes or is interrupted.
+                    // * 
+                    // * WARNING: Don't use `eval`, it's dangerous! This is just a proof-of-concept demonstrating the OnDialogClosing/OnDialogOpened EventCallbacks.
+                    // 
                     await JS.InvokeVoidAsync("eval", $@"
                         async function func() {{
                             let dialog = document.getElementById('{instance.Id}')?.dialog;

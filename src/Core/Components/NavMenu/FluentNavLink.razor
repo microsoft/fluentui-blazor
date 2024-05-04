@@ -35,7 +35,7 @@
 }
 else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
 {
-    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync" @onmenuchange="async ev => await OnClickHandlerAsync(null)">
+    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync" @onmenuchange="async ev => await OnClickHandlerAsync(new MouseEventArgs())">
         <NavLink class="@LinkClassValue"
                     @attributes="@Attributes"
                     Match="@Match"
