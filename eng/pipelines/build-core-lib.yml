@@ -147,12 +147,6 @@ extends:
             version: 8.0.x
             includePreviewVersions: true
 
-        # Install nodejs
-        - task: NodeTool@0
-          displayName: 'Install nodejs'
-          inputs:
-            versionSpec: '20.x'
-
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
@@ -165,12 +159,21 @@ extends:
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 
-        # Install dependencies
+        # Restore packages
         - task: DotNetCoreCLI@2
-          displayName: Install dependencies
+          displayName: Restore packages
           inputs:
             command: 'restore'
             projects: ${{ parameters.Projects }}
+            feedsToUse: config
+            nugetConfigPath: nuget.config
+
+        # NPM install Core.Assets
+        - task: Npm@1
+          displayName: "NPM install Core.Assets"
+          inputs:
+            command: "install"
+            workingDir: "src/Core.Assets"
 
         # Build the projects
         - task: DotNetCoreCLI@2
@@ -226,7 +229,7 @@ extends:
             solution: 'Microsoft.FluentUI.signproj'
             msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\sign\'
 
-
+        # Copy signed packages
         - task: CopyFiles@2
           displayName: 'Copy signed packages to pickup folder'
           inputs:
