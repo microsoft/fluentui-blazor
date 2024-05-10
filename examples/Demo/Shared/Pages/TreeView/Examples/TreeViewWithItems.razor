@@ -42,14 +42,4 @@ Total items: @Count
             };
         return treeItem;
     }
-
-
-    public class TreeViewItem : ITreeViewItem
-    {
-        public string Text { get; set; } = "";
-        public IEnumerable<ITreeViewItem>? Items { get; set; }
-        public Icon? IconCollapsed { get; set; }
-        public Icon? IconExpanded { get; set; }
-        public bool Disabled { get; set; }
-    }
 }

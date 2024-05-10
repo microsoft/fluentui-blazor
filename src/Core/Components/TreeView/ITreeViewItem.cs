@@ -4,15 +4,18 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Interface for tree view items
+/// </summary>
 public interface ITreeViewItem
 {
     /// <summary>
-    /// Gets or sets the text of the tree item
+    /// Gets or sets the text of the tree item.
     /// </summary>
     public string Text { get; set; }
 
     /// <summary>
-    /// Gets or sets the sub-items of the tree item
+    /// Gets or sets the sub-items of the tree item.
     /// </summary>
     public IEnumerable<ITreeViewItem>? Items { get; set; }
 

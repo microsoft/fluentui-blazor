@@ -62,7 +62,9 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     public RenderFragment<ITreeViewItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the tree should use lazy loading when expanding nodes
+    /// Can only be used when the <see cref="Items"/> is defined.
+    /// Gets or sets whether the tree should use lazy loading when expanding nodes.
+    /// If True, the tree will only render the children of a node when it is expanded and will remove them when it is collapsed.
     /// </summary>
     [Parameter]
     public bool LazyLoadItems { get; set; } = false;

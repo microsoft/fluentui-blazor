@@ -8816,14 +8816,19 @@
             Gets or sets whether the tree should use lazy loading when expanding nodes
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem">
+            <summary>
+            Interface for tree view items
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text">
             <summary>
-            Gets or sets the text of the tree item
+            Gets or sets the text of the tree item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items">
             <summary>
-            Gets or sets the sub-items of the tree item
+            Gets or sets the sub-items of the tree item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed">
@@ -8844,6 +8849,36 @@
             <summary>
             When true, the control will be immutable by user interaction.
             See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem">
+            <summary>
+            Implementation of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Text">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Items">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.IconCollapsed">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.IconExpanded">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Disabled">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled" />
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ClassValue">
