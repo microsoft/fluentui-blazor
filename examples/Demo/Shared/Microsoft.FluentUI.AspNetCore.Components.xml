@@ -8773,6 +8773,23 @@
             and <see langword="false"/> if expanded.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items">
+            <summary>
+            Gets or sets the list of items to bind to the tree.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItem">
+            <summary>
+            Gets or sets the currently selected tree item.
+            Only when using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItemChanged">
+            <summary>
+            Called when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItem"/> changes.
+            Only when using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> property.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.RenderCollapsedNodes">
             <summary>
             Gets or sets whether the tree should render nodes under collapsed items

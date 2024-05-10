@@ -135,6 +135,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         }
 
         Selected = value;
+
         if (SelectedChanged.HasDelegate)
         {
             await SelectedChanged.InvokeAsync(Selected);
@@ -186,7 +187,10 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             return;
         }
 
-        await SetSelectedAsync(args.Selected.Value);
+        if (Owner.Items == null)
+        {
+            await SetSelectedAsync(args.Selected.Value);
+        }
 
         if (Owner is FluentTreeView tree)
         {
@@ -203,8 +207,8 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             builder.AddAttribute(i++, "Id", item.Id);
             builder.AddAttribute(i++, "Items", item.Items);
             builder.AddAttribute(i++, "Text", item.Text);
+            builder.AddAttribute(i++, "Selected", owner.SelectedItem == item);
             builder.AddAttribute(i++, "Expanded", item.Expanded);
-            //builder.AddAttribute(i++, "ExpandedChanged", EventCallback.Factory.Create<bool>(this, HandleExpandedChangeAsync));
             builder.AddAttribute(i++, "Disabled", item.Disabled);
             builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
             builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);

@@ -12,8 +12,25 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
     public static string LoadingMessage = "Loading...";
 
+    /// <summary>
+    /// Gets or sets the list of items to bind to the tree.
+    /// </summary>
     [Parameter]
     public IEnumerable<ITreeViewItem>? Items { get; set; }
+
+    /// <summary>
+    /// Gets or sets the currently selected tree item.
+    /// Only when using the <see cref="Items"/> property.
+    /// </summary>
+    [Parameter]
+    public ITreeViewItem? SelectedItem { get; set; }
+
+    /// <summary>
+    /// Called when <see cref="SelectedItem"/> changes.
+    /// Only when using the <see cref="Items"/> property.
+    /// </summary>
+    [Parameter]
+    public EventCallback<ITreeViewItem?> SelectedItemChanged { get; set; }
 
     /// <summary>
     /// Gets or sets whether the tree should render nodes under collapsed items
@@ -150,6 +167,12 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
                     }
                 }
                 await CurrentSelectedChanged.InvokeAsync(CurrentSelected);
+            }
+
+            if (Items != null && SelectedItemChanged.HasDelegate)
+            {
+                var currentTreeItem = args.Selected == true ? FindItemById(Items, args.AffectedId) : null;
+                await SelectedItemChanged.InvokeAsync(currentTreeItem);
             }
         }));
     }

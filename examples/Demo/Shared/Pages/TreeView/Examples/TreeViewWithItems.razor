@@ -1,4 +1,4 @@
-﻿<FluentTreeView Items="@Items" @bind-CurrentSelected="@CurrentSelected" LazyLoadItems="true">
+﻿<FluentTreeView Items="@Items" @bind-SelectedItem="@SelectedItem" LazyLoadItems="true">
     <ItemTemplate>
         @context.Text
         <span style="color: var(--accent-fill-rest); margin: 0 4px;">
@@ -11,12 +11,12 @@
     <b>Total items:</b> @Count
 </div>
 <div>
-    <b>Selected item:</b> @CurrentSelected?.Text
+    <b>Selected item:</b> @SelectedItem?.Text
 </div>
 
 @code
 {
-    private FluentTreeItem? CurrentSelected;
+    private ITreeViewItem? SelectedItem;
 
     private Icon IconCollapsed = new Icons.Regular.Size20.Folder();
     private Icon IconExpanded = new Icons.Regular.Size20.FolderOpen();
@@ -27,6 +27,7 @@
     protected override void OnInitialized()
     {
         Items = CreateTree(maxLevel: 5, maxItemsPerLevel: 12).Items;
+        SelectedItem = Items?.ElementAt(3);
     }
 
     // Recursive method to create tree
@@ -39,10 +40,10 @@
         var treeItem = new TreeViewItem
             {
                 Text = $"Item {Count}",
-                Disabled = Count % 7 == 0,
+                Disabled = level >= 2 && Count % 7 == 0,
                 IconCollapsed = IconCollapsed,
                 IconExpanded = IconExpanded,
-                Expanded = level == 1 && Count % 3 == 0,
+                Expanded = level >= 2 && Count % 5 == 0,
                 Items = level == maxLevel
                               ? null
                               : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
