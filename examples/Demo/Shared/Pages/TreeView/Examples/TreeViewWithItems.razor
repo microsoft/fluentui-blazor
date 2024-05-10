@@ -8,10 +8,10 @@
 </FluentTreeView>
 
 <div>
-    Total items: @Count
+    <b>Total items:</b> @Count
 </div>
 <div>
-    Selected Item: @CurrentSelected?.Text
+    <b>Selected item:</b> @CurrentSelected?.Text
 </div>
 
 @code
@@ -42,10 +42,11 @@
                 Disabled = Count % 7 == 0,
                 IconCollapsed = IconCollapsed,
                 IconExpanded = IconExpanded,
+                Expanded = level == 1 && Count % 3 == 0,
                 Items = level == maxLevel
-                          ? null
-                          : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
-                                                             .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1))),
+                              ? null
+                              : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
+                                                                 .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1))),
             };
 
         return treeItem;

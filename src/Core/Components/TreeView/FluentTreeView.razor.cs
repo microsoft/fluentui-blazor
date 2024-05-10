@@ -95,9 +95,15 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         {
             var currentTreeItem = FindItemById(Items, item.Id);
 
-            if (currentTreeItem != null && currentTreeItem.OnExpandedAsync != null)
+            if (currentTreeItem != null)
             {
-                await currentTreeItem.OnExpandedAsync(new TreeViewItemExpandedEventArgs(currentTreeItem, item.Expanded));
+                currentTreeItem.Expanded = item.Expanded;
+
+                if (currentTreeItem.OnExpandedAsync != null)
+                {
+                    await currentTreeItem.OnExpandedAsync(new TreeViewItemExpandedEventArgs(currentTreeItem, item.Expanded));
+                }
+                
                 StateHasChanged();
             }
         }

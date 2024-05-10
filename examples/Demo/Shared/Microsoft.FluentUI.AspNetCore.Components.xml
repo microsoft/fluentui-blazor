@@ -7761,12 +7761,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.LabelClass">
             <summary>
-            Gets or sets the class, applied to the Label Tab CurrentItem.
+            Gets or sets the class, applied to the Label Tab Item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.LabelStyle">
             <summary>
-            Gets or sets the style, applied to the Label Tab CurrentItem.
+            Gets or sets the style, applied to the Label Tab Item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.Header">
@@ -8917,6 +8917,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Disabled">
             <summary>
             <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Expanded">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Expanded"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.OnExpandedAsync">

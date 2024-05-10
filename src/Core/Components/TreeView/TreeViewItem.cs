@@ -50,6 +50,11 @@ public class TreeViewItem : ITreeViewItem
     public bool Disabled { get; set; } = false;
 
     /// <summary>
+    /// <inheritdoc cref="ITreeViewItem.Expanded"/>
+    /// </summary>
+    public bool Expanded { get; set; } = false;
+
+    /// <summary>
     /// <inheritdoc cref="ITreeViewItem.OnExpandedAsync" />
     /// </summary>
     public Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }

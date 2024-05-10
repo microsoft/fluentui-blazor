@@ -44,6 +44,8 @@ public interface ITreeViewItem
     /// </summary>
     bool Disabled { get; set; }
 
+    bool Expanded { get; set; }
+
     /// <summary>
     /// Gets or sets the action to be performed when the tree item is expanded or collapsed
     /// </summary>

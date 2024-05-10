@@ -203,6 +203,8 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             builder.AddAttribute(i++, "Id", item.Id);
             builder.AddAttribute(i++, "Items", item.Items);
             builder.AddAttribute(i++, "Text", item.Text);
+            builder.AddAttribute(i++, "Expanded", item.Expanded);
+            //builder.AddAttribute(i++, "ExpandedChanged", EventCallback.Factory.Create<bool>(this, HandleExpandedChangeAsync));
             builder.AddAttribute(i++, "Disabled", item.Disabled);
             builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
             builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);
@@ -214,8 +216,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
             builder.CloseComponent();
 
-            //builder.AddAttribute(i++, "Expanded", Expanded);
-            //builder.AddAttribute(i++, "ExpandedChanged", EventCallback.Factory.Create<bool>(this, HandleExpandedChangeAsync));
             //builder.AddAttribute(i++, "Selected", Selected);
             //builder.AddAttribute(i++, "SelectedChanged", EventCallback.Factory.Create<bool>(this, HandleSelectedChangeAsync));
             //builder.AddAttribute(i++, "InitiallyExpanded", InitiallyExpanded);
