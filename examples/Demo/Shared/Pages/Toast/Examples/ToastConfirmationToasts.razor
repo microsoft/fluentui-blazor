@@ -53,7 +53,7 @@
             With action
         </FluentButton>
 
-        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", 10))">
+        <FluentButton Appearance=Appearance.Neutral @onclick="@(() => ToastService.ShowInfo("Info confirmation custom settings.", timeout: 10000))">
             Custom timeout
         </FluentButton>
 

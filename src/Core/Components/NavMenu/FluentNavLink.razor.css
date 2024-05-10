@@ -10,11 +10,16 @@
     min-width: 20px;
 }
 
-::deep .fluent-nav-link.disabled:not(fluent-menu-item) {
+::deep .fluent-nav-link.disabled:not(fluent-menu-item, a) {
     color: var(--neutral-foreground-rest) !important;
     opacity: var(--disabled-opacity);
     cursor: not-allowed;
     pointer-events: none;
+}
+
+
+::deep a.disabled .content-region {
+    opacity: var(--disabled-opacity);
 }
 
 

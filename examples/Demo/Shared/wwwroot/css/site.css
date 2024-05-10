@@ -198,8 +198,13 @@ code {
 }
 
 .highlighted-row {
-    background-color: var(--neutral-fill-secondary-hover);
+    background-color: var(--accent-fill-rest);
 }
+
+.highlighted-row > fluent-data-grid-cell {
+    color: var(--neutral-fill-inverse-rest);
+}
+
 
 kbd {
     padding: 0.10rem 0.25rem;

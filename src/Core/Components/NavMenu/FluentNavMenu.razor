@@ -8,7 +8,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @if (Collapsible)
         {
-            <FluentKeyCode Anchor="expander" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
+            <FluentKeyCode Anchor="@($"{@Id}-expander")" OnKeyDown="@HandleExpandCollapseKeyDownAsync" />
             <div id="@($"{@Id}-expander")"
                  aria-label="@Title"
                  aria-expanded="@(Expanded.ToAttributeValue())"

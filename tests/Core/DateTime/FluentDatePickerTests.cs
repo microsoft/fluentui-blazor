@@ -1,7 +1,11 @@
-using System.Globalization;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -147,7 +151,7 @@ public class FluentDatePickerTests : TestBase
         var textfield = picker.Find("fluent-text-field");
 
         // Assert
-        Assert.Equal("MMMM yyyy", textfield.Attributes["placeholder"].Value);
+        Assert.Equal("MMMM yyyy", textfield.Attributes["placeholder"]!.Value);
     }
 
     [Fact]
@@ -165,11 +169,10 @@ public class FluentDatePickerTests : TestBase
             parameters.Add(p => p.View, CalendarViews.Years);
         });
         var textfield = picker.Find("fluent-text-field");
-        
-        // Assert
-        Assert.Equal("yyyy", textfield.Attributes["placeholder"].Value);
-    }
 
+        // Assert
+        Assert.Equal("yyyy", textfield.Attributes["placeholder"]!.Value);
+    }
 
     [Fact]
     public void FluentCalendar_DisabledDate()

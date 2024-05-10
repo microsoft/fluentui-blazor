@@ -1,5 +1,14 @@
 .fluent-profile-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
 }
+
+    .fluent-profile-menu:hover {
+        background-color: var(--fluent-profile-menu-hover);
+    }
 
     .fluent-profile-menu ::deep > .fluent-persona > .name {
         display: none;

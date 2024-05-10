@@ -1,3 +1,39 @@
+## v4.7.2
+
+### Demo site and documentation 
+- [Docs] New Video and PageTitle ([#1925](https://github.com/microsoft/fluentui-blazor/pull/1925))
+
+### Components
+- [AppBar] Allow for omitting Href on AppBarItems and don't show active status when Href is null or not specified ([#1976](https://github.com/microsoft/fluentui-blazor/pull/1976))
+- [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
+- [Badge] Do not use a div (block element) in an inline element ([#1921](https://github.com/microsoft/fluentui-blazor/pull/1921))
+- [DataGrid] Add ShowHover parameter and implement row hover effect ([#1939](https://github.com/microsoft/fluentui-blazor/pull/1939))
+- [DataGrid] Apply ItemSize (CSS height) to cells when grid is virtualized.  ([#1936](https://github.com/microsoft/fluentui-blazor/pull/1936))
+- [DataGrid] Change column width when using generated value  ([#1955](https://github.com/microsoft/fluentui-blazor/pull/1955))
+- [DataGrid] Give empty row an id ([#2001](https://github.com/microsoft/fluentui-blazor/pull/2001))
+- [DataGrid] Multiselect feature, adding a `SelectColumn` ([#1952](https://github.com/microsoft/fluentui-blazor/pull/1952))
+- [DataGrid] Revert setting height on DataGrid header cell. Was not necessary and lead to issues on Safari
+- [InputLabel] Add Orientation parameter  ([#1994](https://github.com/microsoft/fluentui-blazor/pull/1994))
+- [Lists] Also set Value (and InternalValue) when SelectedOption is set ([#1970](https://github.com/microsoft/fluentui-blazor/pull/1970))
+- [MessageBar] Supply a default value for the message intent when using MessageOptions ([#1993](https://github.com/microsoft/fluentui-blazor/pull/1993))
+- [NavMenu] Fix keyboard navigation ([#1950](https://github.com/microsoft/fluentui-blazor/pull/1950))
+- [NavMenu] Make sure text is shown when in mobile view in SSR. 
+- [ProfileMenu] Remove ProfileMenu from demo site header and change examples ([#1924](https://github.com/microsoft/fluentui-blazor/pull/1924))
+- [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
+- [Tabs] Prevent error 'An item with the same key has already been added ([#2006](https://github.com/microsoft/fluentui-blazor/pull/2006))
+
+
+### Miscellaneous
+- [Reboot] Add body class (to body element declaration)
+- [Templates] Change css so body-content height is set and scrollable ([#1981](https://github.com/microsoft/fluentui-blazor/pull/1981))
+- [Templates] Change header gutter to keep content out of nav icon area when width < 600px
+
+## v4.7.1
+
+### Components
+- [Wizard] Add StepSequence attribute ([#1909](https://github.com/microsoft/fluentui-blazor/pull/1909))
+- [DataGrid] Fix GridTemplateColumns initialization was done in the wrong place (related to new Width option for columns
+*
 ## v4.7.0
 
 ### Breaking change
@@ -35,27 +71,27 @@
 ### Icons
 - Update to Fluent UI System Icons 1.1.237 
 
-    **What's new (Name / Size(s) / Variant(s))**
-    - Book / 48 / Filled & Regular
-    - Camera Arrow Up / 16, 20, 24 / Filled & Regular
-    - Chat Settings / 16 / Filled & Regular
-    - Circle Highlight / 20, 24 / Filled & Regular
-    - Circle Hint / 24 / Filled & Regular
-    - Circle Shadow / 20, 24 / Filled & Regular
-    - Content View / 16 / Filled & Regular
-    - Double Tap Swipe Down / 16 / Filled & Regular
-    - Double Tap Swipe Up / 16 / Filled & Regular
-    - Flash Sparkle / 16 / Filled & Regular
-    - Location Ripple / 12 / Filled & Regular
-    - Search Square / 16 / Filled & Regular
-    - Settings Chat / 16 / Filled & Regular
-    - Share Multiple / 16, 20, 24 / Filled & Regular
-    - Slide Play / 20, 24 / Filled & Regular
+	**What's new (Name / Size(s) / Variant(s))**
+	- Book / 48 / Filled & Regular
+	- Camera Arrow Up / 16, 20, 24 / Filled & Regular
+	- Chat Settings / 16 / Filled & Regular
+	- Circle Highlight / 20, 24 / Filled & Regular
+	- Circle Hint / 24 / Filled & Regular
+	- Circle Shadow / 20, 24 / Filled & Regular
+	- Content View / 16 / Filled & Regular
+	- Double Tap Swipe Down / 16 / Filled & Regular
+	- Double Tap Swipe Up / 16 / Filled & Regular
+	- Flash Sparkle / 16 / Filled & Regular
+	- Location Ripple / 12 / Filled & Regular
+	- Search Square / 16 / Filled & Regular
+	- Settings Chat / 16 / Filled & Regular
+	- Share Multiple / 16, 20, 24 / Filled & Regular
+	- Slide Play / 20, 24 / Filled & Regular
  
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Book Add / 28 / Filled & Regular
-    - Book Contacts / 20, 24, 28, 32 / Filled & Regular
-    - Book / 28 / Filled & Regular   
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Book Add / 28 / Filled & Regular
+	- Book Contacts / 20, 24, 28, 32 / Filled & Regular
+	- Book / 28 / Filled & Regular   
 
 ## V4.6.1
 
@@ -84,30 +120,30 @@
 ### Icons
 - Update to Fluent UI System Icons 1.1.234 ([#1823](https://github.com/microsoft/fluentui-blazor/pull/1823))
 
-    **What's new (Name / Size(s) / Variant(s))**
-    - Apps Settings / 16, 20 / Filled & Regular
-    - Apps Shield / 16, 20 / Filled & Regular
-    - Arrow Upload / 32 / Filled & Regular
-    - Calendar Edit / 32 / Filled & Regular
-    - Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
-    - Haptic Strong / 16, 20, 24 / Filled & Regular
-    - Haptic Weak / 16, 20, 24 / Filled & Regular
-    - Hexagon Sparkle / 20, 24 / Filled & Regular
-    - Mail Edit / 32 / Filled & Regular
-    - Password Clock / 48 / Filled & Regular
-    - Password Reset / 48 / Filled & Regular
-    - Password / 24, 32, 48 / Filled & Regular
-    - People Eye / 16, 20 / Filled & Regular
-    - Pin Globe / 16, 20 / Filled & Regular
-    - Run / 28, 32, 48 / Filled & Regular
-    - Tab Group / 16, 20, 24 / Filled & Regular
+	**What's new (Name / Size(s) / Variant(s))**
+	- Apps Settings / 16, 20 / Filled & Regular
+	- Apps Shield / 16, 20 / Filled & Regular
+	- Arrow Upload / 32 / Filled & Regular
+	- Calendar Edit / 32 / Filled & Regular
+	- Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
+	- Haptic Strong / 16, 20, 24 / Filled & Regular
+	- Haptic Weak / 16, 20, 24 / Filled & Regular
+	- Hexagon Sparkle / 20, 24 / Filled & Regular
+	- Mail Edit / 32 / Filled & Regular
+	- Password Clock / 48 / Filled & Regular
+	- Password Reset / 48 / Filled & Regular
+	- Password / 24, 32, 48 / Filled & Regular
+	- People Eye / 16, 20 / Filled & Regular
+	- Pin Globe / 16, 20 / Filled & Regular
+	- Run / 28, 32, 48 / Filled & Regular
+	- Tab Group / 16, 20, 24 / Filled & Regular
 
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Arrow Upload / 24 / Filled & Regular
-    - Calendar Edit / 16, 20, 24 / Filled & Regular
-    - Mail Read / 20 / Filled & Regular
-    - Password / 24 / Filled & Regular
-    - Run / 16, 20, 24 / Filled & Regular
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Arrow Upload / 24 / Filled & Regular
+	- Calendar Edit / 16, 20, 24 / Filled & Regular
+	- Mail Read / 20 / Filled & Regular
+	- Password / 24 / Filled & Regular
+	- Run / 16, 20, 24 / Filled & Regular
 
 ## V4.6.0
 
@@ -177,30 +213,30 @@
 ### Icons
 - Update to Fluent UI System Icons 1.1.234 ([#1823](https://github.com/microsoft/fluentui-blazor/pull/1823))
 
-    **What's new (Name / Size(s) / Variant(s))**
-    - Apps Settings / 16, 20 / Filled & Regular
-    - Apps Shield / 16, 20 / Filled & Regular
-    - Arrow Upload / 32 / Filled & Regular
-    - Calendar Edit / 32 / Filled & Regular
-    - Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
-    - Haptic Strong / 16, 20, 24 / Filled & Regular
-    - Haptic Weak / 16, 20, 24 / Filled & Regular
-    - Hexagon Sparkle / 20, 24 / Filled & Regular
-    - Mail Edit / 32 / Filled & Regular
-    - Password Clock / 48 / Filled & Regular
-    - Password Reset / 48 / Filled & Regular
-    - Password / 24, 32, 48 / Filled & Regular
-    - People Eye / 16, 20 / Filled & Regular
-    - Pin Globe / 16, 20 / Filled & Regular
-    - Run / 28, 32, 48 / Filled & Regular
-    - Tab Group / 16, 20, 24 / Filled & Regular
+	**What's new (Name / Size(s) / Variant(s))**
+	- Apps Settings / 16, 20 / Filled & Regular
+	- Apps Shield / 16, 20 / Filled & Regular
+	- Arrow Upload / 32 / Filled & Regular
+	- Calendar Edit / 32 / Filled & Regular
+	- Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
+	- Haptic Strong / 16, 20, 24 / Filled & Regular
+	- Haptic Weak / 16, 20, 24 / Filled & Regular
+	- Hexagon Sparkle / 20, 24 / Filled & Regular
+	- Mail Edit / 32 / Filled & Regular
+	- Password Clock / 48 / Filled & Regular
+	- Password Reset / 48 / Filled & Regular
+	- Password / 24, 32, 48 / Filled & Regular
+	- People Eye / 16, 20 / Filled & Regular
+	- Pin Globe / 16, 20 / Filled & Regular
+	- Run / 28, 32, 48 / Filled & Regular
+	- Tab Group / 16, 20, 24 / Filled & Regular
 
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Arrow Upload / 24 / Filled & Regular
-    - Calendar Edit / 16, 20, 24 / Filled & Regular
-    - Mail Read / 20 / Filled & Regular
-    - Password / 24 / Filled & Regular
-    - Run / 16, 20, 24 / Filled & Regular
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Arrow Upload / 24 / Filled & Regular
+	- Calendar Edit / 16, 20, 24 / Filled & Regular
+	- Mail Read / 20 / Filled & Regular
+	- Password / 24 / Filled & Regular
+	- Run / 16, 20, 24 / Filled & Regular
 
 ## V4.6.0
 
@@ -393,24 +429,24 @@ Updated: DataGrid - Loading and LoadingContent parameters
 
 
 - Update Fluent UI System Icons to 1.1.226
-    **What's new (Name / Size(s) / Variant(s))**
-    - Building Lighthouse / 24, 32, 48 / Filled & Regular
-    - Calendar Link / 24, 28 / Filled & Regular
-    - Calendar Video / 24, 28 / Filled & Regular
-    - Cookies / 16, 28, 32, 48 / Filled & Regular
-    - Hard Drive / 28, 48 / Filled & Regular
-    - Laptop Settings / 20, 24, 32 / Filled & Regular
-    - Laptop / 32 / Filled & Regular
-    - People Audience / 32 / Filled & Regular
-    - Shopping Bag Add / 20, 24 / Filled & Regular
-    - Street Sign / 20, 24 / Filled & Regular
-    - Video Link / 24, 28 / Filled & Regular
+	**What's new (Name / Size(s) / Variant(s))**
+	- Building Lighthouse / 24, 32, 48 / Filled & Regular
+	- Calendar Link / 24, 28 / Filled & Regular
+	- Calendar Video / 24, 28 / Filled & Regular
+	- Cookies / 16, 28, 32, 48 / Filled & Regular
+	- Hard Drive / 28, 48 / Filled & Regular
+	- Laptop Settings / 20, 24, 32 / Filled & Regular
+	- Laptop / 32 / Filled & Regular
+	- People Audience / 32 / Filled & Regular
+	- Shopping Bag Add / 20, 24 / Filled & Regular
+	- Street Sign / 20, 24 / Filled & Regular
+	- Video Link / 24, 28 / Filled & Regular
 
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Cube / 12 / Filled & Regular
-    - Laptop Multiple / 24 / Filled & Regular
-    - Laptop / 24, 28 / Filled & Regular
-    - Prohibited Multiple / 28 / Filled & Regular
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Cube / 12 / Filled & Regular
+	- Laptop Multiple / 24 / Filled & Regular
+	- Laptop / 24, 28 / Filled & Regular
+	- Prohibited Multiple / 28 / Filled & Regular
 
 - Update Fluent UI System Icons to 1.1.225
 

@@ -8,6 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
+    public static string AccessibilityItemIndexOfCount = "{0} ({1} of {2})";
     public static string AccessibilitySelected = "Selected {0}";
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
@@ -467,6 +468,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         ValueText = string.Empty;
         await ValueTextChanged.InvokeAsync(ValueText);
         await RaiseChangedEventsAsync();
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", Id);
+        }
     }
 
     /// <summary />
@@ -519,7 +525,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         // Selected {0}
         if (IsMultiSelectOpened && SelectableItem != null)
         {
-            return GetOptionText(SelectableItem) ?? string.Empty;
+            var item = GetOptionText(SelectableItem) ?? string.Empty;
+
+            if (Items != null && SelectableItem != null)
+            {
+                var count = Items.Count();
+                var current = Items.ToList().IndexOf(SelectableItem) + 1;
+                return string.Format(AccessibilityItemIndexOfCount, item, current, count);
+            }
+
+            return item;
         }
 
         // Selected items

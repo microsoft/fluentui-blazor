@@ -11,14 +11,14 @@
         min-height: 32px;
     }
 
-        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:hover {
-            background-color: var(--neutral-fill-stealth-hover) !important;
-        }
-
         /* This first fluent-option will be selected when user presses Enter */
         .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled])[selectable] {
-            background: var(--neutral-fill-secondary-hover);
+            border: var(--neutral-fill-strong-hover) solid 1px;
         }
+
+            .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled])[selectable]::before {
+                background: unset !important;
+            }
 
 .fluent-autocomplete-multiselect ::deep fluent-text-field::part(start) {
     max-width: calc(100% - 80px);
