@@ -200,8 +200,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         {
             int i = 0;
             builder.OpenComponent<FluentTreeItem>(i++);
+            builder.AddAttribute(i++, "Id", item.Id ?? Identifier.NewId());
             builder.AddAttribute(i++, "Items", item.Items);
-            builder.AddAttribute(i++, "Text", owner.ItemTemplate == null ? item.Text : string.Empty);
+            builder.AddAttribute(i++, "Text", item.Text);
             builder.AddAttribute(i++, "Disabled", item.Disabled);
             builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
             builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);

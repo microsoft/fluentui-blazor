@@ -8813,12 +8813,19 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.LazyLoadItems">
             <summary>
-            Gets or sets whether the tree should use lazy loading when expanding nodes
+            Can only be used when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> is defined.
+            Gets or sets whether the tree should use lazy loading when expanding nodes.
+            If True, the tree will only render the children of a node when it is expanded and will remove them when it is collapsed.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem">
             <summary>
             Interface for tree view items
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id">
+            <summary>
+            Gets or sets the unique identifier of the tree item.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text">
@@ -8854,6 +8861,11 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem">
             <summary>
             Implementation of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Id">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id" />
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Text">

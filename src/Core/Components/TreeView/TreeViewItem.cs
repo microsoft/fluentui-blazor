@@ -8,7 +8,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Implementation of <see cref="ITreeViewItem"/>
 /// </summary>
 public record TreeViewItem : ITreeViewItem
-{
+{ 
+    /// <summary>
+    /// <inheritdoc cref="ITreeViewItem.Id" />
+    /// </summary>
+    public string? Id { get; set; }
+
     /// <summary>
     /// <inheritdoc cref="ITreeViewItem.Text" />
     /// </summary>
