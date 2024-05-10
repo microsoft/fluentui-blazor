@@ -1,4 +1,4 @@
-﻿<FluentTreeView Items="@Items" LazyLoadItems="true">
+﻿<FluentTreeView Items="@Items" @bind-CurrentSelected="@CurrentSelected" LazyLoadItems="true">
     <ItemTemplate>
         @context.Text
         <span style="color: var(--accent-fill-rest); margin: 0 4px;">
@@ -7,10 +7,17 @@
     </ItemTemplate>
 </FluentTreeView>
 
-Total items: @Count
+<div>
+    Total items: @Count
+</div>
+<div>
+    Selected Item: @CurrentSelected?.Text
+</div>
 
 @code
 {
+    private FluentTreeItem? CurrentSelected;
+
     private Icon IconCollapsed = new Icons.Regular.Size20.Folder();
     private Icon IconExpanded = new Icons.Regular.Size20.FolderOpen();
 
@@ -23,7 +30,7 @@ Total items: @Count
     }
 
     // Recursive method to create tree
-    public TreeViewItem CreateTree(int maxLevel, int maxItemsPerLevel, int level = 0)
+    private TreeViewItem CreateTree(int maxLevel, int maxItemsPerLevel, int level = 0)
     {
         Count++;
 
@@ -36,10 +43,11 @@ Total items: @Count
                 IconCollapsed = IconCollapsed,
                 IconExpanded = IconExpanded,
                 Items = level == maxLevel
-                      ? null
-                      : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
-                                                         .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1)))
+                          ? null
+                          : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
+                                                             .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1))),
             };
+
         return treeItem;
     }
 }

@@ -13,7 +13,7 @@
                   @onexpandedchange="@HandleExpandedChangeAsync"
                   @attributes="AdditionalAttributes">
 
-    @if (!string.IsNullOrWhiteSpace(Text))
+    @if (Owner.ItemTemplate == null && !string.IsNullOrWhiteSpace(Text))
     {
         <span class="treeitem-text">@Text</span>
     }

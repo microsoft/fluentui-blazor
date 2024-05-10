@@ -7,12 +7,22 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Implementation of <see cref="ITreeViewItem"/>
 /// </summary>
-public record TreeViewItem : ITreeViewItem
-{ 
+public class TreeViewItem : ITreeViewItem
+{
+    /// <summary>
+    /// Returns a <see cref="TreeViewItem"/> that represents a loading state.
+    /// </summary>
+    public static TreeViewItem LoadingTreeViewItem => new TreeViewItem() { Text = FluentTreeView.LoadingMessage, Disabled = true };
+
+    /// <summary>
+    /// Returns an array with a single <see cref="TreeViewItem"/> that represents a loading state.
+    /// </summary>
+    public static IEnumerable<TreeViewItem> LoadingTreeViewItems => new[] { new TreeViewItem() { Text = FluentTreeView.LoadingMessage, Disabled = true } };
+
     /// <summary>
     /// <inheritdoc cref="ITreeViewItem.Id" />
     /// </summary>
-    public string? Id { get; set; }
+    public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
     /// <inheritdoc cref="ITreeViewItem.Text" />
@@ -38,4 +48,9 @@ public record TreeViewItem : ITreeViewItem
     /// <inheritdoc cref="ITreeViewItem.Disabled" />
     /// </summary>
     public bool Disabled { get; set; } = false;
+
+    /// <summary>
+    /// <inheritdoc cref="ITreeViewItem.OnExpandedAsync" />
+    /// </summary>
+    public Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
 }

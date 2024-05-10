@@ -1,0 +1,43 @@
+﻿<FluentTreeView Items="@Items" @bind-CurrentSelected="@CurrentSelected" />
+
+<div>
+    Selected Item: @CurrentSelected?.Text
+</div>
+
+@code
+{
+    private FluentTreeItem? CurrentSelected;
+    private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
+
+    protected override void OnInitialized()
+    {
+        Items = GetItems();
+    }
+
+    private Task OnExpandedAsync(TreeViewItemExpandedEventArgs e)
+    {
+        if (e.Expanded)
+        {
+            e.CurrentItem.Items = GetItems();
+        }
+        else
+        {
+            // Remove sub-items and add a "Fake" item to simulate the [+]
+            e.CurrentItem.Items = TreeViewItem.LoadingTreeViewItems;
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private IEnumerable<ITreeViewItem> GetItems()
+    {
+        var nbItems = Random.Shared.Next(3, 9);
+
+        return Enumerable.Range(1, nbItems).Select(i => new TreeViewItem()
+            {
+                Text = $"Item {Random.Shared.Next(1, 9999)}",
+                OnExpandedAsync = OnExpandedAsync,
+                Items = TreeViewItem.LoadingTreeViewItems, // "Fake" sub-item to simulate the [+]
+            }).ToArray();
+    }
+}

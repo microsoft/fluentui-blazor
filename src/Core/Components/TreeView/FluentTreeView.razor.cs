@@ -31,6 +31,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Called when <see cref="CurrentSelected"/> changes.
+    /// You cannot update <see cref="FluentTreeItem"/> properties.
     /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem?> CurrentSelectedChanged { get; set; }
@@ -44,6 +45,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     /// <summary>
     /// Called whenever <see cref="FluentTreeItem.Selected"/> changes on an
     /// item within the tree.
+    /// You cannot update <see cref="FluentTreeItem"/> properties.
     /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem> OnSelectedChange { get; set; }
@@ -51,6 +53,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     /// <summary>
     /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an
     /// item within the tree.
+    /// You cannot update <see cref="FluentTreeItem"/> properties.
     /// </summary>
     [Parameter]
     public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
@@ -87,6 +90,17 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         {
             await OnExpandedChange.InvokeAsync(item);
         }
+
+        if (Items != null)
+        {
+            var currentTreeItem = FindItemById(Items, item.Id);
+
+            if (currentTreeItem != null && currentTreeItem.OnExpandedAsync != null)
+            {
+                await currentTreeItem.OnExpandedAsync(new TreeViewItemExpandedEventArgs(currentTreeItem, item.Expanded));
+                StateHasChanged();
+            }
+        }
     }
 
     internal async Task ItemSelectedChangeAsync(FluentTreeItem item)
@@ -111,8 +125,6 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
     private async Task HandleCurrentSelectedChangeAsync(TreeChangeEventArgs args)
     {
-        Console.WriteLine("HandleCurrentSelectedChangeAsync");
-
         if (!_allItems.TryGetValue(args.AffectedId!, out FluentTreeItem? treeItem))
         {
             return;
@@ -152,4 +164,33 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         _disposed = true;
     }
 
+    /// <summary>
+    /// Search for an item by its id in the tree
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    private ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
+    {
+        if (items == null)
+        {
+            return null;
+        }
+
+        foreach (var item in items)
+        {
+            if (item.Id == id)
+            {
+                return item;
+            }
+
+            var nestedItem = FindItemById(item.Items, id);
+            if (nestedItem != null)
+            {
+                return nestedItem;
+            }
+        }
+
+        return null;
+    }
 }

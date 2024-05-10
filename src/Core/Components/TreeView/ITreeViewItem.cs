@@ -12,7 +12,7 @@ public interface ITreeViewItem
     /// <summary>
     /// Gets or sets the unique identifier of the tree item.
     /// </summary>
-    string? Id { get; set; }
+    string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the text of the tree item.
@@ -43,4 +43,9 @@ public interface ITreeViewItem
     /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
     /// </summary>
     bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the action to be performed when the tree item is expanded or collapsed
+    /// </summary>
+    Func<TreeViewItemExpandedEventArgs, Task>? OnExpandedAsync { get; set; }
 }
