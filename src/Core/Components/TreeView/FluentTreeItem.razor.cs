@@ -97,7 +97,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     /// Gets or sets the owning FluentTreeView
     /// </summary>
     [CascadingParameter]
-    private FluentTreeView Owner { get; set; } = default!;
+    private FluentTreeView? Owner { get; set; }
 
     /// <summary>
     /// Returns <see langword="true"/> if the tree item is collapsed,
@@ -145,7 +145,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Owner.Register(this);
+
+        Owner?.Register(this);
+
         if (InitiallyExpanded && !Expanded)
         {
             Expanded = true;
@@ -154,6 +156,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
                 await ExpandedChanged.InvokeAsync(true);
             }
         }
+
         if (InitiallySelected)
         {
             await SetSelectedAsync(true);
@@ -174,9 +177,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             await ExpandedChanged.InvokeAsync(Expanded);
         }
 
-        if (Owner is FluentTreeView tree)
+        if (Owner != null)
         {
-            await tree.ItemExpandedChangeAsync(this);
+            await Owner.ItemExpandedChangeAsync(this);
         }
     }
 
@@ -187,14 +190,14 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             return;
         }
 
-        if (Owner.Items == null)
+        if (Owner?.Items == null)
         {
             await SetSelectedAsync(args.Selected.Value);
         }
 
-        if (Owner is FluentTreeView tree)
+        if (Owner != null)
         {
-            await tree.ItemSelectedChangeAsync(this);
+            await Owner.ItemSelectedChangeAsync(this);
         }
     }
 
@@ -219,11 +222,6 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             }
 
             builder.CloseComponent();
-
-            //builder.AddAttribute(i++, "Selected", Selected);
-            //builder.AddAttribute(i++, "SelectedChanged", EventCallback.Factory.Create<bool>(this, HandleSelectedChangeAsync));
-            //builder.AddAttribute(i++, "InitiallyExpanded", InitiallyExpanded);
-            //builder.AddAttribute(i++, "InitiallySelected", InitiallySelected); builder.CloseComponent();
         };
 
         return fluentTreeItem;

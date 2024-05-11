@@ -13,7 +13,7 @@
                   @onexpandedchange="@HandleExpandedChangeAsync"
                   @attributes="AdditionalAttributes">
 
-    @if (Owner.ItemTemplate == null && !string.IsNullOrWhiteSpace(Text))
+    @if (Owner?.ItemTemplate == null && !string.IsNullOrWhiteSpace(Text))
     {
         <span class="treeitem-text">@Text</span>
     }
@@ -25,7 +25,7 @@
 
     @ChildContent
 
-    @if (Items != null)
+    @if (Owner != null && Items != null)
     {
         @if (Owner.LazyLoadItems && Items.Any() && !Expanded)
         {

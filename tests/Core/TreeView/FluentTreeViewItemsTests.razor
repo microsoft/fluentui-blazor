@@ -75,4 +75,32 @@
         Assert.Equal("id22", selectedItem?.Id);
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentTreeViewItems_Icons()
+    {
+        Items[0].IconExpanded = IconExpanded;
+        Items[0].IconCollapsed = IconCollapsed;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" LazyLoadItems="true" />);
+
+        // Assert
+        Assert.Single(cut.FindAll("svg"));
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_Disabled()
+    {
+        Items[0].Items!.ElementAt(1).Disabled = true;
+        Items[1].Disabled = true;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Assert
+        Assert.Equal(2, cut.FindAll("fluent-tree-item[disabled]").Count);
+        cut.Verify();
+    }
 }
