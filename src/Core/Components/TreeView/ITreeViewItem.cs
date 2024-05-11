@@ -44,6 +44,9 @@ public interface ITreeViewItem
     /// </summary>
     bool Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the tree item is expanded.
+    /// </summary>
     bool Expanded { get; set; }
 
     /// <summary>

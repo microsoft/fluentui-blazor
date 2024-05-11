@@ -8886,6 +8886,11 @@
             See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Expanded">
+            <summary>
+            Gets or sets a value indicating whether the tree item is expanded.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync">
             <summary>
             Gets or sets the action to be performed when the tree item is expanded or collapsed

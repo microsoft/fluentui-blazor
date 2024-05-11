@@ -1,12 +1,12 @@
-﻿<FluentTreeView Items="@Items" @bind-CurrentSelected="@CurrentSelected" />
+﻿<FluentTreeView Items="@Items" @bind-SelectedItem="@SelectedItem" />
 
 <div>
-    Selected Item: @CurrentSelected?.Text
+    Selected Item: @SelectedItem?.Text
 </div>
 
 @code
 {
-    private FluentTreeItem? CurrentSelected;
+    private ITreeViewItem? SelectedItem;
     private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
 
     protected override void OnInitialized()
