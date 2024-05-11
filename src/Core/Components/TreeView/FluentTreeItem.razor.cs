@@ -160,7 +160,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         }
     }
 
-    private async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
+    internal async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
     {
         if (args.AffectedId != Id || args.Expanded is null || args.Expanded == Expanded)
         {
@@ -180,7 +180,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         }
     }
 
-    private async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
+    internal async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
     {
         if (args.AffectedId != Id || args.Selected is null || args.Selected == Selected)
         {

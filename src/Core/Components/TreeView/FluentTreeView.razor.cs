@@ -121,7 +121,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
                     await currentTreeItem.OnExpandedAsync(new TreeViewItemExpandedEventArgs(currentTreeItem, item.Expanded));
                 }
                 
-                StateHasChanged();
+                await InvokeAsync(StateHasChanged);
             }
         }
     }

@@ -13,6 +13,34 @@
     }
 
     [Fact]
+    public void FluentTreeViewItems_LazyLoading()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" LazyLoadItems="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_LazyLoading_Expanded()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" LazyLoadItems="true" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>();
+        await first.Instance.HandleExpandedChangeAsync(new TreeChangeEventArgs()
+            {
+                AffectedId = "id1",
+                Expanded = true,
+            });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentTreeViewItems_SelectedItem()
     {
         // Arrange && Act
@@ -38,7 +66,6 @@
         await tree.Instance.HandleCurrentSelectedChangeAsync(new TreeChangeEventArgs()
             {
                 AffectedId = "id22",
-                Expanded = false,
                 Selected = true,
             });
 
