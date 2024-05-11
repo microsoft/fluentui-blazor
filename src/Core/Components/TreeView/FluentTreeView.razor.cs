@@ -169,10 +169,14 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
                 await CurrentSelectedChanged.InvokeAsync(CurrentSelected);
             }
 
-            if (Items != null && SelectedItemChanged.HasDelegate)
+            if (Items != null)
             {
-                var currentTreeItem = args.Selected == true ? FindItemById(Items, args.AffectedId) : null;
-                await SelectedItemChanged.InvokeAsync(currentTreeItem);
+                SelectedItem = args.Selected == true ? FindItemById(Items, args.AffectedId) : null;
+
+                if (SelectedItemChanged.HasDelegate)
+                {
+                    await SelectedItemChanged.InvokeAsync(SelectedItem);
+                }
             }
         }));
     }

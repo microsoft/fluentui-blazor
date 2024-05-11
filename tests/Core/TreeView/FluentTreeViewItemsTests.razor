@@ -42,7 +42,10 @@
                 Selected = true,
             });
 
+        tree.Render();
+
         // Assert
         Assert.Equal("id22", selectedItem?.Id);
+        cut.Verify();
     }
 }
