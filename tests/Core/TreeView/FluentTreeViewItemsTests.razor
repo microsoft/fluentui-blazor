@@ -1,0 +1,48 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentTreeViewItems_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeViewItems_SelectedItem()
+    {
+        // Arrange && Act
+        var selectedItem = Items.ElementAt(0).Items?.ElementAt(1);  // Item 1.2
+        var cut = Render(@<FluentTreeView Items="@Items" SelectedItem="@selectedItem" />);
+
+        var item12 = cut.Find("fluent-tree-item[aria-label='Item 1.2']");
+
+        // Assert
+        Assert.True(item12.HasAttribute("selected"));
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_SelectedItem_Change()
+    {
+        // Arrange
+        var selectedItem = Items.ElementAt(0).Items?.ElementAt(1);  // Item 1.2
+        var cut = Render(@<FluentTreeView Items="@Items" @bind-SelectedItem="@selectedItem" />);
+
+        // Act
+        var tree = cut.FindComponent<FluentTreeView>();
+        await tree.Instance.HandleCurrentSelectedChangeAsync(new TreeChangeEventArgs()
+            {
+                AffectedId = "id22",
+                Expanded = false,
+                Selected = true,
+            });
+
+        // Assert
+        Assert.Equal("id22", selectedItem?.Id);
+    }
+}

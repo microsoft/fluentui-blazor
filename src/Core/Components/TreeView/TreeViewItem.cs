@@ -20,6 +20,38 @@ public class TreeViewItem : ITreeViewItem
     public static IEnumerable<TreeViewItem> LoadingTreeViewItems => new[] { new TreeViewItem() { Text = FluentTreeView.LoadingMessage, Disabled = true } };
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TreeViewItem"/> class.
+    /// </summary>
+    public TreeViewItem()
+    {
+        
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TreeViewItem"/> class.
+    /// </summary>
+    /// <param name="text">Text of the tree item</param>
+    /// <param name="items">Sub-items of the tree item.</param>
+    public TreeViewItem(string text, IEnumerable<ITreeViewItem>? items = null)
+    {
+        Text = text;
+        Items = items;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TreeViewItem"/> class.
+    /// </summary>
+    /// <param name="id">Unique identifier of the tree item</param>
+    /// <param name="text">Text of the tree item</param>
+    /// <param name="items">Sub-items of the tree item.</param>
+    public TreeViewItem(string id, string text, IEnumerable<ITreeViewItem>? items = null)
+    {
+        Id = id;
+        Text = text;
+        Items = items;
+    }
+
+    /// <summary>
     /// <inheritdoc cref="ITreeViewItem.Id" />
     /// </summary>
     public string Id { get; set; } = Identifier.NewId();

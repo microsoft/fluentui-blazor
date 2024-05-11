@@ -8911,6 +8911,26 @@
             Returns an array with a single <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> that represents a loading state.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor(System.String,System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+            <param name="text">Text of the tree item</param>
+            <param name="items">Sub-items of the tree item.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+            <param name="id">Unique identifier of the tree item</param>
+            <param name="text">Text of the tree item</param>
+            <param name="items">Sub-items of the tree item.</param>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Id">
             <summary>
             <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id" />
