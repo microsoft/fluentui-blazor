@@ -103,4 +103,64 @@
         Assert.Equal(2, cut.FindAll("fluent-tree-item[disabled]").Count);
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentTreeViewItems_ItemTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentTreeView Items="@Items">
+        <ItemTemplate>
+            <b>@context.Text</b>
+        </ItemTemplate>
+    </FluentTreeView>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_OnExpanded()
+    {
+        // Arrange
+        TreeViewItemExpandedEventArgs expandedArgs = default!;
+        Items[0].OnExpandedAsync = (e) =>
+        {
+            expandedArgs = e;
+            return Task.CompletedTask;
+        };
+
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>();
+        await first.Instance.HandleExpandedChangeAsync(new TreeChangeEventArgs()
+            {
+                AffectedId = "id1",
+                Expanded = true,
+            });
+
+        // Assert
+        Assert.Equal("Item 1", expandedArgs.CurrentItem.Text);
+        Assert.True(expandedArgs.Expanded);
+    }
+
+    [Fact]
+    public async Task FluentTreeViewItems_Selected()
+    {
+        // Arrange
+        var cut = Render(@<FluentTreeView Items="@Items" />);
+
+        // Act
+        var first = cut.FindComponent<FluentTreeItem>();
+        await first.Instance.HandleSelectedChangeAsync(new TreeChangeEventArgs()
+            {
+                AffectedId = "id1",
+                Selected = true,
+            });
+
+        // Assert
+        cut.Verify();
+    }
 }
