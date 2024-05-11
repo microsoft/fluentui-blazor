@@ -163,4 +163,27 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentTreeViewItems_LoadingObjects()
+    {
+        // Arrange && Act
+        var loadingItem = TreeViewItem.LoadingTreeViewItem;
+        var loadingItems = TreeViewItem.LoadingTreeViewItems;
+        var item1 = new TreeViewItem();
+        var item2 = new TreeViewItem("Item 1", new[] { new TreeViewItem("Item 1.1") });
+
+        // Assert
+        Assert.Equal(FluentTreeView.LoadingMessage, loadingItem.Text);
+        Assert.True(loadingItem.Disabled);
+
+        Assert.Single(loadingItems);
+        Assert.Equal(FluentTreeView.LoadingMessage, loadingItems.First().Text);
+        Assert.True(loadingItems.First().Disabled);
+
+        Assert.Empty(item1.Text);
+
+        Assert.Equal("Item 1", item2.Text);
+        Assert.Equal("Item 1.1", item2.Items?.First().Text);
+    }
 }
