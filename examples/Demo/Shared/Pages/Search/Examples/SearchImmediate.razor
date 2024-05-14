@@ -1,6 +1,4 @@
-﻿@using System.Timers;
-
-<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
 
     @* Immediate Delay *@
     <FluentNumberField @bind-Value="_immediateDelay"
@@ -14,7 +12,7 @@
     @* Search Box *@
     <FluentSearch @bind-Value="_searchValue"
                   @bind-Value:after="OnSearch"
-                  Immediate
+                  Immediate="true"
                   ImmediateDelay="_immediateDelay"
                   Placeholder="Search for name" />
 
