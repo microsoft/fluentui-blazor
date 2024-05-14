@@ -32,7 +32,8 @@ public partial class FluentDatePicker : FluentCalendarBase
     [Parameter]
     public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
-    [Parameter] public EventCallback<bool> OnCalendarOpen { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnCalendarOpen { get; set; }
 
     public bool Opened { get; set; } = false;
 
@@ -72,8 +73,7 @@ public partial class FluentDatePicker : FluentCalendarBase
         await SetCurrentValueAsync(updatedValue);
     }
 
-    protected override bool TryParseValueFromString(string? value, out DateTime? result,
-        [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (View == CalendarViews.Years && int.TryParse(value, out var year))
         {
