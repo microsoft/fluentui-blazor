@@ -70,7 +70,7 @@ public partial class FluentDatePicker : FluentCalendarBase
             ? (value ?? DateTime.MinValue).Date + Value?.TimeOfDay
             : value;
 
-        await SetCurrentValueAsync(updatedValue);
+        await OnSelectedDateHandlerAsync(updatedValue);
     }
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)

@@ -151,7 +151,7 @@ public partial class FluentCalendar : FluentCalendarBase
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
-            await SetCurrentValueAsync(value);
+            await OnSelectedDateHandlerAsync(value);
         }
     }
 
@@ -161,7 +161,7 @@ public partial class FluentCalendar : FluentCalendarBase
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
-            await SetCurrentValueAsync(value);
+            await OnSelectedDateHandlerAsync(value);
         }
     }
 

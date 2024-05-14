@@ -47,9 +47,22 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     /// <summary />
     protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value)
     {
+        if (CheckIfSelectedValueHasChanged && Value == value)
+        {
+            return;
+        }
+
         if (!ReadOnly)
         {
-            await SetCurrentValueAsync(value);
+            Value = value;
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(value);
+            }
+            if (FieldBound)
+            {
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
+            }
         }
     }
 
