@@ -16,9 +16,9 @@
             border: var(--neutral-fill-strong-hover) solid 1px;
         }
 
-            .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled])[selectable]::before {
-                background: unset !important;
-            }
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable]::before {
+            background: unset !important;
+        }
 
 .fluent-autocomplete-multiselect ::deep fluent-text-field::part(start) {
     max-width: calc(100% - 80px);
