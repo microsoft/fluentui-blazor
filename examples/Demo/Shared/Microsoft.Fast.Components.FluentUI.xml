@@ -3437,14 +3437,11 @@
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnParametersSet">
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnKeyDownAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
             <summary />
         </member>
-        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.ContainsSVG">
-            <summary>
-            Returns true if the icon contains a SVG content.
-            </summary>
-            <returns></returns>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnParametersSet">
+            <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.GetIconColor">
             <summary>
@@ -4051,7 +4048,8 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.Label">
             <summary>
-            Gets or sets the text to be displayed as a label, just above the component.
+            Gets or sets the text to label the input.
+            This is usually displayd just above the component.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.Required">
@@ -4068,6 +4066,13 @@
             <summary>
             Gets or sets the text to be used as the `aria-label` attribute of the input.
             If not set, the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.Label"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.Orientation">
+            <summary>
+            Gets or sets the orientation of the label with respect to the input.
+            horizontal: label is displayed to the left of the input.
+            vertical: label is displayed above the input.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentInputLabel.AdditionalAttributes">
@@ -4165,7 +4170,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <seealso cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Appearance"/>
+            Gets or sets the visual appearance. See <seealso cref="!:AspNetCore.Components.Appearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.AutoComplete">
@@ -4245,6 +4250,35 @@
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ShowOverlayOnEmptyResults">
             <summary>
             Gets or sets whether the dropdown is shown when there are no items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Virtualize">
+             <summary>
+             If true, the options list will be rendered with virtualization. This is normally used in conjunction with
+             scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
+             This can greatly improve the performance when scrolling through large data sets.
+            
+             If you use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Virtualize"/>, you should supply a value for <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ItemSize"/> and must
+             ensure that every row renders with the same constant height.
+            
+             Generally it's preferable not to use <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Virtualize"/> if the amount of data being rendered is small.
+             </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ItemSize">
+            <summary>
+            This is applicable only when using <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Virtualize"/>. It defines an expected height in pixels for
+            each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
+            size and to ensure accurate scrolling.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.MaxAutoHeight">
+            <summary>
+            Gets or sets the maximum height of the field to adjust its height in relation to selected elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ImmediateDelay">
+            <summary>
+            Gets or sets the delay, in milliseconds, before to raise the <see cref="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.OnOptionsSearch"/> event.
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.ListStyleValue">

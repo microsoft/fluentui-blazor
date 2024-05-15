@@ -12,7 +12,7 @@ public class Icon : IconInfo
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
     public Icon() : this(string.Empty, IconVariant.Regular, IconSize.Size24, string.Empty)
-    { 
+    {
         throw new ArgumentNullException("Please use the constructor including parameters.");
     }
 
@@ -96,6 +96,19 @@ public class Icon : IconInfo
     /// Gets the width of the icon.
     /// </summary>
     protected internal virtual int Width => (int)Size;
+
+    protected internal bool ContainsSVG
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(Content) &&
+                   (Content.StartsWith("<path ") ||
+                    Content.StartsWith("<rect ") ||
+                    Content.StartsWith("<g ") ||
+                    Content.StartsWith("<circle ") ||
+                    Content.StartsWith("<mark "));
+        }
+    }
 
     /// <summary>
     /// Returns an icon instance.
