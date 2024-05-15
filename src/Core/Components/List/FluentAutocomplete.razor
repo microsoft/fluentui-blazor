@@ -25,7 +25,8 @@
                          @oninput="@InputHandlerAsync"
                          @onfocusout="@(e => { IsReachedMaxItems = false; })"
                          autofocus="@Autofocus"
-                         Style="@ComponentWidth">
+                         Style="@ComponentWidth"
+                         >
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
