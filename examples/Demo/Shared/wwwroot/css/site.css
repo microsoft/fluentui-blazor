@@ -138,8 +138,6 @@ article {
     padding: 1.5rem 1rem;
     border-right: 1px solid var(--neutral-stroke-divider-rest);
     margin: 0 0;
-    overflow-x: hidden;
-    transition: all 300ms ease-in-out;
     width: calc(100% - 18rem);
 }
 
