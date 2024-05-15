@@ -44,7 +44,6 @@ public partial class FluentDatePicker : FluentCalendarBase
             CalendarViews.Years => "yyyy",
             CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
             _ => Culture.DateTimeFormat.ShortDatePattern
-
         }, Culture);
     }
 
@@ -63,21 +62,15 @@ public partial class FluentDatePicker : FluentCalendarBase
         return Task.CompletedTask;
     }
 
-    protected Task OnSelectedDateAsync(DateTime? value)
+    protected async Task OnSelectedDateAsync(DateTime? value)
     {
         Opened = false;
 
-        if (Value != null && Value?.TimeOfDay != TimeSpan.Zero)
-        {
-            DateTime currentValue = value ?? DateTime.MinValue;
-            Value = currentValue.Date + Value?.TimeOfDay;
-        }
-        else
-        {
-            Value = value;
-        }
+        var updatedValue = Value?.TimeOfDay != TimeSpan.Zero
+            ? (value ?? DateTime.MinValue).Date + Value?.TimeOfDay
+            : value;
 
-        return Task.CompletedTask;
+        await OnSelectedDateHandlerAsync(updatedValue);
     }
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
