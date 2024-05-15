@@ -1,1 +1,13 @@
 ﻿@page "/IssueTester"
+
+<FluentSelect Label="Select discount type" TOption="string" @bind-Value="@selectedDiscountType">
+    <FluentOption Value="Percentage">Percentage</FluentOption>
+    <FluentOption Value="FixedAmount">FixedAmount</FluentOption>
+</FluentSelect>
+
+Discount type: @selectedDiscountType
+
+@code
+{
+    private string selectedDiscountType = "Percentage";
+}
