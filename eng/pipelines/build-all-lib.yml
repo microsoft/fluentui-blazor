@@ -73,105 +73,22 @@ extends:
         steps:
         # Compute AssemblyVersion and PackageVersion
         # -> Update version.yml
-        - powershell: |
-
-            # Example with FileVersion: "1.2.4" and PackageSuffix: "RC.1"
-            # Build.BuildNumber = 1.2.4.23296.1
-            #                   = $(FileVersion).$(Year:yy)$(DayOfYear).$(Rev:r)
-
-            # Default values
-            $branch = "PR"
-            $package = ""
-
-            # To Test?
-            $toTest = "true"
-
-            # BranchName = dev, main, archive or PR
-            if ("$(Build.SourceBranchName)" -eq "main")
-            {
-                $branch = "main"
-            }
-            elseif ("$(Build.SourceBranchName)" -eq "dev")
-            {
-                $branch = "dev"
-            }
-            elseif ("$(Build.SourceBranchName)" -eq "archives-v3")
-            {
-                $branch = "archive"
-            }
-            else
-            {
-                $branch = "PR"
-            }
-
-            # [1, 2, 4, 23296, 1]
-            $builds = "$(Build.BuildNumber)".Split('.')
-
-            # 1.2.4.23296
-            $assembly = "$($builds[0]).$($builds[1]).$($builds[2]).$($builds[3])"
-
-            # Main or Archive without PackageSuffix: 1.2.4
-            # Main or Archive with    PackageSuffix: 1.2.4-rc.1
-            if ("$branch" -eq "main" -or "$branch" -eq "archive")
-            {
-                # Main without PackageSuffix
-                if ("$(PackageSuffix)" -eq "")
-                {
-                    $package = "$($builds[0]).$($builds[1]).$($builds[2])"
-                }
-
-                # Main with PackageSuffix
-                else
-                {
-                    $package = "$($builds[0]).$($builds[1]).$($builds[2])-$(PackageSuffix)"
-                }
-
-                $toTest = "true"
-            }
-
-            # Dev: 1.2.4-preview-23296-1
-            elseif ("$branch" -eq "dev")
-            {
-                $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
-                $toTest = "true"
-            }
-
-            # Other branches: 1.2.4-preview-23296-1
-            else
-            {
-                $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
-                $toTest = "true"
-            }
-
-            if ("${{ parameters.Tests }}" -eq "")
-            {
-                $toTest = "false"
-            }
-
-            # Set the output variable for use in other tasks.
-            Write-Host "##vso[task.setvariable variable=AssemblyVersion]${assembly}"
-            Write-Host "##vso[task.setvariable variable=PackageVersion]${package}"
-            Write-Host "##vso[task.setvariable variable=ShouldTest]${toTest}"
-          displayName: Compute AssemblyVersion and PackageVersion
-
-        # Display computed variables
-        - script: |
-            echo 🔸 FileVersion            = $(FileVersion)
-            echo 🔸 PackageSuffix          = $(PackageSuffix)
-            echo 🔸 Build.BuildNumber      = $(Build.BuildNumber)
-            echo 🔸 Build.SourceBranch     = $(Build.SourceBranch)
-            echo -----------------------------------------------
-            echo 🔸 AssemblyVersion        = $(AssemblyVersion)
-            echo 🔸 PackageVersion         = $(PackageVersion)
-            echo -----------------------------------------------
-            echo 🔸 ShouldTest             = $(ShouldTest)
-          displayName: Display computed variables
+        - task: PowerShell@2
+          displayName: 'Compute AssemblyVersion and PackageVersion'
+          inputs:
+            targetType: 'filePath'
+            filePath: $(System.DefaultWorkingDirectory)/eng/pipelines/compute-version-variables.ps1
+            arguments: > # Use this to avoid newline characters in multiline string
+              -branchName "$(Build.SourceBranchName)"
+              -buildNumber "$(Build.BuildNumber)"
+              -packageSuffix "$(PackageSuffix)"
+              -testProjects "${{ parameters.Tests }}"
 
         # Install NuGet tools
         - task: NuGetToolInstaller@1
           displayName: Install NuGet tools
 
-        - ${{ if eq(variables['Build.SourceBranchName'], 'archives-v3') }}:
+        - ${{ if eq(variables['Build.SourceBranchName'], 'v3') }}:
           # Install .NET 6.0
           - task: UseDotNet@2
             displayName: Install .NET 6.0
