@@ -155,7 +155,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         Value = value;
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(value);
+            // Thread Safety: Force `ValueChanged` to be re-associated with the Dispatcher, prior to invokation.
+            await InvokeAsync(async () => await ValueChanged.InvokeAsync(value));
         }
         if (FieldBound)
         {
@@ -450,7 +451,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
 
-        _timerCancellationTokenSource.Dispose();
+        _debouncer.Dispose();
 
         Dispose(disposing: true);
     }
