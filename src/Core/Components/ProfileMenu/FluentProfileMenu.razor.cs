@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,6 +13,13 @@ public partial class FluentProfileMenu : FluentComponentBase
     {
         Id = Identifier.NewId();
     }
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-profile-menu")
+        .Build();
+
+    protected string? StyleValue => new StyleBuilder(Style)
+        .Build();
 
     private bool PopoverVisible { get; set; } = false;
 
@@ -43,6 +51,18 @@ public partial class FluentProfileMenu : FluentComponentBase
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be displayed in the start (left) section of the Profile button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? StartTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be displayed in the end (right) section of the Profile button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? EndTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the status to show. See <see cref="PresenceStatus"/> for options.
     /// </summary>
     [Parameter]
@@ -53,6 +73,18 @@ public partial class FluentProfileMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? StatusTitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Class to apply to the Profile Popup.
+    /// </summary>
+    [Parameter]
+    public virtual string? PopoverClass { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the Style to apply to the Profile Popup.
+    /// </summary>
+    [Parameter]
+    public virtual string? PopoverStyle { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the initials to display if no image is provided.
@@ -126,4 +158,7 @@ public partial class FluentProfileMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback OnFooterLinkClick { get; set; }
+
+    /// <summary />
+    private string PersonaId => $"{Id}-persona";
 }

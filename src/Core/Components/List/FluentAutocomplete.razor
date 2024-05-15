@@ -169,6 +169,7 @@
                       Selected="@GetOptionSelected(context.Item)"
                       Disabled="@(GetOptionDisabled(context.Item) ?? false)"
                       OnSelect="@OnSelectCallback(context.Item)"
+                      aria-selected="@(GetOptionSelected(context.Item) || optionValue == context.SelectableItem ? "true" : "false")"
                       selectable="@(optionValue == context.SelectableItem)">
             @if (OptionTemplate == null)
             {
