@@ -5,8 +5,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
 {
-    private DateTime? _selectedDate = null;
-
     /// <summary>
     /// Gets or sets the culture of the component.
     /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
@@ -46,46 +44,26 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
-    /// <summary>
-    /// Gets or sets the selected date (two-way bindable).
-    /// </summary>
-    [Parameter]
-    public override DateTime? Value
+    /// <summary />
+    protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value)
     {
-        get
+        if (CheckIfSelectedValueHasChanged && Value == value)
         {
-            return _selectedDate;
+            return;
         }
 
-        set
+        if (!ReadOnly)
         {
-            if (CheckIfSelectedValueHasChanged && _selectedDate == value)
-            {
-                return;
-            }
-
-            _selectedDate = value;
-
+            Value = value;
             if (ValueChanged.HasDelegate)
             {
-                ValueChanged.InvokeAsync(value);
+                await ValueChanged.InvokeAsync(value);
             }
             if (FieldBound)
             {
                 EditContext?.NotifyFieldChanged(FieldIdentifier);
             }
         }
-    }
-
-    /// <summary />
-    protected virtual Task OnSelectedDateHandlerAsync(DateTime? value)
-    {
-        if (!ReadOnly)
-        {
-            Value = value;
-        }
-
-        return Task.CompletedTask;
     }
 
     /// <summary />
