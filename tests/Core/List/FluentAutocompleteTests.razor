@@ -1,27 +1,23 @@
-using Bunit;
-using FluentAssertions;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
-
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.List;
-
-public class FluentAutocompleteTests : TestBase
+﻿@using FluentAssertions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit;
+@inherits TestContext
+@code
 {
     [Inject]
     private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
 
     public FluentAutocompleteTests()
     {
-        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
-        TestContext.Services.AddSingleton(LibraryConfiguration);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
     }
 
     [Fact]
     public void FluentAutocomplete_Empty()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Items, GetCustomers());
@@ -35,7 +31,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_Width_Empty()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Items, GetCustomers());
@@ -51,7 +47,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_Opened()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Items, GetCustomers());
@@ -69,7 +65,7 @@ public class FluentAutocompleteTests : TestBase
     [InlineData("Backspace")]
     [InlineData("ArrowDown")]
     [InlineData("ArrowUp")]
-    public void FluentAutocomplete_Keyboard(string keyCode)
+    public async Task FluentAutocomplete_Keyboard(string keyCode)
     {
         KeyCode code = keyCode switch
         {
@@ -81,7 +77,7 @@ public class FluentAutocompleteTests : TestBase
         };
 
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Items, GetCustomers());
@@ -91,7 +87,7 @@ public class FluentAutocompleteTests : TestBase
         // Act
         var input = cut.Find("fluent-text-field");
         input.Click();
-        cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0, string.Empty);
+        await cut.InvokeAsync(async () => await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0, string.Empty));
 
         // Assert
         cut.Verify(suffix: keyCode);
@@ -103,7 +99,7 @@ public class FluentAutocompleteTests : TestBase
         // Arrange & Act
         var ex = Assert.Throws<InvalidOperationException>(() =>
         {
-            var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+            var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
             {
                 parameters.Add(p => p.Id, "myComponent");
                 parameters.Add(p => p.Multiple, false);
@@ -118,7 +114,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_Templates()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.OptionValue, context => context.Id.ToString());
@@ -155,7 +151,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_SelectedOptions()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.OptionValue, context => context.Id.ToString());
@@ -175,7 +171,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_SelectedOptions_Template()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.OptionValue, context => context.Id.ToString());
@@ -201,7 +197,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_SelectedOptions_OnDismissClick()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.OptionValue, context => context.Id.ToString());
@@ -222,7 +218,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_ValueText()
     {
         // Arrange & Act
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.ValueText, "Preselected value");
@@ -248,7 +244,7 @@ public class FluentAutocompleteTests : TestBase
     {
         // Arrange
         var valueText = "Preselected value";
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
@@ -269,7 +265,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_OnClear_ShowOverlay()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.ValueText, "Some text here");
@@ -287,7 +283,7 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_OnClearWithOverlayHiddenOnEmpty_HasNoOverlay()
     {
         // Arrange
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.ValueText, "Some text here");
@@ -306,13 +302,34 @@ public class FluentAutocompleteTests : TestBase
     public void FluentAutocomplete_AutofocusAttribute()
     {
         // Arrange && Act
-        var cut = TestContext.RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
             parameters.Add(p => p.Id, "myComponent");
             parameters.Add(p => p.Autofocus, true);
         });
 
         // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAutocomplete_MaxAutoHeight_Opened()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.MaxAutoHeight, "200px");
+            parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+        });
+
+        // Act
+        cut.Find("fluent-text-field").Click();
+
+        // Assert        
+        Assert.Equal("auto-height", cut.Find("div[slot='start']").ClassName);
+        Assert.Equal("max-height: 200px;", cut.Find("div[slot='start']").Attributes["style"]?.Value);
+        Assert.True(cut.Find(".fluent-autocomplete-multiselect").HasAttribute("auto-height"));
         cut.Verify();
     }
 
@@ -325,5 +342,4 @@ public class FluentAutocompleteTests : TestBase
     }
 
     private record Customer(int Id, string Name);
-
 }

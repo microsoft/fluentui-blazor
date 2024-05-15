@@ -190,14 +190,22 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     ///
     /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered is small.
     /// </summary>
-    [Parameter] public bool Virtualize { get; set; }
+    [Parameter]
+    public bool Virtualize { get; set; }
 
     /// <summary>
     /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
     /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
     /// size and to ensure accurate scrolling.
     /// </summary>
-    [Parameter] public float ItemSize { get; set; } = 50;
+    [Parameter]
+    public float ItemSize { get; set; } = 50;
+
+    /// <summary>
+    /// Gets or sets the maximum height of the field to adjust its height in relation to selected elements.
+    /// </summary>
+    [Parameter]
+    public string? MaxAutoHeight { get; set; }
 
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()

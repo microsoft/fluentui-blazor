@@ -4817,6 +4817,11 @@
             size and to ensure accurate scrolling.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaxAutoHeight">
+            <summary>
+            Gets or sets the maximum height of the field to adjust its height in relation to selected elements.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
