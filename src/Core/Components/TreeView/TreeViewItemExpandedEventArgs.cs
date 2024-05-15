@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Class that contains the event arguments for the <see cref="ITreeViewItem.OnExpanded"/> event.
+/// Class that contains the event arguments for the <see cref="ITreeViewItem.OnExpandedAsync"/> event.
 /// </summary>
 public class TreeViewItemExpandedEventArgs
 {

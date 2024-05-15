@@ -8968,7 +8968,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs">
             <summary>
-            Class that contains the event arguments for the <see cref="!:ITreeViewItem.OnExpanded"/> event.
+            Class that contains the event arguments for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync"/> event.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.#ctor(Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem,System.Boolean)">
