@@ -12,7 +12,14 @@
 
 <DemoSection Title="Customized options" Component="@typeof(AutocompleteCustomized)" />
 
-<DemoSection Title="Many Items" Component="@typeof(AutocompleteManyItems)" />
+<DemoSection Title="Many Items" Component="@typeof(AutocompleteManyItems)">
+    <Description>
+        <p>
+            This example shows how you can use <code>ImmediateDelay</code> to control the delay between the user input and the search for options. A value of 0 means no delay
+        </p>
+    </Description>
+</DemoSection>
+
 
 <DemoSection Title="FluentPersona" Component="@typeof(AutocompletePersona)" />
 
@@ -24,10 +31,12 @@
 
 <h2>Accessibility</h2>
 
-This component is compatible with accessibility rules.<br/>
+This component is compatible with accessibility rules.
+<br />
 Except this <a href="https://accessibilityinsights.io/info-examples/web/aria-valid-attr-value/" target="_blank">Invalid ARIA attribute value: aria-controls="[id]-popup"</a> when the list is expanded (will be solved later).
 <br />
-You can customize these 3 messages to be read by screen readers<br/>
+You can customize these 3 messages to be read by screen readers
+<br />
 <ul>
     <li><code>FluentAutocomplete.AccessibilitySelected = "Selected {0}"</code> List of selected items.</li>
     <li><code>FluentAutocomplete.AccessibilityNotFound = "No items found"</code> When the search criteria returns an empty list.</li>

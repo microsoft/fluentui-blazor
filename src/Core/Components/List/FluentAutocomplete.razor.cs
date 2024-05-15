@@ -16,6 +16,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     public new FluentTextField? Element { get; set; } = default!;
     private Virtualize<TOption>? VirtualizationContainer { get; set; }
+    private readonly Debouncer _debouncer = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -207,6 +208,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public string? MaxAutoHeight { get; set; }
 
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="OnOptionsSearch"/> event.
+    /// </summary>
+    [Parameter]
+    public int ImmediateDelay { get; set; } = 0;
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -254,6 +261,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
+
+
         ValueText = e.Value?.ToString() ?? string.Empty;
         await ValueTextChanged.InvokeAsync(ValueText);
 
@@ -272,7 +281,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             Text = ValueText,
         };
 
-        await OnOptionsSearch.InvokeAsync(args);
+        if (ImmediateDelay > 0)
+        {
+           await _debouncer.DebounceAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
+        }
+        else
+        {
+            await OnOptionsSearch.InvokeAsync(args);
+        }
 
         Items = args.Items?.Take(MaximumOptionsSearch);
 
