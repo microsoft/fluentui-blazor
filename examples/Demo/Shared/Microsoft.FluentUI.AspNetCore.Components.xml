@@ -2251,11 +2251,6 @@
             Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
-            <summary>
-            Gets or sets the selected date (two-way bindable).
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
             <summary />
         </member>
