@@ -4170,7 +4170,7 @@
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.Appearance">
             <summary>
-            Gets or sets the visual appearance. See <seealso cref="!:AspNetCore.Components.Appearance"/>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.Fast.Components.FluentUI.Appearance"/>
             </summary>
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.AutoComplete">

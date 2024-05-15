@@ -83,7 +83,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     }
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Gets or sets the visual appearance. See <seealso cref="FluentUI.Appearance"/>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
@@ -282,7 +282,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         if (ImmediateDelay > 0)
         {
-           await _debouncer.DebounceAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
+            await _debouncer.DebounceAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
         }
         else
         {
