@@ -5,6 +5,7 @@
                     Autofocus="true"
                     Label="Select a country"
                     Width="250px"
+                    MaxAutoHeight="@(AutoHeight ? "200px" : null)"
                     Placeholder="Select countries"
                     OnOptionsSearch="@OnSearchAsync"
                     OptionDisabled="@(e => e.Code == "au")"
@@ -15,9 +16,13 @@
 <p>
     <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.Name)))
 </p>
-
+<p>
+    <FluentSwitch @bind-Value="@AutoHeight" Label="Auto Height" /><br />
+    When the <code>MaxAutoHeight</code> attribute is set, the component adapts its height in relation to the selected elements.
+</p>
 @code
 {
+    bool AutoHeight = false;
     IEnumerable<Country> SelectedItems = Array.Empty<Country>();
 
     private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
