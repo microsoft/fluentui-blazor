@@ -1,0 +1,108 @@
+﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+
+    @* Immediate Delay *@
+    <FluentNumberField @bind-Value="_immediateDelay"
+                       TValue="int"
+                       Label="Immediate Delay"
+                       Placeholder="Delay"
+                       Min="0"
+                       Max="2000"
+                       Step="100" />
+
+    @* Search Box *@
+    <FluentSearch @bind-Value="_searchValue"
+                  @bind-Value:after="OnSearch"
+                  Immediate="true"
+                  ImmediateDelay="_immediateDelay"
+                  Placeholder="Search for name" />
+
+    @* Search Results *@
+    <p>You searched for: @_searchValue</p>
+    <FluentListbox aria-label="search results"
+                   TOption="string"
+                   Items=@_searchResults                   
+                   SelectedOptionChanged="@(e => _searchValue = (e != _defaultResultsText ? e : string.Empty))" />
+</FluentStack>
+
+@code {
+    private string? _searchValue;
+    private int _immediateDelay;
+
+    private const string _defaultResultsText = "No results";
+    private List<string> _searchResults = DefaultResults();
+
+    private static List<string> DefaultResults() => new() { _defaultResultsText };
+
+    private void OnSearch()
+    {
+        if (!string.IsNullOrWhiteSpace(_searchValue))
+        {
+            // You can also call an API here if the list is not local.
+            var results = searchData
+                .Where(str => str.Contains(_searchValue, StringComparison.OrdinalIgnoreCase))
+                .Select(str => str)
+                .ToList();
+
+            _searchResults = results.Any() ? results : DefaultResults();
+        }
+        else
+        {
+            _searchResults = DefaultResults();
+        }
+    }
+
+    //This component is made for a lot of data. You can copy and paste a list with 6000 entries here https://sharetext.me/vfknowohwl"
+    private List<string> searchData = new()
+    {
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachussets",
+        "Michigain",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Texas",
+        "Tennessee",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "Wisconsin",
+        "West Virginia",
+        "Wyoming"
+    };
+}
