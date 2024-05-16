@@ -7,6 +7,20 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     private bool _disposed;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTreeItem"/> class.
+    /// </summary>
+    public FluentTreeItem()
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary>
+    /// Gets or sets the list of sub-items to bind to the tree item
+    /// </summary>
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? Items { get; set; }
+
+    /// <summary>
     /// Gets or sets the text of the tree item
     /// </summary>
     [Parameter]
@@ -64,21 +78,32 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     public bool InitiallySelected { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of tree item,
+    /// when the node is collapsed.
+    /// If this icon is not set, the <see cref="IconExpanded"/> will be used.
+    /// </summary>
+    [Parameter]
+    public Icon? IconCollapsed { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of tree item,
+    /// when the node is expanded.
+    /// If this icon is not set, the <see cref="IconCollapsed"/> will be used.
+    /// </summary>
+    [Parameter]
+    public Icon? IconExpanded { get; set; }
+
+    /// <summary>
     /// Gets or sets the owning FluentTreeView
     /// </summary>
     [CascadingParameter]
-    private FluentTreeView Owner { get; set; } = default!;
+    private FluentTreeView? Owner { get; set; }
 
     /// <summary>
     /// Returns <see langword="true"/> if the tree item is collapsed,
     /// and <see langword="false"/> if expanded.
     /// </summary>
     public bool Collapsed => !Expanded;
-
-    public FluentTreeItem()
-    {
-        Id = Identifier.NewId();
-    }
 
     void IDisposable.Dispose()
     {
@@ -110,6 +135,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         }
 
         Selected = value;
+
         if (SelectedChanged.HasDelegate)
         {
             await SelectedChanged.InvokeAsync(Selected);
@@ -119,7 +145,9 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Owner.Register(this);
+
+        Owner?.Register(this);
+
         if (InitiallyExpanded && !Expanded)
         {
             Expanded = true;
@@ -128,13 +156,14 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
                 await ExpandedChanged.InvokeAsync(true);
             }
         }
+
         if (InitiallySelected)
         {
             await SetSelectedAsync(true);
         }
     }
 
-    private async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
+    internal async Task HandleExpandedChangeAsync(TreeChangeEventArgs args)
     {
         if (args.AffectedId != Id || args.Expanded is null || args.Expanded == Expanded)
         {
@@ -142,29 +171,59 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
         }
 
         Expanded = args.Expanded.Value;
+
         if (ExpandedChanged.HasDelegate)
         {
             await ExpandedChanged.InvokeAsync(Expanded);
         }
 
-        if (Owner is FluentTreeView tree)
+        if (Owner != null)
         {
-            await tree.ItemExpandedChangeAsync(this);
+            await Owner.ItemExpandedChangeAsync(this);
         }
     }
 
-    private async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
+    internal async Task HandleSelectedChangeAsync(TreeChangeEventArgs args)
     {
         if (args.AffectedId != Id || args.Selected is null || args.Selected == Selected)
         {
             return;
         }
 
-        await SetSelectedAsync(args.Selected.Value);
-
-        if (Owner is FluentTreeView tree)
+        if (Owner?.Items == null)
         {
-            await tree.ItemSelectedChangeAsync(this);
+            await SetSelectedAsync(args.Selected.Value);
         }
+
+        if (Owner != null)
+        {
+            await Owner.ItemSelectedChangeAsync(this);
+        }
+    }
+
+    internal static RenderFragment GetFluentTreeItem(FluentTreeView owner, ITreeViewItem item)
+    {
+        RenderFragment fluentTreeItem = builder =>
+        {
+            int i = 0;
+            builder.OpenComponent<FluentTreeItem>(i++);
+            builder.AddAttribute(i++, "Id", item.Id);
+            builder.AddAttribute(i++, "Items", item.Items);
+            builder.AddAttribute(i++, "Text", item.Text);
+            builder.AddAttribute(i++, "Selected", owner.SelectedItem == item);
+            builder.AddAttribute(i++, "Expanded", item.Expanded);
+            builder.AddAttribute(i++, "Disabled", item.Disabled);
+            builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
+            builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);
+
+            if (owner.ItemTemplate != null)
+            {
+                builder.AddAttribute(i++, "ChildContent", owner.ItemTemplate(item));
+            }
+
+            builder.CloseComponent();
+        };
+
+        return fluentTreeItem;
     }
 }
