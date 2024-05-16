@@ -2,16 +2,16 @@
 
 @page "/TestSelectColumns"
 
-<FluentDataGrid ItemsProvider="PersonProvider" ShowHover="true" TGridItem="Person" Pagination="@pagination">
+<FluentDataGrid ItemsProvider="PersonProvider" ShowHover="true" TGridItem="Person" Pagination="@pagination" GridTemplateColumns="50px 1fr 2fr 1fr">
     <SelectColumn TGridItem="Person"
                   SelectMode="DataGridSelectMode.Multiple"
                   Property="@(e => e.Selected)"
                   OnSelect="@(e => e.Item.Selected = e.Selected)"
                   SelectAll="@(PeopleList.All(p => p.Selected))"
                   SelectAllChanged="@(all => PeopleList.ToList().ForEach(p => p.Selected = (all == true)))" />
-    <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" Sortable="true" />
-    <PropertyColumn Width="300px" Property="@(p => p.Name)" Sortable="true" />
-    <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+    <PropertyColumn Property="@(p => p.PersonId)" Title="ID" Sortable="true" />
+    <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+    <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
 </FluentDataGrid>
 <FluentPaginator State="@pagination" />
 

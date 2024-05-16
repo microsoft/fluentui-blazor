@@ -331,7 +331,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
 
-        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
