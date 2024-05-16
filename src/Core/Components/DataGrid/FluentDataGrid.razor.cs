@@ -179,8 +179,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
-    private int _ariaBodyRowCount;
-    private ICollection<TGridItem> _currentNonVirtualizedViewItems = Array.Empty<TGridItem>();
 
     // IQueryable only exposes synchronous query APIs. IAsyncQueryExecutor is an adapter that lets us invoke any
     // async query APIs that might be available. We have built-in support for using EF Core's async query APIs.
@@ -441,9 +439,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
-                _currentNonVirtualizedViewItems = result.Items;
-                _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
-                Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
+                _internalGridContext.Items = result.Items;
+                _internalGridContext.TotalItemCount = result.TotalItemCount;
+                Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
@@ -486,10 +484,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // the current viewport. In the case where you're also paginating then it means what's conceptually on the current page.
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might
             //       be better if we let the last page only be as big as its number of actual rows.
-            _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
+            _internalGridContext.TotalItemCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
-            Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
-            if (_ariaBodyRowCount > 0)
+            Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
+            if (_internalGridContext.TotalItemCount > 0)
             {
                 Loading = false;
             }
@@ -499,7 +497,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // to make sure it doesn't get out of sync with the rows being rendered.
             return new ItemsProviderResult<(int, TGridItem)>(
                  items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
-                 totalItemCount: _ariaBodyRowCount);
+                 totalItemCount: _internalGridContext.TotalItemCount);
         }
 
         return default;
@@ -520,7 +518,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else if (Items is not null)
         {
             var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
-            _ariaBodyRowCount = totalItemCount;
+            _internalGridContext.TotalItemCount = totalItemCount;
             var result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {

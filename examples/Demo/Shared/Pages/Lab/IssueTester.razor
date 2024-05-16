@@ -1,1 +1,52 @@
 ﻿@page "/IssueTester"
+
+@page "/TestSelectColumns"
+
+<FluentDataGrid ItemsProvider="PersonProvider" ShowHover="true" TGridItem="Person" Pagination="@pagination">
+    <SelectColumn TGridItem="Person"
+                  SelectMode="DataGridSelectMode.Multiple"
+                  Property="@(e => e.Selected)"
+                  OnSelect="@(e => e.Item.Selected = e.Selected)"
+                  SelectAll="@(PeopleList.All(p => p.Selected))"
+                  SelectAllChanged="@(all => PeopleList.ToList().ForEach(p => p.Selected = (all == true)))" />
+    <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" Sortable="true" />
+    <PropertyColumn Width="300px" Property="@(p => p.Name)" Sortable="true" />
+    <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+</FluentDataGrid>
+<FluentPaginator State="@pagination" />
+
+<div>
+    <b>Peoples:</b>
+    @String.Join("; ", PeopleList.Where(p => p.Selected).Select(p => p.Name))
+</div>
+
+@code {
+    PaginationState pagination { get; set; } = new PaginationState() { ItemsPerPage = 10 };
+
+    public record Person(int PersonId, string Name, DateOnly BirthDate)
+    {
+        public bool Selected { get; set; }
+    };
+
+    public static List<Person> PeopleList = new()
+    {
+        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)),
+        new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
+        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
+        new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27)),
+        new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3)),
+        new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
+        new Person(10895, "Jean 2 Martin", new DateOnly(1985, 3, 16)),
+        new Person(10944, "António 2 Langa", new DateOnly(1991, 12, 1)),
+        new Person(11203, "Julie 2 Smith", new DateOnly(1958, 10, 10)),
+        new Person(11205, "Nur 2 Sari", new DateOnly(1922, 4, 27)),
+        new Person(11898, "Jose 2 Hernandez", new DateOnly(2011, 5, 3)),
+        new Person(12130, "Kenji 2 Sato", new DateOnly(2004, 1, 9)),
+    };
+
+    private async ValueTask<GridItemsProviderResult<Person>> PersonProvider(GridItemsProviderRequest<Person> req)
+    {
+        var subList = PeopleList.Skip(req.StartIndex).Take(req.Count ?? PeopleList.Count).ToList();
+        return GridItemsProviderResult.From(subList, PeopleList.Count);
+    }
+}

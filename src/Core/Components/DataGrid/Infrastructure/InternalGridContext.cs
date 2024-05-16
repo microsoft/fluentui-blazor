@@ -15,6 +15,9 @@ internal sealed class InternalGridContext<TGridItem>
 
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
 
+    public ICollection<TGridItem> Items { get; set; } = [];
+    public int TotalItemCount { get; set; }
+
     public FluentDataGrid<TGridItem> Grid { get; }
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();
 

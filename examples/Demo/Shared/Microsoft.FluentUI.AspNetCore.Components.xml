@@ -1462,7 +1462,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Property">
             <summary>
-            Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
+            Gets or sets the function to executed to determine checked/unchecked status.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
