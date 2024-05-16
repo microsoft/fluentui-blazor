@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-tree-item @ref=Element
                   class="@Class"
@@ -12,9 +12,33 @@
                   @onselectedchange="@HandleSelectedChangeAsync"
                   @onexpandedchange="@HandleExpandedChangeAsync"
                   @attributes="AdditionalAttributes">
-    @if (!string.IsNullOrWhiteSpace(Text))
+
+    @if (Owner?.ItemTemplate == null && !string.IsNullOrWhiteSpace(Text))
     {
         <span class="treeitem-text">@Text</span>
     }
+
+    @if (IconExpanded != null || IconCollapsed != null)
+    {
+        <FluentIcon Value="@(Expanded ? (IconExpanded ?? IconCollapsed) : (IconCollapsed ?? IconExpanded))" Slot="start" />
+    }
+
     @ChildContent
+
+    @if (Owner != null && Items != null)
+    {
+        @if (Owner.LazyLoadItems && Items.Any() && !Expanded)
+        {
+            @* Lazy loading required a "fake" sub-item to simulate the [+] *@
+            <fluent-tree-item>@FluentTreeView.LoadingMessage</fluent-tree-item>
+        }
+        else
+        {
+            foreach (var item in Items)
+            {
+                @FluentTreeItem.GetFluentTreeItem(Owner, item)
+            }
+        }
+    }
+
 </fluent-tree-item>
