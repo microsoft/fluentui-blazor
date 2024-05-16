@@ -16,9 +16,9 @@
             border: var(--neutral-fill-strong-hover) solid 1px;
         }
 
-            .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled])[selectable]::before {
-                background: unset !important;
-            }
+        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable]::before {
+            background: unset !important;
+        }
 
 .fluent-autocomplete-multiselect ::deep fluent-text-field::part(start) {
     max-width: calc(100% - 80px);
@@ -30,4 +30,24 @@
 
 .fluent-autocomplete-previous {
     height: 25px;
+}
+
+/* Auto-height */
+.fluent-autocomplete-multiselect[auto-height] ::deep .auto-height {
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(root) {
+    height: 100%;
+    padding: 6px 0px 4px 0px;
+}
+
+.fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(control) {
+    margin-bottom: 2px;
 }
