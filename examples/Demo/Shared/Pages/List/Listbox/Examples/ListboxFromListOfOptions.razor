@@ -16,7 +16,7 @@
 
 <FluentListbox Items=@intOptions 
                TOption="Option<int>"
-               OptionText="@(i => i.Text.ToString())" 
+               OptionText="@(i => i.Text)"
                OptionValue="@(i => i.Value.ToString())"
                OptionDisabled="@(i => i.Disabled)"
                @bind-SelectedOption="@selectedIntOption"

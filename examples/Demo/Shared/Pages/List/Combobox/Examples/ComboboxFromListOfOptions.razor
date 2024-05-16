@@ -20,8 +20,8 @@
 
 <FluentCombobox Items=@intOptions 
                 TOption="Option<int>"
-                OptionText="@(i => i.Text.ToString())" 
-                OptionValue="@(i => i.Value.ToString())" 
+                OptionText="@(i => i.Text)"
+                OptionValue="@(i => i.Value.ToString())"
                 OptionDisabled="@(i => i.Disabled)"
                 @bind-SelectedOption="@selectedIntOption"
                 @bind-Value="@intValue" />
