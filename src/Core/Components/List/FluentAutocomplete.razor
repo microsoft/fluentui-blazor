@@ -4,7 +4,8 @@
 
 <CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
-         style="@StyleValue">
+         style="@StyleValue"
+         auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
         <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
@@ -24,46 +25,46 @@
                          @oninput="@InputHandlerAsync"
                          @onfocusout="@(e => { IsReachedMaxItems = false; })"
                          autofocus="@Autofocus"
-                         Style="@ComponentWidth">
+                         Style="@ComponentWidth"
+                         >
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
-                <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
-                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToPrevious();"
-                                    slot="previous-flipper"
-                                    aria-hidden="false"
-                                    aria-label="@TitleScrollToPrevious"
-                                    title="@TitleScrollToPrevious"
-                                    role="button"
-                                    tabindex="0"
-                                    class="previous fluent-autocomplete-previous"
-                                    direction="previous"></fluent-flipper>
-                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToNext();"
-                                    slot="next-flipper"
-                                    aria-hidden="false"
-                                    aria-label="@TitleScrollToNext"
-                                    title="@TitleScrollToNext"
-                                    role="button"
-                                    tabindex="0"
-                                    class="next fluent-autocomplete-next"
-                                    direction="next"></fluent-flipper>
-                    @foreach (var item in this.SelectedOptions)
-                    {
-                        if (SelectedOptionTemplate == null)
-                        {
-                            <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
-                                         OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
-                                         aria-label="@GetOptionText(item)">
-                                @GetOptionText(item)
-                            </FluentBadge>
-                        }
-                        else
-                        {
-                            @SelectedOptionTemplate(item)
-                        }
-                    }
-                    &nbsp;
-                </fluent-horizontal-scroll>
+                @* Normal (single) line height *@
+                if (string.IsNullOrEmpty(MaxAutoHeight))
+                {
+                    <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
+                        <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToPrevious();"
+                                        slot="previous-flipper"
+                                        aria-hidden="false"
+                                        aria-label="@TitleScrollToPrevious"
+                                        title="@TitleScrollToPrevious"
+                                        role="button"
+                                        tabindex="0"
+                                        class="previous fluent-autocomplete-previous"
+                                        direction="previous"></fluent-flipper>
+                        <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToNext();"
+                                        slot="next-flipper"
+                                        aria-hidden="false"
+                                        aria-label="@TitleScrollToNext"
+                                        title="@TitleScrollToNext"
+                                        role="button"
+                                        tabindex="0"
+                                        class="next fluent-autocomplete-next"
+                                        direction="next"></fluent-flipper>
+                        @RenderSelectedOptions
+                        &nbsp;
+                    </fluent-horizontal-scroll>
+                }
+
+                @* Auto-height with items wrap *@
+                else
+                {
+                    <div id="@IdScroll" slot="start" class="auto-height" style="@($"max-height: {MaxAutoHeight};")">
+                        @RenderSelectedOptions
+                    </div>
+                }
+
             }
             @if (!Disabled)
             {
@@ -180,5 +181,27 @@
                 @OptionTemplate(context.Item)
             }
         </FluentOption>
+    };
+
+    private RenderFragment RenderSelectedOptions => __builder =>
+    {
+        if (SelectedOptions != null)
+        {
+            foreach (var item in SelectedOptions)
+            {
+                if (SelectedOptionTemplate == null)
+                {
+                    <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                                 OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                 aria-label="@GetOptionText(item)">
+                        @GetOptionText(item)
+                    </FluentBadge>
+                }
+                else
+                {
+                    @SelectedOptionTemplate(item)
+                }
+            }
+        }
     };
 }
