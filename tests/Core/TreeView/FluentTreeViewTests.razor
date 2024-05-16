@@ -1,0 +1,45 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentTreeView_Default()
+    {
+        FluentTreeItem? currentSelected = default!;
+
+        // Arrange && Act
+        var cut = Render(
+    @<FluentTreeView @bind-CurrentSelected="@currentSelected">
+        <FluentTreeItem Text="Item 1"></FluentTreeItem>
+        <FluentTreeItem Text="Item 2">
+            <FluentTreeItem>Item 2.1</FluentTreeItem>
+            <FluentTreeItem>Item 2.2</FluentTreeItem>
+        </FluentTreeItem>
+    </FluentTreeView>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeView_CustomContent()
+    {
+        FluentTreeItem? currentSelected = default!;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTreeView @bind-CurrentSelected="@currentSelected"><b>render me</b></FluentTreeView>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTreeView_FluentTreeItem_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTreeItem Text="My text" InitiallyExpanded="true" InitiallySelected="true" Expanded="true" Selected="true" Disabled="false"></FluentTreeItem>);
+
+        // Assert
+        cut.Verify();
+    }
+}
