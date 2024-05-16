@@ -1,30 +1,40 @@
 ﻿## v3.7.1
 
+### Components
+- [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
+- [Autocomplete] Add `ImmediateDelay` parameter ([#2052](https://github.com/microsoft/fluentui-blazor/pull/2052))
+- [Autocomplete] Set the height automatically ([#2045](https://github.com/microsoft/fluentui-blazor/pull/2045))
+- [DataGrid] give empty row an id ([#2001](https://github.com/microsoft/fluentui-blazor/pull/2001))
+- [InputBase] Use `Debouncer` instead of `PeriodicTimer` for debouncing `ValueChanged` handler with `ImmediateDelay`. ([#2042](https://github.com/microsoft/fluentui-blazor/pull/2042))
+- [InputLabel] Add Orientation parameter  ([#1994](https://github.com/microsoft/fluentui-blazor/pull/1994))
+- [Option] Update the aria-selected item on FluentOption to apply the default style
+- [Tabs] Prevent error 'An item with the same key has already been added.' ([#2006](https://github.com/microsoft/fluentui-blazor/pull/2006))
+
 ### Icons
 - Update to Fluent UI System Icons 1.1.239 
 
 	**What's new (Name / Size(s) / Variant(s))**
-    - Arrow Turn Right / 16 / Filled & Regular
-    - Chart Multiple / 16 / Filled & Regular
-    - Column / 24 / Filled & Regular
-    - Data Pie / 16 / Filled & Regular
-    - Layout Column Two Focus Left / 32 / Filled
-    - Layout Column Two Focus Right / 32 / Filled
-    - Layout Column Two / 32 / Filled & Regular
-    - Layout Row Two Focus Top / 32 / Filled
-    - Layout Row Two / 32 / Filled & Regular
-    - Mail Copy / 32 / Filled & Regular
-    - Paint Brush Sparkle / 20, 24 / Filled & Regular
-    - People Community / 12 / Filled & Regular
-    - Person Board / 12 / Filled & Regular
-    - Person Tentative / 16, 20, 24 / Filled & Regular
-    - Tab Desktop Search / 16, 20, 24 / Filled & Regular
-    - Table Sparkle / 20, 24 / Filled & Regular
+	- Arrow Turn Right / 16 / Filled & Regular
+	- Chart Multiple / 16 / Filled & Regular
+	- Column / 24 / Filled & Regular
+	- Data Pie / 16 / Filled & Regular
+	- Layout Column Two Focus Left / 32 / Filled
+	- Layout Column Two Focus Right / 32 / Filled
+	- Layout Column Two / 32 / Filled & Regular
+	- Layout Row Two Focus Top / 32 / Filled
+	- Layout Row Two / 32 / Filled & Regular
+	- Mail Copy / 32 / Filled & Regular
+	- Paint Brush Sparkle / 20, 24 / Filled & Regular
+	- People Community / 12 / Filled & Regular
+	- Person Board / 12 / Filled & Regular
+	- Person Tentative / 16, 20, 24 / Filled & Regular
+	- Tab Desktop Search / 16, 20, 24 / Filled & Regular
+	- Table Sparkle / 20, 24 / Filled & Regular
  
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Chart Multiple / 20, 24 / Filled & Regular
-    - Column Edit / 24 / Filled & Regular
-    - Data Pie / 24 / Filled & Regular   
+	**What's updated (Name / Size(s) / Variant(s))**
+	- Chart Multiple / 20, 24 / Filled & Regular
+	- Column Edit / 24 / Filled & Regular
+	- Data Pie / 24 / Filled & Regular   
 
 ## v3.7.0
 

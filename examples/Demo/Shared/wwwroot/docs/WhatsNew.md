@@ -1,5 +1,15 @@
 ﻿## v3.7.1
 
+### Components
+- [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
+- [Autocomplete] Add `ImmediateDelay` parameter ([#2052](https://github.com/microsoft/fluentui-blazor/pull/2052))
+- [Autocomplete] Set the height automatically ([#2045](https://github.com/microsoft/fluentui-blazor/pull/2045))
+- [DataGrid] give empty row an id ([#2001](https://github.com/microsoft/fluentui-blazor/pull/2001))
+- [InputBase] Use `Debouncer` instead of `PeriodicTimer` for debouncing `ValueChanged` handler with `ImmediateDelay`. ([#2042](https://github.com/microsoft/fluentui-blazor/pull/2042))
+- [InputLabel] Add Orientation parameter  ([#1994](https://github.com/microsoft/fluentui-blazor/pull/1994))
+- [Option] Update the aria-selected item on FluentOption to apply the default style
+- [Tabs] Prevent error 'An item with the same key has already been added.' ([#2006](https://github.com/microsoft/fluentui-blazor/pull/2006))
+
 ### Icons
 - Update to Fluent UI System Icons 1.1.239 
 
