@@ -88,7 +88,7 @@ extends:
         - task: NuGetToolInstaller@1
           displayName: Install NuGet tools
 
-        - ${{ if eq(variables['Build.SourceBranchName'], 'v3') }}:
+        - ${{ if eq(variables['Build.SourceBranchName'], 'archives-v3') }}:
           # Install .NET 6.0
           - task: UseDotNet@2
             displayName: Install .NET 6.0
