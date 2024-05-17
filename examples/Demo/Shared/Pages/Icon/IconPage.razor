@@ -94,7 +94,9 @@
             <code>&lt;FluentButton IconStart="@@(new MyCircle())">Refresh&lt;/FluentButton></code>
         </li>
     </ul>
-    Setting <code>Width</code> to <code>string.Empty</code> makes the icon 100% width of the enclosing container and stylable from CSS.
+    Setting <code>Width=""</code> (an empty string) makes the icon 100% width of the enclosing
+    container and stylable from CSS. By omitting this attribute or assigning to <code>null</code>,
+    for example via <code>Width="@@null"</code>, the default icon size will be used.
     <br />
     <br />
     <CodeSnippet Language="language-csharp">public class MyCircle : Microsoft.FluentUI.AspNetCore.Components.Icon
