@@ -46,7 +46,7 @@ Please provide a summary of the tests affected by this work and any unique strat
 - [ ] I have added tests for my changes.
 - [ ] I have tested my changes.
 - [ ] I have updated the project documentation to reflect my changes.
-- [ ] I have read the [CONTRIBUTING](https://github.com/Microsoft/fluentui-blazor/blob/master/CONTRIBUTING.md) documentation and followed the [standards](https://www.fast.design/docs/community/code-of-conduct/#our-standards) for this project.
+- [ ] I have read the [CONTRIBUTING](https://github.com/microsoft/fluentui-blazor/blob/master/docs/contributing.md) documentation and followed the [standards](https://www.fast.design/docs/community/code-of-conduct/#our-standards) for this project.
 
 ### Component-specific
 
