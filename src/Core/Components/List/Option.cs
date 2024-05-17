@@ -10,5 +10,7 @@ public class Option<TType>
 
     public bool Disabled { get; set; } = false;
 
+    public bool Selected { get; set; } = false;
+
 }
 
