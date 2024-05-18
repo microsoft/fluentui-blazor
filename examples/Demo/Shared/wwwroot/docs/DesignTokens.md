@@ -337,3 +337,14 @@ To make this work, a link needs to be created between the Design Token component
 ## Colors for integration with specific Microsoft products
 If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
 *The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
+
+Product | AccentBaseColor
+------- | ---------------
+| Office | #D83B01 |
+| Word | #185ABD |
+| Excel | #107C41 |
+| PowerPoint | #C43E1C |
+| Teams | #6264A7 |
+| OneNote | #7719AA |
+| SharePoint | #03787C |
+| Stream | #BC1948 |
