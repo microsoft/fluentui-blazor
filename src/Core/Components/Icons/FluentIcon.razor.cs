@@ -19,7 +19,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width ?? $"{_icon.Width}px")
+        .AddStyle("width", Width ?? $"{_icon.Width}px", Width != string.Empty)
         .AddStyle("fill", GetIconColor())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !_icon.ContainsSVG)
