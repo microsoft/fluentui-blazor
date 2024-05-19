@@ -63,8 +63,8 @@ if ($branchName -eq "main") {
 elseif ($branchName -eq "dev") {
     $branch = "dev"
 }
-# elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
-elseif ($branchName -like "*/archives-*") {
+# elseif ("$(Build.SourceBranch)" -like "refs/heads/archives-*")
+elseif ($branchName -like "archives-*") {
     $branch = "archive"
 }
 else {
