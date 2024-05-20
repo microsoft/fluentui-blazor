@@ -336,4 +336,4 @@ To make this work, a link needs to be created between the Design Token component
 
 ## Colors for integration with specific Microsoft products
 If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
-*The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
+*The specific accent colors for many Office applications are offered in the `OfficeColor` enumeration.*
