@@ -4,6 +4,7 @@
         padding: 0 5px;
     }
 </style>
+
 <div>
     <table>
         <thead>
@@ -14,8 +15,7 @@
         </thead>
         <tbody>
             @{
-                var allColors = OfficeColorUtilities.AllColors;
-                @foreach (var color in allColors)
+                @foreach (var color in OfficeColorUtilities.AllColors)
                 {
                     <tr>
                         <td>
@@ -34,7 +34,6 @@
             }
         </tbody>
     </table>
-
 </div>
 
 @code {
@@ -45,6 +44,5 @@
             OfficeColor.Default => "#036ac4",
             _ => color.ToAttributeValue(),
         };
-
     }
 }
