@@ -4,7 +4,7 @@ public class Option<TType> : IOptionIcon
 {
     public TType? Value { get; set; }
 
-    public TType? Text { get; set; }
+    public string? Text { get; set; }
 
     public (Icon Value, Color? Color, string? Slot)? Icon { get; set; }
 

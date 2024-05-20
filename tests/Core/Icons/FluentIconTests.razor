@@ -92,6 +92,17 @@
     }
 
     [Fact]
+    public void FluentIcon_Width_EmptyString()
+    {
+        // Arrange && Act
+        var icon = new SampleIcons.Samples.Info();
+        var cut = Render(@<FluentIcon Value="@icon" Width="" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentIcon_OnClick()
     {
         var isClicked = false;

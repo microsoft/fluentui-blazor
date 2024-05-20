@@ -1,3 +1,31 @@
+## v4.7.3
+
+### Icons
+- Update to Fluent UI System Icons 1.1.239
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Turn Right / 16 / Filled & Regular
+    - Chart Multiple / 16 / Filled & Regular
+    - Column / 24 / Filled & Regular
+    - Data Pie / 16 / Filled & Regular
+    - Layout Column Two Focus Left / 32 / Filled
+    - Layout Column Two Focus Right / 32 / Filled
+    - Layout Column Two / 32 / Filled & Regular
+    - Layout Row Two Focus Top / 32 / Filled
+    - Layout Row Two / 32 / Filled & Regular
+    - Mail Copy / 32 / Filled & Regular
+    - Paint Brush Sparkle / 20, 24 / Filled & Regular
+    - People Community / 12 / Filled & Regular
+    - Person Board / 12 / Filled & Regular
+    - Person Tentative / 16, 20, 24 / Filled & Regular
+    - Tab Desktop Search / 16, 20, 24 / Filled & Regular
+    - Table Sparkle / 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Chart Multiple / 20, 24 / Filled & Regular
+    - Column Edit / 24 / Filled & Regular
+    - Data Pie / 24 / Filled & Regular
+    
 ## v4.7.2
 
 ### Demo site and documentation 
