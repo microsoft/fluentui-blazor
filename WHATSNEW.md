@@ -1,4 +1,8 @@
-﻿## v3.7.1
+﻿## v3.7.2
+- [Dialog] Use FluentTooltip for close button (a11y)
+
+
+## v3.7.1
 
 ### Components
 - [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
