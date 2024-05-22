@@ -58,7 +58,6 @@ public interface IAppBarItem
     /// <summary>
     /// The callback to invoke when the item is clicked.
     /// </summary>
-    public EventCallback<FluentAppBarItem> OnClick { get; set; }
+    public EventCallback<IAppBarItem> OnClick { get; set; }
 
-    //internal void SetOverflow(bool? overflow);
 }
