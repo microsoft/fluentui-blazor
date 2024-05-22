@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IAppBarItem
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for this item.
+    /// If implementing this interface in a FluentComponentBase derived component, it will be implemented already.
+    /// </summary>
     public string? Id { get; set; }
 
     /// <summary>
