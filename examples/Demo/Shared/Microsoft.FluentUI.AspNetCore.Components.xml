@@ -310,7 +310,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.AppsOverflow">
             <summary>
-            Gets all app items with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow"/> assigned to True.
+            Gets all app items with <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Overflow"/> assigned to True.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OnAfterRenderAsync(System.Boolean)">
@@ -319,60 +319,116 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.OverflowRaisedAsync(System.String)">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Href">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Href">
             <summary>
             Gets or sets the URL for this item.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Match">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Match">
             <summary>
             Gets or sets how the link should be matched.
             Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.IconRest">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.IconRest">
             <summary>
             Gets or sets the Icon to use when the item is not hovered/selected/active.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.IconActive">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.IconActive">
             <summary>
             Gets or sets the Icon to use when the item is hovered/selected/active.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Text">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Text">
             <summary>
             Gets or sets the text to show under the icon.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Tooltip">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Tooltip">
             <summary>
             Gets or sets the tooltip to show when the item is hovered.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Count">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Count">
             <summary>
             Gets or sets the count to show on the item with a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Order">
+            <summary>
+            Gets or sets the position of the item in the app bar.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.ChildContent">
             <summary>
              Gets or sets the content to be shown.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.OnClick">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.OnClick">
             <summary>
             The callback to invoke when the item is clicked.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Owner">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Owner">
             <summary>
             Gets or sets the owning FluentAppBar component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Overflow">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItemBase.Overflow">
             <summary>
             If this app is outside of visible app bar area.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Href">
+            <summary>
+            Gets or sets the URL for this item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Match">
+            <summary>
+            Gets or sets how the link should be matched.
+            Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.IconRest">
+            <summary>
+            Gets or sets the Icon to use when the item is not hovered/selected/active.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.IconActive">
+            <summary>
+            Gets or sets the Icon to use when the item is hovered/selected/active.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Text">
+            <summary>
+            Gets or sets the text to show under the icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Tooltip">
+            <summary>
+            Gets or sets the tooltip to show when the item is hovered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Count">
+            <summary>
+            Gets or sets the count to show on the item with a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Overflow">
+            <summary>
+            Wether this app is outside of visible app bar area.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Order">
+            <summary>
+            Gets or sets the position of the item in the app bar.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.OnClick">
+            <summary>
+            The callback to invoke when the item is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBadge.Color">

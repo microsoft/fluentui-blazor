@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<CascadingValue Value="this" IsFixed="true">
+<CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
     <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation">
         <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
             @ChildContent
