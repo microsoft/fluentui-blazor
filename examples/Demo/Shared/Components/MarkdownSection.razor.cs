@@ -39,13 +39,6 @@ public partial class MarkdownSection : FluentComponentBase
         {
             _content = value;
             HtmlContent = ConvertToMarkupString(_content);
-
-            if (OnContentConverted.HasDelegate)
-            {
-                OnContentConverted.InvokeAsync();
-            }
-            _raiseContentConverted = true;
-            StateHasChanged();
         }
     }
 
@@ -72,8 +65,10 @@ public partial class MarkdownSection : FluentComponentBase
             // add highlight for any code blocks
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
-            await _jsModule.InvokeVoidAsync("highlight");
-            await _jsModule.InvokeVoidAsync("addCopyButton");
+
+            await OnContentConverted.InvokeAsync();
+
+            _raiseContentConverted = true;
         }
 
         if (_raiseContentConverted)
@@ -82,8 +77,9 @@ public partial class MarkdownSection : FluentComponentBase
             if (OnContentConverted.HasDelegate)
             {
                 await OnContentConverted.InvokeAsync();
+                await _jsModule.InvokeVoidAsync("highlight");
+                await _jsModule.InvokeVoidAsync("addCopyButton");
             }
-
         }
     }
 
