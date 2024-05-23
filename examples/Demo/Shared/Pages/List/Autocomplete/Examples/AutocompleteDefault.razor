@@ -11,6 +11,7 @@
                     OptionDisabled="@(e => e.Code == "au")"
                     MaximumSelectedOptions="5"
                     OptionText="@(item => item.Name)"
+                    OptionValue="@(item => item.Code)"
                     @bind-SelectedOptions="@SelectedItems" />
 
 <p>
