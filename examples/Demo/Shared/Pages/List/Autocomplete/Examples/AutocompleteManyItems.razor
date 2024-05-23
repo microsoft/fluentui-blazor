@@ -1,17 +1,35 @@
 ﻿@using System.Globalization
 @inject DataSource Data
 
-<FluentAutocomplete TOption="CultureInfo"
-                    AutoComplete="off"
-                    Label="Select Culture"
-                    Width="250px"
-                    OnOptionsSearch="OnSearch"
-                    Placeholder="Select countries"
-                    MaximumOptionsSearch="int.MaxValue"
-                    MaximumSelectedOptions="2"
-                    Virtualize="true"
-                    OptionText="@(item => $"{item.DisplayName} - {item.Name}")"
-                    @bind-SelectedOptions="@SelectedCultures" />
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+
+    @* Immediate Delay *@
+    <FluentNumberField @bind-Value="_immediateDelay"
+                       TValue="int"
+                       Label="Immediate Delay"
+                       Placeholder="Delay"
+                       Min="0"
+                       Max="2000"
+                       Step="100" />
+
+    
+    <FluentAutocomplete TOption="CultureInfo"
+                        ImmediateDelay="_immediateDelay"
+                        AutoComplete="off"
+                        Label="Select Culture"
+                        Width="250px"
+                        OnOptionsSearch="OnSearch"
+                        Placeholder="Select countries"
+                        MaximumOptionsSearch="int.MaxValue"
+                        MaximumSelectedOptions="2"
+                        Virtualize="true"
+                        OptionText="@(item => $"{item.DisplayName} - {item.Name}")"
+                        @bind-SelectedOptions="@SelectedCultures" />
+
+</FluentStack>
+
+
+
 
 <p>
     <b>Selected</b>: @(String.Join(" - ", SelectedCultures.Select(i => i.Name)))
@@ -19,6 +37,8 @@
 
 @code
 {
+    private int _immediateDelay;
+
     IEnumerable<CultureInfo> SelectedCultures = Array.Empty<CultureInfo>();
     CultureInfo[] Cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
 

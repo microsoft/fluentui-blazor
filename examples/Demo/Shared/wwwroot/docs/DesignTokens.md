@@ -241,15 +241,17 @@ There are a couple of methods available **per design token** to get or set its v
 Given the following `.razor` page fragment:
 
 ```cshtml
-<FluentButton @ref="ref1" Appearance="Appearance.Filled">A button</FluentButton>
-<FluentButton @ref="ref2" Appearance="Appearance.Filled">Another button</FluentButton>
-<FluentButton @ref="ref3" Appearance="Appearance.Filled">And one more</FluentButton>
-<FluentButton @ref="ref4" Appearance="Appearance.Filled" @onclick=OnClick>Last button</FluentButton>
+<FluentButton @ref="ref1">A button</FluentButton>
+<FluentButton @ref="ref2" Appearance.Accent>Another button</FluentButton>
+<FluentButton @ref="ref3">And one more</FluentButton>
+<FluentButton @ref="ref4" @onclick=OnClick>Last button</FluentButton>
 ```
 
 You can use Design Tokens to manipulate the styles from C# code as follows:
 
 ```csharp
+@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+
 [Inject]
 private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
@@ -302,7 +304,7 @@ public async Task OnClick()
 }
 ```
 
-As can be seen in the code above (with the `ref4.Element`), it is posible to apply multiple tokens to the same component.
+As can be seen in the code above (with the `ref4.Element`), it is possible to apply multiple tokens to the same component.
  
 For Design Tokens that work with a color value, you must call the `ToSwatch()` extension method on a string value or use one of the Swatch constructors. This 
 makes sure the color is using a format that Design Tokens can handle. A Swatch has a lot of commonality with the `System.Drawing.Color` struct. Instead of 
@@ -334,4 +336,4 @@ To make this work, a link needs to be created between the Design Token component
 
 ## Colors for integration with specific Microsoft products
 If you are configuring the components for integration into a specific Microsoft product, the following table provides `AccentBaseColor` values you can use. 
-*The library offers an `OfficeColor` enumeration which contains the specific accent colors for 17 different Office applications.*
+*The specific accent colors for many Office applications are offered in the `OfficeColor` enumeration.*

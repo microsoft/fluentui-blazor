@@ -1,4 +1,4 @@
-﻿.fluent-input-label {
+.fluent-input-label {
     display: flex;
     color: var(--neutral-foreground-rest);
     cursor: pointer;
@@ -10,3 +10,7 @@
     margin-bottom: calc(var(--design-unit) * 1px);
     align-items: center;
 }
+
+    .fluent-input-label[orientation='horizontal'] {
+        margin-bottom: 0;
+    }

@@ -146,23 +146,23 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
+    private async Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
     {
         if (!isReadOnly)
         {
-            Value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+            var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+            await OnSelectedDateHandlerAsync(value);
         }
-        return Task.CompletedTask;
     }
 
     /// <summary />
-    private Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
+    private async Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
     {
         if (!isReadOnly)
         {
-            Value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+            var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+            await OnSelectedDateHandlerAsync(value);
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>

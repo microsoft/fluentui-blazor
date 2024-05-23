@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Markdig.Extensions.GenericAttributes;
 using Markdig.Helpers;
 using Markdig.Parsers;
@@ -10,7 +14,7 @@ namespace FluentUI.Demo.Shared.Components;
 /// <summary>
 /// Modified version of original markdig CodeBlockRenderer
 /// </summary>
-/// <see cref="https://github.com/xoofx/markdig/blob/master/src/Markdig/Renderers/Html/CodeBlockRenderer.cs"/>
+/// <see href="https://github.com/xoofx/markdig/blob/master/src/Markdig/Renderers/Html/CodeBlockRenderer.cs"/>
 internal class MarkdownSectionPreCodeRenderer : HtmlObjectRenderer<CodeBlock>
 {
     private HashSet<string>? _blocksAsDiv;

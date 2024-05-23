@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Components;
 
+//  Specifies that types that are ordinarily visible only within the current assembly
+// are visible to the UnitTest assembly.
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Microsoft.FluentUI.AspNetCore.Components.Tests")]
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 // Checkbox like items

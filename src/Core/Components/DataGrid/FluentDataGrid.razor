@@ -18,7 +18,7 @@
                           grid-template-columns=@_internalGridTemplateColumns
                           class="@GridClass()"
                           style="@Style"
-                          aria-rowcount="@(_ariaBodyRowCount + 1)"
+                          aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                           @onrowfocus=HandleOnRowFocusAsync
                           @onclosecolumnoptions="CloseColumnOptions"
                           @attributes="AdditionalAttributes">
@@ -40,7 +40,7 @@
             {
                 @if (Virtualize)
                 {
-                    if (_ariaBodyRowCount == 0)
+                    if (_internalGridContext.TotalItemCount == 0)
                     {
                         @_renderEmptyContent
                     }
@@ -72,10 +72,10 @@
     {
         var initialRowIndex = (GenerateHeader != GenerateHeaderOption.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
         var rowIndex = initialRowIndex;
-        if (_currentNonVirtualizedViewItems.Any())
+        if (_internalGridContext.Items.Any())
         {
             Loading = false;
-            foreach (var item in _currentNonVirtualizedViewItems)
+            foreach (var item in _internalGridContext.Items)
             {
                 RenderRow(__builder, rowIndex++, item);
             }
@@ -154,7 +154,7 @@
             return;
         }
         // If we use the Blazor components here the renderer gets upset/lost, so we use the web components directly
-        <fluent-data-grid-row class="empty-content-row">
+        <fluent-data-grid-row class="empty-content-row" row-id="empty-row">
             <fluent-data-grid-cell class="empty-content-cell">
                 @if (EmptyContent is null)
                 {

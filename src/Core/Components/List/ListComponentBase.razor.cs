@@ -496,6 +496,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             if (!Equals(item, SelectedOption))
             {
                 SelectedOption = item;
+                InternalValue = Value = GetOptionValue(item);
                 await RaiseChangedEventsAsync();
             }
         }
