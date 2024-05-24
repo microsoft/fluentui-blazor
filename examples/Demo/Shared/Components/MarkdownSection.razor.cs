@@ -8,7 +8,6 @@ namespace FluentUI.Demo.Shared.Components;
 public partial class MarkdownSection : FluentComponentBase
 {
     private string? _content;
-    private bool _raiseContentConverted;
     private IJSObjectReference _jsModule = default!;
 
     [Inject]
@@ -58,28 +57,24 @@ public partial class MarkdownSection : FluentComponentBase
     {
         if (firstRender)
         {
+            // import code for highlighting code blocks
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+                "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
+
+            //
             if (!string.IsNullOrEmpty(FromAsset))
             {
                 InternalContent = await StaticAssetService.GetAsync(FromAsset);
             }
-            // add highlight for any code blocks
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
+            StateHasChanged();
 
-            await OnContentConverted.InvokeAsync();
-
-            _raiseContentConverted = true;
-        }
-
-        if (_raiseContentConverted)
-        {
-            _raiseContentConverted = false;
+            // notify that content converted from markdown 
             if (OnContentConverted.HasDelegate)
             {
                 await OnContentConverted.InvokeAsync();
-                await _jsModule.InvokeVoidAsync("highlight");
-                await _jsModule.InvokeVoidAsync("addCopyButton");
             }
+            await _jsModule.InvokeVoidAsync("highlight");
+            await _jsModule.InvokeVoidAsync("addCopyButton");
         }
     }
 
