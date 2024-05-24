@@ -7,7 +7,6 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class MarkdownSection : FluentComponentBase
 {
-    private string? _content;
     private IJSObjectReference _jsModule = default!;
 
     [Inject]
@@ -31,16 +30,6 @@ public partial class MarkdownSection : FluentComponentBase
     [Parameter]
     public EventCallback OnContentConverted { get; set; }
 
-    public string? InternalContent
-    {
-        get => _content;
-        set
-        {
-            _content = value;
-            HtmlContent = ConvertToMarkupString(_content);
-        }
-    }
-
     public MarkupString HtmlContent { get; private set; }
 
     protected override void OnInitialized()
@@ -49,8 +38,6 @@ public partial class MarkdownSection : FluentComponentBase
         {
             throw new ArgumentException("You need to provide either Content or FromAsset parameter");
         }
-
-        InternalContent = Content;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -61,11 +48,8 @@ public partial class MarkdownSection : FluentComponentBase
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
 
-            //
-            if (!string.IsNullOrEmpty(FromAsset))
-            {
-                InternalContent = await StaticAssetService.GetAsync(FromAsset);
-            }
+            // create markup from markdown source
+            HtmlContent = await MarkdownToMarkupStringAsync();
             StateHasChanged();
 
             // notify that content converted from markdown 
@@ -78,6 +62,24 @@ public partial class MarkdownSection : FluentComponentBase
         }
     }
 
+    /// <summary>
+    /// Converts markdown, provided in Content or from markdown file stored as a static asset, to MarkupString for rendering.
+    /// </summary>
+    /// <returns>MarkupString</returns>
+    private async Task<MarkupString> MarkdownToMarkupStringAsync()
+    {
+        string? s;
+        if (string.IsNullOrEmpty(FromAsset))
+        {
+            s = Content;
+        }
+        else
+        {
+            s = await StaticAssetService.GetAsync(FromAsset);
+        }
+
+        return ConvertToMarkupString(s);
+    }
     private static MarkupString ConvertToMarkupString(string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
