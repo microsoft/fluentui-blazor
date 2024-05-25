@@ -4672,6 +4672,11 @@
             Gets or sets the child content of component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.Orientation">
+            <summary>
+            Gets or sets the orientation of the stacked components.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.

@@ -4,5 +4,12 @@
     position: relative;
     flex: 1;
     display: flex;
+}
+
+.layout--vertical {
     flex-direction: column;
+}
+
+.layout--horizontal {
+    flex-direction: row;
 }
