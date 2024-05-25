@@ -4,12 +4,9 @@
     position: relative;
     flex: 1;
     display: flex;
-}
-
-.layout--vertical {
     flex-direction: column;
 }
 
-.layout--horizontal {
+.layout[orientation='horizontal'] {
     flex-direction: row;
 }
