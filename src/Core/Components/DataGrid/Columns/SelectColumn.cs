@@ -158,7 +158,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public EventCallback<bool?> SelectAllChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
+    /// Gets or sets the function to executed to determine checked/unchecked status.
     /// </summary>
     [Parameter]
     public Func<TGridItem, bool> Property { get; set; } = (item) => false;
@@ -175,6 +175,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             if (SelectedItems.Contains(item))
             {
                 _selectedItems.Remove(item);
+                SelectAll = false;
                 await CallOnSelect(item, false);
             }
             else
@@ -268,6 +269,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             if (selected && !_selectedItems.Contains(item))
             {
                 _selectedItems.Add(item);
+                RefreshHeaderContent();
             }
             else if (!selected && _selectedItems.Contains(item))
             {
@@ -324,13 +326,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     private bool? GetSelectAll()
     {
         // Using SelectedItems only
-        if (InternalGridContext != null && Grid.Items != null)
+        if (InternalGridContext != null && (Grid.Items != null || Grid.ItemsProvider != null))
         {
             if (!SelectedItems.Any())
             {
                 return false;
             }
-            else if (SelectedItems.Count() == Grid.Items.Count())
+            else if (SelectedItems.Count() == InternalGridContext.TotalItemCount || SelectAll == true)
             {
                 return true;
             }
@@ -361,7 +363,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     internal async Task OnClickAllAsync(MouseEventArgs e)
     {
-        if (Grid == null || Grid.Items == null || SelectMode != DataGridSelectMode.Multiple)
+        if (Grid == null || SelectMode != DataGridSelectMode.Multiple)
         {
             return;
         }
@@ -377,7 +379,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         _selectedItems.Clear();
         if (SelectAll == true)
         {
-            _selectedItems.AddRange(Grid.Items);
+            _selectedItems.AddRange(InternalGridContext.Items);
         }
 
         if (SelectedItemsChanged.HasDelegate)
