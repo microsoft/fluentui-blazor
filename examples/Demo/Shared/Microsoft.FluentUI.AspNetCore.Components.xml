@@ -14149,6 +14149,29 @@
             <param name="when">Condition in which the CSS Class is added.</param>
             <returns>CssBuilder</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClasses(System.String)">
+            <summary>
+            Adds multiple CSS Classes to the builder with space separator.
+            </summary>
+            <param name="values">Space-separated CSS Classes to add</param>
+            <returns>CssBuilder</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClasses(System.String,System.Boolean)">
+            <summary>
+            Adds multiple CSS Classes to the builder with space separator, based on a condition.
+            </summary>
+            <param name="value">Space-separated CSS Classes to add</param>
+            <param name="when">Condition in which the CSS Classes are added.</param>
+            <returns>CssBuilder</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClasses(System.String,System.Func{System.Boolean})">
+            <summary>
+            Adds multiple CSS Classes to the builder with space separator, based on a condition.
+            </summary>
+            <param name="value">Space-separated CSS Classes to add</param>
+            <param name="when">Function that returns a condition in which the CSS Classes are added.</param>
+            <returns>CssBuilder</returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.Build">
             <summary>
             Finalize the completed CSS Classes as a string.
@@ -14160,13 +14183,6 @@
             ToString should only and always call Build to finalize the rendered string.
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddRaw(System.String)">
-            <summary>
-            Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
-            </summary>
-            <param name="value"></param>
-            <returns>StyleBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder.#ctor">
             <summary>
