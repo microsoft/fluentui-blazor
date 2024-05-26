@@ -106,6 +106,14 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
+          - output: nuget
+            useDotNetTask: false
+            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+            packageParentPath: '$(Build.ArtifactStagingDirectory)'
+            nuGetFeedType: internal
+            publishVstsFeed: public/dotnet8
+            allowPackageConflicts: true
+
         steps:
 
         # Compute AssemblyVersion and PackageVersion
