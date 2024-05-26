@@ -105,6 +105,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
                 }
                 else if (OptionSelected != null && newSelectedOption != null && OptionSelected(newSelectedOption))
                 {
+                    // The selected option might not be part of the Items list. But we can use OptionSelected to compare the current option.
                     _currentSelectedOption = newSelectedOption;
                 }
                 else
