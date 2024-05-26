@@ -11,7 +11,7 @@ public readonly struct CssBuilder
 
     public CssBuilder()
     {
-        _classes = new HashSet<string>();
+        _classes = [];
         _userClasses = null;
     }
 
