@@ -36,12 +36,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the text field value.
     /// </summary>
     [Parameter]
@@ -52,12 +46,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// </summary>
     [Parameter]
     public EventCallback<string> ValueTextChanged { get; set; }
-
-    /// <summary>
-    /// Determines if the element should receive document focus on page load.
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; } = false;
 
     /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
@@ -208,12 +196,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public string? MaxAutoHeight { get; set; }
 
-    /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="OnOptionsSearch"/> event.
-    /// </summary>
-    [Parameter]
-    public int ImmediateDelay { get; set; } = 0;
-
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -259,7 +241,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
-    protected async Task InputHandlerAsync(ChangeEventArgs e)
+    protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {
         ValueText = e.Value?.ToString() ?? string.Empty;
         await ValueTextChanged.InvokeAsync(ValueText);

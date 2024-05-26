@@ -33,12 +33,6 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     public bool? Open { get; set; }
 
     /// <summary>
-    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the placement for the listbox when the combobox is open.
     /// See <seealso cref="AspNetCore.Components.SelectPosition"/>
     /// </summary>
@@ -50,12 +44,6 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
-
-    /// <summary>
-    /// Determines if the element should receive document focus on page load.
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; } = false;
 
     protected override string? StyleValue => new StyleBuilder(base.StyleValue)
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
