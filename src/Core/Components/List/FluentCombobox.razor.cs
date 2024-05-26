@@ -103,6 +103,10 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
                 {
                     _currentSelectedOption = newSelectedOption;
                 }
+                else if (OptionSelected != null && newSelectedOption != null && OptionSelected(newSelectedOption))
+                {
+                    _currentSelectedOption = newSelectedOption;
+                }
                 else
                 {
                     // If the selected option is not in the list of items, reset the selected option
