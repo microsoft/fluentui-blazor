@@ -7,6 +7,12 @@ public partial class DialogService : IDialogService
 {
     /// <summary />
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBoxContent))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBox))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplashScreenContent))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(FluentSplashScreen))] 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogParameters))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogParameters<object>))]
     public DialogService()
     {
     }
