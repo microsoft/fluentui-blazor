@@ -25,8 +25,7 @@
                          @oninput="@InputHandlerAsync"
                          @onfocusout="@(e => { IsReachedMaxItems = false; })"
                          autofocus="@Autofocus"
-                         Style="@ComponentWidth"
-                         >
+                         Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
@@ -102,6 +101,14 @@
         @* List of available items *@
         @if (IsMultiSelectOpened && (ShowOverlayOnEmptyResults || Items?.Any() == true))
         {
+            @if (SelectValueOnTab)
+            {
+                <FluentKeyCode Anchor="@Id"
+                               OnKeyDown="@KeyDownHandlerAsync"
+                               Only="@SelectValueOnTabOnly"
+                               PreventDefaultOnly="@SelectValueOnTabOnly" />
+            }
+
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
