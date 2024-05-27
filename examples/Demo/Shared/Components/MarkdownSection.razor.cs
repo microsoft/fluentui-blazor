@@ -8,6 +8,9 @@ namespace FluentUI.Demo.Shared.Components;
 public partial class MarkdownSection : FluentComponentBase
 {
     private IJSObjectReference _jsModule = default!;
+    private bool _markdownChanged = false;
+    private string? _content;
+    private string? _fromAsset;
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -19,13 +22,35 @@ public partial class MarkdownSection : FluentComponentBase
     /// Gets or sets the Markdown content 
     /// </summary>
     [Parameter]
-    public string? Content { get; set; }
+    public string? Content
+    {
+        get { return _content; }
+        set
+        {
+            if (_content is string && !_content.Equals(value))
+            {
+                _markdownChanged = true;
+            }
+            _content = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets asset to read the Markdown from
     /// </summary>
     [Parameter]
-    public string? FromAsset { get; set; }
+    public string? FromAsset
+    {
+        get { return _fromAsset; }
+        set
+        {
+            if (_fromAsset is string && !_fromAsset.Equals(value))
+            {
+                _markdownChanged = true;
+            }
+            _fromAsset = value;
+        }
+    }
 
     [Parameter]
     public EventCallback OnContentConverted { get; set; }
@@ -47,6 +72,11 @@ public partial class MarkdownSection : FluentComponentBase
             // import code for highlighting code blocks
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
+        }
+
+        if (firstRender || _markdownChanged)
+        {
+            _markdownChanged = false;
 
             // create markup from markdown source
             HtmlContent = await MarkdownToMarkupStringAsync();
