@@ -1380,6 +1380,16 @@
             Gets or sets the content to be rendered for each row in the table.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllDisabled">
+            <summary>
+            Gets or sets whether the [All] checkbox is disabled (not clickable).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllTemplate">
+            <summary>
+            Gets or sets the template for the [All] checkbox column template.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItems">
             <summary>
             Gets or sets the list of selected items.
