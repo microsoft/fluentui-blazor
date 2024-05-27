@@ -61,7 +61,7 @@
 ### Components
 - [Wizard] Add StepSequence attribute ([#1909](https://github.com/microsoft/fluentui-blazor/pull/1909))
 - [DataGrid] Fix GridTemplateColumns initialization was done in the wrong place (related to new Width option for columns
-*
+
 ## v4.7.0
 
 ### Breaking change
