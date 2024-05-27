@@ -4845,6 +4845,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectValueOnTab">
             <summary>
             Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">

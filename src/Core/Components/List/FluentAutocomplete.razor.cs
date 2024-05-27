@@ -216,6 +216,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     /// <summary>
     /// Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
+    /// Default is false.
     /// </summary>
     [Parameter]
     public bool SelectValueOnTab { get; set; } = false;
