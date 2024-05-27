@@ -13903,25 +13903,25 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClass(System.String)">
             <summary>
-            Adds a CSS Class to the builder with space separator.
+            Adds one or more CSS Classes to the builder with space separator.
             </summary>
-            <param name="value">CSS Class to add</param>
+            <param name="values">Space-separated CSS Classes to add</param>
             <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClass(System.String,System.Boolean)">
             <summary>
-            Adds a conditional CSS Class to the builder with space separator.
+            Adds one or more CSS Classes to the builder with space separator, based on a condition.
             </summary>
-            <param name="value">CSS Class to conditionally add.</param>
-            <param name="when">Condition in which the CSS Class is added.</param>
+            <param name="value">Space-separated CSS Classes to add</param>
+            <param name="when">Condition in which the CSS Classes are added.</param>
             <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClass(System.String,System.Func{System.Boolean})">
             <summary>
-            Adds a conditional CSS Class to the builder with space separator.
+            Adds one or more CSS Classes to the builder with space separator, based on a condition.
             </summary>
-            <param name="value">CSS Class to conditionally add.</param>
-            <param name="when">Condition in which the CSS Class is added.</param>
+            <param name="value">Space-separated CSS Classes to add</param>
+            <param name="when">Function that returns a condition in which the CSS Classes are added.</param>
             <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.Build">
@@ -13934,14 +13934,37 @@
             <summary>
             ToString should only and always call Build to finalize the rendered string.
             </summary>
-            <returns></returns>
+            <returns>string</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddRaw(System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.IsValidClassName(System.String)">
             <summary>
-            Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
+            Validates if the provided class name is valid.
             </summary>
-            <param name="value"></param>
-            <returns>StyleBuilder</returns>
+            <param name="className">CSS class name to validate</param>
+            <returns>True if valid, otherwise false</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.SplitAndValidate(System.String)">
+            <summary>
+            Splits a space-separated string of class names and validates each one.
+            </summary>
+            <param name="input">Space-separated CSS Classes</param>
+            <returns>Enumerable of valid class names</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.GenerateValidClassNameRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Compiled</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match '-' atomically, optionally.<br/>
+            ○ Match a character in the set [A-Z_a-z] greedily at least once.<br/>
+            ○ Match a character in the set [-0-9A-Z_a-z] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder.#ctor">
             <summary>
@@ -14130,6 +14153,38 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GenerateValidClassNameRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
         <member name="T:System.Text.RegularExpressions.Generated.Utilities">
             <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
         </member>
@@ -14138,6 +14193,12 @@
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_20FF03FEFFFF87FEFFFF07">
+            <summary>Supports searching for characters in or not in "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_FEFFFF87FEFFFF07">
+            <summary>Supports searching for characters in or not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
         </member>
     </members>
 </doc>
