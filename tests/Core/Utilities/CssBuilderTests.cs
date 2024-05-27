@@ -62,6 +62,45 @@ public class CssBuilderTests : TestBase
     }
 
     [Fact]
+    public void CssBuilder_AddMultipleClassesAtOnce()
+    {
+        // Arrange
+        var cssBuilder = new CssBuilder();
+
+        // Act
+        cssBuilder.AddClass("class1 class2");
+
+        // Assert
+        Assert.Equal("class1 class2", cssBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_AddMultipleClassesAtOnceWithUserClass()
+    {
+        // Arrange
+        var cssBuilder = new CssBuilder("user-class");
+
+        // Act
+        cssBuilder.AddClass("class1 class2");
+
+        // Assert
+        Assert.Equal("class1 class2 user-class", cssBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_AddMultipleClassesAtOnceWithExtraSpaces()
+    {
+        // Arrange
+        var cssBuilder = new CssBuilder();
+
+        // Act
+        cssBuilder.AddClass("  class1  class2  ");
+
+        // Assert
+        Assert.Equal("class1 class2", cssBuilder.Build());
+    }
+
+    [Fact]
     public void CssBuilder_AddClassesBasedOnCondition()
     {
         // Arrange
