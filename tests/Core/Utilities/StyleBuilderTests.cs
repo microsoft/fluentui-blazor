@@ -71,7 +71,6 @@ public class StyleBuilderTests : TestBase
         Assert.Equal("color: red; font-size: 12px; font-name: courier;", styleBuilder.Build());
     }
 
-
     [Fact]
     public void StyleBuilder_PropValue()
     {
