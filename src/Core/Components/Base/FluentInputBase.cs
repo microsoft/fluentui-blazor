@@ -100,6 +100,13 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public Expression<Func<TValue>>? ValueExpression { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="FieldIdentifier"/> that identifies the bound value.
+    /// If set, this parameter takes precedence over <see cref="ValueExpression"/>.
+    /// </summary>
+    [Parameter]
+    public FieldIdentifier? Field { get; set; }
+
+    /// <summary>
     /// Gets or sets the display name for this field.
     /// <para>This value is used when generating error messages when the input value fails to parse correctly.</para>
     /// </summary>
@@ -119,7 +126,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     public virtual string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets or sets if the derived component is embedded in another component. 
+    /// Gets or sets if the derived component is embedded in another component.
     /// If true, the ClassValue property will not include the EditContext's FieldCssClass.
     /// </summary>
     [Parameter]
@@ -301,7 +308,11 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
             FieldBound = ValueExpression != null || ValueChanged.HasDelegate;
 
-            if (ValueExpression is not null)
+            if(Field is not null)
+            {
+                FieldIdentifier = (FieldIdentifier)Field;
+            }
+            else if (ValueExpression is not null)
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
             }
@@ -350,9 +361,9 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// <summary>
     /// Exposes the elements FocusAsync(bool preventScroll) method.
     /// </summary>
-    /// <param name="preventScroll">A Boolean value indicating whether or not the browser should scroll 
-    /// the document to bring the newly-focused element into view. A value of false for preventScroll (the default) 
-    /// means that the browser will scroll the element into view after focusing it. 
+    /// <param name="preventScroll">A Boolean value indicating whether or not the browser should scroll
+    /// the document to bring the newly-focused element into view. A value of false for preventScroll (the default)
+    /// means that the browser will scroll the element into view after focusing it.
     /// If preventScroll is set to true, no scrolling will occur.</param>
     [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
     public async void FocusAsync(bool preventScroll)
