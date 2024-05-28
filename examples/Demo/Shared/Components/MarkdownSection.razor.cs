@@ -24,10 +24,10 @@ public partial class MarkdownSection : FluentComponentBase
     [Parameter]
     public string? Content
     {
-        get { return _content; }
+        get => _content;
         set
         {
-            if (_content is string && !_content.Equals(value))
+            if (_content is not null && !_content.Equals(value))
             {
                 _markdownChanged = true;
             }
@@ -41,10 +41,10 @@ public partial class MarkdownSection : FluentComponentBase
     [Parameter]
     public string? FromAsset
     {
-        get { return _fromAsset; }
+        get => _fromAsset;
         set
         {
-            if (_fromAsset is string && !_fromAsset.Equals(value))
+            if (_fromAsset is not null && !_fromAsset.Equals(value))
             {
                 _markdownChanged = true;
             }
@@ -98,17 +98,17 @@ public partial class MarkdownSection : FluentComponentBase
     /// <returns>MarkupString</returns>
     private async Task<MarkupString> MarkdownToMarkupStringAsync()
     {
-        string? s;
+        string? markdown;
         if (string.IsNullOrEmpty(FromAsset))
         {
-            s = Content;
+            markdown = Content;
         }
         else
         {
-            s = await StaticAssetService.GetAsync(FromAsset);
+            markdown = await StaticAssetService.GetAsync(FromAsset);
         }
 
-        return ConvertToMarkupString(s);
+        return ConvertToMarkupString(markdown);
     }
     private static MarkupString ConvertToMarkupString(string? value)
     {
