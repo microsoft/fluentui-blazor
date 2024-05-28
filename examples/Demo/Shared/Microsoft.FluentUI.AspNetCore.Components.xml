@@ -6162,7 +6162,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Target">
             <summary>
-            Gets or sets the target attribute that specifies where to open the group, if Href is specified. 
+            Gets or sets the target attribute that specifies where to open the group, if Href is specified.
             Possible values: _blank | _self | _parent | _top.
             </summary>
         </member>
@@ -6173,8 +6173,15 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.IconColor">
             <summary>
-            Gets or sets the color of the icon. 
+            Gets or sets the color of the icon.
             It supports the theme colors, default value uses the themes drawer icon color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.CustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Disabled">
@@ -6185,7 +6192,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ChildContent">
             <summary>
             Gets or sets the content to be shown.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ActiveClass">
             <summary>
@@ -6194,7 +6201,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Match">
             <summary>
-            Gets or sets how the link should be matched. 
+            Gets or sets how the link should be matched.
             Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
             </summary>
         </member>
