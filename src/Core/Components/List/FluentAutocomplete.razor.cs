@@ -215,6 +215,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;
 
+    /// <summary>
+    /// Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
+    /// Default is false.
+    /// </summary>
+    [Parameter]
+    public bool SelectValueOnTab { get; set; } = false;
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -319,6 +326,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
     private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
+    private static readonly KeyCode[] SelectValueOnTabOnly = new[] { KeyCode.Tab };
 
     /// <summary />
     protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
@@ -330,6 +338,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Enter:
+            case KeyCode.Tab:
                 if (IsMultiSelectOpened)
                 {
                     var optionDisabled = SelectableItem != null && OptionDisabled != null
