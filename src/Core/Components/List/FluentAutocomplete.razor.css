@@ -51,3 +51,16 @@
 .fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(control) {
     margin-bottom: 2px;
 }
+
+@media (forced-colors: active) {
+
+    .fluent-autocomplete-multiselect div[role=listbox] {
+        border: calc(var(--stroke-width)* 1px) solid transparent;
+    }
+
+    .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable] {
+        forced-color-adjust: none;
+        background: highlight;
+        color: highlighttext;
+    }
+}
