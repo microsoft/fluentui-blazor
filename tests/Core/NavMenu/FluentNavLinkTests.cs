@@ -21,7 +21,7 @@ public class FluentNavLinkTests : TestBase
     }
 
     [Fact]
-    public void FluentNavLink_ExtendedTtitle()
+    public void FluentNavLink_ExtendedTitle()
     {
         // Arrange & Act
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
