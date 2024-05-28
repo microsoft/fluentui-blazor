@@ -66,7 +66,7 @@ export function init(gridElement) {
 }
 
 export function checkColumnOptionsPosition(gridElement) {
-    const colOptions = gridElement?._rowItems[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables
+    const colOptions = gridElement?._rowElements[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables
     if (colOptions) {
         // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
         // beyond either side is off-screen or outside the scroll range of an ancestor
