@@ -1,9 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq.Expressions;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -132,7 +136,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
-    internal bool FieldBound => ValueExpression != null || ValueChanged.HasDelegate;
+    internal bool FieldBound { get; set; }
 
     protected async Task SetCurrentValueAsync(TValue? value)
     {
@@ -295,6 +299,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         {
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
+            FieldBound = ValueExpression != null || ValueChanged.HasDelegate;
 
             if (ValueExpression is not null)
             {

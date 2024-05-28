@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -12,6 +16,9 @@ public class Starship
     public string? Identifier { get; set; }
 
     public string? Description { get; set; }
+
+    [Required(ErrorMessage = "Countries are required")]
+    public IEnumerable<Country>? Countries { get; set; } = [];
 
     [Required(ErrorMessage = "A classification is required")]
     public string? Classification { get; set; }

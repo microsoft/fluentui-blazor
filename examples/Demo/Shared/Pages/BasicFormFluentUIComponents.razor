@@ -26,17 +26,21 @@
         </div>
         <div>
             <FluentAutocomplete TOption="Country"
+                                Name="countries"
                                 AutoComplete="off"
-                                Label="Select a country"
+                                Required
+                                Label="Select countries"
                                 Width="250px"
                                 Placeholder="Select countries"
                                 OnOptionsSearch="@OnSearchAsync"
                                 MaximumSelectedOptions="3"
                                 OptionText="@(item => item.Name)"
-                                @bind-SelectedOptions="@SelectedItems" />
+                                Multiple="true"
+                                @bind-SelectedOptions="@starship.Countries" />
+            <FluentValidationMessage For="@(() => starship.Countries)" />
         </div>
         <div>
-            <FluentSelect name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
+            <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
                 <FluentOption Value="">Select classification ...</FluentOption>
                 <FluentOption Value="Exploration">Exploration</FluentOption>
                 <FluentOption Value="Diplomacy">Diplomacy</FluentOption>

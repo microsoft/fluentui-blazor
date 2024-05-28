@@ -1,2 +1,25 @@
 ﻿@page "/IssueTester"
 
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<EditForm Model="@this">
+    <p>Modified: @(context.IsModified())</p>
+
+    <FluentSelect TOption="MyThing" @bind-SelectedOption="@currentThing" @bind-Value="@currentThingValue"
+                  Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+
+    <FluentTextField @bind-Value="@someString" />
+</EditForm>
+<p>
+Selected option: @currentThing <br/>
+Selected value: @currentThingValue <br />
+Text field: @someString
+</p>
+@code {
+    MyThing? currentThing;
+    string? currentThingValue;
+    string? someString;
+    MyThing[] AllThings = new[] { new MyThing(1, "One"), new MyThing(2, "Two") };
+
+    record MyThing(int Id, string DisplayText);
+}

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -20,6 +21,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/ListComponentBase.razor.js";
 
     private bool _multiple = false;
+    private bool _hasInitializedParameters;
     private List<TOption> _selectedOptions = [];
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
@@ -269,6 +271,20 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             }
         }
 
+        if (!_hasInitializedParameters)
+        {
+            if (SelectedOptionChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => SelectedOption);
+            }
+            if (SelectedOptionsChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => SelectedOptions);
+            }
+
+            _hasInitializedParameters = true;
+        }
+
         await base.SetParametersAsync(ParameterView.Empty);
     }
 
@@ -290,6 +306,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             Id = Identifier.NewId();
         }
+
+        FieldBound = ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
     }
 
     protected override void OnParametersSet()
