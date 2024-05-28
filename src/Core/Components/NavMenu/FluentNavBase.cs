@@ -16,7 +16,7 @@ public abstract class FluentNavBase : FluentComponentBase
     public string? Href { get; set; }
 
     /// <summary>
-    /// Gets or sets the target attribute that specifies where to open the group, if Href is specified. 
+    /// Gets or sets the target attribute that specifies where to open the group, if Href is specified.
     /// Possible values: _blank | _self | _parent | _top.
     /// </summary>
     [Parameter]
@@ -29,11 +29,19 @@ public abstract class FluentNavBase : FluentComponentBase
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the color of the icon. 
+    /// Gets or sets the color of the icon.
     /// It supports the theme colors, default value uses the themes drawer icon color.
     /// </summary>
     [Parameter]
     public Color IconColor { get; set; } = Color.Accent;
+
+    /// <summary>
+    /// Gets or sets the icon drawing and fill color to a custom value.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+    /// ⚠️ Only available when Color is set to Color.Custom.
+    /// </summary>
+    [Parameter]
+    public string? CustomColor { get; set; }
 
     /// <summary>
     /// If true, the button will be disabled.
@@ -43,7 +51,7 @@ public abstract class FluentNavBase : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the content to be shown.
-    /// </summary>  
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -54,7 +62,7 @@ public abstract class FluentNavBase : FluentComponentBase
     public string ActiveClass { get; set; } = "active";
 
     /// <summary>
-    /// Gets or sets how the link should be matched. 
+    /// Gets or sets how the link should be matched.
     /// Defaults to <see cref="NavLinkMatch.Prefix"/>.
     /// </summary>
     [Parameter]

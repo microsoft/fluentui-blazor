@@ -19,8 +19,8 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.Items, GetCustomers());
         });
 
         // Assert
@@ -33,9 +33,9 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Items, GetCustomers());
-            parameters.Add(p => p.Width, string.Empty);
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Width, string.Empty);
         });
 
         // Assert
@@ -49,8 +49,8 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.Items, GetCustomers());
         });
 
         // Act
@@ -79,9 +79,9 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Items, GetCustomers());
-            parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
         });
 
         // Act
@@ -91,6 +91,40 @@
 
         // Assert
         cut.Verify(suffix: keyCode);
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_SelectValueOnTab()
+    {
+        IEnumerable<Customer> SelectedItems = Array.Empty<Customer>();
+
+        // Arrange
+        var cut = Render<FluentAutocomplete<Customer>>(
+            @<FluentAutocomplete TOption="Customer"
+                    SelectValueOnTab="true"
+                    @bind-SelectedOptions="@SelectedItems"
+                    OnOptionsSearch="@OnSearchAsync" />
+    );
+
+        Task OnSearchAsync(OptionsSearchEventArgs<Customer> e)
+        {
+            e.Items = GetCustomers().Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                                    .OrderBy(i => i.Name);
+            return Task.CompletedTask;
+        }
+
+        // Act: click to open -> Tab to select
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+
+        // Tab to select
+        await cut.InvokeAsync(async () => await cut.FindComponents<FluentKeyCode>()
+                                                   .ElementAt(1)
+                                                   .Instance
+                                                   .OnKeyDownRaisedAsync((int)KeyCode.Tab, "", false, false, false, false, 0, string.Empty));
+
+        // Assert (One item selected)
+        Assert.Single(SelectedItems);
     }
 
     [Fact]
@@ -326,7 +360,7 @@
         // Act
         cut.Find("fluent-text-field").Click();
 
-        // Assert        
+        // Assert
         Assert.Equal("auto-height", cut.Find("div[slot='start']").ClassName);
         Assert.Equal("max-height: 200px;", cut.Find("div[slot='start']").Attributes["style"]?.Value);
         Assert.True(cut.Find(".fluent-autocomplete-multiselect").HasAttribute("auto-height"));
