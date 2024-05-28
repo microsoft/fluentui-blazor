@@ -21,7 +21,7 @@ public class FluentNavLinkTests : TestBase
     }
 
     [Fact]
-    public void FluentNavLink_ExtendedTtitle()
+    public void FluentNavLink_ExtendedTitle()
     {
         // Arrange & Act
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
@@ -130,6 +130,24 @@ public class FluentNavLinkTests : TestBase
             parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.Icon, SampleIcons.Info);
             parameters.Add(p => p.IconColor, Color.Neutral);
+            parameters.AddChildContent("NavLink text");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNavLink_IconWithCustomColor()
+    {
+        // Arrange & Act
+        var m = new FluentNavMenu();
+        var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
+        {
+            parameters.Add(p => p.Owner, m);
+            parameters.Add(p => p.Icon, SampleIcons.Info);
+            parameters.Add(p => p.IconColor, Color.Custom);
+            parameters.Add(p => p.CustomColor, "red");
             parameters.AddChildContent("NavLink text");
         });
 

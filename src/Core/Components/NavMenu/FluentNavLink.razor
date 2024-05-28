@@ -45,13 +45,13 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
                 @ChildContent
             </NavLink>
 
-            @if (Icon is not null)
-            {
-                <span slot="start">
-                    <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
-                </span>
-            }
-        </FluentMenuItem>
+        @if (Icon is not null)
+        {
+            <span slot="start">
+                <FluentIcon Value="@Icon" Color="@IconColor" CustomColor="@CustomColor" Class="fluent-nav-icon" />
+            </span>
+        }
+    </FluentMenuItem>
     </div>
 }
 
@@ -60,16 +60,14 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
     {
         @if (Icon is not null)
         {
-            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" CustomColor="@CustomColor" Class="fluent-nav-icon" />
         }
         else
         {
             <span class="fluent-nav-icon" style="min-width: 20px;"></span>
         }
-        <div class="fluent-nav-text">
+        <div class="fluent-nav-text @(Disabled ? "disabled" : "")">
             @ChildContent
         </div>
-
-
     }
 }
