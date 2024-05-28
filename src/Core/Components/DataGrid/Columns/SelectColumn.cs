@@ -39,6 +39,18 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public RenderFragment<TGridItem> ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the [All] checkbox is disabled (not clickable).
+    /// </summary>
+    [Parameter]
+    public bool SelectAllDisabled { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the template for the [All] checkbox column template.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectAllTemplateArgs>? SelectAllTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the list of selected items.
     /// </summary>
     [Parameter]
@@ -158,7 +170,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public EventCallback<bool?> SelectAllChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
+    /// Gets or sets the function to executed to determine checked/unchecked status.
     /// </summary>
     [Parameter]
     public Func<TGridItem, bool> Property { get; set; } = (item) => false;
@@ -175,6 +187,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             if (SelectedItems.Contains(item))
             {
                 _selectedItems.Remove(item);
+                SelectAll = false;
                 await CallOnSelect(item, false);
             }
             else
@@ -268,6 +281,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             if (selected && !_selectedItems.Contains(item))
             {
                 _selectedItems.Add(item);
+                RefreshHeaderContent();
             }
             else if (!selected && _selectedItems.Contains(item))
             {
@@ -301,7 +315,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                     builder.OpenComponent<FluentIcon<Icon>>(0);
                     builder.AddAttribute(1, "Value", iconAllChecked);
                     builder.AddAttribute(2, "all-selected", SelectAll);
-                    builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                    if (!SelectAllDisabled)
+                    {
+                        builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                    }
                     builder.AddAttribute(4, "Style", "margin-left: 12px;");
                     builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
                                                         ? TitleAllIndeterminate
@@ -317,20 +334,37 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     private void RefreshHeaderContent()
     {
-        HeaderContent = GetHeaderContent();
+        if (SelectAllTemplate == null)
+        {
+            HeaderContent = GetHeaderContent();
+        }
+        else
+        {
+            HeaderContent = new RenderFragment((builder) =>
+            {
+                builder.OpenElement(0, "div");
+                if (!SelectAllDisabled)
+                {
+                    builder.AddAttribute(1, "style", "cursor: pointer; margin-left: 12px;");
+                    builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                }
+                builder.AddContent(3, SelectAllTemplate.Invoke(new SelectAllTemplateArgs(GetSelectAll())));
+                builder.CloseElement();
+            });
+        }
     }
 
     /// <summary />
     private bool? GetSelectAll()
     {
         // Using SelectedItems only
-        if (InternalGridContext != null && Grid.Items != null)
+        if (InternalGridContext != null && (Grid.Items != null || Grid.ItemsProvider != null))
         {
             if (!SelectedItems.Any())
             {
                 return false;
             }
-            else if (SelectedItems.Count() == Grid.Items.Count())
+            else if (SelectedItems.Count() == InternalGridContext.TotalItemCount || SelectAll == true)
             {
                 return true;
             }
@@ -361,7 +395,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     internal async Task OnClickAllAsync(MouseEventArgs e)
     {
-        if (Grid == null || Grid.Items == null || SelectMode != DataGridSelectMode.Multiple)
+        if (Grid == null || SelectMode != DataGridSelectMode.Multiple || SelectAllDisabled)
         {
             return;
         }
@@ -377,7 +411,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         _selectedItems.Clear();
         if (SelectAll == true)
         {
-            _selectedItems.AddRange(Grid.Items);
+            _selectedItems.AddRange(InternalGridContext.Items);
         }
 
         if (SelectedItemsChanged.HasDelegate)
@@ -388,3 +422,5 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         RefreshHeaderContent();
     }
 }
+
+public record SelectAllTemplateArgs(bool? AllSelected) { }

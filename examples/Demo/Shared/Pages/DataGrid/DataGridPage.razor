@@ -93,6 +93,22 @@ fluent-data-grid-row:has([row-selected]) {
     </Description>
 </DemoSection>
 
+<p>
+    Using this <code>SelectColumn</code>, you can customize the checkboxes by using <code>ChildContent</code> to define the contents of the selection for each row of the grid;
+    or <code>SelectAllTemplate</code> to customize the header of this column.
+    If you don't want the user to be able to interact (click and change) on the SelectAll header, you can set the <code>SelectAllDisabled="true"</code> attribute.
+    <br /><br />
+
+    Example:
+<CodeSnippet Language="razor">&lt;SelectAllTemplate>
+    @@(context.AllSelected == true ? "✅" : context.AllSelected == null ? "➖" : "⬜")
+&lt;/SelectAllTemplate>
+&lt;ChildContent>
+    @@(SelectedItems.Contains(context) ? "✅" : " ") @@* Using SelectedItems         *@@
+    @@(context.Selected ? "✅" : " ")                @@* Using Property and OnSelect *@@
+&lt;/ChildContent></CodeSnippet>
+</p>
+
 <DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
     <Description>
         <p>
@@ -258,6 +274,12 @@ fluent-data-grid-row:has([row-selected]) {
 <DemoSection Title="Multiline text content" Component="@typeof(DataGridMultilineText)">
     <Description>
         Example of using the <code>Class</code> parameter to style parts of the grid. Note that the class used in the example (<code>multiline-text</code>) has been added to the FluentDataGridCell css.
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Table with scrollbars" Component="@typeof(DataGridTableScrollbars)">
+    <Description>
+        Example of using an outside <code>div</code> and the <code>Style</code> parameter to achieve a table like DataGrid with infinite horizontal scrollbars to display all content on all devices.
     </Description>
 </DemoSection>
 
