@@ -25,6 +25,14 @@ public partial class FluentKeyCodeProvider : IDisposable
         }
     }
 
+    private void KeyUpHandler(FluentKeyCodeEventArgs args)
+    {
+        foreach (var listener in KeyCodeService.Listeners)
+        {
+            listener.OnKeyUpAsync(args);
+        }
+    }
+
     public void Dispose()
     {
         KeyCodeService.Clear();

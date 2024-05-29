@@ -12,4 +12,11 @@ public interface IKeyCodeListener
     /// <param name="args"></param>
     /// <returns></returns>
     Task OnKeyDownAsync(FluentKeyCodeEventArgs args);
+
+    /// <summary>
+    /// Method called when a key is unpressed.
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    Task OnKeyUpAsync(FluentKeyCodeEventArgs args);
 }
