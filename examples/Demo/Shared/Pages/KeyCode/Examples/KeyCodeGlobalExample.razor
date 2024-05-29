@@ -26,10 +26,10 @@
     protected override void OnInitialized()
     {
         // FluentKeyCode.PreventMultipleKeyDown = true;
-        KeyCodeService.RegisterListener(OnKeyDownAsync, OnKeyDownAsync);
+        KeyCodeService.RegisterListener(OnKeyHandleAsync, OnKeyHandleAsync);
     }
 
-    private Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    private Task OnKeyHandleAsync(FluentKeyCodeEventArgs args)
     {
         if (!IncludeKeyUp && args.Name == "keyup")
         {
@@ -43,7 +43,7 @@
 
     public ValueTask DisposeAsync()
     {
-        KeyCodeService.UnregisterListener(OnKeyDownAsync, OnKeyDownAsync);
+        KeyCodeService.UnregisterListener(OnKeyHandleAsync, OnKeyHandleAsync);
         return ValueTask.CompletedTask;
     }
 }
