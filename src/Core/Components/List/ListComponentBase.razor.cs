@@ -142,20 +142,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     [Parameter]
     public virtual EventCallback<TOption?> SelectedOptionChanged { get; set; }
 
-    ///// <summary>
-    ///// Gets or sets the selected value.
-    ///// When Multiple = true this only reflects the first selected option value.
-    ///// </summary>
-    //[Parameter]
-    //public override string? Value { get; set; }
-
-    ///// <summary>
-    ///// Called whenever the selection changed.
-    ///// ⚠️ Only available when Multiple = false.
-    ///// </summary>
-    //[Parameter]
-    //public new EventCallback<string?> ValueChanged { get; set; }
-
     /// <summary>
     /// If true, the user can select multiple elements.
     /// ⚠️ Only available for the FluentSelect and FluentListbox components.
@@ -479,6 +465,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             return;
         }
 
+
+
         if (Multiple)
         {
             if (_selectedOptions.Contains(item))
@@ -500,8 +488,17 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             if (!Equals(item, SelectedOption))
             {
+                var value = GetOptionValue(item);
+
+                if (this is FluentListbox<TOption> ||
+                    (this is FluentSelect<TOption> && Value is null))
+                {
+                    await ChangeHandlerAsync(new ChangeEventArgs() { Value = value });
+                }
+
                 SelectedOption = item;
-                InternalValue = Value = GetOptionValue(item);
+                InternalValue = Value = value;
+
                 await RaiseChangedEventsAsync();
             }
         }

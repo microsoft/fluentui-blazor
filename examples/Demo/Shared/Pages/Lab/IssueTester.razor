@@ -5,18 +5,24 @@
 <EditForm Model="@this">
     <p>Modified: @(context.IsModified())</p>
 
-    <FluentSelect TOption="MyThing" @bind-SelectedOption="@currentThing" @bind-Value="@currentThingValue"
+    <FluentSelect TOption="MyThing" @bind-SelectedOption="@currentThing"
+                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+    <FluentListbox TOption="MyThing" @bind-SelectedOption="@currentThing1"
                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+
+    <FluentListbox TOption="MyThing" @bind-Value="@currentThingValue"
+              Items="@AllThings" OptionText="@(x => x.DisplayText)" />
 
     <FluentTextField @bind-Value="@someString" />
 </EditForm>
 <p>
 Selected option: @currentThing <br/>
+Selected option1: @currentThing1 <br />
 Selected value: @currentThingValue <br />
 Text field: @someString
 </p>
 @code {
-    MyThing? currentThing;
+    MyThing? currentThing, currentThing1;
     string? currentThingValue;
     string? someString;
     MyThing[] AllThings = new[] { new MyThing(1, "One"), new MyThing(2, "Two") };

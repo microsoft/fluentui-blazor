@@ -306,19 +306,21 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         {
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
-            FieldBound = ValueExpression != null || ValueChanged.HasDelegate;
 
-            if(Field is not null)
+            if (Field is not null)
             {
                 FieldIdentifier = (FieldIdentifier)Field;
+                FieldBound = true;
             }
             else if (ValueExpression is not null)
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
+                FieldBound = true;
             }
             else if (ValueChanged.HasDelegate)
             {
                 FieldIdentifier = FieldIdentifier.Create(() => Value);
+                FieldBound = true;
             }
 
             if (CascadedEditContext != null)
