@@ -4372,6 +4372,11 @@
             The anchor must refer to the ID of an element (or sub-element) accepting the focus.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventMultipleKeyDown">
+            <summary>
+            Prevent multiple KeyDown events.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
             <summary />
         </member>

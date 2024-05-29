@@ -1,4 +1,4 @@
-export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper) {
+export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper, preventMultipleKeydown) {
     const element = globalDocument
                   ? document
                   : elementRef == null ? document.getElementById(id) : elementRef;
@@ -10,12 +10,17 @@ export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, only
     if (!!element) {
 
         const eventId = Math.random().toString(36).slice(2);
+        let fired = false;
 
         const handlerKeydown = function (e) {
-            return handler(e, "OnKeyDownRaisedAsync");
+            if (!fired || !preventMultipleKeydown) {
+                fired = true;
+                return handler(e, "OnKeyDownRaisedAsync");
+            }
         }
 
         const handlerKeyup = function (e) {
+            fired = false;
             return handler(e, "OnKeyUpRaisedAsync");
         }
 
@@ -53,10 +58,10 @@ export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, only
             }
         };
 
-        if (!!eventNames && eventNames.includes("KeyDown")) {
+        if (preventMultipleKeydown || (!!eventNames && eventNames.includes("KeyDown"))) {
             element.addEventListener('keydown', handlerKeydown)
         }
-        if (!!eventNames && eventNames.includes("KeyUp")) {
+        if (preventMultipleKeydown || (!!eventNames && eventNames.includes("KeyUp"))) {
             element.addEventListener('keyup', handlerKeyup)
         }
         document.fluentKeyCodeEvents[eventId] = { source: element, handlerKeydown, handlerKeyup };

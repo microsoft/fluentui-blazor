@@ -4,7 +4,7 @@
 <FluentSwitch @bind-Value="@IncludeKeyUp"
               CheckedMessage="KeyDown and KeyUp"
               UncheckedMessage="KeyDown only"
-              Style="margin-bottom: 10px; display: none;" />
+              Style="margin-bottom: 10px;" />
 
 <FluentCard>
     @if (!KeyPressed.Any())
@@ -25,6 +25,7 @@
 
     protected override void OnInitialized()
     {
+        // FluentKeyCode.PreventMultipleKeyDown = true;
         KeyCodeService.RegisterListener(OnKeyDownAsync, OnKeyDownAsync);
     }
 

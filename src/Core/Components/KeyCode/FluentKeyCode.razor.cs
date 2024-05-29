@@ -14,6 +14,11 @@ public partial class FluentKeyCode : IAsyncDisposable
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
     private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 
+    /// <summary>
+    /// Prevent multiple KeyDown events.
+    /// </summary>
+    public static bool PreventMultipleKeyDown = false;
+
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -118,7 +123,7 @@ public partial class FluentKeyCode : IAsyncDisposable
                 OnKeyUp.HasDelegate ? "KeyUp" : string.Empty,
             });
 
-            _javaScriptEventId = await _jsModule.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, eventNames.Length > 1 ? eventNames : "KeyDown", Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
+            _javaScriptEventId = await _jsModule.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, eventNames.Length > 1 ? eventNames : "KeyDown", Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper, PreventMultipleKeyDown);
         }
     }
 

@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <inheritdoc cref="IKeyCodeService" />
 public class KeyCodeService : IKeyCodeService
-{    
+{
     private ReaderWriterLockSlim ServiceLock { get; } = new ReaderWriterLockSlim();
 
     private IList<(Guid, IKeyCodeListener)> ListenerList { get; } = new List<(Guid, IKeyCodeListener)>();
