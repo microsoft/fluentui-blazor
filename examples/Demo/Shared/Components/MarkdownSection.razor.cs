@@ -7,9 +7,10 @@ namespace FluentUI.Demo.Shared.Components;
 
 public partial class MarkdownSection : FluentComponentBase
 {
-    private string? _content;
-    private bool _raiseContentConverted;
     private IJSObjectReference _jsModule = default!;
+    private bool _markdownChanged = false;
+    private string? _content;
+    private string? _fromAsset;
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -21,33 +22,38 @@ public partial class MarkdownSection : FluentComponentBase
     /// Gets or sets the Markdown content 
     /// </summary>
     [Parameter]
-    public string? Content { get; set; }
+    public string? Content
+    {
+        get => _content;
+        set
+        {
+            if (_content is not null && !_content.Equals(value))
+            {
+                _markdownChanged = true;
+            }
+            _content = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets asset to read the Markdown from
     /// </summary>
     [Parameter]
-    public string? FromAsset { get; set; }
+    public string? FromAsset
+    {
+        get => _fromAsset;
+        set
+        {
+            if (_fromAsset is not null && !_fromAsset.Equals(value))
+            {
+                _markdownChanged = true;
+            }
+            _fromAsset = value;
+        }
+    }
 
     [Parameter]
     public EventCallback OnContentConverted { get; set; }
-
-    public string? InternalContent
-    {
-        get => _content;
-        set
-        {
-            _content = value;
-            HtmlContent = ConvertToMarkupString(_content);
-
-            if (OnContentConverted.HasDelegate)
-            {
-                OnContentConverted.InvokeAsync();
-            }
-            _raiseContentConverted = true;
-            StateHasChanged();
-        }
-    }
 
     public MarkupString HtmlContent { get; private set; }
 
@@ -57,36 +63,53 @@ public partial class MarkdownSection : FluentComponentBase
         {
             throw new ArgumentException("You need to provide either Content or FromAsset parameter");
         }
-
-        InternalContent = Content;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            if (!string.IsNullOrEmpty(FromAsset))
-            {
-                InternalContent = await StaticAssetService.GetAsync(FromAsset);
-            }
-            // add highlight for any code blocks
+            // import code for highlighting code blocks
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
                 "./_content/FluentUI.Demo.Shared/Components/MarkdownSection.razor.js");
-            await _jsModule.InvokeVoidAsync("highlight");
-            await _jsModule.InvokeVoidAsync("addCopyButton");
         }
 
-        if (_raiseContentConverted)
+        if (firstRender || _markdownChanged)
         {
-            _raiseContentConverted = false;
+            _markdownChanged = false;
+
+            // create markup from markdown source
+            HtmlContent = await MarkdownToMarkupStringAsync();
+            StateHasChanged();
+
+            // notify that content converted from markdown 
             if (OnContentConverted.HasDelegate)
             {
                 await OnContentConverted.InvokeAsync();
             }
-
+            await _jsModule.InvokeVoidAsync("highlight");
+            await _jsModule.InvokeVoidAsync("addCopyButton");
         }
     }
 
+    /// <summary>
+    /// Converts markdown, provided in Content or from markdown file stored as a static asset, to MarkupString for rendering.
+    /// </summary>
+    /// <returns>MarkupString</returns>
+    private async Task<MarkupString> MarkdownToMarkupStringAsync()
+    {
+        string? markdown;
+        if (string.IsNullOrEmpty(FromAsset))
+        {
+            markdown = Content;
+        }
+        else
+        {
+            markdown = await StaticAssetService.GetAsync(FromAsset);
+        }
+
+        return ConvertToMarkupString(markdown);
+    }
     private static MarkupString ConvertToMarkupString(string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
