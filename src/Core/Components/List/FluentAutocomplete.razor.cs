@@ -197,12 +197,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public string? MaxAutoHeight { get; set; }
 
     /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="OnOptionsSearch"/> event.
-    /// </summary>
-    [Parameter]
-    public int ImmediateDelay { get; set; } = 0;
-
-    /// <summary>
     /// Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
     /// Default is false.
     /// </summary>
