@@ -4,13 +4,20 @@
 
 <MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/DesignTokens.md" OnContentConverted="RefreshTableOfContents" />
 
-@code {
+@if (refreshCount > 0)
+{
+    <OfficeColorTable />
+}
 
+@code {
     [CascadingParameter]
     public EventCallback OnRefreshTableOfContents { get; set; }
+
+    private int refreshCount = 0;
 
     private async Task RefreshTableOfContents()
     {
         await OnRefreshTableOfContents.InvokeAsync();
+        refreshCount++;
     }
 }
