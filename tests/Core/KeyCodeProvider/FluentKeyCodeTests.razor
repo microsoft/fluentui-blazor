@@ -26,6 +26,22 @@
     }
 
     [Fact]
+    public async Task FluentKeyCode_KeyDown_KeyA()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyUp="@(e => pressed = e)" /></div>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyUpRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+    }
+
+    [Fact]
     public async Task FluentKeyCode_ChildContent()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
