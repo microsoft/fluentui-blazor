@@ -15,6 +15,10 @@
     cursor: pointer;
 }
 
+    .key[type="keyup"] {
+        color: red;
+    }
+
     /* Hover effect */
     .key:hover {
         background-color: #e0e0e0;

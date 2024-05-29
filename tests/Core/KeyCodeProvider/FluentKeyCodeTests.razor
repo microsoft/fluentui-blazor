@@ -179,16 +179,24 @@
 
     private class MyKeyCodeListener : IKeyCodeListener
     {
-        private Action<FluentKeyCodeEventArgs> _action;
+        private Action<FluentKeyCodeEventArgs> _actionKeyDown;
+        private Action<FluentKeyCodeEventArgs>? _actionKeyUp;
 
-        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> action)
+        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> actionKeyDown, Action<FluentKeyCodeEventArgs>? actionKeyUp = null)
         {
-            _action = action;
+            _actionKeyDown = actionKeyDown;
+            _actionKeyUp = actionKeyUp;
         }
 
         public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
         {
-            _action.Invoke(args);
+            _actionKeyDown.Invoke(args);
+            return Task.CompletedTask;
+        }
+
+        public Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
+        {
+            _actionKeyUp?.Invoke(args);
             return Task.CompletedTask;
         }
     }
