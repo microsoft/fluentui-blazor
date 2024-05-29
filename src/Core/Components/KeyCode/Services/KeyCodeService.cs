@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <inheritdoc cref="IKeyCodeService" />
 public class KeyCodeService : IKeyCodeService
-{    
+{
     private ReaderWriterLockSlim ServiceLock { get; } = new ReaderWriterLockSlim();
 
     private IList<(Guid, IKeyCodeListener)> ListenerList { get; } = new List<(Guid, IKeyCodeListener)>();
@@ -51,7 +51,24 @@ public class KeyCodeService : IKeyCodeService
         try
         {
             var id = Guid.NewGuid();
-            var listener = new KeyCodeListener(handler);
+            var listener = new KeyCodeListener(handler, null);
+            ListenerList.Add((id, listener));
+            return id;
+        }
+        finally
+        {
+            ServiceLock.ExitWriteLock();
+        }
+    }
+
+    /// <inheritdoc cref="IKeyCodeService.RegisterListener(Func{FluentKeyCodeEventArgs, Task}, Func{FluentKeyCodeEventArgs, Task})" />
+    public Guid RegisterListener(Func<FluentKeyCodeEventArgs, Task> keyDownHandler, Func<FluentKeyCodeEventArgs, Task> keyUpHandler)
+    {
+        ServiceLock.EnterWriteLock();
+        try
+        {
+            var id = Guid.NewGuid();
+            var listener = new KeyCodeListener(keyDownHandler, keyUpHandler);
             ListenerList.Add((id, listener));
             return id;
         }
@@ -75,7 +92,18 @@ public class KeyCodeService : IKeyCodeService
     /// <inheritdoc cref="IKeyCodeService.UnregisterListener(Func{FluentKeyCodeEventArgs, Task})" />
     public void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> handler)
     {
-        var item = ListenerList.FirstOrDefault(i => (i.Item2 as KeyCodeListener)?.Handler == handler);
+        var item = ListenerList.FirstOrDefault(i => (i.Item2 as KeyCodeListener)?.HandlerKeyDown == handler);
+
+        if (item.Item1 != Guid.Empty)
+        {
+            ListenerList.Remove(item);
+        }
+    }
+
+    /// <inheritdoc cref="IKeyCodeService.UnregisterListener(Func{FluentKeyCodeEventArgs, Task}, Func{FluentKeyCodeEventArgs, Task})" />
+    public void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> keyDownHandler, Func<FluentKeyCodeEventArgs, Task> keyUpHandler)
+    {
+        var item = ListenerList.FirstOrDefault(i => (i.Item2 as KeyCodeListener)?.HandlerKeyDown == keyDownHandler);
 
         if (item.Item1 != Guid.Empty)
         {
@@ -102,16 +130,34 @@ public class KeyCodeService : IKeyCodeService
     /// </summary>
     private class KeyCodeListener : IKeyCodeListener
     {
-        public KeyCodeListener(Func<FluentKeyCodeEventArgs, Task> handler)
+        public KeyCodeListener(Func<FluentKeyCodeEventArgs, Task> handlerKeyDown, Func<FluentKeyCodeEventArgs, Task>? handlerKeyUp)
         {
-            Handler = handler;
+            HandlerKeyDown = handlerKeyDown;
+            HandlerKeyUp = handlerKeyUp;
         }
 
-        public Func<FluentKeyCodeEventArgs, Task> Handler { get; }
+        public Func<FluentKeyCodeEventArgs, Task> HandlerKeyDown { get; }
+
+        public Func<FluentKeyCodeEventArgs, Task>? HandlerKeyUp { get; }
 
         public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
         {
-            return Handler.Invoke(args);
+            if (HandlerKeyDown != null)
+            {
+                return HandlerKeyDown.Invoke(args);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
+        {
+            if (HandlerKeyUp != null)
+            {
+                return HandlerKeyUp.Invoke(args);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
