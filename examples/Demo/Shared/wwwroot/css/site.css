@@ -147,6 +147,8 @@ aside {
     height: 100vh;
     position: sticky;
     width: 18rem;
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
 }
 
 #navmenu-toggle {
