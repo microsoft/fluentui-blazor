@@ -15,11 +15,10 @@
     public void FluentHeader_Default()
     {
         //Arrange
-        var childContent = "<b>render me</b>";
         int? height = default!;
         var cut = RenderComponent<FluentHeader>(parameters => parameters
             .Add(p => p.Height, height)
-            .AddChildContent(childContent)
+            .AddChildContent("<b>render me</b>")
         );
         //Act
 
