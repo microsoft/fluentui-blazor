@@ -27,6 +27,19 @@
     }
 
     [Fact]
+    public void FluentLayout_Id()
+    {
+        //Arrange
+        var cut = Render(@<FluentLayout Id="42" />);
+
+        //Act
+
+        //Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
     public void FluentLayout_AdditionalProperties()
     {
         // Arrange && Act
