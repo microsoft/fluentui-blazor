@@ -1,0 +1,56 @@
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentHeaderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
+    }
+    [Fact]
+    public void FluentHeader_Default()
+    {
+        //Arrange
+        int? height = default!;
+        var cut = RenderComponent<FluentHeader>(parameters => parameters
+            .Add(p => p.Height, height)
+            .AddChildContent("<b>render me</b>")
+        );
+        //Act
+
+        //Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentHeader_AdditionalProperties()
+    {
+        // Arrange && Act
+        var additionalAttributes = new Dictionary<string, object>
+        {
+            {
+                "data-label", "datavalue"
+            }
+        };
+        var cut = Render(@<FluentHeader AdditionalAttributes="@additionalAttributes" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentHeader_Id()
+    {
+        //Arrange
+        var cut = Render(@<FluentHeader Id="42" />);
+
+        //Act
+        //Assert
+        cut.Verify();
+    }
+}
+
