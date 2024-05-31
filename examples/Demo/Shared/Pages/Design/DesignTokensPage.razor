@@ -6,7 +6,7 @@
 
 <MarkdownSection FromAsset="./_content/FluentUI.Demo.Shared/docs/DesignTokens.md" OnContentConverted="RefreshTableOfContents" />
 
-@if (refreshCount > 3)
+@if (refreshCount > 0)
 {
     <OfficeColorTable />
 }
@@ -20,6 +20,6 @@
     private async Task RefreshTableOfContents()
     {
         await OnRefreshTableOfContents.InvokeAsync();
-        refreshCount++; ;
+        refreshCount++;
     }
 }
