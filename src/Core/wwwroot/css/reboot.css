@@ -316,7 +316,10 @@ textarea {
     outline: 1px solid var(--error);
 }
 
-.invalid[role='checkbox']::part(control), [role='combobox'].invalid::part(control) {
+.invalid[role='checkbox']::part(control),
+[role='combobox'].invalid::part(control),
+fluent-combobox.invalid::part(control)
+{
     outline: 1px solid var(--error);
 }
 

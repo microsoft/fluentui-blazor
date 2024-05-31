@@ -118,8 +118,9 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         await base.SetParametersAsync(ParameterView.Empty);
     }
 
-    protected async Task OnChangedHandlerAsync(ChangeEventArgs e)
+    protected override async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
+        await base.ChangeHandlerAsync(e);
         if (e.Value is not null && Items is not null)
         {
             var value = e.Value.ToString();
@@ -146,6 +147,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
             {
                 await OnSelectedItemChangedHandlerAsync(item);
             }
+
         }
     }
 

@@ -1,31 +1,53 @@
 ﻿@page "/IssueTester"
 
-@using Microsoft.FluentUI.AspNetCore.Components
+<FluentCombobox Items="_items"
+                TOption="string"
+                SelectedOptionChanged="x => HandleOriginProductChanged(x)" />
+
+
 
 <EditForm Model="@this">
     <p>Modified: @(context.IsModified())</p>
 
-    <FluentSelect TOption="MyThing" @bind-SelectedOption="@currentThing"
-                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
-    <FluentListbox TOption="MyThing" @bind-SelectedOption="@currentThing1"
+    <FluentSelect TOption="MyThing" @bind-SelectedOption="@soSelect"
                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
 
-    <FluentListbox TOption="MyThing" @bind-Value="@currentThingValue"
-              Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+    <FluentListbox TOption="MyThing" @bind-SelectedOption="@soListbox"
+                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+
+    <FluentListbox TOption="MyThing" @bind-Value="@vListbox"
+                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+
+    <FluentCombobox Items="@AllThings"
+                    TOption="MyThing"
+                    OptionText="@(x => x.DisplayText)"
+                    @bind-SelectedOption="@soCombobox"
+                    @bind-Value="@vCombobox" />
+
 
     <FluentTextField @bind-Value="@someString" />
 </EditForm>
 <p>
-Selected option: @currentThing <br/>
-Selected option1: @currentThing1 <br />
-Selected value: @currentThingValue <br />
-Text field: @someString
+    Selected (Select): @soSelect <br />
+    Selected (Listbox): @soListbox <br />
+    Value (Listbox): @vListbox <br />
+    Selected (Combobox): @soCombobox <br />
+    Value (Combobox): @vCombobox <br />
+    Text field: @someString
 </p>
 @code {
-    MyThing? currentThing, currentThing1;
-    string? currentThingValue;
+    MyThing? soSelect, soListbox, soCombobox;
+    string? vListbox, vCombobox;
+
     string? someString;
     MyThing[] AllThings = new[] { new MyThing(1, "One"), new MyThing(2, "Two") };
 
     record MyThing(int Id, string DisplayText);
+
+    private List<string> _items = ["Item 1", "Item 2", "Item 3"];
+
+    private void HandleOriginProductChanged(string? value)
+    {
+        Console.WriteLine($"Selected product: {value}");
+    }
 }
