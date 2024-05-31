@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Component that provides a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-public abstract partial class ListComponentBase<TOption> : FluentInputBase<string>, IAsyncDisposable where TOption : notnull
+public abstract partial class ListComponentBase<TOption> : FluentInputBase<string?>, IAsyncDisposable where TOption : notnull
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/ListComponentBase.razor.js";
 
@@ -464,8 +464,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             return;
         }
-
-
 
         if (Multiple)
         {
