@@ -22,7 +22,7 @@ public class FluentKeyCodeEventArgs
     /// <summary>
     /// Gets the name of the event ("keydown" or "keyup").
     /// </summary>
-    public string Name { get; init; }
+    public string Name { get; init; } = string.Empty;
 
     /// <summary>
     /// Gets an <see cref="KeyLocation" /> representing the location of the key on the keyboard or other input device.
