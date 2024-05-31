@@ -13,6 +13,9 @@ public partial class FluentNavGroup : FluentNavBase
     private readonly RenderFragment _renderButton;
     private bool _open;
 
+    private static int _renderCount = 0;
+    private bool _negate = false;
+
     protected string? ClassValue =>
         new CssBuilder("fluent-nav-group")
             .AddClass("fluent-nav-item")
@@ -102,8 +105,22 @@ public partial class FluentNavGroup : FluentNavBase
         _renderButton = RenderButton;
     }
 
+    protected override void OnInitialized()
+    {
+        _renderCount ++;
+        if (_renderCount > 1)
+        {
+            _negate = true;
+        }
+    }
+
     private async Task ToggleExpandedAsync()
     {
+
+        if (_negate)
+        {
+            Expanded = !Expanded;
+        }
 
         if (!Owner.Expanded && Owner.CollapsedChildNavigation)
         {
