@@ -52,7 +52,7 @@ jobs:
        run: dotnet restore
        
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release
+       run: dotnet build ${{ env.PROJECTS }} --configuration Release -warnaserror
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
