@@ -315,7 +315,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         switch (e.Key)
         {
             case KeyCode.Escape:
-                await KeyDown_Escape();
+                await KeyDown_EscapeAsync();
                 break;
 
             case KeyCode.Enter:
@@ -327,11 +327,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                                        : false;
                     if (optionDisabled)
                     {
-                        await KeyDown_Escape();
+                        await KeyDown_EscapeAsync();
                     }
                     else
                     {
-                        await KeyDown_Enter();
+                        await KeyDown_EnterAsync();
                     }
                 }
                 else
@@ -341,13 +341,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Backspace:
-                await KeyDown_Backspace();
+                await KeyDown_BackspaceAsync();
                 break;
 
             case KeyCode.Down:
                 if (IsMultiSelectOpened)
                 {
-                    await KeyDown_ArrowDown();
+                    await KeyDown_ArrowDownAsync();
                 }
                 else
                 {
@@ -356,19 +356,19 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Up:
-                await KeyDown_ArrowUp();
+                await KeyDown_ArrowUpAsync();
                 break;
         }
 
         // Escape
-        Task KeyDown_Escape()
+        Task KeyDown_EscapeAsync()
         {
             IsMultiSelectOpened = false;
             return Task.CompletedTask;
         }
 
         // Backspace
-        async Task KeyDown_Backspace()
+        async Task KeyDown_BackspaceAsync()
         {
             // Remove last selected item
             if (string.IsNullOrEmpty(ValueText) &&
@@ -391,7 +391,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowUp
-        Task KeyDown_ArrowUp()
+        Task KeyDown_ArrowUpAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -415,7 +415,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowDown
-        Task KeyDown_ArrowDown()
+        Task KeyDown_ArrowDownAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -439,7 +439,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // Enter
-        async Task KeyDown_Enter()
+        async Task KeyDown_EnterAsync()
         {
             if (!IsMultiSelectOpened)
             {
