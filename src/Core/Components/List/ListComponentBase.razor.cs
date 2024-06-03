@@ -32,6 +32,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
     // We cascade the _internalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
+    internal override bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -293,7 +295,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
             Id = Identifier.NewId();
         }
 
-        FieldBound = ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
+        //FieldBound = ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
     }
 
     protected override void OnParametersSet()

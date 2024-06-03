@@ -143,7 +143,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
-    internal bool FieldBound { get; set; }
+    internal virtual bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate;
 
     protected async Task SetCurrentValueAsync(TValue? value)
     {
@@ -310,17 +310,17 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             if (Field is not null)
             {
                 FieldIdentifier = (FieldIdentifier)Field;
-                FieldBound = true;
+                //FieldBound = true;
             }
             else if (ValueExpression is not null)
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
-                FieldBound = true;
+                //FieldBound = true;
             }
             else if (ValueChanged.HasDelegate)
             {
                 FieldIdentifier = FieldIdentifier.Create(() => Value);
-                FieldBound = true;
+                //FieldBound = true;
             }
 
             if (CascadedEditContext != null)
