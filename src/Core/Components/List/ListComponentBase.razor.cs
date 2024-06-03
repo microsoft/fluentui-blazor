@@ -344,7 +344,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     }
 
     /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
         => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
 
     /// <inheritdoc />
