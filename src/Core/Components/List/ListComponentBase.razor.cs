@@ -34,7 +34,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     internal InternalListContext<TOption> _internalListContext;
     internal override bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
 
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
