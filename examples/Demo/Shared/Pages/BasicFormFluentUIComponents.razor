@@ -22,7 +22,8 @@
             <FluentValidationMessage For="@(() => starship.Identifier)" />
         </div>
         <div>
-            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" />
+            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" Required />
+            <FluentValidationMessage For="@(() => starship.Description)" />
         </div>
         <div>
             <FluentAutocomplete TOption="Country"
