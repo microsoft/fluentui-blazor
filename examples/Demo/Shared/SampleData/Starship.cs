@@ -11,10 +11,12 @@ namespace FluentUI.Demo.Shared.SampleData;
 public class Starship
 {
     [Required]
-    [MinLength(3, ErrorMessage = "Identifier is too short!")]
-    [StringLength(16, ErrorMessage = "Identifier too long (16 character limit).")]
+    [MinLength(3, ErrorMessage = "Identifier is too short")]
+    [StringLength(16, ErrorMessage = "Identifier too long (16 character limit)")]
     public string? Identifier { get; set; }
 
+    [Required(ErrorMessage = "Description is required")]
+    [MinLength(10, ErrorMessage = "Description is too short")]
     public string? Description { get; set; }
 
     [Required(ErrorMessage = "Countries are required")]
