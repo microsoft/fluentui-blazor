@@ -293,8 +293,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             Id = Identifier.NewId();
         }
-
-        //FieldBound = ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
     }
 
     protected override void OnParametersSet()
@@ -350,9 +348,9 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     protected override string? FormatValueAsString(string? value)
     {
         // We special-case bool values because BindConverter reserves bool conversion for conditional attributes.
-        if (typeof(TOption) == typeof(bool))
+        if (value is not null && typeof(TOption) == typeof(bool))
         {
-            return (bool)(object)value! ? "true" : "false";
+            return (bool)(object)value ? "true" : "false";
         }
         else if (typeof(TOption) == typeof(bool?))
         {

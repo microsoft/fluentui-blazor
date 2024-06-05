@@ -310,17 +310,14 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             if (Field is not null)
             {
                 FieldIdentifier = (FieldIdentifier)Field;
-                //FieldBound = true;
             }
             else if (ValueExpression is not null)
             {
                 FieldIdentifier = FieldIdentifier.Create(ValueExpression);
-                //FieldBound = true;
             }
             else if (ValueChanged.HasDelegate)
             {
                 FieldIdentifier = FieldIdentifier.Create(() => Value);
-                //FieldBound = true;
             }
 
             if (CascadedEditContext != null)
