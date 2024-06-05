@@ -111,8 +111,12 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
             // Sync Value from selected option.
             // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
-            Value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
-            await ValueChanged.InvokeAsync(Value);
+            var value = GetOptionValue(_currentSelectedOption);// ?? string.Empty;
+            if (value is not null && Value != value)
+            {
+                Value = value;
+                await ValueChanged.InvokeAsync(Value);
+            }
         }
 
         await base.SetParametersAsync(ParameterView.Empty);
@@ -120,7 +124,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
     protected override async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
-        await base.ChangeHandlerAsync(e);
+
         if (e.Value is not null && Items is not null)
         {
             var value = e.Value.ToString();
@@ -129,25 +133,8 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
             if (item is null)
             {
                 SelectedOption = default;
-
-                if (SelectedOptionChanged.HasDelegate)
-                {
-                    await SelectedOptionChanged.InvokeAsync(SelectedOption);
-                }
-
-                if (ValueChanged.HasDelegate)
-                {
-                    Value = value;
-                    await ValueChanged.InvokeAsync(value);
-                }
-
-                StateHasChanged();
+                await base.ChangeHandlerAsync(e);
             }
-            else
-            {
-                await OnSelectedItemChangedHandlerAsync(item);
-            }
-
         }
     }
 

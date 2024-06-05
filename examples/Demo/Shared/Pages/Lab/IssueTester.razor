@@ -1,14 +1,15 @@
 ﻿@page "/IssueTester"
 
-<FluentCombobox Items="_items"
-                TOption="string"
-                SelectedOptionChanged="x => HandleOriginProductChanged(x)" />
-
-
-
 <EditForm Model="@this">
     <p>Modified: @(context.IsModified())</p>
 
+    <FluentCombobox Items="_items"
+                    TOption="string"
+                    SelectedOption="@soCombobox1"
+                    SelectedOptionChanged="x => HandleCBOptionChanged(x)"
+                    Value="@vCombobox1"
+                    ValueChanged="x => HandleCBValueChanged(x)" />
+    <br />
     <FluentSelect TOption="MyThing" @bind-SelectedOption="@soSelect"
                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
 
@@ -28,6 +29,9 @@
     <FluentTextField @bind-Value="@someString" />
 </EditForm>
 <p>
+    Combobox 1 value: @vCombobox1 <br />
+    Combobox 1 option: @soCombobox1 <br />
+    <br />
     Selected (Select): @soSelect <br />
     Selected (Listbox): @soListbox <br />
     Value (Listbox): @vListbox <br />
@@ -37,7 +41,7 @@
 </p>
 @code {
     MyThing? soSelect, soListbox, soCombobox;
-    string? vListbox, vCombobox;
+    string? vListbox, vCombobox, vCombobox1, soCombobox1;
 
     string? someString;
     MyThing[] AllThings = new[] { new MyThing(1, "One"), new MyThing(2, "Two") };
@@ -46,8 +50,14 @@
 
     private List<string> _items = ["Item 1", "Item 2", "Item 3"];
 
-    private void HandleOriginProductChanged(string? value)
+    private void HandleCBOptionChanged(string? value)
     {
-        Console.WriteLine($"Selected product: {value}");
+        soCombobox1 = value;
     }
+
+    private void HandleCBValueChanged(string? value)
+    {
+        vCombobox1 = value;
+    }
+
 }
