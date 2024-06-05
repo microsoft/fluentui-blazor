@@ -374,7 +374,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="title">The title of the column to sort by.</param>
     /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
-    public Task SortByColumnTitleAsync(string title, SortDirection direction = SortDirection.Auto)
+    public Task SortByColumnAsync(string title, SortDirection direction = SortDirection.Auto)
     {
         var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
 
@@ -391,7 +391,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="index">The index of the column to sort by.</param>
     /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
-    public Task SortByColumnIndexAsync(int index, SortDirection direction = SortDirection.Auto)
+    public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
     {
         if (index >= 0 && index < _columns.Count)
         {
