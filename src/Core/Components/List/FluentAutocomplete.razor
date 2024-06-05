@@ -2,7 +2,7 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-<CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
+<CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
@@ -11,9 +11,11 @@
         <FluentTextField role="combobox"
                          @ref="@Element"
                          Id="@Id"
+                         Name="@Name"
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
+                         ReadOnly="@ReadOnly"
                          Label="@Label"
                          LabelTemplate="@LabelTemplate"
                          Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
