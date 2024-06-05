@@ -87,7 +87,9 @@
         // Act
         var input = cut.Find("fluent-text-field");
         input.Click();
-        await cut.InvokeAsync(async () => await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync((int)code, "", false, false, false, false, 0, string.Empty));
+
+        // Press a Key
+        await PressKeyAsync(cut, code);
 
         // Assert
         cut.Verify(suffix: keyCode);
@@ -106,22 +108,12 @@
                     OnOptionsSearch="@OnSearchAsync" />
     );
 
-        Task OnSearchAsync(OptionsSearchEventArgs<Customer> e)
-        {
-            e.Items = GetCustomers().Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
-                                    .OrderBy(i => i.Name);
-            return Task.CompletedTask;
-        }
-
         // Act: click to open -> Tab to select
         var input = cut.Find("fluent-text-field");
         input.Click();
 
         // Tab to select
-        await cut.InvokeAsync(async () => await cut.FindComponents<FluentKeyCode>()
-                                                   .ElementAt(1)
-                                                   .Instance
-                                                   .OnKeyDownRaisedAsync((int)KeyCode.Tab, "", false, false, false, false, 0, string.Empty));
+        await PressKeyAsync(cut, KeyCode.Tab, popoverOpened: true);
 
         // Assert (One item selected)
         Assert.Single(SelectedItems);
@@ -133,11 +125,11 @@
         // Arrange & Act
         var ex = Assert.Throws<InvalidOperationException>(() =>
         {
-            var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
-            {
-                parameters.Add(p => p.Id, "myComponent");
-                parameters.Add(p => p.Multiple, false);
-            });
+    var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
+    {
+        parameters.Add(p => p.Id, "myComponent");
+        parameters.Add(p => p.Multiple, false);
+    });
         });
 
         // Assert
@@ -150,28 +142,28 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.OptionValue, context => context.Id.ToString());
 
-            // Add a HeaderContent template
-            parameters.Add(p => p.HeaderContent, context =>
-            {
-                return $"<header>Please, select an item</header>";
-            });
+    // Add a HeaderContent template
+    parameters.Add(p => p.HeaderContent, context =>
+    {
+        return $"<header>Please, select an item</header>";
+    });
 
-            // Add an Item template
-            parameters.Add(p => p.OptionTemplate, context =>
-            {
-                return $"<div>{context?.Id} {context?.Name}</div>";
-            });
+    // Add an Item template
+    parameters.Add(p => p.OptionTemplate, context =>
+    {
+        return $"<div>{context?.Id} {context?.Name}</div>";
+    });
 
-            // Add a FooterContent template
-            parameters.Add(p => p.FooterContent, context =>
-            {
-                return $"<footer>{context.Count()} items found</footer>";
-            });
+    // Add a FooterContent template
+    parameters.Add(p => p.FooterContent, context =>
+    {
+        return $"<footer>{context.Count()} items found</footer>";
+    });
 
-            parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Items, GetCustomers());
         });
 
         // Act
@@ -187,11 +179,11 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
-            parameters.Add(p => p.OptionText, context => context.Name);
-            parameters.Add(p => p.Items, GetCustomers());
-            parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+    parameters.Add(p => p.OptionText, context => context.Name);
+    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
         });
 
         // Act
@@ -207,17 +199,17 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
-            parameters.Add(p => p.OptionText, context => context.Name);
-            parameters.Add(p => p.Items, GetCustomers());
-            parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+    parameters.Add(p => p.OptionText, context => context.Name);
+    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
 
-            // Add an Item template
-            parameters.Add(p => p.OptionTemplate, context =>
-            {
-                return $"<div>{context?.Id} {context?.Name}</div>";
-            });
+    // Add an Item template
+    parameters.Add(p => p.OptionTemplate, context =>
+    {
+        return $"<div>{context?.Id} {context?.Name}</div>";
+    });
         });
 
         // Act
@@ -233,11 +225,11 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
-            parameters.Add(p => p.OptionText, context => context.Name);
-            parameters.Add(p => p.Items, GetCustomers());
-            parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+    parameters.Add(p => p.OptionText, context => context.Name);
+    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
         });
 
         // Act (click on the Dismiss button)
@@ -254,8 +246,8 @@
         // Arrange & Act
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.ValueText, "Preselected value");
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.ValueText, "Preselected value");
         });
 
         // Assert
@@ -280,8 +272,8 @@
         var valueText = "Preselected value";
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Bind(p => p.ValueText, valueText, x => valueText = x);
         });
 
         valueText.Should().NotBeNullOrEmpty();
@@ -301,8 +293,8 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.ValueText, "Some text here");
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.ValueText, "Some text here");
         });
 
         // Act
@@ -319,9 +311,9 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.ValueText, "Some text here");
-            parameters.Add(p => p.ShowOverlayOnEmptyResults, false);
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.ValueText, "Some text here");
+    parameters.Add(p => p.ShowOverlayOnEmptyResults, false);
         });
 
         // Act
@@ -338,8 +330,8 @@
         // Arrange && Act
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.Autofocus, true);
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.Autofocus, true);
         });
 
         // Assert
@@ -352,9 +344,9 @@
         // Arrange
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
-            parameters.Add(p => p.Id, "myComponent");
-            parameters.Add(p => p.MaxAutoHeight, "200px");
-            parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Id, "myComponent");
+    parameters.Add(p => p.MaxAutoHeight, "200px");
+    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
         });
 
         // Act
@@ -367,6 +359,76 @@
         cut.Verify();
     }
 
+    [Fact]
+    public async Task FluentAutocomplete_SelectOneValueUsingKeyboard()
+    {
+        IEnumerable<Customer> SelectedItems = Array.Empty<Customer>();
+
+        // Arrange
+        var cut = Render<FluentAutocomplete<Customer>>(
+            @<FluentAutocomplete TOption="Customer"
+                    SelectValueOnTab="true"
+                    @bind-SelectedOptions="@SelectedItems"
+                    OnOptionsSearch="@OnSearchAsync" />
+    );
+
+        // Act: click to open -> KeyDow + Enter to select
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+
+        // Tab to select
+        await PressKeyAsync(cut, KeyCode.Down, popoverOpened: true);
+        await PressKeyAsync(cut, KeyCode.Down, popoverOpened: true);
+        await PressKeyAsync(cut, KeyCode.Enter, popoverOpened: true);
+
+        // Assert (One item selected)
+        Assert.Single(SelectedItems);
+        Assert.Equal(2, SelectedItems.First().Id);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SelectOneValueUsingMouse()
+    {
+        IEnumerable<Customer> SelectedItems = Array.Empty<Customer>();
+
+        // Arrange
+        var cut = Render<FluentAutocomplete<Customer>>(
+            @<FluentAutocomplete TOption="Customer"
+                    SelectValueOnTab="true"
+                    @bind-SelectedOptions="@SelectedItems"
+                    OnOptionsSearch="@OnSearchAsync" />
+    );
+
+        // Act: click to open -> KeyDow + Enter to select
+        var input = cut.Find("fluent-text-field");
+        input.Click();
+
+        // Click on the second FluentOption
+        var vincent = GetCustomers().First(i => i.Id == 2);
+        cut.Find($"fluent-option[value='{vincent}']").Click();
+
+        // Assert (One item selected)
+        Assert.Single(SelectedItems);
+        Assert.Equal(2, SelectedItems.First().Id);
+    }
+
+    // Send a key code
+    private async Task PressKeyAsync(IRenderedComponent<FluentAutocomplete<Customer>> cut, KeyCode key, bool popoverOpened = false)
+    {
+        await cut.InvokeAsync(async () => await cut.FindComponents<FluentKeyCode>()
+                                   .ElementAt(popoverOpened ? 1 : 0)
+                                   .Instance
+                                   .OnKeyDownRaisedAsync((int)key, string.Empty, false, false, false, false, 0, string.Empty));
+    }
+
+    // Search customers
+    private Task OnSearchAsync(OptionsSearchEventArgs<Customer> e)
+    {
+        e.Items = GetCustomers().Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                                .OrderBy(i => i.Name);
+        return Task.CompletedTask;
+    }
+
     // Sample data...
     private static IEnumerable<Customer> GetCustomers()
     {
@@ -375,5 +437,11 @@
         yield return new Customer(3, "Bill Gates");
     }
 
-    private record Customer(int Id, string Name);
+    private record Customer(int Id, string Name)
+    {
+        public override string ToString()
+        {
+            return $"{Id}-{Name}";
+        }
+    }
 }
