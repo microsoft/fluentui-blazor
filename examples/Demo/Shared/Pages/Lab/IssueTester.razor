@@ -40,7 +40,11 @@
                     @bind-SelectedOption="@soCombobox2"
                     @bind-Value="@vCombobox2"
                     Label="Combobox" />
+    <p>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="Reset" Type="ButtonType.Reset">Reset</FluentButton>
+    </p>
 </EditForm>
+
 <p>
     Combobox 1 value: @vCombobox1 <br />
     Combobox 1 option: @soCombobox1 <br />
@@ -75,4 +79,10 @@
         vCombobox1 = value;
     }
 
+    private void Reset()
+    {
+        vSelect = vListbox = vCombobox1 = vCombobox2 = soCombobox1 = null;
+        soCombobox2 = null;
+        StateHasChanged();
+    }
 }

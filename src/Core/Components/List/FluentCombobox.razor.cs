@@ -135,6 +135,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
                 SelectedOption = default;
                 await base.ChangeHandlerAsync(e);
             }
+            else
+            {
+                await OnSelectedItemChangedHandlerAsync(item);
+            }
+
         }
     }
 
