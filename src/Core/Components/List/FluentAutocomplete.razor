@@ -22,8 +22,7 @@
                          Value="@ValueText"
                          Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
-                         @oninput="@InputHandlerAsync"
-                         @onfocusout="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
+                         @oninput="@InputHandlerAsync"                         
                          autofocus="@Autofocus"
                          Style="@ComponentWidth">
             @* Selected Items *@
@@ -76,6 +75,7 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Clear"
+                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     tabindex="0"
                                     role="button"
                                     OnClick="@OnClearAsync" />
@@ -90,6 +90,7 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Search"
+                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     tabindex="0"
                                     role="button"
                                     OnClick="@OnDropDownExpandedAsync" />
