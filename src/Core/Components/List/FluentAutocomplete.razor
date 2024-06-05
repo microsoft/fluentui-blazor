@@ -6,7 +6,6 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
         <FluentTextField role="combobox"
@@ -15,6 +14,8 @@
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
+                         Label="@Label"
+                         LabelTemplate="@LabelTemplate"
                          Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
