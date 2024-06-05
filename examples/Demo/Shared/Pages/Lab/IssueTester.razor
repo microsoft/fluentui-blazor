@@ -10,38 +10,53 @@
                     Value="@vCombobox1"
                     ValueChanged="x => HandleCBValueChanged(x)" />
     <br />
-    <FluentSelect TOption="MyThing" @bind-SelectedOption="@soSelect"
-                  Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+    <FluentSelect TOption="MyThing"
+                  @bind-SelectedOption="@soSelect"
+                  Items="@AllThings"
+                  OptionText="@(x => x.DisplayText)"
+                  Label="Option" />
 
-    <FluentListbox TOption="MyThing" @bind-SelectedOption="@soListbox"
-                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+    <FluentSelect TOption="MyThing"
+                  @bind-Value="@vSelect"
+                  Items="@AllThings"
+                  OptionText="@(x => x.DisplayText)"
+                  Label="Value" />
 
-    <FluentListbox TOption="MyThing" @bind-Value="@vListbox"
-                   Items="@AllThings" OptionText="@(x => x.DisplayText)" />
+    <FluentListbox TOption="MyThing"
+                   @bind-SelectedOption="@soListbox"
+                   Items="@AllThings"
+                   OptionText="@(x => x.DisplayText)"
+                   Label="Option" />
+
+    <FluentListbox TOption="MyThing"
+                   @bind-Value="@vListbox"
+                   Items="@AllThings"
+                   OptionText="@(x => x.DisplayText)"
+                   Label="Value" />
 
     <FluentCombobox Items="@AllThings"
                     TOption="MyThing"
                     OptionText="@(x => x.DisplayText)"
-                    @bind-SelectedOption="@soCombobox"
-                    @bind-Value="@vCombobox" />
-
-
-    <FluentTextField @bind-Value="@someString" />
+                    @bind-SelectedOption="@soCombobox2"
+                    @bind-Value="@vCombobox2"
+                    Label="Combobox" />
 </EditForm>
 <p>
     Combobox 1 value: @vCombobox1 <br />
     Combobox 1 option: @soCombobox1 <br />
     <br />
-    Selected (Select): @soSelect <br />
-    Selected (Listbox): @soListbox <br />
-    Value (Listbox): @vListbox <br />
-    Selected (Combobox): @soCombobox <br />
-    Value (Combobox): @vCombobox <br />
-    Text field: @someString
+    Select option: @soSelect <br />
+    Select value: @vSelect <br />
+    <br />
+    Listbox option: @soListbox <br />
+    Listbox value: @vListbox <br />
+    <br />
+    Combobox 2 value: @vCombobox2 <br />
+    Combobox 2 option: @soCombobox2 <br />
 </p>
 @code {
-    MyThing? soSelect, soListbox, soCombobox;
-    string? vListbox, vCombobox, vCombobox1, soCombobox1;
+    MyThing? soSelect, soListbox, soCombobox2;
+    string? vSelect, vListbox, vCombobox1, vCombobox2, soCombobox1;
 
     string? someString;
     MyThing[] AllThings = new[] { new MyThing(1, "One"), new MyThing(2, "Two") };
