@@ -72,7 +72,7 @@ public partial class FluentNavGroup : FluentNavBase
     public string? MaxHeight { get; set; }
 
     /// <summary>
-    /// Defines the vertical spacing between the NavGroup and adjecent items.
+    /// Defines the vertical spacing between the NavGroup and adjacent items.
     /// Needs to be a valid CSS value.
     /// </summary>
     [Parameter]
@@ -86,7 +86,7 @@ public partial class FluentNavGroup : FluentNavBase
 
     /// <summary>
     /// Allows for specific markup and styling to be applied for the group title
-    /// When using this, the containded <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
+    /// When using this, the contained <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
     /// When specifying both Title and TitleTemplate, both will be rendered.
     /// </summary>
     [Parameter]
