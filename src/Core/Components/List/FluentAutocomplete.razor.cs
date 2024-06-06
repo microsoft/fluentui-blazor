@@ -47,8 +47,15 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public EventCallback<string> ValueTextChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the value of the input. This should be used with two-way binding.
+    /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
+    /// </summary>
     [Parameter]
+    [Obsolete]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
     public override string? Value
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
     {
         get => ValueText;
         set => base.Value = ValueText;
