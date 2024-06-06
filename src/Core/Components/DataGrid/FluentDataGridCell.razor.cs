@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -70,7 +69,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     }
 
     /// <summary />
-    internal async Task HandleOnCellClickAsync(MouseEventArgs args)
+    internal async Task HandleOnCellClickAsync()
     {
         if (GridContext.Grid.OnCellClick.HasDelegate)
         {
