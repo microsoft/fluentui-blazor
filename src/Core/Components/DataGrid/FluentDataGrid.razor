@@ -98,7 +98,7 @@
 
                 string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
-                <FluentDataGridCell Column="@col" ColumnIndex=@(colIndex+1) Class="@ColumnClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
+                <FluentDataGridCell Column="@col" GridColumn=@(colIndex+1) Class="@ColumnClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
                     @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
             }
@@ -114,7 +114,7 @@
             {
                 var col = _columns[colIndex];
 
-                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnClass(col))" Style="@col.Style" @key="@col" Column="@col" ColumnIndex=@(colIndex+1) TGridItem="TGridItem">
+                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnClass(col))" Style="@col.Style" @key="@col" Column="@col" GridColumn=@(colIndex+1) TGridItem="TGridItem">
                     @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
                 </FluentDataGridCell>
             }
@@ -133,7 +133,7 @@
             else
                 col.ShowSortIcon = false;
 
-            <FluentDataGridCell Column="@col" ColumnIndex=@(colIndex+1) CellType=DataGridCellType.ColumnHeader Class="@("column-header " + @ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))" Style="@col.Style" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
+            <FluentDataGridCell Column="@col" GridColumn=@(colIndex+1) CellType=DataGridCellType.ColumnHeader Class="@("column-header " + @ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))" Style="@col.Style" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
                 @col.HeaderContent
                 @if (col == _displayOptionsForColumn)
                 {

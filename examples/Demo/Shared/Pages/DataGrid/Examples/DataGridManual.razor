@@ -1,14 +1,14 @@
 ﻿<FluentDataGrid id="manualGrid" GenerateHeader=GenerateHeaderOption.None GridTemplateColumns="1fr 1fr" TGridItem="string" role="grid">
     <FluentDataGridRow RowType="DataGridRowType.Header" >
-        <FluentDataGridCell ColumnIndex=1 CellType="DataGridCellType.ColumnHeader">Column 1</FluentDataGridCell>
-        <FluentDataGridCell ColumnIndex=2 CellType="DataGridCellType.ColumnHeader">Column 2</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=1 CellType="DataGridCellType.ColumnHeader">Column 1</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=2 CellType="DataGridCellType.ColumnHeader">Column 2</FluentDataGridCell>
     </FluentDataGridRow>
     <FluentDataGridRow>
-        <FluentDataGridCell ColumnIndex=1 >1.1</FluentDataGridCell>
-        <FluentDataGridCell ColumnIndex=2>1.2</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=1 >1.1</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=2>1.2</FluentDataGridCell>
     </FluentDataGridRow>
     <FluentDataGridRow>
-        <FluentDataGridCell ColumnIndex=1>2.1</FluentDataGridCell>
-        <FluentDataGridCell ColumnIndex=2> 2.2</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=1>2.1</FluentDataGridCell>
+        <FluentDataGridCell GridColumn=2> 2.2</FluentDataGridCell>
     </FluentDataGridRow>
 </FluentDataGrid>

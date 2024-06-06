@@ -35,7 +35,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// This will be applied to the css grid-column-index value applied to the cell.
     /// </summary>
     [Parameter]
-    public int ColumnIndex { get; set; }
+    public int GridColumn { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.

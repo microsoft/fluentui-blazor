@@ -14,7 +14,7 @@
     @* Sample using SelectedItems  *@
     <div>Using SelectedItems</div>
 
-    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person" OnRowClick="@(row => Console.WriteLine($"Row {row.RowIndex} clicked"))" OnCellClick="@(cell => Console.WriteLine($"Cell {cell.ColumnIndex} clicked"))">
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person" OnRowClick="@(row => Console.WriteLine($"Row {row.RowIndex} clicked"))" OnCellClick="@(cell => Console.WriteLine($"Cell {cell.GridColumn} clicked"))">
         <SelectColumn TGridItem="Person"
                       SelectMode="@Mode"
                       RestrictToCheckbox="@RestrictToCheckbox"
