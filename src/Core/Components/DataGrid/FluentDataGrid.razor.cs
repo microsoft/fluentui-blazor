@@ -181,7 +181,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Gets the first (optional) SelectColumn
     /// </summary>
-    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
+    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => Columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -193,7 +193,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
-    private readonly List<ColumnBase<TGridItem>> _columns;
+    internal readonly List<ColumnBase<TGridItem>> Columns;
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
@@ -235,7 +235,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridRowFocusEventArgs))]
     public FluentDataGrid()
     {
-        _columns = [];
+        Columns = [];
         _internalGridContext = new(this);
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
         _renderColumnHeaders = RenderColumnHeaders;
@@ -285,7 +285,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        return (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
+        return (Columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -315,7 +315,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (_collectingColumns)
         {
-            _columns.Add(column);
+            Columns.Add(column);
 
             if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
             {
@@ -328,23 +328,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private void StartCollectingColumns()
     {
-        _columns.Clear();
+        Columns.Clear();
         _collectingColumns = true;
     }
 
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
-        _manualGrid = _columns.Count == 0;
+        _manualGrid = Columns.Count == 0;
 
-        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && Columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && Columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "1fr"));
+            _internalGridTemplateColumns = string.Join(" ", Columns.Select(x => x.Width ?? "1fr"));
         }
 
         if (ResizableColumns)

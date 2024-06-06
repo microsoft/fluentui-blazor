@@ -92,9 +92,9 @@
         var rowStyle = RowStyle?.Invoke(item) ?? null;
         Loading = false;
         <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@_internalGridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
-            @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+            @for (var colIndex = 0; colIndex < Columns.Count; colIndex++)
             {
-                var col = _columns[colIndex];
+                var col = Columns[colIndex];
 
                 string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
@@ -110,9 +110,9 @@
         string? _rowsDataSize = $"height: {ItemSize}px";
 
         <FluentDataGridRow GridTemplateColumns=@GridTemplateColumns aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
-            @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+            @for (var colIndex = 0; colIndex < Columns.Count; colIndex++)
             {
-                var col = _columns[colIndex];
+                var col = Columns[colIndex];
 
                 <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnClass(col))" Style="@col.Style" @key="@col" Column="@col" GridColumn=@(colIndex+1) TGridItem="TGridItem">
                     @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
@@ -124,9 +124,9 @@
 
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
     {
-        @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+        @for (var colIndex = 0; colIndex < Columns.Count; colIndex++)
         {
-            var col = _columns[colIndex];
+            var col = Columns[colIndex];
             string CellId = Identifier.NewId();
             if (_sortByColumn == col)
                 col.ShowSortIcon = true;

@@ -1389,6 +1389,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RestrictToCheckbox">
             <summary>
             Gets or sets whether the selection of rows is restricted to the checkbox cells (true) or if the whole row can be clicked to toggled the selection of rows (false).
+            ⚠ Setting this to true will stop the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowClick"/> from being invoked, when a cell in this column is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllDisabled">
@@ -1762,12 +1763,7 @@
             Gets or sets the cell type. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridCellType"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
-            <summary>
-            Gets or sets the column of the cell.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.ColumnIndex">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridColumn">
             <summary>
             Gets or sets the column index of the cell.
             This will be applied to the css grid-column-index value applied to the cell.
@@ -1788,7 +1784,7 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync(System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">

@@ -6,8 +6,8 @@
                        grid-column=@GridColumn
                        class="@Class"
                        style="@StyleValue"
-                       @onclick="@(e => HandleOnCellClickAsync(CellId))"
-                       @onclick:stopPropagation="@(Column is SelectColumn<TGridItem>)"
+                       @onclick="@HandleOnCellClickAsync"
+                       @onclick:stopPropagation="StopClickPropagation()"
                        @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-data-grid-cell>

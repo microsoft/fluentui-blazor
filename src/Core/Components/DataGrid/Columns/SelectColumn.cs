@@ -40,6 +40,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     /// <summary>
     /// Gets or sets whether the selection of rows is restricted to the checkbox cells (true) or if the whole row can be clicked to toggled the selection of rows (false).
+    /// ⚠ Setting this to true will stop the <see cref="FluentDataGrid{TGridItem}.OnRowClick"/> from being invoked, when a cell in this column is clicked.
     /// </summary>
     [Parameter]
     public bool RestrictToCheckbox { get; set; } = false;

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -23,12 +24,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// </summary>
     [Parameter]
     public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
-
-    /// <summary>
-    /// Gets or sets the column of the cell.
-    /// </summary>
-    [Parameter]
-    public ColumnBase<TGridItem>? Column { get; set; }
 
     /// <summary>
     /// Gets or sets the column index of the cell.
@@ -67,22 +62,28 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     public void Dispose() => Owner.Unregister(this);
 
-    /// <summary />
-    internal async Task HandleOnCellClickAsync(string cellId)
+    private bool StopClickPropagation()
     {
-        if (Owner.Cells.TryGetValue(cellId, out var cell))
-        {
-            if (GridContext.Grid.OnCellClick.HasDelegate)
-            {
-                await GridContext.Grid.OnCellClick.InvokeAsync(cell);
-            }
+        var selColumn = Owner.Owner.Grid.SelectColumns.FirstOrDefault();
 
-            if (cell != null && cell.CellType == DataGridCellType.Default)
+        return selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1;
+    }
+
+    /// <summary />
+    internal async Task HandleOnCellClickAsync(MouseEventArgs args)
+    {
+        if (GridContext.Grid.OnCellClick.HasDelegate)
+        {
+            await GridContext.Grid.OnCellClick.InvokeAsync(this);
+        }
+
+        if (CellType == DataGridCellType.Default)
+        {
+            var selColumn = Owner.Owner.Grid.SelectColumns.FirstOrDefault();
+
+            if (selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1)
             {
-                if (Column is SelectColumn<TGridItem> selColumn)
-                {
-                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
-                }
+                await selColumn.AddOrRemoveSelectedItemAsync(Item);
             }
         }
     }
