@@ -1718,6 +1718,20 @@
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortByColumnAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.SortDirection)">
+            <summary>
+            Sorts the grid by the specified column <paramref name="title"/> found first. If the title is not found, nothing happens.
+            </summary>
+            <param name="title">The title of the column to sort by.</param>
+            <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortByColumnAsync(System.Int32,Microsoft.FluentUI.AspNetCore.Components.SortDirection)">
+            <summary>
+            Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
+            </summary>
+            <param name="index">The index of the column to sort by.</param>
+            <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
             Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
@@ -6312,7 +6326,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
             <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items.
+            Defines the vertical spacing between the NavGroup and adjacent items.
             Needs to be a valid CSS value.
             </summary>
         </member>
@@ -6324,7 +6338,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
             <summary>
             Allows for specific markup and styling to be applied for the group title
-            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
+            When using this, the contained <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
             When specifying both Title and TitleTemplate, both will be rendered.
             </summary>
         </member>
@@ -9277,7 +9291,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
-            Gets the name of this design token 
+            Gets the name of this design token
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Value">
@@ -9303,9 +9317,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(System.String)">
+            <summary>
+            Sets the default value of this token
+            Value is a string
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(`0)">
             <summary>
             Sets the default value of this token
+            Value is a type T
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Create(System.String)">
