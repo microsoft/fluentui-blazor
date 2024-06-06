@@ -25,11 +25,17 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
 
     /// <summary>
+    /// Gets or sets the column of the cell.
+    /// </summary>
+    [Parameter]
+    public ColumnBase<TGridItem>? Column { get; set; }
+
+    /// <summary>
     /// Gets or sets the column index of the cell.
     /// This will be applied to the css grid-column-index value applied to the cell.
     /// </summary>
     [Parameter]
-    public int GridColumn { get; set; }
+    public int ColumnIndex { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -61,4 +67,23 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     public void Dispose() => Owner.Unregister(this);
 
+    /// <summary />
+    internal async Task HandleOnCellClickAsync(string cellId)
+    {
+        if (Owner.Cells.TryGetValue(cellId, out var cell))
+        {
+            if (GridContext.Grid.OnCellClick.HasDelegate)
+            {
+                await GridContext.Grid.OnCellClick.InvokeAsync(cell);
+            }
+
+            if (cell != null && cell.CellType == DataGridCellType.Default)
+            {
+                if (Column is SelectColumn<TGridItem> selColumn)
+                {
+                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                }
+            }
+        }
+    }
 }

@@ -3,9 +3,11 @@
 @typeparam TGridItem
 <fluent-data-grid-cell cell-id="@CellId"
                        cell-type=@CellType.ToAttributeValue()
-                       grid-column=@GridColumn
+                       grid-column=@ColumnIndex
                        class="@Class"
                        style="@StyleValue"
+                       @onclick="@(e => HandleOnCellClickAsync(CellId))"
+                       @onclick:stopPropagation="@(Column is SelectColumn<TGridItem>)"
                        @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-data-grid-cell>

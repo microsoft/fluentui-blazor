@@ -1386,6 +1386,11 @@
             Gets or sets the content to be rendered for each row in the table.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RestrictToCheckbox">
+            <summary>
+            Gets or sets whether the selection of rows is restricted to the checkbox cells (true) or if the whole row can be clicked to toggled the selection of rows (false).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllDisabled">
             <summary>
             Gets or sets whether the [All] checkbox is disabled (not clickable).
@@ -1657,6 +1662,11 @@
             Gets or sets a callback when a row is clicked.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellClick">
+            <summary>
+            Gets or sets a callback when a cell is clicked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowDoubleClick">
             <summary>
             Gets or sets a callback when a row is double-clicked.
@@ -1752,7 +1762,12 @@
             Gets or sets the cell type. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridCellType"/>.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridColumn">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
+            <summary>
+            Gets or sets the column of the cell.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.ColumnIndex">
             <summary>
             Gets or sets the column index of the cell.
             This will be applied to the css grid-column-index value applied to the cell.
@@ -1772,6 +1787,9 @@
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync(System.String)">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">
             <summary>
@@ -6312,7 +6330,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
             <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items.
+            Defines the vertical spacing between the NavGroup and adjacent items.
             Needs to be a valid CSS value.
             </summary>
         </member>
@@ -6324,7 +6342,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
             <summary>
             Allows for specific markup and styling to be applied for the group title
-            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
+            When using this, the contained <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
             When specifying both Title and TitleTemplate, both will be rendered.
             </summary>
         </member>

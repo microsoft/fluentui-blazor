@@ -39,6 +39,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public RenderFragment<TGridItem> ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the selection of rows is restricted to the checkbox cells (true) or if the whole row can be clicked to toggled the selection of rows (false).
+    /// </summary>
+    [Parameter]
+    public bool RestrictToCheckbox { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets whether the [All] checkbox is disabled (not clickable).
     /// </summary>
     [Parameter]

@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
 {
     internal string RowId { get; set; } = string.Empty;
-    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
+    internal Dictionary<string, FluentDataGridCell<TGridItem>> Cells { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values.
@@ -80,18 +80,18 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
 
         cell.CellId = $"c{Owner.GetNextCellId()}";
-        cells.Add(cell.CellId, cell);
+        Cells.Add(cell.CellId, cell);
     }
 
     internal void Unregister(FluentDataGridCell<TGridItem> cell)
     {
-        cells.Remove(cell.CellId!);
+        Cells.Remove(cell.CellId!);
     }
 
     private async Task HandleOnCellFocusAsync(DataGridCellFocusEventArgs args)
     {
         var cellId = args.CellId;
-        if (cells.TryGetValue(cellId!, out var cell))
+        if (Cells.TryGetValue(cellId!, out var cell))
         {
             if (cell != null && cell.CellType == DataGridCellType.Default)
             {
@@ -114,7 +114,10 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             {
                 foreach (var selColumn in Owner.Grid.SelectColumns)
                 {
-                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                    if (!selColumn.RestrictToCheckbox)
+                    {
+                        await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                    }
                 }
             }
         }
@@ -144,7 +147,10 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
                 {
                     foreach (var selColumn in Owner.Grid.SelectColumns)
                     {
-                        await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                        if (!selColumn.RestrictToCheckbox)
+                        {
+                            await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                        }
                     }
                 }
             }
