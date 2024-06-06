@@ -1,6 +1,27 @@
 ## v4.7.3
 
 ### Icons
+- Update to Fluent UI System Icons 1.1.242
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Breakout Room / 32 / Filled & Regular
+    - Card UI Portrait Flip / 16, 20, 24 / Filled & Regular
+    - Cursor / 28, 32 / Filled & Regular
+    - Layout Row Two / 28, 48 / Filled & Regular
+    - Notepad Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush Subtract / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush / 28 / Filled & Regular
+    - Play Circle Sparkle / 16, 20, 24 / Filled & Regular
+    - Replay / 16, 20, 24, 28, 32 / Filled & Regular
+    - Send Person / 16, 20, 24 / Filled & Regular
+    - Square Dovetail Joint / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Table Cursor / 16, 20, 24 / Filled & Regular
+    - Transparency Square / 20, 24 / Filled & Regular
+ 
+     **What's updated (Name / Size(s) / Variant(s))**
+    - Notepad / 32 / Filled & Regular
+    - Replay / 20 / Filled & Regular
+    
 - Update to Fluent UI System Icons 1.1.239
 
     **What's new (Name / Size(s) / Variant(s))**
