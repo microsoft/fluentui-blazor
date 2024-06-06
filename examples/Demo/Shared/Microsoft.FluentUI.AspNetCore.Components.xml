@@ -9218,7 +9218,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
-            Gets the name of this design token 
+            Gets the name of this design token
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Value">
@@ -9244,9 +9244,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(System.String)">
+            <summary>
+            Sets the default value of this token
+            Value is a string
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(`0)">
             <summary>
             Sets the default value of this token
+            Value is a type T
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Create(System.String)">
