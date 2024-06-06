@@ -20,7 +20,7 @@
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
     parameters.Add(p => p.Id, "myComponent");
-    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Items, Customers.Get());
         });
 
         // Assert
@@ -34,7 +34,7 @@
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
     parameters.Add(p => p.Id, "myComponent");
-    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Items, Customers.Get());
     parameters.Add(p => p.Width, string.Empty);
         });
 
@@ -50,7 +50,7 @@
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
     parameters.Add(p => p.Id, "myComponent");
-    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Items, Customers.Get());
         });
 
         // Act
@@ -80,8 +80,8 @@
         var cut = RenderComponent<FluentAutocomplete<Customer>>(parameters =>
         {
     parameters.Add(p => p.Id, "myComponent");
-    parameters.Add(p => p.Items, GetCustomers());
-    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Items, Customers.Get());
+    parameters.Add(p => p.SelectedOptions, Customers.Get().Take(2));
         });
 
         // Act
@@ -163,7 +163,7 @@
         return $"<footer>{context.Count()} items found</footer>";
     });
 
-    parameters.Add(p => p.Items, GetCustomers());
+    parameters.Add(p => p.Items, Customers.Get());
         });
 
         // Act
@@ -182,8 +182,8 @@
     parameters.Add(p => p.Id, "myComponent");
     parameters.Add(p => p.OptionValue, context => context.Id.ToString());
     parameters.Add(p => p.OptionText, context => context.Name);
-    parameters.Add(p => p.Items, GetCustomers());
-    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Items, Customers.Get());
+    parameters.Add(p => p.SelectedOptions, Customers.Get().Take(2));
         });
 
         // Act
@@ -202,8 +202,8 @@
     parameters.Add(p => p.Id, "myComponent");
     parameters.Add(p => p.OptionValue, context => context.Id.ToString());
     parameters.Add(p => p.OptionText, context => context.Name);
-    parameters.Add(p => p.Items, GetCustomers());
-    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Items, Customers.Get());
+    parameters.Add(p => p.SelectedOptions, Customers.Get().Take(2));
 
     // Add an Item template
     parameters.Add(p => p.OptionTemplate, context =>
@@ -228,8 +228,8 @@
     parameters.Add(p => p.Id, "myComponent");
     parameters.Add(p => p.OptionValue, context => context.Id.ToString());
     parameters.Add(p => p.OptionText, context => context.Name);
-    parameters.Add(p => p.Items, GetCustomers());
-    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.Items, Customers.Get());
+    parameters.Add(p => p.SelectedOptions, Customers.Get().Take(2));
         });
 
         // Act (click on the Dismiss button)
@@ -346,7 +346,7 @@
         {
     parameters.Add(p => p.Id, "myComponent");
     parameters.Add(p => p.MaxAutoHeight, "200px");
-    parameters.Add(p => p.SelectedOptions, GetCustomers().Take(2));
+    parameters.Add(p => p.SelectedOptions, Customers.Get().Take(2));
         });
 
         // Act
@@ -404,7 +404,7 @@
         input.Click();
 
         // Click on the second FluentOption
-        var vincent = GetCustomers().First(i => i.Id == 2);
+        var vincent = Customers.Get().First(i => i.Id == 2);
         cut.Find($"fluent-option[value='{vincent}']").Click();
 
         // Assert (One item selected)
@@ -424,24 +424,12 @@
     // Search customers
     private Task OnSearchAsync(OptionsSearchEventArgs<Customer> e)
     {
-        e.Items = GetCustomers().Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+        e.Items = Customers.Get().Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
                                 .OrderBy(i => i.Name);
         return Task.CompletedTask;
     }
 
-    // Sample data...
-    private static IEnumerable<Customer> GetCustomers()
-    {
-        yield return new Customer(1, "Denis Voituron");
-        yield return new Customer(2, "Vincent Baaij");
-        yield return new Customer(3, "Bill Gates");
-    }
 
-    private record Customer(int Id, string Name)
-    {
-        public override string ToString()
-        {
-            return $"{Id}-{Name}";
-        }
-    }
+
+
 }

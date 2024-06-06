@@ -1,0 +1,45 @@
+﻿@using FluentAssertions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentSelectTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
+
+    [Fact]
+    public void FluentSelect_Simple()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_OptionValue()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+}
