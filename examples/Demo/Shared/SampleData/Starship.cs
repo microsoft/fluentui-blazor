@@ -20,7 +20,7 @@ public class Starship
     public string? Description { get; set; }
 
     [Required(ErrorMessage = "Countries are required")]
-    public IEnumerable<Country>? Countries { get; set; } = [];
+    public IEnumerable<Country>? Countries { get; set; }
 
     [Required(ErrorMessage = "A classification is required")]
     public string? Classification { get; set; }

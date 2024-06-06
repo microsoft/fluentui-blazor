@@ -537,9 +537,12 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         await Task.Delay(1);
         var id = await _jsModule!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
-        FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
+        var item = _internalListContext.Options.FirstOrDefault(i => i.Id == id);
 
-        await item.OnClickHandlerAsync();
+        if (item is not null)
+        {
+            await item.OnClickHandlerAsync();
+        }
     }
 
     /// <summary />

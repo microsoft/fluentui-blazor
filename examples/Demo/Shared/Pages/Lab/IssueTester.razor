@@ -1,88 +1,56 @@
-﻿@page "/IssueTester"
+﻿@page "/issue-tester"
+@inject DataSource Data
 
-<EditForm Model="@this">
-    <p>Modified: @(context.IsModified())</p>
 
-    <FluentCombobox Items="_items"
-                    TOption="string"
-                    SelectedOption="@soCombobox1"
-                    SelectedOptionChanged="x => HandleCBOptionChanged(x)"
-                    Value="@vCombobox1"
-                    ValueChanged="x => HandleCBValueChanged(x)" />
-    <br />
-    <FluentSelect TOption="MyThing"
-                  @bind-SelectedOption="@soSelect"
-                  Items="@AllThings"
-                  OptionText="@(x => x.DisplayText)"
-                  Label="Option" />
+<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit" FormName="starship_fluent_entry" novalidate>
+    <DataAnnotationsValidator />
+    <FluentValidationSummary />
 
-    <FluentSelect TOption="MyThing"
-                  @bind-Value="@vSelect"
-                  Items="@AllThings"
-                  OptionText="@(x => x.DisplayText)"
-                  Label="Value" />
 
-    <FluentListbox TOption="MyThing"
-                   @bind-SelectedOption="@soListbox"
-                   Items="@AllThings"
-                   OptionText="@(x => x.DisplayText)"
-                   Label="Option" />
-
-    <FluentListbox TOption="MyThing"
-                   @bind-Value="@vListbox"
-                   Items="@AllThings"
-                   OptionText="@(x => x.DisplayText)"
-                   Label="Value" />
-
-    <FluentCombobox Items="@AllThings"
-                    TOption="MyThing"
-                    OptionText="@(x => x.DisplayText)"
-                    @bind-SelectedOption="@soCombobox2"
-                    @bind-Value="@vCombobox2"
-                    Label="Combobox" />
-    <p>
-        <FluentButton Appearance="Appearance.Neutral" OnClick="Reset" Type="ButtonType.Reset">Reset</FluentButton>
-    </p>
+    <FluentStack Orientation="Orientation.Vertical">
+        <div>
+            <FluentAutocomplete TOption="Country"
+                                Name="countries"
+                                AutoComplete="off"
+                                Required
+                                Label="Select countries"
+                                Width="250px"
+                                Placeholder="Select countries"
+                                OnOptionsSearch="@OnSearchAsync"
+                                MaximumSelectedOptions="3"
+                                OptionText="@(item => item.Name)"
+                                Multiple="true"
+                                @bind-SelectedOptions="@starship.Countries" />
+            <FluentValidationMessage For="@(() => starship.Countries)" />
+        </div>
+        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
+    </FluentStack>
 </EditForm>
 
-<p>
-    Combobox 1 value: @vCombobox1 <br />
-    Combobox 1 option: @soCombobox1 <br />
-    <br />
-    Select option: @soSelect <br />
-    Select value: @vSelect <br />
-    <br />
-    Listbox option: @soListbox <br />
-    Listbox value: @vListbox <br />
-    <br />
-    Combobox 2 value: @vCombobox2 <br />
-    Combobox 2 option: @soCombobox2 <br />
-</p>
 @code {
-    MyThing? soSelect, soListbox, soCombobox2;
-    string? vSelect, vListbox, vCombobox1, vCombobox2, soCombobox1;
 
-    string? someString;
-    MyThing[] AllThings = new[] { new MyThing(1, "One"), new MyThing(2, "Two") };
 
-    record MyThing(int Id, string DisplayText);
-
-    private List<string> _items = ["Item 1", "Item 2", "Item 3"];
-
-    private void HandleCBOptionChanged(string? value)
+    protected override void OnInitialized()
     {
-        soCombobox1 = value;
+        starship.ProductionDate = DateTime.Now;
     }
 
-    private void HandleCBValueChanged(string? value)
+    IEnumerable<Country> SelectedItems = Array.Empty<Country>();
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {
-        vCombobox1 = value;
+        var allCountries = await Data.GetCountriesAsync();
+        e.Items = allCountries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                              .OrderBy(i => i.Name);
     }
 
-    private void Reset()
+    [SupplyParameterFromForm]
+    private Starship starship { get; set; } = new();
+
+    private void HandleValidSubmit()
     {
-        vSelect = vListbox = vCombobox1 = vCombobox2 = soCombobox1 = null;
-        soCombobox2 = null;
-        StateHasChanged();
+        DemoLogger.WriteLine("HandleValidSubmit called");
+
+        // Process the valid form
     }
 }
