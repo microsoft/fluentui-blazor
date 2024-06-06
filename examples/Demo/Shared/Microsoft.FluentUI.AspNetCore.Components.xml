@@ -6312,7 +6312,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
             <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items.
+            Defines the vertical spacing between the NavGroup and adjacent items.
             Needs to be a valid CSS value.
             </summary>
         </member>
@@ -6324,7 +6324,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
             <summary>
             Allows for specific markup and styling to be applied for the group title
-            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
+            When using this, the contained <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
             When specifying both Title and TitleTemplate, both will be rendered.
             </summary>
         </member>
@@ -9277,7 +9277,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
-            Gets the name of this design token 
+            Gets the name of this design token
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Value">
@@ -9303,9 +9303,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(System.String)">
+            <summary>
+            Sets the default value of this token
+            Value is a string
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(`0)">
             <summary>
             Sets the default value of this token
+            Value is a type T
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Create(System.String)">
