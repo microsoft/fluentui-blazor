@@ -9303,6 +9303,11 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(System.String)">
+            <summary>
+            Sets the default value of this token
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(`0)">
             <summary>
             Sets the default value of this token
