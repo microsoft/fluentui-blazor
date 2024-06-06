@@ -169,7 +169,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         Value = value;
         if (ValueChanged.HasDelegate)
         {
-            // Thread Safety: Force `ValueChanged` to be re-associated with the Dispatcher, prior to invokation.
+            // Thread Safety: Force `ValueChanged` to be re-associated with the Dispatcher, prior to invocation.
             await InvokeAsync(async () => await ValueChanged.InvokeAsync(value));
         }
         if (FieldBound)

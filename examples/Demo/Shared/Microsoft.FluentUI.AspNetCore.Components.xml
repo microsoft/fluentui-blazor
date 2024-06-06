@@ -1386,6 +1386,16 @@
             Gets or sets the content to be rendered for each row in the table.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllDisabled">
+            <summary>
+            Gets or sets whether the [All] checkbox is disabled (not clickable).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllTemplate">
+            <summary>
+            Gets or sets the template for the [All] checkbox column template.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItems">
             <summary>
             Gets or sets the list of selected items.
@@ -1468,7 +1478,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Property">
             <summary>
-            Gets or sets the function to be executed to display the checked/unchecked icon, depending of you data model.
+            Gets or sets the function to executed to determine checked/unchecked status.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
@@ -2255,11 +2265,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.View">
             <summary>
             Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
-            <summary>
-            Gets or sets the selected date (two-way bindable).
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
@@ -6291,7 +6296,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded">
             <summary>
-            If true, expands the nav group, otherwise collapse it. 
+            If true, expands the nav group, otherwise collapse it.
             Two-way bindable
             </summary>
         </member>
@@ -6307,7 +6312,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
             <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items. 
+            Defines the vertical spacing between the NavGroup and adjacent items.
             Needs to be a valid CSS value.
             </summary>
         </member>
@@ -6318,8 +6323,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
             <summary>
-            Allows for specific markup and styling to be applied for the group title 
-            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
+            Allows for specific markup and styling to be applied for the group title
+            When using this, the contained <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
             When specifying both Title and TitleTemplate, both will be rendered.
             </summary>
         </member>
@@ -6860,6 +6865,16 @@
             Using this property will override the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterLink" /> property.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.StartTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the start (left) section of the Profile button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.EndTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the end (right) section of the Profile button.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Status">
             <summary>
             Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
@@ -6868,6 +6883,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.StatusTitle">
             <summary>
             Gets or sets the title to show on hover. If not provided, the status will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PopoverClass">
+            <summary>
+            Gets or sets the Class to apply to the Profile Popup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PopoverStyle">
+            <summary>
+            Gets or sets the Style to apply to the Profile Popup.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Initials">
@@ -6930,6 +6955,9 @@
             <summary>
             Event raised when the user clicks on the Footer hyperlink (e.g. View account).
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PersonaId">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
             <summary>
@@ -8758,6 +8786,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Items">
+            <summary>
+            Gets or sets the list of sub-items to bind to the tree item
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item
@@ -8806,6 +8844,20 @@
             be selected when it is created.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconCollapsed">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is collapsed.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconExpanded"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconExpanded">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is expanded.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconCollapsed"/> will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
@@ -8815,6 +8867,23 @@
             <summary>
             Returns <see langword="true"/> if the tree item is collapsed,
             and <see langword="false"/> if expanded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items">
+            <summary>
+            Gets or sets the list of items to bind to the tree.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItem">
+            <summary>
+            Gets or sets the currently selected tree item.
+            Only when using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItemChanged">
+            <summary>
+            Called when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItem"/> changes.
+            Only when using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.RenderCollapsedNodes">
@@ -8831,6 +8900,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.CurrentSelectedChanged">
             <summary>
             Called when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.CurrentSelected"/> changes.
+            You cannot update <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> properties.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.ChildContent">
@@ -8842,12 +8912,177 @@
             <summary>
             Called whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Selected"/> changes on an
             item within the tree.
+            You cannot update <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> properties.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.OnExpandedChange">
             <summary>
             Called whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Expanded"/> changes on an
             item within the tree.
+            You cannot update <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.ItemTemplate">
+            <summary>
+            Gets or sets the template for rendering tree items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.LazyLoadItems">
+            <summary>
+            Can only be used when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> is defined.
+            Gets or sets whether the tree should use lazy loading when expanding nodes.
+            If True, the tree will only render the children of a node when it is expanded and will remove them when it is collapsed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.FindItemById(System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem},System.String)">
+            <summary>
+            Search for an item by its id in the tree
+            </summary>
+            <param name="items"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem">
+            <summary>
+            Interface for tree view items
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id">
+            <summary>
+            Gets or sets the unique identifier of the tree item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text">
+            <summary>
+            Gets or sets the text of the tree item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items">
+            <summary>
+            Gets or sets the sub-items of the tree item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is collapsed.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is expanded.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled">
+            <summary>
+            When true, the control will be immutable by user interaction.
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Expanded">
+            <summary>
+            Gets or sets a value indicating whether the tree item is expanded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync">
+            <summary>
+            Gets or sets the action to be performed when the tree item is expanded or collapsed
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem">
+            <summary>
+            Implementation of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.LoadingTreeViewItem">
+            <summary>
+            Returns a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> that represents a loading state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.LoadingTreeViewItems">
+            <summary>
+            Returns an array with a single <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> that represents a loading state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor(System.String,System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+            <param name="text">Text of the tree item</param>
+            <param name="items">Sub-items of the tree item.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+            <param name="id">Unique identifier of the tree item</param>
+            <param name="text">Text of the tree item</param>
+            <param name="items">Sub-items of the tree item.</param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Id">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Text">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Items">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.IconCollapsed">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.IconExpanded">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Disabled">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Expanded">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Expanded"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.OnExpandedAsync">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync" />
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs">
+            <summary>
+            Class that contains the event arguments for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync"/> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.#ctor(Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem,System.Boolean)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.CurrentItem">
+            <summary>
+            Gets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem"/> that was expanded or collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.Expanded">
+            <summary>
+            Gets a value indicating whether the item was expanded or collapsed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ClassValue">
@@ -9042,7 +9277,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
-            Gets the name of this design token 
+            Gets the name of this design token
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Value">
@@ -9068,9 +9303,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(System.String)">
+            <summary>
+            Sets the default value of this token
+            Value is a string
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(`0)">
             <summary>
             Sets the default value of this token
+            Value is a type T
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Create(System.String)">
