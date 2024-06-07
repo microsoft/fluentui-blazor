@@ -188,6 +188,16 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         RefreshHeaderContent();
     }
 
+    /// <summary>
+    /// Allows to clear the selection.
+    /// </summary>
+    public async Task ClearSelectionAsync()
+    {
+        _selectedItems.Clear();
+        RefreshHeaderContent();
+        await Task.CompletedTask;
+    }
+
     /// <summary />
     internal async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
