@@ -186,6 +186,25 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     [Parameter]
     public override GridSort<TGridItem>? SortBy { get; set; }
 
+    /// <summary>
+    /// Allows to clear the selection.
+    /// </summary>
+    public void ClearSelection()
+    {
+        _selectedItems.Clear();
+        RefreshHeaderContent();
+    }
+
+    /// <summary>
+    /// Allows to clear the selection.
+    /// </summary>
+    public async Task ClearSelectionAsync()
+    {
+        _selectedItems.Clear();
+        RefreshHeaderContent();
+        await Task.CompletedTask;
+    }
+
     /// <summary />
     internal async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
