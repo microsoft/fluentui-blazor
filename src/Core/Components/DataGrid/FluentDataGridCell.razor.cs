@@ -61,13 +61,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     public void Dispose() => Owner.Unregister(this);
 
-    private bool StopClickPropagation()
-    {
-        var selColumn = Owner.Owner.Grid.SelectColumns.FirstOrDefault();
-
-        return selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1;
-    }
-
     /// <summary />
     internal async Task HandleOnCellClickAsync()
     {
@@ -76,13 +69,14 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
             await GridContext.Grid.OnCellClick.InvokeAsync(this);
         }
 
-        if (CellType == DataGridCellType.Default)
+        if (CellType == DataGridCellType.Default && Owner.Owner.Grid.SelectColumns.Any(selColumn => selColumn.RestrictToCheckbox))
         {
-            var selColumn = Owner.Owner.Grid.SelectColumns.FirstOrDefault();
-
-            if (selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1)
+            foreach (var selColumn in Owner.Owner.Grid.SelectColumns)
             {
-                await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                if (selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1)
+                {
+                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
+                }
             }
         }
     }

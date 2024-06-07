@@ -1490,6 +1490,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelection">
+            <summary>
+            Allows to clear the selection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelectionAsync">
+            <summary>
+            Allows to clear the selection.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.AddOrRemoveSelectedItemAsync(`0)">
             <summary />
         </member>

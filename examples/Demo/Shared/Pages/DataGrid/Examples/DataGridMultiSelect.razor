@@ -14,8 +14,11 @@
     @* Sample using SelectedItems  *@
     <div>Using SelectedItems</div>
 
-    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person" OnRowClick="@(row => Console.WriteLine($"Row {row.RowIndex} clicked"))" OnCellClick="@(cell => Console.WriteLine($"Cell {cell.GridColumn} clicked"))">
-        <SelectColumn TGridItem="Person"
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person"
+                    OnRowClick="@(row => Console.WriteLine($"Row {row.RowIndex} clicked"))"
+                    OnCellClick="@(cell => Console.WriteLine($"Cell {cell.GridColumn} clicked"))">
+        <SelectColumn @ref="SelectColumn"
+                      TGridItem="Person"
                       SelectMode="@Mode"
                       RestrictToCheckbox="@RestrictToCheckbox"
                       @bind-SelectedItems="@SelectedItems" />
@@ -34,8 +37,11 @@ else
     @* Sample using Property and OnSelect  *@
     <div>Using Property and OnSelect</div>
 
-    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
-        <SelectColumn TGridItem="Person"
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person"
+                    OnRowClick="@(row => Console.WriteLine($"Row {row.RowIndex} clicked"))"
+                    OnCellClick="@(cell => Console.WriteLine($"Cell {cell.GridColumn} clicked"))">
+        <SelectColumn @ref="SelectColumn"
+                      TGridItem="Person"
                       SelectMode="@Mode"
                       RestrictToCheckbox="@RestrictToCheckbox"
                       Property="@(e => e.Selected)"
@@ -54,6 +60,8 @@ else
 }
 
 @code {
+    SelectColumn<Person>? SelectColumn;
+
     bool UseSelectedItems = true;
     DataGridSelectMode Mode = DataGridSelectMode.Single;
 
@@ -78,7 +86,6 @@ else
     private void ResetSelectItems()
     {
         People.ToList().ForEach(i => i.Selected = false);
-        People.First().Selected = true;
-        SelectedItems = People.Where(p => p.Selected);
+        SelectColumn?.ClearSelection();
     }
 }
