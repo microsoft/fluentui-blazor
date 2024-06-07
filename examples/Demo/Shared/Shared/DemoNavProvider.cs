@@ -190,11 +190,6 @@ public class DemoNavProvider
                         children:
                         [
                             new NavLink(
-                                href: "/Autocomplete",
-                                icon: new Icons.Regular.Size20.ArrowAutofitContent(),
-                                title: "Autocomplete"
-                            ),
-                            new NavLink(
                                 href: "/Combobox",
                                 icon: new Icons.Regular.Size20.BoxEdit(),
                                 title: "Combobox"
@@ -295,6 +290,11 @@ public class DemoNavProvider
                         href: "/AppBar",
                         icon: new Icons.Regular.Size20.AppsList(),
                         title: "AppBar"
+                    ),
+                    new NavLink(
+                        href: "/Autocomplete",
+                        icon: new Icons.Regular.Size20.ArrowAutofitContent(),
+                        title: "Autocomplete"
                     ),
                     new NavGroup(
                         title: "Badge",
