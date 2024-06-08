@@ -189,7 +189,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
