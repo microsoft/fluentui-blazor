@@ -16,7 +16,6 @@
 </p>
 
 <h2>Dialog provider</h2>
-<strong>IMPORTANT!!</strong>
 <p>
     Dialogs are rendered by the <code>&lt;FluentDialogProvider /&gt;</code>. This component needs to be added to the main layout of your application/site.
     You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
@@ -36,14 +35,13 @@
 </main>"
     )
 </CodeSnippet>
-<strong>IMPORTANT!!</strong>
-<p>
-    <strong>
+<blockquote>
+    <p><strong>IMPORTANT!!</strong></p>
+    <p>
         For the <code>&lt;FluentDialogProvider/&gt;</code> to work properly, it needs interactivity! If you are using "per page" interactivity or <strong>Server Side Rendering</strong>
         (ASP.NET Core 8 or above), make sure to add a <code>@@rendermode</code> to either the provider itself or the component the provider is placed in.
-    </strong>
-</p>
-
+    </p>
+</blockquote>
 <p>
     See the following pages for examples on how to use the DialogService with the different types of dialogs.
     <ul>
