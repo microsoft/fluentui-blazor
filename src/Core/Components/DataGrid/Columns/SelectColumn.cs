@@ -179,6 +179,25 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     [Parameter]
     public override GridSort<TGridItem>? SortBy { get; set; }
 
+    /// <summary>
+    /// Allows to clear the selection.
+    /// </summary>
+    public void ClearSelection()
+    {
+        _selectedItems.Clear();
+        RefreshHeaderContent();
+    }
+
+    /// <summary>
+    /// Allows to clear the selection.
+    /// </summary>
+    public async Task ClearSelectionAsync()
+    {
+        _selectedItems.Clear();
+        RefreshHeaderContent();
+        await Task.CompletedTask;
+    }
+
     /// <summary />
     internal async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
@@ -188,7 +207,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             {
                 _selectedItems.Remove(item);
                 SelectAll = false;
-                await CallOnSelect(item, false);
+                await CallOnSelectAsync(item, false);
             }
             else
             {
@@ -196,13 +215,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 {
                     foreach (var previous in _selectedItems)
                     {
-                        await CallOnSelect(previous, false);
+                        await CallOnSelectAsync(previous, false);
                     }
                     _selectedItems.Clear();
                 }
 
                 _selectedItems.Add(item);
-                await CallOnSelect(item, true);
+                await CallOnSelectAsync(item, true);
             }
 
             if (SelectedItemsChanged.HasDelegate)
@@ -213,7 +232,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             RefreshHeaderContent();
         }
 
-        Task CallOnSelect(TGridItem item, bool isSelected)
+        Task CallOnSelectAsync(TGridItem item, bool isSelected)
         {
             return OnSelect.HasDelegate
                 ? OnSelect.InvokeAsync((item, isSelected))
