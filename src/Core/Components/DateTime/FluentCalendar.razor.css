@@ -173,6 +173,10 @@
             border-bottom-right-radius: 50%;
         }
 
+    .fluent-calendar ::deep .day[multi-day-over] {
+        background: var(--neutral-fill-stealth-hover);
+    }
+
     /* Animations */
     .fluent-calendar ::deep .animation-running-down {
         animation: 0.2s fluent-text-animation-down ease-out;

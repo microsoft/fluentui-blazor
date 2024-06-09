@@ -2282,6 +2282,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectDayHandlerAsync(System.DateTime,System.Boolean)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectDayMouseOverAsync(System.DateTime,System.Boolean)">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Culture">
             <summary>
             Gets or sets the culture of the component.

@@ -22,6 +22,9 @@ public partial class FluentCalendar : FluentCalendarBase
     private readonly CalendarExtended? _calendarExtended = null;
     private readonly RangeOfDates _rangeSelector = new RangeOfDates();
 
+    private readonly RangeOfDates _rangeSelectorMouseOver = new RangeOfDates();
+    private readonly List<DateTime> _selectedDatesMouseOver = new List<DateTime>();
+
     /// <summary />
     protected override string? ClassValue
     {
@@ -286,17 +289,18 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private (bool IsMultiple, DateTime Min, DateTime Max) GetMultipleSelection()
+    private (bool IsMultiple, DateTime Min, DateTime Max, bool InProgress) GetMultipleSelection()
     {
         if (SelectedDates == null || SelectedDates.Count == 0)
         {
-            return (false, DateTime.MinValue, DateTime.MinValue);
+            return (false, DateTime.MinValue, DateTime.MinValue, false);
         }
 
         return (
             (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count > 1,
             SelectedDates.Min(),
-            SelectedDates.Max()
+            SelectedDates.Max(),
+            !_rangeSelector.IsValid()
                );
     }
 
@@ -342,7 +346,7 @@ public partial class FluentCalendar : FluentCalendarBase
                         _rangeSelector.End = value;
                     }
 
-                    SelectedDates.Clear();                    
+                    SelectedDates.Clear();
                     foreach (var item in _rangeSelector.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true))
                     {
                         SelectedDates.Add(item);
@@ -356,5 +360,23 @@ public partial class FluentCalendar : FluentCalendarBase
             }
 
         }
+    }
+
+    /// <summary />
+    private Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
+    {
+        if (dayDisabled || SelectMode != CalendarSelectMode.Range || SelectedDates.Count == 0)
+        {
+            return Task.CompletedTask;
+        }
+
+        _rangeSelectorMouseOver.Start = _rangeSelector.Start;
+        _rangeSelectorMouseOver.End = value;
+
+        var days = _rangeSelectorMouseOver.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
+        _selectedDatesMouseOver.Clear();
+        _selectedDatesMouseOver.AddRange(days);
+
+        return Task.CompletedTask;
     }
 }
