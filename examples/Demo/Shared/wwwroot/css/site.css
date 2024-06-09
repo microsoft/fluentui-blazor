@@ -10,6 +10,10 @@ body {
     overflow: hidden;
 }
 
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
 .siteheader {
     background-color: var(--neutral-layer-4) !important;
     border-bottom: calc(var(--stroke-width) * 3px) solid var(--accent-fill-rest);
@@ -208,6 +212,11 @@ code {
 .highlighted-row {
     background-color: var(--neutral-fill-secondary-hover);
 }
+
+    .highlighted-row > fluent-data-grid-cell {
+        color: var(--neutral-fill-inverse-rest);
+    }
+
 
 kbd {
     padding: 0.10rem 0.25rem;
