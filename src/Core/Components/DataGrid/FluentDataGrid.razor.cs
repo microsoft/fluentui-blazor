@@ -179,8 +179,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
-    private int _ariaBodyRowCount;
-    private ICollection<TGridItem> _currentNonVirtualizedViewItems = Array.Empty<TGridItem>();
 
     // IQueryable only exposes synchronous query APIs. IAsyncQueryExecutor is an adapter that lets us invoke any
     // async query APIs that might be available. We have built-in support for using EF Core's async query APIs.
@@ -333,7 +331,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
 
-        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
@@ -369,6 +367,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
+    }
+
+    /// <summary>
+    /// Sorts the grid by the specified column <paramref name="title"/> found first. If the title is not found, nothing happens.
+    /// </summary>
+    /// <param name="title">The title of the column to sort by.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    public Task SortByColumnAsync(string title, SortDirection direction = SortDirection.Auto)
+    {
+        var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+
+        if (column is not null)
+        {
+            return SortByColumnAsync(column, direction);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
+    /// </summary>
+    /// <param name="index">The index of the column to sort by.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
+    {
+        if (index >= 0 && index < _columns.Count)
+        {
+            return SortByColumnAsync(_columns[index], direction);
+        }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -441,9 +471,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
-                _currentNonVirtualizedViewItems = result.Items;
-                _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
-                Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
+                _internalGridContext.Items = result.Items;
+                _internalGridContext.TotalItemCount = result.TotalItemCount;
+                Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
@@ -486,10 +516,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // the current viewport. In the case where you're also paginating then it means what's conceptually on the current page.
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might
             //       be better if we let the last page only be as big as its number of actual rows.
-            _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
+            _internalGridContext.TotalItemCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
-            Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
-            if (_ariaBodyRowCount > 0)
+            Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
+            if (_internalGridContext.TotalItemCount > 0)
             {
                 Loading = false;
             }
@@ -499,7 +529,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // to make sure it doesn't get out of sync with the rows being rendered.
             return new ItemsProviderResult<(int, TGridItem)>(
                  items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
-                 totalItemCount: _ariaBodyRowCount);
+                 totalItemCount: _internalGridContext.TotalItemCount);
         }
 
         return default;
@@ -520,7 +550,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else if (Items is not null)
         {
             var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
-            _ariaBodyRowCount = totalItemCount;
+            _internalGridContext.TotalItemCount = totalItemCount;
             var result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {

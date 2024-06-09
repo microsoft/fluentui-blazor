@@ -93,6 +93,24 @@ fluent-data-grid-row:has([row-selected]) {
     </Description>
 </DemoSection>
 
+<p>
+    Using this <code>SelectColumn</code>, you can customize the checkboxes by using <code>ChildContent</code> to define the contents of the selection for each row of the grid;
+    or <code>SelectAllTemplate</code> to customize the header of this column.
+    If you don't want the user to be able to interact (click and change) on the SelectAll header, you can set the <code>SelectAllDisabled="true"</code> attribute.
+    <br /><br />
+
+    Example:
+    <CodeSnippet Language="razor">
+        &lt;SelectAllTemplate>
+        @@(context.AllSelected == true ? "✅" : context.AllSelected == null ? "➖" : "⬜")
+        &lt;/SelectAllTemplate>
+        &lt;ChildContent>
+        @@(SelectedItems.Contains(context) ? "✅" : " ") @@* Using SelectedItems         *@@
+        @@(context.Selected ? "✅" : " ")                @@* Using Property and OnSelect *@@
+        &lt;/ChildContent>
+    </CodeSnippet>
+</p>
+
 <DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
     <Description>
         <p>
@@ -142,7 +160,7 @@ fluent-data-grid-row:has([row-selected]) {
         </p>
         <p>
             This grid is using a 'sticky' header (i.e. the header is always visible when scrolling). The buttons in the last column disappear under the header when scrolling.
-            In this example they don't relly do anything more than writting a message in the console log'
+            In this example they don't really do anything more than writing a message in the console log'
         </p>
         <p>
             The second column has a custom <code>Style</code> parameter set and applied to it. The 4th column has its <code>Tooltip</code>
@@ -169,7 +187,7 @@ fluent-data-grid-row:has([row-selected]) {
         <p>
             Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
             properly and reliably, every row rendered must have the same known height. <strong>
-                This is handeled by the
+                This is handled by the
                 <code>FluentDataGrid</code> code
             </strong>.
         </p>
@@ -179,7 +197,7 @@ fluent-data-grid-row:has([row-selected]) {
 <DemoSection Title="Intermittent loading" Component="@typeof(DataGridNotVirtualizedLoadingAndEmpty)">
     <Description>
         <p>
-            Use the options below the grid to togle the content of this non virtualized gri on and off and to simulate a loading state
+            Use the options below the grid to toggle the content of this non virtualized grid on and off and to simulate a loading state
         </p>
     </Description>
 </DemoSection>
@@ -199,7 +217,7 @@ fluent-data-grid-row:has([row-selected]) {
             You can make columns appear conditionally using normal Razor logic such as <code>@@if</code>. Example:
         </p>
         <p>
-            Also, in this example the columns's Width parameter is being set instead of specifying all widths for all
+            Also, in this example the column's Width parameter is being set instead of specifying all widths for all
             columns in the <code>GridTemplateColumn</code> parameter.
         </p>
     </Description>
@@ -211,7 +229,7 @@ fluent-data-grid-row:has([row-selected]) {
             Here a custom comparer is being used to sort counties by the length of their name. The code has examples for both
             <code>PropertyColumn</code> and <code>TemplateColumn</code> implementations (see the Razor tab).<br />
             For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it
-            could of couse be placed in its own file.
+            could of course be placed in its own file.
         </p>
         <p>
             For the paginator, this example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
@@ -261,6 +279,12 @@ fluent-data-grid-row:has([row-selected]) {
     </Description>
 </DemoSection>
 
+<DemoSection Title="Table with scrollbars" Component="@typeof(DataGridTableScrollbars)">
+    <Description>
+        Example of using an outside <code>div</code> and the <code>Style</code> parameter to achieve a table like DataGrid with infinite horizontal scrollbars to display all content on all devices.
+    </Description>
+</DemoSection>
+
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentDataGrid<>)" GenericLabel="TGridItem" />
@@ -273,7 +297,7 @@ fluent-data-grid-row:has([row-selected]) {
 
 <div class="demopanel">
     <p>
-        <strong>The <code>FluentDataGridRow</code> and <code>FluentDataGridCell</code> API's are usually not used directely </strong>
+        <strong>The <code>FluentDataGridRow</code> and <code>FluentDataGridCell</code> API's are usually not used directly </strong>
     </p>
 </div>
 

@@ -36,12 +36,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the text field value.
     /// </summary>
     [Parameter]
@@ -54,10 +48,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public EventCallback<string> ValueTextChanged { get; set; }
 
     /// <summary>
-    /// Determines if the element should receive document focus on page load.
+    /// Gets or sets the value of the input. This should be used with two-way binding.
+    /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
     /// </summary>
     [Parameter]
-    public bool Autofocus { get; set; } = false;
+    [Obsolete]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+    public override string? Value
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
+    {
+        get => ValueText;
+        set => base.Value = ValueText;
+    }
 
     /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
@@ -209,10 +211,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public string? MaxAutoHeight { get; set; }
 
     /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="OnOptionsSearch"/> event.
+    /// Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
+    /// Default is false.
     /// </summary>
     [Parameter]
-    public int ImmediateDelay { get; set; } = 0;
+    public bool SelectValueOnTab { get; set; } = false;
 
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
@@ -259,10 +262,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
-    protected async Task InputHandlerAsync(ChangeEventArgs e)
+    protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {
         ValueText = e.Value?.ToString() ?? string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
 
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
@@ -281,7 +284,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         if (ImmediateDelay > 0)
         {
-           await _debouncer.DebounceAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
+            await _debouncer.DebounceAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
         }
         else
         {
@@ -318,6 +321,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
     private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
+    private static readonly KeyCode[] SelectValueOnTabOnly = new[] { KeyCode.Tab };
 
     /// <summary />
     protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
@@ -325,10 +329,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         switch (e.Key)
         {
             case KeyCode.Escape:
-                await KeyDown_Escape();
+                await KeyDown_EscapeAsync();
                 break;
 
             case KeyCode.Enter:
+            case KeyCode.Tab:
                 if (IsMultiSelectOpened)
                 {
                     var optionDisabled = SelectableItem != null && OptionDisabled != null
@@ -336,11 +341,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                                        : false;
                     if (optionDisabled)
                     {
-                        await KeyDown_Escape();
+                        await KeyDown_EscapeAsync();
                     }
                     else
                     {
-                        await KeyDown_Enter();
+                        await KeyDown_EnterAsync();
                     }
                 }
                 else
@@ -350,13 +355,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Backspace:
-                await KeyDown_Backspace();
+                await KeyDown_BackspaceAsync();
                 break;
 
             case KeyCode.Down:
                 if (IsMultiSelectOpened)
                 {
-                    await KeyDown_ArrowDown();
+                    await KeyDown_ArrowDownAsync();
                 }
                 else
                 {
@@ -365,19 +370,19 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Up:
-                await KeyDown_ArrowUp();
+                await KeyDown_ArrowUpAsync();
                 break;
         }
 
         // Escape
-        Task KeyDown_Escape()
+        Task KeyDown_EscapeAsync()
         {
             IsMultiSelectOpened = false;
             return Task.CompletedTask;
         }
 
         // Backspace
-        async Task KeyDown_Backspace()
+        async Task KeyDown_BackspaceAsync()
         {
             // Remove last selected item
             if (string.IsNullOrEmpty(ValueText) &&
@@ -400,7 +405,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowUp
-        Task KeyDown_ArrowUp()
+        Task KeyDown_ArrowUpAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -424,7 +429,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowDown
-        Task KeyDown_ArrowDown()
+        Task KeyDown_ArrowDownAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -448,7 +453,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // Enter
-        async Task KeyDown_Enter()
+        async Task KeyDown_EnterAsync()
         {
             if (!IsMultiSelectOpened)
             {
@@ -488,7 +493,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         RemoveAllSelectedItems();
         ValueText = string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
         await RaiseChangedEventsAsync();
 
         if (Module != null)
@@ -501,7 +506,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     protected override async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
         ValueText = string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
 
         IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
@@ -532,6 +537,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private string? GetAutocompleteAriaLabel()
     {
+        if (!string.IsNullOrEmpty(AriaLabel))
+        {
+            return AriaLabel;
+        }
+
         // No items found
         if (IsMultiSelectOpened && Items?.Any() == false)
         {
@@ -567,5 +577,20 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         // Default
         return GetAriaLabel() ?? Label ?? Placeholder;
+    }
+
+    /// <summary />
+    private async Task RaiseValueTextChangedAsync(string value)
+    {
+        if (ValueTextChanged.HasDelegate)
+        {
+            await ValueTextChanged.InvokeAsync(ValueText);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(ValueText);
+        }
+
     }
 }

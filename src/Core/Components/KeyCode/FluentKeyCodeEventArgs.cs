@@ -2,6 +2,28 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class FluentKeyCodeEventArgs
 {
+    internal static FluentKeyCodeEventArgs Instance(string name, int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId)
+    {
+        return new FluentKeyCodeEventArgs
+        {
+            Name = name,
+            Location = Enum.IsDefined(typeof(KeyLocation), location) ? (KeyLocation)location : KeyLocation.Unknown,
+            Key = Enum.IsDefined(typeof(KeyCode), keyCode) ? (KeyCode)keyCode : AspNetCore.Components.KeyCode.Unknown,
+            KeyCode = keyCode,
+            Value = value,
+            CtrlKey = ctrlKey,
+            ShiftKey = shiftKey,
+            AltKey = altKey,
+            MetaKey = metaKey,
+            TargetId = targetId,
+        };
+    }
+
+    /// <summary>
+    /// Gets the name of the event ("keydown" or "keyup").
+    /// </summary>
+    public string Name { get; init; } = string.Empty;
+
     /// <summary>
     /// Gets an <see cref="KeyLocation" /> representing the location of the key on the keyboard or other input device.
     /// <see href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"/>

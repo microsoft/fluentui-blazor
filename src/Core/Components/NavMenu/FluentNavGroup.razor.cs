@@ -13,6 +13,9 @@ public partial class FluentNavGroup : FluentNavBase
     private readonly RenderFragment _renderButton;
     private bool _open;
 
+    private static int _renderCount = 0;
+    private bool _negate = false;
+
     protected string? ClassValue =>
         new CssBuilder("fluent-nav-group")
             .AddClass("fluent-nav-item")
@@ -50,7 +53,7 @@ public partial class FluentNavGroup : FluentNavBase
     public string? Title { get; set; }
 
     /// <summary>
-    /// If true, expands the nav group, otherwise collapse it. 
+    /// If true, expands the nav group, otherwise collapse it.
     /// Two-way bindable
     /// </summary>
     [Parameter]
@@ -69,7 +72,7 @@ public partial class FluentNavGroup : FluentNavBase
     public string? MaxHeight { get; set; }
 
     /// <summary>
-    /// Defines the vertical spacing between the NavGroup and adjecent items. 
+    /// Defines the vertical spacing between the NavGroup and adjacent items.
     /// Needs to be a valid CSS value.
     /// </summary>
     [Parameter]
@@ -82,8 +85,8 @@ public partial class FluentNavGroup : FluentNavBase
     public Icon ExpandIcon { get; set; } = new CoreIcons.Regular.Size12.ChevronRight();
 
     /// <summary>
-    /// Allows for specific markup and styling to be applied for the group title 
-    /// When using this, the containded <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
+    /// Allows for specific markup and styling to be applied for the group title
+    /// When using this, the contained <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
     /// When specifying both Title and TitleTemplate, both will be rendered.
     /// </summary>
     [Parameter]
@@ -102,15 +105,30 @@ public partial class FluentNavGroup : FluentNavBase
         _renderButton = RenderButton;
     }
 
-    private Task ToggleExpandedAsync()
+    protected override void OnInitialized()
     {
+        _renderCount ++;
+        if (_renderCount > 1)
+        {
+            _negate = true;
+        }
+    }
+
+    private async Task ToggleExpandedAsync()
+    {
+
+        if (_negate)
+        {
+            Expanded = !Expanded;
+        }
+
         if (!Owner.Expanded && Owner.CollapsedChildNavigation)
         {
-            return SetExpandedAsync(!_open);
+            await SetExpandedAsync(!_open);
         }
         else
         {
-            return SetExpandedAsync(!Expanded);
+            await SetExpandedAsync(Expanded);
         }
     }
 

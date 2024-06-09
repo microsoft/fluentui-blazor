@@ -21,7 +21,10 @@
     <!-- Enable code style analysis -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
-	</PropertyGroup>
+
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+
+  </PropertyGroup>
 
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

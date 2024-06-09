@@ -1,0 +1,69 @@
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentLayoutTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
+    [Fact]
+    public void FluentLayout_Default()
+    {
+        //Arrange
+        var childContent = "<b>render me</b>";
+        var cut = RenderComponent<FluentLayout>(parameters => parameters
+            .AddChildContent(childContent)
+        );
+        //Act
+
+        //Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_Id()
+    {
+        //Arrange
+        var cut = Render(@<FluentLayout Id="42" />);
+
+        //Act
+
+        //Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentLayout_AdditionalProperties()
+    {
+        // Arrange && Act
+        var additionalAttributes = new Dictionary<string, object>
+        {
+            {
+                "data-label", "datavalue"
+            }
+        };
+        var cut = Render(@<FluentLayout AdditionalAttributes="@additionalAttributes" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_Orientation()
+    {
+        // Arrange & Act
+        var cut = RenderComponent<FluentLayout>(parameters => parameters
+            .Add(p => p.Orientation, Orientation.Horizontal)
+        );
+
+        // Assert
+        cut.Verify();
+    }
+}

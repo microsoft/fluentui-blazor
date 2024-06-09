@@ -106,6 +106,14 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
+          - output: nuget
+            useDotNetTask: false
+            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+            packageParentPath: '$(Build.ArtifactStagingDirectory)'
+            nuGetFeedType: internal
+            publishVstsFeed: public/dotnet8
+            allowPackageConflicts: true
+
         steps:
 
         # Compute AssemblyVersion and PackageVersion
@@ -181,7 +189,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2

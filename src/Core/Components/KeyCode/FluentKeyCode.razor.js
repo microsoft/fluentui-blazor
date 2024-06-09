@@ -1,4 +1,4 @@
-export function RegisterKeyCode(globalDocument, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper) {
+export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper, preventMultipleKeydown) {
     const element = globalDocument
                   ? document
                   : elementRef == null ? document.getElementById(id) : elementRef;
@@ -10,7 +10,21 @@ export function RegisterKeyCode(globalDocument, id, elementRef, onlyCodes, exclu
     if (!!element) {
 
         const eventId = Math.random().toString(36).slice(2);
-        const handler = function (e) {
+        let fired = false;
+
+        const handlerKeydown = function (e) {
+            if (!fired || !preventMultipleKeydown) {
+                fired = true;
+                return handler(e, "OnKeyDownRaisedAsync");
+            }
+        }
+
+        const handlerKeyup = function (e) {
+            fired = false;
+            return handler(e, "OnKeyUpRaisedAsync");
+        }
+
+        const handler = function (e, netMethod) {
             const keyCode = e.which || e.keyCode || e.charCode;
 
             if (!!dotNetHelper && !!dotNetHelper.invokeMethodAsync) {
@@ -38,14 +52,19 @@ export function RegisterKeyCode(globalDocument, id, elementRef, onlyCodes, exclu
                     if (isStopPropagation) {
                         e.stopPropagation();
                     }
-                    dotNetHelper.invokeMethodAsync("OnKeyDownRaisedAsync", keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location, targetId);
+                    dotNetHelper.invokeMethodAsync(netMethod, keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location, targetId);
                     return;
                 }
             }
         };
 
-        element.addEventListener('keydown', handler)
-        document.fluentKeyCodeEvents[eventId] = { source: element, handler };
+        if (preventMultipleKeydown || (!!eventNames && eventNames.includes("KeyDown"))) {
+            element.addEventListener('keydown', handlerKeydown)
+        }
+        if (preventMultipleKeydown || (!!eventNames && eventNames.includes("KeyUp"))) {
+            element.addEventListener('keyup', handlerKeyup)
+        }
+        document.fluentKeyCodeEvents[eventId] = { source: element, handlerKeydown, handlerKeyup };
 
         return eventId;
     }
@@ -58,9 +77,14 @@ export function UnregisterKeyCode(eventId) {
     if (document.fluentKeyCodeEvents != null) {
         const keyEvent = document.fluentKeyCodeEvents[eventId];
         const element = keyEvent.source;
-        const handler = keyEvent.handler;
 
-        element.removeEventListener("keydown", handler);
+        if (!!keyEvent.handlerKeydown) {
+            element.removeEventListener("keydown", keyEvent.handlerKeydown);
+        }
+
+        if (!!keyEvent.handlerKeyup) {
+            element.removeEventListener("keyup", keyEvent.handlerKeyup);
+        }
 
         delete document.fluentKeyCodeEvents[eventId];
     }

@@ -2,31 +2,33 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-<CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
+<CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
         <FluentTextField role="combobox"
                          @ref="@Element"
                          Id="@Id"
+                         Name="@Name"
+                         Embedded="true"
+                         Required="@Required"
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
+                         ReadOnly="@ReadOnly"
+                         Label="@Label"
+                         LabelTemplate="@LabelTemplate"
                          Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
                          Value="@ValueText"
-                         Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
-                         @oninput="@InputHandlerAsync"
-                         @onfocusout="@(e => { IsReachedMaxItems = false; })"
+                         @oninput="@InputHandlerAsync"                         
                          autofocus="@Autofocus"
-                         Style="@ComponentWidth"
-                         >
+                         Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
@@ -77,6 +79,7 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Clear"
+                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     tabindex="0"
                                     role="button"
                                     OnClick="@OnClearAsync" />
@@ -91,6 +94,7 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Search"
+                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     tabindex="0"
                                     role="button"
                                     OnClick="@OnDropDownExpandedAsync" />
@@ -102,6 +106,14 @@
         @* List of available items *@
         @if (IsMultiSelectOpened && (ShowOverlayOnEmptyResults || Items?.Any() == true))
         {
+            @if (SelectValueOnTab)
+            {
+                <FluentKeyCode Anchor="@Id"
+                               OnKeyDown="@KeyDownHandlerAsync"
+                               Only="@SelectValueOnTabOnly"
+                               PreventDefaultOnly="@SelectValueOnTabOnly" />
+            }
+
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
