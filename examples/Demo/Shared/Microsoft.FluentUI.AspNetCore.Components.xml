@@ -879,19 +879,19 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.AreaRestricted">
             <summary>
-            By default, content in the card is restricted to the area of the card itself. 
+            By default, content in the card is restricted to the area of the card itself.
             If you want content to be able to overflow the card, set this property to false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Width">
             <summary>
             Gets or sets the width of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Height">
             <summary>
             Gets or sets the height of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ChildContent">
             <summary>
