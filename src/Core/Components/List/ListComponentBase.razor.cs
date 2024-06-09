@@ -3,9 +3,12 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,11 +16,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Component that provides a list of options.
 /// </summary>
 /// <typeparam name="TOption"></typeparam>
-public abstract partial class ListComponentBase<TOption> : FluentComponentBase, IAsyncDisposable where TOption : notnull
+public abstract partial class ListComponentBase<TOption> : FluentInputBase<string?>, IAsyncDisposable where TOption : notnull
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/ListComponentBase.razor.js";
 
     private bool _multiple = false;
+    private bool _hasInitializedParameters;
     private List<TOption> _selectedOptions = [];
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
@@ -28,6 +32,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
 
     // We cascade the _internalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
+    internal override bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -38,11 +43,7 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     }
 
     /// <summary />
-    protected virtual string? ClassValue => new CssBuilder(Class)
-        .Build();
-
-    /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder(Style)
+    protected override string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
 
@@ -83,41 +84,11 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the text displayed just above the component.
-    /// </summary>
-    [Parameter]
-    public string? Label { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content displayed just above the component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text used on aria-label attribute.
-    /// </summary>
-    [Parameter]
-    public virtual string? AriaLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets if an indicator is showed that this input is required.
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
-
-    /// <summary>
     /// Gets or sets the text used on aria-label attribute.
     /// </summary>
     [Parameter]
     [Obsolete("Use AriaLabel instead")]
     public virtual string? Title { get; set; }
-
-    /// <summary>
-    /// If true, will disable the list of items.
-    /// </summary>
-    [Parameter]
-    public virtual bool Disabled { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -171,20 +142,6 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
     /// </summary>
     [Parameter]
     public virtual EventCallback<TOption?> SelectedOptionChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets the selected value.
-    /// When Multiple = true this only reflects the first selected option value.
-    /// </summary>
-    [Parameter]
-    public virtual string? Value { get; set; }
-
-    /// <summary>
-    /// Called whenever the selection changed.
-    /// ⚠️ Only available when Multiple = false.
-    /// </summary>
-    [Parameter]
-    public virtual EventCallback<string?> ValueChanged { get; set; }
 
     /// <summary>
     /// If true, the user can select multiple elements.
@@ -301,6 +258,20 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             }
         }
 
+        if (!_hasInitializedParameters)
+        {
+            if (SelectedOptionChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => SelectedOption);
+            }
+            if (SelectedOptionsChanged.HasDelegate)
+            {
+                FieldIdentifier = FieldIdentifier.Create(() => SelectedOptions);
+            }
+
+            _hasInitializedParameters = true;
+        }
+
         await base.SetParametersAsync(ParameterView.Empty);
     }
 
@@ -367,6 +338,26 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
             }
         }
 
+    }
+
+    /// <inheritdoc />
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+        => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+
+    /// <inheritdoc />
+    protected override string? FormatValueAsString(string? value)
+    {
+        // We special-case bool values because BindConverter reserves bool conversion for conditional attributes.
+        if (value is not null && typeof(TOption) == typeof(bool))
+        {
+            return (bool)(object)value ? "true" : "false";
+        }
+        else if (typeof(TOption) == typeof(bool?))
+        {
+            return value is not null && (bool)(object)value ? "true" : "false";
+        }
+
+        return base.FormatValueAsString(value);
     }
 
     /// <summary />
@@ -494,8 +485,19 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         {
             if (!Equals(item, SelectedOption))
             {
+                var value = GetOptionValue(item);
+
+                if (this is FluentListbox<TOption> ||
+                    this is FluentCombobox<TOption> ||
+                    (this is FluentSelect<TOption> && Value is null))
+                {
+                    await base.ChangeHandlerAsync(new ChangeEventArgs() { Value = value });
+                }
+
                 SelectedOption = item;
-                InternalValue = Value = GetOptionValue(item);
+
+                InternalValue = Value = value;
+
                 await RaiseChangedEventsAsync();
             }
         }
@@ -518,11 +520,9 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
             }
         }
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(InternalValue);
-        }
-        StateHasChanged();
+
+        // Calling ValueChanged is now done through FluentInputBase.SetCurrentValueAsync
+        //StateHasChanged();
     }
 
     protected virtual async Task OnKeydownHandlerAsync(KeyboardEventArgs e)
@@ -537,9 +537,12 @@ public abstract partial class ListComponentBase<TOption> : FluentComponentBase, 
         await Task.Delay(1);
         var id = await _jsModule!.InvokeAsync<string>("getAriaActiveDescendant", Id);
 
-        FluentOption<TOption> item = _internalListContext.Options.First(i => i.Id == id);
+        var item = _internalListContext.Options.FirstOrDefault(i => i.Id == id);
 
-        await item.OnClickHandlerAsync();
+        if (item is not null)
+        {
+            await item.OnClickHandlerAsync();
+        }
     }
 
     /// <summary />
