@@ -9,7 +9,7 @@ public partial class FluentCard
         .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
         .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
         .AddStyle("content-visibility", "visible", !AreaRestricted)
-        .AddStyle("contain", "style", !AreaRestricted)
+        .AddStyle("contain", "none", !AreaRestricted)
         .Build();
 
     protected string? ClassValue => new CssBuilder(Class)
