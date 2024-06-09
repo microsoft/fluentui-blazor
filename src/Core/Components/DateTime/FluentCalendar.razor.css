@@ -1,9 +1,10 @@
-﻿/*
+/*
     "Days" View
 */
 .fluent-calendar {
     --calendar-cell-size: 28px;
     --calendar-gap: 2px;
+    --multi-select-opacity: 0.2;
     font-family: var(--body-font);
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
@@ -129,7 +130,7 @@
         }
 
     /* Today */
-    .fluent-calendar ::deep .day:not([selected])[today] {
+    .fluent-calendar ::deep .day:not([selected]):not([multi-day])[today] {
         color: var(--foreground-on-accent-rest);
         background: var(--accent-fill-rest);
         border-radius: 50%;
@@ -142,6 +143,35 @@
         border: 1px solid var(--accent-fill-rest);
         background: var(--fill-color);
     }
+
+    /* Selected Multiple Days */
+    .fluent-calendar ::deep .day[multi-day],
+    .fluent-calendar ::deep .day[multi-start],
+    .fluent-calendar ::deep .day[multi-end] {
+        position: relative;
+    }
+
+        .fluent-calendar ::deep .day[multi-day]::before,
+        .fluent-calendar ::deep .day[multi-start]::before,
+        .fluent-calendar ::deep .day[multi-end]::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            background: var(--accent-fill-rest);
+            opacity: var(--multi-select-opacity);
+        }
+
+        .fluent-calendar ::deep .day[multi-start]::before {
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+        }
+
+        .fluent-calendar ::deep .day[multi-end]::before {
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+        }
 
     /* Animations */
     .fluent-calendar ::deep .animation-running-down {

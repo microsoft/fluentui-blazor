@@ -55,6 +55,10 @@
                             }
                         </div>
 
+                        @{
+                            var multipleSelection = GetMultipleSelection();
+                        }
+
                         @for (int week = 0; week < 6; week++)
                         {
                             @* A week of 7 days *@
@@ -68,7 +72,10 @@
                                          disabled="@dayProperties.IsDisabled"
                                          inactive="@dayProperties.IsInactive"
                                          today="@dayProperties.IsToday"
-                                         selected="@dayProperties.IsSelected"
+                                         selected="@(dayProperties.IsSelected)"
+                                         multi-day="@(SelectedDates.Contains(day))"
+                                         multi-start="@(multipleSelection.IsMultiple && multipleSelection.Min == day)"
+                                         multi-end="@(multipleSelection.IsMultiple && multipleSelection.Max == day)"
                                          aria-label="@dayProperties.Title"
                                          value="@dayProperties.DayIdentifier"
                                          @onclick="@((e) => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">

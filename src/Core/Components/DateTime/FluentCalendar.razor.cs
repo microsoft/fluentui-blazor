@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Components.DateTime;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -19,6 +20,7 @@ public partial class FluentCalendar : FluentCalendarBase
     private VerticalPosition _animationRunning = VerticalPosition.Unset;
     private DateTime? _pickerMonth = null;
     private readonly CalendarExtended? _calendarExtended = null;
+    private readonly RangeOfDates _rangeSelector = new RangeOfDates();
 
     /// <summary />
     protected override string? ClassValue
@@ -80,6 +82,24 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
+
+    /// <summary>
+    /// Gets or sets the way the user can select one or more dates
+    /// </summary>
+    [Parameter]
+    public CalendarSelectMode SelectMode { get; set; } = CalendarSelectMode.Single;
+
+    /// <summary>
+    /// Gets or sets the list of all selected dates, only when <see cref="SelectMode"/> is set to <see cref="CalendarSelectMode.Range" /> or <see cref="CalendarSelectMode.Multiple" />.
+    /// </summary>
+    [Parameter]
+    public ICollection<DateTime> SelectedDates { get; set; } = new List<DateTime>();
+
+    /// <summary>
+    /// Fired when the selected dates change.
+    /// </summary>
+    [Parameter]
+    public EventCallback<ICollection<DateTime>> SelectedDatesChanged { get; set; }
 
     /// <summary />
     private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
@@ -257,10 +277,84 @@ public partial class FluentCalendar : FluentCalendarBase
         await Task.CompletedTask;
     }
 
+    /// <summary />
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         BindConverter.TryConvertTo(value, Culture, out result);
         validationErrorMessage = null;
         return true;
+    }
+
+    /// <summary />
+    private (bool IsMultiple, DateTime Min, DateTime Max) GetMultipleSelection()
+    {
+        if (SelectedDates == null || SelectedDates.Count == 0)
+        {
+            return (false, DateTime.MinValue, DateTime.MinValue);
+        }
+
+        return (
+            (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count > 1,
+            SelectedDates.Min(),
+            SelectedDates.Max()
+               );
+    }
+
+    /// <summary />
+    protected virtual async Task OnSelectDayHandlerAsync(DateTime value, bool dayDisabled)
+    {
+        if (!dayDisabled)
+        {
+            switch (SelectMode)
+            {
+                // Single selection
+                case CalendarSelectMode.Single:
+                    await OnSelectedDateHandlerAsync(value);
+                    break;
+
+                // Multiple selection
+                case CalendarSelectMode.Multiple:
+                    if (SelectedDates.Contains(value))
+                    {
+                        SelectedDates.Remove(value);
+                    }
+                    else
+                    {
+                        SelectedDates.Add(value);
+                    }
+
+                    if (SelectedDatesChanged.HasDelegate)
+                    {
+                        await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                    }
+
+                    break;
+
+                // Range of dates
+                case CalendarSelectMode.Range:
+                    if (_rangeSelector.IsEmpty() || _rangeSelector.IsValid())
+                    {
+                        _rangeSelector.Start = value;
+                        _rangeSelector.End = null;
+                    }
+                    else
+                    {
+                        _rangeSelector.End = value;
+                    }
+
+                    SelectedDates.Clear();                    
+                    foreach (var item in _rangeSelector.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true))
+                    {
+                        SelectedDates.Add(item);
+                    }
+
+                    if (SelectedDatesChanged.HasDelegate)
+                    {
+                        await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                    }
+                    break;
+            }
+
+        }
     }
 }
