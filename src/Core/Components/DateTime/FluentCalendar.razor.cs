@@ -336,14 +336,29 @@ public partial class FluentCalendar : FluentCalendarBase
 
                 // Range of dates
                 case CalendarSelectMode.Range:
-                    if (_rangeSelector.IsEmpty() || _rangeSelector.IsValid())
+
+                    bool resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
+
+                    // Reset the selection
+                    if (resetRange)
+                    {
+                        _rangeSelector.Clear();
+                        _rangeSelectorMouseOver.Clear();
+                    }
+
+                    // End the selection
+                    else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
+                    {
+                        _rangeSelector.End = value;
+                    }
+
+                    // Start the selection
+                    else
                     {
                         _rangeSelector.Start = value;
                         _rangeSelector.End = null;
-                    }
-                    else
-                    {
-                        _rangeSelector.End = value;
+
+                        await OnSelectDayMouseOverAsync(value, dayDisabled: false);
                     }
 
                     SelectedDates.Clear();
@@ -365,7 +380,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <summary />
     private Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
     {
-        if (dayDisabled || SelectMode != CalendarSelectMode.Range || SelectedDates.Count == 0)
+        if (dayDisabled || SelectMode != CalendarSelectMode.Range || _rangeSelector.IsSingle())
         {
             return Task.CompletedTask;
         }

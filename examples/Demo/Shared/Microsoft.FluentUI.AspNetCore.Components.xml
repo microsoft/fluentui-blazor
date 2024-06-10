@@ -14422,6 +14422,16 @@
             Gets whether the range is valid: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are not null and are not identical.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.IsSingle">
+            <summary>
+            Gets whether the range is valid: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are not null and are identical.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Clear">
+            <summary>
+            Clear the range: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are set to null.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Includes(`0)">
             <summary>
             Returns whether the range includes the specified value.

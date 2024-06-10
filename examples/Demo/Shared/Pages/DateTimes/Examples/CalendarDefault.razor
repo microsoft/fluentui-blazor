@@ -1,6 +1,6 @@
 ﻿<FluentGrid>
     <FluentGridItem>
-        <FluentCalendar DisabledDateFunc="@DisabledDay" @bind-Value="@SelectedDay" SelectMode="CalendarSelectMode.Range" @bind-PickerMonth="@PickerDay" Style="height: 250px;" />
+        <FluentCalendar DisabledDateFunc="@DisabledDay" @bind-Value="@SelectedDay" @bind-PickerMonth="@PickerDay" Style="height: 250px;" />
         <p>Selected @(SelectedDay?.ToString("yyyy-MM-dd"))</p>
         <p>Panel @(PickerDay.ToString("yyyy-MM-dd"))</p>
     </FluentGridItem>

@@ -50,6 +50,16 @@ public class RangeOf<T> where T : struct, IComparable
     public virtual bool IsValid() => Start.HasValue && End.HasValue && Start.Value.CompareTo(End.Value) != 0;
 
     /// <summary>
+    /// Gets whether the range is valid: <see cref="Start"/> and <see cref="End"/> are not null and are identical.
+    /// </summary>
+    public virtual bool IsSingle() => Start.HasValue && End.HasValue && Start.Value.CompareTo(End.Value) == 0;
+
+    /// <summary>
+    /// Clear the range: <see cref="Start"/> and <see cref="End"/> are set to null.
+    /// </summary>
+    public virtual void Clear() => Start = End = null;    
+
+    /// <summary>
     /// Returns whether the range includes the specified value.
     /// </summary>
     /// <param name="value"></param>
