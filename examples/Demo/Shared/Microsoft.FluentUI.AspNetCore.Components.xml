@@ -879,19 +879,19 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.AreaRestricted">
             <summary>
-            By default, content in the card is restricted to the area of the card itself. 
+            By default, content in the card is restricted to the area of the card itself.
             If you want content to be able to overflow the card, set this property to false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Width">
             <summary>
             Gets or sets the width of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Height">
             <summary>
             Gets or sets the height of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ChildContent">
             <summary>
@@ -4997,11 +4997,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Placeholder">
-            <summary>
-            Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText">
             <summary>
             Gets or sets the text field value.
@@ -5012,9 +5007,10 @@
             Gets or sets the callback that is invoked when the text field value changes.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Autofocus">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Value">
             <summary>
-            Determines if the element should receive document focus on page load.
+            Gets or sets the value of the input. This should be used with two-way binding.
+            For the FluentAutocomplete component, use the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText"/> property instead.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
@@ -5131,11 +5127,6 @@
             Gets or sets the maximum height of the field to adjust its height in relation to selected elements.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ImmediateDelay">
-            <summary>
-            Gets or sets the delay, in milliseconds, before to raise the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.OnOptionsSearch"/> event.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectValueOnTab">
             <summary>
             Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
@@ -5190,6 +5181,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetAutocompleteAriaLabel">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.JSRuntime">
             <summary />
         </member>
@@ -5206,11 +5200,6 @@
             Gets or sets the open attribute.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Placeholder">
-            <summary>
-            Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Position">
             <summary>
             Gets or sets the placement for the listbox when the combobox is open.
@@ -5220,11 +5209,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autofocus">
-            <summary>
-            Determines if the element should receive document focus on page load.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.Size">
@@ -5385,9 +5369,6 @@
             </summary>
             <typeparam name="TOption"></typeparam>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ClassValue">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.StyleValue">
             <summary />
         </member>
@@ -5401,34 +5382,9 @@
             Gets or sets the height of the component or of the popup panel.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Label">
-            <summary>
-            Gets or sets the text displayed just above the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.LabelTemplate">
-            <summary>
-            Gets or sets the content displayed just above the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.AriaLabel">
-            <summary>
-            Gets or sets the text used on aria-label attribute.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Required">
-            <summary>
-            Gets or sets if an indicator is showed that this input is required.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Title">
             <summary>
             Gets or sets the text used on aria-label attribute.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Disabled">
-            <summary>
-            If true, will disable the list of items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ChildContent">
@@ -5476,18 +5432,6 @@
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Value">
-            <summary>
-            Gets or sets the selected value.
-            When Multiple = true this only reflects the first selected option value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ValueChanged">
-            <summary>
-            Called whenever the selection changed.
-            ⚠️ Only available when Multiple = false.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Multiple">
             <summary>
             If true, the user can select multiple elements.
@@ -5513,6 +5457,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.#ctor">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.TryParseValueFromString(System.String,System.String@,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.FormatValueAsString(System.String)">
+            <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.DisabledItem(`0)">
             <summary />

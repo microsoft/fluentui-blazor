@@ -36,12 +36,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the text field value.
     /// </summary>
     [Parameter]
@@ -54,10 +48,18 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public EventCallback<string> ValueTextChanged { get; set; }
 
     /// <summary>
-    /// Determines if the element should receive document focus on page load.
+    /// Gets or sets the value of the input. This should be used with two-way binding.
+    /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
     /// </summary>
     [Parameter]
-    public bool Autofocus { get; set; } = false;
+    [Obsolete]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+    public override string? Value
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
+    {
+        get => ValueText;
+        set => base.Value = ValueText;
+    }
 
     /// <summary>
     /// For <see cref="FluentAutocomplete{TOption}"/>, this property must be True.
@@ -209,12 +211,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public string? MaxAutoHeight { get; set; }
 
     /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="OnOptionsSearch"/> event.
-    /// </summary>
-    [Parameter]
-    public int ImmediateDelay { get; set; } = 0;
-
-    /// <summary>
     /// Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
     /// Default is false.
     /// </summary>
@@ -266,10 +262,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
-    protected async Task InputHandlerAsync(ChangeEventArgs e)
+    protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {
         ValueText = e.Value?.ToString() ?? string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
 
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
@@ -497,7 +493,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         RemoveAllSelectedItems();
         ValueText = string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
         await RaiseChangedEventsAsync();
 
         if (Module != null)
@@ -510,7 +506,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     protected override async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
         ValueText = string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
 
         IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
@@ -541,6 +537,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private string? GetAutocompleteAriaLabel()
     {
+        if (!string.IsNullOrEmpty(AriaLabel))
+        {
+            return AriaLabel;
+        }
+
         // No items found
         if (IsMultiSelectOpened && Items?.Any() == false)
         {
@@ -576,5 +577,20 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         // Default
         return GetAriaLabel() ?? Label ?? Placeholder;
+    }
+
+    /// <summary />
+    private async Task RaiseValueTextChangedAsync(string value)
+    {
+        if (ValueTextChanged.HasDelegate)
+        {
+            await ValueTextChanged.InvokeAsync(ValueText);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(ValueText);
+        }
+
     }
 }

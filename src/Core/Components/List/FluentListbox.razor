@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 @if (!String.IsNullOrEmpty(Height))
@@ -19,6 +19,7 @@
                         multiple="@Multiple"
                         required="@Required"
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
+                        @onchange="@ChangeHandlerAsync"
                         @onkeydown="@OnKeydownHandlerAsync"
                         @attributes="AdditionalAttributes">
                 @_renderOptions

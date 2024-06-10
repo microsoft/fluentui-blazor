@@ -50,6 +50,17 @@ body:has(.prevent-scroll) {
     --presence-unknown: #d13438;
     --highlight-bg: #fff3cd;
 }
+
+
+[role='checkbox'].invalid::part(control),
+[role='combobox'].invalid::part(control),
+fluent-combobox.invalid::part(control),
+fluent-text-area.invalid::part(control),
+fluent-text-field.invalid::part(root)
+{
+    outline: calc(var(--stroke-width) * 1px)  solid var(--error);
+}
+
 `;
 
 styleSheet.replaceSync(styles);

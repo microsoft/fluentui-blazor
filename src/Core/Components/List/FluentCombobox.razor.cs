@@ -33,12 +33,6 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     public bool? Open { get; set; }
 
     /// <summary>
-    /// Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets the placement for the listbox when the combobox is open.
     /// See <seealso cref="AspNetCore.Components.SelectPosition"/>
     /// </summary>
@@ -50,12 +44,6 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
-
-    /// <summary>
-    /// Determines if the element should receive document focus on page load.
-    /// </summary>
-    [Parameter]
-    public bool Autofocus { get; set; } = false;
 
     protected override string? StyleValue => new StyleBuilder(base.StyleValue)
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
@@ -123,15 +111,20 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
             // Sync Value from selected option.
             // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
-            Value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
-            await ValueChanged.InvokeAsync(Value);
+            var value = GetOptionValue(_currentSelectedOption);// ?? string.Empty;
+            if (value is not null && Value != value)
+            {
+                Value = value;
+                await ValueChanged.InvokeAsync(Value);
+            }
         }
 
         await base.SetParametersAsync(ParameterView.Empty);
     }
 
-    protected async Task OnChangedHandlerAsync(ChangeEventArgs e)
+    protected override async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
+
         if (e.Value is not null && Items is not null)
         {
             var value = e.Value.ToString();
@@ -140,24 +133,13 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
             if (item is null)
             {
                 SelectedOption = default;
-
-                if (SelectedOptionChanged.HasDelegate)
-                {
-                    await SelectedOptionChanged.InvokeAsync(SelectedOption);
-                }
-
-                if (ValueChanged.HasDelegate)
-                {
-                    Value = value;
-                    await ValueChanged.InvokeAsync(value);
-                }
-
-                StateHasChanged();
+                await base.ChangeHandlerAsync(e);
             }
             else
             {
                 await OnSelectedItemChangedHandlerAsync(item);
             }
+
         }
     }
 
