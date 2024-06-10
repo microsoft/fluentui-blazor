@@ -44,7 +44,7 @@
             {
                 // "Days" view
                 case CalendarViews.Days:
-                    <div class="days" part="days">
+                    <div class="days" part="days" @onmouseleave="@(e => _selectedDatesMouseOver.Clear())">
                         @* Titles: Mon, Tue, ... *@
                         <div class="week-days" part="week-days">
                             @foreach (var weekDay in CalendarExtended.GetDayNames())
@@ -79,8 +79,8 @@
                                          multi-end="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Max == day)"
                                          aria-label="@dayProperties.Title"
                                          value="@dayProperties.DayIdentifier"
-                                         @onclick="@((e) => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))"
-                                         @onmouseover="@((e) => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                                         @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))"
+                                         @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
                                         @if (DaysTemplate == null)
                                         {
                                             @dayProperties.DayNumber

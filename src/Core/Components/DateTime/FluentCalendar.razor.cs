@@ -104,6 +104,12 @@ public partial class FluentCalendar : FluentCalendarBase
     [Parameter]
     public EventCallback<ICollection<DateTime>> SelectedDatesChanged { get; set; }
 
+    /// <summary>
+    /// Fired when the selected mouse over change, to display the future range of dates.
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, IEnumerable<DateTime>>? SelectDatesHover { get; set; }
+
     /// <summary />
     private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
     {
@@ -291,16 +297,27 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <summary />
     private (bool IsMultiple, DateTime Min, DateTime Max, bool InProgress) GetMultipleSelection()
     {
+        bool inProgress = SelectDatesHover is not null;
+
         if (SelectedDates == null || SelectedDates.Count == 0)
         {
-            return (false, DateTime.MinValue, DateTime.MinValue, false);
+            return (false, DateTime.MinValue, DateTime.MinValue, inProgress);
+        }
+
+        if (SelectDatesHover is null)
+        {
+            inProgress = !_rangeSelector.IsValid();
+        }
+        else
+        {
+            inProgress = _rangeSelectorMouseOver.IsValid();
         }
 
         return (
             (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count > 1,
             SelectedDates.Min(),
             SelectedDates.Max(),
-            !_rangeSelector.IsValid()
+            inProgress
                );
     }
 
@@ -318,18 +335,37 @@ public partial class FluentCalendar : FluentCalendarBase
 
                 // Multiple selection
                 case CalendarSelectMode.Multiple:
-                    if (SelectedDates.Contains(value))
+
+                    if (SelectDatesHover is null)
                     {
-                        SelectedDates.Remove(value);
+                        if (SelectedDates.Contains(value))
+                        {
+                            SelectedDates.Remove(value);
+                        }
+                        else
+                        {
+                            SelectedDates.Add(value);
+                        }
+
+                        if (SelectedDatesChanged.HasDelegate)
+                        {
+                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                        }
                     }
                     else
                     {
-                        SelectedDates.Add(value);
-                    }
+                        var range = SelectDatesHover.Invoke(value);
 
-                    if (SelectedDatesChanged.HasDelegate)
-                    {
-                        await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                        SelectedDates.Clear();
+                        foreach (var item in range.Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true))
+                        {
+                            SelectedDates.Add(item);
+                        }
+
+                        if (SelectedDatesChanged.HasDelegate)
+                        {
+                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                        }
                     }
 
                     break;
@@ -350,6 +386,15 @@ public partial class FluentCalendar : FluentCalendarBase
                     else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
                     {
                         _rangeSelector.End = value;
+                    }
+
+                    // Start and close a pre-selection
+                    else if (SelectDatesHover is not null)
+                    {
+                        var range = SelectDatesHover.Invoke(value);
+
+                        _rangeSelector.Start = range.Min();
+                        _rangeSelector.End = range.Max();
                     }
 
                     // Start the selection
@@ -380,15 +425,29 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <summary />
     private Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
     {
-        if (dayDisabled || SelectMode != CalendarSelectMode.Range || _rangeSelector.IsSingle())
+        if (dayDisabled ||
+            SelectMode == CalendarSelectMode.Single ||
+            (_rangeSelector.IsSingle() && SelectDatesHover is null))
         {
             return Task.CompletedTask;
         }
 
-        _rangeSelectorMouseOver.Start = _rangeSelector.Start;
-        _rangeSelectorMouseOver.End = value;
+        if (SelectDatesHover is null)
+        {
+            _rangeSelectorMouseOver.Start = _rangeSelector.Start ?? value;
+            _rangeSelectorMouseOver.End = value;
+        }
+        else
+        {
+            var range = SelectDatesHover?.Invoke(value);
+            _rangeSelectorMouseOver.Start = range.Min();
+            _rangeSelectorMouseOver.End = range.Max();
+        }
 
-        var days = _rangeSelectorMouseOver.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
+        var days = DisabledDateFunc is null
+                 ? _rangeSelectorMouseOver.GetAllDates()
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day));
+
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
 

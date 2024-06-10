@@ -6,7 +6,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Components.DateTime;
 
-internal class RangeOfDates : RangeOf<System.DateTime>
+public class RangeOfDates : RangeOf<System.DateTime>
 {
     /// <inheritdoc cref="RangeOf{T}"/>
     public RangeOfDates() : base() { }

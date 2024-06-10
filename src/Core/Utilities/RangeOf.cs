@@ -107,4 +107,9 @@ public class RangeOf<T> where T : struct, IComparable
 
     /// <summary />
     private bool IsStartLowerThanEnd() => Start.HasValue && End.HasValue && Start.Value.CompareTo(End.Value) < 0;
+
+    public override string ToString()
+    {
+        return $"From {Start} to {End}.";
+    }
 }

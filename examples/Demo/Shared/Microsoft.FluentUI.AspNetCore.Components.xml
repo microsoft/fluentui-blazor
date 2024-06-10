@@ -2198,6 +2198,11 @@
             Fired when the selected dates change.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectDatesHover">
+            <summary>
+            Fired when the selected mouse over change, to display the future range of dates.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetAnimationClass(System.String)">
             <summary />
         </member>
@@ -2666,6 +2671,34 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs">
+            <summary>
+            Arguments for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectDatesHover"/> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.#ctor(System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs"/> class.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs"/> class.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.Start">
+            <summary>
+            Gets or sets the start date of the selection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.End">
+            <summary>
+            Gets or sets the end date of the selection.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions.DayAgo">
             <summary>
@@ -13872,6 +13905,14 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the first day of the week.
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime)">
             <summary>
             Returns the first day of the week.
             </summary>
