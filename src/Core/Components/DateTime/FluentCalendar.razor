@@ -73,7 +73,7 @@
                                          inactive="@dayProperties.IsInactive"
                                          today="@dayProperties.IsToday"
                                          selected="@(dayProperties.IsSelected)"
-                                         multi-day="@(SelectedDates.Contains(day))"
+                                         multi-day="@(dayProperties.IsMultiDaySelected)"
                                          multi-day-over="@(multipleSelection.InProgress && _selectedDatesMouseOver.Contains(day))"
                                          multi-start="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Min == day)"
                                          multi-end="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Max == day)"

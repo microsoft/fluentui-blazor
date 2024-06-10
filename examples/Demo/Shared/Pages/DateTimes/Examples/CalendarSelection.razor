@@ -14,7 +14,7 @@
         <p>Selected days: @DisplaySelectedDays(SelectedRange)</p>
     </FluentGridItem>
     <FluentGridItem>
-        <FluentLabel>Multiple (max 5)</FluentLabel>
+        <FluentLabel>Multiple (max 5 days)</FluentLabel>
         <FluentCalendar DisabledDateFunc="@DisabledDay"
                         @bind-SelectedDates="@SelectedDays"
                         @bind-SelectedDates:after="@ValidateSelectedDays"

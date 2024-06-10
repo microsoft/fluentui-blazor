@@ -2340,22 +2340,27 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsDisabled">
             <summary>
-            Gets or sets a value indicating whether the day is disabled by the user.
+            Gets a value indicating whether the day is disabled by the user.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsInactive">
             <summary>
-            Gets or sets a value indicating whether the day is inactive (out of the current month).
+            Gets a value indicating whether the day is inactive (out of the current month).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsToday">
             <summary>
-            Gets or sets a value indicating whether the day is set to Today.
+            Gets a value indicating whether the day is set to Today.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsSelected">
             <summary>
-            Gets or sets a value indicating whether the day is selected by the user.
+            Gets a value indicating whether the day is selected by the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsMultiDaySelected">
+            <summary>
+            Gets a value indicating whether the day is selected by the user, using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectMode"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.Title">
