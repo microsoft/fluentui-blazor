@@ -29,17 +29,17 @@
                         @bind-SelectedDates="@SelectedDays"
                         @bind-SelectedDates:after="@ValidateSelectedDays"
                         SelectMode="CalendarSelectMode.Multiple" />
-        <FluentMessageBar Visible="@DisplayError" Intent="MessageIntent.Error" Style="width: 250px;">
+        <FluentMessageBar Visible="@DisplayError" Intent="MessageIntent.Error" Style="width: 230px;">
             You can select a maximum of 5 days. Delete a day to select a new one.
         </FluentMessageBar>
         <p>Selected days: @DisplaySelectedDays(SelectedDays)</p>
     </FluentGridItem>
     <FluentGridItem>
-        <FluentLabel>Multiple with "SelectFiveDays"</FluentLabel>
-        <FluentCalendar DisabledDateFunc="@DisabledDay"
-                        @bind-SelectedDates="@SelectedDaysCustomized"
-                        SelectDatesHover="@Select3Days"
-                        SelectMode="CalendarSelectMode.Multiple" />
+        <FluentLabel>Multiple with "Select3Days"</FluentLabel>
+    <FluentCalendar DisabledDateFunc="@DisabledDay"
+                    @bind-SelectedDates="@SelectedDaysCustomized"
+                    SelectDatesHover="@Select3Days"
+                    SelectMode="CalendarSelectMode.Multiple" />
         <p>Selected days: @DisplaySelectedDays(SelectedDaysCustomized)</p>
     </FluentGridItem>
 </FluentGrid>
