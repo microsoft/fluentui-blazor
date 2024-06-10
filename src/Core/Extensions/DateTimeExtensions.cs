@@ -101,7 +101,6 @@ public static class DateTimeExtensions
     /// Returns the first day of the week.
     /// </summary>
     /// <param name="self"></param>
-    /// <param name="culture"></param>
     /// <returns></returns>
     public static DateTime StartOfWeek(this DateTime self)
     {

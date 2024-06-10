@@ -439,7 +439,7 @@ public partial class FluentCalendar : FluentCalendarBase
         }
         else
         {
-            var range = SelectDatesHover?.Invoke(value);
+            var range = SelectDatesHover.Invoke(value);
             _rangeSelectorMouseOver.Start = range.Min();
             _rangeSelectorMouseOver.End = range.Max();
         }
