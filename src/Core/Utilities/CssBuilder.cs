@@ -1,16 +1,14 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace Microsoft.Fast.Components.FluentUI.Utilities;
 
-namespace Microsoft.Fast.Components.FluentUI.Utilities;
-
-public readonly partial struct CssBuilder
+public readonly struct CssBuilder
 {
     private readonly HashSet<string> _classes;
-    private readonly string[]? _userClasses;
-    private static readonly Regex ValidClassNameRegex = GenerateValidClassNameRegex();
+    private readonly string? _userClasses;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
+
     public CssBuilder()
     {
         _classes = new HashSet<string>();
@@ -26,38 +24,31 @@ public readonly partial struct CssBuilder
         _classes = new HashSet<string>();
         _userClasses = string.IsNullOrWhiteSpace(userClasses)
                      ? null
-                     : SplitAndValidate(userClasses).ToArray();
+                     : string.Join(" ", userClasses.Split(' ', StringSplitOptions.RemoveEmptyEntries));
     }
 
     /// <summary>
-    /// Adds one or more CSS Classes to the builder with space separator.
+    /// Adds a CSS Class to the builder with space separator.
     /// </summary>
-    /// <param name="values">Space-separated CSS Classes to add</param>
+    /// <param name="value">CSS Class to add</param>
     /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? values)
-    {
-        if (!string.IsNullOrWhiteSpace(values))
-        {
-            _classes.UnionWith(SplitAndValidate(values));
-        }
-        return this;
-    }
+    public CssBuilder AddClass(string? value) => AddRaw(value);
 
     /// <summary>
-    /// Adds one or more CSS Classes to the builder with space separator, based on a condition.
+    /// Adds a conditional CSS Class to the builder with space separator.
     /// </summary>
-    /// <param name="value">Space-separated CSS Classes to add</param>
-    /// <param name="when">Condition in which the CSS Classes are added.</param>
+    /// <param name="value">CSS Class to conditionally add.</param>
+    /// <param name="when">Condition in which the CSS Class is added.</param>
     /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? value, bool when) => when ? AddClass(value) : this;
+    public CssBuilder AddClass(string? value, bool when = true) => when ? AddClass(value) : this;
 
     /// <summary>
-    /// Adds one or more CSS Classes to the builder with space separator, based on a condition.
+    /// Adds a conditional CSS Class to the builder with space separator.
     /// </summary>
-    /// <param name="value">Space-separated CSS Classes to add</param>
-    /// <param name="when">Function that returns a condition in which the CSS Classes are added.</param>
+    /// <param name="value">CSS Class to conditionally add.</param>
+    /// <param name="when">Condition in which the CSS Class is added.</param>
     /// <returns>CssBuilder</returns>
-    public CssBuilder AddClass(string? value, Func<bool> when) => when() ? AddClass(value) : this;
+    public CssBuilder AddClass(string? value, Func<bool>? when = null) => AddClass(value, when != null && when());
 
     /// <summary>
     /// Finalize the completed CSS Classes as a string.
@@ -65,44 +56,36 @@ public readonly partial struct CssBuilder
     /// <returns>string</returns>
     public string? Build()
     {
-        var allClasses = _userClasses == null
-            ? _classes
-            : _classes.Union(_userClasses);
+        var allClasses = string.IsNullOrWhiteSpace(_userClasses)
+                       ? _classes
+                       : _classes.Union(new[] { _userClasses });
 
-        var result = string.Join(" ", allClasses);
-        return string.IsNullOrWhiteSpace(result) ? null : result;
+        if (!allClasses.Any())
+        {
+            return null;
+        }
+
+        return string.Join(" ", allClasses);
     }
 
     /// <summary>
     /// ToString should only and always call Build to finalize the rendered string.
     /// </summary>
-    /// <returns>string</returns>
+    /// <returns></returns>
     public override string? ToString() => Build();
 
     /// <summary>
-    /// Validates if the provided class name is valid.
+    /// Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
     /// </summary>
-    /// <param name="className">CSS class name to validate</param>
-    /// <returns>True if valid, otherwise false</returns>
-    private static bool IsValidClassName(string className)
+    /// <param name="value"></param>
+    /// <returns>StyleBuilder</returns>
+    private CssBuilder AddRaw(string? value)
     {
-        return ValidClassNameRegex.IsMatch(className);
-    }
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            _classes.Add(value.Trim());
+        }
 
-    /// <summary>
-    /// Splits a space-separated string of class names and validates each one.
-    /// </summary>
-    /// <param name="input">Space-separated CSS Classes</param>
-    /// <returns>Enumerable of valid class names</returns>
-    private static IEnumerable<string> SplitAndValidate(string input)
-    {
-        return input.Split(' ', StringSplitOptions.RemoveEmptyEntries).Where(IsValidClassName);
+        return this;
     }
-
-    /// <summary>
-    /// Generates the regex used to validate CSS class names.
-    /// </summary>
-    /// <returns>A compiled regex for validating CSS class names</returns>
-    [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled)]
-    private static partial Regex GenerateValidClassNameRegex();
 }

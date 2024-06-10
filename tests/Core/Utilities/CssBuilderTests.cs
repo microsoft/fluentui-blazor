@@ -6,51 +6,51 @@ namespace Microsoft.Fast.Components.FluentUI.Tests.Utilities;
 public class CssBuilderTests : TestBase
 {
     [Fact]
-    public void CssBuilder_AddSingleClasses()
+    public void CssBuilder_Raw()
     {
-        // Arrange
+        // Assert
         var cssBuilder = new CssBuilder();
 
         // Act
         cssBuilder.AddClass("class1");
         cssBuilder.AddClass("class2");
 
-        // Assert
+        // Assert - Values are sorted
         Assert.Equal("class1 class2", cssBuilder.Build());
     }
 
     [Fact]
-    public void CssBuilder_AddValidUserClass()
+    public void CssBuilder_WithSimpleUserClass()
     {
-        // Arrange
-        var cssBuilder = new CssBuilder("my-user-class");
+        // Assert
+        var cssBuilder = new CssBuilder(".my-user-class");
 
         // Act
         cssBuilder.AddClass("class1");
         cssBuilder.AddClass("class2");
 
-        // Assert
-        Assert.Equal("class1 class2 my-user-class", cssBuilder.Build());
+        // Assert - Values are sorted
+        Assert.Equal("class1 class2 .my-user-class", cssBuilder.Build());
     }
 
     [Fact]
-    public void CssBuilder_AddMultipleValidUserClasses()
+    public void CssBuilder_WithComplexUserClasses()
     {
-        // Arrange
-        var cssBuilder = new CssBuilder("my-user-class1 my-user-class2");
+        // Assert
+        var cssBuilder = new CssBuilder("  .my-user-class1  .my-user-class2  ");
 
         // Act
         cssBuilder.AddClass("class1");
         cssBuilder.AddClass("class2");
 
-        // Assert
-        Assert.Equal("class1 class2 my-user-class1 my-user-class2", cssBuilder.Build());
+        // Assert - Values are sorted
+        Assert.Equal("class1 class2 .my-user-class1 .my-user-class2", cssBuilder.Build());
     }
 
     [Fact]
-    public void CssBuilder_AddClassesWithExtraSpaces()
+    public void CssBuilder_RawWithExtraSpaces()
     {
-        // Arrange
+        // Assert
         var cssBuilder = new CssBuilder();
 
         // Act
@@ -62,48 +62,9 @@ public class CssBuilderTests : TestBase
     }  
 
     [Fact]
-    public void CssBuilder_AddMultipleClassesAtOnce()
+    public void CssBuilder_WhenBoolean()
     {
-        // Arrange
-        var cssBuilder = new CssBuilder();
-
-        // Act
-        cssBuilder.AddClass("class1 class2");
-
         // Assert
-        Assert.Equal("class1 class2", cssBuilder.Build());
-    }
-
-    [Fact]
-    public void CssBuilder_AddMultipleClassesAtOnceWithUserClass()
-    {
-        // Arrange
-        var cssBuilder = new CssBuilder("user-class");
-
-        // Act
-        cssBuilder.AddClass("class1 class2");
-
-        // Assert
-        Assert.Equal("class1 class2 user-class", cssBuilder.Build());
-    }
-
-    [Fact]
-    public void CssBuilder_AddMultipleClassesAtOnceWithExtraSpaces()
-    {
-        // Arrange
-        var cssBuilder = new CssBuilder();
-
-        // Act
-        cssBuilder.AddClass("  class1  class2  ");
-
-        // Assert
-        Assert.Equal("class1 class2", cssBuilder.Build());
-    }
-
-    [Fact]
-    public void CssBuilder_AddClassesBasedOnCondition()
-    {
-        // Arrange
         var cssBuilder = new CssBuilder();
 
         // Act
@@ -115,9 +76,9 @@ public class CssBuilderTests : TestBase
     }
 
     [Fact]
-    public void CssBuilder_AddClassesBasedOnFunctionTrue()
+    public void CssBuilder_WhenFunctionTrue()
     {
-        // Arrange
+        // Assert
         var cssBuilder = new CssBuilder();
 
         // Act
@@ -128,9 +89,9 @@ public class CssBuilderTests : TestBase
     }
 
     [Fact]
-    public void CssBuilder_AddClassesBasedOnFunctionFalse()
+    public void CssBuilder_WhenFunctionFalse()
     {
-        // Arrange
+        // Assert
         var cssBuilder = new CssBuilder();
 
         // Act
@@ -141,9 +102,9 @@ public class CssBuilderTests : TestBase
     }
 
     [Fact]
-    public void CssBuilder_ToStringReturnsBuiltClasses()
+    public void StyleBuilder_ToString()
     {
-        // Arrange
+        // Assert
         var cssBuilder = new CssBuilder();
 
         // Act
@@ -153,30 +114,4 @@ public class CssBuilderTests : TestBase
         Assert.Equal("my-class", cssBuilder.ToString());
     }
 
-    [Fact]
-    public void CssBuilder_InvalidClassNamesAreIgnored()
-    {
-        // Arrange
-        var cssBuilder = new CssBuilder();
-
-        // Act
-        cssBuilder.AddClass("valid-class");
-        cssBuilder.AddClass("123-invalid-class");
-
-        // Assert
-        Assert.Equal("valid-class", cssBuilder.Build());
-    }
-
-    [Fact]
-    public void CssBuilder_CombinesValidUserAndAddedClasses()
-    {
-        // Arrange
-        var cssBuilder = new CssBuilder("user-class");
-
-        // Act
-        cssBuilder.AddClass("added-class");
-
-        // Assert
-        Assert.Equal("added-class user-class", cssBuilder.Build());
-    }
 }

@@ -47,7 +47,7 @@ public class StyleBuilderTests : TestBase
     }
 
     [Fact]
-    public void StyleBuilder_WithSimpleUserStyle()
+    public void CssBuilder_WithSimpleUserStyle()
     {
         // Assert
         var styleBuilder = new StyleBuilder("font-size: 12px;");
@@ -60,7 +60,7 @@ public class StyleBuilderTests : TestBase
     }
 
     [Fact]
-    public void StyleBuilder_WithComplexUserStyle()
+    public void CssBuilder_WithComplexUserStyle()
     {
         // Assert
         var styleBuilder = new StyleBuilder("  font-size: 12px;;  font-name: courier;;  ");
@@ -70,6 +70,20 @@ public class StyleBuilderTests : TestBase
 
         // Assert - Values are sorted
         Assert.Equal("color: red; font-size: 12px; font-name: courier;", styleBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_WithComplexUserClasses()
+    {
+        // Assert
+        var cssBuilder = new CssBuilder("  .my-user-class1  .my-user-class2  ");
+
+        // Act
+        cssBuilder.AddClass("class1");
+        cssBuilder.AddClass("class2");
+
+        // Assert - Values are sorted
+        Assert.Equal("class1 class2 .my-user-class1 .my-user-class2", cssBuilder.Build());
     }
 
     [Fact]
