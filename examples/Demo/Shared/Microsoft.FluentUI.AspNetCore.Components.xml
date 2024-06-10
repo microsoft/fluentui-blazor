@@ -380,6 +380,12 @@
             If this app is outside of visible app bar area.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Id">
+            <summary>
+            Gets or sets the unique identifier for this item.
+            If implementing this interface in a FluentComponentBase derived component, it will be implemented already.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Href">
             <summary>
             Gets or sets the URL for this item.
@@ -1539,6 +1545,16 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
             <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelection">
+            <summary>
+            Allows to clear the selection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelectionAsync">
+            <summary>
+            Allows to clear the selection.
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.AddOrRemoveSelectedItemAsync(`0)">
             <summary />

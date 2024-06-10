@@ -4,7 +4,17 @@
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
     <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation">
         <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
-            @ChildContent
+            @if (Apps is null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                foreach (var item in Apps)
+                {
+                    <FluentAppBarItem IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" />
+                }
+            }
             @if (AppsOverflow.Any())
             {
                 <FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
@@ -32,9 +42,9 @@
                 <Body>
                     @if (PopoverShowSearch)
                     {
-                        <FluentSearch
-                                      @bind-Value="@_searchTerm"
+                        <FluentSearch @bind-Value="@_searchTerm"
                                       @bind-Value:after=HandleSearch
+                                      Style="width: 100%;"
                                       Immediate="true"
                                       Placeholder="Search for apps"
                                       Autofocus="true" tabindex="0" />
