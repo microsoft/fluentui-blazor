@@ -10,7 +10,7 @@
     <FluentSlider @bind-Value="@Spacing" Min="0" Max="10" Step="1" Style="max-width: 300px; margin-top: 18px;" />
 </FluentStack>
 
-<FluentGrid Spacing="@Spacing" OnBreakpointEnter="@OnBreakpointEnterHandler" Justify="@Justification" Style="background-color: var(--neutral-layer-3); padding: 4px; ">
+<FluentGrid Spacing="@Spacing" OnBreakpointEnter="@OnBreakpointEnterHandler" AdaptiveRendering="true" Justify="@Justification" Style="background-color: var(--neutral-layer-3); padding: 4px; ">
     <FluentGridItem xs="12">
         <div class="card">
             xs="12"

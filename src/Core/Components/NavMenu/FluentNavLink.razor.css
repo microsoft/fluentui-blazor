@@ -6,17 +6,24 @@
     display: flex;
 }
 
-::deep :not(fluent-menu-item) .fluent-nav-icon {
+::deep .fluent-nav-icon:not(fluent-menu-item) {
     min-width: 20px;
 }
 
-::deep :not(fluent-menu-item) .fluent-nav-link.disabled {
-    color: var(--neutral-fill-secondary-rest) !important;
+::deep .fluent-nav-link.disabled:not(fluent-menu-item, a) {
+    color: var(--neutral-foreground-rest) !important;
+    opacity: var(--disabled-opacity);
     cursor: not-allowed;
     pointer-events: none;
 }
 
 
-    ::deep :not(fluent-menu-item) .fluent-nav-link.disabled .fluent-nav-icon {
-        fill: var(--neutral-stroke-rest) !important;
-    }
+::deep a.disabled .content-region {
+    opacity: var(--disabled-opacity);
+}
+
+
+::deep .fluent-nav-link.disabled .fluent-nav-icon {
+    fill: var(--neutral-foreground-rest) !important;
+    opacity: var(--disabled-opacity);
+}

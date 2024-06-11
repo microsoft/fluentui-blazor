@@ -44,9 +44,17 @@
     right: unset;
 }
 
+::deep .fluent-appbar-item.fluent-appbar-item-local:not(.popover) a.active::before {
+    all: initial;
+}
+
 [dir='rtl'] * ::deep .fluent-appbar-item:not(.popover) a.active::before {
     right: calc(var(--design-unit) * 0.5px);
     left: unset;
+}
+
+[dir='rtl'] * ::deep .fluent-appbar-item.fluent-appbar-item-local:not(.popover) a.active::before {
+    all: initial;
 }
 
 ::deep .fluent-popover-content .fluent-popover-body {

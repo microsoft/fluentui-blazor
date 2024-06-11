@@ -2,7 +2,7 @@
 
 @using FluentUI.Demo.Shared.Pages.Home.Examples
 
-<PageTitle>Fluent UI Blazor components</PageTitle>
+<PageTitle>@App.PageTitle("Welcome")</PageTitle>
 
 <h1>Welcome to the Fluent UI Blazor components library</h1>
 <div class="demopanel" style="margin: 1rem 0; padding: 2.5rem; text-align: center">
@@ -10,8 +10,8 @@
     <br />
     <p>
         The demo and documentation sites for previous version is also still available:<br />
-        <a href="https://calm-sea-053fa6a03-archivesv3.westeurope.3.azurestaticapps.net/" target="_blank">Version 3.6.0</a><br />
-        This version supports both .NET 6 and .NET 7.
+        <a href="https://calm-sea-053fa6a03-archivesv3.westeurope.3.azurestaticapps.net/" target="_blank">Version 3.7.1</a><br />
+        This version supports both .NET 6 and .NET 7 (end of support on May 14 2024).
     </p>
 </div>
 
@@ -27,27 +27,32 @@
 
 <FluentGrid Justify="JustifyContent.Center">
     <FluentGridItem xs="12" sm="4">
-        <b style="white-space: nowrap;">Open at Microsoft - 2024</b> <br />
+        <div class="youtube-title" style="overflow: unset;">Open at Microsoft - 2024</div>
         <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/lUZ5mrg2Q8k" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="4">
-        <br />
+        <div class="youtube-title"></div>
         <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/jOv9ioCVDFU" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="4">
-        <br />
+        <div class="youtube-title"></div>
         <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/HTUemhV9W-M" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="4">
-        <b style="white-space: nowrap;">.NET Conf 2024</b> <br />
+        <div class="youtube-title">ASP.NET Community Standup 2024</div>
         <div class="youtube-responsive">
-            <b>.NET Conf 2023</b><br />
+            <iframe src="https://www.youtube.com/embed/1fveBAi6Q7I" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="4">
+        <div class="youtube-title">.NET Conf 2023</div>
+        <div class="youtube-responsive">
             <iframe src="https://www.youtube.com/embed/a0xOqNemRoY" frameborder="0" allowfullscreen></iframe>
         </div>
     </FluentGridItem>
@@ -232,7 +237,7 @@ In your <code>Program.cs</code> file you need to add the following after the <co
 <p>
     Looking to get answers to questions or engage with us in real-time?
     <ul>
-        <li>Join the community and chat with us in real-time on <a target="top" href="https://app.gitter.im/#/room/#fluentui-blazor:gitter.im">Gitter</a> and <a target="top" href="https://discord.gg/FcSNfg4">Discord</a>.</li>
+        <li>Join the DotNetEvolution server and chat with us in real-time on <a target="_blank" href="https://discord.gg/M5cBTfp6J2">Discord</a>. You can also find us on <a target="_blank" href="https://app.gitter.im/#/room/#fluentui-blazor:gitter.im">Gitter</a>.</li>
         <li>Submit requests and issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/issues/new/choose">GitHub</a> <strong>only</strong>.</li>
         <li>Contribute by helping out on some of our recommended first issues on <a target="top" href="https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue">GitHub</a>.</li>
     </ul>

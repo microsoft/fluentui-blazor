@@ -22,7 +22,7 @@ html {
     font-family: var(--fontFamilyBase);
 }
 
-body {
+body, .body {
     margin: 0;
     font-family: var(--fontFamilyBase);
     font-size: var(--fontSizeBase300);
@@ -310,13 +310,6 @@ textarea {
     border: 1px solid black;
 }
 
-.invalid::part(root) {
-    outline: 1px solid var(--error);
-}
-
-.invalid[role='checkbox']::part(control) {
-    outline: 1px solid var(--error);
-}
 
 button,
 select {

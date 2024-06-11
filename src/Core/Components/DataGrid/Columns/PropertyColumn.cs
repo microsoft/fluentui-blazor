@@ -36,7 +36,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
     /// <summary>
     /// Optionally specifies how to compare values in this column when sorting.
-    /// 
+    ///
     /// Using this requires the <typeparamref name="TProp"/> type to implement <see cref="IComparable{T}"/>.
     /// </summary>
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;

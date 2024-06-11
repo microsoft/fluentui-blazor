@@ -1,12 +1,20 @@
-@inject IDialogService DialogService
+﻿@inject IDialogService DialogService
 
-<FluentSwitch @bind-Value="@IsTop"
-              Style="margin: 30px;"
-              Label="Step position"
-              UncheckedMessage="Left"
-              CheckedMessage="Top" />
+<FluentStack VerticalAlignment="VerticalAlignment.Center">
+    <FluentSwitch @bind-Value="@IsTop"
+                  Style="margin: 30px;"
+                  Label="Step position"
+                  UncheckedMessage="Left"
+                  CheckedMessage="Top" />
+
+    WizardStepSequence:
+    <FluentSelect Width="150px"
+                  Items="@(Enum.GetValues<WizardStepSequence>())"
+                  @bind-SelectedOption="@StepSequence" />
+</FluentStack>
 
 <FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
+              StepSequence="@StepSequence"
               DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
               Border="WizardBorder.Outside"
               StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
@@ -59,6 +67,7 @@
 @code
 {
     bool IsTop = false;
+    WizardStepSequence StepSequence = WizardStepSequence.Linear;
 
     void OnStepChange(FluentWizardStepChangeEventArgs e)
     {

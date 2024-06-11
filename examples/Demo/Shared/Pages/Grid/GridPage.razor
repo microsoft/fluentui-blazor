@@ -3,6 +3,8 @@
 @using FluentUI.Demo.Shared.Pages.Grid.Examples;
 @using Microsoft.FluentUI.AspNetCore.Components;
 
+<PageTitle>@App.PageTitle("Grid")</PageTitle>
+
 <h1>Grid</h1>
 
 <p>
@@ -53,6 +55,13 @@
 <p>
     To display an element only on a given range of screen sizes, you can combine a these values.
     e.g. <code>GridItemHidden.Md | GridItemHidden.Lg</code> will display the element for all screen sizes, except on medium and large devices.
+</p>
+<p>
+    <b>AdaptiveRendering</b> allows for not generating HTML code in a <b>FluentGridItem</b> based on the value of the <code>HiddenWhen</code> parameter.
+    In other words, when <code>AdaptiveRendering=false</code> (default), the content of the <b>FluentGridItem</b> is simply hidden by CSS styles,
+    whereas if <code>AdaptiveRendering=true</code>, the content of the <b>FluentGridItem</b> is not rendered by Blazor.
+    This allows for fine-grained control over when HTML is generated or not, for example in a case where rendering the grid item takes
+    a lot of time or leads to a lot of data being transferred.
 </p>
 <p>
     <FluentDataGrid Items="@AllHiddenValues" GridTemplateColumns="28fr 12fr 12fr 12fr 12fr 12fr 12fr" ItemKey="@(i => new Random().Next())">

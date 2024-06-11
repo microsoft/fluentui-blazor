@@ -39,7 +39,12 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected override string? FormatValueAsString(DateTime? value)
     {
-        return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture);
+        return Value?.ToString(View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+        }, Culture);
     }
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)
@@ -57,27 +62,35 @@ public partial class FluentDatePicker : FluentCalendarBase
         return Task.CompletedTask;
     }
 
-    protected Task OnSelectedDateAsync(DateTime? value)
+    protected async Task OnSelectedDateAsync(DateTime? value)
     {
         Opened = false;
 
-        if (Value != null && Value?.TimeOfDay != TimeSpan.Zero)
-        {
-            DateTime currentValue = value ?? DateTime.MinValue;
-            Value = currentValue.Date + Value?.TimeOfDay;
-        }
-        else
-        {
-            Value = value;
-        }
+        var updatedValue = Value?.TimeOfDay != TimeSpan.Zero
+            ? (value ?? DateTime.MinValue).Date + Value?.TimeOfDay
+            : value;
 
-        return Task.CompletedTask;
+        await OnSelectedDateHandlerAsync(updatedValue);
     }
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        if (View == CalendarViews.Years && int.TryParse(value, out var year))
+        {
+            value = new DateTime(year, 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
+        }
+
         BindConverter.TryConvertTo(value, Culture, out result);
+
         validationErrorMessage = null;
         return true;
     }
+
+    private string PlaceholderAccordingToView()
+        => View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+        };
 }

@@ -538,6 +538,12 @@
             Gets or sets an expression that identifies the bound value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Field">
+            <summary>
+            Gets or sets the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.FieldIdentifier"/> that identifies the bound value.
+            If set, this parameter takes precedence over <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ValueExpression"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.DisplayName">
             <summary>
             Gets or sets the display name for this field.
@@ -556,7 +562,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.Embedded">
             <summary>
-            Gets or sets if the derived component is embedded in another component. 
+            Gets or sets if the derived component is embedded in another component.
             If true, the ClassValue property will not include the EditContext's FieldCssClass.
             </summary>
         </member>
@@ -631,9 +637,9 @@
             <summary>
             Exposes the elements FocusAsync(bool preventScroll) method.
             </summary>
-            <param name="preventScroll">A Boolean value indicating whether or not the browser should scroll 
-            the document to bring the newly-focused element into view. A value of false for preventScroll (the default) 
-            means that the browser will scroll the element into view after focusing it. 
+            <param name="preventScroll">A Boolean value indicating whether or not the browser should scroll
+            the document to bring the newly-focused element into view. A value of false for preventScroll (the default)
+            means that the browser will scroll the element into view after focusing it.
             If preventScroll is set to true, no scrolling will occur.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputBase`1.ConvertToDictionary(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.Dictionary{System.String,System.Object}@)">
@@ -735,7 +741,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Autofocus">
@@ -873,19 +879,19 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.AreaRestricted">
             <summary>
-            By default, content in the card is restricted to the area of the card itself. 
+            By default, content in the card is restricted to the area of the card itself.
             If you want content to be able to overflow the card, set this property to false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Width">
             <summary>
             Gets or sets the width of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.Height">
             <summary>
             Gets or sets the height of the card. Must be a valid CSS measurement.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCard.ChildContent">
             <summary>
@@ -1169,6 +1175,13 @@
             If specified, virtualized grids will use this template to render cells whose data has not yet been loaded.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Width">
+            <summary>
+            Gets or sets the width of the column.
+            Use either this or the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> GridTemplateColumns parameter but not both.
+            Needs to be a valid CSS width value like '100px', '10%' or '0.5fr'.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
@@ -1340,17 +1353,173 @@
              </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.Comparer">
-            <summary>
-            Optionally specifies how to compare values in this column when sorting.
+             <summary>
+             Optionally specifies how to compare values in this column when sorting.
             
-            Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
-            </summary>
+             Using this requires the <typeparamref name="TProp"/> type to implement <see cref="T:System.IComparable`1"/>.
+             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.OnParametersSet">
             <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <inheritdoc />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1">
+            <summary>
+            Represents a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> column whose cells render a selected checkbox updated when the user click on a row.
+            </summary>
+            <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.KEYBOARD_SELECT_KEYS">
+            <summary>
+            List of keys to press, to select/unselect a row.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered for each row in the table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllDisabled">
+            <summary>
+            Gets or sets whether the [All] checkbox is disabled (not clickable).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllTemplate">
+            <summary>
+            Gets or sets the template for the [All] checkbox column template.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItems">
+            <summary>
+            Gets or sets the list of selected items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectedItemsChanged">
+            <summary>
+            Gets or sets a callback when list of selected items changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode">
+            <summary>
+            Gets or sets the selection mode (Single or Multiple).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconUnchecked">
+            <summary>
+            Gets or sets the Icon to be rendered when the row is non selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleUnchecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Row unselected".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconChecked">
+            <summary>
+            Gets or sets the Icon to be rendered when the row is selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleChecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Row selected".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconIndeterminate">
+            <summary>
+            Gets or sets the Icon to be rendered when some but not all rows are selected.
+            Only when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode"/> is Multiple.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllChecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "All rows are selected.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllUnchecked">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "No rows are selected.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.TitleAllIndeterminate">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Some rows are selected.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnSelect">
+            <summary>
+            Gets or sets the action to be executed when the row is selected or unselected.
+            This action is required to update you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAll">
+            <summary>
+            Gets or sets the value indicating whether the [All] checkbox is selected.
+            Null is undefined.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllChanged">
+            <summary>
+            Gets or sets the action to be executed when the [All] checkbox is clicked.
+            When this action is defined, the [All] checkbox is displayed.
+            This action is required to update you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Property">
+            <summary>
+            Gets or sets the function to executed to determine checked/unchecked status.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SortBy">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelection">
+            <summary>
+            Allows to clear the selection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.ClearSelectionAsync">
+            <summary>
+            Allows to clear the selection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.AddOrRemoveSelectedItemAsync(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.GetDefaultChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.GetHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RefreshHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.GetSelectAll">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.RawCellContent(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IsSortableByDefault">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnClickAllAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.SortedProperty">
             <summary>
@@ -1479,6 +1648,8 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns">
             <summary>
             Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
+            Can be specified here or on the column level with the Width parameter but not both.
+            Needs to be a valid CSS string of space-separated values, such as "auto 1fr 2fr 100px".
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowFocus">
@@ -1491,6 +1662,16 @@
             Gets or sets a callback when a row is focused.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowClick">
+            <summary>
+            Gets or sets a callback when a row is clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowDoubleClick">
+            <summary>
+            Gets or sets a callback when a row is double-clicked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass">
             <summary>
             Optionally defines a class to be applied to a rendered row.
@@ -1500,6 +1681,11 @@
             <summary>
             Optionally defines a style to be applied to a rendered row.
             Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass"/> instead.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowHover">
+            <summary>
+            Gets or sets a value indicating whether the grid should show a hover effect on rows.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.EmptyContent">
@@ -1516,6 +1702,11 @@
             <summary>
             Gets or sets the content to render when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading"/> is true.
             A default fragment is used if loading content is not specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectColumns">
+            <summary>
+            Gets the first (optional) SelectColumn
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
@@ -1536,6 +1727,20 @@
             <param name="column">The column that defines the new sort order.</param>
             <param name="direction">The direction of sorting. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortByColumnAsync(System.String,Microsoft.FluentUI.AspNetCore.Components.SortDirection)">
+            <summary>
+            Sorts the grid by the specified column <paramref name="title"/> found first. If the title is not found, nothing happens.
+            </summary>
+            <param name="title">The title of the column to sort by.</param>
+            <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortByColumnAsync(System.Int32,Microsoft.FluentUI.AspNetCore.Components.SortDirection)">
+            <summary>
+            Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
+            </summary>
+            <param name="index">The index of the column to sort by.</param>
+            <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
@@ -1587,6 +1792,11 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridContext">
+            <summary>
+            Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">
             <summary>
             Gets or sets the reference to the item that holds this row's values.
@@ -1617,6 +1827,18 @@
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowDoubleClickAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowKeyDownAsync(System.String,Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Microsoft#AspNetCore#Components#IHandleEvent#HandleEventAsync(Microsoft.AspNetCore.Components.EventCallbackWorkItem,System.Object)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridItemsProvider`1">
             <summary>
@@ -1955,11 +2177,6 @@
             Defines the appearance of a Day cell.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.View">
-            <summary>
-            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AnimatePeriodChanges">
             <summary>
             Gets ot sets if the calendar items are animated during a period change.
@@ -2069,9 +2286,9 @@
             By default, ValueChanged is called only if the selected value has changed.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Value">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.View">
             <summary>
-            Gets or sets the selected date (two-way bindable).
+            Defines the appearance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar"/> component.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
@@ -3554,7 +3771,10 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid._jsModule">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.CurrentSize">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Spacing">
@@ -3566,6 +3786,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.Justify">
             <summary>
             Defines how the browser distributes space between and around content items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.ChildContent">
@@ -3631,6 +3857,12 @@
             See https://developer.mozilla.org/en-US/docs/Web/CSS/gap
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.AdaptiveRendering">
+            <summary>
+            Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+            Default is false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenWhen">
             <summary>
             Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
@@ -3646,6 +3878,12 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.HiddenAttribute">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.RenderChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.ConvertToHidden(Microsoft.FluentUI.AspNetCore.Components.GridItemSize)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentGridItem.GetHiddenAttribute(System.Nullable{Microsoft.FluentUI.AspNetCore.Components.GridItemHidden})">
@@ -3771,6 +4009,9 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnKeyDownAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1.OnParametersSet">
@@ -4155,10 +4396,15 @@
             The anchor must refer to the ID of an element (or sub-element) accepting the focus.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.PreventMultipleKeyDown">
+            <summary>
+            Prevent multiple KeyDown events.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.Element">
@@ -4184,6 +4430,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDown">
             <summary>
             Event triggered when a KeyDown event is raised.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyUp">
+            <summary>
+            Event triggered when a KeyUp event is raised.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.IgnoreModifier">
@@ -4238,6 +4489,25 @@
             <param name="location"></param>
             <param name="targetId"></param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyUpRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Internal method.
+            </summary>
+            <param name="keyCode"></param>
+            <param name="value"></param>
+            <param name="ctrlKey"></param>
+            <param name="shiftKey"></param>
+            <param name="altKey"></param>
+            <param name="metaKey"></param>
+            <param name="location"></param>
+            <param name="targetId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Name">
+            <summary>
+            Gets the name of the event ("keydown" or "keyup").
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Location">
             <summary>
@@ -4305,6 +4575,13 @@
             <param name="args"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener.OnKeyUpAsync(Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs)">
+            <summary>
+            Method called when a key is unpressed.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService">
             <summary>
             Service registered by <see cref="M:Microsoft.FluentUI.AspNetCore.Components.ServiceCollectionExtensions.AddFluentUIComponents(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)"/>
@@ -4330,6 +4607,14 @@
             <param name="handler"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task},System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Register the <paramref name="handlerKeyDown"/> and <paramref name="handlerKeyUp"/> methods as a listener, and returns a unique identifier.
+            </summary>
+            <param name="handlerKeyDown"></param>
+            <param name="handlerKeyUp"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)">
             <summary>
             Unregister the listener component or page.
@@ -4341,6 +4626,13 @@
             Unregister the listener method.
             </summary>
             <param name="handler"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task},System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Unregister the listener method.
+            </summary>
+            <param name="handlerKeyDown"></param>
+            <param name="handlerKeyUp"></param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.Clear">
             <summary>
@@ -4359,11 +4651,17 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task},System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.RegisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task},System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.UnregisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(Microsoft.FluentUI.AspNetCore.Components.IKeyCodeListener)" />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task},System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.UnregisterListener(System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task},System.Func{Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs,System.Threading.Tasks.Task})" />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyCodeService.Clear">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IKeyCodeService.Clear" />
@@ -4410,6 +4708,13 @@
             <summary>
             Gets or sets the text to be used as the `aria-label` attribute of the input.
             If not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Label"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.Orientation">
+            <summary>
+            Gets or sets the orientation of the label with respect to the input.
+            horizontal: label is displayed to the left of the input.
+            vertical: label is displayed above the input.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.AdditionalAttributes">
@@ -4464,6 +4769,11 @@
             Gets or sets the child content of component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.Orientation">
+            <summary>
+            Gets or sets the orientation of the stacked components.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -4480,11 +4790,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Module">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Placeholder">
-            <summary>
-            Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText">
             <summary>
             Gets or sets the text field value.
@@ -4495,9 +4800,10 @@
             Gets or sets the callback that is invoked when the text field value changes.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Autofocus">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Value">
             <summary>
-            Determines if the element should receive document focus on page load.
+            Gets or sets the value of the input. This should be used with two-way binding.
+            For the FluentAutocomplete component, use the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ValueText"/> property instead.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.Multiple">
@@ -4609,6 +4915,17 @@
             size and to ensure accurate scrolling.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MaxAutoHeight">
+            <summary>
+            Gets or sets the maximum height of the field to adjust its height in relation to selected elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectValueOnTab">
+            <summary>
+            Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
+            Default is false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -4657,6 +4974,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.GetAutocompleteAriaLabel">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.JSRuntime">
             <summary />
         </member>
@@ -4673,11 +4993,6 @@
             Gets or sets the open attribute.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Placeholder">
-            <summary>
-            Gets or sets the placeholder value of the element, generally used to provide a hint to the user.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Position">
             <summary>
             Gets or sets the placement for the listbox when the combobox is open.
@@ -4687,11 +5002,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Appearance">
             <summary>
             Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Autofocus">
-            <summary>
-            Determines if the element should receive document focus on page load.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentListbox`1.Size">
@@ -4852,9 +5162,6 @@
             </summary>
             <typeparam name="TOption"></typeparam>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ClassValue">
-            <summary />
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.StyleValue">
             <summary />
         </member>
@@ -4868,34 +5175,9 @@
             Gets or sets the height of the component or of the popup panel.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Label">
-            <summary>
-            Gets or sets the text displayed just above the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.LabelTemplate">
-            <summary>
-            Gets or sets the content displayed just above the component.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.AriaLabel">
-            <summary>
-            Gets or sets the text used on aria-label attribute.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Required">
-            <summary>
-            Gets or sets if an indicator is showed that this input is required.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Title">
             <summary>
             Gets or sets the text used on aria-label attribute.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Disabled">
-            <summary>
-            If true, will disable the list of items.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ChildContent">
@@ -4943,18 +5225,6 @@
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Value">
-            <summary>
-            Gets or sets the selected value.
-            When Multiple = true this only reflects the first selected option value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ValueChanged">
-            <summary>
-            Called whenever the selection changed.
-            ⚠️ Only available when Multiple = false.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Multiple">
             <summary>
             If true, the user can select multiple elements.
@@ -4980,6 +5250,12 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.#ctor">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.TryParseValueFromString(System.String,System.String@,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.FormatValueAsString(System.String)">
+            <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.DisabledItem(`0)">
             <summary />
@@ -5923,7 +6199,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Target">
             <summary>
-            Gets or sets the target attribute that specifies where to open the group, if Href is specified. 
+            Gets or sets the target attribute that specifies where to open the group, if Href is specified.
             Possible values: _blank | _self | _parent | _top.
             </summary>
         </member>
@@ -5934,8 +6210,15 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.IconColor">
             <summary>
-            Gets or sets the color of the icon. 
+            Gets or sets the color of the icon.
             It supports the theme colors, default value uses the themes drawer icon color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.CustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Disabled">
@@ -5946,7 +6229,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ChildContent">
             <summary>
             Gets or sets the content to be shown.
-            </summary>  
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ActiveClass">
             <summary>
@@ -5955,7 +6238,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Match">
             <summary>
-            Gets or sets how the link should be matched. 
+            Gets or sets how the link should be matched.
             Defaults to <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
             </summary>
         </member>
@@ -5987,7 +6270,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Expanded">
             <summary>
-            If true, expands the nav group, otherwise collapse it. 
+            If true, expands the nav group, otherwise collapse it.
             Two-way bindable
             </summary>
         </member>
@@ -6003,7 +6286,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Gap">
             <summary>
-            Defines the vertical spacing between the NavGroup and adjecent items. 
+            Defines the vertical spacing between the NavGroup and adjacent items.
             Needs to be a valid CSS value.
             </summary>
         </member>
@@ -6014,8 +6297,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.TitleTemplate">
             <summary>
-            Allows for specific markup and styling to be applied for the group title 
-            When using this, the containded <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
+            Allows for specific markup and styling to be applied for the group title
+            When using this, the contained <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavLink"/>s and <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup"/>s need to be placed in a ChildContent tag.
             When specifying both Title and TitleTemplate, both will be rendered.
             </summary>
         </member>
@@ -6429,6 +6712,13 @@
             How narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.FixedPlacement">
+            <summary>
+            Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+            Otherwise the region uses "position: absolute".
+            Fixed placement allows the region to break out of parent containers.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.Open">
             <summary>
             Gets or sets popover opened state.
@@ -6549,6 +6839,16 @@
             Using this property will override the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.FooterLink" /> property.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.StartTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the start (left) section of the Profile button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.EndTemplate">
+            <summary>
+            Gets or sets the content to be displayed in the end (right) section of the Profile button.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Status">
             <summary>
             Gets or sets the status to show. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.PresenceStatus"/> for options.
@@ -6557,6 +6857,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.StatusTitle">
             <summary>
             Gets or sets the title to show on hover. If not provided, the status will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PopoverClass">
+            <summary>
+            Gets or sets the Class to apply to the Profile Popup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PopoverStyle">
+            <summary>
+            Gets or sets the Style to apply to the Profile Popup.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Initials">
@@ -6619,6 +6929,9 @@
             <summary>
             Event raised when the user clicks on the Footer hyperlink (e.g. View account).
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.PersonaId">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProgress.Min">
             <summary>
@@ -6984,7 +7297,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
@@ -7027,7 +7340,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Module">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1._jsModule">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Position">
@@ -7591,7 +7904,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.ClassValue">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleValues">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleValue">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleMoreValues">
@@ -8447,6 +8760,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Items">
+            <summary>
+            Gets or sets the list of sub-items to bind to the tree item
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Text">
             <summary>
             Gets or sets the text of the tree item
@@ -8495,6 +8818,20 @@
             be selected when it is created.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconCollapsed">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is collapsed.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconExpanded"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconExpanded">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is expanded.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.IconCollapsed"/> will be used.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Owner">
             <summary>
             Gets or sets the owning FluentTreeView
@@ -8504,6 +8841,23 @@
             <summary>
             Returns <see langword="true"/> if the tree item is collapsed,
             and <see langword="false"/> if expanded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items">
+            <summary>
+            Gets or sets the list of items to bind to the tree.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItem">
+            <summary>
+            Gets or sets the currently selected tree item.
+            Only when using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItemChanged">
+            <summary>
+            Called when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.SelectedItem"/> changes.
+            Only when using the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.RenderCollapsedNodes">
@@ -8520,6 +8874,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.CurrentSelectedChanged">
             <summary>
             Called when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.CurrentSelected"/> changes.
+            You cannot update <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> properties.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.ChildContent">
@@ -8531,12 +8886,177 @@
             <summary>
             Called whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Selected"/> changes on an
             item within the tree.
+            You cannot update <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> properties.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.OnExpandedChange">
             <summary>
             Called whenever <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.Expanded"/> changes on an
             item within the tree.
+            You cannot update <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.ItemTemplate">
+            <summary>
+            Gets or sets the template for rendering tree items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.LazyLoadItems">
+            <summary>
+            Can only be used when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.Items"/> is defined.
+            Gets or sets whether the tree should use lazy loading when expanding nodes.
+            If True, the tree will only render the children of a node when it is expanded and will remove them when it is collapsed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeView.FindItemById(System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem},System.String)">
+            <summary>
+            Search for an item by its id in the tree
+            </summary>
+            <param name="items"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem">
+            <summary>
+            Interface for tree view items
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id">
+            <summary>
+            Gets or sets the unique identifier of the tree item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text">
+            <summary>
+            Gets or sets the text of the tree item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items">
+            <summary>
+            Gets or sets the sub-items of the tree item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is collapsed.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of tree item,
+            when the node is expanded.
+            If this icon is not set, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled">
+            <summary>
+            When true, the control will be immutable by user interaction.
+            See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Expanded">
+            <summary>
+            Gets or sets a value indicating whether the tree item is expanded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync">
+            <summary>
+            Gets or sets the action to be performed when the tree item is expanded or collapsed
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem">
+            <summary>
+            Implementation of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.LoadingTreeViewItem">
+            <summary>
+            Returns a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> that represents a loading state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.LoadingTreeViewItems">
+            <summary>
+            Returns an array with a single <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> that represents a loading state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor(System.String,System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+            <param name="text">Text of the tree item</param>
+            <param name="items">Sub-items of the tree item.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem"/> class.
+            </summary>
+            <param name="id">Unique identifier of the tree item</param>
+            <param name="text">Text of the tree item</param>
+            <param name="items">Sub-items of the tree item.</param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Id">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Id" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Text">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Text" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Items">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Items" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.IconCollapsed">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconCollapsed" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.IconExpanded">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.IconExpanded" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Disabled">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Disabled" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.Expanded">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.Expanded"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItem.OnExpandedAsync">
+            <summary>
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync" />
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs">
+            <summary>
+            Class that contains the event arguments for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem.OnExpandedAsync"/> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.#ctor(Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem,System.Boolean)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.CurrentItem">
+            <summary>
+            Gets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ITreeViewItem"/> that was expanded or collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.TreeViewItemExpandedEventArgs.Expanded">
+            <summary>
+            Gets a value indicating whether the item was expanded or collapsed.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.ClassValue">
@@ -8614,6 +9134,12 @@
             <summary>
             Hide step titles and summaries on specified sizes (you can combine several values: GridItemHidden.Sm | GridItemHidden.Xl).
             The default value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.GridItemHidden.XsAndDown"/> to adapt to mobile devices.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.StepSequence">
+            <summary>
+            Gets or sets the way to navigate in the Wizard Steps.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.WizardStepSequence.Linear"/>.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnNextHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
@@ -8725,7 +9251,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
             <summary>
-            Gets the name of this design token 
+            Gets the name of this design token
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Value">
@@ -8751,9 +9277,16 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(System.String)">
+            <summary>
+            Sets the default value of this token
+            Value is a string
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.WithDefault(`0)">
             <summary>
             Sets the default value of this token
+            Value is a type T
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Create(System.String)">
@@ -11723,6 +12256,16 @@
             A sticky header row.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Single">
+            <summary>
+            Allow only one selected row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Multiple">
+            <summary>
+            Allow multiple selected rows.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignThemeModes">
             <summary>
             The standard theme values for light and dark mode.
@@ -13184,6 +13727,22 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardBorder.All">
             <summary />
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardStepSequence.Linear">
+            <summary>
+            The user can go to the next/previous step only, using the Next/Previous button.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardStepSequence.Any">
+            <summary>
+            The use can go to any steps (not disabled) clicking on an item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.WizardStepSequence.Visited">
+            <summary>
+            The user can go to the next step using the Next button,
+            or go to any previous step, already visited.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.WizardStepStatus">
             <summary>
             Step Status
@@ -13205,26 +13764,26 @@
             Gets the size of the panel 2 (bottom/right) after a resize operation.
             </summary>  
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.AdditionalAttributesExtensions.RenderedAttributesEqual(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary> Determines whether two sets of attributes are equal when rendered. </summary>
             <param name="x">The compared set</param>
             <param name="y">The set to compare with</param>
             <remarks></remarks>
             <returns><c>true</c> if both sets render the same attributes; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions">
             <summary>
             Extension methods for <see cref="T:System.DateTime"/>.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToIsoDateString(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToIsoDateString(System.Nullable{System.DateTime})">
             <summary>
             Returns a string in the ISO format yyyy-MM-dd.
             </summary>
             <param name="self"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the month.
             </summary>
@@ -13232,7 +13791,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the year
             </summary>
@@ -13240,7 +13799,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.EndOfMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the last day of the month.
             </summary>
@@ -13248,7 +13807,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
             <summary>
             Returns the first day of the week.
             </summary>
@@ -13256,7 +13815,7 @@
             <param name="firstDayOfWeek"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the week.
             </summary>
@@ -13264,7 +13823,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
             <summary>
             Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
             </summary>
@@ -13273,21 +13832,21 @@
             <returns></returns>
             <remarks>Inspired from https://github.com/NickStrupat/TimeAgo.</remarks>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.DateOnly)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.DateOnly)">
             <summary>
             Converts the DateOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.TimeOnly)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.TimeOnly)">
             <summary>
             Converts the TimeOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.Nullable{System.DateOnly})">
             <summary>
             Converts the nullable DateOnly to an equivalent DateTime.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13295,7 +13854,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.TimeOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.Nullable{System.TimeOnly})">
             <summary>
             Converts the nullable TimeOnly to an equivalent DateTime.
             Returns <see cref="F:System.DateTime.MinValue"/> if the <paramref name="value"/> is null.
@@ -13303,21 +13862,21 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.DateOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.DateOnly})">
             <summary>
             Converts the nullable DateOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.TimeOnly})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTimeNullable(System.Nullable{System.TimeOnly})">
             <summary>
             Converts the nullable TimeOnly to an equivalent DateTime.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateTime(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateTime(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateTime.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13325,7 +13884,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnly(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateOnly(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateOnly, removing the time part.
             Returns <see cref="P:System.DateOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13333,7 +13892,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeOnly(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeOnly(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent TimeOnly, removing the time part.
             Returns <see cref="P:System.TimeOnly.MinValue"/> if the <paramref name="value"/> is null.
@@ -13341,21 +13900,21 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToDateOnlyNullable(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToDateOnlyNullable(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent DateOnly?, removing the time part.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.ToTimeOnlyNullable(System.Nullable{System.DateTime})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeOnlyNullable(System.Nullable{System.DateTime})">
             <summary>
             Converts the nullable DateTime to an equivalent TimeOnly?, removing the time part.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetYear(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the year
             </summary>
@@ -13363,7 +13922,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetMonth(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the month
             </summary>
@@ -13371,7 +13930,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetDay(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the day
             </summary>
@@ -13379,7 +13938,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.AddDays(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
             <summary>
             Returns the DateTime resulting from adding the given number of
             days to the specified DateTime.
@@ -13389,7 +13948,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.AddMonths(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
             <summary>
             Returns the DateTime resulting from adding the given number of
             months to the specified DateTime.
@@ -13399,7 +13958,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.AddYears(System.DateTime,System.Int32,System.Globalization.CultureInfo)">
             <summary>
             Returns the DateTime resulting from adding the given number of
             years to the specified DateTime.
@@ -13409,7 +13968,7 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.GetMonthName(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the name of the month
             </summary>
@@ -13430,9 +13989,6 @@
             </summary>
             <param name="services">Service collection</param>
             <param name="configuration">Library configuration</param>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.StringExtensions.ToPercentage(System.Decimal)">
-            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GlobalState">
             <summary>
@@ -13639,25 +14195,25 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClass(System.String)">
             <summary>
-            Adds a CSS Class to the builder with space separator.
+            Adds one or more CSS Classes to the builder with space separator.
             </summary>
-            <param name="value">CSS Class to add</param>
+            <param name="values">Space-separated CSS Classes to add</param>
             <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClass(System.String,System.Boolean)">
             <summary>
-            Adds a conditional CSS Class to the builder with space separator.
+            Adds one or more CSS Classes to the builder with space separator, based on a condition.
             </summary>
-            <param name="value">CSS Class to conditionally add.</param>
-            <param name="when">Condition in which the CSS Class is added.</param>
+            <param name="value">Space-separated CSS Classes to add</param>
+            <param name="when">Condition in which the CSS Classes are added.</param>
             <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddClass(System.String,System.Func{System.Boolean})">
             <summary>
-            Adds a conditional CSS Class to the builder with space separator.
+            Adds one or more CSS Classes to the builder with space separator, based on a condition.
             </summary>
-            <param name="value">CSS Class to conditionally add.</param>
-            <param name="when">Condition in which the CSS Class is added.</param>
+            <param name="value">Space-separated CSS Classes to add</param>
+            <param name="when">Function that returns a condition in which the CSS Classes are added.</param>
             <returns>CssBuilder</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.Build">
@@ -13670,14 +14226,37 @@
             <summary>
             ToString should only and always call Build to finalize the rendered string.
             </summary>
-            <returns></returns>
+            <returns>string</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.AddRaw(System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.IsValidClassName(System.String)">
             <summary>
-            Adds a raw string to the builder that will be concatenated with the next classes or value added to the builder.
+            Validates if the provided class name is valid.
             </summary>
-            <param name="value"></param>
-            <returns>StyleBuilder</returns>
+            <param name="className">CSS class name to validate</param>
+            <returns>True if valid, otherwise false</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.SplitAndValidate(System.String)">
+            <summary>
+            Splits a space-separated string of class names and validates each one.
+            </summary>
+            <param name="input">Space-separated CSS Classes</param>
+            <returns>Enumerable of valid class names</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.GenerateValidClassNameRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Compiled</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match '-' atomically, optionally.<br/>
+            ○ Match a character in the set [A-Z_a-z] greedily at least once.<br/>
+            ○ Match a character in the set [-0-9A-Z_a-z] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder.#ctor">
             <summary>
@@ -13866,6 +14445,38 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GenerateValidClassNameRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GenerateValidClassNameRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
         <member name="T:System.Text.RegularExpressions.Generated.Utilities">
             <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
         </member>
@@ -13874,6 +14485,12 @@
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_20FF03FEFFFF87FEFFFF07">
+            <summary>Supports searching for characters in or not in "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_FEFFFF87FEFFFF07">
+            <summary>Supports searching for characters in or not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
         </member>
     </members>
 </doc>

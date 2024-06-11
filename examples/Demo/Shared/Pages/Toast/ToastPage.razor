@@ -5,6 +5,8 @@
 @using FluentUI.Demo.Shared.Pages.Toast.Examples
 @using Microsoft.FluentUI.AspNetCore.Components
 
+<PageTitle>@App.PageTitle("Toast")</PageTitle>
+
 <h1>Toast</h1>
 
 <p>
@@ -31,7 +33,7 @@
 
 <DemoSection Title="Progress Toasts" Component="typeof(ToastProgressToasts)"></DemoSection>
 
-<DemoSection Title="Custom component" Component="typeof(ToastCustomComponent)"></DemoSection>
+<DemoSection Title="Custom component" Component="typeof(ToastCustomComponent)" AdditionalFiles="@(new []{"MyToastComponent.razor", "MyToastData.cs"})"></DemoSection>
 
 <DemoSection Title="Remove toasts" Component="typeof(ToastClearList)" ShowDownloads=false>
     <Description>

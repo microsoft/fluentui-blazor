@@ -496,6 +496,17 @@ body:has(.prevent-scroll) {
     --curveLinear: cubic-bezier(0, 0, 1, 1);
     --specialColor: #edf6ff;
 }
+
+
+[role='checkbox'].invalid::part(control),
+[role='combobox'].invalid::part(control),
+fluent-combobox.invalid::part(control),
+fluent-text-area.invalid::part(control),
+fluent-text-field.invalid::part(root)
+{
+    outline: calc(var(--stroke-width) * 1px)  solid var(--error);
+}
+
 `;
 
 styleSheet.replaceSync(styles);

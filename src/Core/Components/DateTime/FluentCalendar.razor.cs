@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -74,12 +75,6 @@ public partial class FluentCalendar : FluentCalendarBase
     public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
 
     /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
-    /// </summary>
-    [Parameter]
-    public CalendarViews View { get; set; } = CalendarViews.Days;
-
-    /// <summary>
     /// Gets ot sets if the calendar items are animated during a period change.
     /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
     /// </summary>
@@ -151,23 +146,23 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
+    private async Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
     {
         if (!isReadOnly)
         {
-            Value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+            var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+            await OnSelectedDateHandlerAsync(value);
         }
-        return Task.CompletedTask;
     }
 
     /// <summary />
-    private Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
+    private async Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
     {
         if (!isReadOnly)
         {
-            Value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+            var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+            await OnSelectedDateHandlerAsync(value);
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>

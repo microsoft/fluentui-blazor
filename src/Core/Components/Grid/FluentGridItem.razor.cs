@@ -3,6 +3,7 @@
 // --------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -57,6 +58,9 @@ public partial class FluentGridItem : FluentComponentBase
 #pragma warning restore SA1300
 #pragma warning restore IDE1006
 
+    [CascadingParameter]
+    internal FluentGrid? Grid { get; set; }
+
     /// <summary>
     /// Defines how the browser distributes space between and around content items.
     /// </summary>
@@ -69,6 +73,13 @@ public partial class FluentGridItem : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Gap { get; set; }
+
+    /// <summary>
+    /// Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+    /// Default is false.
+    /// </summary>
+    [Parameter]
+    public bool? AdaptiveRendering { get; set; }
 
     /// <summary>
     /// Hide the item on the specified sizes (you can combine multiple values: GridItemHidden.Sm | GridItemHidden.Xl).
@@ -106,6 +117,39 @@ public partial class FluentGridItem : FluentComponentBase
         get
         {
             return GetHiddenAttribute(HiddenWhen);
+        }
+    }
+
+    /// <summary />
+    private bool RenderChildContent()
+    {
+        if (Grid != null && Grid.CurrentSize != null && HiddenWhen != null && (Grid.AdaptiveRendering == true || AdaptiveRendering == true))
+        {
+            return !HiddenWhen.Value.HasFlag(ConvertToHidden(Grid.CurrentSize.Value));
+        }
+
+        return true;
+    }
+
+    /// <summary />
+    private GridItemHidden ConvertToHidden(GridItemSize size)
+    {
+        switch (size)
+        {
+            case GridItemSize.Xs:
+                return GridItemHidden.Xs;
+            case GridItemSize.Sm:
+                return GridItemHidden.Sm;
+            case GridItemSize.Md:
+                return GridItemHidden.Md;
+            case GridItemSize.Lg:
+                return GridItemHidden.Lg;
+            case GridItemSize.Xl:
+                return GridItemHidden.Xl;
+            case GridItemSize.Xxl:
+                return GridItemHidden.Xxl;
+            default:
+                return GridItemHidden.None;
         }
     }
 

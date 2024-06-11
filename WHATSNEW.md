@@ -1,3 +1,147 @@
+## v4.7.3
+
+### Icons
+- Update to Fluent UI System Icons 1.1.242
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Breakout Room / 32 / Filled & Regular
+    - Card UI Portrait Flip / 16, 20, 24 / Filled & Regular
+    - Cursor / 28, 32 / Filled & Regular
+    - Layout Row Two / 28, 48 / Filled & Regular
+    - Notepad Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush Subtract / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush / 28 / Filled & Regular
+    - Play Circle Sparkle / 16, 20, 24 / Filled & Regular
+    - Replay / 16, 20, 24, 28, 32 / Filled & Regular
+    - Send Person / 16, 20, 24 / Filled & Regular
+    - Square Dovetail Joint / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Table Cursor / 16, 20, 24 / Filled & Regular
+    - Transparency Square / 20, 24 / Filled & Regular
+ 
+     **What's updated (Name / Size(s) / Variant(s))**
+    - Notepad / 32 / Filled & Regular
+    - Replay / 20 / Filled & Regular
+    
+- Update to Fluent UI System Icons 1.1.239
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Turn Right / 16 / Filled & Regular
+    - Chart Multiple / 16 / Filled & Regular
+    - Column / 24 / Filled & Regular
+    - Data Pie / 16 / Filled & Regular
+    - Layout Column Two Focus Left / 32 / Filled
+    - Layout Column Two Focus Right / 32 / Filled
+    - Layout Column Two / 32 / Filled & Regular
+    - Layout Row Two Focus Top / 32 / Filled
+    - Layout Row Two / 32 / Filled & Regular
+    - Mail Copy / 32 / Filled & Regular
+    - Paint Brush Sparkle / 20, 24 / Filled & Regular
+    - People Community / 12 / Filled & Regular
+    - Person Board / 12 / Filled & Regular
+    - Person Tentative / 16, 20, 24 / Filled & Regular
+    - Tab Desktop Search / 16, 20, 24 / Filled & Regular
+    - Table Sparkle / 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Chart Multiple / 20, 24 / Filled & Regular
+    - Column Edit / 24 / Filled & Regular
+    - Data Pie / 24 / Filled & Regular  
+
+## v4.7.2
+
+### Demo site and documentation 
+- [Docs] New Video and PageTitle ([#1925](https://github.com/microsoft/fluentui-blazor/pull/1925))
+
+### Components
+- [AppBar] Allow for omitting Href on AppBarItems and don't show active status when Href is null or not specified ([#1976](https://github.com/microsoft/fluentui-blazor/pull/1976))
+- [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
+- [Badge] Do not use a div (block element) in an inline element ([#1921](https://github.com/microsoft/fluentui-blazor/pull/1921))
+- [DataGrid] Add ShowHover parameter and implement row hover effect ([#1939](https://github.com/microsoft/fluentui-blazor/pull/1939))
+- [DataGrid] Apply ItemSize (CSS height) to cells when grid is virtualized.  ([#1936](https://github.com/microsoft/fluentui-blazor/pull/1936))
+- [DataGrid] Change column width when using generated value  ([#1955](https://github.com/microsoft/fluentui-blazor/pull/1955))
+- [DataGrid] Give empty row an id ([#2001](https://github.com/microsoft/fluentui-blazor/pull/2001))
+- [DataGrid] Multiselect feature, adding a `SelectColumn` ([#1952](https://github.com/microsoft/fluentui-blazor/pull/1952))
+- [DataGrid] Revert setting height on DataGrid header cell. Was not necessary and lead to issues on Safari
+- [InputLabel] Add Orientation parameter  ([#1994](https://github.com/microsoft/fluentui-blazor/pull/1994))
+- [Lists] Also set Value (and InternalValue) when SelectedOption is set ([#1970](https://github.com/microsoft/fluentui-blazor/pull/1970))
+- [MessageBar] Supply a default value for the message intent when using MessageOptions ([#1993](https://github.com/microsoft/fluentui-blazor/pull/1993))
+- [NavMenu] Fix keyboard navigation ([#1950](https://github.com/microsoft/fluentui-blazor/pull/1950))
+- [NavMenu] Make sure text is shown when in mobile view in SSR. 
+- [ProfileMenu] Remove ProfileMenu from demo site header and change examples ([#1924](https://github.com/microsoft/fluentui-blazor/pull/1924))
+- [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
+- [Tabs] Prevent error 'An item with the same key has already been added ([#2006](https://github.com/microsoft/fluentui-blazor/pull/2006))
+
+
+### Miscellaneous
+- [Reboot] Add body class (to body element declaration)
+- [Templates] Change css so body-content height is set and scrollable ([#1981](https://github.com/microsoft/fluentui-blazor/pull/1981))
+- [Templates] Change header gutter to keep content out of nav icon area when width < 600px
+
+## v4.7.1
+
+### Components
+* [Wizard] Add StepSequence attribute ([#1909](https://github.com/microsoft/fluentui-blazor/pull/1909))
+* [DataGrid] Fix GridTemplateColumns initialization was done in the wrong place (related to new Width option for columns
+
+## v4.7.0
+
+### Breaking change
+- [Extensions] Add a namespace for extension methods to prevent possible naming clashes ([#1776](https://github.com/microsoft/fluentui-blazor/pull/1776))
+
+### Demo site and documentation 
+- [Docs] Update Progress stroke examples dropdowns ([#1835](https://github.com/microsoft/fluentui-blazor/pull/1835))
+- [Docs] Update KeyCodeGlobalExample.razor.css to fix dark mode visuals ([#1834](https://github.com/microsoft/fluentui-blazor/pull/1834))
+- [Docs] Update Highlighter example to use FluentTextField instead of input ([#1833](https://github.com/microsoft/fluentui-blazor/pull/1833))
+- [Demo] Fix the Profile Menu position ([#1841](https://github.com/microsoft/fluentui-blazor/pull/1841))
+- [Demo] Clears demo site cache on startup if new version ([#1839](https://github.com/microsoft/fluentui-blazor/pull/1839))
+
+### Components
+- [AppBar] Apply role requirements ([#1871](https://github.com/microsoft/fluentui-blazor/pull/1871))
+- [Calendar] Use provided Culture for calendar operations ([#1862](https://github.com/microsoft/fluentui-blazor/pull/1862))
+- [DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+- [DataGrid] Add column Width parameter ([#1902](https://github.com/microsoft/fluentui-blazor/pull/1902))
+- [DataGrid] Add SortBy parameter support for PropertyColumn ([#1877](https://github.com/microsoft/fluentui-blazor/pull/1877))
+- [DataGrid] Extend GridSort possibilities ([#1860](https://github.com/microsoft/fluentui-blazor/pull/1860))
+- [DatePicker] Enhance for month /year selection  ([#1903](https://github.com/microsoft/fluentui-blazor/pull/1903))
+- [Grid] Add AdaptiveRendering property ([#1899](https://github.com/microsoft/fluentui-blazor/pull/1899))
+- [Input] NotifyFieldChanged is called twice for all FluentInputBase derived components ([#1846](https://github.com/microsoft/fluentui-blazor/pull/1846))
+- [MenuButton] Add ChildContent so items can be supplied manually ([#1848](https://github.com/microsoft/fluentui-blazor/pull/1848))
+- [Paginator] spelling issue in FluentPaginator.razor.cs ([#1829](https://github.com/microsoft/fluentui-blazor/pull/1829))
+- [Popover] adds FixedPlacement parameter ([#1894](https://github.com/microsoft/fluentui-blazor/pull/1894))
+- [PullToRefresh] Add DragThreshold to PullToRefresh ([#1858](https://github.com/microsoft/fluentui-blazor/pull/1858))
+- [Select] Allow value to be set when component is disabled ([#1892](https://github.com/microsoft/fluentui-blazor/pull/1892))
+- [Slider] Fixes thumb redraw issues (Fix for #1836) ([#1873](https://github.com/microsoft/fluentui-blazor/pull/1873))
+- [Wizard] Fix the Wizard bullet number style ([#1905](https://github.com/microsoft/fluentui-blazor/pull/1905))
+
+### Miscellaneous
+- [Aspire] Fix #3364 by adding IKeyCodeListner and handler ([#1866](https://github.com/microsoft/fluentui-blazor/pull/1866))
+- [Pipeline] Add Code Coverage Report ([#1861](https://github.com/microsoft/fluentui-blazor/pull/1861))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.237 
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Book / 48 / Filled & Regular
+    - Camera Arrow Up / 16, 20, 24 / Filled & Regular
+    - Chat Settings / 16 / Filled & Regular
+    - Circle Highlight / 20, 24 / Filled & Regular
+    - Circle Hint / 24 / Filled & Regular
+    - Circle Shadow / 20, 24 / Filled & Regular
+    - Content View / 16 / Filled & Regular
+    - Double Tap Swipe Down / 16 / Filled & Regular
+    - Double Tap Swipe Up / 16 / Filled & Regular
+    - Flash Sparkle / 16 / Filled & Regular
+    - Location Ripple / 12 / Filled & Regular
+    - Search Square / 16 / Filled & Regular
+    - Settings Chat / 16 / Filled & Regular
+    - Share Multiple / 16, 20, 24 / Filled & Regular
+    - Slide Play / 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Book Add / 28 / Filled & Regular
+    - Book Contacts / 20, 24, 28, 32 / Filled & Regular
+    - Book / 28 / Filled & Regular   
+
 ## v4.6.2
 
 ### Components

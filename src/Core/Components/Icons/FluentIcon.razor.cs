@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -18,7 +19,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width ?? $"{_icon.Width}px")
+        .AddStyle("width", Width ?? $"{_icon.Width}px", Width != string.Empty)
         .AddStyle("fill", GetIconColor())
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !_icon.ContainsSVG)
@@ -80,6 +81,20 @@ public partial class FluentIcon<Icon> : FluentComponentBase
         if (OnClick.HasDelegate)
         {
             return OnClick.InvokeAsync(e);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    protected virtual Task OnKeyDownAsync(KeyboardEventArgs e)
+    {
+        if (OnClick.HasDelegate)
+        {
+            if (e.Key == "Enter" || e.Key == "NumpadEnter")
+            {
+                return OnClickHandlerAsync(new MouseEventArgs());
+            }
         }
 
         return Task.CompletedTask;

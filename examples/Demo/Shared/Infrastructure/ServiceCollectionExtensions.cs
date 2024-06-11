@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using FluentUI.Demo.Shared.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +13,6 @@ public static class ServiceCollectionExtensions
     /// Add common client services required by the Fluent UI Web Components for Blazor library
     /// </summary>
     /// <param name="services">Service collection</param>
-    /// <param name="configuration">Library configuration</param>
     public static IServiceCollection AddFluentUIDemoClientServices(this IServiceCollection services)
     {
         services.AddSingleton<IAppVersionService, AppVersionService>();
@@ -24,7 +27,6 @@ public static class ServiceCollectionExtensions
     /// Add common server services required by the Fluent UI Web Components for Blazor library
     /// </summary>
     /// <param name="services">Service collection</param>
-    /// <param name="configuration">Library configuration</param>
     public static IServiceCollection AddFluentUIDemoServerServices(this IServiceCollection services)
     {
         services.AddScoped<IAppVersionService, AppVersionService>();

@@ -1,7 +1,11 @@
-using System.Globalization;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -128,6 +132,46 @@ public class FluentDatePickerTests : TestBase
 
         // Assert
         Assert.Null(picker.Instance.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_MonthsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.View, CalendarViews.Months);
+        });
+        var textfield = picker.Find("fluent-text-field");
+
+        // Assert
+        Assert.Equal("MMMM yyyy", textfield.Attributes["placeholder"]!.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_YearsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.View, CalendarViews.Years);
+        });
+        var textfield = picker.Find("fluent-text-field");
+
+        // Assert
+        Assert.Equal("yyyy", textfield.Attributes["placeholder"]!.Value);
     }
 
     [Fact]

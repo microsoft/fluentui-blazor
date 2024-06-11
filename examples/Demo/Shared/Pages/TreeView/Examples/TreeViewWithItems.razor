@@ -1,0 +1,55 @@
+﻿<FluentTreeView Items="@Items" @bind-SelectedItem="@SelectedItem" LazyLoadItems="true">
+    <ItemTemplate>
+        @context.Text
+        <span style="color: var(--accent-fill-rest); margin: 0 4px;">
+            @(context.Items == null ? "" : $"[{context.Items.Count()}]")
+        </span>
+    </ItemTemplate>
+</FluentTreeView>
+
+<div>
+    <b>Total items:</b> @Count
+</div>
+<div>
+    <b>Selected item:</b> @SelectedItem?.Text
+</div>
+
+@code
+{
+    private ITreeViewItem? SelectedItem;
+
+    private Icon IconCollapsed = new Icons.Regular.Size20.Folder();
+    private Icon IconExpanded = new Icons.Regular.Size20.FolderOpen();
+
+    private int Count = -1;
+    private IEnumerable<ITreeViewItem>? Items = new List<ITreeViewItem>();
+
+    protected override void OnInitialized()
+    {
+        Items = CreateTree(maxLevel: 5, maxItemsPerLevel: 12).Items;
+        SelectedItem = Items?.ElementAt(3);
+    }
+
+    // Recursive method to create tree
+    private TreeViewItem CreateTree(int maxLevel, int maxItemsPerLevel, int level = 0)
+    {
+        Count++;
+
+        int nbItems = Random.Shared.Next(maxItemsPerLevel - 3, maxItemsPerLevel);
+
+        var treeItem = new TreeViewItem
+            {
+                Text = $"Item {Count}",
+                Disabled = level >= 2 && Count % 7 == 0,
+                IconCollapsed = IconCollapsed,
+                IconExpanded = IconExpanded,
+                Expanded = level >= 2 && Count % 5 == 0,
+                Items = level == maxLevel
+                              ? null
+                              : new List<TreeViewItem>(Enumerable.Range(1, nbItems)
+                                                                 .Select(i => CreateTree(maxLevel, maxItemsPerLevel, level + 1))),
+            };
+
+        return treeItem;
+    }
+}

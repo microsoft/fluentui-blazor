@@ -5,6 +5,10 @@ body {
     overflow: hidden;
 }
 
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
 .siteheader {
     background-color: var(--neutral-layer-4) !important;
     border-bottom: calc(var(--stroke-width) * 2px) solid var(--accent-fill-rest);
@@ -35,14 +39,9 @@ body {
     }
 
     .siteheader .settings {
+        padding-right: 6px;
         display: flex;
         align-items: center;
-        margin-left: 0;
-        margin-right: 10px;
-    }
-
-    .siteheader .profile {
-        padding-right: 16px;
         margin-left: 0;
         margin-right: 10px;
     }
@@ -143,8 +142,6 @@ article {
     padding: 1.5rem 1rem;
     border-right: 1px solid var(--neutral-stroke-divider-rest);
     margin: 0 0;
-    overflow-x: hidden;
-    transition: all 300ms ease-in-out;
     width: calc(100% - 18rem);
 }
 
@@ -154,6 +151,8 @@ aside {
     height: 100vh;
     position: sticky;
     width: 18rem;
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
 }
 
 #navmenu-toggle {
@@ -203,8 +202,13 @@ code {
 }
 
 .highlighted-row {
-    background-color: var(--neutral-fill-secondary-hover);
+    background-color: var(--accent-fill-rest);
 }
+
+    .highlighted-row > fluent-data-grid-cell {
+        color: var(--neutral-fill-inverse-rest);
+    }
+
 
 kbd {
     padding: 0.10rem 0.25rem;
@@ -304,10 +308,8 @@ kbd {
     }
 
     nav.sitenav {
-
         width: 100%;
         height: calc(100dvh - 50px);
-
     }
 
     .navmenu {
@@ -513,3 +515,12 @@ kbd {
     .youtube-responsive .fluid-vids {
         position: initial !important
     }
+
+.youtube-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    min-height: 24px;
+}
