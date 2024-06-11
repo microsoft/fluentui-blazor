@@ -1,6 +1,6 @@
 .validation-message {
     color: var(--error);
-    font-size: var(--type-ramp-minus-1-font-size);
+    font-size: var(--fontSizeBase200);
     display: flex;
     align-items: center;
     column-gap: 4px;

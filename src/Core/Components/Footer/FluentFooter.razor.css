@@ -2,8 +2,8 @@
     display: flex;
     z-index: 10;
     flex-direction: row;
-    font-family: var(--body-font);
+    font-family: var(--fontFamilyBase);
     font-weight: normal;
-    font-size: var(--type-ramp-minus-1-font-size);
-    line-height: var(--type-ramp-minus-1-line-height);
+    font-size: var(--fontSizeBase200);
+    line-height: var(--lineHeightBase200);
 }

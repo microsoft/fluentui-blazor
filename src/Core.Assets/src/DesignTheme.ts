@@ -4,12 +4,13 @@
 
 import { ColorsUtils } from "./Design/ColorsUtils";
 import {
+  
   baseLayerLuminance,
   StandardLuminance,
   neutralBaseColor,
   accentBaseColor,
   SwatchRGB
-} from "@fluentui/tokens";
+} from "@fluentui/web-components";
 import { ThemeStorage } from "./Design/ThemeStorage";
 import { Synchronization } from "./Design/Synchronization";
 

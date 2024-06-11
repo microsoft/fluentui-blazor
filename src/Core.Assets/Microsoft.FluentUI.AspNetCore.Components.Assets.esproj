@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.824748">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1114476">
 	<PropertyGroup>
 		<DefaultProjectTypeGuid Condition="'$(BuildingInsideVisualStudio)' == 'false'">FAE04EC0-301F-11D3-BF4B-00C04F79EFBC</DefaultProjectTypeGuid>
 		<DebugAssetsDirectory>dist\</DebugAssetsDirectory>

@@ -34,7 +34,7 @@
         margin: 0px 15%;
         text-align: center;
         line-height: 8px;
-        font-size: var(--type-ramp-minus-2-font-size);
+        font-size: var(--fontSizeBase100);
     }
 
     .fluent-inputfile-container[disabled], .fluent-inputfile-container[disabled="true"] {

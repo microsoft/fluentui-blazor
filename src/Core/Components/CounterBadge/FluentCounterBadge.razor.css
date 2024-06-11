@@ -7,7 +7,7 @@
 .fluentui-counterbadge {
     position: absolute;
     z-index: 10;
-    font-size: var(--type-ramp-minus-2-font-size);
+    font-size: var(--fontSizeBase100);
     font-weight: 600;
     border-radius: 10000px;
     letter-spacing: 0;

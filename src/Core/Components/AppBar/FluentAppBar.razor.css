@@ -11,8 +11,8 @@
 ::deep a {
     color: inherit;
     text-decoration: none;
-    font-size: var(--type-ramp-minus-2-font-size);
-    line-height: var(--type-ramp-minus-2-line-height);
+    font-size: var(--fontSizeBase100);
+    line-height: var(--lineHeightBase200);
     position: relative;
     display: inline-block;
     height: 100%;

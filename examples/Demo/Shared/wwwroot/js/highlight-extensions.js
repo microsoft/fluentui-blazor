@@ -1,6 +1,6 @@
-﻿// Add Stylesheets
-hljs_addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css', 'highlight-light', null);
-hljs_addStylesheet('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css', 'highlight-dark', 'disabled');
+// Add Stylesheets
+hljs_addStylesheet('https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/vs.min.css', 'highlight-light', null);
+hljs_addStylesheet('https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/vs2015.min.css', 'highlight-dark', 'disabled');
 
 hljs_addInlineStylesheet(`pre[class~="snippet"] {
     --font-monospace: "courier";
@@ -9,11 +9,11 @@ hljs_addInlineStylesheet(`pre[class~="snippet"] {
     }`);
 
 // Add Scripts
-const highlight = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.6.0/highlight.min.js');
+const highlight = hljs_addJavaScript('https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js');
 
 // Add custom code
 highlight.onload = () => {
-    const hljsRazor = hljs_addJavaScript('https://cdn.jsdelivr.net/npm/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js');
+    const hljsRazor = hljs_addJavaScript('https://unpkg.com/highlightjs-cshtml-razor@2.1.1/dist/cshtml-razor.min.js');
 
     // Switch highlight Dark/Light theme
     const theme = document.querySelector('loading-theme > fluent-design-theme');
