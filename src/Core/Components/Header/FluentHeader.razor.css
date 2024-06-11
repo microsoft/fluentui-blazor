@@ -1,13 +1,13 @@
-﻿.header {
+.header {
     display: flex;
     z-index: 10;
     flex-shrink: 0;
-    background-color: var(--accent-fill-rest);
-    font-family: var(--body-font);
+    background-color: var(--colorNeutralBackground1);
+    font-family: var(--fontFamilyBase);
     font-weight: bold;
-    font-size: var(--type-ramp-plus-1-font-size);
-    line-height: var(--type-ramp-plus-1-line-height);
-    color: var(--fill-color);
+    font-size: var(--fontSizeBase400);
+    line-height: var(--lineHeightBase400);
+    color: var(--colorNeutralForeground1);
 }
 
     .header .header-gutters {

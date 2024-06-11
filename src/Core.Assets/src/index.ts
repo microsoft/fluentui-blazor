@@ -54,7 +54,7 @@ body:has(.prevent-scroll) {
     --presence-oof: #c239b3;
     --presence-unknown: #d13438;
     --highlight-bg: #fff3cd;
-
+    --design-unit: 4px;
 
 }
 

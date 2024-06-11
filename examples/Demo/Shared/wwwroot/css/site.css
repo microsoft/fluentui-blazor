@@ -10,8 +10,8 @@ blockquote p:last-child {
 }
 
 .siteheader {
-    background-color: var(--neutral-layer-4) !important;
-    border-bottom: calc(var(--stroke-width) * 2px) solid var(--accent-fill-rest);
+    background-color: var(--colorNeutralBackground4)!important;
+    border-bottom: var(--strokeWidthThick)  solid var(--colorBrandForeground1);
     margin-bottom: 0 !important;
 }
 
@@ -72,14 +72,14 @@ blockquote p:last-child {
 .footer {
     display: flex !important;
     flex-direction: row !important;
-    background: var(--neutral-layer-4);
-    color: var(--neutral-foreground-rest) !important;
+    background: var(--colorNeutralBackground4);
+    color: var(--colorNeutralForeground1) !important;
     padding: 10px 10px;
     margin-top: 0px !important;
 }
 
     .footer .version a {
-        color: var(--neutral-foreground-rest);
+        color: var(--colorNeutralForeground1);
         text-decoration: none;
     }
 
@@ -94,7 +94,7 @@ blockquote p:last-child {
 
 
 nav.sitenav {
-    background-color: var(--neutral-layer-1);
+    background-color: var(--colorNeutralBackground1);
     padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
     width: 18rem;
@@ -102,16 +102,16 @@ nav.sitenav {
 }
 
 nav h2 {
-    font-size: var(--type-ramp-plus-1-font-size);
-    line-height: var(--type-ramp-plus-1-line-height);
+    font-size: var(--fontSizeBase400);
+    line-height: var(--lineHeightBase400);
     padding: 15px 0;
     margin: 0;
     pointer-events: none;
 }
 
 nav h3 {
-    font-size: var(--type-ramp-base-font-size);
-    line-height: var(--type-ramp-minus-1-line-height);
+    font-size: var(--fontSizeBase300);
+    line-height: var(--lineHeightBase200);
     padding: 10px 0;
     margin: 0;
     pointer-events: none;
@@ -125,7 +125,7 @@ nav fluent-anchor {
 
     nav fluent-anchor::part(control) {
         justify-content: start;
-        background: var(--accent-fill-rest);
+        background: var(--colorBrandForeground1);
     }
 
 
@@ -135,12 +135,12 @@ nav fluent-anchor {
 
 .content {
     display: flex;
-    background-color: var(--neutral-layer-1);
+    background-color: var(--colorNeutralBackground1);
 }
 
 article {
     padding: 1.5rem 1rem;
-    border-right: 1px solid var(--neutral-stroke-divider-rest);
+    border-right: 1px solid var(--colorNeutralStroke1);
     margin: 0 0;
     width: calc(100% - 18rem);
 }
@@ -183,40 +183,40 @@ aside {
 
 
 label {
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
     cursor: pointer;
 }
 
 .shell, .sourceCode {
-    background: var(--neutral-stroke-layer-rest);
+    background: var(--colorNeutralStencil1);
     padding: 7px;
 }
 
 code {
-    background: var(--neutral-stroke-layer-rest);
+    background: var(--colorNeutralStencil1);
 }
 
 .demopanel {
-    border: 1px dashed var(--accent-fill-rest);
+    border: 1px dashed var(--colorBrandForeground1);
     padding: 5px;
 }
 
 .highlighted-row {
-    background-color: var(--accent-fill-rest);
+    background-color: var(--colorBrandForeground1);
 }
 
     .highlighted-row > fluent-data-grid-cell {
-        color: var(--neutral-fill-inverse-rest);
+        color: var(--colorNeutralForegroundInverted);
     }
 
 
 kbd {
     padding: 0.10rem 0.25rem;
     font-size: 0.875em;
-    color: var(--neutral-foreground-rest);
-    background-color: var(--neutral-fill-secondary-rest);
+    color: var(--colorNeutralForeground1);
+    background-color: var(--colorNeutralBackground6);
     border-radius: 0.25rem;
-    border: 1px solid var(--accent-fill-rest);
+    border: 1px solid var(--colorBrandForeground1);
 }
 
 #blazor-error-ui {
@@ -230,7 +230,7 @@ kbd {
     width: 100%;
     z-index: 1000;
     margin: 20px 0;
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
 }
 
     #blazor-error-ui .dismiss {
@@ -260,7 +260,7 @@ kbd {
 
     .loading-progress circle {
         fill: none;
-        stroke: var( --neutral-fill-layer-rest);
+        stroke: var(--colorCompoundBrandForeground1);
         stroke-width: 0.6rem;
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
@@ -425,12 +425,12 @@ kbd {
         align-items: center;
         justify-content: flex-start;
         padding: 12px 0;
-        background-color: var(--neutral-layer-4);
+        background-color: var(--colorNeutralBackground4);
     }
 
         .siteheader a {
             padding: 0px 15px;
-            color: var(--neutral-foreground-rest);
+            color: var(--colorNeutralForeground1);
         }
 
         .siteheader .logo {
