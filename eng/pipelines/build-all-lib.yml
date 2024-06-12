@@ -72,7 +72,16 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
+          - output: nuget
+            useDotNetTask: false
+            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+            packageParentPath: '$(Build.ArtifactStagingDirectory)'
+            nuGetFeedType: internal
+            publishVstsFeed: public/dotnet8
+            allowPackageConflicts: true
+
         steps:
+
         # Compute AssemblyVersion and PackageVersion
         # -> Update version.yml
         - task: PowerShell@2
@@ -112,19 +121,6 @@ extends:
             version: 8.0.x
             includePreviewVersions: true
 
-        # Install nodejs
-        - task: NodeTool@0
-          displayName: 'Install NodeJS'
-          inputs:
-            versionSpec: '20.x'
-
-        # Authenticate to npm
-        - task: Npm@1
-          displayName: "NPM install"
-          inputs:
-            command: "install"
-            workingDir: "src/Core.Assets"
-
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
@@ -137,12 +133,21 @@ extends:
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 
-        # Install dependencies
+        # Restore packages
         - task: DotNetCoreCLI@2
-          displayName: Install dependencies
+          displayName: Restore packages
           inputs:
             command: 'restore'
             projects: ${{ parameters.Projects }}
+            feedsToUse: config
+            nugetConfigPath: nuget.config
+
+        # NPM install Core.Assets
+        - task: Npm@1
+          displayName: "NPM install Core.Assets"
+          inputs:
+            command: "install"
+            workingDir: "src/Core.Assets"
 
         # Build the projects
         - task: DotNetCoreCLI@2
@@ -150,7 +155,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -198,7 +203,7 @@ extends:
             solution: 'Microsoft.FluentUI.signproj'
             msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\sign\'
 
-
+        # Copy signed packages
         - task: CopyFiles@2
           displayName: 'Copy signed packages to pickup folder'
           inputs:
