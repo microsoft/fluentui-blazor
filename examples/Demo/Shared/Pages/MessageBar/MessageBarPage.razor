@@ -18,20 +18,22 @@
         either the provider itself of the component the provider is placed in.
     </strong>
 </p>
-<CodeSnippet>
-    &lt;main&gt;
-        &lt;nav&gt;
-        :
-        &lt;/nav&gt;
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;article id=&quot;article&quot;&gt;
-            &lt;FluentMessageBarProvider Section="MESSAGES_TOP"/&gt;
-                @@Body
-            &lt;/article&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-</CodeSnippet>
 
+<CodeSnippet Language="razor">
+    @(
+@"<main>
+    <nav>
+        <!-- -->
+    </nav>
+    <div class=""content"">
+        <article id=""article"">
+            <FluentMessageBarProvider Section=""MESSAGES_TOP""/>
+            @Body
+        </article>
+    </div>
+</main>"
+    )
+</CodeSnippet>
 
 <h2 id="example">Examples</h2>
 
