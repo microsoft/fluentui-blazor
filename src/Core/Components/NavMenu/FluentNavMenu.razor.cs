@@ -69,6 +69,9 @@ public partial class FluentNavMenu : FluentComponentBase
     public string? Margin { get; set; }
 
     [Parameter]
+    public bool CustomToggle { get; set; } = false;
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>

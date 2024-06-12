@@ -6248,11 +6248,6 @@
             For  <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup" /> the <c>Title</c> is used as fallback.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
-            <summary>
-            Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.OnClick">
             <summary>
             The callback to invoke when the item is clicked.
@@ -6261,6 +6256,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.ForceLoad">
             <summary>
             If true, force browser to redirect outside component router-space.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
+            <summary>
+            Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Title">
