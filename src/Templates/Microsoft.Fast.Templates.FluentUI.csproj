@@ -7,7 +7,7 @@
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
 		<Description>Project templates for creating a Blazor Server or Blazor WebAssembly app that uses the Fluent UI Web Components for Blazor library. These templates can be used for web apps with rich dynamic user interfaces (UIs).</Description>
 		<IncludeContentInPack>true</IncludeContentInPack>
-		<IncludeBuildOutput>true</IncludeBuildOutput>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<License>MIT</License>
 		<PackageId>Microsoft.Fast.Templates.FluentUI</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
