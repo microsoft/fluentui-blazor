@@ -95,10 +95,10 @@ public abstract class FluentNavBase : FluentComponentBase
     public string CustomToggleId { get; set; } = "navmenu-toggle";
 
     [CascadingParameter]
-    internal FluentNavMenu Owner { get; set; } = default!;
+    public FluentNavMenu Owner { get; set; } = default!;
 
     [CascadingParameter]
-    internal FluentMenu? SubMenu { get; set; }
+    public FluentMenu? SubMenu { get; set; }
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
