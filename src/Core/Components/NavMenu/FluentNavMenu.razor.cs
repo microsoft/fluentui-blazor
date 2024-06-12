@@ -68,6 +68,10 @@ public partial class FluentNavMenu : FluentComponentBase
     [Parameter]
     public string? Margin { get; set; }
 
+    /// <summary>
+    /// Gets or sets if a custom toggle for showing/hiding the menu is used.
+    /// This is primarily intended to be used in a mobile view
+    /// </summary>
     [Parameter]
     public bool CustomToggle { get; set; } = false;
 
