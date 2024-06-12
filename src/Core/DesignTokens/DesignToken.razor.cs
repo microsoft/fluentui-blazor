@@ -78,7 +78,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// </summary>
     public async ValueTask<DesignToken<T>> WithDefault(string value)
     {
-        await InitJSReferenceAsync();
+        await InitJSReference();
         await _jsModule.InvokeVoidAsync(Name + ".withDefault", value);
         return this;
     }

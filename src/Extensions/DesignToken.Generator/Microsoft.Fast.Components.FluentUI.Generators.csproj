@@ -27,7 +27,7 @@
 	</ItemGroup>
 
   <!--
-    You do not need to do this if you are using the FluentUI nuget package or if you are debugging the demo sites that are part ofthe repository. 
+    You do not need to do this if you are using the FluentUI nuget package or if you are debugging the demo sites that are part ofthe repository.
 	-->
 	<!--
 	<ItemGroup Condition="$(Configuration)=='Debug'">

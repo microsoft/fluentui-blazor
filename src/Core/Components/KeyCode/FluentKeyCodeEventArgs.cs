@@ -8,7 +8,7 @@ public class FluentKeyCodeEventArgs
         {
             Name = name,
             Location = Enum.IsDefined(typeof(KeyLocation), location) ? (KeyLocation)location : KeyLocation.Unknown,
-            Key = Enum.IsDefined(typeof(KeyCode), keyCode) ? (KeyCode)keyCode : AspNetCore.Components.KeyCode.Unknown,
+            Key = Enum.IsDefined(typeof(KeyCode), keyCode) ? (KeyCode)keyCode : FluentUI.KeyCode.Unknown,
             KeyCode = keyCode,
             Value = value,
             CtrlKey = ctrlKey,

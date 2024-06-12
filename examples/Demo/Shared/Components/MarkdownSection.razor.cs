@@ -2,7 +2,7 @@ using Markdig;
 using Microsoft.AspNetCore.Components;
 
 using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.Infrastructure;
+using Microsoft.JSInterop;
 
 
 // Remember to replace the namespace below with your own project's namespace..

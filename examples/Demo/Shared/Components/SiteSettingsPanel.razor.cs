@@ -70,7 +70,7 @@ public partial class SiteSettingsPanel : IDialogContentComponent<GlobalState>, I
         Content.Dir = _dir;
 
         await _jsModule!.InvokeVoidAsync("switchDirection", _dir.ToString());
-        await Direction.WithDefault(_dir.ToAttributeValue());
+        await Direction.WithDefault(_dir.ToAttributeValue()!);
 
         StateHasChanged();
     }
