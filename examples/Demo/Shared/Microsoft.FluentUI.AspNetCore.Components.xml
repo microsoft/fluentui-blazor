@@ -6258,9 +6258,21 @@
             If true, force browser to redirect outside component router-space.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.CustomToggleId">
+            <summary>
+            Gets or sets the id of the custom toggle element
+            Defaults to navmenu-toggle
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.HasIcon">
             <summary>
             Returns <see langword="true"/> if the item has an <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.Icon"/> set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.CustomToggleCode">
+            <summary>
+            If a custom toggle is being used to hide/show the menu, this defines the 'onclick' code
+            Uses the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavBase.CustomToggleId"/> as the id of the elemet that will be clicked
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNavGroup.Title">
