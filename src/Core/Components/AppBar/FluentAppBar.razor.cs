@@ -39,8 +39,12 @@ public partial class FluentAppBar : FluentComponentBase
     [Parameter]
     public EventCallback<bool> PopoverVisibilityChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the collections of app bar items.
+    /// Use eiter this or ChildContent to define the content of the app bar.
+    /// </summary>
     [Parameter]
-    public IEnumerable<IAppBarItem>? Apps { get; set; }
+    public IEnumerable<IAppBarItem>? Items { get; set; }
 
     /// <summary>
     /// Gets or sets the content to display (the app bar items, <see cref="FluentAppBarItem"/>).

@@ -303,6 +303,12 @@
             Event to be called when the visibility of the popover changes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.Items">
+            <summary>
+            Gets or sets the collections of app bar items.
+            Use eiter this or ChildContent to define the content of the app bar.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.ChildContent">
             <summary>
             Gets or sets the content to display (the app bar items, <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem"/>).
@@ -353,11 +359,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Count">
             <summary>
             Gets or sets the count to show on the item with a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.Order">
-            <summary>
-            Gets or sets the position of the item in the app bar.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBarItem.ChildContent">
@@ -425,11 +426,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Overflow">
             <summary>
             Wether this app is outside of visible app bar area.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.Order">
-            <summary>
-            Gets or sets the position of the item in the app bar.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IAppBarItem.OnClick">

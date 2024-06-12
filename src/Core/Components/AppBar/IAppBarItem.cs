@@ -47,17 +47,12 @@ public interface IAppBarItem
     /// <summary>
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
-    public int Count { get; set; }
+    public int? Count { get; set; }
 
     /// <summary>
     /// Wether this app is outside of visible app bar area.
     /// </summary>
     public bool? Overflow { get; set; }
-
-    /// <summary>
-    /// Gets or sets the position of the item in the app bar.
-    /// </summary>
-    public int Order { get; set; }
 
     /// <summary>
     /// The callback to invoke when the item is clicked.

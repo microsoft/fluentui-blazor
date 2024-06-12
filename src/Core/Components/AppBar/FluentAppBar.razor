@@ -4,13 +4,13 @@
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
     <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation">
         <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
-            @if (Apps is null)
+            @if (Items is null)
             {
                 @ChildContent
             }
             else
             {
-                foreach (var item in Apps)
+                foreach (var item in Items)
                 {
                     <FluentAppBarItem IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" />
                 }
