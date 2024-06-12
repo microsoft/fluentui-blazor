@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 public record Customer(int Id, string Name)
 {

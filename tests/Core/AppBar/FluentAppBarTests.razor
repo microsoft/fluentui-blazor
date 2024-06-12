@@ -42,7 +42,7 @@
         // This does not contribute to html output but helps for code coverage testing
         cut.InvokeAsync(() => cut.Instance.OverflowRaisedAsync("""[{"Id":"id1","Overflow":false,"Text":"My item"},{"Id":"id2","Overflow":true,"Text":"My item 2"}]"""));
         var item = cut.FindComponent<FluentAppBarItem>();
-        item.Instance.SetProperties(true);
+        item.Instance.Overflow = true;
 
         cut.Render();
 
@@ -68,7 +68,7 @@
         // This does not contribute to html output but helps for code coverage testing
         cut.InvokeAsync(() => cut.Instance.OverflowRaisedAsync("""[{"Id":"id1","Overflow":false,"Text":"My item"},{"Id":"id2","Overflow":true,"Text":"My item 2"}]"""));
         var item = cut.FindComponent<FluentAppBarItem>();
-        item.Instance.SetProperties(true);
+        item.Instance.Overflow = true;
 
         cut.Render();
 
