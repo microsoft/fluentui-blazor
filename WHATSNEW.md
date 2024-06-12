@@ -1,27 +1,42 @@
 ﻿## v3.7.2
+- [Card] Support AreaRestricted for MinimalStyle also ([#2170](https://github.com/microsoft/fluentui-blazor/pull/2170))
+- [ComboBox] bind-SelectedOption is null when using bind-SelectedOption:after  ([#2102](https://github.com/microsoft/fluentui-blazor/pull/2102))
+- [DataGrid] Allow programmatic sorting of columns by name or index ([#2156](https://github.com/microsoft/fluentui-blazor/pull/2156))
+- [DataGrid] Check datagrid's rowelements when correcting column options ([#2117](https://github.com/microsoft/fluentui-blazor/pull/2117))
+- [DesignToken] Add WithDefault overload ([#2159](https://github.com/microsoft/fluentui-blazor/pull/2159))
 - [Dialog] Use FluentTooltip for close button (a11y)
+- [FluentAutocomplete] Add SelectValueOnTab attribute ([#2110](https://github.com/microsoft/fluentui-blazor/pull/2110))
+- [FluentKeyCode] Add KeyUp event ([#2122](https://github.com/microsoft/fluentui-blazor/pull/2122))
+- [Header] Add Id to the container header tag ([#2125](https://github.com/microsoft/fluentui-blazor/pull/2125))
+- [Inputs] Adds FieldIdentifier parameter ([#2114](https://github.com/microsoft/fluentui-blazor/pull/2114))
+- [Layout] Add Id to the container div ([#2123](https://github.com/microsoft/fluentui-blazor/pull/2123))
+- [Layout] Add Orientation support ([#2096](https://github.com/microsoft/fluentui-blazor/pull/2096))
+- [MarkdownSection] Optimize to minimize number of calls to OnContentConverted ([#2092](https://github.com/microsoft/fluentui-blazor/pull/2092))
+- [NavMenu] Fix double click needed for expanding/collapsing child elements when prerendering is turned off ([#2133](https://github.com/microsoft/fluentui-blazor/pull/2133))
+- [NavMenu] Fix FluentNavLink to support CustomColor ([#2116](https://github.com/microsoft/fluentui-blazor/pull/2116))
+- [Progress] Fix height in Indeterminate mode by using InvariantCulture ([#2120](https://github.com/microsoft/fluentui-blazor/pull/2120))
 
 ### Icons
 - Update to Fluent UI System Icons 1.1.242
 
-    **What's new (Name / Size(s) / Variant(s))**
-    - Breakout Room / 32 / Filled & Regular
-    - Card UI Portrait Flip / 16, 20, 24 / Filled & Regular
-    - Cursor / 28, 32 / Filled & Regular
-    - Layout Row Two / 28, 48 / Filled & Regular
-    - Notepad Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
-    - Paint Brush Subtract / 16, 20, 24, 28, 32 / Filled & Regular
-    - Paint Brush / 28 / Filled & Regular
-    - Play Circle Sparkle / 16, 20, 24 / Filled & Regular
-    - Replay / 16, 20, 24, 28, 32 / Filled & Regular
-    - Send Person / 16, 20, 24 / Filled & Regular
-    - Square Dovetail Joint / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
-    - Table Cursor / 16, 20, 24 / Filled & Regular
-    - Transparency Square / 20, 24 / Filled & Regular
+	**What's new (Name / Size(s) / Variant(s))**
+	- Breakout Room / 32 / Filled & Regular
+	- Card UI Portrait Flip / 16, 20, 24 / Filled & Regular
+	- Cursor / 28, 32 / Filled & Regular
+	- Layout Row Two / 28, 48 / Filled & Regular
+	- Notepad Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
+	- Paint Brush Subtract / 16, 20, 24, 28, 32 / Filled & Regular
+	- Paint Brush / 28 / Filled & Regular
+	- Play Circle Sparkle / 16, 20, 24 / Filled & Regular
+	- Replay / 16, 20, 24, 28, 32 / Filled & Regular
+	- Send Person / 16, 20, 24 / Filled & Regular
+	- Square Dovetail Joint / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Table Cursor / 16, 20, 24 / Filled & Regular
+	- Transparency Square / 20, 24 / Filled & Regular
  
-     **What's updated (Name / Size(s) / Variant(s))**
-    - Notepad / 32 / Filled & Regular
-    - Replay / 20 / Filled & Regular
+	 **What's updated (Name / Size(s) / Variant(s))**
+	- Notepad / 32 / Filled & Regular
+	- Replay / 20 / Filled & Regular
    
 
 ## v3.7.1
