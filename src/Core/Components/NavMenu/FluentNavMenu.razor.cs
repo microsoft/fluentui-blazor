@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentNavMenu : FluentComponentBase
 {
     private const string WIDTH_COLLAPSED_MENU = "40px";
-    
+
     internal string? ClassValue => new CssBuilder("fluent-nav-menu")
         .AddClass(Class)
         .AddClass("collapsed", () => !Expanded)
@@ -21,7 +21,7 @@ public partial class FluentNavMenu : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the content to be rendered for the collapse icon when the menu is collapsible. 
+    /// Gets or sets the content to be rendered for the collapse icon when the menu is collapsible.
     /// The default icon will be used if this is not specified.
     /// </summary>
     [Parameter]

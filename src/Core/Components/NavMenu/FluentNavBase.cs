@@ -110,9 +110,9 @@ public abstract class FluentNavBase : FluentComponentBase
 
     /// <summary>
     /// If a custom toggle is being used to hide/show the menu, this defines the 'onclick' code
-    /// Uses the <see cref="CustomToggleId"/> as the id of the elemet that will be clicked
+    /// Uses the <see cref="CustomToggleId"/> as the id of the element that will be clicked
     /// </summary>
-    internal string? CustomToggleCode => Owner.CustomToggle ? $"document.getElementById('{CustomToggleId}').click();" : null;
+    internal string? CustomToggleCode => (Owner is not null && Owner.CustomToggle) ? $"document.getElementById('{CustomToggleId}').click();" : null;
 
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
