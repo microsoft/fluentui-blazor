@@ -13,12 +13,12 @@ public partial class FluentAppBar : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
     private const string OVERFLOW_SELECTOR = ".fluent-appbar-item";
-    private readonly Dictionary<string, FluentAppBarItem> _apps = [];
+    private readonly InternalAppBarContext _internalAppBarContext;
     private DotNetObjectReference<FluentAppBar>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
     private bool _showMoreItems = false;
     private string? _searchTerm = string.Empty;
-    private IEnumerable<FluentAppBarItem> _searchResults = [];
+    private IEnumerable<IAppBarItem> _searchResults = [];
 
     // ToDo: Implement focus on popup
     //private FluentSearch? _appSearch;
@@ -40,15 +40,22 @@ public partial class FluentAppBar : FluentComponentBase
     public EventCallback<bool> PopoverVisibilityChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the collections of app bar items.
+    /// Use eiter this or ChildContent to define the content of the app bar.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<IAppBarItem>? Items { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to display (the app bar items, <see cref="FluentAppBarItem"/>).
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets all app items with <see cref="FluentAppBarItem.Overflow"/> assigned to True.
+    /// Gets all app items with <see cref="IAppBarItem.Overflow"/> assigned to True.
     /// </summary>
-    public IEnumerable<FluentAppBarItem> AppsOverflow => _apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
+    public IEnumerable<IAppBarItem> AppsOverflow => _internalAppBarContext.Apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
     internal string? ClassValue => new CssBuilder("nav-menu-container")
         .AddClass(Class)
@@ -79,23 +86,7 @@ public partial class FluentAppBar : FluentComponentBase
     public FluentAppBar()
     {
         Id = Identifier.NewId();
-    }
-
-    internal void Register(FluentAppBarItem app)
-    {
-        ArgumentNullException.ThrowIfNull(app.Id);
-
-        _apps.Add(app.Id, app);
-    }
-
-    internal void Unregister(FluentAppBarItem app)
-    {
-        ArgumentNullException.ThrowIfNull(app.Id);
-
-        if (_apps.Count > 0)
-        {
-            _apps.Remove(app.Id);
-        }
+        _internalAppBarContext = new(this);
     }
 
     /// <summary />
@@ -113,8 +104,8 @@ public partial class FluentAppBar : FluentComponentBase
         {
             if (item.Id is not null)
             {
-                var app = _apps[item.Id];
-                app?.SetProperties(item.Overflow);
+                var app = _internalAppBarContext.Apps[item.Id];
+                app.Overflow = item.Overflow;
             }
         }
 

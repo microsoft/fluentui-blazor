@@ -1,0 +1,61 @@
+﻿<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 295px; padding: 10px;">
+    <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
+        <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
+        <FluentAppBar Items="@_apps.OrderBy(a => a.Order)"
+                      Style="height: 100%; background-color: var(--neutral-layer-2);"
+                      PopoverVisibilityChanged="HandlePopover"
+                      PopoverShowSearch="@_showSearch">
+        </FluentAppBar>
+    </FluentStack>
+</div>
+
+
+@code {
+    private class FluentCustomAppBarItem : FluentAppBarItem
+    {
+        public int Order { get; set; }
+    }
+
+    private List<FluentCustomAppBarItem> _apps => new List<FluentCustomAppBarItem>
+    {
+        new FluentCustomAppBarItem { Order = 15, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Aaaaa", Href = "/AppBarDefault" },
+        new FluentCustomAppBarItem { Order = 14, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Bbbbb", Href = "/AppBarPage" },
+        new FluentCustomAppBarItem { Order = 13, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Ccccc" },
+        new FluentCustomAppBarItem { Order = 12, IconRest = ConsoleLogsIcon(), IconActive = ConsoleLogsIcon(active: true), Text = "Ddddd" },
+        new FluentCustomAppBarItem { Order = 11, IconRest = ConsoleLogsIcon(), IconActive = ConsoleLogsIcon(active: true), Text = "Eeeee" },
+        new FluentCustomAppBarItem { Order = 10, IconRest = ConsoleLogsIcon(), IconActive = ConsoleLogsIcon(active: true), Text = "Fffff" },
+        new FluentCustomAppBarItem { Order = 9, IconRest = StructuredLogsIcon(), IconActive = StructuredLogsIcon(active: true), Text = "Ggggg", Count = 4 },
+        new FluentCustomAppBarItem { Order = 8, IconRest = StructuredLogsIcon(), IconActive = StructuredLogsIcon(active: true), Text = "Hhhhh" },
+        new FluentCustomAppBarItem { Order = 7, IconRest = StructuredLogsIcon(), IconActive = StructuredLogsIcon(active: true), Text = "Iiiii" },
+        new FluentCustomAppBarItem { Order = 6, IconRest = TracesIcon(), IconActive = TracesIcon(active: true), Text = "Jjjjj" },
+        new FluentCustomAppBarItem { Order = 5, IconRest = TracesIcon(), IconActive = TracesIcon(active: true), Text = "Kkkkk" },
+        new FluentCustomAppBarItem { Order = 4, IconRest = TracesIcon(), IconActive = TracesIcon(active: true), Text = "Lllll" },
+        new FluentCustomAppBarItem { Order = 3, IconRest = MetricsIcon(), IconActive = MetricsIcon(active: true), Text = "Mmmmm" },
+        new FluentCustomAppBarItem { Order = 2, IconRest = MetricsIcon(), IconActive = MetricsIcon(active: true), Text = "Nnnnn" },
+        new FluentCustomAppBarItem { Order = 1, IconRest = MetricsIcon(), IconActive = MetricsIcon(active: true), Text = "Ooooo" }
+    };
+
+    private bool _showSearch = true;
+
+    private static Icon ResourcesIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.AppFolder()
+               : new Icons.Regular.Size24.AppFolder();
+
+    private static Icon ConsoleLogsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.SlideText()
+               : new Icons.Regular.Size24.SlideText();
+
+    private static Icon StructuredLogsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.SlideTextSparkle()
+               : new Icons.Regular.Size24.SlideTextSparkle();
+
+    private static Icon TracesIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.GanttChart()
+               : new Icons.Regular.Size24.GanttChart();
+
+    private static Icon MetricsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.ChartMultiple()
+               : new Icons.Regular.Size24.ChartMultiple();
+
+    private void HandlePopover(bool visible) => DemoLogger.WriteLine($"Popover visibility changed to {visible}");
+}
