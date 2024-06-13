@@ -75,17 +75,6 @@ public abstract class FluentNavBase : FluentComponentBase
     [Parameter]
     public string? Tooltip { get; set; }
 
-    [CascadingParameter]
-    public FluentNavMenu Owner { get; set; } = default!;
-
-    [CascadingParameter]
-    public FluentMenu? SubMenu { get; set; }
-
-    /// <summary>
-    /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
-    /// </summary>
-    internal bool HasIcon => Icon is not null;
-
     /// <summary>
     /// The callback to invoke when the item is clicked.
     /// </summary>
@@ -98,8 +87,32 @@ public abstract class FluentNavBase : FluentComponentBase
     [Parameter]
     public bool ForceLoad { get; set; }
 
+    /// <summary>
+    /// Gets or sets the id of the custom toggle element
+    /// Defaults to navmenu-toggle
+    /// </summary>
+    [Parameter]
+    public string CustomToggleId { get; set; } = "navmenu-toggle";
+
+    [CascadingParameter]
+    public FluentNavMenu Owner { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentMenu? SubMenu { get; set; }
+
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the item has an <see cref="Icon"/> set.
+    /// </summary>
+    internal bool HasIcon => Icon is not null;
+
+    /// <summary>
+    /// If a custom toggle is being used to hide/show the menu, this defines the 'onclick' code
+    /// Uses the <see cref="CustomToggleId"/> as the id of the element that will be clicked
+    /// </summary>
+    internal string? CustomToggleCode => (Owner is not null && Owner.CustomToggle) ? $"document.getElementById('{CustomToggleId}').click();" : null;
 
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
