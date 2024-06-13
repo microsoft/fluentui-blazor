@@ -1,6 +1,4 @@
-﻿## v3.7.3
-
-## v3.7.2
+﻿## v3.7.2
 - [Card] Support AreaRestricted for MinimalStyle also ([#2170](https://github.com/microsoft/fluentui-blazor/pull/2170))
 - [ComboBox] bind-SelectedOption is null when using bind-SelectedOption:after  ([#2102](https://github.com/microsoft/fluentui-blazor/pull/2102))
 - [DataGrid] Allow programmatic sorting of columns by name or index ([#2156](https://github.com/microsoft/fluentui-blazor/pull/2156))
