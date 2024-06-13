@@ -11,7 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <ProjectReference Include="..\DemoV5.Client\DemoV5.Client.csproj" />
+    <ProjectReference Include="..\..\Demo\Shared\FluentUI.Demo.Shared.csproj" />
+    <ProjectReference Include="..\Demo.Client\FluentUI.Demo.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>
   <ItemGroup>

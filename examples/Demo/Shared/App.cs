@@ -1,4 +1,4 @@
-namespace FluentUI.Demo.Shared;
+namespace FluentUI.Demo;
 public partial class App
 {
     public static string PageTitle(string page)

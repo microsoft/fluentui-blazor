@@ -2,8 +2,9 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-//using DemoV5.Client.Pages;
-using DemoV5.Components;
+using FluentUI.Demo.Components;
+using FluentUI.Demo.Shared;
+using FluentUI.Demo.Shared.SampleData;
 using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,12 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIDemoServerServices();
+
+builder.Services.AddScoped<DataSource>();
 
 var app = builder.Build();
 
@@ -34,9 +40,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>()
+app.MapRazorComponents<FluentUI.Demo.Components.App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(DemoV5.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(FluentUI.Demo.Shared._Imports).Assembly)
+    .AddAdditionalAssemblies(typeof(FluentUI.Demo.Client._Imports).Assembly);
 
 app.Run();
