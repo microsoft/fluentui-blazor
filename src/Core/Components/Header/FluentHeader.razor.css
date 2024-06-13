@@ -2,12 +2,12 @@
     display: flex;
     z-index: 10;
     flex-shrink: 0;
-    background-color: var(--colorNeutralBackground1);
+    background-color: var(--colorBrandBackground);
     font-family: var(--fontFamilyBase);
     font-weight: bold;
     font-size: var(--fontSizeBase400);
     line-height: var(--lineHeightBase400);
-    color: var(--colorNeutralForeground1);
+    color: var(--colorNeutralForegroundOnBrand);
 }
 
     .header .header-gutters {

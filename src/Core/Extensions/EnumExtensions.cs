@@ -6,13 +6,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 public static class EnumExtensions
 {
 
-    public static string? ToAttributeValue<TEnum>(this TEnum? value, bool lowercase = true) where TEnum : struct, Enum
+    public static string? ToAttributeValue<TEnum>(this TEnum? value, bool lowercase = false) where TEnum : struct, Enum
         => value == null ? null : ToAttributeValue(value.Value, lowercase);
 
-    public static string? ToAttributeValue<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, Enum
+    public static string? ToAttributeValue<TEnum>(this TEnum value, bool lowercase = false) where TEnum : struct, Enum
         => GetDescription(value, lowercase);
 
-    public static string? GetDescription<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, IConvertible
+    public static string? GetDescription<TEnum>(this TEnum value, bool lowercase = false) where TEnum : struct, IConvertible
     {
         if (!typeof(TEnum).IsEnum)
         {

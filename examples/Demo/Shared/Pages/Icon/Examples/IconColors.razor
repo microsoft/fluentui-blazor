@@ -36,7 +36,7 @@
                     break;
             }
         </FluentGridItem>
-        <FluentGridItem xs="1" Style="background-color: var(--neutral-layer-3);">
+        <FluentGridItem xs="1" Style="background-color: var(--colorNeutralBackground3);">
             @if (color == Color.Custom)
             {
                 <FluentIcon Value="@(new @Icons.Filled.Size24.Alert())"
@@ -51,16 +51,16 @@
                             Title="@($"Icon with Color=\"Color.{name}\"")" />
             }
         </FluentGridItem>
-        <FluentGridItem xs="2" Style="background-color: var(--neutral-layer-3);">
+        <FluentGridItem xs="2" Style="background-color: var(--colorNeutralBackground3);">
             <FluentButton IconStart="@(new Icons.Filled.Size24.Alert().WithColor(css))"
                           Title="@($"Button with an IconStart colorized using .WithColor(\"{css}\")")">
                 OK
             </FluentButton>
         </FluentGridItem>
-        <FluentGridItem xs="2" Style="background-color: var(--neutral-layer-3);">
+        <FluentGridItem xs="2" Style="background-color: var(--colorNeutralBackground3);">
             <FluentButton IconStart="@(new Icons.Filled.Size24.Alert().WithColor(css))"
                           Title="@($"Button with an IconStart colorized using .WithColor(\"{css}\")")"
-                          Appearance="Appearance.Accent">
+                          Appearance2="ButtonAppearance.Primary">
                 OK
             </FluentButton>
         </FluentGridItem>

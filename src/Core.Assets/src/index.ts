@@ -390,7 +390,7 @@ export function beforeStart(options: any) {
   darkTheme.colorBrandForeground1 = myNewTheme[110];
   darkTheme.colorBrandForeground2 = myNewTheme[120];
 
-  setTheme(lightTheme);
+  setTheme(webLightTheme);
 
   accordionItemDefinition.define(FluentDesignSystem.registry);
   accordionDefinition.define(FluentDesignSystem.registry);

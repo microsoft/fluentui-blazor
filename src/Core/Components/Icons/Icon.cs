@@ -92,7 +92,7 @@ public class Icon : IconInfo
         if (Size != IconSize.Custom && ContainsSVG)
         {
             var styleWidth = size ?? $"{(int)Size}px";
-            var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
+            var styleColor = color ?? Color ?? "var(--colorBrandForeground1)";
             return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
         }
         else

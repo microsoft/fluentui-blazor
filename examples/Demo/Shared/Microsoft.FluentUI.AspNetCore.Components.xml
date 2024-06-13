@@ -818,6 +818,12 @@
             Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Appearance2">
+            <summary>
+            Gets or sets the visual appearance. See <seealso cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.BackgroundColor">
             <summary>
             Gets or sets the background color of this button (overrides the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Appearance"/> property).
@@ -12071,6 +12077,36 @@
             Blazor Hybrid
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance">
+            <summary>
+            The visual appearance of a component.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Primary">
+            <summary>
+            Uses the current accent color
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Secondary">
+            <summary>
+            Neutral
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Subtle">
+            <summary>
+             Reveal on hover
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Outline">
+            <summary>
+            Show a border.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.ButtonAppearance.Transparent">
+            <summary>
+            Transparent
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ButtonType">
             <summary>
             The type of button.
@@ -12133,62 +12169,54 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Neutral">
             <summary>
-            Use the '--neutral-foreground-rest' CSS variable color to draw the icon. 
-            Icon is drawn in the same color as the standard text. 
+            Use the '--colorNeutralForeground1Rest' CSS variable color to draw the icon.
+            Icon is drawn in the same color as the standard text.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Accent">
             <summary>
-            Use the '--accent-fill-rest' CSS variable color.
+            Use the '--colorBrandForeground1' CSS variable color.
             This is the default value.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Warning">
             <summary>
-            Use the '--warning' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
+            Use the '--colorStatusWarningForeground1' CSS variable color.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Info">
             <summary>
-            Use the '--info' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
+            Use the '--colorPaletteAnchorForeground2' CSS variable color.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Error">
             <summary>
-            Use the '--error' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
+            Use the '--colorStatusDagerForeground1' CSS variable color.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Success">
             <summary>
-            Use the '--success' CSS variable color.
-            Note: This color is defined in the variables.css file. If this file is not being used, 
-            a CSS variable with this name and appropriate value needs to be created.
+            Use the '--colorStatusSuccessForeground1' CSS variable color.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Fill">
             <summary>
-            Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
+            Use the '-colorNeutralForeground1Rest' CSS variable color, adapts to light/dark mode.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.FillInverse">
             <summary>
-            Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
+            Use the '--colorNeutralForegroundStaticInverted' CSS variable color, adapts to light/dark mode.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Lightweight">
             <summary>
-            Use the '--neutral-layer-1' CSS variable color, adapts to light/dark mode.
+            Use the '--colorNeutralStroke2' CSS variable color, adapts to light/dark mode.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Disabled">
             <summary>
-             Use the --neutral-stroke-rest CSS variable color, adapts to light/dark mode.
+             Use the --colorNeutralStrokeDisabled CSS variable color, adapts to light/dark mode.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Color.Custom">

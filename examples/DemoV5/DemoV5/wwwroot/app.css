@@ -1,20 +1,12 @@
 @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
-body {
-    --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
-    font-family: var(--body-font);
-    font-size: var(--type-ramp-base-font-size);
-    line-height: var(--type-ramp-base-line-height);
-    margin: 0;
-}
-
 .navmenu-icon {
     display: none;
 }
 
 .main {
     min-height: calc(100dvh - 86px);
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
     align-items: stretch !important;
 }
 
@@ -34,15 +26,68 @@ body {
     width: 100dvw;
 }
 
+.siteheader {
+    background-color: var(--colorNeutralBackground6) !important;
+    border-bottom: var(--strokeWidthThick) solid var(--colorBrandForeground1);
+    margin-bottom: 0 !important;
+}
+
+    .siteheader .logo {
+        width: 108px;
+        height: 23px;
+        grid-column: 1;
+    }
+
+    .siteheader .search {
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+    }
+
+    .siteheader .links {
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .siteheader .notifications {
+        display: flex;
+        align-items: center;
+    }
+
+    .siteheader .settings {
+        padding-right: 6px;
+        display: flex;
+        align-items: center;
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+[dir="rtl"] .siteheader .settings {
+    padding: 0 0 0 6px;
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+[dir="rtl"] .siteheader .search {
+    padding-left: 20px;
+    padding-right: 0;
+}
+
+[dir="rtl"] .siteheader .links {
+    padding-left: 10px;
+}
+
+
 footer {
-    background: var(--neutral-layer-4);
-    color: var(--neutral-foreground-rest);
+    background: var(--colorNeutralBackground4);
+    color: var(--colorNeutralForeground1);
     align-items: center;
     padding: 10px 10px;
 }
 
     footer a {
-        color: var(--neutral-foreground-rest);
+        color: var(--colorNeutralForeground2Link);
         text-decoration: none;
     }
 
@@ -52,11 +97,12 @@ footer {
         }
 
         footer a:hover {
+            color: var(--colorNeutralForeground2BrandHover);
             text-decoration: underline;
         }
 
 .alert {
-    border: 1px dashed var(--accent-fill-rest);
+    border: 1px dashed var(--colorBrandForeground1Rest);
     padding: 5px;
 }
 

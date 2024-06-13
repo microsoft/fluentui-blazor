@@ -8,78 +8,70 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum Color
 {
     /// <summary>
-    /// Use the '--neutral-foreground-rest' CSS variable color to draw the icon. 
-    /// Icon is drawn in the same color as the standard text. 
+    /// Use the '--colorNeutralForeground1Rest' CSS variable color to draw the icon.
+    /// Icon is drawn in the same color as the standard text.
     /// </summary>
-    [Description("var(--neutral-foreground-rest)")]
+    [Description("var(--colorNeutralForeground1Rest)")]
     Neutral,
 
     /// <summary>
-    /// Use the '--accent-fill-rest' CSS variable color.
+    /// Use the '--colorBrandForeground1' CSS variable color.
     /// This is the default value.
     /// </summary>
-    [Description("var(--accent-fill-rest)")]
+    [Description("var(--colorBrandForeground1)")]
     Accent,
 
     /// <summary>
-    /// Use the '--warning' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
+    /// Use the '--colorStatusWarningForeground1' CSS variable color.
     /// </summary>
-    [Description("var(--warning)")]
+    [Description("var(--colorStatusWarningForeground1)")]
     Warning,
 
     /// <summary>
-    /// Use the '--info' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
+    /// Use the '--colorPaletteAnchorForeground2' CSS variable color.
     /// </summary>
-    [Description("var(--info)")]
+    [Description("var(--colorPaletteAnchorBackground2)")]
     Info,
 
     /// <summary>
-    /// Use the '--error' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
+    /// Use the '--colorStatusDagerForeground1' CSS variable color.
     /// </summary>
-    [Description("var(--error)")]
+    [Description("var(--colorStatusDangerForeground1)")]
     Error,
 
     /// <summary>
-    /// Use the '--success' CSS variable color.
-    /// Note: This color is defined in the variables.css file. If this file is not being used, 
-    /// a CSS variable with this name and appropriate value needs to be created.
+    /// Use the '--colorStatusSuccessForeground1' CSS variable color.
     /// </summary>
-    [Description("var(--success)")]
+    [Description("var(--colorStatusSuccessForeground1)")]
     Success,
 
     /// <summary>
-    /// Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
+    /// Use the '-colorNeutralForeground1Rest' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-fill-rest)")]
+    [Description("var(--colorNeutralForeground1Rest)")]
     Fill,
 
     /// <summary>
-    /// Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
+    /// Use the '--colorNeutralForegroundStaticInverted' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-fill-inverse-rest)")]
+    [Description("var(--colorNeutralForegroundStaticInverted)")]
     FillInverse,
 
     /// <summary>
-    /// Use the '--neutral-layer-1' CSS variable color, adapts to light/dark mode.
+    /// Use the '--colorNeutralStroke2' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-layer-1)")]
+    [Description("var(--colorNeutralStroke2)")]
     Lightweight,
 
     /// <summary>
-    ///  Use the --neutral-stroke-rest CSS variable color, adapts to light/dark mode.
+    ///  Use the --colorNeutralStrokeDisabled CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-stroke-rest)")]
+    [Description("var(--colorNeutralStrokeDisabled)")]
     Disabled,
 
     /// <summary>
     /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
     /// </summary>
-    [Description("var(--neutral-foreground-rest)")]
+    [Description("var(--colorNeutralForeground1Rest)")]
     Custom,
 }

@@ -109,6 +109,13 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public Appearance? Appearance { get; set; } = AspNetCore.Components.Appearance.Neutral;
 
     /// <summary>
+    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Defaults to <seealso cref="AspNetCore.Components.Appearance.Neutral"/>
+    /// </summary>
+    [Parameter]
+    public ButtonAppearance? Appearance2 { get; set; } = AspNetCore.Components.ButtonAppearance.Secondary;
+
+    /// <summary>
     /// Gets or sets the background color of this button (overrides the <see cref="Appearance"/> property).
     /// Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
     /// </summary>
