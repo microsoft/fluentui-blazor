@@ -2,15 +2,9 @@
 // https://learn.microsoft.com/en-us/fluent-ui/web-components/getting-started/styling
 // ********************
 
+import { setTheme, colorBrandForeground1 } from '@fluentui/web-components'
+import { webLightTheme, webDarkTheme } from '@fluentui/tokens';
 import { ColorsUtils } from "./Design/ColorsUtils";
-import {
-  
-  baseLayerLuminance,
-  StandardLuminance,
-  neutralBaseColor,
-  accentBaseColor,
-  SwatchRGB
-} from "@fluentui/web-components";
 import { ThemeStorage } from "./Design/ThemeStorage";
 import { Synchronization } from "./Design/Synchronization";
 
@@ -53,22 +47,26 @@ class DesignTheme extends HTMLElement {
     switch (value?.toLowerCase()) {
       // Dark mode - Luminance = 0.15
       case "dark":
-        baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        //baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        setTheme(webDarkTheme);
         break;
 
       // Light mode - Luminance = 0.98
       case "light":
-        baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        //baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        setTheme(webLightTheme);
         break;
 
       // System mode
       default:
         const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
         if (isDark) {
-          baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+          //baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+          setTheme(webDarkTheme);
         }
         else {
-          baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+          //baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+          setTheme(webLightTheme);
         }
         break;
     }
@@ -78,8 +76,8 @@ class DesignTheme extends HTMLElement {
 
   /**
   * Gets the current color or office name attribute value.
-  * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook, 
-  * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype, 
+  * Access, Booking, Exchange, Excel, GroupMe, Office, OneDrive, OneNote, Outlook,
+  * Planner, PowerApps, PowerBI, PowerPoint, Project, Publisher, SharePoint, Skype,
   * Stream, Sway, Teams, Visio, Windows, Word, Yammer
   */
   get primaryColor(): string | null {
@@ -98,11 +96,12 @@ class DesignTheme extends HTMLElement {
       : value;
 
     // Apply the color
-    const rgb = ColorsUtils.parseColorHexRGB(color);
-    if (rgb != null) {
-      const swatch = SwatchRGB.from(rgb);
-      accentBaseColor.withDefault(swatch);
-    }
+    //const rgb = ColorsUtils.parseColorHexRGB(color);
+    //if (rgb != null) {
+    //  const swatch = SwatchRGB.from(rgb);
+    //  accentBaseColor.withDefault(swatch);
+      let colorBrandForeground1 = color;
+    //}
 
     // Synchronization
     this._synchronization.synchronizeOtherComponents("primary-color", value);
@@ -247,18 +246,20 @@ class DesignTheme extends HTMLElement {
     // If not, the dev already "forced" the mode to "dark" or "light"
     if (currentMode == null) {
 
-      // console.log(` ** colorSchemeListener = "${currentMode}"`) 
+      // console.log(` ** colorSchemeListener = "${currentMode}"`)
 
       // Dark
       if (e.matches) {
         this.dispatchAttributeChanged("mode", currentMode, "system-dark");
-        baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        //baseLayerLuminance.withDefault(StandardLuminance.DarkMode);
+        setTheme(webDarkTheme);
       }
 
       // Light
       else {
         this.dispatchAttributeChanged("mode", currentMode, "system-light");
-        baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        //baseLayerLuminance.withDefault(StandardLuminance.LightMode);
+        setTheme(webLightTheme);
       }
     }
   }

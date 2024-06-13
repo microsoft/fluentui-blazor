@@ -1,11 +1,45 @@
 
 
-import * as webcomponents from '@fluentui/web-components'
+import {
+  FluentDesignSystem,
+  setTheme,
+  accordionItemDefinition,
+  accordionDefinition,
+  AnchorButtonDefinition,
+  AvatarDefinition,
+  BadgeDefinition,
+  ButtonDefinition,
+  CheckboxDefinition,
+  CompoundButtonDefinition,
+  CounterBadgeDefinition,
+  DialogDefinition,
+  DialogBodyDefinition,
+  DividerDefinition,
+  FieldDefinition,
+  ImageDefinition,
+  LabelDefinition,
+  MenuButtonDefinition,
+  MenuItemDefinition,
+  MenuListDefinition,
+  MenuDefinition,
+  ProgressBarDefinition,
+  RadioGroupDefinition,
+  RadioDefinition,
+  SliderDefinition,
+  SpinnerDefinition,
+  SwitchDefinition,
+  TabPanelDefinition,
+  TabDefinition,
+  TabsDefinition,
+  TextInputDefinition,
+  TextDefinition,
+  ToggleButtonDefinition
+} from '@fluentui/web-components'
 
-import { webLightTheme, webDarkTheme } from '@fluentui/tokens';
+import { webLightTheme, webDarkTheme, BrandVariants, Theme, createDarkTheme, createLightTheme } from '@fluentui/tokens';
 import { SplitPanels } from './SplitPanels'
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
-//import { DesignTheme } from './DesignTheme'
+import { DesignTheme } from './DesignTheme'
 
 
 
@@ -323,41 +357,74 @@ export function afterStarted(blazor: Blazor, mode: string) {
 
 export function beforeStart(options: any) {
 
-  webcomponents.setTheme(webLightTheme);
 
-  webcomponents.accordionItemDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.accordionDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.AnchorButtonDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.AvatarDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.BadgeDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.ButtonDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.CheckboxDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.CompoundButtonDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.CounterBadgeDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.DialogDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.DialogBodyDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.DividerDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.FieldDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.ImageDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.LabelDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.MenuButtonDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.MenuItemDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.MenuListDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.MenuDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.ProgressBarDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.RadioGroupDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.RadioDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.SliderDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.SpinnerDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.SwitchDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.TabPanelDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.TabDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.TabsDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.TextInputDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.TextDefinition.define(webcomponents.FluentDesignSystem.registry);
-  webcomponents.ToggleButtonDefinition.define(webcomponents.FluentDesignSystem.registry);
 
-  //customElements.define("fluent-design-theme", DesignTheme);
+  const myNewTheme: BrandVariants = {
+    10: "#050205",
+    20: "#231121",
+    30: "#3C183A",
+    40: "#511C4E",
+    50: "#661F63",
+    60: "#7D2279",
+    70: "#94248F",
+    80: "#AA28A5",
+    90: "#B443AE",
+    100: "#BD59B6",
+    110: "#C66EBF",
+    120: "#CF82C7",
+    130: "#D795D0",
+    140: "#DFA8D9",
+    150: "#E7BBE1",
+    160: "#EECEEA"
+  };
+
+  const lightTheme: Theme = {
+    ...createLightTheme(myNewTheme),
+  };
+
+  const darkTheme: Theme = {
+    ...createDarkTheme(myNewTheme),
+  };
+
+
+  darkTheme.colorBrandForeground1 = myNewTheme[110];
+  darkTheme.colorBrandForeground2 = myNewTheme[120];
+
+  setTheme(lightTheme);
+
+  accordionItemDefinition.define(FluentDesignSystem.registry);
+  accordionDefinition.define(FluentDesignSystem.registry);
+  AnchorButtonDefinition.define(FluentDesignSystem.registry);
+  AvatarDefinition.define(FluentDesignSystem.registry);
+  BadgeDefinition.define(FluentDesignSystem.registry);
+  ButtonDefinition.define(FluentDesignSystem.registry);
+  CheckboxDefinition.define(FluentDesignSystem.registry);
+  CompoundButtonDefinition.define(FluentDesignSystem.registry);
+  CounterBadgeDefinition.define(FluentDesignSystem.registry);
+  DialogDefinition.define(FluentDesignSystem.registry);
+  DialogBodyDefinition.define(FluentDesignSystem.registry);
+  DividerDefinition.define(FluentDesignSystem.registry);
+  FieldDefinition.define(FluentDesignSystem.registry);
+  ImageDefinition.define(FluentDesignSystem.registry);
+  LabelDefinition.define(FluentDesignSystem.registry);
+  MenuButtonDefinition.define(FluentDesignSystem.registry);
+  MenuItemDefinition.define(FluentDesignSystem.registry);
+  MenuListDefinition.define(FluentDesignSystem.registry);
+  MenuDefinition.define(FluentDesignSystem.registry);
+  ProgressBarDefinition.define(FluentDesignSystem.registry);
+  RadioGroupDefinition.define(FluentDesignSystem.registry);
+  RadioDefinition.define(FluentDesignSystem.registry);
+  SliderDefinition.define(FluentDesignSystem.registry);
+  SpinnerDefinition.define(FluentDesignSystem.registry);
+  SwitchDefinition.define(FluentDesignSystem.registry);
+  TabPanelDefinition.define(FluentDesignSystem.registry);
+  TabDefinition.define(FluentDesignSystem.registry);
+  TabsDefinition.define(FluentDesignSystem.registry);
+  TextInputDefinition.define(FluentDesignSystem.registry);
+  TextDefinition.define(FluentDesignSystem.registry);
+  ToggleButtonDefinition.define(FluentDesignSystem.registry);
+
+  customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
 
   beforeStartCalled = true;
