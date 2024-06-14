@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.Shared;
+namespace FluentUI.Demo.Shared.Layout;
 
 public partial class DemoMainLayout
 {
-    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Shared/DemoMainLayout.razor.js";
+    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Shared/Layout/DemoMainLayout.razor.js";
     private string? _version;
     private bool _mobile;
     private string? _prevUri;

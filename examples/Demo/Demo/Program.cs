@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.Components;
 using FluentUI.Demo.Shared;
 using FluentUI.Demo.Shared.SampleData;
 using Microsoft.FluentUI.AspNetCore.Components;

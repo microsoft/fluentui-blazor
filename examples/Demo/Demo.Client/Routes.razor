@@ -1,10 +1,10 @@
 ﻿<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Shared.DemoMainLayout)" />
+        <RouteView RouteData="routeData" DefaultLayout="typeof(Shared.Layout.DemoMainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <LayoutView Layout="typeof(Shared.DemoMainLayout)">
+        <LayoutView Layout="typeof(Shared.Layout.DemoMainLayout)">
             <p>Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>
