@@ -56,10 +56,10 @@
 @code
 {
     private DateTime? SelectedDay = null;
-    private ICollection<DateTime> SelectedRange = new List<DateTime>();
-    private ICollection<DateTime> SelectedRangeCustomized = new List<DateTime>();
-    private ICollection<DateTime> SelectedDays = new List<DateTime>();
-    private ICollection<DateTime> SelectedDaysCustomized = new List<DateTime>();
+    private IEnumerable<DateTime> SelectedRange = new List<DateTime>();
+    private IEnumerable<DateTime> SelectedRangeCustomized = new List<DateTime>();
+    private IEnumerable<DateTime> SelectedDays = new List<DateTime>();
+    private IEnumerable<DateTime> SelectedDaysCustomized = new List<DateTime>();
     private bool DisplayError = false;
 
     // Disable all days with the day number 3, 8, and 20.
@@ -68,9 +68,9 @@
     // Display an error when the number of selected days is more than 5.
     private void ValidateSelectedDays()
     {
-        if (SelectedDays.Count > 5)
+        if (SelectedDays.Count() > 5)
         {
-            SelectedDays.Remove(SelectedDays.Last());
+            SelectedDays = SelectedDays.Except(new[] { SelectedDays.Last() });
             DisplayError = true;
         }
         else

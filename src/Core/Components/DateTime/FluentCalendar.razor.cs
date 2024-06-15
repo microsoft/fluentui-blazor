@@ -96,13 +96,13 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Gets or sets the list of all selected dates, only when <see cref="SelectMode"/> is set to <see cref="CalendarSelectMode.Range" /> or <see cref="CalendarSelectMode.Multiple" />.
     /// </summary>
     [Parameter]
-    public ICollection<DateTime> SelectedDates { get; set; } = new List<DateTime>();
+    public IEnumerable<DateTime> SelectedDates { get; set; } = new List<DateTime>();
 
     /// <summary>
     /// Fired when the selected dates change.
     /// </summary>
     [Parameter]
-    public EventCallback<ICollection<DateTime>> SelectedDatesChanged { get; set; }
+    public EventCallback<IEnumerable<DateTime>> SelectedDatesChanged { get; set; }
 
     /// <summary>
     /// Fired when the selected mouse over change, to display the future range of dates.
@@ -299,7 +299,7 @@ public partial class FluentCalendar : FluentCalendarBase
     {
         bool inProgress = SelectDatesHover is not null;
 
-        if (SelectedDates == null || SelectedDates.Count == 0)
+        if (SelectedDates == null || !SelectedDates.Any())
         {
             return (false, DateTime.MinValue, DateTime.MinValue, inProgress);
         }
@@ -314,7 +314,7 @@ public partial class FluentCalendar : FluentCalendarBase
         }
 
         return (
-            (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count > 1,
+            (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count() > 1,
             SelectedDates.Min(),
             SelectedDates.Max(),
             inProgress
@@ -340,11 +340,11 @@ public partial class FluentCalendar : FluentCalendarBase
                     {
                         if (SelectedDates.Contains(value))
                         {
-                            SelectedDates.Remove(value);
+                            SelectedDates = SelectedDates.Where(i => i != value);
                         }
                         else
                         {
-                            SelectedDates.Add(value);
+                            SelectedDates = SelectedDates.Append(value);
                         }
 
                         if (SelectedDatesChanged.HasDelegate)
@@ -356,11 +356,7 @@ public partial class FluentCalendar : FluentCalendarBase
                     {
                         var range = SelectDatesHover.Invoke(value);
 
-                        SelectedDates.Clear();
-                        foreach (var item in range.Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true))
-                        {
-                            SelectedDates.Add(item);
-                        }
+                        SelectedDates = range.Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
 
                         if (SelectedDatesChanged.HasDelegate)
                         {
@@ -406,11 +402,7 @@ public partial class FluentCalendar : FluentCalendarBase
                         await OnSelectDayMouseOverAsync(value, dayDisabled: false);
                     }
 
-                    SelectedDates.Clear();
-                    foreach (var item in _rangeSelector.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true))
-                    {
-                        SelectedDates.Add(item);
-                    }
+                    SelectedDates = _rangeSelector.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
 
                     if (SelectedDatesChanged.HasDelegate)
                     {
