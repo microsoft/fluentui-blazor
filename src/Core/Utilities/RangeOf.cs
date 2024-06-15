@@ -69,6 +69,11 @@ public class RangeOf<T> where T : struct, IComparable
         var min = Min();
         var max = Max();
 
+        if (!min.HasValue && !max.HasValue)
+        {
+            return false;
+        }
+
         return !(min.HasValue && value.CompareTo(min.Value) < 0) &&
                !(max.HasValue && value.CompareTo(max.Value) > 0);
     }

@@ -100,4 +100,31 @@ public class RangeOfTests
         Assert.Equal(START_DATE, rangeStartNull.GetAllDates().Single());
         Assert.Equal(START_DATE, rangeEndNull.GetAllDates().Single());
     }
+
+    [Fact]
+    public void RangeOfDates_Default_Clear()
+    {
+        // Arrange
+        var range = new RangeOfDates(START_DATE, END_DATE);
+
+        // Act
+        range.Clear();
+
+        // Assert
+        Assert.False(range.Includes(START_DATE));
+        Assert.False(range.Includes(END_DATE));
+
+        Assert.Null(range.Start);
+        Assert.Null(range.End);
+    }
+
+    [Fact]
+    public void RangeOfDates_Default_ToString()
+    {
+        // Arrange
+        var range = new RangeOfDates(START_DATE, END_DATE);
+
+        // Assert
+        Assert.Equal("From 2021-03-15 to 2021-10-10.", range.ToString());
+    }
 }

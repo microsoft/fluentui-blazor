@@ -27,4 +27,9 @@ public class RangeOfDates : RangeOf<System.DateTime>
                              .ToArray();
         });
     }
+
+    public override string ToString()
+    {
+        return $"From {Start?.ToString("yyyy-MM-dd")} to {End?.ToString("yyyy-MM-dd")}.";
+    }
 }
