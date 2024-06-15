@@ -13993,7 +13993,6 @@
             Returns the first day of the week.
             </summary>
             <param name="self"></param>
-            <param name="culture"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
