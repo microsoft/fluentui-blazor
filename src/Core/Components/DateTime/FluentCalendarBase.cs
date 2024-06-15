@@ -65,13 +65,4 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
             }
         }
     }
-
-    /// <summary />
-    protected virtual async Task OnSelectDayHandlerAsync(DateTime? value, bool dayDisabled)
-    {
-        if (!dayDisabled)
-        {
-            await OnSelectedDateHandlerAsync(value);
-        }
-    }
 }

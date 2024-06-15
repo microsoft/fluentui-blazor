@@ -98,6 +98,16 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
+    /// Returns the first day of the week.
+    /// </summary>
+    /// <param name="self"></param>
+    /// <returns></returns>
+    public static DateTime StartOfWeek(this DateTime self)
+    {
+        return StartOfWeek(self, CultureInfo.CurrentUICulture);
+    }
+
+    /// <summary>
     /// Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
     /// </summary>
     /// <param name="delay"></param>
