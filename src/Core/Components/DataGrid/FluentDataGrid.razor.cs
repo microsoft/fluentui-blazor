@@ -464,7 +464,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
-            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
@@ -477,6 +476,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
+            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
         }
 
         StateHasChanged();
