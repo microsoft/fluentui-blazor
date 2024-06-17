@@ -43,6 +43,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.AssetExplorer
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Microsoft.FluentUI.AspNetCore.Components.Assets", "src\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj", "{292081C2-5076-467C-AEFF-12DC0617531A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{E7FD7A3C-3C34-4DF6-961F-D731B0164CE4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{2A9638B8-C6D0-455C-B6B1-72D734664973}"
+	ProjectSection(SolutionItems) = preProject
+		eng\pipelines\azure-pipelines.yml = eng\pipelines\azure-pipelines.yml
+		eng\pipelines\build-all-lib.yml = eng\pipelines\build-all-lib.yml
+		eng\pipelines\build-core-lib.yml = eng\pipelines\build-core-lib.yml
+		eng\pipelines\common-variables.yaml = eng\pipelines\common-variables.yaml
+		eng\pipelines\compute-version-variables.ps1 = eng\pipelines\compute-version-variables.ps1
+		eng\pipelines\update-assembly-version.ps1 = eng\pipelines\update-assembly-version.ps1
+		eng\pipelines\version.yml = eng\pipelines\version.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +130,7 @@ Global
 		{17F26C55-E329-4117-B64D-0393E912FFFE} = {9468ADD1-3660-410D-8231-6F89384D135D}
 		{E4E62EAA-38FC-48FE-B63E-EB4ABAD660D2} = {17F26C55-E329-4117-B64D-0393E912FFFE}
 		{292081C2-5076-467C-AEFF-12DC0617531A} = {DF88C07D-46D7-4DEC-ACE4-409217634E57}
+		{2A9638B8-C6D0-455C-B6B1-72D734664973} = {E7FD7A3C-3C34-4DF6-961F-D731B0164CE4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420693A7-C2FD-498C-8E78-4B65CC25389A}
