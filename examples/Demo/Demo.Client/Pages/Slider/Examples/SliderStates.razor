@@ -1,0 +1,32 @@
+﻿<h5 style="margin-top: 60px;">Disabled</h5>
+<FluentSlider Min="0" Max="100" Step="5" Disabled="true" @bind-Value=value1>
+    <FluentSliderLabel Position="0">0</FluentSliderLabel>
+    <FluentSliderLabel Position="10">10</FluentSliderLabel>
+    <FluentSliderLabel Position="20">20</FluentSliderLabel>
+    <FluentSliderLabel Position="30">30</FluentSliderLabel>
+    <FluentSliderLabel Position="40">40</FluentSliderLabel>
+    <FluentSliderLabel Position="50">50</FluentSliderLabel>
+    <FluentSliderLabel Position="60">60</FluentSliderLabel>
+    <FluentSliderLabel Position="70">70</FluentSliderLabel>
+    <FluentSliderLabel Position="80">80</FluentSliderLabel>
+    <FluentSliderLabel Position="90">90</FluentSliderLabel>
+    <FluentSliderLabel Position="100">100</FluentSliderLabel>
+</FluentSlider>
+
+<h5 style="margin-top: 60px;">Read Only</h5>
+<FluentSlider Min="0" Max="100" Step="5" ReadOnly="true" @bind-Value=value2>
+    <FluentSliderLabel Position="0">0</FluentSliderLabel>
+    <FluentSliderLabel Position="10">10</FluentSliderLabel>
+    <FluentSliderLabel Position="20">20</FluentSliderLabel>
+    <FluentSliderLabel Position="30">30</FluentSliderLabel>
+    <FluentSliderLabel Position="40">40</FluentSliderLabel>
+    <FluentSliderLabel Position="50">50</FluentSliderLabel>
+    <FluentSliderLabel Position="60">60</FluentSliderLabel>
+    <FluentSliderLabel Position="70">70</FluentSliderLabel>
+    <FluentSliderLabel Position="80">80</FluentSliderLabel>
+    <FluentSliderLabel Position="90">90</FluentSliderLabel>
+    <FluentSliderLabel Position="100">100</FluentSliderLabel>
+</FluentSlider>
+@code {
+    int value1=25, value2=75;
+}

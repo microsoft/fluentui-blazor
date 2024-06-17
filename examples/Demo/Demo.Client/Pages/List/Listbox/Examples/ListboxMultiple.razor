@@ -1,0 +1,38 @@
+﻿@inject DataSource Data
+
+<p>
+    Selected value: @SelectedValue <br />
+    <em>Reflects the value of the first selected option</em><br />
+</p>
+<p>
+    Selected options: @(String.Join(", ", SelectedOptions!.Select(i => i.LastName)))<br />
+    <em>Strongly typed enumeration of the selected options</em>. In this case a concatenated string of the last names of the selected options is shown.
+
+</p>
+
+<div style="display: block; height: 320px;">
+    <FluentListbox TOption="Person"
+                   Label="Select persons"
+                   Items="@Data.People"
+                   Id="people-listbox2"
+                   Multiple="true"
+                   OptionValue="@(p => p.PersonId.ToString())"
+                   OptionText="@(p => p.LastName + ", " + p.FirstName)"
+    @bind-Value="@SelectedValue"
+    @bind-SelectedOptions="@SelectedOptions" />
+
+</div>
+
+
+@code
+{
+    IEnumerable<Person>? SelectedOptions;
+    string? SelectedValue;
+
+    protected override void OnInitialized()
+    {
+        SelectedOptions = Data.People.Skip(2).Take(2);
+        SelectedValue = SelectedOptions.First().PersonId.ToString();
+    }
+
+}

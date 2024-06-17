@@ -1,0 +1,44 @@
+﻿@page "/NumberField"
+
+@using FluentUI.Demo.Client.Pages.NumberField.Examples
+
+<PageTitle>@App.PageTitle("NumberField")</PageTitle>
+
+<h1>Number field</h1>
+
+<p>An implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/text" target="_blank" rel="noopener noreferrer">text field</a>. The <code>&lt;FluentNumberField&gt;</code> supports two visual appearances, outline and filled, with the control defaulting to the outline appearance.</p>
+
+<p>
+    <code>&lt;FluentNumberField&gt;</code> wraps the <code>&lt;fluent-number-field&gt;</code> element, a web component implementation of a number input field leveraging the
+    Fluent UI design system.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(NumberFieldDefault)" ></DemoSection>
+
+<DemoSection Title="Types" Component="@typeof(NumberFieldTypes)"></DemoSection>
+
+<DemoSection Title="Displays" Component="@typeof(NumberFieldDisplays)"></DemoSection>
+
+<DemoSection Title="Icons"Component="@typeof(NumberFieldIcons)"></DemoSection>
+
+<DemoSection Title="Focus" Component="@typeof(NumberFieldFocus)"></DemoSection>
+
+<DemoSection Title="Filled Appearance" Component="@typeof(NumberFieldFilled)"></DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentNumberField<>)" InstanceTypes="@(new[] {typeof(int)})" GenericLabel="TValue">
+    <Description>
+        <code>TValue</code> can be one of the following <code>Type</code>'s:
+        <ul>
+            <li><code>int</code></li>
+            <li><code>long</code></li>
+            <li><code>short</code></li>
+            <li><code>float</code></li>
+            <li><code>double</code></li>
+            <li><code>decimal</code></li>
+        </ul>
+    </Description>
+</ApiDocumentation>

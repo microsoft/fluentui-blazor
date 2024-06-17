@@ -1,0 +1,26 @@
+﻿<h4>Disabled Select</h4>
+<FluentSelect Disabled="true" @bind-Value="@selectValue1" TOption="string">
+    <FluentOption Value="1">This option is not selectable</FluentOption>
+</FluentSelect>
+<br />
+
+<h4>Disabled Option</h4>
+<FluentSelect @bind-Value="@selectValue2" TOption="string">
+    <FluentOption Value="1" Disabled="true">This option is disabled</FluentOption>
+    <FluentOption Value="2">This option is not disabled</FluentOption>
+    <FluentOption Value="3">This option is not disabled</FluentOption>
+</FluentSelect>
+<br />
+
+<h4>Selected Option</h4>
+<FluentSelect @bind-Value="@selectValue3" TOption="string">
+    <FluentOption Value="Option One">Option One</FluentOption>
+    <FluentOption Value="Option Two" Selected="true">Option Two</FluentOption>
+    <FluentOption Value="Option Three">Option Three</FluentOption>
+    <FluentOption Value="Option Four">Option Four</FluentOption>
+</FluentSelect>
+
+
+@code {
+    string? selectValue1, selectValue2, selectValue3;
+}

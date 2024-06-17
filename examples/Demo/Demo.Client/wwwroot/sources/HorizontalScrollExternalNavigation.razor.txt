@@ -1,0 +1,26 @@
+﻿<FluentHorizontalScroll @ref="_horizontalScroll" Speed="600" Easing=ScrollEasing.EaseInOut>
+    <FluentCard>Card number 1</FluentCard>
+    <FluentCard>Card number 2</FluentCard>
+    <FluentCard>Card number 3</FluentCard>
+    <FluentCard>Card number 4</FluentCard>
+    <FluentCard>Card number 5</FluentCard>
+    <FluentCard>Card number 6</FluentCard>
+    <FluentCard>Card number 7</FluentCard>
+    <FluentCard>Card number 8</FluentCard>
+    <FluentCard>Card number 9</FluentCard>
+    <FluentCard>Card number 10</FluentCard>
+    <FluentCard>Card number 11</FluentCard>
+    <FluentCard>Card number 12</FluentCard>
+    <FluentCard>Card number 13</FluentCard>
+    <FluentCard>Card number 14</FluentCard>
+    <FluentCard>Card number 15</FluentCard>
+    <FluentCard>Card number 16</FluentCard>
+</FluentHorizontalScroll>
+
+<FluentButton @onclick="() => _horizontalScroll.ScrollToPrevious()">Scroll to Previous</FluentButton>
+<FluentButton @onclick="() => _horizontalScroll.ScrollToNext()">Scroll to Next</FluentButton>
+<FluentButton @onclick="() => _horizontalScroll.ScrollInView(10)">Scroll to 10</FluentButton>
+
+@code {
+    FluentHorizontalScroll _horizontalScroll = default!;
+}

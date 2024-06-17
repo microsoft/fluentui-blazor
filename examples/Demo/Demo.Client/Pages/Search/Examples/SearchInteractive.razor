@@ -1,0 +1,99 @@
+<FluentSearch @ref=searchTest 
+              @bind-Value="@searchValue"
+              @bind-Value:after=HandleSearchInput
+              Placeholder="Search for State" />
+<br />
+<FluentListbox aria-label="search results" Items=@searchResults TOption="string" SelectedOptionChanged="@(e => searchValue = (e != defaultResultsText ? e : string.Empty) )"  />
+
+<p>
+    You searched for: @searchValue
+</p>
+
+@code {
+    FluentSearch? searchTest;
+    string? searchValue = string.Empty;
+
+    List<string> searchData = new()
+    {
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachussets",
+        "Michigain",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Texas",
+        "Tennessee",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "Wisconsin",
+        "West Virginia",
+        "Wyoming"
+    };
+
+    List<string> searchResults = defaultResults();
+
+    static string defaultResultsText = "no results";
+    static List<string> defaultResults()
+    {
+        return new() { defaultResultsText };
+    }
+
+    void HandleSearchInput()
+    {
+        if (string.IsNullOrWhiteSpace(searchValue))
+        {
+            searchResults = defaultResults();
+            searchValue = string.Empty;
+        }
+        else
+        {
+            string searchTerm = searchValue.ToLower();
+
+            if (searchTerm.Length > 0)
+            {
+                List<string> temp = searchData.Where(str => str.ToLower().Contains(searchTerm)).Select(str => str).ToList();
+                if (temp.Count() > 0)
+                {
+                    searchResults = temp;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+﻿::deep .docgrid {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+@media screen and (max-width: 1280px) {
+    ::deep fluent-data-grid {
+        min-width: 1200px;
+    }
+    ::deep .docgrid {
+        overflow-x: scroll;
+    }
+}

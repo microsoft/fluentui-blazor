@@ -1,0 +1,20 @@
+﻿@inject IToastService ToastService
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Custom Toast with parameters</FluentButton>
+
+@code {
+    private void ShowExample()
+    {
+        ToastService.ShowToast<MyToastComponent, MyToastData>(new ToastParameters<MyToastData>()
+        {
+            Intent = ToastIntent.Custom,
+            Title = "I'm a custom toast component with parameters",
+            Timeout = 6000,
+            Icon = (new Icons.Regular.Size20.Backpack(), Color.Accent),
+            Content = new MyToastData()
+            {
+                ToastParam = "I'm a parameter"
+            }
+        });
+    }
+}

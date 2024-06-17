@@ -1,0 +1,149 @@
+﻿@page "/bindings"
+
+<PageTitle>@App.PageTitle("Bindings")</PageTitle>
+
+<div>
+    <fluent-text-field @bind="TextFieldValueImplicit" />
+    <p>Text field implicit @TextFieldValueImplicit</p>
+</div>
+<div>
+    <fluent-text-field @bind-value="TextFieldValueExplicit" />
+    <p>Text field explicit @TextFieldValueExplicit</p>
+</div>
+<div>
+    <fluent-number-field @bind="NumberFieldValueImplicit" />
+    <p>Number field implicit @NumberFieldValueImplicit</p>
+</div>
+<div>
+    <fluent-number-field @bind-value="NumberFieldValueExplicit" />
+    <p>Number field explicit @NumberFieldValueExplicit</p>
+</div>
+<div>
+    <fluent-text-area @bind="TextAreaValueImplicit" />
+    <p>Text area explicit @TextAreaValueImplicit</p>
+</div>
+<div>
+    <fluent-text-area @bind-value="TextAreaValueExplicit" />
+    <p>Text area explicit @TextAreaValueExplicit</p>
+</div>
+<div>
+    <fluent-checkbox @bind="CheckboxValueImplicit" />
+    <p>Checkbox value implicit @CheckboxValueImplicit</p>
+</div>
+<div>
+    <fluent-checkbox @bind-value="CheckboxValueExplicit" />
+    <p>Checkbox value explicit @CheckboxValueExplicit</p>
+</div>
+<div>
+    <fluent-switch @bind="SwitchValueImplicit" />
+    <p>Switch value implicit @SwitchValueImplicit</p>
+</div>
+<div>
+    <fluent-switch @bind-value="@SwitchValueExplicit" />
+    <p>Switch value explicit @SwitchValueExplicit</p>
+</div>
+<div>
+    <fluent-menu-item @bind="@FluentMenuItemValueImplicit" />
+    <p>Menu item value explicit @FluentMenuItemValueImplicit</p>
+</div>
+<div>
+    <fluent-menu-item @bind-value="@FluentMenuItemValueExplicit" />
+    <p>Menu item value explicit @FluentMenuItemValueExplicit</p>
+</div>
+<div>
+    <fluent-slider @bind="SliderValueImplicit" />
+    <p>Slider value implicit @SliderValueImplicit</p>
+</div>
+<div>
+    <fluent-slider @bind-value="SliderValueExplicit" />
+    <p>Slider value explicit @SliderValueExplicit</p>
+</div>
+<div>
+    <fluent-select @bind="SelectValueImplicit">
+        <fluent-option value="1">One</fluent-option>
+        <fluent-option value="2">Two</fluent-option>
+        <fluent-option value="3">Three</fluent-option>
+    </fluent-select>
+    <p>Select value implicit @SelectValueImplicit</p>
+</div>
+<div>
+    <fluent-select @bind-value="SelectValueExplicit">
+        <fluent-option value="1">One</fluent-option>
+        <fluent-option value="2">Two</fluent-option>
+        <fluent-option value="3">Three</fluent-option>
+    </fluent-select>
+    <p>Select value implicit @SelectValueExplicit</p>
+</div>
+<div>
+    <fluent-radio-group @bind="RadioGroupValueImplicit">
+        <fluent-radio value="1">One</fluent-radio>
+        <fluent-radio value="2">Two</fluent-radio>
+        <fluent-radio value="3">Three</fluent-radio>
+    </fluent-radio-group>
+    <p>Radio group implicit @RadioGroupValueImplicit</p>
+</div>
+<div>
+    <fluent-radio-group @bind-value="RadioGroupValueExplicit">
+        <fluent-radio value="1">One</fluent-radio>
+        <fluent-radio value="2">Two</fluent-radio>
+        <fluent-radio value="3">Three</fluent-radio>
+    </fluent-radio-group>
+    <p>Radio group explicit @RadioGroupValueExplicit</p>
+</div>
+<div>
+    <fluent-listbox @bind="ListboxIndexValueImplicit">
+        <fluent-option value="1">One</fluent-option>
+        <fluent-option value="2">Two</fluent-option>
+        <fluent-option value="3">Three</fluent-option>
+    </fluent-listbox>
+    <p>List box implicit @ListboxIndexValueImplicit</p>
+</div>
+<div>
+    <fluent-listbox @bind-value="ListboxIndexValueExplicit">
+        <fluent-option value="1">One</fluent-option>
+        <fluent-option value="2">Two</fluent-option>
+        <fluent-option value="3">Three</fluent-option>
+    </fluent-listbox>
+    <p>List box explicit @ListboxIndexValueExplicit</p>
+</div>
+<div>
+    <fluent-combobox @bind="ComboboxValueImplicit">
+        <fluent-option value="1">One</fluent-option>
+        <fluent-option value="2">Two</fluent-option>
+        <fluent-option value="3">Three</fluent-option>
+    </fluent-combobox>
+    <p>Combo box implicit @ComboboxValueImplicit</p>
+</div>
+<div>
+    <fluent-combobox @bind-value="ComboboxValueExplicit">
+        <fluent-option value="1">One</fluent-option>
+        <fluent-option value="2">Two</fluent-option>
+        <fluent-option value="3">Three</fluent-option>
+    </fluent-combobox>
+    <p>Combo box explicit @ComboboxValueExplicit</p>
+</div>
+
+@code {
+    string? TextFieldValueImplicit;
+    string? TextFieldValueExplicit;
+    int NumberFieldValueImplicit;
+    int NumberFieldValueExplicit;
+    string? TextAreaValueImplicit;
+    string? TextAreaValueExplicit;
+    bool CheckboxValueImplicit;
+    bool CheckboxValueExplicit;
+    bool SwitchValueImplicit;
+    bool SwitchValueExplicit;
+    bool FluentMenuItemValueImplicit;
+    bool FluentMenuItemValueExplicit;
+    int SliderValueImplicit;
+    int SliderValueExplicit;
+    string? SelectValueImplicit;
+    string? SelectValueExplicit;
+    string? RadioGroupValueImplicit;
+    string? RadioGroupValueExplicit;
+    int ListboxIndexValueImplicit;
+    int ListboxIndexValueExplicit;
+    string? ComboboxValueImplicit;
+    string? ComboboxValueExplicit;
+}

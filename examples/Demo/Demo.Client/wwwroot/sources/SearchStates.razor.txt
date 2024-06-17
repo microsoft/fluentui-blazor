@@ -1,0 +1,20 @@
+﻿<h4>Full Width</h4>
+<FluentSearch @bind-Value=value style="width: 100%;"></FluentSearch>
+
+<h4>Placeholder</h4>
+<FluentSearch @bind-Value=value Placeholder="Placeholder"></FluentSearch>
+
+<h4>Required</h4>
+<FluentSearch @bind-Value=value Required="true"></FluentSearch>
+
+<h4>Disabled</h4>
+<FluentSearch @bind-Value=value Disabled="true"></FluentSearch>
+<FluentSearch @bind-Value=value Disabled="true">label</FluentSearch>
+<FluentSearch @bind-Value=value Disabled="true" Placeholder="placeholder"></FluentSearch>
+
+<h4>Read only</h4>
+<FluentSearch @bind-Value=value ReadOnly="true"></FluentSearch>
+<FluentSearch @bind-Value=value ReadOnly="true">label</FluentSearch>
+@code {
+    string? value;
+}

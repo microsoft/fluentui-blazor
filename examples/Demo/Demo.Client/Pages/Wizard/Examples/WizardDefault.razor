@@ -1,0 +1,81 @@
+﻿@inject IDialogService DialogService
+
+<FluentStack VerticalAlignment="VerticalAlignment.Center">
+    <FluentSwitch @bind-Value="@IsTop"
+                  Style="margin: 30px;"
+                  Label="Step position"
+                  UncheckedMessage="Left"
+                  CheckedMessage="Top" />
+
+    WizardStepSequence:
+    <FluentSelect Width="150px"
+                  Items="@(Enum.GetValues<WizardStepSequence>())"
+                  @bind-SelectedOption="@StepSequence" />
+</FluentStack>
+
+<FluentWizard StepperPosition="@(IsTop ? StepperPosition.Top : StepperPosition.Left)"
+              StepSequence="@StepSequence"
+              DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
+              Border="WizardBorder.Outside"
+              StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
+              Height="300px"
+              OnFinish="@OnFinishedAsync">
+    <Steps>
+        <FluentWizardStep Label="Intro"
+                          OnChange="@OnStepChange">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut nisi eget dolor semper
+            luctus vitae a nulla. Cras semper eros sed lacinia tincidunt. Mauris dignissim ullamcorper dolor,
+            ut blandit dui ullamcorper faucibus. Interdum et malesuada fames ac ante ipsum.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Get started"
+                          Summary="Begin the tasks"
+                          OnChange="@OnStepChange">
+            Maecenas sed justo ac sapien venenatis ullamcorper. Sed maximus nunc non venenatis euismod.
+            Fusce vel porta ex, imperdiet molestie nisl. Vestibulum eu ultricies mauris, eget aliquam quam.
+        </FluentWizardStep>
+        <FluentWizardStep Disabled="true"
+                          Label="Disabled step"
+                          Summary="This step is disabled"
+                          OnChange="@OnStepChange">
+            Nunc dignissim tortor eget lacus porta tristique. Nunc in posuere dui. Cras ligula ex,
+            ullamcorper in gravida in, euismod vitae purus. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Aliquam at velit leo. Suspendisse potenti. Cras dictum eu augue in laoreet.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Set budget"
+                          Summary="Identify the best price"
+                          IconPrevious="@(new Icons.Filled.Size24.Star())"
+                          IconCurrent="@(new Icons.Filled.Size24.StarEmphasis())"
+                          IconNext="@(new Icons.Regular.Size24.Star())"
+                          DisplayStepNumber="false"
+                          OnChange="@OnStepChange">
+            Phasellus quis augue convallis, congue velit ac, aliquam ex. In egestas porttitor massa
+            aliquet porttitor. Donec bibendum faucibus urna vitae elementum. Phasellus vitae efficitur
+            turpis, eget molestie ipsum.
+            <FluentSelect Items="@(Enumerable.Range(10, 80).Select(i => i.ToString()))"
+                          Style="min-width: 70px;"
+                          Height="300px" />
+        </FluentWizardStep>
+        <FluentWizardStep Label="Summary"
+                          OnChange="@OnStepChange">
+            Ut iaculis sed magna efficitur tempor. Vestibulum est erat, imperdiet in diam ac,
+            aliquam tempus sapien. Nam rutrum mi at enim mattis, non mollis diam molestie.
+            Cras sodales dui libero, sit amet cursus sapien elementum ac. Nulla euismod nisi sem.
+        </FluentWizardStep>
+    </Steps>
+</FluentWizard>
+
+@code
+{
+    bool IsTop = false;
+    WizardStepSequence StepSequence = WizardStepSequence.Linear;
+
+    void OnStepChange(FluentWizardStepChangeEventArgs e)
+    {
+        DemoLogger.WriteLine($"Go to step {e.TargetLabel} (#{e.TargetIndex})");
+    }
+
+    async Task OnFinishedAsync()
+    {
+        await DialogService.ShowInfoAsync("Wizard completed");
+    }
+}

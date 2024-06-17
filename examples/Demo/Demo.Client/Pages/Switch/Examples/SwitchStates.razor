@@ -1,0 +1,20 @@
+﻿<h4>Checked</h4>
+<FluentSwitch  @bind-Value=value1 CheckedMessage="On" UncheckedMessage="Off">Initial checked</FluentSwitch>
+<p>Checked state: @value1</p>
+
+<h4>Required</h4>
+<FluentSwitch  @bind-Value=value2 Required="true"></FluentSwitch>
+
+<h4>Disabled</h4>
+<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+    <FluentSwitch  @bind-Value=value3 Disabled="true"></FluentSwitch>
+    <FluentSwitch  @bind-Value=value4 Disabled="true">label</FluentSwitch>
+    <FluentSwitch  @bind-Value=value5 Disabled="true">checked</FluentSwitch>
+    <FluentSwitch  @bind-Value=value6 Disabled="true" CheckedMessage="On" UncheckedMessage="Off">checked</FluentSwitch>
+</div>
+
+
+
+@code {
+    bool value1 = true, value2, value3, value4, value5 = true, value6 = true;
+}

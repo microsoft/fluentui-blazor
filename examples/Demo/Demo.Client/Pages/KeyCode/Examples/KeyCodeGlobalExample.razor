@@ -1,0 +1,49 @@
+﻿@inject IKeyCodeService KeyCodeService
+@implements IAsyncDisposable
+
+<FluentSwitch @bind-Value="@IncludeKeyUp"
+              CheckedMessage="KeyDown and KeyUp"
+              UncheckedMessage="KeyDown only"
+              Style="margin-bottom: 10px;" />
+
+<FluentCard>
+    @if (!KeyPressed.Any())
+    {
+        <div>Press any key to get the keycode info.</div>
+    }
+
+    @foreach (var key in KeyPressed)
+    {
+        <span class="key" type="@key.Event">@key.Key</span>
+    }
+</FluentCard>
+
+@code
+{
+    private bool IncludeKeyUp = false;
+    private List<(string Key, string Event)> KeyPressed = new();
+
+    protected override void OnInitialized()
+    {
+        // FluentKeyCode.PreventMultipleKeyDown = true;
+        KeyCodeService.RegisterListener(OnKeyHandleAsync, OnKeyHandleAsync);
+    }
+
+    private Task OnKeyHandleAsync(FluentKeyCodeEventArgs args)
+    {
+        if (!IncludeKeyUp && args.Name == "keyup")
+        {
+            return Task.CompletedTask;
+        }
+
+        KeyPressed.Add((args.ToString(), args.Name));
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        KeyCodeService.UnregisterListener(OnKeyHandleAsync, OnKeyHandleAsync);
+        return ValueTask.CompletedTask;
+    }
+}

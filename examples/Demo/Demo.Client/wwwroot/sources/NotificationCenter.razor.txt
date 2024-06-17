@@ -1,0 +1,78 @@
+﻿@implements IDisposable
+@inject IDialogService DialogService
+@inject IMessageService MessageService
+
+<FluentButton BackgroundColor="var(--neutral-layer-4)" OnClick="OpenNotificationCenterAsync" Title="Notification center">
+@if (MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER) > 0)
+{
+    <FluentCounterBadge Count="@MessageService.Count(App.MESSAGES_NOTIFICATION_CENTER)"
+                        Max="9"
+                        ShowOverflow="true"
+                        BackgroundColor="@Color.Error"
+                        Color="Color.Fill"
+                        Appearance="Appearance.Accent"
+                        ShowZero=true>
+        <ChildContent>
+            @NotificationIcon()
+        </ChildContent>
+    </FluentCounterBadge>
+}
+else
+{
+    @NotificationIcon() 
+}
+</FluentButton>
+
+@code {
+    private IDialogReference? _dialog;
+   
+    protected override void OnInitialized()
+    {
+        MessageService.OnMessageItemsUpdated += UpdateCount;    
+    }
+
+    private void UpdateCount()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private RenderFragment NotificationIcon() =>
+        @<FluentIcon Value="@(new Icons.Regular.Size20.Alert())" Color="Color.Neutral"  Title="Notification center" />;
+
+    private async Task OpenNotificationCenterAsync()
+    {
+        DemoLogger.WriteLine($"Open notification center");
+
+        _dialog = await DialogService.ShowPanelAsync<NotificationCenterPanel>(new DialogParameters<GlobalState>()
+            {
+                Alignment = HorizontalAlignment.Right,
+                Title = $"Notifications",
+                PrimaryAction = null,
+                SecondaryAction = null,
+                ShowDismiss = true
+            });
+        DialogResult result = await _dialog.Result;
+        HandlePanel(result);
+    }
+
+    private static void HandlePanel(DialogResult result)
+    {
+        if (result.Cancelled)
+        {
+            DemoLogger.WriteLine($"Notification center dismissed");
+            return;
+        }
+
+        if (result.Data is not null)
+        {
+            DemoLogger.WriteLine($"Notification center closed");
+            return;
+        }
+    }
+
+    public void Dispose()
+    {
+        MessageService.OnMessageItemsUpdated -= UpdateCount;
+    }
+
+}

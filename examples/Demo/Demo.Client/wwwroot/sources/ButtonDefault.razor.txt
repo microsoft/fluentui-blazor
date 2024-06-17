@@ -1,0 +1,20 @@
+﻿<FluentStack HorizontalGap="10">
+    <FluentButton>Button</FluentButton>
+    <FluentButton Appearance="Appearance.Accent">Accent</FluentButton>
+    <FluentButton Appearance="Appearance.Lightweight">Lightweight</FluentButton>
+    <FluentButton Appearance="Appearance.Outline">Outline</FluentButton>
+    <FluentButton Appearance="Appearance.Stealth">Stealth</FluentButton>
+    <FluentButton BackgroundColor="var(--highlight-bg)" Color="var(--info)">Colored</FluentButton>
+    <FluentButton Loading="@loading" OnClick="@StartLoadingAsync" Appearance="Appearance.Accent">Loading</FluentButton>
+</FluentStack>
+
+@code {
+
+    bool loading = false;
+
+    async Task StartLoadingAsync()
+    {
+        loading = true;
+        await DataSource.WaitAsync(2000, () => loading = false);
+    }
+}

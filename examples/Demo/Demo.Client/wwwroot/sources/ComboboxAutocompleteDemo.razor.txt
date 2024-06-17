@@ -1,0 +1,54 @@
+﻿<h4>Inline Autocomplete</h4>
+<FluentCombobox Id="combobox-with-inline-autocomplete" Autocomplete="ComboboxAutocomplete.Inline" @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption>William Hartnell</FluentOption>
+    <FluentOption>Patrick Troughton</FluentOption>
+    <FluentOption>Jon Pertwee</FluentOption>
+    <FluentOption>Tom Baker</FluentOption>
+    <FluentOption>Peter Davidson</FluentOption>
+    <FluentOption>Colin Baker</FluentOption>
+    <FluentOption>Sylvester McCoy</FluentOption>
+    <FluentOption>Paul McGann</FluentOption>
+    <FluentOption>Christopher Eccleston</FluentOption>
+    <FluentOption>David Tenant</FluentOption>
+    <FluentOption>Matt Smith</FluentOption>
+    <FluentOption>Peter Capaldi</FluentOption>
+    <FluentOption>Jodie Whittaker</FluentOption>
+</FluentCombobox>
+
+<h4>List Autocomplete</h4>
+<FluentCombobox Id="combobox-with-list-autocomplete" Autocomplete="ComboboxAutocomplete.List" @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption>William Hartnell</FluentOption>
+    <FluentOption>Patrick Troughton</FluentOption>
+    <FluentOption>Jon Pertwee</FluentOption>
+    <FluentOption>Tom Baker</FluentOption>
+    <FluentOption>Peter Davidson</FluentOption>
+    <FluentOption>Colin Baker</FluentOption>
+    <FluentOption>Sylvester McCoy</FluentOption>
+    <FluentOption>Paul McGann</FluentOption>
+    <FluentOption>Christopher Eccleston</FluentOption>
+    <FluentOption>David Tenant</FluentOption>
+    <FluentOption>Matt Smith</FluentOption>
+    <FluentOption>Peter Capaldi</FluentOption>
+    <FluentOption>Jodie Whittaker</FluentOption>
+</FluentCombobox>
+
+<h4>Both Autocomplete</h4>
+<FluentCombobox Id="combobox-with-both-autocomplete" Autocomplete="ComboboxAutocomplete.Both" @bind-Value="@comboboxValue" TOption="string">
+    <FluentOption>William Hartnell</FluentOption>
+    <FluentOption>Patrick Troughton</FluentOption>
+    <FluentOption>Jon Pertwee</FluentOption>
+    <FluentOption>Tom Baker</FluentOption>
+    <FluentOption>Peter Davidson</FluentOption>
+    <FluentOption>Colin Baker</FluentOption>
+    <FluentOption>Sylvester McCoy</FluentOption>
+    <FluentOption>Paul McGann</FluentOption>
+    <FluentOption>Christopher Eccleston</FluentOption>
+    <FluentOption>David Tenant</FluentOption>
+    <FluentOption>Matt Smith</FluentOption>
+    <FluentOption>Peter Capaldi</FluentOption>
+    <FluentOption>Jodie Whittaker</FluentOption>
+</FluentCombobox>
+
+@code {
+    string? comboboxValue = "";
+}

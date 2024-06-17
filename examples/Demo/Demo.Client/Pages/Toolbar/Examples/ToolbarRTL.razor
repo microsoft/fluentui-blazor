@@ -1,0 +1,13 @@
+﻿<FluentToolbar id="toolbar-rtl" dir="rtl" Orientation="Orientation.Horizontal">
+    <FluentCheckbox @bind-Value=value1 tabindex="0">One</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value2 tabindex="-1">Two</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value3 tabindex="-1">Three</FluentCheckbox>
+</FluentToolbar>
+<FluentToolbar id="toolbar-rtl-vertical" dir="rtl" Orientation="Orientation.Vertical">
+    <FluentCheckbox @bind-Value=value4 tabindex="0">One</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value5 tabindex="-1">Two</FluentCheckbox>
+    <FluentCheckbox @bind-Value=value6 tabindex="-1">Three</FluentCheckbox>
+</FluentToolbar>
+@code {
+    bool value1, value2, value3, value4, value5, value6;
+}

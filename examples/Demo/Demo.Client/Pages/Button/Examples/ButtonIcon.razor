@@ -1,0 +1,54 @@
+﻿<p>With icon at Start or End</p>
+<FluentStack>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.Globe())">
+        Button
+    </FluentButton>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.Globe())"
+                  Appearance="Appearance.Accent">
+        Button
+    </FluentButton>
+    <FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())">
+        Button
+    </FluentButton>
+    <FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())"
+                  Appearance="Appearance.Accent">
+        Button
+    </FluentButton>
+</FluentStack>
+
+<p>With icon in default slot</p>
+<FluentButton IconEnd="@(new Icons.Regular.Size16.Globe())"
+              Title="Globe"
+              OnClick="@(() => DemoLogger.WriteLine("Button clicked"))" />
+
+<p>With icon in the content. By doing it this way, it is possible to specify a <code>Color</code> for the icon.</p>
+<FluentButton>
+    <FluentIcon Value="@(new Icons.Regular.Size32.Globe())" Color="Color.Error" Slot="start" />
+    Button
+</FluentButton>
+
+<p>With icon and loading</p>
+<FluentStack>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
+                  Loading="@loading"
+                  OnClick="@StartLoadingAsync">
+        Refresh
+    </FluentButton>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
+                  Appearance="Appearance.Accent"
+                  Loading="@loading"
+                  OnClick="@StartLoadingAsync">
+        Refresh
+    </FluentButton>
+</FluentStack>
+
+@code {
+
+    bool loading = false;
+
+    async Task StartLoadingAsync()
+    {
+        loading = true;
+        await DataSource.WaitAsync(2000, () => loading = false);
+    }
+}

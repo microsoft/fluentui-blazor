@@ -1,0 +1,18 @@
+﻿
+    <FluentRadioGroup Name="numbers" @bind-Value=value1 Label="Numbers">
+        <FluentRadio Value="1">One</FluentRadio>
+        <FluentRadio Value="2">Two</FluentRadio>
+    </FluentRadioGroup>
+    <p>Selected: @value1 (@value1?.GetType())</p>
+
+<FluentRadioGroup Name="strings" @bind-Value=value2 Label="Strings">
+    <FluentRadio Value="@("one")">One</FluentRadio>
+    <FluentRadio Value="@("two")">Two</FluentRadio>
+</FluentRadioGroup>
+<p>Selected: @value2 (@value2?.GetType())</p>
+
+@code 
+{
+    int? value1;
+    string? value2;
+}

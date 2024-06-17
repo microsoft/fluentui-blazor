@@ -1,0 +1,18 @@
+﻿
+<FluentButton Appearance="Appearance.Accent" @onclick="() => visible = !visible">Show Overlay</FluentButton>
+
+<FluentOverlay @bind-Visible=@visible
+               Opacity="0.6"
+               BackgroundColor="#e8f48c"
+               OnClose="HandleOnClose">
+    <FluentProgressRing />
+</FluentOverlay>
+
+@code {
+    bool visible = false;
+
+    protected void HandleOnClose()
+    {
+        DemoLogger.WriteLine("Custom background color overlay closed");
+    }
+}

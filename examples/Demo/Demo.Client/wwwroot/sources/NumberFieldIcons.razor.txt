@@ -1,0 +1,14 @@
+﻿<h4>Icons</h4>
+
+<FluentNumberField @bind-Value="value1" Label="With start">
+    <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Neutral" Slot="start" />  
+</FluentNumberField>
+
+
+<FluentNumberField @bind-Value="value2" Label="With end">
+    <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Neutral" Slot="end" />  
+</FluentNumberField>
+
+@code {
+    int? value1, value2;
+}

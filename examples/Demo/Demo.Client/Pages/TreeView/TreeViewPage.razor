@@ -1,0 +1,47 @@
+﻿@page "/TreeView"
+
+@using FluentUI.Demo.Client.Pages.TreeView.Examples
+
+<PageTitle>@App.PageTitle("TreeView")</PageTitle>
+
+<h1>TreeView</h1>
+
+<p>As defined by the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/treeview/" target="_blank" rel="noreferrer">W3C</a>:</p>
+<blockquote>
+    <p>
+        A tree view widget presents a hierarchical list. Any item in the hierarchy may have child items, and items that have
+        children may be expanded or collapsed to show or hide the children. For example, in a file system navigator that uses
+        a tree view to display folders and files, an item representing a folder can be expanded to reveal the contents of the
+        folder, which may be files, folders, or both.
+    </p>
+</blockquote>
+<p>
+    <code>&lt;FluentTreeView&gt;</code> wraps the <code>&lt;fluent-tree-view&gt;</code> element, a web component implementation of a tree view leveraging the
+    Fluent UI design system. It uses the <code>&lt;FluentTreeItem&gt;</code> component to define the nodes.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default with event handling" Component="@typeof(TreeViewDefault)"/>
+
+<DemoSection Title="With Items" Component="@typeof(TreeViewWithItems)" />
+
+<DemoSection Title="With Unlimited Items" Component="@typeof(TreeViewWithUnlimitedItems)" />
+
+<DemoSection Title="Flat tree" Component="@typeof(TreeViewFlat)"/>
+
+<DemoSection Title="Some expanded" Component="@typeof(TreeViewSomeExpanded)"/>
+
+<DemoSection Title="Pre-selected tree item" Component="@typeof(TreeViewSelectedItem)"/>
+
+<DemoSection Title="Disabled tree item" Component="@typeof(TreeViewDisabledItem)"/>
+
+<DemoSection Title="With several nested items (expanded)" Component="@typeof(TreeViewNested)"/>
+
+<DemoSection Title="With data binding" Component="@typeof(TreeViewDataBinding)"/>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentTreeView)" />
+
+<ApiDocumentation Component="typeof(FluentTreeItem)" />

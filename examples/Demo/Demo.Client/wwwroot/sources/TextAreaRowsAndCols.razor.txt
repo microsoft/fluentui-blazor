@@ -1,0 +1,12 @@
+﻿﻿﻿<p>
+    12 rows: <br />
+    <FluentTextArea @bind-Value=value1 Rows="12"></FluentTextArea>
+</p>
+<p>
+    60 cols: <br />
+    <FluentTextArea @bind-Value=value2 Cols="60"></FluentTextArea>
+</p>
+@code {
+    string? value1 = "1\r\n2\r\n3\r\n4\r\n5\r\n6\r\n7\r\n8\r\n9\r\n10\r\n11\r\n12";
+    string? value2;
+}

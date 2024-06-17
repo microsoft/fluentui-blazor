@@ -1,0 +1,21 @@
+﻿<h4>With label outside group</h4>
+<label id="label1">Outside label</label>
+<FluentRadioGroup Required="true" aria-labelledby="label1" @bind-Value=fruit Name="fruits" Orientation="Orientation.Vertical">
+    <FluentRadio Value="@("apples")">Apples</FluentRadio>
+    <FluentRadio Value="@("oranges")">Oranges</FluentRadio>
+    <FluentRadio Value="@("bananas")">Bananas</FluentRadio>
+    <FluentRadio Value="@("kiwi")">Kiwi</FluentRadio>
+    <FluentRadio Value="@("grapefruit")">Grapefruit</FluentRadio>
+    <FluentRadio Value="@("mango")">Mango</FluentRadio>
+    <FluentRadio Value="@("blueberries")">Blueberries</FluentRadio>
+    <FluentRadio Value="@("strawberries")">Strawberries</FluentRadio>
+    <FluentRadio Value="@("pineapple")">Pineapple</FluentRadio>
+</FluentRadioGroup>
+
+
+<p>Your favorite fruit: @fruit!</p>
+
+@code
+{
+    string? fruit = "apples";
+}

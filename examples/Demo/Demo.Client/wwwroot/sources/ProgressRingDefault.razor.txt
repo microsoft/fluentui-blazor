@@ -1,0 +1,5 @@
+﻿<h4>Default</h4>
+<div style="width: 300px;display: grid; grid-gap: 12px; grid-auto-flow: column;">
+    <FluentProgressRing Min="0" Max="100" Value="75"></FluentProgressRing>
+    <FluentProgressRing></FluentProgressRing>
+</div>

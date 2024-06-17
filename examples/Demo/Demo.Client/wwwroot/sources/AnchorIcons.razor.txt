@@ -1,0 +1,25 @@
+﻿<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
+    <FluentAnchor Href="#" IconStart="@(new Icons.Regular.Size16.Globe())">
+        With icon at start
+    </FluentAnchor>
+
+    <FluentAnchor Href="#" IconEnd="@(new Icons.Regular.Size16.Globe())">
+        With icon at end
+    </FluentAnchor>
+</div>
+
+<p>With icon in the content. By doing it this way, it is possible to specify <code>Color</code> for the icon.</p>
+<FluentAnchor Href="#">
+        With icon in content
+    <FluentIcon Value="@(new Icons.Regular.Size32.Globe())" Color="@Color.Accent" Slot="end" />
+    </FluentAnchor>
+
+
+
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 1em;">
+    With icon in default slot:
+        <FluentAnchor Href="#" aria-label="test">
+            <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" />
+        </FluentAnchor>
+
+</div>

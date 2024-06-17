@@ -1,0 +1,35 @@
+﻿@inject ILogger<HorizontalScrollDefault> logger;
+    
+<FluentHorizontalScroll Speed="600" Easing=ScrollEasing.EaseInOut @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
+    <FluentCard>
+        Card number 1
+        <FluentButton Appearance="Appearance.Neutral">A button</FluentButton>
+    </FluentCard>
+    <FluentCard>Card number 2</FluentCard>
+    <FluentCard>Card number 3</FluentCard>
+    <FluentCard>Card number 4</FluentCard>
+    <FluentCard>Card number 5</FluentCard>
+    <FluentCard>Card number 6</FluentCard>
+    <FluentCard>Card number 7</FluentCard>
+    <FluentCard>Card number 8</FluentCard>
+    <FluentCard>Card number 9</FluentCard>
+    <FluentCard>Card number 10</FluentCard>
+    <FluentCard>Card number 11</FluentCard>
+    <FluentCard>Card number 12</FluentCard>
+    <FluentCard>Card number 13</FluentCard>
+    <FluentCard>Card number 14</FluentCard>
+    <FluentCard>Card number 15</FluentCard>
+    <FluentCard>Card number 16</FluentCard>
+</FluentHorizontalScroll>
+
+@code {
+    private void OnHorizontalScrollStart(HorizontalScrollEventArgs args)
+    {
+        logger.LogInformation($"{args.Scroll}");
+    }
+
+    private void OnHorizontalScrollEnd(HorizontalScrollEventArgs args)
+    {
+        logger.LogInformation($"{args.Scroll}");
+    }
+}

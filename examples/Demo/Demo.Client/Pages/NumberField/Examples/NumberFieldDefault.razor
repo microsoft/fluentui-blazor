@@ -1,0 +1,41 @@
+﻿<p>
+    <FluentNumberField @bind-Value="exampleInt" Label="Integer" />
+    <br />
+    Example int: @exampleInt
+    <br />
+    Minimum value: @(int.MinValue); Maximum value: @(int.MaxValue)
+</p>
+<p>
+    <FluentNumberField @bind-Value="exampleNullableInt" Label="Nullable integer" />
+    <br />
+    Example nullable int: @exampleNullableInt
+    <br />
+    Minimum value: @(int.MinValue); Maximum value: @(int.MaxValue)
+</p>
+<p>
+    Same as above but bound to oninput event 
+    <br />
+    <FluentNumberField @bind-Value="exampleInt2"
+                       Appearance="FluentInputAppearance.Filled"
+                       @oninput="@(e => Int32.TryParse(e.Value?.ToString(), out exampleInt2))"
+                       Label="Integer" />
+    <br />
+    Example int: @exampleInt2
+</p>
+<p>
+    Nullable int bound to oninput event 
+    <br />
+    <FluentNumberField @bind-Value="exampleNullableInt2"
+                       Appearance="FluentInputAppearance.Filled"
+                       @oninput="@(e => exampleNullableInt2 = int.TryParse(e.Value?.ToString(), out int tmp) ? (int?)tmp : null)"
+                       Label="Nullable integer" />
+    <br />
+    Example nullable int: @exampleNullableInt2
+</p>
+
+@code {
+    int exampleInt { get; set; } = 123;
+    private int? exampleNullableInt = null;
+    private int exampleInt2 = 345;
+    private int? exampleNullableInt2 = null;
+}

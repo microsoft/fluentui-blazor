@@ -1,0 +1,15 @@
+﻿::deep fluent-card {
+    --card-width: 120px;
+    --card-height: 200px;
+    padding: 20px;
+    margin: 12px;
+    width: 120px;
+    height: 200px
+}
+
+::deep fluent-horizontal-scroll {
+    max-width: 620px;
+    margin: 20px
+}
+
+

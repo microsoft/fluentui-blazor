@@ -1,0 +1,67 @@
+﻿@inject IDialogService DialogService
+
+<div>
+    <p>
+        When 'Modal' is checked, the dialog can be <em>dismissed</em> by clicking outside of the dialog (anywhere on the overlay). When unchecked,
+        the dialog can be <em>dismissed</em> only by the 'ESC' key.<br />The dialog can always be <em>closed</em> by using the 'Close dialog'
+        button.
+    </p>
+    <p>
+        When 'Trap focus' is checked, only the elements within the dialog will receive focus. When unchecked, focus will also move outside of the
+        dialog.
+    </p>
+    <FluentCheckbox Name="modal" @bind-Value="_modal">
+        Modal
+    </FluentCheckbox>
+    <FluentCheckbox Name="trap" @bind-Value="_trapFocus">
+        Trap focus
+    </FluentCheckbox>
+</div>
+<div style="margin-top: 1rem;">
+    <FluentButton @onclick="@OpenDialogAsync" Appearance="Appearance.Accent">
+        Open Dialog
+    </FluentButton>
+</div>
+
+@code {
+    private bool _trapFocus = true;
+    private bool _modal = true;
+
+    SimplePerson simplePerson = new()
+        {
+            Firstname = "Dan",
+            Lastname = "Sanderson",
+            Age = 42,
+        };
+
+    private async Task OpenDialogAsync()
+    {
+        DemoLogger.WriteLine($"Open dialog centered");
+
+        DialogParameters parameters = new()
+        {
+            Title = $"Hello {simplePerson.Firstname}",
+            PrimaryAction = "Yes",
+            PrimaryActionEnabled = false,
+            SecondaryAction = "No",
+            Width = "500px",
+            TrapFocus = _trapFocus,
+            Modal = _modal,
+            PreventScroll = true 
+        };
+
+        IDialogReference dialog = await DialogService.ShowDialogAsync<SimpleDialog>(simplePerson, parameters);
+        DialogResult? result = await dialog.Result;
+        
+        
+        if (result.Data is not null)
+        {
+            SimplePerson? simplePerson = result.Data as SimplePerson;
+            DemoLogger.WriteLine($"Dialog closed by {simplePerson?.Firstname} {simplePerson?.Lastname} ({simplePerson?.Age}) - Canceled: {result.Cancelled}");
+        }
+        else
+        {
+            DemoLogger.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
+        }
+    }
+}

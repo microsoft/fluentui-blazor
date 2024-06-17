@@ -1,0 +1,14 @@
+﻿<h4>Preset value</h4>
+<FluentRadioGroup @bind-Value="pilot" Name="best-pilot" Label="Preset selected-value">
+        <FluentRadio Value="@("ice-man")">Ice Man</FluentRadio>
+        <FluentRadio Value="@("maverick")">Maverick</FluentRadio>
+        <FluentRadio Value="@("viper")">Viper</FluentRadio>
+        <FluentRadio Value="@("jester")">Jester</FluentRadio>
+</FluentRadioGroup>
+<p>The best pilot according to you is: @pilot!</p>
+
+<p>Your favorite pilot: @pilot!</p>
+
+@code {
+    string? pilot = "maverick";
+}

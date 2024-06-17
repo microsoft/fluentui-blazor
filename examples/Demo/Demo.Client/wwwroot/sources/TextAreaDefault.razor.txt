@@ -1,0 +1,7 @@
+﻿<p>Without label: <FluentTextArea @bind-Value=value1 AriaLabel="Without label"></FluentTextArea></p>
+<p>
+    <FluentTextArea @bind-Value=value2 Label="With label:" />
+</p>
+@code {
+    string? value1, value2;
+}

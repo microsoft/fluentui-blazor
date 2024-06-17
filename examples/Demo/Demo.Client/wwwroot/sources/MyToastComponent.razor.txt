@@ -1,0 +1,16 @@
+﻿@implements IToastContentComponent<MyToastData>
+
+<div style="width: 100%">
+    <h5>@Content.ToastParam</h5>
+    <div style="display: flex; justify-content: flex-end">
+        <FluentButton Appearance="Appearance.Accent" @onclick="Toast.Close">Close</FluentButton>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    private FluentToast Toast { get; set; } = default!;
+
+    [Parameter]
+    public MyToastData Content { get; set; } = default!;
+}

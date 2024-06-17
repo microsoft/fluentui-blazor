@@ -1,0 +1,22 @@
+﻿@inject DataSource Data
+<FluentSelect TOption="Person"
+              Label="Select a person"
+              Items="@Data.People.WithVeryLongName()"
+              Id="people-listbox"
+              Width="200px"
+              Height="250px"
+              OptionValue="@(p => p.PersonId.ToString())"
+              OptionText="@(p => p.LastName + ", " + p.FirstName)"
+              @bind-Value="@SelectedValue"
+              @bind-SelectedOption="@SelectedPerson" />
+
+<p>
+    Selected value: @SelectedValue <br />
+    Selected person (strongly typed): @SelectedPerson?.ToString()
+</p>
+
+@code
+{
+    Person? SelectedPerson;
+    string? SelectedValue = "4";
+}

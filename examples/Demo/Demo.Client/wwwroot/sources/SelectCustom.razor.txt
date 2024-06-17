@@ -1,0 +1,43 @@
+﻿<h4>With custom indicator</h4>
+<FluentSelect ValueChanged="@(e => selectValue = e)" TOption="string">
+    <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Neutral" Slot="indicator" />
+    <FluentOption Value="1">Option One</FluentOption>
+    <FluentOption Value="2">Option Two</FluentOption>
+    <FluentOption Value="3">Option Three</FluentOption>
+    <FluentOption Value="4">Option Four</FluentOption>
+</FluentSelect>
+<p>
+    Selected value: @selectValue
+</p>
+
+
+<h4>With icons</h4>
+<FluentSelect ValueChanged="@(e => selectValue2 = e)" TOption="string">
+    <FluentOption Value="1">
+        Search
+        <FluentIcon Value="@(new Icons.Regular.Size20.Search())" Color="@Color.Neutral" Slot="start" />
+     </FluentOption>
+    <FluentOption Value="2" Selected="true">
+        Show
+        <FluentIcon Value="@(new Icons.Regular.Size20.AppsList())" Color="@Color.Neutral" Slot="start" />
+    </FluentOption>
+    <FluentOption Value="3">
+        Generate
+        <FluentIcon Value="@(new Icons.Regular.Size20.Code())" Color="@Color.Neutral" Slot="start" />
+    </FluentOption>
+    <FluentOption Value="4">
+        Update
+        <FluentIcon Value="@(new Icons.Regular.Size20.ArrowSync())" Color="@Color.Neutral" Slot="start" />
+    </FluentOption>
+    <FluentOption Value="4">
+        About
+        <FluentIcon Value="@(new Icons.Regular.Size20.Info())" Color="@Color.Neutral" Slot="start" />
+    </FluentOption>
+    
+</FluentSelect>
+
+
+@code {
+    string? selectValue;
+    string? selectValue2;
+}

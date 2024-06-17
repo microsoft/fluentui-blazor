@@ -1,0 +1,38 @@
+﻿@inject DataSource Data
+<h6>!!Experimental!!</h6>
+<p>All people whose first name starts with a "J" are initialy selected through the <code>OptionSelected</code> (Func delegate) parameter.</p>
+<p>All people with a birth year greater than 1990 are disabled through the <code>OptionDisabled</code> (Func delegate) parameter.</p>
+
+<div style="display: block; height: 300px;">
+    <FluentSelect TOption="Person"
+                  Label="Select persons"
+                  Items="@Data.People"
+                  Id="people-listbox2"
+                  Multiple="true"
+                  OptionValue="@(p => p.PersonId.ToString())"
+                  OptionText="@(p => p.LastName + ", " + p.FirstName)"
+                  OptionDisabled="@(p => p.BirthDate.Year > 1990 )"
+                  OptionSelected="@(p => p.FirstName.StartsWith("J"))"
+                  @bind-Value="@SelectedValue"
+                  @bind-SelectedOptions="@SelectedOptions" />
+</div>
+
+<p>
+    Selected value: @SelectedValue <br />
+    <em>Reflects the value of the first selected option</em><br />
+    <em><b>
+        This value is not always accurate as a user can potentially deselect all enabled options. A browser will not return the value
+        of a disabled item so the last selected non-disabled value will be returned even if it is not selected anymore!
+        </b>
+    </em>
+</p>
+<p>
+    Selected options: @(SelectedOptions != null ? String.Join(", ", SelectedOptions.Select(i => i.FirstName)) : "")<br />
+    <em>Strongly typed enumeration of the selected options</em>. In this case a concatenated string of the first names of the selected persons.
+</p>
+
+@code
+{
+    IEnumerable<Person>? SelectedOptions;
+    string? SelectedValue;
+}

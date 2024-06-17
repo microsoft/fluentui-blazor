@@ -1,0 +1,8 @@
+﻿<FluentCounterBadge Count="10" BackgroundColor="@Color.Error" Color="Color.Fill">
+    <ChildContent>
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size24.Alert())" Color="@Color.Neutral" />
+        </FluentButton>
+    </ChildContent>
+    <BadgeTemplate>Count: @context!</BadgeTemplate>
+</FluentCounterBadge>

@@ -1,0 +1,28 @@
+﻿@page "/Spacer"
+
+<PageTitle>@App.PageTitle("Spacer")</PageTitle>
+
+<h1>Spacer</h1>
+
+<p>
+    The purpose of this component is to generate space between other components. You can either create 
+    a space with a set width (in number of pixels) or create a space with a flexible width.
+</p>
+
+<h2 id="example">Examples</h2>
+    
+<DemoSection Component="typeof(SpacerFlexExample)" Title="Spacer with flexible width">
+    <Description>
+        The icons are shown with a flexible width (default) <code>FluentSpacer</code> in between. The block uses the total width and spreads the space evenly.
+    </Description>
+</DemoSection>
+
+<DemoSection Component="typeof(SpacerWidthExample)" Title="Spacer with set width">
+    <Description>
+        The icons are shown with a 50 pixel width <code>FluentSpacer</code> in between. The block just uses the set width.
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentSpacer)" />

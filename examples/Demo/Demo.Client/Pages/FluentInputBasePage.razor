@@ -1,0 +1,112 @@
+﻿@page "/FluentInputBase"
+
+<PageTitle>@App.PageTitle("InputBase")</PageTitle>
+
+<h1>FluentInputBase&lt;TValue&gt;</h1>
+
+<p>
+    <code>FluentInputBase&lt;TValue&gt;</code> is the abstract base class all Fluent UI input handling Blazor components inherit from.
+</p>
+<p>
+    You can <b>not</b> create or use a <code>FluentInputBase&lt;TValue&gt;</code> on a page or in another component but it adds
+    the following parameters to every derived component.<br /><br />
+    <em>These parameters are also shown in the component overviews in the rest of the documentation pages</em>
+</p>
+
+<p>
+    The list below sums up the current derived components and the way they use the <code>FluentInputBase</code> base class.
+    <ul>
+        <li><code>FluentCheckbox</code> : <code>FluentInputBase&lt;bool&gt;</code></li>
+        <li><code>FluentNumberField&lt;TValue&gt;</code> : <code>FluentInputBase&lt;TValue&gt;</code></li>
+        <li><code>FluentRadioGroup</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
+        <li><code>FluentSearch</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
+        <li><code>FluentSlider</code> : <code>FluentInputBase&lt;int&gt;</code></li>
+        <li><code>FluentSwitch</code> : <code>FluentInputBase&lt;bool&gt</code>;</li>
+        <li><code>FluentTextArea</code> : <code>FluentInputBase&lt;string?&gt</code>;</li>
+        <li><code>FluentTextField</code> :<code> FluentInputBase&lt;string?&gt;</code></li>
+    </ul>
+</p>
+
+<h2>FluentInputBase&lt;TValue&gt; Class</h2>
+
+<h3>Parameters</h3>
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <PropertyColumn Property="@(c => c.Default)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+<h3>EventCallbacks</h3>
+<FluentDataGrid Items="@Callbacks.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+<h3>Methods</h3>
+<FluentDataGrid Items="@Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <TemplateColumn Title="Parameters">
+        @foreach (var param in @context.Parameters.Split(','))
+        {
+            @param <br />
+        }
+    </TemplateColumn>
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+@code {
+    private record paramDef(string Name, string Type, string? Default, string Description);
+    private record eventDef(string Name, string Type, string Description);
+    private record methodDef(string Name, string Parameters, string Description);
+
+    private List<paramDef> Properties = new List<paramDef>
+    {
+        new paramDef("AutoFocus","bool","false","Determines if the element should receive document focus on page load."),
+        new paramDef("ReadOnly","bool","false","When true, the control will be immutable by user interaction. <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly\">readonly</a> HTML attribute for more information."),
+        new paramDef("Id","string?","","Gets or sets the id attribute of the element. Used for label association."),
+        new paramDef("Disabled","bool","false","Disables the form control, ensuring it doesn't participate in form submission."),
+        new paramDef("Name","string?","null","Gets or sets the name of the element. Allows access by name from the associated form."),
+        new paramDef("Required","bool","false","Gets or sets whether the element needs to have a value"),
+        new paramDef("Value","TValue?","null","Gets or sets the value of the input. This should be used with two-way binding."),
+        new paramDef("DisplayName","string?","null","Gets or sets the display name for this field."),
+        new paramDef("ValueExpression","Expression<Func<TValue>>?","null","Gets or sets an expression that identifies the bound value."),
+        new paramDef("Placeholder","string","null","Gets or sets the short hint displayed in the input before the user enters a value.")
+    };
+
+    private List<eventDef> Callbacks = new List<eventDef>
+    {
+        new eventDef("ValueChanged","EventCallback<TValue>","Gets or sets a callback that updates the bound value")
+    };
+
+    private List<methodDef> Methods = new List<methodDef>
+    {
+        new methodDef("FocusAsync","","Exposes the FocusAsync() method."),
+        new methodDef("FocusAsync","bool preventScroll","Exposes the elements FocusAsync(bool preventScroll) method.")
+    };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; } = false;
+}

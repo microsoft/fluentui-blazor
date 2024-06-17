@@ -1,0 +1,22 @@
+﻿<h4>Default</h4>
+<FluentTextField @bind-Value=value1 Appearance="FluentInputAppearance.Filled"></FluentTextField>
+<FluentTextField @bind-Value=value2 Appearance="FluentInputAppearance.Filled">label</FluentTextField>
+
+<h4>Placeholder</h4>
+<FluentTextField @bind-Value=value3 Appearance="FluentInputAppearance.Filled" Placeholder="Placeholder"></FluentTextField>
+
+<h4>Required</h4>
+<FluentTextField @bind-Value=value4 Appearance="FluentInputAppearance.Filled" Required="true"></FluentTextField>
+
+<h4>Disabled</h4>
+<FluentTextField @bind-Value=value5 Appearance="FluentInputAppearance.Filled" Disabled="true"></FluentTextField>
+<FluentTextField @bind-Value=value6 Appearance="FluentInputAppearance.Filled" Disabled="true">label</FluentTextField>
+<FluentTextField @bind-Value=value7 Appearance="FluentInputAppearance.Filled" Disabled="true" Placeholder="placeholder"></FluentTextField>
+
+<h4>Read only</h4>
+<FluentTextField @bind-Value=value8 Appearance="FluentInputAppearance.Filled" ReadOnly="true"></FluentTextField>
+<FluentTextField @bind-Value=value9 Appearance="FluentInputAppearance.Filled" ReadOnly="true">label</FluentTextField>
+
+@code {
+    string? value1, value2, value3, value4, value5 = "Disabled", value6 = "Disabled", value7 = "Disabled", value8 = "ReadOnly", value9 = "ReadOnly";
+}

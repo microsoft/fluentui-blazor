@@ -1,0 +1,78 @@
+@inject DataSource Data
+
+<FluentAutocomplete Id="my-customized"
+                    @ref="ContactList"
+                    TOption="Person"
+                    Width="100%"
+                    Placeholder="search"
+                    OnOptionsSearch="@OnSearch"
+                    MaximumSelectedOptions="3"
+                    OptionText="@(item => item.LastName)"
+                    OptionStyle="min-height: 40px;"
+                    @bind-SelectedOptions="@SelectedItems">
+
+    <LabelTemplate>        
+        Select a person
+        <FluentIcon Value="@(new Icons.Regular.Size20.Person())" Style="margin: 0 4px;" />
+    </LabelTemplate>
+
+    @* Template used with each Selected items *@
+    <SelectedOptionTemplate>
+        <FluentPersona ImageSize="24px"
+                            Image="@context.Picture"
+                            Name="@($"{context.FirstName} {context.LastName}")"
+                            Style="height: 26px; background: var(--neutral-fill-secondary-hover)"
+                            DismissTitle="Remove"
+                            Status="PresenceStatus.Available"
+                            OnDismissClick="@(async () => await ContactList.RemoveSelectedItemAsync(context))" />
+    </SelectedOptionTemplate>
+
+    @* Template used with each Option items *@
+    <OptionTemplate>
+        <FluentPersona ImageSize="32px"
+                            Image="@context.Picture"
+                            Status="PresenceStatus.Available"
+                            StatusSize="PresenceBadgeSize.Small"
+                            Name="@($"{context.FirstName} {context.LastName}")" />
+    </OptionTemplate>
+
+    @* Template used when the maximum number of selected items (MaximumSelectedOptions) has been reached *@
+    <MaximumSelectedOptionsMessage>
+        The maximum number of selected items has been reached.
+    </MaximumSelectedOptionsMessage>
+
+    @* Content display at the top of the Popup area *@
+    <HeaderContent>
+        <FluentLabel Color="Color.Accent"
+                     Style="padding: 8px; font-size: 11px; border-bottom: 1px solid var(--neutral-fill-stealth-hover);">
+            Suggested contacts
+        </FluentLabel>
+    </HeaderContent>
+
+    @* Content display at the bottom of the Popup area *@
+    <FooterContent>
+        @if (!context.Any())
+        {
+            <FluentLabel Style="font-size: 11px; text-align: center; width: 200px;">
+                No results found
+            </FluentLabel>
+        }
+    </FooterContent>
+</FluentAutocomplete>
+
+<p>
+    <b>Selected</b>: @(String.Join(" - ", SelectedItems.Select(i => i.LastName)))
+</p>
+
+@code
+{
+    FluentAutocomplete<Person> ContactList = default!;
+    IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+    private void OnSearch(OptionsSearchEventArgs<Person> e)
+    {
+        e.Items = Data.People.Where(i => i.LastName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase) ||
+                                         i.FirstName.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                             .OrderBy(i => i.LastName);
+    }
+}

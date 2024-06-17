@@ -1,0 +1,20 @@
+﻿<div hidden="@this.Hidden">
+    <FluentPersona Name="Bill Gates"
+                   Status="PresenceStatus.Available"
+                   StatusSize="PresenceBadgeSize.Small"
+                   StatusTitle="He is available"
+                   Image="@DataSource.SamplePicture"
+                   ImageSize="50px"
+                   DismissTitle="Hide Bill"
+                   OnDismissClick="@this.Dismiss">
+    </FluentPersona>
+</div>
+
+@code {
+    private bool Hidden { get; set; }
+
+    private void Dismiss()
+    {
+        this.Hidden = true;
+    }
+}

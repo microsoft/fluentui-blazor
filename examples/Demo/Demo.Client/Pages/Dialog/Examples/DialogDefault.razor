@@ -1,0 +1,85 @@
+﻿<div>
+    <p>
+        When 'Modal' is checked, the dialog can be <em>dismissed</em> by clicking outside of the dialog (anywhere on the overlay). When unchecked,
+        the dialog can be <em>dismissed</em> only by the 'ESC' key.<br />The dialog can always be <em>closed</em> by using the 'Close dialog' 
+        button.
+    </p>
+    <p>
+        When 'Trap focus' is checked, only the elements within the dialog will receive focus. When unchecked, focus will also move outside of the 
+        dialog.
+    </p>
+    <p>
+        When 'Prevent scroll' is checked, the body of the page will not be scrollable when the dialog is shown. 
+    </p>
+    <p>
+        Hidden is bound to dialog visibility. You can show/hide dialog by changing this property or calling <code>Show()</code> / <code>Hide()</code>
+        on component reference.
+    </p>
+    <FluentCheckbox Name="modal" @bind-Value="_modal">
+        Modal
+    </FluentCheckbox>
+    <FluentCheckbox Name="trap" @bind-Value="_trapFocus">
+        Trap focus
+    </FluentCheckbox>
+    <FluentCheckbox Name="prevent" @bind-Value="_preventScroll">
+        Prevent scroll
+    </FluentCheckbox>
+    <FluentCheckbox Name="hidden" @bind-Value="Hidden" ReadOnly="true">
+        Hidden
+    </FluentCheckbox>
+</div>
+<div>
+    <FluentDialog @ref="_myFluentDialog" @bind-Hidden="@Hidden" aria-label="Simple dialog" Modal=@_modal TrapFocus=@_trapFocus PreventScroll=@_preventScroll @ondialogdismiss=OnDismiss>
+        <FluentDialogHeader Visible="false" />
+        <h2>Just a simple dialog</h2>
+        <p>The 'Close dialog' button is automatically focused.</p>
+        <p>The 'Another button' doesn't do anything other than showing it can receive focus.</p>
+        <p>The width, height and padding of the dialog are customized in (isolated) CSS</p>
+        <FluentButton Appearance="Appearance.Accent" Autofocus="true" @onclick="OnClose">Close dialog</FluentButton>
+        <FluentButton>Another button</FluentButton>
+        
+    </FluentDialog>
+</div>
+
+<p>Status: @_status</p>
+
+<FluentButton Appearance=Appearance.Accent @onclick="OnOpen">Open dialog</FluentButton>
+
+@code {
+    private FluentDialog? _myFluentDialog;
+    private bool _trapFocus = true;
+    private bool _modal = true;
+    private bool _preventScroll = true;
+    private string? _status;
+    private bool Hidden { get; set; } = true;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            _myFluentDialog!.Hide();
+    }
+
+    private void OnOpen()
+    {
+        _status = "Dialog opened with button click";
+        _myFluentDialog!.Show();
+        DemoLogger.WriteLine(_status);
+    }
+
+    private void OnClose()
+    {
+        _status = $"Dialog dismissed with reason: Close button clicked";
+        _myFluentDialog!.Hide();
+        DemoLogger.WriteLine(_status);
+    }
+
+    private void OnDismiss(DialogEventArgs args)
+    {
+        if (args is not null && args.Reason is not null && args.Reason == "dismiss")
+        {
+            _status = $"Dialog dismissed with reason: Dismissed";
+            _myFluentDialog!.Hide();
+            DemoLogger.WriteLine(_status);
+        }
+    }
+}

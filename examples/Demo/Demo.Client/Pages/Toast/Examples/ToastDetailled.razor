@@ -1,0 +1,35 @@
+﻿@inject IToastService ToastService
+
+<p>Click on this button to open a Toast. The toast is created by specifying an intent, message, action and a random timeout between 3 and 15 seconds.</p>
+
+<FluentButton @onclick="@ShowToast" Appearance="Appearance.Accent">Open</FluentButton>
+
+@code
+{
+    int counter = 1;
+    void ShowToast()
+    {
+        Random rnd = new();
+
+        var intent = Enum.GetValues<ToastIntent>()[rnd.Next(10)];
+        var message = $"Simple Toast #{counter++}";
+
+        ToastService.ShowToast(
+            intent,
+            message,
+            rnd.Next(3000, 15000),
+            "Log click",
+            EventCallback.Factory.Create<ToastResult>(this, HandleTopAction)
+        );
+    }
+
+    private void HandleTopAction(ToastResult result)
+    {
+        DemoLogger.WriteLine($"Toast clicked");
+    }
+
+    private async Task HandleTopActionAsync(ToastResult result)
+    {
+        await Task.Run(()=> DemoLogger.WriteLine($"Toast clicked"));
+    }
+}

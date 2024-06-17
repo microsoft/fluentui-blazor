@@ -1,0 +1,47 @@
+﻿@inject IMessageService MessageService
+
+<FluentButton OnClick="@DisplayMessage" Appearance="Appearance.Accent">Display</FluentButton>
+<FluentButton Appearance="Appearance.Neutral" OnClick="@((e) => MessageService.Clear())">Clear all messages</FluentButton>
+
+@code
+{
+    int counter = 0;
+    void DisplayMessage()
+    {
+        counter++;
+
+        ActionLink<Message> link = new ()
+        {
+            Text = "Learn more",
+            Href = "https://bing.com",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'learn more' clicked"); return Task.CompletedTask; }
+        };
+
+        ActionButton<Message> action1 = new()
+        {
+            Text = "Action 1",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'action 1' clicked"); return Task.CompletedTask; }
+        };
+
+        ActionButton<Message> action2 = new()
+        {
+            Text = "Action 2",
+            OnClick = (e) => { DemoLogger.WriteLine($"Message 'action 2' clicked"); return Task.CompletedTask; }
+        };
+
+        MessageService.ShowMessageBar(options =>
+        {
+            options.Section = App.MESSAGES_TOP;
+            options.Title = counter % 2 == 0 ? $"This is the important stuff (#{counter})." : null;
+            options.Body = "The extra information should be kept at roughly 100 characters (which is about this long maximal).";
+            options.Intent = Enum.GetValues<MessageIntent>()[counter % 4];
+            options.Icon = new Icons.Regular.Size24.PersonCircle();            
+            options.ClearAfterNavigation = true;
+            options.OnClose = (e) => { DemoLogger.WriteLine($"Message {e.Intent} dismissed"); return Task.CompletedTask; };
+            options.Link = counter % 2 != 1 ? link : null;
+            options.PrimaryAction = counter % 3 != 1 ? action1 : null;
+            options.SecondaryAction = counter % 3 != 2 ? action2 : null;
+
+        });
+    }
+}

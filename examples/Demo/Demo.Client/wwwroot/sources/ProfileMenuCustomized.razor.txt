@@ -1,0 +1,27 @@
+﻿<FluentStack HorizontalAlignment="@HorizontalAlignment.End"
+             VerticalAlignment="@VerticalAlignment.Center"
+             Style="height: 48px; background: var(--neutral-layer-4); padding-inline-end: 10px; ">
+    <FluentProfileMenu Initials="BG"
+                       Style="--fluent-profile-menu-hover: var(--neutral-stroke-focus); padding: 4px;">
+        <StartTemplate>
+            Bill Gates
+        </StartTemplate>
+        <HeaderTemplate>
+            <FluentLabel Typo="@Typography.Header">Login</FluentLabel>
+        </HeaderTemplate>
+        <ChildContent>
+            <div style="width: 250px; height: 80px">
+                <FluentLabel Typo="@Typography.Header" Style="font-weight: bold;">Bill Gates</FluentLabel>
+                <FluentLabel>bill.gates@microsoft.com</FluentLabel>
+            </div>
+        </ChildContent>
+        <FooterTemplate>
+            <FluentStack>
+                <FluentSpacer />
+                <FluentAnchor Appearance="@Appearance.Hypertext"
+                              Href="https://microsoft.com"
+                              Target="_blank">About</FluentAnchor>
+            </FluentStack>
+        </FooterTemplate>
+    </FluentProfileMenu>
+</FluentStack>

@@ -1,0 +1,26 @@
+﻿@page "/Lab/MarkdownSection"
+
+<PageTitle>@App.PageTitle("Lab Markdown")</PageTitle>
+
+<h1>MarkdownSection</h1>
+
+<p>
+    The <code>MarkdownSection</code> component allows for rendering a block of Markdown as HTML.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Component="typeof(MarkdownSection)" Title="Default" CollocatedFiles="@(new[] {"cs"})"
+             ComponentParameters="@(new Dictionary<string, object>(){ {"Content","text in *italics* and **bold**"} })">
+    <ChildContent>
+        <p>Markdown:</p>
+        text in *italics* and **bold**
+        <p>Renders as:</p>
+    </ChildContent>
+</DemoSection>
+
+<DemoSection Component="typeof(MarkdownSectionFromAsset)" Title="Markdown from an asset" />
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(MarkdownSection)" />

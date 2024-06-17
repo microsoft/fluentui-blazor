@@ -1,0 +1,16 @@
+﻿<p>Default</p>
+<FluentAnchor Href="#" title="Anchor tooltip">Anchor</FluentAnchor>
+
+<p>With target</p>
+<FluentAnchor Href="https://microsoft.com" Target="_blank">Anchor</FluentAnchor>
+
+<p>With aria-label</p>
+<FluentAnchor Href="#" aria-label="Anchor with aria-label"></FluentAnchor>
+
+
+<p>With custom action</p>
+<FluentAnchor Href="#" Appearance="Appearance.Hypertext" OnClick="HandleClick">Link with no Href</FluentAnchor>
+
+@code{
+    private void HandleClick() => DemoLogger.WriteLine("Anchor clicked");
+}

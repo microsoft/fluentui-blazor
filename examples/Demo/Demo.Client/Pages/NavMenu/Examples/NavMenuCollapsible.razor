@@ -1,0 +1,47 @@
+﻿<h2>Collapsible Navigation Example</h2>
+
+<FluentStack Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenu @bind-Expanded="@Expanded" Width="250" Collapsible="true" CollapsedChildNavigation="@EnableCollapsedChildNavigation" Title="Collapsible demo">
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Home())" Tooltip="Item 1 tooltip">Item 1</FluentNavLink>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())" Disabled="true" Tooltip="Item 2 tooltip">Item 2</FluentNavLink>
+            <FluentNavGroup Title="Item 3" Tooltip="Item 3 tooltip" Icon="@(new Icons.Regular.Size24.EarthLeaf())" >
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())" Tooltip="Item 3.1 tooltip">Item 3.1</FluentNavLink>
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Disabled="true" Tooltip="Item 3.2 tooltip">Item 3.2</FluentNavLink>
+                <FluentNavGroup Title="Item 3.3" Tooltip="Item 3.3 tooltip" Icon="@(new Icons.Regular.Size24.LeafThree())">
+                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Href="https://microsoft.com" Tooltip="Item 3.3.1 tooltip">https://microsoft.com</FluentNavLink>
+                </FluentNavGroup>
+                <FluentNavGroup Title="Item 3.4" Tooltip="Item 3.4 tooltip" Icon="@(new Icons.Regular.Size24.TreeDeciduous())" Disabled="true">
+                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Href="https://microsoft.com" Tooltip="Item 3.4.1 tooltip">https://microsoft.com</FluentNavLink>
+                </FluentNavGroup>
+            </FluentNavGroup>
+            <FluentNavLink Tooltip="Item 4 tooltip">Item 4</FluentNavLink>
+            <FluentNavGroup Title="Item 5" Tooltip="Item 5 tooltip">
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())" Tooltip="Item 5.1 tooltip">Item 5.1</FluentNavLink>
+            </FluentNavGroup>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="true" Href="https://microsoft.com" Tooltip="Item 6 tooltip">Item 6</FluentNavLink>
+        </FluentNavMenu>
+    </div>
+    <div style="width: 100%;">
+        <div style="margin-bottom: 12px;">
+            <FluentSwitch @bind-Value="EnableCollapsedChildNavigation" CheckedMessage="Disable collapsed child navigation" UncheckedMessage="Enable collapsed child navigation"></FluentSwitch>
+        </div>
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
+            Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
+            Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
+            Nulla fringilla sagittis orci eu consectetur. Fusce eget dolor non lectus placerat
+            tincidunt. Pellentesque aliquam non odio ac porttitor. Nam finibus mattis sagittis.
+            Ut hendrerit porttitor massa in aliquam. Duis laoreet fringilla feugiat.
+            Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
+            Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
+            Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+    </div>
+</FluentStack>
+
+@code
+{
+    bool Expanded = true;
+    bool EnableCollapsedChildNavigation = true;
+}

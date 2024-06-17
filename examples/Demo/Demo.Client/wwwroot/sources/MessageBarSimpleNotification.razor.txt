@@ -1,0 +1,7 @@
+﻿<FluentMessageBar Title="Delete operation"
+                  Timestamp="@(DateTime.Now.AddHours(-1))"
+                  Style="width: 500px; border: 1px solid var(--accent-fill-rest)"
+                  Intent="MessageIntent.Success"
+                  Type="@MessageType.Notification">
+    Successfully deleted <i>'XYZ-blazor.pdf'</i>
+</FluentMessageBar>

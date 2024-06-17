@@ -1,0 +1,103 @@
+﻿@inject IToastService ToastService
+
+<FluentStack Wrap=true>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample">Progress toast example 1</FluentButton>
+    <FluentButton @ref=_button Appearance="Appearance.Neutral" @onclick=UpdateProgress>Update</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" @onclick=Reset>Reset</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" @onclick=Close>Close</FluentButton>
+    <FluentButton Appearance=Appearance.Neutral @onclick="@ShowIndeterminateExample">Indeterminate progress toast</FluentButton>
+</FluentStack>
+
+@code {
+    private FluentButton? _button;
+    private static string _id = "progressToast";
+    private CancellationTokenSource _cancel = new();
+
+    private ToastParameters<ProgressToastContent> _progressToastData;
+    private ToastParameters<ProgressToastContent> _progressToastDataIndeterminate;
+
+    public ToastProgressToasts()
+    {
+        _progressToastData = new()
+            {
+                Id = _id,
+                Intent = ToastIntent.Upload,
+                Title = "Uploading file",
+                Timeout = 0,
+                TopAction = "Cancel",
+                OnTopAction = EventCallback.Factory.Create<ToastResult>(this, ClickedCancel),
+                Content = new ProgressToastContent()
+                {
+                    Details = "This may take a while.",
+                    Progress = 0,
+                },
+            };
+
+        _progressToastDataIndeterminate = new()
+            {
+                Id = $"{_id}Indeterminate",
+                Intent = ToastIntent.Progress,
+                Title = "Creating resource",
+                Content = new ProgressToastContent()
+                {
+                    Details = "This will close after the default timeout of 7000 milliseconds.",
+                },
+            };
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _button!.SetDisabled(true);
+        }
+    }
+
+    private void ShowExample()
+    {
+        _button!.SetDisabled(false);
+        ToastService.ShowProgressToast(_progressToastData);
+    }
+
+    private void ShowIndeterminateExample()
+    {
+        ToastService.ShowProgressToast(_progressToastDataIndeterminate);
+    }
+
+    private static void ClickedCancel()
+    {
+        DemoLogger.WriteLine($"Clicked cancel");
+    }
+
+
+    private async Task UpdateProgress()
+    {
+        _button!.SetDisabled(true);
+
+        for (int i = 0; i < 101; i++)
+        {
+            _progressToastData.Content.Progress = i;
+            ToastService.UpdateToast(_id, _progressToastData);
+            await Task.Delay(100, _cancel.Token);
+        };
+
+    }
+
+    private void Reset()
+    {
+        _cancel.Cancel();   
+        _progressToastData.Content.Progress = 0;
+        ToastService.UpdateToast(_id, _progressToastData);
+        _cancel = new();
+        _button!.SetDisabled(false);
+
+    }
+
+    private void Close()
+    {
+        Reset();
+        ToastService.CloseToast(_id);
+        _button!.SetDisabled(true);
+    }
+}

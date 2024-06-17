@@ -1,0 +1,190 @@
+﻿@page "/Forms"
+
+<PageTitle>@App.PageTitle("Forms overview")</PageTitle>
+
+<h1>Fluent UI Blazor forms overview</h1>
+<p>
+    A lot of the components in this library are specifically made to get input from users by means of forms. These components almost all derive from
+    <code>FluentInputBase&lt;TValue&gt;</code>, our generic abstract base class for input handling components. Let's first dive a bit deeper
+    into this base component and its derivates.
+</p>
+
+<blockquote>
+    <p>
+        <strong>Note:</strong> When using the input components in SSR mode, be sure to assing a value to the <code>Name</code> property otherwise the
+        enhanced form functionalty will <strong>not</strong> work. In contrast to the standard Blazor input components a name is not automatically being 
+        generated. <strong>Also, the <code>Name</code> needs to be prefixed with the model name (i.e. `Model.Username`).</strong>
+    </p>
+</blockquote>
+
+<h2>Input components and forms</h2>
+
+<h3>FluentInputBase&lt;TValue&gt;</h3>
+<p>
+    <code>FluentInputBase&lt;TValue&gt;</code> is a generic class making it possible for this base class to handle different types of data.
+    It is also an abstract class so you can <b>not</b> create or use a <code>FluentInputBase&lt;TValue&gt;</code> on a page or in another component.
+    Because it is a base class, it exposes the parameters, event callbacks and methods below in every derived component.<br /><br />
+    <em>These parameters are also shown in the component overviews in the rest of the documentation pages</em>
+</p>
+
+<h4>Parameters</h4>
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <PropertyColumn Property="@(c => c.Default)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+<h4>EventCallbacks</h4>
+<FluentDataGrid Items="@Callbacks.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+<h4>Methods</h4>
+<FluentDataGrid Items="@Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <TemplateColumn Title="Parameters">
+        @foreach (var param in @context.Parameters.Split(','))
+        {
+            @param <br />
+        }
+    </TemplateColumn>
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+<br />
+<h3>Derived components</h3>
+<p>
+    The list below sums up the derived components and the way they use the <code>FluentInputBase</code> base class. Every derived component has its
+    own specific parameters, event callbacks and methods. These are documented on the component pages.
+    <ul>
+        <li><code>FluentCheckbox</code> : <code>FluentInputBase&lt;bool&gt;</code></li>
+        <li><code>FluentNumberField&lt;TValue&gt;</code> : <code>FluentInputBase&lt;TValue&gt;</code></li>
+        <li><code>FluentRadioGroup</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
+        <li><code>FluentSearch</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
+        <li><code>FluentSlider</code> : <code>FluentInputBase&lt;TValue&gt;</code></li>
+        <li><code>FluentSwitch</code> : <code>FluentInputBase&lt;bool&gt</code>;</li>
+        <li><code>FluentTextArea</code> : <code>FluentInputBase&lt;string?&gt</code>;</li>
+        <li><code>FluentTextField</code> : <code>FluentInputBase&lt;string?&gt;</code></li>
+        <li><code>FluentTimePicker</code> : <code>FluentInputBase&lt;DateTime?&gt;</code></li>
+    </ul>
+</p>
+
+<h3>Label and LabelTemplate</h3>
+<p>
+    Every derived component supports the <code>Label</code> parameter. The contents of this parameter is of type string and cannot contain any markup.
+    The value will be used to create a <code>label</code> HTML element for the input component. It is usually displayed just above the input field.
+    For a checkbox it is displayed after the input field, for a switch it is displayed in front of it.
+</p>
+<p>
+    If you would like to apply more complex markup for the label, you can use the <code>LabelTemplate</code> parameter. As this has a type of 
+    <code>RenderFragment?</code>, it can contain virtuall anything.
+</p>
+<p>
+    When neither <code>Label</code> nor <code>LabelTemplate</code> parameters are set, you can create your own <code>label</code> HTML elements.
+</p>
+
+<h2>Binding</h2>
+<p>
+    The Fluent UI Blazor input components all support binding, just like the standard Blazor input components do. See the
+    <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/binding?view=aspnetcore-8.0">documentation</a> on the Learn site
+    for more information.
+</p>
+
+<h2>Validation</h2>
+<p>
+    The Fluent UI Blazor input components work with validation in the same way the standard Blazor input components do. We provide 2 extra
+    components to make it possible to show validation messages which follow the Fluent Design guidelines:
+    <ul>
+        <li><code>FluentValidationSummary</code></li>
+        <li><code>FluentValidationMessage</code></li>
+    </ul>
+    See the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-8.0">documentation</a> on the Learn site
+    for more information on the standard components. As the Fluent UI Blazor components are based on the standard components, the same documentation applies.
+</p>
+<p>
+
+</p>
+
+
+<h2>Layout</h2>
+<p>
+    In principal a label is shown right above the actual input field.
+    You can use 3 ways to layout your forms:
+    <ul>
+        <li>Use the <a href="/Stack">FluentStack</a> component</li>
+        <li>Use the <a href="/Grid">FluentGrid and FluentGridItem</a> components</li>
+        <li>Use your own HTML elements and CSS classes</li>
+    </ul>
+</p>
+
+<h2>Example</h2>
+
+<DemoSection Title="Basic Fluent UI form" Component="typeof(BasicFormFluentUIComponents)" AdditionalFiles="@(new [] {"Starship.cs"})">
+    <Description>
+        This is an example from the standard <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/input-components?view=aspnetcore-8.0#example-form">Blazor input components documentation</a> implemented with the Fluent UI Blazor input
+        components. It uses the <code>FluentValidationSummary</code> and <code>FluentValidationMessage</code> to give feedback on the state of the form. It 
+        uses the same <code>Starship</code> model as the standard docs and a DataAnnotationsValidator to use the data annotations set in the model.
+        Not all of the library's input components are used in this form. No data is actually being stored or saved.
+    </Description>
+</DemoSection>
+
+@code {
+    private record paramDef(string Name, string Type, string? Default, string Description);
+    private record eventDef(string Name, string Type, string Description);
+    private record methodDef(string Name, string Parameters, string Description);
+
+    private List<paramDef> Properties = new List<paramDef>
+    {
+        new paramDef("AriaLabel","string?","null","Gets or sets the text used on aria-label attribute."),
+        new paramDef("AutoFocus","bool","false","Determines if the element should receive document focus on page load."),
+        new paramDef("ReadOnly","bool","false","When true, the control will be immutable by user interaction. <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly\">readonly</a> HTML attribute for more information."),
+        new paramDef("Id","string?","","Gets or sets the id attribute of the element. Used for label association."),
+        new paramDef("Disabled","bool","false","Disables the form control, ensuring it doesn't participate in form submission."),
+        new paramDef("Name","string?","null","Gets or sets the name of the element. Allows access by name from the associated form. ⚠️ This value needs to be set manually for SSR scenarios to work correctly."),
+        new paramDef("Required","bool","false","Gets or sets whether the element needs to have a value"),
+        new paramDef("Value","TValue?","null","Gets or sets the value of the input. This should be used with two-way binding."),
+        new paramDef("DisplayName","string?","null","Gets or sets the display name for this field."),
+        new paramDef("ValueExpression","Expression<Func<TValue>>?","null","Gets or sets an expression that identifies the bound value."),
+        new paramDef("Placeholder","string?","null","Gets or sets the short hint displayed in the input before the user enters a value."),
+        new paramDef("Label","string?","null","Gets or sets the text displayed just above or in front of the component."),
+        new paramDef("LabelTemplate","RenderFragment?","null","Gets or sets the text displayed just above or in front of the component."),
+
+    };
+
+    private List<eventDef> Callbacks = new List<eventDef>
+    {
+        new eventDef("ValueChanged","EventCallback<TValue>","Gets or sets a callback that updates the bound value")
+    };
+
+    private List<methodDef> Methods = new List<methodDef>
+    {
+        new methodDef("FocusAsync","","Exposes the FocusAsync() method."),
+        new methodDef("FocusAsync","bool preventScroll","Exposes the elements FocusAsync(bool preventScroll) method.")
+    };
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; } = false;
+}

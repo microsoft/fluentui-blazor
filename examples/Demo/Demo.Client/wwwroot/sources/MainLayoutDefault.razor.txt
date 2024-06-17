@@ -1,0 +1,12 @@
+﻿<div style="height: 500px;">
+    <FluentMainLayout NavMenuTitle="Navigation menu">
+        <Header><h3>Fluent UI Components</h3></Header>
+        <SubHeader><p>A subheader here</p></SubHeader>
+        <Body>
+            Lorum ipsum...
+        </Body>
+        <NavMenuContent>
+            <FluentNavLink Href="/" Text="Home">Home</FluentNavLink>
+        </NavMenuContent>
+    </FluentMainLayout>
+</div>

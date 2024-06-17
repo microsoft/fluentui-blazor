@@ -1,0 +1,47 @@
+﻿@page "/FluentComponentBase"
+
+<PageTitle>@App.PageTitle("ComponentBase")</PageTitle>
+
+<h1>Fluent UI Components overview</h1>
+<p>
+    Most components in the Fluent UI Blazor library derive from <code>FluentComponentBase</code>. This page gives an overview of the parameters, 
+    that are available on all components that inherit from this abstract base class.
+</p>
+
+<h2>FluentComponentBase</h2>
+<p>
+    <code>FluentComponentBase</code> is the abstract base class all other Fluent UI Blazor components inherit from.
+</p>
+<p>You can <b>not</b> create or use a <code>FluentComponentBase</code> on a page or in another component but it adds the following parameters to every derived component.<br /><br />
+<em>These parameters are not shown in the component overviews of the derived components pages</em>
+</p>
+
+<h3>Parameters</h3>
+<FluentDataGrid Items="@Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 1.5fr">
+    <TemplateColumn Title="Name">
+        <code>@context.Name</code>
+    </TemplateColumn>
+    <PropertyColumn Property="@(c => c.Type)" />
+    <PropertyColumn Property="@(c => c.Default)" />
+    <TemplateColumn Title="Description">
+        <div style="white-space: break-spaces">
+            @(new MarkupString(context.Description))
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+
+@code {
+    private record paramDef(string Name, string Type, string? Default, string Description);
+    
+    private List<paramDef> Properties = new List<paramDef>
+    {
+        new paramDef("AdditionalAttributes"," IReadOnlyDictionary<string, object>?","null","Gets or sets a collection of additional attributes that will be applied to the created element."),
+        new paramDef("Class","string?","null","Gets or sets optional CSS class names. If given, these will be included in the class attribute of the component."),
+        new paramDef("Data","object?","null","Used to attach any user defined data object to the component."),
+        new paramDef("Element","ElementReference","null","Gets or sets the associated web component.<br /><br />May be 'null' if accessed before the component is rendered.<br />"),
+        new paramDef("Id","string?","null","Gets or sets an optional Id for the component. A unique id can be generated with <code>Identifier.NewId()</code> method. The value will be used as the HTML <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id\">global id attribute</a>."),
+        new paramDef("ParentReference","Reference?","null","Gets or sets a reference to the enclosing component."),
+        new paramDef("Style","string?","null","Optional in-line styles. If given, these will be included in the style attribute of the component.")
+    };
+}

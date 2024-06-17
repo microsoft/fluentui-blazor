@@ -1,0 +1,15 @@
+﻿<h4>Forced position above</h4>
+<FluentSelect Position="SelectPosition.Above" @bind-Value="@selectValue" TOption="string">
+    <FluentOption>Position forced above</FluentOption>
+    <FluentOption>Option Two</FluentOption>
+</FluentSelect>
+
+<h4>Forced position below</h4>
+<FluentSelect Position="SelectPosition.Below" @bind-Value="@selectValue" TOption="string">
+    <FluentOption>Position forced below</FluentOption>
+    <FluentOption>Option Two</FluentOption>
+</FluentSelect>
+
+@code {
+    string? selectValue;
+}

@@ -1,0 +1,11 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton @onclick="@OpenPanelRight" Appearance="Appearance.Accent">
+    Open panel (&gt;&gt;)
+</FluentButton>
+
+<FluentButton @onclick="@OpenPanelLeft" Appearance="Appearance.Accent">
+    Open panel (&lt;&lt;)
+</FluentButton>
+
+

@@ -1,0 +1,25 @@
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <span>
+        Neutral: <FluentMenuButton @ref=menubutton ButtonAppearance="@Appearance.Neutral" Text="Select an item" Items="@items"></FluentMenuButton>
+    </span>
+    <span>
+        Lightweight: <FluentMenuButton @ref=menubutton ButtonAppearance="@Appearance.Lightweight" Text="Select an item" Items="@items"></FluentMenuButton>
+    </span>
+    <span>
+        Outline: <FluentMenuButton @ref=menubutton ButtonAppearance="@Appearance.Outline" Text="Select an item" Items="@items"></FluentMenuButton>
+    </span>
+    <span>
+        Stealth: <FluentMenuButton @ref=menubutton ButtonAppearance="@Appearance.Stealth" Text="Select an item" Items="@items"></FluentMenuButton>
+    </span>
+</FluentStack>
+@code {
+
+    private FluentMenuButton menubutton = new();
+    private Dictionary<string, string> items = new Dictionary<string, string>()
+    {
+        {"1","Item 1"},
+        {"2","Item 2"},
+        {"3","Item 3"},
+        {"4","Item 4"},
+    };
+}

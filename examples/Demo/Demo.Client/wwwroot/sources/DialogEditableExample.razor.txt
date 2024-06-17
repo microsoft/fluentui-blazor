@@ -1,0 +1,32 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton Appearance="Appearance.Accent" OnClick="@EditAsync">Edit</FluentButton>
+
+<p>Name: @DialogData.Name - Age: @DialogData.Age</p>
+
+@code
+{
+    SimpleEditDialog.RegisterContent DialogData { get; set; } = new() { Id = 1, Name = "Denis", Age = 24 };
+
+    private async Task EditAsync()
+    {
+        // Create a new instance of DialogData
+        // to allow the user to cancel the update
+        var data = DialogData with { Id = 0 } ?? new();
+
+        var dialog = await DialogService.ShowDialogAsync<SimpleEditDialog>(data, new DialogParameters()
+            {
+                Height = "400px",
+                Title = $"Updating the {DialogData.Name} sheet",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            });
+
+        var result = await dialog.Result;
+        if (!result.Cancelled && result.Data != null)
+        {
+            DialogData = (SimpleEditDialog.RegisterContent)result.Data;
+        }
+
+    }
+}

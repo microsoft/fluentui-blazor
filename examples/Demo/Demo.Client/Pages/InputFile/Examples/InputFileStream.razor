@@ -1,0 +1,67 @@
+﻿<FluentInputFile @ref="@myFileByStream"
+                 AnchorId="MyUploadStream"
+                 DragDropZoneVisible="false"
+                 Mode="InputFileMode.Stream"
+                 Multiple="true"
+                 MaximumFileSize="@(20 * 1024 * 1024)"
+                 Accept=".mp4, .mov, .avi"
+                 OnFileUploaded="@OnFileUploadedAsync"
+                 OnCompleted="@OnCompleted" />
+
+<FluentProgress Min="0" Max="100" Value="@progressPercent" Visible="@(progressPercent > 0)" />
+<FluentLabel Alignment="HorizontalAlignment.Center">
+    @progressTitle
+</FluentLabel>
+
+<FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
+    Upload files
+</FluentButton>
+
+@if (Files.Any())
+{
+    <h4>File(s) uploaded:</h4>
+    <ul>
+        @foreach (var file in Files)
+        {
+            <li>
+                @file
+            </li>
+        }
+    </ul>
+}
+
+@code
+{
+    FluentInputFile? myFileByStream = default!;
+    int? progressPercent;
+    string? progressTitle;
+
+    List<string> Files = new();
+
+    async Task OnFileUploadedAsync(FluentInputFileEventArgs file)
+    {
+        progressPercent = file.ProgressPercent;
+        progressTitle = file.ProgressTitle;
+
+        var localFile = Path.GetTempFileName() + file.Name;
+        Files.Add(localFile);
+
+        // Write to the FileStream
+        // See other samples: https://docs.microsoft.com/en-us/aspnet/core/blazor/file-uploads
+        await using FileStream fs = new(localFile, FileMode.Create);
+        await file.Stream!.CopyToAsync(fs);
+        await file.Stream!.DisposeAsync();
+    }
+
+    void OnCompleted(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        progressPercent = myFileByStream!.ProgressPercent;
+        progressTitle = myFileByStream!.ProgressTitle;
+
+        // For the demo, delete these files.
+        foreach (var file in Files)
+        {
+            File.Delete(file);
+        }
+    }
+}

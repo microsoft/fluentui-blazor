@@ -1,0 +1,4 @@
+<FluentBreadcrumbItem Href="#">
+    Breadcrumb item
+    <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Neutral" Slot="end" />
+</FluentBreadcrumbItem>

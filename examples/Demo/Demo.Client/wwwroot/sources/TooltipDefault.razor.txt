@@ -1,0 +1,13 @@
+﻿<FluentIcon Id="myFirstButton" Icon="Icons.Regular.Size24.Notepad" />
+
+<FluentTooltip Anchor="myFirstButton" OnDismissed="OnDismiss">
+    Hello World <br />
+    It is a <i>small</i> tootip.
+</FluentTooltip>
+
+@code {
+    private void OnDismiss()
+    {
+        DemoLogger.WriteLine("Tooltip dismissed!");
+    }
+}

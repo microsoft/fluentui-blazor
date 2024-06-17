@@ -1,0 +1,33 @@
+﻿<h2>Collapsible Navigation Example</h2>
+
+<FluentStack Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenuTree @bind-Expanded="@Expanded" Width="150" Collapsible="true" Title="Collapsible demo">
+            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Home())" Text="Item 1" Href="/NavMenu" />
+            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.Cloud())" Text="Item 2" Href="/NavMenu" />
+            <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())" Href="/NavMenu">
+                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" Href="/NavMenu" />
+                <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" Href="/NavMenu" />
+            </FluentNavMenuGroup> 
+            <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Text="Item 4" Disabled="true" Href="https://microsoft.com" />
+        </FluentNavMenuTree>
+    </div>
+    <div style="width: 100%;">
+        
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
+            Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
+            Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
+            Nulla fringilla sagittis orci eu consectetur. Fusce eget dolor non lectus placerat
+            tincidunt. Pellentesque aliquam non odio ac porttitor. Nam finibus mattis sagittis.
+            Ut hendrerit porttitor massa in aliquam. Duis laoreet fringilla feugiat.
+            Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
+            Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
+            Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        
+    </div>
+</FluentStack>
+
+@code
+{
+    bool Expanded = true;
+}

@@ -1,0 +1,19 @@
+﻿<div style="display: flex; flex-direction:row;  ">
+    <div style="margin-right: 10px;">
+        <FluentDatePicker Label="Meeting date" @bind-Value="@SelectedValue" ReadOnly />
+    </div>
+    <div style="margin-right: 10px;">
+        <FluentDatePicker Label="Days view" AriaLabel="To" @bind-Value="@SelectedValue" />
+    </div>
+    <div style="margin-right: 10px;">
+        <FluentDatePicker Label="Months view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" />
+    </div>
+    <div>
+        <FluentDatePicker Label="Years view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" />
+    </div>
+</div>
+<p>Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
+@code
+{
+    private DateTime? SelectedValue = DateTime.Today.AddDays(-2);
+}

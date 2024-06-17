@@ -1,0 +1,32 @@
+﻿@inject DataSource Data
+
+<p>
+    Show:
+    <FluentCheckbox @bind-Value="showName">Name</FluentCheckbox>
+    <FluentCheckbox @bind-Value="showBirthDate">Birth date</FluentCheckbox>
+</p>
+
+
+    <FluentDataGrid Items="@Data.People" Style="width: 500px;">
+        <PropertyColumn Title="ID" Property="@(c => c.PersonId)" Sortable="true" Width="100px" />
+        @if (showName)
+        {
+            <TemplateColumn Title="Name" Width="200px">
+                <strong>@context.LastName</strong>, @context.FirstName
+            </TemplateColumn>
+        }
+        @if (showBirthDate)
+        {
+            <PropertyColumn Title="Birth date"
+                            Property="@(c => c.BirthDate)"
+                            Format="yyyy-MM-dd"
+                            Sortable="true"
+                            Width="200px"/>
+        }
+    </FluentDataGrid>
+
+
+@code {
+    bool showName = true;
+    bool showBirthDate = false;
+}

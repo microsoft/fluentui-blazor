@@ -1,0 +1,6 @@
+﻿<p>Without a label: <FluentRadioGroup @bind-Value=value1><FluentRadio AriaLabel="Radio without label"></FluentRadio></FluentRadioGroup></p>
+<p>With a label: <FluentRadioGroup @bind-Value=value2><FluentRadio Label="label"></FluentRadio></FluentRadioGroup></p>
+
+@code {
+    string? value1,value2;
+}

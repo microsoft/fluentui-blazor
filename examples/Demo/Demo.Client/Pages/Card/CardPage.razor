@@ -1,0 +1,42 @@
+﻿@page "/Card"
+
+@using FluentUI.Demo.Client.Pages.Card.Examples
+
+<PageTitle>@App.PageTitle("Card")</PageTitle>
+
+<h1>Card</h1>
+
+<p>The <code>&lt;FluentCard&gt;</code> component is a visual container without semantics that takes children. Cards are snapshots of content that are typically used in a group to present collections of related information.</p>
+<p><code>&lt;FluentCard&gt;</code> wraps the <code>&lt;fluent-card&gt;</code> element, a web component implementation of a card leveraging the Fluent UI design system.</p>
+<p>Use the <code>Width</code> and <code>Height</code> parameters to size the card. Both values default to 350 pixels.</p>
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Simple card example" Component="@typeof(CardDefault)"></DemoSection>
+
+<DemoSection Title="Area restricted examples" Component="@typeof(CardAreaRestricted)">
+    <Description>
+        <p>
+            By default a card restricts its content to the card area. This means, for exmple, that if you have a select list with a lot of items, the list will be cut off at the bottom of the card.
+            You can override this behavior by setting the <code>AreaRestricted</code> property to <code>false</code>.
+        </p>
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Minimal Style" Component="@typeof(CardMinimalStyle)">
+    <Description>
+        <p>
+            By default the <b>FluentCard</b> component is a visual container and design system provider. Cards are snapshots of content that are typically used in a group to present collections of related information.
+            Thus, by design, the <b>FluentCard</b> component includes all the styles required for a good representation of the other components included in it.
+            This adds a large number of styles such as <code>justify-content; align-items; gap; width;</code> and over <b>80 CSS variables</b>.
+            The code generated can therefore become very important, especially if you use this component several times, for example in a list or during a <code>foreach</code>.
+        </p>
+        <p>
+            To avoid this, you can use the <code>MinimalStyle</code> property. This will remove all the default styles from the <b>FluentCard</b> component.
+            This will allow you to use the <b>FluentCard</b> component as a simple container without any style, except the styles to draw the <code>box-shadow</code> (and some minimal styles).
+        </p>
+    </Description>
+</DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentCard)" />

@@ -1,0 +1,21 @@
+﻿@page "/AppBar"
+
+@using FluentUI.Demo.Client.Pages.AppBar.Examples
+
+<PageTitle>@App.PageTitle("AppBar")</PageTitle>
+
+<h1>AppBar</h1>
+
+<p>The <code>FluentAppBar</code> component is an implementation of the AppBar as you know from the Teams application</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(AppBarDefault)"></DemoSection>
+
+<DemoSection Title="With OnClick event" Component="@typeof(AppBarClick)"></DemoSection>
+
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentAppBar)" />
+<ApiDocumentation Component="typeof(FluentAppBarItem)" />

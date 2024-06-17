@@ -1,0 +1,21 @@
+﻿::deep .heavy {
+    font-weight: 600;
+}
+
+.demo-section-example {
+    border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    padding: 1rem 1rem;
+    min-height: 100px;
+}
+
+::deep p {
+    margin-top: 1rem;
+}
+
+
+.demo-section-downloads {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+}

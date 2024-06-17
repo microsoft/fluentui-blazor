@@ -1,0 +1,28 @@
+@{ #pragma warning disable FluentMultiSplitter }
+
+<FluentMultiSplitter OnResize="@OnResizeHandler" Height="150px" Style="border: 1px dashed var(--accent-fill-rest);">
+    <FluentMultiSplitterPane Size="20%" Min="50px" Max="70%">
+        Left Menu
+    </FluentMultiSplitterPane>
+    <FluentMultiSplitterPane Size="50%">
+        <FluentMultiSplitter OnResize="@OnResizeHandler" Orientation="Orientation.Vertical">
+            <FluentMultiSplitterPane Collapsible="true">
+                Main Content
+            </FluentMultiSplitterPane>
+            <FluentMultiSplitterPane Collapsible="true">
+                Console log
+            </FluentMultiSplitterPane>
+        </FluentMultiSplitter>
+    </FluentMultiSplitterPane>
+    <FluentMultiSplitterPane Size="30%">
+        Properties
+    </FluentMultiSplitterPane>
+</FluentMultiSplitter>
+
+@code
+{
+    void OnResizeHandler(FluentMultiSplitterResizeEventArgs e)
+    {
+        DemoLogger.WriteLine($"Pane {e.PaneIndex} Resize (New size {e.NewSize})");
+    }
+}

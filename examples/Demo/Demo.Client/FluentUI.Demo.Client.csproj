@@ -11,26 +11,40 @@
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
   </PropertyGroup>
 
+
+  <!-- Code Analysis -->
   <ItemGroup>
-    <None Remove="Layout\MainLayout.razor.bak" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Layout\MainLayout.razor.bak" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Markdig.Signed" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <ProjectReference Include="..\Shared\FluentUI.Demo.Shared.csproj" />
+    <ProjectReference Include="..\DocGenerator\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
+  <Target Name="CopySources" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <Sources Include="$(ProjectDir)\Pages\**\Examples\*" />
+      <Sources Include="$(ProjectDir)\Pages\Lab\**" />
+      <Sources Include="$(ProjectDir)\Pages\BasicForm*" />
+      <Sources Include="$(ProjectDir)\Components\*" />
+      <Sources Include="$(ProjectDir)\SampleData\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

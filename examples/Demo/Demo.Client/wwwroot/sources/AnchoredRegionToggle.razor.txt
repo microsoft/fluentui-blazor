@@ -1,0 +1,23 @@
+<div id="viewport-toggle-anchor" style="position:relative;height:400px;width:400px;background: var(--neutral-layer-4);overflow:scroll">
+    <FluentButton Appearance=Appearance.Neutral id="toggle-anchor-anchor1" style="margin-left:100px;margin-top:100px" @onclick="ToggleAnchor">Set anchor 1</FluentButton>
+    <FluentButton Appearance=Appearance.Neutral id="toggle-anchor-anchor2" @onclick="ToggleAnchor">Set anchor 2</FluentButton>
+    <FluentAnchoredRegion id="toggle-anchor-region" Anchor="@anchor" Viewport="viewport-toggle-anchor"
+                          VerticalPositioningMode="AxisPositioningMode.Dynamic"
+                          HorizontalPositioningMode="AxisPositioningMode.Dynamic"
+                          HorizontalDefaultPosition="HorizontalPosition.Unset"
+                          HorizontalScaling="AxisScalingMode.Content"
+                          VerticalDefaultPosition="VerticalPosition.Unset"
+                          VerticalScaling="AxisScalingMode.Content"
+                          AutoUpdateMode="AutoUpdateMode.Anchor">
+        <div style="height:100px;width:100px;background:var(--highlight-bg);; display:flex; align-items:center; justify-content:center">@(anchor[^1])</div>
+    </FluentAnchoredRegion>
+</div>
+
+@code {
+    string anchor = "toggle-anchor-anchor1";
+
+    private void ToggleAnchor()
+    {
+        anchor = anchor == "toggle-anchor-anchor1" ? "toggle-anchor-anchor2" : "toggle-anchor-anchor1";
+    }
+}

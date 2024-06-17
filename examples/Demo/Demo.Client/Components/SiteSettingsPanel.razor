@@ -1,0 +1,76 @@
+﻿@implements IDialogContentComponent
+
+<div>
+    <FluentDesignTheme @ref=_theme
+                       @bind-Mode="@Mode"
+                       @bind-OfficeColor="@OfficeColor"
+                       Direction="@Direction"
+                       StorageName="theme" />
+
+    <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
+        <FluentSelect Label="Theme"
+                      Width="100%"
+                      Style="margin-bottom: 30px;"
+                      Items="@AllModes"
+                      @bind-SelectedOption="@Mode" />
+
+        <FluentSelect Label="Color"
+                      Style="margin-bottom: 30px;"
+                      Width="100%"
+                      Items="@(OfficeColorUtilities.AllColors.Cast<OfficeColor?>())"
+                      Height="200px"
+                      @bind-SelectedOption="@OfficeColor">
+            <OptionTemplate>
+                <FluentStack>
+                    <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
+                                Color="Color.Custom"
+                                CustomColor="@GetCustomColor(@context)" />
+                    <FluentLabel>@context</FluentLabel>
+                </FluentStack>
+            </OptionTemplate>
+        </FluentSelect>
+
+        <FluentSwitch Label="Direction"
+                      Style="margin-bottom: 30px;"
+                      CheckedMessage="Left to Right"
+                      UncheckedMessage="Right to Left"
+                      Value="@_ltr"
+                      ValueChanged="HandleDirectionChanged" />
+        <FluentLabel>
+            These values (except for Direction) are persisted in the LocalStorage.
+            and will be recovered during your next visits.<br /><br />
+            Use the 'Reset settings button' below to go back to the system theme and a random color.
+        </FluentLabel>
+        <FluentDivider Style="width: 100%; margin: 1rem 0" />
+        <FluentPopover Style="width: 350px;" AnchorId="info" FixedPlacement="true" @bind-Open="@_popVisible">
+            <Header>Reset site settings</Header>
+            <Body>
+                <p>
+                    This site stores settings for the theme and color and downloaded samples, emoji and icons in the browser' cache and local storage.
+                </p>
+                <p>
+                    You can check the contents of the cache and storage in the browser's developer tools. If you are using Edge or Chrome, you can do this by
+                    going to the Application tab and then clicking on the Cache Storage or Local Storagesection.<br />
+                    In Firefox, you can do this by going to the Storage tab and then clicking on the Cache Storage or Local Storage section.
+                </p>
+
+                <p>
+                    If you feel like you're not seeing the latest and greatest of samples. emoji or icons, or you want to clear out the stored theme and color,
+                    click the button below to clear the cache and delete local storage.
+                </p>
+                <p>
+                    <strong>Don't worry, this will <strong>only</strong> reset stored data for <strong>this</strong> site. It will not clear any of your browser's cache for other sites!</strong>
+                </p>
+            </Body>
+        </FluentPopover>
+
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
+            <FluentButton OnClick="@ResetSiteAsync">Reset settings</FluentButton>
+            <FluentIcon Id="info" Value="@(new Icons.Regular.Size24.Info())" OnClick="@(() => _popVisible = !_popVisible)" />
+        </FluentStack>
+
+        <p style="margin-top: 1rem;">
+            <em><strong>@_status</strong></em>
+        </p>
+    </FluentStack>
+</div>

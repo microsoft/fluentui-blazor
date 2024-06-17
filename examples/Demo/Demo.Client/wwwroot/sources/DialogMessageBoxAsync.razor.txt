@@ -1,0 +1,82 @@
+﻿@inject IDialogService DialogService
+
+
+<FluentStack>
+    <FluentButton OnClick="@ShowSuccessAsync" Appearance="Appearance.Accent">Success</FluentButton>
+    <FluentButton OnClick="@ShowWarningAsync" Appearance="Appearance.Accent">Warning</FluentButton>
+    <FluentButton OnClick="@ShowErrorAsync" Appearance="Appearance.Accent">Error</FluentButton>
+    <FluentButton OnClick="@ShowInformationAsync" Appearance="Appearance.Accent">Information</FluentButton>
+    <FluentButton OnClick="@ShowConfirmationAsync" Appearance="Appearance.Accent">Confirmation</FluentButton>
+    <FluentButton OnClick="@ShowMessageBoxLongAsync" Appearance="Appearance.Accent">Long message</FluentButton>
+    <FluentButton OnClick="@ShowMessageBoxAsync" Appearance="Appearance.Accent">Custom message</FluentButton>
+</FluentStack>
+
+<p>
+    Last result: @(canceled == null ? "" : (canceled == true ? "❌ Canceled" : "✅ OK"))
+</p>
+
+@code
+{
+    bool? canceled;
+
+    private async Task ShowSuccessAsync()
+    {
+        var dialog = await DialogService.ShowSuccessAsync("The action was a success");
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+
+    private async Task ShowWarningAsync()
+    {
+        var dialog = await DialogService.ShowWarningAsync("This is your final warning");
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+
+    private async Task ShowErrorAsync()
+    {
+        var dialog = await DialogService.ShowErrorAsync("This is an error");
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+
+    private async Task ShowInformationAsync()
+    {
+        var dialog = await DialogService.ShowInfoAsync("This is a message");
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+
+    private async Task ShowConfirmationAsync()
+    {
+        var dialog = await DialogService.ShowConfirmationAsync("Do you have two eyes?", "Yup", "Nope", "Eyes on you");
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+
+    private async Task ShowMessageBoxLongAsync()
+    {
+        var dialog = await DialogService.ShowInfoAsync("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+
+    private async Task ShowMessageBoxAsync()
+    {
+        var dialog = await DialogService.ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
+           {
+                Content = new()
+                {
+                    Title = "My title",
+                    MarkupMessage = new MarkupString("My <strong>customized</strong> message"),
+                    Icon = new Icons.Regular.Size24.Games(),
+                    IconColor = Color.Success,
+                },
+                PrimaryAction = "Plus",
+                SecondaryAction = "Minus",
+                Width = "300px",
+            });
+        var result = await dialog.Result;
+        canceled = result.Cancelled;
+    }
+}

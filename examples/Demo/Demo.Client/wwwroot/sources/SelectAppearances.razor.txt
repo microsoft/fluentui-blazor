@@ -1,0 +1,25 @@
+﻿@inject DataSource Data
+
+<h4>Filled</h4>
+<FluentSelect Appearance="Appearance.Filled"                
+              TOption="string"
+              Items="@Data.Hits"
+              @bind-Value="@selectedValue">
+
+</FluentSelect>
+<p></p>
+<h4>Stealth</h4>
+<FluentSelect Appearance="Appearance.Stealth"
+              TOption="string"
+              Items="@Data.Hits"
+              @bind-Value="@selectedValue">
+
+</FluentSelect>
+<p>
+    Selected Value: @selectedValue<br />
+
+</p>
+
+@code {
+    string? selectedValue = "Help!";
+}

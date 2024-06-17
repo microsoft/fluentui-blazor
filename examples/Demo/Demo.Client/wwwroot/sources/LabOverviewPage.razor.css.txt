@@ -1,0 +1,12 @@
+.small {
+    font-size: var(--fontSizeBase200);
+    font-variation-settings: var(--type-ramp-minus-1-font-variations);
+    line-height: var(--lineHeightBase200);
+}
+
+
+.extrasmall {
+    font-size: var(--fontSizeBase100);
+    font-variation-settings: var(--type-ramp-minus-2-font-variations);
+    line-height: var(--lineHeightBase100);
+}

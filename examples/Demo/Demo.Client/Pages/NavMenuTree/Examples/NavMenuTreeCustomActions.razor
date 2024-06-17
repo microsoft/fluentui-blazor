@@ -1,0 +1,99 @@
+@using System.Text;
+
+<h2>Custom Actions Example</h2>
+
+<FluentStack Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenuTree OnAction="@InterceptAtMenuLevel" Title="Custom actions demo">
+            @*
+            This item is handled by the MenuLevelHandler, which intercepts all items
+            but will only handle ones with Id ending with _HandleAtMenuLevel
+            *@
+            <FluentNavMenuLink Id="HandleAtMenuLevel" Text="Handled at menu level" Icon="@(new Icons.Regular.Size24.Home())" />
+
+            @*
+            This item has an OnAction callback specified at item level
+            *@
+            <FluentNavMenuLink OnAction="@InterceptAtItemLevel" Text="Handled at item level" Icon="@(new Icons.Regular.Size24.LeafOne())" />
+
+            @*
+            This item is intercepted by the menu but not marked as handled.
+            It does not have an item handler to mark it as handled.
+            It does not have a Href, so will not be selectable.
+            *@
+            <FluentNavMenuLink Text="Not selectable" Icon="@(new Icons.Regular.Size24.DismissCircle())" />
+
+            @*
+            This item shows a dialog
+            *@
+            <FluentNavMenuLink OnAction="@ShowDialog" Text="Show a dialog" Icon="@(new Icons.Regular.Size24.Window())" />
+
+            @*
+            This item is disabled
+            *@
+            <FluentNavMenuLink Disabled Text="Disabled" Icon="@(new Icons.Regular.Size24.Prohibited())" Href="https://microsoft.com"/>
+
+            @*
+            This item is intercepted by the menu but not marked as handled.
+            It does not have an item handler to mark it as handled.
+            It does have a Href, so it will navigate.
+            *@
+            <FluentNavMenuLink Href="https://microsoft.com" Text="Default behavior (navigate)" Icon="@(new Icons.Regular.Size24.Earth())" />
+
+            @*
+                This is a group without link or action. Should expand/collapse when text clicked
+            *@
+             <FluentNavMenuGroup Text="Item 3" Icon="@(new Icons.Regular.Size24.EarthLeaf())" >
+                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafOne())" Text="Item 3.1" />
+                 <FluentNavMenuLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Text="Item 3.2" />
+             </FluentNavMenuGroup>
+        </FluentNavMenuTree>
+    </div>
+    <div style="width: 100%;">
+        <h2>Log</h2>
+        <pre><code>@_output</code></pre>
+    </div>
+</FluentStack>
+
+<FluentDialog Hidden="@_hideDialog" aria-label="Simple dialog" Modal="@true" TrapFocus="@true" @ondialogdismiss=CloseDialog>
+    <h2>Just a simple dialog</h2>
+    <p>The 'Close dialog' button is automatically focused.</p>
+    <FluentButton Appearance="Appearance.Accent" Autofocus="true" @onclick="CloseDialog">Close dialog</FluentButton>
+</FluentDialog>
+
+@code
+{
+    bool _hideDialog = true;
+    StringBuilder _output = new();
+
+    void InterceptAtMenuLevel(NavMenuActionArgs args)
+    {
+        _output = new StringBuilder();
+        _output.AppendLine($"Actioned at {DateTime.Now}");
+        _output.AppendLine($"Item \"{args.Target.Id}\" intercepted at menu level.");
+        if (args.Target.Id == "HandleAtMenuLevel")
+        {
+            _output.AppendLine("Handled at menu level.");
+            args.SetHandled();
+        }
+    }
+
+    void InterceptAtItemLevel(NavMenuActionArgs args)
+    {
+        _output.AppendLine($"Item \"{args.Target.Id}\" intercepted at item level.");
+        _output.AppendLine("Handled at item level.");
+        args.SetHandled();
+    }
+
+    void ShowDialog(NavMenuActionArgs args)
+    {
+        _output.AppendLine($"Item \"{args.Target.Id}\" intercepted at item level.");
+        _hideDialog = false;
+        args.SetHandled();
+    }
+
+    void CloseDialog()
+    {
+        _hideDialog = true;
+    }
+}

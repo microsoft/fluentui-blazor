@@ -1,0 +1,5 @@
+﻿::deep .full-width, 
+::deep .full-width fluent-card {
+    width: 600px;
+    height: 300px
+}

@@ -1,0 +1,56 @@
+﻿@inject IToastService ToastService
+
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample1">Communication toast example 1</FluentButton>
+<FluentButton Appearance=Appearance.Neutral @onclick="@ShowExample2">Communication toast example 2</FluentButton>
+
+
+@code {
+        private void ShowExample1()
+        {
+            ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastContent>()
+                {
+                    Intent = ToastIntent.Success,
+                    Title = "Your dataset is ready",
+                    Timeout = 4000,
+                    PrimaryAction = "See dataset",
+                    OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
+                    SecondaryAction = "Get insights",
+                    OnSecondaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedSecondary),
+                    Content = new CommunicationToastContent()
+                    {
+                        Subtitle = "A communication toast subtitle",
+                        Details = "Let Power BI help you explore your data.",
+                    },
+                });
+        }
+
+        private void ShowExample2()
+        {
+            ToastService.ShowCommunicationToast(new ToastParameters<CommunicationToastContent>()
+                {
+                    Intent = ToastIntent.Error,
+                    Title = "File didn't upload to ABC folder",
+                    TopCTAType = ToastTopCTAType.Timestamp,
+                    Timeout = 8000,
+                    PrimaryAction = "Replace",
+                    OnPrimaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedPrimary),
+                    SecondaryAction = "Keep both",
+                    OnSecondaryAction = EventCallback.Factory.Create<ToastResult>(this, ClickedSecondary),
+                    Content = new CommunicationToastContent()
+                    {
+                        Details = "A file with the same _name already exists.",
+                    },
+                });
+        }
+
+
+        private void ClickedPrimary(ToastResult result)
+        {
+            DemoLogger.WriteLine("Clicked primary action");
+        }
+
+        private void ClickedSecondary()
+        {
+            DemoLogger.WriteLine("Clicked secondary action");
+        }
+}

@@ -1,0 +1,48 @@
+﻿<style>
+    th, td {
+        border: solid gray 1px;
+        padding: 0 5px;
+    }
+</style>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>AccentBaseColor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                @foreach (var color in OfficeColorUtilities.AllColors)
+                {
+                    <tr>
+                        <td>
+                            <FluentLabel>@color</FluentLabel>
+                        </td>
+                        <td>
+                            <FluentStack>
+                                <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
+                                            Color="Color.Custom"
+                                            CustomColor="@GetCustomColor(color)" />
+                                <FluentLabel>@GetCustomColor(color)</FluentLabel>
+                            </FluentStack>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private static string? GetCustomColor(OfficeColor? color)
+    {
+        return color switch
+        {
+            OfficeColor.Default => "#036ac4",
+            _ => color.ToAttributeValue(),
+        };
+    }
+}

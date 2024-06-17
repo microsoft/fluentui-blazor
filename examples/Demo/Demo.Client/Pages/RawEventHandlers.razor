@@ -1,0 +1,60 @@
+﻿@page "/handlers"
+
+<PageTitle>@App.PageTitle("Handlers")</PageTitle>
+
+<div>
+    <h1>Menu</h1>
+    <fluent-menu>
+        <fluent-menu-item @onclick="() => PerformClick(_menuItems)" role="menuitem">Menu item 1</fluent-menu-item>
+    </fluent-menu>
+
+    @foreach (var item in _menuItems)
+    {
+        <p>@item</p>
+    }
+</div>
+
+<div>
+    <h1>Menu component</h1>
+    <FluentMenu>
+        <FluentMenuItem @onclick="() => PerformClick(_menuComponentItems)" role="menuitem">Menu item 1</FluentMenuItem>
+    </FluentMenu>
+
+    @foreach (var item in _menuComponentItems)
+    {
+        <p>@item</p>
+    }
+</div>
+
+<div>
+    <h1>Button</h1>
+    <fluent-button @onclick="() => PerformClick(_buttonItems)">Click me!</fluent-button>
+
+    @foreach (var item in _buttonItems)
+    {
+        <p>@item</p>
+    }
+</div>
+
+<div>
+    <h1>Button component</h1>
+    <FluentButton @onclick="() => PerformClick(_buttonComponentItems)">Click me!</FluentButton>
+
+    @foreach (var item in _buttonComponentItems)
+    {
+        <p>@item</p>
+    }
+</div>
+
+@code{
+    private List<int> _menuItems = new();
+    private List<int> _menuComponentItems = new();
+    private List<int> _buttonItems = new();
+    private List<int> _buttonComponentItems = new();
+
+    public Task PerformClick(List<int> list)
+    {
+        list.Add(list.Count);
+        return Task.CompletedTask;
+    }
+}

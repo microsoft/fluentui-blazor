@@ -1,0 +1,18 @@
+﻿<FluentStack>
+    <FluentButton Id="visible1"
+                  Appearance="Appearance.Accent"
+                  OnClick="@(e => visible = !visible)">
+        Click me to toggle tooltip visibility
+    </FluentButton>
+
+    <FluentTooltip Anchor="visible1"
+                   Position="TooltipPosition.End"
+                   Delay="200"
+                   UseTooltipService="false"
+                   Visible="@visible">I'm helping!</FluentTooltip>
+</FluentStack>
+
+@code
+{
+    bool visible = true;
+}

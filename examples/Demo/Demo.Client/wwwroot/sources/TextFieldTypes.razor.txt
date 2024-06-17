@@ -1,0 +1,18 @@
+﻿<h4>Password</h4>
+<FluentTextField @bind-Value=value1 TextFieldType="TextFieldType.Password">Password</FluentTextField>
+
+<h4>Email (with spellcheck)</h4>
+<FluentTextField @bind-Value=value2 TextFieldType="TextFieldType.Email" Spellcheck="true">Email (with spellcheck)</FluentTextField>
+
+<h4>Telephone number</h4>
+<FluentTextField @bind-Value=value3 TextFieldType="TextFieldType.Tel">Telephone</FluentTextField>
+
+<h4>Url</h4>
+<FluentTextField @bind-Value=value4 TextFieldType="TextFieldType.Url">Url</FluentTextField>
+
+<h4>Text with InputMode</h4>
+<FluentTextField @bind-Value=value5 TextFieldType="TextFieldType.Text" InputMode="InputMode.Numeric">Text with InputMode</FluentTextField>
+
+@code {
+    string? value1, value2, value3, value4, value5;
+}

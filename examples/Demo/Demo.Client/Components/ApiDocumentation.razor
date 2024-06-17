@@ -1,0 +1,100 @@
+﻿@using System.Globalization;
+@using System.Reflection;
+@using Microsoft.FluentUI.AspNetCore.Components;
+
+<div>
+    <h3 id="@_id">@_displayName</h3>
+
+
+    @if (Component.BaseType != null && Component.BaseType != typeof(FluentComponentBase) && Component.BaseType.Name.StartsWith("Fluent"))
+    {
+        <p>
+            Inherits from <a href="/@Component.BaseType.Name.Replace("`1", "").Replace("`2", "")">@Component.BaseType.Name.Replace("`1", $"<{GenericLabel}>").Replace("`2", $"<{GenericLabel}>")</a>. <br />
+            <em>There might be parameters and/or methods shown here that are inherited from the component's base type but are not applicable to this component.</em>
+        </p>
+    }
+
+    @if (Description != null)
+    {
+        <div class="section-description">
+            @Description
+        </div>
+    }
+
+    @if (this.Properties.Any())
+    {
+        string header = Properties.Any(x => x.IsParameter) ? "Parameters" : "Properties";
+        <h4 id="@(_id + "_properties")">@header</h4>
+        <div class="docgrid">
+            <FluentDataGrid Items="@this.Properties.AsQueryable()" GridTemplateColumns="1fr 1fr 0.5fr 2fr">
+                <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+                <TemplateColumn Title="Type">
+                    @context.Type
+
+
+                    @* Display list of Enumerations (if available) *@
+                    @if (context.EnumValues.Length > 0)
+                    {
+
+                        var id = Identifier.NewId();
+                        <span id="@id">
+                            <FluentIcon Value="@(new Icons.Regular.Size20.Info())" Style="margin-left: 10px; vertical-align: top;" Color="@Color.Accent" />
+                        </span>
+                        <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
+                            @foreach (var item in context.EnumValues)
+                            {
+                                @item <br />
+                            }
+                        </FluentTooltip>
+
+                    }
+                </TemplateColumn>
+                <PropertyColumn Property="@(c => c.Default)" />
+                <TemplateColumn Title="Description">
+                    <div style="white-space: break-spaces">
+                        @(new MarkupString(context.Description))
+                    </div>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+
+    }
+
+    @if (this.Events.Any())
+    {
+        <h4 id="@(_id)_callbacks">EventCallbacks</h4>
+        <div class="docgrid">
+            <FluentDataGrid Items="@this.Events.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr">
+                <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+                <PropertyColumn Property="@(c => c.Type)" />
+                <TemplateColumn Title="Description">
+                    <div style="white-space: break-spaces">
+                        @(new MarkupString(context.Description))
+                    </div>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+    }
+
+    @if (this.Methods.Any())
+    {
+        <h4 id="@(_id)_methods">Methods</h4>
+        <div class="docgrid">
+            <FluentDataGrid Items="@this.Methods.AsQueryable()" GridTemplateColumns="1fr 1fr 1fr 1fr">
+                <TemplateColumn Title="Name"><code>@context.Name</code></TemplateColumn>
+                <TemplateColumn Title="Parameters">
+                    @foreach (var param in @context.Parameters)
+                    {
+                        @param <br />
+                    }
+                </TemplateColumn>
+                <PropertyColumn Property="@(c => c.Type)" />
+                <TemplateColumn Title="Description">
+                    <div style="white-space: break-spaces">
+                        @(new MarkupString(context.Description))
+                    </div>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+    }
+</div>

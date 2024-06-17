@@ -1,0 +1,14 @@
+﻿<h4>Autofocus</h4>
+<p>Commented out to prevent page actually jumping to this location. See example code below for implementation.</p>
+@*<FluentSearch Autofocus="true">autofocus</FluentSearch>*@
+
+<h4>Focus Async</h4>
+<div style="display:flex">
+    <FluentButton @onclick="() => focusTest!.FocusAsync()">FocusAsync</FluentButton>
+    <FluentSearch @ref=focusTest @bind-Value=value></FluentSearch>
+</div>
+
+@code {
+    FluentSearch? focusTest;
+    string? value;
+}

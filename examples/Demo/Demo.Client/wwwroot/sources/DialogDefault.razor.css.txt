@@ -1,0 +1,5 @@
+﻿::deep > fluent-dialog::part(control) {
+    --dialog-width: 300px;
+    --dialog-height: 350px;
+    padding: 2rem!important;
+}

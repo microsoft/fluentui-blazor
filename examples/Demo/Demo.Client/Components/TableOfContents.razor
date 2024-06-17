@@ -1,0 +1,14 @@
+﻿<div>
+    <FluentAccordion>
+        <FluentAccordionItem Expanded="_expanded" Heading="@Heading" id="toc" role="doc-toc">
+            <FluentIcon Value="@(new Icons.Regular.Size20.TextBulletListTree())" Color="@Color.Accent" Slot="start" />
+            @GetTocItems(_anchors)
+        </FluentAccordionItem>
+
+    </FluentAccordion>
+
+    @if (ShowBackButton)
+    {
+        <FluentButton Appearance=Appearance.Accent @onclick="BackToTopAsync" Id="backtotop" title="Go to top of page">Back to top</FluentButton>
+    }
+</div>

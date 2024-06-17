@@ -1,0 +1,40 @@
+﻿@page "/Search"
+
+@using FluentUI.Demo.Client.Pages.Search.Examples
+
+<PageTitle>@App.PageTitle("Search")</PageTitle>
+
+<h1>Search</h1>
+
+<p>
+    An implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/search" rel="nofollow">search</a> component. 
+    The <code>&lt;FluentSearch&gt;</code> supports two visual appearances, outline and filled, with the control defaulting to the outline appearance.
+</p>
+<p>
+    <code>&lt;FluentSearch&gt;</code> wraps the <code>&lt;fluent-search&gt;</code> element, a web component implementation of a search element leveraging the
+    Fluent UI design system.
+</p>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(SearchDefault)"></DemoSection>
+
+<DemoSection Title="Interactive" Component="@typeof(SearchInteractive)"></DemoSection>
+
+<DemoSection Title="Interactive with debounce" Component="@typeof(SearchInteractiveWithDebounce)"></DemoSection>
+
+<DemoSection Title="Immediate (with and without debounce)" Component="@typeof(SearchImmediate)"></DemoSection>
+
+<DemoSection Title="States" Component="@typeof(SearchStates)"></DemoSection>
+
+<DemoSection Title="Icons" Component="@typeof(SearchIcons)"></DemoSection>
+
+<DemoSection Title="Focus" Component="@typeof(SearchFocus)"></DemoSection>
+
+<DemoSection Title="Filled style" Component="@typeof(SearchAppearanceFilled)"></DemoSection>
+
+<DemoSection Title="Miscellaneous" Component="@typeof(SearchMisc)"></DemoSection>
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentSearch)" GenericLabel="string?" />
