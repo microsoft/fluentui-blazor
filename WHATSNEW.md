@@ -41,8 +41,7 @@
 - [Layout] Add Id to the container div ([#2123](https://github.com/microsoft/fluentui-blazor/pull/2123))
 - [Layout] Add Orientation support ([#2096](https://github.com/microsoft/fluentui-blazor/pull/2096))
 - [Lists] Make list components inherit from InputBase ([#2118](https://github.com/microsoft/fluentui-blazor/pull/2118))
-- [Markdo
-- wnSection] Adds border around code snippets ([#2039](https://github.com/microsoft/fluentui-blazor/pull/2039))
+- [MarkdownSection] Adds border around code snippets ([#2039](https://github.com/microsoft/fluentui-blazor/pull/2039))
 - [MarkdownSection] Optimize to minimize number of calls to OnContentConverted ([#2092](https://github.com/microsoft/fluentui-blazor/pull/2092))
 - [Misc] Add the ability for CssBuilder to properly Add multiple classes without duplicates ([#2104](https://github.com/microsoft/fluentui-blazor/pull/2104))
 - [Misc] Code cleanup work ([#2184](https://github.com/microsoft/fluentui-blazor/pull/2184))
