@@ -2241,6 +2241,26 @@
             By default, the animation is enabled for Months views, but disabled for Days and Years view.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectMode">
+            <summary>
+            Gets or sets the way the user can select one or more dates
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectedDates">
+            <summary>
+            Gets or sets the list of all selected dates, only when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectMode"/> is set to <see cref="F:Microsoft.FluentUI.AspNetCore.Components.CalendarSelectMode.Range" /> or <see cref="F:Microsoft.FluentUI.AspNetCore.Components.CalendarSelectMode.Multiple" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectedDatesChanged">
+            <summary>
+            Fired when the selected dates change.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectDatesHover">
+            <summary>
+            Fired when the selected mouse over change, to display the future range of dates.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetAnimationClass(System.String)">
             <summary />
         </member>
@@ -2316,6 +2336,18 @@
             <param name="year"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.GetMultipleSelection">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectDayHandlerAsync(System.DateTime,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectDayMouseOverAsync(System.DateTime,System.Boolean)">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Culture">
             <summary>
             Gets or sets the culture of the component.
@@ -2352,9 +2384,6 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectedDateHandlerAsync(System.Nullable{System.DateTime})">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.OnSelectDayHandlerAsync(System.Nullable{System.DateTime},System.Boolean)">
-            <summary />
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay">
             <summary>
             Computes the properties of a day in the calendar, depending on the current culture.
@@ -2374,22 +2403,27 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsDisabled">
             <summary>
-            Gets or sets a value indicating whether the day is disabled by the user.
+            Gets a value indicating whether the day is disabled by the user.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsInactive">
             <summary>
-            Gets or sets a value indicating whether the day is inactive (out of the current month).
+            Gets a value indicating whether the day is inactive (out of the current month).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsToday">
             <summary>
-            Gets or sets a value indicating whether the day is set to Today.
+            Gets a value indicating whether the day is set to Today.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsSelected">
             <summary>
-            Gets or sets a value indicating whether the day is selected by the user.
+            Gets a value indicating whether the day is selected by the user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.IsMultiDaySelected">
+            <summary>
+            Gets a value indicating whether the day is selected by the user, using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectMode"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarDay.Title">
@@ -2512,6 +2546,217 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.#ctor">
+            <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.#ctor(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.GetAllDates">
+            <summary>
+            Returns all values between <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService">
+            <summary>
+            Service for managing tooltips.
+            </summary>
+        </member>
+        <member name="E:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.OnTooltipUpdated">
+            <summary>
+            Action that is invoked when the tooltip list is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Tooltips">
+            <summary>
+            Gets the list of tooltips currently registered with the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.GlobalOptions">
+            <summary>
+            Gets the global options for tooltips.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Add(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions)">
+            <summary>
+            Adds a tooltip to the service.
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Clear">
+            <summary>
+            Clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Refresh">
+            <summary>
+            Updates all service tooltips.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)">
+            <summary>
+            removes a tooltip from the service.
+            </summary>
+            <param name="value">Identifier of the tooltip</param>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions">
+            <summary>
+            Global options for tooltips.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.DefaultDelay">
+            <summary>
+            Default delay (in milliseconds).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.Delay">
+            <summary>
+            Gets or sets the delay (in milliseconds). Default is 300.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.Position">
+            <summary>
+            Gets or sets the default tooltip's position.
+            See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TooltipPosition"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.MaxWidth">
+            <summary>
+            Gets or sets the default maximum width of tooltip panel.
+            Default is 500px.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.HorizontalViewportLock">
+            <summary>
+            Gets or sets whether the horizontal viewport is locked
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.VerticalViewportLock">
+            <summary>
+            Gets or sets whether the vertical viewport is locked
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions">
+            <summary>
+            Options for a tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Id">
+            <summary>
+            Gets or sets the unique identifier of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Anchor">
+            <summary>
+            Gets or sets the anchor identifier of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.ChildContent">
+            <summary>
+            Gets or sets the tooltip content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.MaxWidth">
+            <summary>
+            Gets or sets the tooltip panel width.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Delay">
+            <summary>
+            Gets or sets the delay (in milliseconds). 
+            Default is 300.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Position">
+            <summary>
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TooltipPosition"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.OnDismissed">
+            <summary>
+            Callback for when the tooltip is dismissed.
+            </summary>  
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Visible">
+            <summary>
+            Gets or sets a value indicating whether the tooltip is visible.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService">
+            <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.#ctor(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService"/> class.
+            </summary>
+            <param name="options">Default global options</param>
+        </member>
+        <member name="E:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.OnTooltipUpdated">
+            <inheritdoc cref="E:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.OnTooltipUpdated"/>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.GlobalOptions">
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.GlobalOptions"/>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Tooltips">
+            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Tooltips"/>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.TooltipList">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.TooltipLock">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Add(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions)">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Add(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions)"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Clear">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Clear"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Refresh">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Refresh"/>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Dispose">
+            <summary>
+            Clears all tooltips from the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
+            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs">
+            <summary>
+            Arguments for the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.SelectDatesHover"/> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.#ctor(System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs"/> class.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs"/> class.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.Start">
+            <summary>
+            Gets or sets the start date of the selection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectDatesHoverEventArgs.End">
+            <summary>
+            Gets or sets the end date of the selection.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions.DayAgo">
             <summary>
@@ -8665,177 +8910,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.ClassValue">
             <summary />
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService">
-            <summary>
-            Service for managing tooltips.
-            </summary>
-        </member>
-        <member name="E:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.OnTooltipUpdated">
-            <summary>
-            Action that is invoked when the tooltip list is updated.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Tooltips">
-            <summary>
-            Gets the list of tooltips currently registered with the service.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.GlobalOptions">
-            <summary>
-            Gets the global options for tooltips.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Add(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions)">
-            <summary>
-            Adds a tooltip to the service.
-            </summary>
-            <param name="options"></param>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Clear">
-            <summary>
-            Clears all tooltips from the service.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Refresh">
-            <summary>
-            Updates all service tooltips.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)">
-            <summary>
-            removes a tooltip from the service.
-            </summary>
-            <param name="value">Identifier of the tooltip</param>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions">
-            <summary>
-            Global options for tooltips.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.DefaultDelay">
-            <summary>
-            Default delay (in milliseconds).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.Delay">
-            <summary>
-            Gets or sets the delay (in milliseconds). Default is 300.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.Position">
-            <summary>
-            Gets or sets the default tooltip's position.
-            See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TooltipPosition"/>
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.MaxWidth">
-            <summary>
-            Gets or sets the default maximum width of tooltip panel.
-            Default is 500px.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.HorizontalViewportLock">
-            <summary>
-            Gets or sets whether the horizontal viewport is locked
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions.VerticalViewportLock">
-            <summary>
-            Gets or sets whether the vertical viewport is locked
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions">
-            <summary>
-            Options for a tooltip.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Id">
-            <summary>
-            Gets or sets the unique identifier of the tooltip.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Anchor">
-            <summary>
-            Gets or sets the anchor identifier of the tooltip.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.ChildContent">
-            <summary>
-            Gets or sets the tooltip content.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.MaxWidth">
-            <summary>
-            Gets or sets the tooltip panel width.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Delay">
-            <summary>
-            Gets or sets the delay (in milliseconds). 
-            Default is 300.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Position">
-            <summary>
-            Gets or sets the tooltip's position. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TooltipPosition"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.OnDismissed">
-            <summary>
-            Callback for when the tooltip is dismissed.
-            </summary>  
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions.Visible">
-            <summary>
-            Gets or sets a value indicating whether the tooltip is visible.
-            </summary>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService">
-            <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService"/>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.#ctor(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipGlobalOptions)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService"/> class.
-            </summary>
-            <param name="options">Default global options</param>
-        </member>
-        <member name="E:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.OnTooltipUpdated">
-            <inheritdoc cref="E:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.OnTooltipUpdated"/>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.GlobalOptions">
-            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.GlobalOptions"/>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Tooltips">
-            <inheritdoc cref="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Tooltips"/>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.TooltipList">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.TooltipLock">
-            <summary />
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Add(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions)">
-            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Add(Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipOptions)"/>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Clear">
-            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Clear"/>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Refresh">
-            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Refresh"/>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Dispose">
-            <summary>
-            Clears all tooltips from the service.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
-            <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> class.
@@ -12202,6 +12276,21 @@
             Display the Years View only
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarSelectMode.Single">
+            <summary>
+            Allow only one selected date.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarSelectMode.Range">
+            <summary>
+            Allow a contiguous range of selected dates.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.CalendarSelectMode.Multiple">
+            <summary>
+            Allow multiple selected dates.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Color">
             <summary>
             The color to use for the drawing icons, badges, etc.
@@ -13899,6 +13988,13 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime)">
+            <summary>
+            Returns the first day of the week.
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.ToTimeAgo(System.TimeSpan,Microsoft.FluentUI.AspNetCore.Components.TimeAgoOptions)">
             <summary>
             Get a string showing how long ago a DateTime was, for example '4 minutes ago'.
@@ -14408,6 +14504,77 @@
             <summary>
             Helper for loading any JavaScript (ES6) module and calling its exports
             </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1">
+            <summary>
+            Manage a range of values.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.#ctor(System.Nullable{`0},System.Nullable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1"/> class.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start">
+            <summary>
+            Gets or sets the start value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End">
+            <summary>
+            Gets or sets the end value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.IsEmpty">
+            <summary>
+            Gets whether the range is empty: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.IsValid">
+            <summary>
+            Gets whether the range is valid: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are not null and are not identical.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.IsSingle">
+            <summary>
+            Gets whether the range is valid: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are not null and are identical.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Clear">
+            <summary>
+            Clear the range: <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/> are set to null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Includes(`0)">
+            <summary>
+            Returns whether the range includes the specified value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.GetRangeValues(System.Func{`0,`0,`0[]})">
+            <summary>
+            Returns all values between <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Start"/> and <see cref="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.End"/>, using the specified function to compute the intermediate values between the Min and the Max values.
+            </summary>
+            <param name="allBetweenMinAndMax"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Min">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.Max">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1.IsStartLowerThanEnd">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.Splitter">
             <summary>

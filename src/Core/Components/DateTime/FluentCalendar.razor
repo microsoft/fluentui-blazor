@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentCalendarBase
 
-<div class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
+<div id="@Id" class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
 
     @if (_pickerView == CalendarViews.Days)
     {
@@ -44,7 +44,7 @@
             {
                 // "Days" view
                 case CalendarViews.Days:
-                    <div class="days" part="days">
+                    <div class="days" part="days" @onmouseleave="@(e => _selectedDatesMouseOver.Clear())">
                         @* Titles: Mon, Tue, ... *@
                         <div class="week-days" part="week-days">
                             @foreach (var weekDay in CalendarExtended.GetDayNames())
@@ -54,6 +54,10 @@
                                 </div>
                             }
                         </div>
+
+                        @{
+                            var multipleSelection = GetMultipleSelection();
+                        }
 
                         @for (int week = 0; week < 6; week++)
                         {
@@ -68,10 +72,15 @@
                                          disabled="@dayProperties.IsDisabled"
                                          inactive="@dayProperties.IsInactive"
                                          today="@dayProperties.IsToday"
-                                         selected="@dayProperties.IsSelected"
+                                         selected="@(dayProperties.IsSelected)"
+                                         multi-day="@(dayProperties.IsMultiDaySelected)"
+                                         multi-day-over="@(multipleSelection.InProgress && _selectedDatesMouseOver.Contains(day))"
+                                         multi-start="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Min == day)"
+                                         multi-end="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Max == day)"
                                          aria-label="@dayProperties.Title"
                                          value="@dayProperties.DayIdentifier"
-                                         @onclick="@((e) => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                                         @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))"
+                                         @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
                                         @if (DaysTemplate == null)
                                         {
                                             @dayProperties.DayNumber
