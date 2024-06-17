@@ -183,6 +183,7 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("flex-basis", Size)
+        .AddStyle("min-width", Size, when: !Resizable && !string.IsNullOrEmpty(Size))
         .Build();
 
     /// <summary />
