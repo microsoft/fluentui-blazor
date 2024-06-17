@@ -46,6 +46,7 @@
 - [Misc] Add the ability for CssBuilder to properly Add multiple classes without duplicates ([#2104](https://github.com/microsoft/fluentui-blazor/pull/2104))
 - [Misc] Code cleanup work ([#2184](https://github.com/microsoft/fluentui-blazor/pull/2184))
 - [Misc] Package versions refactoring ([#2131](https://github.com/microsoft/fluentui-blazor/pull/2131))
+- [MultiSplitter] Remove experimental label and make fixed panel size work ([#2196](https://github.com/microsoft/fluentui-blazor/pull/2196))
 - [NavMenu] Enhance working in mobile view ([#2183](https://github.com/microsoft/fluentui-blazor/pull/2183))
 - [NavMenu] Fix double click needed for expanding/collapsing child elements when prerendering is turned off ([#2133](https://github.com/microsoft/fluentui-blazor/pull/2133))
 - [NavMenu] Fix FluentNavLink to support CustomColor ([#2116](https://github.com/microsoft/fluentui-blazor/pull/2116))
