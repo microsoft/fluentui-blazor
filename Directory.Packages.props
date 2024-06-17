@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion>8.0.0</RuntimeVersion>
-    <AspNetCoreVersion>8.0.5</AspNetCoreVersion>
+    <AspNetCoreVersion>8.0.6</AspNetCoreVersion>
     <EfCoreVersion>8.0.5</EfCoreVersion>
   </PropertyGroup>
   <ItemGroup>
