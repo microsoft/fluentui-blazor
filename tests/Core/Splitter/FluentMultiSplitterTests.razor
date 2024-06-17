@@ -1,8 +1,6 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
-@{
-#pragma warning disable FluentMultiSplitter
-}
+
 @code
 {
     [Fact]
@@ -165,6 +163,22 @@
         // New values (20% and 80%) are rollbacked to initial values (40% and 60%)
         Assert.Contains("flex-basis: 40%;", cut.Markup);
         Assert.Contains("flex-basis: 60%;", cut.Markup);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMultiSplitter_Size_Fixed()
+    {
+        // Arrange
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = Render(
+            @<FluentMultiSplitter>
+                <FluentMultiSplitterPane>Pane A</FluentMultiSplitterPane>
+                <FluentMultiSplitterPane Resizable="false" Size="300px">Pane B</FluentMultiSplitterPane>
+            </FluentMultiSplitter>);
 
         // Assert
         cut.Verify();

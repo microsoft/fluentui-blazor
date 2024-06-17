@@ -2,7 +2,6 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // --------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -11,11 +10,6 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary>
-/// This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-/// Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
-/// </summary>
-[Experimental("FluentMultiSplitter", UrlFormat = "https://preview.fluentui-blazor.net/MultiSplitter")]
 public partial class FluentMultiSplitter : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Splitter/FluentMultiSplitter.razor.js";

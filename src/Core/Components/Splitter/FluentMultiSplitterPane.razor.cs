@@ -7,7 +7,6 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-#pragma warning disable FluentMultiSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
 {
     private string _size = string.Empty;
@@ -184,6 +183,7 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("flex-basis", Size)
+        .AddStyle("min-width", Size, when: !Resizable && !string.IsNullOrEmpty(Size))
         .Build();
 
     /// <summary />
@@ -233,4 +233,3 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
         return "locked";
     }
 }
-#pragma warning restore FluentMultiSplitter // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
