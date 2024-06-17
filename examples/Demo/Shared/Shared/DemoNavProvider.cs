@@ -155,6 +155,11 @@ public class DemoNavProvider
                         title: "Splitter"
                     ),
                     new NavLink(
+                        href: "/MultiSplitter",
+                        icon: new Icons.Regular.Size20.SplitHorizontal(),
+                        title: "Splitter Multi"
+                    ),
+                    new NavLink(
                         href: "/Stack",
                         icon: new Icons.Regular.Size20.Stack(),
                         title: "Stack"
@@ -542,11 +547,6 @@ public class DemoNavProvider
                         title: "TableOfContents"
                     ),
 
-                    new NavLink(
-                        href: "/MultiSplitter",
-                        icon: new Icons.Regular.Size20.SplitHorizontal(),
-                        title: "Multi Splitter"
-                    ),
                 ]
             )
         ];

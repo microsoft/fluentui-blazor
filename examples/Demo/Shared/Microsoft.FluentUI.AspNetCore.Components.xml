@@ -7766,12 +7766,6 @@
             Gets or sets the width of the spacer (in pixels).
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter">
-            <summary>
-            This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-            Add this line to suppress de compilation error: `@{ #pragma warning disable FluentMultiSplitter }`
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ChildContent">
             <summary>
             Gets or sets the child content.
