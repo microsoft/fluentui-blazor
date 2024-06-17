@@ -3,14 +3,14 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion>8.0.0</RuntimeVersion>
     <AspNetCoreVersion>8.0.6</AspNetCoreVersion>
-    <EfCoreVersion>8.0.5</EfCoreVersion>
+    <EfCoreVersion>8.0.6</EfCoreVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.5.0" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.7.2" />
-    
+
     <!-- Build dependencies -->
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion)" />
@@ -41,6 +41,6 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-  
+
   </ItemGroup>
 </Project>
