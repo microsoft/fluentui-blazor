@@ -14,4 +14,5 @@ public enum IconVariant
     /// </summary>
     Regular,
 
+    Light
 }

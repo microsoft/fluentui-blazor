@@ -50,4 +50,8 @@
     </FilesToSign>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+  </ItemGroup>
+
 </Project>
