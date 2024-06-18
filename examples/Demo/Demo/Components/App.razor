@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="FluentUI.Demo.styles.css" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <HeadOutlet @rendermode="InteractiveAuto" />
+    <HeadOutlet @rendermode="InteractiveWebAssembly" />
 </head>
 
 <body>
-    <Routes @rendermode="InteractiveAuto" />
+    <Routes @rendermode="InteractiveWebAssembly" />
     <script src="_framework/blazor.web.js"></script>
+    <!-- extra libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script type="text/javascript" src="/js/highlight-extensions.js"></script>
+
 </body>
 
 </html>

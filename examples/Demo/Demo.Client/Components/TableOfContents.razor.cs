@@ -56,7 +56,7 @@ public partial class TableOfContents : IAsyncDisposable
     protected NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the heading for the ToC 
+    /// Gets or sets the heading for the ToC
     /// Defaults to 'In this article'
     /// </summary>
     [Parameter]
@@ -81,7 +81,7 @@ public partial class TableOfContents : IAsyncDisposable
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-            "./_content/FluentUI.Demo.Client/Components/TableOfContents.razor.js");
+            "./Components/TableOfContents.razor.js");
             var mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
             if (mobile)

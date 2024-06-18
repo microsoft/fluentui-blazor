@@ -36,7 +36,11 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.Info(),
                         title: "What's new"
                     ),
-
+                    new NavLink(
+                        href: "/Videos",
+                        icon: new Icons.Regular.Size20.VideoClip(),
+                        title: "Videos"
+                    ),
                     new NavLink(
                         href: "/UpgradeGuide",
                         icon: new Icons.Regular.Size20.ArrowUp(),

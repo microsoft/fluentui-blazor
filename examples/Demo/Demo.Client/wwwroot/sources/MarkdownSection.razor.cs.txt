@@ -71,7 +71,7 @@ public partial class MarkdownSection : FluentComponentBase
         {
             // import code for highlighting code blocks
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/FluentUI.Demo.Client/Components/MarkdownSection.razor.js");
+                "./Components/MarkdownSection.razor.js");
         }
 
         if (firstRender || _markdownChanged)

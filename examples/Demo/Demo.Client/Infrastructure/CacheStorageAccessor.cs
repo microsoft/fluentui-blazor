@@ -3,7 +3,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.Client;
-public class CacheStorageAccessor(IJSRuntime js, IAppVersionService vs) : JSModule(js, "./_content/FluentUI.Demo.Client/js/CacheStorageAccessor.js")
+public class CacheStorageAccessor(IJSRuntime js, IAppVersionService vs) : JSModule(js, "./js/CacheStorageAccessor.js")
 {
     private readonly IAppVersionService vs = vs;
     private string? CurrentCacheVersion = default;

@@ -8,7 +8,7 @@ namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoMainLayout
 {
-    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.Client/Layout/DemoMainLayout.razor.js";
+    private const string JAVASCRIPT_FILE = "./Layout/DemoMainLayout.razor.js";
     private string? _version;
     private bool _mobile;
     private string? _prevUri;

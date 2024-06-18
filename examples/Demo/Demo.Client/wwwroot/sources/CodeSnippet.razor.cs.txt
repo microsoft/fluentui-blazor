@@ -33,7 +33,7 @@ public partial class CodeSnippet
 
             await JSRuntime.InvokeVoidAsync("hljs.highlightElement", codeElement);
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/FluentUI.Demo.Client/Components/CodeSnippet.razor.js");
+                "./Components/CodeSnippet.razor.js");
             await _jsModule.InvokeVoidAsync("addCopyButton");
         }
     }
