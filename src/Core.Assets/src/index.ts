@@ -75,18 +75,19 @@ body:has(.prevent-scroll) {
     overflow: hidden;
 }
 :root {
-    --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
-    --success: #0E700E;
-    --warning: #E9835E;
-    --error: #BC2F32;
-    --info: #616161;
-    --presence-available: #13a10e;
-    --presence-away: #eaa300;
-    --presence-busy: #d13438;
-    --presence-dnd: #d13438;
-    --presence-offline: #adadad;
-    --presence-oof: #c239b3;
-    --presence-unknown: #d13438;
+    --font-monospace: var(--fontFamilyMonospace);
+    --success: var(--colorStatusSuccessForeground1);
+    --warning: var(--colorStatusWarningForeground1);
+    --error: var(--colorStatusDangerForeground1);
+    --info: var(--colorPalettePlatinumForeground2);
+    --presence-available: var(--colorPaletteLightGreenForeground3);
+    --presence-away: var(--colorPaletteMarigoldBackground3);
+    --presence-busy: var(--colorPaletteRedBackground3);
+    --presence-dnd: var(--colorPaletteRedBackground3);
+    --presence-offline: var(--colorNeutralForeground3);
+    --presence-oof: var(--colorPaletteBerryForeground3);
+    --presence-blocked: var(--colorPaletteRedBackground3);
+    --presence-unknown: var(--colorNeutralForeground3);
     --highlight-bg: #fff3cd;
     --design-unit: 4px;
 

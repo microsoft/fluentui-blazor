@@ -37,6 +37,11 @@
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Theme\" />
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
   <Target Name="CopySources" BeforeTargets="BeforeBuild">
     <ItemGroup>
       <Sources Include="$(ProjectDir)\Pages\**\Examples\*" />

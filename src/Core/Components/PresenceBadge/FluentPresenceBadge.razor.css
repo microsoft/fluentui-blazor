@@ -1,4 +1,4 @@
-﻿.fluent-presence-badge {
+.fluent-presence-badge {
     position: relative;
     display: inline-block;
     --fluent-presence-badge-border-size: 2px;
@@ -16,9 +16,9 @@
     .fluent-presence-badge ::deep .status {
         display: block;
         position: absolute;
-        background-color: var(--neutral-layer-1);
+        background-color: var(--colorNeutralBackground1);
         bottom: calc(-1 * var(--fluent-presence-badge-border-size));
         right: calc(-1 * var(--fluent-presence-badge-border-size));
         border-radius: 999px;
-        border: var(--fluent-presence-badge-border-size) solid var(--neutral-layer-1);
+        border: var(--fluent-presence-badge-border-size) solid var(--colorNeutralBackground1);
     }
