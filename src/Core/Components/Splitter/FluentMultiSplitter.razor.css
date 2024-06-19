@@ -1,4 +1,4 @@
-﻿.fluent-multi-splitter {
+.fluent-multi-splitter {
     /* Resize Icon colors */
     --fluent-multi-splitter-color: var(--neutral-stroke-strong-rest);
     --fluent-multi-splitter-color-active: var(--neutral-stroke-strong-hover);
@@ -151,6 +151,8 @@
     overflow: hidden;
     position: relative;
     flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
     .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="collapsed"] {
