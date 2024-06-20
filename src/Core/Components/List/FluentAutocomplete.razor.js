@@ -17,6 +17,18 @@ export function displayLastSelectedItem(id) {
     }
 }
 
+export function scrollToFirstSelectable(idPopup, goDown) {
+
+    const popup = document.getElementById(idPopup);
+    const item = popup?.querySelector("fluent-option[selectable]")
+    const next = goDown ? item?.nextElementSibling : item?.previousElementSibling;
+
+    if (!!next) {
+        next.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+
+}
+
 export function focusOn(id) {
     var item = document.getElementById(id);
     if (!!item) {
