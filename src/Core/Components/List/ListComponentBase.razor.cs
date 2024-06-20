@@ -230,9 +230,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                     // If Items is null, we don't know if the selected option is in the list of items, so we just set it
                     _currentSelectedOption = newSelectedOption;
                 }
-
-                Value = GetOptionValue(_currentSelectedOption);
-                await ValueChanged.InvokeAsync(Value);
             }
             else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
             {
