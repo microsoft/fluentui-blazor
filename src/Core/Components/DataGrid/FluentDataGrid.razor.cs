@@ -370,6 +370,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Sorts the grid by the specified column <paramref name="title"/> found first. If the title is not found, nothing happens.
+    /// </summary>
+    /// <param name="title">The title of the column to sort by.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    public Task SortByColumnAsync(string title, SortDirection direction = SortDirection.Auto)
+    {
+        var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+
+        if (column is not null)
+        {
+            return SortByColumnAsync(column, direction);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
+    /// </summary>
+    /// <param name="index">The index of the column to sort by.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
+    {
+        if (index >= 0 && index < _columns.Count)
+        {
+            return SortByColumnAsync(_columns[index], direction);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
     /// </summary>
     /// <param name="column">The column to check against the current sorted on column.</param>
@@ -432,7 +464,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
-            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
@@ -445,6 +476,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
+            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
         }
 
         StateHasChanged();

@@ -155,6 +155,11 @@ public class DemoNavProvider
                         title: "Splitter"
                     ),
                     new NavLink(
+                        href: "/MultiSplitter",
+                        icon: new Icons.Regular.Size20.SplitHorizontal(),
+                        title: "Splitter Multi"
+                    ),
+                    new NavLink(
                         href: "/Stack",
                         icon: new Icons.Regular.Size20.Stack(),
                         title: "Stack"
@@ -181,6 +186,35 @@ public class DemoNavProvider
                         href: "/InputFile",
                         icon: new Icons.Regular.Size20.ArrowUpload(),
                         title: "InputFile"
+                    ),
+                     new NavGroup(
+                        title: "List",
+                        expanded: true,
+                        gap: "10px",
+                        icon: new Icons.Regular.Size20.List(),
+                        children:
+                        [
+                            new NavLink(
+                                href: "/Combobox",
+                                icon: new Icons.Regular.Size20.BoxEdit(),
+                                title: "Combobox"
+                            ),
+                            new NavLink(
+                                href: "/Listbox",
+                                icon: new Icons.Regular.Size20.List(),
+                                title: "Listbox"
+                            ),
+                            new NavLink(
+                                href: "/Select",
+                                icon: new Icons.Regular.Size20.GroupList(),
+                                title: "Select"
+                            ),
+                            new NavLink(
+                                href: "/Option",
+                                icon: new Icons.Regular.Size20.MultiselectRtl(),
+                                title: "Option"
+                            )
+                        ]
                     ),
                     new NavLink(
                         href: "/NumberField",
@@ -261,6 +295,11 @@ public class DemoNavProvider
                         href: "/AppBar",
                         icon: new Icons.Regular.Size20.AppsList(),
                         title: "AppBar"
+                    ),
+                    new NavLink(
+                        href: "/Autocomplete",
+                        icon: new Icons.Regular.Size20.ArrowAutofitContent(),
+                        title: "Autocomplete"
                     ),
                     new NavGroup(
                         title: "Badge",
@@ -360,40 +399,6 @@ public class DemoNavProvider
                         href: "/Label",
                         icon: new Icons.Regular.Size20.DoorTag(),
                         title: "Label"
-                    ),
-                    new NavGroup(
-                        title: "List",
-                        expanded: true,
-                        gap: "10px",
-                        icon: new Icons.Regular.Size20.List(),
-                        children:
-                        [
-                            new NavLink(
-                                href: "/Autocomplete",
-                                icon: new Icons.Regular.Size20.ArrowAutofitContent(),
-                                title: "Autocomplete"
-                            ),
-                            new NavLink(
-                                href: "/Combobox",
-                                icon: new Icons.Regular.Size20.BoxEdit(),
-                                title: "Combobox"
-                            ),
-                            new NavLink(
-                                href: "/Listbox",
-                                icon: new Icons.Regular.Size20.List(),
-                                title: "Listbox"
-                            ),
-                            new NavLink(
-                                href: "/Select",
-                                icon: new Icons.Regular.Size20.GroupList(),
-                                title: "Select"
-                            ),
-                            new NavLink(
-                                href: "/Option",
-                                icon: new Icons.Regular.Size20.MultiselectRtl(),
-                                title: "Option"
-                            )
-                        ]
                     ),
                     new NavLink(
                         href: "/Menu",
@@ -542,11 +547,6 @@ public class DemoNavProvider
                         title: "TableOfContents"
                     ),
 
-                    new NavLink(
-                        href: "/MultiSplitter",
-                        icon: new Icons.Regular.Size20.SplitHorizontal(),
-                        title: "Multi Splitter"
-                    ),
                 ]
             )
         ];

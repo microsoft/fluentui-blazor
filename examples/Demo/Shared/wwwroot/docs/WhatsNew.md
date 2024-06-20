@@ -1,6 +1,85 @@
-## v4.7.3
+## v4.8.0
+
+### Breaking change
+- [Option] Change Option<TType>.Text type to `string?` ([#2063](https://github.com/microsoft/fluentui-blazor/pull/2063)). See also discussion [#2062](https://github.com/microsoft/fluentui-blazor/discussions/2062)
+
+### Demo site and documentation 
+- Add DataGridTableScroll demo ([#2098](https://github.com/microsoft/fluentui-blazor/pull/2098))
+- Adds office color table to Design Tokens page ([#2073](https://github.com/microsoft/fluentui-blazor/pull/2073))
+- Cleans up more code snippets ([#2173](https://github.com/microsoft/fluentui-blazor/pull/2173))
+- Cleanup DialogService Page ([#2171](https://github.com/microsoft/fluentui-blazor/pull/2171))
+- Fix Page Title typo - Project Setup ([#2054](https://github.com/microsoft/fluentui-blazor/pull/2054))
+- Fixes minor typo in DesignTokens.md ([#2071](https://github.com/microsoft/fluentui-blazor/pull/2071))
+- Removes FluentPersona DemoSection from AutoComplete page ([#2135](https://github.com/microsoft/fluentui-blazor/pull/2135))
+- Toast examples - TimeOut setting in milliseconds ([#2025](https://github.com/microsoft/fluentui-blazor/pull/2025))
+
+### Components
+- [AppBar] Introduce IAppBarItem to enable better extensibility ([#2083](https://github.com/microsoft/fluentui-blazor/pull/2083))
+- [Autocomplete] Accessibility - Add "x of y" aria-label when item is selected ([#2019](https://github.com/microsoft/fluentui-blazor/pull/2019))
+- [Autocomplete] Accessibility - Add aria-selected on FluentOption ([#2018](https://github.com/microsoft/fluentui-blazor/pull/2018))
+- [Autocomplete] Accessibility - Update style when "forced-colors: active" ([#2109](https://github.com/microsoft/fluentui-blazor/pull/2109))
+- [Autocomplete] Add `ImmediateDelay` parameter ([#2052](https://github.com/microsoft/fluentui-blazor/pull/2052))
+- [Autocomplete] Add SelectValueOnTab attribute ([#2110](https://github.com/microsoft/fluentui-blazor/pull/2110))
+- [Autocomplete] Set the height automatically ([#2045](https://github.com/microsoft/fluentui-blazor/pull/2045))
+- [Card] Support AreaRestricted for MinimalStyle as well ([#2170](https://github.com/microsoft/fluentui-blazor/pull/2170))
+- [ComboBox] Fix bind-SelectedOption is null when using bind-SelectedOption:after ([#2102](https://github.com/microsoft/fluentui-blazor/pull/2102))
+- [DataGrid] Allow programmatic sorting of columns by name or index ([#2156](https://github.com/microsoft/fluentui-blazor/pull/2156))
+- [DataGrid] Check rowelements when correcting column options ([#2117](https://github.com/microsoft/fluentui-blazor/pull/2117))
+- [DataGrid] Fix LoadingContent height when Virtualize is true ([#2188](https://github.com/microsoft/fluentui-blazor/pull/2188))
+- [DataGrid] Prevent drag handle from disappearing when column width made too small ([#2059](https://github.com/microsoft/fluentui-blazor/pull/2059))
+- [DataGrid] SelectColumn - Add ClearSelection ([#2164](https://github.com/microsoft/fluentui-blazor/pull/2164))
+- [DataGrid] SelectColumn - Allow customization of SelectAll header ([#2106](https://github.com/microsoft/fluentui-blazor/pull/2106))
+- [DataGrid] SelectColumn - Make it work with ItemsProvider ([#2060](https://github.com/microsoft/fluentui-blazor/pull/2060))
+- [DatePicker, Calendar] Fix not updating correctly when used with EditContext ([#2047](https://github.com/microsoft/fluentui-blazor/pull/2047))
+- [DesignToken] Add WithDefault overload ([#2159](https://github.com/microsoft/fluentui-blazor/pull/2159))
+- [DialogService] Add missing classes to avoid Trimming exceptions ([#2099](https://github.com/microsoft/fluentui-blazor/pull/2099))
+- [Header] Add Id to the container header tag ([#2125](https://github.com/microsoft/fluentui-blazor/pull/2125))
+- [Icon] Minor cleanup and clarification ([#2038](https://github.com/microsoft/fluentui-blazor/pull/2038))
+- [InputBase] Adds FieldIdentifier parameter ([#2114](https://github.com/microsoft/fluentui-blazor/pull/2114))
+- [InputBase] Use `Debouncer` instead of `PeriodicTimer` for debouncing `ValueChanged` handler with `ImmediateDelay`. ([#2042](https://github.com/microsoft/fluentui-blazor/pull/2042))
+- [KeyCode] Add KeyUp event ([#2122](https://github.com/microsoft/fluentui-blazor/pull/2122))
+- [Layout] Add Id to the container div ([#2123](https://github.com/microsoft/fluentui-blazor/pull/2123))
+- [Layout] Add Orientation support ([#2096](https://github.com/microsoft/fluentui-blazor/pull/2096))
+- [Lists] Make list components inherit from InputBase ([#2118](https://github.com/microsoft/fluentui-blazor/pull/2118))
+- [MarkdownSection] Adds border around code snippets ([#2039](https://github.com/microsoft/fluentui-blazor/pull/2039))
+- [MarkdownSection] Optimize to minimize number of calls to OnContentConverted ([#2092](https://github.com/microsoft/fluentui-blazor/pull/2092))
+- [Misc] Add the ability for CssBuilder to properly Add multiple classes without duplicates ([#2104](https://github.com/microsoft/fluentui-blazor/pull/2104))
+- [Misc] Code cleanup work ([#2184](https://github.com/microsoft/fluentui-blazor/pull/2184))
+- [Misc] Package versions refactoring ([#2131](https://github.com/microsoft/fluentui-blazor/pull/2131))
+- [MultiSplitter] Remove experimental label and make fixed panel size work ([#2196](https://github.com/microsoft/fluentui-blazor/pull/2196))
+- [NavMenu] Enhance working in mobile view ([#2183](https://github.com/microsoft/fluentui-blazor/pull/2183))
+- [NavMenu] Fix double click needed for expanding/collapsing child elements when prerendering is turned off ([#2133](https://github.com/microsoft/fluentui-blazor/pull/2133))
+- [NavMenu] Fix FluentNavLink to support CustomColor ([#2116](https://github.com/microsoft/fluentui-blazor/pull/2116))
+- [Pipeline] Add a task to publish the preview package in a special feed ([#2094](https://github.com/microsoft/fluentui-blazor/pull/2094))
+- [ProfileMenu] Add `StartTemplate` and `EndTemplate` parameters ([#2010](https://github.com/microsoft/fluentui-blazor/pull/2010))
+- [Progress] Fix height in Indeterminate mode by using InvariantCulture ([#2120](https://github.com/microsoft/fluentui-blazor/pull/2120))
+- [Templates] Use correct autocomplete values when registering new account ([#2064](https://github.com/microsoft/fluentui-blazor/pull/2064))
+- [Templates] Use 'double provider' fix in more places
+- [TreeView] Add `Items` and `LazyLoadItems` properties ([#1945](https://github.com/microsoft/fluentui-blazor/pull/1945))
+- [Wizard] Fix the Wizard Left position in RTL mode ([#2026](https://github.com/microsoft/fluentui-blazor/pull/2026))
 
 ### Icons
+- Update to Fluent UI System Icons 1.1.242
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Breakout Room / 32 / Filled & Regular
+    - Card UI Portrait Flip / 16, 20, 24 / Filled & Regular
+    - Cursor / 28, 32 / Filled & Regular
+    - Layout Row Two / 28, 48 / Filled & Regular
+    - Notepad Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush Subtract / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush / 28 / Filled & Regular
+    - Play Circle Sparkle / 16, 20, 24 / Filled & Regular
+    - Replay / 16, 20, 24, 28, 32 / Filled & Regular
+    - Send Person / 16, 20, 24 / Filled & Regular
+    - Square Dovetail Joint / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Table Cursor / 16, 20, 24 / Filled & Regular
+    - Transparency Square / 20, 24 / Filled & Regular
+ 
+     **What's updated (Name / Size(s) / Variant(s))**
+    - Notepad / 32 / Filled & Regular
+    - Replay / 20 / Filled & Regular
+   
 - Update to Fluent UI System Icons 1.1.239
 
     **What's new (Name / Size(s) / Variant(s))**

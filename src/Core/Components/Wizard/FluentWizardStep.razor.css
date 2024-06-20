@@ -74,7 +74,7 @@
 
 /* Icon Number */
 .fluent-wizard > ol > li .fluent-wizard-icon-number {
-    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 4px);
+    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 5px);
     font-size: small;
     color: var(--accent-fill-rest);
     text-align: center;

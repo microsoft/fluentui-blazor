@@ -13,8 +13,15 @@ export function addThemeChangeEvent(dotNetHelper, id) {
             }
         });
 
-        const theme = element.themeStorage.readLocalStorage()
-        return theme == null ? theme : JSON.stringify(theme);
+        try {
+            // This can fail when localStorage does not contain a valid JSON object
+            const theme = element.themeStorage.readLocalStorage()
+            return theme == null ? theme : JSON.stringify(theme);
+        } catch (error) {
+            ClearLocalStorage(id);
+            console.error(`FluentDesignTheme: failing to load theme from localStorage.`, error);
+        }
+       
     }
 
     return null;

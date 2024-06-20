@@ -1,9 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq.Expressions;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -139,7 +143,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// </summary>
     protected internal FieldIdentifier FieldIdentifier { get; set; }
 
-    internal bool FieldBound => Field is not null || ValueExpression != null || ValueChanged.HasDelegate;
+    internal virtual bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate;
 
     protected async Task SetCurrentValueAsync(TValue? value)
     {
@@ -162,7 +166,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         Value = value;
         if (ValueChanged.HasDelegate)
         {
-            // Thread Safety: Force `ValueChanged` to be re-associated with the Dispatcher, prior to invokation.
+            // Thread Safety: Force `ValueChanged` to be re-associated with the Dispatcher, prior to invocation.
             await InvokeAsync(async () => await ValueChanged.InvokeAsync(value));
         }
         if (FieldBound)
@@ -303,7 +307,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
 
-            if(Field is not null)
+            if (Field is not null)
             {
                 FieldIdentifier = (FieldIdentifier)Field;
             }
