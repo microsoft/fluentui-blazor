@@ -4,12 +4,17 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
-    @{ StartCollectingColumns(); }
-    @if (!_manualGrid) {
+    @{
+        StartCollectingColumns();
+    }
+    @if (!_manualGrid)
+    {
         @ChildContent
     }
     <Defer>
-        @{ FinishCollectingColumns(); }
+        @{
+            FinishCollectingColumns();
+        }
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
 
         <fluent-data-grid @ref=_gridReference
@@ -133,11 +138,26 @@
             else
                 col.ShowSortIcon = false;
 
-            <FluentDataGridCell GridColumn=@(colIndex+1) CellType=DataGridCellType.ColumnHeader Class="@("column-header " + @ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))" Style="@col.Style" aria-sort="@AriaSortValue(col)" @key="@col" scope="col" TGridItem="TGridItem">
+            <FluentDataGridCell GridColumn=@(colIndex+1)
+                                CellType=DataGridCellType.ColumnHeader
+                                Class="@("column-header " + @ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
+                                Style="@col.Style" aria-sort="@AriaSortValue(col)"
+                                @key="@col"
+                                scope="col"
+                                TGridItem="TGridItem">
                 @col.HeaderContent
                 @if (col == _displayOptionsForColumn)
                 {
-                    <div class="col-options">@col.ColumnOptions</div>
+                    <div class="col-options">
+                        <FluentStack Orientation="Orientation.Vertical">
+                            @col.ColumnOptions
+                            @if (ResizableWithColumnOptions)
+                            {
+                                <ColumnResize TGridItem="TGridItem" />
+                            }
+
+                        </FluentStack>
+                    </div>
                 }
                 @if (ResizableColumns)
                 {

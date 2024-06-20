@@ -47,6 +47,12 @@ fluent-data-grid {
     opacity: 0.75;
 }
 
+.resize-options {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
 
 ::deep .col-width-draghandle {

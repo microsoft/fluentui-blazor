@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 
-<FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px;overflow:auto;">
+<FluentDataGrid Items="@FilteredItems" ResizableColumns=true ResizableWithColumnOptions="true" Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px;overflow:auto;">
     <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
     </TemplateColumn>
@@ -15,7 +15,12 @@
     <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
     <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
     <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
-    <PropertyColumn Property="@(c => c.Medals.Total)" Align="Align.End" Tooltip="true" />
+    <PropertyColumn Property="@(c => c.Medals.Total)" Align="Align.End" Tooltip="true">
+        <ColumnOptions>
+            <p><FluentSlider Label="Min" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;" /><FluentBadge>@minMedals</FluentBadge></p>
+            <p><FluentSlider Label="Max" Min="0" Max="120" Step="1" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;" /><FluentBadge>@maxMedals</FluentBadge></p>
+        </ColumnOptions>
+    </PropertyColumn>
 </FluentDataGrid>
 
 
@@ -32,6 +37,8 @@
     IQueryable<Country>? items;
     PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
     string nameFilter = string.Empty;
+    int minMedals;
+    int maxMedals = 120;
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
@@ -41,7 +48,27 @@
     Func<Country, string?> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : null;
     Func<Country, string?> rowStyle = x => x.Name.StartsWith("Au") ? "background-color: var(--highlight-bg);" : null;
 
-    IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+    //IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+
+    IQueryable<Country>? FilteredItems
+    {
+        get
+        {
+            var result = items?.Where(c => c.Medals.Total <= maxMedals);
+
+            if (result is not null && !string.IsNullOrEmpty(nameFilter))
+            {
+                result = result.Where(c => c.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            if (result is not null && minMedals > 0)
+            {
+                result = result.Where(c => c.Medals.Total >= minMedals);
+            }
+
+            return result;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -67,12 +94,12 @@
     private async Task ToggleItemsAsync()
     {
         if (_clearItems)
-		{
-			items = null;
-		}
-		else
-		{
-			items = (await Data.GetCountriesAsync()).AsQueryable();
-		}
+        {
+            items = null;
+        }
+        else
+        {
+            items = (await Data.GetCountriesAsync()).AsQueryable();
+        }
     }
 }

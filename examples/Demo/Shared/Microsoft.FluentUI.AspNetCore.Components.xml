@@ -1670,6 +1670,13 @@
             manually. Size changes are not persisted.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizableWithColumnOptions">
+            <summary>
+            To comply with WCAG 2.2, a one-click option should be offered to change column widths. We providesuch an option through the
+            ColumnOptions UI. This parameter allows you to enable or disable this resize UI.
+            Defualts to false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a

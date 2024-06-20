@@ -70,6 +70,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We providesuch an option through the
+    /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.
+    /// Defualts to false.
+    /// </summary>
+    [Parameter]
+    public bool ResizableWithColumnOptions { get; set; } = false;
+
+    [Parameter]
+    public string ResizeLabel { get; set; } = "Resize column";
+
+    /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
     /// unique identifier, such as a primary key value, for each data item.
     ///
@@ -659,7 +670,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         //return Task.CompletedTask;
     }
 
-    private async Task SetColumnWidthAsync(float widthChange)
+    internal async Task SetColumnWidthAsync(float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -667,7 +678,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    private async Task ResetColumnWidthsAsync()
+    internal async Task ResetColumnWidthsAsync()
     {
         if (_gridReference is not null && Module is not null)
         {
