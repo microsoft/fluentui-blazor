@@ -71,7 +71,7 @@ public partial class FluentDatePicker : FluentCalendarBase
         if (Value is not null && value is not null)
         {
             updatedValue = Value?.TimeOfDay != TimeSpan.Zero
-            ? (value ?? DateTime.MinValue).Date + Value?.TimeOfDay
+            ? value?.Date + Value?.TimeOfDay
             : value;
         }
         
