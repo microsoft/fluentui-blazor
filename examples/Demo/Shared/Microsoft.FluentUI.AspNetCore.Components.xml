@@ -1281,6 +1281,11 @@
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1" />.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentColumnResize`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1">
             <summary>
             Represents a sort order specification used within <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -1670,7 +1675,7 @@
             manually. Size changes are not persisted.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizableWithColumnOptions">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeType">
             <summary>
             To comply with WCAG 2.2, a one-click option should be offered to change column widths. We providesuch an option through the
             ColumnOptions UI. This parameter allows you to enable or disable this resize UI.
@@ -12400,6 +12405,21 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridCellType.RowHeader">
             <summary>
             Cell is a row header.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType">
+            <summary>
+            The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Discreet">
+            <summary>
+            Resize datagrid columns by discreet steps of 10 pixels
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Exact">
+            <summary>
+            Resize datagrid columns by exact pixel values
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">

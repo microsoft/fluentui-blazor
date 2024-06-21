@@ -1,7 +1,7 @@
 ﻿@inject DataSource Data
 
 
-<FluentDataGrid Items="@FilteredItems" ResizableColumns=true ResizableWithColumnOptions="true" Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px;overflow:auto;">
+<FluentDataGrid Items="@FilteredItems" ResizableColumns=true ResizeType="DataGridResizeType.Exact" Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px;overflow:auto;">
     <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
     </TemplateColumn>
@@ -15,7 +15,7 @@
     <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
     <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
     <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
-    <PropertyColumn Property="@(c => c.Medals.Total)" Align="Align.End" Tooltip="true">
+    <PropertyColumn Property="@(c => c.Medals.Total)" Filtered="@(minMedals != 0 || maxMedals != 120)" Align="Align.End" Tooltip="true">
         <ColumnOptions>
             <p><FluentSlider Label="Min" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;" /><FluentBadge>@minMedals</FluentBadge></p>
             <p><FluentSlider Label="Max" Min="0" Max="120" Step="1" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;" /><FluentBadge>@maxMedals</FluentBadge></p>

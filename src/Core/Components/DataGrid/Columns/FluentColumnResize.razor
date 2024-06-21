@@ -1,0 +1,33 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+<FluentStack Class="resize-options" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
+
+
+    @if (ResizeType == DataGridResizeType.Discreet)
+    {
+        <FluentLabel>@Grid.ResizeLabel</FluentLabel>
+
+        <FluentSpacer />
+        <FluentButton OnClick="HandleShrinkAsync">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Subtract())" />
+        </FluentButton>
+        <FluentButton OnClick="HandleGrowAsync">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Add())" />
+        </FluentButton>
+        <FluentButton OnClick="HandleResetAsync">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowReset())" />
+        </FluentButton>
+    }
+    else
+    {
+        <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.End">
+            <FluentStack>
+                <FluentInputLabel ForId="width" Orientation="Orientation.Horizontal">@Grid.ResizeLabel</FluentInputLabel>
+                <FluentTextField Id="width" TextFieldType="TextFieldType.Text" InputMode="InputMode.Numeric" @bind-Value="@_width" />
+            </FluentStack>
+            <FluentButton Appearance="@Appearance.Accent">Apply</FluentButton>
+        </FluentStack>
+    }
+</FluentStack>
+

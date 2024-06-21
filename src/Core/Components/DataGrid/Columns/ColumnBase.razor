@@ -17,25 +17,15 @@
         {
             string? tooltip = Tooltip ? Title : null;
 
-            @if ((ColumnOptions is not null || Grid.ResizableWithColumnOptions) && (Align == Align.Start || Align == Align.Center))
+            @if (Align == Align.Start || Align == Align.Center)
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    @if (Grid.ResizableWithColumnOptions)
-                    {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" />
-                    }
-                    else
-                    {
-                        if (Filtered.GetValueOrDefault())
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
-                        }
-                        else
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
-                        }
-                    }
-                </FluentButton>
+                @if (Grid.ResizeType is not null || ColumnOptions is not null)
+                {
+                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" Color="Color.Neutral" />
+
+                    </FluentButton>
+                }
             }
 
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
@@ -56,7 +46,13 @@
                                     <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" />
                                 }
                             }
-
+                            @if (Grid.ResizeType is not null && ColumnOptions is not null)
+                            {
+                                @if (Filtered.GetValueOrDefault())
+                                {
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" />
+                                }
+                            }
                         </FluentButton>
                     </span>
                 </FluentKeyCode>
@@ -65,28 +61,24 @@
             {
                 <div class="col-title">
                     <div class="col-title-text" title="@tooltip">@Title</div>
+                    @if (Grid.ResizeType is not null && ColumnOptions is not null)
+                    {
+                        @if (Filtered.GetValueOrDefault())
+                        {
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" />
+                        }
+                    }
                 </div>
             }
 
-            @if ((ColumnOptions is not null || Grid.ResizableWithColumnOptions) && Align == Align.End)
+            @if (Align == Align.End)
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    @if (Grid.ResizableWithColumnOptions)
-                    {
+                @if (Grid.ResizeType is not null || ColumnOptions is not null)
+                {
+                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" />
-                    }
-                    else
-                    {
-                        if (Filtered.GetValueOrDefault())
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
-                        }
-                        else
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
-                        }
-                    }
-                </FluentButton>
+                    </FluentButton>
+                }
             }
         }
     }

@@ -75,7 +75,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Defualts to false.
     /// </summary>
     [Parameter]
-    public bool ResizableWithColumnOptions { get; set; } = false;
+    public DataGridResizeType? ResizeType { get; set; }
 
     [Parameter]
     public string ResizeLabel { get; set; } = "Resize column";
@@ -441,6 +441,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         StateHasChanged();
         return Task.CompletedTask;
     }
+
     public void SetLoadingState(bool loading)
     {
         Loading = loading;

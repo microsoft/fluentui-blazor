@@ -151,9 +151,14 @@
                     <div class="col-options">
                         <FluentStack Orientation="Orientation.Vertical">
                             @col.ColumnOptions
-                            @if (ResizableWithColumnOptions)
+                            @if (ResizeType is not null )
                             {
-                                <ColumnResize TGridItem="TGridItem" />
+                                @if (@col.ColumnOptions is not null)
+                                {
+                                    <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                }
+
+                                <FluentColumnResize ResizeType=@ResizeType TGridItem="TGridItem" />
                             }
 
                         </FluentStack>

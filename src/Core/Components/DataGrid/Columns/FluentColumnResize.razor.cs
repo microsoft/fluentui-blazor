@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-public partial class ColumnResize<TGridItem>
+public partial class FluentColumnResize<TGridItem>
 {
+    private string? _width;
     [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
@@ -14,6 +15,8 @@ public partial class ColumnResize<TGridItem>
     [Parameter]
     public string? Label{ get; set; } = "Resize";
 
+    [Parameter]
+    public DataGridResizeType? ResizeType { get; set; } = DataGridResizeType.Discreet;
 
     private async Task HandleShrinkAsync()
     {

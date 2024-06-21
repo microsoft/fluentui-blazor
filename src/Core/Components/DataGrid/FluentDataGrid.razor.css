@@ -19,6 +19,7 @@ fluent-data-grid {
 
 .col-options {
     position: absolute;
+    min-width: 250px;
     top: 2.2rem;
     background: var(--neutral-layer-2);
     border: 1px solid var(--neutral-layer-3);
