@@ -6755,6 +6755,11 @@
             Gets or sets the template to display <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.ItemsOverflow"/> elements.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.VisibleOnLoad">
+            <summary>
+            To prevent a flickering effect, set this property to False to hide the overflow items until the component is fully loaded.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.MoreButtonTemplate">
             <summary>
             Gets or sets the template to display the More button.

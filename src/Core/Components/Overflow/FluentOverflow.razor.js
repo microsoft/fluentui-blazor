@@ -61,6 +61,8 @@ export function fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelec
     let containerGap = parseFloat(window.getComputedStyle(container).gap);
     if (!containerGap) containerGap = 0;
 
+    containerMaxSize -= 25; // Account for the overflow bage width
+
     // Size of all fixed elements
     fixedItems.forEach(element => {
         element.overflowSize = isHorizontal ? getElementWidth(element) : getElementHeight(element);
