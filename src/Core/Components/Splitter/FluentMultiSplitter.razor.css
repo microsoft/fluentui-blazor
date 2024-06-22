@@ -151,6 +151,8 @@
     overflow: hidden;
     position: relative;
     flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
     .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="collapsed"] {
