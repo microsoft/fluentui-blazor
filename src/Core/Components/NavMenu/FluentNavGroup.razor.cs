@@ -14,7 +14,7 @@ public partial class FluentNavGroup : FluentNavBase
     private bool _open;
 
     private static int _renderCount = 0;
-    private bool _negate = false;
+    private static bool _negate = false;
 
     protected string? ClassValue =>
         new CssBuilder("fluent-nav-group")

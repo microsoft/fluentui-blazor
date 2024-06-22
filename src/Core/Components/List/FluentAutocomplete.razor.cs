@@ -405,7 +405,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowUp
-        Task KeyDown_ArrowUpAsync()
+        async Task KeyDown_ArrowUpAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -423,13 +423,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                         break;
                     }
                 }
-            }
 
-            return Task.CompletedTask;
+                if (Module != null)
+                {
+                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, false);
+                }
+            }
         }
 
         // ArrowDown
-        Task KeyDown_ArrowDownAsync()
+        async Task KeyDown_ArrowDownAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -447,9 +450,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                         break;
                     }
                 }
-            }
 
-            return Task.CompletedTask;
+                if (Module != null)
+                {
+                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, true);
+                }
+            }
         }
 
         // Enter

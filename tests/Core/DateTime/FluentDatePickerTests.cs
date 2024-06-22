@@ -202,4 +202,27 @@ public class FluentDatePickerTests : TestBase
         // Assert
         calendar.Verify();
     }
+
+    [Fact]
+    public void FluentDatePicker_ChangeValueWhenDefaultIsNull()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Value, null);
+        });
+
+        var textField = picker.Find("fluent-text-field");
+
+        // Set a new date value
+        textField.Change("2022-03-12");
+
+        // Assert
+        Assert.Equal(System.DateTime.Parse("2022-03-12"), picker.Instance.Value);
+    }
 }
