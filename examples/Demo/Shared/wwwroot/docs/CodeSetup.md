@@ -119,6 +119,34 @@ This is literally all you need in your views to use Fluent UI Blazor components.
 The **Fluent UI Blazor** components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
+### For Right-To-Left languages
+
+One of the most common design tokens is the `Direction` design token. It is required to make the application components visually configured for the right-to-left languages. In order to implement such configuration you need to use the `Direction` design token together with the `FluentDesignTheme` component in the main layout of your Right-to-Left pages:
+
+```csharp
+@* MainRtlLayout.razor *@
+
+@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+@inject Direction DirectionDesignToken
+@inherits LayoutComponentBase
+...
+@Body
+...
+<FluentDesignTheme Direction="@Direction" />
+@code {
+    LocalizationDirection Direction { get; set; }
+    protected override async Task OnAfterRenderAsync(bool f)
+    {
+        await base.OnAfterRenderAsync(f);
+        if(!f)
+            return;
+        await DirectionDesignToken.WithDefault("rtl");
+        Direction = LocalizationDirection.RightToLeft;
+        StateHasChanged();
+    }
+}
+```
+
 ## Blazor Hybrid
 You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra step (for now) as described below:
 
