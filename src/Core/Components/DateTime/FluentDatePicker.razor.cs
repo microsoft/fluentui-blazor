@@ -64,8 +64,6 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected async Task OnSelectedDateAsync(DateTime? value)
     {
-        Opened = false;
-
         DateTime? updatedValue = value;
 
         if (Value is not null && value is not null)
@@ -74,7 +72,7 @@ public partial class FluentDatePicker : FluentCalendarBase
             ? value?.Date + Value?.TimeOfDay
             : value;
         }
-        
+        Opened = false;
         await OnSelectedDateHandlerAsync(updatedValue);
     }
 
