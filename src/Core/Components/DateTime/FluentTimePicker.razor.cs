@@ -26,7 +26,7 @@ public partial class FluentTimePicker : FluentInputBase<DateTime?>
         }
         else
         {
-            result = Value?.Date;
+            result = string.IsNullOrWhiteSpace(value) ? null : Value?.Date;
         }
 
         validationErrorMessage = null;
