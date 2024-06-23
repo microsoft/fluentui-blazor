@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -53,6 +54,19 @@ public class FluentTimePickerTests : TestBase
         {
             Assert.Null(resultDate);
         }
+    }
+
+    [Fact]
+    public void FluentTimePicker_EmptyStringToNull()
+    {
+        // Arrange
+        var picker = new TestTimePicker();
+
+        // Act
+        var _ = picker.CallTryParseValueFromString(string.Empty, out var resultDate, out var _);
+
+        // Assert
+        Assert.Null(resultDate);
     }
 
     // Temporary class to expose protected method
