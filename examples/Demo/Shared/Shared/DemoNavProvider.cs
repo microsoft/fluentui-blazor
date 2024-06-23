@@ -257,7 +257,7 @@ public class DemoNavProvider
                         title: "Text Field"
                     ),
                     new NavLink(
-                        href: "/DateTime#fluenttimepicker-class",
+                        href: "/DateTime",
                         icon: new Icons.Regular.Size20.Clock(),
                         title: "Time picker"
                     )
