@@ -73,7 +73,10 @@ export function startSplitterResize(
         paneLength: paneLength,
         paneNextLength: isFinite(paneNextLength) ? paneNextLength : 0,
         mouseUpHandler: function (e) {
-            if (document.splitterData[el]) {
+            if (document.splitterData[el] &&
+                pane.style.flexBasis.includes('%') &&
+                paneNext.style.flexBasis.includes('%')) {
+
                 splitter.invokeMethodAsync(
                     'FluentMultiSplitter.OnPaneResizedAsync',
                     parseInt(pane.getAttribute('data-index')),
