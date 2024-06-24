@@ -1,3 +1,6 @@
+## 4.8.1
+- Add an new `Light` value to the `IconVariant` enum to enable publishing new icon packages with these icons
+
 ## v4.8.0
 
 ### Breaking change
