@@ -49,6 +49,11 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     [CascadingParameter]
     private InternalGridContext<TGridItem> GridContext { get; set; } = default!;
 
+    /// <summary>
+    /// Gets a reference to the column that this cell belongs to.
+    /// </summary>
+    private ColumnBase<TGridItem>? Column => Owner.Owner.Grid._columns.ElementAtOrDefault(GridColumn - 1);
+
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
        .AddStyle("align-content", "center", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
@@ -67,16 +72,12 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
             await GridContext.Grid.OnCellClick.InvokeAsync(this);
         }
 
-        //if (CellType == DataGridCellType.Default && Owner.Owner.Grid.SelectColumns.Any(selColumn => selColumn.RestrictToCheckbox))
-        //{
-        //    foreach (var selColumn in Owner.Owner.Grid.SelectColumns)
-        //    {
-        //        if (selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1)
-        //        {
-        //            await selColumn.AddOrRemoveSelectedItemAsync(Item);
-        //        }
-        //    }
-        //}
+        // If the cell is a checkbox cell, add or remove the item from the selected items list.
+        var selectColumn = Column as SelectColumn<TGridItem>;
+        if (CellType == DataGridCellType.Default && selectColumn != null && selectColumn.SelectFromEntireRow == false)
+        {
+            await selectColumn.AddOrRemoveSelectedItemAsync(Item);
+        }
     }
 
     public void Dispose() => Owner.Unregister(this);

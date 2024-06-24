@@ -46,6 +46,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     /// <summary>
     /// Gets or sets whether the selection of rows is restricted to the SelectColumn (false) or if the whole row can be clicked to toggled the selection (true).
+    /// Default is True.
     /// </summary>
     [Parameter]
     public bool SelectFromEntireRow { get; set; } = true;

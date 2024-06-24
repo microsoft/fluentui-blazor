@@ -112,7 +112,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
             if (row != null && row.RowType == DataGridRowType.Default)
             {
-                foreach (var selColumn in Owner.Grid.SelectColumns)
+                foreach (var selColumn in Owner.Grid.SelectColumns.Where(i => i.SelectFromEntireRow))
                 {
                     await selColumn.AddOrRemoveSelectedItemAsync(Item);
                 }
