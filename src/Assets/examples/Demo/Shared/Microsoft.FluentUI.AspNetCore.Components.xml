@@ -1281,11 +1281,6 @@
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1" />.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentColumnResize`1.Grid">
-            <summary>
-            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
-            </summary>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1">
             <summary>
             Represents a sort order specification used within <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -1452,12 +1447,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllDisabled">
             <summary>
             Gets or sets whether the [All] checkbox is disabled (not clickable).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectFromEntireRow">
-            <summary>
-            Gets or sets whether the selection of rows is restricted to the SelectColumn (false) or if the whole row can be clicked to toggled the selection (true).
-            Default is True.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllTemplate">
@@ -1681,13 +1670,6 @@
             manually. Size changes are not persisted.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeType">
-            <summary>
-            To comply with WCAG 2.2, a one-click option should be offered to change column widths. We providesuch an option through the
-            ColumnOptions UI. This parameter allows you to enable or disable this resize UI.
-            Defualts to false.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -1736,11 +1718,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellFocus">
             <summary>
             Gets or sets a callback when a row is focused.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellClick">
-            <summary>
-            Gets or sets a callback when a cell is clicked.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowClick">
@@ -1877,14 +1854,6 @@
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
-            <summary>
-            Gets a reference to the column that this cell belongs to.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">
             <summary>
@@ -12426,21 +12395,6 @@
             Cell is a row header.
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType">
-            <summary>
-            The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Discreet">
-            <summary>
-            Resize datagrid columns by discreet steps of 10 pixels
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Exact">
-            <summary>
-            Resize datagrid columns by exact pixel values
-            </summary>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">
             <summary>
             The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -13038,17 +12992,12 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Filled">
             <summary>
-            Filled variant of FluentUI System Icons
+            FluentUI System Icon font size 10x10
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Regular">
             <summary>
-            Regular variant of FluentUI System Icons
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Light">
-            <summary>
-            Light variant of FluentUI System Icons
+            FluentUI System Icon font size 12x12
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">
@@ -14323,13 +14272,6 @@
             By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ValidateClassNames">
-            <summary>
-            Gets or sets the value indicating whether the library should validate CSS class names.
-            respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
-            Default is true.
-            </summary>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -14406,18 +14348,7 @@
               Looks up a localized string similar to {0} years ago.
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.ValidateClassNames">
-            <summary>
-            Validate CSS class, which must respect the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
-            Default is true.
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.#ctor(System.Boolean,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder"/> class.
             </summary>

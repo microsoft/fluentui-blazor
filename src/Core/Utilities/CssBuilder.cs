@@ -9,12 +9,28 @@ public readonly partial struct CssBuilder
     private static readonly Regex ValidClassNameRegex = GenerateValidClassNameRegex();
 
     /// <summary>
+    /// Validate CSS class, which must respect the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
+    /// Default is true.
+    /// </summary>
+    public static bool ValidateClassNames = true;
+
+    private readonly bool _validateClassNames = ValidateClassNames;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
     public CssBuilder()
     {
         _classes = [];
         _userClasses = null;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CssBuilder"/> class.
+    /// </summary>
+    internal CssBuilder(bool validateClassNames, string? userClasses) : this(userClasses)
+    {
+        _validateClassNames = validateClassNames;
     }
 
     /// <summary>
@@ -84,9 +100,9 @@ public readonly partial struct CssBuilder
     /// </summary>
     /// <param name="className">CSS class name to validate</param>
     /// <returns>True if valid, otherwise false</returns>
-    private static bool IsValidClassName(string className)
+    private bool IsValidClassName(string className)
     {
-        return ValidClassNameRegex.IsMatch(className);
+        return _validateClassNames ? ValidClassNameRegex.IsMatch(className) : true;
     }
 
     /// <summary>
@@ -94,7 +110,7 @@ public readonly partial struct CssBuilder
     /// </summary>
     /// <param name="input">Space-separated CSS Classes</param>
     /// <returns>Enumerable of valid class names</returns>
-    private static IEnumerable<string> SplitAndValidate(string input)
+    private IEnumerable<string> SplitAndValidate(string input)
     {
         return input.Split(' ', StringSplitOptions.RemoveEmptyEntries).Where(IsValidClassName);
     }

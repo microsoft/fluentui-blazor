@@ -45,6 +45,13 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public bool SelectAllDisabled { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets whether the selection of rows is restricted to the SelectColumn (false) or if the whole row can be clicked to toggled the selection (true).
+    /// Default is True.
+    /// </summary>
+    [Parameter]
+    public bool SelectFromEntireRow { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the template for the [All] checkbox column template.
     /// </summary>
     [Parameter]
@@ -309,8 +316,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
             builder.AddAttribute(1, "Value", GetIcon(selected));
-            builder.AddAttribute(1, "Title", selected ? TitleChecked : TitleUnchecked);
-            builder.AddAttribute(2, "row-selected", selected);
+            builder.AddAttribute(2, "Title", selected ? TitleChecked : TitleUnchecked);
+            builder.AddAttribute(3, "row-selected", selected);
+            if (!SelectFromEntireRow)
+            {
+                builder.AddAttribute(4, "style", "cursor: pointer;");
+            }
             builder.CloseComponent();
         });
     }
