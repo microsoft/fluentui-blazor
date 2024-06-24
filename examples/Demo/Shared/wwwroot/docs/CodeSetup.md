@@ -49,6 +49,21 @@ When using **SSR (Static Server Rendering)**, you will need to include the web c
 ```
 If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
+### Styles
+
+The styles used by FluentUI are included in the package.
+You don't need to do anything to include them in your project.
+
+You can always add your own styles, using the `class` or `style` attribute on the components.
+By default, the classes are organised and checked by the component itself (in particular by checking that the class names are valid).
+Some frameworks, such as **Tailwind CSS**, add exceptions to class names (e.g. `min-h-[16px]` or `bg-[#ff0000]`).
+In this case, you need to disable class name validation by adding this code to your `Program.cs` file:
+
+```csharp
+Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.ValidateClassNames = false;
+```
+
+
 ### Reboot (optional)
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
 
