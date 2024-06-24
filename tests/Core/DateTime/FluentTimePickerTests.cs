@@ -59,13 +59,18 @@ public class FluentTimePickerTests : TestBase
     public void FluentTimePicker_EmptyStringToNull()
     {
         // Arrange
-        var picker = new TestTimePicker();
+        var picker = new TestTimePicker()
+        {
+            Value = System.DateTime.Today,   // Default date 
+        };
 
-        // Act
-        var _ = picker.CallTryParseValueFromString(string.Empty, out var resultDate, out var _);
+        // Set a value
+        picker.CallTryParseValueFromString("01:23", out var initialDate, out var _);
+        Assert.Equal("01:23:00", initialDate?.ToString("HH:mm:ss"));
 
-        // Assert
-        Assert.Null(resultDate);
+        // Reset
+        picker.CallTryParseValueFromString(string.Empty, out var resultDate, out var _);
+        Assert.Null(resultDate?.ToString("HH:mm:ss"));
     }
 
     // Temporary class to expose protected method
