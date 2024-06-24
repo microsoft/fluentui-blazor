@@ -60,10 +60,4 @@
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.dll">
-      <Authenticode>Microsoft400</Authenticode>
-      <StrongName>StrongName</StrongName>
-    </FilesToSign>
-  </ItemGroup>
 </Project>

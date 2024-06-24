@@ -21,13 +21,13 @@ To browse the collections, use the following links:
 To use the **Fluent UI System Icons** in your application, you will need to install the [Microsoft.FluentUI.AspNetCore.Components.Icons](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons/) NuGet package in the project which is using the main library. 
 
 ```shell
-dotnet add package FluentUI.AspNetCore.Components.Icons
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
 ```
 
 To use the **Fluent UI Emoji** in your application, you need to install the [Microsoft.FluentUI.AspNetCore.Components.Emojis](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji/) NuGet package in the project which is using the main library.
 
 ```shell
-dotnet add package FluentUI.AspNetCore.Components.Emojis
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emojis
 ```
 
  

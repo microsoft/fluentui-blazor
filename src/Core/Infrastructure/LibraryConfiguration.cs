@@ -29,6 +29,17 @@ public class LibraryConfiguration
     /// </summary>
     public bool HideTooltipOnCursorLeave { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets the value indicating whether the library should validate CSS class names.
+    /// respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
+    /// Default is true.
+    /// </summary>
+    public bool ValidateClassNames
+    {
+        get => Utilities.CssBuilder.ValidateClassNames;
+        set => Utilities.CssBuilder.ValidateClassNames = value;
+    }
+
     public LibraryConfiguration()
     {
     }

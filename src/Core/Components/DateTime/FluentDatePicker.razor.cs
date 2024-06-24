@@ -64,12 +64,15 @@ public partial class FluentDatePicker : FluentCalendarBase
 
     protected async Task OnSelectedDateAsync(DateTime? value)
     {
-        Opened = false;
+        DateTime? updatedValue = value;
 
-        var updatedValue = Value?.TimeOfDay != TimeSpan.Zero
-            ? (value ?? DateTime.MinValue).Date + Value?.TimeOfDay
+        if (Value is not null && value is not null)
+        {
+            updatedValue = Value?.TimeOfDay != TimeSpan.Zero
+            ? value?.Date + Value?.TimeOfDay
             : value;
-
+        }
+        Opened = false;
         await OnSelectedDateHandlerAsync(updatedValue);
     }
 

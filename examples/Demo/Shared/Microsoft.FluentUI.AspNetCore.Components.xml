@@ -1449,6 +1449,12 @@
             Gets or sets whether the [All] checkbox is disabled (not clickable).
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectFromEntireRow">
+            <summary>
+            Gets or sets whether the selection of rows is restricted to the SelectColumn (false) or if the whole row can be clicked to toggled the selection (true).
+            Default is True.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllTemplate">
             <summary>
             Gets or sets the template for the [All] checkbox column template.
@@ -1720,6 +1726,11 @@
             Gets or sets a callback when a row is focused.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellClick">
+            <summary>
+            Gets or sets a callback when a cell is clicked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowClick">
             <summary>
             Gets or sets a callback when a row is clicked.
@@ -1854,6 +1865,14 @@
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
+            <summary>
+            Gets a reference to the column that this cell belongs to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">
             <summary>
@@ -12992,12 +13011,17 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Filled">
             <summary>
-            FluentUI System Icon font size 10x10
+            Filled variant of FluentUI System Icons
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Regular">
             <summary>
-            FluentUI System Icon font size 12x12
+            Regular variant of FluentUI System Icons
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Light">
+            <summary>
+            Light variant of FluentUI System Icons
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">
@@ -14272,6 +14296,13 @@
             By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ValidateClassNames">
+            <summary>
+            Gets or sets the value indicating whether the library should validate CSS class names.
+            respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
+            Default is true.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -14348,7 +14379,18 @@
               Looks up a localized string similar to {0} years ago.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.ValidateClassNames">
+            <summary>
+            Validate CSS class, which must respect the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
+            Default is true.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.#ctor(System.Boolean,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder"/> class.
             </summary>

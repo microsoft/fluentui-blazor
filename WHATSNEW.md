@@ -1,4 +1,4 @@
-## v4.8.1
+## v4.8.2
 
 ### Icons
 - Update to Fluent UI System Icons 1.1.245
@@ -19,6 +19,9 @@
 
      **What's updated (Name / Size(s) / Variant(s))**
     - Arrow Collapse All / 20, 24 / Filled & Regular
+
+## 4.8.1
+- Add an new `Light` value to the `IconVariant` enum to enable publishing new icon packages with these icons 
 
 ## v4.8.0
 
