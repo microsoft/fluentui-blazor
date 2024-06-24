@@ -6,13 +6,18 @@
 public enum IconVariant
 {
     /// <summary>
-    /// FluentUI System Icon font size 10x10
+    /// Filled variant of FluentUI System Icons
     /// </summary>
     Filled,
     /// <summary>
-    /// FluentUI System Icon font size 12x12
+    /// Regular variant of FluentUI System Icons
     /// </summary>
     Regular,
+
+    /// <summary>
+    /// Light variant of FluentUI System Icons
+    /// </summary>
+    Light
 
 
 }

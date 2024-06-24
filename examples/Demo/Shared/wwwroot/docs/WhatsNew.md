@@ -1,4 +1,14 @@
-﻿## v3.7.2
+﻿## V3.7.4
+
+### Icons
+- [Icons] Add new `Light` value to `IconVariant` enum.
+ 
+## v3.7.3
+
+### Components
+- [AutoComplete] Fix AutoComplet no longer working when the user tries to select an item using the mouse.
+
+## v3.7.2
 
 ### Components
 
