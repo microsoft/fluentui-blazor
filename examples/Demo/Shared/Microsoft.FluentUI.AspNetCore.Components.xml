@@ -13011,12 +13011,17 @@
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Filled">
             <summary>
-            FluentUI System Icon font size 10x10
+            Filled variant of FluentUI System Icons
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Regular">
             <summary>
-            FluentUI System Icon font size 12x12
+            Regular variant of FluentUI System Icons
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Light">
+            <summary>
+            Light variant of FluentUI System Icons
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">
@@ -14367,7 +14372,18 @@
               Looks up a localized string similar to {0} years ago.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.ValidateClassNames">
+            <summary>
+            Validate CSS class, which must respect the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
+            Default is true.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.#ctor(System.Boolean,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder"/> class.
             </summary>
