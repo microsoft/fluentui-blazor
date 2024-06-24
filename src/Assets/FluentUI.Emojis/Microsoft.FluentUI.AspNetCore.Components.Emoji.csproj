@@ -12,7 +12,6 @@
 		<IsTrimmable>true</IsTrimmable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
-
 		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
 		<PackageTags>Emoji, Fluent UI, Blazor, .NET8</PackageTags>
 		<Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
@@ -38,12 +37,5 @@
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
 	</ItemGroup>
-
-  <ItemGroup>
-    <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.Emoji.dll">
-      <Authenticode>Microsoft400</Authenticode>
-      <StrongName>StrongName</StrongName>
-    </FilesToSign>
-  </ItemGroup>
 
 </Project>
