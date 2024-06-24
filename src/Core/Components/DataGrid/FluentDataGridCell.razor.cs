@@ -65,7 +65,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     }
 
     /// <summary />
-    private async Task HandleOnCellClickAsync()
+    internal async Task HandleOnCellClickAsync()
     {
         if (GridContext.Grid.OnCellClick.HasDelegate)
         {
