@@ -60,9 +60,11 @@ Some frameworks, such as **Tailwind CSS**, add exceptions to class names (e.g. `
 In this case, you need to disable class name validation by adding this code to your `Program.cs` file:
 
 ```csharp
-Microsoft.FluentUI.AspNetCore.Components.Utilities.CssBuilder.ValidateClassNames = false;
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.ValidateClassNames = false;
+});
 ```
-
 
 ### Reboot (optional)
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.

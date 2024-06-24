@@ -14296,6 +14296,13 @@
             By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ValidateClassNames">
+            <summary>
+            Gets or sets the value indicating whether the library should validate CSS class names.
+            respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
+            Default is true.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
