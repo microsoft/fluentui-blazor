@@ -56,7 +56,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
     /// </summary>
     [CascadingParameter]
-    private InternalGridContext<TGridItem> Owner { get; set; } = default!;
+    internal InternalGridContext<TGridItem> Owner { get; set; } = default!;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("hover", when: Owner.Grid.ShowHover)

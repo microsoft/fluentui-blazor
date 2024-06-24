@@ -41,7 +41,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// Gets or sets the owning <see cref="FluentDataGridRow{TItem}"/> component.
     /// </summary>
     [CascadingParameter(Name = "OwningRow")]
-    public FluentDataGridRow<TGridItem> Owner { get; set; } = default!;
+    internal FluentDataGridRow<TGridItem> Owner { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
@@ -57,6 +57,26 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     protected override void OnInitialized()
     {
         Owner.Register(this);
+    }
+
+    /// <summary />
+    private async Task HandleOnCellClickAsync()
+    {
+        if (GridContext.Grid.OnCellClick.HasDelegate)
+        {
+            await GridContext.Grid.OnCellClick.InvokeAsync(this);
+        }
+
+        //if (CellType == DataGridCellType.Default && Owner.Owner.Grid.SelectColumns.Any(selColumn => selColumn.RestrictToCheckbox))
+        //{
+        //    foreach (var selColumn in Owner.Owner.Grid.SelectColumns)
+        //    {
+        //        if (selColumn != null && selColumn.RestrictToCheckbox is true && Owner.Owner.Grid.Columns.IndexOf(selColumn) == GridColumn - 1)
+        //        {
+        //            await selColumn.AddOrRemoveSelectedItemAsync(Item);
+        //        }
+        //    }
+        //}
     }
 
     public void Dispose() => Owner.Unregister(this);

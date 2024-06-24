@@ -45,6 +45,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public bool SelectAllDisabled { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets whether the selection of rows is restricted to the SelectColumn (false) or if the whole row can be clicked to toggled the selection (true).
+    /// </summary>
+    [Parameter]
+    public bool SelectFromEntireRow { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the template for the [All] checkbox column template.
     /// </summary>
     [Parameter]

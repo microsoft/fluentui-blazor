@@ -11,7 +11,7 @@
     @* Sample using SelectedItems  *@
     <div>Using SelectedItems</div>
 
-    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person" OnRowClick="@(e => Console.WriteLine(e.RowIndex))" OnCellClick="@(e => Console.WriteLine(e.GridColumn))">
         <SelectColumn TGridItem="Person"
                       SelectMode="@Mode"
                       @bind-SelectedItems="@SelectedItems" />

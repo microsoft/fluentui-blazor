@@ -1449,6 +1449,11 @@
             Gets or sets whether the [All] checkbox is disabled (not clickable).
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectFromEntireRow">
+            <summary>
+            Gets or sets whether the selection of rows is restricted to the SelectColumn (false) or if the whole row can be clicked to toggled the selection (true).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectAllTemplate">
             <summary>
             Gets or sets the template for the [All] checkbox column template.
@@ -1720,6 +1725,11 @@
             Gets or sets a callback when a row is focused.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellClick">
+            <summary>
+            Gets or sets a callback when a cell is clicked.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowClick">
             <summary>
             Gets or sets a callback when a row is clicked.
@@ -1854,6 +1864,9 @@
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Item">
             <summary>

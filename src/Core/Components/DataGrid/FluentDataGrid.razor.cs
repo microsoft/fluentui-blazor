@@ -125,6 +125,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a cell is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridCell<TGridItem>> OnCellClick { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback when a row is clicked.
     /// </summary>
     [Parameter]
