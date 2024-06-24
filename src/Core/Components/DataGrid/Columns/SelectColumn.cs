@@ -316,8 +316,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
             builder.OpenComponent<FluentIcon<Icon>>(0);
             builder.AddAttribute(1, "Value", GetIcon(selected));
-            builder.AddAttribute(1, "Title", selected ? TitleChecked : TitleUnchecked);
-            builder.AddAttribute(2, "row-selected", selected);
+            builder.AddAttribute(2, "Title", selected ? TitleChecked : TitleUnchecked);
+            builder.AddAttribute(3, "row-selected", selected);
+            if (!SelectFromEntireRow)
+            {
+                builder.AddAttribute(4, "style", "cursor: pointer;");
+            }
             builder.CloseComponent();
         });
     }
