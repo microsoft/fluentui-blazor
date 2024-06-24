@@ -1,3 +1,25 @@
+## v4.8.2
+
+### Icons
+- Update to Fluent UI System Icons 1.1.245
+- Introduction of a new 'Light' variant of icons. For now a set of 153 icons in size 32 has been added.
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Collapse All / 16 / Filled & Regular
+    - Arrow Expand All / 16, 20, 24 / Filled & Regular
+    - Chat Arrow Back Down / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Desktop Arrow Down / 32 / Filled & Regular
+    - Edit Line Horizontal 3 / 20, 24 / Filled & Regular
+    - Gift Open / 32 / Filled & Regular
+    - Prompt / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Search Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Slide Text Call / 16, 20, 24, 28, 48 / Filled & Regular
+    - Slide Text Cursor / 20, 24 / Filled & Regular    
+    - Vehicle Motorcycle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+
+     **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Collapse All / 20, 24 / Filled & Regular
+
 ## 4.8.1
 - Add an new `Light` value to the `IconVariant` enum to enable publishing new icon packages with these icons
 
