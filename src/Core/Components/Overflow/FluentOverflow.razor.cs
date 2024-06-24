@@ -16,7 +16,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     private readonly List<FluentOverflowItem> _items = [];
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper = null;
     private IJSObjectReference _jsModule = default!;
-    private string? _visibility;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -25,7 +24,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("visibility",_visibility)
+        .AddStyle("visibility", "hidden", VisibleOnLoad == false)
         .Build();
 
     [Inject]
@@ -88,10 +87,6 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     {
         Id = Identifier.NewId();
     }
-    protected override void OnInitialized()
-    {
-        _visibility = VisibleOnLoad ? "visible" : "hidden";
-    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -101,8 +96,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
             await _jsModule.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
-            _visibility = "visible";
-            StateHasChanged();
+            VisibleOnLoad = true;
         }
     }
 
