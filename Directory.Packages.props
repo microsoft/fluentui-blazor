@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.8.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.8.1" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.8.0" />
 
