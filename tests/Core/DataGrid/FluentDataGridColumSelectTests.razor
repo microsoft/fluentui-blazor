@@ -15,7 +15,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         cut.Verify();
     }
@@ -33,7 +33,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -64,7 +64,7 @@
                       OnSelect="@(e => e.Item.Selected = e.Selected)" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -94,7 +94,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         cut.Verify();
     }
@@ -112,7 +112,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -149,7 +149,7 @@
                       OnSelect="@(e => e.Item.Selected = e.Selected)" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -185,7 +185,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -219,7 +219,7 @@
                       SelectAllChanged="@(all => items.ToList().ForEach(p => p.Selected = (all == true)))" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-    );
+        );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -250,7 +250,7 @@
                       @bind-SelectedItems="@selectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         // Before the switch
         Assert.Equal(2, cut.FindAll("svg[row-selected]").Count);
@@ -281,7 +281,7 @@
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         // Pre-Assert
         Assert.Empty(cut.FindAll("svg[row-selected]"));
@@ -313,9 +313,77 @@
         </SelectColumn>
         <PropertyColumn Property="@(p => p.Name)" />
     </FluentDataGrid>
-        );
+    );
 
         cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_SingleSelect_NotSelectFromEntireRow()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectFromEntireRow="false"
+                      SelectMode="@DataGridSelectMode.Single"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Act - Click on the second cell => no selection
+        await ClickOnRowAsync(cut, row: 0, col: 1);
+        Assert.Empty(SelectedItems);
+
+        // Act - Click on the first cell => select the row
+        await ClickOnRowAsync(cut, row: 0, col: 0);
+        Assert.Single(SelectedItems);
+        Assert.Equal(1, SelectedItems.First().PersonId);
+
+        // Act - Click on the second cell => keep the selection
+        await ClickOnRowAsync(cut, row: 1, col: 1);
+        Assert.Single(SelectedItems);
+        Assert.Equal(1, SelectedItems.First().PersonId);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_MultiSelect_NotSelectFromEntireRow()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectFromEntireRow="false"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Act - Click on the second cell => no selection
+        await ClickOnRowAsync(cut, row: 0, col: 1);
+        Assert.Empty(SelectedItems);
+
+        // Act - Click on the first cell => select the row
+        await ClickOnRowAsync(cut, row: 0, col: 0);
+        Assert.Single(SelectedItems);
+        Assert.Equal(1, SelectedItems.First().PersonId);
+
+        // Act - Click on the second cell => keep the selection
+        await ClickOnRowAsync(cut, row: 1, col: 1);
+        Assert.Single(SelectedItems);
+        Assert.Equal(1, SelectedItems.First().PersonId);
+
+        // Act - Click on the first cell => select another row
+        await ClickOnRowAsync(cut, row: 1, col: 0);
+        Assert.Equal(2, SelectedItems.Count());
+        Assert.Equal(1, SelectedItems.ElementAt(0).PersonId);
+        Assert.Equal(2, SelectedItems.ElementAt(1).PersonId);
     }
 
     /// <summary>
@@ -323,12 +391,24 @@
     /// </summary>
     /// <param name="cut"></param>
     /// <param name="row"></param>
+    /// <param name="col"></param>
     /// <returns></returns>
-    private async Task ClickOnRowAsync(IRenderedFragment cut, int row)
+    private async Task ClickOnRowAsync(IRenderedFragment cut, int row, int? col = null)
     {
-        var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
-        await item.Instance.HandleOnRowClickAsync(item.Instance.RowId);
-        cut.FindComponent<FluentDataGrid<Person>>().Render();
+        if (col == null)
+        {
+            var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
+            await item.Instance.HandleOnRowClickAsync(item.Instance.RowId);
+            cut.FindComponent<FluentDataGrid<Person>>().Render();
+        }
+        else
+        {
+            var item = cut.FindComponents<FluentDataGridCell<Person>>()
+                          .Where(i => i.Instance.GridColumn == col + 1)
+                          .ElementAt(row + 1);
+            await item.Instance.HandleOnCellClickAsync();
+            cut.FindComponent<FluentDataGrid<Person>>().Render();
+        }
     }
 
     /// <summary>
