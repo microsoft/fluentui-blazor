@@ -1,7 +1,6 @@
 ﻿<h4>Example</h4>
 
 <FluentStack Orientation="Orientation.Vertical">
-    <FluentTextField Label="Label" @bind-Value="@_label" />
     <FluentCheckbox Label="Read Only" @bind-Value="@_readOnly" />
 
     <FluentCheckbox Label="Disabled" @bind-Value="@_disabled" />
@@ -21,7 +20,6 @@
                   Items="_icons" />
 
     <FluentRating MaxValue="@_maxValue"
-                  Label="@_label"
                   @bind-Value="@_value"
                   IconFilled="@_iconFilled"
                   IconOutline="@_iconOutline"
@@ -39,7 +37,6 @@
     int _maxValue = 10;
     int _value = 2;
     Color _iconColor = Color.Accent;
-    string _label;
 
     Icon _iconFilled = new Icons.Filled.Size20.Star();
     Icon _iconOutline = new Icons.Regular.Size20.Star();
