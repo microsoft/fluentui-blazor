@@ -79,7 +79,7 @@ public partial class FluentAppBar : FluentComponentBase
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
 
-            await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, false, OVERFLOW_SELECTOR);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, false, OVERFLOW_SELECTOR);
         }
     }
 
