@@ -1,6 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<int>
 
+<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
+
 <FluentStack Id="@Id"
              Orientation="Orientation.Horizontal"
              Class="ClassValue"
