@@ -23,8 +23,8 @@
     <FluentRating MaxValue="@_maxValue"
                   Label="@_label"
                   @bind-Value="@_value"
-                  IconFull="@_iconFull"
-                  IconEmpty="@_iconEmpty"
+                  IconFilled="@_iconFilled"
+                  IconOutline="@_iconOutline"
                   ReadOnly="@_readOnly"
                   IconColor="@_iconColor"
                   Disabled="@_disabled" />
@@ -41,22 +41,22 @@
     Color _iconColor = Color.Accent;
     string _label;
 
-    Icon _iconFull = new Icons.Filled.Size20.Star();
-    Icon _iconEmpty = new Icons.Regular.Size20.Star();
+    Icon _iconFilled = new Icons.Filled.Size20.Star();
+    Icon _iconOutline = new Icons.Regular.Size20.Star();
     List<string> _icons = ["Star", "Heart", "Alert", "PersonCircle"];
 
     private void SelectedOptionChanged(string name) => SetIcon(_icons.IndexOf(name));
 
     private void SetIcon(int index)
     {
-        _iconFull = new Icon[]
+        _iconFilled = new Icon[]
         {   new Icons.Filled.Size20.Star(),
              new Icons.Filled.Size20.Heart(),
              new Icons.Filled.Size20.Alert(),
              new Icons.Filled.Size20.PersonCircle(),
        }[index];
 
-        _iconEmpty = new Icon[]
+        _iconOutline = new Icon[]
         {   new Icons.Regular.Size20.Star(),
              new Icons.Regular.Size20.Heart(),
              new Icons.Regular.Size20.Alert(),

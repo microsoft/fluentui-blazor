@@ -33,16 +33,16 @@ public partial class FluentRating : FluentInputBase<int>
     public string? IconCustomColor { get; set; }
 
     /// <summary>
-    /// Selected or hovered icon.
+    /// The icon to display when the rating value is greater than or equal to the item's value.
     /// </summary>
     [Parameter]
-    public Icon IconFull { get; set; } = new CoreIcons.Filled.Size20.Star();
+    public Icon IconFilled { get; set; } = new CoreIcons.Filled.Size20.Star();
 
     /// <summary>
-    /// Non-selected item icon.
+    /// The icon to display when the rating value is less than the item's value.
     /// </summary>
     [Parameter]
-    public Icon IconEmpty { get; set; } = new CoreIcons.Regular.Size20.Star();
+    public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size20.Star();
 
     /// <summary>
     /// Fires when hovered value changes. Value will be null if no rating item is hovered.
@@ -50,7 +50,7 @@ public partial class FluentRating : FluentInputBase<int>
     [Parameter]
     public EventCallback<int?> HoveredValueChanged { get; set; }
 
-    private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFull : IconEmpty;
+    private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFilled : IconOutline;
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out int result, [NotNullWhen(false)] out string?
         validationErrorMessage)

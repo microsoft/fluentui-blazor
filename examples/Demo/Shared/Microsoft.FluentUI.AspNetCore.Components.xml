@@ -7571,12 +7571,12 @@
             ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFull">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFilled">
             <summary>
             Selected or hovered icon.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconEmpty">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconOutline">
             <summary>
             Non-selected item icon.
             </summary>
