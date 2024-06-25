@@ -232,6 +232,11 @@ public class DemoNavProvider
                         title: "Radio Group"
                     ),
                     new NavLink(
+                        href: "/Rating",
+                        icon: new Icons.Regular.Size20.Star(),
+                        title: "Rating"
+                    ),
+                    new NavLink(
                         href: "/Search",
                         icon: new Icons.Regular.Size20.SearchSquare(),
                         title: "Search"

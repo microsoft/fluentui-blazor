@@ -1,0 +1,19 @@
+﻿<h4>Example</h4>
+
+<FluentStack Orientation="Orientation.Horizontal">
+    <FluentCheckbox Label="Read Only" @bind-Value="@_readOnly" />
+    <FluentNumberField TValue="int" Label="Max Value" @bind-Value="@_maxValue" />
+</FluentStack>
+
+<div>
+    <FluentRating MaxValue="@_maxValue" @bind-Value="@_value" ReadOnly="@_readOnly" />
+</div>
+
+<div>Value: @_value</div>
+
+@code
+{
+    bool _readOnly;
+    int _maxValue = 10;
+    int _value = 2;
+}

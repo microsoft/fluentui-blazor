@@ -1,0 +1,17 @@
+﻿@page "/Rating"
+@using FluentUI.Demo.Shared.Pages.Rating.Examples
+
+<PageTitle>@App.PageTitle("Rating")</PageTitle>
+
+<h1>Rating</h1>
+
+<h2 id="example">Examples</h2>
+
+<DemoSection Title="Default" Component="@typeof(RatingDefault)"></DemoSection>
+
+<DemoSection Title="Example" Component="@typeof(RatingExample)"></DemoSection>
+
+
+<h2 id="documentation">Documentation</h2>
+
+<ApiDocumentation Component="typeof(FluentRating)" />
