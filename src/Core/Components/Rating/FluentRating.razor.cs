@@ -23,6 +23,14 @@ public partial class FluentRating : FluentInputBase<int>
     [Parameter] public Color? IconColor { get; set; }
 
     /// <summary>
+    /// Gets or sets the icon drawing and fill color to a custom value.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+    /// ⚠️ Only available when Color is set to Color.Custom.
+    /// </summary>
+    [Parameter]
+    public string? IconCustomColor { get; set; }
+
+    /// <summary>
     /// Selected or hovered icon.
     /// </summary>
     [Parameter] public Icon IconFull { get; set; } = new CoreIcons.Filled.Size20.Star();

@@ -7564,6 +7564,13 @@
             Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconCustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFull">
             <summary>
             Selected or hovered icon.
@@ -7572,6 +7579,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconEmpty">
             <summary>
             Non-selected item icon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.HoveredValueChanged">
+            <summary>
+            Fires when hovered value changes. Value will be null if no rating item is hovered.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.JSRuntime">
