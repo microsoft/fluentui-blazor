@@ -17,8 +17,20 @@
     <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
     <PropertyColumn Property="@(c => c.Medals.Total)" Filtered="@(minMedals != 0 || maxMedals != 120)" Align="Align.End" Tooltip="true">
         <ColumnOptions>
-            <p><FluentSlider Label="Min" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;" /><FluentBadge>@minMedals</FluentBadge></p>
-            <p><FluentSlider Label="Max" Min="0" Max="120" Step="1" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;" /><FluentBadge>@maxMedals</FluentBadge></p>
+            <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;">
+                <FluentSliderLabel Position="0">0</FluentSliderLabel>
+                <FluentSliderLabel Position="50">50</FluentSliderLabel>
+                <FluentSliderLabel Position="100">100</FluentSliderLabel>
+                <FluentSliderLabel Position="150">150</FluentSliderLabel>
+            </FluentSlider>
+            <br /><br />
+            <FluentSlider Label="@($"Max ({maxMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;">
+                <FluentSliderLabel Position="0">0</FluentSliderLabel>
+                <FluentSliderLabel Position="50">50</FluentSliderLabel>
+                <FluentSliderLabel Position="100">100</FluentSliderLabel>
+                <FluentSliderLabel Position="150">150</FluentSliderLabel>
+            </FluentSlider>
+
         </ColumnOptions>
     </PropertyColumn>
 </FluentDataGrid>

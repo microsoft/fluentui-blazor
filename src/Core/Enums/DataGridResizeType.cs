@@ -8,7 +8,7 @@ public enum DataGridResizeType
     /// <summary>
     /// Resize datagrid columns by discreet steps of 10 pixels
     /// </summary>
-    Discreet,
+    Discrete,
 
     /// <summary>
     /// Resize datagrid columns by exact pixel values

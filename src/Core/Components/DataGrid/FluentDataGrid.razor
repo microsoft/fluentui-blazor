@@ -132,13 +132,14 @@
         @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
         {
             var col = _columns[colIndex];
+            var oneBasedIndex = colIndex + 1;
             string CellId = Identifier.NewId();
             if (_sortByColumn == col)
                 col.ShowSortIcon = true;
             else
                 col.ShowSortIcon = false;
 
-            <FluentDataGridCell GridColumn=@(colIndex+1)
+            <FluentDataGridCell GridColumn=@oneBasedIndex
                                 CellType=DataGridCellType.ColumnHeader
                                 Class="@("column-header " + @ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
                                 Style="@col.Style" aria-sort="@AriaSortValue(col)"
@@ -158,7 +159,7 @@
                                     <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
                                 }
 
-                                <FluentColumnResize ResizeType=@ResizeType TGridItem="TGridItem" />
+                                <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
                             }
 
                         </FluentStack>

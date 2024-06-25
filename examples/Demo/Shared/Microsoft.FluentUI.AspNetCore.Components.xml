@@ -1281,7 +1281,7 @@
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1" />.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentColumnResize`1.Grid">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
@@ -12431,7 +12431,7 @@
             The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Discreet">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Discrete">
             <summary>
             Resize datagrid columns by discreet steps of 10 pixels
             </summary>

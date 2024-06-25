@@ -667,21 +667,29 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (args.Value == "-")
         {
-            await SetColumnWidthAsync(-10);
+            await SetColumnWidthDiscreteAsync(null, -10);
         }
         if (args.Value == "+")
         {
             //  Resize column up
-            await SetColumnWidthAsync(10);
+            await SetColumnWidthDiscreteAsync(null, 10);
         }
         //return Task.CompletedTask;
     }
 
-    internal async Task SetColumnWidthAsync(float widthChange)
+    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
-            await Module.InvokeVoidAsync("resizeColumn", _gridReference, widthChange);
+            await Module.InvokeVoidAsync("resizeColumnDiscrete", _gridReference, columnIndex, widthChange);
+        }
+    }
+
+    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resizeColumnExact", _gridReference, columnIndex, width);
         }
     }
 

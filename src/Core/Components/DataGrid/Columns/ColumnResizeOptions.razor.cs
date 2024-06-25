@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-public partial class FluentColumnResize<TGridItem>
+public partial class ColumnResizeOptions<TGridItem>
 {
     private string? _width;
     [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
@@ -13,23 +13,46 @@ public partial class FluentColumnResize<TGridItem>
     public FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     [Parameter]
+    public int Column { get; set; }
+
+    [Parameter]
     public string? Label{ get; set; } = "Resize";
 
     [Parameter]
-    public DataGridResizeType? ResizeType { get; set; } = DataGridResizeType.Discreet;
+    public DataGridResizeType? ResizeType { get; set; } = DataGridResizeType.Discrete;
+
+    protected override void OnParametersSet()
+    {
+        if (Column == 0)
+        {
+            throw new ArgumentException("Column must have a value greater than zero");
+        }
+    }
 
     private async Task HandleShrinkAsync()
     {
-        await Grid.SetColumnWidthAsync(-10);
+        await Grid.SetColumnWidthDiscreteAsync(Column, -10);
     }
 
     private async Task HandleGrowAsync()
     {
-        await Grid.SetColumnWidthAsync(10);
+        await Grid.SetColumnWidthDiscreteAsync(Column, 10);
     }
 
     private async Task HandleResetAsync()
     {
         await Grid.ResetColumnWidthsAsync();
     }
+
+    private async Task HandleColumnWidthAsync()
+    {
+
+        var valid = int.TryParse(_width, out var result);
+        if (valid)
+        {
+            await Grid.SetColumnWidthExactAsync(Column, result);
+        }
+    }
+
+
 }

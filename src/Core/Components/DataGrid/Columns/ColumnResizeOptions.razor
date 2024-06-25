@@ -4,7 +4,7 @@
 <FluentStack Class="resize-options" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
 
 
-    @if (ResizeType == DataGridResizeType.Discreet)
+    @if (ResizeType == DataGridResizeType.Discrete)
     {
         <FluentLabel>@Grid.ResizeLabel</FluentLabel>
 
@@ -21,12 +21,12 @@
     }
     else
     {
-        <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.End">
-            <FluentStack>
-                <FluentInputLabel ForId="width" Orientation="Orientation.Horizontal">@Grid.ResizeLabel</FluentInputLabel>
-                <FluentTextField Id="width" TextFieldType="TextFieldType.Text" InputMode="InputMode.Numeric" @bind-Value="@_width" />
-            </FluentStack>
-            <FluentButton Appearance="@Appearance.Accent">Apply</FluentButton>
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Center">
+                <FluentTextField Id="width" Style="width: 100%;" TextFieldType="TextFieldType.Text" InputMode="InputMode.Numeric" @bind-Value="@_width" Placeholder="@Grid.ResizeLabel" />
+                <FluentButton Appearance="@Appearance.Accent" OnClick="HandleColumnWidthAsync">
+                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
+                </FluentButton>
+
         </FluentStack>
     }
 </FluentStack>
