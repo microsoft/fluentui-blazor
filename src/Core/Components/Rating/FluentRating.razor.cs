@@ -14,13 +14,15 @@ public partial class FluentRating : FluentInputBase<int>
     /// <summary>
     /// Gets or sets the maximum value.
     /// </summary>
-    [Parameter] public int MaxValue { get; set; } = 10;
+    [Parameter]
+    public int MaxValue { get; set; } = 10;
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color. 
     /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
     /// </summary>
-    [Parameter] public Color? IconColor { get; set; }
+    [Parameter]
+    public Color? IconColor { get; set; }
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color to a custom value.
@@ -33,17 +35,20 @@ public partial class FluentRating : FluentInputBase<int>
     /// <summary>
     /// Selected or hovered icon.
     /// </summary>
-    [Parameter] public Icon IconFull { get; set; } = new CoreIcons.Filled.Size20.Star();
+    [Parameter]
+    public Icon IconFull { get; set; } = new CoreIcons.Filled.Size20.Star();
 
     /// <summary>
     /// Non-selected item icon.
     /// </summary>
-    [Parameter] public Icon IconEmpty { get; set; } = new CoreIcons.Regular.Size20.Star();
+    [Parameter]
+    public Icon IconEmpty { get; set; } = new CoreIcons.Regular.Size20.Star();
 
     /// <summary>
     /// Fires when hovered value changes. Value will be null if no rating item is hovered.
     /// </summary>
-    [Parameter] public EventCallback<int?> HoveredValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<int?> HoveredValueChanged { get; set; }
 
     private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFull : IconEmpty;
 
@@ -66,7 +71,10 @@ public partial class FluentRating : FluentInputBase<int>
 
     protected internal async Task HandleKeyDownAsync(KeyboardEventArgs keyboardEventArgs)
     {
-        if (Disabled || ReadOnly) { return; }
+        if (Disabled || ReadOnly)
+        {
+            return;
+        }
 
         var value = keyboardEventArgs.Key switch
         {
@@ -104,7 +112,10 @@ public partial class FluentRating : FluentInputBase<int>
 
     private async Task OnClickAsync(int value)
     {
-        if (value == Value) { value = 0; }
+        if (value == Value)
+        {
+            value = 0;
+        }
         await SetCurrentValueAsync(value);
     }
 }
