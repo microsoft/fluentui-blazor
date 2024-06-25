@@ -16,7 +16,6 @@ public partial class FluentRating : FluentInputBase<int>
     /// </summary>
     [Parameter] public int MaxValue { get; set; } = 10;
 
-
     /// <summary>
     /// Gets or sets the icon drawing and fill color. 
     /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
@@ -33,7 +32,7 @@ public partial class FluentRating : FluentInputBase<int>
     /// </summary>
     [Parameter] public Icon IconEmpty { get; set; } = new CoreIcons.Regular.Size20.Star();
 
-    private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? FullIcon : EmptyIcon;
+    private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFull : IconEmpty;
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out int result, [NotNullWhen(false)] out string?
         validationErrorMessage)
@@ -56,12 +55,12 @@ public partial class FluentRating : FluentInputBase<int>
     {
         if (Disabled || ReadOnly) { return; }
 
-        var value = Value + keyboardEventArgs.Key switch
+        var value = keyboardEventArgs.Key switch
         {
-            "ArrowRight" when keyboardEventArgs.ShiftKey => MaxValue - Value,
-            "ArrowRight" => 1,
-            "ArrowLeft" when keyboardEventArgs.ShiftKey => -Value,
-            "ArrowLeft" => -1,
+            "ArrowRight" when keyboardEventArgs.ShiftKey => MaxValue,
+            "ArrowRight" or "ArrowUp" => Value + 1,
+            "ArrowLeft" when keyboardEventArgs.ShiftKey => 1,
+            "ArrowLeft" or "ArrowDown" => Value - 1,
             _ => 1,
         };
 
