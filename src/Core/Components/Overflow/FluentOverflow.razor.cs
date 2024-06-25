@@ -24,6 +24,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("visibility", "hidden", VisibleOnLoad == false)
         .Build();
 
     [Inject]
@@ -40,6 +41,12 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
+
+    /// <summary>
+    /// To prevent a flickering effect, set this property to False to hide the overflow items until the component is fully loaded.
+    /// </summary>
+    [Parameter]
+    public bool VisibleOnLoad { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the template to display the More button.
@@ -88,8 +95,16 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
             _dotNetHelper = DotNetObjectReference.Create(this);
+            await _jsModule.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
+            VisibleOnLoad = true;
+        }
+    }
 
-            await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
+    public async Task RefreshAsync()
+    {
+        if (_jsModule is not null)
+        {
+            await _jsModule.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, IsHorizontal, Selectors);
         }
     }
 
