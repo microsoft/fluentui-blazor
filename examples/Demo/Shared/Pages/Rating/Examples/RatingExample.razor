@@ -1,25 +1,69 @@
 ﻿<h4>Example</h4>
 
-<FluentStack Orientation="Orientation.Horizontal">
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentTextField Label="Label" @bind-Value="@_label" />
     <FluentCheckbox Label="Read Only" @bind-Value="@_readOnly" />
+
+    <FluentCheckbox Label="Disabled" @bind-Value="@_disabled" />
+
     <FluentNumberField TValue="int" Label="Max Value" @bind-Value="@_maxValue" />
-    <FluentSelect TOption="Color"
+
+    <FluentSelect Label="Color"
                   @bind-SelectedOption="@_iconColor"
                   Style="min-width: 100px;"
                   Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
                   OptionValue="@(i => i.ToAttributeValue())" />
+
+    <FluentSelect TOption="string"
+                  Label="Icons Full/Empty"
+                  SelectedOptionChanged="SelectedOptionChanged"
+                  Style="min-width: 100px;"
+                  Items="_icons" />
+
+    <FluentRating MaxValue="@_maxValue"
+                  Label="@_label"
+                  @bind-Value="@_value"
+                  IconFull="@_iconFull"
+                  IconEmpty="@_iconEmpty"
+                  ReadOnly="@_readOnly"
+                  IconColor="@_iconColor"
+                  Disabled="@_disabled" />
+
+    <div>Value: @_value</div>
 </FluentStack>
 
-<div>
-    <FluentRating MaxValue="@_maxValue" @bind-Value="@_value" ReadOnly="@_readOnly" IconColor="@_iconColor" />
-</div>
-
-<div>Value: @_value</div>
 
 @code
 {
     bool _readOnly;
+    bool _disabled;
     int _maxValue = 10;
     int _value = 2;
     Color _iconColor = Color.Accent;
+    string _label;
+
+    Icon _iconFull = new Icons.Filled.Size20.Star();
+    Icon _iconEmpty = new Icons.Regular.Size20.Star();
+    List<string> _icons = ["Star", "Heart", "Alert", "PersonCircle"];
+
+    private void SelectedOptionChanged(string name) => SetIcon(_icons.IndexOf(name));
+
+    private void SetIcon(int index)
+    {
+        _iconFull = new Icon[]
+        {   new Icons.Filled.Size20.Star(),
+             new Icons.Filled.Size20.Heart(),
+             new Icons.Filled.Size20.Alert(),
+             new Icons.Filled.Size20.PersonCircle(),
+       }[index];
+
+        _iconEmpty = new Icon[]
+        {   new Icons.Regular.Size20.Star(),
+             new Icons.Regular.Size20.Heart(),
+             new Icons.Regular.Size20.Alert(),
+             new Icons.Regular.Size20.PersonCircle(),
+       }[index];
+    }
+
+    protected override void OnParametersSet() => SetIcon(0);
 }

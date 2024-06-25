@@ -7564,12 +7564,12 @@
             Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.FullIcon">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFull">
             <summary>
             Selected or hovered icon.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.EmptyIcon">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconEmpty">
             <summary>
             Non-selected item icon.
             </summary>
