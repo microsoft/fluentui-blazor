@@ -18,12 +18,14 @@
         @if (ReadOnly || Disabled)
         {
             <FluentIcon Value="@GetIcon(currentValue)"
+                        Width="@IconWidth"
                         Color="@(Disabled && IconColor != Color.Custom  ? Color.Disabled :  IconColor)"
                         CustomColor="@IconCustomColor" />
         }
         else
         {
             <FluentIcon Value="@GetIcon(currentValue)"
+                        Width="@IconWidth"
                         Color="IconColor"
                         CustomColor="@IconCustomColor"
                         OnClick="@(() => OnClickAsync(currentValue))"

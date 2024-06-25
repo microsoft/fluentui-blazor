@@ -7571,14 +7571,19 @@
             ⚠️ Only available when Color is set to Color.Custom.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconWidth">
+            <summary>
+            The icon width.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFilled">
             <summary>
-            Selected or hovered icon.
+            The icon to display when the rating value is greater than or equal to the item's value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconOutline">
             <summary>
-            Non-selected item icon.
+            The icon to display when the rating value is less than the item's value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.HoveredValueChanged">

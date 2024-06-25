@@ -33,6 +33,12 @@ public partial class FluentRating : FluentInputBase<int>
     public string? IconCustomColor { get; set; }
 
     /// <summary>
+    /// The icon width.
+    /// </summary>
+    [Parameter]
+    public string IconWidth { get; set; } = "20px";
+
+    /// <summary>
     /// The icon to display when the rating value is greater than or equal to the item's value.
     /// </summary>
     [Parameter]
