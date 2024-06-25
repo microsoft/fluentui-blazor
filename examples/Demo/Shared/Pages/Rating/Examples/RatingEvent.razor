@@ -1,0 +1,38 @@
+﻿<h4>Event</h4>
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentRating MaxValue="10"
+                  HoveredValueChanged="HoveredValueChanged"
+                  @bind-Value="@_value" />
+
+    <div>Value: @_value</div>
+    <div>Hovered value: @_overedValue</div>
+    <div>Hovered text value: @_overedTextValue</div>
+</FluentStack>
+
+@code
+{
+    int _value = 2;
+    int? _overedValue;
+    string _overedTextValue = default!;
+
+    private void HoveredValueChanged(int? value)
+    {
+        _overedValue = value;
+        _overedTextValue = value.HasValue
+                            ? new string[]
+                            {
+                                "Very bad",
+                                "Bad",
+                                "Sufficient -2",
+                                "Sufficient -1",
+                                "Sufficient",
+                                "Good -4",
+                                "Good -3",
+                                "Good -2" ,
+                                "Good -1",
+                                "Good"
+                            }[value.Value - 1]
+                            : string.Empty;
+    }
+}

@@ -24,8 +24,8 @@
             <FluentIcon Value="@GetIcon(currentValue)"
                         Color="IconColor"
                         OnClick="@(() => OnClickAsync(currentValue))"
-                        @onpointerover="@(() => OnPointerOver(currentValue))"
-                        @onpointerout="@(() => OnPointerOut())" />
+                        @onpointerover="@(async () => await OnPointerOverAsync(currentValue))"
+                        @onpointerout="@(async () => await OnPointerOutAsync())" />
         }
     }
 </FluentStack>

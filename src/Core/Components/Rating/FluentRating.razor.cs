@@ -32,6 +32,11 @@ public partial class FluentRating : FluentInputBase<int>
     /// </summary>
     [Parameter] public Icon IconEmpty { get; set; } = new CoreIcons.Regular.Size20.Star();
 
+    /// <summary>
+    /// Fires when hovered value changes. Value will be null if no rating item is hovered.
+    /// </summary>
+    [Parameter] public EventCallback<int?> HoveredValueChanged { get; set; }
+
     private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFull : IconEmpty;
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out int result, [NotNullWhen(false)] out string?
@@ -77,8 +82,18 @@ public partial class FluentRating : FluentInputBase<int>
         await SetCurrentValueAsync(value);
     }
 
-    private void OnPointerOut() => _mouseOverValue = null;
-    private void OnPointerOver(int value) => _mouseOverValue = value;
+    private async Task OnPointerOutAsync()
+    {
+        _mouseOverValue = null;
+        await HoveredValueChanged.InvokeAsync(_mouseOverValue);
+    }
+
+    private async Task OnPointerOverAsync(int value)
+    {
+        _mouseOverValue = value;
+        await HoveredValueChanged.InvokeAsync(_mouseOverValue);
+    }
+
     private async Task OnClickAsync(int value)
     {
         if (value == Value) { value = 0; }
