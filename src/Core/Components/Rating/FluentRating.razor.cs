@@ -26,12 +26,12 @@ public partial class FluentRating : FluentInputBase<int>
     /// <summary>
     /// Selected or hovered icon.
     /// </summary>
-    [Parameter] public Icon FullIcon { get; set; } = new CoreIcons.Filled.Size20.Star();
+    [Parameter] public Icon IconFull { get; set; } = new CoreIcons.Filled.Size20.Star();
 
     /// <summary>
     /// Non-selected item icon.
     /// </summary>
-    [Parameter] public Icon EmptyIcon { get; set; } = new CoreIcons.Regular.Size20.Star();
+    [Parameter] public Icon IconEmpty { get; set; } = new CoreIcons.Regular.Size20.Star();
 
     private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? FullIcon : EmptyIcon;
 
