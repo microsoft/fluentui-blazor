@@ -12,9 +12,9 @@
     @for (int i = 1; i <= MaxValue; i++)
     {
         var currentValue = i;
-        @if (ReadOnly)
+        @if (ReadOnly || Disabled)
         {
-            <FluentIcon Value="@GetIcon(currentValue)" Color="IconColor" />
+            <FluentIcon Value="@GetIcon(currentValue)" Color="@(Disabled ? Color.Disabled :  IconColor)" />
         }
         else
         {
