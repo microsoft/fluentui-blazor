@@ -15,7 +15,7 @@ public partial class FluentRating : FluentInputBase<int>
     /// Gets or sets the maximum value.
     /// </summary>
     [Parameter]
-    public int MaxValue { get; set; } = 10;
+    public int MaxValue { get; set; } = 5;
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color. 
