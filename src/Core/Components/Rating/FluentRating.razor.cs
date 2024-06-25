@@ -21,7 +21,7 @@ public partial class FluentRating : FluentInputBase<int>
     /// Gets or sets the icon drawing and fill color. 
     /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
     /// </summary>
-    [Parameter] public Color? IconColor { get; set; } 
+    [Parameter] public Color? IconColor { get; set; }
 
     /// <summary>
     /// Selected or hovered icon.
