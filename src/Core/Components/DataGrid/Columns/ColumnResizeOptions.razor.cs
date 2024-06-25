@@ -53,6 +53,4 @@ public partial class ColumnResizeOptions<TGridItem>
             await Grid.SetColumnWidthExactAsync(Column, result);
         }
     }
-
-
 }
