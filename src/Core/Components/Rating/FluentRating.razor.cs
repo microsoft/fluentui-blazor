@@ -54,7 +54,7 @@ public partial class FluentRating : FluentInputBase<int>
     /// Fires when hovered value changes. Value will be null if no rating item is hovered.
     /// </summary>
     [Parameter]
-    public EventCallback<int?> HoveredValueChanged { get; set; }
+    public EventCallback<int?> OnPointerOver { get; set; }
 
     private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFilled : IconOutline;
 

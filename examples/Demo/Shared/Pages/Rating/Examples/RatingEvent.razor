@@ -2,7 +2,7 @@
 
 <FluentStack Orientation="Orientation.Vertical">
     <FluentRating MaxValue="10"
-                  HoveredValueChanged="HoveredValueChanged"
+                  OnPointerOver="OnPointerOver"
                   @bind-Value="@_value" />
 
     <div>Value: @_value</div>
@@ -16,7 +16,7 @@
     int? _overedValue;
     string _overedTextValue = default!;
 
-    private void HoveredValueChanged(int? value)
+    private void OnPointerOver(int? value)
     {
         _overedValue = value;
         _overedTextValue = value.HasValue
