@@ -49,6 +49,23 @@ When using **SSR (Static Server Rendering)**, you will need to include the web c
 ```
 If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
+### Styles
+
+The styles used by FluentUI are included in the package.
+You don't need to do anything to include them in your project.
+
+You can always add your own styles, using the `class` or `style` attribute on the components.
+By default, the classes are organised and checked by the component itself (in particular by checking that the class names are valid).
+Some frameworks, such as **Tailwind CSS**, add exceptions to class names (e.g. `min-h-[16px]` or `bg-[#ff0000]`).
+In this case, you need to disable class name validation by adding this code to your `Program.cs` file:
+
+```csharp
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.ValidateClassNames = false;
+});
+```
+
 ### Reboot (optional)
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
 
@@ -118,6 +135,34 @@ This is literally all you need in your views to use Fluent UI Blazor components.
 ## Configuring the Design System
 The **Fluent UI Blazor** components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
+
+### For Right-To-Left languages
+
+One of the most common design tokens is the `Direction` design token. It is required to make the application components visually configured for the right-to-left languages. In order to implement such configuration you need to use the `Direction` design token together with the `FluentDesignTheme` component in the main layout of your Right-to-Left pages:
+
+```csharp
+@* MainRtlLayout.razor *@
+
+@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+@inject Direction DirectionDesignToken
+@inherits LayoutComponentBase
+...
+@Body
+...
+<FluentDesignTheme Direction="@Direction" />
+@code {
+    LocalizationDirection Direction { get; set; }
+    protected override async Task OnAfterRenderAsync(bool f)
+    {
+        await base.OnAfterRenderAsync(f);
+        if(!f)
+            return;
+        await DirectionDesignToken.WithDefault("rtl");
+        Direction = LocalizationDirection.RightToLeft;
+        StateHasChanged();
+    }
+}
+```
 
 ## Blazor Hybrid
 You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra step (for now) as described below:

@@ -125,6 +125,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a cell is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridCell<TGridItem>> OnCellClick { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback when a row is clicked.
     /// </summary>
     [Parameter]
@@ -187,7 +193,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
-    private readonly List<ColumnBase<TGridItem>> _columns;
+    internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting

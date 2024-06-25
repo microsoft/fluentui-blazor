@@ -20,7 +20,11 @@ public partial class FluentTimePicker : FluentInputBase<DateTime?>
     {
         DateTime currentValue = Value ?? DateTime.MinValue;
 
-        if (value != null && DateTime.TryParse(value, out var valueConverted))
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = null;
+        }
+        else if (value != null && DateTime.TryParse(value, out var valueConverted))
         {
             result = currentValue.Date + valueConverted.TimeOfDay;
         }

@@ -179,4 +179,25 @@ public class CssBuilderTests : TestBase
         // Assert
         Assert.Equal("added-class user-class", cssBuilder.Build());
     }
+
+    [Theory]
+    [InlineData("min-h-[16px] user-class", "min-h-[16px] ")]
+    [InlineData("bg-red-500/50 user-class", " bg-red-500/50")]
+    [InlineData("bg-[#ff0000] user-class", " bg-[#ff0000] ")]
+    [InlineData("a:hover user-class", "a:hover")]
+    [InlineData("min-h-[16px] a:hover user-class", "min-h-[16px]", "a:hover")]
+    public void CssBuilder_ValidateClassNames_AcceptInvalid(string expected, params string[] value)
+    {
+        // Arrange
+        var cssBuilder = new CssBuilder(validateClassNames: false, userClasses: "user-class");
+
+        // Act
+        foreach (var item in value)
+        {
+            cssBuilder.AddClass(item);
+        }
+
+        // Assert
+        Assert.Equal(expected, cssBuilder.Build());
+    }
 }

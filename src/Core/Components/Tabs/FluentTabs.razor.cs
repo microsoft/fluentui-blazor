@@ -149,7 +149,7 @@ public partial class FluentTabs : FluentComponentBase
                 "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
 
             var horizontal = Orientation == Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }
 
