@@ -14,11 +14,12 @@
         var currentValue = i;
         @if (ReadOnly)
         {
-            <FluentIcon Value="@GetIcon(currentValue)" />
+            <FluentIcon Value="@GetIcon(currentValue)" Color="IconColor" />
         }
         else
         {
             <FluentIcon Value="@GetIcon(currentValue)"
+                        Color="IconColor"
                         OnClick="@(() => OnClickAsync(currentValue))"
                         @onpointerover="@(() => OnPointerOver(currentValue))"
                         @onpointerout="@(() => OnPointerOut())" />

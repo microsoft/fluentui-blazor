@@ -16,6 +16,13 @@ public partial class FluentRating : FluentInputBase<int>
     /// </summary>
     [Parameter] public int MaxValue { get; set; } = 10;
 
+
+    /// <summary>
+    /// Gets or sets the icon drawing and fill color. 
+    /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
+    /// </summary>
+    [Parameter] public Color? IconColor { get; set; } 
+
     /// <summary>
     /// Selected or hovered icon.
     /// </summary>

@@ -3,10 +3,15 @@
 <FluentStack Orientation="Orientation.Horizontal">
     <FluentCheckbox Label="Read Only" @bind-Value="@_readOnly" />
     <FluentNumberField TValue="int" Label="Max Value" @bind-Value="@_maxValue" />
+    <FluentSelect TOption="Color"
+                  @bind-SelectedOption="@_iconColor"
+                  Style="min-width: 100px;"
+                  Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
+                  OptionValue="@(i => i.ToAttributeValue())" />
 </FluentStack>
 
 <div>
-    <FluentRating MaxValue="@_maxValue" @bind-Value="@_value" ReadOnly="@_readOnly" />
+    <FluentRating MaxValue="@_maxValue" @bind-Value="@_value" ReadOnly="@_readOnly" IconColor="@_iconColor" />
 </div>
 
 <div>Value: @_value</div>
@@ -16,4 +21,5 @@
     bool _readOnly;
     int _maxValue = 10;
     int _value = 2;
+    Color _iconColor = Color.Accent;
 }
