@@ -12,6 +12,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public static string AccessibilitySelected = "Selected {0}";
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
+    public static string AccessibilityRemoveItem = "Remove {0}";
+    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.Fast.Components.FluentUI/Components/List/FluentAutocomplete.razor.js";
 
@@ -334,7 +336,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         switch (e.Key)
         {
             case KeyCode.Escape:
-                await KeyDown_Escape();
+                await KeyDown_EscapeAsync();
                 break;
 
             case KeyCode.Enter:
@@ -346,11 +348,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                                        : false;
                     if (optionDisabled)
                     {
-                        await KeyDown_Escape();
+                        await KeyDown_EscapeAsync();
                     }
                     else
                     {
-                        await KeyDown_Enter();
+                        await KeyDown_EnterAsync();
                     }
                 }
                 else
@@ -360,13 +362,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Backspace:
-                await KeyDown_Backspace();
+                await KeyDown_BackspaceAsync();
                 break;
 
             case KeyCode.Down:
                 if (IsMultiSelectOpened)
                 {
-                    await KeyDown_ArrowDown();
+                    await KeyDown_ArrowDownAsync();
                 }
                 else
                 {
@@ -375,19 +377,19 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                 break;
 
             case KeyCode.Up:
-                await KeyDown_ArrowUp();
+                await KeyDown_ArrowUpAsync();
                 break;
         }
 
         // Escape
-        Task KeyDown_Escape()
+        Task KeyDown_EscapeAsync()
         {
             IsMultiSelectOpened = false;
             return Task.CompletedTask;
         }
 
         // Backspace
-        async Task KeyDown_Backspace()
+        async Task KeyDown_BackspaceAsync()
         {
             // Remove last selected item
             if (string.IsNullOrEmpty(ValueText) &&
@@ -410,7 +412,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowUp
-        Task KeyDown_ArrowUp()
+        async Task KeyDown_ArrowUpAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -428,13 +430,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                         break;
                     }
                 }
-            }
 
-            return Task.CompletedTask;
+                if (Module != null)
+                {
+                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, false);
+                }
+            }
         }
 
         // ArrowDown
-        Task KeyDown_ArrowDown()
+        async Task KeyDown_ArrowDownAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -452,13 +457,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                         break;
                     }
                 }
-            }
 
-            return Task.CompletedTask;
+                if (Module != null)
+                {
+                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, true);
+                }
+            }
         }
 
         // Enter
-        async Task KeyDown_Enter()
+        async Task KeyDown_EnterAsync()
         {
             if (!IsMultiSelectOpened)
             {
@@ -498,7 +506,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         RemoveAllSelectedItems();
         ValueText = string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
         await RaiseChangedEventsAsync();
 
         if (Module != null)
@@ -511,7 +519,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     protected override async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
         ValueText = string.Empty;
-        await ValueTextChanged.InvokeAsync(ValueText);
+        await RaiseValueTextChangedAsync(ValueText);
 
         IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
@@ -528,6 +536,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         RemoveSelectedItem(item);
         await RaiseChangedEventsAsync();
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", Id);
+        }
     }
 
     /// <summary />
@@ -542,6 +555,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private string? GetAutocompleteAriaLabel()
     {
+        if (!string.IsNullOrEmpty(AriaLabel))
+        {
+            return AriaLabel;
+        }
+
         // No items found
         if (IsMultiSelectOpened && Items?.Any() == false)
         {
@@ -577,5 +595,20 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         // Default
         return GetAriaLabel() ?? Label ?? Placeholder;
+    }
+
+    /// <summary />
+    private async Task RaiseValueTextChangedAsync(string value)
+    {
+        if (ValueTextChanged.HasDelegate)
+        {
+            await ValueTextChanged.InvokeAsync(ValueText);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(ValueText);
+        }
+
     }
 }
