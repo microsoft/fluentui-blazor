@@ -167,6 +167,7 @@ extends:
             projects: ${{ parameters.Projects }}
             feedsToUse: config
             nugetConfigPath: nuget.config
+            includeNuGetOrg: false
 
         # NPM install Core.Assets
         - task: Npm@1

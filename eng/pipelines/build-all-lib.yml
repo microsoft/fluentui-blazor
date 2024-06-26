@@ -128,12 +128,15 @@ extends:
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 
-        # Install dependencies
+        # Restore packages
         - task: DotNetCoreCLI@2
-          displayName: Install dependencies
+          displayName: Restore packages
           inputs:
             command: 'restore'
             projects: ${{ parameters.Projects }}
+            feedsToUse: config
+            nugetConfigPath: nuget.config
+            includeNuGetOrg: false
 
         # Build the projects
         - task: DotNetCoreCLI@2
