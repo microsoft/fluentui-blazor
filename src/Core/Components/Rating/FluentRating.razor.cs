@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
@@ -82,22 +81,21 @@ public partial class FluentRating : FluentInputBase<int>
         }
     }
 
-    protected internal async Task HandleKeyDownAsync(KeyboardEventArgs e)
+    protected internal async Task HandleKeyDownAsync(FluentKeyCodeEventArgs e)
     {
-        if (Disabled || ReadOnly)
+        if (e.TargetId != Id || Disabled || ReadOnly)
         {
             return;
         }
 
-        int value;
-        switch (e.Key)
+        int value = e.Key switch
         {
-            case "ArrowRight" when e.ShiftKey: value = MaxValue; break;
-            case "ArrowRight" or "ArrowUp": value = Math.Min(Value + 1, MaxValue); break;
-            case "ArrowLeft" when e.ShiftKey: value = 1; break;
-            case "ArrowLeft" or "ArrowDown": value = Math.Max(Value - 1, 1); break;
-            default: return;
-        }
+            KeyCode.Right or KeyCode.Up when e.ShiftKey => value = MaxValue,
+            KeyCode.Right or KeyCode.Up => Math.Min(Value + 1, MaxValue),
+            KeyCode.Left or KeyCode.Down when e.ShiftKey => value = 0,
+            KeyCode.Left or KeyCode.Down => Math.Max(Value - 1, 1),
+            _ => Value
+        };
 
         _mouseOverValue = null;
         _mouseOverDisabled = true;

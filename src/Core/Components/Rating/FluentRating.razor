@@ -1,6 +1,14 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<int>
 
+@if (!ReadOnly && !Disabled)
+{
+    <FluentKeyCode Anchor="@Id"
+                   PreventDefaultOnly="new[] { KeyCode.Left, KeyCode.Right, KeyCode.Up, KeyCode.Down, KeyCode.Shift }"
+                   StopPropagation="@true"
+                   OnKeyDown="@HandleKeyDownAsync" />
+}
+
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">@LabelTemplate</FluentInputLabel>
 
 <FluentStack Id="@Id"
@@ -8,7 +16,6 @@
              Class="ClassValue"
              Style="StyleValue"
              role="radiogroup"
-             @onkeydown="HandleKeyDownAsync"
              tabindex="@(Disabled ? -1 : 0)"
              aria-readonly="@(ReadOnly ? "true" : "false")"
              HorizontalGap="0">
