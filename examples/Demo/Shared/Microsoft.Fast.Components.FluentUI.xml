@@ -11376,12 +11376,17 @@
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Filled">
             <summary>
-            FluentUI System Icon font size 10x10
+            Filled variant of FluentUI System Icons
             </summary>
         </member>
         <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Regular">
             <summary>
-            FluentUI System Icon font size 12x12
+            Regular variant of FluentUI System Icons
+            </summary>
+        </member>
+        <member name="F:Microsoft.Fast.Components.FluentUI.IconVariant.Light">
+            <summary>
+            Light variant of FluentUI System Icons
             </summary>
         </member>
         <member name="T:Microsoft.Fast.Components.FluentUI.InputFileMode">

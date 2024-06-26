@@ -1,5 +1,8 @@
 ﻿## v3.7.5
 
+### Components
+- [AutoComplete] Allow focusable Badge dismiss buttons (accessibility) ([#2272](https://github.com/microsoft/fluentui-blazor/pull/2272))
+
 ### Icons
 - Update to Fluent UI System Icons 1.1.245
 - Introduction of a new 'Light' variant of icons. For now a set of 153 icons in size 32 has been added.
