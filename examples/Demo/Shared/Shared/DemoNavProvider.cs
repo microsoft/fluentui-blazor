@@ -334,7 +334,7 @@ public class DemoNavProvider
                         title: "Button",
                         expanded: true,
                         gap: "10px",
-                        icon: new Icons.Regular.Size20.Button(),
+                        icon: new Icons.Regular.Size20.AppFolder(),
                         children:
                         [
                             new NavLink(
