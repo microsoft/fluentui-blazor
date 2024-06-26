@@ -52,6 +52,12 @@ public partial class FluentRating : FluentInputBase<int>
     public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size20.Star();
 
     /// <summary>
+    /// Gets or sets a value that whether to allow clear when click again.
+    /// </summary>
+    [Parameter]
+    public bool AllowReset { get; set; }
+
+    /// <summary>
     /// Fires when hovered value changes. Value will be null if no rating item is hovered.
     /// </summary>
     [Parameter]

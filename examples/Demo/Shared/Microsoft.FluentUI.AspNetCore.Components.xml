@@ -7586,6 +7586,11 @@
             The icon to display when the rating value is less than the item's value.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.AllowReset">
+            <summary>
+            Gets or sets a value that whether to allow clear when click again.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnPointerOver">
             <summary>
             Fires when hovered value changes. Value will be null if no rating item is hovered.
