@@ -17,7 +17,7 @@
              Style="@StyleValue"
              role="radiogroup"
              tabindex="@(Disabled ? -1 : 0)"
-             aria-readonly="@(ReadOnly ? "true" : "false")"
+             aria-readonly="@ReadOnly.ToAttributeValue()"
              HorizontalGap="0">
     @for (int i = 1; i <= MaxValue; i++)
     {

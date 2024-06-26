@@ -92,7 +92,7 @@ public partial class FluentRating : FluentInputBase<int>
 
     protected internal async Task HandleKeyDownAsync(FluentKeyCodeEventArgs e)
     {
-        if (e.TargetId != Id || Disabled || ReadOnly)
+        if (e.TargetId != Id)
         {
             return;
         }
