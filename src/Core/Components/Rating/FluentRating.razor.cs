@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
@@ -61,6 +62,14 @@ public partial class FluentRating : FluentInputBase<int>
     /// </summary>
     [Parameter]
     public EventCallback<int?> OnPointerOver { get; set; }
+
+    /// <summary />
+    protected override string? ClassValue => new CssBuilder(base.ClassValue)
+        .AddClass("fluent-rating")
+        .Build();
+
+    /// <summary />
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue).Build();
 
     private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFilled : IconOutline;
 

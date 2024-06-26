@@ -7596,6 +7596,12 @@
             Fires when hovered value changes. Value will be null if no rating item is hovered.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.StyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.JSRuntime">
             <summary />
         </member>
