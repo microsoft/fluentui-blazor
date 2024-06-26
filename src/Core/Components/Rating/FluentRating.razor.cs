@@ -8,6 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentRating : FluentInputBase<int>
 {
     private int? _mouseOverValue;
+    private bool _mouseOverDisabled;
 
     public FluentRating() => Id = Identifier.NewId();
 
@@ -75,31 +76,25 @@ public partial class FluentRating : FluentInputBase<int>
         }
     }
 
-    protected internal async Task HandleKeyDownAsync(KeyboardEventArgs keyboardEventArgs)
+    protected internal async Task HandleKeyDownAsync(KeyboardEventArgs e)
     {
         if (Disabled || ReadOnly)
         {
             return;
         }
 
-        var value = keyboardEventArgs.Key switch
+        int value;
+        switch (e.Key)
         {
-            "ArrowRight" when keyboardEventArgs.ShiftKey => MaxValue,
-            "ArrowRight" or "ArrowUp" => Value + 1,
-            "ArrowLeft" when keyboardEventArgs.ShiftKey => 1,
-            "ArrowLeft" or "ArrowDown" => Value - 1,
-            _ => 1,
-        };
+            case "ArrowRight" when e.ShiftKey: value = MaxValue; break;
+            case "ArrowRight" or "ArrowUp": value = Math.Min(Value + 1, MaxValue); break;
+            case "ArrowLeft" when e.ShiftKey: value = 1; break;
+            case "ArrowLeft" or "ArrowDown": value = Math.Max(Value - 1, 1); break;
+            default: return;
+        }
 
         _mouseOverValue = null;
-        if (value > MaxValue)
-        {
-            value = MaxValue;
-        }
-        else if (value < 0)
-        {
-            value = 0;
-        }
+        _mouseOverDisabled = true;
 
         await SetCurrentValueAsync(value);
     }
@@ -107,20 +102,34 @@ public partial class FluentRating : FluentInputBase<int>
     private async Task OnPointerOutAsync()
     {
         _mouseOverValue = null;
-        await HoveredValueChanged.InvokeAsync(_mouseOverValue);
+        _mouseOverDisabled = false;
+        if (OnPointerOver.HasDelegate)
+        {
+            await OnPointerOver.InvokeAsync(_mouseOverValue);
+        }
     }
 
     private async Task OnPointerOverAsync(int value)
     {
+        if (_mouseOverDisabled)
+        {
+            return;
+        }
+
         _mouseOverValue = value;
-        await HoveredValueChanged.InvokeAsync(_mouseOverValue);
+        if (OnPointerOver.HasDelegate)
+        {
+            await OnPointerOver.InvokeAsync(_mouseOverValue);
+        }
     }
 
     private async Task OnClickAsync(int value)
     {
-        if (value == Value)
+        if (value == Value && AllowReset)
         {
             value = 0;
+            _mouseOverValue = null;
+            _mouseOverDisabled = true;
         }
         await SetCurrentValueAsync(value);
     }

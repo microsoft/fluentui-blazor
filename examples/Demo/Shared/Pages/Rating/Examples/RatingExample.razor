@@ -3,6 +3,8 @@
 <FluentStack Orientation="Orientation.Vertical">
     <FluentCheckbox Label="Read Only" @bind-Value="@_readOnly" />
 
+    <FluentCheckbox Label="Allow reset" @bind-Value="@_allowReset" />
+
     <FluentCheckbox Label="Disabled" @bind-Value="@_disabled" />
 
     <FluentNumberField TValue="int" Label="Max Value" @bind-Value="@_maxValue" />
@@ -25,7 +27,8 @@
                   IconOutline="@_iconOutline"
                   ReadOnly="@_readOnly"
                   IconColor="@_iconColor"
-                  Disabled="@_disabled" />
+                  Disabled="@_disabled" ,
+                  AllowReset="@_allowReset" />
 
     <div>Value: @_value</div>
 </FluentStack>
@@ -34,6 +37,7 @@
 {
     bool _readOnly;
     bool _disabled;
+    bool _allowReset;
     int _maxValue = 10;
     int _value = 2;
     Color _iconColor = Color.Accent;
