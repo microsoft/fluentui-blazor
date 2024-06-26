@@ -75,6 +75,13 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the icon is focusable (adding tabindex="0" and role="button"),
+    /// allows the icon to be focused sequentially (generally with the Tab key).
+    /// </summary>
+    [Parameter]
+    public bool Focusable { get; set; } = false;
+
     /// <summary />
     protected virtual Task OnClickHandlerAsync(MouseEventArgs e)
     {
