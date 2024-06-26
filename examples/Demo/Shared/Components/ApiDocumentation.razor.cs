@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
 
 namespace FluentUI.Demo.Shared.Components;
 
@@ -23,7 +24,7 @@ public partial class ApiDocumentation
     private string? _displayName, _id;
 
     /// <summary>
-    /// The Component for which the Parameters, Methods and Events should be displayed
+    /// Gets or sets the Component for which the Parameters, Methods and Events should be displayed.
     /// </summary>
 
     [Parameter, EditorRequired]
@@ -40,7 +41,7 @@ public partial class ApiDocumentation
     public Type[] InstanceTypes { get; set; } = new[] { typeof(string) };
 
     /// <summary>
-    /// The label used for displaying the type parameter
+    /// Gets or sets the label used for displaying the type parameter.
     /// </summary>
     [Parameter]
     public string? GenericLabel { get; set; } = null;
@@ -62,7 +63,7 @@ public partial class ApiDocumentation
     [SuppressMessage("Trimming", "IL2055:Either the type on which the MakeGenericType is called can't be statically determined, or the type parameters to be used for generic arguments can't be statically determined.", Justification = "Just for demo/documentation purposes")]
     private IEnumerable<MemberDescription> GetMembers(MemberTypes type)
     {
-        string[] MEMBERS_TO_EXCLUDE = new[] { "Id", "AdditionalAttributes", "ParentReference", "Element", "Class", "Style", "Data", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
+        var MEMBERS_TO_EXCLUDE = new[] { "Id", "AdditionalAttributes", "ParentReference", "Element", "Class", "Style", "Data", "Equals", "GetHashCode", "GetType", "SetParametersAsync", "ToString", "Dispose" };
 
         if (_allMembers == null)
         {
@@ -72,6 +73,7 @@ public partial class ApiDocumentation
             if (Component.IsGenericType)
             {
                 if (InstanceTypes is null)
+                {
                     throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
 
                 // Supply the type to create the generic instance with (needs to be an array)
@@ -81,8 +83,9 @@ public partial class ApiDocumentation
                 obj = Activator.CreateInstance(constructed);
             }
             else
+            {
                 obj = Activator.CreateInstance(Component);
-
+            }
 
             IEnumerable<MemberInfo>? allProperties = Component.GetProperties().Select(i => (MemberInfo)i);
             IEnumerable<MemberInfo>? allMethods = Component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
@@ -94,62 +97,79 @@ public partial class ApiDocumentation
                     PropertyInfo? propertyInfo = memberInfo as PropertyInfo;
                     MethodInfo? methodInfo = memberInfo as MethodInfo;
 
-                    if (propertyInfo != null)
-                    {
-                        bool isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
-
-
+                        if (propertyInfo != null)
+                        {
+                            var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
 
                         Type t = propertyInfo.PropertyType;
                         bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
-                        // Parameters/properties
-                        if (!isEvent)
-                        {
-                            members.Add(new MemberDescription()
+                            // Parameters/properties
+                            if (!isEvent)
                             {
-                                MemberType = MemberTypes.Property,
-                                Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString(),
-                                EnumValues = GetEnumValues(propertyInfo),
-                                Default = propertyInfo.PropertyType.IsValueType ? obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() : "",
-                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name),
-                                IsParameter = isParameter,
-                            });
+                                var defaultVaue = "";
+                                if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
+                                {
+                                    defaultVaue = obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString();
+                                }
+                                else if (propertyInfo.PropertyType == typeof(Icon))
+                                {
+                                    if (obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj) is Icon icon)
+                                    {
+                                        defaultVaue = $"{icon.Variant}.{icon.Size}.{icon.Name}";
+                                    }
+                                }
+
+                                members.Add(new MemberDescription()
+                                {
+                                    MemberType = MemberTypes.Property,
+                                    Name = propertyInfo.Name,
+                                    Type = propertyInfo.ToTypeNameString(),
+                                    EnumValues = GetEnumValues(propertyInfo),
+                                    Default = defaultVaue,
+                                    Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name),
+                                    IsParameter = isParameter,
+                                });
+                            }
+
+                            // Events
+                            if (isEvent)
+                            {
+                                var eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
+                                members.Add(new MemberDescription()
+                                {
+                                    MemberType = MemberTypes.Event,
+                                    Name = propertyInfo.Name,
+                                    Type = propertyInfo.ToTypeNameString(),
+                                    Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
+                                });
+                            }
                         }
 
-                        // Events
-                        if (isEvent)
+                        // Methods
+                        if (methodInfo != null)
                         {
-                            string eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
+                            var genericArguments = "";
+                            if (methodInfo.IsGenericMethod)
+                            {
+                                genericArguments = "<" + string.Join(", ", methodInfo.GetGenericArguments().Select(i => i.Name)) + ">";
+                            }
+
                             members.Add(new MemberDescription()
                             {
-                                MemberType = MemberTypes.Event,
-                                Name = propertyInfo.Name,
-                                Type = propertyInfo.ToTypeNameString(),
-                                Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
+                                MemberType = MemberTypes.Method,
+                                Name = methodInfo.Name + genericArguments,
+                                Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
+                                Type = methodInfo.ToTypeNameString(),
+                                Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + methodInfo.Name)
                             });
                         }
                     }
-
-                    // Methods
-                    if (methodInfo != null)
-                    {
-                        string genericArguments = "";
-                        if (methodInfo.IsGenericMethod)
-                        {
-                            genericArguments = "<" + string.Join(", ", methodInfo.GetGenericArguments().Select(i => i.Name)) + ">";
-                        }
-
-                        members.Add(new MemberDescription()
-                        {
-                            MemberType = MemberTypes.Method,
-                            Name = methodInfo.Name + genericArguments,
-                            Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
-                            Type = methodInfo.ToTypeNameString(),
-                            Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + methodInfo.Name)
-                        });
-                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot found {Component.FullName} -> {memberInfo.Name}");
+                    throw;
                 }
             }
 
