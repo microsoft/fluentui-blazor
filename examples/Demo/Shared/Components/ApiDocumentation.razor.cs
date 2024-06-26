@@ -75,7 +75,7 @@ public partial class ApiDocumentation
                 if (InstanceTypes is null)
                 {
                     throw new ArgumentNullException(nameof(InstanceTypes), "InstanceTypes must be specified when Component is a generic type");
-
+                }
                 // Supply the type to create the generic instance with (needs to be an array)
                 Type[] typeArgs = InstanceTypes;
                 Type constructed = Component.MakeGenericType(typeArgs);
@@ -92,17 +92,19 @@ public partial class ApiDocumentation
 
             foreach (MemberInfo memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
             {
-                if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || Component.Name == "FluentComponentBase")
+                try
                 {
-                    PropertyInfo? propertyInfo = memberInfo as PropertyInfo;
-                    MethodInfo? methodInfo = memberInfo as MethodInfo;
+                    if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || Component.Name == "FluentComponentBase")
+                    {
+                        PropertyInfo? propertyInfo = memberInfo as PropertyInfo;
+                        MethodInfo? methodInfo = memberInfo as MethodInfo;
 
                         if (propertyInfo != null)
                         {
                             var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
 
-                        Type t = propertyInfo.PropertyType;
-                        bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
+                            Type t = propertyInfo.PropertyType;
+                            bool isEvent = t == typeof(EventCallback) || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>));
 
                             // Parameters/properties
                             if (!isEvent)

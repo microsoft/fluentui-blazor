@@ -3454,6 +3454,12 @@
             Allows for capturing a mouse click on an icon
             </summary>
         </member>
+        <member name="P:Microsoft.Fast.Components.FluentUI.FluentIcon`1.Focusable">
+            <summary>
+            Gets or sets whether the icon is focusable (adding tabindex="0" and role="button"),
+            allows the icon to be focused sequentially (generally with the Tab key).
+            </summary>
+        </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentIcon`1.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
@@ -4415,6 +4421,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.GetAutocompleteAriaLabel">
+            <summary />
+        </member>
+        <member name="M:Microsoft.Fast.Components.FluentUI.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
             <summary />
         </member>
         <member name="P:Microsoft.Fast.Components.FluentUI.FluentCombobox`1.JSRuntime">
