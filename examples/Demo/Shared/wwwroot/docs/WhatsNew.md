@@ -1,4 +1,6 @@
-﻿## v3.7.5
+﻿## v3.7.6
+
+## v3.7.5
 
 ### Demo site and documentation 
 - Improve API documentation by showing default icon and string values ([#2269](https://github.com/microsoft/fluentui-blazor/pull/2269))
