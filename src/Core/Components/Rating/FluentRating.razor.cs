@@ -37,7 +37,7 @@ public partial class FluentRating : FluentInputBase<int>
     /// The icon width.
     /// </summary>
     [Parameter]
-    public string IconWidth { get; set; } = "20px";
+    public string IconWidth { get; set; } = "28px";
 
     /// <summary>
     /// The icon to display when the rating value is greater than or equal to the item's value.
