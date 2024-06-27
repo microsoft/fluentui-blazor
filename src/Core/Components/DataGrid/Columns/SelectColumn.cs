@@ -30,6 +30,30 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     {
         Width = "50px";
         ChildContent = GetDefaultChildContent();
+
+        HandleOnRowClickAsync = async (row) =>
+        {
+            if (SelectFromEntireRow)
+            {
+                await AddOrRemoveSelectedItemAsync(row.Item);
+            }
+        };
+
+        HandleOnRowKeyDownAsync = async (row, e) =>
+        {
+            if (KEYBOARD_SELECT_KEYS.Contains(e.Code))
+            {
+                await AddOrRemoveSelectedItemAsync(row.Item);
+            }
+        };
+
+        HandleOnCellClickAsync = async (cell) =>
+        {
+            if (!SelectFromEntireRow && cell.Column == this)
+            {
+                await AddOrRemoveSelectedItemAsync(cell.Item);
+            }
+        };
     }
 
     /// <summary>
@@ -206,7 +230,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     }
 
     /// <summary />
-    internal async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
+    private async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
         if (item != null)
         {

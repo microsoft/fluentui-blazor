@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
@@ -160,4 +161,24 @@ public abstract partial class ColumnBase<TGridItem>
     {
         HeaderContent = RenderDefaultHeaderContent;
     }
+
+    /// <summary>
+    /// Gets or sets the event OnRowKeyDown
+    /// </summary>
+    public Func<FluentDataGridRow<TGridItem>, KeyboardEventArgs, Task>? HandleOnRowKeyDownAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets the event OnRowClick
+    /// </summary>
+    public Func<FluentDataGridRow<TGridItem>, Task>? HandleOnRowClickAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets the event OnRowDouble
+    /// </summary>
+    public Func<FluentDataGridRow<TGridItem>, Task>? HandleOnRowDoubleClickAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets the event OnCellClick
+    /// </summary>
+    public Func<FluentDataGridCell<TGridItem>, Task>? HandleOnCellClickAsync { get; set; }
 }

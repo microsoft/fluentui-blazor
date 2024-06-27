@@ -100,56 +100,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
-    /// <summary />
-    internal async Task HandleOnRowClickAsync(string rowId)
-    {
-        if (Owner.Rows.TryGetValue(rowId, out var row))
-        {
-            if (Owner.Grid.OnRowClick.HasDelegate)
-            {
-                await Owner.Grid.OnRowClick.InvokeAsync(row);
-            }
+    internal Task HandleOnRowClickAsync(string rowId) => Owner.Grid.HandleOnRowClickAsync(rowId);
 
-            if (row != null && row.RowType == DataGridRowType.Default)
-            {
-                foreach (var selColumn in Owner.Grid.SelectColumns.Where(i => i.SelectFromEntireRow))
-                {
-                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
-                }
-            }
-        }
-    }
+    internal Task HandleOnRowDoubleClickAsync(string rowId) => Owner.Grid.HandleOnRowDoubleClickAsync(rowId);
 
-    /// <summary />
-    internal async Task HandleOnRowDoubleClickAsync(string rowId)
-    {
-        if (Owner.Rows.TryGetValue(rowId, out var row))
-        {
-            if (Owner.Grid.OnRowDoubleClick.HasDelegate)
-            {
-                await Owner.Grid.OnRowDoubleClick.InvokeAsync(row);
-            }
-        }
-    }
-
-    /// <summary />
-    internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
-    {
-        // Enter when a SelectColumn is defined.
-        if (SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
-        {
-            if (Owner.Rows.TryGetValue(rowId, out var row))
-            {
-                if (row != null && row.RowType == DataGridRowType.Default)
-                {
-                    foreach (var selColumn in Owner.Grid.SelectColumns)
-                    {
-                        await selColumn.AddOrRemoveSelectedItemAsync(Item);
-                    }
-                }
-            }
-        }
-    }
+    internal Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e) => Owner.Grid.HandleOnRowKeyDownAsync(rowId,e);
 
     /// <summary />
     Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)

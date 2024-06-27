@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
@@ -177,11 +178,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
     [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
-
-    /// <summary>
-    /// Gets the first (optional) SelectColumn
-    /// </summary>
-    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -681,4 +677,83 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
+    internal async Task HandleOnRowClickAsync(string rowId)
+    {
+        if (_internalGridContext.Rows.TryGetValue(rowId, out var row))
+        {
+            if (OnRowClick.HasDelegate)
+            {
+                await OnRowClick.InvokeAsync(row);
+            }
+
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                foreach (var item in _columns)
+                {
+                    if (item.HandleOnRowClickAsync != null)
+                    {
+                        await item.HandleOnRowClickAsync(row);
+                    }
+                }
+            }
+        }
+    }
+
+    internal async Task HandleOnRowDoubleClickAsync(string rowId)
+    {
+        if (_internalGridContext.Rows.TryGetValue(rowId, out var row))
+        {
+            if (OnRowDoubleClick.HasDelegate)
+            {
+                await OnRowDoubleClick.InvokeAsync(row);
+            }
+
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                foreach (var item in _columns)
+                {
+                    if (item.HandleOnRowDoubleClickAsync != null)
+                    {
+                        await item.HandleOnRowDoubleClickAsync(row);
+                    }
+                }
+            }
+        }
+    }
+
+    internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
+    {
+        if (_internalGridContext.Rows.TryGetValue(rowId, out var row))
+        {
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                foreach (var item in _columns)
+                {
+                    if (item.HandleOnRowKeyDownAsync != null)
+                    {
+                        await item.HandleOnRowKeyDownAsync(row, e);
+                    }
+                }
+            }
+        }
+    }
+
+    internal async Task HandleOnCellClickAsync(FluentDataGridCell<TGridItem> cell)
+    {
+        if (OnCellClick.HasDelegate)
+        {
+            await OnCellClick.InvokeAsync(cell);
+        }
+
+        if (cell.CellType == DataGridCellType.Default)
+        {
+            foreach (var item in _columns)
+            {
+                if (item.HandleOnCellClickAsync != null)
+                {
+                    await item.HandleOnCellClickAsync(cell);
+                }
+            }
+        }
+    }
 }

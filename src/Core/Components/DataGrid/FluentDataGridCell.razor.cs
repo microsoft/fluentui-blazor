@@ -52,7 +52,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    private ColumnBase<TGridItem>? Column => Owner.Owner.Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    public ColumnBase<TGridItem>? Column => Owner.Owner.Grid._columns.ElementAtOrDefault(GridColumn - 1);
 
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
@@ -64,22 +64,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         Owner.Register(this);
     }
 
-    /// <summary />
-    internal async Task HandleOnCellClickAsync()
-    {
-        if (GridContext.Grid.OnCellClick.HasDelegate)
-        {
-            await GridContext.Grid.OnCellClick.InvokeAsync(this);
-        }
-
-        // If the cell is a checkbox cell, add or remove the item from the selected items list.
-        var selectColumn = Column as SelectColumn<TGridItem>;
-        if (CellType == DataGridCellType.Default && selectColumn != null && selectColumn.SelectFromEntireRow == false)
-        {
-            await selectColumn.AddOrRemoveSelectedItemAsync(Item);
-        }
-    }
+    internal Task HandleOnCellClickAsync() => GridContext.Grid.HandleOnCellClickAsync(this);
 
     public void Dispose() => Owner.Unregister(this);
-
 }
