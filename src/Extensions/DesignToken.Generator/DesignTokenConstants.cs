@@ -1,7 +1,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components.Generators;
 
 /// <summary>
-/// This class contains all the design tokens as const <c ref="string" />s where the value represents 
+/// This class contains all the design tokens as const <c ref="string" />s where the value represents
 /// the <c ref="Type"> of the value of the design token.
 /// </summary>
 public class DesignTokenConstants
@@ -124,18 +124,18 @@ public class DesignTokenConstants
     public const string neutralLayerFloating = "Swatch";
 
     // Neutral Layer 1
-    public const string neutralLayer1 = "Swatch";
+    public const string neutralLayer1 = "string";
 
     // Neutral Layer 2
-    public const string neutralLayer2 = "Swatch";
+    public const string neutralLayer2 = "string";
 
     // Neutral Layer 3
-    public const string neutralLayer3 = "Swatch";
+    public const string neutralLayer3 = "string";
 
     // Neutral Layer 4
-    public const string neutralLayer4 = "Swatch";
+    public const string neutralLayer4 = "string";
 
-    public const string fillColor = "Swatch";
+    public const string fillColor = "string";
 
     // Accent Fill
     public const string accentFillRest = "Swatch";

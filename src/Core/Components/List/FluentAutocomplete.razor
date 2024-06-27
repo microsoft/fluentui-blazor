@@ -203,10 +203,13 @@
             {
                 if (SelectedOptionTemplate == null)
                 {
+                    var text = @GetOptionText(item);
+
                     <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
                                  OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                 DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
                                  aria-label="@GetOptionText(item)">
-                        @GetOptionText(item)
+                        @text
                     </FluentBadge>
                 }
                 else
