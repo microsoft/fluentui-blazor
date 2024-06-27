@@ -27,7 +27,8 @@
             <FluentIcon Value="@GetIcon(currentValue)"
                         Width="@IconWidth"
                         Color="@(Disabled && IconColor != Color.Custom  ? Color.Disabled :  IconColor)"
-                        CustomColor="@IconCustomColor" />
+                        CustomColor="@IconCustomColor"
+                        aria-label="@currentValue" />
         }
         else
         {
@@ -37,7 +38,8 @@
                         CustomColor="@IconCustomColor"
                         OnClick="@(() => OnClickAsync(currentValue))"
                         @onpointerover="@(async () => await OnPointerOverAsync(currentValue))"
-                        @onpointerout="@(async () => await OnPointerOutAsync())" />
+                        @onpointerout="@(async () => await OnPointerOutAsync())"
+                        aria-label="@currentValue" />
         }
     }
 </FluentStack>

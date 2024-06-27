@@ -11,19 +11,23 @@
     By default, the rating is selected out of 5 stars, but the number and symbol used can be customized.
 </p>
 
+
+<h2 id="a11y">Accessibility</h2>
+<p>
+    You can use the arrow keys to increase (<kbd>&rarr;</kbd> / <kbd>&uarr;</kbd>) or decrease (<kbd>&larr;</kbd> /         <kbd>&darr;</kbd>) the value. Pressing <kbd>Shift + arrow</kbd> sets the value to 0 or the maximum.
+</p>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default" Component="@typeof(RatingDefault)"></DemoSection>
 
 <DemoSection Title="Example" Component="@typeof(RatingExample)"></DemoSection>
 
-
-<h2 id="a11y">Accessibility</h2>
-<p>
-    You can use the <kbd>arrow</kbd> keys to increase or decrease the value. Pressing <kbd>Shift+arrow</kbd> changes the value to 0 or the maximum value.
-</p>
-
-<DemoSection Title="Event" Component="@typeof(RatingEvent)"></DemoSection>
+<DemoSection Title="Event" Component="@typeof(RatingEvent)">
+    <Description>
+        You can use the <code>OnPointerOver</code> event to capture a changing rating value.
+    </Description>
+</DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
