@@ -1,0 +1,43 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentInputBase<int>
+
+@if (!ReadOnly && !Disabled)
+{
+    <FluentKeyCode Anchor="@Id"
+                   PreventDefaultOnly="new[] { KeyCode.Left, KeyCode.Right, KeyCode.Up, KeyCode.Down, KeyCode.Shift }"
+                   StopPropagation="@true"
+                   OnKeyDown="@HandleKeyDownAsync" />
+}
+
+<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">@LabelTemplate</FluentInputLabel>
+
+<FluentStack Id="@Id"
+             Orientation="Orientation.Horizontal"
+             Class="@ClassValue"
+             Style="@StyleValue"
+             role="radiogroup"
+             tabindex="@(Disabled ? -1 : 0)"
+             aria-readonly="@ReadOnly.ToAttributeValue()"
+             HorizontalGap="0">
+    @for (int i = 1; i <= MaxValue; i++)
+    {
+        var currentValue = i;
+        @if (ReadOnly || Disabled)
+        {
+            <FluentIcon Value="@GetIcon(currentValue)"
+                        Width="@IconWidth"
+                        Color="@(Disabled && IconColor != Color.Custom  ? Color.Disabled :  IconColor)"
+                        CustomColor="@IconCustomColor" />
+        }
+        else
+        {
+            <FluentIcon Value="@GetIcon(currentValue)"
+                        Width="@IconWidth"
+                        Color="IconColor"
+                        CustomColor="@IconCustomColor"
+                        OnClick="@(() => OnClickAsync(currentValue))"
+                        @onpointerover="@(async () => await OnPointerOverAsync(currentValue))"
+                        @onpointerout="@(async () => await OnPointerOutAsync())" />
+        }
+    }
+</FluentStack>

@@ -1,0 +1,77 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentRatingTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(new LibraryConfiguration());
+    }
+
+    [Fact]
+    public void FluentRating_Empty()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_Value()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_SelectValue()
+    {
+        int value = 0;
+
+        // Arrange
+        var cut = Render(@<FluentRating @bind-Value="@value" />);
+
+        // Act: Click on the second star
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        Assert.Equal(2, value);
+    }
+
+    [Fact]
+    public void FluentRating_AllowResetFalse()
+    {
+        int value = 0;
+
+        // Arrange
+        var cut = Render(@<FluentRating @bind-Value="@value" AllowReset="false" />);
+
+        // Act: Click twice on the second star
+        cut.FindAll("svg").ElementAt(1).Click();
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        Assert.Equal(2, value);
+    }
+
+    [Fact]
+    public void FluentRating_AllowResetTrue()
+    {
+        int value = 0;
+
+        // Arrange
+        var cut = Render(@<FluentRating @bind-Value="@value" AllowReset="true" />);
+
+        // Act: Click twice on the second star
+        cut.FindAll("svg").ElementAt(1).Click();
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        Assert.Equal(0, value);
+    }
+}
