@@ -2,6 +2,14 @@
 @inherits TestContext
 @code
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentDialogServiceTests()
+    {
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public async Task FluentDialogService_Default()
     {

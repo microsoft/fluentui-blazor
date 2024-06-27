@@ -149,6 +149,15 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
+  blazor.registerCustomEventType('sliderchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      return {
+        value: event.target!.currentValue
+      };
+    }
+  });
+
   blazor.registerCustomEventType('accordionchange', {
     browserEventName: 'change',
     createEventArgs: event => {
