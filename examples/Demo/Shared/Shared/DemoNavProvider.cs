@@ -330,10 +330,24 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.DocumentChevronDouble(),
                         title: "Breadcrumb"
                     ),
-                    new NavLink(
-                        href: "/Button",
-                        icon: new Icons.Regular.Size20.ControlButton(),
-                        title: "Button"
+                    new NavGroup(
+                        title: "Button",
+                        expanded: true,
+                        gap: "10px",
+                        icon: new Icons.Regular.Size20.AppFolder(),
+                        children:
+                        [
+                            new NavLink(
+                                href: "/Button",
+                                icon: new Icons.Regular.Size20.ControlButton(),
+                                title: "Button"
+                            ),
+                            new NavLink(
+                                href: "/MenuButton",
+                                icon: new Icons.Regular.Size20.ChevronCircleDown(),
+                                title: "MenuButton"
+                            ),
+                        ]
                     ),
                     new NavLink(
                         href: "/Card",
@@ -404,11 +418,6 @@ public class DemoNavProvider
                         href: "/Menu",
                         icon: new Icons.Regular.Size20.Navigation(),
                         title: "Menu"
-                    ),
-                    new NavLink(
-                        href: "/MenuButton",
-                        icon: new Icons.Regular.Size20.ChevronCircleDown(),
-                        title: "MenuButton"
                     ),
                     new NavLink(
                         href: "/MessageBar",
