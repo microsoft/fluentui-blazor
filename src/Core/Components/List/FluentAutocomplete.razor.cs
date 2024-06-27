@@ -12,6 +12,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public static string AccessibilitySelected = "Selected {0}";
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
+    public static string AccessibilityRemoveItem = "Remove {0}";
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
@@ -529,6 +530,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         RemoveSelectedItem(item);
         await RaiseChangedEventsAsync();
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", Id);
+        }
     }
 
     /// <summary />
