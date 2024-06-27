@@ -78,7 +78,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public DataGridResizeType? ResizeType { get; set; }
 
     [Parameter]
-    public string ResizeLabel { get; set; } = "Resize column";
+    public string ResizeLabel { get; set; } = "Column width (in pixels)";
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a

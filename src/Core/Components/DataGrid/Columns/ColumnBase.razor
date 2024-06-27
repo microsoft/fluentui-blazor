@@ -19,12 +19,29 @@
 
             @if (Align == Align.Start || Align == Align.Center)
             {
-                @if (Grid.ResizeType is not null || ColumnOptions is not null)
+                @if (Grid.ResizeType is not null)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" Color="Color.Neutral" />
 
                     </FluentButton>
+                }
+                else
+                {
+                    @if (ColumnOptions is not null)
+                    {
+                        <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                            @if (Filtered.GetValueOrDefault())
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                            }
+
+                        </FluentButton>
+                    }
                 }
             }
 
@@ -73,11 +90,28 @@
 
             @if (Align == Align.End)
             {
-                @if (Grid.ResizeType is not null || ColumnOptions is not null)
+                @if (Grid.ResizeType is not null)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" Color="Color.Neutral" />
                     </FluentButton>
+                }
+                else
+                {
+                    @if (ColumnOptions is not null)
+                    {
+                        <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                            @if (Filtered.GetValueOrDefault())
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                            }
+
+                        </FluentButton>
+                    }
                 }
             }
         }

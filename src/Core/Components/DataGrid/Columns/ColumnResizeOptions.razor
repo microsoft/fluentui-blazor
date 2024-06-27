@@ -4,26 +4,40 @@
 <FluentStack Class="resize-options" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
     @if (ResizeType == DataGridResizeType.Discrete)
     {
-        <FluentLabel>@Grid.ResizeLabel</FluentLabel>
+        <FluentLabel>@Label</FluentLabel>
 
         <FluentSpacer />
         <FluentButton OnClick="HandleShrinkAsync">
-            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Subtract())" />
+            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Subtract())" />
         </FluentButton>
         <FluentButton OnClick="HandleGrowAsync">
-            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Add())" />
+            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Add())" />
         </FluentButton>
         <FluentButton OnClick="HandleResetAsync">
-            <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowReset())" />
+            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowReset())" />
         </FluentButton>
     }
     else
     {
-        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Center">
-                <FluentTextField Id="width" Style="width: 100%;" TextFieldType="TextFieldType.Text" InputMode="InputMode.Numeric" @bind-Value="@_width" Placeholder="@Grid.ResizeLabel" />
-                <FluentButton Appearance="@Appearance.Accent" OnClick="HandleColumnWidthAsync">
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
-                </FluentButton>
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Bottom">
+            <div style="display: flex; flex-direction: column; ">
+                <FluentTextField Id="width"
+                                 @bind-Value="@_width"
+                                 Style="width: 100%;"
+                                 TextFieldType="TextFieldType.Text"
+                                 InputMode="InputMode.Numeric"
+                                 Immediate="true"
+                                 ImmediateDelay="200"
+                                 Label="@Label"
+                                 AutoComplete="off"
+                                 @onkeydown="@HandleColumnWidthKeyDownAsync" />
+            </div>
+            <FluentButton Appearance="@Appearance.Accent" Style="height: 30px;" OnClick="@HandleColumnWidthAsync">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
+            </FluentButton>
+            <FluentButton Style="height: 30px;" OnClick="HandleResetAsync" >
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowReset())" />
+            </FluentButton>
 
         </FluentStack>
     }

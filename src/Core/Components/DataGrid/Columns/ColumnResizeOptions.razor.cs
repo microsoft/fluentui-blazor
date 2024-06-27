@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -16,7 +17,7 @@ public partial class ColumnResizeOptions<TGridItem>
     public int Column { get; set; }
 
     [Parameter]
-    public string? Label{ get; set; } = "Resize";
+    public string? Label{ get; set; }
 
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; } = DataGridResizeType.Discrete;
@@ -27,6 +28,8 @@ public partial class ColumnResizeOptions<TGridItem>
         {
             throw new ArgumentException("Column must have a value greater than zero");
         }
+
+        Label = Grid.ResizeLabel;
     }
 
     private async Task HandleShrinkAsync()
@@ -51,6 +54,14 @@ public partial class ColumnResizeOptions<TGridItem>
         if (valid)
         {
             await Grid.SetColumnWidthExactAsync(Column, result);
+        }
+    }
+
+    private async Task HandleColumnWidthKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await HandleColumnWidthAsync();
         }
     }
 }
