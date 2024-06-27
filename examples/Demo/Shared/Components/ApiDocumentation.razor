@@ -35,7 +35,6 @@
                     @* Display list of Enumerations (if available) *@
                     @if (context.EnumValues.Length > 0)
                     {
-
                         var id = Identifier.NewId();
                         <span id="@id">
                             <FluentIcon Value="@(new Icons.Regular.Size20.Info())" Style="margin-left: 10px; vertical-align: top;" Color="@Color.Accent" />
@@ -49,7 +48,28 @@
 
                     }
                 </TemplateColumn>
-                <PropertyColumn Property="@(c => c.Default)" />
+
+@*                 <PropertyColumn Property="@(c => c.Default)" /> *@
+
+                <TemplateColumn Title="Default">
+                    @if (context.Icon != null)
+                    {
+                        <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="0">
+                            <FluentIcon Value="@context.Icon" Width="20px" Color="@Color.Accent" />
+
+                            <div>
+                                @context.Default
+                            </div>
+                        </FluentStack>
+                    }
+                    else
+                    {
+                        <div>
+                            @context.Default
+                        </div>
+                    }
+                </TemplateColumn>
+
                 <TemplateColumn Title="Description">
                     <div style="white-space: break-spaces">
                         @(new MarkupString(context.Description))
