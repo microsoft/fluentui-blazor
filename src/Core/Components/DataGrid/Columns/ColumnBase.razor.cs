@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
@@ -165,20 +164,20 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Gets or sets the event OnRowKeyDown
     /// </summary>
-    public Func<FluentDataGridRow<TGridItem>, KeyboardEventArgs, Task>? HandleOnRowKeyDownAsync { get; set; }
+    internal EventCallback<DataGridRowKeyEventArgs<TGridItem>> OnRowKeyDown { get; set; }
 
     /// <summary>
-    /// Gets or sets the event OnRowClick
+    /// Gets or sets a callback when a row is clicked.
     /// </summary>
-    public Func<FluentDataGridRow<TGridItem>, Task>? HandleOnRowClickAsync { get; set; }
+    internal EventCallback<FluentDataGridRow<TGridItem>> OnRowClick { get; set; }
 
     /// <summary>
-    /// Gets or sets the event OnRowDouble
+    /// Gets or sets a callback when a row is double-clicked.
     /// </summary>
-    public Func<FluentDataGridRow<TGridItem>, Task>? HandleOnRowDoubleClickAsync { get; set; }
+    internal EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
 
     /// <summary>
-    /// Gets or sets the event OnCellClick
+    /// Gets or sets a callback when a cell is clicked.
     /// </summary>
-    public Func<FluentDataGridCell<TGridItem>, Task>? HandleOnCellClickAsync { get; set; }
+    internal protected EventCallback<FluentDataGridCell<TGridItem>> OnCellClick { get; set; }
 }

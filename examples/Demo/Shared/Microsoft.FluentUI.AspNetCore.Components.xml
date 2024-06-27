@@ -1281,24 +1281,24 @@
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1" />.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HandleOnRowKeyDownAsync">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnRowKeyDown">
             <summary>
             Gets or sets the event OnRowKeyDown
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HandleOnRowClickAsync">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnRowClick">
             <summary>
-            Gets or sets the event OnRowClick
+            Gets or sets a callback when a row is clicked.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HandleOnRowDoubleClickAsync">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnRowDoubleClick">
             <summary>
-            Gets or sets the event OnRowDouble
+            Gets or sets a callback when a row is double-clicked.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HandleOnCellClickAsync">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnCellClick">
             <summary>
-            Gets or sets the event OnCellClick
+            Gets or sets a callback when a cell is clicked.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1">
@@ -1759,6 +1759,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowDoubleClick">
             <summary>
             Gets or sets a callback when a row is double-clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowKeyDown">
+            <summary>
+            Gets or sets a callback when a row is key down.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowClass">

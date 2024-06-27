@@ -31,29 +31,29 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         Width = "50px";
         ChildContent = GetDefaultChildContent();
 
-        HandleOnRowClickAsync = async (row) =>
+        OnRowClick = EventCallback.Factory.Create<FluentDataGridRow<TGridItem>>(this, async (row) =>
         {
             if (SelectFromEntireRow)
             {
                 await AddOrRemoveSelectedItemAsync(row.Item);
             }
-        };
+        });
 
-        HandleOnRowKeyDownAsync = async (row, e) =>
+        OnRowKeyDown = EventCallback.Factory.Create<DataGridRowKeyEventArgs<TGridItem>>(this, async (e) =>
         {
             if (KEYBOARD_SELECT_KEYS.Contains(e.Code))
             {
-                await AddOrRemoveSelectedItemAsync(row.Item);
+                await AddOrRemoveSelectedItemAsync(e.Row.Item);
             }
-        };
+        });
 
-        HandleOnCellClickAsync = async (cell) =>
+        OnCellClick = EventCallback.Factory.Create<FluentDataGridCell<TGridItem>>(this, async (cell) =>
         {
             if (!SelectFromEntireRow && cell.Column == this)
             {
                 await AddOrRemoveSelectedItemAsync(cell.Item);
             }
-        };
+        });
     }
 
     /// <summary>

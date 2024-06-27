@@ -144,6 +144,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a row is key down.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DataGridRowKeyEventArgs<TGridItem>> OnRowKeyDown { get; set; }
+
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
@@ -690,9 +697,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 foreach (var item in _columns)
                 {
-                    if (item.HandleOnRowClickAsync != null)
+                    if (item.OnRowClick.HasDelegate)
                     {
-                        await item.HandleOnRowClickAsync(row);
+                        await item.OnRowClick.InvokeAsync(row);
                     }
                 }
             }
@@ -712,9 +719,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 foreach (var item in _columns)
                 {
-                    if (item.HandleOnRowDoubleClickAsync != null)
+                    if (item.OnRowDoubleClick.HasDelegate)
                     {
-                        await item.HandleOnRowDoubleClickAsync(row);
+                        await item.OnRowDoubleClick.InvokeAsync(row);
                     }
                 }
             }
@@ -725,13 +732,32 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (_internalGridContext.Rows.TryGetValue(rowId, out var row))
         {
+            DataGridRowKeyEventArgs<TGridItem> CreateDataEvent() => new()
+            {
+                AltKey = e.AltKey,
+                Code = e.Code,
+                CtrlKey = e.CtrlKey,
+                Key = e.Key,
+                Location = e.Location,
+                MetaKey = e.MetaKey,
+                Repeat = e.Repeat,
+                ShiftKey = e.ShiftKey,
+                Type = e.Type,
+                Row = row
+            };
+
+            if (OnRowKeyDown.HasDelegate)
+            {
+                await OnRowKeyDown.InvokeAsync(CreateDataEvent());
+            }
+
             if (row != null && row.RowType == DataGridRowType.Default)
             {
                 foreach (var item in _columns)
                 {
-                    if (item.HandleOnRowKeyDownAsync != null)
+                    if (item.OnRowKeyDown.HasDelegate)
                     {
-                        await item.HandleOnRowKeyDownAsync(row, e);
+                        await item.OnRowKeyDown.InvokeAsync(CreateDataEvent());
                     }
                 }
             }
@@ -749,9 +775,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             foreach (var item in _columns)
             {
-                if (item.HandleOnCellClickAsync != null)
+                if (item.OnCellClick.HasDelegate)
                 {
-                    await item.HandleOnCellClickAsync(cell);
+                    await item.OnCellClick.InvokeAsync(cell);
                 }
             }
         }
