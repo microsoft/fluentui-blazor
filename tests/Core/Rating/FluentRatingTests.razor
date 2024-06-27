@@ -113,7 +113,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, null, false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, "ArrowDown", false, false, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(2, value);
@@ -129,7 +129,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, null, false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, "ArrowDown", false, true, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(0, value);
@@ -145,7 +145,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, null, false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, "ArrowLeft", false, false, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(2, value);
@@ -161,7 +161,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, null, false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, "ArrowLeft", false, true, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(0, value);
@@ -177,7 +177,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, null, false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, "ArrowUp", false, false, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(4, value);
@@ -193,7 +193,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, null, false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, "ArrowUp", false, true, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(5, value);
@@ -209,7 +209,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, null, false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, "ArrowRight", false, false, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(4, value);
@@ -225,7 +225,7 @@
         var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, null, false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, "ArrowRight", false, true, false, false, 0, "myrating"));
 
         // Assert
         Assert.Equal(5, value);
@@ -242,6 +242,22 @@
 
         // Act
             await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myrating"));
+
+        // Assert
+        Assert.Equal(3, value);
+    }
+
+    [Fact]
+    public async Task FluentRating_KeyRandomWithDifferentId()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        int value = 3;
+        // Arrange
+        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+
+        // Act
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myrating2"));
 
         // Assert
         Assert.Equal(3, value);
