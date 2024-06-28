@@ -15,7 +15,6 @@ public partial class ColumnResizeOptions<TGridItem>
     /// </summary>
     private FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
-
     /// <summary>
     /// Gets or sets the index of the Column to act upon
     /// </summary>
