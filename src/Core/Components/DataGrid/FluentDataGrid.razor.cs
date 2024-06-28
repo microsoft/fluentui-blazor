@@ -70,9 +70,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public bool ResizableColumns { get; set; }
 
     /// <summary>
-    /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We providesuch an option through the
-    /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.
-    /// Defualts to false.
+    /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
+    /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
+    /// Discrete: resize by a 10 pixels at a time
+    /// Exact: resize to the exact width specified (in pixels)
     /// </summary>
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; }

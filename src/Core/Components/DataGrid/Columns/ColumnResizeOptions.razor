@@ -7,15 +7,9 @@
         <FluentLabel>@Label</FluentLabel>
 
         <FluentSpacer />
-        <FluentButton OnClick="HandleShrinkAsync">
-            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Subtract())" />
-        </FluentButton>
-        <FluentButton OnClick="HandleGrowAsync">
-            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Add())" />
-        </FluentButton>
-        <FluentButton OnClick="HandleResetAsync">
-            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowReset())" />
-        </FluentButton>
+        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" />
+        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" />
+        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" />
     }
     else
     {
@@ -32,13 +26,10 @@
                                  AutoComplete="off"
                                  @onkeydown="@HandleColumnWidthKeyDownAsync" />
             </div>
-            <FluentButton Appearance="@Appearance.Accent" Style="height: 30px;" OnClick="@HandleColumnWidthAsync">
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@Appearance.Accent">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
             </FluentButton>
-            <FluentButton Style="height: 30px;" OnClick="HandleResetAsync" >
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowReset())" />
-            </FluentButton>
-
+            <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" />
         </FluentStack>
     }
 </FluentStack>
