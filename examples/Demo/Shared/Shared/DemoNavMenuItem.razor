@@ -1,9 +1,9 @@
 ﻿@using NavLink = FluentUI.Demo.Shared.NavLink
 
-@switch(Value)
+@switch (Value)
 {
     case NavGroup group:
-        <FluentNavGroup Expanded="@group.Expanded" Gap="@group.Gap" Icon="@group.Icon">
+        <FluentNavGroup @bind-Expanded="@group.Expanded" Gap="@group.Gap" Icon="@group.Icon" >
             <TitleTemplate>
                 <h3>@group.Title</h3></TitleTemplate>
             <ChildContent>
