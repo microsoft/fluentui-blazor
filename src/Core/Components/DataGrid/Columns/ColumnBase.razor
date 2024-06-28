@@ -22,7 +22,7 @@
                 @if (Grid.ResizeType is not null)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" Color="Color.Neutral" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Color="Color.Neutral" Style="opacity: 0.5;" />
 
                     </FluentButton>
                 }
@@ -37,7 +37,7 @@
                             }
                             else
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
                             }
 
                         </FluentButton>
@@ -56,18 +56,18 @@
                             {
                                 if (Grid.SortByAscending == true)
                                 {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" />
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
                                 }
                                 else
                                 {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" />
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
                                 }
                             }
                             @if (Grid.ResizeType is not null && ColumnOptions is not null)
                             {
                                 @if (Filtered.GetValueOrDefault())
                                 {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" />
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
                                 }
                             }
                         </FluentButton>
@@ -82,7 +82,7 @@
                     {
                         @if (Filtered.GetValueOrDefault())
                         {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" />
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
                         }
                     }
                 </div>
@@ -93,7 +93,7 @@
                 @if (Grid.ResizeType is not null)
                 {
                     <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreVertical())" Color="Color.Neutral" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Color="Color.Neutral" Style="opacity: 0.5;" />
                     </FluentButton>
                 }
                 else
