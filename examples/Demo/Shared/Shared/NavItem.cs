@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ public record NavLink : NavItem
 
 public record NavGroup : NavItem
 {
-    public bool Expanded { get; init; }
+    public bool Expanded { get; set; }
     public string Gap { get; init; }
     public IReadOnlyList<NavItem> Children { get; }
 
