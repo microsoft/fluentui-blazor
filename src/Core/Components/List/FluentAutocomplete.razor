@@ -26,7 +26,7 @@
                          aria-label="@GetAutocompleteAriaLabel()"
                          Value="@ValueText"
                          @onclick="@OnDropDownExpandedAsync"
-                         @oninput="@InputHandlerAsync"                         
+                         @oninput="@InputHandlerAsync"
                          autofocus="@Autofocus"
                          Style="@ComponentWidth">
             @* Selected Items *@
@@ -68,7 +68,7 @@
                 }
 
             }
-            @if (!Disabled)
+            @if (!Disabled && !ReadOnly)
             {
                 if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
                 {
@@ -205,12 +205,22 @@
                 {
                     var text = @GetOptionText(item);
 
-                    <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
-                                 OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
-                                 DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
-                                 aria-label="@GetOptionText(item)">
-                        @text
-                    </FluentBadge>
+                    if (ReadOnly || Disabled)
+                    {
+                        <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                                     aria-label="@GetOptionText(item)">
+                            @text
+                        </FluentBadge>
+                    }
+                    else
+                    {
+                        <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                                     OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                     DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
+                                     aria-label="@GetOptionText(item)">
+                            @text
+                        </FluentBadge>
+                    }
                 }
                 else
                 {
