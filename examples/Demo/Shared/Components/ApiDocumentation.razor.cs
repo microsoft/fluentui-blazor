@@ -18,6 +18,7 @@ public partial class ApiDocumentation
         public string? Default { get; set; } = null;
         public string Description { get; set; } = "";
         public bool IsParameter { get; set; }
+        public Icon? Icon { get; set; }
     }
 
     private IEnumerable<MemberDescription>? _allMembers = null;
@@ -109,6 +110,7 @@ public partial class ApiDocumentation
                             // Parameters/properties
                             if (!isEvent)
                             {
+                                Icon? icon = null;
                                 var defaultVaue = "";
                                 if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
                                 {
@@ -116,9 +118,10 @@ public partial class ApiDocumentation
                                 }
                                 else if (propertyInfo.PropertyType == typeof(Icon))
                                 {
-                                    if (obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj) is Icon icon)
+                                    if (obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj) is Icon value)
                                     {
-                                        defaultVaue = $"{icon.Variant}.{icon.Size}.{icon.Name}";
+                                        icon = value;
+                                        defaultVaue = $"{value.Variant}.{value.Size}.{value.Name}";
                                     }
                                 }
 
@@ -131,6 +134,7 @@ public partial class ApiDocumentation
                                     Default = defaultVaue,
                                     Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name),
                                     IsParameter = isParameter,
+                                    Icon = icon
                                 });
                             }
 
