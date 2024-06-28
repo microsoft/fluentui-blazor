@@ -48,8 +48,8 @@
             <FluentStack Style="height: 100%;">
                 <FluentPersona Image="@Image"
                                ImageSize="@ImageSize"
-                               Initials="@Initials"
-                               Style="align-items: normal;">
+                               Initials="@(Initials ?? FluentPersona.GetDefaultInitials(FullName))"
+                               Style="align-items: normal; font-size: x-large;">
                     <FluentLabel part="fullname" Typo="@Typography.Header" Style="font-weight: bold;">@FullName</FluentLabel>
                     <FluentLabel part="email">@EMail</FluentLabel>
                 </FluentPersona>
