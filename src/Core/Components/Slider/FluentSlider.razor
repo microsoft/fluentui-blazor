@@ -13,9 +13,10 @@
                orientation="@Orientation.ToAttributeValue()"
                mode="@Mode.ToAttributeValue()"
                id="@Id"
-               @bind-value="@CurrentValueAsString"
+               value="@BindConverter.FormatValue(Value?.ToString())"
                disabled="@Disabled"
                name=@Name
-               required=@Required>
+               required=@Required
+               @onsliderchange="@ChangeHandlerAsync">
     @ChildContent
 </fluent-slider>

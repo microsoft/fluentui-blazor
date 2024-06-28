@@ -7567,6 +7567,55 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.MaxValue">
+            <summary>
+            Gets or sets the maximum value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconColor">
+            <summary>
+            Gets or sets the icon drawing and fill color. 
+            Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconCustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconWidth">
+            <summary>
+            The icon width.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFilled">
+            <summary>
+            The icon to display when the rating value is greater than or equal to the item's value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconOutline">
+            <summary>
+            The icon to display when the rating value is less than the item's value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.AllowReset">
+            <summary>
+            Gets or sets a value that whether to allow clear when click again.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnPointerOver">
+            <summary>
+            Fires when hovered value changes. Value will be null if no rating item is hovered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.StyleValue">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.JSRuntime">
             <summary />
         </member>
@@ -7652,12 +7701,6 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1._jsModule">
-            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
             <summary>

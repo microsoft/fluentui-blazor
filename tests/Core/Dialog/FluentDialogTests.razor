@@ -1,7 +1,15 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentDialogTests()
+    {
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
     [Fact]
     public void FluentDialog_Default()
     {
