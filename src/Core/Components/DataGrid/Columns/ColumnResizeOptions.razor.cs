@@ -24,7 +24,7 @@ public partial class ColumnResizeOptions<TGridItem>
 
     /// <summary>
     /// Gets or sets the label to display above the resize options
-    /// </summary
+    /// </summary>
     [Parameter]
     public string? Label{ get; set; }
 

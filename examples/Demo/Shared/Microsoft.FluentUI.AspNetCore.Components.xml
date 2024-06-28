@@ -1291,7 +1291,11 @@
             Gets or sets the index of the Column to act upon
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.Label" -->
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.Label">
+            <summary>
+            Gets or sets the label to display above the resize options
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.ResizeType">
             <summary>
             Gets or sets the type of resize to perform
