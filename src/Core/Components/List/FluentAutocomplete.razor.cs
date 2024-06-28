@@ -270,6 +270,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
+        if (ReadOnly || Disabled)
+        {
+            return;
+        }
+
         ValueText = e.Value?.ToString() ?? string.Empty;
         await ValueTextChanged.InvokeAsync(ValueText);
 
