@@ -35,7 +35,6 @@
                     @* Display list of Enumerations (if available) *@
                     @if (context.EnumValues.Length > 0)
                     {
-
                         var id = Identifier.NewId();
                         <span id="@id">
                             <FluentIcon Value="@(new Icons.Regular.Size20.Info())" Style="margin-left: 10px; vertical-align: top;" Color="@Color.Accent" />
@@ -46,10 +45,29 @@
                                 @item <br />
                             }
                         </FluentTooltip>
-
                     }
                 </TemplateColumn>
-                <PropertyColumn Property="@(c => c.Default)" />
+
+                <TemplateColumn Title="Default">
+                    @if (context.Icon != null)
+                    {
+                        var id = Identifier.NewId();
+                        <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="0">
+                            <div>Preview:</div>
+                            <FluentIcon Id="@id" Value="@context.Icon" Width="20px" />
+                            <FluentTooltip Anchor="@id" Position="TooltipPosition.Right">
+                                @context.Default
+                            </FluentTooltip>
+                        </FluentStack>
+                    }
+                    else
+                    {
+                        <div>
+                            @context.Default
+                        </div>
+                    }
+                </TemplateColumn>
+
                 <TemplateColumn Title="Description">
                     <div style="white-space: break-spaces">
                         @(new MarkupString(context.Description))
