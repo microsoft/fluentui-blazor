@@ -1,4 +1,6 @@
-﻿## v3.7.6
+﻿## v3.7.7
+
+## v3.7.6
 ### Demo site and documentation 
 - Improve API documentation by showing preview of default icon ([#2284](https://github.com/microsoft/fluentui-blazor/pull/2284))
 
