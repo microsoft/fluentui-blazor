@@ -200,13 +200,76 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// </summary>
     public async Task ClearSelectionAsync()
     {
-        _selectedItems.Clear();
-        RefreshHeaderContent();
+        ClearSelection();
         await Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Select on Unselect an item when the row is clicked.
+    /// </summary>
+    /// <param name="row"></param>
+    /// <returns></returns>
+    protected internal override Task OnRowClickAsync(FluentDataGridRow<TGridItem> row)
+    {
+        if (SelectFromEntireRow == true && row.RowType == DataGridRowType.Default)
+        {
+            return AddOrRemoveSelectedItemAsync(row.Item);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Select on Unselect an item when the navigation keys are pressed.
+    /// </summary>
+    /// <param name="row"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected internal override Task OnRowKeyDownAsync(FluentDataGridRow<TGridItem> row, KeyboardEventArgs args)
+    {
+        if (SelectFromEntireRow == true && row.RowType == DataGridRowType.Default)
+        {
+            return AddOrRemoveSelectedItemAsync(row.Item);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Select on Unselect an item when the cell is clicked.
+    /// </summary>
+    /// <param name="cell"></param>
+    /// <returns></returns>
+    protected internal override Task OnCellClickAsync(FluentDataGridCell<TGridItem> cell)
+    {
+        // If the cell is a checkbox cell, add or remove the item from the selected items list.
+        if (SelectFromEntireRow == false && cell.CellType == DataGridCellType.Default)
+        {
+            return AddOrRemoveSelectedItemAsync(cell.Item);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Select on Unselect an item when the navigation keys are pressed.
+    /// </summary>
+    /// <param name="cell"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected internal override Task OnCellKeyDownAsync(FluentDataGridCell<TGridItem> cell, KeyboardEventArgs args)
+    {
+        // If the cell is a checkbox cell, add or remove the item from the selected items list.
+        if (SelectFromEntireRow == false && cell.CellType == DataGridCellType.Default)
+        {
+            return AddOrRemoveSelectedItemAsync(cell.Item);
+        }
+
+        return Task.CompletedTask;
+    }
+
     /// <summary />
-    internal async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
+    private async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
         if (item != null)
         {
@@ -348,9 +411,10 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                     if (!SelectAllDisabled)
                     {
                         builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                        builder.AddAttribute(4, "onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyAllAsync));
                     }
-                    builder.AddAttribute(4, "Style", "margin-left: 12px;");
-                    builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
+                    builder.AddAttribute(5, "Style", "margin-left: 12px;");
+                    builder.AddAttribute(6, "Title", iconAllChecked == IconIndeterminate
                                                         ? TitleAllIndeterminate
                                                         : (iconAllChecked == GetIcon(true) ? TitleAllChecked : TitleAllUnchecked));
                     builder.CloseComponent();
@@ -377,8 +441,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                 {
                     builder.AddAttribute(1, "style", "cursor: pointer; margin-left: 12px;");
                     builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
+                    builder.AddAttribute(3, "onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyAllAsync));
                 }
-                builder.AddContent(3, SelectAllTemplate.Invoke(new SelectAllTemplateArgs(GetSelectAll())));
+                builder.AddContent(4, SelectAllTemplate.Invoke(new SelectAllTemplateArgs(GetSelectAll())));
                 builder.CloseElement();
             });
         }
@@ -450,6 +515,15 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         }
 
         RefreshHeaderContent();
+    }
+
+    /// <summary />
+    internal async Task OnKeyAllAsync(KeyboardEventArgs e)
+    {
+        if (KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        {
+            await OnClickAllAsync(new MouseEventArgs());
+        }
     }
 }
 
