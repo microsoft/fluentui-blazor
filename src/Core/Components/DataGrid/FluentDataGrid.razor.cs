@@ -178,11 +178,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
     [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
-    /// <summary>
-    /// Gets the first (optional) SelectColumn
-    /// </summary>
-    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
-
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 

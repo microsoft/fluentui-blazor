@@ -1245,6 +1245,36 @@
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnRowClickAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow{`0})">
+            <summary>
+            Event callback for when the row is clicked.
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnRowKeyDownAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow{`0},Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary>
+            Event callback for when the key is pressed on a row.
+            </summary>
+            <param name="row"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnCellClickAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell{`0})">
+            <summary>
+            Event callback for when the cell is clicked.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnCellKeyDownAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell{`0},Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary>
+            Event callback for when the key is pressed on a cell.
+            </summary>
+            <param name="cell"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
             <summary>
             Overridden by derived components to provide rendering logic for the column's cells.
@@ -1558,6 +1588,36 @@
             Allows to clear the selection.
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnRowClickAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow{`0})">
+            <summary>
+            Select on Unselect an item when the row is clicked.
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnRowKeyDownAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow{`0},Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary>
+            Select on Unselect an item when the navigation keys are pressed.
+            </summary>
+            <param name="row"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnCellClickAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell{`0})">
+            <summary>
+            Select on Unselect an item when the cell is clicked.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnCellKeyDownAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell{`0},Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary>
+            Select on Unselect an item when the navigation keys are pressed.
+            </summary>
+            <param name="cell"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.AddOrRemoveSelectedItemAsync(`0)">
             <summary />
         </member>
@@ -1583,6 +1643,9 @@
             <inheritdoc />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnClickAllAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.OnKeyAllAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.SortedProperty">
@@ -1771,11 +1834,6 @@
             <summary>
             Gets or sets the content to render when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading"/> is true.
             A default fragment is used if loading content is not specified.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectColumns">
-            <summary>
-            Gets the first (optional) SelectColumn
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
@@ -5448,6 +5506,9 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.GetDefaultInitials">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.GetDefaultInitials(System.String)">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.InlineStyleValue">
