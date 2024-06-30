@@ -6,18 +6,16 @@
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
+        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
         <FluentTextField role="combobox"
                          @ref="@Element"
                          Id="@Id"
-                         Name="@Name"
                          Embedded="true"
-                         Required="@Required"
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
-                         ReadOnly="@ReadOnly"
                          Label="@Label"
                          LabelTemplate="@LabelTemplate"
                          Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
@@ -25,6 +23,7 @@
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
                          Value="@ValueText"
+                         Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
                          @oninput="@InputHandlerAsync"
                          autofocus="@Autofocus"
@@ -68,7 +67,7 @@
                 }
 
             }
-            @if (!Disabled && !ReadOnly)
+            @if (!Disabled)
             {
                 if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
                 {
@@ -205,16 +204,16 @@
                 {
                     var text = @GetOptionText(item);
 
-                    if (ReadOnly || Disabled)
+                    if (Disabled)
                     {
-                        <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                        <FluentBadge Appearance="@FluentUI.Appearance.Neutral"
                                      aria-label="@GetOptionText(item)">
                             @text
                         </FluentBadge>
                     }
                     else
                     {
-                        <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                        <FluentBadge Appearance="@FluentUI.Appearance.Neutral"
                                      OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
                                      DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
                                      aria-label="@GetOptionText(item)">

@@ -270,7 +270,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected async Task InputHandlerAsync(ChangeEventArgs e)
     {
-        if (ReadOnly || Disabled)
+        if (Disabled)
         {
             return;
         }
