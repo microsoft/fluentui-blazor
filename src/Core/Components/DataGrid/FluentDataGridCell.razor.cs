@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -72,11 +73,22 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
             await GridContext.Grid.OnCellClick.InvokeAsync(this);
         }
 
-        // If the cell is a checkbox cell, add or remove the item from the selected items list.
-        var selectColumn = Column as SelectColumn<TGridItem>;
-        if (CellType == DataGridCellType.Default && selectColumn != null && selectColumn.SelectFromEntireRow == false)
+        if (Column != null)
         {
-            await selectColumn.AddOrRemoveSelectedItemAsync(Item);
+            await Column.OnCellClickAsync(this);
+        }
+    }
+
+    internal async Task HandleOnCellKeyDownAsync(KeyboardEventArgs e)
+    {
+        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        {
+            return;
+        }
+
+        if (Column != null)
+        {
+            await Column.OnCellKeyDownAsync(this, e);
         }
     }
 
