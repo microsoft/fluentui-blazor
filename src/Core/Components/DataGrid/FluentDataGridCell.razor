@@ -6,6 +6,7 @@
                        grid-column=@GridColumn
                        class="@Class"
                        style="@StyleValue"
+                       @onkeydown="@HandleOnCellKeyDownAsync"
                        @onclick="@HandleOnCellClickAsync"
                        @attributes="AdditionalAttributes">
     @ChildContent
