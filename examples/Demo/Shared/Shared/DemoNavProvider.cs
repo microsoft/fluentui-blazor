@@ -282,6 +282,11 @@ public class DemoNavProvider
                         title: "Overview"
                     ),
                     new NavLink(
+                        href: "/DataFilter",
+                        icon: new Icons.Regular.Size20.Filter(),
+                        title: "Data Filter"
+                    ),
+                    new NavLink(
                         href: "/Accordion",
                         icon: new Icons.Regular.Size20.TextCollapse(),
                         title: "Accordion"

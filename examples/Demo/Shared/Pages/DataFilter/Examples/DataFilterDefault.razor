@@ -1,0 +1,50 @@
+﻿@inject DataSource Data
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentSelect TOption="DataFilterCaseSensitivity"
+                  Label="String Case Sensitivity"
+                  Items="@(Enum.GetValues<DataFilterCaseSensitivity>())"
+                  OptionText="@(a => a.ToAttributeValue())"
+                  @bind-SelectedOption="_caseSensitivity" />
+
+    <p>Data Filter</p>
+
+    <FluentDataFilter TItem="Person" Filter="_filter" Changed="FilterChanged">
+        <PropertyFilter Property="@(a=> a.FirstName)" Title="First Name" TooltipText="@(() => "First Name tooltip")" />
+        <PropertyFilter Property="@(a=> a.LastName)" />
+        <PropertyFilter Property="@(a=> a.BirthDate)" />
+        <PropertyFilter Property="@(a=> a.CountryCode)" />
+        <PropertyFilter Property="@(a=> a.PersonId)" />
+        <PropertyFilter Property="@(a=> a.Picture)" />
+        <PropertyFilter Property="@(a=> a.EmployeeType)" />
+    </FluentDataFilter>
+
+    <p>
+        Expression: @_filter.GenerateExpression(_caseSensitivity).ToString()
+    </p>
+
+    <FluentCard>
+        <p>Data Grid</p>
+
+        <FluentDataGrid Items="@People">
+            <PropertyColumn Property="@(a=> a.FirstName)" />
+            <PropertyColumn Property="@(a=> a.LastName)" />
+            <PropertyColumn Property="@(a=> a.BirthDate)" />
+            <PropertyColumn Property="@(a=> a.CountryCode)" />
+            <PropertyColumn Property="@(a=> a.PersonId)" />
+            <PropertyColumn Property="@(a=> a.Picture)" />
+            <PropertyColumn Property="@(a=> a.EmployeeType)" />
+        </FluentDataGrid>
+    </FluentCard>
+</FluentStack>
+
+@code
+{
+    IQueryable<Person> People => Data.People.Where(_filter.GenerateExpression(_caseSensitivity));
+    DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.Ignore;
+    DataFilterGroup<Person> _filter = new();
+
+    private void FilterChanged()
+    {
+    }
+}

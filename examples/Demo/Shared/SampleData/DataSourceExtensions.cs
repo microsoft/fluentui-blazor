@@ -9,7 +9,8 @@ public static class DataSourceExtensions
                                   LastName: "With a very long name to validate components",
                                   CountryCode: "fr",
                                   BirthDate: new DateOnly(1984, 4, 27),
-                                  Picture: DataSource.ImageFaces[0]);
-        return values.Concat(new[] { longName });
+                                  Picture: DataSource.ImageFaces[0],
+                                  EmployeeType: EmployeeType.Engineer);
+        return values.Concat([longName]);
     }
 }

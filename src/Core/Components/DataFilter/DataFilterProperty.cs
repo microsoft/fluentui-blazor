@@ -1,0 +1,196 @@
+using System.Linq.Expressions;
+using System.Numerics;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+public class DataFilterProperty<TItem>
+{
+    public IPropertyFilter<TItem> Property { get; set; } = default!;
+    public object? Value { get; set; } 
+    public DataFilterComparisonOperator Operator { get; set; }
+
+    private static readonly HashSet<Type> _numericTypes =
+    [
+        typeof(int),
+        typeof(double),
+        typeof(decimal),
+        typeof(long),
+        typeof(short),
+        typeof(sbyte),
+        typeof(byte),
+        typeof(ulong),
+        typeof(ushort),
+        typeof(uint),
+        typeof(float),
+        typeof(BigInteger),
+        typeof(int?),
+        typeof(double?),
+        typeof(decimal?),
+        typeof(long?),
+        typeof(short?),
+        typeof(sbyte?),
+        typeof(byte?),
+        typeof(ulong?),
+        typeof(ushort?),
+        typeof(uint?),
+        typeof(float?),
+        typeof(BigInteger?),
+    ];
+
+    private bool IsType<TType>() => Type == typeof(TType) || Nullable.GetUnderlyingType(Type) == typeof(TType);
+    public Type Type => Property.PropertyInfo.PropertyType;
+    public bool IsEnum => Type.IsEnum || IsEnumNullable;
+    public bool IsEnumNullable => Nullable.GetUnderlyingType(Type) is { IsEnum: true };
+    public bool IsBool => IsType<bool>();
+    public bool IsDate => IsType<DateTime>() || IsType<DateOnly>() || IsType<TimeOnly>() || IsType<DateTimeOffset>();
+    public bool IsString => Type == typeof(string);
+    public bool IsNumber => _numericTypes.Contains(Type);
+    public bool IsNullable => Nullable.GetUnderlyingType(Type) != null;
+
+    public Expression<Func<TItem, bool>> GenerateExpression(DataFilterCaseSensitivity caseSensitivity)
+    {
+        Expression<Func<TItem, bool>> ret = x => true;
+
+        if (Property != null)
+        {
+            var le = Property.LambdaExpression;
+            if (IsString)
+            {
+                var value = Value?.ToString();
+
+                Expression<Func<string?, bool>> func;
+                if (caseSensitivity == DataFilterCaseSensitivity.Ignore)
+                {
+                    func = Operator switch
+                    {
+                        DataFilterComparisonOperator.Contains => a => a != null && value != null && a.Contains(value),
+                        DataFilterComparisonOperator.NotContains => a => a != null && value != null && !a.Contains(value),
+                        DataFilterComparisonOperator.Equal => a => a != null && a.Equals(value),
+                        DataFilterComparisonOperator.NotEqual => a => a != null && !a.Equals(value),
+                        DataFilterComparisonOperator.StartsWith => a => a != null && value != null && a.StartsWith(value),
+                        DataFilterComparisonOperator.EndsWith => a => a != null && value != null && a.EndsWith(value),
+                        DataFilterComparisonOperator.Empty => a => string.IsNullOrWhiteSpace(a),
+                        DataFilterComparisonOperator.NotEmpty => a => !string.IsNullOrWhiteSpace(a),
+                        _ => a => true
+                    };
+                }
+                else
+                {
+                    var comparer = caseSensitivity == DataFilterCaseSensitivity.Default
+                                    ? StringComparison.Ordinal
+                                    : StringComparison.OrdinalIgnoreCase;
+
+                    func = Operator switch
+                    {
+                        DataFilterComparisonOperator.Contains => a => a != null && value != null && a.Contains(value, comparer),
+                        DataFilterComparisonOperator.NotContains => a => a != null && value != null && !a.Contains(value, comparer),
+                        DataFilterComparisonOperator.Equal => a => a != null && a.Equals(value, comparer),
+                        DataFilterComparisonOperator.NotEqual => a => a != null && !a.Equals(value, comparer),
+                        DataFilterComparisonOperator.StartsWith => a => a != null && value != null && a.StartsWith(value, comparer),
+                        DataFilterComparisonOperator.EndsWith => a => a != null && value != null && a.EndsWith(value, comparer),
+                        DataFilterComparisonOperator.Empty => x => string.IsNullOrWhiteSpace(x),
+                        DataFilterComparisonOperator.NotEmpty => x => !string.IsNullOrWhiteSpace(x),
+                        _ => x => true
+                    };
+                }
+
+                ret = le.Make<TItem>(func);
+            }
+            else
+            {
+                ret = Operator switch
+                {
+                    DataFilterComparisonOperator.Equal => le.Make<TItem>(ExpressionType.Equal, Value),
+                    DataFilterComparisonOperator.NotEqual => le.Make<TItem>(ExpressionType.NotEqual, Value),
+                    DataFilterComparisonOperator.GreaterThan => le.Make<TItem>(ExpressionType.GreaterThan, Value),
+                    DataFilterComparisonOperator.GreaterThanOrEqual => le.Make<TItem>(ExpressionType.GreaterThanOrEqual, Value),
+                    DataFilterComparisonOperator.LessThan => le.Make<TItem>(ExpressionType.LessThan, Value),
+                    DataFilterComparisonOperator.LessThanOrEqual => le.Make<TItem>(ExpressionType.LessThanOrEqual, Value),
+                    DataFilterComparisonOperator.Empty => le.Make<TItem>(ExpressionType.Equal, null),
+                    DataFilterComparisonOperator.NotEmpty => le.Make<TItem>(ExpressionType.NotEqual, null),
+                    _ => x => true
+                };
+            }
+        }
+
+        return ret;
+    }
+
+    public virtual IEnumerable<DataFilterComparisonOperator> GetAvailableComparisonOperator()
+    {
+        var operators = new List<DataFilterComparisonOperator>();
+
+        if (IsEnum)
+        {
+            operators.Add(DataFilterComparisonOperator.Equal);
+            operators.Add(DataFilterComparisonOperator.NotEqual);
+
+            if (IsEnumNullable)
+            {
+                operators.Add(DataFilterComparisonOperator.Empty);
+                operators.Add(DataFilterComparisonOperator.NotEmpty);
+            }
+        }
+        else if (IsBool)
+        {
+            operators.Add(DataFilterComparisonOperator.Equal);
+
+            if (IsNullable)
+            {
+                operators.Add(DataFilterComparisonOperator.Empty);
+                operators.Add(DataFilterComparisonOperator.NotEmpty);
+            }
+        }
+        else if (IsDate)
+        {
+            operators.AddRange([
+                DataFilterComparisonOperator.Equal,
+                DataFilterComparisonOperator.NotEqual,
+                DataFilterComparisonOperator.LessThan,
+                DataFilterComparisonOperator.LessThanOrEqual,
+                DataFilterComparisonOperator.GreaterThan,
+                DataFilterComparisonOperator.GreaterThanOrEqual,
+            ]);
+
+            if (IsNullable)
+            {
+                operators.Add(DataFilterComparisonOperator.Empty);
+                operators.Add(DataFilterComparisonOperator.NotEmpty);
+            }
+        }
+        else if (IsNumber)
+        {
+            operators.AddRange([
+                DataFilterComparisonOperator.Equal,
+                DataFilterComparisonOperator.NotEqual,
+                DataFilterComparisonOperator.LessThan,
+                DataFilterComparisonOperator.LessThanOrEqual,
+                DataFilterComparisonOperator.GreaterThan,
+                DataFilterComparisonOperator.GreaterThanOrEqual,
+                DataFilterComparisonOperator.Empty,
+                DataFilterComparisonOperator.NotEmpty,
+            ]);
+
+            if (IsNullable)
+            {
+                operators.Add(DataFilterComparisonOperator.Empty);
+                operators.Add(DataFilterComparisonOperator.NotEmpty);
+            }
+        }
+        else if (IsString)
+        {
+            operators.AddRange([
+                DataFilterComparisonOperator.Equal,
+                DataFilterComparisonOperator.NotEqual,
+                DataFilterComparisonOperator.Contains,
+                DataFilterComparisonOperator.NotContains,
+                DataFilterComparisonOperator.StartsWith,
+                DataFilterComparisonOperator.EndsWith,
+                DataFilterComparisonOperator.Empty,
+                DataFilterComparisonOperator.NotEmpty,
+            ]);
+        }
+
+        return operators.Distinct();
+    }
+}

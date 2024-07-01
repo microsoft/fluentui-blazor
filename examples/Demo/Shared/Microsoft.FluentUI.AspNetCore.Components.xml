@@ -1140,6 +1140,76 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCounterBadge.GetFontColor">
             <summary />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity">
+            <summary>
+            Indicates how string values are compared.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity.Default">
+            <summary>
+            Text is compared using <see cref="F:System.StringComparison.Ordinal"/>.
+            </summary>
+            <remarks>
+            When using this value, casing of text matters.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity.CaseInsensitive">
+            <summary>
+            Text is compared using <see cref="F:System.StringComparison.OrdinalIgnoreCase"/>.
+            </summary>
+            <remarks>
+            When using this value, casing of text does not matter.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity.Ignore">
+            <summary>
+            Excludes any <see cref="T:System.StringComparison" /> value for text comparisons.
+            </summary>
+            <remarks>
+            This is typically used for Entity Framework expressions, which do not support string comparisons.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Changed">
+            <summary>
+            Gets or sets a callback that filter changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Immediate">
+            <summary>
+            Change the content of this input field when the user write text (based on 'OnInput' HTML event).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.ImmediateDelay">
+            <summary>
+            Gets or sets the delay, in milliseconds, before to raise the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Changed"/> event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Tooltip">
+            <summary>
+            If true, generates a title and aria-label attribute for the contents
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.TooltipText">
+            <summary>
+            Gets or sets the value to be used as the tooltip and aria-label in this 
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Property">
+            <summary>
+            Get or set property to filter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.ValueDisplayText">
+            <summary>
+            Gets or sets the function used to determine which text to display for each option.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1">
             <summary>
             An abstract base class for columns in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.

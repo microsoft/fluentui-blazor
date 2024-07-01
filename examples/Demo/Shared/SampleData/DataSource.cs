@@ -67,18 +67,18 @@ public class DataSource
         return Task.FromResult(_countries);
     }
 
-    private readonly static Person[] _people = new[]
-    {
-        new Person ( PersonId: 1, FirstName: "Jean", LastName: "Martin", CountryCode: "FR", BirthDate: new DateOnly(1985, 3, 16), Picture: ImageFaces[0] ),
-        new Person ( PersonId: 2, FirstName: "António", LastName: "Langa", CountryCode: "MZ", BirthDate: new DateOnly(1991, 12, 1), Picture: ImageFaces[1] ),
-        new Person ( PersonId: 3, FirstName: "Julie", LastName: "Smith", CountryCode: "AU", BirthDate: new DateOnly(1958, 10, 10), Picture: ImageFaces[2] ),
-        new Person ( PersonId: 4, FirstName: "Nur", LastName: "Sari", CountryCode: "ID", BirthDate: new DateOnly(1922, 4, 27), Picture: ImageFaces[3] ),
-        new Person ( PersonId: 5, FirstName: "Jose", LastName: "Hernandez", CountryCode: "MX", BirthDate: new DateOnly(2011, 5, 3), Picture: ImageFaces[4] ),
-        new Person ( PersonId: 6, FirstName: "Bert", LastName: "de Vries", CountryCode: "NL", BirthDate: new DateOnly(1999, 6, 9), Picture: ImageFaces[5] ),
-        new Person ( PersonId: 7, FirstName: "Jaques", LastName: "Martin", CountryCode: "BE", BirthDate: new DateOnly(2002, 10, 20), Picture: ImageFaces[6] ),
-        new Person ( PersonId: 8, FirstName: "Elizabeth", LastName: "Johnson", CountryCode: "GB", BirthDate: new DateOnly(1971, 11, 24), Picture: ImageFaces[7] ),
-        new Person ( PersonId: 9, FirstName: "Jakob", LastName: "Berger", CountryCode: "DE", BirthDate: new DateOnly(1971, 4, 21), Picture: string.Empty )
-    };
+    private readonly static Person[] _people =
+    [
+        new Person ( PersonId: 1, FirstName: "Jean", LastName: "Martin", CountryCode: "FR", BirthDate: new DateOnly(1985, 3, 16), Picture: ImageFaces[0],EmployeeType: EmployeeType.Manager ),
+        new Person ( PersonId: 2, FirstName: "António", LastName: "Langa", CountryCode: "MZ", BirthDate: new DateOnly(1991, 12, 1), Picture: ImageFaces[1] ,EmployeeType: EmployeeType.Engineer),
+        new Person ( PersonId: 3, FirstName: "Julie", LastName: "Smith", CountryCode: "AU", BirthDate: new DateOnly(1958, 10, 10), Picture: ImageFaces[2] ,EmployeeType: EmployeeType.CustomerSupport),
+        new Person ( PersonId: 4, FirstName: "Nur", LastName: "Sari", CountryCode: "ID", BirthDate: new DateOnly(1922, 4, 27), Picture: ImageFaces[3] ,EmployeeType: EmployeeType.CustomerSupport),
+        new Person ( PersonId: 5, FirstName: "Jose", LastName: "Hernandez", CountryCode: "MX", BirthDate: new DateOnly(2011, 5, 3), Picture: ImageFaces[4] ,EmployeeType: EmployeeType.SalesRepresentative),
+        new Person ( PersonId: 6, FirstName: "Bert", LastName: "de Vries", CountryCode: "NL", BirthDate: new DateOnly(1999, 6, 9), Picture: ImageFaces[5] ,EmployeeType: EmployeeType.Technician),
+        new Person ( PersonId: 7, FirstName: "Jaques", LastName: "Martin", CountryCode: "BE", BirthDate: new DateOnly(2002, 10, 20), Picture: ImageFaces[6] ,EmployeeType: EmployeeType.Technician),
+        new Person ( PersonId: 8, FirstName: "Elizabeth", LastName: "Johnson", CountryCode: "GB", BirthDate: new DateOnly(1971, 11, 24), Picture: ImageFaces[7] ,EmployeeType: EmployeeType.Manager),
+        new Person ( PersonId: 9, FirstName: "Jakob", LastName: "Berger", CountryCode: "DE", BirthDate: new DateOnly(1971, 4, 21), Picture: string.Empty,EmployeeType: EmployeeType.SalesRepresentative)
+    ];
 
     public class MonthItem
     {
