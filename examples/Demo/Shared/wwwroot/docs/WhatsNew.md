@@ -1,11 +1,20 @@
-﻿## v3.7.7
+﻿## v3.7.8
+### Components
+- [Autocomplete] Fix showing double label
+- [Autocomplete] Fix AriaLabel ([#2302](https://github.com/microsoft/fluentui-blazor/pull/2303))
 
-## v3.7.6
+
+## v3.7.7
+
 ### Demo site and documentation 
 - Improve API documentation by showing preview of default icon ([#2284](https://github.com/microsoft/fluentui-blazor/pull/2284))
 
 ### Components
 - [Autocomplete] Fix Disable properties ([#2291](https://github.com/microsoft/fluentui-blazor/pull/2291))
+
+## v3.7.6
+
+- Skipped due to a mistake in the versioning process.
 
 
 ## v3.7.5
