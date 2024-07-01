@@ -1,3 +1,47 @@
 ﻿@page "/issue-tester"
+@using System.ComponentModel.DataAnnotations
 
-<FluentUI.Demo.Shared.Pages.DataGrid.Examples.DataGridTypical />
+<FluentDataGrid Items="@employees.AsQueryable()" >
+    <PropertyColumn Property="@(e => e.Id)" />
+    <PropertyColumn Property="@(e => e.FullName)" />
+    <PropertyColumn Property="@(e => e.Subdivision)" />
+    <PropertyColumn Property="@(e => e.Position)" />
+</FluentDataGrid>
+
+@code {
+
+    public enum Positions
+    {
+        [Display(Name = "Employee (DA)")]
+        Employee,
+        [Display(Name = "HR Manager (DA)")]
+        HrManager,
+        [Display(Name = "Project Manager (DA)")]
+        ProjectManager,
+        [Display(Name = "Administrator (DA)")]
+        Administrator
+    }
+
+    public class Employee
+    {
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+        [Required, Display(Name = "Full Name")]
+        public string FullName { get; set; }
+        [Required, Display(Name = "Subdivision")]
+        public string Subdivision { get; set; }
+        [Required, Display(Name = "Position")]
+        public Positions Position { get; set; }
+
+    }
+
+    private List<Employee> employees = new List<Employee>
+    {
+        new Employee { Id = 1, FullName = "John Doe", Subdivision = "IT", Position = Positions.Employee },
+        new Employee { Id = 2, FullName = "Jane Doe", Subdivision = "HR", Position = Positions.HrManager },
+        new Employee { Id = 3, FullName = "John Smith", Subdivision = "IT", Position = Positions.ProjectManager },
+        new Employee { Id = 4, FullName = "Jane Smith", Subdivision = "HR", Position = Positions.Administrator }
+    };
+
+
+}

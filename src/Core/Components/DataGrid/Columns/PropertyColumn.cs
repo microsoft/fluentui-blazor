@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -73,7 +74,20 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
             }
             else
             {
-                _cellTextFunc = item => compiledPropertyExpression!(item)?.ToString();
+                _cellTextFunc = item =>
+                {
+                    var value = compiledPropertyExpression!(item);
+
+                    if (typeof(TProp).IsEnum)
+                    {
+                        var displayValue = (value as Enum)?.GetDisplayName();
+                        return displayValue;
+                    }
+                    else
+                    {
+                        return value?.ToString();
+                    }
+                };
             }
 
             _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
