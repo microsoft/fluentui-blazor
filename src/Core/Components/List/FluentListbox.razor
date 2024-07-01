@@ -18,7 +18,7 @@
                         size="@Size"
                         multiple="@Multiple"
                         required="@Required"
-                        name=@Name
+                        name="@Name"
                         selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
                         @onchange="@ChangeHandlerAsync"
                         @onkeydown="@OnKeydownHandlerAsync"
