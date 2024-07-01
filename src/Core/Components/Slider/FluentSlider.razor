@@ -13,7 +13,7 @@
                orientation="@Orientation.ToAttributeValue()"
                mode="@Mode.ToAttributeValue()"
                id="@Id"
-               value="@BindConverter.FormatValue(Value?.ToString())"
+               value="@FormatValueAsString(Value)"
                disabled="@Disabled"
                name=@Name
                required=@Required
