@@ -70,6 +70,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
+    /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
+    /// Discrete: resize by a 10 pixels at a time
+    /// Exact: resize to the exact width specified (in pixels)
+    /// </summary>
+    [Parameter]
+    public DataGridResizeType? ResizeType { get; set; }
+
+    [Parameter]
+    public string ResizeLabel { get; set; } = "Column width (in pixels)";
+
+    /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
     /// unique identifier, such as a primary key value, for each data item.
     ///
@@ -431,6 +443,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         StateHasChanged();
         return Task.CompletedTask;
     }
+
     public void SetLoadingState(bool loading)
     {
         Loading = loading;
@@ -650,25 +663,33 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (args.Value == "-")
         {
-            await SetColumnWidthAsync(-10);
+            await SetColumnWidthDiscreteAsync(null, -10);
         }
         if (args.Value == "+")
         {
             //  Resize column up
-            await SetColumnWidthAsync(10);
+            await SetColumnWidthDiscreteAsync(null, 10);
         }
         //return Task.CompletedTask;
     }
 
-    private async Task SetColumnWidthAsync(float widthChange)
+    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
-            await Module.InvokeVoidAsync("resizeColumn", _gridReference, widthChange);
+            await Module.InvokeVoidAsync("resizeColumnDiscrete", _gridReference, columnIndex, widthChange);
         }
     }
 
-    private async Task ResetColumnWidthsAsync()
+    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resizeColumnExact", _gridReference, columnIndex, width);
+        }
+    }
+
+    internal async Task ResetColumnWidthsAsync()
     {
         if (_gridReference is not null && Module is not null)
         {
