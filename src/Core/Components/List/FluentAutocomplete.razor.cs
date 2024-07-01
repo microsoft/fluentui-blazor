@@ -554,11 +554,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private string? GetAutocompleteAriaLabel()
     {
-        if (!string.IsNullOrEmpty(AriaLabel))
-        {
-            return AriaLabel;
-        }
-
         // No items found
         if (IsMultiSelectOpened && Items?.Any() == false)
         {
