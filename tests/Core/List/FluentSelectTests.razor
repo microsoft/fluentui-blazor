@@ -28,6 +28,21 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentSelect_NameAttribute()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myselect");
+            parameters.Add(p => p.Name, "myselectName");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData(Appearance.Filled)]
     [InlineData(Appearance.Stealth)]
@@ -153,7 +168,7 @@
         var cut = Render(@<FluentSelect Items="@(Customers.Get())" OptionValue="@(context => context.Id.ToString())">
                 <OptionTemplate>
                     <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Slot="end" />
-                    @(context.Name) 
+                    @(context.Name)
                 </OptionTemplate>
             </FluentSelect>);
 

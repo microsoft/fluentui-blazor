@@ -34,5 +34,20 @@ public class FluentComboboxTests : TestBase
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentCombobox_NameAttribute()
+    {
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentCombobox<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myComponent");
+            parameters.Add(p => p.Name, "myComponentName");
+            parameters.Add(p => p.Autofocus, true);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
     private record Customer(int Id, string Name);
 }
