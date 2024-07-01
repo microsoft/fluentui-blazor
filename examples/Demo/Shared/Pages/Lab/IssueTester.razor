@@ -12,8 +12,7 @@
 
     public enum Positions
     {
-        [Display(Name = "Employee (DA)")]
-        Employee,
+        employee,
         [Display(Name = "HR Manager (DA)")]
         HrManager,
         [Display(Name = "Project Manager (DA)")]
@@ -37,7 +36,7 @@
 
     private List<Employee> employees = new List<Employee>
     {
-        new Employee { Id = 1, FullName = "John Doe", Subdivision = "IT", Position = Positions.Employee },
+        new Employee { Id = 1, FullName = "John Doe", Subdivision = "IT", Position = Positions.employee },
         new Employee { Id = 2, FullName = "Jane Doe", Subdivision = "HR", Position = Positions.HrManager },
         new Employee { Id = 3, FullName = "John Smith", Subdivision = "IT", Position = Positions.ProjectManager },
         new Employee { Id = 4, FullName = "Jane Smith", Subdivision = "HR", Position = Positions.Administrator }
