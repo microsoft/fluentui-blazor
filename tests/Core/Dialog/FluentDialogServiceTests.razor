@@ -64,9 +64,9 @@
 
         // Act
         var dialog = await dialogService.ShowDialogAsync(@<div>
-This is from a render fragment
-            </div>,
-            new DialogParameters()
+        This is from a render fragment
+    </div>,
+        new DialogParameters()
             {
                 Title = "Render Fragment Example",
                 PreventDismissOnOverlayClick = true,
@@ -75,5 +75,49 @@ This is from a render fragment
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDialogService_UpdateDialogAsync()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentDialogProvider />);
+        var dialogService = Services.GetRequiredService<IDialogService>();
+
+        var myUser = new UpdateDialogUser()
+            {
+                Id = 1,
+                Name = "Denis",
+            };
+
+        var parameters = new DialogParameters<UpdateDialogUser>()
+            {
+                Height = "200px",
+                Title = "My title",
+                PrimaryAction = "Yes",
+                PrimaryActionEnabled = false,
+                SecondaryAction = "No",
+            };
+
+        // Act
+        var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(myUser, parameters);
+
+        parameters.Title = "My new title";
+        parameters.PrimaryAction = "Oh yes";
+        parameters.Content = new() { Id = 2, Name = "Vincent" };
+
+        await dialogService.UpdateDialogAsync(dialog.Id, parameters);
+
+        // Assert
+        Assert.Equal("My new title", cut.Find("h4").InnerHtml);
+        Assert.Equal("Oh yes", cut.Find("fluent-button[appearance='accent']").InnerHtml);
+    }
+
+    private class UpdateDialogUser
+    {
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = string.Empty;
     }
 }

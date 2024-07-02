@@ -4,7 +4,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal static class InputHelpers<TValue>
 {
-
     public static string GetMaxValue()
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -51,9 +50,19 @@ internal static class InputHelpers<TValue>
         return value;
     }
 
+    internal static void ValidateSByteInputs(string? max, string? min)
+    {
+        var maxValue = Convert.ToSByte(max);
+        var minValue = Convert.ToSByte(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Signed Integer Max value is smaller than Min value.");
+        }
+    }
+
     internal static void ValidateIntegerInputs(string? max, string? min)
     {
-
         var maxValue = Convert.ToInt32(max);
         var minValue = Convert.ToInt32(min);
 
@@ -61,7 +70,6 @@ internal static class InputHelpers<TValue>
         {
             throw new ArgumentException("Integer Max value is smaller then Min value.");
         }
-
     }
 
     internal static void ValidateLongInputs(string? max, string? min)
@@ -137,6 +145,11 @@ internal static class InputHelpers<TValue>
             return; //nothing to validate
         }
 
+        if (typeof(TValue) == typeof(sbyte))
+        {
+            ValidateSByteInputs(max, min);
+        }
+
         if (typeof(TValue) == typeof(int))
         {
             ValidateIntegerInputs(max, min);
@@ -149,7 +162,6 @@ internal static class InputHelpers<TValue>
 
         if (typeof(TValue) == typeof(short))
         {
-
             ValidateShortInputs(max, min);
         }
 
@@ -165,7 +177,6 @@ internal static class InputHelpers<TValue>
 
         if (typeof(TValue) == typeof(decimal))
         {
-
             ValidateDecimalInputs(max, min);
         }
     }
