@@ -44,8 +44,47 @@
 - 2 icons used in library were using wrong variant ([#2260](https://github.com/microsoft/fluentui-blazor/pull/2260))
 
 ### Icons
-- Update to Fluent UI System Icons 1.1.245
 - Introduction of a new 'Light' variant of icons. For now a set of 153 icons in size 32 has been added.
+
+- Update to Fluent UI System Icons 1.1.247
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Accessibility More / 16, 20, 24 / Filled & Regular
+    - Battery 0 / 28, 32 / Filled & Regular
+    - Battery 1 / 28, 32 / Filled & Regular
+    - Battery 10 / 28, 32 / Filled & Regular
+    - Battery 2 / 28, 32 / Filled & Regular
+    - Battery 3 / 28, 32 / Filled & Regular
+    - Battery 4 / 28, 32 / Filled & Regular
+    - Battery 5 / 28, 32 / Filled & Regular
+    - Battery 6 / 28, 32 / Filled & Regular
+    - Battery 7 / 28, 32 / Filled & Regular
+    - Battery 8 / 28, 32 / Filled & Regular
+    - Battery 9 / 28, 32 / Filled & Regular
+    - Battery Charge / 28, 32 / Filled & Regular
+    - Calendar Sparkle / 32 / Light
+    - Chat / 32 / Light
+    - Coin Stack / 16, 20, 24 / Filled & Regular
+    - Database Arrow Up / 16 / Filled & Regular
+    - Game Chat / 20 / Filled & Regular
+    - Layout Row Two Focus Top Settings / 20, 28, 32 / Filled
+    - Layout Row Two Focus Top Settings / 32 / Light
+    - Layout Row Two Focus Top / 28 / Filled
+    - Paint Brush / 12 / Filled & Regular
+    - Panel Right / 12 / Filled & Regular
+    - People Edit / 32 / Filled & Regular
+    - People Edit / 32 / Light
+    - Person Home / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Person Mail / 32 / Filled & Regular
+    - Person Mail / 32 / Light
+    - Puzzle Piece / 12 / Filled & Regular
+    - Teaching / 20 / Filled & Regular
+ 
+     **What's updated (Name / Size(s) / Variant(s))**
+     - Arrow Forward Down Lightning / 20, 24 / Filled & Regular
+     - Notebook Lightning / 20, 24 / Filled & Regular
+    
+- Update to Fluent UI System Icons 1.1.245
     
     **What's new (Name / Size(s) / Variant(s))**
     - Arrow Collapse All / 16 / Filled & Regular
