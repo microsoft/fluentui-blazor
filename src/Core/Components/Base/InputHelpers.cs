@@ -58,7 +58,7 @@ internal static class InputHelpers<TValue>
 
         if (maxValue < minValue)
         {
-            throw new ArgumentException("Float Max value is smaller than Min value.");
+            throw new ArgumentException("Signed Integer Max value is smaller than Min value.");
         }
     }
 
