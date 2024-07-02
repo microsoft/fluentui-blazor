@@ -107,7 +107,7 @@ public partial class FluentDataFilter<TItem>
         }
         else if (item.IsEnum)
         {
-            return (obj as Enum)?.GetDisplayOrDescription() + "";
+            return (obj as Enum)?.GetDisplayName() + "";
         }
         else
         {
@@ -117,12 +117,12 @@ public partial class FluentDataFilter<TItem>
 
     private string DisplayText(DataFilterLogicalOperator value)
         => LogicalOperatorDisplayText == null
-                ? value.ToAttributeValue()!
+                ? value.GetDisplayName()!
                 : LogicalOperatorDisplayText.Invoke(value);
 
     private string DisplayText(DataFilterComparisonOperator value)
         => ComparisonOperatorDisplayText == null
-                ? value.ToAttributeValue()!
+                ? value.GetDisplayName()!
                 : ComparisonOperatorDisplayText.Invoke(value);
 
     private static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;

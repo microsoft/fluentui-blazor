@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -7,15 +7,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public enum DataFilterLogicalOperator
 {
-    [Description("And")]
+    [Display(Name = "And")]
     And,
 
-    [Description("Or")]
+    [Display(Name = "Or")]
     Or,
 
-    [Description("Not And")]
+    [Display(Name = "Not And")]
     NotAnd,
 
-    [Description("Not Or")]
+    [Display(Name = "Not Or")]
     NotOr
 }

@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -21,7 +21,7 @@ public enum DataFilterCaseSensitivity
     /// <remarks>
     /// When using this value, casing of text does not matter.
     /// </remarks>
-    [Description("Case Insensitive")]
+    [Display(Name = "Case Insensitive")]
     CaseInsensitive,
 
     /// <summary>

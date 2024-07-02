@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,72 +10,72 @@ public enum DataFilterComparisonOperator
     /// <summary>
     /// Equal to the filter value.
     /// </summary>
-    [Description("Equal")]
+    [Display(Name = "Equal")]
     Equal,
 
     /// <summary>
     /// Different from the filter value.
     /// </summary>
-    [Description("Not Equal")]
+    [Display(Name = "Not Equal")]
     NotEqual,
 
     /// <summary>
     /// Smaller than the filter value.
     /// </summary>
-    [Description("Less Than")]
+    [Display(Name = "Less Than")]
     LessThan,
 
     /// <summary>
     /// Smaller than, or equal to, the filter value.
     /// </summary>
-    [Description("Less Than Or Equal")]
+    [Display(Name = "Less Than Or Equal")]
     LessThanOrEqual,
 
     /// <summary>
     /// Larger than the filter value.
     /// </summary>
-    [Description("Greater Than")]
+    [Display(Name = "Greater Than")]
     GreaterThan,
 
     /// <summary>
     /// Larger than, or equal to, the filter value.
     /// </summary>
-    [Description("Greater Than Or Equal")]
+    [Display(Name = "Greater Than Or Equal")]
     GreaterThanOrEqual,
 
     /// <summary>
     /// Containing the filter value.
     /// </summary>
-    [Description("Contains")]
+    [Display(Name = "Contains")]
     Contains,
 
     /// <summary>
     /// Which does not contain the filter value.
     /// </summary>
-    [Description("Not Contains")]
+    [Display(Name = "Not Contains")]
     NotContains,
 
     /// <summary>
     /// Which starts with the filter value.
     /// </summary>
-    [Description("Starts With")]
+    [Display(Name = "Starts With")]
     StartsWith,
 
     /// <summary>
     /// Which ends with the filter value.
     /// </summary>
-    [Description("Ends With")]
+    [Display(Name = "Ends With")]
     EndsWith,
 
     /// <summary>
     /// Find null values.
     /// </summary>
-    [Description("Empty")]
+    [Display(Name = "Empty")]
     Empty,
 
     /// <summary>
     /// Find values which are not null.
     /// </summary>
-    [Description("Not Empty")]
+    [Display(Name = "Not Empty")]
     NotEmpty,
 }
