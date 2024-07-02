@@ -111,8 +111,8 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
 
             // Sync Value from selected option.
             // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
-            var value = GetOptionValue(_currentSelectedOption);// ?? string.Empty;
-            if (value is not null && Value != value)
+            var value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
+            if (Value != value)
             {
                 Value = value;
                 await ValueChanged.InvokeAsync(Value);

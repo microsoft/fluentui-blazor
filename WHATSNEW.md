@@ -1,4 +1,42 @@
-## v4.8.2
+## v4.9.0
+
+### Demo site and documentation
+- [Docs] Add icon preview in API documentation ([#2284](https://github.com/microsoft/fluentui-blazor/pull/2284))
+- [Docs] Added RTL section to CodeSetup.md ([#2242](https://github.com/microsoft/fluentui-blazor/pull/2242))
+- [Docs] Improve API documentation by showing default icon and string values ([#2269](https://github.com/microsoft/fluentui-blazor/pull/2269))
+- [Docs] Improve API documentation menu button ([#2270](https://github.com/microsoft/fluentui-blazor/pull/2270))
+- [Docs] Fix same typo 5 places ([#2216](https://github.com/microsoft/fluentui-blazor/pull/2216))
+- [Demo] Fixes link for Time picker in demo projects ([#2246](https://github.com/microsoft/fluentui-blazor/pull/2246))
+
+### Components
+- [Autocomplete] Accessibility: Scrolling not working with keyboard ([#2221](https://github.com/microsoft/fluentui-blazor/pull/2221))
+- [AutoComplete] Allow focusable Badge dismiss buttons (accessibility) ([#2272](https://github.com/microsoft/fluentui-blazor/pull/2272))
+- [Autocomplete] Fix AriaLabel ([#2303](https://github.com/microsoft/fluentui-blazor/pull/2303))
+- [Autocomplete] Fix ReadOnly and Disable properties ([#2291](https://github.com/microsoft/fluentui-blazor/pull/2291))
+- [DataGrid] Add OnCellClick event and SelectColumn.SelectFromEntireRow property ([#2252](https://github.com/microsoft/fluentui-blazor/pull/2252))
+- [DataGrid] Add WCAG 2.2 single-click column resize capability ([#2238](https://github.com/microsoft/fluentui-blazor/pull/2238))
+- [DataGrid] Make `PropertyColumn` use `DisplayAttribute` value for enum ([#2304](https://github.com/microsoft/fluentui-blazor/pull/2304))
+- [DataGrid] Refactoring ColumnBase events ([#2298](https://github.com/microsoft/fluentui-blazor/pull/2298))
+- [DataGrid] Revert setting height on DataGrid header cell again. Leads to issues on Safari
+- [DatePicker] Change OnSelectedDateAsync logic ([#2233](https://github.com/microsoft/fluentui-blazor/pull/2233))
+- [DatePicker] Fix unable to set when value is null ([#2241](https://github.com/microsoft/fluentui-blazor/pull/2241))
+- [DesignTheme] Add try catch ([#2204](https://github.com/microsoft/fluentui-blazor/pull/2204))
+- [DesignToken] Change `FillColor` and `NeutralLayer...` types  ([#2266](https://github.com/microsoft/fluentui-blazor/pull/2266))
+- [Dialog] Fix failing tests ([#2283](https://github.com/microsoft/fluentui-blazor/pull/2283))
+- [Lists] Pass `Name` parameter ([#2305](https://github.com/microsoft/fluentui-blazor/pull/2305))
+- [Multisplitter] Fix width panels ([#2218](https://github.com/microsoft/fluentui-blazor/pull/2218))
+- [MultiSplitter] Prevent semicolons from being displayed. ([#2226](https://github.com/microsoft/fluentui-blazor/pull/2226))
+- [NavMenu] Revert fix for when prerender set to false ([#2293](https://github.com/microsoft/fluentui-blazor/pull/2293))
+- [Overflow] Add refresh method, add VisibleOnLoad parameter ([#2236](https://github.com/microsoft/fluentui-blazor/pull/2236))
+- [ProfileMenu] Fix the initials inner the popup panel ([#2294](https://github.com/microsoft/fluentui-blazor/pull/2294))
+- [Rating] **New component** ([#2258](https://github.com/microsoft/fluentui-blazor/pull/2258))
+- [Slider] Fix getting caught in update loop ([#2265](https://github.com/microsoft/fluentui-blazor/pull/2265))
+- [Slider] Refactor code after PR #2265 ([#2287](https://github.com/microsoft/fluentui-blazor/pull/2287))
+- [TimePicker] Add null check for empty string ([#2245](https://github.com/microsoft/fluentui-blazor/pull/2245))
+
+### Miscellaneous
+- Add CssBuilder.ValidateClassNames  ([#2255](https://github.com/microsoft/fluentui-blazor/pull/2255))
+- 2 icons used in library were using wrong variant ([#2260](https://github.com/microsoft/fluentui-blazor/pull/2260))
 
 ### Icons
 - Update to Fluent UI System Icons 1.1.245
