@@ -6,9 +6,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TItem))]
 public partial class FluentDataFilter<TItem>
 {
-    private readonly string _idAddCondition = Identifier.NewId();
-    private readonly string _idAddGroup = Identifier.NewId();
-
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>

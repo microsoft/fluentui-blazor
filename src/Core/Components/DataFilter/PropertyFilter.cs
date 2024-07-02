@@ -36,12 +36,6 @@ public class PropertyFilter<TItem, TProp> : FluentComponentBase, IPropertyFilter
     [Parameter]
     public Func<string>? TooltipText { get; set; }
 
-    ///// <summary>
-    ///// Gets or sets the filter template.
-    ///// </summary>
-    //[Parameter]
-    //public RenderFragment<DataFilterProperty<TItem>> Template { get; set; } = default!;
-
     /// <summary>
     /// Get or set property filter.
     /// </summary>

@@ -57,28 +57,5 @@ public class DataFilterGroup<TItem>
         }
 
         return ret;
-    }
-    //public string GetQueryString(DataFilterCaseSensitiveModal caseSensitiveModal)
-    //{
-    //    return "";
-    //    //var queries = Filters.Select(a => a.GetQueryString(caseSensitiveModal))
-    //    //                     .Where(a => !string.IsNullOrEmpty(a))
-    //    //                     .Select(a => $"({a})").ToList();
-
-    //    //queries.AddRange(Groups.Select(a => a.GetQueryString(caseSensitiveModal))
-    //    //                       .Where(a => !string.IsNullOrEmpty(a))
-    //    //                       .Select(a => $"({a})"));
-
-    //    //var query = string.Join($" {Operator.ToLinq()} ", queries);
-    //    //if (!string.IsNullOrEmpty(query))
-    //    //{
-    //    //    if (Operator == DataFilterLogicalOperator.NotAnd || Operator == DataFilterLogicalOperator.NotOr)
-    //    //    {
-    //    //        query = $"!({query})";
-    //    //    }
-    //    //    query = $"({query})";
-    //    //}
-
-    //    //return query;
-    //}
+    }  
 }
