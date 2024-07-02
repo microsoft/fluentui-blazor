@@ -29,6 +29,21 @@
     }
 
     [Fact]
+    public void FluentListbox_NameAttribute()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentListbox<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "mylistbox");
+            parameters.Add(p => p.Name, "mylistboxName");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentListbox_OptionValue()
     {
         // Arrange
