@@ -49,12 +49,40 @@ public class DataFilterProperty<TItem>
     ];
 
     private bool IsType<TType>() => Type == typeof(TType) || Nullable.GetUnderlyingType(Type) == typeof(TType);
+
+    /// <summary>
+    /// Type of property.
+    /// </summary>
     public Type Type => Property.PropertyInfo.PropertyType;
+
+    /// <summary>
+    /// Property is enum.
+    /// </summary>
     public bool IsEnum => Type.IsEnum || Nullable.GetUnderlyingType(Type) is { IsEnum: true };
+
+    /// <summary>
+    /// Property is bool.
+    /// </summary>
     public bool IsBool => IsType<bool>();
+
+    /// <summary>
+    /// Property is date.
+    /// </summary>
     public bool IsDate => IsType<DateTime>() || IsType<DateOnly>() || IsType<TimeOnly>();
+
+    /// <summary>
+    /// Property is string.
+    /// </summary>
     public bool IsString => Type == typeof(string);
+
+    /// <summary>
+    /// Property is number.
+    /// </summary>
     public bool IsNumber => _numericTypes.Contains(Type);
+
+    /// <summary>
+    /// Property is nullable.
+    /// </summary>
     public bool IsNullable => Nullable.GetUnderlyingType(Type) != null;
 
     /// <summary>

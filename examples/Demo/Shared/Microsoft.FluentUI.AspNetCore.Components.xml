@@ -1276,6 +1276,41 @@
             Comparison Operator.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.Type">
+            <summary>
+            Type of property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsEnum">
+            <summary>
+            Property is enum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsBool">
+            <summary>
+            Property is bool.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsDate">
+            <summary>
+            Property is date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsString">
+            <summary>
+            Property is string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsNumber">
+            <summary>
+            Property is number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsNullable">
+            <summary>
+            Property is nullable.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.GenerateExpression(Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
             <summary>
             Get expression for filter property.
@@ -1373,6 +1408,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.TooltipText">
             <summary>
             Gets or sets the value to be used as the tooltip and aria-label in this 
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.CustomTemplate">
+            <summary>
+            Gets or sets the template.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Property">
