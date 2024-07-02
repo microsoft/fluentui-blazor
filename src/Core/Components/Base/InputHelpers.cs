@@ -50,10 +50,10 @@ internal static class InputHelpers<TValue>
         return value;
     }
 
-    internal static void ValidateSByteInputs(string max, string min)
+    internal static void ValidateSByteInputs(string? max, string? min)
     {
-        var maxValue = Convert.ToSByte(max, CultureInfo.InvariantCulture);
-        var minValue = Convert.ToSByte(min, CultureInfo.InvariantCulture);
+        var maxValue = Convert.ToSByte(max);
+        var minValue = Convert.ToSByte(min);
 
         if (maxValue < minValue)
         {
