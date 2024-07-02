@@ -22,6 +22,7 @@
         <PropertyFilter Property="@(a=> a.DateTime)" />
         <PropertyFilter Property="@(a=> a.DateOnly)" />
         <PropertyFilter Property="@(a=> a.TimeOnly)" />
+        <PropertyFilter Property="@(a=> a.Enum)" />
     </FluentDataFilter>
 
     <p>
@@ -44,6 +45,7 @@
             <PropertyColumn Property="@(a=> a.DateTime)" />
             <PropertyColumn Property="@(a=> a.DateOnly)" />
             <PropertyColumn Property="@(a=> a.TimeOnly)" />
+            <PropertyColumn Property="@(a=> a.Enum)" />
         </FluentDataGrid>
     </FluentCard>
 </FluentStack>

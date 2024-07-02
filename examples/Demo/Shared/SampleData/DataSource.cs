@@ -206,7 +206,7 @@ public class DataSource
     public IQueryable<DataTypeDemo> DataTypeDemoQ { get; } = DataTypeDemo.AsQueryable();
 
     public static readonly IEnumerable<DataTypeDemo> DataTypeDemo =
-        Enumerable.Range(0, 20)
+        Enumerable.Range(1, 20)
                   .Select(a => new DataTypeDemo
                   {
                       TinyInteger = (sbyte)(50 + a),
@@ -214,14 +214,15 @@ public class DataSource
                       Integer = 1234567890 + a,
                       LongInteger = 9876543210L + a,
                       SinglePrecision = 3.14159f * a,
-                      DoublePrecision = Math.PI*a,
+                      DoublePrecision = Math.PI * a,
                       Decimal = 1234.56m * a,
                       Boolean = (a % 2) == 0,
                       Char = (char)('A' + a),
                       String = GetMonthName(Math.Min(11, a)),
-                      DateTime = new DateTime(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a),11,12,10),
+                      DateTime = new DateTime(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a), 11, 12, 10),
                       DateOnly = new DateOnly(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a)),
                       TimeOnly = new TimeOnly(10, Math.Min(60, 30 + a)),
-                      DateTimeOffset = new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + a), 00, 00, TimeSpan.FromHours(5))
+                      DateTimeOffset = new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + a), 00, 00, TimeSpan.FromHours(5)),
+                      Enum = (DataTypeDemoEnum)Math.Min(6, (a % 6) + 1)
                   });
 }
