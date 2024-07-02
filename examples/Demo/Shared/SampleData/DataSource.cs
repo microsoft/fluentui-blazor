@@ -69,15 +69,15 @@ public class DataSource
 
     private readonly static Person[] _people =
     [
-        new Person ( PersonId: 1, FirstName: "Jean", LastName: "Martin", CountryCode: "FR", BirthDate: new DateOnly(1985, 3, 16), Picture: ImageFaces[0],EmployeeType: EmployeeType.Manager ),
-        new Person ( PersonId: 2, FirstName: "António", LastName: "Langa", CountryCode: "MZ", BirthDate: new DateOnly(1991, 12, 1), Picture: ImageFaces[1] ,EmployeeType: EmployeeType.Engineer),
-        new Person ( PersonId: 3, FirstName: "Julie", LastName: "Smith", CountryCode: "AU", BirthDate: new DateOnly(1958, 10, 10), Picture: ImageFaces[2] ,EmployeeType: EmployeeType.CustomerSupport),
-        new Person ( PersonId: 4, FirstName: "Nur", LastName: "Sari", CountryCode: "ID", BirthDate: new DateOnly(1922, 4, 27), Picture: ImageFaces[3] ,EmployeeType: EmployeeType.CustomerSupport),
-        new Person ( PersonId: 5, FirstName: "Jose", LastName: "Hernandez", CountryCode: "MX", BirthDate: new DateOnly(2011, 5, 3), Picture: ImageFaces[4] ,EmployeeType: EmployeeType.SalesRepresentative),
-        new Person ( PersonId: 6, FirstName: "Bert", LastName: "de Vries", CountryCode: "NL", BirthDate: new DateOnly(1999, 6, 9), Picture: ImageFaces[5] ,EmployeeType: EmployeeType.Technician),
-        new Person ( PersonId: 7, FirstName: "Jaques", LastName: "Martin", CountryCode: "BE", BirthDate: new DateOnly(2002, 10, 20), Picture: ImageFaces[6] ,EmployeeType: EmployeeType.Technician),
-        new Person ( PersonId: 8, FirstName: "Elizabeth", LastName: "Johnson", CountryCode: "GB", BirthDate: new DateOnly(1971, 11, 24), Picture: ImageFaces[7] ,EmployeeType: EmployeeType.Manager),
-        new Person ( PersonId: 9, FirstName: "Jakob", LastName: "Berger", CountryCode: "DE", BirthDate: new DateOnly(1971, 4, 21), Picture: string.Empty,EmployeeType: EmployeeType.SalesRepresentative)
+        new Person ( PersonId: 1, FirstName: "Jean", LastName: "Martin", CountryCode: "FR", BirthDate: new DateOnly(1985, 3, 16), Picture: ImageFaces[0]),
+        new Person ( PersonId: 2, FirstName: "António", LastName: "Langa", CountryCode: "MZ", BirthDate: new DateOnly(1991, 12, 1), Picture: ImageFaces[1] ),
+        new Person ( PersonId: 3, FirstName: "Julie", LastName: "Smith", CountryCode: "AU", BirthDate: new DateOnly(1958, 10, 10), Picture: ImageFaces[2] ),
+        new Person ( PersonId: 4, FirstName: "Nur", LastName: "Sari", CountryCode: "ID", BirthDate: new DateOnly(1922, 4, 27), Picture: ImageFaces[3] ),
+        new Person ( PersonId: 5, FirstName: "Jose", LastName: "Hernandez", CountryCode: "MX", BirthDate: new DateOnly(2011, 5, 3), Picture: ImageFaces[4] ),
+        new Person ( PersonId: 6, FirstName: "Bert", LastName: "de Vries", CountryCode: "NL", BirthDate: new DateOnly(1999, 6, 9), Picture: ImageFaces[5]),
+        new Person ( PersonId: 7, FirstName: "Jaques", LastName: "Martin", CountryCode: "BE", BirthDate: new DateOnly(2002, 10, 20), Picture: ImageFaces[6] ),
+        new Person ( PersonId: 8, FirstName: "Elizabeth", LastName: "Johnson", CountryCode: "GB", BirthDate: new DateOnly(1971, 11, 24), Picture: ImageFaces[7] ),
+        new Person ( PersonId: 9, FirstName: "Jakob", LastName: "Berger", CountryCode: "DE", BirthDate: new DateOnly(1971, 4, 21), Picture: string.Empty)
     ];
 
     public class MonthItem
@@ -202,4 +202,26 @@ public class DataSource
         new Country("uz", "Uzbekistan", new Medals { Gold = 3, Silver = 0, Bronze = 2 }),
         new Country("ve", "Venezuela", new Medals { Gold = 1, Silver = 3, Bronze = 0 }),
     };
+
+    public IQueryable<DataTypeDemo> DataTypeDemoQ { get; } = DataTypeDemo.AsQueryable();
+
+    public static readonly IEnumerable<DataTypeDemo> DataTypeDemo =
+        Enumerable.Range(0, 20)
+                  .Select(a => new DataTypeDemo
+                  {
+                      TinyInteger = (sbyte)(50 + a),
+                      SmallInteger = (short)(10000 + (a * 2)),
+                      Integer = 1234567890 + a,
+                      LongInteger = 9876543210L + a,
+                      SinglePrecision = 3.14159f * a,
+                      DoublePrecision = Math.PI*a,
+                      Decimal = 1234.56m * a,
+                      Boolean = (a % 2) == 0,
+                      Char = (char)('A' + a),
+                      String = GetMonthName(Math.Min(11, a)),
+                      DateTime = new DateTime(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a),11,12,10),
+                      DateOnly = new DateOnly(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a)),
+                      TimeOnly = new TimeOnly(10, Math.Min(60, 30 + a)),
+                      DateTimeOffset = new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + a), 00, 00, TimeSpan.FromHours(5))
+                  });
 }
