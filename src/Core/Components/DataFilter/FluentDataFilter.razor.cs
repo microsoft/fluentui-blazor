@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -54,6 +55,12 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;
 
+    /// <summary>
+    /// Allow use not logical operator.
+    /// </summary>
+    [Parameter]
+    public bool AllowNotLogicalOperator { get; set; } = true;
+
     internal List<IPropertyFilter<TItem>> Properties { get; set; } = [];
 
     private async Task AddAsync(DataFilterGroup<TItem> group, string id)
@@ -82,12 +89,17 @@ public partial class FluentDataFilter<TItem>
         await FilterChangedAsync();
     }
 
-    private string SetTooltip(DataFilterProperty<TItem> item)
+    private IEnumerable<DataFilterLogicalOperator> LogicalOperator
+        => AllowNotLogicalOperator
+                ? [DataFilterLogicalOperator.And, DataFilterLogicalOperator.NotAnd, DataFilterLogicalOperator.Or, DataFilterLogicalOperator.NotOr]
+                : [DataFilterLogicalOperator.And, DataFilterLogicalOperator.Or];
+
+    private string GetTooltip(DataFilterProperty<TItem> item)
         => item.Property?.Tooltip ?? false
                 ? item.Property.TooltipText?.Invoke()!
                 : "";
 
-    private string SetValueDisplayText(DataFilterProperty<TItem> item, object? obj)
+    private string GetValueDisplayText(DataFilterProperty<TItem> item, object? obj)
     {
         if (item.Property.ValueDisplayText != null)
         {
@@ -95,7 +107,7 @@ public partial class FluentDataFilter<TItem>
         }
         else if (item.IsEnum)
         {
-            return (obj as Enum)?.GetDisplayName() + "";
+            return (obj as Enum)?.GetDisplayOrDescription() + "";
         }
         else
         {
@@ -113,6 +125,8 @@ public partial class FluentDataFilter<TItem>
                 ? value.ToAttributeValue()!
                 : ComparisonOperatorDisplayText.Invoke(value);
 
+    private static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;
+
     private async Task SetPropertyAsync(DataFilterProperty<TItem> item)
     {
         var operators = item.GetAvailableComparisonOperator().ToList();
@@ -121,12 +135,17 @@ public partial class FluentDataFilter<TItem>
             item.Operator = operators[0];
         }
 
-        if (item.Value != null && item.Value.GetType() != item.Type)
+        if (item.Value == null
+            || (item.Value != null && item.Value.GetType() != item.Type))
         {
             //set default value
             if (item.Type.IsValueType)
             {
                 item.Value = Activator.CreateInstance(item.Type);
+            }
+            else if (item.IsString)
+            {
+                item.Value = string.Empty;
             }
         }
 

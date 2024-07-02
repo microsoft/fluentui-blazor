@@ -24,7 +24,7 @@
 
                 <FluentSelect TOption="DataFilterLogicalOperator"
                               Width="100px"
-                              Items="@(Enum.GetValues<DataFilterLogicalOperator>())"
+                              Items="@LogicalOperator"
                               OptionText="@DisplayText"
                               @bind-SelectedOption="group.Operator"
                               Immediate="@Immediate"
@@ -40,7 +40,7 @@
 
             @foreach (var item in group.Filters)
             {
-                <FluentStack Orientation="Orientation.Horizontal">
+                <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
                     <FluentButton Appearance="Appearance.Lightweight"
                                   OnClick="@(async () => await DeleteFilterAsync(group,item))"
                                   IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
@@ -48,7 +48,7 @@
                     <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
                                     Items="Properties"
                                     OptionText="@(a => a.Title)"
-                                    AriaLabel="@(SetTooltip(item))"
+                                    AriaLabel="@(GetTooltip(item))"
                                     @bind-SelectedOption="@item.Property"
                                     @bind-SelectedOption:after="@(async () => await SetPropertyAsync(item))"
                                     Immediate="@Immediate"
@@ -77,7 +77,7 @@
                         else if (item.IsEnum)
                         {
                             <FluentSelect Items="@(Enum.GetValues(item.Type).Cast<Enum>())"
-                                          OptionText="@(a => SetValueDisplayText(item, a))"
+                                          OptionText="@(a => GetValueDisplayText(item, a))"
                                           @bind-SelectedOption="item.Value"
                                           @bind-SelectedOption:after="@FilterChangedAsync"
                                           Immediate="@Immediate"
@@ -91,6 +91,8 @@
                                                             [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(item.Value,item.Type)!,
                                                             [nameof(FluentNumberField<int>.Immediate)] = Immediate,
                                                             [nameof(FluentNumberField<int>.ImmediateDelay)] = ImmediateDelay,
+                                                            //[nameof(FluentNumberField<int>.Min)] = ,
+                                                            //[nameof(FluentNumberField<int>.Max)] = ,
                                                             [nameof(FluentNumberField<int>.ValueChanged)] = EventCallbackHelper.Make(item.Type,
                                                                                                                                      this,
                                                                                                                                      async (e)  => await SetValueAsync(item, e)
@@ -113,29 +115,22 @@
                             }
                             else if (item.Type == typeof(DateOnly))
                             {
-                                <FluentDatePicker Value="Convert.ToDateTime(item.Value)"
-                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToDateTime()))"
+                                <FluentDatePicker Value="@(ConvertTo<DateOnly>(item.Value).ToDateTime())"
+                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToDateOnly()))"
                                                   Immediate="@Immediate"
                                                   ImmediateDelay="@ImmediateDelay" />
                             }
                             else if (item.Type == typeof(TimeOnly))
                             {
-                                <FluentTimePicker Value="Convert.ToDateTime(item.Value)"
+                                <FluentTimePicker Value="@(ConvertTo<TimeOnly>(item.Value).ToDateTime())"
                                                   ValueChanged="@(async (e) => await SetValueAsync(item, e.ToTimeOnly()))"
-                                                  Immediate="@Immediate"
-                                                  ImmediateDelay="@ImmediateDelay" />
-                            }
-                            else if (item.Type == typeof(DateTimeOffset))
-                            {
-                                <FluentTimePicker Value="Convert.ToDateTime(item.Value)"
-                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToDateTime()))"
                                                   Immediate="@Immediate"
                                                   ImmediateDelay="@ImmediateDelay" />
                             }
                         }
                         else if (item.IsBool)
                         {
-                            <FluentCheckbox ThreeState="item.IsEnumNullable"
+                            <FluentCheckbox ThreeState="item.IsNullable"
                                             Value="Convert.ToBoolean(item.Value)"
                                             ValueChanged="@(async (e) => await SetValueAsync(item, e))"
                                             Immediate="@Immediate"

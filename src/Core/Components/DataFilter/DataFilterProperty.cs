@@ -50,10 +50,9 @@ public class DataFilterProperty<TItem>
 
     private bool IsType<TType>() => Type == typeof(TType) || Nullable.GetUnderlyingType(Type) == typeof(TType);
     public Type Type => Property.PropertyInfo.PropertyType;
-    public bool IsEnum => Type.IsEnum || IsEnumNullable;
-    public bool IsEnumNullable => Nullable.GetUnderlyingType(Type) is { IsEnum: true };
+    public bool IsEnum => Type.IsEnum || Nullable.GetUnderlyingType(Type) is { IsEnum: true };
     public bool IsBool => IsType<bool>();
-    public bool IsDate => IsType<DateTime>() || IsType<DateOnly>() || IsType<TimeOnly>() || IsType<DateTimeOffset>();
+    public bool IsDate => IsType<DateTime>() || IsType<DateOnly>() || IsType<TimeOnly>();
     public bool IsString => Type == typeof(string);
     public bool IsNumber => _numericTypes.Contains(Type);
     public bool IsNullable => Nullable.GetUnderlyingType(Type) != null;
@@ -140,24 +139,12 @@ public class DataFilterProperty<TItem>
         {
             operators.Add(DataFilterComparisonOperator.Equal);
             operators.Add(DataFilterComparisonOperator.NotEqual);
-
-            if (IsEnumNullable)
-            {
-                operators.Add(DataFilterComparisonOperator.Empty);
-                operators.Add(DataFilterComparisonOperator.NotEmpty);
-            }
         }
         else if (IsBool)
         {
             operators.Add(DataFilterComparisonOperator.Equal);
-
-            if (IsNullable)
-            {
-                operators.Add(DataFilterComparisonOperator.Empty);
-                operators.Add(DataFilterComparisonOperator.NotEmpty);
-            }
         }
-        else if (IsDate)
+        else if (IsDate || IsNumber)
         {
             operators.AddRange([
                 DataFilterComparisonOperator.Equal,
@@ -167,31 +154,6 @@ public class DataFilterProperty<TItem>
                 DataFilterComparisonOperator.GreaterThan,
                 DataFilterComparisonOperator.GreaterThanOrEqual,
             ]);
-
-            if (IsNullable)
-            {
-                operators.Add(DataFilterComparisonOperator.Empty);
-                operators.Add(DataFilterComparisonOperator.NotEmpty);
-            }
-        }
-        else if (IsNumber)
-        {
-            operators.AddRange([
-                DataFilterComparisonOperator.Equal,
-                DataFilterComparisonOperator.NotEqual,
-                DataFilterComparisonOperator.LessThan,
-                DataFilterComparisonOperator.LessThanOrEqual,
-                DataFilterComparisonOperator.GreaterThan,
-                DataFilterComparisonOperator.GreaterThanOrEqual,
-                DataFilterComparisonOperator.Empty,
-                DataFilterComparisonOperator.NotEmpty,
-            ]);
-
-            if (IsNullable)
-            {
-                operators.Add(DataFilterComparisonOperator.Empty);
-                operators.Add(DataFilterComparisonOperator.NotEmpty);
-            }
         }
         else if (IsString)
         {
@@ -205,6 +167,19 @@ public class DataFilterProperty<TItem>
                 DataFilterComparisonOperator.Empty,
                 DataFilterComparisonOperator.NotEmpty,
             ]);
+        }
+
+        if (IsNullable)
+        {
+            if (!operators.Contains(DataFilterComparisonOperator.Empty))
+            {
+                operators.Add(DataFilterComparisonOperator.Empty);
+            }
+
+            if (!operators.Contains(DataFilterComparisonOperator.NotEmpty))
+            {
+                operators.Add(DataFilterComparisonOperator.NotEmpty);
+            }
         }
 
         return operators.Distinct();

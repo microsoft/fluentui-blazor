@@ -46,4 +46,25 @@ public static class EnumExtensions
         var displayAttribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
         return displayAttribute?.Name ?? enumValue.ToString();
     }
+
+    public static string GetDisplayOrDescription(this Enum enumValue)
+    {
+        var memberInfo = enumValue.GetType().GetMember(enumValue.ToString());
+        var displayAttribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
+        var ret = enumValue.ToString();
+        if (displayAttribute?.Name == null)
+        {
+            var descriptionAttribute = memberInfo[0].GetCustomAttribute<DescriptionAttribute>();
+            if (descriptionAttribute?.Description != null)
+            {
+                ret = descriptionAttribute.Description;
+            }
+        }
+        else
+        {
+            ret = displayAttribute.Name;
+        }
+
+        return ret;
+    }
 }
