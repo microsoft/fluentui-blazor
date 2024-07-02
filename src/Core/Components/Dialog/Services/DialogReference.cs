@@ -14,6 +14,8 @@ public class DialogReference : IDialogReference
 
     public DialogInstance Instance { get; set; } = default!;
 
+    internal string GetKey() => $"{Instance.Parameters.GetHashCode()}_{Instance.Content.GetHashCode()}";
+
     public string Id { get; }
 
     public Task<DialogResult> Result => _resultCompletion.Task;
