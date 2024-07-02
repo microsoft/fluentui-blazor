@@ -74,7 +74,7 @@
 
         // Assert
         Assert.True(previous.HasAttribute("disabled"));
-        calendar.Verify(suffix: view.GetDescription());
+        calendar.Verify(suffix: view.GetDisplayOrDescription());
     }
 
     [Theory]
@@ -91,7 +91,7 @@
 
         // Assert
         Assert.True(previous.HasAttribute("disabled"));
-        calendar.Verify(suffix: view.GetDescription());
+        calendar.Verify(suffix: view.GetDisplayOrDescription());
     }
 
     [Theory]
@@ -174,7 +174,7 @@
         title?.Click();
 
         // Assert
-        calendar.Verify(suffix: view.GetDescription());
+        calendar.Verify(suffix: view.GetDisplayOrDescription());
     }
 
     [Fact]
