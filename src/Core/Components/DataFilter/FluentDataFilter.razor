@@ -47,8 +47,8 @@
 
                     <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
                                     Items="Properties"
-                                    OptionText="@(a => a.Title)"
-                                    AriaLabel="@(GetTooltip(item))"
+                                    OptionText="@(a => a.Title)"                                    
+                                    AriaLabel="@GetTooltip(item)"
                                     @bind-SelectedOption="@item.Property"
                                     @bind-SelectedOption:after="@(async () => await SetPropertyAsync(item))"
                                     Immediate="@Immediate"
@@ -76,28 +76,18 @@
                         }
                         else if (item.IsEnum)
                         {
-                            <FluentSelect Items="@(Enum.GetValues(item.Type).Cast<Enum>())"
-                                          OptionText="@(a => GetValueDisplayText(item, a))"
-                                          @bind-SelectedOption="item.Value"
-                                          @bind-SelectedOption:after="@FilterChangedAsync"
-                                          Immediate="@Immediate"
-                                          ImmediateDelay="@ImmediateDelay" />
+                            <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                                            Items="@(Enum.GetValues(item.Type).Cast<Enum>())"
+                                            OptionText="@(a => GetValueDisplayText(item, a))"
+                                            @bind-SelectedOption="item.Value"
+                                            @bind-SelectedOption:after="@FilterChangedAsync"
+                                            Immediate="@Immediate"
+                                            ImmediateDelay="@ImmediateDelay" />
                         }
                         else if (item.IsNumber)
                         {
                             <DynamicComponent Type="@typeof(FluentNumberField<>).MakeGenericType(item.Type)"
-                                              Parameters="new Dictionary<string, object>()
-                                                        {
-                                                            [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(item.Value,item.Type)!,
-                                                            [nameof(FluentNumberField<int>.Immediate)] = Immediate,
-                                                            [nameof(FluentNumberField<int>.ImmediateDelay)] = ImmediateDelay,
-                                                            //[nameof(FluentNumberField<int>.Min)] = ,
-                                                            //[nameof(FluentNumberField<int>.Max)] = ,
-                                                            [nameof(FluentNumberField<int>.ValueChanged)] = EventCallbackHelper.Make(item.Type,
-                                                                                                                                     this,
-                                                                                                                                     async (e)  => await SetValueAsync(item, e)
-                                                            )!
-                                                        }" />
+                                              Parameters="@CreateNumericFieldEditorParameter(item)" />
                         }
                         else if (item.IsDate)
                         {

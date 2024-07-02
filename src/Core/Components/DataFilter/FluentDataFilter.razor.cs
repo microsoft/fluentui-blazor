@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -94,12 +93,12 @@ public partial class FluentDataFilter<TItem>
                 ? [DataFilterLogicalOperator.And, DataFilterLogicalOperator.NotAnd, DataFilterLogicalOperator.Or, DataFilterLogicalOperator.NotOr]
                 : [DataFilterLogicalOperator.And, DataFilterLogicalOperator.Or];
 
-    private string GetTooltip(DataFilterProperty<TItem> item)
+    private static string GetTooltip(DataFilterProperty<TItem> item)
         => item.Property?.Tooltip ?? false
                 ? item.Property.TooltipText?.Invoke()!
                 : "";
 
-    private string GetValueDisplayText(DataFilterProperty<TItem> item, object? obj)
+    private static string GetValueDisplayText(DataFilterProperty<TItem> item, object? obj)
     {
         if (item.Property.ValueDisplayText != null)
         {
@@ -166,5 +165,27 @@ public partial class FluentDataFilter<TItem>
     {
         item.Value = value;
         await FilterChangedAsync();
+    }
+
+    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterProperty<TItem> item)
+    {
+        var inputHelper = typeof(InputHelpers<>).MakeGenericType(item.Type);
+        return new Dictionary<string, object>()
+        {
+            [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(item.Value, item.Type)!,
+
+            [nameof(FluentNumberField<int>.Immediate)] = Immediate,
+            [nameof(FluentNumberField<int>.ImmediateDelay)] = ImmediateDelay,
+
+            [nameof(FluentNumberField<int>.Min)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMinValue))!
+                                                              .Invoke(inputHelper, null)!,
+
+            [nameof(FluentNumberField<int>.Max)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMaxValue))!
+                                                              .Invoke(inputHelper, null)!,
+
+            [nameof(FluentNumberField<int>.ValueChanged)] = EventCallbackHelper.Make(item.Type,
+                                                                                     this,
+                                                                                     async (e) => await SetValueAsync(item, e))!
+        };
     }
 }
