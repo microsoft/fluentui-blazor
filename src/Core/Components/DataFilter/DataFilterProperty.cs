@@ -5,8 +5,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class DataFilterProperty<TItem>
 {
+    /// <summary>
+    /// Property filter reference.
+    /// </summary>
     public IPropertyFilter<TItem> Property { get; set; } = default!;
-    public object? Value { get; set; } 
+
+    /// <summary>
+    /// Value.
+    /// </summary>
+    public object? Value { get; set; }
+
+    /// <summary>
+    /// Comparison Operator.
+    /// </summary>
     public DataFilterComparisonOperator Operator { get; set; }
 
     private static readonly HashSet<Type> _numericTypes =
@@ -47,6 +58,11 @@ public class DataFilterProperty<TItem>
     public bool IsNumber => _numericTypes.Contains(Type);
     public bool IsNullable => Nullable.GetUnderlyingType(Type) != null;
 
+    /// <summary>
+    /// Get expression for filter property.
+    /// </summary>
+    /// <param name="caseSensitivity"></param>
+    /// <returns></returns>
     public Expression<Func<TItem, bool>> GenerateExpression(DataFilterCaseSensitivity caseSensitivity)
     {
         Expression<Func<TItem, bool>> ret = x => true;

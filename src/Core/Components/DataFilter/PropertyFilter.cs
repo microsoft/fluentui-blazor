@@ -12,6 +12,9 @@ public class PropertyFilter<TItem, TProp> : FluentComponentBase, IPropertyFilter
     [CascadingParameter]
     internal FluentDataFilter<TItem> DataFilter { get; set; } = default!;
 
+    /// <summary>
+    /// Property info definition.
+    /// </summary>
     public PropertyInfo PropertyInfo { get; protected set; } = default!;
 
     /// <summary>
@@ -40,16 +43,19 @@ public class PropertyFilter<TItem, TProp> : FluentComponentBase, IPropertyFilter
     //public RenderFragment<DataFilterProperty<TItem>> Template { get; set; } = default!;
 
     /// <summary>
-    /// Get or set property to filter.
+    /// Get or set property filter.
     /// </summary>
     [Parameter, EditorRequired] public Expression<Func<TItem, TProp>> Property { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the function used to determine which text to display for each option.
+    /// Gets or sets the function used to determine which text to display.
     /// </summary>
     [Parameter]
     public Func<object?, string>? ValueDisplayText { get; set; }
 
+    /// <summary>
+    /// Lambda Expression definition property
+    /// </summary>
     public LambdaExpression LambdaExpression => Property;
 
     protected override void OnParametersSet()

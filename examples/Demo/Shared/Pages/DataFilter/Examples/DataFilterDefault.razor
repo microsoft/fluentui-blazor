@@ -9,14 +9,19 @@
 
     <p>Data Filter</p>
 
-    <FluentDataFilter TItem="Person" Filter="_filter" Changed="FilterChanged">
-        <PropertyFilter Property="@(a=> a.FirstName)" Title="First Name" TooltipText="@(() => "First Name tooltip")" />
-        <PropertyFilter Property="@(a=> a.LastName)" />
-        <PropertyFilter Property="@(a=> a.BirthDate)" />
-        <PropertyFilter Property="@(a=> a.CountryCode)" />
-        <PropertyFilter Property="@(a=> a.PersonId)" />
-        <PropertyFilter Property="@(a=> a.Picture)" />
-        <PropertyFilter Property="@(a=> a.EmployeeType)" />
+    <FluentDataFilter Filter="_filter" Changed="FilterChanged">
+        <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" TooltipText="@(() => "Tiny Integer tooltip")" />
+        <PropertyFilter Property="@(a=> a.SmallInteger)" />
+        <PropertyFilter Property="@(a=> a.Integer)" />
+        <PropertyFilter Property="@(a=> a.LongInteger)" />
+        <PropertyFilter Property="@(a=> a.SinglePrecision)" />
+        <PropertyFilter Property="@(a=> a.DoublePrecision)" />
+        <PropertyFilter Property="@(a=> a.Decimal)" />
+        <PropertyFilter Property="@(a=> a.Boolean)" />
+        <PropertyFilter Property="@(a=> a.String)" />
+        <PropertyFilter Property="@(a=> a.DateTime)" />
+        <PropertyFilter Property="@(a=> a.DateOnly)" />
+        <PropertyFilter Property="@(a=> a.TimeOnly)" />
     </FluentDataFilter>
 
     <p>
@@ -26,23 +31,28 @@
     <FluentCard>
         <p>Data Grid</p>
 
-        <FluentDataGrid Items="@People">
-            <PropertyColumn Property="@(a=> a.FirstName)" />
-            <PropertyColumn Property="@(a=> a.LastName)" />
-            <PropertyColumn Property="@(a=> a.BirthDate)" />
-            <PropertyColumn Property="@(a=> a.CountryCode)" />
-            <PropertyColumn Property="@(a=> a.PersonId)" />
-            <PropertyColumn Property="@(a=> a.Picture)" />
-            <PropertyColumn Property="@(a=> a.EmployeeType)" />
+        <FluentDataGrid Items="@DataTypeDemo">
+            <PropertyColumn Property="@(a=> a.TinyInteger)" />
+            <PropertyColumn Property="@(a=> a.SmallInteger)" />
+            <PropertyColumn Property="@(a=> a.Integer)" />
+            <PropertyColumn Property="@(a=> a.LongInteger)" />
+            <PropertyColumn Property="@(a=> a.SinglePrecision)" />
+            <PropertyColumn Property="@(a=> a.DoublePrecision)" />
+            <PropertyColumn Property="@(a=> a.Decimal)" />
+            <PropertyColumn Property="@(a=> a.Boolean)" />
+            <PropertyColumn Property="@(a=> a.String)" />
+            <PropertyColumn Property="@(a=> a.DateTime)" />
+            <PropertyColumn Property="@(a=> a.DateOnly)" />
+            <PropertyColumn Property="@(a=> a.TimeOnly)" />
         </FluentDataGrid>
     </FluentCard>
 </FluentStack>
 
 @code
 {
-    IQueryable<Person> People => Data.People.Where(_filter.GenerateExpression(_caseSensitivity));
+    IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(_filter.GenerateExpression(_caseSensitivity));
     DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.Ignore;
-    DataFilterGroup<Person> _filter = new();
+    DataFilterGroup<DataTypeDemo> _filter = new();
 
     private void FilterChanged()
     {

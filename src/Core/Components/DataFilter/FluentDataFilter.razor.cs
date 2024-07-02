@@ -9,12 +9,18 @@ public partial class FluentDataFilter<TItem>
     private readonly string _idAddCondition = Identifier.NewId();
     private readonly string _idAddGroup = Identifier.NewId();
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     //[Parameter]
     //public IQueryable<TItem>? Items { get; set; }
 
+    /// <summary>
+    /// Filter definition.
+    /// </summary>
     [Parameter]
     public DataFilterGroup<TItem> Filter { get; set; } = new();
 
@@ -24,9 +30,15 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public EventCallback Changed { get; set; }
 
+    /// <summary>
+    /// Comparison operator display text.
+    /// </summary>
     [Parameter]
     public Func<DataFilterComparisonOperator, string>? ComparisonOperatorDisplayText { get; set; }
 
+    /// <summary>
+    /// Logical operator display text.
+    /// </summary>
     [Parameter]
     public Func<DataFilterLogicalOperator, string>? LogicalOperatorDisplayText { get; set; }
 
