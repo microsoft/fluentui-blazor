@@ -80,7 +80,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
                     if (typeof(TProp).IsEnum)
                     {
-                        return (value as Enum)?.GetDisplayName();
+                        return (value as Enum)?.GetDisplayOrDescription();
                     }
                     else
                     {
