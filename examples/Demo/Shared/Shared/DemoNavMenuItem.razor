@@ -1,31 +1,35 @@
 ﻿@using NavLink = FluentUI.Demo.Shared.NavLink
 
-@switch (Value)
+@if (Value.Visible)
 {
-    case NavGroup group:
-        <FluentNavGroup @bind-Expanded="@group.Expanded" Gap="@group.Gap" Icon="@group.Icon" >
-            <TitleTemplate>
-                <h3>@group.Title</h3></TitleTemplate>
-            <ChildContent>
-                @foreach(var item in group.Children)
+    @switch (Value)
+    {
+        case NavGroup group:
+            <FluentNavGroup @bind-Expanded="@group.Expanded" Gap="@group.Gap" Icon="@group.Icon">
+                <TitleTemplate>
+                    <h3>@group.Title</h3>
+                </TitleTemplate>
+                <ChildContent>
+                    @foreach (var item in group.Children.Where(a => a.Visible))
+                    {
+                        <DemoNavMenuItem Value="item" />
+                    }
+                </ChildContent>
+            </FluentNavGroup>
+            break;
+        case NavLink:
+            <FluentNavLink Icon="@Value.Icon" Href="@Value.Href" Match="@Value.Match">
+                @if (Value.Match is NavLinkMatch.All)
                 {
-                    <DemoNavMenuItem Value="item" />
+                    <h3>@Value.Title</h3>
                 }
-            </ChildContent>
-        </FluentNavGroup>
-        break;
-    case NavLink:
-        <FluentNavLink Icon="@Value.Icon" Href="@Value.Href" Match="@Value.Match">
-            @if (Value.Match is NavLinkMatch.All)
-            {
-                <h3>@Value.Title</h3>
-            }
-            else
-            {
-                @Value.Title
-            }
-        </FluentNavLink>
-        break;
+                else
+                {
+                    @Value.Title
+                }
+            </FluentNavLink>
+            break;
+    }
 }
 
 @code {
