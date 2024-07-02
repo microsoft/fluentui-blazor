@@ -8,16 +8,35 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Shared;
 
-public partial class DemoSearch
+public partial class DemoSearch : IAsyncDisposable
 {
     [Inject]
-    protected DemoNavProvider NavProvider { get; set; } = default!;
+    public required DemoNavProvider NavProvider { get; set; }
 
     [Inject]
-    protected NavigationManager NavigationManager { get; set; } = default!;
+    public required NavigationManager NavigationManager { get; set; }
 
+    [Inject]
+    public required IKeyCodeService KeyCodeService { get; set; }
+
+    private FluentAutocomplete<NavItem>? _searchAutocomplete = default!;
     private string? _searchTerm = "";
     private IEnumerable<NavItem>? _selectedOptions = [];
+
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(OnKeyDownAsync);
+    }
+
+    public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        if (args is not null && args.Key == KeyCode.Slash)
+        {
+            _searchAutocomplete?.Element?.FocusAsync();
+        }
+        //StateHasChanged();
+        return Task.CompletedTask;
+    }
 
     private void HandleSearchInput(OptionsSearchEventArgs<NavItem> e)
     {
@@ -50,4 +69,11 @@ public partial class DemoSearch
 
         NavigationManager.NavigateTo(targetHref ?? throw new UnreachableException("Item has no href"));
     }
+
+    public ValueTask DisposeAsync()
+    {
+        KeyCodeService.UnregisterListener(OnKeyDownAsync, OnKeyDownAsync);
+        return ValueTask.CompletedTask;
+    }
+
 }
