@@ -1,6 +1,7 @@
 ## v4.9.0
 
 ### Demo site and documentation
+- [Docs] Add keyhandler for '/' to jump to search box
 - [Docs] Add icon preview in API documentation ([#2284](https://github.com/microsoft/fluentui-blazor/pull/2284))
 - [Docs] Added RTL section to CodeSetup.md ([#2242](https://github.com/microsoft/fluentui-blazor/pull/2242))
 - [Docs] Improve API documentation by showing default icon and string values ([#2269](https://github.com/microsoft/fluentui-blazor/pull/2269))
