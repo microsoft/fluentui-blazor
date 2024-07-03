@@ -10,6 +10,8 @@
 - [Demo] Fixes link for Time picker in demo projects ([#2246](https://github.com/microsoft/fluentui-blazor/pull/2246))
 
 ### Components
+- [Rating] **New component** ([#2258](https://github.com/microsoft/fluentui-blazor/pull/2258))
+- [AppBar] Fix regression with icon accent color
 - [Autocomplete] Accessibility: Scrolling not working with keyboard ([#2221](https://github.com/microsoft/fluentui-blazor/pull/2221))
 - [AutoComplete] Allow focusable Badge dismiss buttons (accessibility) ([#2272](https://github.com/microsoft/fluentui-blazor/pull/2272))
 - [Autocomplete] Fix AriaLabel ([#2303](https://github.com/microsoft/fluentui-blazor/pull/2303))
@@ -34,7 +36,6 @@
 - [NumberField] Add sbyte type ([#2308](https://github.com/microsoft/fluentui-blazor/pull/2308))
 - [Overflow] Add refresh method, add VisibleOnLoad parameter ([#2236](https://github.com/microsoft/fluentui-blazor/pull/2236))
 - [ProfileMenu] Fix the initials inner the popup panel ([#2294](https://github.com/microsoft/fluentui-blazor/pull/2294))
-- [Rating] **New component** ([#2258](https://github.com/microsoft/fluentui-blazor/pull/2258))
 - [Slider] Fix getting caught in update loop ([#2265](https://github.com/microsoft/fluentui-blazor/pull/2265))
 - [Slider] Refactor code after PR #2265 ([#2287](https://github.com/microsoft/fluentui-blazor/pull/2287))
 - [TimePicker] Add null check for empty string ([#2245](https://github.com/microsoft/fluentui-blazor/pull/2245))
