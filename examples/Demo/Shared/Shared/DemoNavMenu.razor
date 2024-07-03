@@ -1,14 +1,59 @@
-﻿@inject DemoNavProvider NavProvider
+﻿@using NavLink = FluentUI.Demo.Shared.NavLink
+@inject DemoNavProvider NavProvider
 
 <div class="navmenu">
     <input type="checkbox" title="Menu expand/collapse toggle" id="navmenu-toggle" class="navmenu-icon" />
     <label for="navmenu-toggle" class="navmenu-icon"><FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" /></label>
-    <nav class="sitenav" aria-labelledby="main-menu" >
-        <FluentNavMenu Id="main-menu" Title="Main menu" CustomToggle="true" >
-            @foreach(var item in NavProvider.NavMenuItems)
+    <nav class="sitenav" aria-labelledby="main-menu">
+        <FluentSearch @bind-Value="@_term" Placeholder="search"/>
+        <FluentNavMenu Id="main-menu" Title="Main menu" CustomToggle="true">
+            @foreach (var item in navMenuItems.Where(a => a.Visible))
             {
-                <DemoNavMenuItem Value="item"/>
+                <DemoNavMenuItem Value="item" />
             }
         </FluentNavMenu>
     </nav>
 </div>
+
+
+@code
+{
+    string _term = default!;
+
+    IEnumerable<NavItem> navMenuItems
+    {
+        get
+        {
+            foreach (var item in NavProvider.NavMenuItems)
+            {
+                SetVisible(item);
+            }
+
+            return NavProvider.NavMenuItems;
+        }
+    }
+
+    private void SetVisible(NavItem item)
+    {
+        switch (item)
+        {
+            case NavGroup group:
+                foreach (var link in group.Children)
+                {
+                    SetVisible(link);
+                }
+
+                item.Visible = group.Children.Any(a => a.Visible);
+                break;
+
+            case NavLink:
+                item.Visible = string.IsNullOrEmpty(_term)
+                                    ? true
+                                    : item.Title.Contains(_term, StringComparison.OrdinalIgnoreCase)
+                                        || item.Tags.Any(a => a.Contains(_term, StringComparison.OrdinalIgnoreCase));
+                break;
+
+            default: break;
+        }
+    }
+}
