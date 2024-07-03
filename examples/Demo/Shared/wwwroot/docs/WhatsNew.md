@@ -11,7 +11,7 @@
 
 ### Components
 - [Rating] **New component** ([#2258](https://github.com/microsoft/fluentui-blazor/pull/2258))
-- [AppBar] Fix regression with icon accent color
+- [AppBar] Fix regression with icon accent color ([#2318](https://github.com/microsoft/fluentui-blazor/pull/2318))
 - [Autocomplete] Accessibility: Scrolling not working with keyboard ([#2221](https://github.com/microsoft/fluentui-blazor/pull/2221))
 - [AutoComplete] Allow focusable Badge dismiss buttons (accessibility) ([#2272](https://github.com/microsoft/fluentui-blazor/pull/2272))
 - [Autocomplete] Fix AriaLabel ([#2303](https://github.com/microsoft/fluentui-blazor/pull/2303))
