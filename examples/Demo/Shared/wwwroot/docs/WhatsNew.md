@@ -28,6 +28,7 @@
 - [Dialog] Fix failing tests ([#2283](https://github.com/microsoft/fluentui-blazor/pull/2283))
 - [DialogService] Fix UpdateDialogAsync to refresh parameters and content ([#2310](https://github.com/microsoft/fluentui-blazor/pull/2310))
 - [Lists] Pass `Name` parameter ([#2305](https://github.com/microsoft/fluentui-blazor/pull/2305))
+- [Lists] Add aria-selected to fluent-option ([#2316](https://github.com/microsoft/fluentui-blazor/pull/2316))
 - [Multisplitter] Fix width panels ([#2218](https://github.com/microsoft/fluentui-blazor/pull/2218))
 - [MultiSplitter] Prevent semicolons from being displayed. ([#2226](https://github.com/microsoft/fluentui-blazor/pull/2226))
 - [NavMenu] Revert fix for when prerender set to false ([#2293](https://github.com/microsoft/fluentui-blazor/pull/2293))
