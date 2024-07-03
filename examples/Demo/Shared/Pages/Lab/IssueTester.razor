@@ -1,1 +1,36 @@
 ﻿@page "/issue-tester"
+
+<FluentCheckbox ValueChanged="ToggleSelectAll" Label="Select All" />
+<p>Selected options: @String.Join(", ", SelectedStrings)</p>
+
+<FluentSelect TOption="string"
+              Items="@PossibleStrings"
+              Multiple="true"
+              @bind-SelectedOptions="@SelectedStrings"
+              Width="100%" />
+
+
+@code {
+    IEnumerable<string> PossibleStrings { get; set; } = new List<string>()
+    {
+        "Test 1",
+        "Test 2",
+        "Test 3",
+        "Test 4"
+    };
+
+    IEnumerable<string>? SelectedStrings { get; set; } = [];
+
+    void ToggleSelectAll(bool isChecked)
+    {
+        if (isChecked)
+        {
+            SelectedStrings = PossibleStrings;
+        }
+        else
+        {
+            SelectedStrings = [];
+
+        }
+    }
+}
