@@ -22,7 +22,7 @@
     public void FluentRating_Value()
     {
         // Arrange && Act
-        var cut = Render(@<FluentRating MaxValue="10" Value="2" />);
+        var cut = Render(@<FluentRating Max="10" Value="2" />);
 
         // Assert
         cut.Verify();
