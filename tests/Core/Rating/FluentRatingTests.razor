@@ -19,6 +19,26 @@
     }
 
     [Fact]
+    public void FluentRating_Label()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating Label="My Label" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating><LabelTemplate>My <b>Label</b> Template</LabelTemplate></FluentRating>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentRating_Value()
     {
         // Arrange && Act
@@ -46,9 +66,8 @@
     [Fact]
     public void FluentRating_AllowResetFalse()
     {
-        int value = 0;
-
         // Arrange
+        int value = 0;
         var cut = Render(@<FluentRating @bind-Value="@value" AllowReset="false" />);
 
         // Act: Click twice on the second star
@@ -62,9 +81,8 @@
     [Fact]
     public void FluentRating_AllowResetTrue()
     {
-        int value = 0;
-
         // Arrange
+        int value = 0;
         var cut = Render(@<FluentRating @bind-Value="@value" AllowReset="true" />);
 
         // Act: Click twice on the second star
@@ -92,8 +110,8 @@
     [Fact]
     public void FluentRating_ReadOnly()
     {
-        int value = 3;
         // Arrange
+        int value = 3;
         var cut = Render(@<FluentRating @bind-Value="@value" ReadOnly="true" />);
 
         // Act: Click on the second star
@@ -106,14 +124,12 @@
     [Fact]
     public async Task FluentRating_KeyDown()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, "ArrowDown", false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, "ArrowDown", false, false, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(2, value);
@@ -122,14 +138,12 @@
     [Fact]
     public async Task FluentRating_ShiftKeyDown()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
-        int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        int value = 3;
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, "ArrowDown", false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(40, "ArrowDown", false, true, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(0, value);
@@ -138,14 +152,12 @@
     [Fact]
     public async Task FluentRating_KeyLeft()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
-        int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        int value = 3;
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, "ArrowLeft", false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, "ArrowLeft", false, false, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(2, value);
@@ -154,14 +166,12 @@
     [Fact]
     public async Task FluentRating_ShiftKeyLeft()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, "ArrowLeft", false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(37, "ArrowLeft", false, true, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(0, value);
@@ -170,14 +180,12 @@
     [Fact]
     public async Task FluentRating_KeyUp()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
-        int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        int value = 3;
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, "ArrowUp", false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, "ArrowUp", false, false, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(4, value);
@@ -186,14 +194,12 @@
     [Fact]
     public async Task FluentRating_ShiftKeyUp()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, "ArrowUp", false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(38, "ArrowUp", false, true, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(5, value);
@@ -202,14 +208,12 @@
     [Fact]
     public async Task FluentRating_KeyRight()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
-        int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        int value = 3;
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, "ArrowRight", false, false, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, "ArrowRight", false, false, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(4, value);
@@ -218,14 +222,12 @@
     [Fact]
     public async Task FluentRating_ShiftKeyRight()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, "ArrowRight", false, true, false, false, 0, "myrating"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(39, "ArrowRight", false, true, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(5, value);
@@ -234,14 +236,12 @@
     [Fact]
     public async Task FluentRating_KeyRandom()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
-        int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        int value = 3;
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-            await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myrating"));
+            await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "my-rating"));
 
         // Assert
         Assert.Equal(3, value);
@@ -250,16 +250,73 @@
     [Fact]
     public async Task FluentRating_KeyRandomWithDifferentId()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
-        int value = 3;
         // Arrange
-        var cut = Render(@<FluentRating Id="myrating" @bind-Value="@value" />);
+        int value = 3;
+        var cut = Render(@<FluentRating Id="my-rating" @bind-Value="@value" />);
 
         // Act
-        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myrating2"));
+        await cut.InvokeAsync(() => cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "my-rating2"));
 
         // Assert
         Assert.Equal(3, value);
+    }
+
+    [Fact]
+    public async Task FluentRating_Hover()
+    {
+        // Arrange
+        int value = 0;
+        int? hover = null;
+        var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
+
+        // Act
+        var item = cut.Find("svg[aria-label='4']");
+        await item.TriggerEventAsync("onmouseenter", new MouseEventArgs());
+
+        // Assert
+        Assert.Equal(0, value);
+        Assert.Equal(4, hover);
+    }
+
+    [Fact]
+    public async Task FluentRating_HoverMultiple()
+    {
+        // Arrange
+        int value = 0;
+        int? hover = null;
+        var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
+
+        // Act and Assert 1
+        var item4 = cut.Find("svg[aria-label='4']");
+        await item4.TriggerEventAsync("onmouseenter", new MouseEventArgs());
+
+        Assert.Equal(4, hover);
+
+        // Act and Assert 2
+        var item3 = cut.Find("svg[aria-label='3']");
+        await item3.TriggerEventAsync("onmouseenter", new MouseEventArgs());
+
+        Assert.Equal(3, hover);
+    }
+
+    [Fact]
+    public async Task FluentRating_HoverAndLeave()
+    {
+        // Arrange
+        int value = 0;
+        int? hover = null;
+        var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
+
+        // Act: Hover
+        var item = cut.Find("svg[aria-label='4']");
+        await item.TriggerEventAsync("onmouseenter", new MouseEventArgs());
+
+        Assert.Equal(4, hover);
+
+        // Act: Leave
+        var rating = cut.Find("div");
+        await rating.TriggerEventAsync("onmouseleave", new MouseEventArgs());
+
+        Assert.Null(hover);
     }
 }
