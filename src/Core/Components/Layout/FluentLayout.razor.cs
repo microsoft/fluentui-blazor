@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentLayout : FluentComponentBase
 {
-    private string? _orientation => Orientation == Orientation.Horizontal ? Orientation.ToAttributeValue() : null;
+    private string? _orientation => Orientation == Orientation.Horizontal ? Orientation.GetDisplayName() : null;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("layout")

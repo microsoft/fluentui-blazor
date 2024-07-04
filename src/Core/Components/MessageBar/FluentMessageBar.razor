@@ -10,7 +10,7 @@
 
             @* Icon *@
             <div class="fluent-messagebar-icon">
-                <FluentIcon Value="@Icon" Title="@(Content?.Intent.ToAttributeValue())" Color="@_color" />
+                <FluentIcon Value="@Icon" Title="@(Content?.Intent.GetDisplayName())" Color="@_color" />
             </div>
 
             @* Message *@
@@ -77,7 +77,7 @@
             <div class="fluent-messagebar-notification-icon">
                 <FluentIcon Value="@Icon"
                             Color="@_color"
-                            Title="@(Content?.Intent?.ToAttributeValue())" />
+                            Title="@(Content?.Intent?.GetDisplayName())" />
             </div>
 
             @* Message *@

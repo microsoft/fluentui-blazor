@@ -38,7 +38,7 @@
                           @bind-SelectedOption:after="@StartNewSearchAsync"
                           Style="min-width: 100px;"
                           Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
-                          OptionValue="@(i => i.ToAttributeValue())" />
+                          OptionValue="@(i => i.GetDisplayName())" />
         </FluentGridItem>
         <FluentGridItem>
             <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"

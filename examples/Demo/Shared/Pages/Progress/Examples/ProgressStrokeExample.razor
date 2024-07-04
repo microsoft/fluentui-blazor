@@ -11,7 +11,7 @@
     <FluentProgress Min="0" Max="100" Value="@(Indeterminate ? null : Percentage)"
                     Width="200px"
                     Stroke="@Stroke"
-                    Color="@(Color.ToAttributeValue())" />
+                    Color="@(Color.GetDisplayName())" />
 </FluentStack>
 
 @code

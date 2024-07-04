@@ -1,7 +1,7 @@
 ﻿<FluentStack Style="margin-bottom: 24px;" VerticalAlignment="VerticalAlignment.Center">
     <FluentLabel>Justify</FluentLabel>
     <FluentSelect Items=@(Enum.GetValues<JustifyContent>())
-                  OptionValue="@(c => c.ToAttributeValue())"
+                  OptionValue="@(c => c.GetDisplayName())"
                   TOption="JustifyContent"
                   Position="SelectPosition.Below"
                   @bind-SelectedOption="@Justification" />

@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this">
-    <div id="@Id" class="@ClassValue" style="@StyleValue" orientation="@(Orientation.ToAttributeValue())">
+    <div id="@Id" class="@ClassValue" style="@StyleValue" orientation="@(Orientation.GetDisplayName())">
         @ChildContent
         <div id="@IdMoreButton" class="fluent-overflow-more" style="@(ItemsOverflow.Count() <= 0 ? "display: none;" : "")" fixed>
             @if (MoreButtonTemplate != null)

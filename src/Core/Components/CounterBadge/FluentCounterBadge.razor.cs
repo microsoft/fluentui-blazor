@@ -21,9 +21,9 @@ public partial class FluentCounterBadge : FluentComponentBase, IDisposable
         .AddStyle("left", $"{HorizontalPosition.ToString(CultureInfo.InvariantCulture)}%", () => GlobalState.Dir == LocalizationDirection.LeftToRight)
         .AddStyle("right", $"{HorizontalPosition.ToString(CultureInfo.InvariantCulture)}%", () => GlobalState.Dir == LocalizationDirection.RightToLeft)
         .AddStyle("bottom", $"{VerticalPosition.ToString(CultureInfo.InvariantCulture)}%")
-        .AddStyle("background-color", GetBackgroundColor().ToAttributeValue())
-        .AddStyle("color", GetFontColor().ToAttributeValue())
-        .AddStyle("border", $"1px solid {GetBorderColor().ToAttributeValue()}")
+        .AddStyle("background-color", GetBackgroundColor().GetDisplayName())
+        .AddStyle("color", GetFontColor().GetDisplayName())
+        .AddStyle("border", $"1px solid {GetBorderColor().GetDisplayName()}")
         .Build();
 
     /// <summary>

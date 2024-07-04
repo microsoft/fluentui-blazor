@@ -71,9 +71,9 @@ public partial class SiteSettingsPanel
     {
         return color switch
         {
-            null => OfficeColorUtilities.GetRandom(true).ToAttributeValue(),
+            null => OfficeColorUtilities.GetRandom(true).GetDisplayName(),
             Microsoft.FluentUI.AspNetCore.Components.OfficeColor.Default => "#036ac4",
-            _ => color.ToAttributeValue(),
+            _ => color.GetDisplayName(),
         };
 
     }

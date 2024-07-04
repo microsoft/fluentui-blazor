@@ -5,7 +5,7 @@
                  id="@Id"
                  class="@ClassValue"
                  style="@StyleValue"
-                 orientation=@Orientation.ToAttributeValue()
+                 orientation=@Orientation.GetDisplayName()
                  activeid=@ActiveTabId
                  activeindicator="@(ShowActiveIndicator.ToString().ToLower())"
                  @ontabchange="HandleOnTabChangedAsync"

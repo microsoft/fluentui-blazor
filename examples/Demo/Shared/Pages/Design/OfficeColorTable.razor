@@ -42,7 +42,7 @@
         return color switch
         {
             OfficeColor.Default => "#036ac4",
-            _ => color.ToAttributeValue(),
+            _ => color.GetDisplayName(),
         };
     }
 }

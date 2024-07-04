@@ -1,13 +1,13 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-horizontal-scroll @ref=Element
                           class="@Class"
                           style="@Style"
                           speed=@Speed
                           duration=@Duration
-                          easing=@Easing.ToAttributeValue()
+                          easing=@Easing.GetDisplayName()
                           flippers-hidden-from-at=@FlippersHiddenFromAt
-                          view=@View.ToAttributeValue()
+                          view=@View.GetDisplayName()
                           @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-horizontal-scroll>

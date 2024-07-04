@@ -1,4 +1,4 @@
-<FluentDesignTheme @bind-Mode="@Mode"
+﻿<FluentDesignTheme @bind-Mode="@Mode"
                    @bind-OfficeColor="@OfficeColor"
                    OnLoaded="@OnLoaded"
                    OnLuminanceChanged="@OnLuminanceChanged"
@@ -23,7 +23,7 @@
                     <FluentStack>
                         <FluentIcon Value="@(new Icons.Filled.Size20.RectangleLandscape())"
                                     Color="Color.Custom"
-                                    CustomColor="@(@context.ToAttributeValue() != "default" ? context.ToAttributeValue() : "#036ac4" )" />
+                                    CustomColor="@(@context.GetDisplayName() != "default" ? context.GetDisplayName() : "#036ac4" )" />
                         <FluentLabel>@context</FluentLabel>  
                     </FluentStack>
                 </OptionTemplate> 

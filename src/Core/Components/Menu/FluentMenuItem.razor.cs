@@ -90,7 +90,7 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     {
         if (Role is not null)
         {
-            return Role.ToAttributeValue();
+            return Role.GetDisplayName();
         }
         else
             if (Checked)

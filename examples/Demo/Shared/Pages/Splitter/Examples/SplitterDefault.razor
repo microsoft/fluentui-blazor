@@ -1,5 +1,5 @@
 ﻿<FluentSelect Items=@(Enum.GetValues<Orientation>())
-              OptionValue="@(c => c.ToAttributeValue())"
+              OptionValue="@(c => c.GetDisplayName())"
               TOption="Orientation"
               Position="SelectPosition.Below"
               @bind-SelectedOption="@orientation" />

@@ -4,20 +4,20 @@
                         id="@Id"
 						anchor="@Anchor"
 						viewport="@Viewport"
-						horizontal-positioning-mode="@HorizontalPositioningMode.ToAttributeValue()"
-						horizontal-default-position="@HorizontalDefaultPosition.ToAttributeValue()"
+                        horizontal-positioning-mode="@HorizontalPositioningMode.GetDisplayName()"
+                        horizontal-default-position="@HorizontalDefaultPosition.GetDisplayName()"
 						horizontal-viewport-lock=@HorizontalViewportLock
 						horizontal-inset="@HorizontalInset"
 						horizontal-threshold="@HorizontalThreshold"
-						horizontal-scaling="@HorizontalScaling.ToAttributeValue()"
-						vertical-positioning-mode="@VerticalPositioningMode.ToAttributeValue()"
-						vertical-default-position="@VerticalDefaultPosition.ToAttributeValue()"
+                        horizontal-scaling="@HorizontalScaling.GetDisplayName()"
+                        vertical-positioning-mode="@VerticalPositioningMode.GetDisplayName()"
+                        vertical-default-position="@VerticalDefaultPosition.GetDisplayName()"
 						vertical-viewport-lock=@VerticalViewportLock
 						vertical-inset="@VerticalInset"
 						vertical-threshold="@VerticalThreshold"
-						vertical-scaling="@VerticalScaling.ToAttributeValue()"
+                        vertical-scaling="@VerticalScaling.GetDisplayName()"
 						fixed-placement=@FixedPlacement
-						auto-update-mode="@AutoUpdateMode.ToAttributeValue()"
+                        auto-update-mode="@AutoUpdateMode.GetDisplayName()"
 						style="@($"z-index: {ZIndex.AnchoredRegion};")"
 						@attributes="AdditionalAttributes">
 	<div class="@ClassValue" style="@StyleValue">

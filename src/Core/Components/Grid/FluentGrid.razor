@@ -3,7 +3,7 @@
 
 <CascadingValue IsFixed Value="this">
     <div class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
-        <div id="@GetId()" class="fluent-grid" style="@($"justify-content: {Justify.ToAttributeValue()};")" spacing="@Spacing">
+        <div id="@GetId()" class="fluent-grid" style="@($"justify-content: {Justify.GetDisplayName()};")" spacing="@Spacing">
             @ChildContent
         </div>
     </div>

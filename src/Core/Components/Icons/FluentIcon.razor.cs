@@ -127,7 +127,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// <returns></returns>
     private string GetIconColor()
     {
-        var defaultColor = AspNetCore.Components.Color.Accent.ToAttributeValue()!;
+        var defaultColor = AspNetCore.Components.Color.Accent.GetDisplayName()!;
 
         if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(CustomColor))
         {
@@ -141,7 +141,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
         if (Color != null)
         {
-            return Color.ToAttributeValue() ?? defaultColor;
+            return Color.GetDisplayName() ?? defaultColor;
         }
 
         if (!string.IsNullOrEmpty(_icon.Color))

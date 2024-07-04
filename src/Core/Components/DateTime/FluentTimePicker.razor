@@ -5,7 +5,7 @@
                    style="@StyleValue"
                    id="@Id"
                    autofocus="@Autofocus"
-                   appearance="@Appearance.ToAttributeValue()"
+                   appearance="@Appearance.GetDisplayName()"
                    type="time"
                    current-value="@Value?.ToString("HH:mm")"
                    @onchange="@ChangeHandlerAsync"
