@@ -7695,7 +7695,7 @@
             Gets or sets a value that whether to allow clear when click again.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnHoveredValueChanged">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnHoverValueChanged">
             <summary>
             Fires when hovered value changes. Value will be null if no rating item is hovered.
             </summary>

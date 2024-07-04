@@ -142,7 +142,7 @@
         // Arrange
         int value = 0;
         int? hover = null;
-        var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating OnHoverValueChanged="@(i => hover = i)" @bind-Value="@value" />);
 
         // Act
         var item = cut.FindAll("svg").ElementAt(3);
@@ -159,7 +159,7 @@
         // Arrange
         int value = 0;
         int? hover = null;
-        var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating OnHoverValueChanged="@(i => hover = i)" @bind-Value="@value" />);
 
         // Enter on the 4th star
         var item4 = cut.FindAll("svg").ElementAt(3);
@@ -185,7 +185,7 @@
         // Arrange
         int value = 0;
         int? hover = null;
-        var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
+        var cut = Render(@<FluentRating OnHoverValueChanged="@(i => hover = i)" @bind-Value="@value" />);
 
         // Act: Hover
         var item = cut.FindAll("svg").ElementAt(3);

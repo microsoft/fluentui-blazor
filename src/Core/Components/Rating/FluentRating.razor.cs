@@ -67,7 +67,7 @@ public partial class FluentRating : FluentInputBase<int>
     /// Fires when hovered value changes. Value will be null if no rating item is hovered.
     /// </summary>
     [Parameter]
-    public EventCallback<int?> OnHoveredValueChanged { get; set; }
+    public EventCallback<int?> OnHoverValueChanged { get; set; }
 
     /// <summary />
     private string GroupName => Id ?? $"rating-{Id}";
@@ -136,9 +136,9 @@ public partial class FluentRating : FluentInputBase<int>
 
         _hoverValue = value;
 
-        if (OnHoveredValueChanged.HasDelegate)
+        if (OnHoverValueChanged.HasDelegate)
         {
-            await OnHoveredValueChanged.InvokeAsync(value);
+            await OnHoverValueChanged.InvokeAsync(value);
         }
     }
 }
