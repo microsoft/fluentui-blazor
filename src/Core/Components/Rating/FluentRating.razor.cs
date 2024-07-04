@@ -7,20 +7,38 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentRating : FluentInputBase<int>
 {
-    private int? _mouseOverValue;
-    private bool _mouseOverDisabled;
+    private bool _updatingCurrentValue = false;
+    private int? _hoverValue = null;
 
-    public FluentRating() => Id = Identifier.NewId();
+    /// <summary />
+    protected override string? ClassValue => new CssBuilder(base.ClassValue)
+        .AddClass("fluent-rating")
+        .Build();
+
+    /// <summary />
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue).Build();
 
     /// <summary>
-    /// Gets or sets the maximum value.
+    /// Gets or sets the number of elements.
     /// </summary>
     [Parameter]
-    public int MaxValue { get; set; } = 5;
+    public int Max { get; set; } = 5;
+
+    /// <summary>
+    /// The icon to display when the rating value is greater than or equal to the item's value.
+    /// </summary>
+    [Parameter]
+    public Icon IconFilled { get; set; } = new CoreIcons.Filled.Size20.Star();
+
+    /// <summary>
+    /// The icon to display when the rating value is less than the item's value.
+    /// </summary>
+    [Parameter]
+    public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size20.Star();
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color. 
-    /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
+    /// Value comes from the <see cref="Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]
     public Color? IconColor { get; set; }
@@ -40,41 +58,25 @@ public partial class FluentRating : FluentInputBase<int>
     public string IconWidth { get; set; } = "28px";
 
     /// <summary>
-    /// The icon to display when the rating value is greater than or equal to the item's value.
-    /// </summary>
-    [Parameter]
-    public Icon IconFilled { get; set; } = new CoreIcons.Filled.Size20.Star();
-
-    /// <summary>
-    /// The icon to display when the rating value is less than the item's value.
-    /// </summary>
-    [Parameter]
-    public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size20.Star();
-
-    /// <summary>
     /// Gets or sets a value that whether to allow clear when click again.
     /// </summary>
     [Parameter]
-    public bool AllowReset { get; set; }
+    public bool AllowReset { get; set; } = false;
 
     /// <summary>
     /// Fires when hovered value changes. Value will be null if no rating item is hovered.
     /// </summary>
     [Parameter]
-    public EventCallback<int?> OnPointerOver { get; set; }
+    public EventCallback<int?> OnHoverValueChanged { get; set; }
 
     /// <summary />
-    protected override string? ClassValue => new CssBuilder(base.ClassValue)
-        .AddClass("fluent-rating")
-        .Build();
+    private string GroupName => Id ?? $"rating-{Id}";
 
     /// <summary />
-    protected override string? StyleValue => new StyleBuilder(base.StyleValue).Build();
+    private Icon GetIcon(int index) => index <= (_hoverValue ?? Value) ? IconFilled : IconOutline;
 
-    private Icon GetIcon(int index) => index <= (_mouseOverValue ?? Value) ? IconFilled : IconOutline;
-
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out int result, [NotNullWhen(false)] out string?
-        validationErrorMessage)
+    /// <summary />
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out int result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
         {
@@ -90,60 +92,53 @@ public partial class FluentRating : FluentInputBase<int>
         }
     }
 
-    protected internal async Task HandleKeyDownAsync(FluentKeyCodeEventArgs e)
+    /// <summary />
+    private async Task OnClickAsync(int value, bool fromFocus = false)
     {
-        if (e.TargetId != Id)
+        _updatingCurrentValue = true;
+
+        // Reset ?
+        if (AllowReset && value == Value && !fromFocus)
+        {
+            await SetCurrentValueAsync(0);
+            await UpdateHoverValueAsync(null);
+        }
+        else
+        {
+            await SetCurrentValueAsync(value);
+        }
+    }
+
+    /// <summary />
+    private async Task OnMouseEnterAsync(int value)
+    {
+        if (_updatingCurrentValue)
         {
             return;
         }
 
-        int value = e.Key switch
-        {
-            KeyCode.Right or KeyCode.Up when e.ShiftKey => value = MaxValue,
-            KeyCode.Right or KeyCode.Up => Math.Min(Value + 1, MaxValue),
-            KeyCode.Left or KeyCode.Down when e.ShiftKey => value = 0,
-            KeyCode.Left or KeyCode.Down => Math.Max(Value - 1, 1),
-            _ => Value
-        };
-
-        _mouseOverValue = null;
-        _mouseOverDisabled = true;
-
-        await SetCurrentValueAsync(value);
+        await UpdateHoverValueAsync(value);
     }
 
-    private async Task OnPointerOutAsync()
+    /// <summary />
+    private async Task OnMouseLeaveAsync()
     {
-        _mouseOverValue = null;
-        _mouseOverDisabled = false;
-        if (OnPointerOver.HasDelegate)
-        {
-            await OnPointerOver.InvokeAsync(_mouseOverValue);
-        }
+        await UpdateHoverValueAsync(null);
     }
 
-    private async Task OnPointerOverAsync(int value)
+    /// <summary />
+    private async Task UpdateHoverValueAsync(int? value)
     {
-        if (_mouseOverDisabled)
+        if (_hoverValue == value)
         {
             return;
         }
 
-        _mouseOverValue = value;
-        if (OnPointerOver.HasDelegate)
-        {
-            await OnPointerOver.InvokeAsync(_mouseOverValue);
-        }
-    }
+        _hoverValue = value;
 
-    private async Task OnClickAsync(int value)
-    {
-        if (value == Value && AllowReset)
+        if (OnHoverValueChanged.HasDelegate)
         {
-            value = 0;
-            _mouseOverValue = null;
-            _mouseOverDisabled = true;
+            await OnHoverValueChanged.InvokeAsync(value);
         }
-        await SetCurrentValueAsync(value);
     }
 }
