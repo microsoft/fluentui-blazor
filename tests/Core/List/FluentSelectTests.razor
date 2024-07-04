@@ -170,9 +170,26 @@
                     <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Slot="end" />
                     @(context.Name)
                 </OptionTemplate>
-            </FluentSelect>);
+            </FluentSelect>
+    );
 
         // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Placeholder()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myselect");
+            parameters.Add(p => p.Items, Customers.Get());
+            parameters.Add(p => p.Placeholder, "Make a selection...");
+        });
+
+        // Assert
+        Assert.Equal("Make a selection...", cut.Find("fluent-option").InnerHtml);
         cut.Verify();
     }
 }

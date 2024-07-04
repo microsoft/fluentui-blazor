@@ -1,45 +1,45 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<int>
 
-@if (!ReadOnly && !Disabled)
+@if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
 {
-    <FluentKeyCode Anchor="@Id"
-                   PreventDefaultOnly="new[] { KeyCode.Left, KeyCode.Right, KeyCode.Up, KeyCode.Down, KeyCode.Shift }"
-                   StopPropagation="@true"
-                   OnKeyDown="@HandleKeyDownAsync" />
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">@LabelTemplate</FluentInputLabel>
 }
 
-<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">@LabelTemplate</FluentInputLabel>
+<div Id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     role="radiogroup"
+     aria-readonly="@(ReadOnly ? "true" : null)"
+     @onmouseleave="@OnMouseLeaveAsync">
 
-<FluentStack Id="@Id"
-             Orientation="Orientation.Horizontal"
-             Class="@ClassValue"
-             Style="@StyleValue"
-             role="radiogroup"
-             tabindex="@(Disabled ? -1 : 0)"
-             aria-readonly="@ReadOnly.ToAttributeValue()"
-             HorizontalGap="0">
-    @for (int i = 1; i <= MaxValue; i++)
+    @foreach (var index in Enumerable.Range(1, Max))
     {
-        var currentValue = i;
         @if (ReadOnly || Disabled)
         {
-            <FluentIcon Value="@GetIcon(currentValue)"
+            <FluentIcon Value="@GetIcon(index)"
                         Width="@IconWidth"
                         Color="@(Disabled && IconColor != Color.Custom  ? Color.Disabled :  IconColor)"
                         CustomColor="@IconCustomColor"
-                        aria-label="@currentValue" />
+                        selected="@(index == Value)"
+                        aria-hidden="true" />
         }
         else
         {
-            <FluentIcon Value="@GetIcon(currentValue)"
+            <input type="radio" checked="@(index == Value)" name="@GroupName"
+                   value="@index"
+                   aria-label="@Label"
+                   @onfocus="@(() => OnClickAsync(index, fromFocus: true))" />
+
+            <FluentIcon Value="@GetIcon(index)"
                         Width="@IconWidth"
                         Color="IconColor"
                         CustomColor="@IconCustomColor"
-                        OnClick="@(() => OnClickAsync(currentValue))"
-                        @onpointerover="@(async () => await OnPointerOverAsync(currentValue))"
-                        @onpointerout="@(async () => await OnPointerOutAsync())"
-                        aria-label="@currentValue" />
+                        OnClick="@(() => OnClickAsync(index))"
+                        @onmouseleave="@(() => _updatingCurrentValue = false)"
+                        @onmouseenter="@(() => OnMouseEnterAsync(index))"
+                        selected="@(index == Value)"
+                        aria-hidden="true" />
         }
     }
-</FluentStack>
+</div>
