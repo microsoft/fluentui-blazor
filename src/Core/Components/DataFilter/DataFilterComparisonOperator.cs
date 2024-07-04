@@ -78,4 +78,9 @@ public enum DataFilterComparisonOperator
     /// </summary>
     [Display(Name = "Not Empty")]
     NotEmpty,
+
+    /// <summary>
+    /// Custom filter
+    /// </summary>
+    Custom,
 }

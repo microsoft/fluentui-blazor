@@ -1,5 +1,4 @@
 ﻿@page "/DataFilter"
-
 @using FluentUI.Demo.Shared.Pages.DataFilter.Examples
 
 <PageTitle>@App.PageTitle("DataFilter")</PageTitle>
@@ -16,7 +15,7 @@
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentDataFilter<>)" GenericLabel="TItem" />
-@* <ApiDocumentation Component="typeof(PropertyFilter<,>)" GenericLabel="TItem,TProp"  /> *@
-@* <ApiDocumentation Component="typeof(DataFilterGroup<>)" GenericLabel="TItem" />
-<ApiDocumentation Component="typeof(DataFilterProperty<>)" GenericLabel="TItem" />
- *@
+<ApiDocumentation Component="typeof(PropertyFilter<,>)" GenericLabel="TItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
+<ApiDocumentation Component="typeof(CustomFilter<,>)" GenericLabel="TItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
+<ApiDocumentation Component="typeof(DataFilterDescriptor<>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(DataFilterDescriptorProperty<>)" GenericLabel="TItem" />

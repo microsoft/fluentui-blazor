@@ -1234,24 +1234,68 @@
             Find values which are not null.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterGroup`1.Operator">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator.Custom">
+            <summary>
+            Custom filter
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptor`1.Operator">
             <summary>
             Logical Operator.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterGroup`1.Filters">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptor`1.Filters">
             <summary>
             Filters
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterGroup`1.Groups">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptor`1.Groups">
             <summary>
             Groups
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterGroup`1.GenerateExpression(Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptor`1.Exists(Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase{`0})">
+            <summary>
+            Exists
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptor`1.GetFilter(Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
             <summary>
             Get expression for filter data.
+            </summary>
+            <param name="caseSensitivity"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptorProperty`1.Field">
+            <summary>
+            Name of property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptorProperty`1.ValueSerialized">
+            <summary>
+            Value serialized
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptorProperty`1.Type">
+            <summary>
+            Type filter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptorProperty`1.Value">
+            <summary>
+            Value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptorProperty`1.Operator">
+            <summary>
+            Comparison Operator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterDescriptorProperty`1.GetFilter(Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
+            <summary>
+            Get property filter expression.
             </summary>
             <param name="caseSensitivity"></param>
             <returns></returns>
@@ -1261,66 +1305,176 @@
             Logical operator between filters.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.Property">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.TemplateFilter">
             <summary>
-            Property filter reference.
+            Get or set Template filter custom.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.Value">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.ExpressionFilter">
             <summary>
-            Value.
+            Gets or sets the function used for custom filter expression.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.Operator">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.CustomSerializeValue">
             <summary>
-            Comparison Operator.
+            Get or set serialize value function.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.Type">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.GetFilter(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
             <summary>
-            Type of property.
+            Generate expression
+            </summary>
+            <param name="value"></param>
+            <param name="operator"></param>
+            <param name="caseSensitivity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.SerializeValue(System.Object)">
+            <summary>
+            Serialize value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.Field">
+            <summary>
+            Get or set property filter.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsEnum">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.TemplateFilter">
+            <summary>
+            Get or set Template filter custom.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.GetFilter(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
+            <summary>
+            Generate expression
+            </summary>
+            <param name="value"></param>
+            <param name="operator"></param>
+            <param name="caseSensitivity"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Property">
+            <summary>
+            Get or set property filter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.TemplateFilter">
+            <summary>
+            Get or set Template filter custom.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.GetFilter(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
+            <summary>
+            Generate expression
+            </summary>
+            <param name="value"></param>
+            <param name="operator"></param>
+            <param name="caseSensitivity"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.Unique">
+            <summary>
+            Gets or sets the unique usage.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.ValueDisplayText">
+            <summary>
+            Gets or sets the function used to determine which text to display.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.Type">
+            <summary>
+            Property info definition.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.IsEnum">
             <summary>
             Property is enum.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsBool">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.IsBool">
             <summary>
             Property is bool.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsDate">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.IsDate">
             <summary>
             Property is date.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsString">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.IsString">
             <summary>
             Property is string.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsNumber">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.IsNumber">
             <summary>
             Property is number.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.IsNullable">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.IsNullable">
             <summary>
             Property is nullable.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterProperty`1.GenerateExpression(Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.Name">
             <summary>
-            Get expression for filter property.
+            Get Filter name
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.GetFilter(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
+            <summary>
+            Get filter expression
+            </summary>
+            <param name="value"></param>
+            <param name="operator"></param>
             <param name="caseSensitivity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.SerializeValue(System.Object)">
+            <summary>
+            Serialize value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilterBase`1.Operators">
+            <summary>
+            Get operators
+            </summary>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.AllowLogicalOperator">
+            <summary>
+            Gets or sets allow use logical operator.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.AllowNotLogicalOperator">
+            <summary>
+            Gets or sets allow use not logical operator.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.AllowAddGroup">
+            <summary>
+            Gets or sets allow add group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.AllowAddCondition">
+            <summary>
+            Gets or sets allow add condition.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Filter">
@@ -1351,83 +1505,6 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.ImmediateDelay">
             <summary>
             Gets or sets the delay, in milliseconds, before to raise the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Changed"/> event.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.AllowNotLogicalOperator">
-            <summary>
-            Allow use not logical operator.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IPropertyFilter`1.LambdaExpression">
-            <summary>
-            Lambda Expression definition property
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IPropertyFilter`1.PropertyInfo">
-            <summary>
-            Property info definition.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IPropertyFilter`1.Title">
-            <summary>
-            Gets or sets the title.
-            </summary>
-            <value>The title.</value>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IPropertyFilter`1.Tooltip">
-            <summary>
-            If true, generates a title and aria-label attribute for the contents
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IPropertyFilter`1.TooltipText">
-            <summary>
-            Gets or sets the value to be used as the tooltip and aria-label in this 
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IPropertyFilter`1.ValueDisplayText">
-            <summary>
-            Gets or sets the function used to determine which text to display.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.PropertyInfo">
-            <summary>
-            Property info definition.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Title">
-            <summary>
-            Gets or sets the title.
-            </summary>
-            <value>The title.</value>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Tooltip">
-            <summary>
-            If true, generates a title and aria-label attribute for the contents
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.TooltipText">
-            <summary>
-            Gets or sets the value to be used as the tooltip and aria-label in this 
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.CustomTemplate">
-            <summary>
-            Gets or sets the template.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Property">
-            <summary>
-            Get or set property filter.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.ValueDisplayText">
-            <summary>
-            Gets or sets the function used to determine which text to display.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.LambdaExpression">
-            <summary>
-            Lambda Expression definition property
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1">

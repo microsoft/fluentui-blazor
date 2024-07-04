@@ -1,9 +1,8 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FluentUI.Demo.Shared.SampleData;
 
-public class DataTypeDemo
+public class DataTypeDemoBase
 {
     public sbyte TinyInteger { get; set; }
     public short SmallInteger { get; set; }
@@ -22,10 +21,18 @@ public class DataTypeDemo
     public DataTypeDemoEnum Enum { get; set; }
 }
 
-public enum DataTypeDemoEnum
+public class DataTypeDemo : DataTypeDemoBase
 {
+    public DataTypeDemoBase Children { get; set; } = new();
+}
+
+public enum DataTypeDemoEnum : int
+{
+    Value0 = 0,
+
     [Display(Name = "Value 1")]
     Value1 = 1,
+
     Value2 = 2,
     Value3 = 3,
     Value4 = 4,

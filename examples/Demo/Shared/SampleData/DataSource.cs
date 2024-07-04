@@ -203,26 +203,43 @@ public class DataSource
         new Country("ve", "Venezuela", new Medals { Gold = 1, Silver = 3, Bronze = 0 }),
     };
 
-    public IQueryable<DataTypeDemo> DataTypeDemoQ { get; } = DataTypeDemo.AsQueryable();
+    public IQueryable<DataTypeDemo> DataTypeDemoQ = DataTypeDemo.AsQueryable();
 
-    public static readonly IEnumerable<DataTypeDemo> DataTypeDemo =
-        Enumerable.Range(1, 20)
-                  .Select(a => new DataTypeDemo
-                  {
-                      TinyInteger = (sbyte)(50 + a),
-                      SmallInteger = (short)(10000 + (a * 2)),
-                      Integer = 1234567890 + a,
-                      LongInteger = 9876543210L + a,
-                      SinglePrecision = 3.14159f * a,
-                      DoublePrecision = Math.PI * a,
-                      Decimal = 1234.56m * a,
-                      Boolean = (a % 2) == 0,
-                      Char = (char)('A' + a),
-                      String = GetMonthName(Math.Min(11, a)),
-                      DateTime = new DateTime(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a), 11, 12, 10),
-                      DateOnly = new DateOnly(2000, Math.Min(12, 1 + (a % 11)), Math.Min(30, 15 + a)),
-                      TimeOnly = new TimeOnly(10, Math.Min(60, 30 + a)),
-                      DateTimeOffset = new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + a), 00, 00, TimeSpan.FromHours(5)),
-                      Enum = (DataTypeDemoEnum)Math.Min(6, (a % 6) + 1)
-                  });
+    private static IEnumerable<DataTypeDemo>? _dataTypeDemo;
+    public static IEnumerable<DataTypeDemo> DataTypeDemo
+    {
+        get
+        {
+            if (_dataTypeDemo == null)
+            {
+                static DataTypeDemo Make(int index) => new()
+                {
+                    TinyInteger = (sbyte)(50 + index),
+                    SmallInteger = (short)(10000 + (index * 2)),
+                    Integer = 1234567890 + index,
+                    LongInteger = 9876543210L + index,
+                    SinglePrecision = 3.14159f * index,
+                    DoublePrecision = Math.PI * index,
+                    Decimal = 1234.56m * index,
+                    Boolean = (index % 2) == 0,
+                    Char = (char)('A' + index),
+                    String = GetMonthName(Math.Min(11, index)),
+                    DateTime = new DateTime(2000, Math.Min(12, 1 + (index % 11)), Math.Min(30, 15 + index), 11, 12, 10),
+                    DateOnly = new DateOnly(2000, Math.Min(12, 1 + (index % 11)), Math.Min(30, 15 + index)),
+                    TimeOnly = new TimeOnly(10, Math.Min(60, 30 + index)),
+                    DateTimeOffset = new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + index), 00, 00, TimeSpan.FromHours(5)),
+                    Enum = (DataTypeDemoEnum)Math.Min(6, (index % 6) + 1)
+                };
+
+                _dataTypeDemo = Enumerable.Range(1, 20).Select(a => Make(a)).ToArray();
+
+                foreach (var item in _dataTypeDemo.Select((row, index) => (row, index)))
+                {
+                    item.row.Children = Make(item.index);
+                }
+            }
+
+            return _dataTypeDemo;
+        }
+    }
 }

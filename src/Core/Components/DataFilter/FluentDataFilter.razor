@@ -1,4 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using System.Linq.Expressions
 @inherits FluentComponentBase
 
 @typeparam TItem
@@ -11,128 +12,66 @@
 
 @code
 {
-    public RenderFragment RenderGroup(DataFilterGroup<TItem> group, DataFilterGroup<TItem> parent, bool allowDeleteGroup) => __builder =>
+    public RenderFragment RenderGroup(DataFilterDescriptor<TItem> group, DataFilterDescriptor<TItem> parent, bool allowDeleteGroup) => __builder =>
     {
         <FluentStack Orientation="Orientation.Vertical">
             <FluentStack Orientation="Orientation.Horizontal">
                 @if (allowDeleteGroup)
                 {
-                    <FluentButton Appearance="Appearance.Lightweight"
+                    <FluentButton Appearance="Appearance.Stealth"
                                   OnClick="@(async () => await DeleteGroupAsync(group,parent))"
                                   IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
                 }
 
-                <FluentSelect TOption="DataFilterLogicalOperator"
-                              Width="100px"
-                              Items="@LogicalOperator"
-                              OptionText="@DisplayText"
-                              @bind-SelectedOption="group.Operator"
-                              Immediate="@Immediate"
-                              ImmediateDelay="@ImmediateDelay" />
+                @if (AllowLogicalOperator)
+                {
+                    <FluentSelect TOption="DataFilterLogicalOperator"
+                                  Appearance="Appearance.Stealth"
+                                  Width="100px"
+                                  Items="@LogicalOperators"
+                                  OptionText="@DisplayText"
+                                  @bind-SelectedOption="group.Operator"
+                                  Immediate="@Immediate"
+                                  ImmediateDelay="@ImmediateDelay" />
+                }
 
-                <FluentMenuButton ButtonAppearance="Appearance.Stealth"
-                                  Text="Add"
-                                  OnMenuChanged="@(async (e) => await AddAsync(group,e.Id!))">
-                    <FluentMenuItem Id="Condition">Condition</FluentMenuItem>
-                    <FluentMenuItem Id="Group">Group</FluentMenuItem>
-                </FluentMenuButton>
+                @if (AllowAddGroup || AllowAddCondition)
+                {
+                    <FluentMenuButton ButtonAppearance="Appearance.Stealth"
+                                      Text="Add"
+                                      OnMenuChanged="@(async (e) => await AddAsync(group,e.Id!))">
+                        @if (AllowAddCondition)
+                        {
+                            <FluentMenuItem Id="Condition">Condition</FluentMenuItem>
+                        }
+
+                        @if (AllowAddGroup)
+                        {
+                            <FluentMenuItem Id="Group">Group</FluentMenuItem>
+                        }
+                    </FluentMenuButton>
+                }
             </FluentStack>
 
             @foreach (var item in group.Filters)
             {
                 <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
-                    <FluentButton Appearance="Appearance.Lightweight"
+                    <FluentButton Appearance="Appearance.Stealth"
                                   OnClick="@(async () => await DeleteFilterAsync(group,item))"
                                   IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
 
                     <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                                    Items="Properties"
-                                    OptionText="@(a => a.Title)"                                    
-                                    AriaLabel="@GetTooltip(item)"
+                                    Items="@GetAvailableProperties(item)"
+                                    Height="200px"
+                                    OptionText="@(a => a.Title)"
                                     @bind-SelectedOption="@item.Property"
-                                    @bind-SelectedOption:after="@(async () => await SetPropertyAsync(item))"
+                                    @bind-SelectedOption:after="@FilterChangedAsync"
                                     Immediate="@Immediate"
                                     ImmediateDelay="@ImmediateDelay" />
 
                     @if (item.Property != null)
                     {
-                        <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                                        TOption="DataFilterComparisonOperator"
-                                        Items="item.GetAvailableComparisonOperator()"
-                                        OptionText="@DisplayText"
-                                        @bind-SelectedOption="@item.Operator"
-                                        @bind-SelectedOption:after="@FilterChangedAsync"
-                                        Immediate="@Immediate"
-                                        ImmediateDelay="@ImmediateDelay" />
-
-                        // @if (item.Property.Template != null)
-                        // {
-                        //     @item.Property.Template(item)
-                        // }
-                        // else
-                        @if (item.Operator == DataFilterComparisonOperator.Empty || item.Operator == DataFilterComparisonOperator.NotEmpty)
-                        {
-                            item.Value = null!;
-                        }
-                        else if (item.IsEnum)
-                        {
-                            <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                                            Items="@(Enum.GetValues(item.Type).Cast<Enum>())"
-                                            OptionText="@(a => GetValueDisplayText(item, a))"
-                                            @bind-SelectedOption="item.Value"
-                                            @bind-SelectedOption:after="@FilterChangedAsync"
-                                            Immediate="@Immediate"
-                                            ImmediateDelay="@ImmediateDelay" />
-                        }
-                        else if (item.IsNumber)
-                        {
-                            <DynamicComponent Type="@typeof(FluentNumberField<>).MakeGenericType(item.Type)"
-                                              Parameters="@CreateNumericFieldEditorParameter(item)" />
-                        }
-                        else if (item.IsDate)
-                        {
-                            @if (item.Type == typeof(DateTime))
-                            {
-                                <FluentDatePicker Value="Convert.ToDateTime(item.Value)"
-                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToDateTime()))"
-                                                  Immediate="@Immediate"
-                                                  ImmediateDelay="@ImmediateDelay" />
-
-                                <FluentTimePicker Value="Convert.ToDateTime(item.Value)"
-                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToDateTime()))"
-                                                  Immediate="@Immediate"
-                                                  ImmediateDelay="@ImmediateDelay" />
-                            }
-                            else if (item.Type == typeof(DateOnly))
-                            {
-                                <FluentDatePicker Value="@(ConvertTo<DateOnly>(item.Value).ToDateTime())"
-                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToDateOnly()))"
-                                                  Immediate="@Immediate"
-                                                  ImmediateDelay="@ImmediateDelay" />
-                            }
-                            else if (item.Type == typeof(TimeOnly))
-                            {
-                                <FluentTimePicker Value="@(ConvertTo<TimeOnly>(item.Value).ToDateTime())"
-                                                  ValueChanged="@(async (e) => await SetValueAsync(item, e.ToTimeOnly()))"
-                                                  Immediate="@Immediate"
-                                                  ImmediateDelay="@ImmediateDelay" />
-                            }
-                        }
-                        else if (item.IsBool)
-                        {
-                            <FluentCheckbox ThreeState="item.IsNullable"
-                                            Value="Convert.ToBoolean(item.Value)"
-                                            ValueChanged="@(async (e) => await SetValueAsync(item, e))"
-                                            Immediate="@Immediate"
-                                            ImmediateDelay="@ImmediateDelay" />
-                        }
-                        else if (item.IsString)
-                        {
-                            <FluentTextField Value="@Convert.ToString(item.Value)"
-                                             ValueChanged="@(async (e) => await SetValueAsync(item, e))"
-                                             Immediate="@Immediate"
-                                             ImmediateDelay="@ImmediateDelay" />
-                        }
+                        @item.Property.Render(item)
                     }
                 </FluentStack>
             }

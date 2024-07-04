@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public class DataFilterGroup<TItem>
+public class DataFilterDescriptor<TItem>
 {
     /// <summary>
     /// Logical Operator.
@@ -12,24 +12,44 @@ public class DataFilterGroup<TItem>
     /// <summary>
     /// Filters
     /// </summary>
-    public ICollection<DataFilterProperty<TItem>> Filters { get; set; } = [];
+    public ICollection<DataFilterDescriptorProperty<TItem>> Filters { get; set; } = [];
 
     /// <summary>
     /// Groups
     /// </summary>
-    public ICollection<DataFilterGroup<TItem>> Groups { get; set; } = [];
+    public ICollection<DataFilterDescriptor<TItem>> Groups { get; set; } = [];
+
+    /// <summary>
+    /// Exists
+    /// </summary>
+    /// <param name="property"></param>
+    /// <returns></returns>
+    public bool Exists(PropertyFilterBase<TItem> property)
+    {
+        if (Filters.Any(a => a.Property == property))
+        {
+            return true;
+        }
+
+        if (Groups.Any(a => a.Exists(property)))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     /// <summary>
     /// Get expression for filter data.
     /// </summary>
     /// <param name="caseSensitivity"></param>
     /// <returns></returns>
-    public Expression<Func<TItem, bool>> GenerateExpression(DataFilterCaseSensitivity caseSensitivity)
+    public Expression<Func<TItem, bool>> GetFilter(DataFilterCaseSensitivity caseSensitivity)
     {
         var ret = PredicateBuilder.True<TItem>();
         var found = false;
 
-        foreach (var item in Filters.Select(a => a.GenerateExpression(caseSensitivity)))
+        foreach (var item in Filters.Select(a => a.GetFilter(caseSensitivity)))
         {
             ret = Operator switch
             {
@@ -40,7 +60,7 @@ public class DataFilterGroup<TItem>
             found = true;
         }
 
-        foreach (var item in Groups.Select(a => a.GenerateExpression(caseSensitivity)))
+        foreach (var item in Groups.Select(a => a.GetFilter(caseSensitivity)))
         {
             ret = Operator switch
             {
@@ -55,7 +75,6 @@ public class DataFilterGroup<TItem>
         {
             ret = PredicateBuilder.Not(ret);
         }
-
         return ret;
-    }  
+    }
 }

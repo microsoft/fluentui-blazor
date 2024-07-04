@@ -12,14 +12,35 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    //[Parameter]
-    //public IQueryable<TItem>? Items { get; set; }
+    /// <summary>
+    /// Gets or sets allow use logical operator.
+    /// </summary>
+    [Parameter]
+    public bool AllowLogicalOperator { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets allow use not logical operator.
+    /// </summary>
+    [Parameter]
+    public bool AllowNotLogicalOperator { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets allow add group.
+    /// </summary>
+    [Parameter]
+    public bool AllowAddGroup { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets allow add condition.
+    /// </summary>
+    [Parameter]
+    public bool AllowAddCondition { get; set; } = true;
 
     /// <summary>
     /// Filter definition.
     /// </summary>
     [Parameter]
-    public DataFilterGroup<TItem> Filter { get; set; } = new();
+    public DataFilterDescriptor<TItem> Filter { get; set; } = new();
 
     /// <summary>
     /// Gets or sets a callback that filter changed.
@@ -51,15 +72,12 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;
 
-    /// <summary>
-    /// Allow use not logical operator.
-    /// </summary>
-    [Parameter]
-    public bool AllowNotLogicalOperator { get; set; } = true;
+    internal List<PropertyFilterBase<TItem>> Properties { get; set; } = [];
 
-    internal List<IPropertyFilter<TItem>> Properties { get; set; } = [];
+    private IEnumerable<PropertyFilterBase<TItem>> GetAvailableProperties(DataFilterDescriptorProperty<TItem> item)
+        => Properties;// .Where(a => a != item.Property || !a.Unique || (a.Unique && !Filter.Exists(a))).ToList();
 
-    private async Task AddAsync(DataFilterGroup<TItem> group, string id)
+    private async Task AddAsync(DataFilterDescriptor<TItem> group, string id)
     {
         if (id == "Condition")
         {
@@ -73,82 +91,29 @@ public partial class FluentDataFilter<TItem>
         await FilterChangedAsync();
     }
 
-    private async Task DeleteFilterAsync(DataFilterGroup<TItem> group, DataFilterProperty<TItem> item)
+    private async Task DeleteFilterAsync(DataFilterDescriptor<TItem> group, DataFilterDescriptorProperty<TItem> item)
     {
         group.Filters.Remove(item);
         await FilterChangedAsync();
     }
 
-    private async Task DeleteGroupAsync(DataFilterGroup<TItem> group, DataFilterGroup<TItem> parent)
+    private async Task DeleteGroupAsync(DataFilterDescriptor<TItem> group, DataFilterDescriptor<TItem> parent)
     {
         parent.Groups.Remove(group);
         await FilterChangedAsync();
     }
 
-    private IEnumerable<DataFilterLogicalOperator> LogicalOperator
+    private IEnumerable<DataFilterLogicalOperator> LogicalOperators
         => AllowNotLogicalOperator
                 ? [DataFilterLogicalOperator.And, DataFilterLogicalOperator.NotAnd, DataFilterLogicalOperator.Or, DataFilterLogicalOperator.NotOr]
                 : [DataFilterLogicalOperator.And, DataFilterLogicalOperator.Or];
-
-    private static string GetTooltip(DataFilterProperty<TItem> item)
-        => item.Property?.Tooltip ?? false
-                ? item.Property.TooltipText?.Invoke()!
-                : "";
-
-    private static string GetValueDisplayText(DataFilterProperty<TItem> item, object? obj)
-    {
-        if (item.Property.ValueDisplayText != null)
-        {
-            return item.Property.ValueDisplayText.Invoke(obj);
-        }
-        else if (item.IsEnum)
-        {
-            return (obj as Enum)?.GetDisplayName() + "";
-        }
-        else
-        {
-            return obj + "";
-        }
-    }
 
     private string DisplayText(DataFilterLogicalOperator value)
         => LogicalOperatorDisplayText == null
                 ? value.GetDisplayName()!
                 : LogicalOperatorDisplayText.Invoke(value);
 
-    private string DisplayText(DataFilterComparisonOperator value)
-        => ComparisonOperatorDisplayText == null
-                ? value.GetDisplayName()!
-                : ComparisonOperatorDisplayText.Invoke(value);
-
-    private static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;
-
-    private async Task SetPropertyAsync(DataFilterProperty<TItem> item)
-    {
-        var operators = item.GetAvailableComparisonOperator().ToList();
-        if (!operators.Contains(item.Operator))
-        {
-            item.Operator = operators[0];
-        }
-
-        if (item.Value == null
-            || (item.Value != null && item.Value.GetType() != item.Type))
-        {
-            //set default value
-            if (item.Type.IsValueType)
-            {
-                item.Value = Activator.CreateInstance(item.Type);
-            }
-            else if (item.IsString)
-            {
-                item.Value = string.Empty;
-            }
-        }
-
-        await FilterChangedAsync();
-    }
-
-    private async Task FilterChangedAsync()
+    internal async Task FilterChangedAsync()
     {
         StateHasChanged();
 
@@ -156,33 +121,5 @@ public partial class FluentDataFilter<TItem>
         {
             await Changed.InvokeAsync();
         }
-    }
-
-    private async Task SetValueAsync(DataFilterProperty<TItem> item, object value)
-    {
-        item.Value = value;
-        await FilterChangedAsync();
-    }
-
-    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterProperty<TItem> item)
-    {
-        var inputHelper = typeof(InputHelpers<>).MakeGenericType(item.Type);
-        return new Dictionary<string, object>()
-        {
-            [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(item.Value, item.Type)!,
-
-            [nameof(FluentNumberField<int>.Immediate)] = Immediate,
-            [nameof(FluentNumberField<int>.ImmediateDelay)] = ImmediateDelay,
-
-            [nameof(FluentNumberField<int>.Min)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMinValue))!
-                                                              .Invoke(inputHelper, null)!,
-
-            [nameof(FluentNumberField<int>.Max)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMaxValue))!
-                                                              .Invoke(inputHelper, null)!,
-
-            [nameof(FluentNumberField<int>.ValueChanged)] = EventCallbackHelper.Make(item.Type,
-                                                                                     this,
-                                                                                     async (e) => await SetValueAsync(item, e))!
-        };
     }
 }

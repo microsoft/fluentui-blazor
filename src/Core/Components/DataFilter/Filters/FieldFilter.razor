@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+@inherits PropertyFilterBase<TItem>
+
+@typeparam TItem
+
+@code
+{
+    public override RenderFragment Render(DataFilterDescriptorProperty<TItem> item) => __builder =>
+    {
+        @RenderOperator(item)
+
+        @if (TemplateFilter != null)
+        {
+            @TemplateFilter(item)
+        }
+        else
+        {
+            @RenderTypes(item)
+        }
+    };
+}
