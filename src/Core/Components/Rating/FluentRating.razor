@@ -27,6 +27,7 @@
         else
         {
             <input type="radio" checked="@(index == Value)" name="@GroupName"
+                   value="@index"
                    aria-label="@Label"
                    @onfocus="@(() => OnClickAsync(index, fromFocus: true))" />
 

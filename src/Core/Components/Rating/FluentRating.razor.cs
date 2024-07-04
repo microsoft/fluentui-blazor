@@ -70,7 +70,7 @@ public partial class FluentRating : FluentInputBase<int>
     public EventCallback<int?> OnHoveredValueChanged { get; set; }
 
     /// <summary />
-    private string GroupName => $"rating-{Id}";
+    private string GroupName => Id ?? $"rating-{Id}";
 
     /// <summary />
     private Icon GetIcon(int index) => index <= (_hoverValue ?? Value) ? IconFilled : IconOutline;

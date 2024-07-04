@@ -64,6 +64,21 @@
     }
 
     [Fact]
+    public void FluentRating_FocusOnRadio()
+    {
+        int value = 0;
+
+        // Arrange
+        var cut = Render(@<FluentRating @bind-Value="@value" />);
+
+        // Act: Focus on the second star
+        cut.FindAll("input").ElementAt(1).Focus();
+
+        // Assert
+        Assert.Equal(2, value);
+    }
+
+    [Fact]
     public void FluentRating_AllowResetFalse()
     {
         // Arrange
@@ -146,17 +161,22 @@
         int? hover = null;
         var cut = Render(@<FluentRating OnHoveredValueChanged="@(i => hover = i)" @bind-Value="@value" />);
 
-        // Act and Assert 1
+        // Enter on the 4th star
         var item4 = cut.FindAll("svg").ElementAt(3);
         await item4.TriggerEventAsync("onmouseenter", new MouseEventArgs());
 
         Assert.Equal(4, hover);
 
-        // Act and Assert 2
+        // Enter on the 3rd star
         var item3 = cut.FindAll("svg").ElementAt(2);
         await item3.TriggerEventAsync("onmouseenter", new MouseEventArgs());
 
         Assert.Equal(3, hover);
+
+        // Leave the 3rd star
+        await item3.TriggerEventAsync("onmouseleave", new MouseEventArgs());
+
+        Assert.Equal(0, value);
     }
 
     [Fact]
