@@ -7,7 +7,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentRating : FluentInputBase<int>
 {
-    private static readonly KeyCode[] KeyCodes = new[] { KeyCode.Left, KeyCode.Right, KeyCode.Up, KeyCode.Down, KeyCode.Shift };
     private bool _updatingCurrentValue = false;
     private int? _hoverValue = null;
 
@@ -71,6 +70,9 @@ public partial class FluentRating : FluentInputBase<int>
     public EventCallback<int?> OnHoveredValueChanged { get; set; }
 
     /// <summary />
+    private string GroupName => $"rating-{Id}";
+
+    /// <summary />
     private Icon GetIcon(int index) => index <= (_hoverValue ?? Value) ? IconFilled : IconOutline;
 
     /// <summary />
@@ -91,34 +93,12 @@ public partial class FluentRating : FluentInputBase<int>
     }
 
     /// <summary />
-    protected internal async Task HandleKeyDownAsync(FluentKeyCodeEventArgs e)
-    {
-        if (e.TargetId != Id)
-        {
-            return;
-        }
-
-        int value = e.Key switch
-        {
-            KeyCode.Right or KeyCode.Up when e.ShiftKey => value = Max,
-            KeyCode.Right or KeyCode.Up => Math.Min(Value + 1, Max),
-            KeyCode.Left or KeyCode.Down when e.ShiftKey => value = 0,
-            KeyCode.Left or KeyCode.Down => Math.Max(Value - 1, 1),
-            _ => Value
-        };
-
-        _hoverValue = null;
-
-        await SetCurrentValueAsync(value);
-    }
-
-    /// <summary />
-    private async Task OnClickAsync(int value)
+    private async Task OnClickAsync(int value, bool fromFocus = false)
     {
         _updatingCurrentValue = true;
 
         // Reset ?
-        if (AllowReset && value == Value)
+        if (AllowReset && value == Value && !fromFocus)
         {
             await SetCurrentValueAsync(0);
             await UpdateHoverValueAsync(null);
