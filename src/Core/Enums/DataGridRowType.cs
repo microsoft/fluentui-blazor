@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -20,6 +20,6 @@ public enum DataGridRowType
     /// <summary>
     /// A sticky header row.
     /// </summary>
-    [Description("sticky-header")]
+    [Display(Name = "sticky-header")]
     StickyHeader
 }

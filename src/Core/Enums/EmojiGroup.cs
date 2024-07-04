@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,54 +10,54 @@ public enum EmojiGroup
     /// <summary>
     /// Smileys and Emotion
     /// </summary>
-    [Description("Smileys & Emotion")]
+    [Display(Name = "Smileys & Emotion")]
     Smileys_Emotion,
 
     /// <summary>
     /// People and Body
     /// </summary>
-    [Description("People & Body")]
+    [Display(Name = "People & Body")]
     People_Body,
 
     /// <summary>
     /// Animals and Nature
     /// </summary>  
-    [Description("Animals & Nature")]
+    [Display(Name = "Animals & Nature")]
     Animals_Nature,
 
     /// <summary>
     /// Food and Drink
     /// </summary>
-    [Description("Food & Drink")]
+    [Display(Name = "Food & Drink")]
     Food_Drink,
 
     /// <summary>
     /// Travel and Places
     /// </summary>
-    [Description("Travel & Places")]
+    [Display(Name = "Travel & Places")]
     Travel_Places,
 
     /// <summary>
     /// Symbols
     /// </summary>  
-    [Description("Symbols")]
+    [Display(Name = "Symbols")]
     Symbols,
 
     /// <summary>
     /// Objects
     /// </summary>  
-    [Description("Objects")]
+    [Display(Name = "Objects")]
     Objects,
 
     /// <summary>
     /// Activities
     /// </summary>  
-    [Description("Activities")]
+    [Display(Name = "Activities")]
     Activities,
 
     /// <summary>
     /// Flags
     /// </summary>  
-    [Description("Flags")]
+    [Display(Name = "Flags")]
     Flags
 }

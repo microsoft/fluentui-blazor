@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,6 +10,6 @@ public enum SliderMode
     /// <summary>
     /// The slider is in single selection mode
     /// </summary>
-    [Description("single-value")]
+    [Display(Name = "single-value")]
     SingleValue
 }

@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,7 +12,7 @@ public enum LocalizationDirection
     /// </summary>
     // TODO: #vNext: Remove this value in the next major version.
     [Obsolete("This value has been replaced with 'LeftToRight' and will be deleted in the next major version.")]
-    [Description("ltr")]
+    [Display(Name = "ltr")]
     ltr,
 
     /// <summary>
@@ -20,18 +20,18 @@ public enum LocalizationDirection
     /// </summary>
     // TODO: #vNext: Remove this value in the next major version.
     [Obsolete("This value has been replaced with 'RightToLeft' and will be deleted in the next major version.")]
-    [Description("rtl")]
+    [Display(Name = "rtl")]
     rtl,
 
     /// <summary>
     /// Left to right.
     /// </summary>
-    [Description("ltr")]
+    [Display(Name = "ltr")]
     LeftToRight,
 
     /// <summary>
     /// Right to left.
     /// </summary>
-    [Description("rtl")]
+    [Display(Name = "rtl")]
     RightToLeft
 }

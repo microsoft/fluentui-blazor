@@ -2,7 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -14,12 +14,12 @@ public enum Orientation
     /// <summary>
     /// The component is oriented horizontally.
     /// </summary>
-    [Description("horizontal")]
+    [Display(Name = "horizontal")]
     Horizontal,
 
     /// <summary>
     /// The component is oriented vertically.
     /// </summary>
-    [Description("vertical")]
+    [Display(Name = "vertical")]
     Vertical
 }

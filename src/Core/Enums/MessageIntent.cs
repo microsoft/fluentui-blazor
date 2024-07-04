@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -6,22 +6,22 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum MessageIntent
 {
     /// <summary />
-    [Description("info")]
+    [Display(Name = "info")]
     Info,
 
     /// <summary />
-    [Description("warning")]
+    [Display(Name = "warning")]
     Warning,
 
     /// <summary />
-    [Description("error")]
+    [Display(Name = "error")]
     Error,
 
     /// <summary />
-    [Description("success")]
+    [Display(Name = "success")]
     Success,
 
     /// <summary />
-    [Description("custom")]
+    [Display(Name = "custom")]
     Custom,
 }

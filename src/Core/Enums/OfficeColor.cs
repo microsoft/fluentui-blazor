@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,102 +10,102 @@ public enum OfficeColor
     /// <summary>
     /// The default Fluent UI accent color
     /// </summary>
-    [Description("default")]
+    [Display(Name = "default")]
     Default,
 
     /// <summary/>
-    [Description("#a4373a")]
+    [Display(Name = "#a4373a")]
     Access,
 
     /// <summary/>
-    [Description("#00a99d")]
+    [Display(Name = "#00a99d")]
     Booking,
 
     /// <summary/>
-    [Description("#0078d4")]
+    [Display(Name = "#0078d4")]
     Exchange,
 
     /// <summary/>
-    [Description("#217346")]
+    [Display(Name = "#217346")]
     Excel,
 
     /// <summary/>
-    [Description("#00bcf2")]
+    [Display(Name = "#00bcf2")]
     GroupMe,
 
     /// <summary/>
-    [Description("#d83b01")]
+    [Display(Name = "#d83b01")]
     Office,
 
     /// <summary/>
-    [Description("#0078d4")]
+    [Display(Name = "#0078d4")]
     OneDrive,
 
     /// <summary/>
-    [Description("#7719aa")]
+    [Display(Name = "#7719aa")]
     OneNote,
 
     /// <summary />
-    [Description("#0f6cbd")]
+    [Display(Name = "#0f6cbd")]
     Outlook,
 
     /// <summary/>
-    [Description("#31752f")]
+    [Display(Name = "#31752f")]
     Planner,
 
     /// <summary/>
-    [Description("#742774")]
+    [Display(Name = "#742774")]
     PowerApps,
 
     /// <summary/>
-    [Description("#f2c811")]
+    [Display(Name = "#f2c811")]
     PowerBI,
 
     /// <summary/>
-    [Description("#b7472a")]
+    [Display(Name = "#b7472a")]
     PowerPoint,
 
     /// <summary/>
-    [Description("#31752f")]
+    [Display(Name = "#31752f")]
     Project,
 
     /// <summary/>
-    [Description("#077568")]
+    [Display(Name = "#077568")]
     Publisher,
 
     /// <summary/>
-    [Description("#0078d4")]
+    [Display(Name = "#0078d4")]
     SharePoint,
 
     /// <summary/>
-    [Description("#0078d4")]
+    [Display(Name = "#0078d4")]
     Skype,
 
     /// <summary/>
-    [Description("#bc1948")]
+    [Display(Name = "#bc1948")]
     Stream,
 
     /// <summary/>
-    [Description("#008272")]
+    [Display(Name = "#008272")]
     Sway,
 
     /// <summary/>
-    [Description("#6264a7")]
+    [Display(Name = "#6264a7")]
     Teams,
 
     /// <summary/>
-    [Description("#3955a3")]
+    [Display(Name = "#3955a3")]
     Visio,
 
     /// <summary/>
-    [Description("#0078d4")]
+    [Display(Name = "#0078d4")]
     Windows,
 
     /// <summary/>
-    [Description("#2b579a")]
+    [Display(Name = "#2b579a")]
     Word,
 
     /// <summary/>
-    [Description("#106ebe")]
+    [Display(Name = "#106ebe")]
     Yammer
 }
