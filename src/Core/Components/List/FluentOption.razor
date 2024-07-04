@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TOption
 <fluent-option @ref=Element
@@ -8,6 +8,7 @@
                disabled="@Disabled"
                value="@Value"
                selected="@Selected"
+               aria-selected="@(Selected ? "true" : "false")"
                @onclick="@OnClickHandlerAsync"
                @attributes="AdditionalAttributes">
     @ChildContent
