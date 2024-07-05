@@ -35,6 +35,15 @@ public partial class FluentDatePicker : FluentCalendarBase
     [Parameter]
     public EventCallback<bool> OnCalendarOpen { get; set; }
 
+    [Parameter]
+    public RenderFragment<FluentCalendarDay> DaysTemplate { get; set; }
+
+    /// <summary>
+    /// Fired when the display month changes.
+    /// </summary>
+    [Parameter]
+    public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
+
     public bool Opened { get; set; } = false;
 
     protected override string? FormatValueAsString(DateTime? value)
