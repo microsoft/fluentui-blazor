@@ -18,11 +18,11 @@
         <FluentNavLink Icon="@Value.Icon" Href="@Value.Href" Match="@Value.Match">
             @if (Value.Match is NavLinkMatch.All)
             {
-                <h3>@Value.Title</h3>
+                <h3>@(new MarkupString(Value.Title))</h3>
             }
             else
             {
-                @Value.Title
+                @(new MarkupString(Value.Title))
             }
         </FluentNavLink>
         break;
