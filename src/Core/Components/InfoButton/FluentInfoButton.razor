@@ -2,13 +2,13 @@
 @inherits FluentComponentBase
 
 <FluentIcon Id="@Id"
-            Value="@(_showIconFilled ? IconFilled : IconOutline)"
+            Value="@(_showIconHover ? IconHover : Icon)"
             Width="@IconWidth"
             Color="IconColor"
             Focusable="true"            
             CustomColor="@IconCustomColor"
             @onmouseout="@OnIconMouseOut"
-            @onmouseover="@(() => _showIconFilled = true)"
+            @onmouseover="@(() => _showIconHover = true)"
             @onfocusout="@OnIconFocusOut"
             OnClick="@(() => _visible = !_visible)" />
 @if (_visible)

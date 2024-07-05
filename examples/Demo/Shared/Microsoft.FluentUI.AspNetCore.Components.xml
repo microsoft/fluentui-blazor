@@ -4580,12 +4580,12 @@
             The icon width.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconFilled">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconHover">
             <summary>
             The icon to display when is selected.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconOutline">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.Icon">
             <summary>
             The icon to display when is unselected.
             </summary>

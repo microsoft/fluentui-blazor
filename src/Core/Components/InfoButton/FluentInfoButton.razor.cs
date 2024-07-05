@@ -4,7 +4,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentInfoButton
 {
-    private bool _showIconFilled = false;
+    private bool _showIconHover = false;
     private bool _visible = false;
 
     public FluentInfoButton() => Id = Identifier.NewId();
@@ -31,16 +31,16 @@ public partial class FluentInfoButton
     public string IconWidth { get; set; } = "16px";
 
     /// <summary>
-    /// The icon to display when is selected.
+    /// The icon to display when the mouse is over.
     /// </summary>
     [Parameter]
-    public Icon IconFilled { get; set; } = new CoreIcons.Filled.Size16.Info();
+    public Icon IconHover { get; set; } = new CoreIcons.Filled.Size16.Info();
 
     /// <summary>
-    /// The icon to display when is unselected.
+    /// The icon to display when the mouse is out.
     /// </summary>
     [Parameter]
-    public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size16.Info();
+    public Icon Icon { get; set; } = new CoreIcons.Regular.Size16.Info();
 
     /// <summary>
     /// Gets or sets the tooltip's position. See <see cref="AspNetCore.Components.TooltipPosition"/>.
@@ -65,13 +65,13 @@ public partial class FluentInfoButton
     {
         if (!_visible)
         {
-            _showIconFilled = false;
+            _showIconHover = false;
         }
     }
 
     private void OnIconFocusOut()
     {
         _visible = false;
-        _showIconFilled = false;
+        _showIconHover = false;
     }
 }
