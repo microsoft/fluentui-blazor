@@ -79,6 +79,18 @@ public class DemoNavProvider
                         title: "Icons and Emoji"
                     ),
 
+                    new NavLink(
+                        href: "/Videos",
+                        icon: new Icons.Regular.Size20.Video(),
+                        title: "Videos"
+                    ),
+
+                    new NavLink(
+                        href: "/BlazorHybrid",
+                        icon: new Icons.Regular.Size20.Phone(),
+                        title: "Blazor Hybrid / MAUI"
+                    ),
+
                     new NavGroup(
                         icon: new Icons.Regular.Size20.SettingsCogMultiple(),
                         title: "Services",
