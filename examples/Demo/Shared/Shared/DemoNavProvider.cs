@@ -192,11 +192,6 @@ public class DemoNavProvider
                         title: "Overview"
                     ),
                     new NavLink(
-                        href: "/Autocomplete",
-                        icon: new Icons.Regular.Size20.ArrowAutofitContent(),
-                        title: $"Autocomplete <sup>{EditFormOffIcon}</sup>"
-                    ),
-                    new NavLink(
                         href: "/Checkbox",
                         icon: new Icons.Regular.Size20.CheckboxChecked(),
                         title: "Checkbox"
@@ -218,6 +213,11 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.List(),
                         children:
                         [
+                            new NavLink(
+                                href: "/Autocomplete",
+                                icon: new Icons.Regular.Size20.ArrowAutofitContent(),
+                                title: $"Autocomplete <sup>{EditFormOffIcon}</sup>"
+                            ),
                             new NavLink(
                                 href: "/Combobox",
                                 icon: new Icons.Regular.Size20.BoxEdit(),
