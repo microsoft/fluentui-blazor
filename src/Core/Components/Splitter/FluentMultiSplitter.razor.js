@@ -73,7 +73,6 @@ export function startSplitterResize(
         paneLength: paneLength,
         paneNextLength: isFinite(paneNextLength) ? paneNextLength : 0,
         mouseUpHandler: function (e) {
-            console.log("Up", e);
             if (document.splitterData[el] &&
                 pane.style.flexBasis.includes('%') &&
                 paneNext.style.flexBasis.includes('%')) {
@@ -100,7 +99,6 @@ export function startSplitterResize(
             }
         },
         mouseMoveHandler: function (e) {
-            console.log("moved", e);
             if (document.splitterData[el]) {
 
                 document.splitterData[el].moved = true;
