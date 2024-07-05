@@ -74,4 +74,8 @@ public partial class FluentInfoButton
         _visible = false;
         _showIconHover = false;
     }
+
+    private void OnIconMouseOver() => _showIconHover = true;
+
+    private void OnIconClick() => _visible = !_visible;
 }

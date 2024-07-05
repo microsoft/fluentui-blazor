@@ -5,12 +5,12 @@
             Value="@(_showIconHover ? IconHover : Icon)"
             Width="@IconWidth"
             Color="@IconColor"
-            Focusable="true"            
+            Focusable="true"
             CustomColor="@IconCustomColor"
             @onmouseout="@OnIconMouseOut"
-            @onmouseover="@(() => _showIconHover = true)"
+            @onmouseover="@OnIconMouseOver"
             @onfocusout="@OnIconFocusOut"
-            OnClick="@(() => _visible = !_visible)" />
+            OnClick="@OnIconClick" />
 @if (_visible)
 {
     <FluentTooltip Anchor="@Id" Visible="_visible" Position="@Position" MaxWidth="@MaxWidth">
