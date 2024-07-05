@@ -38,11 +38,11 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
 ### Script
-As mentioned, we wrap the **Fluent UI Web Components** which are implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
+We wrap the **Fluent UI Web Components**, which are implemented in a script file, for quite a few of our components. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
-When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
+In some cases, like when using .NET 8's new **SSR (Static Server Rendering)** rendermode, it might be necessary to include our library script in your `App.razor` manually. You can do so as follows:
 
 ```html
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>
@@ -51,9 +51,20 @@ If you would later add interactivity, the Blazor script will kick in and try to 
 
 ### Styles
 
-The styles used by FluentUI are included in the package.
-You don't need to do anything to include them in your project.
+The styles used by FluentUI are included in the package. You normally don't need to do anything to include them in your project.
 
+If needed, you can add the following line to the `<head>`> section of your `index.html`, `_Layout.cshtml` or `App.razor` file in the
+project you installed the package in:
+
+```html
+<link href="{PROJECT_NAME}.styles.css" rel="stylesheet" />
+```
+
+It is possible that the line is already there (but commented out).
+
+>**IMPORTANT:**
+>When you change the root namespace/assembly name of your project, you need to update the {PROJECT_NAME} in your code accordingly.
+          
 You can always add your own styles, using the `class` or `style` attribute on the components.
 By default, the classes are organised and checked by the component itself (in particular by checking that the class names are valid).
 Some frameworks, such as **Tailwind CSS**, add exceptions to class names (e.g. `min-h-[16px]` or `bg-[#ff0000]`).
@@ -66,8 +77,9 @@ builder.Services.AddFluentUIComponents(options =>
 });
 ```
 
-### Reboot (optional)
+#### Reboot 
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
+The library automatically includes reboot through the 
 
 If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
