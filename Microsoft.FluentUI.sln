@@ -46,15 +46,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{E7FD7A3C-3C34-4DF6-961F-D731B0164CE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{2A9638B8-C6D0-455C-B6B1-72D734664973}"
-	ProjectSection(SolutionItems) = preProject
-		eng\pipelines\azure-pipelines.yml = eng\pipelines\azure-pipelines.yml
-		eng\pipelines\build-all-lib.yml = eng\pipelines\build-all-lib.yml
-		eng\pipelines\build-core-lib.yml = eng\pipelines\build-core-lib.yml
-		eng\pipelines\common-variables.yaml = eng\pipelines\common-variables.yaml
-		eng\pipelines\compute-version-variables.ps1 = eng\pipelines\compute-version-variables.ps1
-		eng\pipelines\update-assembly-version.ps1 = eng\pipelines\update-assembly-version.ps1
-		eng\pipelines\version.yml = eng\pipelines\version.yml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

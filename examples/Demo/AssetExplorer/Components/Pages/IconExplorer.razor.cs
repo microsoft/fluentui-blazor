@@ -42,8 +42,13 @@ public partial class IconExplorer
         }
     }
 
-    private async Task StartNewSearchAsync()
+    private async Task StartNewSearchAsync(string property)
     {
+        if (property == nameof(Criteria.Variant) && Criteria.Variant == IconVariant.Light && Criteria.Size != 32)
+        {
+            Criteria.Size = 32;
+        }
+
         SearchInProgress = true;
         await Task.Delay(1); // Display spinner
 
@@ -71,7 +76,7 @@ public partial class IconExplorer
     {
         get
         {
-            var sizes = Enum.GetValues<IconSize>().Select(i => (int)i).ToList();
+            var sizes = Enum.GetValues<IconSize>().Where(i => i > 0).Select(i => (int)i).ToList();
             var empty = new int[] { 0 };
             return empty.Concat(sizes);
         }
