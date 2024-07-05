@@ -1,0 +1,33 @@
+﻿@page "/BlazorHybrid"
+@using FluentUI.Demo.Shared.Pages.Home.Examples
+
+<PageTitle>@App.PageTitle("Blazor Hybrid")</PageTitle>
+
+<h1>Blazor Hybrid</h1>
+
+<p>
+    It is possible to use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above,
+    however to get everything to work you'll need to take one extra step:
+</p>
+
+<h3 id="temporary-workaround-for-mauiwpfwindows-forms-issues">Temporary workaround for MAUI/WPF/Windows Forms issues</h3>
+<p>
+    Currently when using WebView to run Blazor (in all Hybrid variants), the web-components script is not imported automatically (see <a href="https://github.com/microsoft/fluentui-blazor/issues/404">#404</a>).
+    There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is
+    a workaround available, namely to intercept '_framework/blazor.modules.json' and provide proper JS initializers (created by the build). The needed script is
+    included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag.
+</p>
+
+<CodeSnippet Language="language-html">
+    &lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
+</CodeSnippet>
+
+<p>
+    The <code>app-name</code> attribute needs to match your app's assembly name - the script uses 'app-name' to resolve the name of the file with initializers.
+    The 'initializersLoader' part of the script replaces the standard <code>fetch</code> function with one which provides the correct file in place of the empty <code>blazor.modules.json</code>. <code>fetch</code> is restored to its original state once the <code>_framework/blazor.modules.json</code> request is intercepted.
+</p>
+<p>
+    For more information regarding this bug, see issue <a href="https://github.com/dotnet/maui/issues/15234">15234</a> in the MAUI repo.
+</p>
+
