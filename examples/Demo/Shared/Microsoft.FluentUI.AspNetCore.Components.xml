@@ -4562,6 +4562,50 @@
             Gets the variant of the icon: Filled, Regular.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconColor">
+            <summary>
+            Gets or sets the icon drawing and fill color. 
+            Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconCustomColor">
+            <summary>
+            Gets or sets the icon drawing and fill color to a custom value.
+            Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconWidth">
+            <summary>
+            The icon width.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconFilled">
+            <summary>
+            The icon to display when is selected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconOutline">
+            <summary>
+            The icon to display when is unselected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.Position">
+            <summary>
+            Gets or sets the tooltip's position. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.TooltipPosition"/>.
+            Don't set this if you want the tooltip to use the best position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.MaxWidth">
+            <summary>
+            Gets or sets the maximum width of tooltip panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered inside the tooltip.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
         </member>

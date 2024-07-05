@@ -1,0 +1,77 @@
+using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+public partial class FluentInfoButton
+{
+    private bool _showIconFilled = false;
+    private bool _visible = false;
+
+    public FluentInfoButton() => Id = Identifier.NewId();
+
+    /// <summary>
+    /// Gets or sets the icon drawing and fill color. 
+    /// Value comes from the <see cref="AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
+    /// </summary>
+    [Parameter]
+    public Color? IconColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon drawing and fill color to a custom value.
+    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+    /// ⚠️ Only available when Color is set to Color.Custom.
+    /// </summary>
+    [Parameter]
+    public string? IconCustomColor { get; set; }
+
+    /// <summary>
+    /// The icon width.
+    /// </summary>
+    [Parameter]
+    public string IconWidth { get; set; } = "16px";
+
+    /// <summary>
+    /// The icon to display when is selected.
+    /// </summary>
+    [Parameter]
+    public Icon IconFilled { get; set; } = new CoreIcons.Filled.Size16.Info();
+
+    /// <summary>
+    /// The icon to display when is unselected.
+    /// </summary>
+    [Parameter]
+    public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size16.Info();
+
+    /// <summary>
+    /// Gets or sets the tooltip's position. See <see cref="AspNetCore.Components.TooltipPosition"/>.
+    /// Don't set this if you want the tooltip to use the best position.
+    /// </summary>
+    [Parameter]
+    public TooltipPosition? Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of tooltip panel.
+    /// </summary>
+    [Parameter]
+    public string? MaxWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the tooltip.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private void OnIconMouseOut()
+    {
+        if (!_visible)
+        {
+            _showIconFilled = false;
+        }
+    }
+
+    private void OnIconFocusOut()
+    {
+        _visible = false;
+        _showIconFilled = false;
+    }
+}

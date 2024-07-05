@@ -1,0 +1,23 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentInfoButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(new LibraryConfiguration());
+    }
+
+    [Fact]
+    public void FluentInfoButton_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentInfoButton>
+                            This is example information for an InfoButton
+                            <a href="https://www.fluentui-blazor.net/InfoButton">Learn more</a>
+                        </FluentInfoButton>);
+
+        // Assert
+        cut.Verify();
+    }
+}

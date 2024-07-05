@@ -352,6 +352,11 @@ public class DemoNavProvider
                                 icon: new Icons.Regular.Size20.ChevronCircleDown(),
                                 title: "MenuButton"
                             ),
+                            new NavLink(
+                                href: "/InfoButton",
+                                icon: new Icons.Regular.Size20.Info(),
+                                title: "InfoButton"
+                            ),
                         ]
                     ),
                     new NavLink(

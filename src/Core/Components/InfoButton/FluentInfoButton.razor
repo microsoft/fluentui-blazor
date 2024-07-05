@@ -1,0 +1,20 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<FluentIcon Id="@Id"
+            Value="@(_showIconFilled ? IconFilled : IconOutline)"
+            Width="@IconWidth"
+            Color="IconColor"
+            Focusable="true"            
+            CustomColor="@IconCustomColor"
+            @onmouseout="@OnIconMouseOut"
+            @onmouseover="@(() => _showIconFilled = true)"
+            @onfocusout="@OnIconFocusOut"
+            OnClick="@(() => _visible = !_visible)" />
+@if (_visible)
+{
+    <FluentTooltip Anchor="@Id" Visible="_visible" Position="@Position" MaxWidth="@MaxWidth">
+        @ChildContent
+    </FluentTooltip>
+}
+
