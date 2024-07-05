@@ -25,7 +25,7 @@ public partial class FluentInfoButton
     public string? IconCustomColor { get; set; }
 
     /// <summary>
-    /// The icon width.
+    /// Get or set the icon width.
     /// </summary>
     [Parameter]
     public string IconWidth { get; set; } = "16px";
