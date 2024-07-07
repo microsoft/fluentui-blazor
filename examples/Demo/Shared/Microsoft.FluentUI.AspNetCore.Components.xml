@@ -2644,6 +2644,11 @@
             Gets or sets the design of this input.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PickerMonthChanged">
+            <summary>
+            Fired when the display month changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
         </member>
