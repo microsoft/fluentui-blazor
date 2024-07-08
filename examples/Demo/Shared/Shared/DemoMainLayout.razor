@@ -47,7 +47,7 @@
                 <SiteSettings />
             </div>
 
-            
+
         </FluentHeader>
 
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
@@ -64,10 +64,14 @@
                                 </CascadingValue>
 
                     </article>
-                    <aside>
-                        <TableOfContents @ref=_toc />
-                        <ConsoleLog />
-                    </aside>
+
+                    @if (NavigationManager.Uri != NavigationManager.BaseUri)
+                    {
+                        <aside>
+                            <TableOfContents @ref=_toc />
+                            <ConsoleLog />
+                        </aside>
+                    }
 
                     <FluentToastProvider MaxToastCount="10" />
                     <FluentDialogProvider />
