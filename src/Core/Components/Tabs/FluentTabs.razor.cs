@@ -142,7 +142,6 @@ public partial class FluentTabs : FluentComponentBase
     {
         if (firstRender)
         {
-
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
@@ -162,7 +161,6 @@ public partial class FluentTabs : FluentComponentBase
             ActiveTabId = tabId;
             await ActiveTabIdChanged.InvokeAsync(tabId);
         }
-
     }
 
     internal int RegisterTab(FluentTab tab)
@@ -237,8 +235,9 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-        var horizontal = Orientation == Orientation.Horizontal;
-        await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+            var horizontal = Orientation == Orientation.Horizontal;
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+        }
     }
 
     /// <summary />

@@ -8482,6 +8482,12 @@
             Gets or sets a value indicating whether the active indicator is displayed.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.ShowOverflow">
+            <summary>
+            Gets or sets whether tabs can overflow
+            Default is set to true to maintain original behavior.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
