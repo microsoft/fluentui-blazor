@@ -13,7 +13,13 @@
             OnClick="@OnIconClick" />
 @if (_visible)
 {
-    <FluentTooltip Anchor="@Id" Visible="_visible" Position="@Position" MaxWidth="@MaxWidth">
+    <FluentTooltip Anchor="@Id"
+                   Visible="_visible"
+                   Position="@Position"
+                   MaxWidth="@MaxWidth"
+                   AdditionalAttributes="@AdditionalAttributes"
+                   Class="@ClassValue"
+                   Style="@StyleValue">
         @ChildContent
     </FluentTooltip>
 }

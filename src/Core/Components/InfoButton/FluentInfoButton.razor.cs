@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -8,6 +9,12 @@ public partial class FluentInfoButton
     private bool _visible = false;
 
     public FluentInfoButton() => Id = Identifier.NewId();
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .Build();
+
+    protected string? StyleValue => new StyleBuilder(Style)
+        .Build();
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color. 
