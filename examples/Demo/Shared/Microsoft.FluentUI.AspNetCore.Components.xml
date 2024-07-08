@@ -4577,17 +4577,17 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconWidth">
             <summary>
-            The icon width.
+            Get or set the icon width.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.IconHover">
             <summary>
-            The icon to display when is selected.
+            The icon to display when the mouse is over.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.Icon">
             <summary>
-            The icon to display when is unselected.
+            The icon to display when the mouse is out.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInfoButton.Position">
