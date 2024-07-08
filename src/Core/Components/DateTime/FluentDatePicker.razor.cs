@@ -42,7 +42,7 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// Defines the appearance of a Day cell.
     /// </summary>
     [Parameter]
-    public RenderFragment<FluentCalendarDay> DaysTemplate { get; set; }
+    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
 
     /// <summary>
     /// Fired when the display month changes.

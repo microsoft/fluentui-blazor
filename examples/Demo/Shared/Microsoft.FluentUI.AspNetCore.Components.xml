@@ -2644,6 +2644,16 @@
             Gets or sets the design of this input.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.OnCalendarOpen">
+            <summary>
+            raised when calendar popup opened
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.DaysTemplate">
+            <summary>
+            Defines the appearance of a Day cell.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PickerMonthChanged">
             <summary>
             Fired when the display month changes.
