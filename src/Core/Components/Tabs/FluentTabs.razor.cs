@@ -235,9 +235,8 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     private async Task ResizeTabsForOverflowButtonAsync()
     {
-            var horizontal = Orientation == Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
-        }
+        var horizontal = Orientation == Orientation.Horizontal;
+        await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 
     /// <summary />
