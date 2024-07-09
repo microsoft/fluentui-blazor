@@ -8,13 +8,36 @@
     @ChildContent
 </CascadingValue>
 
-@RenderGroup(Filter, null!, false)
+@RenderGroup(Filter, null!, false, 0)
 
 @code
 {
-    public RenderFragment RenderGroup(DataFilterDescriptor<TItem> group, DataFilterDescriptor<TItem> parent, bool allowDeleteGroup) => __builder =>
+    public RenderFragment RenderAdd(DataFilterDescriptor<TItem> group) => __builder =>
     {
-        <FluentStack Orientation="Orientation.Vertical">
+        @if (AllowAddGroup || AllowAddCondition)
+        {
+            <FluentMenuButton ButtonAppearance="Appearance.Stealth"
+                              Text="Add"
+                              OnMenuChanged="@(async (e) => await AddAsync(group,e.Id!))">
+                @if (AllowAddCondition)
+                {
+                    <FluentMenuItem Id="Condition">Condition</FluentMenuItem>
+                }
+
+                @if (AllowAddGroup)
+                {
+                    <FluentMenuItem Id="Group">Group</FluentMenuItem>
+                }
+            </FluentMenuButton>
+        }
+    };
+
+    public RenderFragment RenderGroup(DataFilterDescriptor<TItem> group,
+                                      DataFilterDescriptor<TItem> parent,
+                                      bool allowDeleteGroup,
+                                      int groupIndex) => __builder =>
+    {
+        <FluentStack Orientation="Orientation.Vertical" Style="@($"{GetGroupStyle(groupIndex)}")">
             <FluentStack Orientation="Orientation.Horizontal">
                 @if (allowDeleteGroup)
                 {
@@ -35,45 +58,41 @@
                                   ImmediateDelay="@ImmediateDelay" />
                 }
 
-                @if (AllowAddGroup || AllowAddCondition)
+                @if (MenuAddPosition == DataFilterMenuAddPosition.Top)
                 {
-                    <FluentMenuButton ButtonAppearance="Appearance.Stealth"
-                                      Text="Add"
-                                      OnMenuChanged="@(async (e) => await AddAsync(group,e.Id!))">
-                        @if (AllowAddCondition)
-                        {
-                            <FluentMenuItem Id="Condition">Condition</FluentMenuItem>
-                        }
-
-                        @if (AllowAddGroup)
-                        {
-                            <FluentMenuItem Id="Group">Group</FluentMenuItem>
-                        }
-                    </FluentMenuButton>
+                    @RenderAdd(group)
                 }
             </FluentStack>
 
-            @foreach (var item in group.Filters)
+            @foreach (var condition in group.Conditions.Select((a, b) => new { Item = a, Index = b }))
             {
-                <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+                <FluentStack Orientation="Orientation.Horizontal"
+                             VerticalAlignment="VerticalAlignment.Center"
+                             Style="@($"{GetConditionStyle(groupIndex,condition.Index)}")">
+
                     <FluentButton Appearance="Appearance.Stealth"
-                                  OnClick="@(async () => await DeleteFilterAsync(group,item))"
+                                  OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
                                   IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
 
                     <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                                    Items="@GetAvailableProperties(item)"
+                                    Items="@GetAvailableProperties(condition.Item)"
                                     Height="200px"
                                     OptionText="@(a => a.Title)"
-                                    @bind-SelectedOption="@item.Property"
+                                    @bind-SelectedOption="@condition.Item.Filter"
                                     @bind-SelectedOption:after="@FilterChangedAsync"
                                     Immediate="@Immediate"
                                     ImmediateDelay="@ImmediateDelay" />
 
-                    @if (item.Property != null)
+                    @if (condition.Item.Filter != null)
                     {
-                        @item.Property.Render(item)
+                        @condition.Item.Render()
                     }
                 </FluentStack>
+            }
+
+            @if (MenuAddPosition == DataFilterMenuAddPosition.Bottom)
+            {
+                @RenderAdd(group)
             }
 
             @foreach (var item in group.Groups)
@@ -81,7 +100,7 @@
                 <FluentStack Orientation="Orientation.Horizontal">
                     <span style="min-width: 40px;"></span>
 
-                    @RenderGroup(item, group, true)
+                    @RenderGroup(item, group, true, groupIndex + 1)
                 </FluentStack>
             }
         </FluentStack>

@@ -12,17 +12,21 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+
+    /// <summary>
+    /// Gets or sets logical operator.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<DataFilterLogicalOperator> LogicalOperators { get; set; } = [DataFilterLogicalOperator.And,
+                                                                                    DataFilterLogicalOperator.NotAnd,
+                                                                                    DataFilterLogicalOperator.Or,
+                                                                                    DataFilterLogicalOperator.NotOr];
+
     /// <summary>
     /// Gets or sets allow use logical operator.
     /// </summary>
     [Parameter]
     public bool AllowLogicalOperator { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets allow use not logical operator.
-    /// </summary>
-    [Parameter]
-    public bool AllowNotLogicalOperator { get; set; } = true;
 
     /// <summary>
     /// Gets or sets allow add group.
@@ -49,13 +53,13 @@ public partial class FluentDataFilter<TItem>
     public EventCallback Changed { get; set; }
 
     /// <summary>
-    /// Comparison operator display text.
+    /// Gets or sets comparison operator display text.
     /// </summary>
     [Parameter]
     public Func<DataFilterComparisonOperator, string>? ComparisonOperatorDisplayText { get; set; }
 
     /// <summary>
-    /// Logical operator display text.
+    /// Gets or sets logical operator display text.
     /// </summary>
     [Parameter]
     public Func<DataFilterLogicalOperator, string>? LogicalOperatorDisplayText { get; set; }
@@ -72,16 +76,58 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;
 
-    internal List<PropertyFilterBase<TItem>> Properties { get; set; } = [];
+    /// <summary>
+    /// Gets or sets the position of menu add.
+    /// </summary>
+    [Parameter]
+    public DataFilterMenuAddPosition MenuAddPosition { get; set; } = DataFilterMenuAddPosition.Top;
 
-    private IEnumerable<PropertyFilterBase<TItem>> GetAvailableProperties(DataFilterDescriptorProperty<TItem> item)
-        => Properties;// .Where(a => a != item.Property || !a.Unique || (a.Unique && !Filter.Exists(a))).ToList();
+    /// <summary>
+    /// Gets or sets group style.
+    /// </summary>
+    [Parameter]
+    public Func<int, string>? GroupStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets group style.
+    /// </summary>
+    [Parameter]
+    public Func<int, int, string>? ConditionStyle { get; set; }
+
+    private string GetGroupStyle(int index) => GroupStyle?.Invoke(index) + "";
+
+    private string GetConditionStyle(int groupIndex, int conditionIndex) => ConditionStyle?.Invoke(groupIndex, conditionIndex) + "";
+
+    internal List<FilterBase<TItem>> Properties { get; set; } = [];
+
+    private IEnumerable<FilterBase<TItem>> GetAvailableProperties(DataFilterDescriptorCondition<TItem> item)
+        => Properties.Where(a => a == item.Filter || !a.Unique || (a.Unique && !Filter.Exists(a)));
+
+    //private JsonSerializerOptions CreateJsonOptions()
+    //{
+    //    var options = new JsonSerializerOptions
+    //    {
+    //        WriteIndented = true,
+    //    };
+
+    //    foreach (var item in Properties.Where(a => a.JsonConverter != null).Select(a => a.JsonConverter))
+    //    {
+    //        options.Converters.Add(item);
+    //    }
+    //    return options;
+    //}
+
+    ///// <summary>
+    ///// Populate filter from JSON.
+    ///// </summary>
+    ///// <param name="json"></param>
+    //public void FromJson(string json) => Filter = JsonSerializer.Deserialize<DataFilterDescriptor<TItem>>(json, CreateJsonOptions())!;
 
     private async Task AddAsync(DataFilterDescriptor<TItem> group, string id)
     {
         if (id == "Condition")
         {
-            group.Filters.Add(new());
+            group.Conditions.Add(new());
         }
         else if (id == "Group")
         {
@@ -91,9 +137,9 @@ public partial class FluentDataFilter<TItem>
         await FilterChangedAsync();
     }
 
-    private async Task DeleteFilterAsync(DataFilterDescriptor<TItem> group, DataFilterDescriptorProperty<TItem> item)
+    private async Task DeleteFilterAsync(DataFilterDescriptor<TItem> group, DataFilterDescriptorCondition<TItem> item)
     {
-        group.Filters.Remove(item);
+        group.Conditions.Remove(item);
         await FilterChangedAsync();
     }
 
@@ -102,11 +148,6 @@ public partial class FluentDataFilter<TItem>
         parent.Groups.Remove(group);
         await FilterChangedAsync();
     }
-
-    private IEnumerable<DataFilterLogicalOperator> LogicalOperators
-        => AllowNotLogicalOperator
-                ? [DataFilterLogicalOperator.And, DataFilterLogicalOperator.NotAnd, DataFilterLogicalOperator.Or, DataFilterLogicalOperator.NotOr]
-                : [DataFilterLogicalOperator.And, DataFilterLogicalOperator.Or];
 
     private string DisplayText(DataFilterLogicalOperator value)
         => LogicalOperatorDisplayText == null

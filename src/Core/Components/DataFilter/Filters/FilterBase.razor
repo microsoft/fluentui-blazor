@@ -1,0 +1,137 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+@inherits FluentComponentBase
+
+@typeparam TItem
+
+@code
+{
+    public virtual RenderFragment Render(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        @RenderOperator(condition)
+
+        @RenderTypes(condition)
+    };
+
+    public virtual RenderFragment RenderTypes(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        {
+            condition.Value = null!;
+        }
+        else if (IsEnum)
+        {
+            @RenderEnum(condition)
+        }
+        else if (IsNumber)
+        {
+            @RenderNumber(condition)
+        }
+        else if (IsDate)
+        {
+            @RenderDate(condition)
+        }
+        else if (IsBool)
+        {
+            @RenderBoolean(condition)
+        }
+        else if (IsString)
+        {
+            @RenderString(condition)
+        }
+    };
+
+    public virtual RenderFragment RenderOperator(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                        TOption="DataFilterComparisonOperator"
+                        Items="Operators"
+                        OptionText="@DisplayText"
+                        Height="200px"
+                        Width="auto"
+                        @bind-SelectedOption="@condition.Operator"
+                        @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
+                        Immediate="@DataFilter.Immediate"
+                        ImmediateDelay="@DataFilter.ImmediateDelay" />
+    };
+
+    public virtual RenderFragment RenderEnum(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        @if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        {
+            // var value = (List<Enum>)condition.Value!;
+
+            // <FluentAutocomplete Items="@(Enum.GetValues(Type).Cast<Enum>())"
+            //                     AutoComplete="off"
+            //                     Multiple="true"
+            //                     OnOptionsSearch="@((e) => OnSearchMany(e,value))"
+            //                     OptionText="ValueDisplayTextInt"
+            //                     SelectedOptions="value"
+            //                     Virtualize="true"
+            //                     SelectedOptionsChanged="@((e) => SelectedOptionsChangedMany(e,value))" />
+        }
+        else
+        {
+            <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                            Items="@(Enum.GetValues(Type).Cast<Enum>())"
+                            OptionText="ValueDisplayTextInt"
+                            @bind-SelectedOption="condition.Value"
+                            @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
+                            Immediate="@DataFilter.Immediate"
+                            ImmediateDelay="@DataFilter.ImmediateDelay" />
+        }
+    };
+
+    public virtual RenderFragment RenderNumber(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        <DynamicComponent Type="@typeof(FluentNumberField<>).MakeGenericType(Type)"
+                          Parameters="@CreateNumericFieldEditorParameter(condition)" />
+
+    };
+
+    public virtual RenderFragment RenderDate(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        @if (Type == typeof(DateTime))
+        {
+            <FluentDatePicker Value="Convert.ToDateTime(condition.Value)"
+                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
+                              Immediate="@DataFilter.Immediate"
+                              ImmediateDelay="@DataFilter.ImmediateDelay" />
+
+            <FluentTimePicker Value="Convert.ToDateTime(condition.Value)"
+                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
+                              Immediate="@DataFilter.Immediate"
+                              ImmediateDelay="@DataFilter.ImmediateDelay" />
+        }
+        else if (Type == typeof(DateOnly))
+        {
+            <FluentDatePicker Value="@(ConvertTo<DateOnly>(condition.Value).ToDateTime())"
+                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateOnly()))"
+                              Immediate="@DataFilter.Immediate"
+                              ImmediateDelay="@DataFilter.ImmediateDelay" />
+        }
+        else if (Type == typeof(TimeOnly))
+        {
+            <FluentTimePicker Value="@(ConvertTo<TimeOnly>(condition.Value).ToDateTime())"
+                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToTimeOnly()))"
+                              Immediate="@DataFilter.Immediate"
+                              ImmediateDelay="@DataFilter.ImmediateDelay" />
+        }    };
+
+    public virtual RenderFragment RenderBoolean(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        <FluentCheckbox ThreeState="IsNullable"
+                        Value="Convert.ToBoolean(condition.Value)"
+                        ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
+                        Immediate="@DataFilter.Immediate"
+                        ImmediateDelay="@DataFilter.ImmediateDelay" />
+    };
+
+    public virtual RenderFragment RenderString(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    {
+        <FluentTextField Value="@Convert.ToString(condition.Value)"
+                         ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
+                         Immediate="@DataFilter.Immediate"
+                         ImmediateDelay="@DataFilter.ImmediateDelay" />
+    };
+}

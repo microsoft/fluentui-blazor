@@ -9,19 +9,14 @@ public partial class CustomFilter<TItem, TProp>
     /// Get or set Template filter custom.
     /// </summary>
     [Parameter, EditorRequired]
-    public RenderFragment<DataFilterDescriptorProperty<TItem>> TemplateFilter { get; set; } = default!;
+    //public RenderFragment<DataFilterDescriptorCondition<TItem>> TemplateFilter { get; set; } = default!;
+    public RenderFragment<DataFilterDescriptorCondition<TItem>> TemplateFilter { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the function used for custom filter expression.
     /// </summary>
     [Parameter, EditorRequired]
     public Func<object?, DataFilterCaseSensitivity, Expression<Func<TItem, bool>>> ExpressionFilter { get; set; } = default!;
-
-    /// <summary>
-    /// Get or set serialize value function.
-    /// </summary>
-    [Parameter]
-    public Func<object?, string>? CustomSerializeValue { get; set; } 
 
     /// <summary>
     /// Generate expression
@@ -36,16 +31,6 @@ public partial class CustomFilter<TItem, TProp>
         => ExpressionFilter(value, caseSensitivity);
 
     public override IEnumerable<DataFilterComparisonOperator> Operators { get; } = [DataFilterComparisonOperator.Custom];
-
-    /// <summary>
-    /// Serialize value.
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public override string SerializeValue(object? value)
-        => CustomSerializeValue == null
-                ? base.SerializeValue(value)
-                : CustomSerializeValue(value);
 
     protected override void OnParametersSet()
     {

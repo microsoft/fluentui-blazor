@@ -2,22 +2,34 @@
 @inject DataSource Data
 
 <FluentStack Orientation="Orientation.Vertical">
-    <FluentSelect TOption="DataFilterCaseSensitivity"
-                  Label="String Case Sensitivity"
-                  Items="@(Enum.GetValues<DataFilterCaseSensitivity>())"
-                  OptionText="@(a => a.ToAttributeValue())"
-                  @bind-SelectedOption="_caseSensitivity" />
+    <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Center">
+        <FluentSelect TOption="DataFilterCaseSensitivity"
+                      Label="String Case Sensitivity"
+                      Items="@(Enum.GetValues<DataFilterCaseSensitivity>())"
+                      OptionText="@(a => a.GetDisplayName())"
+                      @bind-SelectedOption="_caseSensitivity" />
 
-    <p>Data Filter</p>
+        <FluentSelect TOption="DataFilterMenuAddPosition"
+                      Label="Add Menu Position"
+                      Items="@(Enum.GetValues<DataFilterMenuAddPosition>())"
+                      OptionText="@(a => a.GetDisplayName())"
+                      @bind-SelectedOption="_addMenuPosition" />
+    </FluentStack>
 
-    <FluentDataFilter Filter="_filter" Changed="FilterChanged">
+    <srong>Data Filter</srong>
+
+    <FluentDataFilter @ref="@_ref"
+                      Filter="_filter"
+                      Changed="FilterChanged"
+                      MenuAddPosition="@_addMenuPosition"
+                      GroupStyle="GroupStyle">
         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" TooltipText="@(() => "Tiny Integer tooltip")" />
         <PropertyFilter Property="@(a=> a.SmallInteger)" />
         <PropertyFilter Property="@(a=> a.Integer)" />
         <PropertyFilter Property="@(a=> a.LongInteger)" />
         <PropertyFilter Property="@(a=> a.SinglePrecision)" />
         <PropertyFilter Property="@(a=> a.DoublePrecision)" />
-        <PropertyFilter Property="@(a=> a.Decimal)" Unique="true" Title="Decimal (Unique)"/>
+        <PropertyFilter Property="@(a=> a.Decimal)" Unique="true" Title="Decimal (Unique)" />
         <PropertyFilter Property="@(a=> a.Boolean)" />
         <PropertyFilter Property="@(a=> a.String)" />
         <PropertyFilter Property="@(a=> a.DateTime)" />
@@ -51,7 +63,10 @@
             </TemplateFilter>
         </PropertyFilter>
 
-        <CustomFilter Id="CF-DataTypeDemo" TItem="DataTypeDemo" TProp="List<DataTypeDemoEnum>" Title="Custom Enum Many (CustomFilter)"
+        <CustomFilter Id="CF-DataTypeDemo"
+                      TItem="DataTypeDemo"
+                      TProp="List<DataTypeDemoEnum>"
+                      Title="Custom Enum Many (CustomFilter)"
                       ExpressionFilter="@GetExpressionEnumMany">
             <TemplateFilter>
                 @{
@@ -61,7 +76,7 @@
                 <FluentAutocomplete TOption="DataTypeDemoEnum"
                                     AutoComplete="off"
                                     Multiple="true"
-                                    OnOptionsSearch="@((e) => OnSearchEnumMany(e,value))"
+                                    OnOptionsSearch="@OnSearchEnumMany"
                                     OptionText="@(a => a.GetDisplayName())"
                                     SelectedOptions="value"
                                     SelectedOptionsChanged="@((e) => SelectedOptionsChangedEnumMany(e,value))" />
@@ -81,7 +96,7 @@
 
     <FluentStack Orientation="Orientation.Horizontal">
         <FluentTextArea Value="@_filter.GetFilter(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
-        <FluentTextArea Value="@DataFilterHelper.Serialize(_filter)" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+        <FluentTextArea Value="@_filter.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
     </FluentStack>
 
     <FluentCard>
@@ -110,7 +125,9 @@
 {
     IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(_filter.GetFilter(_caseSensitivity));
     DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.Ignore;
+    DataFilterMenuAddPosition _addMenuPosition = DataFilterMenuAddPosition.Top;
     DataFilterDescriptor<DataTypeDemo> _filter = new();
+    FluentDataFilter<DataTypeDemo> _ref;
 
     IEnumerable<DataTypeDemoEnum> aa = [];
 
@@ -124,13 +141,14 @@
         selected.AddRange(items);
     }
 
-    private void OnSearchEnumMany(OptionsSearchEventArgs<DataTypeDemoEnum> e, IEnumerable<DataTypeDemoEnum> selected)
-        => e.Items = Enum.GetValues<DataTypeDemoEnum>().Where(a => !selected.Contains(a));
-
+    private void OnSearchEnumMany(OptionsSearchEventArgs<DataTypeDemoEnum> e)
+        => e.Items = Enum.GetValues<DataTypeDemoEnum>().Where(a => a.GetDisplayName().Contains(e.Text, StringComparison.OrdinalIgnoreCase));
 
     private Expression<Func<DataTypeDemo, bool>> GetExpressionEnumMany(object? value, DataFilterCaseSensitivity caseSensitivity)
     {
         var selected = (List<DataTypeDemoEnum>)value!;
         return x => selected.Contains(x.Enum);
     }
+
+    private string GroupStyle(int idnex) => $"background: var(--neutral-layer-{idnex % 4}); padding: 10px;";
 }

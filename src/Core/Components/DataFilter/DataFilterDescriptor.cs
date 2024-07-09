@@ -1,7 +1,13 @@
 using System.Linq.Expressions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Descriptor filter.
+/// </summary>
+/// <typeparam name="TItem"></typeparam>
 public class DataFilterDescriptor<TItem>
 {
     /// <summary>
@@ -12,32 +18,20 @@ public class DataFilterDescriptor<TItem>
     /// <summary>
     /// Filters
     /// </summary>
-    public ICollection<DataFilterDescriptorProperty<TItem>> Filters { get; set; } = [];
+    [JsonIgnore]
+    public IList<DataFilterDescriptorCondition<TItem>> Conditions { get; set; } = [];
+
+    [JsonInclude]
+    [JsonPropertyName("Conditions")]
+    internal IEnumerable<DataFilterDescriptorCondition<TItem>> ConditionsForJson => Conditions.Where(a => a.Field != null);
 
     /// <summary>
     /// Groups
     /// </summary>
-    public ICollection<DataFilterDescriptor<TItem>> Groups { get; set; } = [];
+    public IList<DataFilterDescriptor<TItem>> Groups { get; set; } = [];
 
-    /// <summary>
-    /// Exists
-    /// </summary>
-    /// <param name="property"></param>
-    /// <returns></returns>
-    public bool Exists(PropertyFilterBase<TItem> property)
-    {
-        if (Filters.Any(a => a.Property == property))
-        {
-            return true;
-        }
-
-        if (Groups.Any(a => a.Exists(property)))
-        {
-            return true;
-        }
-
-        return false;
-    }
+    internal bool Exists(FilterBase<TItem> filter)
+        => Conditions.Any(a => a.Filter == filter) || Groups.Any(a => a.Exists(filter));
 
     /// <summary>
     /// Get expression for filter data.
@@ -47,9 +41,8 @@ public class DataFilterDescriptor<TItem>
     public Expression<Func<TItem, bool>> GetFilter(DataFilterCaseSensitivity caseSensitivity)
     {
         var ret = PredicateBuilder.True<TItem>();
-        var found = false;
 
-        foreach (var item in Filters.Select(a => a.GetFilter(caseSensitivity)))
+        foreach (var item in Conditions.Select(a => a.GetFilter(caseSensitivity)))
         {
             ret = Operator switch
             {
@@ -57,7 +50,6 @@ public class DataFilterDescriptor<TItem>
                 DataFilterLogicalOperator.Or or DataFilterLogicalOperator.NotOr => PredicateBuilder.Or(ret, item),
                 _ => ret,
             };
-            found = true;
         }
 
         foreach (var item in Groups.Select(a => a.GetFilter(caseSensitivity)))
@@ -68,13 +60,43 @@ public class DataFilterDescriptor<TItem>
                 DataFilterLogicalOperator.Or or DataFilterLogicalOperator.NotOr => PredicateBuilder.Or(ret, item),
                 _ => ret,
             };
-            found = true;
         }
 
-        if (found && (Operator == DataFilterLogicalOperator.NotAnd || Operator == DataFilterLogicalOperator.NotOr))
+        if (Operator == DataFilterLogicalOperator.NotAnd || Operator == DataFilterLogicalOperator.NotOr)
         {
             ret = PredicateBuilder.Not(ret);
         }
         return ret;
+    }
+
+    /// <summary>
+    /// Generate JSON.
+    /// </summary>
+    /// <returns></returns>
+    public string ToJson() => JsonSerializer.Serialize(this, CreateJsonOptions());
+
+    private IEnumerable<JsonConverter<object>> GetConverters()
+    {
+        var filters = Conditions.Where(a => a.Filter?.JsonConverter != null)
+                                .Select(a => a.Filter.JsonConverter!)
+                                .ToList();
+        filters.AddRange(Groups.Select(a => GetConverters()).SelectMany(a => a));
+        return filters.Distinct();
+    }
+    
+    private JsonSerializerOptions CreateJsonOptions()
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        };
+
+        options.Converters.Add(new JsonStringEnumConverter());
+        foreach (var item in GetConverters())
+        {
+            options.Converters.Add(item);
+        }
+
+        return options;
     }
 }

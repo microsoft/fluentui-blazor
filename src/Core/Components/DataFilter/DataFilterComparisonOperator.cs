@@ -62,10 +62,22 @@ public enum DataFilterComparisonOperator
     StartsWith,
 
     /// <summary>
+    /// Which not starts with the filter value.
+    /// </summary>
+    [Display(Name = "Not Starts With")]
+    NotStartsWith,
+
+    /// <summary>
     /// Which ends with the filter value.
     /// </summary>
     [Display(Name = "Ends With")]
     EndsWith,
+
+    /// <summary>
+    /// Which not ends with the filter value.
+    /// </summary>
+    [Display(Name = "Not Ends With")]
+    NotEndsWith,
 
     /// <summary>
     /// Find null values.
@@ -78,6 +90,18 @@ public enum DataFilterComparisonOperator
     /// </summary>
     [Display(Name = "Not Empty")]
     NotEmpty,
+
+    /// <summary>
+    /// Find values which are in range.
+    /// </summary>
+    [Display(Name = "In")]
+    In,
+
+    /// <summary>
+    /// Find values which are not in range.
+    /// </summary>
+    [Display(Name = "Not In")]
+    NotIn,
 
     /// <summary>
     /// Custom filter

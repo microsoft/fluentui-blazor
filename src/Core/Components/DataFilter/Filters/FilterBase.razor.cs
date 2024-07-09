@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using System.Collections;
 using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection;
@@ -7,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public abstract partial class PropertyFilterBase<TItem>
+public abstract partial class FilterBase<TItem>
 {
     [CascadingParameter]
     internal FluentDataFilter<TItem> DataFilter { get; set; } = default!;
@@ -30,6 +31,12 @@ public abstract partial class PropertyFilterBase<TItem>
     /// </summary>
     [Parameter]
     public Func<object?, string>? ValueDisplayText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the JSON Converter.
+    /// </summary>
+    [Parameter]
+    public JsonConverter<object>? JsonConverter { get; set; }
 
     /// <summary>
     /// Property info definition.
@@ -101,6 +108,17 @@ public abstract partial class PropertyFilterBase<TItem>
     /// </summary>
     public string Name => GetType().Name[..GetType().Name.IndexOf('`')];
 
+    private static void SelectedOptionsChangedMany<T>(IEnumerable<T> items, List<T> selected)
+    {
+        selected.Clear();
+        selected.AddRange(items);
+    }
+
+    private static void OnSearchMany<T>(OptionsSearchEventArgs<T> e)
+    {
+        //e.Items = Enum.GetValues<DataTypeDemoEnum>().Where(a => a.GetDisplayName().Contains(e.Text, StringComparison.OrdinalIgnoreCase));
+    }
+
     protected override void OnParametersSet()
     {
         if (!DataFilter.Properties.Contains(this))
@@ -119,24 +137,30 @@ public abstract partial class PropertyFilterBase<TItem>
         }
     }
 
-    internal void SetDefaultValue(DataFilterDescriptorProperty<TItem> item)
+    internal object GetDefaultValue(bool isMultiValues)
     {
+        object value = null!;
         if (IsEnum)
         {
-            item.Value = Enum.GetValues(Type).GetValue(0);
-        }
-        else if (Type.IsValueType)
-        {
-            item.Value = Activator.CreateInstance(Type);
+            value = Enum.GetValues(Type).GetValue(0)!;
         }
         else if (IsString)
         {
-            item.Value = string.Empty;
+            value = string.Empty;
         }
         else
         {
-            item.Value = Activator.CreateInstance(Type);
+            value = Activator.CreateInstance(Type)!;
         }
+
+        if (isMultiValues)
+        {
+            var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(Type))!;
+            list.Add(value);
+            value = list;
+        }
+
+        return value;
     }
 
     protected static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;
@@ -153,17 +177,6 @@ public abstract partial class PropertyFilterBase<TItem>
                                                             DataFilterCaseSensitivity caseSensitivity);
 
     /// <summary>
-    /// Serialize value.
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public virtual string SerializeValue(object? value) => value?.ToString()!;
-
-    public partial class MyContext : JsonStringEnumConverter
-    {
-    }
-
-    /// <summary>
     /// Get operators
     /// </summary>
     /// <returns></returns>
@@ -176,6 +189,8 @@ public abstract partial class PropertyFilterBase<TItem>
             {
                 operators.Add(DataFilterComparisonOperator.Equal);
                 operators.Add(DataFilterComparisonOperator.NotEqual);
+                //operators.Add(DataFilterComparisonOperator.In);
+                //operators.Add(DataFilterComparisonOperator.NotIn);
             }
             else if (IsBool)
             {
@@ -190,6 +205,8 @@ public abstract partial class PropertyFilterBase<TItem>
                     DataFilterComparisonOperator.LessThanOrEqual,
                     DataFilterComparisonOperator.GreaterThan,
                     DataFilterComparisonOperator.GreaterThanOrEqual,
+                    //DataFilterComparisonOperator.In,
+                    //DataFilterComparisonOperator.NotIn,
                 ]);
             }
             else if (IsString)
@@ -200,9 +217,13 @@ public abstract partial class PropertyFilterBase<TItem>
                     DataFilterComparisonOperator.Contains,
                     DataFilterComparisonOperator.NotContains,
                     DataFilterComparisonOperator.StartsWith,
+                    DataFilterComparisonOperator.NotStartsWith,
                     DataFilterComparisonOperator.EndsWith,
+                    DataFilterComparisonOperator.NotEndsWith,
                     DataFilterComparisonOperator.Empty,
                     DataFilterComparisonOperator.NotEmpty,
+                    //DataFilterComparisonOperator.In,
+                    //DataFilterComparisonOperator.NotIn,
                 ]);
             }
 
@@ -219,13 +240,16 @@ public abstract partial class PropertyFilterBase<TItem>
                 }
             }
 
+            //operators.Add(DataFilterComparisonOperator.In);
+            //operators.Add(DataFilterComparisonOperator.NotIn);
+
             return operators.Distinct();
         }
     }
 
-    protected async Task SetValueAsync(DataFilterDescriptorProperty<TItem> item, object value)
+    protected async Task SetValueAsync(DataFilterDescriptorCondition<TItem> condition, object value)
     {
-        item.Value = value;
+        condition.Value = value;
         await DataFilter.FilterChangedAsync();
     }
 
@@ -291,12 +315,12 @@ public abstract partial class PropertyFilterBase<TItem>
         return prop;
     }
 
-    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterDescriptorProperty<TItem> item)
+    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterDescriptorCondition<TItem> condition)
     {
         var inputHelper = typeof(InputHelpers<>).MakeGenericType(Type);
         return new Dictionary<string, object>()
         {
-            [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(item.Value, Type)!,
+            [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(condition.Value, Type)!,
 
             [nameof(FluentNumberField<int>.Immediate)] = DataFilter.Immediate,
             [nameof(FluentNumberField<int>.ImmediateDelay)] = DataFilter.ImmediateDelay,
@@ -309,7 +333,7 @@ public abstract partial class PropertyFilterBase<TItem>
 
             [nameof(FluentNumberField<int>.ValueChanged)] = EventCallbackHelper.Make(Type,
                                                                                      this,
-                                                                                     async (e) => await SetValueAsync(item, e))!
+                                                                                     async (e) => await SetValueAsync(condition, e))!
         };
     }
 }

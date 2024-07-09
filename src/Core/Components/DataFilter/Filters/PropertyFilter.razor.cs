@@ -15,7 +15,7 @@ public partial class PropertyFilter<TItem, TProp>
     /// Get or set Template filter custom.
     /// </summary>
     [Parameter]
-    public RenderFragment<DataFilterDescriptorProperty<TItem>>? TemplateFilter { get; set; }
+    public RenderFragment<DataFilterDescriptorCondition<TItem>>? TemplateFilter { get; set; }
 
     /// <summary>
     /// Generate expression

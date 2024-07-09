@@ -1,14 +1,14 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 
-@inherits PropertyFilterBase<TItem>
+@inherits FilterBase<TItem>
 
 @typeparam TItem
 @typeparam TProp
 
 @code
 {
-    public override RenderFragment Render(DataFilterDescriptorProperty<TItem> item) => __builder =>
+    public override RenderFragment Render(DataFilterDescriptorCondition<TItem> condition) => __builder =>
     {
-        @TemplateFilter(item)
+        @TemplateFilter(condition)
     };
 }

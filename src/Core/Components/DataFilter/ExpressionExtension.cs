@@ -46,6 +46,26 @@ internal static class ExpressionExtension
         return Expression.Lambda<Func<T, bool>>(binaryExpression, parameter);
     }
 
+    public static Expression<Func<T, bool>> MakeContains<T>(this Expression expression,
+                                                            bool not,
+                                                            IEnumerable<object> values)
+    {
+        var parameterIdentifier = new ExpressionParameterIdentifier();
+        var parameter = (ParameterExpression)parameterIdentifier.Identify(expression);
+
+        var methodInfo = values.GetType().GetMethod(nameof(IList<object>.Contains), [values.GetType()])!;
+        Expression call = Expression.Call(Expression.Constant(values), methodInfo, expression);
+
+        if (not)
+        {
+            var bodyIdentifier = new ExpressionBodyIdentifier();
+            var body = bodyIdentifier.Identify(expression);
+            call = Expression.MakeBinary(ExpressionType.Not, body, call);
+        }
+
+        return Expression.Lambda<Func<T, bool>>(call, parameter);
+    }
+
     public class ExpressionReplacer(Expression from, Expression to) : ExpressionVisitor
     {
         private readonly Expression _from = from;
