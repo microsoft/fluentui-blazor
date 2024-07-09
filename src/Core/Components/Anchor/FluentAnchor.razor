@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-anchor @ref=Element
                id=@Id
@@ -12,7 +12,7 @@
 			   rel=@Rel
 			   target=@Target
 			   type=@Type
-			   appearance=@Appearance.ToAttributeValue()
+               appearance=@Appearance.GetDisplayName()
 			   @onclick=OnClickAsync 
 			   @onclick:preventDefault=@_preventDefault
 			   @attributes=@AdditionalAttributes>

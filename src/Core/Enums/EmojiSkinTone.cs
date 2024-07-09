@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,36 +10,36 @@ public enum EmojiSkintone
     /// <summary>
     /// Default
     /// </summary>
-    [Description("Default")]
+    [Display(Name = "Default")]
     Default,
 
     /// <summary>
     /// Light
     /// </summary>  
-    [Description("Light")]
+    [Display(Name = "Light")]
     Light,
 
     /// <summary>
     /// Medium Light
     /// </summary>
-    [Description("Medium-Light")]
+    [Display(Name = "Medium-Light")]
     MediumLight,
 
     /// <summary>
     /// Medium
     /// </summary>  
-    [Description("Medium")]
+    [Display(Name = "Medium")]
     Medium,
 
     /// <summary>
     /// Medium Dark
     /// </summary>  
-    [Description("Medium-Dark")]
+    [Display(Name = "Medium-Dark")]
     MediumDark,
 
     /// <summary>
     /// Dark
     /// </summary>  
-    [Description("Dark")]
+    [Display(Name = "Dark")]
     Dark
 }

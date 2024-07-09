@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<li id="@Id" status="@Status.ToAttributeValue()"
+<li id="@Id" status="@Status.GetDisplayName()"
     @onclick="@OnClickHandlerAsync"
     disabled="@Disabled"
     class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
@@ -13,7 +13,7 @@
 
             @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))
             {
-                <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.ToAttributeValue()">
+                <div class="fluent-wizard-icon-number" disabled="@Disabled" status="@Status.GetDisplayName()">
                     @(Index + 1)
                 </div>
             }

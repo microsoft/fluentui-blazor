@@ -64,7 +64,7 @@ public class Icon : IconInfo
     /// <returns></returns>
     public virtual Icon WithColor(Color color)
     {
-        Color = color.ToAttributeValue();
+        Color = color.GetDisplayName();
         return this;
     }
 
@@ -78,7 +78,7 @@ public class Icon : IconInfo
     {
         if (accentContainer && Color == null)
         {
-            Color = AspNetCore.Components.Color.Lightweight.ToAttributeValue();
+            Color = AspNetCore.Components.Color.Lightweight.GetDisplayName();
         }
 
         return this;

@@ -6,13 +6,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 public static class EnumExtensions
 {
-
+    [Obsolete("This method will be removed in a future version. Use GetDisplayName instead.")]
     public static string? ToAttributeValue<TEnum>(this TEnum? value, bool lowercase = true) where TEnum : struct, Enum
         => value == null ? null : ToAttributeValue(value.Value, lowercase);
 
+    [Obsolete("This method will be removed in a future version. Use GetDisplayName instead.")]
     public static string? ToAttributeValue<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, Enum
         => GetDescription(value, lowercase);
 
+    [Obsolete("This method will be removed in a future version. Use GetDisplayName instead.")]
     public static string? GetDescription<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, IConvertible
     {
         if (!typeof(TEnum).IsEnum)
@@ -40,10 +42,23 @@ public static class EnumExtensions
         return description;
     }
 
-    public static string GetDisplayName(this Enum enumValue)
+    public static string? GetDisplayName<TEnum>(this TEnum? value, bool lowercase = true) where TEnum : struct, Enum
+        => value?.GetDisplayName(lowercase);
+
+    public static string? GetDisplayName<TEnum>(this TEnum value, bool lowercase = true) where TEnum : struct, Enum
     {
-        var memberInfo = enumValue.GetType().GetMember(enumValue.ToString());
+        var description = value.GetDisplayNameInt();
+        return lowercase
+                ? description?.ToLowerInvariant()
+                : description;
+    }
+
+    public static string GetDisplayName(this Enum value) => GetDisplayNameInt(value);
+
+    private static string GetDisplayNameInt(this Enum value)
+    {
+        var memberInfo = value.GetType().GetMember(value.ToString());
         var displayAttribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
-        return displayAttribute?.Name ?? enumValue.ToString();
+        return displayAttribute?.Name ?? value.ToString();
     }
 }

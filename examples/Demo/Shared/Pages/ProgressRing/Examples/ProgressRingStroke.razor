@@ -11,17 +11,17 @@
     <FluentProgressRing Value="@(Indeterminate ? null : Percentage)"
                         Width="32px"
                         Stroke="@Stroke"
-                        Color="@(Color.ToAttributeValue())" />
+                        Color="@(Color.GetDisplayName())" />
 
     <FluentProgressRing Value="@(Indeterminate ? null : Percentage)"
                         Width="64px"
                         Stroke="@Stroke"
-                        Color="@(Color.ToAttributeValue())" />
+                        Color="@(Color.GetDisplayName())" />
 
     <FluentProgressRing Value="@(Indeterminate ? null : Percentage)"
                         Width="128px"
                         Stroke="@Stroke"
-                        Color="@(Color.ToAttributeValue())" />
+                        Color="@(Color.GetDisplayName())" />
 </FluentStack>
 
 @code

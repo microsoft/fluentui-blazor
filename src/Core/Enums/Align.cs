@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,31 +10,31 @@ public enum Align
     /// <summary>
     /// Aligns the content against at the start of the container.
     /// </summary>
-    [Description("flex-start")]
+    [Display(Name = "flex-start")]
     Start,
 
     /// <summary>
     /// Aligns the content at the center of the container.
     /// </summary>
-    [Description("center")]
+    [Display(Name = "center")]
     Center,
 
     /// <summary>
     /// Aligns the content at the end of the container.
     /// </summary>
-    [Description("flex-end")]
+    [Display(Name = "flex-end")]
     End,
 
     /// <summary>
     /// Aligns content to strech to the container.
     /// </summary>
-    [Description("stretch")]
+    [Display(Name = "stretch")]
     Stretch,
 
     /// <summary>
     /// Aligns content at the baseline of the container.
     /// </summary>
-    [Description("baseline")]
+    [Display(Name = "baseline")]
     Baseline
 
     ///// <summary>

@@ -15,7 +15,7 @@ public partial class FluentLabel : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("color", Color.ToAttributeValue(), () => Color != null)
+        .AddStyle("color", Color.GetDisplayName(), () => Color != null)
         .AddStyle("margin-block", MarginBlock, () => !string.IsNullOrEmpty(MarginBlock) && !DefaultMarginBlock)
         .Build();
 

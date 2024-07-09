@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -11,14 +11,14 @@ public enum Color
     /// Use the '--neutral-foreground-rest' CSS variable color to draw the icon. 
     /// Icon is drawn in the same color as the standard text. 
     /// </summary>
-    [Description("var(--neutral-foreground-rest)")]
+    [Display(Name = "var(--neutral-foreground-rest)")]
     Neutral,
 
     /// <summary>
     /// Use the '--accent-fill-rest' CSS variable color.
     /// This is the default value.
     /// </summary>
-    [Description("var(--accent-fill-rest)")]
+    [Display(Name = "var(--accent-fill-rest)")]
     Accent,
 
     /// <summary>
@@ -26,7 +26,7 @@ public enum Color
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--warning)")]
+    [Display(Name = "var(--warning)")]
     Warning,
 
     /// <summary>
@@ -34,7 +34,7 @@ public enum Color
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--info)")]
+    [Display(Name = "var(--info)")]
     Info,
 
     /// <summary>
@@ -42,7 +42,7 @@ public enum Color
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--error)")]
+    [Display(Name = "var(--error)")]
     Error,
 
     /// <summary>
@@ -50,36 +50,36 @@ public enum Color
     /// Note: This color is defined in the variables.css file. If this file is not being used, 
     /// a CSS variable with this name and appropriate value needs to be created.
     /// </summary>
-    [Description("var(--success)")]
+    [Display(Name = "var(--success)")]
     Success,
 
     /// <summary>
     /// Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-fill-rest)")]
+    [Display(Name = "var(--neutral-fill-rest)")]
     Fill,
 
     /// <summary>
     /// Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-fill-inverse-rest)")]
+    [Display(Name = "var(--neutral-fill-inverse-rest)")]
     FillInverse,
 
     /// <summary>
     /// Use the '--neutral-layer-1' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-layer-1)")]
+    [Display(Name = "var(--neutral-layer-1)")]
     Lightweight,
 
     /// <summary>
     ///  Use the --neutral-stroke-rest CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-stroke-rest)")]
+    [Display(Name = "var(--neutral-stroke-rest)")]
     Disabled,
 
     /// <summary>
     /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
     /// </summary>
-    [Description("var(--neutral-foreground-rest)")]
+    [Display(Name = "var(--neutral-foreground-rest)")]
     Custom,
 }

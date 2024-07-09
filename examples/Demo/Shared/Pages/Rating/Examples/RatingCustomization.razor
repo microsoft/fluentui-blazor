@@ -44,7 +44,7 @@
                       @bind-SelectedOption="@_iconColor"
                       Style="@FixedWidth"
                       Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
-                      OptionValue="@(i => i.ToAttributeValue())" />
+                      OptionValue="@(i => i.GetDisplayName())" />
 
         <FluentSelect Label="Icons"
                       TOption="string"

@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 @if (DrawTooltip)
@@ -9,7 +9,7 @@
                     visible="@Visible"
                     anchor="@Anchor"
                     delay="@Delay"
-                    position="@Position.ToAttributeValue()"
+                    position="@Position.GetDisplayName()"
                     auto-update-mode="@AutoUpdateMode"
                     horizontal-viewport-lock="@HorizontalViewportLock"
                     vertical-viewport-lock="@VerticalViewportLock"

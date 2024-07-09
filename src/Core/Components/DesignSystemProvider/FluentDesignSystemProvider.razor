@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-design-system-provider 
             @ref=Element
@@ -8,7 +8,7 @@
             neutral-base-color=@NeutralBaseColor
             density="@Density"
             design-unit="@DesignUnit"
-            direction="@Direction.ToAttributeValue()"
+                               direction="@Direction.GetDisplayName()"
             base-height-multiplier="@BaseHeightMultiplier"
             base-horizontal-spacing-multiplier="@BaseHorizontalSpacingMultiplier"
             control-corner-radius="@ControlCornerRadius"

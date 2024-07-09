@@ -105,7 +105,7 @@ public partial class FluentTextField : FluentInputBase<string?>
             if (InputMode != null && !string.IsNullOrEmpty(Id))
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.ToAttributeValue());
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.GetDisplayName());
             }
         }
 

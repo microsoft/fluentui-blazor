@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,18 +15,18 @@ public enum ScrollEasing
     /// <summary>
     /// Ease in.
     /// </summary>
-    [Description("ease-in")]
+    [Display(Name = "ease-in")]
     EaseIn,
 
     /// <summary>
     /// Ease out.
     /// </summary>
-    [Description("ease-out")]
+    [Display(Name = "ease-out")]
     EaseOut,
 
     /// <summary>
     /// Ease in then out.
     /// </summary>
-    [Description("ease-in-out")]
+    [Display(Name = "ease-in-out")]
     EaseInOut
 }

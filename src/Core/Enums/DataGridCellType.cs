@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,12 +15,12 @@ public enum DataGridCellType
     /// <summary>
     /// A header cell.
     /// </summary>
-    [Description("columnheader")]
+    [Display(Name = "columnheader")]
     ColumnHeader,
 
     /// <summary>
     /// Cell is a row header.
     /// </summary>
-    [Description("rowheader")]
+    [Display(Name = "rowheader")]
     RowHeader
 }

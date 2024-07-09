@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,36 +10,36 @@ public enum JustifyContent
     /// <summary>
     /// Justify content flex-start.
     /// </summary>
-    [Description("flex-start")]
+    [Display(Name = "flex-start")]
     FlexStart,
 
     /// <summary>
     /// Justify content center.
     /// </summary>
-    [Description("center")]
+    [Display(Name = "center")]
     Center,
 
     /// <summary>
     /// Justify content flex-end.
     /// </summary>
-    [Description("flex-end")]
+    [Display(Name = "flex-end")]
     FlexEnd,
 
     /// <summary>
     /// Justify content space-between.
     /// </summary>
-    [Description("space-between")]
+    [Display(Name = "space-between")]
     SpaceBetween,
 
     /// <summary>
     /// Justify content space-around.
     /// </summary>
-    [Description("space-around")]
+    [Display(Name = "space-around")]
     SpaceAround,
 
     /// <summary>
     /// Justify content space-evenly.
     /// </summary>
-    [Description("space-evenly")]
+    [Display(Name = "space-evenly")]
     SpaceEvenly
 }

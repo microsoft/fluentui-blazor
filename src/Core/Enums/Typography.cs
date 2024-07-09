@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -7,42 +7,42 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public enum Typography
 {
-    [Description("body")]
+    [Display(Name = "body")]
     Body,
 
-    [Description("subject")]
+    [Display(Name = "subject")]
     Subject,
 
-    [Description("header")]
+    [Display(Name = "header")]
     Header,
 
-    [Description("pane-header")]
+    [Display(Name = "pane-header")]
     PaneHeader,
 
-    [Description("email-header")]
+    [Display(Name = "email-header")]
     EmailHeader,
 
-    [Description("page-title")]
+    [Display(Name = "page-title")]
     PageTitle,
 
-    [Description("hero-title")]
+    [Display(Name = "hero-title")]
     HeroTitle,
 
-    [Description("h1")]
+    [Display(Name = "h1")]
     H1,
 
-    [Description("h2")]
+    [Display(Name = "h2")]
     H2,
 
-    [Description("h3")]
+    [Display(Name = "h3")]
     H3,
 
-    [Description("h4")]
+    [Display(Name = "h4")]
     H4,
 
-    [Description("h5")]
+    [Display(Name = "h5")]
     H5,
 
-    [Description("h6")]
+    [Display(Name = "h6")]
     H6,
 }

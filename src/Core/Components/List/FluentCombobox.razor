@@ -12,13 +12,13 @@
                      id="@Id"
                      class="@ClassValue"
                      style="@StyleValue"
-                     autocomplete="@Autocomplete.ToAttributeValue()"
+                     autocomplete="@Autocomplete.GetDisplayName()"
                      open=@Open
                      current-value=@Value
                      placeholder=@Placeholder
-                     position=@Position.ToAttributeValue()
+                     position=@Position.GetDisplayName()
                      disabled=@Disabled
-                     appearance="@Appearance.ToAttributeValue()"
+                     appearance="@Appearance.GetDisplayName()"
                      required="@Required"
                      @onchange="@ChangeHandlerAsync"
                      autofocus="@Autofocus"

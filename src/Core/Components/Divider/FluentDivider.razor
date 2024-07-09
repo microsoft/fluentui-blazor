@@ -1,10 +1,10 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-divider @ref=Element
                 @attributes="AdditionalAttributes"
                 class="@Class"
                 style="@Style"
-                role=@Role.ToAttributeValue()
-                orientation=@Orientation.ToAttributeValue()>
+                role=@Role.GetDisplayName()
+                orientation=@Orientation.GetDisplayName()>
                 @ChildContent
 </fluent-divider>

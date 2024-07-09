@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,19 +10,19 @@ public enum EmojiStyle
     /// <summary>
     /// Color
     /// </summary>
-    [Description("Color")]
+    [Display(Name = "Color")]
     Color,
 
     /// <summary>
     /// Flat
     /// </summary>  
-    [Description("Flat")]
+    [Display(Name = "Flat")]
     Flat,
 
     /// <summary>
     /// High Contrast
     /// </summary>  
-    [Description("High-Contrast")]
+    [Display(Name = "High-Contrast")]
     HighContrast,
 
 }

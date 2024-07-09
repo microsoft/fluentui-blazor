@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<string?>
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <fluent-text-field @ref=Element
@@ -7,7 +7,7 @@
                    readonly="@ReadOnly"
                    autofocus="@Autofocus"
                    placeholder="@Placeholder"
-                   type="@TextFieldType.ToAttributeValue()"
+                   type="@TextFieldType.GetDisplayName()"
                    list=@DataList
                    maxlength="@Maxlength"
                    minlength="@Minlength"
@@ -20,7 +20,7 @@
                    disabled="@Disabled"
                    name=@Name
                    required="@Required"
-                   appearance="@Appearance.ToAttributeValue()"
+                   appearance="@Appearance.GetDisplayName()"
                    @onchange="@ChangeHandlerAsync"
                    @oninput="@InputHandlerAsync"
                    @attributes="AdditionalAttributes">

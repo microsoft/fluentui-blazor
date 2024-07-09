@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -11,7 +11,7 @@ public enum PresenceStatus
     Busy,
 
     /// <summary />
-    [Description("OOF")]
+    [Display(Name = "OOF")]
     OutOfOffice,
 
     /// <summary />
@@ -24,7 +24,7 @@ public enum PresenceStatus
     Offline,
 
     /// <summary />
-    [Description("DND")]
+    [Display(Name = "DND")]
     DoNotDisturb,
 
     /// <summary />

@@ -16,31 +16,31 @@ else
     @_renderButton
 }
 
-@code{
+@code {
     protected void RenderButton(RenderTreeBuilder __builder)
     {
         <fluent-button @ref=Element
-               class="@(LoadingOverlay ? string.Empty : Class)"
-               style="@(LoadingOverlay ? "width: 100%;" : Style)"
-               autofocus=@Autofocus
-               form=@FormId
-               formaction=@Action
-               formenctype=@Enctype
-               formmethod=@Method
-               formnovalidate=@NoValidate
-               formtarget=@Target
-               type=@Type.ToAttributeValue()
-               id=@Id
-               value=@Value
-               current-value=@CurrentValue
-               disabled=@(Disabled || Loading)
-               name=@Name
-               required=@Required
-               aria-label=@Title
-               title=@Title
-               appearance=@Appearance.ToAttributeValue()
-               @onclick="@OnClickHandlerAsync"
-               @attributes="AdditionalAttributes">
+                       class="@(LoadingOverlay ? string.Empty : Class)"
+                       style="@(LoadingOverlay ? "width: 100%;" : Style)"
+                       autofocus=@Autofocus
+                       form=@FormId
+                       formaction=@Action
+                       formenctype=@Enctype
+                       formmethod=@Method
+                       formnovalidate=@NoValidate
+                       formtarget=@Target
+                       type=@Type.GetDisplayName()
+                       id=@Id
+                       value=@Value
+                       current-value=@CurrentValue
+                       disabled=@(Disabled || Loading)
+                       name=@Name
+                       required=@Required
+                       aria-label=@Title
+                       title=@Title
+                       appearance=@Appearance.GetDisplayName()
+                       @onclick="@OnClickHandlerAsync"
+                       @attributes="AdditionalAttributes">
             @if (IconStart != null)
             {
                 if (Loading)

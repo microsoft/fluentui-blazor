@@ -88,7 +88,7 @@ public partial class FluentDesignTheme : ComponentBase
             {
                 GlobalDesign.SetDirection((LocalizationDirection)value);
             }
-            Module?.InvokeVoidAsync("UpdateDirection", value.ToAttributeValue());
+            Module?.InvokeVoidAsync("UpdateDirection", value.GetDisplayName());
         }
     }
 
@@ -200,7 +200,7 @@ public partial class FluentDesignTheme : ComponentBase
 
             if (OnLoaded.HasDelegate)
             {
-                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction.ToAttributeValue()));
+                await OnLoaded.InvokeAsync(new LoadedEventArgs(Mode, isDark, CustomColor, OfficeColor, StorageName, Direction.GetDisplayName()));
             }
         }
     }

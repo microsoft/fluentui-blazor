@@ -4,7 +4,7 @@
 
 @if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
 {
-    var _orientation = Orientation == Orientation.Horizontal ? Orientation.ToAttributeValue() : null; 
+    var _orientation = Orientation == Orientation.Horizontal ? Orientation.GetDisplayName() : null;
 
     <label for="@ForId" class="fluent-input-label" orientation="@_orientation" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
         @Label

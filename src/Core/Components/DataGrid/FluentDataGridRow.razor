@@ -8,7 +8,7 @@
                           row-id="@RowId"
                           row-index=@RowIndex
                           grid-template-columns=@GridTemplateColumns
-                          row-type=@RowType.ToAttributeValue()
+                          row-type=@RowType.GetDisplayName()
                           @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
                           @onclick="@(e => HandleOnRowClickAsync(RowId))"
                           @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"

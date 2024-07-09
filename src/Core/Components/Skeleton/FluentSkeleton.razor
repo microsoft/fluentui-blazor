@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @if (Visible)
 {
@@ -6,7 +6,7 @@
                      class="@ClassValue"
                      style="@StyleValue"
                      fill=@Fill
-                     shape="@Shape.ToAttributeValue()"
+                     shape="@Shape.GetDisplayName()"
                      pattern="@Pattern"
                      shimmer="@Shimmer"
                      @attributes="AdditionalAttributes">

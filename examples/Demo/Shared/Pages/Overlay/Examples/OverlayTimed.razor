@@ -1,11 +1,11 @@
 ﻿<FluentSelect Items=@(Enum.GetValues<JustifyContent>())
-              OptionValue="@(c => c.ToAttributeValue())"
+              OptionValue="@(c => c.GetDisplayName())"
               TOption="JustifyContent"
               Position="SelectPosition.Below"
 @bind-SelectedOption="@justification" />
 
 <FluentSelect Items=@(Enum.GetValues<Align>())
-              OptionValue="@(c => c.ToAttributeValue())"
+              OptionValue="@(c => c.GetDisplayName())"
               TOption="Align"
               Position="SelectPosition.Below"
 @bind-SelectedOption="@alignment" />

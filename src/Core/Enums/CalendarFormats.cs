@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,7 +10,7 @@ public enum DayFormat
     /// <summary>
     /// The day format uses 2 digits.
     /// </summary>
-    [Description("2-digit")]
+    [Display(Name = "2-digit")]
     TwoDigit,
 
     /// <summary>

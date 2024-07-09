@@ -51,7 +51,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         get
         {
             return new CssBuilder(base.ClassValue)
-                .AddClass(Orientation.ToAttributeValue() ?? "horizontal")
+                .AddClass(Orientation.GetDisplayName() ?? "horizontal")
                 .Build();
         }
     }

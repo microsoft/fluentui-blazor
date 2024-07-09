@@ -1,11 +1,11 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<string?>
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <fluent-text-area @ref=Element
                   class="@ClassValue"
                   style="@StyleValue"
                   readOnly="@ReadOnly"
-                  resize="@Resize.ToAttributeValue()"
+                  resize="@Resize.GetDisplayName()"
                   autofocus="@Autofocus"
                   form=@Form
                   list=@DataList
@@ -21,7 +21,7 @@
                   disabled="@Disabled"
                   name=@Name
                   required="@Required"
-                  appearance="@Appearance.ToAttributeValue()"
+                  appearance="@Appearance.GetDisplayName()"
                   @onchange="@ChangeHandlerAsync"
                   @oninput="@InputHandlerAsync"
                   @attributes="AdditionalAttributes">

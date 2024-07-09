@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-breadcrumb-item @ref=Element
 						class="@Class"
@@ -11,7 +11,7 @@
 						rel=@Rel
 						target=@Target
 						type=@Type
-						appearance="@Appearance.ToAttributeValue()"
+                        appearance="@Appearance.GetDisplayName()"
 						@attributes="AdditionalAttributes">
 	@ChildContent
 </fluent-breadcrumb-item>
