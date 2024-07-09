@@ -11,9 +11,7 @@ public partial class FluentInfoButton
     public FluentInfoButton() => Id = Identifier.NewId();
 
     protected string? ClassValue => new CssBuilder(Class)
-        .Build();
-
-    protected string? StyleValue => new StyleBuilder(Style)
+        .AddClass("fluent-info-button")
         .Build();
 
     /// <summary>
