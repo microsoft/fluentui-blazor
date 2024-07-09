@@ -59,10 +59,4 @@
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="InfoButton\FluentInfoButtonTests.razor">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </Content>
-  </ItemGroup>
 </Project>
