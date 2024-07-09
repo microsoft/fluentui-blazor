@@ -22,13 +22,36 @@
     }
 
     [Fact]
-    public void FluentInfoButton_AllAttributes()
+    public void FluentInfoButton_Postiion()
     {
         // Arrange && Act
-        var cut = Render(@<FluentInfoButton IconColor="Color.Custom"
-                                                IconCustomColor="red"
-                                                Position="TooltipPosition.Start"
-                                                MaxWidth="300px">
+        var cut = Render(@<FluentInfoButton Position="TooltipPosition.Start">
+        This is example information for an InfoButton
+        <a href="https://www.fluentui-blazor.net/InfoButton">Learn more</a>
+    </FluentInfoButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentInfoButton_MaxWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentInfoButton MaxWidth="300px">
+        This is example information for an InfoButton
+        <a href="https://www.fluentui-blazor.net/InfoButton">Learn more</a>
+    </FluentInfoButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentInfoButton_IconColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentInfoButton IconColor="Color.Custom" IconCustomColor="red">
         This is example information for an InfoButton
         <a href="https://www.fluentui-blazor.net/InfoButton">Learn more</a>
     </FluentInfoButton>);
