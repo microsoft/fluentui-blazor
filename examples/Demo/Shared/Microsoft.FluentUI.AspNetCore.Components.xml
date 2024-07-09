@@ -8482,12 +8482,6 @@
             Gets or sets a value indicating whether the active indicator is displayed.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.ShowOverflow">
-            <summary>
-            Gets or sets whether tabs can overflow
-            Default is set to true to maintain original behavior.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -8692,6 +8686,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.ShowCloseButton">
             <summary>
             Gets or sets whether to show a close button on a toast. Default is true.
+            [Obsolete("This parameter will be removed in a future version. It is and should not not used.")]
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.#ctor">
