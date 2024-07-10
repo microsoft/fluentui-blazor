@@ -44,6 +44,11 @@ public static class EnumExtensions
     {
         var memberInfo = enumValue.GetType().GetMember(enumValue.ToString());
         var displayAttribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
-        return displayAttribute?.Name ?? enumValue.ToString();
+        return displayAttribute?.GetName() ?? enumValue.ToString();
+    }
+
+    public static bool IsNullableEnum(this Type t)
+    {
+        return Nullable.GetUnderlyingType(t)?.IsEnum == true;
     }
 }

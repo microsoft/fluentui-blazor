@@ -2644,6 +2644,21 @@
             Gets or sets the design of this input.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.OnCalendarOpen">
+            <summary>
+            raised when calendar popup opened
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.DaysTemplate">
+            <summary>
+            Defines the appearance of a Day cell.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PickerMonthChanged">
+            <summary>
+            Fired when the display month changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
         </member>
@@ -8671,6 +8686,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.ShowCloseButton">
             <summary>
             Gets or sets whether to show a close button on a toast. Default is true.
+            [Obsolete("This parameter will be removed in a future version. It is and should not not used.")]
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.#ctor">
