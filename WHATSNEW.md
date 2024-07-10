@@ -1,3 +1,17 @@
+
+## v4.9.1
+### Components
+- [DataGrid] Make `Grid` in `ColumnBase` protected ([#2342](https://github.com/microsoft/fluentui-blazor/pull/2342))
+- [DataGrid] Several issues addressed ([#2347](https://github.com/microsoft/fluentui-blazor/pull/2347))
+- [DatePicker] Add 'PickerMonthChanged' event and 'DaysTemplate' parameter ([#2336](https://github.com/microsoft/fluentui-blazor/pull/2336))
+- [Multi Splitter] Fix the Splitter OnMouseMove ([#2333](https://github.com/microsoft/fluentui-blazor/pull/2333))
+
+### Demo site and documentation
+- [Docs] Fix Tabs Dynamic example  ([#2341](https://github.com/microsoft/fluentui-blazor/pull/2341))
+- [Docs] Move Date and Autocomplete components to Forms section ([#2330](https://github.com/microsoft/fluentui-blazor/pull/2330))
+- [Docs] Update homepage ([#2324](https://github.com/microsoft/fluentui-blazor/pull/2324))
+- [Docs] Update the Variant selector in Icon Explorer ([#2331](https://github.com/microsoft/fluentui-blazor/pull/2331))
+
 ## v4.9.0
 
 ### Demo site and documentation
