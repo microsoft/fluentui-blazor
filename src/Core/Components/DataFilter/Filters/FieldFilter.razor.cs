@@ -14,7 +14,7 @@ public partial class FieldFilter<TItem>
     /// Get or set Template filter custom.
     /// </summary>
     [Parameter]
-    public RenderFragment<DataFilterDescriptorCondition<TItem>>? TemplateFilter { get; set; }
+    public RenderFragment<DataFilterCriteriaCondition<TItem>>? TemplateFilter { get; set; }
 
     /// <summary>
     /// Generate expression
@@ -23,10 +23,10 @@ public partial class FieldFilter<TItem>
     /// <param name="operator"></param>
     /// <param name="caseSensitivity"></param>
     /// <returns></returns>
-    public override Expression<Func<TItem, bool>> GetFilter(object? value,
+    public override Expression<Func<TItem, bool>> ToExpression(object? value,
                                                             DataFilterComparisonOperator @operator,
                                                             DataFilterCaseSensitivity caseSensitivity)
-        => DataFilterHelper.GenerateExpression<TItem>(CreateExpression(typeof(TItem), Field), value, @operator, caseSensitivity);
+        => DataFilterHelper.GenerateExpression<TItem>(TypeHelper.CreateExpression(typeof(TItem), Field), value, @operator, caseSensitivity);
 
     protected override void OnParametersSet()
     {

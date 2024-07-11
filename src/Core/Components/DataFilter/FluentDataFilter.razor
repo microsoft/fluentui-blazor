@@ -1,45 +1,46 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@using System.Linq.Expressions
 @inherits FluentComponentBase
 
 @typeparam TItem
 
 <CascadingValue Value="this" IsFixed="true">
-    @ChildContent
+    <div id="@Id" @attributes="@AdditionalAttributes" class="@ClassValue" style="@Style">
+        @ChildContent
+    </div>
 </CascadingValue>
 
-@RenderGroup(Filter, null!, false, 0)
+@RenderGroup(Criteria, null!, false, 0)
 
 @code
 {
-    public RenderFragment RenderAdd(DataFilterDescriptor<TItem> group) => __builder =>
+    public RenderFragment RenderAdd(DataFilterCriteria<TItem> group) => __builder =>
     {
-        @if (AllowAddGroup || AllowAddCondition)
+        @if (!ReadOnly && (AllowAddGroup || AllowAddCondition))
         {
             <FluentMenuButton ButtonAppearance="Appearance.Stealth"
-                              Text="Add"
+                              Text="@TextMenuAdd"
                               OnMenuChanged="@(async (e) => await AddAsync(group,e.Id!))">
                 @if (AllowAddCondition)
                 {
-                    <FluentMenuItem Id="Condition">Condition</FluentMenuItem>
+                    <FluentMenuItem Id="Condition">@TextMenuAddCondition</FluentMenuItem>
                 }
 
                 @if (AllowAddGroup)
                 {
-                    <FluentMenuItem Id="Group">Group</FluentMenuItem>
+                    <FluentMenuItem Id="Group">@TextMenuAddGroup</FluentMenuItem>
                 }
             </FluentMenuButton>
         }
     };
 
-    public RenderFragment RenderGroup(DataFilterDescriptor<TItem> group,
-                                      DataFilterDescriptor<TItem> parent,
+    public RenderFragment RenderGroup(DataFilterCriteria<TItem> group,
+                                      DataFilterCriteria<TItem> parent,
                                       bool allowDeleteGroup,
                                       int groupIndex) => __builder =>
     {
         <FluentStack Orientation="Orientation.Vertical" Style="@($"{GetGroupStyle(groupIndex)}")">
             <FluentStack Orientation="Orientation.Horizontal">
-                @if (allowDeleteGroup)
+                @if (!ReadOnly && allowDeleteGroup)
                 {
                     <FluentButton Appearance="Appearance.Stealth"
                                   OnClick="@(async () => await DeleteGroupAsync(group,parent))"
@@ -55,7 +56,8 @@
                                   OptionText="@DisplayText"
                                   @bind-SelectedOption="group.Operator"
                                   Immediate="@Immediate"
-                                  ImmediateDelay="@ImmediateDelay" />
+                                  ImmediateDelay="@ImmediateDelay"
+                                  Disabled="ReadOnly" />
                 }
 
                 @if (MenuAddPosition == DataFilterMenuAddPosition.Top)
@@ -70,22 +72,32 @@
                              VerticalAlignment="VerticalAlignment.Center"
                              Style="@($"{GetConditionStyle(groupIndex,condition.Index)}")">
 
-                    <FluentButton Appearance="Appearance.Stealth"
-                                  OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
-                                  IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
+                    @if (!ReadOnly)
+                    {
+                        <FluentButton Appearance="Appearance.Stealth"
+                                      OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
+                                      IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
+                    }
 
                     <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                                    Items="@GetAvailableProperties(condition.Item)"
+                                    TOption="FilterBase<TItem>"
+                                    Items="@GetAvailableFilters(condition.Item)"
                                     Height="200px"
                                     OptionText="@(a => a.Title)"
-                                    @bind-SelectedOption="@condition.Item.Filter"
-                                    @bind-SelectedOption:after="@FilterChangedAsync"
+                                    SelectedOption="@condition.Item.Filter"
+                                    SelectedOptionChanged="@(async (e) => await SetFilterAsync(e,condition.Item,group))"
                                     Immediate="@Immediate"
-                                    ImmediateDelay="@ImmediateDelay" />
+                                    ImmediateDelay="@ImmediateDelay"
+                                    Disabled="ReadOnly" />
+
+                    @*
+        @bind-SelectedOption="@condition.Item.Filter"
+        @bind-SelectedOption:after="@FilterChangedAsync"
+        *@
 
                     @if (condition.Item.Filter != null)
                     {
-                        @condition.Item.Render()
+                        @condition.Item.Filter.Render(condition.Item, ReadOnly)
                     }
                 </FluentStack>
             }

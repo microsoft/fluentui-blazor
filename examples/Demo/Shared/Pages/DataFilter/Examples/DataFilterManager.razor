@@ -1,0 +1,91 @@
+﻿@using System.Linq.Expressions
+@inject DataSource Data
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentAccordion Style="width:100%;">
+        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
+            <FluentStack Orientation="Orientation.Horizontal">
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+            </FluentStack>
+        </FluentAccordionItem>
+    </FluentAccordion>
+
+    <div>
+        In Demo : @_criteria.GetHashCode() / @_criteria.Conditions.Count()
+    </div>
+
+    <FluentStack Orientation="Orientation.Vertical" Width="100%" Style="">
+        <FluentToolbar Style="width:100%">
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size24.Add())" Title="Create">
+                Create
+            </FluentButton>
+
+            <FluentButton Appearance="Appearance.Stealth" Title="Delete">
+                <FluentIcon Value="@(new Icons.Regular.Size24.Delete())" Color="Color.Error" Slot="start" />
+                Delete
+            </FluentButton>
+
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size24.ArrowSync())" Title="Refresh">
+                Refresh
+            </FluentButton>
+
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size24.ArrowDownload())" Title="Export">
+                Export
+            </FluentButton>
+
+            <FluentSpacer />
+
+            <FluentDataFilterManager TItem="DataTypeDemo" @bind-Criteria="@_criteria" TextButtonMenu="" Appearance="Appearance.Stealth">
+                <DataFilterTemplate>
+                    <div>
+                        In Context DataFilter: @context.GetHashCode() / @context.Conditions.Count()
+                    </div>
+
+                    <FluentDataFilter @bind-Criteria="@context" Style="padding:10px;">
+                        <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />
+                        <PropertyFilter Property="@(a=> a.SmallInteger)" />
+                        <PropertyFilter Property="@(a=> a.Integer)" />
+                        <PropertyFilter Property="@(a=> a.LongInteger)" />
+                        <PropertyFilter Property="@(a=> a.SinglePrecision)" />
+                        <PropertyFilter Property="@(a=> a.DoublePrecision)" />
+                        <PropertyFilter Property="@(a=> a.Decimal)" Unique="true" Title="Decimal (Unique)" />
+                        <PropertyFilter Property="@(a=> a.Boolean)" />
+                        <PropertyFilter Property="@(a=> a.String)" />
+                        <PropertyFilter Property="@(a=> a.DateTime)" />
+                        <PropertyFilter Property="@(a=> a.DateOnly)" />
+                        <PropertyFilter Property="@(a=> a.TimeOnly)" />
+                        <PropertyFilter Property="@(a=> a.Enum)" />
+                        <PropertyFilter Property="@(a=> a.Children.Enum)" Title="Child Enum" />
+                    </FluentDataFilter>
+                </DataFilterTemplate>
+            </FluentDataFilterManager>
+
+            <FluentSearch />
+        </FluentToolbar>
+
+        <FluentDataGrid Items="@DataTypeDemo">
+            <PropertyColumn Property="@(a=> a.TinyInteger)" />
+            <PropertyColumn Property="@(a=> a.SmallInteger)" />
+            <PropertyColumn Property="@(a=> a.Integer)" />
+            <PropertyColumn Property="@(a=> a.LongInteger)" />
+            <PropertyColumn Property="@(a=> a.SinglePrecision)" />
+            <PropertyColumn Property="@(a=> a.DoublePrecision)" />
+            <PropertyColumn Property="@(a=> a.Decimal)" />
+            <PropertyColumn Property="@(a=> a.Boolean)" />
+            <PropertyColumn Property="@(a=> a.String)" />
+            <PropertyColumn Property="@(a=> a.DateTime)" />
+            <PropertyColumn Property="@(a=> a.DateOnly)" />
+            <PropertyColumn Property="@(a=> a.TimeOnly)" />
+            <PropertyColumn Property="@(a=> a.Enum)" />
+            <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
+        </FluentDataGrid>
+    </FluentStack>
+</FluentStack>
+
+@code
+{
+    IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(_criteria.ToExpression(_caseSensitivity));
+    DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.CaseInsensitive;
+    DataFilterCriteria<DataTypeDemo> _criteria = new();
+}

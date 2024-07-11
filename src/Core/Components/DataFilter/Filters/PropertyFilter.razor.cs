@@ -15,7 +15,7 @@ public partial class PropertyFilter<TItem, TProp>
     /// Get or set Template filter custom.
     /// </summary>
     [Parameter]
-    public RenderFragment<DataFilterDescriptorCondition<TItem>>? TemplateFilter { get; set; }
+    public RenderFragment<DataFilterCriteriaCondition<TItem>>? TemplateFilter { get; set; }
 
     /// <summary>
     /// Generate expression
@@ -24,9 +24,9 @@ public partial class PropertyFilter<TItem, TProp>
     /// <param name="operator"></param>
     /// <param name="caseSensitivity"></param>
     /// <returns></returns>
-    public override Expression<Func<TItem, bool>> GetFilter(object? value,
-                                                            DataFilterComparisonOperator @operator,
-                                                            DataFilterCaseSensitivity caseSensitivity)
+    public override Expression<Func<TItem, bool>> ToExpression(object? value,
+                                                               DataFilterComparisonOperator @operator,
+                                                               DataFilterCaseSensitivity caseSensitivity)
         => DataFilterHelper.GenerateExpression<TItem>(Property, value, @operator, caseSensitivity);
 
     protected override void OnParametersSet()

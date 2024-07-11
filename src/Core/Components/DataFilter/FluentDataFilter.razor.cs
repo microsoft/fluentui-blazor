@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,7 +15,6 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-
     /// <summary>
     /// Gets or sets logical operator.
     /// </summary>
@@ -21,6 +23,36 @@ public partial class FluentDataFilter<TItem>
                                                                                     DataFilterLogicalOperator.NotAnd,
                                                                                     DataFilterLogicalOperator.Or,
                                                                                     DataFilterLogicalOperator.NotOr];
+
+    /// <summary>
+    /// Gets or sets text menu add.
+    /// </summary>
+    [Parameter]
+    public DataFilterCriteria<TItem> Criteria { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets a callback that filter changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DataFilterCriteria<TItem>> CriteriaChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets text menu add.
+    /// </summary>
+    [Parameter]
+    public string TextMenuAdd { get; set; } = "Add";
+
+    /// <summary>
+    /// Gets or sets text menu add group.
+    /// </summary>
+    [Parameter]
+    public string TextMenuAddGroup { get; set; } = "Group";
+
+    /// <summary>
+    /// Gets or sets text menu add condition.
+    /// </summary>
+    [Parameter]
+    public string TextMenuAddCondition { get; set; } = "Condition";
 
     /// <summary>
     /// Gets or sets allow use logical operator.
@@ -41,18 +73,6 @@ public partial class FluentDataFilter<TItem>
     public bool AllowAddCondition { get; set; } = true;
 
     /// <summary>
-    /// Filter definition.
-    /// </summary>
-    [Parameter]
-    public DataFilterDescriptor<TItem> Filter { get; set; } = new();
-
-    /// <summary>
-    /// Gets or sets a callback that filter changed.
-    /// </summary>
-    [Parameter]
-    public EventCallback Changed { get; set; }
-
-    /// <summary>
     /// Gets or sets comparison operator display text.
     /// </summary>
     [Parameter]
@@ -71,7 +91,7 @@ public partial class FluentDataFilter<TItem>
     public bool Immediate { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="Changed"/> event.
+    /// Gets or sets the delay, in milliseconds, before to raise the <see cref="CriteriaChanged"/> event.
     /// </summary>
     [Parameter]
     public int ImmediateDelay { get; set; } = 0;
@@ -94,36 +114,93 @@ public partial class FluentDataFilter<TItem>
     [Parameter]
     public Func<int, int, string>? ConditionStyle { get; set; }
 
+    /// <summary>
+    /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
+    /// </summary>
+    [Parameter]
+    public bool ReadOnly { get; set; }
+
     private string GetGroupStyle(int index) => GroupStyle?.Invoke(index) + "";
 
     private string GetConditionStyle(int groupIndex, int conditionIndex) => ConditionStyle?.Invoke(groupIndex, conditionIndex) + "";
 
-    internal List<FilterBase<TItem>> Properties { get; set; } = [];
+    internal List<FilterBase<TItem>> Filters { get; } = [];
 
-    private IEnumerable<FilterBase<TItem>> GetAvailableProperties(DataFilterDescriptorCondition<TItem> item)
-        => Properties.Where(a => a == item.Filter || !a.Unique || (a.Unique && !Filter.Exists(a)));
+    private IEnumerable<FilterBase<TItem>> GetAvailableFilters(DataFilterCriteriaCondition<TItem> item)
+        => Filters.Where(a => a.Id == item.Field || !a.Unique || (a.Unique && !Criteria.IsUsed(a.Id!)));
 
-    //private JsonSerializerOptions CreateJsonOptions()
-    //{
-    //    var options = new JsonSerializerOptions
-    //    {
-    //        WriteIndented = true,
-    //    };
+    /// <summary>
+    /// Clear criteria.
+    /// </summary>
+    public void ClearCriteria() => Criteria.Clear();
 
-    //    foreach (var item in Properties.Where(a => a.JsonConverter != null).Select(a => a.JsonConverter))
-    //    {
-    //        options.Converters.Add(item);
-    //    }
-    //    return options;
-    //}
+    protected string? ClassValue => new CssBuilder(base.Class)
+        .AddClass("fluent-data-filter")
+        .Build();
 
-    ///// <summary>
-    ///// Populate filter from JSON.
-    ///// </summary>
-    ///// <param name="json"></param>
-    //public void FromJson(string json) => Filter = JsonSerializer.Deserialize<DataFilterDescriptor<TItem>>(json, CreateJsonOptions())!;
+    /// <summary>
+    /// From criteria.
+    /// </summary>
+    /// <param name="criteria"></param>
+    public async Task FromCriteriaAsync(DataFilterCriteria<TItem> criteria)
+    {
+        PopulateFrom(criteria, Criteria, null!);
+        await FilterChangedAsync();
+    }
 
-    private async Task AddAsync(DataFilterDescriptor<TItem> group, string id)
+    /// <summary>
+    /// Populate filter from JSON.
+    /// </summary>
+    /// <param name="json"></param>
+    public async Task FromJsonAsync(string json)
+    {
+        var options = new JsonSerializerOptions
+        {
+            Converters =
+            {
+                new JsonStringEnumConverter()
+            },
+        };
+        var data = JsonSerializer.Deserialize<DataFilterCriteria<TItem>>(json, options)!;
+        PopulateFrom(data, Criteria, options);
+        await FilterChangedAsync();
+    }
+
+    private void PopulateFrom(DataFilterCriteria<TItem> source,
+                              DataFilterCriteria<TItem> destination,
+                              JsonSerializerOptions options)
+    {
+        destination.Operator = source.Operator;
+        destination.Conditions.Clear();
+        foreach (var item in source.Conditions)
+        {
+            var filter = Filters.Where(a => a.Id == item.Field).FirstOrDefault();
+            if (filter != null)
+            {
+                var condition = new DataFilterCriteriaCondition<TItem>()
+                {
+                    Filter = filter,
+                    Operator = item.Operator,
+                };
+
+                condition.Value = item.Value is JsonElement
+                                    ? ((JsonElement)item.Value!).Deserialize(condition.Value!.GetType(), options)
+                                    : item.Value;
+
+                destination.Conditions.Add(condition);
+            }
+        }
+
+        destination.Groups.Clear();
+        foreach (var item in source.Groups)
+        {
+            var group = new DataFilterCriteria<TItem>();
+            destination.Groups.Add(group);
+            PopulateFrom(item, group, options);
+        }
+    }
+
+    private async Task AddAsync(DataFilterCriteria<TItem> group, string id)
     {
         if (id == "Condition")
         {
@@ -137,13 +214,13 @@ public partial class FluentDataFilter<TItem>
         await FilterChangedAsync();
     }
 
-    private async Task DeleteFilterAsync(DataFilterDescriptor<TItem> group, DataFilterDescriptorCondition<TItem> item)
+    private async Task DeleteFilterAsync(DataFilterCriteria<TItem> group, DataFilterCriteriaCondition<TItem> item)
     {
         group.Conditions.Remove(item);
         await FilterChangedAsync();
     }
 
-    private async Task DeleteGroupAsync(DataFilterDescriptor<TItem> group, DataFilterDescriptor<TItem> parent)
+    private async Task DeleteGroupAsync(DataFilterCriteria<TItem> group, DataFilterCriteria<TItem> parent)
     {
         parent.Groups.Remove(group);
         await FilterChangedAsync();
@@ -154,13 +231,28 @@ public partial class FluentDataFilter<TItem>
                 ? value.GetDisplayName()!
                 : LogicalOperatorDisplayText.Invoke(value);
 
+    private async Task SetFilterAsync(FilterBase<TItem> filter, DataFilterCriteriaCondition<TItem> condition, DataFilterCriteria<TItem> group)
+    {
+        if (filter != null)
+        {
+            condition.Filter = filter;
+            await FilterChangedAsync();
+        }
+        else
+        {
+            condition.Filter = condition.Filter;
+            await FilterChangedAsync();
+            var aa = 1;
+        }
+    }
+
     internal async Task FilterChangedAsync()
     {
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
 
-        if (Changed.HasDelegate)
+        if (CriteriaChanged.HasDelegate)
         {
-            await Changed.InvokeAsync();
+            await CriteriaChanged.InvokeAsync(Criteria);
         }
     }
 }

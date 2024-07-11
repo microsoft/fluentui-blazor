@@ -228,7 +228,23 @@ public class DataSource
                     DateOnly = new DateOnly(2000, Math.Min(12, 1 + (index % 11)), Math.Min(30, 15 + index)),
                     TimeOnly = new TimeOnly(10, Math.Min(60, 30 + index)),
                     DateTimeOffset = new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + index), 00, 00, TimeSpan.FromHours(5)),
-                    Enum = (DataTypeDemoEnum)Math.Min(6, (index % 6) + 1)
+                    Enum = (DataTypeDemoEnum)Math.Min(6, (index % 6) + 0),
+
+                    TinyIntegerNullable = (index % 2) == 0 ? (sbyte)(50 + index) : null,
+                    SmallIntegerNullable = (index % 2) == 0 ? (short)(10000 + (index * 2)) : null,
+                    IntegerNullable = (index % 2) == 0 ? 1234567890 + index : null,
+                    LongIntegerNullable = (index % 2) == 0 ? 9876543210L + index : null,
+                    SinglePrecisionNullable = (index % 2) == 0 ? 3.14159f * index : null,
+                    DoublePrecisionNullable = (index % 2) == 0 ? Math.PI * index : null,
+                    DecimalNullable = (index % 2) == 0 ? 1234.56m * index : null,
+                    BooleanNullable = (index % 2) == 0 ? (index % 2) == 0 : null,
+                    CharNullable = (index % 2) == 0 ? (char)('A' + index) : null,
+                    StringNullable = (index % 2) == 0 ? GetMonthName(Math.Min(11, index)) : null,
+                    DateTimeNullable = (index % 2) == 0 ? new DateTime(2000, Math.Min(12, 1 + (index % 11)), Math.Min(30, 15 + index), 11, 12, 10) : null,
+                    DateOnlyNullable = (index % 2) == 0 ? new DateOnly(2000, Math.Min(12, 1 + (index % 11)), Math.Min(30, 15 + index)) : null,
+                    TimeOnlyNullable = (index % 2) == 0 ? new TimeOnly(10, Math.Min(60, 30 + index)) : null,
+                    DateTimeOffsetNullable = (index % 2) == 0 ? new DateTimeOffset(2024, 07, 05, Math.Min(23, 12 + index), 00, 00, TimeSpan.FromHours(5)) : null,
+                    EnumNullable = (index % 2) == 0 ? (DataTypeDemoEnum)Math.Min(6, (index % 6) + 0) : null,
                 };
 
                 _dataTypeDemo = Enumerable.Range(1, 20).Select(a => Make(a)).ToArray();

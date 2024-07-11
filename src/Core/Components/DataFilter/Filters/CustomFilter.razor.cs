@@ -10,7 +10,7 @@ public partial class CustomFilter<TItem, TProp>
     /// </summary>
     [Parameter, EditorRequired]
     //public RenderFragment<DataFilterDescriptorCondition<TItem>> TemplateFilter { get; set; } = default!;
-    public RenderFragment<DataFilterDescriptorCondition<TItem>> TemplateFilter { get; set; } = default!;
+    public RenderFragment<DataFilterCriteriaCondition<TItem>> TemplateFilter { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the function used for custom filter expression.
@@ -25,9 +25,9 @@ public partial class CustomFilter<TItem, TProp>
     /// <param name="operator"></param>
     /// <param name="caseSensitivity"></param>
     /// <returns></returns>
-    public override Expression<Func<TItem, bool>> GetFilter(object? value,
-                                                            DataFilterComparisonOperator @operator,
-                                                            DataFilterCaseSensitivity caseSensitivity)
+    public override Expression<Func<TItem, bool>> ToExpression(object? value,
+                                                               DataFilterComparisonOperator @operator,
+                                                               DataFilterCaseSensitivity caseSensitivity)
         => ExpressionFilter(value, caseSensitivity);
 
     public override IEnumerable<DataFilterComparisonOperator> Operators { get; } = [DataFilterComparisonOperator.Custom];

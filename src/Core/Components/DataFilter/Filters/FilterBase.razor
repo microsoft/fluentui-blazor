@@ -6,42 +6,38 @@
 
 @code
 {
-    public virtual RenderFragment Render(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment Render(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @RenderOperator(condition)
+        @RenderOperator(condition, readOnly)
 
-        @RenderTypes(condition)
+        @RenderTypes(condition, readOnly)
     };
 
-    public virtual RenderFragment RenderTypes(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment RenderTypes(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        if (TypeHelper.IsEnum(Type))
         {
-            condition.Value = null!;
+            @RenderEnum(condition, readOnly)
         }
-        else if (IsEnum)
+        else if (TypeHelper.IsNumber(Type))
         {
-            @RenderEnum(condition)
+            @RenderNumber(condition, readOnly)
         }
-        else if (IsNumber)
+        else if (TypeHelper.IsDate(Type))
         {
-            @RenderNumber(condition)
+            @RenderDate(condition, readOnly)
         }
-        else if (IsDate)
+        else if (TypeHelper.IsBool(Type))
         {
-            @RenderDate(condition)
+            @RenderBoolean(condition, readOnly)
         }
-        else if (IsBool)
+        else if (TypeHelper.IsString(Type))
         {
-            @RenderBoolean(condition)
-        }
-        else if (IsString)
-        {
-            @RenderString(condition)
+            @RenderString(condition, readOnly)
         }
     };
 
-    public virtual RenderFragment RenderOperator(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment RenderOperator(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
         <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
                         TOption="DataFilterComparisonOperator"
@@ -52,86 +48,122 @@
                         @bind-SelectedOption="@condition.Operator"
                         @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
                         Immediate="@DataFilter.Immediate"
-                        ImmediateDelay="@DataFilter.ImmediateDelay" />
+                        ImmediateDelay="@DataFilter.ImmediateDelay"
+                        Disabled="readOnly" />
     };
 
-    public virtual RenderFragment RenderEnum(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment RenderEnum(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
         {
-            // var value = (List<Enum>)condition.Value!;
-
-            // <FluentAutocomplete Items="@(Enum.GetValues(Type).Cast<Enum>())"
-            //                     AutoComplete="off"
-            //                     Multiple="true"
-            //                     OnOptionsSearch="@((e) => OnSearchMany(e,value))"
-            //                     OptionText="ValueDisplayTextInt"
-            //                     SelectedOptions="value"
-            //                     Virtualize="true"
-            //                     SelectedOptionsChanged="@((e) => SelectedOptionsChangedMany(e,value))" />
+        }
+        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        {
         }
         else
         {
             <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                            Items="@(Enum.GetValues(Type).Cast<Enum>())"
+                            Items="@EnumValues"
                             OptionText="ValueDisplayTextInt"
                             @bind-SelectedOption="condition.Value"
                             @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
                             Immediate="@DataFilter.Immediate"
-                            ImmediateDelay="@DataFilter.ImmediateDelay" />
+                            ImmediateDelay="@DataFilter.ImmediateDelay"
+                            Disabled="readOnly" />
         }
     };
 
-    public virtual RenderFragment RenderNumber(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment RenderNumber(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        <DynamicComponent Type="@typeof(FluentNumberField<>).MakeGenericType(Type)"
-                          Parameters="@CreateNumericFieldEditorParameter(condition)" />
-
+        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        {
+        }
+        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        {
+        }
+        else
+        {
+            <DynamicComponent Type="@typeof(FluentNumberField<>).MakeGenericType(Type)"
+                              Parameters="@CreateNumericFieldEditorParameter(condition,readOnly)" />
+        }
     };
 
-    public virtual RenderFragment RenderDate(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment RenderDate(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (Type == typeof(DateTime))
+        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
         {
-            <FluentDatePicker Value="Convert.ToDateTime(condition.Value)"
-                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
-                              Immediate="@DataFilter.Immediate"
-                              ImmediateDelay="@DataFilter.ImmediateDelay" />
-
-            <FluentTimePicker Value="Convert.ToDateTime(condition.Value)"
-                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
-                              Immediate="@DataFilter.Immediate"
-                              ImmediateDelay="@DataFilter.ImmediateDelay" />
         }
-        else if (Type == typeof(DateOnly))
+        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
         {
-            <FluentDatePicker Value="@(ConvertTo<DateOnly>(condition.Value).ToDateTime())"
-                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateOnly()))"
-                              Immediate="@DataFilter.Immediate"
-                              ImmediateDelay="@DataFilter.ImmediateDelay" />
         }
-        else if (Type == typeof(TimeOnly))
+        else
         {
-            <FluentTimePicker Value="@(ConvertTo<TimeOnly>(condition.Value).ToDateTime())"
-                              ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToTimeOnly()))"
-                              Immediate="@DataFilter.Immediate"
-                              ImmediateDelay="@DataFilter.ImmediateDelay" />
-        }    };
+            @if (Type == typeof(DateTime) || Type == typeof(DateTime?))
+            {
+                <FluentDatePicker Value="Convert.ToDateTime(condition.Value)"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
+                                  Immediate="@DataFilter.Immediate"
+                                  ImmediateDelay="@DataFilter.ImmediateDelay"
+                                  Disabled="readOnly" />
 
-    public virtual RenderFragment RenderBoolean(DataFilterDescriptorCondition<TItem> condition) => __builder =>
-    {
-        <FluentCheckbox ThreeState="IsNullable"
-                        Value="Convert.ToBoolean(condition.Value)"
-                        ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
-                        Immediate="@DataFilter.Immediate"
-                        ImmediateDelay="@DataFilter.ImmediateDelay" />
+                <FluentTimePicker Value="Convert.ToDateTime(condition.Value)"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
+                                  Immediate="@DataFilter.Immediate"
+                                  ImmediateDelay="@DataFilter.ImmediateDelay"
+                                  Disabled="readOnly" />
+            }
+            else if (Type == typeof(DateOnly) || Type == typeof(DateOnly?))
+            {
+                <FluentDatePicker Value="@(ConvertTo<DateOnly>(condition.Value).ToDateTime())"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateOnly()))"
+                                  Immediate="@DataFilter.Immediate"
+                                  ImmediateDelay="@DataFilter.ImmediateDelay"
+                                  Disabled="readOnly" />
+            }
+            else if (Type == typeof(TimeOnly) || Type == typeof(TimeOnly?))
+            {
+                <FluentTimePicker Value="@(ConvertTo<TimeOnly>(condition.Value).ToDateTime())"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToTimeOnly()))"
+                                  Immediate="@DataFilter.Immediate"
+                                  ImmediateDelay="@DataFilter.ImmediateDelay"
+                                  Disabled="readOnly" />
+            }
+        }
     };
 
-    public virtual RenderFragment RenderString(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public virtual RenderFragment RenderBoolean(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        <FluentTextField Value="@Convert.ToString(condition.Value)"
-                         ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
-                         Immediate="@DataFilter.Immediate"
-                         ImmediateDelay="@DataFilter.ImmediateDelay" />
+        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        {
+        }
+        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        {
+        }
+        else
+        {
+            <FluentCheckbox Value="Convert.ToBoolean(condition.Value)"
+                            ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
+                            Immediate="@DataFilter.Immediate"
+                            ImmediateDelay="@DataFilter.ImmediateDelay"
+                            Disabled="readOnly" />
+        }
+    };
+
+    public virtual RenderFragment RenderString(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        {
+        }
+        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        {
+        }
+        else
+        {
+            <FluentTextField Value="@Convert.ToString(condition.Value)"
+                             ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
+                             Immediate="@DataFilter.Immediate"
+                             ImmediateDelay="@DataFilter.ImmediateDelay"
+                             Disabled="readOnly" />
+        }
     };
 }

@@ -1,10 +1,25 @@
 ﻿@using System.Linq.Expressions
 @inject DataSource Data
 
+<p>
+    Add <code>groups </code> and <code>conditions</code> to see the style change.
+</p>
+
 <FluentStack Orientation="Orientation.Vertical">
+    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+        <FluentSelect TOption="DataFilterMenuAddPosition"
+                      Label="Add Menu Position"
+                      Items="@(Enum.GetValues<DataFilterMenuAddPosition>())"
+                      OptionText="@(a => a.GetDisplayName())"
+                      @bind-SelectedOption="_addMenuPosition" />
+    </FluentStack>
+
     <srong>Data Filter</srong>
 
-    <FluentDataFilter @bind-Criteria="@_criteria" >
+    <FluentDataFilter MenuAddPosition="@_addMenuPosition"
+                      @bind-Criteria="@_criteria"
+                      GroupStyle="GroupStyle"
+                      ConditionStyle="ConditionStyle">
         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />
         <PropertyFilter Property="@(a=> a.SmallInteger)" />
         <PropertyFilter Property="@(a=> a.Integer)" />
@@ -24,7 +39,7 @@
     <FluentAccordion Style="width:100%;">
         <FluentAccordionItem Heading="Linq / Json" Expanded="false">
             <FluentStack Orientation="Orientation.Horizontal">
-                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity ).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
                 <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
             </FluentStack>
         </FluentAccordionItem>
@@ -55,6 +70,23 @@
 @code
 {
     IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(_criteria.ToExpression(_caseSensitivity));
+    DataFilterMenuAddPosition _addMenuPosition = DataFilterMenuAddPosition.Top;
     DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.CaseInsensitive;
     DataFilterCriteria<DataTypeDemo> _criteria = new();
+
+    private string GroupStyle(int index) => $"background: var(--neutral-layer-{index % 4}); padding: 10px;";
+
+    private string ConditionStyle(int groupIndex, int conditionIndex)
+    {
+        var colors = new string[]
+        {
+            "",
+            "background: red;",
+            "background: yellow;",
+            "background: magenta;",
+            "background: coral;",
+            "font-weight: bold;"
+        };
+        return colors[conditionIndex % colors.Length];
+    }
 }

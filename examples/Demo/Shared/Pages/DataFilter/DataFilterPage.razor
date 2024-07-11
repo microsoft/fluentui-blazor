@@ -5,17 +5,20 @@
 
 <h1>DataFilter</h1>
 
-<p>The <code>&lt;FluentDataFilter&gt;</code> component is a visual container without semantics that takes children. Cards are snapshots of content that are typically used in a group to present collections of related information.</p>
-<p><code>&lt;FluentCard&gt;</code> wraps the <code>&lt;fluent-card&gt;</code> element, a web component implementation of a card leveraging the Fluent UI design system.</p>
-<p>Use the <code>Width</code> and <code>Height</code> parameters to size the card. Both values default to 350 pixels.</p>
+<p>The <code>&lt;FluentDataFilter&gt;</code> component .....</p>
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Simple card example" Component="@typeof(DataFilterDefault)"></DemoSection>
+<DemoSection Title="Appearance" Component="@typeof(DataFilterAppearance)"></DemoSection>
+<DemoSection Title="Custom" Component="@typeof(DataFilterCustom)"></DemoSection>
+<DemoSection Title="Nullable" Component="@typeof(DataFilterNullable)"></DemoSection>
+<DemoSection Title="Filter Manager" Component="@typeof(DataFilterManager)"></DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentDataFilter<>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(FluentDataFilterManager<>)" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(PropertyFilter<,>)" GenericLabel="TItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
 <ApiDocumentation Component="typeof(CustomFilter<,>)" GenericLabel="TItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
-<ApiDocumentation Component="typeof(DataFilterDescriptor<>)" GenericLabel="TItem" />
-<ApiDocumentation Component="typeof(DataFilterDescriptorCondition<>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(DataFilterCriteria<>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(DataFilterCriteriaCondition<>)" GenericLabel="TItem" />

@@ -5,7 +5,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents filters which are available for values.
 /// </summary>
-public enum DataFilterComparisonOperator
+public enum DataFilterComparisonOperator 
 {
     /// <summary>
     /// Equal to the filter value.

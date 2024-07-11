@@ -1,0 +1,64 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+
+@typeparam TItem
+
+@implements IDialogContentComponent<DataFilterManagerDialogContext<TItem>>
+
+<FluentDialogBody>
+    <EditForm EditContext="@_editContext" FormName="filterManager">
+        <div style="color: var(--error);">
+            <DataAnnotationsValidator />
+            <FluentValidationSummary />
+        </div>
+
+        <FluentTextField Label="@Content.TextTitle" Style="width:100%;" @bind-Value="@Content.Title" Required />
+
+        <div>
+            In Component : @Content.Criteria.GetHashCode() / @Content.Criteria.Conditions.Count()
+        </div>
+
+
+        @Content.DataFilterTemplate(Content.Criteria)
+    </EditForm>
+</FluentDialogBody>
+
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_editContext.Validate())">
+        @Content.TextSave
+    </FluentButton>
+
+    @if (Content.AllowDelete)
+    {
+        <FluentButton BackgroundColor="var(--error)" Color="var(--highlight-bg)" OnClick="@SaveAsync" Disabled="@(!_editContext.Validate())">
+            @Content.TextDelete
+        </FluentButton>
+    }
+
+    <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">
+        @Content.TextCancel
+    </FluentButton>
+</FluentDialogFooter>
+
+@code
+{
+    [Parameter]
+    public DataFilterManagerDialogContext<TItem> Content { get; set; } = default!;
+
+    [CascadingParameter]
+    private FluentDialog Dialog { get; set; } = default!;
+
+    private EditContext _editContext = default!;
+
+    protected override void OnInitialized() => _editContext = new EditContext(Content);
+
+    private async Task SaveAsync() => await Dialog.CloseAsync(Content);
+
+    private async Task CancelAsync() => await Dialog.CancelAsync();
+
+    private async Task DeleteAsync()
+    {
+        Content.IsDeleted = true;
+        await Dialog.CloseAsync(Content);
+    }
+}

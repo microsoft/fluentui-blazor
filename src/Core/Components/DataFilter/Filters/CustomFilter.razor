@@ -7,7 +7,7 @@
 
 @code
 {
-    public override RenderFragment Render(DataFilterDescriptorCondition<TItem> condition) => __builder =>
+    public override RenderFragment Render(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
         @TemplateFilter(condition)
     };

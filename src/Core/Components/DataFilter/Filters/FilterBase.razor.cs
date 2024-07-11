@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using System.Collections;
 using System.Linq.Expressions;
-using System.Numerics;
 using System.Reflection;
-using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -33,75 +31,9 @@ public abstract partial class FilterBase<TItem>
     public Func<object?, string>? ValueDisplayText { get; set; }
 
     /// <summary>
-    /// Gets or sets the JSON Converter.
-    /// </summary>
-    [Parameter]
-    public JsonConverter<object>? JsonConverter { get; set; }
-
-    /// <summary>
     /// Property info definition.
     /// </summary>
     public Type Type { get; protected set; } = default!;
-
-    private static readonly HashSet<Type> _numericTypes =
-    [
-        typeof(int),
-        typeof(double),
-        typeof(decimal),
-        typeof(long),
-        typeof(short),
-        typeof(sbyte),
-        typeof(byte),
-        typeof(ulong),
-        typeof(ushort),
-        typeof(uint),
-        typeof(float),
-        typeof(BigInteger),
-        typeof(int?),
-        typeof(double?),
-        typeof(decimal?),
-        typeof(long?),
-        typeof(short?),
-        typeof(sbyte?),
-        typeof(byte?),
-        typeof(ulong?),
-        typeof(ushort?),
-        typeof(uint?),
-        typeof(float?),
-        typeof(BigInteger?),
-    ];
-
-    private bool IsType<TType>() => Type == typeof(TType) || Nullable.GetUnderlyingType(Type) == typeof(TType);
-
-    /// <summary>
-    /// Property is enum.
-    /// </summary>
-    protected internal bool IsEnum => Type.IsEnum || Nullable.GetUnderlyingType(Type) is { IsEnum: true };
-
-    /// <summary>
-    /// Property is bool.
-    /// </summary>
-    protected internal bool IsBool => IsType<bool>();
-
-    /// <summary>
-    /// Property is date.
-    /// </summary>
-    protected internal bool IsDate => IsType<DateTime>() || IsType<DateOnly>() || IsType<TimeOnly>();
-
-    /// <summary>
-    /// Property is string.
-    /// </summary>
-    protected internal bool IsString => Type == typeof(string);
-
-    /// <summary>
-    /// Property is number.
-    /// </summary>
-    protected internal bool IsNumber => _numericTypes.Contains(Type);
-
-    /// <summary>
-    /// Property is nullable.
-    /// </summary>
-    protected internal bool IsNullable => Nullable.GetUnderlyingType(Type) != null;
 
     /// <summary>
     /// Get Filter name
@@ -121,41 +53,53 @@ public abstract partial class FilterBase<TItem>
 
     protected override void OnParametersSet()
     {
-        if (!DataFilter.Properties.Contains(this))
+        if (!DataFilter.Filters.Contains(this))
         {
             if (string.IsNullOrEmpty(Id))
             {
                 throw new ArgumentException($"Filter '{Name}' - Id empty not allow!");
             }
 
-            if (DataFilter.Properties.Any(a => a.Id == Id))
+            if (DataFilter.Filters.Any(a => a.Id == Id))
             {
                 throw new ArgumentException($"Filter '{Name}' - Id '{Id}' it already exists!");
             }
 
-            DataFilter.Properties.Add(this);
+            DataFilter.Filters.Add(this);
         }
     }
 
+    /// <summary>
+    /// Get enum values
+    /// </summary>
+    protected IEnumerable<Enum> EnumValues
+        => Enum.GetValues(TypeHelper.IsNullable(Type)
+                            ? Type.GetGenericArguments()[0]
+                            : Type).Cast<Enum>();
+
     internal object GetDefaultValue(bool isMultiValues)
     {
-        object value = null!;
-        if (IsEnum)
+        var type = TypeHelper.IsNullable(Type)
+                    ? Type.GetGenericArguments()[0]
+                    : Type;
+
+        object value;
+        if (TypeHelper.IsEnum(Type))
         {
-            value = Enum.GetValues(Type).GetValue(0)!;
+            value = Enum.GetValues(type).GetValue(0)!;
         }
-        else if (IsString)
+        else if (TypeHelper.IsString(Type))
         {
             value = string.Empty;
         }
         else
         {
-            value = Activator.CreateInstance(Type)!;
+            value = Activator.CreateInstance(type)!;
         }
 
         if (isMultiValues)
         {
-            var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(Type))!;
+            var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type))!;
             list.Add(value);
             value = list;
         }
@@ -163,91 +107,26 @@ public abstract partial class FilterBase<TItem>
         return value;
     }
 
-    protected static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;
+    private static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;
 
     /// <summary>
-    /// Get filter expression
+    /// Get filter expression.
     /// </summary>
     /// <param name="value"></param>
     /// <param name="operator"></param>
     /// <param name="caseSensitivity"></param>
     /// <returns></returns>
-    public abstract Expression<Func<TItem, bool>> GetFilter(object? value,
-                                                            DataFilterComparisonOperator @operator,
-                                                            DataFilterCaseSensitivity caseSensitivity);
+    public abstract Expression<Func<TItem, bool>> ToExpression(object? value,
+                                                               DataFilterComparisonOperator @operator,
+                                                               DataFilterCaseSensitivity caseSensitivity);
 
     /// <summary>
     /// Get operators
     /// </summary>
     /// <returns></returns>
-    public virtual IEnumerable<DataFilterComparisonOperator> Operators
-    {
-        get
-        {
-            var operators = new List<DataFilterComparisonOperator>();
-            if (IsEnum)
-            {
-                operators.Add(DataFilterComparisonOperator.Equal);
-                operators.Add(DataFilterComparisonOperator.NotEqual);
-                //operators.Add(DataFilterComparisonOperator.In);
-                //operators.Add(DataFilterComparisonOperator.NotIn);
-            }
-            else if (IsBool)
-            {
-                operators.Add(DataFilterComparisonOperator.Equal);
-            }
-            else if (IsDate || IsNumber)
-            {
-                operators.AddRange([
-                    DataFilterComparisonOperator.Equal,
-                    DataFilterComparisonOperator.NotEqual,
-                    DataFilterComparisonOperator.LessThan,
-                    DataFilterComparisonOperator.LessThanOrEqual,
-                    DataFilterComparisonOperator.GreaterThan,
-                    DataFilterComparisonOperator.GreaterThanOrEqual,
-                    //DataFilterComparisonOperator.In,
-                    //DataFilterComparisonOperator.NotIn,
-                ]);
-            }
-            else if (IsString)
-            {
-                operators.AddRange([
-                    DataFilterComparisonOperator.Equal,
-                    DataFilterComparisonOperator.NotEqual,
-                    DataFilterComparisonOperator.Contains,
-                    DataFilterComparisonOperator.NotContains,
-                    DataFilterComparisonOperator.StartsWith,
-                    DataFilterComparisonOperator.NotStartsWith,
-                    DataFilterComparisonOperator.EndsWith,
-                    DataFilterComparisonOperator.NotEndsWith,
-                    DataFilterComparisonOperator.Empty,
-                    DataFilterComparisonOperator.NotEmpty,
-                    //DataFilterComparisonOperator.In,
-                    //DataFilterComparisonOperator.NotIn,
-                ]);
-            }
+    public virtual IEnumerable<DataFilterComparisonOperator> Operators => DataFilterHelper.GetOperators(Type);
 
-            if (IsNullable)
-            {
-                if (!operators.Contains(DataFilterComparisonOperator.Empty))
-                {
-                    operators.Add(DataFilterComparisonOperator.Empty);
-                }
-
-                if (!operators.Contains(DataFilterComparisonOperator.NotEmpty))
-                {
-                    operators.Add(DataFilterComparisonOperator.NotEmpty);
-                }
-            }
-
-            //operators.Add(DataFilterComparisonOperator.In);
-            //operators.Add(DataFilterComparisonOperator.NotIn);
-
-            return operators.Distinct();
-        }
-    }
-
-    protected async Task SetValueAsync(DataFilterDescriptorCondition<TItem> condition, object value)
+    protected async Task SetValueAsync(DataFilterCriteriaCondition<TItem> condition, object? value)
     {
         condition.Value = value;
         await DataFilter.FilterChangedAsync();
@@ -264,7 +143,7 @@ public abstract partial class FilterBase<TItem>
         {
             return ValueDisplayText.Invoke(obj);
         }
-        else if (IsEnum)
+        else if (TypeHelper.IsEnum(Type))
         {
             return (obj as Enum)?.GetDisplayName() + "";
         }
@@ -272,17 +151,6 @@ public abstract partial class FilterBase<TItem>
         {
             return obj + "";
         }
-    }
-
-    protected static LambdaExpression CreateExpression(Type type, string filed)
-    {
-        var param = Expression.Parameter(type, "a");
-        Expression body = param;
-        foreach (var member in filed.Split('.'))
-        {
-            body = Expression.PropertyOrField(body, member);
-        }
-        return Expression.Lambda(body, param);
     }
 
     protected PropertyInfo GetPropertyInfo(string field)
@@ -315,15 +183,16 @@ public abstract partial class FilterBase<TItem>
         return prop;
     }
 
-    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterDescriptorCondition<TItem> condition)
+    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterCriteriaCondition<TItem> condition, bool readOnly)
     {
         var inputHelper = typeof(InputHelpers<>).MakeGenericType(Type);
         return new Dictionary<string, object>()
         {
-            [nameof(FluentNumberField<int>.Value)] = Convert.ChangeType(condition.Value, Type)!,
+            [nameof(FluentNumberField<int>.Value)] = condition.Value!,
 
             [nameof(FluentNumberField<int>.Immediate)] = DataFilter.Immediate,
             [nameof(FluentNumberField<int>.ImmediateDelay)] = DataFilter.ImmediateDelay,
+            [nameof(FluentNumberField<int>.Disabled)] = readOnly,
 
             [nameof(FluentNumberField<int>.Min)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMinValue))!
                                                               .Invoke(inputHelper, null)!,

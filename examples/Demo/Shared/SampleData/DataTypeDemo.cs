@@ -19,6 +19,22 @@ public class DataTypeDemoBase
     public TimeOnly TimeOnly { get; set; }
     public DateTimeOffset DateTimeOffset { get; set; }
     public DataTypeDemoEnum Enum { get; set; }
+
+    public sbyte? TinyIntegerNullable { get; set; }
+    public short? SmallIntegerNullable { get; set; }
+    public int? IntegerNullable { get; set; }
+    public long? LongIntegerNullable { get; set; }
+    public float? SinglePrecisionNullable { get; set; }
+    public double? DoublePrecisionNullable { get; set; }
+    public decimal? DecimalNullable { get; set; }
+    public bool? BooleanNullable { get; set; }
+    public char? CharNullable { get; set; }
+    public string? StringNullable { get; set; } = default!;
+    public DateTime? DateTimeNullable { get; set; }
+    public DateOnly? DateOnlyNullable { get; set; }
+    public TimeOnly? TimeOnlyNullable { get; set; }
+    public DateTimeOffset? DateTimeOffsetNullable { get; set; }
+    public DataTypeDemoEnum? EnumNullable { get; set; }
 }
 
 public class DataTypeDemo : DataTypeDemoBase

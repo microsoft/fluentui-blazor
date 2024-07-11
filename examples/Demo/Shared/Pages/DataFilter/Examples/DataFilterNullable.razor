@@ -1,0 +1,138 @@
+﻿@using System.Linq.Expressions
+@inject DataSource Data
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+        <FluentSelect TOption="DataFilterCaseSensitivity"
+                      Label="String Case Sensitivity"
+                      Items="@(Enum.GetValues<DataFilterCaseSensitivity>())"
+                      OptionText="@(a => a.GetDisplayName())"
+                      @bind-SelectedOption="_caseSensitivity" />
+    </FluentStack>
+
+    <srong>Data Filter</srong>
+
+    <FluentDataFilter @bind-Criteria="@_criteria">
+        <PropertyFilter Property="@(a=> a.TinyIntegerNullable)" Title="Tiny Integer nullable" />
+        <PropertyFilter Property="@(a=> a.SmallIntegerNullable)" />
+        <PropertyFilter Property="@(a=> a.IntegerNullable)" />
+        <PropertyFilter Property="@(a=> a.LongIntegerNullable)" />
+        <PropertyFilter Property="@(a=> a.SinglePrecisionNullable)" />
+        <PropertyFilter Property="@(a=> a.DoublePrecisionNullable)" />
+        <PropertyFilter Property="@(a=> a.DecimalNullable)" Unique="true" Title="Decimal (Unique)" />
+        <PropertyFilter Property="@(a=> a.BooleanNullable)" />
+        <PropertyFilter Property="@(a=> a.StringNullable)" />
+        <PropertyFilter Property="@(a=> a.DateTimeNullable)" />
+        <PropertyFilter Property="@(a=> a.DateOnlyNullable)" />
+        <PropertyFilter Property="@(a=> a.TimeOnlyNullable)" />
+        <PropertyFilter Property="@(a=> a.EnumNullable)" />
+        <PropertyFilter Property="@(a=> a.Children.EnumNullable)" Title="Child Enum Nullable" />
+
+        <PropertyFilter Id="PF-Enum" Property="@(a=> a.Enum)" Title="Custom Enum (TemplateFilter)">
+            <TemplateFilter>
+                <FluentSlider TValue="int"
+                              Orientation="Orientation.Horizontal"
+                              Min="0"
+                              Max="6"
+                              Step="1"
+                              Label="Slider value"
+                              Value="Convert.ToInt32(context.Value)"
+                              ValueChanged="@((e) => context.Value = (DataTypeDemoEnum)e)">
+                    @foreach (var item in Enum.GetValues<DataTypeDemoEnum>())
+                    {
+                        var currEnum = item;
+                        <FluentSliderLabel Position="@((int)currEnum)">@currEnum.GetDisplayName()</FluentSliderLabel>
+                    }
+                </FluentSlider>
+            </TemplateFilter>
+        </PropertyFilter>
+
+        <PropertyFilter Id="PF-Boolean" Property="@(a=> a.Boolean)" Title="Custom Boolean (TemplateFilter)">
+            <TemplateFilter>
+                <FluentSwitch Value="Convert.ToBoolean(context.Value)" ValueChanged="@((e) => context.Value = e)" />
+            </TemplateFilter>
+        </PropertyFilter>
+
+        <CustomFilter Id="CF-DataTypeDemo"
+                      TItem="DataTypeDemo"
+                      TProp="List<DataTypeDemoEnum>"
+                      Title="Custom Enum Many (CustomFilter)"
+                      ExpressionFilter="@GetExpressionEnumMany">
+            <TemplateFilter>
+                @{
+                    var value = (List<DataTypeDemoEnum>)context.Value!;
+                }
+
+                <FluentAutocomplete TOption="DataTypeDemoEnum"
+                                    AutoComplete="off"
+                                    Multiple="true"
+                                    OnOptionsSearch="@OnSearchEnumMany"
+                                    OptionText="@(a => a.GetDisplayName())"
+                                    SelectedOptions="value"
+                                    SelectedOptionsChanged="@((e) => SelectedOptionsChangedEnumMany(e,value))" />
+            </TemplateFilter>
+        </CustomFilter>
+
+        <FieldFilter Id="FF-Enum" Field="Enum" Title="Enum (FieldFilter)" />
+
+        <FieldFilter Id="FF-Boolean" Field="Boolean" Title="Custom Boolean (FieldFilter)">
+            <TemplateFilter>
+                <FluentSwitch Value="Convert.ToBoolean(context.Value)" ValueChanged="@((e) => context.Value = e)" />
+            </TemplateFilter>
+        </FieldFilter>
+
+        <FieldFilter Id="FF-Children.Enum" Field="Children.Enum" Title="Child Enum (FieldFilter)" />
+    </FluentDataFilter>
+
+    <FluentAccordion Style="width:100%;">
+        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
+            <FluentStack Orientation="Orientation.Horizontal">
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+            </FluentStack>
+        </FluentAccordionItem>
+    </FluentAccordion>
+
+    <FluentCard>
+        <p>Data Grid</p>
+
+        <FluentDataGrid Items="@DataTypeDemo">
+            <PropertyColumn Property="@(a=> a.TinyIntegerNullable)" />
+            <PropertyColumn Property="@(a=> a.SmallIntegerNullable)" />
+            <PropertyColumn Property="@(a=> a.IntegerNullable)" />
+            <PropertyColumn Property="@(a=> a.LongIntegerNullable)" />
+            <PropertyColumn Property="@(a=> a.SinglePrecisionNullable)" />
+            <PropertyColumn Property="@(a=> a.DoublePrecisionNullable)" />
+            <PropertyColumn Property="@(a=> a.DecimalNullable)" />
+            <PropertyColumn Property="@(a=> a.BooleanNullable)" />
+            <PropertyColumn Property="@(a=> a.StringNullable)" />
+            <PropertyColumn Property="@(a=> a.DateTimeNullable)" />
+            <PropertyColumn Property="@(a=> a.DateOnlyNullable)" />
+            <PropertyColumn Property="@(a=> a.TimeOnlyNullable)" />
+            <PropertyColumn Property="@(a=> a.EnumNullable)" />
+            <PropertyColumn Property="@(a=> a.Children.EnumNullable)" Title="Child Enum nullable" />
+        </FluentDataGrid>
+    </FluentCard>
+</FluentStack>
+
+@code
+{
+    IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(_criteria.ToExpression(_caseSensitivity));
+    DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.Ignore;
+    DataFilterCriteria<DataTypeDemo> _criteria = new();
+
+    private void SelectedOptionsChangedEnumMany(IEnumerable<DataTypeDemoEnum> items, List<DataTypeDemoEnum> selected)
+    {
+        selected.Clear();
+        selected.AddRange(items);
+    }
+
+    private void OnSearchEnumMany(OptionsSearchEventArgs<DataTypeDemoEnum> e)
+        => e.Items = Enum.GetValues<DataTypeDemoEnum>().Where(a => a.GetDisplayName().Contains(e.Text, StringComparison.OrdinalIgnoreCase));
+
+    private Expression<Func<DataTypeDemo, bool>> GetExpressionEnumMany(object? value, DataFilterCaseSensitivity caseSensitivity)
+    {
+        var selected = (List<DataTypeDemoEnum>)value!;
+        return x => selected.Contains(x.Enum);
+    }
+}
