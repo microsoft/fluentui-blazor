@@ -6,7 +6,7 @@
 
 
 <FluentGrid Class="home" Justify="JustifyContent.FlexStart" Spacing="6">
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="12" md="6">
         <h1>Welcome!</h1>
         <p>
             The Fluent UI Blazor library provides a robust and extensive set of <a href="https://blazor.net">Blazor</a> components. Some of those
@@ -25,7 +25,7 @@
         </p>
 
     </FluentGridItem>
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="12" md="6">
         <div class="demopanel" style="margin: 1rem 0; padding: 1.5rem; text-align: center">
             <p>This is the demo and documentation site for version <strong>@_version</strong> of the library. This version supports .NET 8 <strong>only</strong> </p>
             <br />
@@ -40,8 +40,20 @@
             If you are already up-and-running and upgrading from an earlier version of the library, please go to the <a href="/WhatsNew">What's new</a> page
             for information on additions, fixes and (breaking) changes.
         </p>
+        <h2 id="interactivity">Components & render modes</h2>
+        <p>
+            As described in the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0" target="_blank"> Blazor documentation</a>:
+        </p>
+        <blockquote>
+            By default, components use Static Server-side rendering (SSR). The component renders to the response stream and there is no interactivity.
+        </blockquote>
+        <p>
+            A component inherits its render mode from its parent. So unless a render mode is specified on the app, page or component level, every
+            component (including ours) is <em>statically rendered</em> on the server and <strong>will not be interactive</strong>. For the
+            Fluent UI Blazor library this means most components will display correctly but <strong>will not offer</strong> complete, if any, functionality.
+        </p>
     </FluentGridItem>
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="12" md="6">
         <h2 id="getting-started">Getting Started</h2>
         <p>
             By far rhe easiest way to get started is by using our templates. Setting them up is quick and easy. See the <a href="/Templates">templates</a> page
@@ -60,7 +72,7 @@
         </p>
     </FluentGridItem>
 
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="12" md="6">
         <h3>Scripts</h3>
         <p>
             As mentioned, we wrap the Fluent UI Web Components for some of our compnents. The needed script is included in the library and will
@@ -86,7 +98,7 @@
         </p>
     </FluentGridItem>
 
-    <FluentGridItem xs="12" sm="8">
+    <FluentGridItem xs="12" sm="12" md="8" >
         <h2 id="using-the-fluentui-web-components">Using the Fluent UI Blazor components</h2>
         <p>With the package installed, you can begin using the Fluent UI Blazor components in the same way as any other Blazor component. Just be sure to add the following using statement to your views:</p>
         <CodeSnippet>@@using Microsoft.FluentUI.AspNetCore.Components</CodeSnippet>
@@ -114,7 +126,7 @@
             </ChildContent>
         </DemoSection>
     </FluentGridItem>
-    <FluentGridItem xs="12" sm="4">
+    <FluentGridItem xs="12" sm="12" md="4">
         <h2 id="configuring-the-design-system">Configuring the Design System</h2>
         <p>
             The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while
@@ -127,7 +139,7 @@
 
     </FluentGridItem>
 
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="12" md="6">
         <h2 id="support">Support</h2>
         <p>
             The Microsoft Fluent UI Blazor library is an open-source project. The source code (including this demo site) is hosted in the <a href="https://github.com/microsoft/fluentui-blazor">fluentui-blazor</a>
@@ -141,7 +153,7 @@
         </p>
     </FluentGridItem>
 
-    <FluentGridItem xs="12" sm="6">
+    <FluentGridItem xs="12" sm="12" md="6">
         <h2 id="joining-the-community">Joining the Community</h2>
         <p>
             Looking to get answers to questions or engage with us in real-time?
