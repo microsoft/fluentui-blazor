@@ -160,6 +160,7 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
+            await ValueChanged.InvokeAsync(targetIndex);
             StateHasChanged();
         }
     }
@@ -182,6 +183,7 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
+            await ValueChanged.InvokeAsync(targetIndex);
             StateHasChanged();
         }
     }
@@ -190,9 +192,11 @@ public partial class FluentWizard : FluentComponentBase
     protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
+        var allEditContextsAreValid = false;        
+
         if (validateEditContexts)
         {
-            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+            allEditContextsAreValid = _steps[Value].ValidateEditContexts();
             stepChangeArgs.IsCancelled = !allEditContextsAreValid;
 
             if (!allEditContextsAreValid)
@@ -207,8 +211,6 @@ public partial class FluentWizard : FluentComponentBase
 
             await _steps[Value].InvokeOnSubmitForEditFormsAsync();
         }
-
-        await ValueChanged.InvokeAsync(targetIndex);
 
         return await OnStepChangeHandlerAsync(stepChangeArgs);
     }
@@ -256,6 +258,7 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
+            await ValueChanged.InvokeAsync(targetIndex);
             StateHasChanged();
         }
     }
