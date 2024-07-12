@@ -14,6 +14,15 @@
                       @bind-SelectedOption="_addMenuPosition" />
     </FluentStack>
 
+    <FluentAccordion Style="width:100%;">
+        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
+            <FluentStack Orientation="Orientation.Horizontal">
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity ).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+            </FluentStack>
+        </FluentAccordionItem>
+    </FluentAccordion>
+
     <srong>Data Filter</srong>
 
     <FluentDataFilter MenuAddPosition="@_addMenuPosition"
@@ -36,16 +45,6 @@
         <PropertyFilter Property="@(a=> a.Children.Enum)" Title="Child Enum" />
     </FluentDataFilter>
 
-    <FluentAccordion Style="width:100%;">
-        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
-            <FluentStack Orientation="Orientation.Horizontal">
-                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity ).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
-                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
-            </FluentStack>
-        </FluentAccordionItem>
-    </FluentAccordion>
-
-    <FluentCard>
         <p>Data Grid</p>
 
         <FluentDataGrid Items="@DataTypeDemo">
@@ -64,7 +63,6 @@
             <PropertyColumn Property="@(a=> a.Enum)" />
             <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
         </FluentDataGrid>
-    </FluentCard>
 </FluentStack>
 
 @code

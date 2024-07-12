@@ -5,15 +5,11 @@
     <FluentAccordion Style="width:100%;">
         <FluentAccordionItem Heading="Linq / Json" Expanded="false">
             <FluentStack Orientation="Orientation.Horizontal">
-                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@WhereExpression.ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
                 <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
             </FluentStack>
         </FluentAccordionItem>
     </FluentAccordion>
-
-    <div>
-        In Demo : @_criteria.GetHashCode() / @_criteria.Conditions.Count()
-    </div>
 
     <FluentStack Orientation="Orientation.Vertical" Width="100%" Style="">
         <FluentToolbar Style="width:100%">
@@ -38,10 +34,6 @@
 
             <FluentDataFilterManager TItem="DataTypeDemo" @bind-Criteria="@_criteria" TextButtonMenu="" Appearance="Appearance.Stealth">
                 <DataFilterTemplate>
-                    <div>
-                        In Context DataFilter: @context.GetHashCode() / @context.Conditions.Count()
-                    </div>
-
                     <FluentDataFilter @bind-Criteria="@context" Style="padding:10px;">
                         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />
                         <PropertyFilter Property="@(a=> a.SmallInteger)" />
@@ -61,7 +53,7 @@
                 </DataFilterTemplate>
             </FluentDataFilterManager>
 
-            <FluentSearch />
+            <FluentSearch @bind-Value="_search" />
         </FluentToolbar>
 
         <FluentDataGrid Items="@DataTypeDemo">
@@ -85,7 +77,27 @@
 
 @code
 {
-    IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(_criteria.ToExpression(_caseSensitivity));
+    IQueryable<DataTypeDemo> DataTypeDemo => Data.DataTypeDemoQ.Where(WhereExpression);
     DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.CaseInsensitive;
     DataFilterCriteria<DataTypeDemo> _criteria = new();
+    string _search = default!;
+
+    private Expression<Func<DataTypeDemo, bool>> WhereExpression =>
+           string.IsNullOrWhiteSpace(_search)
+                   ? _criteria.ToExpression(_caseSensitivity)
+                   : DataFilterHelper.GenerateExpression<DataTypeDemo>(_search,
+                                                                       _caseSensitivity,
+                                                                       a => a.SetProperty(b => b.TinyInteger),
+                                                                       a => a.SetProperty(b => b.SmallInteger),
+                                                                       a => a.SetProperty(b => b.Integer),
+                                                                       a => a.SetProperty(b => b.LongInteger),
+                                                                       a => a.SetProperty(b => b.SinglePrecision),
+                                                                       a => a.SetProperty(b => b.DoublePrecision),
+                                                                       a => a.SetProperty(b => b.Decimal),
+                                                                       a => a.SetProperty(b => b.Boolean),
+                                                                       a => a.SetProperty(b => b.String),
+                                                                       a => a.SetProperty(b => b.DateTime),
+                                                                       a => a.SetProperty(b => b.DateOnly),
+                                                                       a => a.SetProperty(b => b.TimeOnly),
+                                                                       a => a.SetProperty(b => b.Enum));
 }

@@ -4,7 +4,16 @@
 <FluentStack Orientation="Orientation.Vertical">
     <srong>Data Filter</srong>
 
-    <FluentDataFilter @bind-Criteria="@_criteria" >
+    <FluentAccordion Style="width:100%;">
+        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
+            <FluentStack Orientation="Orientation.Horizontal">
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+            </FluentStack>
+        </FluentAccordionItem>
+    </FluentAccordion>
+
+    <FluentDataFilter @bind-Criteria="@_criteria">
         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />
         <PropertyFilter Property="@(a=> a.SmallInteger)" />
         <PropertyFilter Property="@(a=> a.Integer)" />
@@ -21,35 +30,24 @@
         <PropertyFilter Property="@(a=> a.Children.Enum)" Title="Child Enum" />
     </FluentDataFilter>
 
-    <FluentAccordion Style="width:100%;">
-        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
-            <FluentStack Orientation="Orientation.Horizontal">
-                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
-                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
-            </FluentStack>
-        </FluentAccordionItem>
-    </FluentAccordion>
+    <p>Data Grid</p>
 
-    <FluentCard>
-        <p>Data Grid</p>
-
-        <FluentDataGrid Items="@DataTypeDemo">
-            <PropertyColumn Property="@(a=> a.TinyInteger)" />
-            <PropertyColumn Property="@(a=> a.SmallInteger)" />
-            <PropertyColumn Property="@(a=> a.Integer)" />
-            <PropertyColumn Property="@(a=> a.LongInteger)" />
-            <PropertyColumn Property="@(a=> a.SinglePrecision)" />
-            <PropertyColumn Property="@(a=> a.DoublePrecision)" />
-            <PropertyColumn Property="@(a=> a.Decimal)" />
-            <PropertyColumn Property="@(a=> a.Boolean)" />
-            <PropertyColumn Property="@(a=> a.String)" />
-            <PropertyColumn Property="@(a=> a.DateTime)" />
-            <PropertyColumn Property="@(a=> a.DateOnly)" />
-            <PropertyColumn Property="@(a=> a.TimeOnly)" />
-            <PropertyColumn Property="@(a=> a.Enum)" />
-            <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
-        </FluentDataGrid>
-    </FluentCard>
+    <FluentDataGrid Items="@DataTypeDemo">
+        <PropertyColumn Property="@(a=> a.TinyInteger)" />
+        <PropertyColumn Property="@(a=> a.SmallInteger)" />
+        <PropertyColumn Property="@(a=> a.Integer)" />
+        <PropertyColumn Property="@(a=> a.LongInteger)" />
+        <PropertyColumn Property="@(a=> a.SinglePrecision)" />
+        <PropertyColumn Property="@(a=> a.DoublePrecision)" />
+        <PropertyColumn Property="@(a=> a.Decimal)" />
+        <PropertyColumn Property="@(a=> a.Boolean)" />
+        <PropertyColumn Property="@(a=> a.String)" />
+        <PropertyColumn Property="@(a=> a.DateTime)" />
+        <PropertyColumn Property="@(a=> a.DateOnly)" />
+        <PropertyColumn Property="@(a=> a.TimeOnly)" />
+        <PropertyColumn Property="@(a=> a.Enum)" />
+        <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
+    </FluentDataGrid>
 </FluentStack>
 
 @code

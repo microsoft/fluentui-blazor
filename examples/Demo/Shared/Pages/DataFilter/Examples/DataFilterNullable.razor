@@ -10,6 +10,16 @@
                       @bind-SelectedOption="_caseSensitivity" />
     </FluentStack>
 
+
+    <FluentAccordion Style="width:100%;">
+        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
+            <FluentStack Orientation="Orientation.Horizontal">
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+            </FluentStack>
+        </FluentAccordionItem>
+    </FluentAccordion>
+
     <srong>Data Filter</srong>
 
     <FluentDataFilter @bind-Criteria="@_criteria">
@@ -28,8 +38,8 @@
         <PropertyFilter Property="@(a=> a.EnumNullable)" />
         <PropertyFilter Property="@(a=> a.Children.EnumNullable)" Title="Child Enum Nullable" />
 
-        <PropertyFilter Id="PF-Enum" Property="@(a=> a.Enum)" Title="Custom Enum (TemplateFilter)">
-            <TemplateFilter>
+        <PropertyFilter Id="PF-Enum" Property="@(a=> a.Enum)" Title="Custom Enum (ValueTemplate)">
+            <ValueTemplate>
                 <FluentSlider TValue="int"
                               Orientation="Orientation.Horizontal"
                               Min="0"
@@ -44,75 +54,44 @@
                         <FluentSliderLabel Position="@((int)currEnum)">@currEnum.GetDisplayName()</FluentSliderLabel>
                     }
                 </FluentSlider>
-            </TemplateFilter>
+            </ValueTemplate>
         </PropertyFilter>
 
-        <PropertyFilter Id="PF-Boolean" Property="@(a=> a.Boolean)" Title="Custom Boolean (TemplateFilter)">
-            <TemplateFilter>
+        <PropertyFilter Id="PF-Boolean" Property="@(a=> a.Boolean)" Title="Custom Boolean (ValueTemplate)">
+            <ValueTemplate>
                 <FluentSwitch Value="Convert.ToBoolean(context.Value)" ValueChanged="@((e) => context.Value = e)" />
-            </TemplateFilter>
+            </ValueTemplate>
         </PropertyFilter>
-
-        <CustomFilter Id="CF-DataTypeDemo"
-                      TItem="DataTypeDemo"
-                      TProp="List<DataTypeDemoEnum>"
-                      Title="Custom Enum Many (CustomFilter)"
-                      ExpressionFilter="@GetExpressionEnumMany">
-            <TemplateFilter>
-                @{
-                    var value = (List<DataTypeDemoEnum>)context.Value!;
-                }
-
-                <FluentAutocomplete TOption="DataTypeDemoEnum"
-                                    AutoComplete="off"
-                                    Multiple="true"
-                                    OnOptionsSearch="@OnSearchEnumMany"
-                                    OptionText="@(a => a.GetDisplayName())"
-                                    SelectedOptions="value"
-                                    SelectedOptionsChanged="@((e) => SelectedOptionsChangedEnumMany(e,value))" />
-            </TemplateFilter>
-        </CustomFilter>
 
         <FieldFilter Id="FF-Enum" Field="Enum" Title="Enum (FieldFilter)" />
 
         <FieldFilter Id="FF-Boolean" Field="Boolean" Title="Custom Boolean (FieldFilter)">
-            <TemplateFilter>
+            <ValueTemplate>
                 <FluentSwitch Value="Convert.ToBoolean(context.Value)" ValueChanged="@((e) => context.Value = e)" />
-            </TemplateFilter>
+            </ValueTemplate>
         </FieldFilter>
 
         <FieldFilter Id="FF-Children.Enum" Field="Children.Enum" Title="Child Enum (FieldFilter)" />
     </FluentDataFilter>
 
-    <FluentAccordion Style="width:100%;">
-        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
-            <FluentStack Orientation="Orientation.Horizontal">
-                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
-                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
-            </FluentStack>
-        </FluentAccordionItem>
-    </FluentAccordion>
+    <p>Data Grid</p>
 
-    <FluentCard>
-        <p>Data Grid</p>
-
-        <FluentDataGrid Items="@DataTypeDemo">
-            <PropertyColumn Property="@(a=> a.TinyIntegerNullable)" />
-            <PropertyColumn Property="@(a=> a.SmallIntegerNullable)" />
-            <PropertyColumn Property="@(a=> a.IntegerNullable)" />
-            <PropertyColumn Property="@(a=> a.LongIntegerNullable)" />
-            <PropertyColumn Property="@(a=> a.SinglePrecisionNullable)" />
-            <PropertyColumn Property="@(a=> a.DoublePrecisionNullable)" />
-            <PropertyColumn Property="@(a=> a.DecimalNullable)" />
-            <PropertyColumn Property="@(a=> a.BooleanNullable)" />
-            <PropertyColumn Property="@(a=> a.StringNullable)" />
-            <PropertyColumn Property="@(a=> a.DateTimeNullable)" />
-            <PropertyColumn Property="@(a=> a.DateOnlyNullable)" />
-            <PropertyColumn Property="@(a=> a.TimeOnlyNullable)" />
-            <PropertyColumn Property="@(a=> a.EnumNullable)" />
-            <PropertyColumn Property="@(a=> a.Children.EnumNullable)" Title="Child Enum nullable" />
-        </FluentDataGrid>
-    </FluentCard>
+    <FluentDataGrid Items="@DataTypeDemo">
+        <PropertyColumn Property="@(a=> a.TinyIntegerNullable)" />
+        <PropertyColumn Property="@(a=> a.SmallIntegerNullable)" />
+        <PropertyColumn Property="@(a=> a.IntegerNullable)" />
+        <PropertyColumn Property="@(a=> a.LongIntegerNullable)" />
+        <PropertyColumn Property="@(a=> a.SinglePrecisionNullable)" />
+        <PropertyColumn Property="@(a=> a.DoublePrecisionNullable)" />
+        <PropertyColumn Property="@(a=> a.DecimalNullable)" />
+        <PropertyColumn Property="@(a=> a.BooleanNullable)" />
+        <PropertyColumn Property="@(a=> a.StringNullable)" />
+        <PropertyColumn Property="@(a=> a.DateTimeNullable)" />
+        <PropertyColumn Property="@(a=> a.DateOnlyNullable)" />
+        <PropertyColumn Property="@(a=> a.TimeOnlyNullable)" />
+        <PropertyColumn Property="@(a=> a.EnumNullable)" />
+        <PropertyColumn Property="@(a=> a.Children.EnumNullable)" Title="Child Enum nullable" />
+    </FluentDataGrid>
 </FluentStack>
 
 @code

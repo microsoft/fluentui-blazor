@@ -10,9 +10,22 @@
                       @bind-SelectedOption="_caseSensitivity" />
     </FluentStack>
 
+    <FluentAccordion Style="width:100%;">
+        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
+            <FluentStack Orientation="Orientation.Horizontal">
+                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
+                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
+            </FluentStack>
+        </FluentAccordionItem>
+    </FluentAccordion>
+
+    <p>
+        <code>In</code> and <code>NotIn</code> are enabled because the property <code>Items</code> in <code>FluentDataFilter</code> is set.
+    </p>
+
     <srong>Data Filter</srong>
 
-    <FluentDataFilter @bind-Criteria="@_criteria">
+    <FluentDataFilter @bind-Criteria="@_criteria" Items="@Data.DataTypeDemoQ">
         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />
         <PropertyFilter Property="@(a=> a.SmallInteger)" />
         <PropertyFilter Property="@(a=> a.Integer)" />
@@ -28,8 +41,8 @@
         <PropertyFilter Property="@(a=> a.Enum)" />
         <PropertyFilter Property="@(a=> a.Children.Enum)" Title="Child Enum" />
 
-        <PropertyFilter Id="PF-Enum" Property="@(a=> a.Enum)" Title="Custom Enum (TemplateFilter)">
-            <TemplateFilter>
+        <PropertyFilter Id="PF-Enum" Property="@(a=> a.Enum)" Title="Custom Enum (ValueTemplate)">
+            <ValueTemplate>
                 <FluentSlider TValue="int"
                               Orientation="Orientation.Horizontal"
                               Min="0"
@@ -44,75 +57,44 @@
                         <FluentSliderLabel Position="@((int)currEnum)">@currEnum.GetDisplayName()</FluentSliderLabel>
                     }
                 </FluentSlider>
-            </TemplateFilter>
+            </ValueTemplate>
         </PropertyFilter>
 
-        <PropertyFilter Id="PF-Boolean" Property="@(a=> a.Boolean)" Title="Custom Boolean (TemplateFilter)">
-            <TemplateFilter>
+        <PropertyFilter Id="PF-Boolean" Property="@(a=> a.Boolean)" Title="Custom Boolean (ValueTemplate)">
+            <ValueTemplate>
                 <FluentSwitch Value="Convert.ToBoolean(context.Value)" ValueChanged="@((e) => context.Value = e)" />
-            </TemplateFilter>
+            </ValueTemplate>
         </PropertyFilter>
-
-        <CustomFilter Id="CF-DataTypeDemo"
-                      TItem="DataTypeDemo"
-                      TProp="List<DataTypeDemoEnum>"
-                      Title="Custom Enum Many (CustomFilter)"
-                      ExpressionFilter="@GetExpressionEnumMany">
-            <TemplateFilter>
-                @{
-                    var value = (List<DataTypeDemoEnum>)context.Value!;
-                }
-
-                <FluentAutocomplete TOption="DataTypeDemoEnum"
-                                    AutoComplete="off"
-                                    Multiple="true"
-                                    OnOptionsSearch="@OnSearchEnumMany"
-                                    OptionText="@(a => a.GetDisplayName())"
-                                    SelectedOptions="value"
-                                    SelectedOptionsChanged="@((e) => SelectedOptionsChangedEnumMany(e,value))" />
-            </TemplateFilter>
-        </CustomFilter>
 
         <FieldFilter Id="FF-Enum" Field="Enum" Title="Enum (FieldFilter)" />
 
         <FieldFilter Id="FF-Boolean" Field="Boolean" Title="Custom Boolean (FieldFilter)">
-            <TemplateFilter>
+            <ValueTemplate>
                 <FluentSwitch Value="Convert.ToBoolean(context.Value)" ValueChanged="@((e) => context.Value = e)" />
-            </TemplateFilter>
+            </ValueTemplate>
         </FieldFilter>
 
         <FieldFilter Id="FF-Children.Enum" Field="Children.Enum" Title="Child Enum (FieldFilter)" />
     </FluentDataFilter>
 
-    <FluentAccordion Style="width:100%;">
-        <FluentAccordionItem Heading="Linq / Json" Expanded="false">
-            <FluentStack Orientation="Orientation.Horizontal">
-                <FluentTextArea Value="@_criteria.ToExpression(_caseSensitivity).ToString()" Rows="10" Style="width:100%;">Linq</FluentTextArea>
-                <FluentTextArea Value="@_criteria.ToJson()" Rows="10" Style="width:100%;">JSON</FluentTextArea>
-            </FluentStack>
-        </FluentAccordionItem>
-    </FluentAccordion>
+    <p>Data Grid</p>
 
-    <FluentCard>
-        <p>Data Grid</p>
-
-        <FluentDataGrid Items="@DataTypeDemo">
-            <PropertyColumn Property="@(a=> a.TinyInteger)" />
-            <PropertyColumn Property="@(a=> a.SmallInteger)" />
-            <PropertyColumn Property="@(a=> a.Integer)" />
-            <PropertyColumn Property="@(a=> a.LongInteger)" />
-            <PropertyColumn Property="@(a=> a.SinglePrecision)" />
-            <PropertyColumn Property="@(a=> a.DoublePrecision)" />
-            <PropertyColumn Property="@(a=> a.Decimal)" />
-            <PropertyColumn Property="@(a=> a.Boolean)" />
-            <PropertyColumn Property="@(a=> a.String)" />
-            <PropertyColumn Property="@(a=> a.DateTime)" />
-            <PropertyColumn Property="@(a=> a.DateOnly)" />
-            <PropertyColumn Property="@(a=> a.TimeOnly)" />
-            <PropertyColumn Property="@(a=> a.Enum)" />
-            <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
-        </FluentDataGrid>
-    </FluentCard>
+    <FluentDataGrid Items="@DataTypeDemo">
+        <PropertyColumn Property="@(a=> a.TinyInteger)" />
+        <PropertyColumn Property="@(a=> a.SmallInteger)" />
+        <PropertyColumn Property="@(a=> a.Integer)" />
+        <PropertyColumn Property="@(a=> a.LongInteger)" />
+        <PropertyColumn Property="@(a=> a.SinglePrecision)" />
+        <PropertyColumn Property="@(a=> a.DoublePrecision)" />
+        <PropertyColumn Property="@(a=> a.Decimal)" />
+        <PropertyColumn Property="@(a=> a.Boolean)" />
+        <PropertyColumn Property="@(a=> a.String)" />
+        <PropertyColumn Property="@(a=> a.DateTime)" />
+        <PropertyColumn Property="@(a=> a.DateOnly)" />
+        <PropertyColumn Property="@(a=> a.TimeOnly)" />
+        <PropertyColumn Property="@(a=> a.Enum)" />
+        <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
+    </FluentDataGrid>
 </FluentStack>
 
 @code
