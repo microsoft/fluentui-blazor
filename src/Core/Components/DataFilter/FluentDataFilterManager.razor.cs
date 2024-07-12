@@ -54,7 +54,7 @@ public partial class FluentDataFilterManager<TItem>
     /// Gets or sets text clear all filters.
     /// </summary>
     [Parameter]
-    public string TextClearAllFilters { get; set; } = "Clear";
+    public string TextClear { get; set; } = "Clear";
 
     /// <summary>
     /// Gets or sets text edit filter.
@@ -150,28 +150,29 @@ public partial class FluentDataFilterManager<TItem>
         else if (id == "Edit")
         {
             var oldCriteria = Criteria.Clone();
-            var currentItem = CurrentItem;
+            var currentItem = CurrentItem!;
 
-            var data = CreateDialogContext(currentItem!.Title, true);
+            var data = CreateDialogContext(currentItem.Title, true);
             var result = await ShowDialogAsync(TextEditFilter, data);
             if (!result.Cancelled)
             {
                 if (data.IsDeleted)
                 {
-                    Items.Remove(currentItem!);
-                    CurrentItem = null;
+                    Items.Remove(currentItem);
+                    currentItem = null;
                 }
                 else if (!data.Criteria.IsEmpty)
                 {
-                    currentItem!.Criteria = data.Criteria;
+                    currentItem.Criteria = data.Criteria;
                 }
+
                 await ItemsChangedAsync();
             }
             else
             {
-                currentItem.Criteria= oldCriteria;
-                CurrentItem = currentItem;
+                currentItem.Criteria = oldCriteria;
             }
+            CurrentItem = currentItem;
         }
         else if (id == "Clear")
         {

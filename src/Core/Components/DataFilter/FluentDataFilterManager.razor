@@ -26,7 +26,7 @@
 
     <FluentMenuItem Id="Clear" Disabled="@(CurrentItem == null)">
         <span slot="start"><FluentIcon Value="@(new CoreIcons.Regular.Size20.FilterDismiss())" Slot="start" /></span>
-        @TextClearAllFilters
+        @TextClear
     </FluentMenuItem>
 
     @if (Items.Count != 0)

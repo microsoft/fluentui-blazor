@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -9,74 +8,25 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TItem"></typeparam>
 public class DataFilterCriteriaCondition<TItem>
 {
-    private FilterBase<TItem> _filter = default!;
-    private DataFilterComparisonOperator _operator;
-
-    [JsonIgnore]
-    internal FilterBase<TItem> Filter
-    {
-        get => _filter;
-        set
-        {
-            _filter = value;
-            Field = _filter?.Id!;
-
-            if (_filter != null)
-            {
-                Operator = _filter.Operators.FirstOrDefault();
-
-                if (Value == null
-                    || (Value != null && Value.GetType() != _filter.Type))
-                {
-                    Value = _filter.GetDefaultValue(false);
-                }
-            }
-        }
-    }
-
     /// <summary>
-    /// Gets or sets Field
+    /// Gets or sets field
     /// </summary>
     public string Field { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets Value.
+    /// Gets or sets value.
     /// </summary>
     public object? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets Type.
+    /// Gets or sets filter id.
     /// </summary>
-    public string Type { get; set; } = default!;
+    public string FilterId { get; set; } = default!;
 
     /// <summary>
     /// Comparison Operator.
     /// </summary>
-    /// <summary>
-    /// Comparison Operator.
-    /// </summary>
-    public DataFilterComparisonOperator Operator
-    {
-        get => _operator;
-        set
-        {
-            if (value == DataFilterComparisonOperator.Empty || value == DataFilterComparisonOperator.NotEmpty)
-            {
-                Value = null;
-            }
-            else if (_operator != value
-                && (value == DataFilterComparisonOperator.In || value == DataFilterComparisonOperator.In))
-            {
-                Value = _filter?.GetDefaultValue(true);
-            }
-            else if (Value == null)
-            {
-                Value = _filter?.GetDefaultValue(false);
-            }
-
-            _operator = value;
-        }
-    }
+    public DataFilterComparisonOperator Operator { get; set; }
 
     /// <summary>
     /// To expression.
@@ -84,30 +34,12 @@ public class DataFilterCriteriaCondition<TItem>
     /// <param name="caseSensitivity"></param>
     /// <returns></returns>
     public Expression<Func<TItem, bool>> ToExpression(DataFilterCaseSensitivity caseSensitivity)
-    {
-        Expression<Func<TItem, bool>> ret = x => true;
-
-        if (Filter == null)
-        {
-            if (!string.IsNullOrEmpty(Field))
-            {
-                var propertyInfo = typeof(TItem).GetProperty(Field);
-                if (propertyInfo != null)
-                {
-                    ret = DataFilterHelper.GenerateExpression<TItem>(TypeHelper.CreateExpression(typeof(TItem), Field),
-                                                                     Value,
-                                                                     Operator,
-                                                                     caseSensitivity);
-                }
-            }
-        }
-        else
-        {
-            ret = Filter.ToExpression(Value, Operator, caseSensitivity);
-        }
-
-        return ret;
-    }
+        => !string.IsNullOrEmpty(Field)
+                ? DataFilterHelper.GenerateExpression<TItem>(TypeHelper.CreateExpression(typeof(TItem), Field),
+                                                                Value,
+                                                                Operator,
+                                                                caseSensitivity)
+                : x => true;
 
     /// <summary>
     /// Clone object.
@@ -116,7 +48,8 @@ public class DataFilterCriteriaCondition<TItem>
     public DataFilterCriteriaCondition<TItem> Clone()
         => new()
         {
-            Filter = Filter,
+            Field = Field,
+            FilterId=FilterId,
             Operator = Operator,
             Value = Value
         };

@@ -1,0 +1,15 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+@typeparam TItem
+@typeparam TProp
+
+<FluentAutocomplete TOption="TProp"
+                    AutoComplete="off"
+                    Multiple="true"
+                    Width="200px"
+                    Virtualize="true"
+                    OnOptionsSearch="@OnSearchIn"
+                    OptionText="@((a) =>  Filter.ValueDisplayTextInt(a))"
+                    SelectedOptions="Selected"
+                    SelectedOptionsChanged="@SelectedOptionsChangedInAsync"
+                    Disabled="ReadOnly" />

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using System.Collections;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -31,6 +30,12 @@ public abstract partial class FilterBase<TItem>
     public Func<object?, string>? ValueDisplayText { get; set; }
 
     /// <summary>
+    /// Gets or sets the format string for the value.
+    /// </summary>
+    [Parameter]
+    public string? Format { get; set; }
+
+    /// <summary>
     /// Property info definition.
     /// </summary>
     public Type Type { get; protected set; } = default!;
@@ -40,16 +45,10 @@ public abstract partial class FilterBase<TItem>
     /// </summary>
     public string Name => GetType().Name[..GetType().Name.IndexOf('`')];
 
-    private static void SelectedOptionsChangedMany<T>(IEnumerable<T> items, List<T> selected)
-    {
-        selected.Clear();
-        selected.AddRange(items);
-    }
-
-    private static void OnSearchMany<T>(OptionsSearchEventArgs<T> e)
-    {
-        //e.Items = Enum.GetValues<DataTypeDemoEnum>().Where(a => a.GetDisplayName().Contains(e.Text, StringComparison.OrdinalIgnoreCase));
-    }
+    /// <summary>
+    /// Gets field,
+    /// </summary>
+    public string FieldPath { get; protected set; } = default!;
 
     protected override void OnParametersSet()
     {
@@ -77,36 +76,6 @@ public abstract partial class FilterBase<TItem>
                             ? Type.GetGenericArguments()[0]
                             : Type).Cast<Enum>();
 
-    internal object GetDefaultValue(bool isMultiValues)
-    {
-        var type = TypeHelper.IsNullable(Type)
-                    ? Type.GetGenericArguments()[0]
-                    : Type;
-
-        object value;
-        if (TypeHelper.IsEnum(Type))
-        {
-            value = Enum.GetValues(type).GetValue(0)!;
-        }
-        else if (TypeHelper.IsString(Type))
-        {
-            value = string.Empty;
-        }
-        else
-        {
-            value = Activator.CreateInstance(type)!;
-        }
-
-        if (isMultiValues)
-        {
-            var list = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type))!;
-            list.Add(value);
-            value = list;
-        }
-
-        return value;
-    }
-
     private static T ConvertTo<T>(object? value) => (T)Convert.ChangeType(value, typeof(T))!;
 
     /// <summary>
@@ -120,11 +89,31 @@ public abstract partial class FilterBase<TItem>
                                                                DataFilterComparisonOperator @operator,
                                                                DataFilterCaseSensitivity caseSensitivity);
 
-    /// <summary>
-    /// Get operators
-    /// </summary>
-    /// <returns></returns>
-    public virtual IEnumerable<DataFilterComparisonOperator> Operators => DataFilterHelper.GetOperators(Type);
+    private IEnumerable<DataFilterComparisonOperator> Operators => DataFilterHelper.GetOperators(Type, DataFilter.Items != null);
+
+    private async Task AfterSetOperatorAsync(DataFilterCriteriaCondition<TItem> condition)
+    {
+        if (condition.Operator.IsEmpty())
+        {
+            condition.Value = null;
+        }
+        else if (condition.Operator.IsIn())
+        {
+            var defaultValue = TypeHelper.GetDefaultValue(Type, true);
+            if (condition.Value?.GetType() != defaultValue.GetType())
+            {
+                condition.Value = defaultValue;
+            }
+        }
+        else if (condition.Value == null
+                 //previous change was enumerable
+                 || (!condition.Operator.IsIn() && condition.Value is IEnumerable))
+        {
+            condition.Value = TypeHelper.GetDefaultValue(Type, false);
+        }
+
+        await DataFilter.FilterChangedAsync();
+    }
 
     protected async Task SetValueAsync(DataFilterCriteriaCondition<TItem> condition, object? value)
     {
@@ -137,7 +126,9 @@ public abstract partial class FilterBase<TItem>
                 ? value.GetDisplayName()!
                 : DataFilter.ComparisonOperatorDisplayText.Invoke(value);
 
-    protected string ValueDisplayTextInt(object? obj)
+    protected internal abstract LambdaExpression ExpressionDef { get; }
+
+    protected internal string ValueDisplayTextInt(object? obj)
     {
         if (ValueDisplayText != null)
         {
@@ -153,34 +144,16 @@ public abstract partial class FilterBase<TItem>
         }
     }
 
-    protected PropertyInfo GetPropertyInfo(string field)
+    private Type SelectorInType => typeof(FilterSelectorIn<,>).MakeGenericType(typeof(TItem), Type);
+
+    private Dictionary<string, object> CreateSelectInEditorParameter(DataFilterCriteriaCondition<TItem> condition, bool readOnly)
     {
-        if (string.IsNullOrEmpty(field))
+        return new Dictionary<string, object>()
         {
-            throw new ArgumentException($"Field '{field}' is empty!.");
-        }
-
-        var type = typeof(TItem);
-        PropertyInfo? prop = null;
-        foreach (var item in field.Split('.'))
-        {
-            prop = type.GetProperty(item);
-            if (prop == null)
-            {
-                throw new ArgumentException($"Field '{field}' not valid!.");
-            }
-            else
-            {
-                type = prop.PropertyType;
-            }
-        }
-
-        if (prop == null || !prop.CanRead || !prop.CanWrite)
-        {
-            throw new ArgumentException($"Field '{field}' not valid!.");
-        }
-
-        return prop;
+            [nameof(FilterSelectorIn<object, object>.Condition)] = condition,
+            [nameof(FilterSelectorIn<object, object>.ReadOnly)] = readOnly,
+            [nameof(FilterSelectorIn<object, object>.Filter)] = this,
+        };
     }
 
     private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterCriteriaCondition<TItem> condition, bool readOnly)
@@ -189,9 +162,6 @@ public abstract partial class FilterBase<TItem>
         return new Dictionary<string, object>()
         {
             [nameof(FluentNumberField<int>.Value)] = condition.Value!,
-
-            [nameof(FluentNumberField<int>.Immediate)] = DataFilter.Immediate,
-            [nameof(FluentNumberField<int>.ImmediateDelay)] = DataFilter.ImmediateDelay,
             [nameof(FluentNumberField<int>.Disabled)] = readOnly,
 
             [nameof(FluentNumberField<int>.Min)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMinValue))!

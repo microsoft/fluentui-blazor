@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -8,9 +9,7 @@ internal static class ExpressionExtension
     public static Expression<Func<T, bool>> Make<T>(this Expression firstExpression, Expression secondExpression)
     {
         var bodyIdentifier = new ExpressionBodyIdentifier();
-
         var body = bodyIdentifier.Identify(firstExpression);
-
         var parameterIdentifier = new ExpressionParameterIdentifier();
         var parameter = (ParameterExpression)parameterIdentifier.Identify(firstExpression);
 
@@ -46,24 +45,22 @@ internal static class ExpressionExtension
         return Expression.Lambda<Func<T, bool>>(binaryExpression, parameter);
     }
 
-    public static Expression<Func<T, bool>> MakeContains<T>(this Expression expression,
-                                                            bool not,
-                                                            IEnumerable<object> values)
+    private static readonly MethodInfo CollectionContainsMethod =
+           typeof(Enumerable)
+               .GetMethods(BindingFlags.Static | BindingFlags.Public)
+               .First(x => x.Name == "Contains" && x.GetParameters().Length == 2);
+
+
+    public static Expression<Func<T, bool>> MakeIn<T>(this LambdaExpression expression, object? value)
     {
+        var bodyIdentifier = new ExpressionBodyIdentifier();
+        var body = bodyIdentifier.Identify(expression);
         var parameterIdentifier = new ExpressionParameterIdentifier();
         var parameter = (ParameterExpression)parameterIdentifier.Identify(expression);
 
-        var methodInfo = values.GetType().GetMethod(nameof(IList<object>.Contains), [values.GetType()])!;
-        Expression call = Expression.Call(Expression.Constant(values), methodInfo, expression);
-
-        if (not)
-        {
-            var bodyIdentifier = new ExpressionBodyIdentifier();
-            var body = bodyIdentifier.Identify(expression);
-            call = Expression.MakeBinary(ExpressionType.Not, body, call);
-        }
-
-        return Expression.Lambda<Func<T, bool>>(call, parameter);
+        var method = CollectionContainsMethod.MakeGenericMethod(body.Type);
+        var aa = Expression.Call(null, method,  Expression.Constant(value), expression.Body);
+        return Expression.Lambda<Func<T, bool>>(aa, parameter);
     }
 
     public class ExpressionReplacer(Expression from, Expression to) : ExpressionVisitor

@@ -9,13 +9,16 @@ public partial class PropertyFilter<TItem, TProp>
     /// <summary>
     /// Get or set property filter.
     /// </summary>
-    [Parameter, EditorRequired] public Expression<Func<TItem, TProp>> Property { get; set; } = default!;
+    [Parameter, EditorRequired]
+    public Expression<Func<TItem, TProp>> Property { get; set; } = default!;
 
     /// <summary>
-    /// Get or set Template filter custom.
+    /// Get or set template value custom.
     /// </summary>
     [Parameter]
-    public RenderFragment<DataFilterCriteriaCondition<TItem>>? TemplateFilter { get; set; }
+    public RenderFragment<DataFilterCriteriaCondition<TItem>>? ValueTemplate { get; set; }
+
+    protected internal override LambdaExpression ExpressionDef => Property;
 
     /// <summary>
     /// Generate expression
@@ -36,7 +39,8 @@ public partial class PropertyFilter<TItem, TProp>
             var propertyInfo = memberExpression.Member as PropertyInfo;
             Type = propertyInfo!.PropertyType;
             Title ??= propertyInfo.Name;
-            Id ??= string.Join(".", Property.ToString().Split('.').Skip(1));
+            FieldPath = string.Join(".", Property.ToString().Split('.').Skip(1));
+            Id ??= FieldPath;
         }
         else
         {

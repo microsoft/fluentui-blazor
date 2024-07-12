@@ -1192,6 +1192,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria`1.IsEmpty">
+            <summary>
+            Is empty.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteriaCondition`1">
             <summary>
             Criteria descriptor condition.
@@ -1200,18 +1205,20 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteriaCondition`1.Field">
             <summary>
-            Field
+            Gets or sets field
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteriaCondition`1.Value">
             <summary>
-            Value.
+            Gets or sets value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteriaCondition`1.FilterId">
+            <summary>
+            Gets or sets filter id.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteriaCondition`1.Operator">
-            <summary>
-            Comparison Operator.
-            </summary>
             <summary>
             Comparison Operator.
             </summary>
@@ -1229,23 +1236,31 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterExtensions.IsIn(Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator)">
+            <summary>
+            Is operator in/not in.
+            </summary>
+            <param name="operator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterExtensions.IsEmpty(Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator)">
+            <summary>
+            Is operator empty/not empty.
+            </summary>
+            <param name="operator"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper">
             <summary>
             Data filter helper.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper.GetOperators(System.Type)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper.GetOperators(System.Type,System.Boolean)">
             <summary>
             Get operators from type.
             </summary>
             <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper.GetDefaultComparisonOperator(System.Type)">
-            <summary>
-            Get default comparison operator.
-            </summary>
-            <param name="type"></param>
+            <param name="allowIn"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper.SetOperator``1(Microsoft.FluentUI.AspNetCore.Components.DataFilterLogicalOperator,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -1256,16 +1271,6 @@
             <param name="operator"></param>
             <param name="first"></param>
             <param name="second"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper.GenerateExpression``1(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
-            <summary>
-            Get expression.
-            </summary>
-            <typeparam name="TItem"></typeparam>
-            <param name="value"></param>
-            <param name="caseSensitivity"></param>
-            <param name="properties"></param>
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper.GenerateExpression``1(System.Linq.Expressions.LambdaExpression,System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
@@ -1279,33 +1284,14 @@
             <param name="caseSensitivity"></param>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.TemplateFilter">
-            <summary>
-            Get or set Template filter custom.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.ExpressionFilter">
-            <summary>
-            Gets or sets the function used for custom filter expression.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomFilter`2.ToExpression(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
-            <summary>
-            Generate expression
-            </summary>
-            <param name="value"></param>
-            <param name="operator"></param>
-            <param name="caseSensitivity"></param>
-            <returns></returns>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.Field">
             <summary>
-            Get or set property filter.
+            Get or set filed filter.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.TemplateFilter">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.ValueTemplate">
             <summary>
-            Get or set Template filter custom.
+            Get or set template value custom.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.ToExpression(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
@@ -1333,6 +1319,11 @@
             Gets or sets the function used to determine which text to display.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FilterBase`1.Format">
+            <summary>
+            Gets or sets the format string for the value.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FilterBase`1.Type">
             <summary>
             Property info definition.
@@ -1341,6 +1332,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FilterBase`1.Name">
             <summary>
             Get Filter name
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FilterBase`1.FieldPath">
+            <summary>
+            Gets field,
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FilterBase`1.EnumValues">
@@ -1357,20 +1353,14 @@
             <param name="caseSensitivity"></param>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FilterBase`1.Operators">
-            <summary>
-            Get operators
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.Property">
             <summary>
             Get or set property filter.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.TemplateFilter">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.ValueTemplate">
             <summary>
-            Get or set Template filter custom.
+            Get or set template value custom.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.PropertyFilter`2.ToExpression(System.Object,Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator,Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
@@ -1390,6 +1380,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.LogicalOperators">
             <summary>
             Gets or sets logical operator.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Items">
+            <summary>
+            Gets or sets a queryable source of data for populate value es. In/NotIn conditions.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Criteria">
@@ -1442,16 +1437,6 @@
             Gets or sets logical operator display text.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.Immediate">
-            <summary>
-            Change the content of this input field when the user write text (based on 'OnInput' HTML event).
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.ImmediateDelay">
-            <summary>
-            Gets or sets the delay, in milliseconds, before to raise the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.CriteriaChanged"/> event.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.MenuAddPosition">
             <summary>
             Gets or sets the position of menu add.
@@ -1476,18 +1461,6 @@
             <summary>
             Clear criteria.
             </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.FromCriteriaAsync(Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria{`0})">
-            <summary>
-            From criteria.
-            </summary>
-            <param name="criteria"></param>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.FromJsonAsync(System.String)">
-            <summary>
-            Populate filter from JSON.
-            </summary>
-            <param name="json"></param>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.Items">
             <summary>
@@ -1519,7 +1492,7 @@
             Gets or sets text new filter.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextClearAllFilters">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextClear">
             <summary>
             Gets or sets text clear all filters.
             </summary>
@@ -1606,6 +1579,30 @@
             </summary>
             <param name="type"></param>
             <param name="filed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.GetPropertyInfo``1(System.String)">
+            <summary>
+            Get PropertyInfo from file path. 
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.GetType``1(System.String)">
+            <summary>
+            Get type from field,
+            </summary>
+            <typeparam name="TItem"></typeparam>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.GetDefaultValue(System.Type,System.Boolean)">
+            <summary>
+            Get default value from type.
+            </summary>
+            <param name="type"></param>
+            <param name="isCollation"></param>
             <returns></returns>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1">

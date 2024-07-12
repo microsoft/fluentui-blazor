@@ -46,19 +46,23 @@
                         Height="200px"
                         Width="auto"
                         @bind-SelectedOption="@condition.Operator"
-                        @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
-                        Immediate="@DataFilter.Immediate"
-                        ImmediateDelay="@DataFilter.ImmediateDelay"
+                        @bind-SelectedOption:after="@(async () => await AfterSetOperatorAsync(condition))"
                         Disabled="readOnly" />
+    };
+
+    public virtual RenderFragment RenderIn(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        <DynamicComponent Type="@SelectorInType" Parameters="@CreateSelectInEditorParameter(condition,readOnly)" />
     };
 
     public virtual RenderFragment RenderEnum(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        @if (condition.Operator.IsEmpty())
         {
         }
-        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        else if (condition.Operator.IsIn())
         {
+            @RenderIn(condition, readOnly)
         }
         else
         {
@@ -67,19 +71,18 @@
                             OptionText="ValueDisplayTextInt"
                             @bind-SelectedOption="condition.Value"
                             @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
-                            Immediate="@DataFilter.Immediate"
-                            ImmediateDelay="@DataFilter.ImmediateDelay"
                             Disabled="readOnly" />
         }
     };
 
     public virtual RenderFragment RenderNumber(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        @if (condition.Operator.IsEmpty())
         {
         }
-        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        else if (condition.Operator.IsIn())
         {
+            @RenderIn(condition, readOnly)
         }
         else
         {
@@ -90,11 +93,12 @@
 
     public virtual RenderFragment RenderDate(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        @if (condition.Operator.IsEmpty())
         {
         }
-        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        else if (condition.Operator.IsIn())
         {
+            @RenderIn(condition, readOnly)
         }
         else
         {
@@ -102,30 +106,22 @@
             {
                 <FluentDatePicker Value="Convert.ToDateTime(condition.Value)"
                                   ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
-                                  Immediate="@DataFilter.Immediate"
-                                  ImmediateDelay="@DataFilter.ImmediateDelay"
                                   Disabled="readOnly" />
 
                 <FluentTimePicker Value="Convert.ToDateTime(condition.Value)"
                                   ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
-                                  Immediate="@DataFilter.Immediate"
-                                  ImmediateDelay="@DataFilter.ImmediateDelay"
                                   Disabled="readOnly" />
             }
             else if (Type == typeof(DateOnly) || Type == typeof(DateOnly?))
             {
                 <FluentDatePicker Value="@(ConvertTo<DateOnly>(condition.Value).ToDateTime())"
                                   ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateOnly()))"
-                                  Immediate="@DataFilter.Immediate"
-                                  ImmediateDelay="@DataFilter.ImmediateDelay"
                                   Disabled="readOnly" />
             }
             else if (Type == typeof(TimeOnly) || Type == typeof(TimeOnly?))
             {
                 <FluentTimePicker Value="@(ConvertTo<TimeOnly>(condition.Value).ToDateTime())"
                                   ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToTimeOnly()))"
-                                  Immediate="@DataFilter.Immediate"
-                                  ImmediateDelay="@DataFilter.ImmediateDelay"
                                   Disabled="readOnly" />
             }
         }
@@ -133,36 +129,33 @@
 
     public virtual RenderFragment RenderBoolean(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        @if (condition.Operator.IsEmpty())
         {
         }
-        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        else if (condition.Operator.IsIn())
         {
         }
         else
         {
             <FluentCheckbox Value="Convert.ToBoolean(condition.Value)"
                             ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
-                            Immediate="@DataFilter.Immediate"
-                            ImmediateDelay="@DataFilter.ImmediateDelay"
                             Disabled="readOnly" />
         }
     };
 
     public virtual RenderFragment RenderString(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        @if (condition.Operator == DataFilterComparisonOperator.Empty || condition.Operator == DataFilterComparisonOperator.NotEmpty)
+        @if (condition.Operator.IsEmpty())
         {
         }
-        else if (condition.Operator == DataFilterComparisonOperator.In || condition.Operator == DataFilterComparisonOperator.NotIn)
+        else if (condition.Operator.IsIn())
         {
+            @RenderIn(condition, readOnly)
         }
         else
         {
             <FluentTextField Value="@Convert.ToString(condition.Value)"
                              ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
-                             Immediate="@DataFilter.Immediate"
-                             ImmediateDelay="@DataFilter.ImmediateDelay"
                              Disabled="readOnly" />
         }
     };

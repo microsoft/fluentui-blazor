@@ -99,5 +99,8 @@ public class DataFilterCriteria<TItem>
             Groups = Groups.Select(a => a.Clone()).ToList(),
         };
 
+    /// <summary>
+    /// Is empty.
+    /// </summary>
     public bool IsEmpty => !Conditions.Any() && !Groups.Any();
 }

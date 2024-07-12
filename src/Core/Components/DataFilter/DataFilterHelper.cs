@@ -11,16 +11,15 @@ public class DataFilterHelper
     /// Get operators from type.
     /// </summary>
     /// <param name="type"></param>
+    /// <param name="allowIn"></param>
     /// <returns></returns>
-    public static IEnumerable<DataFilterComparisonOperator> GetOperators(Type type)
+    public static IEnumerable<DataFilterComparisonOperator> GetOperators(Type type, bool allowIn)
     {
         var operators = new List<DataFilterComparisonOperator>();
         if (TypeHelper.IsEnum(type))
         {
             operators.Add(DataFilterComparisonOperator.Equal);
             operators.Add(DataFilterComparisonOperator.NotEqual);
-            //operators.Add(DataFilterComparisonOperator.In);
-            //operators.Add(DataFilterComparisonOperator.NotIn);
         }
         else if (TypeHelper.IsBool(type))
         {
@@ -35,8 +34,6 @@ public class DataFilterHelper
                     DataFilterComparisonOperator.LessThanOrEqual,
                     DataFilterComparisonOperator.GreaterThan,
                     DataFilterComparisonOperator.GreaterThanOrEqual,
-                    //DataFilterComparisonOperator.In,
-                    //DataFilterComparisonOperator.NotIn,
                 ]);
         }
         else if (TypeHelper.IsString(type))
@@ -52,59 +49,22 @@ public class DataFilterHelper
                     DataFilterComparisonOperator.NotEndsWith,
                     DataFilterComparisonOperator.Empty,
                     DataFilterComparisonOperator.NotEmpty,
-                    //DataFilterComparisonOperator.In,
-                    //DataFilterComparisonOperator.NotIn,
                 ]);
         }
 
-        if (TypeHelper.IsNullable(type))
+        if (TypeHelper.IsNullable(type) && !TypeHelper.IsString(type))
         {
-            if (!operators.Contains(DataFilterComparisonOperator.Empty))
-            {
-                operators.Add(DataFilterComparisonOperator.Empty);
-            }
-
-            if (!operators.Contains(DataFilterComparisonOperator.NotEmpty))
-            {
-                operators.Add(DataFilterComparisonOperator.NotEmpty);
-            }
+            operators.Add(DataFilterComparisonOperator.Empty);
+            operators.Add(DataFilterComparisonOperator.NotEmpty);
         }
 
-        //operators.Add(DataFilterComparisonOperator.In);
-        //operators.Add(DataFilterComparisonOperator.NotIn);
+        if (allowIn && !TypeHelper.IsBool(type))
+        {
+            operators.Add(DataFilterComparisonOperator.In);
+            operators.Add(DataFilterComparisonOperator.NotIn);
+        }
 
         return operators.Distinct();
-    }
-
-    /// <summary>
-    /// Get default comparison operator.
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public static DataFilterComparisonOperator GetDefaultComparisonOperator(Type type)
-    {
-        if (TypeHelper.IsEnum(type))
-        {
-            return DataFilterComparisonOperator.Equal;
-        }
-        else if (TypeHelper.IsNumber(type))
-        {
-            return DataFilterComparisonOperator.Equal;
-        }
-        else if (TypeHelper.IsDate(type))
-        {
-            return DataFilterComparisonOperator.Equal;
-        }
-        else if (TypeHelper.IsBool(type))
-        {
-            return DataFilterComparisonOperator.Equal;
-        }
-        else if (TypeHelper.IsString(type))
-        {
-            return DataFilterComparisonOperator.Contains;
-        }
-
-        return DataFilterComparisonOperator.Equal;
     }
 
     /// <summary>
@@ -126,63 +86,110 @@ public class DataFilterHelper
         };
 
     /// <summary>
-    /// Get expression.
+    /// Set property expression.
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    public sealed class SetPropertyExpression<TSource>
+    {
+        /// <summary>
+        /// Gets expression.
+        /// </summary>
+        public LambdaExpression Expression { get; private set; } = default!;
+
+        /// <summary>
+        /// Set property
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        public SetPropertyExpression<TSource> SetProperty<TProperty>(Expression<Func<TSource, TProperty>> propertyExpression)
+        {
+            Expression = propertyExpression;
+            return this;
+        }
+    }
+
+    /// <summary>
+    /// Generate expression.
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="value"></param>
     /// <param name="caseSensitivity"></param>
     /// <param name="properties"></param>
     /// <returns></returns>
-    public static Expression<Func<TItem, bool>> GenerateExpression<TItem>(object? value,
+    public static Expression<Func<TItem, bool>> GenerateExpression<TItem>(string value,
                                                                           DataFilterCaseSensitivity caseSensitivity,
-                                                                          params Expression<Func<TItem, object>>[] properties)
+                                                                          params Expression<Func<SetPropertyExpression<TItem>, SetPropertyExpression<TItem>>>[] properties)
     {
-        var ret = PredicateBuilder.True<TItem>();
-        if (value != null)
+        var ret = PredicateBuilder.False<TItem>();
+
+        void AddCondition(SetPropertyExpression<TItem> property,
+                          object? value,
+                          DataFilterComparisonOperator @operator = DataFilterComparisonOperator.Equal)
         {
-            var typeValue = value.GetType();
+            ret = SetOperator(DataFilterLogicalOperator.Or,
+                              ret,
+                              GenerateExpression<TItem>(property.Expression, value, @operator, caseSensitivity));
+        }
 
-            foreach (var item in properties)
+        foreach (var item in properties)
+        {
+            var property = item.Compile()(new());
+            var type = property.Expression.Body.Type;
+
+            if (TypeHelper.IsEnum(type))
             {
-                var type = item.Body.Type;
-
-                var valid = false;
-
-                if (TypeHelper.IsEnum(type))
+                foreach (var enumValue in Enum.GetValues(type))
                 {
-                    valid = Enum.TryParse(type, value.ToString(), true, out var result);
+                    if (enumValue.ToString()!.Contains(value)
+                        || Enum.GetName(type, enumValue)!.Contains(value))
+                    {
+                        AddCondition(property, enumValue);
+                    }
                 }
-                else if (TypeHelper.IsNumber(type))
+            }
+            else if (TypeHelper.IsNumber(type))
+            {
+                if (decimal.TryParse(value, out var result))
                 {
-                    valid = decimal.TryParse(value.ToString(), out var result);
+                    try
+                    {
+                        AddCondition(property, Convert.ChangeType(result, type));
+                    }
+                    catch { }
                 }
-                if (type == typeof(DateTime) || type == typeof(DateTime?))
+            }
+            if (type == typeof(DateTime) || type == typeof(DateTime?))
+            {
+                if (DateTime.TryParse(value, out var result))
                 {
-                    valid = DateTime.TryParse(value.ToString(), out var result);
+                    AddCondition(property, result);
                 }
-                else if (type == typeof(DateOnly) || type == typeof(DateOnly?))
+            }
+            else if (type == typeof(DateOnly) || type == typeof(DateOnly?))
+            {
+                if (DateOnly.TryParse(value, out var result))
                 {
-                    valid = DateOnly.TryParse(value.ToString(), out var result);
+                    AddCondition(property, result);
                 }
-                else if (type == typeof(TimeOnly) || type == typeof(TimeOnly?))
+            }
+            else if (type == typeof(TimeOnly) || type == typeof(TimeOnly?))
+            {
+                if (TimeOnly.TryParse(value, out var result))
                 {
-                    valid = TimeOnly.TryParse(value.ToString(), out var result);
+                    AddCondition(property, result);
                 }
-                else if (TypeHelper.IsBool(type))
+            }
+            else if (TypeHelper.IsBool(type))
+            {
+                if (bool.TryParse(value, out var result))
                 {
-                    valid = bool.TryParse(value.ToString(), out var result);
+                    AddCondition(property, result);
                 }
-                else if (TypeHelper.IsString(type))
-                {
-                    valid = true;
-                }
-
-                if (valid)
-                {
-                    ret = SetOperator(DataFilterLogicalOperator.Or,
-                                      ret,
-                                      GenerateExpression<TItem>(item, value, GetDefaultComparisonOperator(type), caseSensitivity));
-                }
+            }
+            else if (TypeHelper.IsString(type))
+            {
+                AddCondition(property, value, DataFilterComparisonOperator.Contains);
             }
         }
 
@@ -207,7 +214,7 @@ public class DataFilterHelper
         if (expression.Body.Type == typeof(string))
         {
             var valueStr = value?.ToString();
-            var multiValues = (value as IEnumerable<string>)!;
+            var collection = value as ICollection<string>;
 
             Expression<Func<string?, bool>> func;
             if (caseSensitivity == DataFilterCaseSensitivity.Ignore)
@@ -224,8 +231,8 @@ public class DataFilterHelper
                     DataFilterComparisonOperator.NotEndsWith => a => a != null && valueStr != null && !a.EndsWith(valueStr),
                     DataFilterComparisonOperator.Empty => a => string.IsNullOrWhiteSpace(a),
                     DataFilterComparisonOperator.NotEmpty => a => !string.IsNullOrWhiteSpace(a),
-                    DataFilterComparisonOperator.In => a => multiValues.Contains(a),
-                    DataFilterComparisonOperator.NotIn => a => !multiValues.Contains(a),
+                    DataFilterComparisonOperator.In => a => a != null && collection != null && collection.Contains(a),
+                    DataFilterComparisonOperator.NotIn => a => a != null && collection != null && !collection.Contains(a),
                     _ => a => true
                 };
             }
@@ -247,8 +254,8 @@ public class DataFilterHelper
                     DataFilterComparisonOperator.NotEndsWith => a => a != null && valueStr != null && !a.EndsWith(valueStr, comparer),
                     DataFilterComparisonOperator.Empty => x => string.IsNullOrWhiteSpace(x),
                     DataFilterComparisonOperator.NotEmpty => x => !string.IsNullOrWhiteSpace(x),
-                    DataFilterComparisonOperator.In => a => multiValues.Contains(a),
-                    DataFilterComparisonOperator.NotIn => a => !multiValues.Contains(a),
+                    DataFilterComparisonOperator.In => a => a != null && collection != null && collection.Contains(a),
+                    DataFilterComparisonOperator.NotIn => a => a != null && collection != null && !collection.Contains(a),
                     _ => x => true
                 };
             }
@@ -257,8 +264,6 @@ public class DataFilterHelper
         }
         else
         {
-            var multiValues = (value as IEnumerable<object>)!;
-
             ret = @operator switch
             {
                 DataFilterComparisonOperator.Equal => expression.Make<TItem>(ExpressionType.Equal, value),
@@ -269,8 +274,8 @@ public class DataFilterHelper
                 DataFilterComparisonOperator.LessThanOrEqual => expression.Make<TItem>(ExpressionType.LessThanOrEqual, value),
                 DataFilterComparisonOperator.Empty => expression.Make<TItem>(ExpressionType.Equal, null),
                 DataFilterComparisonOperator.NotEmpty => expression.Make<TItem>(ExpressionType.NotEqual, null),
-                DataFilterComparisonOperator.In => expression.MakeContains<TItem>(false, multiValues),
-                DataFilterComparisonOperator.NotIn => expression.MakeContains<TItem>(true, multiValues),
+                DataFilterComparisonOperator.In => expression.MakeIn<TItem>(value),
+                DataFilterComparisonOperator.NotIn => PredicateBuilder.Not(expression.MakeIn<TItem>(value)),
                 _ => x => true
             };
         }

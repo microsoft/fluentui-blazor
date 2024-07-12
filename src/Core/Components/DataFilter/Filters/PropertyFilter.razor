@@ -11,9 +11,9 @@
     {
         @RenderOperator(condition, readOnly)
 
-        @if (TemplateFilter != null)
+        @if (ValueTemplate != null)
         {
-            @TemplateFilter(condition)
+            @ValueTemplate(condition)
         }
         else
         {

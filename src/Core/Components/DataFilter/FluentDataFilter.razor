@@ -55,8 +55,6 @@
                                   Items="@LogicalOperators"
                                   OptionText="@DisplayText"
                                   @bind-SelectedOption="group.Operator"
-                                  Immediate="@Immediate"
-                                  ImmediateDelay="@ImmediateDelay"
                                   Disabled="ReadOnly" />
                 }
 
@@ -72,32 +70,25 @@
                              VerticalAlignment="VerticalAlignment.Center"
                              Style="@($"{GetConditionStyle(groupIndex,condition.Index)}")">
 
-                    @if (!ReadOnly)
-                    {
-                        <FluentButton Appearance="Appearance.Stealth"
-                                      OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
-                                      IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
-                    }
-
                     <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
                                     TOption="FilterBase<TItem>"
                                     Items="@GetAvailableFilters(condition.Item)"
                                     Height="200px"
                                     OptionText="@(a => a.Title)"
-                                    SelectedOption="@condition.Item.Filter"
-                                    SelectedOptionChanged="@(async (e) => await SetFilterAsync(e,condition.Item,group))"
-                                    Immediate="@Immediate"
-                                    ImmediateDelay="@ImmediateDelay"
+                                    SelectedOption="@GetFilter(condition.Item)"
+                                    SelectedOptionChanged="@(async (e) => await SetFilterAsync(condition.Item,e))"
                                     Disabled="ReadOnly" />
 
-                    @*
-        @bind-SelectedOption="@condition.Item.Filter"
-        @bind-SelectedOption:after="@FilterChangedAsync"
-        *@
-
-                    @if (condition.Item.Filter != null)
+                    @if (!string.IsNullOrEmpty(condition.Item.FilterId))
                     {
-                        @condition.Item.Filter.Render(condition.Item, ReadOnly)
+                        @GetFilter(condition.Item)!.Render(condition.Item, ReadOnly)
+                    }
+
+                    @if (!ReadOnly)
+                    {
+                        <FluentButton Appearance="Appearance.Stealth"
+                                      OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
+                                      IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
                     }
                 </FluentStack>
             }

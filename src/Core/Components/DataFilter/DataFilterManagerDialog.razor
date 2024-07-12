@@ -6,20 +6,14 @@
 @implements IDialogContentComponent<DataFilterManagerDialogContext<TItem>>
 
 <FluentDialogBody>
-    <EditForm EditContext="@_editContext" FormName="filterManager">
-        <div style="color: var(--error);">
-            <DataAnnotationsValidator />
-            <FluentValidationSummary />
-        </div>
+    <EditForm EditContext="@_editContext">
+        <DataAnnotationsValidator />
 
         <FluentTextField Label="@Content.TextTitle" Style="width:100%;" @bind-Value="@Content.Title" Required />
-
-        <div>
-            In Component : @Content.Criteria.GetHashCode() / @Content.Criteria.Conditions.Count()
-        </div>
-
+        <FluentValidationMessage For="@(() => Content.Title)" />
 
         @Content.DataFilterTemplate(Content.Criteria)
+        <FluentValidationMessage For="@(() => Content.Criteria)" />
     </EditForm>
 </FluentDialogBody>
 
@@ -30,7 +24,7 @@
 
     @if (Content.AllowDelete)
     {
-        <FluentButton BackgroundColor="var(--error)" Color="var(--highlight-bg)" OnClick="@SaveAsync" Disabled="@(!_editContext.Validate())">
+        <FluentButton BackgroundColor="var(--error)" Color="var(--highlight-bg)" OnClick="@DeleteAsync" Disabled="@(!_editContext.Validate())">
             @Content.TextDelete
         </FluentButton>
     }
