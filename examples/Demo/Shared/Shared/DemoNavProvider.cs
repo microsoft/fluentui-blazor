@@ -282,11 +282,6 @@ public class DemoNavProvider
                         title: "Overview"
                     ),
                     new NavLink(
-                        href: "/DataFilter",
-                        icon: new Icons.Regular.Size20.Filter(),
-                        title: "Data Filter"
-                    ),
-                    new NavLink(
                         href: "/Accordion",
                         icon: new Icons.Regular.Size20.TextCollapse(),
                         title: "Accordion"
@@ -368,6 +363,11 @@ public class DemoNavProvider
                         href: "/DataGrid",
                         icon: new Icons.Regular.Size20.Grid(),
                         title: "Data grid"
+                    ),
+                    new NavLink(
+                        href: "/DataFilter",
+                        icon: new Icons.Regular.Size20.Filter(),
+                        title: "Data Filter"
                     ),
                     new NavLink(
                         href: "/DateTime",
