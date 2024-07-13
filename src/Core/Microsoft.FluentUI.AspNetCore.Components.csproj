@@ -51,13 +51,7 @@
 
   <!-- Code Analysis -->
   <ItemGroup>
-    <!--
-    <PackageReference Include="StyleCop.Analyzers" VersionOverride="1.2.0-beta.556">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    -->
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" VersionOverride="17.8.14">
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

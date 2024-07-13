@@ -5,6 +5,7 @@
               Id="people-listbox"
               Width="200px"
               Height="250px"
+              Placeholder="Make a selection..."
               OptionValue="@(p => p.PersonId.ToString())"
               OptionText="@(p => p.LastName + ", " + p.FirstName)"
               @bind-Value="@SelectedValue"
@@ -18,5 +19,5 @@
 @code
 {
     Person? SelectedPerson;
-    string? SelectedValue = "4";
+    string? SelectedValue;
 }

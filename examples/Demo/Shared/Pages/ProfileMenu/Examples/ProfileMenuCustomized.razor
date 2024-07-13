@@ -1,7 +1,11 @@
-﻿<FluentStack HorizontalAlignment="@HorizontalAlignment.Center"
+﻿<FluentStack HorizontalAlignment="@HorizontalAlignment.End"
              VerticalAlignment="@VerticalAlignment.Center"
-             Style="height: 48px; background: var(--neutral-layer-4);">
-    <FluentProfileMenu Initials="BG">
+             Style="height: 48px; background: var(--neutral-layer-4); padding-inline-end: 10px; ">
+    <FluentProfileMenu Initials="BG"
+                       Style="--fluent-profile-menu-hover: var(--neutral-stroke-focus); padding: 4px;">
+        <StartTemplate>
+            Bill Gates
+        </StartTemplate>
         <HeaderTemplate>
             <FluentLabel Typo="@Typography.Header">Login</FluentLabel>
         </HeaderTemplate>

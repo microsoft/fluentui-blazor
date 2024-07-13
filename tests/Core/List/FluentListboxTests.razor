@@ -1,0 +1,112 @@
+﻿@using FluentAssertions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentListboxTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
+
+    [Fact]
+    public void FluentListbox_Simple()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentListbox<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "mylistbox");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_NameAttribute()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentListbox<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "mylistbox");
+            parameters.Add(p => p.Name, "mylistboxName");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_OptionValue()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentListbox<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_OptionText()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentListbox<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.OptionText, context => $"{context.Name} ({context.Id.ToString()})");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentListbox_WithIcons()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentListbox TOption="string">
+        <FluentOption Value="1">
+            Search
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+        </FluentOption>
+        <FluentOption Value="2" Selected="true">
+            Show
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+        </FluentOption>
+        <FluentOption Value="3">
+            Generate
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+        </FluentOption>
+    </FluentListbox>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_OptionTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentListbox Items="@(Customers.Get())" OptionValue="@(context => context.Id.ToString())">
+        <OptionTemplate>
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Slot="end" />
+            @(context.Name)
+        </OptionTemplate>
+    </FluentListbox>);
+
+        // Assert
+        cut.Verify();
+    }
+}

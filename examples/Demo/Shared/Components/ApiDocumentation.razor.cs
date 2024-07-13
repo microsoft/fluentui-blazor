@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace FluentUI.Demo.Shared.Components;
 
@@ -17,6 +18,7 @@ public partial class ApiDocumentation
         public string? Default { get; set; } = null;
         public string Description { get; set; } = "";
         public bool IsParameter { get; set; }
+        public Icon? Icon { get; set; }
     }
 
     private IEnumerable<MemberDescription>? _allMembers = null;
@@ -109,15 +111,31 @@ public partial class ApiDocumentation
                             // Parameters/properties
                             if (!isEvent)
                             {
+                                Icon? icon = null;
+                                var defaultVaue = "";
+                                if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
+                                {
+                                    defaultVaue = obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString();
+                                }
+                                else if (propertyInfo.PropertyType == typeof(Icon))
+                                {
+                                    if (obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj) is Icon value)
+                                    {
+                                        icon = value;
+                                        defaultVaue = $"{value.Variant}.{value.Size}.{value.Name}";
+                                    }
+                                }
+
                                 members.Add(new MemberDescription()
                                 {
                                     MemberType = MemberTypes.Property,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
                                     EnumValues = GetEnumValues(propertyInfo),
-                                    Default = propertyInfo.PropertyType.IsValueType ? obj?.GetType().GetProperty(propertyInfo.Name)?.GetValue(obj)?.ToString() : "",
+                                    Default = defaultVaue,
                                     Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name),
                                     IsParameter = isParameter,
+                                    Icon = icon
                                 });
                             }
 
@@ -157,7 +175,7 @@ public partial class ApiDocumentation
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"ERROR - ApiDocumentation - Cannot found {Component.FullName} -> {memberInfo.Name}");
+                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot found {Component.FullName} -> {memberInfo.Name}");
                     throw;
                 }
             }

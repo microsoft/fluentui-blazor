@@ -2,7 +2,15 @@
 
 @using FluentUI.Demo.Shared.Pages.DateTimes.Examples
 
+<PageTitle>@App.PageTitle("Date and Time")</PageTitle>
+
 <h1>Date & Time</h1>
+
+<blockquote>
+    @(new MarkupString(DemoNavProvider.EditFormOffIcon))
+    The <b>FluentCalendar</b> and <b>FluentDatePicker</b> components are not yet fully compatible with the <code>EditForm</code> and <code>FluentEditForm</code> elements.
+    Some functionalities, such as error messages, the requirement message or the validation messages are missing.
+</blockquote>
 
 <p>
     The <code>&lt;FluentCalendar&gt;</code> is an implementation of a month calendar display leveraging the Fluent UI design system.
@@ -24,6 +32,10 @@
 <DemoSection Title="Default calendar" Component="@typeof(CalendarDefault)"></DemoSection>
 
 <DemoSection Title="Customized calendar" Component="@typeof(CalendarDayCustomized)"></DemoSection>
+
+<DemoSection Title="Selection" Component="@typeof(CalendarSelection)"></DemoSection>
+
+<DemoSection Title="Culture" Component="@typeof(CalendarCulture)"></DemoSection>
 
 <DemoSection Title="ReadOnly calendar with 2-digits and using French Culture" Component="@typeof(CalendarReadonly)"></DemoSection>
 
@@ -75,3 +87,4 @@ An extension method <b>ToTimeAgo(TimeSpan delay)</b> returns a string with one o
 <ApiDocumentation Component="typeof(FluentCalendar)" />
 <ApiDocumentation Component="typeof(FluentDatePicker)" />
 <ApiDocumentation Component="typeof(FluentTimePicker)" />
+

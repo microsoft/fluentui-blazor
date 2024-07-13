@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -90,7 +91,7 @@ public partial class FluentProgress : FluentComponentBase
     private string StyleProgressIndicator => $"height: calc((var(--stroke-width) * {StrokeDetails.BarHeight}) * 1px); " +
                                              $"background-color: {(string.IsNullOrEmpty(Color) ? "var(--accent-fill-rest)" : Color)};";
 
-    private string StyleIndeterminate => $"--stroke-width: {((double)StrokeDetails.BarHeight / 3d).ToString("0.00")}; " +
+    private string StyleIndeterminate => $"--stroke-width: {((double)StrokeDetails.BarHeight / 3d).ToString("0.00", CultureInfo.InvariantCulture)}; " +
                                          $"height: calc((1 * {StrokeDetails.BackgroundHeight}) * 1px); " +
                                          $"background-color: {(string.IsNullOrEmpty(BackgroundColor) ? $"var({StrokeDetails.DefaultBackgroundColor})" : BackgroundColor)};";
 

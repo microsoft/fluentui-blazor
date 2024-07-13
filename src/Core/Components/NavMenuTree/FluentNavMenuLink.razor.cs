@@ -2,7 +2,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-//[Obsolete("This component has been replaced with the FluentNavLink and will be removed in a future version.")]
+[Obsolete("This component has been replaced with the FluentNavLink and will be removed in a future version.")]
 public partial class FluentNavMenuLink : FluentNavMenuItemBase, IDisposable
 {
     protected string? ClassValue => new CssBuilder(Class)

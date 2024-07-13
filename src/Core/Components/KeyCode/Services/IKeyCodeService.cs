@@ -30,6 +30,14 @@ public interface IKeyCodeService
     Guid RegisterListener(Func<FluentKeyCodeEventArgs, Task> handler);
 
     /// <summary>
+    /// Register the <paramref name="handlerKeyDown"/> and <paramref name="handlerKeyUp"/> methods as a listener, and returns a unique identifier.
+    /// </summary>
+    /// <param name="handlerKeyDown"></param>
+    /// <param name="handlerKeyUp"></param>
+    /// <returns></returns>
+    Guid RegisterListener(Func<FluentKeyCodeEventArgs, Task> handlerKeyDown, Func<FluentKeyCodeEventArgs, Task> handlerKeyUp);
+
+    /// <summary>
     /// Unregister the listener component or page.
     /// </summary>
     /// <param name="listener"></param>
@@ -40,6 +48,13 @@ public interface IKeyCodeService
     /// </summary>
     /// <param name="handler"></param>
     void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> handler);
+
+    /// <summary>
+    /// Unregister the listener method.
+    /// </summary>
+    /// <param name="handlerKeyDown"></param>
+    /// <param name="handlerKeyUp"></param>
+    void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> handlerKeyDown, Func<FluentKeyCodeEventArgs, Task> handlerKeyUp);
 
     /// <summary>
     /// Unregister all listeners.

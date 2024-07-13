@@ -1,4 +1,7 @@
 ﻿@page "/Reboot"
+
+<PageTitle>@App.PageTitle("Reboot")</PageTitle>
+
 <h1><FluentIcon Value="@(new Icons.Regular.Size24.ArrowReset())" /> Reboot CSS</h1>
 
 <p>
@@ -8,7 +11,7 @@
 <p>
     If you want to use Reboot, like this demo site, you'll need to include it in your <code>App.razor</code> or <code>index.html</code> file like this:
 <CodeSnippet Language="language-html">&lt;link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" /&gt;</CodeSnippet>
-    If you are using our <a href="/Templates">Templates</a> package, this is already set up for you. You can 
+    If you are creating a site by using our <a href="/Templates">Templates</a> package, this is already set up for you. You can 
     <FluentAnchor Appearance=Appearance.Hypertext Href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" Download="reboot.css">download the file</FluentAnchor> 
     to see what's inside.
 </p>

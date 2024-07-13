@@ -1,3 +1,6 @@
+
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal class CalendarTitles
@@ -63,7 +66,7 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => CalendarExtended.GetMonthNameAndYear(),
                 CalendarViews.Months => CalendarExtended.GetYear(),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.Year),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture)),
                 _ => string.Empty
             };
         }
@@ -75,9 +78,9 @@ internal class CalendarTitles
         {
             return View switch
             {
-                CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(-1)),
-                CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(-1)),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.Year - 12),
+                CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(-1, _calendar.Culture)),
+                CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(-1, _calendar.Culture)),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - 12),
                 _ => string.Empty
             };
         }
@@ -87,11 +90,13 @@ internal class CalendarTitles
     {
         get
         {
+            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime;
+
             return View switch
             {
-                CalendarViews.Days => Date.Year == DateTime.MinValue.Year && Date.Month == DateTime.MinValue.Month,
-                CalendarViews.Months => Date.Year == DateTime.MinValue.Year,
-                CalendarViews.Years => Date.Year == DateTime.MinValue.Year,
+                CalendarViews.Days => Date.Year == minDate.Year && Date.Month == minDate.Month,
+                CalendarViews.Months => Date.Year == minDate.Year,
+                CalendarViews.Years => Date.Year == minDate.Year,
                 _ => false
             };
         }
@@ -103,9 +108,9 @@ internal class CalendarTitles
         {
             return View switch
             {
-                CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(+1)),
-                CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(+1)),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.Year + 12),
+                CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(+1, _calendar.Culture)),
+                CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(+1, _calendar.Culture)),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) + 12),
                 _ => string.Empty
             };
         }
@@ -115,11 +120,13 @@ internal class CalendarTitles
     {
         get
         {
+            var maxDate = _calendar.Culture.Calendar.MaxSupportedDateTime;
+
             return View switch
             {
-                CalendarViews.Days => Date.Year == DateTime.MaxValue.Year && Date.Month == DateTime.MaxValue.Month,
-                CalendarViews.Months => Date.Year == DateTime.MaxValue.Year,
-                CalendarViews.Years => Date.Year == DateTime.MaxValue.Year,
+                CalendarViews.Days => Date.Year == maxDate.Year && Date.Month == maxDate.Month,
+                CalendarViews.Months => Date.Year == maxDate.Year,
+                CalendarViews.Years => Date.Year == maxDate.Year,
                 _ => false
             };
         }

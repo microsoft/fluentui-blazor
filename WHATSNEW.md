@@ -1,3 +1,387 @@
+
+## v4.9.1
+### Components
+- [DataGrid] Make `Grid` in `ColumnBase` protected ([#2342](https://github.com/microsoft/fluentui-blazor/pull/2342))
+- [DataGrid] Several issues addressed ([#2347](https://github.com/microsoft/fluentui-blazor/pull/2347))
+- [DatePicker] Add 'PickerMonthChanged' event and 'DaysTemplate' parameter ([#2336](https://github.com/microsoft/fluentui-blazor/pull/2336))
+- [Multi Splitter] Fix the Splitter OnMouseMove ([#2333](https://github.com/microsoft/fluentui-blazor/pull/2333))
+
+### Demo site and documentation
+- [Docs] Fix Tabs Dynamic example  ([#2341](https://github.com/microsoft/fluentui-blazor/pull/2341))
+- [Docs] Move Date and Autocomplete components to Forms section ([#2330](https://github.com/microsoft/fluentui-blazor/pull/2330))
+- [Docs] Update homepage ([#2324](https://github.com/microsoft/fluentui-blazor/pull/2324))
+- [Docs] Update the Variant selector in Icon Explorer ([#2331](https://github.com/microsoft/fluentui-blazor/pull/2331))
+
+## v4.9.0
+
+### Demo site and documentation
+- [Docs] Add keyhandler for '/' to jump to search box
+- [Docs] Add icon preview in API documentation ([#2284](https://github.com/microsoft/fluentui-blazor/pull/2284))
+- [Docs] Added RTL section to CodeSetup.md ([#2242](https://github.com/microsoft/fluentui-blazor/pull/2242))
+- [Docs] Improve API documentation by showing default icon and string values ([#2269](https://github.com/microsoft/fluentui-blazor/pull/2269))
+- [Docs] Improve API documentation menu button ([#2270](https://github.com/microsoft/fluentui-blazor/pull/2270))
+- [Docs] Fix same typo 5 places ([#2216](https://github.com/microsoft/fluentui-blazor/pull/2216))
+- [Demo] Fixes link for Time picker in demo projects ([#2246](https://github.com/microsoft/fluentui-blazor/pull/2246))
+
+### Components
+- [Rating] **New component** ([#2258](https://github.com/microsoft/fluentui-blazor/pull/2258))
+- [AppBar] Fix regression with icon accent color ([#2318](https://github.com/microsoft/fluentui-blazor/pull/2318))
+- [Autocomplete] Accessibility: Scrolling not working with keyboard ([#2221](https://github.com/microsoft/fluentui-blazor/pull/2221))
+- [AutoComplete] Allow focusable Badge dismiss buttons (accessibility) ([#2272](https://github.com/microsoft/fluentui-blazor/pull/2272))
+- [Autocomplete] Fix AriaLabel ([#2303](https://github.com/microsoft/fluentui-blazor/pull/2303))
+- [Autocomplete] Fix ReadOnly and Disable properties ([#2291](https://github.com/microsoft/fluentui-blazor/pull/2291))
+- [Combobox] Set value if selection is cleared ([#2307](https://github.com/microsoft/fluentui-blazor/pull/2307))
+- [Combobox, Select] Fix the Placeholder attribute ([#2311](https://github.com/microsoft/fluentui-blazor/pull/2311))
+- [DataGrid] Add OnCellClick event and SelectColumn.SelectFromEntireRow property ([#2252](https://github.com/microsoft/fluentui-blazor/pull/2252))
+- [DataGrid] Add WCAG 2.2 single-click column resize capability ([#2238](https://github.com/microsoft/fluentui-blazor/pull/2238))
+- [DataGrid] Make `PropertyColumn` use `DisplayAttribute` value for enum ([#2304](https://github.com/microsoft/fluentui-blazor/pull/2304))
+- [DataGrid] Refactoring ColumnBase events ([#2298](https://github.com/microsoft/fluentui-blazor/pull/2298))
+- [DataGrid] Revert setting height on DataGrid header cell again. Leads to issues on Safari
+- [DatePicker] Change OnSelectedDateAsync logic ([#2233](https://github.com/microsoft/fluentui-blazor/pull/2233))
+- [DatePicker] Fix unable to set when value is null ([#2241](https://github.com/microsoft/fluentui-blazor/pull/2241))
+- [DesignTheme] Add try catch ([#2204](https://github.com/microsoft/fluentui-blazor/pull/2204))
+- [DesignToken] Change `FillColor` and `NeutralLayer...` types  ([#2266](https://github.com/microsoft/fluentui-blazor/pull/2266))
+- [Dialog] Fix failing tests ([#2283](https://github.com/microsoft/fluentui-blazor/pull/2283))
+- [DialogService] Fix UpdateDialogAsync to refresh parameters and content ([#2310](https://github.com/microsoft/fluentui-blazor/pull/2310))
+- [Lists] Pass `Name` parameter ([#2305](https://github.com/microsoft/fluentui-blazor/pull/2305))
+- [Lists] Add aria-selected to fluent-option ([#2316](https://github.com/microsoft/fluentui-blazor/pull/2316))
+- [Multisplitter] Fix width panels ([#2218](https://github.com/microsoft/fluentui-blazor/pull/2218))
+- [MultiSplitter] Prevent semicolons from being displayed. ([#2226](https://github.com/microsoft/fluentui-blazor/pull/2226))
+- [NavMenu] Revert fix for when prerender set to false ([#2293](https://github.com/microsoft/fluentui-blazor/pull/2293))
+- [NumberField] Add sbyte type ([#2308](https://github.com/microsoft/fluentui-blazor/pull/2308))
+- [Overflow] Add refresh method, add VisibleOnLoad parameter ([#2236](https://github.com/microsoft/fluentui-blazor/pull/2236))
+- [ProfileMenu] Fix the initials inner the popup panel ([#2294](https://github.com/microsoft/fluentui-blazor/pull/2294))
+- [Slider] Fix getting caught in update loop ([#2265](https://github.com/microsoft/fluentui-blazor/pull/2265))
+- [Slider] Refactor code after PR #2265 ([#2287](https://github.com/microsoft/fluentui-blazor/pull/2287))
+- [TimePicker] Add null check for empty string ([#2245](https://github.com/microsoft/fluentui-blazor/pull/2245))
+
+### Miscellaneous
+- Add CssBuilder.ValidateClassNames  ([#2255](https://github.com/microsoft/fluentui-blazor/pull/2255))
+- 2 icons used in library were using wrong variant ([#2260](https://github.com/microsoft/fluentui-blazor/pull/2260))
+
+### Icons
+- Introduction of a new 'Light' variant of icons. For now a set of 153 icons in size 32 has been added.
+
+- Update to Fluent UI System Icons 1.1.247
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Accessibility More / 16, 20, 24 / Filled & Regular
+    - Battery 0 / 28, 32 / Filled & Regular
+    - Battery 1 / 28, 32 / Filled & Regular
+    - Battery 10 / 28, 32 / Filled & Regular
+    - Battery 2 / 28, 32 / Filled & Regular
+    - Battery 3 / 28, 32 / Filled & Regular
+    - Battery 4 / 28, 32 / Filled & Regular
+    - Battery 5 / 28, 32 / Filled & Regular
+    - Battery 6 / 28, 32 / Filled & Regular
+    - Battery 7 / 28, 32 / Filled & Regular
+    - Battery 8 / 28, 32 / Filled & Regular
+    - Battery 9 / 28, 32 / Filled & Regular
+    - Battery Charge / 28, 32 / Filled & Regular
+    - Calendar Sparkle / 32 / Light
+    - Chat / 32 / Light
+    - Coin Stack / 16, 20, 24 / Filled & Regular
+    - Database Arrow Up / 16 / Filled & Regular
+    - Game Chat / 20 / Filled & Regular
+    - Layout Row Two Focus Top Settings / 20, 28, 32 / Filled
+    - Layout Row Two Focus Top Settings / 32 / Light
+    - Layout Row Two Focus Top / 28 / Filled
+    - Paint Brush / 12 / Filled & Regular
+    - Panel Right / 12 / Filled & Regular
+    - People Edit / 32 / Filled & Regular
+    - People Edit / 32 / Light
+    - Person Home / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Person Mail / 32 / Filled & Regular
+    - Person Mail / 32 / Light
+    - Puzzle Piece / 12 / Filled & Regular
+    - Teaching / 20 / Filled & Regular
+ 
+     **What's updated (Name / Size(s) / Variant(s))**
+     - Arrow Forward Down Lightning / 20, 24 / Filled & Regular
+     - Notebook Lightning / 20, 24 / Filled & Regular
+    
+- Update to Fluent UI System Icons 1.1.245
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Collapse All / 16 / Filled & Regular
+    - Arrow Expand All / 16, 20, 24 / Filled & Regular
+    - Chat Arrow Back Down / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Desktop Arrow Down / 32 / Filled & Regular
+    - Edit Line Horizontal 3 / 20, 24 / Filled & Regular
+    - Gift Open / 32 / Filled & Regular
+    - Prompt / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Search Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Slide Text Call / 16, 20, 24, 28, 48 / Filled & Regular
+    - Slide Text Cursor / 20, 24 / Filled & Regular    
+    - Vehicle Motorcycle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+
+     **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Collapse All / 20, 24 / Filled & Regular
+
+## 4.8.1
+- Add an new `Light` value to the `IconVariant` enum to enable publishing new icon packages with these icons 
+
+## v4.8.0
+
+### Breaking change
+- [Option] Change Option<TType>.Text type to `string?` ([#2063](https://github.com/microsoft/fluentui-blazor/pull/2063)). See also discussion [#2062](https://github.com/microsoft/fluentui-blazor/discussions/2062)
+
+### Demo site and documentation 
+- Add DataGridTableScroll demo ([#2098](https://github.com/microsoft/fluentui-blazor/pull/2098))
+- Adds office color table to Design Tokens page ([#2073](https://github.com/microsoft/fluentui-blazor/pull/2073))
+- Cleans up more code snippets ([#2173](https://github.com/microsoft/fluentui-blazor/pull/2173))
+- Cleanup DialogService Page ([#2171](https://github.com/microsoft/fluentui-blazor/pull/2171))
+- Fix Page Title typo - Project Setup ([#2054](https://github.com/microsoft/fluentui-blazor/pull/2054))
+- Fixes minor typo in DesignTokens.md ([#2071](https://github.com/microsoft/fluentui-blazor/pull/2071))
+- Removes FluentPersona DemoSection from AutoComplete page ([#2135](https://github.com/microsoft/fluentui-blazor/pull/2135))
+- Toast examples - TimeOut setting in milliseconds ([#2025](https://github.com/microsoft/fluentui-blazor/pull/2025))
+
+### Components
+- [AppBar] Introduce IAppBarItem to enable better extensibility ([#2083](https://github.com/microsoft/fluentui-blazor/pull/2083))
+- [Autocomplete] Accessibility - Add "x of y" aria-label when item is selected ([#2019](https://github.com/microsoft/fluentui-blazor/pull/2019))
+- [Autocomplete] Accessibility - Add aria-selected on FluentOption ([#2018](https://github.com/microsoft/fluentui-blazor/pull/2018))
+- [Autocomplete] Accessibility - Update style when "forced-colors: active" ([#2109](https://github.com/microsoft/fluentui-blazor/pull/2109))
+- [Autocomplete] Add `ImmediateDelay` parameter ([#2052](https://github.com/microsoft/fluentui-blazor/pull/2052))
+- [Autocomplete] Add SelectValueOnTab attribute ([#2110](https://github.com/microsoft/fluentui-blazor/pull/2110))
+- [Autocomplete] Set the height automatically ([#2045](https://github.com/microsoft/fluentui-blazor/pull/2045))
+- [Card] Support AreaRestricted for MinimalStyle as well ([#2170](https://github.com/microsoft/fluentui-blazor/pull/2170))
+- [ComboBox] Fix bind-SelectedOption is null when using bind-SelectedOption:after ([#2102](https://github.com/microsoft/fluentui-blazor/pull/2102))
+- [DataGrid] Allow programmatic sorting of columns by name or index ([#2156](https://github.com/microsoft/fluentui-blazor/pull/2156))
+- [DataGrid] Check rowelements when correcting column options ([#2117](https://github.com/microsoft/fluentui-blazor/pull/2117))
+- [DataGrid] Fix LoadingContent height when Virtualize is true ([#2188](https://github.com/microsoft/fluentui-blazor/pull/2188))
+- [DataGrid] Prevent drag handle from disappearing when column width made too small ([#2059](https://github.com/microsoft/fluentui-blazor/pull/2059))
+- [DataGrid] SelectColumn - Add ClearSelection ([#2164](https://github.com/microsoft/fluentui-blazor/pull/2164))
+- [DataGrid] SelectColumn - Allow customization of SelectAll header ([#2106](https://github.com/microsoft/fluentui-blazor/pull/2106))
+- [DataGrid] SelectColumn - Make it work with ItemsProvider ([#2060](https://github.com/microsoft/fluentui-blazor/pull/2060))
+- [DatePicker, Calendar] Fix not updating correctly when used with EditContext ([#2047](https://github.com/microsoft/fluentui-blazor/pull/2047))
+- [DesignToken] Add WithDefault overload ([#2159](https://github.com/microsoft/fluentui-blazor/pull/2159))
+- [DialogService] Add missing classes to avoid Trimming exceptions ([#2099](https://github.com/microsoft/fluentui-blazor/pull/2099))
+- [Header] Add Id to the container header tag ([#2125](https://github.com/microsoft/fluentui-blazor/pull/2125))
+- [Icon] Minor cleanup and clarification ([#2038](https://github.com/microsoft/fluentui-blazor/pull/2038))
+- [InputBase] Adds FieldIdentifier parameter ([#2114](https://github.com/microsoft/fluentui-blazor/pull/2114))
+- [InputBase] Use `Debouncer` instead of `PeriodicTimer` for debouncing `ValueChanged` handler with `ImmediateDelay`. ([#2042](https://github.com/microsoft/fluentui-blazor/pull/2042))
+- [KeyCode] Add KeyUp event ([#2122](https://github.com/microsoft/fluentui-blazor/pull/2122))
+- [Layout] Add Id to the container div ([#2123](https://github.com/microsoft/fluentui-blazor/pull/2123))
+- [Layout] Add Orientation support ([#2096](https://github.com/microsoft/fluentui-blazor/pull/2096))
+- [Lists] Make list components inherit from InputBase ([#2118](https://github.com/microsoft/fluentui-blazor/pull/2118))
+- [MarkdownSection] Adds border around code snippets ([#2039](https://github.com/microsoft/fluentui-blazor/pull/2039))
+- [MarkdownSection] Optimize to minimize number of calls to OnContentConverted ([#2092](https://github.com/microsoft/fluentui-blazor/pull/2092))
+- [Misc] Add the ability for CssBuilder to properly Add multiple classes without duplicates ([#2104](https://github.com/microsoft/fluentui-blazor/pull/2104))
+- [Misc] Code cleanup work ([#2184](https://github.com/microsoft/fluentui-blazor/pull/2184))
+- [Misc] Package versions refactoring ([#2131](https://github.com/microsoft/fluentui-blazor/pull/2131))
+- [MultiSplitter] Remove experimental label and make fixed panel size work ([#2196](https://github.com/microsoft/fluentui-blazor/pull/2196))
+- [NavMenu] Enhance working in mobile view ([#2183](https://github.com/microsoft/fluentui-blazor/pull/2183))
+- [NavMenu] Fix double click needed for expanding/collapsing child elements when prerendering is turned off ([#2133](https://github.com/microsoft/fluentui-blazor/pull/2133))
+- [NavMenu] Fix FluentNavLink to support CustomColor ([#2116](https://github.com/microsoft/fluentui-blazor/pull/2116))
+- [Pipeline] Add a task to publish the preview package in a special feed ([#2094](https://github.com/microsoft/fluentui-blazor/pull/2094))
+- [ProfileMenu] Add `StartTemplate` and `EndTemplate` parameters ([#2010](https://github.com/microsoft/fluentui-blazor/pull/2010))
+- [Progress] Fix height in Indeterminate mode by using InvariantCulture ([#2120](https://github.com/microsoft/fluentui-blazor/pull/2120))
+- [Templates] Use correct autocomplete values when registering new account ([#2064](https://github.com/microsoft/fluentui-blazor/pull/2064))
+- [Templates] Use 'double provider' fix in more places
+- [TreeView] Add `Items` and `LazyLoadItems` properties ([#1945](https://github.com/microsoft/fluentui-blazor/pull/1945))
+- [Wizard] Fix the Wizard Left position in RTL mode ([#2026](https://github.com/microsoft/fluentui-blazor/pull/2026))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.242
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Breakout Room / 32 / Filled & Regular
+    - Card UI Portrait Flip / 16, 20, 24 / Filled & Regular
+    - Cursor / 28, 32 / Filled & Regular
+    - Layout Row Two / 28, 48 / Filled & Regular
+    - Notepad Sparkle / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush Subtract / 16, 20, 24, 28, 32 / Filled & Regular
+    - Paint Brush / 28 / Filled & Regular
+    - Play Circle Sparkle / 16, 20, 24 / Filled & Regular
+    - Replay / 16, 20, 24, 28, 32 / Filled & Regular
+    - Send Person / 16, 20, 24 / Filled & Regular
+    - Square Dovetail Joint / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Table Cursor / 16, 20, 24 / Filled & Regular
+    - Transparency Square / 20, 24 / Filled & Regular
+ 
+     **What's updated (Name / Size(s) / Variant(s))**
+    - Notepad / 32 / Filled & Regular
+    - Replay / 20 / Filled & Regular
+   
+- Update to Fluent UI System Icons 1.1.239
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Turn Right / 16 / Filled & Regular
+    - Chart Multiple / 16 / Filled & Regular
+    - Column / 24 / Filled & Regular
+    - Data Pie / 16 / Filled & Regular
+    - Layout Column Two Focus Left / 32 / Filled
+    - Layout Column Two Focus Right / 32 / Filled
+    - Layout Column Two / 32 / Filled & Regular
+    - Layout Row Two Focus Top / 32 / Filled
+    - Layout Row Two / 32 / Filled & Regular
+    - Mail Copy / 32 / Filled & Regular
+    - Paint Brush Sparkle / 20, 24 / Filled & Regular
+    - People Community / 12 / Filled & Regular
+    - Person Board / 12 / Filled & Regular
+    - Person Tentative / 16, 20, 24 / Filled & Regular
+    - Tab Desktop Search / 16, 20, 24 / Filled & Regular
+    - Table Sparkle / 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Chart Multiple / 20, 24 / Filled & Regular
+    - Column Edit / 24 / Filled & Regular
+    - Data Pie / 24 / Filled & Regular
+
+
+## v4.7.2
+
+### Demo site and documentation 
+- [Docs] New Video and PageTitle ([#1925](https://github.com/microsoft/fluentui-blazor/pull/1925))
+
+### Components
+- [AppBar] Allow for omitting Href on AppBarItems and don't show active status when Href is null or not specified ([#1976](https://github.com/microsoft/fluentui-blazor/pull/1976))
+- [Autocomplete] Accessibility: Tab key to go to the Close Button ([#2007](https://github.com/microsoft/fluentui-blazor/pull/2007))
+- [Badge] Do not use a div (block element) in an inline element ([#1921](https://github.com/microsoft/fluentui-blazor/pull/1921))
+- [DataGrid] Add ShowHover parameter and implement row hover effect ([#1939](https://github.com/microsoft/fluentui-blazor/pull/1939))
+- [DataGrid] Apply ItemSize (CSS height) to cells when grid is virtualized.  ([#1936](https://github.com/microsoft/fluentui-blazor/pull/1936))
+- [DataGrid] Change column width when using generated value  ([#1955](https://github.com/microsoft/fluentui-blazor/pull/1955))
+- [DataGrid] Give empty row an id ([#2001](https://github.com/microsoft/fluentui-blazor/pull/2001))
+- [DataGrid] Multiselect feature, adding a `SelectColumn` ([#1952](https://github.com/microsoft/fluentui-blazor/pull/1952))
+- [DataGrid] Revert setting height on DataGrid header cell. Was not necessary and lead to issues on Safari
+- [InputLabel] Add Orientation parameter  ([#1994](https://github.com/microsoft/fluentui-blazor/pull/1994))
+- [Lists] Also set Value (and InternalValue) when SelectedOption is set ([#1970](https://github.com/microsoft/fluentui-blazor/pull/1970))
+- [MessageBar] Supply a default value for the message intent when using MessageOptions ([#1993](https://github.com/microsoft/fluentui-blazor/pull/1993))
+- [NavMenu] Fix keyboard navigation ([#1950](https://github.com/microsoft/fluentui-blazor/pull/1950))
+- [NavMenu] Make sure text is shown when in mobile view in SSR. 
+- [ProfileMenu] Remove ProfileMenu from demo site header and change examples ([#1924](https://github.com/microsoft/fluentui-blazor/pull/1924))
+- [Tabs] Not using ClassValue and StyleValue when rendering ([#1931](https://github.com/microsoft/fluentui-blazor/pull/1931))
+- [Tabs] Prevent error 'An item with the same key has already been added ([#2006](https://github.com/microsoft/fluentui-blazor/pull/2006))
+
+
+### Miscellaneous
+- [Reboot] Add body class (to body element declaration)
+- [Templates] Change css so body-content height is set and scrollable ([#1981](https://github.com/microsoft/fluentui-blazor/pull/1981))
+- [Templates] Change header gutter to keep content out of nav icon area when width < 600px
+
+## v4.7.1
+
+### Components
+* [Wizard] Add StepSequence attribute ([#1909](https://github.com/microsoft/fluentui-blazor/pull/1909))
+* [DataGrid] Fix GridTemplateColumns initialization was done in the wrong place (related to new Width option for columns
+
+## v4.7.0
+
+### Breaking change
+- [Extensions] Add a namespace for extension methods to prevent possible naming clashes ([#1776](https://github.com/microsoft/fluentui-blazor/pull/1776))
+
+### Demo site and documentation 
+- [Docs] Update Progress stroke examples dropdowns ([#1835](https://github.com/microsoft/fluentui-blazor/pull/1835))
+- [Docs] Update KeyCodeGlobalExample.razor.css to fix dark mode visuals ([#1834](https://github.com/microsoft/fluentui-blazor/pull/1834))
+- [Docs] Update Highlighter example to use FluentTextField instead of input ([#1833](https://github.com/microsoft/fluentui-blazor/pull/1833))
+- [Demo] Fix the Profile Menu position ([#1841](https://github.com/microsoft/fluentui-blazor/pull/1841))
+- [Demo] Clears demo site cache on startup if new version ([#1839](https://github.com/microsoft/fluentui-blazor/pull/1839))
+
+### Components
+- [AppBar] Apply role requirements ([#1871](https://github.com/microsoft/fluentui-blazor/pull/1871))
+- [Calendar] Use provided Culture for calendar operations ([#1862](https://github.com/microsoft/fluentui-blazor/pull/1862))
+- [DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+- [DataGrid] Add column Width parameter ([#1902](https://github.com/microsoft/fluentui-blazor/pull/1902))
+- [DataGrid] Add SortBy parameter support for PropertyColumn ([#1877](https://github.com/microsoft/fluentui-blazor/pull/1877))
+- [DataGrid] Extend GridSort possibilities ([#1860](https://github.com/microsoft/fluentui-blazor/pull/1860))
+- [DatePicker] Enhance for month /year selection  ([#1903](https://github.com/microsoft/fluentui-blazor/pull/1903))
+- [Grid] Add AdaptiveRendering property ([#1899](https://github.com/microsoft/fluentui-blazor/pull/1899))
+- [Input] NotifyFieldChanged is called twice for all FluentInputBase derived components ([#1846](https://github.com/microsoft/fluentui-blazor/pull/1846))
+- [MenuButton] Add ChildContent so items can be supplied manually ([#1848](https://github.com/microsoft/fluentui-blazor/pull/1848))
+- [Paginator] spelling issue in FluentPaginator.razor.cs ([#1829](https://github.com/microsoft/fluentui-blazor/pull/1829))
+- [Popover] adds FixedPlacement parameter ([#1894](https://github.com/microsoft/fluentui-blazor/pull/1894))
+- [PullToRefresh] Add DragThreshold to PullToRefresh ([#1858](https://github.com/microsoft/fluentui-blazor/pull/1858))
+- [Select] Allow value to be set when component is disabled ([#1892](https://github.com/microsoft/fluentui-blazor/pull/1892))
+- [Slider] Fixes thumb redraw issues (Fix for #1836) ([#1873](https://github.com/microsoft/fluentui-blazor/pull/1873))
+- [Wizard] Fix the Wizard bullet number style ([#1905](https://github.com/microsoft/fluentui-blazor/pull/1905))
+
+### Miscellaneous
+- [Aspire] Fix #3364 by adding IKeyCodeListner and handler ([#1866](https://github.com/microsoft/fluentui-blazor/pull/1866))
+- [Pipeline] Add Code Coverage Report ([#1861](https://github.com/microsoft/fluentui-blazor/pull/1861))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.237 
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Book / 48 / Filled & Regular
+    - Camera Arrow Up / 16, 20, 24 / Filled & Regular
+    - Chat Settings / 16 / Filled & Regular
+    - Circle Highlight / 20, 24 / Filled & Regular
+    - Circle Hint / 24 / Filled & Regular
+    - Circle Shadow / 20, 24 / Filled & Regular
+    - Content View / 16 / Filled & Regular
+    - Double Tap Swipe Down / 16 / Filled & Regular
+    - Double Tap Swipe Up / 16 / Filled & Regular
+    - Flash Sparkle / 16 / Filled & Regular
+    - Location Ripple / 12 / Filled & Regular
+    - Search Square / 16 / Filled & Regular
+    - Settings Chat / 16 / Filled & Regular
+    - Share Multiple / 16, 20, 24 / Filled & Regular
+    - Slide Play / 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Book Add / 28 / Filled & Regular
+    - Book Contacts / 20, 24, 28, 32 / Filled & Regular
+    - Book / 28 / Filled & Regular   
+
+## v4.6.2
+
+### Components
+[DataGrid] Add remove sort capability on columns ([#1826](https://github.com/microsoft/fluentui-blazor/pull/1826))
+
+## V4.6.1
+
+### Demo site and documentation 
+- [Demo & docs] Fix documentation error ([#1767](https://github.com/microsoft/fluentui-blazor/pull/1767))
+- [Demo & docs] Home page cleanup ([#1763](https://github.com/microsoft/fluentui-blazor/pull/1763))
+- [Demo & docs] Removes caching of markdown files for Server demo app ([#1822](https://github.com/microsoft/fluentui-blazor/pull/1822))
+- [Demo & docs] Fix footer styling ([#1778](https://github.com/microsoft/fluentui-blazor/pull/1778))
+- [Demo & docs] CSS files improvements ([#1807](https://github.com/microsoft/fluentui-blazor/pull/1807))
+- [Demo & docs] The empty CSS rule in site.css has been removed ([#1809](https://github.com/microsoft/fluentui-blazor/pull/1809))
+
+
+### Components
+- [AppBar] Add Count parameter and facilitate OnClick without navigation ([#1790](https://github.com/microsoft/fluentui-blazor/pull/1790))
+- [CounterBadge] Add ShowWhen, Dot, and VerticalPosition ([#1786](https://github.com/microsoft/fluentui-blazor/pull/1786))
+- [KeyCode, AnchoredRegion, Popover] Add key navigation in AnchoredRegion / Popup ([#1800](https://github.com/microsoft/fluentui-blazor/pull/1800))
+- [NavMenu] Show child items via `FluentMenu` when collapsed ([#1730](https://github.com/microsoft/fluentui-blazor/pull/1730))
+- [Persona] Add capability for the name to appear before or after initials. ([#1750](https://github.com/microsoft/fluentui-blazor/pull/1750))
+- [ProfileMenu] TopCorner property ([#1795](https://github.com/microsoft/fluentui-blazor/pull/1795))
+- [SplashScreen] Fix ESC on SplashScreen ([#1811](https://github.com/microsoft/fluentui-blazor/pull/1811))
+
+### Miscellaneous
+- [Misc] Update to latest NuGet packages, SDK and Web Components script
+- [Templates] CSS fixes and use specific package versions ([#1797](https://github.com/microsoft/fluentui-blazor/pull/1797))
+- [Templates] Fixed CSS styling of the Blazor Fluent UI template AND fixed broken links in readme.md ([#1768](https://github.com/microsoft/fluentui-blazor/pull/1768))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.234 ([#1823](https://github.com/microsoft/fluentui-blazor/pull/1823))
+
+    **What's new (Name / Size(s) / Variant(s))**
+    - Apps Settings / 16, 20 / Filled & Regular
+    - Apps Shield / 16, 20 / Filled & Regular
+    - Arrow Upload / 32 / Filled & Regular
+    - Calendar Edit / 32 / Filled & Regular
+    - Data Bar Vertical Arrow Down / 16, 20, 24 / Filled & Regular
+    - Haptic Strong / 16, 20, 24 / Filled & Regular
+    - Haptic Weak / 16, 20, 24 / Filled & Regular
+    - Hexagon Sparkle / 20, 24 / Filled & Regular
+    - Mail Edit / 32 / Filled & Regular
+    - Password Clock / 48 / Filled & Regular
+    - Password Reset / 48 / Filled & Regular
+    - Password / 24, 32, 48 / Filled & Regular
+    - People Eye / 16, 20 / Filled & Regular
+    - Pin Globe / 16, 20 / Filled & Regular
+    - Run / 28, 32, 48 / Filled & Regular
+    - Tab Group / 16, 20, 24 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Upload / 24 / Filled & Regular
+    - Calendar Edit / 16, 20, 24 / Filled & Regular
+    - Mail Read / 20 / Filled & Regular
+    - Password / 24 / Filled & Regular
+    - Run / 16, 20, 24 / Filled & Regular
+
 ## V4.6.0
 
 ### Demo site, documentation and miscellaneous

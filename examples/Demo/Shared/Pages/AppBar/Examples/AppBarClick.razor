@@ -13,8 +13,7 @@
                           IconActive="AppBarIcon(active: true)"
                           Text="AppBar"
                           OnClick="HandleOnClick" />
-        <FluentAppBarItem Href="@(null)"
-                          IconRest="WhatsNewIcon()"
+        <FluentAppBarItem IconRest="WhatsNewIcon()"
                           IconActive="WhatsNewIcon(active: true)"
                           Text="What's New'"
                           OnClick="ShowSuccessAsync" />
@@ -53,19 +52,19 @@
                : new Icons.Regular.Size24.AppGeneric();
 
 
-    private void HandleOnClick(FluentAppBarItem item)
+    private void HandleOnClick(IAppBarItem item)
     {
 
         DemoLogger.WriteLine($"Clicked {item.Text}!");
     }
 
-    private async Task ShowSuccessAsync(FluentAppBarItem item)
+    private async Task ShowSuccessAsync(IAppBarItem item)
     {
         var dialog = await DialogService.ShowSuccessAsync($"You clicked {item.Text}");
         var result = await dialog.Result;
     }
 
-    private async Task ShowWarningAsync(FluentAppBarItem item)
+    private async Task ShowWarningAsync(IAppBarItem item)
     {
         var dialog = await DialogService.ShowWarningAsync($"Are you sure? {item.Text}");
         var result = await dialog.Result;

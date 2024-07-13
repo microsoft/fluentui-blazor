@@ -2,6 +2,8 @@
 
 @using FluentUI.Demo.Shared.Pages.NavMenu.Examples
 
+<PageTitle>@App.PageTitle("NavMenu")</PageTitle>
+
 <h1>NavMenu, NavGroup and NavLink</h1>
 
 <div class="demopanel" style="text-align:center; margin-bottom: 10px">
@@ -52,7 +54,13 @@
 
 <DemoSection Component="typeof(NavMenuCollapsible)" Title="Collapsible navigation">
     <Description>
-        More complete example which shows how the menu works together with a text section when it collapses. 
+        <p>
+            More complete example which shows how the menu works together with a text section when it collapses.
+            When <code>CollapsedChildNavigation</code> is set to true, clicking on a <code>FluentNavGroup</code> opens a menu containing all links included in that group.
+        </p>
+        <p>
+            Note that menu items without an icon are not visible when the menu is collapsed.
+        </p>
     </Description>
 </DemoSection>
 

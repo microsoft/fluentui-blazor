@@ -31,24 +31,29 @@ public class FluentCalendarDay
     public DateTime Date { get; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the day is disabled by the user.
+    /// Gets a value indicating whether the day is disabled by the user.
     /// </summary>
     public bool IsDisabled => IsInactive ? false : _isInDisabledList && _calendar.DisabledSelectable;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the day is inactive (out of the current month).
+    /// Gets a value indicating whether the day is inactive (out of the current month).
     /// </summary>
     public bool IsInactive => _isOutsideCurrentMonth || (_isInDisabledList && !_calendar.DisabledSelectable);
 
     /// <summary>
-    /// Gets or sets a value indicating whether the day is set to Today.
+    /// Gets a value indicating whether the day is set to Today.
     /// </summary>
     public bool IsToday => Date == DateTime.Today && !_isOutsideCurrentMonth;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the day is selected by the user.
+    /// Gets a value indicating whether the day is selected by the user.
     /// </summary>
-    public bool IsSelected => Date.DayOfYear == _calendar.Value.GetValueOrDefault().DayOfYear;
+    public bool IsSelected => Date.Date == _calendar.Value?.Date;
+
+    /// <summary>
+    /// Gets a value indicating whether the day is selected by the user, using <see cref="FluentCalendar.SelectMode"/>.
+    /// </summary>
+    public bool IsMultiDaySelected => _calendar.SelectMode != CalendarSelectMode.Single && _calendar.SelectedDates.Contains(Date) && !IsDisabled;
 
     /// <summary>
     /// Gets the name of the day and month in current culture.

@@ -1,0 +1,36 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+<FluentStack Class="resize-options" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="4">
+    @if (ResizeType == DataGridResizeType.Discrete)
+    {
+        <FluentLabel>@Label</FluentLabel>
+
+        <FluentSpacer />
+        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" />
+        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" />
+        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" />
+    }
+    else
+    {
+        <FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.End" VerticalAlignment="VerticalAlignment.Bottom">
+            <div style="display: flex; flex-direction: column; ">
+                <FluentTextField Id="width"
+                                 @bind-Value="@_width"
+                                 Style="width: 100%;"
+                                 TextFieldType="TextFieldType.Text"
+                                 InputMode="InputMode.Numeric"
+                                 Immediate="true"
+                                 ImmediateDelay="200"
+                                 Label="@Label"
+                                 AutoComplete="off"
+                                 @onkeydown="@HandleColumnWidthKeyDownAsync" />
+            </div>
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@Appearance.Accent">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
+            </FluentButton>
+            <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" />
+        </FluentStack>
+    }
+</FluentStack>
+

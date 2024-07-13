@@ -1,6 +1,8 @@
-@page "/TreeView"
+﻿@page "/TreeView"
 
 @using FluentUI.Demo.Shared.Pages.TreeView.Examples
+
+<PageTitle>@App.PageTitle("TreeView")</PageTitle>
 
 <h1>TreeView</h1>
 
@@ -21,6 +23,10 @@
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default with event handling" Component="@typeof(TreeViewDefault)"/>
+
+<DemoSection Title="With Items" Component="@typeof(TreeViewWithItems)" />
+
+<DemoSection Title="With Unlimited Items" Component="@typeof(TreeViewWithUnlimitedItems)" />
 
 <DemoSection Title="Flat tree" Component="@typeof(TreeViewFlat)"/>
 

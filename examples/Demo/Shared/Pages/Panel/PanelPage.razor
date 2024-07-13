@@ -1,6 +1,8 @@
-@page "/Panel"
+﻿@page "/Panel"
 
 @using FluentUI.Demo.Shared.Pages.Panel.Examples;
+
+<PageTitle>@App.PageTitle("Panel")</PageTitle>
 
 <h1>Panel</h1>
 
@@ -20,6 +22,10 @@
         <li><code>ShowPanel&lt;TDialogContent,TData&gt;</code> / <code>ShowPanelAsync&lt;TDialogContent,TData&gt;</code></li>
         <li><code>ShowPanel&lt;TData&gt;</code> / <code>ShowPanelAsync&lt;TData&gt;</code></li>
     </ul>
+</p>
+<p>
+    Internally, the <code>ShowPanel</code> methods call the <code>ShowDialog</code> methods. If is possible to directly call these methods and thereby have
+    access to all of the parameters. The <code>ShowPanel</code> variants are just convenience methods that make ite easier to work with panels.
 </p>
 <p>
     For more information on how to use the <code>DialogService</code>, see the <a href="DialogService">DialogService</a> page.

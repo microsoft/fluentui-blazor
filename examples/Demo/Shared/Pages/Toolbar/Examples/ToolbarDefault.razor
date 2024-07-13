@@ -12,11 +12,14 @@
     <FluentMenuButton @ref=menubutton Text="Select brand color" Items="@items" OnMenuChanged="HandleOnMenuChanged"></FluentMenuButton>
 
     <FluentButton>Button</FluentButton>
-    <FluentSelect Class="below outline" @bind-Value="@comboboxValue" TOption="string">
+
+    <FluentInputLabel ForId="s1" Orientation="Orientation.Horizontal">Select something</FluentInputLabel>
+    <FluentSelect Id="s1" Class="below outline" @bind-Value="@comboboxValue" TOption="string">
         <FluentOption id="option-15">Option 1</FluentOption>
         <FluentOption id="option-16">Second option</FluentOption>
         <FluentOption id="option-17">Option 3</FluentOption>
     </FluentSelect>
+
     <FluentCheckbox @bind-Value=check1>Checkbox</FluentCheckbox>
 </FluentToolbar>
 
@@ -34,7 +37,7 @@
         <FluentButton Appearance="Appearance.Accent">Refresh</FluentButton>
         <FluentBadge>21 items</FluentBadge>
         <FluentRadioGroup @bind-Value=value3 slot="end">
-            <FluentRadio >Filter</FluentRadio>
+            <FluentRadio>Filter</FluentRadio>
             <FluentRadio>
                 <FluentTextField @bind-Value=text1 Placeholder="Search"></FluentTextField>
             </FluentRadio>
@@ -45,13 +48,15 @@
 @code {
     string? comboboxValue;
     FluentToolbar? Toolbar;
-    string? value1 = "one", value2="two", value3;
+    string? value1 = "one", value2 = "two", value3;
     bool check1;
     string? text1;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender) {
-        if (firstRender) {
-            await FillColor.SetValueFor(Toolbar!.Element, "#333".ToSwatch());
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FillColor.SetValueFor(Toolbar!.Element, "#333");
             await BaseLayerLuminance.SetValueFor(Toolbar!.Element, (float)0.15);
 
             StateHasChanged();
@@ -76,6 +81,6 @@
     private void HandleOnMenuChanged(MenuChangeEventArgs args)
     {
 
-       
+
     }
 }

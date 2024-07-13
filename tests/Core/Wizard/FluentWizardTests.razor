@@ -317,7 +317,7 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, true);
+        Assert.True(finishHandled);
     }
 
     [Fact]
@@ -369,7 +369,7 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, false);
+        Assert.False(finishHandled);
     }
 
     [Fact]
@@ -421,7 +421,57 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, false);
+        Assert.False(finishHandled);
+    }
+
+    [Theory]
+    [InlineData(WizardStepSequence.Linear, 0, 0, 0, 2)]
+    [InlineData(WizardStepSequence.Visited, 0, 1, 2, 0)]
+    [InlineData(WizardStepSequence.Any, 2, 2, 2, 0)]
+    public void FluentWizard_StepSequences(WizardStepSequence flexible,
+        int clickable1, int clickable2, int clickable3, int indexFirstItem)
+    {
+        var currentIndex = 0;
+
+        // Arrange && Act
+        var cut = Render(@<FluentWizard StepSequence="@flexible" @bind-Value="@currentIndex">
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Assert before any click on Next button
+        int clickableLinks1 = cut.FindAll("li[style*='cursor: pointer']").Count;
+        Assert.Equal(clickable1, clickableLinks1);
+
+        // Assert after first click on Next button
+        var buttonNext1 = cut.Find("fluent-button[appearance='accent']");
+        buttonNext1.Click();
+
+        int clickableLinks2 = cut.FindAll("li[style*='cursor: pointer']").Count;
+        Assert.Equal(clickable2, clickableLinks2);
+
+        // Assert after a second click on Next button
+        var buttonNext2 = cut.Find("fluent-button[appearance='accent']");
+        buttonNext2.Click();
+
+        int clickableLinks3 = cut.FindAll("li[style*='cursor: pointer']").Count;
+        Assert.Equal(clickable3, clickableLinks3);
+
+        // Click on the first step
+        var step1 = cut.FindAll("li")[0];
+        step1.Click();
+
+        Assert.Equal(indexFirstItem, currentIndex);
     }
 
     private record TestRecord

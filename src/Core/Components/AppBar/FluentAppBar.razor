@@ -1,14 +1,24 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<CascadingValue Value="this" IsFixed="true">
-    <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="list">
+<CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
+    <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation">
         <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
-            @ChildContent
+            @if (Items is null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                foreach (var item in Items)
+                {
+                    <FluentAppBarItem IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" />
+                }
+            }
             @if (AppsOverflow.Any())
             {
                 <FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-                <div id="@($"appbar-more-{Id}")" role="listitem" class="fluent-appbar-item" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
+                <div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
                     <FluentStack Orientation="Orientation.Vertical"
                                  HorizontalAlignment="HorizontalAlignment.Center"
                                  VerticalAlignment="VerticalAlignment.Center"
@@ -27,13 +37,14 @@
                            HorizontalPosition="HorizontalPosition.End"
                            HorizontalInset="false"
                            VerticalPosition="VerticalPosition.Center"
-                           Style="width: 320px; height: 200px; overflow-y: scroll;">
+                           VerticalThreshold="25"
+                           Style="width: 320px; height: 200px; overflow-y: scroll; margin-top: 35px; ">
                 <Body>
                     @if (PopoverShowSearch)
                     {
-                        <FluentSearch
-                                      @bind-Value="@_searchTerm"
+                        <FluentSearch @bind-Value="@_searchTerm"
                                       @bind-Value:after=HandleSearch
+                                      Style="width: 100%;"
                                       Immediate="true"
                                       Placeholder="Search for apps"
                                       Autofocus="true" tabindex="0" />

@@ -1,4 +1,5 @@
 export * from '@fluentui/web-components/dist/web-components'
+export { parseColorHexRGB } from '@microsoft/fast-colors'
 import { SplitPanels } from './SplitPanels'
 import { DesignTheme } from './DesignTheme'
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
@@ -49,6 +50,17 @@ body:has(.prevent-scroll) {
     --presence-unknown: #d13438;
     --highlight-bg: #fff3cd;
 }
+
+
+[role='checkbox'].invalid::part(control),
+[role='combobox'].invalid::part(control),
+fluent-combobox.invalid::part(control),
+fluent-text-area.invalid::part(control),
+fluent-text-field.invalid::part(root)
+{
+    outline: calc(var(--stroke-width) * 1px)  solid var(--error);
+}
+
 `;
 
 styleSheet.replaceSync(styles);
@@ -133,6 +145,15 @@ export function afterStarted(blazor: Blazor, mode: string) {
     createEventArgs: event => {
       return {
         checked: event.target!.checked
+      };
+    }
+  });
+
+  blazor.registerCustomEventType('sliderchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      return {
+        value: event.target!.currentValue
       };
     }
   });

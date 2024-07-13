@@ -1,9 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -66,6 +70,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
+    /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
+    /// Discrete: resize by a 10 pixels at a time
+    /// Exact: resize to the exact width specified (in pixels)
+    /// </summary>
+    [Parameter]
+    public DataGridResizeType? ResizeType { get; set; }
+
+    [Parameter]
+    public string ResizeLabel { get; set; } = "Column width (in pixels)";
+
+    /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
     /// unique identifier, such as a primary key value, for each data item.
     ///
@@ -102,6 +118,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets the value that gets applied to the css gridTemplateColumns attribute of child rows.
+    /// Can be specified here or on the column level with the Width parameter but not both.
+    /// Needs to be a valid CSS string of space-separated values, such as "auto 1fr 2fr 100px".
     /// </summary>
     [Parameter]
     public string? GridTemplateColumns { get; set; } = null;
@@ -119,6 +137,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a cell is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridCell<TGridItem>> OnCellClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback when a row is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TGridItem>> OnRowClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback when a row is double-clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridRow<TGridItem>> OnRowDoubleClick { get; set; }
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
@@ -128,6 +164,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
     [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid should show a hover effect on rows.
+    /// </summary>
+    [Parameter] public bool ShowHover { get; set; }
 
     /// <summary>
     /// If specified, grids render this fragment when there is no content.
@@ -144,13 +185,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// A default fragment is used if loading content is not specified.
     /// </summary>
     [Parameter] public RenderFragment? LoadingContent { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
-    private int _ariaBodyRowCount;
-    private ICollection<TGridItem> _currentNonVirtualizedViewItems = Array.Empty<TGridItem>();
 
     // IQueryable only exposes synchronous query APIs. IAsyncQueryExecutor is an adapter that lets us invoke any
     // async query APIs that might be available. We have built-in support for using EF Core's async query APIs.
@@ -159,7 +200,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
-    private readonly List<ColumnBase<TGridItem>> _columns;
+    internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
@@ -179,6 +220,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
+
+    private string? _internalGridTemplateColumns;
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
@@ -216,8 +259,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        KeyCodeService.RegisterListener(OnKeyDownAsync);
+    }
+
+    /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
+        _internalGridTemplateColumns = GridTemplateColumns;
+
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
@@ -255,7 +306,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
             catch (JSException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("[FluentDataGrid] " + ex.Message);
             }
         }
 
@@ -277,6 +328,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 _sortByColumn = column;
                 _sortByAscending = initialSortDirection.Value != SortDirection.Descending;
+                _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
             }
         }
     }
@@ -291,6 +343,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
+
+        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        {
+            throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
+        }
+
+        if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        {
+            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "1fr"));
+        }
+
         if (ResizableColumns)
         {
             _ = Module?.InvokeVoidAsync("enableColumnResizing", _gridReference).AsTask();
@@ -320,6 +383,55 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Sorts the grid by the specified column <paramref name="title"/> found first. If the title is not found, nothing happens.
+    /// </summary>
+    /// <param name="title">The title of the column to sort by.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    public Task SortByColumnAsync(string title, SortDirection direction = SortDirection.Auto)
+    {
+        var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+
+        if (column is not null)
+        {
+            return SortByColumnAsync(column, direction);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
+    /// </summary>
+    /// <param name="index">The index of the column to sort by.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
+    {
+        if (index >= 0 && index < _columns.Count)
+        {
+            return SortByColumnAsync(_columns[index], direction);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+    /// </summary>
+    /// <param name="column">The column to check against the current sorted on column.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
+    {
+        if (_sortByColumn == column && !column.IsDefaultSortColumn)
+        {
+            _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
+            _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != SortDirection.Descending;
+        }
+
+        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+        return RefreshDataCoreAsync();
+    }
+
+    /// <summary>
     /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column, closing any other column
     /// options UI that was previously displayed.
     /// </summary>
@@ -332,6 +444,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         return Task.CompletedTask;
     }
 
+    public void SetLoadingState(bool loading)
+    {
+        Loading = loading;
+    }
+
     /// <summary>
     /// Instructs the grid to re-fetch and render the current data from the supplied data source
     /// (either <see cref="Items"/> or <see cref="ItemsProvider"/>).
@@ -340,11 +457,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public async Task RefreshDataAsync()
     {
         await RefreshDataCoreAsync();
-    }
-
-    public void SetLoadingState(bool loading)
-    {
-        Loading = loading;
     }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
@@ -366,19 +478,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
-            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
             var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
-                _currentNonVirtualizedViewItems = result.Items;
-                _ariaBodyRowCount = _currentNonVirtualizedViewItems.Count;
-                Pagination?.SetTotalItemCountAsync(result.TotalItemCount);
+                _internalGridContext.Items = result.Items;
+                _internalGridContext.TotalItemCount = result.TotalItemCount;
+                Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
+            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
         }
 
         StateHasChanged();
@@ -418,10 +530,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // the current viewport. In the case where you're also paginating then it means what's conceptually on the current page.
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might
             //       be better if we let the last page only be as big as its number of actual rows.
-            _ariaBodyRowCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
+            _internalGridContext.TotalItemCount = Pagination is null ? providerResult.TotalItemCount : Pagination.ItemsPerPage;
 
-            Pagination?.SetTotalItemCountAsync(providerResult.TotalItemCount);
-            if (_ariaBodyRowCount > 0)
+            Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
+            if (_internalGridContext.TotalItemCount > 0)
             {
                 Loading = false;
             }
@@ -431,7 +543,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // to make sure it doesn't get out of sync with the rows being rendered.
             return new ItemsProviderResult<(int, TGridItem)>(
                  items: providerResult.Items.Select((x, i) => ValueTuple.Create(i + request.StartIndex + 2, x)),
-                 totalItemCount: _ariaBodyRowCount);
+                 totalItemCount: _internalGridContext.TotalItemCount);
         }
 
         return default;
@@ -452,7 +564,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else if (Items is not null)
         {
             var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
-            _ariaBodyRowCount = totalItemCount;
+            _internalGridContext.TotalItemCount = totalItemCount;
             var result = request.ApplySorting(Items).Skip(request.StartIndex);
             if (request.Count.HasValue)
             {
@@ -541,4 +653,48 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
     }
+
+    public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
+    {
+        if (args.ShiftKey == true && args.Key == KeyCode.KeyR)
+        {
+            await ResetColumnWidthsAsync();
+        }
+
+        if (args.Value == "-")
+        {
+            await SetColumnWidthDiscreteAsync(null, -10);
+        }
+        if (args.Value == "+")
+        {
+            //  Resize column up
+            await SetColumnWidthDiscreteAsync(null, 10);
+        }
+        //return Task.CompletedTask;
+    }
+
+    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resizeColumnDiscrete", _gridReference, columnIndex, widthChange);
+        }
+    }
+
+    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resizeColumnExact", _gridReference, columnIndex, width);
+        }
+    }
+
+    internal async Task ResetColumnWidthsAsync()
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
+        }
+    }
+
 }

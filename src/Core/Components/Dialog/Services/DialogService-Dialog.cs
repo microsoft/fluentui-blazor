@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Dialog.ContentComponents;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -72,7 +71,7 @@ public partial class DialogService
         return await ShowDialogAsync(typeof(RenderFragmentDialog), renderFragment, dialogParameters);
     }
 
-    private DialogParameters FixPanelParameters(DialogParameters value)
+    private static DialogParameters FixPanelParameters(DialogParameters value)
     {
         value.DialogType = DialogType.Panel;
 

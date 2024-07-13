@@ -11,8 +11,13 @@
     text-align: center;
     font-weight: bold;
     font-size: 14px;
+    color: black;
     cursor: pointer;
 }
+
+    .key[type="keyup"] {
+        color: red;
+    }
 
     /* Hover effect */
     .key:hover {

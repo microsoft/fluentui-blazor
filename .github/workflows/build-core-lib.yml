@@ -1,0 +1,196 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build and Test Core Lib
+
+on:
+  # Allow manually running the workflow
+  workflow_dispatch:
+
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - dev
+    paths-ignore:
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+
+env:
+  PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
+  TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
+
+jobs:
+  Build:
+
+    name: Build and Test Code Lib
+    runs-on: windows-latest
+
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+
+    steps:
+     - name: Checkout source
+       uses: actions/checkout@v4
+
+     - name: Setup .NET 8.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 8.0.x
+
+     # Build
+
+     - name: Restore
+       run: dotnet restore
+
+     - name: Build
+       run: dotnet build ${{ env.PROJECTS }} --configuration Release -warnaserror
+       working-directory: ${{ github.workspace }}
+
+     # Unit Tests
+
+     - name: Tests
+       run: dotnet test ${{ env.TESTS }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       working-directory: ${{ github.workspace }}
+
+     - name: Publish Unit Tests
+       if: success() || failure()
+       continue-on-error: true
+       uses: dorny/test-reporter@v1
+       with:
+         name: Core Tests
+         path: '**/*.trx'
+         reporter: dotnet-trx
+         list-tests: failed
+         fail-on-error: false
+
+     - name: Extract Failed Tests
+       if: success() || failure()
+       shell: pwsh
+       run: |
+         $trxFilePath = Get-ChildItem -Path .\TestResults -Filter *.trx | Sort-Object LastWriteTime | Select-Object -Last 1
+         $testResults = Get-Content -Path $trxFilePath
+
+         # Initialize an empty array to store failed test names
+         $failedTests = "# Unit Tests"
+         $failedTestsCount = 0
+
+         # Search for failed test names in the TRX file
+         foreach ($line in $testResults) {
+
+             if ($line.Contains(" outcome=`"Failed`" "))
+             {
+                 $matches = [regex]::Match($line, '(?<=testName=")([^"]+)')
+
+                 if ($matches.Success) {
+                     $failedTestsCount++
+                     $testName = $matches.Groups[1].Value
+                     $failedTests += "`n- ❌[FAILED] $testName"
+                 }
+             }
+         }
+
+         if ($failedTestsCount -eq 0) {
+             $failedTests = "✅ All tests passed successfully"
+         }
+
+         $failedTests += "`n`n Details on [your Workflow / Core Tests](/microsoft/fluentui-blazor/actions/workflows/build-core-lib.yml) page."
+
+         Write-Host "$failedTests"
+         Set-Content -Path ./TestResults/ExtractedTests.md -Value $failedTests
+       working-directory: ${{ github.workspace }}
+
+     - name: Publish unit tests summary
+       if: success() || failure()
+       continue-on-error: true
+       uses: marocchino/sticky-pull-request-comment@v2
+       with:
+         header: Test Results
+         path: ./TestResults/ExtractedTests.md
+
+     # Test Coverage
+
+     - name: Report Generator
+       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
+       with:
+         reports: '**/coverage.cobertura.xml'
+         targetdir: 'CoverageReports'
+         title: 'Unit Tests Code Coverage'
+         classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
+         reporttypes: 'HtmlInline;MarkdownSummaryGithub'
+
+     - name: Upload coverage report
+       uses: actions/upload-artifact@v2
+       with:
+         name: CoverageReports
+         path: CoverageReports
+
+     - name: Publish coverage summary
+       uses: marocchino/sticky-pull-request-comment@v2
+       continue-on-error: true
+       with:
+         path: CoverageReports/SummaryGithub.md
+  deploy_demo:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Demo site
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      PROJECT: "examples/Demo/Client/FluentUI.Demo.Client.csproj"
+      BUILD_ARCH: "Any CPU"
+      BUILD_CONFIG: "Release"
+      SKIP_DEPLOY_ON_MISSING_SECRETS: true
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: .NET Setup SDKs
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+          include-prerelease: true
+      - name: .NET Builld
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+
+      - name: .NET Publish
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+
+      - name: Deploy demo site to new Azure Static Web App
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_PEBBLE_0DC79CB03 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "publish/wwwroot"
+          api_location: "Api"
+          output_location: "publish/wwwroot"
+          skip_api_build: true
+          skip_app_build: true
+          production_branch: 'dev'
+
+  destroy:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Close Pull Request on new Azure Static Web App
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_PEBBLE_0DC79CB03 }}
+          action: "close"

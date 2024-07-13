@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentInputBase<TValue>
 {
-    private PeriodicTimer? _timerForImmediate;
-    private CancellationTokenSource _timerCancellationTokenSource = new();
+    private readonly Debouncer _debouncer = new();
 
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
@@ -27,11 +27,13 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
+        var _notifyCalled = false;
         var isValid = TryParseValueFromString(e.Value?.ToString(), out TValue? result, out var validationErrorMessage);
 
         if (isValid)
         {
             await SetCurrentValueAsync(result ?? default);
+            _notifyCalled = true;
         }
         else
         {
@@ -43,7 +45,7 @@ public partial class FluentInputBase<TValue>
                 _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage ?? "Unknown parsing error");
             }
         }
-        if (FieldBound)
+        if (FieldBound && !_notifyCalled)
         {
             CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
         }
@@ -56,48 +58,17 @@ public partial class FluentInputBase<TValue>
     /// <returns></returns>
     protected virtual async Task InputHandlerAsync(ChangeEventArgs e) // TODO: To update in all Input fields 
     {
-        if (Immediate)
+        if (!Immediate)
         {
-            // Raise ChangeHandler after a delay
-            if (ImmediateDelay > 0)
-            {
-                _timerForImmediate = GetNewPeriodicTimer(ImmediateDelay);
-
-                while (await _timerForImmediate.WaitForNextTickAsync(_timerCancellationTokenSource.Token))
-                {
-                    await ChangeHandlerAsync(e);
-                    _timerCancellationTokenSource.Cancel();
-                }
-            }
-            // Raise ChangeHandler immediately
-            else
-            {
-                // Cancel a potential existing object
-                _timerForImmediate?.Dispose();
-                _timerForImmediate = null;
-
-                await ChangeHandlerAsync(e);
-            }
+            return;
         }
-
-        // Cancel the previous Timer (if existing)
-        // And create a new Timer with a new CancellationToken
-        PeriodicTimer GetNewPeriodicTimer(int delay)
+        if (ImmediateDelay > 0)
         {
-            _timerCancellationTokenSource.Cancel();
-
-            if (_timerForImmediate is not null)
-            {
-                _timerForImmediate.Dispose();
-                _timerForImmediate = null;
-            }
-
-            _timerForImmediate = new PeriodicTimer(TimeSpan.FromMilliseconds(delay));
-
-            _timerCancellationTokenSource.Dispose();
-            _timerCancellationTokenSource = new CancellationTokenSource();
-
-            return _timerForImmediate;
+            await _debouncer.DebounceAsync(ImmediateDelay, async () => await ChangeHandlerAsync(e));
+        }
+        else
+        {
+            await ChangeHandlerAsync(e);
         }
     }
 }

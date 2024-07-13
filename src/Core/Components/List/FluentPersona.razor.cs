@@ -94,14 +94,17 @@ public partial class FluentPersona : FluentComponentBase
     public string? DismissTitle { get; set; }
 
     /// <summary />
-    private string GetDefaultInitials()
+    private string GetDefaultInitials() => GetDefaultInitials(Name);
+    
+    /// <summary />
+    internal static string GetDefaultInitials(string? name)
     {
-        if (string.IsNullOrEmpty(Name))
+        if (string.IsNullOrEmpty(name))
         {
             return string.Empty;
         }
 
-        var parts = Name.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var parts = name.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return parts == null
                 || parts.Length == 0
                 || (parts.Length == 1 && parts[0] == string.Empty)

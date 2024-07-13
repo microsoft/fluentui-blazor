@@ -50,9 +50,9 @@
     );
 
         // Open the Popover
-        var button = cut.Find(".initials");
+        var button = cut.Find(".fluent-profile-menu");
         button.Click();
-
+        
         // sign out
         var signOut = cut.Find("fluent-button");
         signOut.Click();
@@ -82,6 +82,20 @@
         // Open the Popover
         var button = cut.Find(".initials");
         button.Click();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProfileMenu_StartEndTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentProfileMenu Image="@SamplePicture">
+                <StartTemplate>Before</StartTemplate>
+                <EndTemplate>After</EndTemplate>
+            </FluentProfileMenu>);
 
         // Assert
         cut.Verify();

@@ -18,7 +18,7 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary>
     /// Gets or sets the value for this slider position.
@@ -65,17 +65,26 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
     {
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await Module.InvokeVoidAsync("updateSliderLabel", Id);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await _jsModule.InvokeVoidAsync("updateSliderLabel", Id);
         }
     }
 
-    public ValueTask DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        if (Module is not null)
+        try
         {
-            return Module.DisposeAsync();
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
         }
-        return ValueTask.CompletedTask;
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
+
     }
 }

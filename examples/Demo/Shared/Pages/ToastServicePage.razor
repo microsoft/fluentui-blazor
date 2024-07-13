@@ -1,5 +1,7 @@
 ﻿@page "/ToastService"
 
+<PageTitle>@App.PageTitle("ToastService")</PageTitle>
+
 <h1>ToastService</h1>
 
 <p>
@@ -16,35 +18,37 @@
 
 <h2 id="toastcontainer">Toast container</h2>
 
-<strong>IMPORTANT!!</strong>
-
 <p>
     Toasts are rendered through the <code>&lt;FluentToastProvider /&gt;</code> component. This component needs to be added to the main layout of your application/site.
     You typically do this in the <code>MainLayout.razor</code> file at the end of the <code>&lt;main&gt;</code> section like this:
 </p>
 
-<CodeSnippet>
-    &lt;main&gt;
-        &lt;nav&gt;
-        :
-        &lt;/nav&gt;
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;article id=&quot;article&quot;&gt;
-                @@Body
-            &lt;/article&gt;
-        &lt;/div&gt;
-        &lt;FluentToastProvider MaxToastCount=&quot;10&quot; /&gt;
-    &lt;/main&gt;
+<CodeSnippet Language="razor">
+    @(
+@"<main>
+    <nav>
+        <!-- -->
+    </nav>
+    <div class=""content"">
+        <article id=""article"">
+            @Body
+        </article>
+    </div>
+    <FluentToastProvider MaxToastCount=""10"" />
+</main>"
+    )
 </CodeSnippet>
 
-<strong>IMPORTANT!!</strong>
-<p>
-    <strong>
+<blockquote>
+    <p>
+        <strong>IMPORTANT!!</strong>
+    </p><p>
         For the <code>&lt;FluentToastProvider/&gt;</code> to work properly, it needs interactivity! If you are using "per page" interactivity or ASP.NET Core 8
         or above with <strong>Server Side Rendering</strong> , make sure to add a <code>@@rendermode</code> to
         either the provider itself or the component the provider is placed in.
-    </strong>
-</p>
+    </p>
+</blockquote>
+
 <p>
     See the documentation below for more information about the <code>FluentToastProvider</code> parameters.
 </p>

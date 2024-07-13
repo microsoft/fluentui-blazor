@@ -6,6 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js";
     private IJSObjectReference _jsModule = default!;
 
     private Reference Target { get; set; } = new();
@@ -16,7 +17,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     //private T? _defaultValue;
 
     /// <summary>
-    /// Gets the name of this design token 
+    /// Gets the name of this design token
     /// </summary>
     public string? Name { get; init; }
 
@@ -67,11 +68,24 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
 
     private async Task InitJSReferenceAsync()
     {
-        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js");
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+    }
+
+#pragma warning disable VSTHRD200 // Use "Async" suffix for async methods
+    /// <summary>
+    /// Sets the default value of this token
+    /// Value is a string
+    /// </summary>
+    public async ValueTask<DesignToken<T>> WithDefault(string value)
+    {
+        await InitJSReferenceAsync();
+        await _jsModule.InvokeVoidAsync(Name + ".withDefault", value);
+        return this;
     }
 
     /// <summary>
     /// Sets the default value of this token
+    /// Value is a type T
     /// </summary>
     public async ValueTask<DesignToken<T>> WithDefault(T value)
     {
@@ -134,6 +148,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
         await InitJSReferenceAsync();
         return await _jsModule.InvokeAsync<object>("parseColorHexRGB", color);
     }
+#pragma warning restore VSTHRD200 // Use "Async" suffix for async methods
 
     public async ValueTask DisposeAsync()
     {

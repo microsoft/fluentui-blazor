@@ -21,6 +21,7 @@ public partial class DialogSplashScreenDefault
                 Message = (MarkupString)"some <i>extra</i> text <strong>here</strong>",
                 Logo = FluentSplashScreen.LOGO,
             },
+            PreventDismissOnOverlayClick = true,
             Width = "640px",
             Height = "480px",
         };

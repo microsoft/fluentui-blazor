@@ -5,6 +5,14 @@ body {
     overflow: hidden;
 }
 
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.home div[sm="4"], .home div[sm="6"], .home div[sm="8"] {
+    border-bottom: 1px solid var(--neutral-stroke-divider-rest) !important;
+}
+
 .siteheader {
     background-color: var(--neutral-layer-4) !important;
     border-bottom: calc(var(--stroke-width) * 2px) solid var(--accent-fill-rest);
@@ -90,7 +98,6 @@ body {
 
 
 nav.sitenav {
-    background-color: var(--neutral-layer-1);
     padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
     width: 18rem;
@@ -131,15 +138,12 @@ nav fluent-anchor {
 
 .content {
     display: flex;
-    background-color: var(--neutral-layer-1);
 }
 
 article {
     padding: 1.5rem 1rem;
     border-right: 1px solid var(--neutral-stroke-divider-rest);
     margin: 0 0;
-    overflow-x: hidden;
-    transition: all 300ms ease-in-out;
     width: calc(100% - 18rem);
 }
 
@@ -149,6 +153,8 @@ aside {
     height: 100vh;
     position: sticky;
     width: 18rem;
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
 }
 
 #navmenu-toggle {
@@ -198,9 +204,22 @@ code {
 }
 
 .highlighted-row {
-    background-color: var(--neutral-fill-secondary-hover);
+    background-color: var(--accent-fill-rest);
 }
 
+    .highlighted-row > fluent-data-grid-cell {
+        color: var(--neutral-fill-inverse-rest);
+    }
+
+
+kbd {
+    padding: 0.10rem 0.25rem;
+    font-size: 0.875em;
+    color: var(--neutral-foreground-rest);
+    background-color: var(--neutral-fill-secondary-rest);
+    border-radius: 0.25rem;
+    border: 1px solid var(--accent-fill-rest);
+}
 
 #blazor-error-ui {
     background: lightyellow;
@@ -291,10 +310,8 @@ code {
     }
 
     nav.sitenav {
-
         width: 100%;
         height: calc(100dvh - 50px);
-
     }
 
     .navmenu {
@@ -382,14 +399,19 @@ code {
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1279px) {
     fluent-select::part(control) {
         width: 150px;
+    }
+    .content {
+        flex-direction: column;
     }
 
     aside {
         padding: 1.5em 0.75em 1em 0.75em;
-        width: 12rem;
+        width: 100%;
+        height: 100%!important;
+        max-height: 100% !important;
     }
 
     article {
@@ -500,3 +522,12 @@ code {
     .youtube-responsive .fluid-vids {
         position: initial !important
     }
+
+.youtube-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    min-height: 24px;
+}

@@ -1,7 +1,8 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 <li id="@Id" status="@Status.ToAttributeValue()"
+    @onclick="@OnClickHandlerAsync"
     disabled="@Disabled"
     class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
     @if (StepTemplate is null)

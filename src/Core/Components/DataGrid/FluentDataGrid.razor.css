@@ -11,7 +11,7 @@ fluent-data-grid {
     align-items: center;
 }
 
-::deep .empty-content-cell, 
+::deep .empty-content-cell,
 ::deep .loading-content-cell {
 
     font-weight: 600;
@@ -19,6 +19,7 @@ fluent-data-grid {
 
 .col-options {
     position: absolute;
+    min-width: 250px;
     top: 2.2rem;
     background: var(--neutral-layer-2);
     border: 1px solid var(--neutral-layer-3);
@@ -34,12 +35,12 @@ fluent-data-grid {
 
 .col-justify-end .col-options, .col-justify-right .col-options {
     left: unset;
-    right: 0.2rem;
+    margin-right:  0.6rem;
 }
 
 [dir=rtl] .col-justify-end .col-options, [dir=rtl] .col-justify-right .col-options {
     right: unset;
-    left: 0.2rem;
+    margin-left: 0.6rem;
 }
 
 ::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
@@ -47,6 +48,12 @@ fluent-data-grid {
     opacity: 0.75;
 }
 
+.resize-options {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
 
 ::deep .col-width-draghandle {
@@ -56,6 +63,8 @@ fluent-data-grid {
     border-top: none;
     border-left: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-divider-rest);
     cursor: col-resize;
+    position: sticky;
+    min-width: calc(var(--design-unit) * 1px + 2px);
 }
 
 .col-width-draghandle:hover, .col-width-draghandle:active {

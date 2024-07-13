@@ -38,7 +38,9 @@ public partial class FluentToastProvider
 
     /// <summary>
     /// Gets or sets whether to show a close button on a toast. Default is true.
+    /// [Obsolete("This parameter will be removed in a future version. It is and should not not used.")]
     /// </summary>
+    [Obsolete("This parameter will be removed in a future version. It is and should not be used.")]
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
 

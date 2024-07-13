@@ -30,6 +30,6 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
+    .AddAdditionalAssemblies(typeof(FluentUI.TemplateValidation.Client._Imports).Assembly);
 
 app.Run();

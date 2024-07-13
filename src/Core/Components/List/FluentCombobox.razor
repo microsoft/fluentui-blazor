@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
@@ -20,8 +20,9 @@
                      disabled=@Disabled
                      appearance="@Appearance.ToAttributeValue()"
                      required="@Required"
-                     @onchange="@OnChangedHandlerAsync"
+                     @onchange="@ChangeHandlerAsync"
                      autofocus="@Autofocus"
+                     name="@Name"
                      @attributes="AdditionalAttributes">
         @_renderOptions
     </fluent-combobox>

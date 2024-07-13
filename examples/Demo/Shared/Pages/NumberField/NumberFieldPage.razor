@@ -1,6 +1,8 @@
-@page "/NumberField"
+﻿@page "/NumberField"
 
 @using FluentUI.Demo.Shared.Pages.NumberField.Examples
+
+<PageTitle>@App.PageTitle("NumberField")</PageTitle>
 
 <h1>Number field</h1>
 
@@ -10,6 +12,20 @@
     <code>&lt;FluentNumberField&gt;</code> wraps the <code>&lt;fluent-number-field&gt;</code> element, a web component implementation of a number input field leveraging the
     Fluent UI design system.
 </p>
+
+<blockquote>
+    <p>
+        <strong>Note:</strong> The underlying web component is known to have <a href="https://github.com/microsoft/fast/issues?q=is%3Aissue+numberfield+is%3Aclosed">quite some issues</a>
+        which won't get fixed (and can't be fixed on out side). Be carefull when choosing to use this component.
+    </p>
+    <p>
+        Also, we'd advise in general to not use a NumberField for this kind of input See also <a href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/">this article</a> for reasons and alternatives
+    </p>
+    <p>
+        As an alternative, you could consider using a <a href="https://github.com/microsoft/fluentui-blazor/issues/1345#issuecomment-2145145944">standard InputNumber with styling applied</a>.
+    </p>
+</blockquote>
+
 
 <h2 id="example">Examples</h2>
 

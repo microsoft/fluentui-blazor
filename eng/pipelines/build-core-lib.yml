@@ -43,12 +43,12 @@ pr:
 
 parameters:
   - name: Projects  	    # List of projects to build
-    type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.csproj'
+    default: |
+      **/Microsoft.FluentUI.AspNetCore.Components.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
-    type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
+    default: |
+      **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -74,7 +74,7 @@ extends:
   # For non-production pipelines, use "Unofficial" as defined below.
   # For productions pipelines, use "Official".
   #template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
-  template: azure-pipelines/MicroBuild.1ES.Unofficial.yml@MicroBuildTemplate
+  template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
   parameters:
     # Update the pool with your team's 1ES hosted pool.
     pool:
@@ -105,6 +105,14 @@ extends:
           - output: pipelineArtifact
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
+
+          - output: nuget
+            useDotNetTask: false
+            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+            packageParentPath: '$(Build.ArtifactStagingDirectory)'
+            nuGetFeedType: internal
+            publishVstsFeed: public/dotnet8
+            allowPackageConflicts: true
 
         steps:
 
@@ -147,12 +155,6 @@ extends:
             version: 8.0.x
             includePreviewVersions: true
 
-        # Install nodejs
-        - task: NodeTool@0
-          displayName: 'Install nodejs'
-          inputs:
-            versionSpec: '20.x'
-
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
@@ -165,12 +167,22 @@ extends:
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 
-        # Install dependencies
+        # Restore packages
         - task: DotNetCoreCLI@2
-          displayName: Install dependencies
+          displayName: Restore packages
           inputs:
             command: 'restore'
             projects: ${{ parameters.Projects }}
+            feedsToUse: config
+            nugetConfigPath: nuget.config
+            includeNuGetOrg: false
+
+        # NPM install Core.Assets
+        - task: Npm@1
+          displayName: "NPM install Core.Assets"
+          inputs:
+            command: "install"
+            workingDir: "src/Core.Assets"
 
         # Build the projects
         - task: DotNetCoreCLI@2
@@ -178,7 +190,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -226,7 +238,7 @@ extends:
             solution: 'Microsoft.FluentUI.signproj'
             msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)\ /p:IntermediateOutputPath=$(Build.ArtifactStagingDirectory)\sign\'
 
-
+        # Copy signed packages
         - task: CopyFiles@2
           displayName: 'Copy signed packages to pickup folder'
           inputs:

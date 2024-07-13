@@ -14,7 +14,7 @@ public sealed class DialogInstance
 
     public Type? ContentType { get; }
 
-    public object Content { get; } = default!;
+    public object Content { get; internal set; } = default!;
 
     public DialogParameters Parameters { get; internal set; }
 

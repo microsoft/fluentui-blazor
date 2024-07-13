@@ -10,7 +10,13 @@ internal sealed class InternalGridContext<TGridItem>
     private int _rowId = 0;
     private int _cellId = 0;
 
+    public (ColumnBase<TGridItem>? Column, SortDirection? Direction) DefaultSortColumn { get; set; }
+    //public SortDirection? DefaultSortDirection { get; set; }
+
     public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
+
+    public ICollection<TGridItem> Items { get; set; } = [];
+    public int TotalItemCount { get; set; }
 
     public FluentDataGrid<TGridItem> Grid { get; }
     public EventCallbackSubscribable<object?> ColumnsFirstCollected { get; } = new();

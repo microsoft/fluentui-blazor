@@ -1,7 +1,6 @@
 // ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,13 +8,14 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentAppBarItem : FluentComponentBase, IDisposable
+public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDisposable
 {
+
     /// <summary>
     /// Gets or sets the URL for this item.
     /// </summary>
-    [Parameter, EditorRequired]
-    public required string Href { get; set; }
+    [Parameter]
+    public string? Href { get; set; }
 
     /// <summary>
     /// Gets or sets how the link should be matched.
@@ -52,8 +52,7 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     /// Gets or sets the count to show on the item with a <see cref="FluentCounterBadge"/>.
     /// </summary>
     [Parameter]
-    public int Count { get; set; } = 0;
-
+    public int? Count { get; set; } = 0;
 
     /// <summary>
     ///  Gets or sets the content to be shown.
@@ -65,23 +64,18 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     /// The callback to invoke when the item is clicked.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentAppBarItem> OnClick { get; set; }
+    public EventCallback<IAppBarItem> OnClick { get; set; }
 
     /// <summary>
     /// Gets or sets the owning FluentAppBar component.
     /// </summary>
     [CascadingParameter]
-    public FluentAppBar Owner { get; set; } = default!;
+    private InternalAppBarContext Owner { get; set; } = default!;
 
     /// <summary>
     /// If this app is outside of visible app bar area.
     /// </summary>
-    public bool? Overflow { get; private set; }
-
-    internal string? ClassValue => new CssBuilder("fluent-appbar-item")
-        .AddClass(Class)
-        .Build();
-
+    public bool? Overflow { get; set; }
     public FluentAppBarItem()
     {
         Id = Identifier.NewId();
@@ -97,10 +91,10 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
         }
     }
 
-    internal void SetProperties(bool? overflow)
-    {
-        Overflow = overflow == true ? overflow : null;
-    }
+    internal string? ClassValue => new CssBuilder("fluent-appbar-item")
+        .AddClass("fluent-appbar-item-local", when: string.IsNullOrEmpty(Href))
+        .AddClass(Class)
+        .Build();
 
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
@@ -114,4 +108,5 @@ public partial class FluentAppBarItem : FluentComponentBase, IDisposable
     {
         Owner?.Unregister(this);
     }
+
 }

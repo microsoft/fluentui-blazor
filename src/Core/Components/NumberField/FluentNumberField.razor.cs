@@ -79,7 +79,8 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
         // of it for us. We will only get asked to parse the T for nonempty inputs.
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        if (targetType == typeof(int) ||
+        if (targetType == typeof(sbyte) ||
+            targetType == typeof(int) ||
             targetType == typeof(long) ||
             targetType == typeof(short) ||
             targetType == typeof(float) ||
@@ -119,6 +120,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         return value switch
         {
             null => null,
+            sbyte @sbyte => BindConverter.FormatValue(Convert.ToInt16(@sbyte), CultureInfo.InvariantCulture),
             int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
             long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
             short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
