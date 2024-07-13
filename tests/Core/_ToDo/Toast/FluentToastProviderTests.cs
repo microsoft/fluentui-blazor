@@ -13,13 +13,13 @@ public class FluentToastProviderTests : TestBase
         int timeout = default!;
         int maxToastCount = default!;
         bool removeToastsOnNavigation = default!;
-        bool showCloseButton = default!;
+        //bool showCloseButton = default!;
         var cut = TestContext.RenderComponent<FluentToastProvider>(parameters => parameters
             .Add(p => p.Position, position)
             .Add(p => p.Timeout, timeout)
             .Add(p => p.MaxToastCount, maxToastCount)
             .Add(p => p.RemoveToastsOnNavigation, removeToastsOnNavigation)
-            .Add(p => p.ShowCloseButton, showCloseButton)
+            //.Add(p => p.ShowCloseButton, showCloseButton)
         );
         //Act
 
