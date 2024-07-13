@@ -210,7 +210,7 @@ public class DataFilterHelper
                                                                           DataFilterComparisonOperator @operator,
                                                                           DataFilterCaseSensitivity caseSensitivity)
     {
-        Expression<Func<TItem, bool>> ret = x => true;
+        var ret = PredicateBuilder.True<TItem>();
         if (expression.Body.Type == typeof(string))
         {
             var valueStr = value?.ToString();
@@ -233,7 +233,7 @@ public class DataFilterHelper
                     DataFilterComparisonOperator.NotEmpty => a => !string.IsNullOrWhiteSpace(a),
                     DataFilterComparisonOperator.In => a => a != null && collection != null && collection.Contains(a),
                     DataFilterComparisonOperator.NotIn => a => a != null && collection != null && !collection.Contains(a),
-                    _ => a => true
+                    _ => throw new ArgumentOutOfRangeException(nameof(@operator))
                 };
             }
             else
@@ -256,7 +256,7 @@ public class DataFilterHelper
                     DataFilterComparisonOperator.NotEmpty => x => !string.IsNullOrWhiteSpace(x),
                     DataFilterComparisonOperator.In => a => a != null && collection != null && collection.Contains(a),
                     DataFilterComparisonOperator.NotIn => a => a != null && collection != null && !collection.Contains(a),
-                    _ => x => true
+                    _ => throw new ArgumentOutOfRangeException(nameof(@operator))
                 };
             }
 
@@ -276,7 +276,7 @@ public class DataFilterHelper
                 DataFilterComparisonOperator.NotEmpty => expression.Make<TItem>(ExpressionType.NotEqual, null),
                 DataFilterComparisonOperator.In => expression.MakeIn<TItem>(value),
                 DataFilterComparisonOperator.NotIn => PredicateBuilder.Not(expression.MakeIn<TItem>(value)),
-                _ => x => true
+                _ => throw new ArgumentOutOfRangeException(nameof(@operator))
             };
         }
 

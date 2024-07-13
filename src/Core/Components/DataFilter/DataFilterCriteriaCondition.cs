@@ -39,7 +39,7 @@ public class DataFilterCriteriaCondition<TItem>
                                                                 Value,
                                                                 Operator,
                                                                 caseSensitivity)
-                : x => true;
+                : x => false;
 
     /// <summary>
     /// Clone object.
