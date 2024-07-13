@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure;
 
-public partial class FilterSelectorIn<TItem, TProp>
+public partial class FilterSelectorInEditor<TItem, TProp>
 {
     [Parameter, EditorRequired]
     public FilterBase<TItem> Filter { get; set; } = default!;
@@ -16,21 +16,15 @@ public partial class FilterSelectorIn<TItem, TProp>
 
     private ICollection<TProp> Selected => (Condition.Value as ICollection<TProp>)!;
 
-    private async Task SelectedOptionsChangedInAsync(IEnumerable<TProp> items)
-    {
-        Selected.Clear();
-        foreach (var item in items)
-        {
-            Selected.Add(item);
-        }
-
-        await Filter.DataFilter.FilterChangedAsync();
-    }
+    private async Task SelectedOptionsChangedInAsync(IEnumerable<TProp> items) => await Filter.SetValueAsync(Condition, items);
 
     private void OnSearchIn(OptionsSearchEventArgs<TProp> e)
     {
         Expression<Func<TProp, bool>> func = a => a != null;
+
+        //todo filter content string ????
         //&& a.ToString().Contains(e.Text, StringComparison.OrdinalIgnoreCase);
+
         var where = Filter.ExpressionDef.Make<TItem>(func);
         var selector = (Filter.ExpressionDef as Expression<Func<TItem, TProp>>)!;
 

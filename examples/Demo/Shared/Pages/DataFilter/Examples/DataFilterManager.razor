@@ -32,7 +32,10 @@
 
             <FluentSpacer />
 
-            <FluentDataFilterManager TItem="DataTypeDemo" @bind-Criteria="@_criteria" TextButtonMenu="" Appearance="Appearance.Stealth">
+            <FluentDataFilterManager TItem="DataTypeDemo"
+                                     @bind-Criteria="@_criteria"
+                                     TextButtonMenu=""
+                                     Appearance="Appearance.Stealth">
                 <DataFilterTemplate>
                     <FluentDataFilter @bind-Criteria="@context" Style="padding:10px;">
                         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />

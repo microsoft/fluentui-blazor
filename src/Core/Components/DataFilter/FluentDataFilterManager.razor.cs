@@ -39,6 +39,18 @@ public partial class FluentDataFilterManager<TItem>
     public EventCallback<DataFilterCriteria<TItem>> CriteriaChanged { get; set; } = default!;
 
     /// <summary>
+    /// Gets or sets the selected item.
+    /// </summary>
+    [Parameter]
+    public virtual DataFilterManagerItem<TItem>? SelectedItem { get; set; }
+
+    /// <summary>
+    /// Called whenever the selection changed.
+    /// </summary>
+    [Parameter]
+    public virtual EventCallback<DataFilterManagerItem<TItem>?> SelectedItemChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets text button menu.
     /// </summary>
     [Parameter]
@@ -122,81 +134,87 @@ public partial class FluentDataFilterManager<TItem>
 
     private async Task OnMenuChangeAsync(MenuChangeEventArgs e)
     {
+        _show = false;
+
         var id = e.Id + "";
         if (id == "New")
         {
             var oldCriteria = Criteria;
             Criteria = new();
             await CriteriaChangedAsync();
+
             var data = CreateDialogContext(string.Empty, false);
             var result = await ShowDialogAsync(TextNewFilter, data);
             if (!result.Cancelled && !data.Criteria.IsEmpty)
             {
-                Items.Add(new()
+                var item = new DataFilterManagerItem<TItem>()
                 {
                     AllowEdit = true,
                     Criteria = data.Criteria,
                     Title = data.Title,
-                });
+                };
 
-                CurrentItem = Items.Last();
+                Items.Add(item);
+                await SetCurrentItemAsync(item);
                 await ItemsChangedAsync();
             }
             else
             {
                 Criteria = oldCriteria;
+                await CriteriaChangedAsync();
             }
         }
         else if (id == "Edit")
         {
             var oldCriteria = Criteria.Clone();
-            var currentItem = CurrentItem!;
 
-            var data = CreateDialogContext(currentItem.Title, true);
+            var data = CreateDialogContext(SelectedItem!.Title, true);
             var result = await ShowDialogAsync(TextEditFilter, data);
             if (!result.Cancelled)
             {
                 if (data.IsDeleted)
                 {
-                    Items.Remove(currentItem);
-                    currentItem = null;
+                    Items.Remove(SelectedItem);
+                    await SetCurrentItemAsync(null!);
+                    await ItemsChangedAsync();
                 }
                 else if (!data.Criteria.IsEmpty)
                 {
-                    currentItem.Criteria = data.Criteria;
+                    SelectedItem.Criteria = data.Criteria;
+                    await CriteriaChangedAsync();
                 }
-
-                await ItemsChangedAsync();
+                else
+                {
+                    SelectedItem.Criteria = oldCriteria;
+                    await CriteriaChangedAsync();
+                }
             }
             else
             {
-                currentItem.Criteria = oldCriteria;
+                SelectedItem.Criteria = oldCriteria;
+                await CriteriaChangedAsync();
             }
-            CurrentItem = currentItem;
         }
         else if (id == "Clear")
         {
-            CurrentItem = null;
+            await SetCurrentItemAsync(null!);
         }
         else if (id.StartsWith(IdPrefixFilter))
         {
-            Criteria = Items[int.Parse(id[IdPrefixFilter.Length..])].Criteria;
+            await SetCurrentItemAsync(ItemsOrdered[int.Parse(id[IdPrefixFilter.Length..])]);
         }
+    }
 
+    private async Task SetCurrentItemAsync(DataFilterManagerItem<TItem> item)
+    {
+        SelectedItem = item;
+        Criteria = SelectedItem?.Criteria ?? new();
+
+        await SelectedItemChangedAsync();
         await CriteriaChangedAsync();
     }
 
-    private DataFilterManagerItem<TItem>? CurrentItem
-    {
-        get => Items.FirstOrDefault(a => a.Criteria == Criteria);
-        set
-        {
-            var idx = Items.IndexOf(value!);
-            Criteria = idx == -1
-                        ? new()
-                        : Items[idx].Criteria;
-        }
-    }
+    private IList<DataFilterManagerItem<TItem>> ItemsOrdered => Items.OrderBy(a => a.Title).ToList();
 
     private async Task<DialogResult> ShowDialogAsync(string title, DataFilterManagerDialogContext<TItem> data)
     {
@@ -218,6 +236,14 @@ public partial class FluentDataFilterManager<TItem>
         if (CriteriaChanged.HasDelegate)
         {
             await CriteriaChanged.InvokeAsync(Criteria);
+        }
+    }
+
+    private async Task SelectedItemChangedAsync()
+    {
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(SelectedItem);
         }
     }
 

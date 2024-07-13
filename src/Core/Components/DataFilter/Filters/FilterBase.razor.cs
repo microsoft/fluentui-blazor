@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using System.Collections;
 using System.Linq.Expressions;
@@ -115,7 +116,13 @@ public abstract partial class FilterBase<TItem>
         await DataFilter.FilterChangedAsync();
     }
 
-    protected async Task SetValueAsync(DataFilterCriteriaCondition<TItem> condition, object? value)
+    /// <summary>
+    /// Set value and call filter changed.
+    /// </summary>
+    /// <param name="condition"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected internal async Task SetValueAsync(DataFilterCriteriaCondition<TItem> condition, object? value)
     {
         condition.Value = value;
         await DataFilter.FilterChangedAsync();
@@ -144,35 +151,17 @@ public abstract partial class FilterBase<TItem>
         }
     }
 
-    private Type SelectorInType => typeof(FilterSelectorIn<,>).MakeGenericType(typeof(TItem), Type);
 
-    private Dictionary<string, object> CreateSelectInEditorParameter(DataFilterCriteriaCondition<TItem> condition, bool readOnly)
+    private Type SelectorInEditorType => typeof(FilterSelectorInEditor<,>).MakeGenericType(typeof(TItem), Type);
+    private Type NumericEditorType => typeof(FilterNumericEditor<,>).MakeGenericType(typeof(TItem), Type);
+
+    private Dictionary<string, object> CreateEditorParameter(DataFilterCriteriaCondition<TItem> condition, bool readOnly)
     {
         return new Dictionary<string, object>()
         {
-            [nameof(FilterSelectorIn<object, object>.Condition)] = condition,
-            [nameof(FilterSelectorIn<object, object>.ReadOnly)] = readOnly,
-            [nameof(FilterSelectorIn<object, object>.Filter)] = this,
-        };
-    }
-
-    private Dictionary<string, object> CreateNumericFieldEditorParameter(DataFilterCriteriaCondition<TItem> condition, bool readOnly)
-    {
-        var inputHelper = typeof(InputHelpers<>).MakeGenericType(Type);
-        return new Dictionary<string, object>()
-        {
-            [nameof(FluentNumberField<int>.Value)] = condition.Value!,
-            [nameof(FluentNumberField<int>.Disabled)] = readOnly,
-
-            [nameof(FluentNumberField<int>.Min)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMinValue))!
-                                                              .Invoke(inputHelper, null)!,
-
-            [nameof(FluentNumberField<int>.Max)] = inputHelper.GetMethod(nameof(InputHelpers<int>.GetMaxValue))!
-                                                              .Invoke(inputHelper, null)!,
-
-            [nameof(FluentNumberField<int>.ValueChanged)] = EventCallbackHelper.Make(Type,
-                                                                                     this,
-                                                                                     async (e) => await SetValueAsync(condition, e))!
+            [nameof(FilterSelectorInEditor<object, object>.Condition)] = condition,
+            [nameof(FilterSelectorInEditor<object, object>.ReadOnly)] = readOnly,
+            [nameof(FilterSelectorInEditor<object, object>.Filter)] = this,
         };
     }
 }

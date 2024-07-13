@@ -52,7 +52,7 @@
 
     public virtual RenderFragment RenderIn(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
     {
-        <DynamicComponent Type="@SelectorInType" Parameters="@CreateSelectInEditorParameter(condition,readOnly)" />
+        <DynamicComponent Type="@SelectorInEditorType" Parameters="@CreateEditorParameter(condition,readOnly)" />
     };
 
     public virtual RenderFragment RenderEnum(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
@@ -86,8 +86,7 @@
         }
         else
         {
-            <DynamicComponent Type="@typeof(FluentNumberField<>).MakeGenericType(Type)"
-                              Parameters="@CreateNumericFieldEditorParameter(condition,readOnly)" />
+            <DynamicComponent Type="@NumericEditorType" Parameters="@CreateEditorParameter(condition,readOnly)" />
         }
     };
 

@@ -19,12 +19,12 @@
         @TextNewFilter
     </FluentMenuItem>
 
-    <FluentMenuItem Id="Edit" Disabled="@(CurrentItem == null)">
+    <FluentMenuItem Id="Edit" Disabled="@(SelectedItem == null)">
         <span slot="start"><FluentIcon Value="@(new CoreIcons.Regular.Size20.Edit())" Slot="start" /></span>
         @TextEditFilter
     </FluentMenuItem>
 
-    <FluentMenuItem Id="Clear" Disabled="@(CurrentItem == null)">
+    <FluentMenuItem Id="Clear" Disabled="@(SelectedItem == null)">
         <span slot="start"><FluentIcon Value="@(new CoreIcons.Regular.Size20.FilterDismiss())" Slot="start" /></span>
         @TextClear
     </FluentMenuItem>
@@ -32,13 +32,13 @@
     @if (Items.Count != 0)
     {
         <FluentDivider />
-    }
 
-    @foreach (var item in Items.Select((a, index) => new { Item = a, Index = index }))
-    {
-        var data = item;
-        <FluentMenuItem Id="@($"{IdPrefixFilter}{data.Index}")" Checked="@(CurrentItem == data.Item)" Label="@data.Item.Title">
-            @data.Item.Title
-        </FluentMenuItem>
+        @foreach (var item in ItemsOrdered.Select((a, index) => new { Item = a, Index = index }))
+        {
+            var data = item;
+            <FluentMenuItem Id="@($"{IdPrefixFilter}{data.Index}")" Label="@data.Item.Title" Checked="@(SelectedItem == data.Item)">
+                @data.Item.Title
+            </FluentMenuItem>
+        }
     }
 </FluentMenu>
