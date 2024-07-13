@@ -7,8 +7,13 @@ public partial class FluentInfoButton
 {
     private bool _showIconHover = false;
     private bool _visible = false;
+    private readonly string _idTooltip;
 
-    public FluentInfoButton() => Id = Identifier.NewId();
+    public FluentInfoButton()
+    {
+        Id = Identifier.NewId();
+        _idTooltip = Identifier.NewId();
+    }
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-info-button")
