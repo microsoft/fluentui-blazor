@@ -12,12 +12,14 @@
 <DemoSection Title="Appearance" Component="@typeof(DataFilterAppearance)"></DemoSection>
 <DemoSection Title="Custom" Component="@typeof(DataFilterCustom)"></DemoSection>
 <DemoSection Title="Nullable" Component="@typeof(DataFilterNullable)"></DemoSection>
-<DemoSection Title="Filter Manager" Component="@typeof(DataFilterManager)"></DemoSection>
+<DemoSection Title="Filter Manager and search" Component="@typeof(DataFilterManager)"></DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentDataFilter<>)" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(FluentDataFilterManager<>)" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(PropertyFilter<,>)" GenericLabel="TItem, TProp" InstanceTypes="@(new[] { typeof(string), typeof(string)  })" />
+<ApiDocumentation Component="typeof(FieldFilter<>)" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(DataFilterCriteria<>)" GenericLabel="TItem" />
 <ApiDocumentation Component="typeof(DataFilterCriteriaCondition<>)" GenericLabel="TItem" />
+<ApiDocumentation Component="typeof(DataFilterHelper)" />
