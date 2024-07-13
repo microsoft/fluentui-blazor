@@ -126,7 +126,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
     /// </summary>
-    internal FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
+    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary>
     /// Event callback for when the row is clicked.
