@@ -32,8 +32,23 @@ public partial class FluentDatePicker : FluentCalendarBase
     [Parameter]
     public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
+    /// <summary>
+    /// raised when calendar popup opened
+    /// </summary>
     [Parameter]
     public EventCallback<bool> OnCalendarOpen { get; set; }
+
+    /// <summary>
+    /// Defines the appearance of a Day cell.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
+
+    /// <summary>
+    /// Fired when the display month changes.
+    /// </summary>
+    [Parameter]
+    public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
 
     public bool Opened { get; set; } = false;
 

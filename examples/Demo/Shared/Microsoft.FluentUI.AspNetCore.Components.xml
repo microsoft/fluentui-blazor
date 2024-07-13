@@ -3334,6 +3334,21 @@
             Gets or sets the design of this input.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.OnCalendarOpen">
+            <summary>
+            raised when calendar popup opened
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.DaysTemplate">
+            <summary>
+            Defines the appearance of a Day cell.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PickerMonthChanged">
+            <summary>
+            Fired when the display month changes.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
         </member>
@@ -8158,9 +8173,25 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.MaxValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.Max">
             <summary>
-            Gets or sets the maximum value.
+            Gets or sets the number of elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFilled">
+            <summary>
+            The icon to display when the rating value is greater than or equal to the item's value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconOutline">
+            <summary>
+            The icon to display when the rating value is less than the item's value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconColor">
@@ -8181,30 +8212,35 @@
             The icon width.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconFilled">
-            <summary>
-            The icon to display when the rating value is greater than or equal to the item's value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconOutline">
-            <summary>
-            The icon to display when the rating value is less than the item's value.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.AllowReset">
             <summary>
             Gets or sets a value that whether to allow clear when click again.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnPointerOver">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnHoverValueChanged">
             <summary>
             Fires when hovered value changes. Value will be null if no rating item is hovered.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.ClassValue">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.GroupName">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.StyleValue">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.GetIcon(System.Int32)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.TryParseValueFromString(System.String,System.Int32@,System.String@)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnClickAsync(System.Int32,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnMouseEnterAsync(System.Int32)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.OnMouseLeaveAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.UpdateHoverValueAsync(System.Nullable{System.Int32})">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.JSRuntime">
@@ -9157,6 +9193,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.ShowCloseButton">
             <summary>
             Gets or sets whether to show a close button on a toast. Default is true.
+            [Obsolete("This parameter will be removed in a future version. It is and should not not used.")]
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentToastProvider.#ctor">

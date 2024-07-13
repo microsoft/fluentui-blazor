@@ -39,10 +39,10 @@ jobs:
       SKIP_DEPLOY_ON_MISSING_SECRETS: true
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: .NET Setup SDKs
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
             8.0.x

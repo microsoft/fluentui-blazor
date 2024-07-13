@@ -6,6 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js";
     private IJSObjectReference _jsModule = default!;
 
     private Reference Target { get; set; } = new();
@@ -67,7 +68,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
 
     private async Task InitJSReferenceAsync()
     {
-        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js");
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
     }
 
 #pragma warning disable VSTHRD200 // Use "Async" suffix for async methods

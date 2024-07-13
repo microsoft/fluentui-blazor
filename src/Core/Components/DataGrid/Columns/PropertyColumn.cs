@@ -78,7 +78,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                 {
                     var value = compiledPropertyExpression!(item);
 
-                    if (typeof(TProp).IsEnum)
+                    if (typeof(TProp).IsEnum || typeof(TProp).IsNullableEnum())
                     {
                         return (value as Enum)?.GetDisplayName();
                     }
