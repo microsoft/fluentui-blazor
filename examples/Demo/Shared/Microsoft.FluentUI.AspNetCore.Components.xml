@@ -1494,11 +1494,6 @@
             When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.ClearCriteria">
-            <summary>
-            Clear criteria.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.Items">
             <summary>
             Gets or sets items.

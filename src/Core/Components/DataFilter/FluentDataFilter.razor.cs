@@ -121,11 +121,6 @@ public partial class FluentDataFilter<TItem>
     private IEnumerable<FilterBase<TItem>> GetAvailableFilters(DataFilterCriteriaCondition<TItem> item)
         => Filters.Where(a => a.Id == item.Field || !a.Unique || (a.Unique && !Criteria.IsUsed(a.Id!)));
 
-    /// <summary>
-    /// Clear criteria.
-    /// </summary>
-    public void ClearCriteria() => Criteria.Clear();
-
     protected string? ClassValue => new CssBuilder(base.Class)
         .AddClass("fluent-data-filter")
         .Build();
