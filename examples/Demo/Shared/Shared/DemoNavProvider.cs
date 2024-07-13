@@ -379,6 +379,11 @@ public class DemoNavProvider
                         title: "Card"
                     ),
                     new NavLink(
+                        href: "/DataFilter",
+                        icon: new Icons.Regular.Size20.Filter(),
+                        title: "Data Filter"
+                    ),
+                    new NavLink(
                         href: "/DataGrid",
                         icon: new Icons.Regular.Size20.Grid(),
                         title: "Data grid"
