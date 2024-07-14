@@ -24,7 +24,7 @@
 {
     <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
     <FluentAnchoredRegion Anchor="@Id"
-                          HorizontalDefaultPosition="@HorizontalPosition.Right"
+                          HorizontalDefaultPosition="@(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right)"
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Unset"
                           Shadow="ElevationShadow.Flyout"
