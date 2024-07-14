@@ -2,19 +2,28 @@
     .fluent-sortable-list.darker {
         --fluent-sortable-list-background-color: var(--neutral-layer-4) !important;
     }
+    .fluent-sortable-list.lighter {
+        --fluent-sortable-list-background-color: var(--neutral-layer-1) !important;
+    }
 </style>
 
 
 <FluentGrid Justify="JustifyContent.FlexStart" Spacing="3">
     <FluentGridItem xs="12" sm="6">
         <h5>List 1</h5>
-        <FluentSortableList Id="shared1" Class="darker" Group="sharedLists" OnUpdate="@SortListOne" OnRemove="@ListOneRemove" Items="@items1" Context="item">
+        <FluentSortableList Id="shared1" Class="darker" Group="sharedLists" OnUpdate="@HandleSort" OnRemove="@HandleRemove" Items="@items1" Context="item">
             <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="6">
         <h5>List 2</h5>
-        <FluentSortableList Id="shared2" Group="sharedLists" OnUpdate="@SortListTwo" OnRemove="@ListTwoRemove" Items="@items2" Context="item">
+        <FluentSortableList Id="shared2" Group="sharedLists" OnUpdate="@HandleSort" OnRemove="@HandleRemove" Items="@items2" Context="item">
+            <ItemTemplate>@item.Name</ItemTemplate>
+        </FluentSortableList>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="6">
+        <h5>List 3</h5>
+        <FluentSortableList Id="shared3" Class="lighter" Group="sharedLists" OnUpdate="@HandleSort" OnRemove="@HandleRemove" Items="@items3" Context="item">
             <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
@@ -33,41 +42,34 @@
 
     public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
-    private void ListOneRemove(FluentSortableListEventArgs args)
+    public List<Item> items3 = Enumerable.Range(21, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
+
+
+    private void HandleRemove(FluentSortableListEventArgs args)
     {
-        if (args is null)
+        if (args?.FromId is null || args?.ToId is null || args.FromId == args.ToId)
         {
             return;
         }
+        // get the old list (currently containing the item)
+        var from = GetList(args.FromId);
 
-        // get the item at the old index in list 1
-        var item = items1[args.OldIndex];
+        // get the new list (the list the item was dropped on)
+        var to = GetList(args.ToId);
 
-        // add it to the new index in list 2
-        items2.Insert(args.NewIndex, item);
+        // get the item at the old index in list from
+        var item = from[args.OldIndex];
 
-        // remove the item from the old index in list 1
-        items1.Remove(items1[args.OldIndex]);
+        // add it to the new index in list to
+        to.Insert(args.NewIndex, item);
+
+        // remove the item from the old index in list from
+        from.Remove(from[args.OldIndex]);
     }
 
-    private void ListTwoRemove(FluentSortableListEventArgs args)
+    private void HandleSort(FluentSortableListEventArgs args)
     {
-        if (args is null)
-        {
-            return;
-        }
-        // get the item at the old index in list 2
-        var item = items2[args.OldIndex];
-
-        // add it to the new index in list 1
-        items1.Insert(args.NewIndex, item);
-
-        // remove the item from the old index in list 2
-        items2.Remove(items2[args.OldIndex]);
-    }
-    private void SortListOne(FluentSortableListEventArgs args)
-    {
-        if (args is null || args.OldIndex == args.NewIndex)
+        if (args?.FromId is null || args?.ToId is null || args.FromId != args.ToId)
         {
             return;
         }
@@ -75,7 +77,8 @@
         var oldIndex = args.OldIndex;
         var newIndex = args.NewIndex;
 
-        var items = this.items1;
+        // the item is dropped on the same list it is from, so it doesn't matter which list we get
+        var items = GetList(args.FromId);
         var itemToMove = items[oldIndex];
         items.RemoveAt(oldIndex);
 
@@ -89,27 +92,13 @@
         }
     }
 
-    private void SortListTwo(FluentSortableListEventArgs args)
-    {
-        if (args is null || args.OldIndex == args.NewIndex)
+    private List<Item> GetList(string id) =>
+        id switch
         {
-            return;
-        }
+            "shared1" => items1,
+            "shared2" => items2,
+            "shared3" => items3,
+            _ => throw new ArgumentException($"No list with id {id}")
+        };
 
-        var oldIndex = args.OldIndex;
-        var newIndex = args.NewIndex;
-
-        var items = this.items2;
-        var itemToMove = items[oldIndex];
-        items.RemoveAt(oldIndex);
-
-        if (newIndex < items.Count)
-        {
-            items.Insert(newIndex, itemToMove);
-        }
-        else
-        {
-            items.Add(itemToMove);
-        }
-    }
 }

@@ -7959,6 +7959,18 @@
             Gets the index of the item in the list after the update.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.FromId">
+            <summary>
+            Gets the id of the list the item was in before the update.
+            May be null if no Id was set for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.ToId">
+            <summary>
+            Gets the id of the list the item is in after the update.
+            May be null if no Id was set for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1"/>
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentSpacer">
             <summary />
         </member>
