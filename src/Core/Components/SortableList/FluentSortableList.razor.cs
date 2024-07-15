@@ -126,22 +126,22 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     }
 
     [JSInvokable]
-    public void OnUpdateJS(int oldIndex, int newIndex, string fromId, string toId)
+    public void OnUpdateJS(int oldIndex, int newIndex, string fromListId, string toListId)
     {
         if (OnUpdate.HasDelegate)
         {
             // invoke the OnUpdate event passing in the oldIndex, the newIndex, the fromId and the toId
-            OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromId, toId));
+            OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
     }
 
     [JSInvokable]
-    public void OnRemoveJS(int oldIndex, int newIndex, string fromId, string toId)
+    public void OnRemoveJS(int oldIndex, int newIndex, string fromListId, string toListId)
     {
         if (OnRemove.HasDelegate)
         {
             // remove the item from the list
-            OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromId, toId));
+            OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
     }
 
