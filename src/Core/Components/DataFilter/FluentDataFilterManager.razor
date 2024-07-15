@@ -36,9 +36,9 @@
         @foreach (var item in ItemsOrdered.Select((a, index) => new { Item = a, Index = index }))
         {
             var data = item;
-            <FluentMenuItem Id="@($"{IdPrefixFilter}{data.Index}")" Label="@data.Item.Title" Checked="@(SelectedItem == data.Item)">
-                @data.Item.Title
-            </FluentMenuItem>
+            <FluentMenuItem Id="@($"{IdPrefixFilter}{data.Index}")"
+                            Label="@data.Item.Title"
+                            Checked="@(SelectedItem == data.Item)" />
         }
     }
 </FluentMenu>
