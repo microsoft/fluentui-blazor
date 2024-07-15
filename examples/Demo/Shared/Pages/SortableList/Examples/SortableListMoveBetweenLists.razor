@@ -2,9 +2,6 @@
     .fluent-sortable-list.darker {
         --fluent-sortable-list-background-color: var(--neutral-layer-4) !important;
     }
-    .fluent-sortable-list.lighter {
-        --fluent-sortable-list-background-color: var(--neutral-layer-1) !important;
-    }
 </style>
 
 
@@ -18,12 +15,6 @@
     <FluentGridItem xs="12" sm="6">
         <h5>List 2</h5>
         <FluentSortableList Id="shared2" Group="sharedLists" OnUpdate="@HandleSort" OnRemove="@HandleRemove" Items="@items2" Context="item">
-            <ItemTemplate>@item.Name</ItemTemplate>
-        </FluentSortableList>
-    </FluentGridItem>
-    <FluentGridItem xs="12" sm="6">
-        <h5>List 3</h5>
-        <FluentSortableList Id="shared3" Class="lighter" Group="sharedLists" OnUpdate="@HandleSort" OnRemove="@HandleRemove" Items="@items3" Context="item">
             <ItemTemplate>@item.Name</ItemTemplate>
         </FluentSortableList>
     </FluentGridItem>
@@ -41,8 +32,6 @@
     public List<Item> items1 = Enumerable.Range(1, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
     public List<Item> items2 = Enumerable.Range(11, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
-
-    public List<Item> items3 = Enumerable.Range(21, 10).Select(i => new Item { Id = i, Name = $"Item {i}" }).ToList();
 
 
     private void HandleRemove(FluentSortableListEventArgs args)
@@ -97,7 +86,6 @@
         {
             "shared1" => items1,
             "shared2" => items2,
-            "shared3" => items3,
             _ => throw new ArgumentException($"No list with id {id}")
         };
 
