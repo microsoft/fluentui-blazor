@@ -9469,6 +9469,7 @@
             This configuration overrides the whole rendering of the bottom-right section of the Wizard,
             including the built-in buttons and thus provides a full control over it.
             Custom Wizard buttons do not trigger the component OnChange and OnFinish events.
+            The OnChange event can be triggered using the <see cref="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)"/> method from your code.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Steps">
@@ -9502,6 +9503,14 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinishHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)">
+            <summary>
+            Navigate to the specified step, with or without validate the current EditContexts.
+            </summary>
+            <param name="step">Index number of the step to display</param>
+            <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.ClassValue">
             <summary />
