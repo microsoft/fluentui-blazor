@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DataFilterManagerDialogContext<TItem>
 {
     [Required]
-    public string Title { get; set; } = default!;
+    public string Name { get; set; } = default!;
 
     public DataFilterCriteria<TItem> Criteria { get; set; } = default!;
 
@@ -22,5 +22,5 @@ public class DataFilterManagerDialogContext<TItem>
 
     public string TextCancel { get; set; } = "Cancel";
 
-    public string TextTitle { get; set; } = "Title";
+    public string TextName { get; set; } = "Name";
 }

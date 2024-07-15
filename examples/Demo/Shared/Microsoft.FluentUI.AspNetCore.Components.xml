@@ -1560,9 +1560,19 @@
             Gets or sets text panel cancel.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelTitle">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelName">
             <summary>
-            Gets or sets text panel title.
+            Gets or sets text panel name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelTitleNewFilter">
+            <summary>
+            Gets or sets text panel tile new filter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelTitleEditFilter">
+            <summary>
+            Gets or sets text panel tile edit filter.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.PanelWidth">

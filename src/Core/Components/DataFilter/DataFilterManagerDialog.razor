@@ -9,8 +9,8 @@
     <EditForm EditContext="@_editContext">
         <DataAnnotationsValidator />
 
-        <FluentTextField Label="@Content.TextTitle" Style="width:100%;" @bind-Value="@Content.Title" Required />
-        <FluentValidationMessage For="@(() => Content.Title)" />
+        <FluentTextField Label="@Content.TextName" Style="width:100%;" @bind-Value="@Content.Name" Required />
+        <FluentValidationMessage For="@(() => Content.Name)" />
 
         @Content.DataFilterTemplate(Content.Criteria)
         <FluentValidationMessage For="@(() => Content.Criteria)" />
