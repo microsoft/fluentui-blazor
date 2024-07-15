@@ -101,13 +101,15 @@ export function startSplitterResize(
         mouseMoveHandler: function (e) {
             if (document.splitterData[el]) {
 
+                const rtl = window.getComputedStyle(pane)?.getPropertyValue('direction') === 'rtl' ? -1 : 1;
                 document.splitterData[el].moved = true;
 
                 var spacePerc = document.splitterData[el].panePerc + document.splitterData[el].paneNextPerc;
                 var spaceLength = document.splitterData[el].paneLength + document.splitterData[el].paneNextLength;
 
-                var length = (document.splitterData[el].paneLength -
-                    (document.splitterData[el].clientPos - (isHOrientation ? e.clientX : e.clientY)));
+                var length = isHOrientation
+                    ? document.splitterData[el].paneLength - (document.splitterData[el].clientPos - e.clientX) * rtl
+                    : document.splitterData[el].paneLength - (document.splitterData[el].clientPos - e.clientY);
 
                 if (length > spaceLength)
                     length = spaceLength;
