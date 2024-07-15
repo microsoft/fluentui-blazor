@@ -12,6 +12,11 @@
                       Items="@(Enum.GetValues<DataFilterMenuAddPosition>())"
                       OptionText="@(a => a.GetDisplayName())"
                       @bind-SelectedOption="_addMenuPosition" />
+
+        <FluentSelect Label="Conditions Display"
+                      OptionText="a => a!.Text"
+                      Items=@_conditionsStyle
+                      @bind-SelectedOption="@_selectedConditionStyle" />
     </FluentStack>
 
     <FluentAccordion Style="width:100%;">
@@ -28,7 +33,8 @@
     <FluentDataFilter MenuAddPosition="@_addMenuPosition"
                       @bind-Criteria="@_criteria"
                       GroupStyle="GroupStyle"
-                      ConditionStyle="ConditionStyle">
+                      ConditionStyle="ConditionStyle"
+                      ComparisonOperatorDisplayText="ComparisonOperatorDisplayText">
         <PropertyFilter Property="@(a=> a.TinyInteger)" Title="Tiny Integer" />
         <PropertyFilter Property="@(a=> a.SmallInteger)" />
         <PropertyFilter Property="@(a=> a.Integer)" />
@@ -45,24 +51,24 @@
         <PropertyFilter Property="@(a=> a.Children.Enum)" Title="Child Enum" />
     </FluentDataFilter>
 
-        <p>Data Grid</p>
+    <p>Data Grid</p>
 
-        <FluentDataGrid Items="@DataTypeDemo">
-            <PropertyColumn Property="@(a=> a.TinyInteger)" />
-            <PropertyColumn Property="@(a=> a.SmallInteger)" />
-            <PropertyColumn Property="@(a=> a.Integer)" />
-            <PropertyColumn Property="@(a=> a.LongInteger)" />
-            <PropertyColumn Property="@(a=> a.SinglePrecision)" />
-            <PropertyColumn Property="@(a=> a.DoublePrecision)" />
-            <PropertyColumn Property="@(a=> a.Decimal)" />
-            <PropertyColumn Property="@(a=> a.Boolean)" />
-            <PropertyColumn Property="@(a=> a.String)" />
-            <PropertyColumn Property="@(a=> a.DateTime)" />
-            <PropertyColumn Property="@(a=> a.DateOnly)" />
-            <PropertyColumn Property="@(a=> a.TimeOnly)" />
-            <PropertyColumn Property="@(a=> a.Enum)" />
-            <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
-        </FluentDataGrid>
+    <FluentDataGrid Items="@DataTypeDemo">
+        <PropertyColumn Property="@(a=> a.TinyInteger)" />
+        <PropertyColumn Property="@(a=> a.SmallInteger)" />
+        <PropertyColumn Property="@(a=> a.Integer)" />
+        <PropertyColumn Property="@(a=> a.LongInteger)" />
+        <PropertyColumn Property="@(a=> a.SinglePrecision)" />
+        <PropertyColumn Property="@(a=> a.DoublePrecision)" />
+        <PropertyColumn Property="@(a=> a.Decimal)" />
+        <PropertyColumn Property="@(a=> a.Boolean)" />
+        <PropertyColumn Property="@(a=> a.String)" />
+        <PropertyColumn Property="@(a=> a.DateTime)" />
+        <PropertyColumn Property="@(a=> a.DateOnly)" />
+        <PropertyColumn Property="@(a=> a.TimeOnly)" />
+        <PropertyColumn Property="@(a=> a.Enum)" />
+        <PropertyColumn Property="@(a=> a.Children.Enum)" Title="Child Enum" />
+    </FluentDataGrid>
 </FluentStack>
 
 @code
@@ -71,6 +77,15 @@
     DataFilterMenuAddPosition _addMenuPosition = DataFilterMenuAddPosition.Top;
     DataFilterCaseSensitivity _caseSensitivity = DataFilterCaseSensitivity.CaseInsensitive;
     DataFilterCriteria<DataTypeDemo> _criteria = new();
+    Option<int>? _selectedConditionStyle;
+
+    List<Option<int>> _conditionsStyle = new()
+    {
+        { new Option<int> { Value = 0, Text = "Normal" } },
+        { new Option<int> { Value = 1, Text = "Style 1"  } },
+        { new Option<int> { Value = 2, Text = "Style 2" } }
+
+    };
 
     private string GroupStyle(int index) => $"background: var(--neutral-layer-{index % 4}); padding: 10px;";
 
@@ -86,5 +101,59 @@
             "font-weight: bold;"
         };
         return colors[conditionIndex % colors.Length];
+    }
+
+    private string ComparisonOperatorDisplayText(DataFilterComparisonOperator value)
+    {
+        switch (_selectedConditionStyle?.Value ?? 0)
+        {
+            case 0: return value.GetDisplayName();
+
+            case 1:
+                switch (value)
+                {
+                    case DataFilterComparisonOperator.Equal: return "=";
+                    case DataFilterComparisonOperator.NotEqual: return "!=";
+                    case DataFilterComparisonOperator.LessThan: return "<";
+                    case DataFilterComparisonOperator.LessThanOrEqual: return "<=";
+                    case DataFilterComparisonOperator.GreaterThan: return ">";
+                    case DataFilterComparisonOperator.GreaterThanOrEqual: return ">=";
+                    case DataFilterComparisonOperator.Contains: return "@=";
+                    case DataFilterComparisonOperator.NotContains: return "!@=";
+                    case DataFilterComparisonOperator.StartsWith: return "_=";
+                    case DataFilterComparisonOperator.NotStartsWith: return "!_=";
+                    case DataFilterComparisonOperator.EndsWith: return "_-=";
+                    case DataFilterComparisonOperator.NotEndsWith: return "!_-=";
+                    case DataFilterComparisonOperator.Empty: return "-";
+                    case DataFilterComparisonOperator.NotEmpty: return "!-";
+                    case DataFilterComparisonOperator.In: return "^^";
+                    case DataFilterComparisonOperator.NotIn: return "!^^";
+                    default: return "";
+                }
+
+            case 2:
+                switch (value)
+                {
+                    case DataFilterComparisonOperator.Equal: return "eq";
+                    case DataFilterComparisonOperator.NotEqual: return "neq";
+                    case DataFilterComparisonOperator.LessThan: return "lt";
+                    case DataFilterComparisonOperator.LessThanOrEqual: return "lte";
+                    case DataFilterComparisonOperator.GreaterThan: return "gt";
+                    case DataFilterComparisonOperator.GreaterThanOrEqual: return "gte";
+                    case DataFilterComparisonOperator.Contains: return "ct";
+                    case DataFilterComparisonOperator.NotContains: return "nct";
+                    case DataFilterComparisonOperator.StartsWith: return "sw";
+                    case DataFilterComparisonOperator.NotStartsWith: return "nsw";
+                    case DataFilterComparisonOperator.EndsWith: return "ew";
+                    case DataFilterComparisonOperator.NotEndsWith: return "new";
+                    case DataFilterComparisonOperator.Empty: return "ep";
+                    case DataFilterComparisonOperator.NotEmpty: return "nep";
+                    case DataFilterComparisonOperator.In: return "in";
+                    case DataFilterComparisonOperator.NotIn: return "nin";
+                    default: return "";
+                }
+
+            default: return value.GetDisplayName();
+        }
     }
 }
