@@ -64,48 +64,48 @@
                 }
             </FluentStack>
 
-                @foreach (var condition in group.Conditions.Select((a, b) => new { Item = a, Index = b }))
-                {
-                    <FluentStack Orientation="Orientation.Horizontal"
-                                 VerticalAlignment="VerticalAlignment.Center"
-                                 Style="@($"{GetConditionStyle(groupIndex,condition.Index)}")">
+            @foreach (var condition in group.Conditions.Select((a, b) => new { Item = a, Index = b }))
+            {
+                <FluentStack Orientation="Orientation.Horizontal"
+                             VerticalAlignment="VerticalAlignment.Center"
+                             Style="@($"{GetConditionStyle(groupIndex,condition.Index)}")">
 
-                        <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
-                                        TOption="FilterBase<TItem>"
-                                        Items="@GetAvailableFilters(condition.Item)"
-                                        Height="200px"
-                                        OptionText="@(a => a.Title)"
-                                        SelectedOption="@GetFilter(condition.Item)"
-                                        SelectedOptionChanged="@(async (e) => await SetFilterAsync(condition.Item,e))"
-                                        Disabled="ReadOnly" />
+                    <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                                    TOption="FilterBase<TItem>"
+                                    Items="@GetAvailableFilters(condition.Item)"
+                                    Height="200px"
+                                    OptionText="@(a => a.Title)"
+                                    SelectedOption="@GetFilter(condition.Item)"
+                                    SelectedOptionChanged="@(async (e) => await SetFilterAsync(condition.Item,e))"
+                                    Disabled="ReadOnly" />
 
-                        @if (!string.IsNullOrEmpty(condition.Item.FilterId))
-                        {
-                            @GetFilter(condition.Item)!.Render(condition.Item, ReadOnly)
-                        }
+                    @if (!string.IsNullOrEmpty(condition.Item.FilterId))
+                    {
+                        @GetFilter(condition.Item)!.Render(condition.Item, ReadOnly)
+                    }
 
-                        @if (!ReadOnly)
-                        {
-                            <FluentButton Appearance="Appearance.Stealth"
-                                          OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
-                                          IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
-                        }
-                    </FluentStack>
-                }
+                    @if (!ReadOnly)
+                    {
+                        <FluentButton Appearance="Appearance.Stealth"
+                                      OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
+                                      IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
+                    }
+                </FluentStack>
+            }
 
-                @if (MenuAddPosition == DataFilterMenuAddPosition.Bottom)
-                {
-                    @RenderAdd(group)
-                }
+            @if (MenuAddPosition == DataFilterMenuAddPosition.Bottom)
+            {
+                @RenderAdd(group)
+            }
 
-                @foreach (var item in group.Groups)
-                {
-                    <FluentStack Orientation="Orientation.Horizontal">
-                        <span style="min-width: 40px;"></span>
+            @foreach (var item in group.Groups)
+            {
+                <FluentStack Orientation="Orientation.Horizontal">
+                    <span style="min-width: @(GroupIndentationWidth);"></span>
 
-                        @RenderGroup(item, group, groupIndex + 1)
-                    </FluentStack>
-                }
+                    @RenderGroup(item, group, groupIndex + 1)
+                </FluentStack>
+            }
         </FluentStack>
     };
 }
