@@ -35,6 +35,8 @@
             <FluentDataFilterManager TItem="DataTypeDemo"
                                      @bind-Criteria="@_criteria"
                                      TextButtonMenu=""
+                                     AllowPanelExport="true"
+                                     AllowPanelImport="true"
                                      Appearance="Appearance.Stealth">
                 <DataFilterTemplate>
                     <FluentDataFilter @bind-Criteria="@context" Style="padding:10px;">

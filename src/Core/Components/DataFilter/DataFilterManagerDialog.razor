@@ -3,56 +3,65 @@
 
 @typeparam TItem
 
-@implements IDialogContentComponent<DataFilterManagerDialogContext<TItem>>
-
 <FluentDialogBody>
+    <FluentToolbar>
+        <FluentButton Appearance="Appearance.Stealth" OnClick="ResetCriteriaAsync" Title="@Content.FilterManager.TextPanelResetPrevious">
+            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowReset())" Slot="start" />
+            @Content.FilterManager.TextPanelResetPrevious
+        </FluentButton>
+
+        <FluentDivider Orientation="Orientation.Vertical" />
+
+        @if (Content.FilterManager.AllowPanelExport)
+        {
+            <FluentButton Appearance="Appearance.Stealth" OnClick="DownloadCriteriaAsync" Title="@Content.FilterManager.TextPanelExport">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowDownload())" Slot="start" />
+                @Content.FilterManager.TextPanelExport
+            </FluentButton>
+        }
+
+        @if (Content.FilterManager.AllowPanelImport)
+        {
+            <FluentButton Appearance="Appearance.Stealth" Title="@Content.FilterManager.TextPanelImport" Id="@_idUpload">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowUpload())" Slot="start" />
+                @Content.FilterManager.TextPanelImport
+            </FluentButton>
+
+            <FluentInputFile AnchorId="@_idUpload"
+                             DragDropZoneVisible="false"
+                             Mode="InputFileMode.SaveToTemporaryFolder"
+                             Multiple="false"
+                             MaximumFileSize="@(1024 * 1024)"
+                             Accept=".json"
+                             OnCompleted="@OnUploadCompletedAsync" />
+        }
+        <FluentSpacer />
+    </FluentToolbar>
+
     <EditForm EditContext="@_editContext">
         <DataAnnotationsValidator />
 
-        <FluentTextField Label="@Content.TextName" Style="width:100%;" @bind-Value="@Content.Name" Required />
+        <FluentTextField Label="@Content.FilterManager.TextPanelName" Style="width:100%;" @bind-Value="@Content.Name" Required />
         <FluentValidationMessage For="@(() => Content.Name)" />
 
-        @Content.DataFilterTemplate(Content.Criteria)
-        <FluentValidationMessage For="@(() => Content.Criteria)" />
+        @Content.FilterManager.DataFilterTemplate(Content.FilterManager.Criteria)
+        <FluentValidationMessage For="@(() => Content.FilterManager.Criteria)" />
     </EditForm>
 </FluentDialogBody>
 
 <FluentDialogFooter>
     <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_editContext.Validate())">
-        @Content.TextSave
+        @Content.FilterManager.TextPanelSave
     </FluentButton>
 
     @if (Content.AllowDelete)
     {
         <FluentButton BackgroundColor="var(--error)" Color="var(--highlight-bg)" OnClick="@DeleteAsync" Disabled="@(!_editContext.Validate())">
-            @Content.TextDelete
+            @Content.FilterManager.TextPanelDelete
         </FluentButton>
     }
 
     <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">
-        @Content.TextCancel
+        @Content.FilterManager.TextPanelCancel
     </FluentButton>
 </FluentDialogFooter>
-
-@code
-{
-    [Parameter]
-    public DataFilterManagerDialogContext<TItem> Content { get; set; } = default!;
-
-    [CascadingParameter]
-    private FluentDialog Dialog { get; set; } = default!;
-
-    private EditContext _editContext = default!;
-
-    protected override void OnInitialized() => _editContext = new EditContext(Content);
-
-    private async Task SaveAsync() => await Dialog.CloseAsync(Content);
-
-    private async Task CancelAsync() => await Dialog.CancelAsync();
-
-    private async Task DeleteAsync()
-    {
-        Content.IsDeleted = true;
-        await Dialog.CloseAsync(Content);
-    }
-}

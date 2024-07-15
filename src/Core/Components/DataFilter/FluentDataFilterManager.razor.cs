@@ -99,6 +99,24 @@ public partial class FluentDataFilterManager<TItem>
     public string TextPanelName { get; set; } = "Name";
 
     /// <summary>
+    /// Gets or sets text panel reset previous.
+    /// </summary>
+    [Parameter]
+    public string TextPanelResetPrevious { get; set; } = "Reset previous";
+
+    /// <summary>
+    /// Gets or sets text panel export.
+    /// </summary>
+    [Parameter]
+    public string TextPanelExport { get; set; } = "Export";
+
+    /// <summary>
+    /// Gets or sets text panel import.
+    /// </summary>
+    [Parameter]
+    public string TextPanelImport { get; set; } = "Import";
+
+    /// <summary>
     /// Gets or sets text panel tile new filter.
     /// </summary>
     [Parameter]
@@ -115,6 +133,18 @@ public partial class FluentDataFilterManager<TItem>
     /// </summary>
     [Parameter]
     public string? PanelWidth { get; set; } = "700px";
+
+    /// <summary>
+    /// Gets or sets allow import json criteria of the panel.
+    /// </summary>
+    [Parameter]
+    public bool AllowPanelImport { get; set; }
+
+    /// <summary>
+    /// Gets or sets allow export json criteria of the panel.
+    /// </summary>
+    [Parameter]
+    public bool AllowPanelExport { get; set; }
 
     /// <summary>
     /// Gets or sets DataFilter Template.
@@ -134,14 +164,9 @@ public partial class FluentDataFilterManager<TItem>
     private DataFilterManagerDialogContext<TItem> CreateDialogContext(string title, bool allowDelete)
         => new()
         {
-            Criteria = Criteria,
             Name = title,
             AllowDelete = allowDelete,
-            DataFilterTemplate = DataFilterTemplate,
-            TextCancel = TextPanelCancel,
-            TextSave = TextPanelSave,
-            TextDelete = TextPanelDelete,
-            TextName = TextPanelName,
+            FilterManager = this,
         };
 
     private async Task OnMenuChangeAsync(MenuChangeEventArgs e)
@@ -157,12 +182,12 @@ public partial class FluentDataFilterManager<TItem>
 
             var data = CreateDialogContext(string.Empty, false);
             var result = await ShowDialogAsync(TextPanelTitleNewFilter, data);
-            if (!result.Cancelled && !data.Criteria.IsEmpty)
+            if (!result.Cancelled && !Criteria.IsEmpty)
             {
                 var item = new DataFilterManagerItem<TItem>()
                 {
                     AllowEdit = true,
-                    Criteria = data.Criteria,
+                    Criteria = Criteria,
                     Title = data.Name,
                 };
 
@@ -190,9 +215,8 @@ public partial class FluentDataFilterManager<TItem>
                     await SetCurrentItemAsync(null!);
                     await ItemsChangedAsync();
                 }
-                else if (!data.Criteria.IsEmpty)
+                else if (!Criteria.IsEmpty)
                 {
-                    SelectedItem.Criteria = data.Criteria;
                     await CriteriaChangedAsync();
                 }
                 else
@@ -243,7 +267,7 @@ public partial class FluentDataFilterManager<TItem>
         return await _dialog.Result;
     }
 
-    private async Task CriteriaChangedAsync()
+    internal async Task CriteriaChangedAsync()
     {
         if (CriteriaChanged.HasDelegate)
         {

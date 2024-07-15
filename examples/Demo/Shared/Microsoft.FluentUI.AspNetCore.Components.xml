@@ -1179,6 +1179,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria`1.FromJson(System.String)">
+            <summary>
+            From json.
+            </summary>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria`1.ToExpression(Microsoft.FluentUI.AspNetCore.Components.DataFilterCaseSensitivity)">
             <summary>
             To expression.
@@ -1191,6 +1198,13 @@
             Clone object.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria`1.Import(Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria{`0})">
+            <summary>
+            Import other criteria in this criteria.
+            Current criteria is cleared.
+            </summary>
+            <param name="criteria"></param>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteria`1.IsEmpty">
             <summary>
@@ -1228,12 +1242,6 @@
             To expression.
             </summary>
             <param name="caseSensitivity"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterCriteriaCondition`1.Clone">
-            <summary>
-            Clone object.
-            </summary>
             <returns></returns>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper">
@@ -1565,6 +1573,21 @@
             Gets or sets text panel name.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelResetPrevious">
+            <summary>
+            Gets or sets text panel reset previous.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelExport">
+            <summary>
+            Gets or sets text panel export.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelImport">
+            <summary>
+            Gets or sets text panel import.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.TextPanelTitleNewFilter">
             <summary>
             Gets or sets text panel tile new filter.
@@ -1578,6 +1601,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.PanelWidth">
             <summary>
             Gets or sets the width of the panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.AllowPanelImport">
+            <summary>
+            Gets or sets allow import json criteria of the panel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.AllowPanelExport">
+            <summary>
+            Gets or sets allow export json criteria of the panel.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilterManager`1.DataFilterTemplate">
