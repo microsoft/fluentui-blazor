@@ -7,12 +7,12 @@ public class FluentSortableListEventArgs
 
     }
 
-    public FluentSortableListEventArgs(int oldIndex, int newIndex, string? fromId, string? toId)
+    public FluentSortableListEventArgs(int oldIndex, int newIndex, string? fromListId, string? toListId)
     {
         OldIndex = oldIndex;
         NewIndex = newIndex;
-        FromId = fromId;
-        ToId = toId;
+        FromListId = fromListId;
+        ToListId = toListId;
     }
 
     /// <summary>
@@ -29,11 +29,11 @@ public class FluentSortableListEventArgs
     /// Gets the id of the list the item was in before the update.
     /// May be null if no Id was set for <see cref="FluentSortableList{TItem}"/>
     /// </summary>
-    public string? FromId { get; }
+    public string? FromListId { get; }
 
     /// <summary>
     /// Gets the id of the list the item is in after the update.
     /// May be null if no Id was set for <see cref="FluentSortableList{TItem}"/>
     /// </summary>
-    public string? ToId { get; }
+    public string? ToListId { get; }
 }

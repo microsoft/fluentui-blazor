@@ -47,15 +47,15 @@
 
     private void HandleRemove(FluentSortableListEventArgs args)
     {
-        if (args?.FromId is null || args?.ToId is null || args.FromId == args.ToId)
+        if (args?.FromListId is null || args?.ToListId is null || args.FromListId == args.ToListId)
         {
             return;
         }
         // get the old list (currently containing the item)
-        var from = GetList(args.FromId);
+        var from = GetList(args.FromListId);
 
         // get the new list (the list the item was dropped on)
-        var to = GetList(args.ToId);
+        var to = GetList(args.ToListId);
 
         // get the item at the old index in list from
         var item = from[args.OldIndex];
@@ -69,7 +69,7 @@
 
     private void HandleSort(FluentSortableListEventArgs args)
     {
-        if (args?.FromId is null || args?.ToId is null || args.FromId != args.ToId)
+        if (args?.FromListId is null || args?.ToListId is null || args.FromListId != args.ToListId)
         {
             return;
         }
@@ -78,7 +78,7 @@
         var newIndex = args.NewIndex;
 
         // the item is dropped on the same list it is from, so it doesn't matter which list we get
-        var items = GetList(args.FromId);
+        var items = GetList(args.FromListId);
         var itemToMove = items[oldIndex];
         items.RemoveAt(oldIndex);
 
