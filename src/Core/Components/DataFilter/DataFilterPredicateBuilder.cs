@@ -2,7 +2,10 @@ using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public static class PredicateBuilder
+/// <summary>
+/// Predicate Builder
+/// </summary>
+public static class DataFilterPredicateBuilder
 {
     public static Expression<Func<T, bool>> True<T>() => param => true;
     public static Expression<Func<T, bool>> False<T>() => param => false;

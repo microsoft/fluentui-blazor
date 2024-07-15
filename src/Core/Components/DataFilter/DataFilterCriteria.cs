@@ -69,8 +69,8 @@ public class DataFilterCriteria<TItem>
     public Expression<Func<TItem, bool>> ToExpression(DataFilterCaseSensitivity caseSensitivity)
     {
         var ret = Operator == DataFilterLogicalOperator.And || Operator == DataFilterLogicalOperator.NotAnd
-                    ? PredicateBuilder.True<TItem>()
-                    : PredicateBuilder.False<TItem>();
+                    ? DataFilterPredicateBuilder.True<TItem>()
+                    : DataFilterPredicateBuilder.False<TItem>();
 
         foreach (var item in Conditions.Select(a => a.ToExpression(caseSensitivity)))
         {
@@ -84,7 +84,7 @@ public class DataFilterCriteria<TItem>
 
         if (Operator == DataFilterLogicalOperator.NotAnd || Operator == DataFilterLogicalOperator.NotOr)
         {
-            ret = PredicateBuilder.Not(ret);
+            ret = DataFilterPredicateBuilder.Not(ret);
         }
         return ret;
     }

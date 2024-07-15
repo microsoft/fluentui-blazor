@@ -1236,20 +1236,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterExtensions.IsIn(Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator)">
-            <summary>
-            Is operator in/not in.
-            </summary>
-            <param name="operator"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataFilterExtensions.IsEmpty(Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator)">
-            <summary>
-            Is operator empty/not empty.
-            </summary>
-            <param name="operator"></param>
-            <returns></returns>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataFilterHelper">
             <summary>
             Data filter helper.
@@ -1312,6 +1298,11 @@
             <param name="operator"></param>
             <param name="caseSensitivity"></param>
             <returns></returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataFilterPredicateBuilder">
+            <summary>
+            Predicate Builder
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FieldFilter`1.Field">
             <summary>
@@ -1580,6 +1571,82 @@
             Defaults to <seealso cref="F:Microsoft.FluentUI.AspNetCore.Components.Appearance.Neutral"/>
             </summary>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.DataFilterExtensions.IsIn(Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator)">
+            <summary>
+            Is operator in/not in.
+            </summary>
+            <param name="operator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.DataFilterExtensions.IsEmpty(Microsoft.FluentUI.AspNetCore.Components.DataFilterComparisonOperator)">
+            <summary>
+            Is operator empty/not empty.
+            </summary>
+            <param name="operator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.IsEnum(System.Type)">
+            <summary>
+            Property is enum.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.IsBool(System.Type)">
+            <summary>
+            Property is bool.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.IsDate(System.Type)">
+            <summary>
+            Property is date.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.IsString(System.Type)">
+            <summary>
+            Property is string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.IsNumber(System.Type)">
+            <summary>
+            Property is number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.IsNullable(System.Type)">
+            <summary>
+            Property is nullable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.CreateExpression(System.Type,System.String)">
+            <summary>
+            Create expression from filed.
+            </summary>
+            <param name="type"></param>
+            <param name="filed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.GetPropertyInfo``1(System.String)">
+            <summary>
+            Get PropertyInfo from file path. 
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.GetType``1(System.String)">
+            <summary>
+            Get type from field,
+            </summary>
+            <typeparam name="TItem"></typeparam>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure.TypeHelper.GetDefaultValue(System.Type,System.Boolean)">
+            <summary>
+            Get default value from type.
+            </summary>
+            <param name="type"></param>
+            <param name="isCollation"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.#ctor">
             <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1"/>
         </member>
@@ -1762,73 +1829,6 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.TooltipService.Remove(System.Guid)">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip.ITooltipService.Remove(System.Guid)"/>
-        </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.TypeHelper">
-            <summary>
-            Type helper
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.IsEnum(System.Type)">
-            <summary>
-            Property is enum.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.IsBool(System.Type)">
-            <summary>
-            Property is bool.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.IsDate(System.Type)">
-            <summary>
-            Property is date.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.IsString(System.Type)">
-            <summary>
-            Property is string.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.IsNumber(System.Type)">
-            <summary>
-            Property is number.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.IsNullable(System.Type)">
-            <summary>
-            Property is nullable.
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.CreateExpression(System.Type,System.String)">
-            <summary>
-            Create expression from filed.
-            </summary>
-            <param name="type"></param>
-            <param name="filed"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.GetPropertyInfo``1(System.String)">
-            <summary>
-            Get PropertyInfo from file path. 
-            </summary>
-            <param name="field"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.GetType``1(System.String)">
-            <summary>
-            Get type from field,
-            </summary>
-            <typeparam name="TItem"></typeparam>
-            <param name="field"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.TypeHelper.GetDefaultValue(System.Type,System.Boolean)">
-            <summary>
-            Get default value from type.
-            </summary>
-            <param name="type"></param>
-            <param name="isCollation"></param>
-            <returns></returns>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1">
             <summary>

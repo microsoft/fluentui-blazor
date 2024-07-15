@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure;

@@ -1,4 +1,6 @@
 using System.Linq.Expressions;
+using Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -80,8 +82,8 @@ public class DataFilterHelper
                                                                    Expression<Func<TItem, bool>> second)
         => @operator switch
         {
-            DataFilterLogicalOperator.And or DataFilterLogicalOperator.NotAnd => PredicateBuilder.And(first, second),
-            DataFilterLogicalOperator.Or or DataFilterLogicalOperator.NotOr => PredicateBuilder.Or(first, second),
+            DataFilterLogicalOperator.And or DataFilterLogicalOperator.NotAnd => DataFilterPredicateBuilder.And(first, second),
+            DataFilterLogicalOperator.Or or DataFilterLogicalOperator.NotOr => DataFilterPredicateBuilder.Or(first, second),
             _ => first,
         };
 
@@ -121,7 +123,7 @@ public class DataFilterHelper
                                                                           DataFilterCaseSensitivity caseSensitivity,
                                                                           params Expression<Func<SetPropertyExpression<TItem>, SetPropertyExpression<TItem>>>[] properties)
     {
-        var ret = PredicateBuilder.False<TItem>();
+        var ret = DataFilterPredicateBuilder.False<TItem>();
 
         void AddCondition(SetPropertyExpression<TItem> property,
                           object? value,
@@ -210,7 +212,7 @@ public class DataFilterHelper
                                                                           DataFilterComparisonOperator @operator,
                                                                           DataFilterCaseSensitivity caseSensitivity)
     {
-        var ret = PredicateBuilder.True<TItem>();
+        var ret = DataFilterPredicateBuilder.True<TItem>();
         if (expression.Body.Type == typeof(string))
         {
             var valueStr = value?.ToString();
@@ -275,7 +277,7 @@ public class DataFilterHelper
                 DataFilterComparisonOperator.Empty => expression.Make<TItem>(ExpressionType.Equal, null),
                 DataFilterComparisonOperator.NotEmpty => expression.Make<TItem>(ExpressionType.NotEqual, null),
                 DataFilterComparisonOperator.In => expression.MakeIn<TItem>(value),
-                DataFilterComparisonOperator.NotIn => PredicateBuilder.Not(expression.MakeIn<TItem>(value)),
+                DataFilterComparisonOperator.NotIn => DataFilterPredicateBuilder.Not(expression.MakeIn<TItem>(value)),
                 _ => throw new ArgumentOutOfRangeException(nameof(@operator))
             };
         }

@@ -2,12 +2,9 @@ using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure;
 
-/// <summary>
-/// Type helper
-/// </summary>
-public class TypeHelper
+internal class TypeHelper
 {
     private static readonly HashSet<Type> _numericTypes =
     [
@@ -52,7 +49,7 @@ public class TypeHelper
     /// <summary>
     /// Property is date.
     /// </summary>
-    public static bool IsDate(Type type) => IsType<DateTime>(type) || IsType<DateOnly>(type) || IsType<TimeOnly>(type);
+    public static bool IsDate(Type type) => IsType<System.DateTime>(type) || IsType<DateOnly>(type) || IsType<TimeOnly>(type);
 
     /// <summary>
     /// Property is string.

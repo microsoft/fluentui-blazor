@@ -1,6 +1,6 @@
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure;
 
-public static class DataFilterExtensions
+internal static class DataFilterExtensions
 {
     /// <summary>
     /// Is operator in/not in.

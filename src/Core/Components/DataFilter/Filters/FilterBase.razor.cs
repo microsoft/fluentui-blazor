@@ -151,7 +151,6 @@ public abstract partial class FilterBase<TItem>
         }
     }
 
-
     private Type SelectorInEditorType => typeof(FilterSelectorInEditor<,>).MakeGenericType(typeof(TItem), Type);
     private Type NumericEditorType => typeof(FilterNumericEditor<,>).MakeGenericType(typeof(TItem), Type);
 
