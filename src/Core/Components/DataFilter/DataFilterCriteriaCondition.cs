@@ -41,17 +41,4 @@ public class DataFilterCriteriaCondition<TItem>
                                                                 Operator,
                                                                 caseSensitivity)
                 : x => false;
-
-    /// <summary>
-    /// Clone object.
-    /// </summary>
-    /// <returns></returns>
-    public DataFilterCriteriaCondition<TItem> Clone()
-        => new()
-        {
-            Field = Field,
-            FilterId=FilterId,
-            Operator = Operator,
-            Value = Value
-        };
 }
