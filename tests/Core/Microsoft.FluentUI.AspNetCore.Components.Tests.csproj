@@ -58,5 +58,9 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
+    <None Update="SortableList\FluentSortableListTests.FluentSortableList_WithId.verified.razor.html">
+      <ParentFile>FluentSortableListTests</ParentFile>
+      <DependentUpon>FluentSortableListTests.razor</DependentUpon>
+    </None>
   </ItemGroup>
 </Project>

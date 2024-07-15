@@ -23,8 +23,23 @@
     public void FluentSortableList_Default()
     {
         // Arrange && Act
-       
+
         var cut = Render(@<FluentSortableList Items="items">
+                             <ItemTemplate>
+                                <div class="sortable-item">@context.Name</div>
+                             </ItemTemplate>
+                          </FluentSortableList>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSortableList_WithId()
+    {
+        // Arrange && Act
+
+        var cut = Render(@<FluentSortableList Id="list" Items="items">
                              <ItemTemplate>
                                 <div class="sortable-item">@context.Name</div>
                              </ItemTemplate>
