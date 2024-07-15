@@ -389,11 +389,6 @@ public class DemoNavProvider
                         title: "Data grid"
                     ),
                     new NavLink(
-                        href: "/DateTime",
-                        icon: new Icons.Regular.Size20.CalendarLtr(),
-                        title: "Date & Time"
-                    ),
-                    new NavLink(
                         href: "/Dialog",
                         icon: new Icons.Regular.Size20.AppGeneric(),
                         title: "Dialog"
