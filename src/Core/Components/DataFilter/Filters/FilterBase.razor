@@ -45,7 +45,7 @@
                         Items="Operators"
                         OptionText="@DisplayText"
                         Height="200px"
-                        Width="auto"
+                        Width="@DataFilter.SelectOperatorWidth"
                         @bind-SelectedOption="@condition.Operator"
                         @bind-SelectedOption:after="@(async () => await AfterSetOperatorAsync(condition))"
                         Disabled="readOnly" />

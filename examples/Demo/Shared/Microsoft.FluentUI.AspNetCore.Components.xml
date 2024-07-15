@@ -1470,6 +1470,16 @@
             Gets or sets the position of menu add.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.GroupIndentationWidth">
+            <summary>
+            Gets or sets group indentation width.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.SelectOperatorWidth">
+            <summary>
+            Gets or sets select operator width.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataFilter`1.GroupStyle">
             <summary>
             Gets or sets group style.

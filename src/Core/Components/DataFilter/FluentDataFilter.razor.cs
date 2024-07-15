@@ -102,6 +102,12 @@ public partial class FluentDataFilter<TItem>
     public string GroupIndentationWidth { get; set; } = "40px";
 
     /// <summary>
+    /// Gets or sets select operator width.
+    /// </summary>
+    [Parameter]
+    public string SelectOperatorWidth { get; set; } = "auto";
+
+    /// <summary>
     /// Gets or sets group style.
     /// </summary>
     [Parameter]
