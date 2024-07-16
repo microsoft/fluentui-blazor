@@ -1,14 +1,19 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Anchor/FluentAnchor.razor.js";
 
     private IJSObjectReference _jsModule = default!;
     private string? _targetId = null;
     private bool _preventDefault = false;
+
+    [Inject]
+    internal LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -123,8 +128,7 @@ public partial class FluentAnchor : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Anchor/FluentAnchor.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 
