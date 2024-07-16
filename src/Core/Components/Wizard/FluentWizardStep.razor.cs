@@ -192,7 +192,7 @@ public partial class FluentWizardStep : FluentComponentBase
             return;
         }
 
-        await FluentWizard.GoToStepAsync(Index, validateEditContexts: Index > FluentWizard.Value);
+        await FluentWizard.ValidateAndGoToStepAsync(Index, validateEditContexts: Index > FluentWizard.Value);
     }
 
     private bool IsStepClickable

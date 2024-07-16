@@ -118,6 +118,7 @@ public partial class FluentWizard : FluentComponentBase
     /// This configuration overrides the whole rendering of the bottom-right section of the Wizard,
     /// including the built-in buttons and thus provides a full control over it.
     /// Custom Wizard buttons do not trigger the component OnChange and OnFinish events.
+    /// The OnChange event can be triggered using the <see cref="GoToStepAsync(int, bool)"/> method from your code.
     /// </summary>
     [Parameter]
     public RenderFragment<int>? ButtonTemplate { get; set; }
@@ -249,7 +250,19 @@ public partial class FluentWizard : FluentComponentBase
         }
     }
 
-    internal async Task GoToStepAsync(int targetIndex, bool validateEditContexts)
+    /// <summary>
+    /// Navigate to the specified step, with or without validate the current EditContexts.
+    /// </summary>
+    /// <param name="step">Index number of the step to display</param>
+    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+    /// <returns></returns>
+    public Task GoToStepAsync(int step, bool validateEditContexts = false)
+    {
+        Value = step;
+        return ValidateAndGoToStepAsync(step, validateEditContexts);
+    }
+
+    internal async Task ValidateAndGoToStepAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, validateEditContexts);
         var isCanceled = stepChangeArgs?.IsCancelled ?? false;
