@@ -37,7 +37,7 @@ public abstract partial class FilterBase<TItem>
     public string? Format { get; set; }
 
     /// <summary>
-    /// Property info definition.
+    /// Gets or sets type definition.
     /// </summary>
     public Type Type { get; protected set; } = default!;
 
