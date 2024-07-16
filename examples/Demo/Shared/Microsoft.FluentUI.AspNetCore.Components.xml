@@ -1444,6 +1444,140 @@
             <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
             <returns>A <see cref="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1"/> instance representing the specified sorting rule.</returns>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1">
+            <summary>
+            Represents a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> column whose cells render a expand/collapse when the user click on a row.
+            </summary>
+            <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ChildContent">
+            <summary>
+            Gets or sets the content to be rendered for each row in the table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandAllDisabled">
+            <summary>
+            Gets or sets whether the [All] expand is disabled (not clickable).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandAllTemplate">
+            <summary>
+            Gets or sets the template for the [All] icon column template.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandedItems">
+            <summary>
+            Gets or sets the list of expanded items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandedItemsChanged">
+            <summary>
+            Gets or sets a callback when list of expanded items changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandMode">
+            <summary>
+            Gets or sets the expand mode (Single or Multiple).
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.IconCollapsed">
+            <summary>
+            Gets or sets the Icon to be rendered when the row is collapsed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.TitleCollapsed">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Row collapsed".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.IconExpanded">
+            <summary>
+            Gets or sets the Icon to be rendered when the row is expanded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.TitleExpanded">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "Row expanded".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.TitleAllExpanded">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "All rows are expanded.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.TitleAllCollapsed">
+            <summary>
+            Gets or sets the Icon title display as a tooltip and used with Accessibility.
+            The default text is "No rows are expanded.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.OnSelect">
+            <summary>
+            Gets or sets the action to be executed when the row is expanded or collapsed.
+            This action is required to update you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandAll">
+            <summary>
+            Gets or sets the value indicating whether the [All] icon is expanded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.ExpandAllChanged">
+            <summary>
+            Gets or sets the action to be executed when the [All] icon is clicked.
+            When this action is defined, the [All] icon is displayed.
+            This action is required to update you data model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.Property">
+            <summary>
+            Gets or sets the function to executed to determine Expanded/Collapsed status.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.SortBy">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.OnCellClickAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.OnCellKeyDownAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell{`0},Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.AddOrRemoveExpandedItemAsync(`0)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.GetDefaultChildContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.GetHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.RefreshHeaderContent">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.GetExpandAll">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.CellContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.RawCellContent(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.IsSortableByDefault">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.OnClickAllAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.PropertyColumn`2">
             <summary>
             Represents a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> column whose cells display a single value.
@@ -1734,6 +1868,11 @@
             <summary>
             Gets or sets the child components of this instance. For example, you may define columns by adding
             components derived from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1"/> base class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowDetailTemplate">
+            <summary>
+            Gets or sets the row detail template.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize">
@@ -12595,6 +12734,16 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridCellType.RowHeader">
             <summary>
             Cell is a row header.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridExpandMode.Single">
+            <summary>
+            Allow only one expanded row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridExpandMode.Multiple">
+            <summary>
+            Allow multiple expanded rows.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType">

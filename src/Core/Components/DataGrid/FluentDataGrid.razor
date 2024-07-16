@@ -108,6 +108,11 @@
                 </FluentDataGridCell>
             }
         </FluentDataGridRow>
+
+        @if (RowDetailTemplate != null && _hierarchyColumn != null && _hierarchyColumn.ExpandedItems.Contains(item))
+        {
+            @RowDetailTemplate(item)
+        }
     }
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
@@ -152,7 +157,7 @@
                     <div class="col-options">
                         <FluentStack Orientation="Orientation.Vertical">
                             @col.ColumnOptions
-                            @if (ResizeType is not null )
+                            @if (ResizeType is not null)
                             {
                                 @if (@col.ColumnOptions is not null)
                                 {

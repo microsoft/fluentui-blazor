@@ -1,0 +1,95 @@
+﻿<FluentStack VerticalAlignment="VerticalAlignment.Center">
+    <FluentSelect Items="@(Enum.GetValues<DataGridExpandMode>())"
+                  @bind-SelectedOption="@Mode" />
+    <FluentCheckbox @bind-Value="@UseExpandedItems"
+                    @bind-Value:after="@(() => ResetSelectItems())"
+                    Label="Use `SelectedItems` property" />
+</FluentStack>
+
+@if (UseExpandedItems)
+{
+    @* Sample using SelectedItems  *@
+    <div>Using SelectedItems</div>
+
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+        <ChildContent>
+            <HierarchyColumn TGridItem="Person"
+                             ExpandMode="@Mode"
+                             @bind-ExpandedItems="@ExpandedItems" />
+            <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
+            <PropertyColumn Width="300px" Property="@(p => p.Name)" />
+            <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+        </ChildContent>
+
+        <RowDetailTemplate>
+            <p>Info:</p>
+            <div>
+                @context.PersonId  @context.Name
+            </div>
+        </RowDetailTemplate>
+    </FluentDataGrid>
+
+    <div>
+        <b>SelectedItems:</b>
+        @String.Join("; ", ExpandedItems.Select(p => p.Name))
+    </div>
+}
+else
+{
+    @* Sample using Property and OnSelect  *@
+    <div>Using Property and OnSelect</div>
+
+    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+        <ChildContent>
+            <HierarchyColumn TGridItem="Person"
+                             ExpandMode="@Mode"
+                             Property="@(e => e.Expanded)"
+                             OnSelect="@(e => e.Item.Expanded = e.Expanded)"
+                             ExpandAll="@(People.All(p => p.Expanded))"
+                             ExpandAllChanged="@(all => People.ToList().ForEach(p => p.Expanded = (all == true)))" />
+            <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
+            <PropertyColumn Width="300px" Property="@(p => p.Name)" />
+            <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+        </ChildContent>
+
+        <RowDetailTemplate>
+            <div>
+                @context.PersonId  @context.Name
+            </div>
+        </RowDetailTemplate>
+    </FluentDataGrid>
+
+    <div>
+        <b>Expanded:</b>
+        @String.Join("; ", People.Where(p => p.Expanded).Select(p => p.Name))
+    </div>
+}
+
+@code {
+    bool UseExpandedItems = true;
+    DataGridExpandMode Mode = DataGridExpandMode.Single;
+
+    IEnumerable<Person> ExpandedItems = People.Where(p => p.Expanded);
+
+    record Person(int PersonId, string Name, DateOnly BirthDate)
+    {
+        public bool Expanded { get; set; }
+    };
+
+    static IQueryable<Person> People = new[]
+    {
+        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)) { Expanded = true },
+        new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
+        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
+        new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27)),
+        new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3)),
+        new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
+    }.AsQueryable();
+
+    private void ResetSelectItems()
+    {
+        People.ToList().ForEach(i => i.Expanded = false);
+        People.First().Expanded = true;
+        ExpandedItems = People.Where(p => p.Expanded);
+    }
+}

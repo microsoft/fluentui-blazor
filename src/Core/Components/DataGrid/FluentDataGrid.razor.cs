@@ -44,6 +44,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the row detail template.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TGridItem>? RowDetailTemplate { get; set; }
+
+    /// <summary>
     /// If true, the grid will be rendered with virtualization. This is normally used in conjunction with
     /// scrolling and causes the grid to fetch and render only the data around the current scroll viewport.
     /// This can greatly improve the performance when scrolling through large data sets.
@@ -230,6 +236,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private int? _lastRefreshedPaginationStateHash;
     private object? _lastAssignedItemsOrProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
+    private HierarchyColumn<TGridItem>? _hierarchyColumn;
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
     private readonly EventCallbackSubscriber<PaginationState> _currentPageItemsChanged;
@@ -322,6 +329,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (_collectingColumns)
         {
+            if (column is HierarchyColumn<TGridItem> hierarchyColumn)
+            {
+                if (Virtualize)
+                {
+                    throw new NotSupportedException("FluentDataGrid not supported HierarchyColumn with Virtualize.");
+                }
+                _hierarchyColumn = hierarchyColumn;
+            }
+
             _columns.Add(column);
 
             if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
@@ -344,7 +360,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
 
-        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) &&
+            _columns.Where(x => x is not SelectColumn<TGridItem> && x is not HierarchyColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
