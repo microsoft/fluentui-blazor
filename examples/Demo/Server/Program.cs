@@ -13,7 +13,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddFluentUIComponents(config => config.FormatCollocatedJavaScriptUrl = (url) => url);
+builder.Services.AddFluentUIComponents();
 builder.Services.AddFluentUIDemoServerServices();
 
 builder.Services.AddScoped<DataSource>();
