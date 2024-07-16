@@ -191,12 +191,11 @@ public partial class FluentWizard : FluentComponentBase
     /// <summary />
     protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
     {
-        var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
-        var allEditContextsAreValid = false;        
+        var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);               
 
         if (validateEditContexts)
         {
-            allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
             stepChangeArgs.IsCancelled = !allEditContextsAreValid;
 
             if (!allEditContextsAreValid)

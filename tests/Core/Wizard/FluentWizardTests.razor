@@ -333,7 +333,7 @@
         var testRecord2 = new TestRecord
             {
                 NumberBetween1and10 = 15,
-            };        
+            };
 
         var cut = Render(@<FluentWizard OnFinish="OnFinishHandler" @bind-Value="@stepIndex">
         <Steps>
@@ -369,7 +369,6 @@
         void OnFinishHandler()
         {
             finishHandled = true;
-
         }
 
         Assert.False(finishHandled);
