@@ -217,6 +217,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                     if (Items.Contains(newSelectedOption))
                     {
                         _currentSelectedOption = newSelectedOption;
+                        // Make value follow new selected option
+                        Value = GetOptionValue(_currentSelectedOption);
                     }
                     else
                     {

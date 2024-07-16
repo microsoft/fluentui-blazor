@@ -48,6 +48,8 @@
 
         // remove the item from the old index in list 1
         items1.Remove(items1[args.OldIndex]);
+
+        DemoLogger.WriteLine($"Moved item from list {args.FromListId} to list {args.ToListId}");
     }
 
     private void ListTwoRemove(FluentSortableListEventArgs args)
@@ -64,6 +66,8 @@
 
         // remove the item from the old index in list 2
         items2.Remove(items2[args.OldIndex]);
+
+        DemoLogger.WriteLine($"Moved item from list {args.FromListId} to list {args.ToListId}");
     }
     private void SortListOne(FluentSortableListEventArgs args)
     {
