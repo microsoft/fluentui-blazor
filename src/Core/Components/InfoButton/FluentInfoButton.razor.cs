@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Reflection.Metadata;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -7,13 +8,13 @@ public partial class FluentInfoButton
 {
     private bool _showIconHover = false;
     private bool _visible = false;
-    private readonly string _idTooltip;
 
     public FluentInfoButton()
     {
-        Id = Identifier.NewId();
-        _idTooltip = Identifier.NewId();
+        Id = Id ?? Identifier.NewId();
     }
+
+    private string IdTooltip => $"{Id}-tooltip";
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-info-button")

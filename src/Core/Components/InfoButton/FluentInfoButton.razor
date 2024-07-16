@@ -11,15 +11,14 @@
             @onmouseover="@OnIconMouseOver"
             @onfocusout="@OnIconFocusOut"
             OnClick="@OnIconClick"
-            aria-describedby="@_idTooltip" />
+            aria-describedby="@IdTooltip" />
 @if (_visible)
 {
-    <FluentTooltip Id="@_idTooltip"
+    <FluentTooltip Id="@IdTooltip"
                    Anchor="@Id"
                    Visible="_visible"
                    Position="@Position"
                    MaxWidth="@MaxWidth"
-                   AdditionalAttributes="@AdditionalAttributes"
                    Class="@ClassValue"
                    Style="@Style"
                    role="tooltip">
