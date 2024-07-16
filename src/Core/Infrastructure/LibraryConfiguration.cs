@@ -58,4 +58,10 @@ public class LibraryConfiguration
     public LibraryConfiguration()
     {
     }
+
+    /// <summary>
+    internal static LibraryConfiguration ForUnitTests => new()
+    {
+        FormatCollocatedJavaScriptUrl = null,
+    };
 }

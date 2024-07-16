@@ -14527,6 +14527,7 @@
             Gets or sets the function that returns the URL of the JavaScript file.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ForUnitTests" -->
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
