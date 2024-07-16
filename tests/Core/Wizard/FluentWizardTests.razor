@@ -323,6 +323,8 @@
     [Fact]
     public void FluentWizard_EditForm_EditContextIsInValid_OnNext()
     {
+        int stepIndex = 0;
+
         var testRecord1 = new TestRecord
             {
                 NumberBetween1and10 = 15,
@@ -333,7 +335,7 @@
                 NumberBetween1and10 = 15,
             };
 
-        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
+        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler" @bind-Value="@stepIndex">
         <Steps>
             <FluentWizardStep>
                 <FluentEditForm Model="testRecord1">
@@ -370,6 +372,7 @@
         }
 
         Assert.False(finishHandled);
+        Assert.Equal(0, stepIndex);
     }
 
     [Fact]
