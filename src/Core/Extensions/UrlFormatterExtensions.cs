@@ -9,7 +9,7 @@ internal static class UrlFormatterExtensions
             return url;
         }
 
-        var queryString = configuration.CollocatedJavaScriptQueryString();
+        var queryString = configuration.CollocatedJavaScriptQueryString(url);
 
         return string.IsNullOrEmpty(queryString) ? url : $"{url}?{queryString}";
     }

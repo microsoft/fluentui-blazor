@@ -50,7 +50,7 @@ public class LibraryConfiguration
     /// adding the return value as a query string parameter.
     /// By default, the function adds a query string parameter with the version of the assembly: `v=[AssemblyVersion]`.
     /// </summary>
-    public Func<string>? CollocatedJavaScriptQueryString { get; set; } = ()
+    public Func<string, string>? CollocatedJavaScriptQueryString { get; set; } = (url)
         => string.IsNullOrEmpty(AssemblyVersion) ? string.Empty : $"v={AssemblyVersion}";
 
     public LibraryConfiguration()
