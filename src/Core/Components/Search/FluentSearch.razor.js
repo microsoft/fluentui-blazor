@@ -5,3 +5,11 @@ export function addAriaHidden(id) {
         fieldElement?.setAttribute("aria-hidden", "true");
     }
 }
+
+export function setControlAttribute(id, attrName, value) {
+    const fieldElement = document.querySelector("#" + id)?.shadowRoot?.querySelector("#control");
+
+    if (!!fieldElement) {
+        fieldElement?.setAttribute(attrName, value);
+    }
+}

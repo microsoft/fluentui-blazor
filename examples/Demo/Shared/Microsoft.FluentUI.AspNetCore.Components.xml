@@ -7020,15 +7020,15 @@
             Gets or sets the content to display. All first HTML elements are included in the items flow.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Overflow">
-            <summary>
-            Gets True if this component is out of panel.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Fixed">
             <summary>
             Gets or sets if this item dos not participates in overflow logic.
             Defaults to false
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Overflow">
+            <summary>
+            Gets True if this component is out of panel.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Text">
@@ -7856,6 +7856,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.Appearance">
             <summary>
             Gets or sets the visual appearance. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.ChildContent">
