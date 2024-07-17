@@ -42,7 +42,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     {
         if (firstRender)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 

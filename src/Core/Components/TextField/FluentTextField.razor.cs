@@ -102,20 +102,20 @@ public partial class FluentTextField : FluentInputBase<string?>
         {
             if (AutoComplete != null && !string.IsNullOrEmpty(Id))
             {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
             }
 
             if (InputMode != null && !string.IsNullOrEmpty(Id))
             {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.ToAttributeValue());
             }
         }
 
         if (DataList != null && !string.IsNullOrEmpty(Id))
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await Module.InvokeVoidAsync("setDataList", Id, DataList);
         }
 

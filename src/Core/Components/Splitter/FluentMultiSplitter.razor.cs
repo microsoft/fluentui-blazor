@@ -5,6 +5,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -339,7 +340,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
         {
             if (firstRender)
             {
-                Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 _objRef = DotNetObjectReference.Create(this);
             }
         }

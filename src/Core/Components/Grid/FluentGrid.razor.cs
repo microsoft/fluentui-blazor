@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // --------------------------------------------------------------
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -79,7 +80,7 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender && OnBreakpointEnter.HasDelegate)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             DotNetObjectReference<FluentGrid> dotNetHelper = DotNetObjectReference.Create(this);
             await _jsModule.InvokeVoidAsync("FluentGridInitialize", Id, dotNetHelper);
         }
