@@ -2,14 +2,14 @@
     <FluentSelect Items="@(Enum.GetValues<DataGridExpandMode>())"
                   @bind-SelectedOption="@Mode" />
     <FluentCheckbox @bind-Value="@UseExpandedItems"
-                    @bind-Value:after="@(() => ResetSelectItems())"
+                    @bind-Value:after="@(() => ResetExpandItems())"
                     Label="Use `SelectedItems` property" />
 </FluentStack>
 
 @if (UseExpandedItems)
 {
-    @* Sample using SelectedItems  *@
-    <div>Using SelectedItems</div>
+    @* Sample using ExpandedItems  *@
+    <div>Using ExpandedItems</div>
 
     <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
         <ChildContent>
@@ -30,7 +30,7 @@
     </FluentDataGrid>
 
     <div>
-        <b>SelectedItems:</b>
+        <b>ExpandedItems:</b>
         @String.Join("; ", ExpandedItems.Select(p => p.Name))
     </div>
 }
@@ -47,6 +47,7 @@ else
                              OnSelect="@(e => e.Item.Expanded = e.Expanded)"
                              ExpandAll="@(People.All(p => p.Expanded))"
                              ExpandAllChanged="@(all => People.ToList().ForEach(p => p.Expanded = (all == true)))" />
+
             <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
             <PropertyColumn Width="300px" Property="@(p => p.Name)" />
             <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
@@ -86,7 +87,7 @@ else
         new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
     }.AsQueryable();
 
-    private void ResetSelectItems()
+    private void ResetExpandItems()
     {
         People.ToList().ForEach(i => i.Expanded = false);
         People.First().Expanded = true;

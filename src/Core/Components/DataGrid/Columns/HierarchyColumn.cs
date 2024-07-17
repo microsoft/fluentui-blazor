@@ -10,9 +10,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
 {
-    private readonly Icon IconCollapsedDefault = new CoreIcons.Regular.Size12.ChevronRight().WithColor(Color.FillInverse);
-    private readonly Icon IconExpandedDefault = new CoreIcons.Regular.Size12.ChevronDown();
-
     private DataGridExpandMode _expandMode = DataGridExpandMode.Single;
     private readonly List<TGridItem> _expandedItems = [];
 
@@ -90,7 +87,7 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the Icon to be rendered when the row is collapsed.
     /// </summary>
     [Parameter]
-    public Icon? IconCollapsed { get; set; }
+    public Icon IconCollapsed { get; set; } = new CoreIcons.Regular.Size12.ChevronRight().WithColor(Color.FillInverse);
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
@@ -103,7 +100,7 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
     /// Gets or sets the Icon to be rendered when the row is expanded.
     /// </summary>
     [Parameter]
-    public Icon? IconExpanded { get; set; }
+    public Icon IconExpanded { get; set; } = new CoreIcons.Regular.Size12.ChevronDown();
 
     /// <summary>
     /// Gets or sets the Icon title display as a tooltip and used with Accessibility.
@@ -225,8 +222,8 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
 
     private Icon GetIcon(bool expanded) =>
         expanded
-            ? IconExpanded ?? IconExpandedDefault
-            : IconCollapsed ?? IconCollapsedDefault;
+            ? IconExpanded
+            : IconCollapsed;
 
     private async Task KeepOnlyFirstExpandedItemAsync()
     {
