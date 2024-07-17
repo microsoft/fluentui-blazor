@@ -11,11 +11,12 @@
     @* Sample using ExpandedItems  *@
     <div>Using ExpandedItems</div>
 
-    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+    <FluentDataGrid Items="@People">
         <ChildContent>
             <HierarchyColumn TGridItem="Person"
                              ExpandMode="@Mode"
-                             @bind-ExpandedItems="@ExpandedItems" />
+                             @bind-ExpandedItems="@ExpandedItems"
+                             CanBeExpanded="CanBeExpanded" />
             <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
             <PropertyColumn Width="300px" Property="@(p => p.Name)" />
             <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
@@ -39,14 +40,15 @@ else
     @* Sample using Property and OnSelect  *@
     <div>Using Property and OnSelect</div>
 
-    <FluentDataGrid Items="@People" ShowHover="true" TGridItem="Person">
+    <FluentDataGrid Items="@People">
         <ChildContent>
             <HierarchyColumn TGridItem="Person"
                              ExpandMode="@Mode"
                              Property="@(e => e.Expanded)"
                              OnSelect="@(e => e.Item.Expanded = e.Expanded)"
                              ExpandAll="@(People.All(p => p.Expanded))"
-                             ExpandAllChanged="@(all => People.ToList().ForEach(p => p.Expanded = (all == true)))" />
+                             ExpandAllChanged="@(all => People.ToList().ForEach(p => p.Expanded = (all == true)))"
+                             CanBeExpanded="CanBeExpanded" />
 
             <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
             <PropertyColumn Width="300px" Property="@(p => p.Name)" />
@@ -71,6 +73,8 @@ else
     DataGridExpandMode Mode = DataGridExpandMode.Single;
 
     IEnumerable<Person> ExpandedItems = People.Where(p => p.Expanded);
+
+    private bool CanBeExpanded(Person item) => !item.Name.StartsWith("A");
 
     record Person(int PersonId, string Name, DateOnly BirthDate)
     {

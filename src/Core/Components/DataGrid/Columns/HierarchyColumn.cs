@@ -154,6 +154,30 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
     [Parameter]
     public override GridSort<TGridItem>? SortBy { get; set; }
 
+    /// <summary>
+    /// Gets or sets the function to executed to determine the row can be expanded.
+    /// </summary>
+    [Parameter]
+    public Func<TGridItem, bool>? CanBeExpanded { get; set; }
+
+    /// <summary>
+    /// Allows to collapse all.
+    /// </summary>
+    public void CollapseAll()
+    {
+        _expandedItems.Clear();
+        RefreshHeaderContent();
+    }
+
+    /// <summary>
+    /// Allows to collapse all.
+    /// </summary>
+    public async Task CollapseAllAsync()
+    {
+        CollapseAll();
+        await Task.CompletedTask;
+    }
+
     /// <inheritdoc />
     protected internal override Task OnCellClickAsync(FluentDataGridCell<TGridItem> cell)
     {
@@ -259,25 +283,28 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
     {
         return (item) => new RenderFragment((builder) =>
         {
-            var expanded = _expandedItems.Contains(item) || Property.Invoke(item);
-
-            // Sync with ExpandedItems list
-            if (expanded && !_expandedItems.Contains(item))
+            if (CanBeExpanded == null || CanBeExpanded.Invoke(item))
             {
-                _expandedItems.Add(item);
-                RefreshHeaderContent();
-            }
-            else if (!expanded && _expandedItems.Contains(item))
-            {
-                _expandedItems.Remove(item);
-            }
+                var expanded = _expandedItems.Contains(item) || Property.Invoke(item);
 
-            builder.OpenComponent<FluentIcon<Icon>>(0);
-            builder.AddAttribute(1, "Value", GetIcon(expanded));
-            builder.AddAttribute(2, "Title", expanded ? TitleExpanded : TitleCollapsed);
-            builder.AddAttribute(3, "row-expanded", expanded);
-            builder.AddAttribute(4, "style", "cursor: pointer;");
-            builder.CloseComponent();
+                // Sync with ExpandedItems list
+                if (expanded && !_expandedItems.Contains(item))
+                {
+                    _expandedItems.Add(item);
+                    RefreshHeaderContent();
+                }
+                else if (!expanded && _expandedItems.Contains(item))
+                {
+                    _expandedItems.Remove(item);
+                }
+
+                builder.OpenComponent<FluentIcon<Icon>>(0);
+                builder.AddAttribute(1, "Value", GetIcon(expanded));
+                builder.AddAttribute(2, "Title", expanded ? TitleExpanded : TitleCollapsed);
+                builder.AddAttribute(3, "row-expanded", expanded);
+                builder.AddAttribute(4, "style", "cursor: pointer;");
+                builder.CloseComponent();
+            }
         });
     }
 
@@ -369,7 +396,7 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
             return;
         }
 
-        // SelectAllChanged
+        // ExpandAllChanged
         ExpandAll = !ExpandAll;
         if (ExpandAllChanged.HasDelegate)
         {
@@ -380,7 +407,11 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
         _expandedItems.Clear();
         if (ExpandAll)
         {
-            _expandedItems.AddRange(InternalGridContext.Items);
+            var data = CanBeExpanded == null
+                        ? InternalGridContext.Items
+                        : InternalGridContext.Items.Where(a => CanBeExpanded.Invoke(a));
+
+            _expandedItems.AddRange(data);
         }
 
         if (ExpandedItemsChanged.HasDelegate)
