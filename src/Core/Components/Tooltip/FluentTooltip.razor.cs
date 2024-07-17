@@ -18,7 +18,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
-    private LibraryConfiguration? LibraryConfiguration { get; set; }
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a reference to the list of registered services.
