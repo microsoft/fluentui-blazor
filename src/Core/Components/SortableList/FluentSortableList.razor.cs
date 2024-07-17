@@ -10,6 +10,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js";
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
     /// Use the @context parameter to access the item and its properties.
@@ -90,9 +98,6 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
         .Build();
 
     private string Filter => Items.Any(GetItemFiltered) ? ".filtered" : string.Empty;
-
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

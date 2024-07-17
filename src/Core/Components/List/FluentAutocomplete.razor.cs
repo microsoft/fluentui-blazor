@@ -31,6 +31,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     /// <summary />
     [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
     private IJSRuntime JS { get; set; } = default!;
 
     /// <summary />

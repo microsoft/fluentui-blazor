@@ -25,6 +25,10 @@ public partial class FluentAppBar : FluentComponentBase
 
     /// <summary />
     [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>

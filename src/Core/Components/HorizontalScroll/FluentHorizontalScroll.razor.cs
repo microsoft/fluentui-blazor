@@ -6,6 +6,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposable
 {
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private IJSObjectReference? _jsModule;
+
     /// <summary>
     /// Gets or sets the scroll speed in pixels per second.
     /// </summary>
@@ -41,10 +51,6 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-
-    private IJSObjectReference? _jsModule;
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(HorizontalScrollEventArgs))]
 

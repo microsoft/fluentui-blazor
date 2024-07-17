@@ -7,6 +7,11 @@ public partial class FluentAnchoredRegion : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 

@@ -30,6 +30,10 @@ public partial class FluentPullToRefresh : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 

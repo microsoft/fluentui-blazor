@@ -16,6 +16,11 @@ public partial class FluentDesignTheme : ComponentBase
         PropertyNameCaseInsensitive = true,
     };
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
     [Inject]
     private GlobalState GlobalDesign { get; set; } = default!;
 

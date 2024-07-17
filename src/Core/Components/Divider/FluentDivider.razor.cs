@@ -9,6 +9,11 @@ public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
 
     private IJSObjectReference _jsModule = default!;
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 

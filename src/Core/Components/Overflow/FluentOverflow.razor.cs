@@ -27,6 +27,10 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         .AddStyle("visibility", "hidden", VisibleOnLoad == false)
         .Build();
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 

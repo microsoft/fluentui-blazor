@@ -35,6 +35,10 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 
     /// <summary />
     [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>

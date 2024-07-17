@@ -11,6 +11,10 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
 
     private Reference Target { get; set; } = new();
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
