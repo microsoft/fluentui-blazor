@@ -3,6 +3,11 @@
 @inherits TestContext
 @code
 {
+    public FluentIconTests()
+    {
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public void FluentIcon_Default()
     {

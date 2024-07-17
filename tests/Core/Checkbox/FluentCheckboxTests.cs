@@ -1,10 +1,16 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Checkbox;
 
 public class FluentCheckboxTests : TestBase
 {
+    public FluentCheckboxTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

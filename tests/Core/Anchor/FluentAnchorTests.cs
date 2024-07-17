@@ -1,5 +1,6 @@
 using Bunit;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Anchor;
@@ -11,6 +12,7 @@ public partial class FluentAnchorTests : TestContext
     public FluentAnchorTests()
     {
         JSInterop.SetupModule(FluentAnchorRazorJs);
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

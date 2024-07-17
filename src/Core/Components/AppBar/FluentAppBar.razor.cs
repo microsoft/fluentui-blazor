@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 using System.Text.Json;
@@ -22,6 +23,10 @@ public partial class FluentAppBar : FluentComponentBase
 
     // ToDo: Implement focus on popup
     //private FluentSearch? _appSearch;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -77,7 +82,7 @@ public partial class FluentAppBar : FluentComponentBase
         {
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
-            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, false, OVERFLOW_SELECTOR);
         }
