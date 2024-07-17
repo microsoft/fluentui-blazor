@@ -1,0 +1,353 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void FluentDataGrid_ColumnHierarchy_SingleExpand_Rendering()
+    {
+        IEnumerable<Person> expandedItems = new[] { People.ElementAt(1) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Single"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_SingleExpand_ExpandedItems()
+    {
+        var expandedItems = Enumerable.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Single"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(expandedItems);
+
+        // Act - Click and expand Row 0
+        await ClickOnRowAsync(cut,  0,0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(expandedItems);
+
+        // Act - Click and expand Row 1
+        await ClickOnRowAsync(cut,  1,0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(expandedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_SingleExpand_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Single"
+                         Property="@(e => e.Expanded)"
+                         OnSelect="@(e => e.Item.Expanded = e.Expanded)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(items.Where(i => i.Expanded));
+
+        // Act - Click and expand Row 0
+        await ClickOnRowAsync(cut,  0,0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(items.Where(i => i.Expanded));
+
+        // Act - Click and expand Row 1
+        await ClickOnRowAsync(cut,  1,0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(items.Where(i => i.Expanded));
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumnHierarchy_MultiExpand_Rendering()
+    {
+        IEnumerable<Person> expandedItems = new[] { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_MultiExpand_ExpandedItems()
+    {
+        IEnumerable<Person> expandedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(expandedItems);
+
+        // Act - Click and expand Row 0
+        await ClickOnRowAsync(cut, 0, 0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(expandedItems);
+
+        // Act - Click and expand Row 1
+        await ClickOnRowAsync(cut, 1, 0);
+        Assert.Equal(2, cut.FindAll("svg[row-expanded]").Count);
+        Assert.Equal(2, expandedItems.Count());
+
+        // Act - Click and collapse Row 0
+        await ClickOnRowAsync(cut, 0, 0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(expandedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_MultiExpand_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         Property="@(e => e.Expanded)"
+                         OnSelect="@(e => e.Item.Expanded = e.Expanded)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(items.Where(i => i.Expanded));
+
+        // Act - Click and expand Row 0
+        await ClickOnRowAsync(cut,  0,0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(items.Where(i => i.Expanded));
+
+        // Act - Click and expand Row 1
+        await ClickOnRowAsync(cut,  1,0);
+        Assert.Equal(2, cut.FindAll("svg[row-expanded]").Count);
+        Assert.Equal(2, items.Where(i => i.Expanded).Count());
+
+        // Act - Click and collapse Row 0
+        await ClickOnRowAsync(cut,  0,0);
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(items.Where(i => i.Expanded));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_MultiExpand_ExpandAll_ExpandedItems()
+    {
+        var expandedItems = Enumerable.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(expandedItems);
+
+        // Act - Click on All to expand all
+        await ClickOnAllAsync(cut);
+        Assert.Equal(3, cut.FindAll("svg[row-expanded]").Count);
+        Assert.Equal(3, expandedItems.Count());
+
+        // Act - Click on All to collapse all
+        await ClickOnAllAsync(cut);
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(expandedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_Multiexpand_ExpandAll_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         Property="@(e => e.Expanded)"
+                         OnSelect="@(e => e.Item.Expanded = e.Expanded)"
+                         ExpandAll="@(items.All(p => p.Expanded))"
+                         ExpandAllChanged="@(all => items.ToList().ForEach(p => p.Expanded = (all == true)))" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(items.Where(i => i.Expanded));
+
+        // Act - Click on All to expand all
+        await ClickOnAllAsync(cut);
+        Assert.Equal(3, cut.FindAll("svg[row-expanded]").Count);
+        Assert.Equal(3, items.Where(i => i.Expanded).Count());
+
+        // Act - Click on All to collapse all
+        await ClickOnAllAsync(cut);
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(items.Where(i => i.Expanded));
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumnHierarchy_SwitchMultiToSingleExpand()
+    {
+        IEnumerable<Person> expandedItems = new[] { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Before the switch
+        Assert.Equal(2, cut.FindAll("svg[row-expanded]").Count);
+        Assert.Equal(2, expandedItems.Count());
+
+        // Act
+        cut.FindComponent<HierarchyColumn<Person>>().Instance.ExpandMode = DataGridExpandMode.Single;
+        cut.FindComponent<FluentDataGrid<Person>>().Render();
+
+        var x = cut.Markup;
+
+        // After the switch
+        Assert.Single(cut.FindAll("svg[row-expanded]"));
+        Assert.Single(expandedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnHierarchy_ExpandAll_Disabled()
+    {
+        var expandedItems = Enumerable.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         ExpandAllDisabled="true"
+                         @bind-ExpandedItems="@expandedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(expandedItems);
+
+        // Act - Click on All to expand all => should not work
+        await ClickOnAllAsync(cut);
+        Assert.Empty(cut.FindAll("svg[row-expanded]"));
+        Assert.Empty(expandedItems);
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumnHierarchy_MultiExpand_Customized_Rendering()
+    {
+        IEnumerable<Person> expandedItems = new[] { People.ElementAt(1), People.ElementAt(2) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <HierarchyColumn TGridItem="Person"
+                         ExpandMode="@DataGridExpandMode.Multiple"
+                         @bind-ExpandedItems="@expandedItems">
+            <ExpandAllTemplate>
+                @(context.AllExpanded ? "✅" : "⬜")
+            </ExpandAllTemplate>
+            <ChildContent>
+                @(expandedItems.Contains(context) ? "✅" : " ")
+            </ChildContent>
+        </HierarchyColumn>
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        cut.Verify();
+    }
+
+    /// <summary>
+    /// Simulate a click on the DataGrid row number <paramref name="row"/>.
+    /// </summary>
+    /// <param name="cut"></param>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    /// <returns></returns>
+    private async Task ClickOnRowAsync(IRenderedFragment cut, int row, int? col = null)
+    {
+        if (col == null)
+        {
+            var item = cut.FindComponents<FluentDataGridRow<Person>>().ElementAt(row + 1);
+            await item.Instance.HandleOnRowClickAsync(item.Instance.RowId);
+            cut.FindComponent<FluentDataGrid<Person>>().Render();
+        }
+        else
+        {
+            var item = cut.FindComponents<FluentDataGridCell<Person>>()
+                          .Where(i => i.Instance.GridColumn == col + 1)
+                          .ElementAt(row + 1);
+            await item.Instance.HandleOnCellClickAsync();
+            cut.FindComponent<FluentDataGrid<Person>>().Render();
+        }
+    }
+
+    /// <summary>
+    /// Simulate a click on the All.
+    /// </summary>
+    /// <param name="cut"></param>
+    /// <returns></returns>
+    private async Task ClickOnAllAsync(IRenderedFragment cut)
+    {
+        var col = cut.FindComponent<HierarchyColumn<Person>>();
+        await col.Instance.OnClickAllAsync(new MouseEventArgs());
+        cut.FindComponent<FluentDataGrid<Person>>().Render();
+    }
+}
