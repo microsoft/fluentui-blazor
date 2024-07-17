@@ -14498,6 +14498,11 @@
             Defines the global Fluent UI Blazor component library services configuration
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.AssemblyVersion">
+            <summary>
+            Gets the assembly version formatted as a string.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.UseTooltipServiceProvider">
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
@@ -14522,12 +14527,16 @@
             Default is true.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.FormatCollocatedJavaScriptUrl">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.CollocatedJavaScriptQueryString">
             <summary>
-            Gets or sets the function that returns the URL of the JavaScript file.
+            Gets or sets the function that formats the URL of the collocated JavaScript file,
+            adding the return value as a query string parameter.
+            By default, the function adds a query string parameter with the version of the assembly: `v=[AssemblyVersion]`.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ForUnitTests" -->
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ForUnitTests">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.

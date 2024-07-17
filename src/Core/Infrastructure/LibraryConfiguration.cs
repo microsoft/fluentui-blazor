@@ -9,7 +9,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class LibraryConfiguration
 {
-    private static readonly string? AssemblyVersion = typeof(LibraryConfiguration).Assembly.GetName().Version?.ToString();
+    /// <summary>
+    /// Gets the assembly version formatted as a string.
+    /// </summary>
+    internal static readonly string? AssemblyVersion = typeof(LibraryConfiguration).Assembly.GetName().Version?.ToString();
 
     /// <summary>
     /// Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
@@ -43,17 +46,12 @@ public class LibraryConfiguration
     }
 
     /// <summary>
-    /// Gets or sets the function that returns the URL of the JavaScript file.
+    /// Gets or sets the function that formats the URL of the collocated JavaScript file,
+    /// adding the return value as a query string parameter.
+    /// By default, the function adds a query string parameter with the version of the assembly: `v=[AssemblyVersion]`.
     /// </summary>
-    public Func<string, string>? FormatCollocatedJavaScriptUrl { get; set; } = (string url) =>
-    {
-        if (string.IsNullOrEmpty(AssemblyVersion))
-        {
-            return url;
-        }
-
-        return $"{url}?v={AssemblyVersion}";
-    };
+    public Func<string>? CollocatedJavaScriptQueryString { get; set; } = ()
+        => string.IsNullOrEmpty(AssemblyVersion) ? string.Empty : $"v={AssemblyVersion}";
 
     public LibraryConfiguration()
     {
@@ -62,6 +60,6 @@ public class LibraryConfiguration
     /// <summary />
     internal static LibraryConfiguration ForUnitTests => new()
     {
-        FormatCollocatedJavaScriptUrl = null,
+        CollocatedJavaScriptQueryString = null,
     };
 }

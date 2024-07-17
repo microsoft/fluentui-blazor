@@ -4,12 +4,14 @@ internal static class UrlFormatterExtensions
 {
     internal static string FormatCollocatedUrl(this string url, LibraryConfiguration configuration)
     {
-        if (configuration.FormatCollocatedJavaScriptUrl == null)
+        if (configuration.CollocatedJavaScriptQueryString == null)
         {
             return url;
         }
 
-        return configuration.FormatCollocatedJavaScriptUrl(url);
+        var queryString = configuration.CollocatedJavaScriptQueryString();
+
+        return string.IsNullOrEmpty(queryString) ? url : $"{url}?{queryString}";
     }
 
 }
