@@ -7025,6 +7025,12 @@
             Gets True if this component is out of panel.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Fixed">
+            <summary>
+            Gets or sets if this item dos not participates in overflow logic.
+            Defaults to false
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Text">
             <summary>
             Gets the InnerText of <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.ChildContent"/>.
@@ -7219,7 +7225,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalInset">
             <summary>
-            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
             Default is true which places the region aligned with the anchor element.
             </summary>
         </member>
