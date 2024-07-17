@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -18,6 +19,10 @@ public partial class FluentKeyCode : IAsyncDisposable
     /// Prevent multiple KeyDown events.
     /// </summary>
     public static bool PreventMultipleKeyDown = false;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -114,7 +119,7 @@ public partial class FluentKeyCode : IAsyncDisposable
                 throw new ArgumentNullException(Anchor, $"The {nameof(Anchor)} parameter must be set to the ID of an element. Or the {nameof(ChildContent)} must be set to apply the KeyCode engine to this content.");
             }
 
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             _dotNetHelper = DotNetObjectReference.Create(this);
 
             var eventNames = string.Join(";", new[]

@@ -26,6 +26,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     private IJSObjectReference? _jsModule { get; set; }
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
@@ -38,7 +42,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     {
         if (firstRender)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 

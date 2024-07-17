@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.AnchoredRegion;
@@ -8,6 +9,7 @@ public class FluentAnchoredRegionTests : TestBase
     public FluentAnchoredRegionTests()
     {
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

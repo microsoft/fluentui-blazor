@@ -7,7 +7,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
-
         public bool Disabled { get; set; } = false;
     }
 
@@ -16,8 +15,7 @@
     public FluentSortableListTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-        //JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js");
-        //JSInterop.Setup<IJSObjectReference>("init", _ => true);
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

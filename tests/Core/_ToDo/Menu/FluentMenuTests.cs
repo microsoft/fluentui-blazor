@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Menu;
@@ -7,6 +8,7 @@ public class FluentMenuTests : TestBase
     public FluentMenuTests()
     {
         TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

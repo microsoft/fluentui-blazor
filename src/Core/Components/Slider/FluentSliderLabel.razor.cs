@@ -1,5 +1,6 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,6 +13,10 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
     {
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -65,7 +70,7 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
     {
         if (firstRender)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await _jsModule.InvokeVoidAsync("updateSliderLabel", Id);
         }
     }

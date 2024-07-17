@@ -12,6 +12,7 @@
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(GlobalState);
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

@@ -2,11 +2,15 @@
 @inherits TestContext
 @code
 {
+    public FluentKeyCodeTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public async Task FluentKeyCode_KeyA()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -28,8 +32,6 @@
     [Fact]
     public async Task FluentKeyCode_KeyDown_KeyA()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -44,8 +46,6 @@
     [Fact]
     public async Task FluentKeyCode_ChildContent()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -67,8 +67,6 @@
     [Fact]
     public async Task FluentKeyCode_CtrlShiftAltMeta()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -96,8 +94,6 @@
     [InlineData(true, true, true, true, "Ctrl + Shift + Alt + Meta + A")]
     public async Task FluentKeyCode_KeyA_ToString(bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, string expected)
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -112,7 +108,6 @@
     [Fact]
     public async Task FluentKeyCode_Provider_Function()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
         FluentKeyCodeEventArgs pressed = new();
 
         // Register Service
@@ -146,7 +141,6 @@
     [Fact]
     public async Task FluentKeyCode_Provider_Interface()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
         FluentKeyCodeEventArgs pressed = new();
 
         // Register Service
@@ -177,8 +171,6 @@
     [Fact]
     public async Task FluentKeyCode_AnchorOrChildContent_Required()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act

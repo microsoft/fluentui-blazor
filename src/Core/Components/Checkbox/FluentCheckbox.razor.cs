@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -16,6 +17,10 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     {
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -122,7 +127,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     {
         // Force the Indeterminate state to be set.
         // Each time the user clicks the checkbox, the Indeterminate state is reset to false.
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         await Module.InvokeVoidAsync("setFluentCheckBoxIndeterminate", Id, intermediate, Value);
 
         _intermediate = intermediate;

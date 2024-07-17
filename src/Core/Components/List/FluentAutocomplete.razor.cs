@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -28,6 +29,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         Width = "100%";
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -487,7 +492,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         if (firstRender)
         {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 
