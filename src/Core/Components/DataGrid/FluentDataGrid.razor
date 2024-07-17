@@ -109,7 +109,7 @@
             }
         </FluentDataGridRow>
 
-        @if (RowDetailTemplate != null && _hierarchyColumn != null && _hierarchyColumn.ExpandedItems.Contains(item))
+        @if (!Virtualize && RowDetailTemplate != null && _hierarchyColumn != null && _hierarchyColumn.ExpandedItems.Contains(item))
         {
             @RowDetailTemplate(item)
         }
