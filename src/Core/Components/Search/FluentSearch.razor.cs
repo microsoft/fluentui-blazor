@@ -63,8 +63,7 @@ public partial class FluentSearch : FluentInputBase<string?>
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
-    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
-    /// An Id value must be set to use this property.
+    /// Gets or sets whether a form or an input field should have autocomplete "on" or "off" or another value.
     /// </summary>
     [Parameter]
     public string? AutoComplete { get; set; }
@@ -91,7 +90,6 @@ public partial class FluentSearch : FluentInputBase<string?>
 
             if (AutoComplete != null)
             {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
             }
         }
