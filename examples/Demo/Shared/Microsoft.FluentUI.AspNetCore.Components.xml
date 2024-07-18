@@ -7022,7 +7022,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Fixed">
             <summary>
-            Gets or sets if this item dos not participates in overflow logic.
+            Gets or sets if this item does not participate in overflow logic.
             Defaults to false
             </summary>
         </member>
