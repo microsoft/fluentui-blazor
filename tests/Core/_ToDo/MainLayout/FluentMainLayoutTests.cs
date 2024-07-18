@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MainLayout;
@@ -7,6 +8,7 @@ public class FluentMainLayoutTests : TestBase
     public FluentMainLayoutTests()
     {
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

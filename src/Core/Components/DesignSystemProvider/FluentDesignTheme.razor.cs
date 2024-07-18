@@ -16,6 +16,11 @@ public partial class FluentDesignTheme : ComponentBase
         PropertyNameCaseInsensitive = true,
     };
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
     [Inject]
     private GlobalState GlobalDesign { get; set; } = default!;
 
@@ -174,7 +179,7 @@ public partial class FluentDesignTheme : ComponentBase
     {
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             _dotNetHelper = DotNetObjectReference.Create(this);
 
             var dir = await Module.InvokeAsync<string?>("GetDirection");
@@ -210,7 +215,7 @@ public partial class FluentDesignTheme : ComponentBase
     /// </summary>
     public async Task ClearLocalStorageAsync()
     {
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         await Module.InvokeVoidAsync("ClearLocalStorage", Id);
     }
 

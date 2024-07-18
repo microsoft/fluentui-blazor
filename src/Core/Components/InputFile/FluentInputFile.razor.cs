@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -20,6 +21,10 @@ public partial class FluentInputFile : FluentComponentBase
     {
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -180,7 +185,7 @@ public partial class FluentInputFile : FluentComponentBase
     /// <returns></returns>
     public async Task ShowFilesDialogAsync()
     {
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
         await Module.InvokeVoidAsync("raiseFluentInputFile", Id);
     }
@@ -190,7 +195,7 @@ public partial class FluentInputFile : FluentComponentBase
     {
         if (firstRender && !string.IsNullOrEmpty(AnchorId))
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             await Module.InvokeVoidAsync("attachClickHandler", AnchorId, Id);
         }

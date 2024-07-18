@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
@@ -12,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTabs : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
+
     private const string FLUENT_TAB_TAG = "fluent-tab";
     private readonly Dictionary<string, FluentTab> _tabs = [];
     //private string _activeId = string.Empty;
@@ -38,6 +41,10 @@ public partial class FluentTabs : FluentComponentBase
         .AddStyle("cursor: pointer")
         .AddStyle("display", "none", () => !TabsOverflow.Any())
         .Build();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -144,8 +151,7 @@ public partial class FluentTabs : FluentComponentBase
         {
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
-            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
+            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             var horizontal = Orientation == Orientation.Horizontal;
             await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);

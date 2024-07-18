@@ -5,6 +5,7 @@
     public FluentPullToRefreshTests()
     {
         this.JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     // write some unit tests here

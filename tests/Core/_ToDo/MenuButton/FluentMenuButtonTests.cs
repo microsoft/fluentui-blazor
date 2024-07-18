@@ -1,9 +1,16 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MenuButton;
+
 public class FluentMenuButtonTests : TestBase
 {
+    public FluentMenuButtonTests()
+    {
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public void FluentMenuButton_Default()
     {

@@ -36,8 +36,9 @@
     {
         if (firstRender)
         {
+
             // Simulation of loading process
-            await Task.Delay(7000);
+            await Task.Delay(Content.DisplayTime);
 
             // Close the dialog
             await Dialog.CloseAsync();
