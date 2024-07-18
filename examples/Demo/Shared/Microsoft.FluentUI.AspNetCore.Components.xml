@@ -1545,9 +1545,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.SortBy">
             <inheritdoc />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.CanBeExpanded">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.Expandable">
             <summary>
-            Gets or sets the function to executed to determine the row can be expanded.
+            Gets or sets the function to executed to determine the row expandable.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.HierarchyColumn`1.CollapseAll">

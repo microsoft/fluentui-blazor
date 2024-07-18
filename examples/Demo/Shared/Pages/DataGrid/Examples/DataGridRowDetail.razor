@@ -16,7 +16,7 @@
             <HierarchyColumn TGridItem="Person"
                              ExpandMode="@Mode"
                              @bind-ExpandedItems="@ExpandedItems"
-                             CanBeExpanded="CanBeExpanded" />
+                             Expandable="CanBeExpanded" />
             <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
             <PropertyColumn Width="300px" Property="@(p => p.Name)" />
             <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
@@ -48,7 +48,7 @@ else
                              OnSelect="@(e => e.Item.Expanded = e.Expanded)"
                              ExpandAll="@(People.All(p => p.Expanded))"
                              ExpandAllChanged="@(all => People.ToList().ForEach(p => p.Expanded = (all == true)))"
-                             CanBeExpanded="CanBeExpanded" />
+                             Expandable="CanBeExpanded" />
 
             <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
             <PropertyColumn Width="300px" Property="@(p => p.Name)" />

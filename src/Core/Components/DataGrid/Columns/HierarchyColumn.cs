@@ -155,10 +155,10 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
     public override GridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary>
-    /// Gets or sets the function to executed to determine the row can be expanded.
+    /// Gets or sets the function to executed to determine the row expandable.
     /// </summary>
     [Parameter]
-    public Func<TGridItem, bool>? CanBeExpanded { get; set; }
+    public Func<TGridItem, bool>? Expandable { get; set; }
 
     /// <summary>
     /// Allows to collapse all.
@@ -283,7 +283,7 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
     {
         return (item) => new RenderFragment((builder) =>
         {
-            if (CanBeExpanded == null || CanBeExpanded.Invoke(item))
+            if (Expandable == null || Expandable.Invoke(item))
             {
                 var expanded = _expandedItems.Contains(item) || Property.Invoke(item);
 
@@ -407,9 +407,9 @@ public class HierarchyColumn<TGridItem> : ColumnBase<TGridItem>
         _expandedItems.Clear();
         if (ExpandAll)
         {
-            var data = CanBeExpanded == null
+            var data = Expandable == null
                         ? InternalGridContext.Items
-                        : InternalGridContext.Items.Where(a => CanBeExpanded.Invoke(a));
+                        : InternalGridContext.Items.Where(a => Expandable.Invoke(a));
 
             _expandedItems.AddRange(data);
         }
