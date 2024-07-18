@@ -1,4 +1,6 @@
-let initialColumnsWidths = '';
+var initialColumnsWidths = '';
+var latestGridElement = null;
+
 export function init(gridElement) {
     if (gridElement === undefined || gridElement === null) {
         return;
@@ -89,11 +91,11 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
-let LatestGridElement = null;
+
 export function enableColumnResizing(gridElement) {
-    if (gridElement === LatestGridElement)
+    if (gridElement === latestGridElement)
         return;
-    LatestGridElement = gridElement;
+    latestGridElement = gridElement;
     const columns = [];
     let min = 50;
     let headerBeingResized;
