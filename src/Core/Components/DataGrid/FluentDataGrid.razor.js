@@ -97,7 +97,7 @@ export function enableColumnResizing(gridElement) {
         return;
     latestGridElement = gridElement;
     const columns = [];
-    let min = 50;
+    let min = 75;
     let headerBeingResized;
     let resizeHandle;
 
@@ -115,7 +115,7 @@ export function enableColumnResizing(gridElement) {
             const width = pointerLocalLeft - headerLocalLeft;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
-            min = header.querySelector('.col-options-button') ? 75 : 50;
+            min = header.querySelector('.col-options-button') ? 100 : 75;
 
             column.size = Math.max(min, width) + 'px';
 
