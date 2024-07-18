@@ -35,7 +35,7 @@ public partial class FluentOverflowItem : IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets if this item dos not participates in overflow logic.
+    /// Gets or sets if this item does not participate in overflow logic.
     /// Defaults to false
     /// </summary>
     [Parameter]
