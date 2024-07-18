@@ -89,7 +89,11 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
+let LatestGridElement = null;
 export function enableColumnResizing(gridElement) {
+    if (gridElement === LatestGridElement)
+        return;
+    LatestGridElement = gridElement;
     const columns = [];
     let min = 50;
     let headerBeingResized;
