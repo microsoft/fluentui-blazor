@@ -17,6 +17,20 @@
     </FluentOverflow>
 </div>
 <p>
+    In the following example, the first element will always be displayed (fixed), but an ellipse (...)
+    will be added when the container size is too small.
+    Note: the element must be able to display this ellipse, which is the case for text (like below) but not for the FluentBadge.
+</p>
+<div style="background-color: var(--neutral-layer-4); overflow: auto; resize: horizontal; padding: 10px;">
+    <FluentOverflow Style="width: 100%;">
+        <FluentOverflowItem Fixed="OverflowItemFixed.Ellipsis">Aspire;</FluentOverflowItem>
+        <FluentOverflowItem>Blazor;</FluentOverflowItem>
+        <FluentOverflowItem>Microsoft;</FluentOverflowItem>
+        <FluentOverflowItem>Azure;</FluentOverflowItem>
+        <FluentOverflowItem>DevOps</FluentOverflowItem>
+    </FluentOverflow>
+</div>
+<p>
     With below example the <code>VisibleOnLoad</code> parameter is set to false.
     Make sure the screen dimension is small enough to show an overflow badge with count.
     Then refresh the page to see the difference between this example and the one above
@@ -39,3 +53,10 @@
         <FluentOverflowItem><FluentBadge>Installation</FluentBadge></FluentOverflowItem>
     </FluentOverflow>
 </div>
+
+@code
+{
+    static string[] Catalog = new[] { "Blazor", "WPF", "Microsoft", "#Framework",
+                                      "Electron", "WinForms", "MAUI", "Fluent", "Reality",
+                                      "Office", "Installation", "Azure", "DevOps" };
+}
