@@ -17,6 +17,7 @@ public partial class DialogSplashScreenCustom
                 LoadingText = "Filling the re-useable bottles...",
                 Message = (MarkupString)"Don't drink <strong>too</strong> much water!",
                 Logo = "_content/FluentUI.Demo.Shared/images/Splash_Corporation_logo.png",
+                DisplayTime = 7000
             },
             Width = "500px",
             Height = "300px",
@@ -35,7 +36,7 @@ public partial class DialogSplashScreenCustom
     }
     private void OpenSplashCustom()
     {
-        DemoLogger.WriteLine($"Open custom splashscreen for 7 seconds");
+        DemoLogger.WriteLine($"Open custom splashscreen for 4 seconds");
         DialogParameters<SplashScreenContent> parameters = new()
         {
             Content = new()
