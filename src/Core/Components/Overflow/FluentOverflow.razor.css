@@ -1,4 +1,4 @@
-﻿.fluent-overflow[orientation="horizontal"] {
+.fluent-overflow[orientation="horizontal"] {
     display: flex;
     flex-direction: row;
     overflow-x: hidden;
@@ -18,4 +18,11 @@
 
 .fluent-overflow ::deep > *[overflow] {
     display: none;
+}
+
+.fluent-overflow ::deep .fluent-overflow-item[fixed='ellipsis'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: fit-content;
 }
