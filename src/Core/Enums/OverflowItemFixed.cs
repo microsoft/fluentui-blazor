@@ -16,11 +16,13 @@ public enum OverflowItemFixed
     /// </summary>
     [Description("none")]
     None = 0,
+
     /// <summary>
     /// The element is always visible
     /// </summary>
     [Description("fixed")]
     Fixed = 1,
+
     /// <summary>
     /// The element is always visible, but its width can be reduced to display "...".
     /// </summary>
