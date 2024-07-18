@@ -35,11 +35,11 @@ public partial class FluentOverflowItem : IDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets if this item does not participate in overflow logic.
+    /// Gets or sets whether this element does not participate in overflow logic, and will always be visible.
     /// Defaults to false
     /// </summary>
     [Parameter]
-    public bool Fixed { get; set; } = false;
+    public OverflowItemFixed Fixed { get; set; } = OverflowItemFixed.None;
 
     /// <summary>
     /// Gets True if this component is out of panel.

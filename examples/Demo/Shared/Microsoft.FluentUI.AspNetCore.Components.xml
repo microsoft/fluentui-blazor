@@ -7066,7 +7066,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Fixed">
             <summary>
-            Gets or sets if this item does not participate in overflow logic.
+            Gets or sets whether this element does not participate in overflow logic, and will always be visible.
             Defaults to false
             </summary>
         </member>
@@ -13776,6 +13776,26 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical">
             <summary>
             The component is oriented vertically.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed">
+            <summary>
+            Possibility for an element not to participate in the overflow logic and always remain displayed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed.None">
+            <summary>
+            If the item is out of the display, it disappears.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed.Fixed">
+            <summary>
+            The element is always visible
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed.Ellipsis">
+            <summary>
+            The element is always visible, but its width can be reduced to display "...".
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.PresenceBadgeSize">
