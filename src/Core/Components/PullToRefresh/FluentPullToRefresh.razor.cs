@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -29,6 +30,10 @@ public partial class FluentPullToRefresh : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -171,7 +176,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
     {
         if (firstRender && EmulateTouch)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             await _jsModule.InvokeVoidAsync("initTouchEmulator");
         }

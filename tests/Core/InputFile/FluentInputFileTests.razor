@@ -1,7 +1,12 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
+    public FluentInputFileTests()
+    {
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public void FluentInputFile_Default()
     {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -17,7 +18,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
-    private LibraryConfiguration? LibraryConfiguration { get; set; }
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a reference to the list of registered services.
@@ -158,7 +159,7 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
     {
         if (firstRender && !string.IsNullOrEmpty(Anchor) && HideTooltipOnCursorLeave == true)
         {
-            JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await JSModule.InvokeVoidAsync("tooltipHideOnCursorLeave", Anchor);
         }
     }
