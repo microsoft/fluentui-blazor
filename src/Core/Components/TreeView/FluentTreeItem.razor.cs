@@ -215,6 +215,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             builder.AddAttribute(i++, "Disabled", item.Disabled);
             builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);
             builder.AddAttribute(i++, "IconExpanded", item.IconExpanded);
+            builder.SetKey(item.Id);
 
             if (owner.ItemTemplate != null)
             {
