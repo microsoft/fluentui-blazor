@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -10,6 +11,10 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Button/FluentButton.razor.js";
 
     private readonly RenderFragment _renderButton;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -180,7 +185,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender && Id is not null && Type != ButtonType.Button)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await _jsModule.InvokeVoidAsync("updateProxy", Id);
         }
     }

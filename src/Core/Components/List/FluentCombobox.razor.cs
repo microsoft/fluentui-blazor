@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -12,6 +13,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentCombobox.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -57,7 +62,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         {
             if (!string.IsNullOrEmpty(Id))
             {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", "off");
             }
         }

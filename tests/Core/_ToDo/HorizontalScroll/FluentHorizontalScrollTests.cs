@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.HorizontalScroll;
@@ -7,7 +8,9 @@ public class FluentHorizontalScrollTests : TestBase
     public FluentHorizontalScrollTests()
     {
         TestContext.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
+
     [Fact]
     public void FluentHorizontalScroll_Default()
     {

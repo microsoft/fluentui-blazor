@@ -36,7 +36,7 @@ public partial class DialogService
         {
             DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
-            Modal = true,
+            Modal = parameters.Modal,
             PreventDismissOnOverlayClick = parameters.PreventDismissOnOverlayClick,
             ShowDismiss = false,
             ShowTitle = false,
@@ -101,7 +101,7 @@ public partial class DialogService
         {
             DialogType = DialogType.SplashScreen,
             Alignment = HorizontalAlignment.Center,
-            Modal = false,
+            Modal = parameters.Modal,
             PreventDismissOnOverlayClick = parameters.PreventDismissOnOverlayClick,
             ShowDismiss = false,
             ShowTitle = false,

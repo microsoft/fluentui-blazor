@@ -1,11 +1,24 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/HorizontalScroll/FluentHorizontalScroll.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private IJSObjectReference? _jsModule;
+
     /// <summary>
     /// Gets or sets the scroll speed in pixels per second.
     /// </summary>
@@ -42,10 +55,6 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-
-    private IJSObjectReference? _jsModule;
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(HorizontalScrollEventArgs))]
 
     public FluentHorizontalScroll()
@@ -56,7 +65,7 @@ public partial class FluentHorizontalScroll : FluentComponentBase, IAsyncDisposa
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/HorizontalScroll/FluentHorizontalScroll.razor.js");
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 

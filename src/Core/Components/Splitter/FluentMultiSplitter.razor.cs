@@ -5,6 +5,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -14,6 +15,17 @@ public partial class FluentMultiSplitter : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Splitter/FluentMultiSplitter.razor.js";
     private DotNetObjectReference<FluentMultiSplitter>? _objRef = null;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JS { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference Module { get; set; } = default!;
 
     internal List<FluentMultiSplitterPane> Panes { get; } = new();
 
@@ -81,13 +93,6 @@ public partial class FluentMultiSplitter : FluentComponentBase
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("--fluent-multi-splitter-bar-size", BarSize, () => !string.IsNullOrEmpty(BarSize))
         .Build();
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
 
     /// <summary>
     /// Adds the pane.
@@ -335,7 +340,7 @@ public partial class FluentMultiSplitter : FluentComponentBase
         {
             if (firstRender)
             {
-                Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 _objRef = DotNetObjectReference.Create(this);
             }
         }

@@ -95,6 +95,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.JSRuntime">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion.Module">
             <summary />
         </member>
@@ -224,6 +230,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.JSRuntime">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.Download">
             <summary>
             Prompts the user to save the linked URL. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">a element</see> for more information.
@@ -289,6 +301,9 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAnchor.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.JSRuntime">
             <summary />
@@ -796,6 +811,9 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.JSRuntime">
             <summary />
         </member>
@@ -955,6 +973,9 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCheckbox.JSRuntime">
             <summary />
@@ -1711,6 +1732,9 @@
             A component that displays a grid.
             </summary>
             <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Items">
              <summary>
@@ -2946,6 +2970,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.GlobalDesign">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDesignTheme.JSRuntime">
             <summary />
         </member>
@@ -3829,6 +3859,12 @@
             An event that will be invoked when showing a dialog with a custom component
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.JSRuntime">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDivider.Role">
             <summary>
             Gets or sets the role of the element.
@@ -4194,6 +4230,9 @@
             that are used for specific screen sizes.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentGrid.JSRuntime">
             <summary />
         </member>
@@ -4353,6 +4392,12 @@
             <summary>
             If true, highlights the text until the next regex boundary.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentHorizontalScroll.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentHorizontalScroll.JSRuntime">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentHorizontalScroll.Speed">
             <summary>
@@ -4581,6 +4626,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.#ctor">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.LibraryConfiguration">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.JSRuntime">
@@ -4832,6 +4880,9 @@
             <summary>
             Prevent multiple KeyDown events.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.JSRuntime">
             <summary />
@@ -5108,6 +5159,9 @@
             Private KeyCodeListener
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputLabel.JSRuntime">
             <summary />
         </member>
@@ -5215,6 +5269,9 @@
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1"/> class.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.JS">
             <summary />
@@ -5409,6 +5466,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.JSRuntime">
             <summary />
         </member>
@@ -5596,6 +5656,9 @@
             Component that provides a list of options.
             </summary>
             <typeparam name="TOption"></typeparam>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.StyleValue">
             <summary />
@@ -5833,6 +5896,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.LibraryConfiguration">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.JSRuntime">
@@ -6876,6 +6942,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow.ChildContent">
             <summary>
             Gets or sets the content to display.
@@ -6949,6 +7018,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.ChildContent">
             <summary>
             Gets or sets the content to display. All first HTML elements are included in the items flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Fixed">
+            <summary>
+            Gets or sets whether this element does not participate in overflow logic, and will always be visible.
+            Defaults to false
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverflowItem.Overflow">
@@ -7150,7 +7225,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.HorizontalInset">
             <summary>
-            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
             Default is true which places the region aligned with the anchor element.
             </summary>
         </member>
@@ -7487,6 +7562,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.Direction">
             <summary>
             Gets or sets the direction to pull the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentPullToRefresh.ChildContent"/>.
@@ -7736,6 +7814,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRating.UpdateHoverValueAsync(System.Nullable{System.Int32})">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.JSRuntime">
             <summary />
         </member>
@@ -7775,6 +7856,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.Appearance">
             <summary>
             Gets or sets the visual appearance. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.ChildContent">
@@ -7859,6 +7946,9 @@
             <param name = "value">The value to format.</param>
             <returns>A string representation of the value.</returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.JSRuntime">
             <summary />
         </member>
@@ -7886,6 +7976,12 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.OnAfterRenderAsync(System.Boolean)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.JSRuntime">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1.ItemTemplate">
@@ -7959,6 +8055,18 @@
             Gets the index of the item in the list after the update.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.FromListId">
+            <summary>
+            Gets the id of the list the item was in before the update.
+            May be null if no Id was set for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSortableListEventArgs.ToListId">
+            <summary>
+            Gets the id of the list the item is in after the update.
+            May be null if no Id was set for <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSortableList`1"/>
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentSpacer">
             <summary />
         </member>
@@ -7966,6 +8074,15 @@
             <summary>
             Gets or sets the width of the spacer (in pixels).
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.JS">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Module">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.ChildContent">
             <summary>
@@ -8016,12 +8133,6 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.StyleValue">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.JS">
-            <summary />
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.Module">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitter.AddPane(Microsoft.FluentUI.AspNetCore.Components.FluentMultiSplitterPane)">
@@ -8322,6 +8433,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.StyleValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.LibraryConfiguration">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTab.JSRuntime">
             <summary />
         </member>
@@ -8424,6 +8538,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.StyleMoreValues">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.LibraryConfiguration">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTabs.JSRuntime">
@@ -8574,6 +8691,9 @@
             <summary>
             Gets or sets the content to be rendered inside the component.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTextField.LibraryConfiguration">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTextField.JSRuntime">
             <summary />
@@ -9469,6 +9589,7 @@
             This configuration overrides the whole rendering of the bottom-right section of the Wizard,
             including the built-in buttons and thus provides a full control over it.
             Custom Wizard buttons do not trigger the component OnChange and OnFinish events.
+            The OnChange event can be triggered using the <see cref="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)"/> method from your code.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.Steps">
@@ -9502,6 +9623,14 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.OnFinishHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentWizard.GoToStepAsync(System.Int32,System.Boolean)">
+            <summary>
+            Navigate to the specified step, with or without validate the current EditContexts.
+            </summary>
+            <param name="step">Index number of the step to display</param>
+            <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStep.ClassValue">
             <summary />
@@ -9593,6 +9722,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentWizardStepChangeEventArgs.IsCancelled">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.LibraryConfiguration">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignToken`1.Name">
@@ -13608,6 +13740,26 @@
             The component is oriented vertically.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed">
+            <summary>
+            Possibility for an element not to participate in the overflow logic and always remain displayed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed.None">
+            <summary>
+            If the item is out of the display, it disappears.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed.Fixed">
+            <summary>
+            The element is always visible
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.OverflowItemFixed.Ellipsis">
+            <summary>
+            The element is always visible, but its width can be reduced to display "...".
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.PresenceBadgeSize">
             <summary>
             Sizes for presence badge
@@ -14477,6 +14629,11 @@
             Defines the global Fluent UI Blazor component library services configuration
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.AssemblyVersion">
+            <summary>
+            Gets the assembly version formatted as a string.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.UseTooltipServiceProvider">
             <summary>
             Gets or sets a value indicating whether the library should use the TooltipServiceProvider.
@@ -14500,6 +14657,16 @@
             respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
             Default is true.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.CollocatedJavaScriptQueryString">
+            <summary>
+            Gets or sets the function that formats the URL of the collocated JavaScript file,
+            adding the return value as a query string parameter.
+            By default, the function adds a query string parameter with the version of the assembly: `v=[AssemblyVersion]`.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ForUnitTests">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Resources.TimeAgoResource">
             <summary>
