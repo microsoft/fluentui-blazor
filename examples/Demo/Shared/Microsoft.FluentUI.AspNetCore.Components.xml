@@ -7860,8 +7860,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.AutoComplete">
             <summary>
-            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
-            An Id value must be set to use this property.
+            Gets or sets whether a form or an input field should have autocomplete "on" or "off" or another value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.ChildContent">
