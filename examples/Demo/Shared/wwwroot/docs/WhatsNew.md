@@ -19,6 +19,28 @@
 - [Docs] Improve API Documentation performance ([#2377](https://github.com/microsoft/fluentui-blazor/pull/2377))
 - [Docs] Fix some typos ([#2400](https://github.com/microsoft/fluentui-blazor/pull/2400))
 
+### Icons
+- Update to Fluent UI System Icons 1.1.249
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Download / 32 / Light
+    - Color Fill Accent / 32 / Light
+    - Edit Lock / 16, 20, 24 / Filled & Regular
+    - Layout Row Two Settings / 20, 24, 28, 32 / Filled & Light & Regular
+    - Molecule / 32 / Light
+    - Person Board / 20 / Filled & Regular
+    - Person Square Checkmark / 16, 20, 24 / Filled & Regular
+    - Presence Tentative / 10, 12, 16, 20, 24 / Regular
+    - Shield Add / 28, 32, 48 / Filled & Regular
+    - Shield Checkmark / 32 / Filled & Regular
+    - Shield Task / 32 / Filled & Regular
+    - Toolbox / 32 / Filled & Light & Regular
+    - Warning Lock Open / 16, 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Sound Wave Circle / 20 / Filled & Regular
+    - Vehicle Motorcycle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+
 ## v4.9.1
 ### Components
 - [DataGrid] Make `Grid` in `ColumnBase` protected ([#2342](https://github.com/microsoft/fluentui-blazor/pull/2342))
