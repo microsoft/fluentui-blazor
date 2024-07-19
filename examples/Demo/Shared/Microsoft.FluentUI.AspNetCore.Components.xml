@@ -7858,6 +7858,12 @@
             Gets or sets the visual appearance. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance"/>
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSearch.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
