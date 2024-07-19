@@ -1,3 +1,24 @@
+## v4.9.2
+### Components
+- [General] JavaScript Cache management ([#2388](https://github.com/microsoft/fluentui-blazor/pull/2388))
+- [DataGrid] Avoid excessive calling of reinitialize method in JavaScript ([#2403](https://github.com/microsoft/fluentui-blazor/pull/2403))
+- [DatePicker] Fix default position for RTL layout ([#2372](https://github.com/microsoft/fluentui-blazor/pull/2372))
+- [MenuButton] Fix icon size ([#2374](https://github.com/microsoft/fluentui-blazor/pull/2374))
+- [MultiSplitter] Fix RTL direction ([#2380](https://github.com/microsoft/fluentui-blazor/pull/2380))
+- [Overflow] Add `Fixed` parameter ([#2393](https://github.com/microsoft/fluentui-blazor/pull/2393))
+- [Overflow] Add `Fixed` enumeration ([#2401](https://github.com/microsoft/fluentui-blazor/pull/2401))
+- [Search] Add `AutoComplete` parameter ([#2397]((https://github.com/microsoft/fluentui-blazor/pull/2397)))
+- [Select] Fix logic when setting new option ([#2384](https://github.com/microsoft/fluentui-blazor/pull/2384))
+- [SortableList] Adding Properties `FromListId` and `ToListId` ([#2385](https://github.com/microsoft/fluentui-blazor/pull/2385))
+- [SplashScreen] Pass parameters.Modal to `ShowSplashScreen...` methods ([#2398](https://github.com/microsoft/fluentui-blazor/pull/2398))
+- [TreeView] Fix the first item never selected [#2414](https://github.com/microsoft/fluentui-blazor/pull/2414)
+- [Wizard] Add `GoToStepAsync` method ([#2383](https://github.com/microsoft/fluentui-blazor/pull/2383))
+- [Wizard] Fix validation when `@bind-Value` is set ([#2364](https://github.com/microsoft/fluentui-blazor/pull/2364))
+
+### Demo site and documentation
+- [Docs] Better column distribution for homepage ([#2360](https://github.com/microsoft/fluentui-blazor/pull/2360))
+- [Docs] Improve API Documentation performance ([#2377](https://github.com/microsoft/fluentui-blazor/pull/2377))
+- [Docs] Fix some typos ([#2400](https://github.com/microsoft/fluentui-blazor/pull/2400))
 
 ## v4.9.1
 ### Components
