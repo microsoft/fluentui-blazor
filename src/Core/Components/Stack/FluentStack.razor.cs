@@ -5,6 +5,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentStack : FluentComponentBase
 {
+    private RenderFragment? _cachedContent;
+    private bool _shouldRender;
+
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
         .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
@@ -25,7 +28,7 @@ public partial class FluentStack : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// Gets or sets the horizontal alignment of the components in the stack. 
+    /// Gets or sets the horizontal alignment of the components in the stack.
     /// </summary>
     [Parameter]
     public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
@@ -37,7 +40,7 @@ public partial class FluentStack : FluentComponentBase
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Top;
 
     /// <summary>
-    /// Gets or sets the orientation of the stacked components. 
+    /// Gets or sets the orientation of the stacked components.
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -73,6 +76,25 @@ public partial class FluentStack : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (ChildContent != _cachedContent)
+        {
+            _cachedContent = ChildContent;
+            _shouldRender = true;
+        }
+        else
+        {
+            _shouldRender = false;
+        }
+    }
+
+
+    protected override bool ShouldRender()
+    {
+        return _shouldRender;
+    }
 
     private string GetHorizontalAlignment()
     {
