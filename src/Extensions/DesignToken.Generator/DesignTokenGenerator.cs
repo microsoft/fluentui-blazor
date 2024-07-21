@@ -66,7 +66,8 @@ public class DesignTokenGenerator : IIncrementalGenerator
             sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
             sb.AppendLine("\t/// </summary>");
             sb.AppendLine("\t/// <param name=\"jsRuntime\">IJSRuntime reference</param>");
-            sb.AppendLine($"\tpublic {name}(IJSRuntime jsRuntime) : base(jsRuntime)");
+            sb.AppendLine("\t/// <param name=\"libraryConfiguration\">LibraryConfiguration reference</param>");
+            sb.AppendLine($"\tpublic {name}(IJSRuntime jsRuntime, LibraryConfiguration libraryConfiguration) : base(jsRuntime, libraryConfiguration)");
             sb.AppendLine("\t{");
             sb.AppendLine($"\t\tName = Constants.{name};");
             sb.AppendLine("\t}");
