@@ -77,17 +77,18 @@ public partial class FluentStack : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override void OnParametersSet()
-    {
-        if (ChildContent != _cachedContent)
-        {
-            _cachedContent = ChildContent;
-        }
-        else
-        {
-            _shouldRender = false;
-        }
-    }
+    //protected override void OnParametersSet()
+    //{
+    //    if (ChildContent != _cachedContent)
+    //    {
+    //        _cachedContent = ChildContent;
+    //        _shouldRender = true;
+    //    }
+    //    else
+    //    {
+    //        _shouldRender = false;
+    //    }
+    //}
 
 
     protected override bool ShouldRender()

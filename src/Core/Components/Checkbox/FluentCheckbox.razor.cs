@@ -211,7 +211,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
         else
         {
             await SetCurrentValueAsync(e.Checked ?? false);
-            await SetIntermediateAsync(false);
+            //await SetIntermediateAsync(false);
             await UpdateAndRaiseCheckStateEventAsync(e.Checked ?? false);
         }
     }
