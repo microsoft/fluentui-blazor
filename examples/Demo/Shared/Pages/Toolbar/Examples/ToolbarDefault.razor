@@ -1,7 +1,4 @@
-﻿@inject FillColor FillColor
-@inject BaseLayerLuminance BaseLayerLuminance
-
-<FluentToolbar id="toolbar-fluent-components">
+﻿<FluentToolbar id="toolbar-fluent-components">
     <FluentButton Appearance="Appearance.Accent">Accent Button</FluentButton>
     <FluentButton Appearance="Appearance.Stealth">Stealth Button</FluentButton>
     <FluentRadioGroup @bind-Value=value1>
@@ -56,9 +53,6 @@
     {
         if (firstRender)
         {
-            await FillColor.SetValueFor(Toolbar!.Element, "#333");
-            await BaseLayerLuminance.SetValueFor(Toolbar!.Element, (float)0.15);
-
             StateHasChanged();
         }
     }
