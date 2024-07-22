@@ -63,7 +63,19 @@
 
 ::deep .fluent-appbar-item:hover svg[part="icon-rest"],
 ::deep .fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
-::deep .fluent-appbar-item:not(:hover).active svg[part="icon-rest"],
+::deep .fluent-appbar-item:not(:hover) a.active svg[part="icon-rest"],
 ::deep .fluent-appbar-item[overflow] {
     display: none;
+}
+
+::deep .fluent-appbar-item:not(:hover) .active svg[part="icon-active"] {
+    display: block;
+}
+
+::deep .fluent-appbar-item.popover:not(:hover) a.active svg[part="icon-active"] {
+    display: none;
+}
+
+::deep .fluent-appbar-item.popover:not(:hover) a.active svg[part="icon-rest"] {
+    display: block;
 }

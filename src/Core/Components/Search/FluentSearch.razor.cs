@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -7,6 +8,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSearch : FluentInputBase<string?>
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Search/FluentSearch.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -58,6 +63,12 @@ public partial class FluentSearch : FluentInputBase<string?>
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
     /// <summary>
+    /// Gets or sets whether a form or an input field should have autocomplete "on" or "off" or another value.
+    /// </summary>
+    [Parameter]
+    public string? AutoComplete { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -74,11 +85,13 @@ public partial class FluentSearch : FluentInputBase<string?>
 
         if (firstRender)
         {
-            //if (!string.IsNullOrEmpty(Id))
-            //{
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await Module.InvokeVoidAsync("addAriaHidden", Id);
-            //}
+
+            if (AutoComplete != null)
+            {
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
+            }
         }
     }
 

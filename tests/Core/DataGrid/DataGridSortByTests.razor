@@ -9,6 +9,7 @@
     public DataGridSortByTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
 
         // Register Service
         var keycodeService = new KeyCodeService();

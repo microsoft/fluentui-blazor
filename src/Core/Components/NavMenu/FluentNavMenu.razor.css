@@ -72,19 +72,19 @@
 }
 
 /* level indenting */
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 24px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 48px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 72px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 96px;
 }
 

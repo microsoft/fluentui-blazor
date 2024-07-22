@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -9,6 +10,14 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js";
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
@@ -91,9 +100,6 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
 
     private string Filter => Items.Any(GetItemFiltered) ? ".filtered" : string.Empty;
 
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         try
@@ -101,7 +107,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
             if (firstRender)
             {
                 _selfReference = DotNetObjectReference.Create(this);
-                IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                IJSObjectReference? module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await module.InvokeAsync<string>("init", Element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
             }
         }
@@ -126,22 +132,22 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     }
 
     [JSInvokable]
-    public void OnUpdateJS(int oldIndex, int newIndex)
+    public void OnUpdateJS(int oldIndex, int newIndex, string fromListId, string toListId)
     {
         if (OnUpdate.HasDelegate)
         {
-            // invoke the OnUpdate event passing in the oldIndex and the newIndex
-            OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
+            // invoke the OnUpdate event passing in the oldIndex, the newIndex, the fromId and the toId
+            OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
     }
 
     [JSInvokable]
-    public void OnRemoveJS(int oldIndex, int newIndex)
+    public void OnRemoveJS(int oldIndex, int newIndex, string fromListId, string toListId)
     {
         if (OnRemove.HasDelegate)
         {
             // remove the item from the list
-            OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex));
+            OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
     }
 

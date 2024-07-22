@@ -1,12 +1,12 @@
 ﻿@using Xunit;
 @inherits TestContext
+
 @code
 {
     public class Item
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
-
         public bool Disabled { get; set; } = false;
     }
 
@@ -15,25 +15,88 @@
     public FluentSortableListTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
-        //JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js");
-        //JSInterop.Setup<IJSObjectReference>("init", _ => true);
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]
     public void FluentSortableList_Default()
     {
         // Arrange && Act
-       
+
         var cut = Render(@<FluentSortableList Items="items">
-                             <ItemTemplate>
-                                <div class="sortable-item">@context.Name</div>
-                             </ItemTemplate>
-                          </FluentSortableList>);
+            <ItemTemplate>
+                <div class="sortable-item">@context.Name</div>
+            </ItemTemplate>
+        </FluentSortableList>);
 
         // Assert
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentSortableList_IdIsAdded()
+    {
+        // Arrange && Act
 
+        var cut = Render(@<FluentSortableList Id="list" Items="items">
+            <ItemTemplate>
+                <div class="sortable-item">@context.Name</div>
+            </ItemTemplate>
+        </FluentSortableList>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSortableList_OnUpdate()
+    {
+        // Arrange
+        FluentSortableListEventArgs? args = null;
+        var callback = new EventCallbackFactory().Create<AspNetCore.Components.FluentSortableListEventArgs>
+            (this, (e => args = e));
+        var sortableList = new FluentSortableList<Item>()
+        {
+            Items = items,
+            OnUpdate = callback
+        };
+
+        // Act
+        sortableList.OnUpdateJS(0, 1, "fromList", "toList");
+
+        // Verify
+        Assert.Equal(new FluentSortableListEventArgs(0, 1, "fromList", "toList"), args,
+            FluentSortableListEventArgsComparer);
+    }
+
+    private static bool FluentSortableListEventArgsComparer(FluentSortableListEventArgs? first, FluentSortableListEventArgs? second)
+    {
+        if (first is null || second is null)
+        {
+            return false;
+        }
+
+        if (first.FromListId is null || !first.FromListId.Equals(second.FromListId))
+        {
+            return false;
+        }
+
+        if (first.ToListId is null || !first.ToListId.Equals(second.ToListId))
+        {
+            return false;
+        }
+
+        if (first.OldIndex != second.OldIndex)
+        {
+            return false;
+        }
+
+        if (first.NewIndex != second.NewIndex)
+        {
+            return false;
+        }
+
+        return true;
+    }
 
 }

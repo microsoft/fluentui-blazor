@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 
@@ -9,6 +10,7 @@ public class FluentNavGroupTests : TestBase
     public FluentNavGroupTests()
     {
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

@@ -25,7 +25,7 @@
 </p>
 <p>
     For defining the information to display in the <code>MessageBox</code>, the <code>MessageBoxData</code> class is used. See the API documentation
-    below for the avialable properties.
+    below for the available properties.
 </p>
 <p>
     The <code>MessageBoxData</code> class is then used as the generic type parameter for the <code>DialogParameters</code> class.
@@ -38,6 +38,11 @@
     outside of the dialog. Clicking <code>PrimaryButton</code> will return <code>true</code> and clicking <code>SecondaryButton</code> will
     return <code>false</code> as the dialog result. See the Console log for these return values.
 </p>
+<p>
+    Internally, the <code>ShowMessageBox</code> methods call the <code>ShowDialog</code> methods. If is possible to directly call these methods and thereby have
+    access to all of the parameters. The <code>ShowMessageBox</code> variants are just convenience methods that make ite easier to work with panels.
+</p>
+
 
 <h2 id="example">Example</h2>
 

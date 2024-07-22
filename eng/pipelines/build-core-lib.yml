@@ -43,12 +43,12 @@ pr:
 
 parameters:
   - name: Projects  	    # List of projects to build
-    type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.csproj'
+    default: |
+      **/Microsoft.FluentUI.AspNetCore.Components.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
-    type: string
-    default: '**/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj'
+    default: |
+      **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -175,6 +175,7 @@ extends:
             projects: ${{ parameters.Projects }}
             feedsToUse: config
             nugetConfigPath: nuget.config
+            includeNuGetOrg: false
 
         # NPM install Core.Assets
         - task: Npm@1

@@ -1,4 +1,4 @@
-﻿.fluent-multi-splitter {
+.fluent-multi-splitter {
     /* Resize Icon colors */
     --fluent-multi-splitter-color: var(--neutral-stroke-strong-rest);
     --fluent-multi-splitter-color-active: var(--neutral-stroke-strong-hover);
@@ -103,7 +103,11 @@
     }
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
-            content: '\025C0;';            
+            content: '\025C0';            
+        }
+
+        [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
+            content: '\025B6';
         }
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="resize"] {
@@ -112,7 +116,11 @@
         }
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
-            content: '\025B6;';
+            content: '\025B6';
+        }
+
+        [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
+            content: '\025C0';
         }
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar[status="resizable"]:hover {
@@ -130,7 +138,7 @@
     }
 
         .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
-            content: '\025B2;';
+            content: '\025B2';
         }
 
         .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar > span[part="resize"] {
@@ -139,7 +147,7 @@
         }
 
         .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
-            content: '\025BC;';
+            content: '\025BC';
         }
 
         .fluent-multi-splitter[orientation="vertical"] ::deep > .fluent-multi-splitter-bar[status="resizable"]:hover {
@@ -151,6 +159,8 @@
     overflow: hidden;
     position: relative;
     flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
     .fluent-multi-splitter ::deep > .fluent-multi-splitter-pane[status="collapsed"] {

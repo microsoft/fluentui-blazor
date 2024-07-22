@@ -56,7 +56,7 @@
     {
         if (firstRender)
         {
-            await FillColor.SetValueFor(Toolbar!.Element, "#333".ToSwatch());
+            await FillColor.SetValueFor(Toolbar!.Element, "#333");
             await BaseLayerLuminance.SetValueFor(Toolbar!.Element, (float)0.15);
 
             StateHasChanged();

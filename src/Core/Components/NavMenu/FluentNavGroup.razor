@@ -14,7 +14,8 @@
                      @attributes="@Attributes"
                      Match="@Match"
                      ActiveClass="@ActiveClass"
-                     title="@(Tooltip ?? Title)">
+                     title="@(Tooltip ?? Title)"
+                     onclick="@CustomToggleCode">
                 <div class="positioning-region">
                     <div class="content-region">
                         @_renderContent
@@ -26,7 +27,7 @@
         else
         {
             <div class="fluent-nav-link notactive" tabindex="@(Disabled ? "-1" : "0")">
-                <div class="positioning-region" @onclick="ToggleExpandedAsync" title="@(Tooltip ?? Title)">
+                <div class="positioning-region" @onclick="ToggleExpandedAsync" @onclick:stopPropagation="true" title="@(Tooltip ?? Title)">
                     <div class="content-region">
                         @_renderContent
                         @_renderButton
@@ -36,7 +37,7 @@
         }
 
         <FluentCollapsibleRegion @bind-Expanded="@Expanded" MaxHeight="@MaxHeight" Class="items" role="group">
-            <FluentNavMenu Data="_data">
+            <FluentNavMenu Data="_data" CustomToggle="Owner.CustomToggle">
                 @ChildContent
             </FluentNavMenu>
         </FluentCollapsibleRegion>

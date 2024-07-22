@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -8,6 +9,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentMenu : FluentComponentBase, IDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js";
+
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;
     private bool _contextMenu = false;
@@ -32,6 +35,10 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         .AddStyle("left", $"{_clickedPoint.X}px", () => !Anchored && _clickedPoint.X != 0)
         .AddStyle("top", $"{_clickedPoint.Y}px", () => !Anchored && _clickedPoint.Y != 0)
         .Build();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -134,8 +141,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         {
             if (Trigger != MouseButton.None)
             {
-                _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                    "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js");
+                _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
                 _dotNetHelper = DotNetObjectReference.Create(this);
 

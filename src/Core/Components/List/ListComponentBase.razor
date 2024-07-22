@@ -11,6 +11,11 @@
     private void RenderOptions(RenderTreeBuilder __builder)
     {
 
+        if (!string.IsNullOrEmpty(Placeholder) && this is FluentSelect<TOption>)
+        {
+            <FluentOption TOption="TOption" Value="" Style="display:none;" aria-hidden="true">@Placeholder</FluentOption>
+        }
+
         if (Items is null)
         {
             @ChildContent

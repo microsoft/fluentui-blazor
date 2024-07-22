@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
@@ -19,6 +20,20 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    [Inject]
+    private IServiceProvider Services { get; set; } = default!;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private IKeyCodeService KeyCodeService { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets a queryable source of data for the grid.
     ///
@@ -28,20 +43,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
-    [Parameter] public IQueryable<TGridItem>? Items { get; set; }
+    [Parameter]
+    public IQueryable<TGridItem>? Items { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that supplies data for the rid.
     ///
     /// You should supply either <see cref="Items"/> or <see cref="ItemsProvider"/>, but not both.
     /// </summary>
-    [Parameter] public GridItemsProvider<TGridItem>? ItemsProvider { get; set; }
+    [Parameter]
+    public GridItemsProvider<TGridItem>? ItemsProvider { get; set; }
 
     /// <summary>
     /// Gets or sets the child components of this instance. For example, you may define columns by adding
     /// components derived from the <see cref="ColumnBase{TGridItem}"/> base class.
     /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// If true, the grid will be rendered with virtualization. This is normally used in conjunction with
@@ -54,20 +72,35 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered
     /// is small or if you are using pagination.
     /// </summary>
-    [Parameter] public bool Virtualize { get; set; }
+    [Parameter]
+    public bool Virtualize { get; set; }
 
     /// <summary>
     /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
     /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
     /// size and to ensure accurate scrolling.
     /// </summary>
-    [Parameter] public float ItemSize { get; set; } = 32;
+    [Parameter]
+    public float ItemSize { get; set; } = 32;
 
     /// <summary>
     /// If true, renders draggable handles around the column headers, allowing the user to resize the columns
     /// manually. Size changes are not persisted.
     /// </summary>
-    [Parameter] public bool ResizableColumns { get; set; }
+    [Parameter]
+    public bool ResizableColumns { get; set; }
+
+    /// <summary>
+    /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
+    /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
+    /// Discrete: resize by a 10 pixels at a time
+    /// Exact: resize to the exact width specified (in pixels)
+    /// </summary>
+    [Parameter]
+    public DataGridResizeType? ResizeType { get; set; }
+
+    [Parameter]
+    public string ResizeLabel { get; set; } = "Column width (in pixels)";
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -79,7 +112,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     ///
     /// If not set, the @key will be the <typeparamref name="TGridItem"/> instance itself.
     /// </summary>
-    [Parameter] public Func<TGridItem, object> ItemKey { get; set; } = x => x!;
+    [Parameter]
+    public Func<TGridItem, object> ItemKey { get; set; } = x => x!;
 
     /// <summary>
     /// Optionally links this <see cref="FluentDataGrid{TGridItem}"/> instance with a <see cref="PaginationState"/> model,
@@ -88,7 +122,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// This is normally used in conjunction with a <see cref="FluentPaginator"/> component or some other UI logic
     /// that displays and updates the supplied <see cref="PaginationState"/> instance.
     /// </summary>
-    [Parameter] public PaginationState? Pagination { get; set; }
+    [Parameter]
+    public PaginationState? Pagination { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the component will not add itself to the tab queue.
@@ -125,6 +160,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback when a cell is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentDataGridCell<TGridItem>> OnCellClick { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback when a row is clicked.
     /// </summary>
     [Parameter]
@@ -139,43 +180,40 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
-    [Parameter] public Func<TGridItem, string>? RowClass { get; set; }
+    [Parameter]
+    public Func<TGridItem, string>? RowClass { get; set; }
 
     /// <summary>
     /// Optionally defines a style to be applied to a rendered row.
     /// Do not use to dynamically update a row style after rendering as this will interfere with the script that use this attribute. Use <see cref="RowClass"/> instead.
     /// </summary>
-    [Parameter] public Func<TGridItem, string>? RowStyle { get; set; }
+    [Parameter]
+    public Func<TGridItem, string>? RowStyle { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid should show a hover effect on rows.
     /// </summary>
-    [Parameter] public bool ShowHover { get; set; }
+    [Parameter]
+    public bool ShowHover { get; set; }
 
     /// <summary>
     /// If specified, grids render this fragment when there is no content.
     /// </summary>
-    [Parameter] public RenderFragment? EmptyContent { get; set; }
+    [Parameter]
+    public RenderFragment? EmptyContent { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid is in a loading data state.
     /// </summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
 
     /// <summary>
     /// Gets or sets the content to render when <see cref="Loading"/> is true.
     /// A default fragment is used if loading content is not specified.
     /// </summary>
-    [Parameter] public RenderFragment? LoadingContent { get; set; }
-
-    [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-    [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
-
-    /// <summary>
-    /// Gets the first (optional) SelectColumn
-    /// </summary>
-    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
+    [Parameter]
+    public RenderFragment? LoadingContent { get; set; }
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -187,7 +225,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
-    private readonly List<ColumnBase<TGridItem>> _columns;
+    internal readonly List<ColumnBase<TGridItem>> _columns;
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
@@ -286,7 +324,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (firstRender && _gridReference is not null)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             try
             {
                 _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
@@ -430,6 +468,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         StateHasChanged();
         return Task.CompletedTask;
     }
+
     public void SetLoadingState(bool loading)
     {
         Loading = loading;
@@ -464,7 +503,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         else
         {
             // If we're not using Virtualize, we build and execute a request against the items provider directly
-            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
@@ -477,6 +515,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
+            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
         }
 
         StateHasChanged();
@@ -649,25 +688,33 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (args.Value == "-")
         {
-            await SetColumnWidthAsync(-10);
+            await SetColumnWidthDiscreteAsync(null, -10);
         }
         if (args.Value == "+")
         {
             //  Resize column up
-            await SetColumnWidthAsync(10);
+            await SetColumnWidthDiscreteAsync(null, 10);
         }
         //return Task.CompletedTask;
     }
 
-    private async Task SetColumnWidthAsync(float widthChange)
+    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
-            await Module.InvokeVoidAsync("resizeColumn", _gridReference, widthChange);
+            await Module.InvokeVoidAsync("resizeColumnDiscrete", _gridReference, columnIndex, widthChange);
         }
     }
 
-    private async Task ResetColumnWidthsAsync()
+    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    {
+        if (_gridReference is not null && Module is not null)
+        {
+            await Module.InvokeVoidAsync("resizeColumnExact", _gridReference, columnIndex, width);
+        }
+    }
+
+    internal async Task ResetColumnWidthsAsync()
     {
         if (_gridReference is not null && Module is not null)
         {

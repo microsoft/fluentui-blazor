@@ -1,7 +1,7 @@
 let resizeObserver;
 let observerAddRemove;
 
-export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
+export function fluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector) {
     var localSelector = querySelector;
     if (!localSelector) {
         // cannot use :scope for node.matches() further down
@@ -23,13 +23,13 @@ export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
                 return;
             }
 
-            FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelector);
+            fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelector);
         });
     });
 
     // Create a ResizeObserver, started later
     resizeObserver = new ResizeObserver((entries) => {
-        FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelector);
+        fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelector);
     });
 
     // Start the resize observation
@@ -42,7 +42,7 @@ export function FluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
 
 // When the Element[id] is resized, set overflow attribute to all element outside of this element.
 // Except for elements with fixed attribute.
-export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelector) {
+export function fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelector) {
     let container = document.getElementById(id);                                  // Container
     if (!container) return;
 
@@ -60,6 +60,8 @@ export function FluentOverflowResized(dotNetHelper, id, isHorizontal, querySelec
     let overflowChanged = false;
     let containerGap = parseFloat(window.getComputedStyle(container).gap);
     if (!containerGap) containerGap = 0;
+
+    containerMaxSize -= 25; // Account for the overflow bage width
 
     // Size of all fixed elements
     fixedItems.forEach(element => {

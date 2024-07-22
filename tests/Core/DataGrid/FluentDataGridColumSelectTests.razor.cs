@@ -12,6 +12,7 @@ public partial class FluentDataGridColumSelectTests
     public FluentDataGridColumSelectTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
 
         // Register Service
         var keycodeService = new KeyCodeService();

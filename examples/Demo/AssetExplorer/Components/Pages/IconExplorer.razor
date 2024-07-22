@@ -14,13 +14,13 @@
     <FluentGrid Style="width: 100%;" Spacing="1">
         <FluentGridItem Style="min-width: 200px;">
             <FluentSearch @bind-Value="@Criteria.SearchTerm"
-                          @bind-Value:after="@StartNewSearchAsync"
+                          @bind-Value:after="@(() => StartNewSearchAsync(nameof(Criteria.SearchTerm)))"
                           Placeholder="Part of icon name..." />
         </FluentGridItem>
         <FluentGridItem Gap="0">
             <FluentSelect TOption="int"
                           @bind-SelectedOption="@Criteria.Size"
-                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          @bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Size)))"
                           Style="min-width: 100px;"
                           Items="@AllAvailableSizes"
                           OptionText="@(i => i > 0 ? $"Size{i}" : "[All]")" />
@@ -28,21 +28,21 @@
         <FluentGridItem>
             <FluentSelect TOption="IconVariant"
                           @bind-SelectedOption="@Criteria.Variant"
-                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          @bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Variant)))"
                           Style="min-width: 100px;"
                           Items="@(Enum.GetValues<IconVariant>())" />
         </FluentGridItem>
         <FluentGridItem>
             <FluentSelect TOption="Color"
                           @bind-SelectedOption="@Criteria.Color"
-                          @bind-SelectedOption:after="@StartNewSearchAsync"
+                          @bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Color)))"
                           Style="min-width: 100px;"
                           Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
                           OptionValue="@(i => i.ToAttributeValue())" />
         </FluentGridItem>
         <FluentGridItem>
             <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
-                          OnClick="@StartNewSearchAsync" />
+                          OnClick="@(() => StartNewSearchAsync(string.Empty))" />
         </FluentGridItem>
     </FluentGrid>
 

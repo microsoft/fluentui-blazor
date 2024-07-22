@@ -1,0 +1,45 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentInputBase<int>
+
+@if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
+{
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">@LabelTemplate</FluentInputLabel>
+}
+
+<div Id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     role="radiogroup"
+     aria-readonly="@(ReadOnly ? "true" : null)"
+     @onmouseleave="@OnMouseLeaveAsync">
+
+    @foreach (var index in Enumerable.Range(1, Max))
+    {
+        @if (ReadOnly || Disabled)
+        {
+            <FluentIcon Value="@GetIcon(index)"
+                        Width="@IconWidth"
+                        Color="@(Disabled && IconColor != Color.Custom  ? Color.Disabled :  IconColor)"
+                        CustomColor="@IconCustomColor"
+                        selected="@(index == Value)"
+                        aria-hidden="true" />
+        }
+        else
+        {
+            <input type="radio" checked="@(index == Value)" name="@GroupName"
+                   value="@index"
+                   aria-label="@Label"
+                   @onfocus="@(() => OnClickAsync(index, fromFocus: true))" />
+
+            <FluentIcon Value="@GetIcon(index)"
+                        Width="@IconWidth"
+                        Color="IconColor"
+                        CustomColor="@IconCustomColor"
+                        OnClick="@(() => OnClickAsync(index))"
+                        @onmouseleave="@(() => _updatingCurrentValue = false)"
+                        @onmouseenter="@(() => OnMouseEnterAsync(index))"
+                        selected="@(index == Value)"
+                        aria-hidden="true" />
+        }
+    }
+</div>
