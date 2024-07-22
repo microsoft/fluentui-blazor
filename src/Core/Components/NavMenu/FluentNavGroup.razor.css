@@ -26,7 +26,7 @@
 
 /* Group expand/collapse */
 ::deep .expand-collapse-button {
-    position: absolute;
+    /*position: absolute;*/
     right: calc(var(--design-unit) * 2px);
     left: unset;
     border-radius: calc(var(--control-corner-radius) * 1px);
@@ -63,4 +63,4 @@
 
 :not(.expanded) ::deep .items {
     display: none;
-} 
+}
