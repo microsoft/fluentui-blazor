@@ -7,7 +7,7 @@
 - [MultiSplitter] Fix RTL direction ([#2380](https://github.com/microsoft/fluentui-blazor/pull/2380))
 - [Overflow] Add `Fixed` parameter ([#2393](https://github.com/microsoft/fluentui-blazor/pull/2393))
 - [Overflow] Add `Fixed` enumeration ([#2401](https://github.com/microsoft/fluentui-blazor/pull/2401))
-- [Search] Add `AutoComplete` parameter ([#2397]((https://github.com/microsoft/fluentui-blazor/pull/2397)))
+- [Search] Add `AutoComplete` parameter ([#2397](https://github.com/microsoft/fluentui-blazor/pull/2397))
 - [Select] Fix logic when setting new option ([#2384](https://github.com/microsoft/fluentui-blazor/pull/2384))
 - [SortableList] Adding Properties `FromListId` and `ToListId` ([#2385](https://github.com/microsoft/fluentui-blazor/pull/2385))
 - [SplashScreen] Pass parameters.Modal to `ShowSplashScreen...` methods ([#2398](https://github.com/microsoft/fluentui-blazor/pull/2398))
