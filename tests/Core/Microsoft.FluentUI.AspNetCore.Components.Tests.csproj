@@ -60,12 +60,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Slider\FluentSliderLabelTests.FluentSliderLaber_Default.verified.html">
-      <DependentUpon>FluentSliderLabelTests.cs</DependentUpon>
-    </None>
-    <None Update="Slider\FluentSliderLabelTests.FluentSliderLaber_Default.verified.html">
-      <DependentUpon>FluentSliderLabelTests.cs</DependentUpon>
-    </None>
-  </ItemGroup>
 </Project>
