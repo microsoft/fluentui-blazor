@@ -51,9 +51,10 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <summary>
     /// Constructs an instance of a DesignToken.
     /// </summary>
-    public DesignToken(IJSRuntime jsRuntime)
+    public DesignToken(IJSRuntime jsRuntime, LibraryConfiguration libraryConfiguration)
     {
         JSRuntime = jsRuntime;
+        LibraryConfiguration = libraryConfiguration;
     }
 
     /// <inheritdoc/>

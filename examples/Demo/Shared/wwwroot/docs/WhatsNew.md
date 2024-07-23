@@ -1,3 +1,13 @@
+## v4.9.3
+### Components
+- [General] Inject LibraryConfiguring into DesignToken ([#2426](https://github.com/microsoft/fluentui-blazor/pull/2426))
+- [Accordion] Add Id ([#2420](https://github.com/microsoft/fluentui-blazor/pull/2420))
+- [Templates] Replace faulty `Appearance.Filled` with `Appearance.Accent` for buttons ([#2436](https://github.com/microsoft/fluentui-blazor/pull/2436))
+
+### Demo site and documentation
+- [Docs] Fix broken GitHub link ([#2442](https://github.com/microsoft/fluentui-blazor/pull/2442))
+
+
 ## v4.9.2
 ### Components
 - [General] JavaScript Cache management ([#2388](https://github.com/microsoft/fluentui-blazor/pull/2388))
@@ -7,7 +17,7 @@
 - [MultiSplitter] Fix RTL direction ([#2380](https://github.com/microsoft/fluentui-blazor/pull/2380))
 - [Overflow] Add `Fixed` parameter ([#2393](https://github.com/microsoft/fluentui-blazor/pull/2393))
 - [Overflow] Add `Fixed` enumeration ([#2401](https://github.com/microsoft/fluentui-blazor/pull/2401))
-- [Search] Add `AutoComplete` parameter ([#2397]((https://github.com/microsoft/fluentui-blazor/pull/2397)))
+- [Search] Add `AutoComplete` parameter ([#2397](https://github.com/microsoft/fluentui-blazor/pull/2397))
 - [Select] Fix logic when setting new option ([#2384](https://github.com/microsoft/fluentui-blazor/pull/2384))
 - [SortableList] Adding Properties `FromListId` and `ToListId` ([#2385](https://github.com/microsoft/fluentui-blazor/pull/2385))
 - [SplashScreen] Pass parameters.Modal to `ShowSplashScreen...` methods ([#2398](https://github.com/microsoft/fluentui-blazor/pull/2398))
