@@ -59,5 +59,4 @@
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
   </ItemGroup>
-
 </Project>
