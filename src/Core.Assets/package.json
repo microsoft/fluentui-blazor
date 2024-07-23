@@ -22,6 +22,6 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "@fluentui/web-components" : "3.0.0-beta.46"
+    "@fluentui/web-components" : "3.0.0-beta.47"
   }
 }

@@ -1,6 +1,6 @@
 ﻿<div>
     <FluentAccordion>
-        <FluentAccordionItem Expanded="_expanded" Heading="@Heading" id="toc" role="doc-toc" marker-position="end" block="true">
+        <FluentAccordionItem Expanded="_expanded" Heading="@Heading" id="toc" role="doc-toc" marker-position="start" block="true">
             <span slot="start">
                 <FluentIcon Value="@(new Icons.Regular.Size20.TextBulletListTree())" Color="@Color.Accent" />
             </span>
