@@ -136,7 +136,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <summary>
     /// Get Total Item Count.
     /// </summary>
-    public int TotalItemCount => InternalGridContext.TotalItemCount;
+    protected int TotalItemCount => InternalGridContext.TotalItemCount;
 
     /// <summary>
     /// Event callback for when the row is clicked.
