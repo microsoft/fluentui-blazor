@@ -129,6 +129,16 @@ public abstract partial class ColumnBase<TGridItem>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary>
+    /// Get items.
+    /// </summary>
+    protected ICollection<TGridItem> Items => InternalGridContext.Items;
+
+    /// <summary>
+    /// Get Total Item Count
+    /// </summary>
+    public int TotalItemCount => InternalGridContext.TotalItemCount;
+
+    /// <summary>
     /// Event callback for when the row is clicked.
     /// </summary>
     /// <param name="row"></param>
