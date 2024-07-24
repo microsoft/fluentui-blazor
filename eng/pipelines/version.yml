@@ -2,5 +2,5 @@ variables:
   # File and Package version
   # dev  branch: 1.2.4-Preview-23282-1'    (PackageSuffix is always ignored in Dev branch)
   # main branch: 1.2.4-RC.1'               (PackageSuffix is ignored, if empty, in Main branch)
-  FileVersion: '4.9.2'   # Set the next final version here.
+  FileVersion: '4.9.3'   # Set the next final version here.
   PackageSuffix: ''

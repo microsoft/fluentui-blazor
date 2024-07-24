@@ -1,3 +1,55 @@
+## v4.9.3
+### Components
+- [General] Inject LibraryConfiguring into DesignToken ([#2426](https://github.com/microsoft/fluentui-blazor/pull/2426))
+- [Accordion] Add Id ([#2420](https://github.com/microsoft/fluentui-blazor/pull/2420))
+- [Templates] Replace faulty `Appearance.Filled` with `Appearance.Accent` for buttons ([#2436](https://github.com/microsoft/fluentui-blazor/pull/2436))
+
+### Demo site and documentation
+- [Docs] Fix broken GitHub link ([#2442](https://github.com/microsoft/fluentui-blazor/pull/2442))
+
+
+## v4.9.2
+### Components
+- [General] JavaScript Cache management ([#2388](https://github.com/microsoft/fluentui-blazor/pull/2388))
+- [DataGrid] Avoid excessive calling of reinitialize method in JavaScript ([#2403](https://github.com/microsoft/fluentui-blazor/pull/2403))
+- [DatePicker] Fix default position for RTL layout ([#2372](https://github.com/microsoft/fluentui-blazor/pull/2372))
+- [MenuButton] Fix icon size ([#2374](https://github.com/microsoft/fluentui-blazor/pull/2374))
+- [MultiSplitter] Fix RTL direction ([#2380](https://github.com/microsoft/fluentui-blazor/pull/2380))
+- [Overflow] Add `Fixed` parameter ([#2393](https://github.com/microsoft/fluentui-blazor/pull/2393))
+- [Overflow] Add `Fixed` enumeration ([#2401](https://github.com/microsoft/fluentui-blazor/pull/2401))
+- [Search] Add `AutoComplete` parameter ([#2397](https://github.com/microsoft/fluentui-blazor/pull/2397))
+- [Select] Fix logic when setting new option ([#2384](https://github.com/microsoft/fluentui-blazor/pull/2384))
+- [SortableList] Adding Properties `FromListId` and `ToListId` ([#2385](https://github.com/microsoft/fluentui-blazor/pull/2385))
+- [SplashScreen] Pass parameters.Modal to `ShowSplashScreen...` methods ([#2398](https://github.com/microsoft/fluentui-blazor/pull/2398))
+- [Wizard] Add `GoToStepAsync` method ([#2383](https://github.com/microsoft/fluentui-blazor/pull/2383))
+- [Wizard] Fix validation when `@bind-Value` is set ([#2364](https://github.com/microsoft/fluentui-blazor/pull/2364))
+
+### Demo site and documentation
+- [Docs] Better column distribution for homepage ([#2360](https://github.com/microsoft/fluentui-blazor/pull/2360))
+- [Docs] Improve API Documentation performance ([#2377](https://github.com/microsoft/fluentui-blazor/pull/2377))
+- [Docs] Fix some typos ([#2400](https://github.com/microsoft/fluentui-blazor/pull/2400))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.249
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Download / 32 / Light
+    - Color Fill Accent / 32 / Light
+    - Edit Lock / 16, 20, 24 / Filled & Regular
+    - Layout Row Two Settings / 20, 24, 28, 32 / Filled & Light & Regular
+    - Molecule / 32 / Light
+    - Person Board / 20 / Filled & Regular
+    - Person Square Checkmark / 16, 20, 24 / Filled & Regular
+    - Presence Tentative / 10, 12, 16, 20, 24 / Regular
+    - Shield Add / 28, 32, 48 / Filled & Regular
+    - Shield Checkmark / 32 / Filled & Regular
+    - Shield Task / 32 / Filled & Regular
+    - Toolbox / 32 / Filled & Light & Regular
+    - Warning Lock Open / 16, 20, 24 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Sound Wave Circle / 20 / Filled & Regular
+    - Vehicle Motorcycle / 16, 20, 24, 28, 32, 48 / Filled & Regular
 
 ## v4.9.1
 ### Components
