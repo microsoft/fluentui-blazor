@@ -1266,6 +1266,16 @@
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Items">
+            <summary>
+            Get items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.TotalItemCount">
+            <summary>
+            Get Total Item Count.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.OnRowClickAsync(Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow{`0})">
             <summary>
             Event callback for when the row is clicked.
