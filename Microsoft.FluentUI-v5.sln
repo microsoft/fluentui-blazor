@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B6B58D33-2
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Microsoft.FluentUI.AspNetCore.Components.Scripts", "src\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj", "{7D2833AF-6BA7-481A-B625-4C162D8D4756}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components", "src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj", "{3C30B391-7436-4349-A6CE-19EAFA6804FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{0A73C6AE-F696-4497-9BA1-9914C50AA1F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,10 @@ Global
 		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3C30B391-7436-4349-A6CE-19EAFA6804FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C30B391-7436-4349-A6CE-19EAFA6804FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C30B391-7436-4349-A6CE-19EAFA6804FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C30B391-7436-4349-A6CE-19EAFA6804FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -28,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B6B58D33-2D25-42BA-9096-702F9ABEF9EE} = {62586417-1901-4732-8188-AE8BADC6AE17}
 		{7D2833AF-6BA7-481A-B625-4C162D8D4756} = {B6B58D33-2D25-42BA-9096-702F9ABEF9EE}
+		{3C30B391-7436-4349-A6CE-19EAFA6804FA} = {B6B58D33-2D25-42BA-9096-702F9ABEF9EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44D95FF7-AEBE-41FB-9D40-CF1E09ADC6BC}
