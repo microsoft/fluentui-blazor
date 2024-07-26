@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35118.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{62586417-1901-4732-8188-AE8BADC6AE17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B6B58D33-2D25-42BA-9096-702F9ABEF9EE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Microsoft.FluentUI.AspNetCore.Components.Scripts", "src\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj", "{7D2833AF-6BA7-481A-B625-4C162D8D4756}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B6B58D33-2D25-42BA-9096-702F9ABEF9EE} = {62586417-1901-4732-8188-AE8BADC6AE17}
+		{7D2833AF-6BA7-481A-B625-4C162D8D4756} = {B6B58D33-2D25-42BA-9096-702F9ABEF9EE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44D95FF7-AEBE-41FB-9D40-CF1E09ADC6BC}
+	EndGlobalSection
+EndGlobal

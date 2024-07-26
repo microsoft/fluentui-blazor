@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "microsoft.fluentui.aspnetcore.components.scripts",
+  "source": "src/index.ts",
+  "main": "dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js",
+  "scripts": {
+    "build": "node ./esbuild.config.mjs",
+    "clean": "rimraf ./dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@microsoft/fast-element": "1.13.0",
+    "@microsoft/fast-foundation": "2.49.6",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "esbuild": "^0.20.2",
+    "esbuild-plugin-inline-css": "^0.0.1",
+    "eslint": "8.57.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.4"
+  },
+  "dependencies": {
+    "@fluentui/web-components": "2.6.1"
+  }
+}
