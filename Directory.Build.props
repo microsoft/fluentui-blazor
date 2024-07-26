@@ -1,0 +1,34 @@
+<Project>
+  <PropertyGroup>
+
+    <!-- Versioning -->
+    <VersionFile>4.9.3</VersionFile>
+    <VersionPrefix>4.9.3</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+
+    <Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Owners>Microsoft Corporation</Owners>
+    <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <AssemblyVersion>$(VersionFile)</AssemblyVersion>
+    <FileVersion>$(VersionFile)</FileVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Microsoft.FluentUI.AspNetCore.Components.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>
