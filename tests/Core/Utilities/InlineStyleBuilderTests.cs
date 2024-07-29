@@ -39,6 +39,16 @@ public class InlineStyleBuilderTests : TestContext
     }
 
     [Fact]
+    public void InlineStyleBuilder_Empty()
+    {
+        // Assert
+        var styleBuilder = new InlineStyleBuilder();
+
+        // Assert - Values are sorted
+        Assert.Null(styleBuilder.Build());
+    }
+
+    [Fact]
     public void InlineStyleBuilder_WhenFunc()
     {
         // Assert
@@ -105,5 +115,19 @@ public class InlineStyleBuilderTests : TestContext
 
         // Assert 
         Assert.Null(styleBuilder.Build());
+    }
+
+    [Fact]
+    public void InlineStyleBuilder_ToString()
+    {
+        // Assert
+        var styleBuilder = new InlineStyleBuilder();
+
+        // Act
+        styleBuilder.AddStyle("test1", "test", "", true);
+        styleBuilder.AddStyle("test2", "", "", false);
+
+        // Assert 
+        Assert.Null(styleBuilder.ToString());
     }
 }
