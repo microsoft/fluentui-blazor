@@ -354,8 +354,14 @@ dotnet_diagnostic.IDE0200.severity = warning
 dotnet_style_allow_multiple_blank_lines_experimental = false
 dotnet_diagnostic.IDE2000.severity = warning
 
-# #MA0015: Do not call overridable members in constructor
+# MA0001: StringComparison is missing
+dotnet_diagnostic.MA0001.severity = warning
+
+# MA0015: Do not call overridable members in constructor
 dotnet_diagnostic.MA0056.severity = none
+
+# MA0015: Avoid using redundant else
+dotnet_diagnostic.MA0071.severity = warning
 
 [src/Core/**.cs]
 # IDE0130: Namespace does not match folder structure

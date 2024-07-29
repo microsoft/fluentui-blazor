@@ -255,4 +255,49 @@
         // Assert
         cut.Verify();
     }
+
+    [Theory]
+    [InlineData(true, "var(--neutral-layer-1)")]
+    [InlineData(false, null)]
+    public void FluentIcon_InverseColor(bool accentContainer, string? expectedResult)
+    {
+        // Arrange
+        var icon = new SampleIcons.Samples.Info();
+
+        // Act
+        icon.InverseColor(accentContainer);
+
+        // Assert
+        Assert.Equal(expectedResult, icon.Color);
+    }
+
+    [Fact]
+    public void FluentIcon_Icon_ToDataUri()
+    {
+        // Arrange && Act
+        var icon = new SampleIcons.Samples.Info();
+
+        // Assert
+        Assert.StartsWith("data:image/svg+xml;base64,PHN2ZyB4bWxucz0", icon.ToDataUri());
+    }
+
+    [Fact]
+    public void FluentIcon_Icon_FromType()
+    {
+        // Arrange && Act
+        var icon = Icon.FromType<SampleIcons.Samples.Info>();
+
+        // Assert
+        Assert.StartsWith("data:image/svg+xml;base64,PHN2ZyB4bWxucz0", icon.ToDataUri());
+    }
+
+    [Fact]
+    public void FluentIcon_Icon_EmptyCtor()
+    {
+        // Arrange && Act
+        Assert.Throws<NotSupportedException>(() =>
+        {
+            var icon = new Icon();
+        });
+    }
 }

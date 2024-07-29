@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -82,7 +83,7 @@ public class Icon : IconInfo
     {
         if (accentContainer && Color == null)
         {
-            Color = AspNetCore.Components.Color.Lightweight.ToAttributeValue();
+            Color = Components.Color.Lightweight.ToAttributeValue();
         }
 
         return this;
@@ -95,27 +96,24 @@ public class Icon : IconInfo
     {
         if (Size != IconSize.Custom && ContainsSVG)
         {
-            var styleWidth = size ?? $"{(int)Size}px";
+            var sizeAsString = ((int)Size).ToString(CultureInfo.InvariantCulture);
+            var styleWidth = size ?? $"{sizeAsString}px";
             var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
-            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
         }
-        else
-        {
-            if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
-            {
-                return new MarkupString(Content);
-            }
-            else
-            {
-                var attributes = new StyleBuilder()
-                    .AddStyle("display", "inline-block")
-                    .AddStyle("fill", color, when: () => !string.IsNullOrEmpty(color))
-                    .AddStyle("width", size, when: () => !string.IsNullOrEmpty(size))
-                    .Build();
 
-                return new MarkupString($"<div style=\"{attributes}\">{Content}</div>");
-            }
+        if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
+        {
+            return new MarkupString(Content);
         }
+
+        var attributes = new StyleBuilder()
+            .AddStyle("display", "inline-block")
+            .AddStyle("fill", color, when: () => !string.IsNullOrEmpty(color))
+            .AddStyle("width", size, when: () => !string.IsNullOrEmpty(size))
+            .Build();
+
+        return new MarkupString($"<div style=\"{attributes}\">{Content}</div>");
     }
 
     /// <summary>
@@ -126,7 +124,9 @@ public class Icon : IconInfo
         var svg = ToMarkup(size, color).Value;
 
         // Attribute xmlns="http://www.w3.org/2000/svg" is required for SVG data URI.
-        svg = svg.Contains("http://www.w3.org/2000/svg") ? svg : svg.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ");
+        svg = svg.Contains("http://www.w3.org/2000/svg", StringComparison.InvariantCulture)
+            ? svg
+            : svg.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.InvariantCulture);
 
         var base64Svg = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(svg));
         return $"data:image/svg+xml;base64,{base64Svg}";
