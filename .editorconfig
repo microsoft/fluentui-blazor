@@ -361,7 +361,7 @@ dotnet_diagnostic.MA0056.severity = none
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
 
-[{eng/tools/**.cs,**/{test,testassets,samples,Samples,perf,benchmarkapps,scripts,stress}/**.cs,src/Hosting/Server.IntegrationTesting/**.cs,src/Servers/IIS/IntegrationTesting.IIS/**.cs,src/Shared/Http2cat/**.cs,src/Testing/**.cs}]
+[tests/**.cs]
 # CA1018: Mark attributes with AttributeUsageAttribute
 dotnet_diagnostic.CA1018.severity = suggestion
 # CA1507: Use nameof to express symbol names
@@ -436,6 +436,8 @@ dotnet_diagnostic.CA2012.severity = suggestion
 dotnet_diagnostic.CA2201.severity = suggestion
 # CA2249: Use string.Contains instead of string.IndexOf to improve readability.
 dotnet_diagnostic.CA2249.severity = suggestion
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
 # IDE0005: Remove unnecessary usings
 dotnet_diagnostic.IDE0005.severity = suggestion
 # IDE0020: Use pattern matching to avoid is check followed by a cast (with variable)

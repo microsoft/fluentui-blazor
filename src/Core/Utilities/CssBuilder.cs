@@ -91,6 +91,12 @@ public readonly partial struct CssBuilder
     }
 
     /// <summary>
+    /// ToString should only and always call Build to finalize the rendered string.
+    /// </summary>
+    /// <returns></returns>
+    public override string? ToString() => Build();
+
+    /// <summary>
     /// Validates if the provided class name is valid.
     /// </summary>
     /// <param name="className">CSS class name to validate</param>
