@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -23,7 +24,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width ?? $"{_icon.Width}px", when: () => !string.IsNullOrEmpty(Width))
+        .AddStyle("width", Width ?? $"{_icon.Width.ToString(CultureInfo.InvariantCulture)}px", when: () => Width != string.Empty)
         .AddStyle("fill", GetIconColor())
         .AddStyle("cursor", "pointer", when: () => OnClick.HasDelegate)
         .AddStyle("display", "inline-block", () => !_icon.ContainsSVG)
@@ -50,7 +51,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the icon drawing and fill color to a custom value.
-    /// Needs to be formatted as an HTML hex color string (#rrggbb or #rgb) or CSS variable.
+    /// Needs to be formatted as an HTML hex color string (#RRGGBB or #RGB) or CSS variable.
     /// ⚠️ Only available when Color is set to Color.Custom.
     /// </summary>
     [Parameter]
@@ -80,7 +81,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the icon is focusable (adding tabindex="0" and role="button"),
+    /// Gets or sets whether the icon is focusable (adding tab-index="0" and role="button"),
     /// allows the icon to be focused sequentially (generally with the Tab key).
     /// </summary>
     [Parameter]
