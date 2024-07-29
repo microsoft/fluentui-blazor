@@ -31,6 +31,17 @@
     }
 
     [Fact]
+    public void FluentIcon_Icon()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentIcon Icon="SampleIcons.Samples.Info" />);
+        var icon = cut.FindComponent<FluentIcon<SampleIcons.Samples.Info>>();
+
+        // Assert
+        Assert.Contains("data:image/svg+xml;base64,PHN2ZyB4bWxucz0", icon.Instance.Value.ToDataUri());
+    }
+
+    [Fact]
     public void FluentIcon_SlotTitle()
     {
         // Arrange && Act
@@ -122,6 +133,42 @@
 
         // Assert
         Assert.True(isClicked);
+    }
+
+    [Fact]
+    public void FluentIcon_OnClick_NoDelegate()
+    {
+        var isClicked = false;
+
+        // Arrange
+        var icon = new SampleIcons.Samples.Info();
+        var cut = Render(@<FluentIcon Value="@icon" />);
+
+        // Act
+        cut.Find("svg").Click();
+        cut.Find("svg").KeyDown(Key.Enter);
+
+        // Assert
+        Assert.False(isClicked);
+    }
+
+    [Theory]
+    [InlineData("Enter", true)]
+    [InlineData("NumpadEnter", true)]
+    [InlineData("Space", false)]
+    public void FluentIcon_OnKeyDown(string key, bool isExpectedClicked)
+    {
+        var isClicked = false;
+
+        // Arrange
+        var icon = new SampleIcons.Samples.Info();
+        var cut = Render(@<FluentIcon Value="@icon" OnClick="@(e => isClicked = true)" />);
+
+        // Act
+        cut.Find("svg").KeyDown(new KeyboardEventArgs() { Key = key });
+
+        // Assert
+        Assert.Equal(isExpectedClicked, isClicked);
     }
 
     // [Fact]

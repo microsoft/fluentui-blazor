@@ -39,7 +39,7 @@ public class InlineStyleBuilderTests : TestContext
     }
 
     [Fact]
-    public void InlineStyleBuilder_Empty()
+    public void InlineStyleBuilder_EmptyValue()
     {
         // Assert
         var styleBuilder = new InlineStyleBuilder();
