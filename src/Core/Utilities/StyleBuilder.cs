@@ -1,0 +1,95 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using System.Diagnostics;
+
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
+/// <summary>
+/// Represents a builder for creating CSS styles used in a component.
+/// </summary>
+[DebuggerDisplay("{Build()}")]
+public readonly struct StyleBuilder
+{
+    private readonly HashSet<string> _styles;
+    private readonly string? _userStyles;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StyleBuilder"/> class.
+    /// </summary>
+    public StyleBuilder()
+    {
+        _styles = [];
+        _userStyles = null;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StyleBuilder"/> class.
+    /// </summary>
+    /// <param name="userStyles">The user styles to include at the end.</param>
+    public StyleBuilder(string? userStyles)
+    {
+        _styles = [];
+        _userStyles = string.IsNullOrWhiteSpace(userStyles)
+                    ? null
+                    : string.Join("; ", userStyles.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                                                  .Where(i => !string.IsNullOrWhiteSpace(i)));
+    }
+
+    /// <summary>
+    /// Adds a conditional in-line style to the builder with space separator and closing semicolon.
+    /// </summary>
+    /// <param name="style"></param>
+    public StyleBuilder AddStyle(string? style) => AddRaw(style);
+
+    /// <summary>
+    /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
+    /// </summary>
+    /// <param name="prop"></param>
+    /// <param name="value">Style to add</param>
+    /// <returns>StyleBuilder</returns>
+    public StyleBuilder AddStyle(string prop, string? value) => AddRaw($"{prop}: {value}");
+
+    /// <summary>
+    /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
+    /// </summary>
+    /// <param name="prop"></param>
+    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="when">Condition in which the style is added.</param>
+    /// <returns>StyleBuilder</returns>
+    public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => when != null && when() ? AddStyle(prop, value) : this;
+
+    /// <summary>
+    /// Finalize the completed Style as a string.
+    /// </summary>
+    /// <returns>string</returns>
+    public string? Build()
+    {
+        var allStyles = string.IsNullOrWhiteSpace(_userStyles)
+                      ? _styles
+                      : _styles.Union([_userStyles], StringComparer.Ordinal);
+
+        if (!allStyles.Any())
+        {
+            return null;
+        }
+
+        return string.Concat(allStyles.Select(s => $"{s}; ")).TrimEnd();
+    }
+
+    /// <summary>
+    /// Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
+    /// </summary>
+    /// <param name="style"></param>
+    /// <returns>StyleBuilder</returns>
+    private StyleBuilder AddRaw(string? style)
+    {
+        if (!string.IsNullOrWhiteSpace(style))
+        {
+            _styles.Add(style.Trim().TrimEnd(';'));
+        }
+
+        return this;
+    }
+}

@@ -354,6 +354,13 @@ dotnet_diagnostic.IDE0200.severity = warning
 dotnet_style_allow_multiple_blank_lines_experimental = false
 dotnet_diagnostic.IDE2000.severity = warning
 
+# #MA0015: Do not call overridable members in constructor
+dotnet_diagnostic.MA0056.severity = none
+
+[src/Core/**.cs]
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
 [{eng/tools/**.cs,**/{test,testassets,samples,Samples,perf,benchmarkapps,scripts,stress}/**.cs,src/Hosting/Server.IntegrationTesting/**.cs,src/Servers/IIS/IntegrationTesting.IIS/**.cs,src/Shared/Http2cat/**.cs,src/Testing/**.cs}]
 # CA1018: Mark attributes with AttributeUsageAttribute
 dotnet_diagnostic.CA1018.severity = suggestion
@@ -459,4 +466,7 @@ dotnet_diagnostic.CA2016.severity = suggestion
 
 [*.razor.cs]
 # CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = silent
+dotnet_diagnostic.CA2007.severity = none
+
+# #MA0015: Specify the parameter name in ArgumentException (not valid in OnParametersSet)
+dotnet_diagnostic.MA0015.severity = none
