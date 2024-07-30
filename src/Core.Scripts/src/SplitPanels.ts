@@ -86,7 +86,6 @@ class SplitPanels extends HTMLElement {
     }
     else {
       var style = document.createElement('style');
-      style.type = 'text/css';
       style.innerHTML = styleString;
       document.getElementsByTagName('head')[0].appendChild(style);
     }

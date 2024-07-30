@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using Bunit;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
