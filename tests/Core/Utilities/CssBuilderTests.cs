@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public partial class CssBuilderTests : TestContext
+public partial class CssBuilderTests
 {
     [Fact]
     public void CssBuilder_AddSingleClasses()

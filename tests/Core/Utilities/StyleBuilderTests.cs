@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public class StyleBuilderTests : TestContext
+public class StyleBuilderTests
 {
     [Fact]
     public void StyleBuilder_Raw()

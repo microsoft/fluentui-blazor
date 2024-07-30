@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public class InlineStyleBuilderTests : TestContext
+public class InlineStyleBuilderTests
 {
     [Fact]
     public void InlineStyleBuilder_Default()
