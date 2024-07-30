@@ -1,6 +1,28 @@
 ﻿## v3.7.9
 
 ### Icons
+- Update to Fluent UI System Icons 1.1.252
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Airplane / 16, 28, 32, 48 / Filled & Regular
+    - Globe Off / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Hat Graduation / 32, 48 / Filled & Regular
+    - Person Board Add / 16, 24, 28, 32 / Filled & Regular
+    - Shopping Bag Tag / 16, 28, 32, 48 / Filled & Regular
+    - Shopping Bag / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Teaching / 16, 24, 28, 32, 48 / Filled & Regular
+    - Window Brush / 20, 24 / Filled & Regular
+    - Window Column One Fourth Left Focus Left / 20 / Filled
+    - Window Column One Fourth Left Focus Top / 20 / Filled
+    - Window Column One Fourth Left / 20 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Building People / 16, 20, 24 / Filled & Regular          
+    - Circle Half Fill / 20, 24 / Filled & Regular
+    - Contact Card Link / 16, 20 / Filled & Regular
+    - Folder People / 20, 24 / Filled & Regular
+    - Run / 16, 20, 24 / Filled & Regular
+    - Shopping Bag / 16, 20, 24 / Filled
 
 - Update to Fluent UI System Icons 1.1.247
     
