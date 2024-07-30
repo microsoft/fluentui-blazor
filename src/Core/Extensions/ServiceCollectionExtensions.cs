@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Provides methods to add services required by the Fluent UI Web Components for Blazor library
