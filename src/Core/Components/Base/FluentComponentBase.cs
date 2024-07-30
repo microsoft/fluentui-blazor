@@ -12,12 +12,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract class FluentComponentBase : ComponentBase
 {
     /// <summary>
-    /// Gets or sets the associated web component. 
-    /// May be <see langword="null"/> if accessed before the component is rendered.
-    /// </summary>
-    public virtual ElementReference Element { get; protected set; }
-
-    /// <summary>
     /// Gets or sets the unique identifier.
     /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
     /// </summary>
