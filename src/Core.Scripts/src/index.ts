@@ -1,8 +1,45 @@
-export * from '@fluentui/web-components/dist/web-components'
-export { parseColorHexRGB } from '@microsoft/fast-colors'
+import {
+  FluentDesignSystem,
+  setTheme,
+  accordionItemDefinition,
+  accordionDefinition,
+  AnchorButtonDefinition,
+  AvatarDefinition,
+  BadgeDefinition,
+  ButtonDefinition,
+  CheckboxDefinition,
+  CompoundButtonDefinition,
+  CounterBadgeDefinition,
+  DialogDefinition,
+  DialogBodyDefinition,
+  DividerDefinition,
+  FieldDefinition,
+  ImageDefinition,
+  LabelDefinition,
+  MenuButtonDefinition,
+  MenuItemDefinition,
+  MenuListDefinition,
+  MenuDefinition,
+  ProgressBarDefinition,
+  RadioGroupDefinition,
+  RadioDefinition,
+  SliderDefinition,
+  SpinnerDefinition,
+  SwitchDefinition,
+  TabPanelDefinition,
+  TabDefinition,
+  TabsDefinition,
+  TextInputDefinition,
+  TextDefinition,
+  ToggleButtonDefinition
+} from '@fluentui/web-components'
+
+import { webLightTheme, webDarkTheme, BrandVariants, Theme, createDarkTheme, createLightTheme } from '@fluentui/tokens';
 import { SplitPanels } from './SplitPanels'
-import { DesignTheme } from './DesignTheme'
 import { FluentPageScript, onEnhancedLoad } from './FluentPageScript'
+import { DesignTheme } from './DesignTheme'
+
+
 
 interface Blazor {
   registerCustomEventType: (
@@ -35,22 +72,25 @@ const styles = `
 body:has(.prevent-scroll) {
     overflow: hidden;
 }
-
 :root {
-    --font-monospace: Consolas, "Courier New", "Liberation Mono", SFMono-Regular, Menlo, Monaco, monospace;
-    --success: #0E700E;
-    --warning: #E9835E;
-    --error: #BC2F32;
-    --info: #616161;
-    --presence-available: #13a10e;
-    --presence-away: #eaa300;
-    --presence-busy: #d13438;
-    --presence-dnd: #d13438;
-    --presence-offline: #adadad;
-    --presence-oof: #c239b3;
-    --presence-unknown: #d13438;
+    --font-monospace: var(--fontFamilyMonospace);
+    --success: var(--colorStatusSuccessForeground1);
+    --warning: var(--colorStatusWarningForeground1);
+    --error: var(--colorStatusDangerForeground1);
+    --info: var(--colorPalettePlatinumForeground2);
+    --presence-available: var(--colorPaletteLightGreenForeground3);
+    --presence-away: var(--colorPaletteMarigoldBackground3);
+    --presence-busy: var(--colorPaletteRedBackground3);
+    --presence-dnd: var(--colorPaletteRedBackground3);
+    --presence-offline: var(--colorNeutralForeground3);
+    --presence-oof: var(--colorPaletteBerryForeground3);
+    --presence-blocked: var(--colorPaletteRedBackground3);
+    --presence-unknown: var(--colorNeutralForeground3);
     --highlight-bg: #fff3cd;
+    --design-unit: 4px;
+
 }
+
 
 [role='checkbox'].invalid::part(control),
 [role='combobox'].invalid::part(control),
@@ -58,15 +98,18 @@ fluent-combobox.invalid::part(control),
 fluent-text-area.invalid::part(control),
 fluent-text-field.invalid::part(root)
 {
-    outline: calc(var(--stroke-width) * 1px) solid var(--error);
+    outline: calc(var(--stroke-width) * 1px)  solid var(--error);
 }
+
 `;
+
+styleSheet.replaceSync(styles);
+// document.adoptedStyleSheets.push(styleSheet);
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
 
 var beforeStartCalled = false;
 var afterStartedCalled = false;
 
-styleSheet.replaceSync(styles);
-document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
 
 export function afterWebStarted(blazor: any) {
   if (!afterStartedCalled) {
@@ -179,7 +222,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
       return null;
     }
   });
-
   blazor.registerCustomEventType('selectedchange', {
     browserEventName: 'selected-change',
     createEventArgs: event => {
@@ -204,7 +246,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
       };
     }
   });
-
   blazor.registerCustomEventType('dateselected', {
     browserEventName: 'dateselected',
     createEventArgs: event => {
@@ -248,7 +289,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
       };
     }
   });
-
   blazor.registerCustomEventType('scrollstart', {
     browserEventName: 'scrollstart',
     createEventArgs: event => {
@@ -294,7 +334,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
       }
     }
   });
-
   blazor.registerCustomEventType('splittercollapsed', {
     browserEventName: 'splittercollapsed',
     createEventArgs: event => {
@@ -315,6 +354,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   }
 
+
   if (typeof blazor.addEventListener === 'function' && mode === 'web') {
     customElements.define('fluent-page-script', FluentPageScript);
     blazor.addEventListener('enhancedload', onEnhancedLoad);
@@ -324,6 +364,74 @@ export function afterStarted(blazor: Blazor, mode: string) {
 }
 
 export function beforeStart(options: any) {
+
+
+
+  const myNewTheme: BrandVariants = {
+    10: "#050205",
+    20: "#231121",
+    30: "#3C183A",
+    40: "#511C4E",
+    50: "#661F63",
+    60: "#7D2279",
+    70: "#94248F",
+    80: "#AA28A5",
+    90: "#B443AE",
+    100: "#BD59B6",
+    110: "#C66EBF",
+    120: "#CF82C7",
+    130: "#D795D0",
+    140: "#DFA8D9",
+    150: "#E7BBE1",
+    160: "#EECEEA"
+  };
+
+  const lightTheme: Theme = {
+    ...createLightTheme(myNewTheme),
+  };
+
+  const darkTheme: Theme = {
+    ...createDarkTheme(myNewTheme),
+  };
+
+
+  darkTheme.colorBrandForeground1 = myNewTheme[110];
+  darkTheme.colorBrandForeground2 = myNewTheme[120];
+
+  setTheme(webLightTheme);
+
+  accordionItemDefinition.define(FluentDesignSystem.registry);
+  accordionDefinition.define(FluentDesignSystem.registry);
+  AnchorButtonDefinition.define(FluentDesignSystem.registry);
+  AvatarDefinition.define(FluentDesignSystem.registry);
+  BadgeDefinition.define(FluentDesignSystem.registry);
+  ButtonDefinition.define(FluentDesignSystem.registry);
+  CheckboxDefinition.define(FluentDesignSystem.registry);
+  CompoundButtonDefinition.define(FluentDesignSystem.registry);
+  CounterBadgeDefinition.define(FluentDesignSystem.registry);
+  DialogDefinition.define(FluentDesignSystem.registry);
+  DialogBodyDefinition.define(FluentDesignSystem.registry);
+  DividerDefinition.define(FluentDesignSystem.registry);
+  FieldDefinition.define(FluentDesignSystem.registry);
+  ImageDefinition.define(FluentDesignSystem.registry);
+  LabelDefinition.define(FluentDesignSystem.registry);
+  MenuButtonDefinition.define(FluentDesignSystem.registry);
+  MenuItemDefinition.define(FluentDesignSystem.registry);
+  MenuListDefinition.define(FluentDesignSystem.registry);
+  MenuDefinition.define(FluentDesignSystem.registry);
+  ProgressBarDefinition.define(FluentDesignSystem.registry);
+  RadioGroupDefinition.define(FluentDesignSystem.registry);
+  RadioDefinition.define(FluentDesignSystem.registry);
+  SliderDefinition.define(FluentDesignSystem.registry);
+  SpinnerDefinition.define(FluentDesignSystem.registry);
+  SwitchDefinition.define(FluentDesignSystem.registry);
+  TabPanelDefinition.define(FluentDesignSystem.registry);
+  TabDefinition.define(FluentDesignSystem.registry);
+  TabsDefinition.define(FluentDesignSystem.registry);
+  TextInputDefinition.define(FluentDesignSystem.registry);
+  TextDefinition.define(FluentDesignSystem.registry);
+  ToggleButtonDefinition.define(FluentDesignSystem.registry);
+
   customElements.define("fluent-design-theme", DesignTheme);
   customElements.define("split-panels", SplitPanels);
 

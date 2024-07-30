@@ -39,6 +39,25 @@ From within the folder where you've cloned the repo, build the project with the 
 dotnet build
 ```
 
+The **Components.Scripts** project uses several NPM packages.
+You should get them automatically the first time you compile this project from Visual Studio.
+
+In the event of an NPM authentication problem (E401), you will probably need to run these command from the `Core.Scripts` folder.
+
+1. Install the **vsts-npm-auth** command.
+   ```bash
+   npm install -g vsts-npm-auth --registry https://registry.npmjs.com --always-auth false
+   ```
+2. Execute this command to get an authentication token.
+   ```bash
+   vsts-npm-auth -config .npmrc -force
+   ```
+3. Download and install NPM packages manually.
+   ```bash
+   npm install
+   ```
+
+
 ### Submitting a pull request
 
 If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from master. Do not use ``git merge`` or the *merge* button provided by GitHub; And run all Unit Tests fo validate your developments or your changes.
