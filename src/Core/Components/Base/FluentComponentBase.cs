@@ -12,6 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract class FluentComponentBase : ComponentBase
 {
     /// <summary>
+    /// Gets the root path for the JavaScript files.
+    /// </summary>
+    protected const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
+
+    /// <summary>
     /// Gets or sets the unique identifier.
     /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
     /// </summary>

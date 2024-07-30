@@ -1,0 +1,60 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+@CustomStyle
+
+<AddTag Name="span" TagWhen="@(() => LoadingOverlay)" class="@ClassValue" style="@StyleValue">
+    <fluent-button class="@(LoadingOverlay ? string.Empty : ClassValue)"
+                   style="@(LoadingOverlay ? string.Empty : StyleValue)"
+                   autofocus=@Autofocus
+                   form=@FormId
+                   formaction=@Action
+                   formenctype=@EncType
+                   formmethod=@Method
+                   formnovalidate=@NoValidate
+                   formtarget=@Target
+                   type=@Type.ToAttributeValue()
+                   id=@Id
+                   value=@Value
+                   current-value=@CurrentValue
+                   disabled=@(Disabled || Loading)
+                   name=@Name
+                   required=@Required
+                   aria-label=@Title
+                   title=@Title
+                   appearance=@Appearance.ToAttributeValue()
+                   @onclick="@OnClickHandlerAsync"
+                   @attributes="AdditionalAttributes">
+        @if (IconStart != null)
+        {
+            if (Loading)
+            {
+                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "start" : null)" style="@RingStyle(IconStart)" />
+            }
+            else
+            {
+                <FluentIcon Value="@(IconStart.InverseColor(Appearance == ButtonAppearance.Primary))"
+                            Slot="@(ChildContent != null ? "start" : null)" />
+            }
+        }
+        @ChildContent
+        @if (IconEnd != null)
+        {
+            if (Loading && IconStart == null)
+            {
+                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "end" : null)" style="@RingStyle(IconEnd)" />
+            }
+            else
+            {
+                <FluentIcon Value="@(IconEnd.InverseColor(Appearance == ButtonAppearance.Primary))"
+                            Slot="@(ChildContent != null ? "end" : null)" />
+            }
+        }
+    </fluent-button>
+    @if (LoadingOverlay)
+    {
+        <fluent-spinner size="tiny" />
+    }
+</AddTag>

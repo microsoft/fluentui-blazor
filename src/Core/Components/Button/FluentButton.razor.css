@@ -1,0 +1,13 @@
+.loading-button {
+    position: relative;
+}
+
+    .loading-button ::deep fluent-spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 16px;
+        height: 16px;
+        cursor: not-allowed;
+    }

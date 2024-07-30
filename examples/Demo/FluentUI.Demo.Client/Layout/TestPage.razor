@@ -1,11 +1,14 @@
 ﻿@page "/"
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 
 <h3>TestPage</h3>
 
 <p>
     This is a first page for tests.
 </p>
+
 <div>
-    <fluent-button>Click me</fluent-button>
-    <fluent-button appearance="primary">Click me</fluent-button>
+    <FluentButton Appearance="ButtonAppearance.Primary">Click here</FluentButton>
+    <FluentButton Appearance="ButtonAppearance.Primary" Disabled>Click here</FluentButton>
+    <FluentButton Loading="true" Appearance="ButtonAppearance.Primary">Click here</FluentButton>
 </div>

@@ -67,9 +67,6 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
   </ItemGroup>
 
@@ -83,6 +80,11 @@
     </ItemGroup>
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\FluentUI.Demo.Client" />
   </Target>
+  
+  <!-- To rename the scoped CSS attribute `b-ui` -->
+  <ItemGroup>
+    <None Update="**\*.razor.css" CssScope="b-ui" />
+  </ItemGroup>
 
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
