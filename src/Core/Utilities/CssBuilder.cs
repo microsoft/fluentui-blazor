@@ -65,6 +65,7 @@ public readonly partial struct CssBuilder
         {
             _classes.UnionWith(SplitAndValidate(values));
         }
+
         return this;
     }
 

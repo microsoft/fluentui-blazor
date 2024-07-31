@@ -47,16 +47,18 @@ public class AddTag : ComponentBase
     /// <summary />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        bool addTag = TagWhen();
-        bool addContent = ContentWhen();
+        var addTag = TagWhen();
+        var addContent = ContentWhen();
 
         if (addTag && addContent)
         {
             builder.OpenElement(0, Name);
+
             if (!string.IsNullOrEmpty(CssScopeIdentifier))
             {
                 builder.AddAttribute(1, CssScopeIdentifier);
             }
+
             builder.AddMultipleAttributes(2, AdditionalAttributes);
             builder.AddContent(3, ChildContent);
             builder.CloseElement();
@@ -68,10 +70,12 @@ public class AddTag : ComponentBase
         else if (addTag)
         {
             builder.OpenElement(5, Name);
+
             if (!string.IsNullOrEmpty(CssScopeIdentifier))
             {
                 builder.AddAttribute(6, CssScopeIdentifier);
             }
+
             builder.AddMultipleAttributes(7, AdditionalAttributes);
             builder.CloseElement();
         }

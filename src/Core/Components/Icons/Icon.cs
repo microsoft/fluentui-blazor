@@ -59,6 +59,7 @@ public class Icon : IconInfo
         {
             Color = color;
         }
+
         return this;
     }
 

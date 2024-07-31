@@ -34,30 +34,28 @@ public enum ButtonAppearance
     /// </summary>
     Transparent,
 
-    /*
-       #region Obsoletes
+    #region Obsoletes
 
-       /// <summary />
-       [Obsolete("This value is obsolete. Use the Default value instead.")]
-       Neutral,
+    /// <summary />
+    [Obsolete("This value is obsolete. Use the Default value instead.")]
+    Neutral,
 
-       /// <summary />
-       [Obsolete("This value is obsolete. Use the Primary value instead.")]
-       Accent,
+    /// <summary />
+    [Obsolete("This value is obsolete. Use the Primary value instead.")]
+    Accent,
 
-       /// <summary />
-       [Obsolete("This value is obsolete. Use the Transparent value instead.")]
-       Lightweight,
+    /// <summary />
+    [Obsolete("This value is obsolete. Use the Transparent value instead.")]
+    Lightweight,
 
-       /// <summary />
-       [Obsolete("This value is obsolete. Use the Default value instead.")]
-       Stealth,
+    /// <summary />
+    [Obsolete("This value is obsolete. Use the Default value instead.")]
+    Stealth,
 
-       /// <summary />
-       [Obsolete("This value is obsolete. Use the Default value instead.")]
-       Filled
+    /// <summary />
+    [Obsolete("This value is obsolete. Use the Default value instead.")]
+    Filled,
 
-       #endregion
-    */
+    #endregion
 }
 
