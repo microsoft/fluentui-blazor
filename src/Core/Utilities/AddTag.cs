@@ -12,6 +12,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// </summary>
 public class AddTag : ComponentBase
 {
+    private const string CssScopeIdentifier = "";
+
     /// <summary>
     /// Gets or sets the name of the tag.
     /// </summary>
@@ -51,7 +53,10 @@ public class AddTag : ComponentBase
         if (addTag && addContent)
         {
             builder.OpenElement(0, Name);
-            builder.AddAttribute(1, "b-ui");
+            if (!string.IsNullOrEmpty(CssScopeIdentifier))
+            {
+                builder.AddAttribute(1, CssScopeIdentifier);
+            }
             builder.AddMultipleAttributes(2, AdditionalAttributes);
             builder.AddContent(3, ChildContent);
             builder.CloseElement();
@@ -63,7 +68,10 @@ public class AddTag : ComponentBase
         else if (addTag)
         {
             builder.OpenElement(5, Name);
-            builder.AddAttribute(6, "b-ui");
+            if (!string.IsNullOrEmpty(CssScopeIdentifier))
+            {
+                builder.AddAttribute(6, CssScopeIdentifier);
+            }
             builder.AddMultipleAttributes(7, AdditionalAttributes);
             builder.CloseElement();
         }

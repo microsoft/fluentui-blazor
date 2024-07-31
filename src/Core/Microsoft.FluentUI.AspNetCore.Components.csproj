@@ -24,14 +24,19 @@
     <DebugType>embedded</DebugType>
 
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+
+    <!-- Disable the auto-generated CSS Bundle, to use the Components.Scripts project -->
+    <DisableScopedCssBundling>true</DisableScopedCssBundling>
   </PropertyGroup>
 
+  <!-- Debug -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>False</Optimize>
     <WarningLevel>6</WarningLevel>
     <NullableReferenceTypes>true</NullableReferenceTypes>
   </PropertyGroup>
 
+  <!-- Release -->
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <Optimize>True</Optimize>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -58,6 +63,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- Dependencies -->
   <ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
@@ -70,21 +76,18 @@
     <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
   </ItemGroup>
 
+  <!-- GitHub -->
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
+  <!-- Copy XML files to the Demo project (to generate the API documentation) -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
       <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net8.0\*.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\FluentUI.Demo.Client" />
   </Target>
-  
-  <!-- To rename the scoped CSS attribute `b-ui` -->
-  <ItemGroup>
-    <None Update="**\*.razor.css" CssScope="b-ui" />
-  </ItemGroup>
 
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
