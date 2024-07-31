@@ -15,18 +15,37 @@ component changes or Breaking Changes.
 
 ## Breaking Changes
 
-- ### FluentButton.Appearance
+- ### FluentButton
 
-  The `Appearance` property has been updated to use the `ButtonAppearance` enum
-  instead of `Appearance`.
+  - ### FormAction
+    The `Action` property has been renamed to `FormAction`.
 
-  |v3 & v4|v5|
-  |---|---|
-  |`Appearance.Neutral`    |`ButtonAppearance.Default`|
-  |`Appearance.Accent`     |`ButtonAppearance.Primary`|
-  |`Appearance.Lightweight`|`ButtonAppearance.Transparent`|
-  |`Appearance.Outline`    |`ButtonAppearance.Outline`|
-  |`Appearance.Stealth`    |`ButtonAppearance.Default`|
-  |`Appearance.Filled`     |`ButtonAppearance.Default`|
-  |                        |`ButtonAppearance.Subtle`|
-  |                        |`ButtonAppearance.Transparent`|
+  - ### FormEncType
+    The `Enctype` property has been renamed to `FormEncType`.
+
+  - ### FormMethod
+    The `Method` property has been renamed to `FormMethod`.
+
+  - ### FormNoValidate
+    The `NoValidate` property has been renamed to `FormNoValidate`.
+
+  - ### FormTarget
+    The `Target` property has been renamed to `FormTarget`.
+
+  - ### Appearance
+      The `Appearance` property has been updated to use the `ButtonAppearance` enum
+      instead of `Appearance`.
+
+      |v3 & v4|v5|
+      |---|---|
+      |`Appearance.Neutral`    |`ButtonAppearance.Default`|
+      |`Appearance.Accent`     |`ButtonAppearance.Primary`|
+      |`Appearance.Lightweight`|`ButtonAppearance.Transparent`|
+      |`Appearance.Outline`    |`ButtonAppearance.Outline`|
+      |`Appearance.Stealth`    |`ButtonAppearance.Default`|
+      |`Appearance.Filled`     |`ButtonAppearance.Default`|
+      |                        |`ButtonAppearance.Subtle`|
+      |                        |`ButtonAppearance.Transparent`|
+
+  - ### CurrentValue
+    The `CurrentValue` property has been removed. Use `Value` instead.

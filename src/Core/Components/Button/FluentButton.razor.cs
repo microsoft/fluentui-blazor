@@ -9,26 +9,16 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/*
+ * IconOnly, Shape, Size,
+ */
+
 /// <summary>
-/// TODO: Button
+/// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and
+/// is often found inside forms, dialogs, panels and/or pages.
 /// </summary>
 public partial class FluentButton : FluentComponentBase
 {
-    /*
-    private const string JAVASCRIPT_FILE = JAVASCRIPT_ROOT + "Button/FluentButton.razor.js";
-
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? JSModule { get; set; }
-    */
-
     /// <summary />
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
@@ -41,10 +31,10 @@ public partial class FluentButton : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style).Build();
 
     /// <summary>
-    /// Determines if the element should receive document focus on page load.
+    /// Gets or sets whether the button should be focused when the page is loaded.
     /// </summary>
     [Parameter]
-    public bool? Autofocus { get; set; }
+    public bool AutoFocus { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the id of a form to associate the element to.
@@ -53,60 +43,64 @@ public partial class FluentButton : FluentComponentBase
     public string? FormId { get; set; }
 
     /// <summary>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// gets or sets the URL that processes the information submitted by the button.
     /// </summary>
     [Parameter]
-    public string? Action { get; set; }
+    public string? FormAction { get; set; }
 
     /// <summary>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// Gets or sets how to encode the form data that is submitted
+    /// (if the button is a submit button).
     /// </summary>
     [Parameter]
-    public string? EncType { get; set; }
+    public string? FormEncType { get; set; }
 
     /// <summary>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// Gets or sets the HTTP method used to submit the form
+    /// (if the button is a submit button).
     /// </summary>
     [Parameter]
-    public string? Method { get; set; }
+    public string? FormMethod { get; set; }
 
     /// <summary>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
+    /// Gets or sets if the form need to be validated when it is submitted
+    /// (if the button is a submit button).
     /// </summary>
     [Parameter]
-    public bool? NoValidate { get; set; }
+    public bool? FormNoValidate { get; set; }
 
     /// <summary>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">button</see> element for more details.
-    /// Possible values: "_self" | "_blank" | "_parent" | "_top"
+    /// Gets or sets the author-defined name or standardized, underscore-prefixed keyword indicating where to display the response from submitting the form.
+    /// Possible values: "_self" | "_blank" | "_parent" | "_top".
     /// </summary>
     [Parameter]
-    public string? Target { get; set; }
+    public string? FormTarget { get; set; }
 
     /// <summary>
     /// Gets or sets the button type. See <see cref="ButtonType"/> for more details.
     /// Default is ButtonType.Button.
     /// </summary>
     [Parameter]
-    public ButtonType? Type { get; set; } = ButtonType.Button;
+    public ButtonType Type { get; set; } = ButtonType.Button;
 
     /// <summary>
-    /// Gets or sets the value of the element.
+    /// Gets or sets the value associated with the button.
+    /// This value is passed to the server in params when the form is submitted using this button.
     /// </summary>
     [Parameter]
     public string? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets the element's current value.
+    /// Gets or sets the element's disabled state, ensuring it doesn't participate in form submission.
     /// </summary>
     [Parameter]
-    public string? CurrentValue { get; set; }
+    public bool Disabled { get; set; } = false;
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission.
+    /// Gets or sets the value indicating the button is focusable.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; }
+    public bool DisabledFocusable { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the name of the element.
@@ -141,7 +135,7 @@ public partial class FluentButton : FluentComponentBase
     public string? Color { get; set; }
 
     /// <summary>
-    /// Display a progress ring and disable the button.
+    /// Gets or sets whether to display a progress ring and disable the button.
     /// </summary>
     [Parameter]
     public bool Loading { get; set; } = false;
@@ -182,20 +176,9 @@ public partial class FluentButton : FluentComponentBase
     {
         string[] values = ["_self", "_blank", "_parent", "_top"];
 
-        if (!string.IsNullOrEmpty(Target) && !values.Contains(Target, StringComparer.OrdinalIgnoreCase))
+        if (!string.IsNullOrEmpty(FormTarget) && !values.Contains(FormTarget, StringComparer.OrdinalIgnoreCase))
         {
             throw new ArgumentException("Target must be one of the following values: _self, _blank, _parent, _top");
-        }
-    }
-
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && Id is not null && Type != ButtonType.Button)
-        {
-            await Task.CompletedTask;
-            //JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            //await _jsModule.InvokeVoidAsync("updateProxy", Id);
         }
     }
 
