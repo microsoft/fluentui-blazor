@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Client", "exa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo", "examples\Demo\FluentUI.Demo\FluentUI.Demo.csproj", "{0252FA12-8398-4A68-8C80-8DFBDF3021FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.DocViewer", "examples\Demo\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj", "{958BF092-4CF2-470C-B058-9244496B234F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.DocViewer", "examples\Demo\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj", "{958BF092-4CF2-470C-B058-9244496B234F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

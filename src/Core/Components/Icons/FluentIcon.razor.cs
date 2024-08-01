@@ -25,7 +25,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width ?? $"{_icon.Width.ToString(CultureInfo.InvariantCulture)}px", when: () => Width != string.Empty)
-        .AddStyle("fill", GetIconColor())
+        .AddStyle("fill", GetIconColor(), when: (value) => !string.IsNullOrEmpty(value))
         .AddStyle("cursor", "pointer", when: () => OnClick.HasDelegate)
         .AddStyle("display", "inline-block", () => !_icon.ContainsSVG)
         .Build();
@@ -128,10 +128,8 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// Returns FluentIcon.CustomColor, or FluentIcon.Color, or Icon.Color.
     /// </summary>
     /// <returns></returns>
-    private string GetIconColor()
+    private string? GetIconColor()
     {
-        var defaultColor = AspNetCore.Components.Color.Accent.ToAttributeValue()!;
-
         if (Color == AspNetCore.Components.Color.Custom && !string.IsNullOrEmpty(CustomColor))
         {
             return CustomColor;
@@ -144,7 +142,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
 
         if (Color != null)
         {
-            return Color.ToAttributeValue() ?? defaultColor;
+            return Color.ToAttributeValue();
         }
 
         if (!string.IsNullOrEmpty(_icon.Color))
@@ -152,6 +150,6 @@ public partial class FluentIcon<Icon> : FluentComponentBase
             return _icon.Color;
         }
 
-        return defaultColor;
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 ---
-title: Button
-route: /Button
+title: Counter
+route: /Counter
 ---
 
 # My Counter Page

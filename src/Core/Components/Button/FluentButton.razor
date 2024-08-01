@@ -3,8 +3,6 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-@CustomStyle
-
 <AddTag Name="span" TagWhen="@(() => LoadingOverlay)" class="@ClassValue" style="@StyleValue">
     <fluent-button class="@(LoadingOverlay ? string.Empty : ClassValue)"
                    style="@(LoadingOverlay ? string.Empty : StyleValue)"
@@ -20,6 +18,7 @@
                    size="@(Size == ButtonSize.Medium ? null : Size.ToAttributeValue())"
                    id="@Id"
                    value="@Value"
+                   icon-only="@(ChildContent is null)"
                    disabled="@(Disabled || Loading)"
                    disabled-focusable="@(DisabledFocusable || Loading)"
                    name="@Name"
@@ -33,12 +32,18 @@
         {
             if (Loading)
             {
-                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "start" : null)" style="@RingStyle(IconStart)" />
+                <fluent-spinner size="tiny" slot="@(ChildContent is not null ? "start" : null)" style="@RingStyle(IconStart, isStart: true)" />
             }
             else
             {
-                <FluentIcon Value="@(IconStart.InverseColor(Appearance == ButtonAppearance.Primary))"
-                            Slot="@(ChildContent != null ? "start" : null)" />
+                if (ChildContent is null)
+                {
+                    <FluentIcon Value="@IconStart" />
+                }
+                else
+                {
+                    <FluentIcon Value="@IconStart" Slot="start" Style="margin-inline-end: 8px;" />
+                }
             }
         }
         @ChildContent
@@ -46,12 +51,18 @@
         {
             if (Loading && IconStart == null)
             {
-                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "end" : null)" style="@RingStyle(IconEnd)" />
+                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "end" : null)" style="@RingStyle(IconEnd, isStart: false)" />
             }
             else
             {
-                <FluentIcon Value="@(IconEnd.InverseColor(Appearance == ButtonAppearance.Primary))"
-                            Slot="@(ChildContent != null ? "end" : null)" />
+                if (ChildContent is null)
+                {
+                    <FluentIcon Value="@IconEnd" />
+                }
+                else
+                {
+                    <FluentIcon Value="@IconEnd" Slot="end" Style="margin-inline-start: 8px;" />
+                }
             }
         }
     </fluent-button>

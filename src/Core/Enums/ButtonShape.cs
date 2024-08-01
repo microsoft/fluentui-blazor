@@ -18,4 +18,9 @@ public enum ButtonShape
     /// Rounded button.
     /// </summary>
     Rounded,
+
+    /// <summary>
+    /// Square button.
+    /// </summary>
+    Square,
 }

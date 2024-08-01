@@ -28,7 +28,11 @@ public partial class FluentButton : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
+    protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
+        .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
+        .AddStyle("opacity", "0.3", when: () => Disabled && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
+        .Build();
 
     /// <summary>
     /// Gets or sets whether the button should be focused when the page is loaded.
@@ -197,13 +201,6 @@ public partial class FluentButton : FluentComponentBase
     }
 
     /// <summary />
-    protected virtual MarkupString CustomStyle => new InlineStyleBuilder()
-        .AddStyle($"#{Id}::part(control)", "background", $"padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor}", when: !string.IsNullOrEmpty(BackgroundColor))
-        .AddStyle($"#{Id}::part(control)", "color", $"{Color}", when: !string.IsNullOrEmpty(Color))
-        .AddStyle($"#{Id}::part(control):hover", "opacity", "0.8", when: !string.IsNullOrEmpty(Color) || !string.IsNullOrEmpty(BackgroundColor))
-        .BuildMarkupString();
-
-    /// <summary />
     protected override void OnInitialized()
     {
         if (string.IsNullOrEmpty(Id) && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
@@ -233,11 +230,11 @@ public partial class FluentButton : FluentComponentBase
         StateHasChanged();
     }
 
-    private string RingStyle(Icon icon)
+    private static string RingStyle(Icon icon, bool isStart)
     {
-        var size = (icon.Width - 4).ToString(CultureInfo.InvariantCulture);
-        var inverse = Appearance == ButtonAppearance.Primary ? " filter: invert(1);" : string.Empty;
+        var size = icon.Width.ToString(CultureInfo.InvariantCulture);
+        var margin = isStart ? "margin-inline-end: 8px" : "margin-inline-start: 8px";
 
-        return $"width: {size}px; height: {size}px;{inverse}";
+        return $"width: {size}px; height: {size}px; {margin};";
     }
 }
