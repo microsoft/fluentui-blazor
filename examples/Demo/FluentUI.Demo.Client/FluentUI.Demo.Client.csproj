@@ -29,9 +29,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="**\*.md" />
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
