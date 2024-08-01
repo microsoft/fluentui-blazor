@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Components.Web
+﻿@using FluentUI.Demo.DocViewer.Models
+@using Microsoft.AspNetCore.Components.Web
 
 <PageTitle>@string.Format(DocViewerService.PageTitle, PageTitle)</PageTitle>
 
@@ -9,6 +10,57 @@
     }
     else
     {
-        @RenderHtmlContent()
+        @* @RenderHtmlContent() *@
+
+        foreach (var section in Sections)
+        {
+            switch (section.Type)
+            {
+                case SectionType.Html:
+                    @((MarkupString)section.Value)
+                    break;
+
+                case SectionType.Code:
+
+                    var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
+
+                    <pre>
+                        <code id="@(section.Id)" class="language-@language">
+                            @(section.Value)
+                        </code>
+                    </pre>
+                    
+                    break;
+
+                case SectionType.Component:
+                    var component = GetComponentFromName(section.Value);
+
+                    if (component == null)
+                    {
+                        <div class="component-not-found">&#9888; The component {{ @(section.Value) }} was not found.</div>
+                    }
+                    else
+                    {
+                        <fluent-tabs>
+                            <fluent-tab>Example</fluent-tab>
+                            <fluent-tab>Code</fluent-tab>
+
+                            <fluent-tab-panel class="demo-section-example">
+                                <DynamicComponent Type="@component" />
+                            </fluent-tab-panel>
+                            <fluent-tab-panel>The example code will be here.</fluent-tab-panel>
+                        </fluent-tabs>
+                        
+                    }
+
+                    break;
+
+                case SectionType.Api:
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 </div>

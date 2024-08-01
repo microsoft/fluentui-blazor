@@ -57,57 +57,57 @@ public partial class MarkdownViewer
         }
     }
 
-    private RenderFragment RenderHtmlContent() => builder =>
-    {
-        var i = 0;
+    //private RenderFragment RenderHtmlContent() => builder =>
+    //{
+    //    var i = 0;
 
-        foreach (var section in Sections)
-        {
-            switch (section.Type)
-            {
-                case SectionType.Html:
-                    builder.AddMarkupContent(i++, section.Value);
-                    break;
+    //    foreach (var section in Sections)
+    //    {
+    //        switch (section.Type)
+    //        {
+    //            case SectionType.Html:
+    //                builder.AddMarkupContent(i++, section.Value);
+    //                break;
 
-                case SectionType.Code:
+    //            case SectionType.Code:
 
-                    var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
+    //                var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
 
-                    builder.OpenElement(i++, "pre");
-                    builder.OpenElement(i++, "code");
-                    builder.AddAttribute(i++, "id", section.Id);
-                    builder.AddAttribute(i++, "class", $"language-{language}");
+    //                builder.OpenElement(i++, "pre");
+    //                builder.OpenElement(i++, "code");
+    //                builder.AddAttribute(i++, "id", section.Id);
+    //                builder.AddAttribute(i++, "class", $"language-{language}");
 
-                    builder.AddMarkupContent(i++, section.Value);
+    //                builder.AddMarkupContent(i++, section.Value);
 
-                    builder.CloseElement();
-                    builder.CloseElement();
+    //                builder.CloseElement();
+    //                builder.CloseElement();
 
-                    break;
+    //                break;
 
-                case SectionType.Component:
-                    var component = GetComponentFromName(section.Value);
+    //            case SectionType.Component:
+    //                var component = GetComponentFromName(section.Value);
 
-                    if (component == null)
-                    {
-                        builder.AddMarkupContent(i++, $"<div class='component-not-found'>&#9888; The component \"{{{{ {section.Value} }}}}\" was not found.</div>");
-                    }
-                    else
-                    {
-                        builder.OpenComponent(i++, component);
-                        builder.CloseComponent();
-                    }
+    //                if (component == null)
+    //                {
+    //                    builder.AddMarkupContent(i++, $"<div class='component-not-found'>&#9888; The component \"{{{{ {section.Value} }}}}\" was not found.</div>");
+    //                }
+    //                else
+    //                {
+    //                    builder.OpenComponent(i++, component);
+    //                    builder.CloseComponent();
+    //                }
 
-                    break;
+    //                break;
 
-                case SectionType.Api:
-                    break;
+    //            case SectionType.Api:
+    //                break;
 
-                default:
-                    break;
-            }
-        }
-    };
+    //            default:
+    //                break;
+    //        }
+    //    }
+    //};
 
     private static List<Section> ExtractSections(string content)
     {

@@ -1,23 +1,31 @@
 ::deep .component-not-found {
-    padding: 12px;
-    border: 1px dashed red;
-    background-color: lightyellow;
-    color: red;
-    font-weight: bold;
+  padding: 12px;
+  border: 1px dashed red;
+  background-color: lightyellow;
+  color: red;
+  font-weight: bold;
 }
 
 ::deep pre code {
-    overflow-x: auto;
-    display: block;
-    padding: 1em;
-    background-color: rgb(243, 243, 243);
-    border: 1px solid silver;
-    font-size: 13px;
-    font-weight: bold;
-    transition: opacity 0.2s ease-in-out;
-    opacity: 0.2;
+  overflow-x: auto;
+  display: block;
+  padding: 1em;
+  background-color: rgb(243, 243, 243);
+  border: 1px solid silver;
+  font-size: 13px;
+  font-weight: bold;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0.2;
 }
 
-    ::deep pre code[class*="hljs"] {
-        opacity: 1;
-    }
+  ::deep pre code[class*="hljs"] {
+    opacity: 1;
+  }
+
+::deep .demo-section-example {
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  border-radius: var(--borderRadiusMedium);
+  padding: 8px 8px;
+  margin: 8px 0px;
+  min-height: 100px;
+}
