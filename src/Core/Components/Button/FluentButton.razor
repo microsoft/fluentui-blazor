@@ -15,7 +15,9 @@
                    formmethod="@FormMethod"
                    formnovalidate="@FormNoValidate"
                    formtarget="@FormTarget"
-                   type="@Type.ToAttributeValue()"
+                   type="@(Type == ButtonType.Button ? null : Type.ToAttributeValue())"
+                   shape="@(Shape == ButtonShape.Rounded ? null : Shape.ToAttributeValue())"
+                   size="@(Size == ButtonSize.Medium ? null : Size.ToAttributeValue())"
                    id="@Id"
                    value="@Value"
                    disabled="@(Disabled || Loading)"
@@ -24,7 +26,7 @@
                    required="@Required"
                    aria-label="@Title"
                    title="@Title"
-                   appearance="@Appearance.ToAttributeValue()"
+                   appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                    @onclick="@OnClickHandlerAsync"
                    @attributes="AdditionalAttributes">
         @if (IconStart != null)

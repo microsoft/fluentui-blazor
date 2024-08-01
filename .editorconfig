@@ -505,12 +505,15 @@ dotnet_diagnostic.CA2007.severity = none
 # MA0015: Specify the parameter name in ArgumentException (not valid in OnParametersSet)
 dotnet_diagnostic.MA0015.severity = none
 
-[examples/Demo/**/**.cs]
+[examples/Demo/**/*.{cs,razor}]
 # CA2007: Consider calling ConfigureAwait on the awaited task
 dotnet_diagnostic.CA2007.severity = none
 
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
+
+# CS0618: Obsolete attribute
+dotnet_diagnostic.CS0618.severity = none
 
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none

@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /*
- * IconOnly, Shape, Size,
+ * IconOnly
  */
 
 /// <summary>
@@ -82,6 +82,20 @@ public partial class FluentButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public ButtonType Type { get; set; } = ButtonType.Button;
+
+    /// <summary>
+    /// Gets or sets the shape of the button.
+    /// Default is ButtonShape.Rounded.
+    /// </summary>
+    [Parameter]
+    public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
+
+    /// <summary>
+    /// Gets or sets the size of the button.
+    /// Default is ButtonSize.Medium.
+    /// </summary>
+    [Parameter]
+    public ButtonSize Size { get; set; } = ButtonSize.Medium;
 
     /// <summary>
     /// Gets or sets the value associated with the button.
