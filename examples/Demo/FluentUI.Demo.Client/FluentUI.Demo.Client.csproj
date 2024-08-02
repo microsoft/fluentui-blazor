@@ -38,11 +38,35 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="documentation\button\FluentButton.md" />
+    <Folder Include="wwwroot\sources\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+  <Target Name="CopySources" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <Sources Include="$(ProjectDir)\Documentation\**\*.razor" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 
+    <!-- Add a task to generate files.txt with all filenames -->
+    <WriteLinesToFile
+      File="$(ProjectDir)wwwroot\sources\files.txt"
+      Lines="@(Sources->'%(Filename)%(Extension).txt')"
+      Overwrite="true" />
+  </Target>
+
+  <!-- TODO 
+  <Target Name="CopyMarkdown" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <Sources Include="$(ProjectDir)\Documentation\**\*.md" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\documentation\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
+
+    Add a task to generate files.txt with all filenames
+    <WriteLinesToFile
+      File="$(ProjectDir)wwwroot\documentation\files.txt"
+      Lines="@(Sources->'%(Filename)%(Extension).txt')"
+      Overwrite="true" />
+  </Target>
+  -->
+  
 </Project>

@@ -25,7 +25,7 @@
 ::deep .demo-section-example {
   border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
   border-radius: var(--borderRadiusMedium);
-  padding: 8px 8px;
+  padding: 16px 16px;
   margin: 8px 0px;
   min-height: 100px;
 }
