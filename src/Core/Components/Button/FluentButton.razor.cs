@@ -201,15 +201,6 @@ public partial class FluentButton : FluentComponentBase
     }
 
     /// <summary />
-    protected override void OnInitialized()
-    {
-        if (string.IsNullOrEmpty(Id) && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
-        {
-            Id = Identifier.NewId();
-        }
-    }
-
-    /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (!Disabled && OnClick.HasDelegate)
