@@ -32,7 +32,7 @@
         {
             if (Loading)
             {
-                <fluent-spinner size="tiny" slot="@(ChildContent is not null ? "start" : null)" style="@RingStyle(IconStart, isStart: true)" />
+                <fluent-spinner size="tiny" slot="@(ChildContent is not null ? "start" : null)" style="@RingStyle(IconStart)" />
             }
             else
             {
@@ -42,7 +42,7 @@
                 }
                 else
                 {
-                    <FluentIcon Value="@IconStart" Slot="start" Style="margin-inline-end: 8px;" />
+                    <FluentIcon Value="@IconStart" Slot="start" />
                 }
             }
         }
@@ -51,7 +51,7 @@
         {
             if (Loading && IconStart == null)
             {
-                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "end" : null)" style="@RingStyle(IconEnd, isStart: false)" />
+                <fluent-spinner size="tiny" slot="@(ChildContent != null ? "end" : null)" style="@RingStyle(IconEnd)" />
             }
             else
             {
@@ -61,7 +61,7 @@
                 }
                 else
                 {
-                    <FluentIcon Value="@IconEnd" Slot="end" Style="margin-inline-start: 8px;" />
+                    <FluentIcon Value="@IconEnd" Slot="end" />
                 }
             }
         }

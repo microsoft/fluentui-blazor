@@ -221,11 +221,10 @@ public partial class FluentButton : FluentComponentBase
         StateHasChanged();
     }
 
-    private static string RingStyle(Icon icon, bool isStart)
+    private static string RingStyle(Icon icon)
     {
         var size = icon.Width.ToString(CultureInfo.InvariantCulture);
-        var margin = isStart ? "margin-inline-end: 8px" : "margin-inline-start: 8px";
 
-        return $"width: {size}px; height: {size}px; {margin};";
+        return $"width: {size}px; height: {size}px;";
     }
 }
