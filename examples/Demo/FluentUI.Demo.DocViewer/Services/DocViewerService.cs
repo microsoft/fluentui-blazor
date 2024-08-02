@@ -11,17 +11,31 @@ public class DocViewerService
 {
     private IEnumerable<Page>? _pages;
 
-    public required string PageTitle { get; init; }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DocViewerService"/> class.
+    /// </summary>
+    /// <param name="options"></param>
+    public DocViewerService(DocViewerOptions options)
+    {
+        Options = options;
+        ComponentsAssembly = options.ComponentsAssembly;
+        ResourcesAssembly = options.ResourcesAssembly;
+    }
+
+    /// <summary>
+    /// Gets the options used to configure the <see cref="DocViewerService"/>.
+    /// </summary>
+    public DocViewerOptions Options { get; }
 
     /// <summary>
     /// Gets the assembly containing the razor components to display in markdown pages.
     /// </summary>
-    public required Assembly ComponentsAssembly { get; init; }
+    public Assembly? ComponentsAssembly { get; }
 
     /// <summary>
     /// Gets the assembly containing the embedded markdown pages.
     /// </summary>
-    public required Assembly ResourcesAssembly { get; init; }
+    public Assembly? ResourcesAssembly { get; }
 
     /// <summary>
     /// Gets the list of all markdown pages found in the resources
@@ -40,8 +54,14 @@ public class DocViewerService
                                          string.Compare(i.Route, $"/{routeName}", StringComparison.InvariantCultureIgnoreCase) == 0);
     }
 
+    /// <summary />
     private List<Page> LoadAllPages()
     {
+        if (ResourcesAssembly is null)
+        {
+            return [];
+        }
+
         var resourceNames = ResourcesAssembly.GetManifestResourceNames();
         var pages = new List<Page>();
 

@@ -1,7 +1,7 @@
 ﻿@using FluentUI.Demo.DocViewer.Models
 @using Microsoft.AspNetCore.Components.Web
 
-<PageTitle>@string.Format(DocViewerService.PageTitle, PageTitle)</PageTitle>
+<PageTitle>@string.Format(DocViewerService.Options.PageTitle, PageTitle)</PageTitle>
 
 <div>
     @if (_isPageNotFound)
@@ -24,12 +24,8 @@
 
                     var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
 
-                    <pre>
-                        <code id="@(section.Id)" class="language-@language">
-                            @(section.Value)
-                        </code>
-                    </pre>
-                    
+                    <pre><code id="@(section.Id)" class="language-@language">@((MarkupString)section.Value)</code></pre>
+
                     break;
 
                 case SectionType.Component:
@@ -48,9 +44,11 @@
                             <fluent-tab-panel class="demo-section-example">
                                 <DynamicComponent Type="@component" />
                             </fluent-tab-panel>
-                            <fluent-tab-panel>The example code will be here.</fluent-tab-panel>
+                            <fluent-tab-panel>
+                                <pre><code @key="@(section.Id)" id="@(section.Id)" class="language-razor" source>@(section.SourceCode)</code></pre>
+                            </fluent-tab-panel>
                         </fluent-tabs>
-                        
+
                     }
 
                     break;

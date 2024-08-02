@@ -19,21 +19,34 @@ public partial class MarkdownViewer
     private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.DocViewer/Components/MarkdownViewer.razor.js";
     private IJSObjectReference _jsModule = default!;
 
+    /// <summary />
     [Inject]
-    public DocViewerService DocViewerService { get; set; } = default!;
+    internal StaticAssetService StaticAssetService { get; set; } = default!;
 
+    /// <summary />
+    [Inject]
+    internal DocViewerService DocViewerService { get; set; } = default!;
+
+    /// <summary />
     [Inject]
     internal IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets the Page route of the markdown file to display.
+    /// </summary>
     [Parameter]
     public required string Route { get; set; }
 
+    /// <summary />
     internal string PageTitle { get; private set; } = string.Empty;
 
+    /// <summary />
     protected IEnumerable<Section> Sections { get; private set; } = [];
 
-    protected override void OnInitialized()
+    /// <summary />
+    protected async override Task OnInitializedAsync()
     {
+        // Markdown
         var page = DocViewerService.FromRoute(Route);
 
         if (page is null)
@@ -43,72 +56,31 @@ public partial class MarkdownViewer
             return;
         }
 
+        // Extract the sections from the markdown content
         _isPageNotFound = false;
         PageTitle = page.Title;
         var html = Markdown.ToHtml(page.Content, MarkdownPipeline);
         Sections = ExtractSections(html);
+
+        // Load Assets (Source Code, ...)
+        foreach (var section in Sections)
+        {
+            await section.LoadStaticAssetsAsync(StaticAssetService, DocViewerService);
+        }
     }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await _jsModule.InvokeVoidAsync("applyHighlight");
         }
+
+        await _jsModule.InvokeVoidAsync("applyHighlight");
     }
 
-    //private RenderFragment RenderHtmlContent() => builder =>
-    //{
-    //    var i = 0;
-
-    //    foreach (var section in Sections)
-    //    {
-    //        switch (section.Type)
-    //        {
-    //            case SectionType.Html:
-    //                builder.AddMarkupContent(i++, section.Value);
-    //                break;
-
-    //            case SectionType.Code:
-
-    //                var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
-
-    //                builder.OpenElement(i++, "pre");
-    //                builder.OpenElement(i++, "code");
-    //                builder.AddAttribute(i++, "id", section.Id);
-    //                builder.AddAttribute(i++, "class", $"language-{language}");
-
-    //                builder.AddMarkupContent(i++, section.Value);
-
-    //                builder.CloseElement();
-    //                builder.CloseElement();
-
-    //                break;
-
-    //            case SectionType.Component:
-    //                var component = GetComponentFromName(section.Value);
-
-    //                if (component == null)
-    //                {
-    //                    builder.AddMarkupContent(i++, $"<div class='component-not-found'>&#9888; The component \"{{{{ {section.Value} }}}}\" was not found.</div>");
-    //                }
-    //                else
-    //                {
-    //                    builder.OpenComponent(i++, component);
-    //                    builder.CloseComponent();
-    //                }
-
-    //                break;
-
-    //            case SectionType.Api:
-    //                break;
-
-    //            default:
-    //                break;
-    //        }
-    //    }
-    //};
-
+    /// <summary />
     private static List<Section> ExtractSections(string content)
     {
         string[] tags =
@@ -145,8 +117,14 @@ public partial class MarkdownViewer
         return sections;
     }
 
+    /// <summary />
     private Type? GetComponentFromName(string name)
     {
+        if (DocViewerService.ComponentsAssembly is null)
+        {
+            return null;
+        }
+
         return DocViewerService.ComponentsAssembly
                                .GetTypes()
                                .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)

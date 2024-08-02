@@ -57,15 +57,13 @@ public static class ServiceCollectionExtensions
         // Add HttpClient for the "CatchAll.razor" page
         services.AddHttpClient();
 
-        // Common services for the Demo project
-        services.AddSingleton<DocViewerService>(factory =>
+        // Documentation services
+        services.AddDocViewer(options =>
         {
-            return new DocViewerService()
-            {
-                PageTitle = "{0} - FluentUI Blazor Components",
-                ComponentsAssembly = typeof(Client._Imports).Assembly,
-                ResourcesAssembly = typeof(Client._Imports).Assembly
-            };
+            options.PageTitle = "{0} - FluentUI Blazor Components";
+            options.ComponentsAssembly = typeof(Client._Imports).Assembly;
+            options.ResourcesAssembly = typeof(Client._Imports).Assembly;
+            options.SourceCodeUrl = "/sources/{0}.razor.txt";
         });
 
         return new DemoServices(services);

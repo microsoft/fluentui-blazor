@@ -26,8 +26,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Routes\" />
-  </ItemGroup>
-
 </Project>

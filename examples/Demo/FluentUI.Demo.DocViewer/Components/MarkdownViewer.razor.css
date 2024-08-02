@@ -22,6 +22,14 @@
     opacity: 1;
   }
 
+  ::deep pre code[source] {
+    display: none;
+  }
+
+    ::deep pre code[source][class*="hljs"] {
+      display: block;
+    }
+
 ::deep .demo-section-example {
   border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
   border-radius: var(--borderRadiusMedium);

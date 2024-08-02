@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.DocViewer.Services;
+
 namespace FluentUI.Demo.DocViewer.Models;
 
 public record Section
@@ -11,6 +13,10 @@ public record Section
 
     public const string ARGUMENT_LANGUAGE = "Language";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Section"/> class.
+    /// </summary>
+    /// <param name="content"></param>
     public Section(string content)
     {
         // Code section
@@ -43,6 +49,7 @@ public record Section
         {
             Value = content[2..^2].Trim();
             Type = SectionType.Component;
+            Arguments = new Dictionary<string, string>();
         }
 
         // Text / HTML section
@@ -50,14 +57,54 @@ public record Section
         {
             Value = content;
             Type = SectionType.Html;
+            Arguments = new Dictionary<string, string>();
         }
     }
 
-    public string Id { get; } = _rnd.Next().ToString("x", System.Globalization.CultureInfo.InvariantCulture);
+    /// <summary>
+    /// Get the unique identifier of the section.
+    /// </summary>
+    public string Id { get; private set; } = _rnd.Next().ToString("x", System.Globalization.CultureInfo.InvariantCulture);
 
+    /// <summary>
+    /// Gets the content of the section or the name of the component.
+    /// </summary>
     public string Value { get; }
 
-    public IDictionary<string, string>? Arguments { get; }
+    /// <summary>
+    /// Gets the source code of the component (if <see langword="type"/> is Component).
+    /// </summary>
+    public string SourceCode { get; private set; } = string.Empty;
 
+    /// <summary>
+    /// Gets the parameters of the section.
+    /// </summary>
+    public IDictionary<string, string> Arguments { get; }
+
+    /// <summary>
+    /// Gets the type of the section.
+    /// </summary>
     public SectionType Type { get; } = SectionType.Html;
+
+    internal async Task LoadStaticAssetsAsync(StaticAssetService assetService, DocViewerService viewerService)
+    {
+        switch (Type)
+        {
+            case SectionType.Component:
+
+                var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, viewerService.Options.SourceCodeUrl, Value);
+                var code = await assetService.GetAsync(url);
+
+                if (!string.IsNullOrEmpty(code))
+                {
+                    SourceCode = code;
+                    Id += "-src";
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
 }
