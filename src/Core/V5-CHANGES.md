@@ -2,7 +2,7 @@
 
 The following changes have been included in version 5.
 Some of these are coding changes,
-component changes or Breaking Changes.
+component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 ## General
 
@@ -19,7 +19,7 @@ component changes or Breaking Changes.
   - ### New properties
     `Size`,  `Shape`, `DisabledFocusable` are new properties.
 
-  - ### Renamed properties
+  - ### Renamed properties 🔃
     The `Action` property has been renamed to `FormAction`.
 
     The `Enctype` property has been renamed to `FormEncType`.
@@ -30,10 +30,10 @@ component changes or Breaking Changes.
 
     The `Target` property has been renamed to `FormTarget`.
 
-  - ### Removed properties
+  - ### Removed properties💥
     The `CurrentValue` property has been removed. Use `Value` instead.
 
-  - ### Appearance
+  - ### Appearance 💥
       The `Appearance` property has been updated to use the `ButtonAppearance` enum
       instead of `Appearance` enum.
 
