@@ -35,7 +35,7 @@ public class IdentifierTests
 
         // Apply the ID Context until the end of the block
         using var context = new IdentifierContext(idGenerator);
-
+        
         var id0 = Identifier.NewId();
         var id1 = Identifier.NewId();
         var id2 = Identifier.NewId();
@@ -57,5 +57,20 @@ public class IdentifierTests
         Assert.Equal("f0000", id0);
         Assert.Equal("f0001", id1);
         Assert.Equal("f0002", id2);
+    }
+
+    [Fact]
+    public void Identifier_CurrentIndex_Reset()
+    {
+        // Apply the ID Context until the end of the block
+        using var context = Identifier.SequentialContext();
+
+        context.CurrentIndex = 99999999;
+
+        var id0 = Identifier.NewId();
+        var id1 = Identifier.NewId();
+
+        Assert.Equal("f99999999", id0);
+        Assert.Equal("f0000", id1);
     }
 }

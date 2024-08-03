@@ -41,7 +41,7 @@ public sealed class IdentifierContext : IDisposable
     }
 
     /// <summary />
-    private uint CurrentIndex { get; set; }
+    internal uint CurrentIndex { get; set; }
 
     /// <summary />
     private Func<uint, string> NewId { get; init; }
