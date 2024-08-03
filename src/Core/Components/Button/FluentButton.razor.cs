@@ -221,6 +221,7 @@ public partial class FluentButton : FluentComponentBase
         StateHasChanged();
     }
 
+    /// <summary />
     private static string RingStyle(Icon icon)
     {
         var size = icon.Width.ToString(CultureInfo.InvariantCulture);

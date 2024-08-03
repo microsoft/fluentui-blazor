@@ -273,7 +273,17 @@
     }
 
     [Fact]
-    public void FluentButton_IconNoContent()
+    public void FluentButton_IconStartNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconStart="@SampleIcons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_IconEndNoContent()
     {
         // Arrange && Act
         var cut = Render(@<FluentButton IconEnd="@SampleIcons.Info" />);
@@ -351,5 +361,35 @@
 
         // Assert
         Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_Loading()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Loading="true">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Loading_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Loading="true" IconStart="@SampleIcons.Info">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Loading_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Loading="true" IconEnd="@SampleIcons.Info">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
     }
 }
