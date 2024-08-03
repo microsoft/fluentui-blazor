@@ -12,8 +12,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// </summary>
 public class AddTag : ComponentBase
 {
-    private const string CssScopeIdentifier = "";
-
     /// <summary>
     /// Gets or sets the name of the tag.
     /// </summary>
@@ -47,36 +45,29 @@ public class AddTag : ComponentBase
     /// <summary />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
+        if (string.IsNullOrEmpty(Name))
+        {
+            throw new InvalidOperationException("Name property is required.");
+        }
+
         var addTag = TagWhen();
         var addContent = ContentWhen();
 
         if (addTag && addContent)
         {
             builder.OpenElement(0, Name);
-
-            if (!string.IsNullOrEmpty(CssScopeIdentifier))
-            {
-                builder.AddAttribute(1, CssScopeIdentifier);
-            }
-
-            builder.AddMultipleAttributes(2, AdditionalAttributes);
-            builder.AddContent(3, ChildContent);
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
+            builder.AddContent(2, ChildContent);
             builder.CloseElement();
         }
         else if (addContent)
         {
-            builder.AddContent(4, ChildContent);
+            builder.AddContent(3, ChildContent);
         }
         else if (addTag)
         {
-            builder.OpenElement(5, Name);
-
-            if (!string.IsNullOrEmpty(CssScopeIdentifier))
-            {
-                builder.AddAttribute(6, CssScopeIdentifier);
-            }
-
-            builder.AddMultipleAttributes(7, AdditionalAttributes);
+            builder.OpenElement(4, Name);
+            builder.AddMultipleAttributes(5, AdditionalAttributes);
             builder.CloseElement();
         }
     }

@@ -35,7 +35,7 @@ component changes or Breaking Changes.
 
   - ### Appearance
       The `Appearance` property has been updated to use the `ButtonAppearance` enum
-      instead of `Appearance`.
+      instead of `Appearance` enum.
 
       `ButtonAppearance` enum has the following values:
       - `Default`

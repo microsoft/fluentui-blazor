@@ -36,7 +36,7 @@ public static class Identifier
 
             if (length <= 8)
             {
-                return $"f{_rnd.Next():x}";
+                return $"f{_rnd.Next():x}"[..length];
             }
 
             return $"f{_rnd.Next():x}{_rnd.Next():x}"[..length];

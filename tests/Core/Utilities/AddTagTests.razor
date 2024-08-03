@@ -1,0 +1,88 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Fact]
+    public void AddTag_Default()
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span">Content</AddTag>);
+
+        // Assert
+        Assert.Equal("<span>Content</span>", cut.Markup);
+    }
+
+    [Fact]
+    public void AddTag_Name_Required()
+    {
+        // Arrange && Assert
+        Assert.Throws<InvalidOperationException>(() => Render(@<AddTag>Content</AddTag>));
+    }
+
+    [Theory]
+    [InlineData(true, true, "<span>Content</span>")]
+    [InlineData(true, false, "<span></span>")]
+    [InlineData(false, true, "Content")]
+    [InlineData(false, false, "")]
+    public void AddTag_TagWhen_ContentWhen(bool tagWhen, bool contentWhen, string expected)
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span" TagWhen="@(() => tagWhen)" ContentWhen="@(() => contentWhen)">Content</AddTag>);
+
+        // Assert
+        Assert.Equal(expected, cut.Markup);
+    }
+
+
+    [Fact]
+    public void AddTag_TagWhen_True()
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span" TagWhen="@(() => true)">Content</AddTag>);
+
+        // Assert
+        Assert.Equal("<span>Content</span>", cut.Markup);
+    }
+
+    [Fact]
+    public void AddTag_TagWhen_False()
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span" TagWhen="@(() => false)">Content</AddTag>);
+
+        // Assert
+        Assert.Equal("Content", cut.Markup);
+    }
+
+    [Fact]
+    public void AddTag_AdditionalAttributes()
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span" extra="123">Content</AddTag>);
+
+        // Assert
+        Assert.Equal("<span extra=\"123\">Content</span>", cut.Markup);
+    }
+
+    [Fact]
+    public void AddTag_ContentWhen_True()
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span" ContentWhen="@(() => true)">Content</AddTag>);
+
+        // Assert
+        Assert.Equal("<span>Content</span>", cut.Markup);
+    }
+
+    [Fact]
+    public void AddTag_ContentWhen_False()
+    {
+        // Arrange
+        var cut = Render(@<AddTag Name="span" ContentWhen="@(() => false)">Content</AddTag>);
+        
+        // Assert
+        Assert.Equal("<span></span>", cut.Markup);
+    }
+}

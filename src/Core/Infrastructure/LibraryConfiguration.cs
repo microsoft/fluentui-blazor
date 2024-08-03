@@ -7,6 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Defines the global Fluent UI Blazor component library services configuration
 /// </summary>
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public class LibraryConfiguration
 {
     /// <summary>
