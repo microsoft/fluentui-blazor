@@ -394,7 +394,7 @@ dotnet_diagnostic.MA0071.severity = warning
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
 
-[tests/**.{cs,razor}]
+[{tests/**.{cs,razor},examples/Tools/FluentUI.Demo.DocViewer.Tests/**.{cs,razor}}]
 # CA1018: Mark attributes with AttributeUsageAttribute
 dotnet_diagnostic.CA1018.severity = suggestion
 # CA1507: Use nameof to express symbol names

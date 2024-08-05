@@ -91,6 +91,10 @@ public record Page
             dictionary["content"] = content;
 
         }
+        else
+        {
+            dictionary["content"] = input;
+        }
 
         return dictionary;
     }

@@ -26,6 +26,8 @@ Value: @Value
 
 {{ MyCounter }}
 
+{{ MyCounter SourceCode=false }}
+
 This code is a live demo of a Counter
 
 |Example|Table|

@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Text.RegularExpressions;
 using FluentUI.Demo.DocViewer.Services;
 
 namespace FluentUI.Demo.DocViewer.Models;
@@ -39,12 +40,12 @@ public record Section
         // Code section
         if (content.StartsWith("<pre><code", StringComparison.InvariantCultureIgnoreCase))
         {
-            var regex = new System.Text.RegularExpressions.Regex(@"language-(\w+)"); // Extract the Language name
+            var regex = new Regex(@"language-(\w+)"); // Extract the Language name
             var match = regex.Match(content);
 
             var language = match.Success ? match.Groups[1].Value : DEFAULT_LANGUAGE;
 
-            Value = System.Text.RegularExpressions.Regex.Replace(content, @"<\/?(pre|code)[^>]*>", string.Empty);
+            Value = Regex.Replace(content, @"<\/?(pre|code)[^>]*>", string.Empty);
             Type = SectionType.Code;
             Arguments = new Dictionary<string, string>
             {
@@ -52,23 +53,25 @@ public record Section
             };
         }
 
-        // API section
-        else if (content.StartsWith("{{ API") && content.EndsWith("}}"))
-        {
-            var arguments = content[6..^4].Trim().Split('=', ' ', StringSplitOptions.RemoveEmptyEntries);
-            Value = string.Join(';', arguments);
-            Type = SectionType.Api;
-            Arguments = arguments.ToDictionary(i => i);
-        }
-
-        // Component section
+        // API or Component section
         else if (content.StartsWith("{{") && content.EndsWith("}}"))
         {
-            Value = content[2..^2].Trim();
-            Type = SectionType.Component;
-            Arguments = new Dictionary<string, string>();
+            var component = ParseComponent(content);
 
-            await LoadSourceCodeFromAssetsAsync();
+            if (string.Compare(component.Name, "API", StringComparison.InvariantCultureIgnoreCase) == 0)
+            {
+                Arguments = component.Arguments;
+                Value = string.Join(';', component.Arguments.Select(i => $"{i.Key}={i.Value}"));
+                Type = SectionType.Api;
+            }
+            else
+            {
+                Arguments = component.Arguments;
+                Value = component.Name;
+                Type = SectionType.Component;
+
+                await LoadSourceCodeFromAssetsAsync();
+            }
         }
 
         // Text / HTML section
@@ -106,6 +109,29 @@ public record Section
     /// Gets the type of the section.
     /// </summary>
     public SectionType Type { get; private set; } = SectionType.Html;
+
+    /// <summary />
+    private static (string Name, Dictionary<string, string> Arguments) ParseComponent(string input)
+    {
+        var dict = new Dictionary<string, string>();
+        var componentRegex = new Regex(@"\{\{\s*(\w+)\s*(.*?)\s*\}\}");
+        var match = componentRegex.Match(input);
+
+        var componentName = match.Groups[1].Value;
+        var argumentsPart = match.Groups[2].Value;
+
+        var argRegex = new Regex(@"(\w+)\s*=\s*(""[^""]*""|\S+)");
+        var matches = argRegex.Matches(argumentsPart);
+
+        foreach (Match argMatch in matches)
+        {
+            var key = argMatch.Groups[1].Value;
+            var value = argMatch.Groups[2].Value.Trim('"');
+            dict[key] = value;
+        }
+
+        return (componentName, dict);
+    }
 
     /// <summary />
     private async Task LoadSourceCodeFromAssetsAsync()
