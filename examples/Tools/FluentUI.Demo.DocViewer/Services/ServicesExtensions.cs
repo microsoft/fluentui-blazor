@@ -28,7 +28,7 @@ public static class ServicesExtensions
             return new DocViewerService(configuration);
         });
         services.AddScoped<FactoryService>(provider => new FactoryService()
-        { 
+        {
             DocViewerService = provider.GetRequiredService<DocViewerService>(),
             StaticAssetService = provider.GetRequiredService<IStaticAssetService>(),
         });

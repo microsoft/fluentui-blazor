@@ -19,7 +19,12 @@ public record Section
     /// <summary>
     /// Key for the language argument, used by the <see cref="Arguments"/> dictionary.
     /// </summary>
-    public const string ARGUMENT_LANGUAGE = "Language";
+    public const string ARGUMENT_LANGUAGE = "language";
+
+    /// <summary>
+    /// Key to indicate that the Component should not include the source code (SourceCode="false").
+    /// </summary>
+    public const string ARGUMENT_SOURCECODE = "sourcecode";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Section"/> class.
@@ -58,12 +63,15 @@ public record Section
         {
             var component = ParseComponent(content);
 
+            // API
             if (string.Compare(component.Name, "API", StringComparison.InvariantCultureIgnoreCase) == 0)
             {
                 Arguments = component.Arguments;
                 Value = string.Join(';', component.Arguments.Select(i => $"{i.Key}={i.Value}"));
                 Type = SectionType.Api;
             }
+
+            // Component
             else
             {
                 Arguments = component.Arguments;
@@ -101,6 +109,11 @@ public record Section
     public string SourceCode { get; private set; } = string.Empty;
 
     /// <summary>
+    /// Gets True if the contains SourceCode="false" in the arguments.
+    /// </summary>
+    public bool NoCode => Arguments.TryGetValue(ARGUMENT_SOURCECODE, out var sourceCodeValue) && sourceCodeValue.Equals("false", StringComparison.CurrentCultureIgnoreCase);
+
+    /// <summary>
     /// Gets the parameters of the section.
     /// </summary>
     public IDictionary<string, string> Arguments { get; private set; } = new Dictionary<string, string>();
@@ -125,7 +138,7 @@ public record Section
 
         foreach (Match argMatch in matches)
         {
-            var key = argMatch.Groups[1].Value;
+            var key = argMatch.Groups[1].Value.ToLower();
             var value = argMatch.Groups[2].Value.Trim('"');
             dict[key] = value;
         }

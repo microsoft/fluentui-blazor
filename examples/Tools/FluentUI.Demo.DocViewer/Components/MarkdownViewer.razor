@@ -35,6 +35,10 @@
                     {
                         <div class="component-not-found">&#9888; The component {{ @(section.Value) }} was not found.</div>
                     }
+                    else if (section.NoCode)
+                    {
+                        <DynamicComponent Type="@component" />
+                    }
                     else
                     {
                         <fluent-tabs>

@@ -83,6 +83,13 @@ The library will search the file `MyCounter.razor` in the registered assembly an
 {{ MyCounter }}
 ```
 
+By default, two tabs will be displayed: **Example** and **Code**.
+You can embbed the component without tabs and without code using the following syntax:
+
+```markdown
+{{ MyCounter SourceCode="false" }}
+```
+
 ## Example
 
 ```markdown
