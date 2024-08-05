@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace FluentUI.Demo.DocViewer.Models;
 
+/// <summary>
+/// Represents a page of a markdown document.
+/// </summary>
 public record Page
 {
     /// <summary>
@@ -75,7 +78,7 @@ public record Page
             var lines = match.Groups[1].Value.Split('\n');
             foreach (var line in lines)
             {
-                var parts = line.Split(new[] { ':' }, 2);
+                var parts = line.Split([':'], 2);
                 if (parts.Length == 2)
                 {
                     var key = parts[0].Trim();
@@ -84,7 +87,7 @@ public record Page
                 }
             }
 
-            var content = input.Substring(match.Index + match.Length).Trim();
+            var content = input[(match.Index + match.Length)..].Trim();
             dictionary["content"] = content;
 
         }

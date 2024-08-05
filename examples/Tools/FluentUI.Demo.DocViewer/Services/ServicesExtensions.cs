@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentUI.Demo.DocViewer.Services;
 
+/// <summary>
+/// Extension methods for the services.
+/// </summary>
 public static class ServicesExtensions
 {
     /// <summary>

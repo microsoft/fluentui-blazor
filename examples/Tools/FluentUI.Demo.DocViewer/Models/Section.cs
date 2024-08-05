@@ -6,11 +6,17 @@ using FluentUI.Demo.DocViewer.Services;
 
 namespace FluentUI.Demo.DocViewer.Models;
 
+/// <summary>
+/// Represents a section of a markdown document.
+/// </summary>
 public record Section
 {
     private const string DEFAULT_LANGUAGE = "text";
     private static readonly Random _rnd = new();
 
+    /// <summary>
+    /// Key for the language argument, used by the <see cref="Arguments"/> dictionary.
+    /// </summary>
     public const string ARGUMENT_LANGUAGE = "Language";
 
     /// <summary>

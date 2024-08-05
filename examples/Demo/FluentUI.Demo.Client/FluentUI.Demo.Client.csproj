@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <ProjectReference Include="..\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
+    <ProjectReference Include="..\..\Tools\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,10 +44,7 @@
     <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 
     <!-- Add a task to generate files.txt with all filenames -->
-    <WriteLinesToFile
-      File="$(ProjectDir)wwwroot\sources\files.txt"
-      Lines="@(Sources->'%(Filename)%(Extension).txt')"
-      Overwrite="true" />
+    <WriteLinesToFile File="$(ProjectDir)wwwroot\sources\files.txt" Lines="@(Sources->'%(Filename)%(Extension).txt')" Overwrite="true" />
   </Target>
 
   <!-- TODO 

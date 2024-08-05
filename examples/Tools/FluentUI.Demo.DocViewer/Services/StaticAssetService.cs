@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.DocViewer.Services;
 
+/// <summary>
+/// Service to load static assets.
+/// </summary>
 public class StaticAssetService
 {
     private readonly HttpClient _httpClient;

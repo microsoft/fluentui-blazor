@@ -7,6 +7,9 @@ using FluentUI.Demo.DocViewer.Models;
 
 namespace FluentUI.Demo.DocViewer.Services;
 
+/// <summary>
+/// Service to manage the markdown pages.
+/// </summary>
 public class DocViewerService
 {
     private IEnumerable<Page>? _pages;

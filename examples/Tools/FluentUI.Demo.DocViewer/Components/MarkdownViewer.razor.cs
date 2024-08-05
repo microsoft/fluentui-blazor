@@ -11,6 +11,9 @@ using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.DocViewer.Components;
 
+/// <summary>
+/// Component to display a markdown file.
+/// </summary>
 public partial class MarkdownViewer
 {
     private static readonly MarkdownPipeline MarkdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
@@ -44,7 +47,7 @@ public partial class MarkdownViewer
     protected IEnumerable<Section> Sections { get; private set; } = [];
 
     /// <summary />
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         // Markdown
         var page = DocViewerService.FromRoute(Route);
