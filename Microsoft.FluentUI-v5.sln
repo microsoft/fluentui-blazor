@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B98A7516
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.DocViewer.Tests", "examples\Tools\FluentUI.Demo.DocViewer.Tests\FluentUI.Demo.DocViewer.Tests.csproj", "{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Generators", "examples\Tools\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj", "{C78BB9AD-B8CF-417B-990E-02410447649F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78BB9AD-B8CF-417B-990E-02410447649F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78BB9AD-B8CF-417B-990E-02410447649F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78BB9AD-B8CF-417B-990E-02410447649F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78BB9AD-B8CF-417B-990E-02410447649F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{958BF092-4CF2-470C-B058-9244496B234F} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
 		{B98A7516-E9B2-4301-B6A3-33656BF4F4D9} = {F273876F-7528-42B3-BFE8-7CFF8ED1E2A2}
 		{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
+		{C78BB9AD-B8CF-417B-990E-02410447649F} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44D95FF7-AEBE-41FB-9D40-CF1E09ADC6BC}

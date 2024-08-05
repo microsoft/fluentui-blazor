@@ -1,8 +1,10 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.DocViewer.Extensions;
+using FluentUI.Demo.DocViewer.Services;
+using Markdig;
 using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -30,11 +32,17 @@ internal class ApiClass
     ];
 
     private readonly Type _component;
-    private readonly ApiCodeComment _codeComments = new();
+    private readonly FactoryService _factoryService;
     private IEnumerable<ApiClassMember>? _allMembers;
 
-    public ApiClass(Type component)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiClass"/> class.
+    /// </summary>
+    /// <param name="factoryService"></param>
+    /// <param name="component"></param>
+    public ApiClass(FactoryService factoryService,Type component)
     {
+        _factoryService = factoryService;
         _component = component;
     }
 
@@ -63,6 +71,7 @@ internal class ApiClass
 
     public IEnumerable<ApiClassMember> Methods => GetMembers(MemberTypes.Method);
 
+    /// <summary />
     private IEnumerable<ApiClassMember> GetMembers(MemberTypes type)
     {
         if (_allMembers == null)
@@ -141,7 +150,7 @@ internal class ApiClass
                                     Type = propertyInfo.ToTypeNameString(),
                                     EnumValues = propertyInfo.GetEnumValues(),
                                     Default = defaultValue,
-                                    Description = _codeComments.GetSummary(_component.Name + "." + propertyInfo.Name) ?? _codeComments.GetSummary(_component.BaseType?.Name + "." + propertyInfo.Name),
+                                    Description = GetSummary(_component, propertyInfo),
                                     IsParameter = isParameter,
                                     //Icon = icon
                                 });
@@ -156,7 +165,7 @@ internal class ApiClass
                                     MemberType = MemberTypes.Event,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
-                                    Description = _codeComments.GetSummary(_component.Name + "." + propertyInfo.Name) ?? _codeComments.GetSummary(_component.BaseType?.Name + "." + propertyInfo.Name)
+                                    Description = GetSummary(_component, propertyInfo),
                                 });
                             }
                         }
@@ -176,7 +185,7 @@ internal class ApiClass
                                 Name = methodInfo.Name + genericArguments,
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                                 Type = methodInfo.ToTypeNameString(),
-                                Description = _codeComments.GetSummary(_component.Name + "." + methodInfo.Name) ?? _codeComments.GetSummary(_component.BaseType?.Name + "." + methodInfo.Name)
+                                Description = GetSummary(_component, methodInfo),
                             });
                         }
                     }
@@ -192,5 +201,18 @@ internal class ApiClass
         }
 
         return _allMembers.Where(i => i.MemberType == type);
+    }
+
+    /// <summary />
+    private string GetSummary(Type component, MemberInfo member)
+    {
+        var summary = _factoryService.DocViewerService.ApiCommentSummary(component, member);
+
+        if (string.IsNullOrWhiteSpace(summary))
+        {
+            return string.Empty;
+        }
+
+        return Markdown.ToHtml(summary, FactoryService.MarkdownPipeline);
     }
 }

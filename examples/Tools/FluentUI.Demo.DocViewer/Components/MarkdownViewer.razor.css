@@ -39,34 +39,45 @@
 }
 
 ::deep .api-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-    ::deep .api-table th {
-        text-align: start;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        font-weight: 600;
-    }
+  ::deep .api-table th {
+    text-align: start;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 600;
+  }
 
-    ::deep .api-table tr {
-        border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-    }
+  ::deep .api-table tr {
+    border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    vertical-align: top;
+  }
 
-    ::deep .api-table td {
-        padding: 4px 0px;
+  ::deep .api-table td {
+    padding: 8px 12px 8px 0px;
+    white-space: nowrap;
+  }
+
+    ::deep .api-table td:last-child {
+      white-space: normal;
+      width: 100%;
     }
 
     ::deep .api-table td code {
-        font-weight: 500;
-        background-color: rgb(243, 243, 243);
+      font-weight: 500;
+      background-color: rgb(243, 243, 243);
     }
 
-    ::deep .api-table .api-enum-tooltip {
-        margin-left: 4px;
-        font-size: larger;
-        cursor: pointer;
-        color: var(--colorBrandBackgroundHover);
+    ::deep .api-table td p {
+      margin: 0;
     }
+
+  ::deep .api-table .api-enum-tooltip {
+    margin-left: 4px;
+    font-size: larger;
+    cursor: pointer;
+    color: var(--colorBrandBackgroundHover);
+  }

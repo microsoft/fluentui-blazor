@@ -75,28 +75,28 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the author-defined name or standardized, underscore-prefixed keyword indicating where to display the response from submitting the form.
-    /// Possible values: "_self" | "_blank" | "_parent" | "_top".
+    /// Possible values: `_self` | `_blank` | `_parent` | `_top`.
     /// </summary>
     [Parameter]
     public string? FormTarget { get; set; }
 
     /// <summary>
     /// Gets or sets the button type. See <see cref="ButtonType"/> for more details.
-    /// Default is ButtonType.Button.
+    /// Default is <see cref="ButtonType.Button"/>.
     /// </summary>
     [Parameter]
     public ButtonType Type { get; set; } = ButtonType.Button;
 
     /// <summary>
     /// Gets or sets the shape of the button.
-    /// Default is ButtonShape.Rounded.
+    /// Default is <see cref="ButtonShape.Rounded"/>.
     /// </summary>
     [Parameter]
     public ButtonShape Shape { get; set; } = ButtonShape.Rounded;
 
     /// <summary>
     /// Gets or sets the size of the button.
-    /// Default is ButtonSize.Medium.
+    /// Default is <see cref="ButtonSize.Medium"/>.
     /// </summary>
     [Parameter]
     public ButtonSize Size { get; set; } = ButtonSize.Medium;
@@ -141,7 +141,7 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the background color of this button (overrides the <see cref="Appearance"/> property).
-    /// Set the value "rgba(0, 0, 0, 0)" to display a transparent button.
+    /// Set the value `rgba(0, 0, 0, 0)` to display a transparent button.
     /// </summary>
     [Parameter]
     public string? BackgroundColor { get; set; }
@@ -172,7 +172,7 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the title of the button.
-    /// The text usually displayed in a 'tooltip' popup when the mouse is over the button.
+    /// The text usually displayed in a `tooltip` popup when the mouse is over the button.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -214,7 +214,7 @@ public partial class FluentButton : FluentComponentBase
     /// <summary>
     /// Disables the button.
     /// </summary>
-    /// <param name="disabled"></param>
+    /// <param name="disabled">True to disable the button</param>
     public void SetDisabled(bool disabled)
     {
         Disabled = disabled;

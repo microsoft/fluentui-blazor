@@ -67,44 +67,82 @@
                     }
                     else
                     {
-                        var membersOrdered = new Dictionary<string, IEnumerable<ApiClassMember>>
-                                {
-                                    ["Parameters"] = members.Properties,
-                                    ["Event Callbacks"] = members.Events,
-                                    ["Methods"] = members.Methods,
-                                };
+                        @* API - Parameters *@
+                        <h3>Parameters</h3>
 
-                        @foreach (var category in membersOrdered)
-                        {
-                            <h3>@category.Key</h3>
-                            <table class="api-table">
-                                <thead>
+                        <table class="api-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in members.Properties)
+                                {
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Default</th>
-                                        <th>Description</th>
+                                        <td><code>@item.Name</code></td>
+                                        <td>
+                                            <span>@item.Type</span>
+                                            @if (item.EnumValues.Length > 0)
+                                            {
+                                                <span class="api-enum-tooltip" title="@(string.Join("; ", item.EnumValues))">&#128712;</span>
+                                            }
+                                        </td>
+                                        <td>@item.Default</td>
+                                        <td>@((MarkupString)item.Description)</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in category.Value)
-                                    {
-                                        <tr>
-                                            <td><code>@item.Name</code></td>
-                                            <td>
-                                                @item.Type
-                                                @if (item.EnumValues.Length > 0)
-                                                {
-                                                    <span class="api-enum-tooltip" title="@(string.Join("; ", item.EnumValues))">&#128712;</span>
-                                                }
-                                            </td>
-                                            <td>@item.Default</td>
-                                            <td>@item.Description</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
+                                }
+                            </tbody>
+                        </table>
+
+                        @* API - Events *@
+                        <h3>Event Callbacks</h3>
+
+                        <table class="api-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in members.Events)
+                                {
+                                    <tr>
+                                        <td><code>@item.Name</code></td>
+                                        <td>@item.Type</td>
+                                        <td>@((MarkupString)item.Description)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        @* API - Methods *@
+                        <h3>Parameters</h3>
+
+                        <table class="api-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in members.Methods)
+                                {
+                                    <tr>
+                                        <td>
+                                            <code>@item.GetMethodSignature()</code>
+                                        </td>
+                                        <td>@((MarkupString)item.Description)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     }
 
                     break;

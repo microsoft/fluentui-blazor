@@ -32,6 +32,11 @@ public class DocViewerOptions
     public Assembly? ApiAssembly { get; set; }
 
     /// <summary>
+    /// Function to get the summary of an API comment.
+    /// </summary>
+    public Func<Type, MemberInfo, string> ApiCommentSummary { get; set; } = (type, member) => member.Name;
+
+    /// <summary>
     /// Path to the external source code files, where {0} will be replaced by the component name.
     /// </summary>
     public string SourceCodeUrl { get; set; } = "/sources/{0}.razor.txt";

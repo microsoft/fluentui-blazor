@@ -1,11 +1,13 @@
 ansi
 appsettings
 blazor
+cref
 csproj
+elementreference
+evenodd
 microsoft
+nonfile
 rrggbb
 tabindex
-elementreference
-nonfile
-evenodd
 sourcecode
+summarydata

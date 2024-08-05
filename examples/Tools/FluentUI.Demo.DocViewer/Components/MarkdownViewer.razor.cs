@@ -16,8 +16,6 @@ namespace FluentUI.Demo.DocViewer.Components;
 /// </summary>
 public partial class MarkdownViewer
 {
-    private static readonly MarkdownPipeline MarkdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-
     private bool _isPageNotFound;
     private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.DocViewer/Components/MarkdownViewer.razor.js";
     private IJSObjectReference _jsModule = default!;
@@ -59,7 +57,7 @@ public partial class MarkdownViewer
         _isPageNotFound = false;
         PageTitle = page.Title;
 
-        var html = Markdown.ToHtml(page.Content, MarkdownPipeline);
+        var html = Markdown.ToHtml(page.Content, FactoryService.MarkdownPipeline);
         Sections = await ExtractSectionsAsync(html);
     }
 
@@ -80,7 +78,7 @@ public partial class MarkdownViewer
                                           ?.GetTypes()
                                           ?.FirstOrDefault(i => i.Name == name);
 
-        return type is null ? null : new ApiClass(type);
+        return type is null ? null : new ApiClass(Factory, type);
     }
 
     /// <summary />
