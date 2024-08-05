@@ -21,7 +21,7 @@ public record Page
     /// 
     /// </summary>
     /// <param name="content"></param>
-    public Page(string content)
+    internal Page(string content)
     {
         var items = ExtractHeaderContent(content);
 

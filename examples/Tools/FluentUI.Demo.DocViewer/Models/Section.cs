@@ -13,6 +13,7 @@ public record Section
 {
     private const string DEFAULT_LANGUAGE = "text";
     private static readonly Random _rnd = new();
+    private readonly FactoryService _factory;
 
     /// <summary>
     /// Key for the language argument, used by the <see cref="Arguments"/> dictionary.
@@ -22,8 +23,18 @@ public record Section
     /// <summary>
     /// Initializes a new instance of the <see cref="Section"/> class.
     /// </summary>
+    /// <param name="factory"></param>
+    internal Section(FactoryService factory)
+    {
+        _factory = factory;
+    }
+
+    /// <summary>
+    /// Reads the content of the section asynchronously.
+    /// </summary>
     /// <param name="content"></param>
-    public Section(string content)
+    /// <returns></returns>
+    public async Task<Section> ReadAsync(string content)
     {
         // Code section
         if (content.StartsWith("<pre><code", StringComparison.InvariantCultureIgnoreCase))
@@ -56,6 +67,8 @@ public record Section
             Value = content[2..^2].Trim();
             Type = SectionType.Component;
             Arguments = new Dictionary<string, string>();
+
+            await LoadSourceCodeFromAssetsAsync();
         }
 
         // Text / HTML section
@@ -65,6 +78,8 @@ public record Section
             Type = SectionType.Html;
             Arguments = new Dictionary<string, string>();
         }
+
+        return this;
     }
 
     /// <summary>
@@ -75,7 +90,7 @@ public record Section
     /// <summary>
     /// Gets the content of the section or the name of the component.
     /// </summary>
-    public string Value { get; }
+    public string Value { get; private set; } = string.Empty;
 
     /// <summary>
     /// Gets the source code of the component (if <see langword="type"/> is Component).
@@ -85,32 +100,23 @@ public record Section
     /// <summary>
     /// Gets the parameters of the section.
     /// </summary>
-    public IDictionary<string, string> Arguments { get; }
+    public IDictionary<string, string> Arguments { get; private set; } = new Dictionary<string, string>();
 
     /// <summary>
     /// Gets the type of the section.
     /// </summary>
-    public SectionType Type { get; } = SectionType.Html;
+    public SectionType Type { get; private set; } = SectionType.Html;
 
-    internal async Task LoadStaticAssetsAsync(StaticAssetService assetService, DocViewerService viewerService)
+    /// <summary />
+    private async Task LoadSourceCodeFromAssetsAsync()
     {
-        switch (Type)
+        var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, _factory.DocViewerService.Options.SourceCodeUrl, Value);
+        var code = await _factory.StaticAssetService.GetAsync(url);
+
+        if (!string.IsNullOrEmpty(code))
         {
-            case SectionType.Component:
-
-                var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, viewerService.Options.SourceCodeUrl, Value);
-                var code = await assetService.GetAsync(url);
-
-                if (!string.IsNullOrEmpty(code))
-                {
-                    SourceCode = code;
-                    Id += "-src";
-                }
-
-                break;
-
-            default:
-                break;
+            SourceCode = code;
+            Id += "-src";
         }
     }
 }

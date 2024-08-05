@@ -24,11 +24,7 @@ public partial class MarkdownViewer
 
     /// <summary />
     [Inject]
-    internal StaticAssetService StaticAssetService { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    internal DocViewerService DocViewerService { get; set; } = default!;
+    internal FactoryService Factory { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -50,7 +46,7 @@ public partial class MarkdownViewer
     protected override async Task OnInitializedAsync()
     {
         // Markdown
-        var page = DocViewerService.FromRoute(Route);
+        var page = Factory.DocViewerService.FromRoute(Route);
 
         if (page is null)
         {
@@ -62,14 +58,9 @@ public partial class MarkdownViewer
         // Extract the sections from the markdown content
         _isPageNotFound = false;
         PageTitle = page.Title;
+        
         var html = Markdown.ToHtml(page.Content, MarkdownPipeline);
-        Sections = ExtractSections(html);
-
-        // Load Assets (Source Code, ...)
-        foreach (var section in Sections)
-        {
-            await section.LoadStaticAssetsAsync(StaticAssetService, DocViewerService);
-        }
+        Sections = await ExtractSectionsAsync(html);
     }
 
     /// <summary />
@@ -84,7 +75,7 @@ public partial class MarkdownViewer
     }
 
     /// <summary />
-    private static List<Section> ExtractSections(string content)
+    private async Task<List<Section>> ExtractSectionsAsync(string content)
     {
         string[] tags =
         [
@@ -103,34 +94,42 @@ public partial class MarkdownViewer
             if (match.Index > lastIndex)
             {
                 // String before the Tag
-                sections.Add(new Section(content[lastIndex..match.Index]));
+                await AddSectionAsync(content[lastIndex..match.Index]);
             }
 
             // Tag page
-            sections.Add(new Section(match.Value));
-
+            await AddSectionAsync(match.Value);
+            
             lastIndex = match.Index + match.Length;
         }
 
         if (lastIndex < content.Length)
         {
-            sections.Add(new Section(content[lastIndex..]));
+            await AddSectionAsync(content[lastIndex..]);
         }
 
         return sections;
+
+        // Add a section to the list
+        async Task AddSectionAsync(string content)
+        {
+            var section = new Section(Factory);
+            await section.ReadAsync(content);
+            sections.Add(section);
+        }
     }
 
     /// <summary />
     private Type? GetComponentFromName(string name)
     {
-        if (DocViewerService.ComponentsAssembly is null)
+        if (Factory.DocViewerService.ComponentsAssembly is null)
         {
             return null;
         }
 
-        return DocViewerService.ComponentsAssembly
-                               .GetTypes()
-                               .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)
-                               .FirstOrDefault(i => i.Name == name);
+        return Factory.DocViewerService.ComponentsAssembly
+                                       .GetTypes()
+                                       .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)
+                                       .FirstOrDefault(i => i.Name == name);
     }
 }

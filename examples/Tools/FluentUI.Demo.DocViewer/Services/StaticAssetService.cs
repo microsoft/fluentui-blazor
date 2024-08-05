@@ -9,7 +9,7 @@ namespace FluentUI.Demo.DocViewer.Services;
 /// <summary>
 /// Service to load static assets.
 /// </summary>
-public class StaticAssetService
+public class StaticAssetService : IStaticAssetService
 {
     private readonly HttpClient _httpClient;
 

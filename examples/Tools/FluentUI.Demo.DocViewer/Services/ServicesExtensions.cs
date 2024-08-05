@@ -22,10 +22,15 @@ public static class ServicesExtensions
         var configuration = new DocViewerOptions();
         options.Invoke(configuration);
 
-        services.AddScoped<StaticAssetService>();
+        services.AddScoped<IStaticAssetService, StaticAssetService>();
         services.AddScoped<DocViewerService>(factory =>
         {
             return new DocViewerService(configuration);
+        });
+        services.AddScoped<FactoryService>(provider => new FactoryService()
+        { 
+            DocViewerService = provider.GetRequiredService<DocViewerService>(),
+            StaticAssetService = provider.GetRequiredService<IStaticAssetService>(),
         });
 
         return services;
