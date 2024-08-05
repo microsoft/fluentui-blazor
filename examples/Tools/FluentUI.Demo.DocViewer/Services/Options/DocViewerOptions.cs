@@ -27,6 +27,11 @@ public class DocViewerOptions
     public Assembly? ResourcesAssembly { get; set; }
 
     /// <summary>
+    /// Assembly containing the API classes to display in API sections.
+    /// </summary>
+    public Assembly? ApiAssembly { get; set; }
+
+    /// <summary>
     /// Path to the external source code files, where {0} will be replaced by the component name.
     /// </summary>
     public string SourceCodeUrl { get; set; } = "/sources/{0}.razor.txt";

@@ -1,0 +1,196 @@
+﻿// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using FluentUI.Demo.DocViewer.Extensions;
+using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+
+namespace FluentUI.Demo.DocViewer.Models;
+
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+internal class ApiClass
+{
+    private static readonly string[] MEMBERS_TO_EXCLUDE =
+    [
+        "Id",
+        "AdditionalAttributes",
+        "ParentReference",
+        "Element",
+        "Class",
+        "Style",
+        "Data",
+        "Equals",
+        "GetHashCode",
+        "GetType",
+        "SetParametersAsync",
+        "ToString",
+        "Dispose"
+    ];
+
+    private readonly Type _component;
+    private readonly ApiCodeComment _codeComments = new();
+    private IEnumerable<ApiClassMember>? _allMembers;
+
+    public ApiClass(Type component)
+    {
+        _component = component;
+    }
+
+    /// <summary>
+    /// It Component is a generic type, a generic type argument needs to be provided
+    /// so an instance of the type can be created. 
+    /// This is needed to get and display any default values
+    /// Default for this parameter is 'typeof(string)'
+    /// </summary>
+    public Type[] InstanceTypes { get; set; } = [typeof(string)];
+
+    /// <summary>
+    /// Gets the list of properties for the specified component.
+    /// </summary>
+    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property);
+
+    /// <summary>
+    /// Gets the list of Events for the specified component.
+    /// </summary>
+
+    public IEnumerable<ApiClassMember> Events => GetMembers(MemberTypes.Event);
+
+    /// <summary>
+    /// Gets the list of Methods for the specified component.
+    /// </summary>
+
+    public IEnumerable<ApiClassMember> Methods => GetMembers(MemberTypes.Method);
+
+    private IEnumerable<ApiClassMember> GetMembers(MemberTypes type)
+    {
+        if (_allMembers == null)
+        {
+            List<ApiClassMember>? members = [];
+
+            object? obj = null;
+            var created = false;
+
+            object? GetObjectValue(string propertyName)
+            {
+                if (!created)
+                {
+                    if (_component.IsGenericType)
+                    {
+                        if (InstanceTypes is null)
+                        {
+                            throw new InvalidCastException("InstanceTypes must be specified when Component is a generic type");
+                        }
+
+                        // Supply the type to create the generic instance with (needs to be an array)
+                        obj = Activator.CreateInstance(_component.MakeGenericType(InstanceTypes));
+                    }
+                    else
+                    {
+                        obj = Activator.CreateInstance(_component);
+                    }
+
+                    created = true;
+                }
+
+                return obj?.GetType().GetProperty(propertyName)?.GetValue(obj);
+            }
+
+            var allProperties = _component.GetProperties().Select(i => (MemberInfo)i);
+            var allMethods = _component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
+
+            foreach (var memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
+            {
+                try
+                {
+                    if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || _component.Name == "FluentComponentBase")
+                    {
+                        var propertyInfo = memberInfo as PropertyInfo;
+                        var methodInfo = memberInfo as MethodInfo;
+
+                        if (propertyInfo != null)
+                        {
+                            var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
+
+                            var t = propertyInfo.PropertyType;
+                            var isEvent = t == typeof(EventCallback) || t.IsGenericType && t.GetGenericTypeDefinition() == typeof(EventCallback<>);
+
+                            // Parameters/properties
+                            if (!isEvent)
+                            {
+                                // Icon? icon = null;
+                                var defaultValue = "";
+                                if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
+                                {
+                                    defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
+                                }
+                                //else if (propertyInfo.PropertyType == typeof(Icon))
+                                //{
+                                //    if (GetObjectValue(propertyInfo.Name) is Icon value)
+                                //    {
+                                //        icon = value;
+                                //        defaultValue = $"{value.Variant}.{value.Size}.{value.Name}";
+                                //    }
+                                //}
+
+                                members.Add(new ApiClassMember()
+                                {
+                                    MemberType = MemberTypes.Property,
+                                    Name = propertyInfo.Name,
+                                    Type = propertyInfo.ToTypeNameString(),
+                                    EnumValues = propertyInfo.GetEnumValues(),
+                                    Default = defaultValue,
+                                    Description = _codeComments.GetSummary(_component.Name + "." + propertyInfo.Name) ?? _codeComments.GetSummary(_component.BaseType?.Name + "." + propertyInfo.Name),
+                                    IsParameter = isParameter,
+                                    //Icon = icon
+                                });
+                            }
+
+                            // Events
+                            if (isEvent)
+                            {
+                                var eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
+                                members.Add(new ApiClassMember()
+                                {
+                                    MemberType = MemberTypes.Event,
+                                    Name = propertyInfo.Name,
+                                    Type = propertyInfo.ToTypeNameString(),
+                                    Description = _codeComments.GetSummary(_component.Name + "." + propertyInfo.Name) ?? _codeComments.GetSummary(_component.BaseType?.Name + "." + propertyInfo.Name)
+                                });
+                            }
+                        }
+
+                        // Methods
+                        if (methodInfo != null)
+                        {
+                            var genericArguments = "";
+                            if (methodInfo.IsGenericMethod)
+                            {
+                                genericArguments = "<" + string.Join(", ", methodInfo.GetGenericArguments().Select(i => i.Name)) + ">";
+                            }
+
+                            members.Add(new ApiClassMember()
+                            {
+                                MemberType = MemberTypes.Method,
+                                Name = methodInfo.Name + genericArguments,
+                                Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
+                                Type = methodInfo.ToTypeNameString(),
+                                Description = _codeComments.GetSummary(_component.Name + "." + methodInfo.Name) ?? _codeComments.GetSummary(_component.BaseType?.Name + "." + methodInfo.Name)
+                            });
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine($"[ApiDocumentation] ERROR: Cannot found {_component.FullName} -> {memberInfo.Name}");
+                    throw;
+                }
+            }
+
+            _allMembers = [.. members.OrderBy(i => i.Name)];
+        }
+
+        return _allMembers.Where(i => i.MemberType == type);
+    }
+}

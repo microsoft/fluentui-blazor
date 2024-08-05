@@ -34,10 +34,10 @@ public class SectionTests
         await section.ReadAsync(content);
 
         Assert.Equal(SectionType.Api, section.Type);
-        Assert.Equal("Value1", section.Arguments["Arg1"]);
-        Assert.Equal("Value2", section.Arguments["Arg2"]);
-        Assert.Equal("Value 3", section.Arguments["Arg3"]);
-        Assert.Equal("Arg1=Value1;Arg2=Value2;Arg3=Value 3", section.Value);
+        Assert.Equal("Value1", section.Arguments["arg1"]);
+        Assert.Equal("Value2", section.Arguments["arg2"]);
+        Assert.Equal("Value 3", section.Arguments["arg3"]);
+        Assert.Equal("arg1=Value1;arg2=Value2;arg3=Value 3", section.Value);
     }
 
     [Fact]
@@ -62,9 +62,9 @@ public class SectionTests
         await section.ReadAsync(content);
 
         Assert.Equal(SectionType.Component, section.Type);
-        Assert.Equal("Value1", section.Arguments["Arg1"]);
-        Assert.Equal("Value2", section.Arguments["Arg2"]);
-        Assert.Equal("Value 3", section.Arguments["Arg3"]);
+        Assert.Equal("Value1", section.Arguments["arg1"]);
+        Assert.Equal("Value2", section.Arguments["arg2"]);
+        Assert.Equal("Value 3", section.Arguments["arg3"]);
         Assert.Equal("MY_COMPONENT", section.Value);
     }
 }

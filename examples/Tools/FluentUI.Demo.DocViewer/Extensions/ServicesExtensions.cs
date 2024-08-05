@@ -2,9 +2,12 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.DocViewer.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FluentUI.Demo.DocViewer.Services;
+#pragma warning disable IDE0130 // Namespace does not match folder structure
+namespace FluentUI.Demo.DocViewer;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// Extension methods for the services.

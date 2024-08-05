@@ -357,6 +357,9 @@ dotnet_diagnostic.IDE0161.severity = warning
 # IDE0200: Lambda expression can be removed
 dotnet_diagnostic.IDE0200.severity = warning
 
+# IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = none
+
 # IDE2000: Disallow multiple blank lines
 dotnet_style_allow_multiple_blank_lines_experimental = false
 dotnet_diagnostic.IDE2000.severity = warning

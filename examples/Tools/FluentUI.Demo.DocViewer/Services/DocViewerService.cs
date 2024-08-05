@@ -23,6 +23,7 @@ public class DocViewerService
         Options = options;
         ComponentsAssembly = options.ComponentsAssembly;
         ResourcesAssembly = options.ResourcesAssembly;
+        ApiAssembly = options.ApiAssembly;
     }
 
     /// <summary>
@@ -39,6 +40,11 @@ public class DocViewerService
     /// Gets the assembly containing the embedded markdown pages.
     /// </summary>
     public Assembly? ResourcesAssembly { get; }
+
+    /// <summary>
+    /// Gets the assembly containing the classes to display in API sections.
+    /// </summary>
+    public Assembly? ApiAssembly { get; }
 
     /// <summary>
     /// Gets the list of all markdown pages found in the resources

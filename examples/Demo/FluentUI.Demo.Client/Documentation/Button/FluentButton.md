@@ -44,3 +44,7 @@ to the beginning or end of the button text.
 Buttons can be square, rounded, or circular.
 
 {{ ButtonShapes }}
+
+## API
+
+{{ API Type=FluentButton }}

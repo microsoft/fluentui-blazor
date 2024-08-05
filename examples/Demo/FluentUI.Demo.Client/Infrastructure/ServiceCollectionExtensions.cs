@@ -2,7 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocViewer.Services;
+using FluentUI.Demo.DocViewer;
 
 namespace FluentUI.Demo.Client;
 
@@ -63,6 +63,7 @@ public static class ServiceCollectionExtensions
             options.PageTitle = "{0} - FluentUI Blazor Components";
             options.ComponentsAssembly = typeof(Client._Imports).Assembly;
             options.ResourcesAssembly = typeof(Client._Imports).Assembly;
+            options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
             options.SourceCodeUrl = "/sources/{0}.razor.txt";
         });
 

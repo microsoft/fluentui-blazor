@@ -36,6 +36,36 @@ public record Section
     }
 
     /// <summary>
+    /// Get the unique identifier of the section.
+    /// </summary>
+    public string Id { get; private set; } = _rnd.Next().ToString("x", System.Globalization.CultureInfo.InvariantCulture);
+
+    /// <summary>
+    /// Gets the content of the section or the name of the component.
+    /// </summary>
+    public string Value { get; private set; } = string.Empty;
+
+    /// <summary>
+    /// Gets the source code of the component (if <see langword="type"/> is Component).
+    /// </summary>
+    public string SourceCode { get; private set; } = string.Empty;
+
+    /// <summary>
+    /// Gets True if the contains SourceCode="false" in the arguments.
+    /// </summary>
+    public bool NoCode => Arguments.TryGetValue(ARGUMENT_SOURCECODE, out var sourceCodeValue) && sourceCodeValue.Equals("false", StringComparison.CurrentCultureIgnoreCase);
+
+    /// <summary>
+    /// Gets the parameters of the section. All keys are in lowercase.
+    /// </summary>
+    public IDictionary<string, string> Arguments { get; private set; } = new Dictionary<string, string>();
+
+    /// <summary>
+    /// Gets the type of the section.
+    /// </summary>
+    public SectionType Type { get; private set; } = SectionType.Html;
+
+    /// <summary>
     /// Reads the content of the section asynchronously.
     /// </summary>
     /// <param name="content"></param>
@@ -92,36 +122,6 @@ public record Section
 
         return this;
     }
-
-    /// <summary>
-    /// Get the unique identifier of the section.
-    /// </summary>
-    public string Id { get; private set; } = _rnd.Next().ToString("x", System.Globalization.CultureInfo.InvariantCulture);
-
-    /// <summary>
-    /// Gets the content of the section or the name of the component.
-    /// </summary>
-    public string Value { get; private set; } = string.Empty;
-
-    /// <summary>
-    /// Gets the source code of the component (if <see langword="type"/> is Component).
-    /// </summary>
-    public string SourceCode { get; private set; } = string.Empty;
-
-    /// <summary>
-    /// Gets True if the contains SourceCode="false" in the arguments.
-    /// </summary>
-    public bool NoCode => Arguments.TryGetValue(ARGUMENT_SOURCECODE, out var sourceCodeValue) && sourceCodeValue.Equals("false", StringComparison.CurrentCultureIgnoreCase);
-
-    /// <summary>
-    /// Gets the parameters of the section.
-    /// </summary>
-    public IDictionary<string, string> Arguments { get; private set; } = new Dictionary<string, string>();
-
-    /// <summary>
-    /// Gets the type of the section.
-    /// </summary>
-    public SectionType Type { get; private set; } = SectionType.Html;
 
     /// <summary />
     private static (string Name, Dictionary<string, string> Arguments) ParseComponent(string input)

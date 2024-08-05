@@ -58,7 +58,7 @@ public partial class MarkdownViewer
         // Extract the sections from the markdown content
         _isPageNotFound = false;
         PageTitle = page.Title;
-        
+
         var html = Markdown.ToHtml(page.Content, MarkdownPipeline);
         Sections = await ExtractSectionsAsync(html);
     }
@@ -72,6 +72,15 @@ public partial class MarkdownViewer
         }
 
         await _jsModule.InvokeVoidAsync("applyHighlight");
+    }
+
+    private ApiClass? GetApiClassFromName(string? name)
+    {
+        var type = Factory.DocViewerService.ApiAssembly
+                                          ?.GetTypes()
+                                          ?.FirstOrDefault(i => i.Name == name);
+
+        return type is null ? null : new ApiClass(type);
     }
 
     /// <summary />
@@ -99,7 +108,7 @@ public partial class MarkdownViewer
 
             // Tag page
             await AddSectionAsync(match.Value);
-            
+
             lastIndex = match.Index + match.Length;
         }
 

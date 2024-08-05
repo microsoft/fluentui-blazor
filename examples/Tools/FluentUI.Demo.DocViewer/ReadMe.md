@@ -123,4 +123,8 @@ Value: @Value
 
 This code is a live demo of a Counter
 
+## API
+
+{{ API Type=MyCounter }}
+
 ```
