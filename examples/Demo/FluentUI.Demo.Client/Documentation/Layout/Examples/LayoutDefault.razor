@@ -1,8 +1,10 @@
 ﻿<div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px;">
     <FluentLayout>
-        <FluentHeader>My Header</FluentHeader>
+        <FluentLayoutItem Area="@LayoutArea.Header">
+            My Header
+        </FluentLayoutItem>
 
-        <FluentContent Area="menu" Width="150px" Sticky>
+        <FluentLayoutItem Area="@LayoutArea.Menu" Width="150px" Sticky Style="background: yellow;">
             <p>LEFT</p>
             <p>Hello 1</p>
             <p>Hello 2</p>
@@ -22,9 +24,9 @@
             <p>Hello 7</p>
             <p>Hello 8</p>
             <p>Hello 9</p>
-        </FluentContent>
+        </FluentLayoutItem>
 
-        <FluentContent Area="content">
+        <FluentLayoutItem Area="@LayoutArea.Content">
             <p>Hello 1</p>
             <p>Hello 2</p>
             <p>Hello 3</p>
@@ -43,12 +45,17 @@
             <p>Hello 7</p>
             <p>Hello 8</p>
             <p>Hello 9</p>
-        </FluentContent>
+        </FluentLayoutItem>
 
-        <FluentContent Area="aside" Sticky>
+        <FluentLayoutItem Area="@LayoutArea.Aside" Sticky Style="background: yellow; height: fit-content;">
             RIGHT
-        </FluentContent>
+            <p>Hello 1</p>
+            <p>Hello 2</p>
+            <p>Hello 3</p>
+        </FluentLayoutItem>
 
-        <FluentFooter>My Footer</FluentFooter>
+        <FluentLayoutItem Area="@LayoutArea.Footer">
+            My Footer
+        </FluentLayoutItem>
     </FluentLayout>
 </div>

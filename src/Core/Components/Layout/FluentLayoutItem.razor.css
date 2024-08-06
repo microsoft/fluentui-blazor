@@ -1,0 +1,32 @@
+.fluent-layout-item {
+  
+}
+
+  .fluent-layout-item[area="header"] {
+    top: 0px;
+    color: var(--colorNeutralForegroundOnBrand);
+    background-color: var(--colorBrandBackgroundHover);
+    padding: 8px;
+    overflow-y: hidden;
+    z-index: 1000;
+  }
+
+  .fluent-layout-item[area="footer"] {
+    color: var(--colorNeutralForeground1);
+    background-color: var(--colorNeutralBackgroundDisabled);
+    padding: 8px;
+    width: 100%;
+    overflow-y: hidden;
+  }
+
+  .fluent-layout-item[area="menu"] {
+    overflow-y: auto;
+  }
+
+  .fluent-layout-item[area="content"] {
+    overflow-y: auto;
+  }
+
+  .fluent-layout-item[area="aside"] {
+    overflow-y: auto;
+  }

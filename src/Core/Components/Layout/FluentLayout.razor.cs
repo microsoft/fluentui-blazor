@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentLayout
 {
     /// <summary>
+    /// 
+    /// </summary>
+    internal List<FluentLayoutItem> Items { get; } = new();
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -26,4 +31,9 @@ public partial class FluentLayout
     /// <summary />
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
+
+    internal void AddItem(FluentLayoutItem item)
+    {
+        Items.Add(item);
+    }
 }
