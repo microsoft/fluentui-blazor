@@ -1,4 +1,4 @@
-::deep .component-not-found {
+.doc-viewer .component-not-found {
   padding: 12px;
   border: 1px dashed red;
   background-color: lightyellow;
@@ -6,7 +6,7 @@
   font-weight: bold;
 }
 
-::deep pre code {
+.doc-viewer pre code {
   overflow-x: auto;
   display: block;
   padding: 1em;
@@ -18,19 +18,19 @@
   opacity: 0.2;
 }
 
-  ::deep pre code[class*="hljs"] {
+  .doc-viewer pre code[class*="hljs"] {
     opacity: 1;
   }
 
-  ::deep pre code[source] {
+  .doc-viewer pre code[source] {
     display: none;
   }
 
-    ::deep pre code[source][class*="hljs"] {
+    .doc-viewer pre code[source][class*="hljs"] {
       display: block;
     }
 
-::deep .demo-section-example {
+.doc-viewer .demo-section-example {
   border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
   border-radius: var(--borderRadiusMedium);
   padding: 16px 16px;
@@ -38,12 +38,12 @@
   min-height: 100px;
 }
 
-::deep .api-table {
+.doc-viewer .api-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-  ::deep .api-table th {
+  .doc-viewer .api-table th {
     text-align: start;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -51,33 +51,39 @@
     font-weight: 600;
   }
 
-  ::deep .api-table tr {
+  .doc-viewer .api-table tr {
     border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
     vertical-align: top;
   }
 
-  ::deep .api-table td {
+  .doc-viewer .api-table td {
     padding: 8px 12px 8px 0px;
     white-space: nowrap;
   }
 
-    ::deep .api-table td:last-child {
+    .doc-viewer .api-table td:last-child {
       white-space: normal;
       width: 100%;
     }
 
-    ::deep .api-table td code {
+    .doc-viewer .api-table td code {
       font-weight: 500;
       background-color: rgb(243, 243, 243);
     }
 
-    ::deep .api-table td p {
+    .doc-viewer .api-table td p {
       margin: 0;
     }
 
-  ::deep .api-table .api-enum-tooltip {
+  .doc-viewer .api-table .api-enum-tooltip {
     margin-left: 4px;
-    font-size: larger;
     cursor: pointer;
-    color: var(--colorBrandBackgroundHover);
+    fill: var(--colorBrandBackgroundHover);
   }
+
+    .doc-viewer .api-table .api-enum-tooltip::before {
+      content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10.5 8.91a.5.5 0 0 0-1 .09v4.6a.5.5 0 0 0 1-.1V8.91Zm.3-2.16a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0ZM18 10a8 8 0 1 0-16 0 8 8 0 0 0 16 0ZM3 10a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z'></path></svg>");
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }

@@ -3,7 +3,7 @@
 
 <PageTitle>@string.Format(DocViewerService.Options.PageTitle, PageTitle)</PageTitle>
 
-<div>
+<div class="doc-viewer">
     @if (_isPageNotFound)
     {
         <Markdown404 Route="@Route" />
@@ -88,7 +88,7 @@
                                             <span>@item.Type</span>
                                             @if (item.EnumValues.Length > 0)
                                             {
-                                                <span class="api-enum-tooltip" title="@(string.Join("; ", item.EnumValues))">&#128712;</span>
+                                                <span class="api-enum-tooltip" title="@(string.Join("; ", item.EnumValues))"></span>
                                             }
                                         </td>
                                         <td>@item.Default</td>
