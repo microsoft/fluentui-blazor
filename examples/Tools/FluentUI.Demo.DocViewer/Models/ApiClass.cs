@@ -16,13 +16,9 @@ internal class ApiClass
 {
     private static readonly string[] MEMBERS_TO_EXCLUDE =
     [
-        "Id",
         "AdditionalAttributes",
         "ParentReference",
         "Element",
-        "Class",
-        "Style",
-        "Data",
         "Equals",
         "GetHashCode",
         "GetType",

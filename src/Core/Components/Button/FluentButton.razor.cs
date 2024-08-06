@@ -135,6 +135,7 @@ public partial class FluentButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the visual appearance.
+    /// Default is <see cref="ButtonAppearance.Default"/>.
     /// </summary>
     [Parameter]
     public ButtonAppearance Appearance { get; set; } = ButtonAppearance.Default;
