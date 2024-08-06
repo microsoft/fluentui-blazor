@@ -41,18 +41,19 @@
                     }
                     else
                     {
-                        <fluent-tabs>
-                            <fluent-tab>Example</fluent-tab>
-                            <fluent-tab>Code</fluent-tab>
+                        <div class="demo-tabs">
+                            <fluent-tabs>
+                                <fluent-tab>Example</fluent-tab>
+                                <fluent-tab>Code</fluent-tab>
 
-                            <fluent-tab-panel class="demo-section-example">
-                                <DynamicComponent Type="@component" />
-                            </fluent-tab-panel>
-                            <fluent-tab-panel>
-                                <pre><code @key="@(section.Id)" id="@(section.Id)" class="language-razor" source>Loading...</code></pre>
-                            </fluent-tab-panel>
-                        </fluent-tabs>
-
+                                <fluent-tab-panel class="demo-section-example">
+                                    <DynamicComponent Type="@component" />
+                                </fluent-tab-panel>
+                                <fluent-tab-panel>
+                                    <pre><code id="@(section.Id)" class="language-razor" source>Loading...</code></pre>
+                                </fluent-tab-panel>
+                            </fluent-tabs>
+                        </div>
                     }
 
                     break;
