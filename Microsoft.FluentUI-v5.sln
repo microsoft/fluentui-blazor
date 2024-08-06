@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.DocViewer", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B98A7516-E9B2-4301-B6A3-33656BF4F4D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.DocViewer.Tests", "examples\Tools\FluentUI.Demo.DocViewer.Tests\FluentUI.Demo.DocViewer.Tests.csproj", "{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.DocViewer.Tests", "examples\Tools\FluentUI.Demo.DocViewer.Tests\FluentUI.Demo.DocViewer.Tests.csproj", "{2462C5CC-81BC-47AF-85B8-5FADD9E47ADF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.Generators", "examples\Tools\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj", "{C78BB9AD-B8CF-417B-990E-02410447649F}"
 EndProject

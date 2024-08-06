@@ -1,3 +1,11 @@
 body {
-
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  color: var(--colorNeutralForeground1);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  background: var(--colorNeutralBackground2);
 }

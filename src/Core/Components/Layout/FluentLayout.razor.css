@@ -1,0 +1,23 @@
+.fluent-layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "menu content aside"
+    "footer footer footer";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .fluent-layout {
+    grid-template-areas:
+      "header"
+      "content"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+}

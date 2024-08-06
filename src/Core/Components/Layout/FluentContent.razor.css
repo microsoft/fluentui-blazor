@@ -1,0 +1,7 @@
+.fluent-content {
+    background-color: yellow;
+}
+
+  .fluent-content[inside-layout] {
+    overflow-y: auto;
+  }
