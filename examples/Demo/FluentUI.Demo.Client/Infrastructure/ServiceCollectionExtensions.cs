@@ -64,7 +64,7 @@ public static class ServiceCollectionExtensions
             options.ComponentsAssembly = typeof(Client._Imports).Assembly;
             options.ResourcesAssembly = typeof(Client._Imports).Assembly;
             options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-            options.ApiCommentSummary = (component, member) => CodeComments.GetSummary($"{component.Name}.{member.Name}") ?? CodeComments.GetSummary(component.BaseType?.Name + "." + member.Name);
+            options.ApiCommentSummary = (component, member) => CodeComments.GetSummary(member); // ?? CodeComments.GetSummary(component.BaseType?.Name + "." + member.Name);
             options.SourceCodeUrl = "/sources/{0}.razor.txt";
         });
 

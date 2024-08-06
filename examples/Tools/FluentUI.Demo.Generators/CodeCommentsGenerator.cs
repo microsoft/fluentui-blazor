@@ -17,6 +17,12 @@ namespace FluentUI.Demo.Generators;
 [Generator]
 public class CodeCommentsGenerator : IIncrementalGenerator
 {
+    private static readonly string[] REGEX_CLEANUP =
+    [
+        "Microsoft\\.FluentUI\\.AspNetCore\\.Components\\.",
+        "FluentUI\\.Demo\\.Client\\."
+    ];
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var files = context.AdditionalTextsProvider.Where(at => at.Path.EndsWith(".xml")).Collect();
@@ -52,27 +58,64 @@ public class CodeCommentsGenerator : IIncrementalGenerator
         sb.AppendLine("");
         sb.AppendLine("public static partial class CodeComments");
         sb.AppendLine("{");
+        sb.AppendLine();
+        sb.AppendLine("    private static readonly string[] REGEX_CLEANUP = [\"" + string.Join("\", \"", REGEX_CLEANUP.Select(i => i.Replace("\\", "\\\\"))) + "\"];");
+        sb.AppendLine();
         sb.AppendLine("    public static string GetSummary(string name)");
         sb.AppendLine("    {");
-        sb.AppendLine("        Dictionary<string, string> summaryData = new Dictionary<string, string>() {");
-        
+        sb.AppendLine("        Dictionary<string, string> summaryData = new Dictionary<string, string>()");
+        sb.AppendLine("        {");
+
         foreach (var m in members)
         {
             var paramName = CleanupParamName(m.Attribute("name").Value.ToString());
             var summary = CleanupSummary(m.Descendants().First().ToString());
 
-            sb.AppendLine("            [\"" + paramName + "\"] = \"" + summary + "\", ");
+            if (summary != "<summary />")
+            {
+                sb.AppendLine("            [\"" + paramName + "\"] = \"" + summary + "\", ");
+            }
         }
 
         var lastComma = sb.ToString().LastIndexOf(',');
 
         sb.Remove(lastComma, 1);
         sb.AppendLine("        };");
-        sb.Append("        ");
-        sb.AppendLine("KeyValuePair<string, string> foundPair = summaryData.FirstOrDefault(x => x.Key.Equals(name));");
-
+        sb.AppendLine();
+        sb.AppendLine("        KeyValuePair<string, string> foundPair = summaryData.FirstOrDefault(x => x.Key.Equals(name));");
+        sb.AppendLine();
         sb.AppendLine("        return foundPair.Value;");
+        sb.AppendLine("    }");
+        sb.AppendLine();
+        sb.AppendLine("    public static string GetSummary(System.Reflection.MemberInfo memberInfo) => GetSummary(GetApiCommentName(memberInfo));");
+        sb.AppendLine();
+        sb.AppendLine("    public static string GetApiCommentName(System.Reflection.MemberInfo memberInfo)");
+        sb.AppendLine("    {");
+        sb.AppendLine("        if (memberInfo is System.Reflection.MethodInfo methodInfo)");
+        sb.AppendLine("        {");
+        sb.AppendLine("            var parameters = string.Join(\", \", methodInfo.GetParameters().Select(p => $\"{p.ParameterType.FullName}\"));");
+        sb.AppendLine("            return CleanupName($\"{methodInfo.DeclaringType?.FullName}.{methodInfo.Name}({parameters})\");");
         sb.AppendLine("        }");
+        sb.AppendLine();
+        sb.AppendLine("        if (memberInfo is System.Reflection.PropertyInfo propertyInfo)");
+        sb.AppendLine("        {");
+        sb.AppendLine("            return CleanupName($\"{propertyInfo.DeclaringType?.FullName}.{propertyInfo.Name}\");");
+        sb.AppendLine("        }");
+        sb.AppendLine();
+        sb.AppendLine("        return string.Empty;");
+        sb.AppendLine("    }");
+        sb.AppendLine();
+        sb.AppendLine("    private static string CleanupName(string value)");
+        sb.AppendLine("    {");
+        sb.AppendLine("        foreach (var cleanup in REGEX_CLEANUP)");
+        sb.AppendLine("        {");
+        sb.AppendLine("            System.Text.RegularExpressions.Regex r = new(cleanup);");
+        sb.AppendLine("            value = r.Replace(value, string.Empty);");
+        sb.AppendLine("        }");
+        sb.AppendLine();
+        sb.AppendLine("        return value;");
+        sb.AppendLine("    }");
+        sb.AppendLine();
         sb.AppendLine("}");
 
         context.AddSource($"CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
@@ -80,10 +123,11 @@ public class CodeCommentsGenerator : IIncrementalGenerator
 
     private static string CleanupParamName(string value)
     {
-        Regex regex = new("[P,T,M,F]:Microsoft\\.FluentUI\\.AspNetCore\\.Components\\.");
-        value = regex.Replace(value, "");
-        regex = new("[P,T,M,F]:FluentUI\\.Demo\\.Client\\.");
-        value = regex.Replace(value, "");
+        foreach (var cleanup in REGEX_CLEANUP)
+        {
+            Regex r = new($"[P,T,M,F]:{cleanup}");
+            value = r.Replace(value, string.Empty);
+        }
 
         return value;
     }
