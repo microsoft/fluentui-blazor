@@ -1,7 +1,7 @@
 ﻿@using FluentUI.Demo.DocViewer.Models
 @using Microsoft.AspNetCore.Components.Web
 
-<PageTitle>@string.Format(Factory.DocViewerService.Options.PageTitle, PageTitle)</PageTitle>
+<PageTitle>@string.Format(DocViewerService.Options.PageTitle, PageTitle)</PageTitle>
 
 <div>
     @if (_isPageNotFound)
@@ -49,7 +49,7 @@
                                 <DynamicComponent Type="@component" />
                             </fluent-tab-panel>
                             <fluent-tab-panel>
-                                <pre><code @key="@(section.Id)" id="@(section.Id)" class="language-razor" source>@(section.SourceCode)</code></pre>
+                                <pre><code @key="@(section.Id)" id="@(section.Id)" class="language-razor" source>Loading...</code></pre>
                             </fluent-tab-panel>
                         </fluent-tabs>
 

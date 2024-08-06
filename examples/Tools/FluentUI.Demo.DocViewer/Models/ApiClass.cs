@@ -28,17 +28,17 @@ internal class ApiClass
     ];
 
     private readonly Type _component;
-    private readonly FactoryService _factoryService;
+    private readonly DocViewerService _docViewerService;
     private IEnumerable<ApiClassMember>? _allMembers;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiClass"/> class.
     /// </summary>
-    /// <param name="factoryService"></param>
+    /// <param name="docViewerService"></param>
     /// <param name="component"></param>
-    public ApiClass(FactoryService factoryService,Type component)
+    public ApiClass(DocViewerService docViewerService, Type component)
     {
-        _factoryService = factoryService;
+        _docViewerService = docViewerService;
         _component = component;
     }
 
@@ -202,13 +202,13 @@ internal class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo member)
     {
-        var summary = _factoryService.DocViewerService.ApiCommentSummary(component, member);
+        var summary = _docViewerService.ApiCommentSummary(component, member);
 
         if (string.IsNullOrWhiteSpace(summary))
         {
             return string.Empty;
         }
 
-        return Markdown.ToHtml(summary, FactoryService.MarkdownPipeline);
+        return Markdown.ToHtml(summary, DocViewerService.MarkdownPipeline);
     }
 }

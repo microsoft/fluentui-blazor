@@ -54,7 +54,7 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static DemoServices AddFluentUIDemoServices(this IServiceCollection services)
     {
-        // Add HttpClient for the "CatchAll.razor" page
+        // Add HttpClient for the "CatchAll.razor" or "DocViewer.razor" page
         services.AddHttpClient();
 
         // Documentation services

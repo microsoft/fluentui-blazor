@@ -22,7 +22,7 @@ public partial class MarkdownViewer
 
     /// <summary />
     [Inject]
-    internal FactoryService Factory { get; set; } = default!;
+    internal DocViewerService DocViewerService { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -44,7 +44,7 @@ public partial class MarkdownViewer
     protected override async Task OnInitializedAsync()
     {
         // Markdown
-        var page = Factory.DocViewerService.FromRoute(Route);
+        var page = DocViewerService.FromRoute(Route);
 
         if (page is null)
         {
@@ -57,7 +57,7 @@ public partial class MarkdownViewer
         _isPageNotFound = false;
         PageTitle = page.Title;
 
-        var html = Markdown.ToHtml(page.Content, FactoryService.MarkdownPipeline);
+        var html = Markdown.ToHtml(page.Content, DocViewerService.MarkdownPipeline);
         Sections = await ExtractSectionsAsync(html);
     }
 
@@ -67,18 +67,22 @@ public partial class MarkdownViewer
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        }
 
-        await _jsModule.InvokeVoidAsync("applyHighlight");
+            foreach (var section in Sections.Where(i => i.Type == SectionType.Component))
+            {
+                var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, section.Value);
+                await _jsModule.InvokeVoidAsync("loadAndHighlightCode", section.Id, url);
+            }
+        }
     }
 
     private ApiClass? GetApiClassFromName(string? name)
     {
-        var type = Factory.DocViewerService.ApiAssembly
-                                          ?.GetTypes()
-                                          ?.FirstOrDefault(i => i.Name == name);
+        var type = DocViewerService.ApiAssembly
+                                  ?.GetTypes()
+                                  ?.FirstOrDefault(i => i.Name == name);
 
-        return type is null ? null : new ApiClass(Factory, type);
+        return type is null ? null : new ApiClass(DocViewerService, type);
     }
 
     /// <summary />
@@ -120,7 +124,7 @@ public partial class MarkdownViewer
         // Add a section to the list
         async Task AddSectionAsync(string content)
         {
-            var section = new Section(Factory);
+            var section = new Section(DocViewerService);
             await section.ReadAsync(content);
             sections.Add(section);
         }
@@ -129,14 +133,14 @@ public partial class MarkdownViewer
     /// <summary />
     private Type? GetComponentFromName(string name)
     {
-        if (Factory.DocViewerService.ComponentsAssembly is null)
+        if (DocViewerService.ComponentsAssembly is null)
         {
             return null;
         }
 
-        return Factory.DocViewerService.ComponentsAssembly
-                                       .GetTypes()
-                                       .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)
-                                       .FirstOrDefault(i => i.Name == name);
+        return DocViewerService.ComponentsAssembly
+                               .GetTypes()
+                               .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)
+                               .FirstOrDefault(i => i.Name == name);
     }
 }

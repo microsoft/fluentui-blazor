@@ -14,7 +14,9 @@ public record Section
 {
     private const string DEFAULT_LANGUAGE = "text";
     private static readonly Random _rnd = new();
-    private readonly FactoryService _factory;
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "For a future usage")]
+    private readonly DocViewerService _docViewerService;
 
     /// <summary>
     /// Key for the language argument, used by the <see cref="Arguments"/> dictionary.
@@ -29,10 +31,10 @@ public record Section
     /// <summary>
     /// Initializes a new instance of the <see cref="Section"/> class.
     /// </summary>
-    /// <param name="factory"></param>
-    internal Section(FactoryService factory)
+    /// <param name="docViewerService"></param>
+    internal Section(DocViewerService docViewerService)
     {
-        _factory = factory;
+        _docViewerService = docViewerService;
     }
 
     /// <summary>
@@ -44,11 +46,6 @@ public record Section
     /// Gets the content of the section or the name of the component.
     /// </summary>
     public string Value { get; private set; } = string.Empty;
-
-    /// <summary>
-    /// Gets the source code of the component (if <see langword="type"/> is Component).
-    /// </summary>
-    public string SourceCode { get; private set; } = string.Empty;
 
     /// <summary>
     /// Gets True if the contains SourceCode="false" in the arguments.
@@ -70,7 +67,7 @@ public record Section
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public async Task<Section> ReadAsync(string content)
+    public Task<Section> ReadAsync(string content)
     {
         // Code section
         if (content.StartsWith("<pre><code", StringComparison.InvariantCultureIgnoreCase))
@@ -107,8 +104,6 @@ public record Section
                 Arguments = component.Arguments;
                 Value = component.Name;
                 Type = SectionType.Component;
-
-                await LoadSourceCodeFromAssetsAsync();
             }
         }
 
@@ -120,7 +115,7 @@ public record Section
             Arguments = new Dictionary<string, string>();
         }
 
-        return this;
+        return Task.FromResult(this);
     }
 
     /// <summary />
@@ -144,18 +139,5 @@ public record Section
         }
 
         return (componentName, dict);
-    }
-
-    /// <summary />
-    private async Task LoadSourceCodeFromAssetsAsync()
-    {
-        var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, _factory.DocViewerService.Options.SourceCodeUrl, Value);
-        var code = await _factory.StaticAssetService.GetAsync(url);
-
-        if (!string.IsNullOrEmpty(code))
-        {
-            SourceCode = code;
-            Id += "-src";
-        }
     }
 }

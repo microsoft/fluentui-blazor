@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using FluentUI.Demo.DocViewer.Models;
+using Markdig;
 
 namespace FluentUI.Demo.DocViewer.Services;
 
@@ -13,6 +14,11 @@ namespace FluentUI.Demo.DocViewer.Services;
 public class DocViewerService
 {
     private IEnumerable<Page>? _pages;
+
+    /// <summary>
+    /// Gets the markdown pipeline used to render the markdown pages.
+    /// </summary>
+    internal static readonly MarkdownPipeline MarkdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DocViewerService"/> class.
