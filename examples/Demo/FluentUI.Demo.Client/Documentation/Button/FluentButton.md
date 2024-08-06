@@ -37,6 +37,9 @@ You can add icons to a button to help identify the action it triggers.
 To do this, you can use an `IconStart` or `IconEnd` property to add an icon
 to the beginning or end of the button text.
 
+With icon in the content. By doing it this way, it is possible to specify
+a <code>Color</code> for the icon.
+
 {{ ButtonIcon }}
 
 ## Shapes
