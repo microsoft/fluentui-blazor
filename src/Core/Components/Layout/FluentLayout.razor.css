@@ -1,4 +1,8 @@
 .fluent-layout {
+  --zindex-layout-aside: 79;
+  --zindex-layout-menu: 80;
+  --zindex-layout-header: 81;
+  --zindex-layout-footer: 81;
   display: grid;
   grid-template-areas:
     "header header header"
@@ -16,6 +20,10 @@
     overflow-y: auto;
   }
 
+  .fluent-layout *[hide-on-desktop] {
+    display: none;
+  }
+
 @media (max-width: 768px) {
   .fluent-layout {
     grid-template-areas:
@@ -24,14 +32,10 @@
       "aside"
       "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: unset;
   }
 
-    .fluent-layout .fluent-layout-item[area="aside"] {
-        width: 100% !important;
-    }
-
-    .fluent-layout .fluent-layout-item[area="menu"] {
-      display: none;      
+    .fluent-layout *[hide-on-desktop] {
+      display: unset;
     }
 }

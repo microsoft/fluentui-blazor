@@ -6,14 +6,16 @@
     <FluentLayout GlobalScrollbar="@GlobalScrollbar">
         @if (Header.Visible)
         {
-            <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky">
-                My Header
+            <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky" Style="display: flex; flex-direction: row;">
+                <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
+                &nbsp;
+                <div>My Header</div>
             </FluentLayoutItem>
         }
 
         @if (Menu.Visible)
         {
-            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background-color: lightgoldenrodyellow;">
+            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" menu-opened="@MobileMenuOpened" Width="150px" Style="background-color: lightgoldenrodyellow;">
                 <strong>My Menu</strong>
                 @foreach (var item in Samples.DataSource.NavigationMenu.Take(10))
                 {
@@ -58,6 +60,7 @@
     private RenderFragment _renderOptions;
     private RenderFragment _renderSamples;
     private bool GlobalScrollbar = true;
+    private bool MobileMenuOpened = false;
     private Option Header = new Option() { Visible = true, Sticky = false };
     private Option Menu = new Option() { Visible = true, Sticky = false };
     private Option Content = new Option() { Visible = true, Sticky = false };
