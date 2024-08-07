@@ -61,6 +61,11 @@
   overflow-y: unset;
 }
 
+.fluent-layout-item *[hide-on-desktop] {
+  display: none;
+}
+
+
 @media (max-width: 768px) {
   .fluent-layout-item[area="menu"],
   .fluent-layout-item[area="aside"] {
@@ -76,5 +81,9 @@
   .fluent-layout-item[area="content"] {
     grid-area: content !important;
     padding-right: unset !important;
+  }
+
+  .fluent-layout-item *[hide-on-desktop] {
+    display: unset;
   }
 }
