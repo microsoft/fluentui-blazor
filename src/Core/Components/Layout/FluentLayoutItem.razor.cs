@@ -72,21 +72,6 @@ public partial class FluentLayoutItem
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private string? AreaValue
-    {
-        get
-        {
-            //var isHeaderFooter = Area == LayoutArea.Header || Area == LayoutArea.Footer;
-
-            //if (isHeaderFooter && Sticky)
-            //{
-            //    return $"{Area.ToAttributeValue()}-outside";
-            //}
-
-            return Area.ToAttributeValue();
-        }
-    }
-
     /// <summary />
     override protected void OnInitialized()
     {
@@ -100,13 +85,21 @@ public partial class FluentLayoutItem
 
         var aside = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
 
-        if (aside != null && Area == LayoutArea.Content && aside.Sticky)
+        if (aside != null && Area == LayoutArea.Content)
         {
-            lastArea = "aside";
-            aside.ExtraStyles = Layout?.GlobalScrollbar == true ? null : $"margin-right: {SCROLLBAR_WIDTH};";
+            if (aside.Sticky)
+            {
+                lastArea = "aside";
+                aside.ExtraStyles = $"margin-right: {(Layout?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH)}";
+            }
+            else
+            {
+                lastArea = null;
+                aside.ExtraStyles = $"margin-right: 0";
+            }
         }
 
-        return string.Equals(firstArea, lastArea, StringComparison.CurrentCultureIgnoreCase)
+        return string.Equals(firstArea, lastArea, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(lastArea)
                 ? $"grid-area: {firstArea}"
                 : $"grid-area: {firstArea} / {firstArea} / {lastArea} / {lastArea}";    // row-start / column-start / row-end / column-end
     }

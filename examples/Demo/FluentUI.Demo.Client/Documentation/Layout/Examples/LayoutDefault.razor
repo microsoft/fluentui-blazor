@@ -14,26 +14,33 @@
         @if (Menu.Visible)
         {
             <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background-color: lightgoldenrodyellow;">
-                <p>My Menu</p>
-                @_renderSamples
-                @_renderSamples
+                <strong>My Menu</strong>
+                @foreach (var item in Samples.DataSource.NavigationMenu.Take(10))
+                {
+                    <p>@item</p>
+                }
             </FluentLayoutItem>
         }
 
         @if (Content.Visible)
         {
             <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky">
-                <p>My Content</p>
-                @_renderSamples
-                @_renderSamples
+                <strong>My Content</strong>
+                @foreach (var item in Samples.DataSource.LoremIpsum)
+                {
+                    <p>@item</p>
+                }
             </FluentLayoutItem>
         }
 
         @if (Aside.Visible)
         {
             <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky" Width="100px" Style="background-color: lightblue;">
-                <p>My Aside</p>
-                @_renderSamples
+                <strong>My Aside</strong>
+                @foreach (var item in Samples.DataSource.NavigationMenu.OrderDescending().Take(10))
+                {
+                    <p>@item</p>
+                }
             </FluentLayoutItem>
         }
 
@@ -97,7 +104,7 @@
                 <tr>
                     <td>Content</td>
                     <td><InputCheckbox @bind-Value="@(Content.Visible)" /></td>
-                    <td><InputCheckbox @bind-Value="@(Content.Sticky)" /></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Aside</td>
