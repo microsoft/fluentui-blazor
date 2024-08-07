@@ -8,11 +8,13 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Area of the layout where the item is placed.
+/// </summary>
 public partial class FluentLayoutItem
 {
     /// <summary>
-    /// 
+    /// Gets or sets the Scrollbar Width to compute the correct Aside position.
     /// </summary>
     public static string SCROLLBAR_WIDTH { get; set; } = "17px";
 
@@ -38,30 +40,33 @@ public partial class FluentLayoutItem
 
     internal string? ExtraStyles { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Gets or sets the parent layout component.
+    /// </summary>
     [CascadingParameter]
     protected FluentLayout? Layout { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the type of area where the item is placed.
     /// </summary>
     [Parameter]
     public LayoutArea Area { get; set; } = LayoutArea.Content;
 
     /// <summary>
-    /// 
+    /// Gets ot sets the width of the item.
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
+    /// Gets or sets the height of the item.
     /// Default is 24px for Header and Footer, and null for others
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets whether the item is sticky.
     /// </summary>
     [Parameter]
     public bool Sticky { get; set; }
@@ -78,6 +83,7 @@ public partial class FluentLayoutItem
         Layout?.AddItem(this);
     }
 
+    /// <summary />
     private string GetGridArea()
     {
         var firstArea = Area.ToAttributeValue();

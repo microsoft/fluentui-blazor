@@ -6,36 +6,38 @@
     position: sticky;
   }
 
+  /* "outside" means "not in the css grid-area" */
+
   .fluent-layout-item[area="header"],
   .fluent-layout-item[area="header-outside"] {
-    top: 0;
-    color: var(--colorNeutralForegroundOnBrand);
     background-color: var(--colorBrandBackgroundHover);
+    color: var(--colorNeutralForegroundOnBrand);
+    overflow: hidden;
     padding: 8px;
-    overflow-y: hidden;
+    top: 0;
+    width: 100%;
     z-index: var(--zindex-layout-header);
   }
 
   .fluent-layout-item[area="footer"],
   .fluent-layout-item[area="footer-outside"] {
+    background-color: var(--colorNeutralBackgroundDisabled);
     bottom: 0;
     color: var(--colorNeutralForeground1);
-    background-color: var(--colorNeutralBackgroundDisabled);
+    overflow: hidden;
     padding: 8px;
     width: 100%;
-    overflow-y: hidden;
     z-index: var(--zindex-layout-footer);
   }
 
   .fluent-layout-item[area="menu"] {
-    top: 0;
-    left: 0px;
+    left: 0;
     overflow-y: auto;
+    top: 0;
     z-index: var(--zindex-layout-menu);
   }
 
     .fluent-layout-item[area="menu"][sticky] {
-      overflow-y: auto;
       height: fit-content;
     }
 
@@ -44,25 +46,23 @@
   }
 
   .fluent-layout-item[area="aside"] {
-    top: 0px;
-    right: 0px;
     overflow-y: auto;
+    right: 0;
+    top: 0;
     z-index: var(--zindex-layout-aside);
   }
 
     .fluent-layout-item[area="aside"][sticky] {
-      overflow-y: auto;
       height: fit-content;
     }
 
-.fluent-layout[overflow] .fluent-layout-item[area="menu"],
-.fluent-layout[overflow] .fluent-layout-item[area="content"],
-.fluent-layout[overflow] .fluent-layout-item[area="aside"] {
+.fluent-layout[global-scrollbar] .fluent-layout-item {
   overflow-y: unset;
 }
 
 @media (max-width: 768px) {
-  .fluent-layout-item[area="menu"] {
+  .fluent-layout-item[area="menu"],
+  .fluent-layout-item[area="aside"] {
     display: none;
   }
 
@@ -71,10 +71,6 @@
       width: 90% !important;
       grid-area: content / content / aside / aside !important;
     }
-
-  .fluent-layout-item[area="aside"] {
-    display: none;
-  }
 
   .fluent-layout-item[area="content"] {
     grid-area: content !important;

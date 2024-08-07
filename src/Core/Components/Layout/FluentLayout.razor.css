@@ -16,7 +16,7 @@
   overflow: hidden;
 }
 
-  .fluent-layout[overflow] {
+  .fluent-layout[global-scrollbar] {
     overflow-y: auto;
   }
 
@@ -29,10 +29,9 @@
     grid-template-areas:
       "header"
       "content"
-      "aside"
       "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: unset;
+    grid-template-rows: auto 1fr auto;
   }
 
     .fluent-layout *[hide-on-desktop] {
