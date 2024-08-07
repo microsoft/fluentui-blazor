@@ -58,6 +58,15 @@ public readonly struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
+    public StyleBuilder AddStyle(string prop, string? value, bool when) => AddStyle(prop, value, () => when);
+
+    /// <summary>
+    /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
+    /// </summary>
+    /// <param name="prop"></param>
+    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="when">Condition in which the style is added.</param>
+    /// <returns>StyleBuilder</returns>
     public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => when != null && when() ? AddStyle(prop, value) : this;
 
     /// <summary>

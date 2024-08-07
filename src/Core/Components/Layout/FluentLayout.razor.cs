@@ -8,6 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Component that defines a layout for a page, using a grid composed of a Header, a Footer and 3 columns: Menu, Content and Aside Pane.
+/// For mobile devices (&lt; 768px), the layout is a single column with the Menu, Content and Footer panes stacked vertically.
 /// </summary>
 public partial class FluentLayout
 {
@@ -35,10 +36,16 @@ public partial class FluentLayout
     }
 
     /// <summary />
+    internal bool HasHeader => Items.Any(i => i.Area == LayoutArea.Header);
+
+    /// <summary />
     internal string HeaderHeight => Items.FirstOrDefault(i => i.Area == LayoutArea.Header)?.Height ?? "24px";
 
     /// <summary />
     internal bool HeaderSticky => Items.FirstOrDefault(i => i.Area == LayoutArea.Header)?.Sticky ?? false;
+
+    /// <summary />
+    internal bool HasFooter => Items.Any(i => i.Area == LayoutArea.Footer);
 
     /// <summary />
     internal string FooterHeight => Items.FirstOrDefault(i => i.Area == LayoutArea.Footer)?.Height ?? "24px";

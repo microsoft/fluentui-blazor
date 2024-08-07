@@ -13,10 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayoutItem
 {
+    private readonly Dictionary<string, string> _extraStyles = new(StringComparer.Ordinal);
+
     /// <summary>
     /// Gets or sets the Scrollbar Width to compute the correct Aside position.
     /// </summary>
-    public static string SCROLLBAR_WIDTH { get; set; } = "17px";
+    public static string SCROLLBAR_WIDTH { get; set; } = "14px";
 
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Class"/>
@@ -28,17 +30,73 @@ public partial class FluentLayoutItem
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Style"/>
     /// </summary>
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle(GetGridArea())
-        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height) && Area != LayoutArea.Header && Area != LayoutArea.Footer)
-        .AddStyle("height", Layout?.HeaderHeight ?? "fit-content", () => Area == LayoutArea.Header)
-        .AddStyle("height", Layout?.FooterHeight ?? "fit-content", () => Area == LayoutArea.Footer)
-        .AddStyle("top", Layout?.HeaderHeight ?? "0", () => Sticky && Layout?.HeaderSticky == true && (Area == LayoutArea.Aside || Area == LayoutArea.Menu || Area == LayoutArea.Content))
-        .AddStyle(ExtraStyles)
-        .Build();
+    protected string? StyleValue
+    {
+        get
+        {
+            // User styles
+            var styles = new StyleBuilder(Style);
 
-    internal string? ExtraStyles { get; set; }
+            // Grid Area
+            var startAreaName = Area.ToAttributeValue();
+            var endAreaName = Area.ToAttributeValue();
+            var contentArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
+            var asideArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
+
+            if (asideArea != null && Area == LayoutArea.Content)
+            {
+                if (asideArea.Sticky)
+                {
+                    endAreaName = "aside";
+                    asideArea.AddExtraStyles("margin-right", Layout?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH);
+                }
+                else
+                {
+                    endAreaName = null;
+                    asideArea.AddExtraStyles("margin-right", "0");
+                }
+
+                contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
+            }
+
+            var noChange = string.Equals(startAreaName, endAreaName, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(endAreaName);
+            styles.AddStyle("grid-area", noChange
+                                       ? startAreaName
+                                       //   row-start      / column-start    / row-end       / column-end
+                                       : $"{startAreaName} / {startAreaName} / {endAreaName} / {endAreaName}"
+                           );
+
+            // Width
+            styles.AddStyle("width", Width, when: !string.IsNullOrEmpty(Width));
+
+            // Height
+            var height = Area switch
+            {
+                LayoutArea.Header => Layout?.HeaderHeight ?? "fit-content",
+                LayoutArea.Footer => Layout?.FooterHeight ?? "fit-content",
+                _ => Height
+            };
+            styles.AddStyle("height", height, when: !string.IsNullOrEmpty(height));
+
+            // Top when Header is sticky
+            var isMiddleArea = Area == LayoutArea.Aside || Area == LayoutArea.Menu || Area == LayoutArea.Content;
+            if (isMiddleArea && Layout != null && Layout.HasHeader && Layout.HeaderSticky)
+            {
+                styles.AddStyle("top", Layout?.HeaderHeight ?? "0");
+            }
+
+            // Extra styles
+            foreach (var item in _extraStyles)
+            {
+                styles.AddStyle(item.Key, item.Value);
+            }
+
+            return styles.Build();
+        }
+    }
+
+    /// <summary />
+    internal void AddExtraStyles(string key, string value) => _extraStyles[key] = value;
 
     /// <summary>
     /// Gets or sets the parent layout component.
@@ -72,7 +130,7 @@ public partial class FluentLayoutItem
     public bool Sticky { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the contentArea to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -81,38 +139,5 @@ public partial class FluentLayoutItem
     override protected void OnInitialized()
     {
         Layout?.AddItem(this);
-    }
-
-    /// <summary />
-    private string GetGridArea()
-    {
-        var firstArea = Area.ToAttributeValue();
-        var lastArea = Area.ToAttributeValue();
-
-        var content = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
-        var aside = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
-
-        if (aside != null && Area == LayoutArea.Content)
-        {
-            if (aside.Sticky)
-            {
-                lastArea = "aside";
-                aside.ExtraStyles = $"margin-right: {(Layout?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH)}";
-            }
-            else
-            {
-                lastArea = null;
-                aside.ExtraStyles = $"margin-right: 0";
-            }
-
-            if (content != null)
-            {
-                content.ExtraStyles = $"padding-right: {(string.IsNullOrEmpty(aside.Width) || !aside.Sticky ? "0" : aside.Width)}";
-            }
-        }
-
-        return string.Equals(firstArea, lastArea, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(lastArea)
-                ? $"grid-area: {firstArea}"
-                : $"grid-area: {firstArea} / {firstArea} / {lastArea} / {lastArea}";    // row-start / column-start / row-end / column-end
     }
 }

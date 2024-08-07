@@ -43,6 +43,7 @@
 
   .fluent-layout-item[area="content"] {
     overflow-y: auto;
+    top: 0;
   }
 
   .fluent-layout-item[area="aside"] {
