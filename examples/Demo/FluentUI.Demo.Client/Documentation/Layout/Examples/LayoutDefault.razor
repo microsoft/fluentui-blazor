@@ -2,11 +2,22 @@
 
 @_renderOptions
 
-<div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px;">
+<div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px; display: flex;flex-direction: column;">
+
+    @if (Header.Visible && Header.Sticky)
+    {
+        <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
+            <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
+            &nbsp;
+            <div>My Header</div>
+        </FluentLayoutItem>
+    }
+
     <FluentLayout GlobalScrollbar="@GlobalScrollbar">
-        @if (Header.Visible)
+
+        @if (Header.Visible && !Header.Sticky)
         {
-            <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky" Style="display: flex; flex-direction: row;">
+            <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
                 <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
                 &nbsp;
                 <div>My Header</div>
