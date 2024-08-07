@@ -12,8 +12,12 @@
   overflow: hidden;
 }
 
-@media (max-width: 768px) {
-  .fluent-layout {
+  .fluent-layout[overflow] {
+    overflow-y: auto;
+  }
+
+  @media (max-width: 768px) {
+    .fluent-layout {
     grid-template-areas:
       "header"
       "content"

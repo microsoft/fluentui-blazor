@@ -1,61 +1,123 @@
-﻿<div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px;">
-    <FluentLayout>
-        <FluentLayoutItem Area="@LayoutArea.Header">
-            My Header
-        </FluentLayoutItem>
+﻿@using Microsoft.AspNetCore.Components.Rendering
 
-        <FluentLayoutItem Area="@LayoutArea.Menu" Width="150px" Sticky Style="background: yellow;">
-            <p>LEFT</p>
-            <p>Hello 1</p>
-            <p>Hello 2</p>
-            <p>Hello 3</p>
-            <p>Hello 4</p>
-            <p>Hello 5</p>
-            <p>Hello 6</p>
-            <p>Hello 7</p>
-            <p>Hello 8</p>
-            <p>Hello 9</p>
-            <p>Hello 1</p>
-            <p>Hello 2</p>
-            <p>Hello 3</p>
-            <p>Hello 4</p>
-            <p>Hello 5</p>
-            <p>Hello 6</p>
-            <p>Hello 7</p>
-            <p>Hello 8</p>
-            <p>Hello 9</p>
-        </FluentLayoutItem>
+@_renderOptions
 
-        <FluentLayoutItem Area="@LayoutArea.Content">
-            <p>Hello 1</p>
-            <p>Hello 2</p>
-            <p>Hello 3</p>
-            <p>Hello 4</p>
-            <p>Hello 5</p>
-            <p>Hello 6</p>
-            <p>Hello 7</p>
-            <p>Hello 8</p>
-            <p>Hello 9</p>
-            <p>Hello 1</p>
-            <p>Hello 2</p>
-            <p>Hello 3</p>
-            <p>Hello 4</p>
-            <p>Hello 5</p>
-            <p>Hello 6</p>
-            <p>Hello 7</p>
-            <p>Hello 8</p>
-            <p>Hello 9</p>
-        </FluentLayoutItem>
+<div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px;">
+    <FluentLayout GlobalScrollbar="@GlobalScrollbar">
+        @if (Header.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Header" Sticky="@Header.Sticky">
+                My Header
+            </FluentLayoutItem>
+        }
 
-        <FluentLayoutItem Area="@LayoutArea.Aside" Sticky Style="background: yellow; height: fit-content;">
-            RIGHT
-            <p>Hello 1</p>
-            <p>Hello 2</p>
-            <p>Hello 3</p>
-        </FluentLayoutItem>
+        @if (Menu.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background: yellow;">
+                <p>My Menu</p>
+                @_renderSamples
+                @_renderSamples
+            </FluentLayoutItem>
+        }
 
-        <FluentLayoutItem Area="@LayoutArea.Footer">
-            My Footer
-        </FluentLayoutItem>
+        @if (Content.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky">
+                <p>My Content</p>
+                @_renderSamples
+                @_renderSamples
+            </FluentLayoutItem>
+        }
+
+        @if (Aside.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky">
+                <p>My Aside</p>
+                @_renderSamples
+            </FluentLayoutItem>
+        }
+
+        @if (Footer.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
+                My Footer
+            </FluentLayoutItem>
+        }
     </FluentLayout>
 </div>
+
+@code
+{
+    private RenderFragment _renderOptions;
+    private RenderFragment _renderSamples;
+    private bool GlobalScrollbar = true;
+    private Option Header = new Option() { Visible = true, Sticky = false };
+    private Option Menu = new Option() { Visible = true, Sticky = false };
+    private Option Content = new Option() { Visible = true, Sticky = false };
+    private Option Aside = new Option() { Visible = true, Sticky = false };
+    private Option Footer = new Option() { Visible = true, Sticky = false };
+
+    private class Option
+    {
+        public bool Visible { get; set; }
+        public bool Sticky { get; set; }
+    }
+
+    public LayoutDefault()
+    {
+        _renderOptions = RenderOptions;
+        _renderSamples = RenderSample;
+    }
+
+    protected void RenderOptions(RenderTreeBuilder __builder)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Visible</th>
+                    <th>Sticky</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Global Scrollbar</td>
+                    <td><InputCheckbox @bind-Value="@(GlobalScrollbar)" /></td>
+                </tr>
+                <tr>
+                    <td>Header</td>
+                    <td><InputCheckbox @bind-Value="@(Header.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Header.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Menu</td>
+                    <td><InputCheckbox @bind-Value="@(Menu.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Menu.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><InputCheckbox @bind-Value="@(Content.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Content.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Aside</td>
+                    <td><InputCheckbox @bind-Value="@(Aside.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Aside.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Footer</td>
+                    <td><InputCheckbox @bind-Value="@(Footer.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Footer.Sticky)" /></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+    protected void RenderSample(RenderTreeBuilder __builder)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            <p>Hello @i</p>
+        }
+    }
+}

@@ -1,9 +1,13 @@
 .fluent-layout-item {
-  
 }
 
-  .fluent-layout-item[area="header"] {
-    top: 0px;
+  .fluent-layout-item[sticky] {
+    position: sticky;
+  }
+
+  .fluent-layout-item[area="header"],
+  .fluent-layout-item[area="header-outside"] {
+    top: 0;
     color: var(--colorNeutralForegroundOnBrand);
     background-color: var(--colorBrandBackgroundHover);
     padding: 8px;
@@ -11,7 +15,9 @@
     z-index: 1000;
   }
 
-  .fluent-layout-item[area="footer"] {
+  .fluent-layout-item[area="footer"],
+  .fluent-layout-item[area="footer-outside"] {
+    bottom: 0;
     color: var(--colorNeutralForeground1);
     background-color: var(--colorNeutralBackgroundDisabled);
     padding: 8px;
@@ -20,13 +26,20 @@
   }
 
   .fluent-layout-item[area="menu"] {
+    top: 0;
     overflow-y: auto;
   }
 
   .fluent-layout-item[area="content"] {
-    overflow-y: auto;
+    /*overflow-y: auto;*/
   }
 
   .fluent-layout-item[area="aside"] {
     overflow-y: auto;
+  }
+
+  .fluent-layout-item[area="aside"][sticky] {
+    top: 0px;
+    overflow-y: auto;
+    height: fit-content;
   }

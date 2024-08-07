@@ -27,10 +27,12 @@ public partial class FluentLayoutItem
     /// <inheritdoc cref="FluentComponentBase.Style"/>
     /// </summary>
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle(GetGridColumnsStyle())
+        .AddStyle(GetGridArea())
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
-        .AddStyle("position", "sticky", () => Sticky)
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height) && Area != LayoutArea.Header && Area != LayoutArea.Footer)
+        .AddStyle("height", Layout?.HeaderHeight ?? "fit-content", () => Area == LayoutArea.Header)
+        .AddStyle("height", Layout?.FooterHeight ?? "fit-content", () => Area == LayoutArea.Footer)
+        .AddStyle("top", Layout?.HeaderHeight ?? "0", () => Sticky && Layout?.HeaderSticky == true && (Area == LayoutArea.Aside || Area == LayoutArea.Menu || Area == LayoutArea.Content))
         .AddStyle(ExtraStyles)
         .Build();
 
@@ -53,6 +55,7 @@ public partial class FluentLayoutItem
     public string? Width { get; set; }
 
     /// <summary>
+    /// Default is 24px for Header and Footer, and null for others
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
@@ -69,13 +72,28 @@ public partial class FluentLayoutItem
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    private string? AreaValue
+    {
+        get
+        {
+            //var isHeaderFooter = Area == LayoutArea.Header || Area == LayoutArea.Footer;
+
+            //if (isHeaderFooter && Sticky)
+            //{
+            //    return $"{Area.ToAttributeValue()}-outside";
+            //}
+
+            return Area.ToAttributeValue();
+        }
+    }
+
     /// <summary />
     override protected void OnInitialized()
     {
         Layout?.AddItem(this);
     }
 
-    private string GetGridColumnsStyle()
+    private string GetGridArea()
     {
         var firstArea = Area.ToAttributeValue();
         var lastArea = Area.ToAttributeValue();
