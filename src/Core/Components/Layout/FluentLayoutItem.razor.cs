@@ -103,7 +103,7 @@ public partial class FluentLayoutItem
         if (aside != null && Area == LayoutArea.Content && aside.Sticky)
         {
             lastArea = "aside";
-            aside.ExtraStyles = $"margin-right: {SCROLLBAR_WIDTH};";
+            aside.ExtraStyles = Layout?.GlobalScrollbar == true ? null : $"margin-right: {SCROLLBAR_WIDTH};";
         }
 
         return string.Equals(firstArea, lastArea, StringComparison.CurrentCultureIgnoreCase)

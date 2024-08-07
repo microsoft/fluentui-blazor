@@ -31,7 +31,7 @@
   }
 
   .fluent-layout-item[area="content"] {
-    /*overflow-y: auto;*/
+    overflow-y: auto;
   }
 
   .fluent-layout-item[area="aside"] {
@@ -43,3 +43,9 @@
     overflow-y: auto;
     height: fit-content;
   }
+
+.fluent-layout[overflow] .fluent-layout-item[area="menu"],
+.fluent-layout[overflow] .fluent-layout-item[area="content"],
+.fluent-layout[overflow] .fluent-layout-item[area="aside"] {
+  overflow-y: unset;
+}

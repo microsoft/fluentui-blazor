@@ -13,7 +13,7 @@
 
         @if (Menu.Visible)
         {
-            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background: yellow;">
+            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background-color: lightgoldenrodyellow;">
                 <p>My Menu</p>
                 @_renderSamples
                 @_renderSamples
@@ -31,7 +31,7 @@
 
         @if (Aside.Visible)
         {
-            <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky">
+            <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky" Width="100px" Style="background-color: lightblue;">
                 <p>My Aside</p>
                 @_renderSamples
             </FluentLayoutItem>
