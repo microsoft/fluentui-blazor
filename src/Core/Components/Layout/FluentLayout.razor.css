@@ -16,12 +16,22 @@
     overflow-y: auto;
   }
 
-  @media (max-width: 768px) {
-    .fluent-layout {
+@media (max-width: 768px) {
+  .fluent-layout {
     grid-template-areas:
       "header"
       "content"
+      "aside"
       "footer";
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto auto;
   }
+
+    .fluent-layout .fluent-layout-item[area="aside"] {
+        width: 100% !important;
+    }
+
+    .fluent-layout .fluent-layout-item[area="menu"] {
+      display: none;      
+    }
 }

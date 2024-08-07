@@ -83,6 +83,7 @@ public partial class FluentLayoutItem
         var firstArea = Area.ToAttributeValue();
         var lastArea = Area.ToAttributeValue();
 
+        var content = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
         var aside = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
 
         if (aside != null && Area == LayoutArea.Content)
@@ -96,6 +97,11 @@ public partial class FluentLayoutItem
             {
                 lastArea = null;
                 aside.ExtraStyles = $"margin-right: 0";
+            }
+
+            if (content != null)
+            {
+                content.ExtraStyles = $"padding-right: {(string.IsNullOrEmpty(aside.Width) || !aside.Sticky ? "0" : aside.Width)}";
             }
         }
 

@@ -24,7 +24,7 @@
 
         @if (Content.Visible)
         {
-            <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky">
+            <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky" Style="background-color: aliceblue;">
                 <strong>My Content</strong>
                 @foreach (var item in Samples.DataSource.LoremIpsum)
                 {
