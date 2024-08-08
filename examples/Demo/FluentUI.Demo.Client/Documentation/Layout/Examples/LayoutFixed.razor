@@ -1,10 +1,10 @@
 ﻿<div style="height: 400px; border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
-    <FluentLayout>
+    <FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold;">
+        Microsoft Demo
+    </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold;">
-            Microsoft Demo
-        </FluentLayoutItem>
+    <FluentLayout Style="height: 330px;">
 
         <FluentLayoutItem Area="@LayoutArea.Menu" Width="150px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
             <div style="font-weight: bold;">Navigation</div>
@@ -23,9 +23,10 @@
             @Samples.DataSource.LoremIpsum.ElementAt(2)[..200]
         </FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Footer">
-            &copy; Microsoft @DateTime.Now.Year
-        </FluentLayoutItem>
-
     </FluentLayout>
+
+    <FluentLayoutItem Area="@LayoutArea.Footer">
+        &copy; Microsoft @DateTime.Now.Year
+    </FluentLayoutItem>
+
 </div>

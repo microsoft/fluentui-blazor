@@ -53,7 +53,7 @@ internal class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property);
+    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => i.IsParameter);
 
     /// <summary>
     /// Gets the list of Events for the specified component.

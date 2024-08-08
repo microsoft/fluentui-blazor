@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,6 +17,13 @@ public partial class FluentLayout
     /// Gets the list of items that are part of the layout.
     /// </summary>
     internal List<FluentLayoutItem> Items { get; } = new();
+
+    /// <summary>
+    /// <inheritdoc cref="FluentComponentBase.Class"/>
+    /// </summary>
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-layout")
+        .Build();
 
     /// <summary>
     /// Gets or sets the vertical scrollbar position: global to the entire Layout, or inside the content area.

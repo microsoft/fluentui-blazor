@@ -1,0 +1,133 @@
+﻿@page "/Debug/Layout"
+@using Microsoft.AspNetCore.Components.Rendering
+
+@_renderOptions
+
+<div style="border: 1px solid red; overflow: hidden; resize: both; height: 500px; display: flex;flex-direction: column;">
+
+    @if (Header.Visible && Header.Sticky)
+    {
+        <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
+            <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
+            &nbsp;
+            <div>My Header</div>
+        </FluentLayoutItem>
+    }
+
+    <FluentLayout GlobalScrollbar="@GlobalScrollbar">
+
+        @if (Header.Visible && !Header.Sticky)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
+                <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
+                &nbsp;
+                <div>Header Area</div>
+            </FluentLayoutItem>
+        }
+
+        @if (Menu.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" menu-opened="@MobileMenuOpened" Width="150px" Style="background-color: lightgoldenrodyellow;">
+                <strong>Menu Area</strong>
+                @Samples.DataSource.NavigationMenu.Take(10).ToMarkupList("li")
+            </FluentLayoutItem>
+        }
+
+        @if (Content.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky" Style="background-color: aliceblue;">
+                <strong>Content Area</strong>
+                @Samples.DataSource.LoremIpsum.Take(10).ToMarkupList("p")
+            </FluentLayoutItem>
+        }
+
+        @if (Aside.Visible)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky" Width="100px" Style="background-color: lightblue;">
+                <strong>Aside Area</strong>
+                @Samples.DataSource.NavigationMenu.OrderDescending().Take(8).ToMarkupList("p")
+            </FluentLayoutItem>
+        }
+
+        @if (Footer.Visible && !Footer.Sticky)
+        {
+            <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
+                Footer Area
+            </FluentLayoutItem>
+        }
+    </FluentLayout>
+
+    @if (Footer.Visible && Footer.Sticky)
+    {
+        <FluentLayoutItem Area="@LayoutArea.Footer" Sticky="@Footer.Sticky">
+            Footer Area
+        </FluentLayoutItem>
+    }
+</div>
+
+@code
+{
+    private RenderFragment _renderOptions;
+    private bool GlobalScrollbar = true;
+    private bool MobileMenuOpened = false;
+    private Option Header = new Option() { Visible = true, Sticky = false };
+    private Option Menu = new Option() { Visible = true, Sticky = false };
+    private Option Content = new Option() { Visible = true, Sticky = false };
+    private Option Aside = new Option() { Visible = true, Sticky = false };
+    private Option Footer = new Option() { Visible = true, Sticky = false };
+
+    private class Option
+    {
+        public bool Visible { get; set; }
+        public bool Sticky { get; set; }
+    }
+
+    public DebugLayout()
+    {
+        _renderOptions = RenderOptions;
+    }
+
+    protected void RenderOptions(RenderTreeBuilder __builder)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Visible</th>
+                    <th>Sticky</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Global Scrollbar</td>
+                    <td><InputCheckbox @bind-Value="@(GlobalScrollbar)" /></td>
+                </tr>
+                <tr>
+                    <td>Header</td>
+                    <td><InputCheckbox @bind-Value="@(Header.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Header.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Menu</td>
+                    <td><InputCheckbox @bind-Value="@(Menu.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Menu.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><InputCheckbox @bind-Value="@(Content.Visible)" /></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Aside</td>
+                    <td><InputCheckbox @bind-Value="@(Aside.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Aside.Sticky)" /></td>
+                </tr>
+                <tr>
+                    <td>Footer</td>
+                    <td><InputCheckbox @bind-Value="@(Footer.Visible)" /></td>
+                    <td><InputCheckbox @bind-Value="@(Footer.Sticky)" /></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}
