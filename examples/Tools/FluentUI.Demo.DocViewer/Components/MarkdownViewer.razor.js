@@ -6,18 +6,18 @@
 */
 export function applyHighlight(elementId) {
 
-    if (!hljs) {
-        console.warn("highlight.js is not yet initialized.");
-        return;
-    }
+  if (!hljs) {
+    console.warn("highlight.js is not yet initialized.");
+    return;
+  }
 
-    const element = document.getElementById(elementId);
-    if (element) {
-        hljs.highlightElement(element);
-    }
-    else {
-        hljs.highlightAll();
-    }
+  const element = document.getElementById(elementId);
+  if (element) {    
+    hljs.highlightElement(element);
+  }
+  else {
+    hljs.highlightAll();
+  }
 }
 
 export function loadAndHighlightCode(elementId, file) {
