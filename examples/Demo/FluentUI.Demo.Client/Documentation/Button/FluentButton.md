@@ -48,6 +48,6 @@ Buttons can be square, rounded, or circular.
 
 {{ ButtonShapes }}
 
-## API
+## API FluentButton
 
 {{ API Type=FluentButton }}

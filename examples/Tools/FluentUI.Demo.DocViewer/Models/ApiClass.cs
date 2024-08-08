@@ -51,6 +51,11 @@ internal class ApiClass
     public Type[] InstanceTypes { get; set; } = [typeof(string)];
 
     /// <summary>
+    /// Gets the class summary for the specified component.
+    /// </summary>
+    public string Summary => GetSummary(_component, null);
+
+    /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
     public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => i.IsParameter);
@@ -200,7 +205,7 @@ internal class ApiClass
     }
 
     /// <summary />
-    private string GetSummary(Type component, MemberInfo member)
+    private string GetSummary(Type component, MemberInfo? member)
     {
         var summary = _docViewerService.ApiCommentSummary(component, member);
 

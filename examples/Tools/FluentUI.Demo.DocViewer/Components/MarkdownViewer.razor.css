@@ -38,8 +38,17 @@
   border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
   border-radius: var(--borderRadiusMedium);
   padding: 16px 16px;
-  margin: 8px 0px;  
+  margin: 8px 0px;
 }
+
+.doc-viewer ::deep .api-summary {
+  background-color: var(--colorNeutralBackground4);
+  padding: 8px;
+}
+
+  .doc-viewer ::deep .api-summary * {
+    margin: 0px;
+  }
 
 .doc-viewer ::deep .api-table {
   width: 100%;

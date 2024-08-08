@@ -60,18 +60,22 @@
 
                 case SectionType.Api:
                     var classType = section.Arguments?["type"];
-                    var members = GetApiClassFromName(classType);
+                    var apiClass = GetApiClassFromName(classType);
 
-                    @if (members == null)
+                    @if (apiClass == null)
                     {
                         <div class="component-not-found">&#9888; The API '@(classType)' was not found.</div>
                     }
                     else
                     {
+                        <p class="api-summary">
+                            @((MarkupString)apiClass.Summary)
+                        </p>
+
                         @* API - Parameters *@
-                        @if (members.Properties.Any())
+                        @if (apiClass.Properties.Any())
                         {
-                            <h3>Parameters</h3>
+                            <h3>🏷️ Parameters</h3>
 
                             <table class="api-table">
                                 <thead>
@@ -83,7 +87,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in members.Properties)
+                                    @foreach (var item in apiClass.Properties)
                                     {
                                         <tr>
                                             <td><code>@item.Name</code></td>
@@ -103,9 +107,9 @@
                         }
 
                         @* API - Events *@
-                        @if (members.Events.Any())
+                        @if (apiClass.Events.Any())
                         {
-                            <h3>Event Callbacks</h3>
+                            <h3>🎉 Event Callbacks</h3>
 
                             <table class="api-table">
                                 <thead>
@@ -116,7 +120,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in members.Events)
+                                    @foreach (var item in apiClass.Events)
                                     {
                                         <tr>
                                             <td><code>@item.Name</code></td>
@@ -129,9 +133,9 @@
                         }
 
                         @* API - Methods *@
-                        @if (members.Methods.Any())
+                        @if (apiClass.Methods.Any())
                         {
-                            <h3>Parameters</h3>
+                            <h3>⚒️ Methods</h3>
 
                             <table class="api-table">
                                 <thead>
@@ -141,7 +145,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in members.Methods)
+                                    @foreach (var item in apiClass.Methods)
                                     {
                                         <tr>
                                             <td>
