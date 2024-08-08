@@ -37,7 +37,7 @@ into equivalent HTML pages.
    @page "/{*Path:nonfile}"
    @using FluentUI.Demo.DocViewer.Components
    
-   <MarkdownViewer Route="@Path" />
+   <MarkdownViewer Route="@Path" @key="@Path" />
    
    @code
    {

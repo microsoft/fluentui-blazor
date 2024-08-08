@@ -1,0 +1,110 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentLayoutTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton<LibraryConfiguration>();
+    }
+
+    [Fact]
+    public void FluentLayout_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<div>
+        <FluentLayout>
+            <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
+        </FluentLayout>
+    </div>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_HeaderFooterOutside()
+    {
+        // Arrange && Act
+        var cut = Render(@<div>
+        <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
+        <FluentLayout>
+            <FluentLayoutItem Area="LayoutArea.Menu">Menu</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Aside">Aside</FluentLayoutItem>
+        </FluentLayout>
+        <FluentLayoutItem Area="LayoutArea.Footer">Footer</FluentLayoutItem>
+    </div>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_Sticky()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout><FluentLayoutItem Area="LayoutArea.Content" Sticky="true">Content</FluentLayoutItem></FluentLayout>);
+
+        // Assert
+        Assert.Contains("sticky", cut.Markup);
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_AsideSticky_Scrollbar()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout GlobalScrollbar="false">
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Aside" Sticky="true">Aside</FluentLayoutItem>
+    </FluentLayout>);
+
+        // Assert
+        Assert.Contains($"margin-right: {FluentLayoutItem.SCROLLBAR_WIDTH}", cut.Markup);
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_HeaderSticky()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout>
+        <FluentLayoutItem Area="LayoutArea.Header" Sticky="true">Header</FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+    </FluentLayout>);
+
+        // Assert
+        Assert.Contains("top: 24px", cut.Markup);
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_HeaderFooterInternalProperties()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout>
+        <FluentLayoutItem Area="LayoutArea.Header" Height="40px" Sticky="true">Header</FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Footer" Height="30px" Sticky="true">Footer</FluentLayoutItem>
+    </FluentLayout>);
+
+        var layout = cut.FindComponent<FluentLayout>();
+
+        // Assert
+        Assert.Equal("40px", layout.Instance.HeaderHeight);
+        Assert.True(layout.Instance.HasHeader);
+        Assert.True(layout.Instance.HeaderSticky);
+
+        Assert.Equal("30px", layout.Instance.FooterHeight);
+        Assert.True(layout.Instance.HasFooter);
+        Assert.True(layout.Instance.FooterSticky);
+    }
+}

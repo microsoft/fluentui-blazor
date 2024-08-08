@@ -1,0 +1,8 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    <div id="@Id" class="@ClassValue" style="@Style" global-scrollbar="@GlobalScrollbar">
+        @ChildContent
+    </div>
+</CascadingValue>

@@ -73,6 +73,11 @@ public partial class MarkdownViewer
                 var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, section.Value);
                 await _jsModule.InvokeVoidAsync("loadAndHighlightCode", section.Id, url);
             }
+
+            foreach (var section in Sections.Where(i => i.Type == SectionType.Code))
+            {
+                await _jsModule.InvokeVoidAsync("applyHighlight", section.Id);
+            }
         }
     }
 

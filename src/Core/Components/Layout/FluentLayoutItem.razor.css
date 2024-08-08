@@ -1,0 +1,87 @@
+.fluent-layout-item {
+}
+
+  .fluent-layout-item[sticky] {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+  }
+
+  /* "outside" means "not in the css grid-area" */
+
+  .fluent-layout-item[area="header"],
+  .fluent-layout-item[area="header-outside"] {
+    background-color: var(--colorBrandBackgroundHover);
+    color: var(--colorNeutralForegroundOnBrand);
+    overflow: hidden;
+    padding: 8px;
+    top: 0;
+    z-index: var(--zindex-layout-header);
+  }
+
+  .fluent-layout-item[area="footer"],
+  .fluent-layout-item[area="footer-outside"] {
+    background-color: var(--colorNeutralBackgroundDisabled);
+    bottom: 0;
+    color: var(--colorNeutralForeground1);
+    overflow: hidden;
+    padding: 8px;
+    z-index: var(--zindex-layout-footer);
+  }
+
+  .fluent-layout-item[area="menu"] {
+    left: 0;
+    overflow-y: auto;
+    top: 0;
+    z-index: var(--zindex-layout-menu);
+  }
+
+    .fluent-layout-item[area="menu"][sticky] {
+      height: fit-content;
+    }
+
+  .fluent-layout-item[area="content"] {
+    overflow-y: auto;
+    top: 0;
+  }
+
+  .fluent-layout-item[area="aside"] {
+    overflow-y: auto;
+    right: 0;
+    top: 0;
+    z-index: var(--zindex-layout-aside);
+  }
+
+    .fluent-layout-item[area="aside"][sticky] {
+      height: fit-content;
+    }
+
+.fluent-layout[global-scrollbar] .fluent-layout-item {
+  overflow-y: unset;
+}
+
+.fluent-layout-item *[hide-on-desktop] {
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+  .fluent-layout-item[area="menu"],
+  .fluent-layout-item[area="aside"] {
+    display: none;
+  }
+
+    .fluent-layout-item[area="menu"][menu-opened] {
+      display: unset !important;
+      width: 90% !important;
+      grid-area: content / content / aside / aside !important;
+    }
+
+  .fluent-layout-item[area="content"] {
+    grid-area: content !important;
+    padding-right: unset !important;
+  }
+
+  .fluent-layout-item *[hide-on-desktop] {
+    display: unset;
+  }
+}

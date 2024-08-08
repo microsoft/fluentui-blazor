@@ -1,0 +1,7 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes" area="@Area.ToAttributeValue()" sticky="@Sticky" inside-layout="@(Layout is not null)">
+    @ChildContent
+</div>

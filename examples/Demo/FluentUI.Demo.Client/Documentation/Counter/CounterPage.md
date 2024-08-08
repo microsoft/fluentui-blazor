@@ -1,5 +1,5 @@
 ---
-title: Counter
+title: My Counter (Test)
 route: /Counter
 ---
 

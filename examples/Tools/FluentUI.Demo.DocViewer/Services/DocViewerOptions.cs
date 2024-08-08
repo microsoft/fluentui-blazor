@@ -34,7 +34,7 @@ public class DocViewerOptions
     /// <summary>
     /// Function to get the summary of an API comment.
     /// </summary>
-    public Func<Type, MemberInfo, string> ApiCommentSummary { get; set; } = (type, member) => member.Name;
+    public Func<Type, MemberInfo?, string> ApiCommentSummary { get; set; } = (type, member) => member?.Name ?? type.Name;
 
     /// <summary>
     /// Path to the external source code files, where {0} will be replaced by the component name.
