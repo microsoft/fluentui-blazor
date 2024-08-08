@@ -99,3 +99,37 @@
       width: 20px;
       height: 20px;
     }
+
+@media(max-width: 768px) {
+
+  .doc-viewer ::deep .api-table tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .doc-viewer ::deep .api-table td,
+  .doc-viewer ::deep .api-table th {
+    display: none;
+  }
+
+    .doc-viewer ::deep .api-table td:first-child {
+      display: block;
+      flex-grow: 1;
+    }
+
+    .doc-viewer ::deep .api-table td:first-child code {
+      font-weight: bold;
+    }
+
+    .doc-viewer ::deep .api-table td:nth-child(2) {
+        display: block;
+    }
+
+    .doc-viewer ::deep .api-table td:last-child {
+      flex-basis: 100%;
+      display: block;
+      margin-left: 24px;
+    }
+}
