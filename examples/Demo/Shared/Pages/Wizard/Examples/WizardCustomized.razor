@@ -11,12 +11,13 @@
     }
 </style>
 
-<FluentWizard Id="customized-wizard"
+<FluentWizard @ref="@MyWizard"
+              Id="customized-wizard"
               @bind-Value="@Value"
               StepTitleHiddenWhen="@GridItemHidden.XsAndDown"
               Height="300px">
     <Steps>
-        <FluentWizardStep>
+        <FluentWizardStep OnChange="@OnStepChange">
             <StepTemplate>
                 <div active="@context.Active">
                     Intro
@@ -29,7 +30,7 @@
                 ut blandit dui ullamcorper faucibus. Interdum et malesuada fames ac ante ipsum.
             </ChildContent>
         </FluentWizardStep>
-        <FluentWizardStep>
+        <FluentWizardStep OnChange="@OnStepChange">
             <StepTemplate>
                 <div active="@context.Active">
                     Get Started
@@ -40,7 +41,7 @@
                 Fusce vel porta ex, imperdiet molestie nisl. Vestibulum eu ultricies mauris, eget aliquam quam.
             </ChildContent>
         </FluentWizardStep>
-        <FluentWizardStep>
+        <FluentWizardStep OnChange="@OnStepChange">
             <StepTemplate>
                 <div active="@context.Active">
                     Set budget
@@ -52,7 +53,7 @@
                 turpis, eget molestie ipsum.
             </ChildContent>
         </FluentWizardStep>
-        <FluentWizardStep>
+        <FluentWizardStep OnChange="@OnStepChange">
             <StepTemplate>
                 <div active="@context.Active">
                     Summary
@@ -74,16 +75,16 @@
             <div>
                 @if (index > 0)
                 {
-                    <FluentButton OnClick="@(() => Value = 0)">Go to first page</FluentButton>
-                    <FluentButton OnClick="@(() => Value -= 1)">Previous</FluentButton>
+                    <FluentButton OnClick="@(() => MyWizard.GoToStepAsync(0))">Go to first page</FluentButton>
+                    <FluentButton OnClick="@(() => MyWizard.GoToStepAsync(Value - 1))">Previous</FluentButton>
                 }
             </div>
             <FluentSpacer />
             <div>
                 @if (index != lastStepIndex)
                 {
-                    <FluentButton OnClick="@(() => Value += 1)" Appearance="Appearance.Accent">Next</FluentButton>
-                    <FluentButton OnClick="@(() => Value = lastStepIndex)" Appearance="Appearance.Accent">Go to last page</FluentButton>
+                    <FluentButton OnClick="@(() => MyWizard.GoToStepAsync(Value + 1))" Appearance="Appearance.Accent">Next</FluentButton>
+                    <FluentButton OnClick="@(() => MyWizard.GoToStepAsync(lastStepIndex))" Appearance="Appearance.Accent">Go to last page</FluentButton>
                 }
             </div>
         }
@@ -92,5 +93,11 @@
 
 @code
 {
+    FluentWizard MyWizard = default!;
     int Value = 0;
+
+    void OnStepChange(FluentWizardStepChangeEventArgs e)
+    {
+        DemoLogger.WriteLine($"Go to step {e.TargetLabel} (#{e.TargetIndex})");
+    }
 }

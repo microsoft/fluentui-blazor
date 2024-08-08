@@ -1,6 +1,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Slider;
 
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 public class FluentSliderLabelTests : TestBase
@@ -8,10 +9,11 @@ public class FluentSliderLabelTests : TestBase
     public FluentSliderLabelTests()
     {
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]
-    public void FluentSliderLaber_Default()
+    public void FluentSliderLabel_Default()
     {
         //Arrange
         var childContent = "<b>render me</b>";

@@ -22,6 +22,7 @@ public partial class DialogSplashScreenDefault
                 Logo = FluentSplashScreen.LOGO,
             },
             PreventDismissOnOverlayClick = true,
+            Modal = false,
             Width = "640px",
             Height = "480px",
         };
@@ -57,6 +58,7 @@ public partial class DialogSplashScreenDefault
             },
             Width = "640px",
             Height = "480px",
+            Modal = true,
         };
         DialogService.ShowSplashScreen(this, HandleDefaultSplashAsync, parameters);
     }

@@ -1,14 +1,20 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
 public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisposable
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js";
     private IJSObjectReference _jsModule = default!;
 
     private Reference Target { get; set; } = new();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -45,9 +51,10 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
     /// <summary>
     /// Constructs an instance of a DesignToken.
     /// </summary>
-    public DesignToken(IJSRuntime jsRuntime)
+    public DesignToken(IJSRuntime jsRuntime, LibraryConfiguration libraryConfiguration)
     {
         JSRuntime = jsRuntime;
+        LibraryConfiguration = libraryConfiguration;
     }
 
     /// <inheritdoc/>
@@ -67,7 +74,7 @@ public partial class DesignToken<T> : ComponentBase, IDesignToken<T>, IAsyncDisp
 
     private async Task InitJSReferenceAsync()
     {
-        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js");
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
     }
 
 #pragma warning disable VSTHRD200 // Use "Async" suffix for async methods

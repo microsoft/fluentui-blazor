@@ -3,7 +3,7 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @typeparam TGridItem
 @{
-    InternalGridContext.Grid.AddColumn(this, InitialSortDirection, IsDefaultSortColumn);
+    Grid.AddColumn(this, InitialSortDirection, IsDefaultSortColumn);
 }
 @code
 {
@@ -17,62 +17,101 @@
         {
             string? tooltip = Tooltip ? Title : null;
 
-            @if (ColumnOptions is not null && (Align == Align.Start || Align == Align.Center))
+            @if (Align == Align.Start || Align == Align.Center)
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    @if (Filtered.GetValueOrDefault())
+                @if (Grid.ResizeType is not null)
+                {
+                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Color="Color.Neutral" Width="20px" Style="opacity: 0.5;" />
+                    </FluentButton>
+                }
+                else
+                {
+                    @if (ColumnOptions is not null)
                     {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
+                        <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                            @if (Filtered.GetValueOrDefault())
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                            }
+
+                        </FluentButton>
                     }
-                    else
-                    {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
-                    }
-                </FluentButton>
+                }
             }
 
             if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
                 <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture">
-                <span class="col-sort-container" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" @oncontextmenu:preventDefault>
-                    <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
-                        <div class="col-title-text" title="@tooltip">@Title</div>
+                    <span class="col-sort-container" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" @oncontextmenu:preventDefault>
+                        <FluentButton Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
+                            <div class="col-title-text" title="@tooltip">@Title</div>
 
-                        @if (Grid.SortByAscending.HasValue && ShowSortIcon)
-                        {
-                            if (Grid.SortByAscending == true)
+                            @if (Grid.SortByAscending.HasValue && ShowSortIcon)
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" />
+                                if (Grid.SortByAscending == true)
+                                {
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                                }
+                                else
+                                {
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                                }
                             }
-                            else
+                            @if (Grid.ResizeType is not null && ColumnOptions is not null)
                             {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" />
+                                @if (Filtered.GetValueOrDefault())
+                                {
+                                    <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                                }
                             }
-                        }
-
-                    </FluentButton>
-                </span>
+                        </FluentButton>
+                    </span>
                 </FluentKeyCode>
             }
             else
             {
                 <div class="col-title">
                     <div class="col-title-text" title="@tooltip">@Title</div>
+                    @if (Grid.ResizeType is not null && ColumnOptions is not null)
+                    {
+                        @if (Filtered.GetValueOrDefault())
+                        {
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                        }
+                    }
                 </div>
             }
 
-            @if (ColumnOptions is not null && Align == Align.End)
+            @if (Align == Align.End)
             {
-                <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
-                    @if (Filtered.GetValueOrDefault())
+                @if (Grid.ResizeType is not null)
+                {
+                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Color="Color.Neutral" Width="20px" Style="opacity: 0.5;" />
+                    </FluentButton>
+                }
+                else
+                {
+                    @if (ColumnOptions is not null)
                     {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
+                        <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                            @if (Filtered.GetValueOrDefault())
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.FilterDismiss())" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
+                            }
+
+                        </FluentButton>
                     }
-                    else
-                    {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" />
-                    }
-                </FluentButton>
+                }
             }
         }
     }

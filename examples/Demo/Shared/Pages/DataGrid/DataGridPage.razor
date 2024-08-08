@@ -49,6 +49,20 @@
     A sort can be removed by right clicking on the header column (with exception of the default sort).
 </p>
 
+<h2 if="usewithef">Using the DataGrid component with EF Core</h2>
+<p>
+    If you want to use the <code>FluentDataGrid</code> with data provided through EF Core, you need to install an additional package so the
+    grid knows how to resolve queries asynchronously for efficiency.
+</p>
+
+<h3>Installation</h3>
+    Install the package by running the command:
+<CodeSnippet>dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter</CodeSnippet>
+
+<h3>Usage</h3>
+    In your <code>Program.cs</code> file you need to add the following after the <code>builder.Services.AddFluentUIComponents();</code> line:
+<CodeSnippet Language="csharp">builder.Services.AddDataGridEntityFrameworkAdapter();</CodeSnippet>
+
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
@@ -281,7 +295,14 @@ fluent-data-grid-row:has([row-selected]) {
 
 <DemoSection Title="Table with scrollbars" Component="@typeof(DataGridTableScrollbars)">
     <Description>
-        Example of using an outside <code>div</code> and the <code>Style</code> parameter to achieve a table like DataGrid with infinite horizontal scrollbars to display all content on all devices.
+        <p>
+            Example of using an outside <code>div</code> and the <code>Style</code> parameter to achieve a table like DataGrid with infinite horizontal scrollbars to display all content on all devices.
+        </p>
+        <p>
+            If you use this in combination with a sticky header, the style of the header will be lost for the columns that are renderded out of the view initially.
+            You can fix this by adding the following <code>Style</code> to your data grid: <code>Style="min-width: max-content;"</code>
+        </p>
+
     </Description>
 </DemoSection>
 

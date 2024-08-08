@@ -1,0 +1,28 @@
+﻿
+<FluentStack VerticalAlignment="VerticalAlignment.Center">
+    <FluentRating Max="5"
+                  @bind-Value="@SelectedValue"
+                  OnHoverValueChanged="@(i => HoverValue = i)" />
+    <FluentLabel>@LabelText</FluentLabel>
+</FluentStack>
+
+<FluentButton Appearance="Appearance.Lightweight"
+              OnClick="@((e) => SelectedValue = 0)">
+    Clear Rating
+</FluentButton>
+
+@code
+{
+    int SelectedValue = 0;
+    int? HoverValue = null;
+
+    private string LabelText => (HoverValue ?? SelectedValue) switch
+    {
+        1 => "Very bad",
+        2 => "Bad",
+        3 => "Sufficient",
+        4 => "Good",
+        5 => "Awesome!",
+        _ => "Rate our product!"
+    };
+}

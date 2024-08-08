@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -12,6 +13,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public static string AccessibilitySelected = "Selected {0}";
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
+    public static string AccessibilityRemoveItem = "Remove {0}";
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
@@ -27,6 +29,10 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         Width = "100%";
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -264,6 +270,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {
+        if (ReadOnly || Disabled)
+        {
+            return;
+        }
+
         ValueText = e.Value?.ToString() ?? string.Empty;
         await RaiseValueTextChangedAsync(ValueText);
 
@@ -405,7 +416,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         }
 
         // ArrowUp
-        Task KeyDown_ArrowUpAsync()
+        async Task KeyDown_ArrowUpAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -423,13 +434,16 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                         break;
                     }
                 }
-            }
 
-            return Task.CompletedTask;
+                if (Module != null)
+                {
+                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, false);
+                }
+            }
         }
 
         // ArrowDown
-        Task KeyDown_ArrowDownAsync()
+        async Task KeyDown_ArrowDownAsync()
         {
             if (Items != null && Items.Any())
             {
@@ -447,9 +461,12 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
                         break;
                     }
                 }
-            }
 
-            return Task.CompletedTask;
+                if (Module != null)
+                {
+                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, true);
+                }
+            }
         }
 
         // Enter
@@ -475,7 +492,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     {
         if (firstRender)
         {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 
@@ -523,6 +540,11 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         RemoveSelectedItem(item);
         await RaiseChangedEventsAsync();
+
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("focusOn", Id);
+        }
     }
 
     /// <summary />
@@ -537,11 +559,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// <summary />
     private string? GetAutocompleteAriaLabel()
     {
-        if (!string.IsNullOrEmpty(AriaLabel))
-        {
-            return AriaLabel;
-        }
-
         // No items found
         if (IsMultiSelectOpened && Items?.Any() == false)
         {

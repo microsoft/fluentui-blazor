@@ -36,7 +36,7 @@
             <div class="links">
                 <FluentAnchor Appearance="Appearance.Hypertext"
                               Href="http://github.com/microsoft/fluentui-blazor" Target="_blank" Rel="noreferrer noopener"
-                              title="FluentUI Blazor source on GitHub" aria-label="FluentUI Blazor Repo">
+                              title="Fluent UI Blazor library source on GitHub" aria-label="Fluent UI Blazor library source on GitHub">
                     <FluentIcon Value="@(new DemoIcons.Size20.GitHub())" Color="Color.FillInverse" />
                 </FluentAnchor>
             </div>
@@ -47,7 +47,7 @@
                 <SiteSettings />
             </div>
 
-            
+
         </FluentHeader>
 
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
@@ -64,10 +64,14 @@
                                 </CascadingValue>
 
                     </article>
-                    <aside>
-                        <TableOfContents @ref=_toc />
-                        <ConsoleLog />
-                    </aside>
+
+                    @if (NavigationManager.Uri != NavigationManager.BaseUri)
+                    {
+                        <aside>
+                            <TableOfContents @ref=_toc />
+                            <ConsoleLog />
+                        </aside>
+                    }
 
                     <FluentToastProvider MaxToastCount="10" />
                     <FluentDialogProvider />

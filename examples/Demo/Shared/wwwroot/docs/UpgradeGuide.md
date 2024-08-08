@@ -1,3 +1,11 @@
+## Breaking changes v4.8.0
+
+The `Option<TType>`-type is a utility class that can be used to define list of options that are presented in a `FluentSelect` or any of the other list components. We have [examples of showing how this work](https://www.fluentui-blazor.net/Select#fromalistofoptiontit) available on the demo site.
+
+Originally, the `Text` property in this class was of type `TType?`. We've changed this in this release so that this property is now of type `string?`, which, we think, makes much more sense. (The `Value` property of this type remains as-is (`TType?`).)
+
+If you are using this type, you'll most probably need to make some (small and simple) changes in your code after upgrading to this version.
+
 ## Breaking changes v4.7.0
 
 Most projects add `@using Microsoft.FluentUI.AspNetCore.Components` to `_Imports.razor`. To avoid conflicts with existing methods in other

@@ -56,7 +56,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
     /// </summary>
     [CascadingParameter]
-    private InternalGridContext<TGridItem> Owner { get; set; } = default!;
+    internal InternalGridContext<TGridItem> Owner { get; set; } = default!;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("hover", when: Owner.Grid.ShowHover)
@@ -103,19 +103,18 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     internal async Task HandleOnRowClickAsync(string rowId)
     {
-        if (Owner.Rows.TryGetValue(rowId, out var row))
-        {
-            if (Owner.Grid.OnRowClick.HasDelegate)
-            {
-                await Owner.Grid.OnRowClick.InvokeAsync(row);
-            }
+        var row = GetRow(rowId);
 
-            if (row != null && row.RowType == DataGridRowType.Default)
+        if (row != null && Owner.Grid.OnRowClick.HasDelegate)
+        {
+            await Owner.Grid.OnRowClick.InvokeAsync(row);
+        }
+
+        if (row != null && row.RowType == DataGridRowType.Default)
+        {
+            foreach (var column in Owner.Grid._columns)
             {
-                foreach (var selColumn in Owner.Grid.SelectColumns)
-                {
-                    await selColumn.AddOrRemoveSelectedItemAsync(Item);
-                }
+                await column.OnRowClickAsync(row);
             }
         }
     }
@@ -123,32 +122,41 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     internal async Task HandleOnRowDoubleClickAsync(string rowId)
     {
-        if (Owner.Rows.TryGetValue(rowId, out var row))
+        var row = GetRow(rowId);
+        if (row != null && Owner.Grid.OnRowDoubleClick.HasDelegate)
         {
-            if (Owner.Grid.OnRowDoubleClick.HasDelegate)
-            {
-                await Owner.Grid.OnRowDoubleClick.InvokeAsync(row);
-            }
+            await Owner.Grid.OnRowDoubleClick.InvokeAsync(row);
         }
     }
 
     /// <summary />
     internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
     {
-        // Enter when a SelectColumn is defined.
-        if (SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
         {
-            if (Owner.Rows.TryGetValue(rowId, out var row))
+            return;
+        }
+
+        var row = GetRow(rowId, r => r.RowType == DataGridRowType.Default);
+        if (row != null)
+        {
+            foreach (var column in Owner.Grid._columns)
             {
-                if (row != null && row.RowType == DataGridRowType.Default)
-                {
-                    foreach (var selColumn in Owner.Grid.SelectColumns)
-                    {
-                        await selColumn.AddOrRemoveSelectedItemAsync(Item);
-                    }
-                }
+                await column.OnRowKeyDownAsync(row, e);
             }
         }
+    }
+
+    private FluentDataGridRow<TGridItem>? GetRow(string rowId, Func<FluentDataGridRow<TGridItem>, bool>? where = null)
+    {
+        if (!string.IsNullOrEmpty(rowId) && Owner.Rows.TryGetValue(rowId, out var row))
+        {
+            return where == null
+                 ? row
+                 : row is not null && where(row) ? row : null;
+        }
+
+        return null;
     }
 
     /// <summary />

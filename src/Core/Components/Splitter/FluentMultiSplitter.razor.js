@@ -73,29 +73,43 @@ export function startSplitterResize(
         paneLength: paneLength,
         paneNextLength: isFinite(paneNextLength) ? paneNextLength : 0,
         mouseUpHandler: function (e) {
-            if (document.splitterData[el]) {
-                splitter.invokeMethodAsync(
-                    'FluentMultiSplitter.OnPaneResizedAsync',
-                    parseInt(pane.getAttribute('data-index')),
-                    parseFloat(pane.style.flexBasis),
-                    paneNext ? parseInt(paneNext.getAttribute('data-index')) : null,
-                    paneNext ? parseFloat(paneNext.style.flexBasis) : null
-                );
+            if (document.splitterData[el] &&
+                pane.style.flexBasis.includes('%') &&
+                paneNext.style.flexBasis.includes('%')) {
+
+                if (document.splitterData[el].moved === true) {
+                    splitter.invokeMethodAsync(
+                        'FluentMultiSplitter.OnPaneResizedAsync',
+                        parseInt(pane.getAttribute('data-index')),
+                        parseFloat(pane.style.flexBasis),
+                        paneNext ? parseInt(paneNext.getAttribute('data-index')) : null,
+                        paneNext ? parseFloat(paneNext.style.flexBasis) : null
+                    );
+                }
+
                 document.removeEventListener('mousemove', document.splitterData[el].mouseMoveHandler);
                 document.removeEventListener('mouseup', document.splitterData[el].mouseUpHandler);
                 document.removeEventListener('touchmove', document.splitterData[el].touchMoveHandler);
                 document.removeEventListener('touchend', document.splitterData[el].mouseUpHandler);
                 document.splitterData[el] = null;
             }
+
+            if (document.splitterData[el]) {
+                document.splitterData[el].moved = false;
+            }
         },
         mouseMoveHandler: function (e) {
             if (document.splitterData[el]) {
 
+                const rtl = window.getComputedStyle(pane)?.getPropertyValue('direction') === 'rtl' ? -1 : 1;
+                document.splitterData[el].moved = true;
+
                 var spacePerc = document.splitterData[el].panePerc + document.splitterData[el].paneNextPerc;
                 var spaceLength = document.splitterData[el].paneLength + document.splitterData[el].paneNextLength;
 
-                var length = (document.splitterData[el].paneLength -
-                    (document.splitterData[el].clientPos - (isHOrientation ? e.clientX : e.clientY)));
+                var length = isHOrientation
+                    ? document.splitterData[el].paneLength - (document.splitterData[el].clientPos - e.clientX) * rtl
+                    : document.splitterData[el].paneLength - (document.splitterData[el].clientPos - e.clientY);
 
                 if (length > spaceLength)
                     length = spaceLength;

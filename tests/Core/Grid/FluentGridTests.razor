@@ -4,7 +4,8 @@
 {
     public FluentGridTests()
     {
-        this.JSInterop.Mode = JSRuntimeMode.Loose;
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

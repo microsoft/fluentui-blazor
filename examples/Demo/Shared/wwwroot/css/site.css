@@ -9,6 +9,10 @@ blockquote p:last-child {
     margin-bottom: 0;
 }
 
+.home div[sm="4"], .home div[sm="6"], .home div[sm="8"] {
+    border-bottom: 1px solid var(--neutral-stroke-divider-rest) !important;
+}
+
 .siteheader {
     background-color: var(--neutral-layer-4) !important;
     border-bottom: calc(var(--stroke-width) * 2px) solid var(--accent-fill-rest);
@@ -94,7 +98,6 @@ blockquote p:last-child {
 
 
 nav.sitenav {
-    background-color: var(--neutral-layer-1);
     padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
     width: 18rem;
@@ -135,7 +138,6 @@ nav fluent-anchor {
 
 .content {
     display: flex;
-    background-color: var(--neutral-layer-1);
 }
 
 article {
@@ -397,14 +399,19 @@ kbd {
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1279px) {
     fluent-select::part(control) {
         width: 150px;
+    }
+    .content {
+        flex-direction: column;
     }
 
     aside {
         padding: 1.5em 0.75em 1em 0.75em;
-        width: 12rem;
+        width: 100%;
+        height: 100%!important;
+        max-height: 100% !important;
     }
 
     article {

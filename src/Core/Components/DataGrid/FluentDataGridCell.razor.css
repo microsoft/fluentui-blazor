@@ -17,7 +17,6 @@ fluent-data-grid-cell {
 .column-header {
     display: flex;
     width: 100%;
-    height: 100%;
     align-self: center;
     padding-inline: 0;
     padding-right: 1px;
@@ -60,6 +59,7 @@ fluent-data-grid-cell {
 
     .column-header.col-justify-end ::deep .col-title-text, .column-header.col-justify-right ::deep .col-title-text {
         text-align: end;
+        padding-left: 4px;
     }
 
     .column-header.col-justify-end ::deep .col-sort-button, .column-header.col-justify-right ::deep .col-sort-button {

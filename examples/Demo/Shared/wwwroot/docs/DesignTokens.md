@@ -280,7 +280,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 		await BaseLayerLuminance.SetValueFor(ref1!.Element, (float)0.15);
 
 		//Set to Excel color
-		await AccentBaseColor.SetValueFor(ref2!.Element, "#185ABD".ToSwatch());
+		await AccentBaseColor.SetValueFor(ref2!.Element, "#217346".ToSwatch());
 
 		//Set the font
 		await BodyFont.SetValueFor(ref3!.Element, "Comic Sans MS");

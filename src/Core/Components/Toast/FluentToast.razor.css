@@ -1,4 +1,4 @@
-﻿.fluent-toast {
+.fluent-toast {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -39,7 +39,6 @@
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
-        cursor: pointer;
         width: 48px;
         min-width: 48px;
         height: 20px;

@@ -26,6 +26,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     private IJSObjectReference? _jsModule { get; set; }
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
@@ -38,7 +42,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     {
         if (firstRender)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
         }
     }
 
@@ -217,6 +221,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                     if (Items.Contains(newSelectedOption))
                     {
                         _currentSelectedOption = newSelectedOption;
+                        // Make value follow new selected option
+                        Value = GetOptionValue(_currentSelectedOption);
                     }
                     else
                     {
@@ -230,9 +236,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                     // If Items is null, we don't know if the selected option is in the list of items, so we just set it
                     _currentSelectedOption = newSelectedOption;
                 }
-
-                Value = GetOptionValue(_currentSelectedOption);
-                await ValueChanged.InvokeAsync(Value);
             }
             else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
             {

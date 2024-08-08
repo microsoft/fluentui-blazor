@@ -5,7 +5,7 @@
 <div class="fluent-menubutton-container">
     <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Style=@ButtonStyle aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
         @Text
-        <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Slot="end" Color="@_iconColor" />
+        <FluentIcon Value="@(new CoreIcons.Regular.Size12.ChevronDown())" Slot="end" Color="@_iconColor" />
     </FluentButton>
     <FluentOverlay @bind-Visible="@_visible" Transparent="true" FullScreen="true" />
     <FluentMenu @ref="Menu" Anchor="@_buttonId" aria-labelledby="button" Style="@MenuStyleValue" @bind-Open=@_visible @onmenuchange=OnMenuChangeAsync>
