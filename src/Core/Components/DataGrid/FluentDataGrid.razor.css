@@ -5,7 +5,7 @@ fluent-data-grid {
 ::deep .empty-content-row,
 ::deep .loading-content-row {
     width: 100%;
-    height: 100% !important ;
+    height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,6 @@ fluent-data-grid {
 
 ::deep .empty-content-cell,
 ::deep .loading-content-cell {
-
     font-weight: 600;
 }
 
@@ -46,8 +45,6 @@ fluent-data-grid {
     content: '\2026'; /*horizontal ellipsis*/
     opacity: 0.75;
 }
-
-
 
 ::deep .col-width-draghandle {
     height: auto;

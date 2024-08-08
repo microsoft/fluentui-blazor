@@ -1762,6 +1762,11 @@
             A default fragment is used if loading content is not specified.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoFit">
+            <summary>
+            Uses JS to auto-fit the columns to the grid width.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectColumns">
             <summary>
             Gets the first (optional) SelectColumn

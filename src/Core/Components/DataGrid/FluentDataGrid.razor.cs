@@ -2,12 +2,13 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -168,6 +169,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter] public RenderFragment? LoadingContent { get; set; }
 
+    /// <summary>
+    /// Uses JS to auto-fit the columns to the grid width.
+    /// </summary>
+    [Parameter] public bool AutoFit { get; set; }
+
     [Inject] private IServiceProvider Services { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
     [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
@@ -175,7 +181,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Gets the first (optional) SelectColumn
     /// </summary>
-    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast< SelectColumn<TGridItem>>();
+    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast<SelectColumn<TGridItem>>();
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -302,6 +308,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _checkColumnOptionsPosition = false;
             _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
         }
+
+        if (AutoFit && _gridReference is not null)
+        {
+            _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
+        }
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -378,12 +389,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
 
-        if (column is not null)
-        {
-            return SortByColumnAsync(column, direction);
-        }
-
-        return Task.CompletedTask;
+        return column is not null ? SortByColumnAsync(column, direction) : Task.CompletedTask;
     }
 
     /// <summary>
@@ -393,12 +399,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
     public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
     {
-        if (index >= 0 && index < _columns.Count)
-        {
-            return SortByColumnAsync(_columns[index], direction);
-        }
-
-        return Task.CompletedTask;
+        return index >= 0 && index < _columns.Count ? SortByColumnAsync(_columns[index], direction) : Task.CompletedTask;
     }
 
     /// <summary>
@@ -578,14 +579,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? GridClass()
     {
         var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
-        if (string.IsNullOrEmpty(value))
+
+        if (AutoFit)
         {
-            return null;
+            value += " auto-fit";
         }
-        else
-        {
-            return value;
-        }
+
+        return string.IsNullOrEmpty(value) ? null : value;
     }
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
