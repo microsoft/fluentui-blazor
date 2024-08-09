@@ -10,6 +10,6 @@ public static class DataSourceExtensions
                                   CountryCode: "fr",
                                   BirthDate: new DateOnly(1984, 4, 27),
                                   Picture: DataSource.ImageFaces[0]);
-        return values.Concat(new[] { longName });
+        return values.Concat([longName]);
     }
 }
