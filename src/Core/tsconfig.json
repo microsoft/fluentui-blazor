@@ -12,9 +12,13 @@
     "sourceMap": false,
 
     /* Type Checking */
-    "strict": true /* Enable all strict type-checking options. */
+    "strict": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "wwwroot"
   ]
 }
