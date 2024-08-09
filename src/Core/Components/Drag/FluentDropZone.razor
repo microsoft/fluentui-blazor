@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 @typeparam TItem
@@ -14,6 +14,7 @@
      @ondragenter:preventDefault="@Droppable"
      @ondragleave=@OnDragLeaveHandler
      @ondragleave:preventDefault="@Droppable"
+     @ondragend=@OnDragEndHandler
      @ondrop=@OnDropHandler @ondrop:preventDefault>
     @ChildContent
 </div>

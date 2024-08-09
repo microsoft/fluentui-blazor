@@ -29,6 +29,12 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     public Action<FluentDragEventArgs<TItem>>? OnDragStart { get; set; }
 
     /// <summary>
+    /// This event is fired when the drag operation ends (such as releasing a mouse button or hitting the Esc key).
+    /// </summary>
+    [Parameter]
+    public Action<FluentDragEventArgs<TItem>>? OnDragEnd { get; set; }
+
+    /// <summary>
     /// This event is fired when a dragged element enters a valid drop target.
     /// </summary>
     [Parameter]

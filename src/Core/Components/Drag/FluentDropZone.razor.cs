@@ -53,6 +53,12 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     public Action<FluentDragEventArgs<TItem>>? OnDragStart { get; set; }
 
     /// <summary>
+    /// This event is fired when the drag operation ends (such as releasing a mouse button or hitting the Esc key).
+    /// </summary>
+    [Parameter]
+    public Action<FluentDragEventArgs<TItem>>? OnDragEnd { get; set; }
+
+    /// <summary>
     /// This event is fired when a dragged element enters a valid drop target.
     /// </summary>
     [Parameter]
@@ -97,6 +103,25 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
         if (Container.OnDragStart != null)
         {
             Container.OnDragStart(new FluentDragEventArgs<TItem>(this, this));
+        }
+    }
+
+    /// <summary />
+    private void OnDragEndHandler(DragEventArgs e)
+    {
+        if (!Draggable)
+        {
+            return;
+        }
+
+        if (OnDragEnd != null)
+        {
+            OnDragEnd(new FluentDragEventArgs<TItem>(this, this));
+        }
+
+        if (Container.OnDragEnd != null)
+        {
+            Container.OnDragEnd(new FluentDragEventArgs<TItem>(this, this));
         }
     }
 
