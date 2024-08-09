@@ -67,10 +67,11 @@
   <!-- Dependencies -->
   <ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-	  <PackageReference Include="Microsoft.Extensions.Http" />
-	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" />
+    <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
@@ -111,8 +112,5 @@
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+
 </Project>
