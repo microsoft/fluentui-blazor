@@ -2,6 +2,12 @@ fluent-data-grid-cell {
     text-overflow: ellipsis;
 }
 
+.auto-fit fluent-data-grid-cell {
+    text-overflow: unset;
+    overflow: visible;
+    visibility: hidden;
+}
+
 .multiline-text {
     white-space: inherit;
     overflow: auto;

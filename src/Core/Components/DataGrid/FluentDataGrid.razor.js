@@ -216,6 +216,31 @@ export function resizeColumnDiscrete(gridElement, column, change) {
         .join(' ');
 }
 
+export function autoFitGridColumns(gridElement, columnCount) {
+    let gridTemplateColumns = '';
+
+    const availableWidth = gridElement.offsetWidth;
+
+    let totalWidth = 0;
+
+    for (var i = 0; i < columnCount; i++) {
+        const columnWidth = Math.max(...Array.from(gridElement.querySelectorAll(`[grid-column="${i + 1}"]`)).flatMap((x) => x.offsetWidth));
+
+        totalWidth += columnWidth;
+    }
+
+    var ratio = totalWidth > availableWidth ? availableWidth / totalWidth : 1;
+
+    for (var i = 0; i < columnCount; i++) {
+        var columnWidth = Math.max(...Array.from(gridElement.querySelectorAll(`[grid-column="${i + 1}"]`)).flatMap((x) => x.offsetWidth));
+
+        gridTemplateColumns += `${columnWidth * ratio}px `;
+    }
+
+    gridElement.setAttribute("grid-template-columns", gridTemplateColumns);
+    gridElement.classList.remove("auto-fit");
+}
+
 export function resizeColumnExact(gridElement, column, width) {
 
     let headers = gridElement.querySelectorAll('.column-header.resizable');
