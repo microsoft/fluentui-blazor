@@ -2,14 +2,13 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -216,13 +215,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter] public RenderFragment? LoadingContent { get; set; }
 
     /// <summary>
-    /// Uses JS to auto-fit the columns to the grid width.
+    /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
     /// </summary>
     [Parameter] public bool AutoFit { get; set; }
-
-    [Inject] private IServiceProvider Services { get; set; } = default!;
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-    [Inject] private IKeyCodeService KeyCodeService { get; set; } = default!;
 
     /// <summary>
     /// Gets the first (optional) SelectColumn
