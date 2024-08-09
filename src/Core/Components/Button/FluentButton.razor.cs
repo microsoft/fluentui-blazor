@@ -9,10 +9,6 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/*
- * IconOnly
- */
-
 /// <summary>
 /// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and
 /// is often found inside forms, dialogs, panels and/or pages.

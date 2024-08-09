@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Language and Environment */
+    "target": "ESNext",
+
+    /* Modules */
+    "module": "ESNext",
+
+    /* Create source map files for emitted JavaScript files. */
+    "sourceMap": false,
+
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

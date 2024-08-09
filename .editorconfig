@@ -393,6 +393,9 @@ dotnet_diagnostic.MA0056.severity = none
 # MA0015: Avoid using redundant else
 dotnet_diagnostic.MA0071.severity = warning
 
+# MA0026: Fix TODO comment
+dotnet_diagnostic.MA0026.severity = none
+
 [src/Core/**.cs]
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
@@ -520,6 +523,3 @@ dotnet_diagnostic.CS0618.severity = none
 
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
-
-# MA0026: Fix TODO comment
-dotnet_diagnostic.MA0026.severity = none
