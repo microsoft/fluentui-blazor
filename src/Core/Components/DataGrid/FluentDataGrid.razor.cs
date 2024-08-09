@@ -215,6 +215,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }
 
+    /// <summary>
+    /// Optionally row has additional content.
+    /// </summary>
+    [Parameter]
+    public Func<TGridItem, bool>? RowHasAdditionalContent { get; set; }
+
+    /// <summary>
+    /// If specified, add content for row if <see cref="RowHasAdditionalContent"/> return true.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TGridItem>? RowAdditionalContentTemplate { get; set; }
+
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 
