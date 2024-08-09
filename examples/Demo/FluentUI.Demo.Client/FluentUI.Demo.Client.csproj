@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="**\*.md" />
-    <EmbeddedResource Remove="Debug\_README.md" />
+    <EmbeddedResource Remove="DebugPages\_README.md" />
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
