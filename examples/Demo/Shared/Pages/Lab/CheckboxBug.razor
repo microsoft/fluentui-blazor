@@ -1,0 +1,23 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentCheckbox Value="@Value.IsChecked"
+                    ValueChanged="(isChecked) => ChangeDummyAsync(Value with {IsChecked = isChecked})">Checkbox</FluentCheckbox>
+
+</FluentStack>
+
+
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required Dummy Value { get; set; }
+
+    [Parameter]
+    public EventCallback<Dummy> ValueChanged { get; set; }
+
+    private Task ChangeDummyAsync(Dummy dummy)
+    {
+        return ValueChanged.InvokeAsync(dummy);
+    }
+
+}
