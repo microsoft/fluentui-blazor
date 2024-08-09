@@ -66,6 +66,7 @@
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
     <None Include="**\*.*.resx" />
+    <None Remove="debug\_ReadMe.md" />
     <None Update="**\*.*.resx">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).resx</DependentUpon>

@@ -76,7 +76,7 @@ public class DocViewerService
     }
 
     /// <summary />
-    private List<Page> LoadAllPages()
+    private IEnumerable<Page> LoadAllPages()
     {
         if (ResourcesAssembly is null)
         {
@@ -100,6 +100,6 @@ public class DocViewerService
             }
         }
 
-        return pages;
+        return pages.Where(i => !string.IsNullOrEmpty(i.Route)).OrderBy(i => i.Route);
     }
 }
