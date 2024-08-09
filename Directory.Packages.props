@@ -32,9 +32,9 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.10.48" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.162" />    
-	<PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion)" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion)" />
     <PackageVersion Include="System.Text.Json" Version="8.0.4" />
-	
+
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.28.9" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
