@@ -192,7 +192,7 @@ public partial class FluentWizard : FluentComponentBase
     /// <summary />
     protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
     {
-        var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);               
+        var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
 
         if (validateEditContexts)
         {
@@ -341,4 +341,8 @@ public partial class FluentWizard : FluentComponentBase
 
         return null;
     }
+
+    private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
+
+    private bool DisplayNextButton => Value < _steps.Count - 1 && _steps[(Value + 1)..].Any(i => !i.Disabled);
 }

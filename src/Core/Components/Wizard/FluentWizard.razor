@@ -32,7 +32,7 @@
             {
                 string buttonWidth = "80px;";
 
-                @if (Value > 0)
+                @if (DisplayPreviousButton)
                 {
                     <FluentButton Appearance="Appearance.Neutral"
                                   Style="@($"width: {buttonWidth};")"
@@ -43,7 +43,7 @@
 
                 <span style="margin-right: 10px" />
 
-                @if (Value < _steps.Count - 1)
+                @if (DisplayNextButton)
                 {
                     <FluentButton Appearance="Appearance.Accent"
                                   Style="@($"width: {buttonWidth};")"
