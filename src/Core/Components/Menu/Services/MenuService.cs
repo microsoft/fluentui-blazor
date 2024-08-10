@@ -6,14 +6,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class MenuService : IMenuService, IDisposable
 {
-    /// <summary />
-    public event Action? OnMenuUpdated;
+    /// <summary>
+    /// <see cref="IMenuService.OnMenuUpdated" />
+    /// </summary>
+    public Action OnMenuUpdated { get; set; } = () => { };
 
     private ReaderWriterLockSlim MenuLock { get; } = new ReaderWriterLockSlim();
 
     private IList<FluentMenu> MenuList { get; } = new List<FluentMenu>();
 
-    /// <summary />
+    /// <summary>
+    /// <see cref="IMenuService.Menus" />
+    /// </summary>
     public IEnumerable<FluentMenu> Menus
     {
         get
@@ -30,7 +34,9 @@ public class MenuService : IMenuService, IDisposable
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// <see cref="IMenuService.Add(FluentMenu)" />
+    /// </summary>
     public void Add(FluentMenu menu)
     {
         MenuLock.EnterWriteLock();
@@ -44,7 +50,9 @@ public class MenuService : IMenuService, IDisposable
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// <see cref="IMenuService.Remove(FluentMenu)" />
+    /// </summary>
     public void Remove(FluentMenu menu)
     {
         MenuLock.EnterWriteLock();
@@ -62,7 +70,9 @@ public class MenuService : IMenuService, IDisposable
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// <see cref="IMenuService.Clear" />
+    /// </summary>
     public void Clear()
     {
         MenuLock.EnterWriteLock();
@@ -76,13 +86,20 @@ public class MenuService : IMenuService, IDisposable
         }
     }
 
-    /// <summary />
+    /// <summary>
+    /// <see cref="IMenuService.Clear" />
+    /// </summary>
     public void Dispose()
     {
         Clear();
     }
 
-    /// <summary />
+    /// <summary>
+    /// <see cref="IMenuService.RefreshMenuAsync(string, bool)" />
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="isOpen"></param>
+    /// <returns></returns>
     public async Task RefreshMenuAsync(string id, bool isOpen)
     {
         var item = MenuList.FirstOrDefault(i => i.Id == id);
@@ -90,7 +107,7 @@ public class MenuService : IMenuService, IDisposable
         if (item != null)
         {
             await item.SetOpenAsync(isOpen);
-            OnMenuUpdated?.Invoke();
+            OnMenuUpdated.Invoke();
         }
     }
 }

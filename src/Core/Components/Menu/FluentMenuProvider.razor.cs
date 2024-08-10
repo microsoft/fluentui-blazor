@@ -8,7 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMenuProvider : FluentComponentBase, IDisposable
+public partial class FluentMenuProvider : FluentComponentBase
 {
     private IMenuService? _menuService = null;
 
@@ -40,22 +40,7 @@ public partial class FluentMenuProvider : FluentComponentBase, IDisposable
 
         if (MenuService != null)
         {
-            MenuService.OnMenuUpdated += OnMenuUpdated;
-        }
-    }
-
-    /// <summary />
-    private void OnMenuUpdated()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary />
-    public void Dispose()
-    {
-        if (MenuService != null)
-        {
-            MenuService.OnMenuUpdated -= OnMenuUpdated;
+            MenuService.OnMenuUpdated = () => InvokeAsync(StateHasChanged);
         }
     }
 }

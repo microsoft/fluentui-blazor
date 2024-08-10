@@ -6,8 +6,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public interface IMenuService : IDisposable
 {
-    /// <summary />
-    event Action? OnMenuUpdated;
+    /// <summary>
+    /// Action to be called when the menu is updated.
+    /// </summary>
+    Action OnMenuUpdated { get; set; }
 
     /// <summary>
     /// Gets the list of menus.

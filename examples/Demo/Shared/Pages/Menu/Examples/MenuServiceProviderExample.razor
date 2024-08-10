@@ -2,40 +2,41 @@
 
     <FluentCard>
         <p>Click this button to open a Menu.</p>
-        <FluentButton Id="btnOpenMenuProvider1" Appearance="Appearance.Accent" OnClick="@(() => open1 = !open1)">
+        <FluentButton Id="btnOpenMenuProvider1"
+                      Appearance="Appearance.Accent"
+                      OnClick="@(() => open1 = !open1)">
             Open menu
         </FluentButton>
 
-        <FluentMenu UseMenuService="false" Anchor="btnOpenMenuProvider1" @bind-Open="open1" VerticalThreshold="170">
+        <!-- UseMenuService="false" -->
+        <FluentMenu UseMenuService="false"
+                    Anchor="btnOpenMenuProvider1"
+                    @bind-Open="open1"
+                    VerticalThreshold="170">
             <FluentMenuItem>Menu item 1</FluentMenuItem>
-            <FluentMenuItem Checked="true">Menu item 2 Checked</FluentMenuItem>
-            <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>
-            <FluentMenuItem>
-                <FluentIcon Value="@(new Icons.Regular.Size24.ClipboardPaste())" Color="Color.Neutral" Slot="start" />
-                Menu item 4 with Icon
-            </FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
         </FluentMenu>
     </FluentCard>
 
     <FluentCard>
         <p>Click this button to open a Menu.</p>
-        <FluentButton Id="btnOpenMenuProvider2" Appearance="Appearance.Accent" OnClick="@(() => open2 = !open2)">
+        <FluentButton Id="btnOpenMenuProvider2"
+                      Appearance="Appearance.Accent"
+                      OnClick="@(() => open2 = !open2)">
             Open menu
         </FluentButton>
 
-        <FluentMenu UseMenuService="true" Anchor="btnOpenMenuProvider2" @bind-Open="open2" VerticalThreshold="170">
+        <!-- UseMenuService="true" (or undefined) -->
+        <FluentMenu UseMenuService="true"
+                    Anchor="btnOpenMenuProvider2"
+                    @bind-Open="open2"
+                    VerticalThreshold="170">
             <FluentMenuItem>Menu item 1</FluentMenuItem>
-            <FluentMenuItem Checked="true">Menu item 2 Checked</FluentMenuItem>
-            <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>
-            <FluentMenuItem>
-                <FluentIcon Value="@(new Icons.Regular.Size24.ClipboardPaste())" Color="Color.Neutral" Slot="start" />
-                Menu item 4 with Icon
-            </FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
         </FluentMenu>
     </FluentCard>
 
 </FluentStack>
-
 
 @code {
     bool open1 = false;

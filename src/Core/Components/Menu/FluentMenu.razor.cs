@@ -56,6 +56,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Use IMenuService to create the menu, if this service was injected.
+    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
     /// Default, true.
     /// </summary>
     [Parameter]
