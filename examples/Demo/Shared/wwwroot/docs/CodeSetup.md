@@ -115,6 +115,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentDialogProvider />
 <FluentTooltipProvider />
 <FluentMessageBarProvider />
+<FluentMenuProvider />
 ```
 > **note:** You can remove providers that are not used in your application.
 > **note:** If you get scrollbars in your application, move the providers up in the page elements hierarchy, for example into the `FluentBodyContent` component.

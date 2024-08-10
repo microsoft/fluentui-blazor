@@ -6,7 +6,7 @@
             Open menu
         </FluentButton>
 
-        <FluentMenu Anchor="btnOpenMenuProvider1" @bind-Open="open1" VerticalThreshold="170">
+        <FluentMenu UseMenuService="false" Anchor="btnOpenMenuProvider1" @bind-Open="open1" VerticalThreshold="170">
             <FluentMenuItem>Menu item 1</FluentMenuItem>
             <FluentMenuItem Checked="true">Menu item 2 Checked</FluentMenuItem>
             <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>
@@ -23,7 +23,7 @@
             Open menu
         </FluentButton>
 
-        <FluentMenu Anchor="btnOpenMenuProvider2" @bind-Open="open2" VerticalThreshold="170">
+        <FluentMenu UseMenuService="true" Anchor="btnOpenMenuProvider2" @bind-Open="open2" VerticalThreshold="170">
             <FluentMenuItem>Menu item 1</FluentMenuItem>
             <FluentMenuItem Checked="true">Menu item 2 Checked</FluentMenuItem>
             <FluentMenuItem Disabled="true">Menu item 3 Disabled</FluentMenuItem>

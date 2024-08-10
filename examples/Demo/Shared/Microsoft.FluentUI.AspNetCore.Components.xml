@@ -5904,6 +5904,18 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.JSRuntime">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ServiceProvider">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.MenuService">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.UseMenuService">
+            <summary>
+            Use IMenuService to create the menu, if this service was injected.
+            Default, true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Anchor">
             <summary>
             Gets or sets the identifier of the source component clickable by the end user.
@@ -5989,6 +6001,18 @@
             <param name="y"></param>
             <returns></returns>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DrawMenuWithoutService">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.DrawMenuWithService">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.UpdateMenuProviderAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.SetOpenAsync(System.Boolean)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.Dispose">
             <summary>
             Dispose this menu.
@@ -6040,6 +6064,85 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.StyleValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.ServiceProvider">
+            <summary>
+            Gets or sets the injected service provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.MenuService">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.Menus">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.OnInitialized">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.OnMenuUpdated">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.Dispose">
+            <summary />
+        </member>
+        <member name="E:Microsoft.FluentUI.AspNetCore.Components.IMenuService.OnMenuUpdated">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus">
+            <summary>
+            Gets the list of menus.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Add(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
+            <summary>
+            Add a menu to the list.
+            </summary>
+            <param name="menu"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Clear">
+            <summary>
+            Clear the list of menus.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Remove(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
+            <summary>
+            Remove a menu from the list.
+            </summary>
+            <param name="menu"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IMenuService.RefreshMenuAsync(System.String,System.Boolean)">
+            <summary>
+            Refresh the menu.
+            </summary>
+            <param name="id"></param>
+            <param name="isOpen"></param>
+        </member>
+        <member name="E:Microsoft.FluentUI.AspNetCore.Components.MenuService.OnMenuUpdated">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.Menus">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Add(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Remove(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Clear">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Dispose">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.RefreshMenuAsync(System.String,System.Boolean)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar">
