@@ -506,6 +506,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
+            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
             var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
@@ -515,7 +516,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
-            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
         }
 
         StateHasChanged();
