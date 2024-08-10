@@ -41,7 +41,7 @@ public abstract class FluentComponentBase : ComponentBase
     {
         if (_jsModule is null)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", file);  // .FormatCollocatedUrl(LibraryConfiguration)
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", file);  // TO ADD: .FormatCollocatedUrl(LibraryConfiguration)
         }
 
         return _jsModule;
