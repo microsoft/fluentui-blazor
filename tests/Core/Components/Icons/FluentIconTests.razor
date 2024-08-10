@@ -1,5 +1,5 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
-@using Xunit;
+﻿@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits TestContext
 
 @code
@@ -13,7 +13,7 @@
     public void FluentIcon_Default()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" />);
 
         // Assert
@@ -24,7 +24,7 @@
     public void FluentIcon_Type()
     {
         // Arrange & Act
-        var cut = Render(@<FluentIcon Icon="SampleIcons.Samples.Info" />);
+        var cut = Render(@<FluentIcon Icon="Icons.Samples.Info" />);
 
         // Assert
         cut.Verify();
@@ -34,8 +34,8 @@
     public void FluentIcon_Icon()
     {
         // Arrange & Act
-        var cut = Render(@<FluentIcon Icon="SampleIcons.Samples.Info" />);
-        var icon = cut.FindComponent<FluentIcon<SampleIcons.Samples.Info>>();
+        var cut = Render(@<FluentIcon Icon="Icons.Samples.Info" />);
+        var icon = cut.FindComponent<FluentIcon<Icons.Samples.Info>>();
 
         // Assert
         Assert.Contains("data:image/svg+xml;base64,PHN2ZyB4bWxucz0", icon.Instance.Value.ToDataUri());
@@ -45,7 +45,7 @@
     public void FluentIcon_SlotTitle()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" Slot="start" Title="My title" />);
 
         // Assert
@@ -56,7 +56,7 @@
     public void FluentIcon_Color()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" Color="Color.Info" />);
 
         // Assert
@@ -67,7 +67,7 @@
     public void FluentIcon_Type_Color()
     {
         // Arrange & Act
-        var cut = Render(@<FluentIcon Icon="SampleIcons.Samples.Info" Color="Color.Info" />);
+        var cut = Render(@<FluentIcon Icon="Icons.Samples.Info" Color="Color.Info" />);
 
         // Assert
         cut.Verify();
@@ -77,7 +77,7 @@
     public void FluentIcon_CustomColor()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" Color="Color.Custom" CustomColor="#ff0000" />);
 
         // Assert
@@ -90,7 +90,7 @@
         Assert.Throws<ArgumentException>(() =>
         {
             // Arrange & Act
-            var icon = new SampleIcons.Samples.Info();
+            var icon = new Icons.Samples.Info();
             var cut = Render(@<FluentIcon Value="@icon" CustomColor="#ff0000" />);
 
             // Assert an exception because Color=Color.Custom is required
@@ -101,7 +101,7 @@
     public void FluentIcon_Width()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" Width="100px" />);
 
         // Assert
@@ -112,7 +112,7 @@
     public void FluentIcon_Width_EmptyString()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" Width="" />);
 
         // Assert
@@ -125,7 +125,7 @@
         var isClicked = false;
 
         // Arrange
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" OnClick="@(e => isClicked = true)" />);
 
         // Act
@@ -141,7 +141,7 @@
         var isClicked = false;
 
         // Arrange
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" />);
 
         // Act
@@ -161,7 +161,7 @@
         var isClicked = false;
 
         // Arrange
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" OnClick="@(e => isClicked = true)" />);
 
         // Act
@@ -206,7 +206,7 @@
     public void FluentIcon_Icon_WithColorRed()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@(icon.WithColor("red"))" />);
 
         // Assert
@@ -217,7 +217,7 @@
     public void FluentIcon_Icon_WithCustomColorRed()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@(icon.WithColor("red"))" Color="Color.Custom" />);
 
         // Assert
@@ -230,7 +230,7 @@
     public void FluentIcon_Icon_WithColorRed_OverriddenByColor()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@(icon.WithColor("red"))" Color="Color.Info" />);
 
         // Assert
@@ -241,7 +241,7 @@
     public void FluentIcon_Icon_WithColorSuccess()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@(icon.WithColor(Color.Success))" />);
 
         // Assert
@@ -252,7 +252,7 @@
     public void FluentIcon_Icon_ToMarkup()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<div>@icon.ToMarkup()</div>);
 
         // Assert
@@ -263,7 +263,7 @@
     public void FluentIcon_Icon_ToMarkupSize()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<div>@icon.ToMarkup(size: "100px")</div>);
 
         // Assert
@@ -274,7 +274,7 @@
     public void FluentIcon_Icon_ToMarkupColor()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<div>@icon.ToMarkup(color: "blue")</div>);
 
         // Assert
@@ -285,7 +285,7 @@
     public void FluentIcon_Icon_ToMarkupCustomIcon()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.MyCircle();
+        var icon = new Icons.Samples.MyCircle();
         var cut = Render(@<div>@icon.ToMarkup()</div>);
 
         // Assert
@@ -296,7 +296,7 @@
     public void FluentIcon_Icon_ToMarkupCustomIcon_SizeColor()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.MyCircle();
+        var icon = new Icons.Samples.MyCircle();
         var cut = Render(@<div>@icon.ToMarkup(size: "20px", color: "blue")</div>);
 
         // Assert
@@ -309,7 +309,7 @@
     public void FluentIcon_InverseColor(bool accentContainer, string? expectedResult)
     {
         // Arrange
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
 
         // Act
         icon.InverseColor(accentContainer);
@@ -322,7 +322,7 @@
     public void FluentIcon_Icon_ToDataUri()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
 
         // Assert
         Assert.StartsWith("data:image/svg+xml;base64,PHN2ZyB4bWxucz0", icon.ToDataUri());
@@ -332,7 +332,7 @@
     public void FluentIcon_Icon_FromType()
     {
         // Arrange & Act
-        var icon = Icon.FromType<SampleIcons.Samples.Info>();
+        var icon = Icon.FromType<Icons.Samples.Info>();
 
         // Assert
         Assert.StartsWith("data:image/svg+xml;base64,PHN2ZyB4bWxucz0", icon.ToDataUri());
@@ -352,7 +352,7 @@
     public void FluentIcon_AdditionalAttributes()
     {
         // Arrange & Act
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var cut = Render(@<FluentIcon Value="@icon" extra="My-Extra-Attribute" />);
 
         // Assert
@@ -363,12 +363,12 @@
     public void FluentIcon_Data()
     {
         // Arrange
-        var icon = new SampleIcons.Samples.Info();
+        var icon = new Icons.Samples.Info();
         var myData = "MyData";
         var cut = Render(@<FluentIcon Value="@icon" Data="@myData" />);
 
         // Assert
-        var component = cut.FindComponent<FluentIcon<SampleIcons.Samples.Info>>();
+        var component = cut.FindComponent<FluentIcon<Icons.Samples.Info>>();
         Assert.Equal("MyData", component.Instance.Data);
     }
 }
