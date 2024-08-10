@@ -1,6 +1,6 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits TestContext
 @code
 {
@@ -256,7 +256,7 @@
     public void FluentButton_IconStart()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton IconStart="@SampleIcons.Info">My button</FluentButton>);
+        var cut = Render(@<FluentButton IconStart="@Samples.Icons.Info">My button</FluentButton>);
 
         // Assert
         cut.Verify();
@@ -266,7 +266,7 @@
     public void FluentButton_IconEnd()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton IconEnd="@SampleIcons.Info">My button</FluentButton>);
+        var cut = Render(@<FluentButton IconEnd="@Samples.Icons.Info">My button</FluentButton>);
 
         // Assert
         cut.Verify();
@@ -276,7 +276,7 @@
     public void FluentButton_IconStartNoContent()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton IconStart="@SampleIcons.Info" />);
+        var cut = Render(@<FluentButton IconStart="@Samples.Icons.Info" />);
 
         // Assert
         cut.Verify();
@@ -286,7 +286,7 @@
     public void FluentButton_IconEndNoContent()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton IconEnd="@SampleIcons.Info" />);
+        var cut = Render(@<FluentButton IconEnd="@Samples.Icons.Info" />);
 
         // Assert
         cut.Verify();
@@ -377,7 +377,7 @@
     public void FluentButton_Loading_IconStart()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton Loading="true" IconStart="@SampleIcons.Info">My button</FluentButton>);
+        var cut = Render(@<FluentButton Loading="true" IconStart="@Samples.Icons.Info">My button</FluentButton>);
 
         // Assert
         cut.Verify();
@@ -387,7 +387,7 @@
     public void FluentButton_Loading_IconEnd()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton Loading="true" IconEnd="@SampleIcons.Info">My button</FluentButton>);
+        var cut = Render(@<FluentButton Loading="true" IconEnd="@Samples.Icons.Info">My button</FluentButton>);
 
         // Assert
         cut.Verify();

@@ -2,9 +2,9 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 
-public static class SampleIcons
+public static class Icons
 {
     public static readonly Icon Info = new Samples.Info();
 
