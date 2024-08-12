@@ -8,6 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -301,7 +302,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        _internalGridTemplateColumns = GridTemplateColumns;
+        if (AutoFit)
+        {
+            _internalGridTemplateColumns = "auto-fit";
+        }
+        else
+        {
+            _internalGridTemplateColumns = GridTemplateColumns;
+        }
 
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -342,17 +350,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 Console.WriteLine("[FluentDataGrid] " + ex.Message);
             }
+
+            if (AutoFit && _gridReference is not null)
+            {
+                _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
+            }
         }
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
             _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
-        }
-
-        if (AutoFit && _gridReference is not null)
-        {
-            _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
         }
     }
 
