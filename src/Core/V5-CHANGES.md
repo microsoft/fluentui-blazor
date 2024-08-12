@@ -132,3 +132,16 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
   The `FluentHeader`, `FluentBodyContent`, `FluentFooter`, `FluentMainLayout` components have been removed.
 
   Use the `FluentLayoutItem Area="..."` component instead.
+
+## FluentGridItem
+
+  - ### Renamed properties 🔃
+    These properties have been renamed to comply with the Blazor naming convention (Pascal case):
+    - `xs`, `sm`, `md`, `lg`, `xl`, `xxl` properties have been renamed to
+    - `Xs`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl`.
+
+    Si vous ne les renommer pas correctement, vous obtiendrez probablement une erreur de compilation comme celle-ci :
+    ```   
+    InvalidOperationException: Unable to set property 'sm' on object of type 'Microsoft.FluentUI.AspNetCore.Components.FluentGridItem'.
+    The error was: Unable to cast object of type 'System.String' to type 'System.Nullable`1[System.Int32]'.
+    ```

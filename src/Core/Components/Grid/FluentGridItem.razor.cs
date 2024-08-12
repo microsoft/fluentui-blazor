@@ -154,7 +154,7 @@ public partial class FluentGridItem : FluentComponentBase
     /// </summary>
     /// <param name="hiddenWhen"></param>
     /// <returns></returns>
-    public static string? GetHiddenAttribute(GridItemHidden? hiddenWhen)
+    internal static string? GetHiddenAttribute(GridItemHidden? hiddenWhen)
     {
         var selected = new string[]
             {

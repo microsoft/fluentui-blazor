@@ -63,7 +63,7 @@ public partial class FluentGrid : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
+    /// Event raised when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
     /// </summary>
     [Parameter]
     public EventCallback<GridItemSize> OnBreakpointEnter { get; set; }

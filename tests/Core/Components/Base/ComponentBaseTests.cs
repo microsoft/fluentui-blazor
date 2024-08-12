@@ -7,7 +7,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
@@ -79,6 +81,55 @@ public class ComponentBaseTests : TestContext
         }
 
         Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_JsModule()
+    {
+        // Arrange
+        JSInterop.Mode = JSRuntimeMode.Strict;
+        Services.AddSingleton<LibraryConfiguration>();
+
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(i => i?.ToString()?.EndsWith(MyComponent.JAVASCRIPT_FILENAME) == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Act
+        var cut = RenderComponent<MyComponent>(parameter =>
+        {
+            parameter.Add(p => p.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, e => { }));
+        });
+
+        // Assert
+        Assert.NotNull(cut.Instance.GetJSModule());
+    }
+
+    [Fact]
+    public void ComponentBase_JsModule_Undefined()
+    {
+        // Arrange
+        JSInterop.Mode = JSRuntimeMode.Strict;
+        Services.AddSingleton<LibraryConfiguration>();
+
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(i => i?.ToString()?.EndsWith(MyComponent.JAVASCRIPT_FILENAME) == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            // Act: no OnBreakpointEnter
+            var cut = RenderComponent<MyComponent>(parameter =>
+            {
+            });
+
+            var module = cut.Instance.GetJSModule();
+        });
+    }
+
+    // Class used by the "ComponentBase_JsModule" test
+    private class MyComponent : FluentGrid
+    {
+        public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
+        public IJSObjectReference GetJSModule() => base.JSModule;
     }
 
     /// <summary>

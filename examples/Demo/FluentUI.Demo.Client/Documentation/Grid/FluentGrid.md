@@ -8,9 +8,9 @@ route: /Grid
 The grid component helps keeping layout consistent across various screen resolutions and sizes.
 `FluentGrid` comes with a **12-point grid system** and contains 5 types of breakpoints that are used for specific screen sizes.
 
-
-
 ## Example
+
+You can resize your browser to see how elements respond to different screen sizes.
 
 {{ GridDefault }}
 
