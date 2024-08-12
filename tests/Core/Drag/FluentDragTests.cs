@@ -15,6 +15,7 @@ public class FluentDragTests : TestBase
         var cut = ctx.RenderComponent<FluentDragContainer<int>>(parameters =>
         {
             parameters.Add(p => p.OnDragStart, (e) => { });
+            parameters.Add(p => p.OnDragEnd, (e) => { });
             parameters.Add(p => p.OnDragEnter, (e) => { });
             parameters.Add(p => p.OnDragOver, (e) => { });
             parameters.Add(p => p.OnDragLeave, (e) => { });
@@ -27,6 +28,7 @@ public class FluentDragTests : TestBase
                 zone.AddChildContent("Item 1");
 
                 zone.Add(p => p.OnDragStart, (e) => { });
+                zone.Add(p => p.OnDragEnd, (e) => { });
                 zone.Add(p => p.OnDragEnter, (e) => { });
                 zone.Add(p => p.OnDragOver, (e) => { });
                 zone.Add(p => p.OnDragLeave, (e) => { });
@@ -40,6 +42,7 @@ public class FluentDragTests : TestBase
                 zone.AddChildContent("Item 2");
 
                 zone.Add(p => p.OnDragStart, (e) => { });
+                zone.Add(p => p.OnDragEnd, (e) => { });
                 zone.Add(p => p.OnDragEnter, (e) => { });
                 zone.Add(p => p.OnDragOver, (e) => { });
                 zone.Add(p => p.OnDragLeave, (e) => { });

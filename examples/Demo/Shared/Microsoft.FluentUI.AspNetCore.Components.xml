@@ -3912,6 +3912,11 @@
             This event is fired when the user starts dragging an element.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDragContainer`1.OnDragEnd">
+            <summary>
+            This event is fired when the drag operation ends (such as releasing a mouse button or hitting the Esc key).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDragContainer`1.OnDragEnter">
             <summary>
             This event is fired when a dragged element enters a valid drop target.
@@ -3996,6 +4001,11 @@
             This event is fired when the user starts dragging an element.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEnd">
+            <summary>
+            This event is fired when the drag operation ends (such as releasing a mouse button or hitting the Esc key).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEnter">
             <summary>
             This event is fired when a dragged element enters a valid drop target.
@@ -4020,6 +4030,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragStartHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEndHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDragEnterHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">

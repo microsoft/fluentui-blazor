@@ -1,4 +1,5 @@
-<FluentDragContainer TItem="string"
+﻿<FluentDragContainer TItem="string"
+                     OnDragEnd="@(e => DemoLogger.WriteLine($"{e.Source.Id} drag ended"))"
                      OnDragEnter="@(e => DemoLogger.WriteLine($"{e.Source.Id} is entered in  {e.Target.Id}"))"
                      OnDragLeave="@(e => DemoLogger.WriteLine($"{e.Source.Id} has left {e.Target.Id}"))"
                      OnDropEnd="@(e => DemoLogger.WriteLine($"{e.Source.Id} dropped in {e.Target.Id}"))">
