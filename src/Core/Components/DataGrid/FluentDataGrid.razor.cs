@@ -253,7 +253,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // as sort order, the pagination state, or the data source itself. These fields help us detect when
     // things have changed, and to discard earlier load attempts that were superseded.
     private int? _lastRefreshedPaginationStateHash;
-    private object? _lastAssignedItemsOrProvider;
+    private IQueryable<TGridItem>? _lastAssignedItems;
+    private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
@@ -303,11 +304,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         // Perform a re-query only if the data source or something else has changed
-        var _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
-        var dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
+        var dataSourceHasChanged = !Equals(Items, _lastAssignedItems) || !Equals(ItemsProvider, _lastAssignedItemsProvider);
         if (dataSourceHasChanged)
         {
-            _lastAssignedItemsOrProvider = _newItemsOrItemsProvider;
+            _lastAssignedItemsProvider = ItemsProvider;
+            _lastAssignedItems = Items;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
