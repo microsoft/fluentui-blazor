@@ -226,7 +226,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
-    private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
+    private bool _collectingColumns;// Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
@@ -252,7 +252,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
     // as sort order, the pagination state, or the data source itself. These fields help us detect when
     // things have changed, and to discard earlier load attempts that were superseded.
-    private int? _lastRefreshedPaginationStateHash;
+    private PaginationState? _lastRefreshedPaginationState;
     private IQueryable<TGridItem>? _lastAssignedItems;
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
@@ -312,8 +312,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
-        var mustRefreshData = dataSourceHasChanged
-            || (Pagination?.GetHashCode() != _lastRefreshedPaginationStateHash);
+        var paginationStateHasChanged =
+            Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
+            || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
+
+        var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged;
+
 
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
