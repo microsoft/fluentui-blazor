@@ -8,9 +8,8 @@
     @if (Header.Visible && Header.Sticky)
     {
         <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
-            <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
-            &nbsp;
-            <div>My Header</div>
+            <FluentLayoutHamburger />
+            Header Area
         </FluentLayoutItem>
     }
 
@@ -19,9 +18,8 @@
         @if (Header.Visible && !Header.Sticky)
         {
             <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; flex-direction: row;">
-                <div hide-on-desktop @onclick="@(e => MobileMenuOpened = !MobileMenuOpened)" style="cursor: pointer;">|||</div>
-                &nbsp;
-                <div>Header Area</div>
+                <FluentLayoutHamburger />
+                Header Area
             </FluentLayoutItem>
         }
 

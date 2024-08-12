@@ -1,0 +1,8 @@
+.fluent-layout-item {
+}
+
+  .fluent-layout-item[area="header"] .fluent-layout-hamburger,
+  .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger {
+    margin-right: 8px;
+    fill: var(--colorNeutralForegroundOnBrand);
+  }
