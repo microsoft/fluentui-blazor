@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Base class for FluentUI Blazor components.
 /// </summary>
-public abstract class FluentComponentBase : ComponentBase
+public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable
 {
     private IJSObjectReference? _jsModule;
 
@@ -39,11 +39,7 @@ public abstract class FluentComponentBase : ComponentBase
     /// <returns></returns>
     protected virtual async Task<IJSObjectReference> ImportJavaScriptModuleAsync(string file)
     {
-        if (_jsModule is null)
-        {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", file);  // TO ADD: .FormatCollocatedUrl(LibraryConfiguration)
-        }
-
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", file);  // TO ADD: .FormatCollocatedUrl(LibraryConfiguration)
         return _jsModule;
     }
 
@@ -77,4 +73,40 @@ public abstract class FluentComponentBase : ComponentBase
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <summary>
+    /// Dispose the <see cref="JSModule"/> object.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(_jsModule);
+
+        if (_jsModule != null)
+        {
+            try
+            {
+                await _jsModule.DisposeAsync();
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
+            }
+        }
+
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Dispose the <see cref="JSModule"/> object.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    protected virtual ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    {
+        return ValueTask.CompletedTask;
+    }
 }

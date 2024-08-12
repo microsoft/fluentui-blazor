@@ -6,7 +6,39 @@
   font-weight: bold;
 }
 
-.doc-viewer ::deep pre code {
+/* Table */
+
+.doc-viewer ::deep table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+  .doc-viewer ::deep table th {
+    text-align: start;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .doc-viewer ::deep table tr {
+    border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    vertical-align: top;
+  }
+
+  .doc-viewer ::deep table td {
+    padding: 8px 12px 8px 0px;
+  }
+
+/* Code */
+
+.doc-viewer ::deep code {
+  font-weight: 500;
+  background-color: var(--colorNeutralBackground4);
+  padding: 2px 4px;
+}
+
+  .doc-viewer ::deep pre code {
   overflow-x: auto;
   display: block;
   padding: 1em;
@@ -30,6 +62,8 @@
       display: block;
     }
 
+/* Demo Section */
+
 .doc-viewer ::deep .demo-tabs {
   min-height: 200px;
 }
@@ -41,6 +75,8 @@
   margin: 8px 0px;
 }
 
+/* API Summary */
+
 .doc-viewer ::deep .api-summary {
   background-color: var(--colorNeutralBackground4);
   padding: 8px;
@@ -49,6 +85,8 @@
   .doc-viewer ::deep .api-summary * {
     margin: 0px;
   }
+
+/* API table */
 
 .doc-viewer ::deep .api-table {
   width: 100%;
@@ -99,6 +137,7 @@
       width: 20px;
       height: 20px;
     }
+/* Mobile */
 
 @media(max-width: 768px) {
 
