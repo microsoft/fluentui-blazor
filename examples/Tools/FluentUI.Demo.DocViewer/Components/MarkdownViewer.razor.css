@@ -6,6 +6,16 @@
   font-weight: bold;
 }
 
+/* Default documentation styles */
+
+.doc-viewer {
+  padding: 16px;
+}
+
+.doc-viewer ::deep p {
+  line-height: 180%;
+}
+
 /* Table */
 
 .doc-viewer ::deep table {
@@ -34,8 +44,8 @@
 
 .doc-viewer ::deep code {
   font-weight: 500;
-  background-color: var(--colorNeutralBackground4);
-  padding: 2px 4px;
+  background-color: var(--colorNeutralBackground5);
+  padding: 0px 4px;
 }
 
   .doc-viewer ::deep pre code {
