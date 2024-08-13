@@ -3,7 +3,7 @@ echo off
 REM 0. Include the NuGet Package "coverlet.msbuild" in the UnitTests project.
 REM 1. Install tools:
 REM     $:\> dotnet tool install --global coverlet.console --version 3.2.0
-REM     $:\> dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.20
+REM     $:\> dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.7
 REM    
 REM     Use this command to list existing installed tools:
 REM     $:\> dotnet tool list --global
@@ -19,5 +19,5 @@ echo on
 cls
 
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*" -filefilters:"-*RegexGenerator.g.cs"
+reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*" -filefilters:"-*RegexGenerator.g.cs" riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30 riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30
 start "" "C:\Temp\FluentUI\Coverage\index.htm"

@@ -65,12 +65,6 @@ public readonly struct InlineStyleBuilder
 
         var styles = _styles.Select(item =>
         {
-            var style = item.Value.Build();
-            if (string.IsNullOrWhiteSpace(style)) // This test should never be true, as the Build() method always returns a non-empty string.
-            {
-                return string.Empty;
-            }
-
             return $"{item.Key} {{ {item.Value.Build()} }}";
         });
 
