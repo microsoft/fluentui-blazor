@@ -12,35 +12,35 @@
   padding: 16px;
 }
 
-.doc-viewer ::deep p {
-  line-height: 180%;
-}
-
-/* Table */
-
-.doc-viewer ::deep table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-  .doc-viewer ::deep table th {
-    text-align: start;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: 600;
+  .doc-viewer ::deep p {
+    line-height: 180%;
   }
 
-  .doc-viewer ::deep table tr {
-    border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-    vertical-align: top;
+  /* Table */
+
+  .doc-viewer ::deep table {
+    width: 100%;
+    border-collapse: collapse;
   }
 
-  .doc-viewer ::deep table td {
-    padding: 8px 12px 8px 0px;
-  }
+    .doc-viewer ::deep table th {
+      text-align: start;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-weight: 600;
+    }
 
-/* blockquote */
+    .doc-viewer ::deep table tr {
+      border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+      vertical-align: top;
+    }
+
+    .doc-viewer ::deep table td {
+      padding: 8px 12px 8px 0px;
+    }
+
+  /* blockquote */
 
   .doc-viewer ::deep blockquote {
     padding: 1px 0px 1px 12px;
@@ -48,113 +48,113 @@
     border-left: 6px solid var(--colorBrandBackground);
   }
 
-/* Code */
+  /* Code */
 
-.doc-viewer ::deep code {
-  font-weight: 500;
-  background-color: var(--colorBrandBackground2);
-  padding: 0px 4px;
-}
+  .doc-viewer ::deep code {
+    font-weight: 500;
+    background-color: var(--colorNeutralBackground5);
+    padding: 0px 4px;
+  }
 
   .doc-viewer ::deep pre code {
-  overflow-x: auto;
-  display: block;
-  padding: 1em;
-  background-color: rgb(243, 243, 243);
-  border: 1px solid silver;
-  font-size: 13px;
-  font-weight: bold;
-  transition: opacity 0.2s ease-in-out;
-  opacity: 0.2;
-}
-
-  .doc-viewer ::deep pre code[class*="hljs"] {
-    opacity: 1;
+    overflow-x: auto;
+    display: block;
+    padding: 1em;
+    background-color: rgb(243, 243, 243);
+    border: 1px solid silver;
+    font-size: 13px;
+    font-weight: bold;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0.2;
   }
 
-  .doc-viewer ::deep pre code[source] {
-    display: none;
-  }
-
-    .doc-viewer ::deep pre code[source][class*="hljs"] {
-      display: block;
+    .doc-viewer ::deep pre code[class*="hljs"] {
+      opacity: 1;
     }
 
-/* Demo Section */
-
-.doc-viewer ::deep .demo-tabs {
-  min-height: 200px;
-}
-
-.doc-viewer ::deep .demo-section-example {
-  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-  border-radius: var(--borderRadiusMedium);
-  padding: 16px 16px;
-  margin: 8px 0px;
-}
-
-/* API Summary */
-
-.doc-viewer ::deep .api-summary {
-  background-color: var(--colorNeutralBackground4);
-  padding: 8px;
-}
-
-  .doc-viewer ::deep .api-summary * {
-    margin: 0px;
-  }
-
-/* API table */
-
-.doc-viewer ::deep .api-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-  .doc-viewer ::deep .api-table th {
-    text-align: start;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: 600;
-  }
-
-  .doc-viewer ::deep .api-table tr {
-    border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-    vertical-align: top;
-  }
-
-  .doc-viewer ::deep .api-table td {
-    padding: 8px 12px 8px 0px;
-    white-space: nowrap;
-  }
-
-    .doc-viewer ::deep .api-table td:last-child {
-      white-space: normal;
-      width: 100%;
+    .doc-viewer ::deep pre code[source] {
+      display: none;
     }
 
-    .doc-viewer ::deep .api-table td code {
-      font-weight: 500;
-      background-color: rgb(243, 243, 243);
-    }
+      .doc-viewer ::deep pre code[source][class*="hljs"] {
+        display: block;
+      }
 
-    .doc-viewer ::deep .api-table td p {
-      margin: 0;
-    }
+  /* Demo Section */
 
-  .doc-viewer ::deep .api-table .api-enum-tooltip {
-    margin-left: 4px;
-    cursor: pointer;
-    fill: var(--colorBrandBackgroundHover);
+  .doc-viewer ::deep .demo-tabs {
+    min-height: 200px;
   }
 
-    .doc-viewer ::deep .api-table .api-enum-tooltip::before {
-      content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10.5 8.91a.5.5 0 0 0-1 .09v4.6a.5.5 0 0 0 1-.1V8.91Zm.3-2.16a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0ZM18 10a8 8 0 1 0-16 0 8 8 0 0 0 16 0ZM3 10a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z'></path></svg>");
-      display: inline-block;
-      width: 20px;
-      height: 20px;
+  .doc-viewer ::deep .demo-section-example {
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium);
+    padding: 16px 16px;
+    margin: 8px 0px;
+  }
+
+  /* API Summary */
+
+  .doc-viewer ::deep .api-summary {
+    background-color: var(--colorNeutralBackground4);
+    padding: 8px;
+  }
+
+    .doc-viewer ::deep .api-summary * {
+      margin: 0px;
     }
+
+  /* API table */
+
+  .doc-viewer ::deep .api-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+    .doc-viewer ::deep .api-table th {
+      text-align: start;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .doc-viewer ::deep .api-table tr {
+      border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+      vertical-align: top;
+    }
+
+    .doc-viewer ::deep .api-table td {
+      padding: 8px 12px 8px 0px;
+      white-space: nowrap;
+    }
+
+      .doc-viewer ::deep .api-table td:last-child {
+        white-space: normal;
+        width: 100%;
+      }
+
+      .doc-viewer ::deep .api-table td code {
+        font-weight: 500;
+        background-color: rgb(243, 243, 243);
+      }
+
+      .doc-viewer ::deep .api-table td p {
+        margin: 0;
+      }
+
+    .doc-viewer ::deep .api-table .api-enum-tooltip {
+      margin-left: 4px;
+      cursor: pointer;
+      fill: var(--colorBrandBackgroundHover);
+    }
+
+      .doc-viewer ::deep .api-table .api-enum-tooltip::before {
+        content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10.5 8.91a.5.5 0 0 0-1 .09v4.6a.5.5 0 0 0 1-.1V8.91Zm.3-2.16a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0ZM18 10a8 8 0 1 0-16 0 8 8 0 0 0 16 0ZM3 10a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z'></path></svg>");
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+      }
 /* Mobile */
 
 @media(max-width: 768px) {
@@ -176,12 +176,12 @@
       flex-grow: 1;
     }
 
-    .doc-viewer ::deep .api-table td:first-child code {
-      font-weight: bold;
-    }
+      .doc-viewer ::deep .api-table td:first-child code {
+        font-weight: bold;
+      }
 
     .doc-viewer ::deep .api-table td:nth-child(2) {
-        display: block;
+      display: block;
     }
 
     .doc-viewer ::deep .api-table td:last-child {
