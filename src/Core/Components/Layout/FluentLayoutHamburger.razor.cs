@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,6 +13,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayoutHamburger
 {
+    /// <summary>
+    /// <inheritdoc cref="FluentComponentBase.Class"/>
+    /// </summary>
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("fluent-layout-hamburger")
+        .Build();
+
     /// <summary>
     /// Gets or sets the parent layout component.
     /// </summary>
@@ -29,6 +37,7 @@ public partial class FluentLayoutHamburger
     /// Gets or sets the icon to display.
     /// By default, this icon is a hamburger icon.
     /// </summary>
+    [Parameter]
     public Icon Icon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
 
     /// <summary>
@@ -57,7 +66,5 @@ public partial class FluentLayoutHamburger
         {
             await OnClick.InvokeAsync(layout?.MenuOpened ?? false);
         }
-
-        await Task.CompletedTask;
     }
 }

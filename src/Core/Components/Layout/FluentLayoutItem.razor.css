@@ -85,5 +85,10 @@
     display: block;
     width: 100% !important;
     grid-area: content / content / aside / aside !important;
+    z-index: var(--zindex-layout-menu);
+  }
+
+  .fluent-layout[menu-opened] .fluent-layout-item[area="content"] {
+    display: none;
   }
 }
