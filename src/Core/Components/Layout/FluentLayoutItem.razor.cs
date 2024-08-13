@@ -113,6 +113,7 @@ public partial class FluentLayoutItem
         var contentArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
         var asideArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
 
+        // Aside
         if (asideArea != null && Area == LayoutArea.Content)
         {
             if (asideArea.Sticky)
@@ -129,6 +130,7 @@ public partial class FluentLayoutItem
             contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
         }
 
+        // Grid Area
         var noChange = string.Equals(startAreaName, endAreaName, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(endAreaName);
         styles.AddStyle("grid-area", noChange
                                    ? startAreaName

@@ -3,6 +3,24 @@
 
   .fluent-layout-item[area="header"] .fluent-layout-hamburger,
   .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger {
-    margin-right: 8px;
+    display: none;
+    margin: 0px 4px;
     fill: var(--colorNeutralForegroundOnBrand);
   }
+
+    .fluent-layout-item[area="header"] .fluent-layout-hamburger:hover,
+    .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger:hover {
+      background-color: var(--colorBrandBackgroundPressed);
+    }
+
+    .fluent-layout-item[area="header"] .fluent-layout-hamburger[display*="desktop"],
+    .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger[display*="desktop"] {
+      display: block;
+    }
+
+@media (max-width: 768px) {
+  .fluent-layout-item[area="header"] .fluent-layout-hamburger[display*="mobile"],
+  .fluent-layout-item[area="header-outside"] .fluent-layout-hamburger[display*="mobile"] {
+    display: block;
+  }
+}

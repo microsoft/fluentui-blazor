@@ -13,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayout
 {
+    private bool? _menuOpened;
+
     /// <summary>
     /// Gets the list of items that are part of the layout.
     /// </summary>
@@ -36,6 +38,17 @@ public partial class FluentLayout
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    internal bool? MenuOpened
+    {
+        get => _menuOpened;
+        set
+        {
+            _menuOpened = value;
+            StateHasChanged();
+        }
+    }
 
     /// <summary />
     internal void AddItem(FluentLayoutItem item)

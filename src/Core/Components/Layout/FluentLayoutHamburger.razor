@@ -1,7 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<FluentIcon Value="@(new CoreIcons.Regular.Size20.LineHorizontal3())"
+<FluentIcon Value="@Icon"
             Class="fluent-layout-hamburger"
+            display="@(ShowMobileOnly ? "mobile" : "mobile-desktop")"
             Focusable="true"
             OnClick="@HamburgerClickAsync" />

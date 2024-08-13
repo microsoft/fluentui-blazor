@@ -1,10 +1,11 @@
 ﻿<div style="height: 400px; border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 
-    <FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold;">
+    <FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold; display: flex;">
+        <FluentLayoutHamburger Layout="@Layout" />
         Microsoft Demo
     </FluentLayoutItem>
 
-    <FluentLayout Style="height: 330px;">
+    <FluentLayout @ref="@Layout" Style="height: 330px;">
 
         <FluentLayoutItem Area="@LayoutArea.Menu" Width="150px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
             <div style="font-weight: bold;">Navigation</div>
@@ -30,3 +31,8 @@
     </FluentLayoutItem>
 
 </div>
+
+@code
+{
+    FluentLayout? Layout;
+}

@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
-    <div id="@Id" class="@ClassValue" style="@Style" @attributes="AdditionalAttributes" global-scrollbar="@GlobalScrollbar">
+    <div id="@Id" class="@ClassValue" style="@Style" @attributes="AdditionalAttributes" global-scrollbar="@GlobalScrollbar" menu-opened="@MenuOpened">
         @ChildContent
     </div>
 </CascadingValue>
