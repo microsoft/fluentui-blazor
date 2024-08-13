@@ -1,6 +1,6 @@
 .fluent-layout {
   --zindex-layout-aside: 79;
-  --zindex-layout-menu: 80;
+  --zindex-layout-menu: 82;
   --zindex-layout-header: 81;
   --zindex-layout-footer: 81;
   display: grid;
@@ -32,6 +32,7 @@
       "footer";
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
+    overflow-x: auto;
   }
 
     .fluent-layout *[hide-on-desktop] {

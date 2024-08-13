@@ -1,0 +1,8 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div class="@ClassValue" style="@Style" id="@Id"
+     display="@(ShowMobileOnly ? "mobile" : "mobile-desktop")"
+     @attributes="@AdditionalAttributes">
+    <FluentIcon Value="@Icon" Title="@Title" Focusable="true" OnClick="@HamburgerClickAsync" />
+</div>

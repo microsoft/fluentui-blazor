@@ -29,6 +29,7 @@
   }
 
   .fluent-layout-item[area="menu"] {
+    background-color: var(--colorNeutralBackground2);
     left: 0;
     overflow-y: auto;
     top: 0;
@@ -70,12 +71,6 @@
     display: none;
   }
 
-    .fluent-layout-item[area="menu"][menu-opened] {
-      display: unset !important;
-      width: 90% !important;
-      grid-area: content / content / aside / aside !important;
-    }
-
   .fluent-layout-item[area="content"] {
     grid-area: content !important;
     padding-right: unset !important;
@@ -83,5 +78,21 @@
 
   .fluent-layout-item *[hide-on-desktop] {
     display: unset;
+  }
+
+  /* Menu Opened */
+  .fluent-layout[menu-opened] {
+      overflow-x: hidden;
+  }
+
+  .fluent-layout[menu-opened] .fluent-layout-item[area="menu"] {
+    display: block;
+    width: 100% !important;
+    grid-area: content / content / aside / aside !important;
+    z-index: var(--zindex-layout-menu);
+  }
+
+  .fluent-layout[menu-opened] .fluent-layout-item[area="content"] {
+    display: none;
   }
 }

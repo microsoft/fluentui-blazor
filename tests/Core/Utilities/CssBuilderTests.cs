@@ -119,6 +119,19 @@ public partial class CssBuilderTests
     }
 
     [Fact]
+    public void CssBuilder_AddClassesBasedOnTrue()
+    {
+        // Arrange
+        var cssBuilder = new CssBuilder();
+
+        // Act
+        cssBuilder.AddClass("my-class-1", true);
+
+        // Assert
+        Assert.Equal("my-class-1", cssBuilder.Build());
+    }
+
+    [Fact]
     public void CssBuilder_AddClassesBasedOnFunctionTrue()
     {
         // Arrange

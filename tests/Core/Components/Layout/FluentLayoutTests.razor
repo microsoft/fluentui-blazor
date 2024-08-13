@@ -107,4 +107,83 @@
         Assert.True(layout.Instance.HasFooter);
         Assert.True(layout.Instance.FooterSticky);
     }
+
+    [Fact]
+    public void FluentLayout_Hamburger_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout>
+        <FluentLayoutItem Area="LayoutArea.Header">
+            <FluentLayoutHamburger />
+            Header
+        </FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+    </FluentLayout>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_Hamburger_OutsideLayout()
+    {
+        FluentLayout? myLayout = null;
+
+        // Arrange && Act
+        var cut = Render(@<div>
+        <FluentLayoutHamburger Layout="@myLayout" />
+        <FluentLayout @ref="@myLayout">
+            <FluentLayoutItem Area="LayoutArea.Header">Header</FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+        </FluentLayout>
+    </div>
+    );
+
+        // Assert
+        Assert.NotNull(myLayout);
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLayout_Hamburger_Opened()
+    {
+        bool isOpened = false;
+        bool isClicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentLayout>
+        <FluentLayoutItem Area="LayoutArea.Header">
+            <FluentLayoutHamburger @bind-Opened="@isOpened" OnClick="@(e => isClicked = true )" />
+            Header
+        </FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+    </FluentLayout>
+    );
+
+        // Act
+        cut.Find("svg").Click();
+
+        // Assert
+        Assert.True(isOpened);
+        Assert.True(isClicked);
+    }
+
+    [Fact]
+    public void FluentLayout_Hamburger_OnlyOnePerLayout()
+    {
+        // Arrange && Act && Assert
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            var cut = Render(@<FluentLayout>
+        <FluentLayoutItem Area="LayoutArea.Header">
+            <FluentLayoutHamburger />
+            <FluentLayoutHamburger />   <!-- Second Hamburger -->
+            Header
+        </FluentLayoutItem>
+        <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+    </FluentLayout>);
+        });
+
+    }
 }

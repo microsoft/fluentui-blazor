@@ -1,5 +1,8 @@
-﻿<PageTitle>@App.PageTitle("Demo")</PageTitle>
-<FluentLayoutItem Area="@LayoutArea.Header" Style="padding: 12px; font-size: larger; font-weight: bold;">
+﻿@inject NavigationManager Navigation
+<PageTitle>@App.PageTitle("Demo")</PageTitle>
+
+<FluentLayoutItem Area="@LayoutArea.Header" Style="padding: 12px; font-size: larger; font-weight: bold; display: flex; max-height: 24px;">
+    <FluentLayoutHamburger Layout="@Layout" @bind-Opened="@MenuOpened" Style="margin: 2px 12px;" />
     <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
         <g data-name="MS-symbol">
             <clipPath><path transform="matrix(1 0 0 -1 0 216)" d="M0 216h482V0H0z"></path></clipPath>
@@ -14,7 +17,7 @@
     </svg>
 </FluentLayoutItem>
 
-<FluentLayout Style="height: calc(100vh - 84px);">
+<FluentLayout @ref="@Layout" Style="height: calc(100vh - 84px);">
 
     <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
         <DemoNavMenu />
@@ -29,3 +32,19 @@
 <FluentLayoutItem Area="@LayoutArea.Footer" Style="font-size: smaller;">
     &copy; Microsoft @DateTime.Now.Year. All rights reserved.
 </FluentLayoutItem>
+
+@code
+{
+    private FluentLayout? Layout;
+    private bool MenuOpened = false;
+
+    protected override void OnInitialized()
+    {
+        // Reset the menu when the location changes
+        Navigation.RegisterLocationChangingHandler((e) =>
+        {
+            MenuOpened = false;
+            return ValueTask.CompletedTask;
+        });
+    }
+}
