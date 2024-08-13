@@ -1,4 +1,5 @@
-﻿@inject NavigationManager Navigation
+﻿@using FluentUI.Demo.Client.Infrastructure.ConsoleLog
+@inject NavigationManager Navigation
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
 <FluentLayoutItem Area="@LayoutArea.Header" Style="padding: 12px; font-size: larger; font-weight: bold; display: flex; max-height: 24px;">
@@ -24,6 +25,7 @@
     </FluentLayoutItem>
 
     <FluentLayoutItem Area="@LayoutArea.Content" Style="padding: 8px;">
+        <ConsoleLogProvider />
         @Body
     </FluentLayoutItem>
 

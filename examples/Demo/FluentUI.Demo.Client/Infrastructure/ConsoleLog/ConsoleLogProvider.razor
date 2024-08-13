@@ -1,0 +1,10 @@
+﻿<ul class="fluent-console-log">
+    @foreach (var item in ConsoleService.Traces)
+    {
+        <li>
+            <code>@item.Recorded.ToString("HH:mm:ss")</code>
+            <span>@item.Message</span>
+        </li>
+    }
+</ul>
+

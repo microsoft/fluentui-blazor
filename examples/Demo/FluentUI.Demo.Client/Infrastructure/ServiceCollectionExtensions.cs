@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.Client.Infrastructure.ConsoleLog;
 using FluentUI.Demo.DocViewer;
 
 namespace FluentUI.Demo.Client;
@@ -56,6 +57,9 @@ public static class ServiceCollectionExtensions
     {
         // Add HttpClient for the "CatchAll.razor" or "DocViewer.razor" page
         services.AddHttpClient();
+
+        // Add Console Log Service
+        services.AddScoped<ConsoleLogService>();
 
         // Documentation services
         services.AddDocViewer(options =>

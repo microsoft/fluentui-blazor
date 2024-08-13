@@ -1,7 +1,15 @@
-﻿<FluentButton>Button</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Primary">Primary</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Outline">Outline</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Subtle">Subtle</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Transparent">Transparent</FluentButton>
-<FluentButton BackgroundColor="var(--highlight-bg)" Color="var(--presence-busy)">Colored</FluentButton>
-<FluentButton Disabled="true">Disabled</FluentButton>
+﻿<FluentButton OnClick="@ButtonClick">Button</FluentButton>
+<FluentButton Appearance="ButtonAppearance.Primary" OnClick="@ButtonClick">Primary</FluentButton>
+<FluentButton Appearance="ButtonAppearance.Outline" OnClick="@ButtonClick">Outline</FluentButton>
+<FluentButton Appearance="ButtonAppearance.Subtle" OnClick="@ButtonClick">Subtle</FluentButton>
+<FluentButton Appearance="ButtonAppearance.Transparent" OnClick="@ButtonClick">Transparent</FluentButton>
+<FluentButton BackgroundColor="var(--highlight-bg)" Color="var(--presence-busy)" OnClick="@ButtonClick">Colored</FluentButton>
+<FluentButton Disabled="true" OnClick="@ButtonClick">Disabled</FluentButton>
+
+@code
+{
+    void ButtonClick()
+    {
+        Console.WriteLine("Button clicked");
+    }
+}
