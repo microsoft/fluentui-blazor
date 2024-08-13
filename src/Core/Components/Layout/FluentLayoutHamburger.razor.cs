@@ -41,6 +41,18 @@ public partial class FluentLayoutHamburger
     public Icon Icon { get; set; } = new CoreIcons.Regular.Size20.LineHorizontal3();
 
     /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public bool Opened { get; set; } = false;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> OpenedChanged { get; set; }
+
+    /// <summary>
     /// Allows for capturing a mouse click on an icon.
     /// </summary>
     [Parameter]
@@ -53,18 +65,32 @@ public partial class FluentLayoutHamburger
     internal bool ShowMobileOnly { get; set; } = true;
 
     /// <summary />
+    protected override void OnInitialized()
+    {
+        var layout = Layout ?? LayoutContainer;
+        layout?.AddHamburger(this);
+    }
+
+    /// <summary />
     private async Task HamburgerClickAsync(MouseEventArgs e)
     {
         var layout = Layout ?? LayoutContainer;
 
-        if (layout != null)
+        Opened = !Opened;
+
+        if (OpenedChanged.HasDelegate)
         {
-            layout.MenuOpened = !(layout.MenuOpened == true);
+            await OpenedChanged.InvokeAsync(Opened);
         }
 
         if (OnClick.HasDelegate)
         {
-            await OnClick.InvokeAsync(layout?.MenuOpened ?? false);
+            await OnClick.InvokeAsync(Opened);
+        }
+
+        if (layout != null)
+        {
+            await layout.RefreshAsync();
         }
     }
 }

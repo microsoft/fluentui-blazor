@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayout
 {
-    private bool? _menuOpened;
+    internal FluentLayoutHamburger? Hamburger { get; private set; }
 
     /// <summary>
     /// Gets the list of items that are part of the layout.
@@ -40,14 +40,20 @@ public partial class FluentLayout
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    internal bool? MenuOpened
+    internal void AddHamburger(FluentLayoutHamburger hamburger)
     {
-        get => _menuOpened;
-        set
+        if (Hamburger != null)
         {
-            _menuOpened = value;
-            StateHasChanged();
+            throw new InvalidOperationException("Only one Hamburger can be added to a FluentLayout.");
         }
+
+        Hamburger = hamburger;
+    }
+
+    internal Task RefreshAsync()
+    {
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary />
