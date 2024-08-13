@@ -145,7 +145,7 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
     - `xs`, `sm`, `md`, `lg`, `xl`, `xxl` properties have been renamed to
     - `Xs`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl`.
 
-    Si vous ne les renommer pas correctement, vous obtiendrez probablement une erreur de compilation comme celle-ci :
+    If you don't rename them correctly, you'll probably get a compilation error like this one:
     ```   
     InvalidOperationException: Unable to set property 'sm' on object of type 'Microsoft.FluentUI.AspNetCore.Components.FluentGridItem'.
     The error was: Unable to cast object of type 'System.String' to type 'System.Nullable`1[System.Int32]'.
