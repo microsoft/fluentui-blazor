@@ -40,11 +40,19 @@
     padding: 8px 12px 8px 0px;
   }
 
+/* blockquote */
+
+  .doc-viewer ::deep blockquote {
+    padding: 1px 0px 1px 12px;
+    background-color: var(--colorBrandBackground2);
+    border-left: 6px solid var(--colorBrandBackground);
+  }
+
 /* Code */
 
 .doc-viewer ::deep code {
   font-weight: 500;
-  background-color: var(--colorNeutralBackground5);
+  background-color: var(--colorBrandBackground2);
   padding: 0px 4px;
 }
 

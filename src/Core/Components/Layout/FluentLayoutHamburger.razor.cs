@@ -34,6 +34,12 @@ public partial class FluentLayoutHamburger
     public FluentLayout? Layout { get; set; }
 
     /// <summary>
+    /// Gets or sets the title to display when the user hovers over the hamburger icon.
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; } = "Menu";
+
+    /// <summary>
     /// Gets or sets the icon to display.
     /// By default, this icon is a hamburger icon.
     /// </summary>

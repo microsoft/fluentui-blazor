@@ -81,6 +81,10 @@
   }
 
   /* Menu Opened */
+  .fluent-layout[menu-opened] {
+      overflow-x: hidden;
+  }
+
   .fluent-layout[menu-opened] .fluent-layout-item[area="menu"] {
     display: block;
     width: 100% !important;

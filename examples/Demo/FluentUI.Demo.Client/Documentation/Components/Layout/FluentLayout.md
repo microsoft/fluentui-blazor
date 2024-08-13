@@ -8,9 +8,31 @@ route: /Layout
 `FluentLayout` is a component that defines a layout for a page, using a grid composed of a **Header**, a **Footer**
 and 3 columns: **Menu**, **Content** and **Aside** panes.
 
-{{ LayoutSchema SourceCode=false }}
+<table class="layout-schema">
+  <tr>
+    <td colspan="3">Header</td>
+  </tr>
+  <tr>
+    <td>Menu</td>
+    <td style="width: 100%; height: 60px;">Content</td>
+    <td>Aside</td>
+  <tr>
+    <td colspan="3">Footer</td>
+  </tr>
+</table>
 
 For mobile devices (< 768px), the layout is a single column with the **Menu**, the **Content** and the **Footer** panes stacked vertically.
+
+<table class="layout-schema">
+  <tr>
+    <td>Header</td>
+  </tr>
+  <tr>
+    <td style="width: 100%; height: 60px;">Content</td>
+  <tr>
+    <td>Footer</td>
+  </tr>
+</table>
 
 The layout adapts automatically if you decide not to use or hide any of the panels.
 
@@ -28,12 +50,34 @@ The layout adapts automatically if you decide not to use or hide any of the pane
   or make it disappear. Once displayed, this menu takes up all available screen space (except for the header and footer).
 
   To use this Hamburger icon, you need to add the `FluentLayoutHamburger` component to the **Header**.
-  
+
+  > &#9432; You can set only one `FluentLayoutHamburger` component per `FluentLayout`.
+
   ```razor
   <FluentLayoutItem Area="@LayoutArea.Header" Style="display: flex; ">
     <FluentLayoutHamburger />
     My company
   </FluentLayoutItem>
+  ```
+
+  The menu is displayed inside the **Content** and **Aside** panels of the `FluentLayout` in which it is placed.
+  If you've placed the `FluentLayoutHamburger` component in a different location, you need to specify the
+  the `FluentLayout` to be used, using the `Layout` property.
+
+  ```razor
+  <FluentLayoutItem Area="@LayoutArea.Header">
+    <FluentLayoutHamburger />
+    My company
+  </FluentLayoutItem>
+
+  <FluentLayout @ref="@Layout" Style="height: 330px;">
+    ...
+  </FluentLayout>
+
+  @code
+  {
+      FluentLayout? Layout;
+  }
   ```
 
 ## Example
@@ -54,3 +98,27 @@ property, but you can also "move" these elements outside the `FluentLayout` to k
 ## API FluentLayoutItem
 
 {{ API Type=FluentLayoutItem }}
+
+<style>
+  .layout-schema {
+    margin-left: 50px;
+    max-width: 300px;
+  }
+
+  .layout-schema td {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid var(--colorNeutralStroke1);
+    min-width: 65px;
+  }
+  .layout-schema tr:first-child {
+    background-color: var(--colorBrandBackgroundHover);
+    color: var(--colorNeutralForegroundOnBrand);
+  }
+
+  .layout-schema tr:last-child {
+    background-color: var(--colorNeutralBackgroundDisabled);
+    color: var(--colorNeutralForeground1);
+  }
+
+</style>
