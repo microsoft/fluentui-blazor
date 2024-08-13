@@ -4,15 +4,17 @@
   color: #c5c8c6;
   font-family: 'Courier New', Courier, monospace;
   margin: 0;
-  padding: 4px 12px;
-  overflow: auto;
-  min-height: 40px;
+  padding: 0;
 }
 
   .fluent-console-log ul {
+    overflow-x: auto;
+    overflow-y: scroll;
     list-style-type: none;
-    padding: 0;
+    padding: 4px 12px;
     margin: 0;
+    height: 100%;
+    height: 80px;
   }
 
   .fluent-console-log li {
@@ -42,6 +44,6 @@
 
 .fluent-console-log .clear-button {
   position: absolute;
-  top: 5px;
-  right: 5px; 
+  top: 0px;
+  right: 15px; 
 }
