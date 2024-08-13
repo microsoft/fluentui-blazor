@@ -11,6 +11,11 @@ public partial class ConsoleLogProvider
     [Inject]
     public required ConsoleLogService ConsoleService { get; set; }
 
+    private void ClearConsole()
+    {
+        ConsoleService.Clear();
+    }
+
     protected override void OnInitialized()
     {
         ConsoleService.OnTraceLogged = (message) => StateHasChanged();
