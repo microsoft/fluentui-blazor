@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Migration;
 public static class AppearanceExtensions
 {
     /// <summary>
-    /// 
+    /// Converts an obsolete <see cref="Appearance"/> enum value to a <see cref="ButtonAppearance"/>.
     /// </summary>
     /// <param name="appearance"></param>
     /// <returns></returns>

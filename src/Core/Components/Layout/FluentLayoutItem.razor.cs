@@ -38,52 +38,13 @@ public partial class FluentLayoutItem
             var styles = new StyleBuilder(Style);
 
             // Grid Area
-            var startAreaName = Area.ToAttributeValue();
-            var endAreaName = Area.ToAttributeValue();
-            var contentArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
-            var asideArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
+            AddGridAreaStyles(styles);
 
-            if (asideArea != null && Area == LayoutArea.Content)
-            {
-                if (asideArea.Sticky)
-                {
-                    endAreaName = "aside";
-                    asideArea.AddExtraStyles("margin-right", Layout?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH);
-                }
-                else
-                {
-                    endAreaName = null;
-                    asideArea.AddExtraStyles("margin-right", "0");
-                }
-
-                contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
-            }
-
-            var noChange = string.Equals(startAreaName, endAreaName, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(endAreaName);
-            styles.AddStyle("grid-area", noChange
-                                       ? startAreaName
-                                       //   row-start      / column-start    / row-end       / column-end
-                                       : $"{startAreaName} / {startAreaName} / {endAreaName} / {endAreaName}"
-                           );
-
-            // Width
-            styles.AddStyle("width", Width, when: !string.IsNullOrEmpty(Width));
-
-            // Height
-            var height = Area switch
-            {
-                LayoutArea.Header => Layout?.HeaderHeight ?? "fit-content",
-                LayoutArea.Footer => Layout?.FooterHeight ?? "fit-content",
-                _ => Height
-            };
-            styles.AddStyle("height", height, when: !string.IsNullOrEmpty(height));
+            // Width and Height
+            AddWidthHeightStyles(styles);
 
             // Top when Header is sticky
-            var isMiddleArea = Area == LayoutArea.Aside || Area == LayoutArea.Menu || Area == LayoutArea.Content;
-            if (isMiddleArea && Layout != null && Layout.HasHeader && Layout.HeaderSticky)
-            {
-                styles.AddStyle("top", Layout?.HeaderHeight ?? "0");
-            }
+            AddStickyStyle(styles);
 
             // Extra styles
             foreach (var item in _extraStyles)
@@ -139,5 +100,73 @@ public partial class FluentLayoutItem
     override protected void OnInitialized()
     {
         Layout?.AddItem(this);
+    }
+
+    /// <summary>
+    /// Add the "grid-area" value
+    /// </summary>
+    /// <param name="styles"></param>
+    private void AddGridAreaStyles(StyleBuilder styles)
+    {
+        var startAreaName = Area.ToAttributeValue();
+        var endAreaName = Area.ToAttributeValue();
+        var contentArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Content);
+        var asideArea = Layout?.Items.FirstOrDefault(i => i.Area == LayoutArea.Aside);
+
+        if (asideArea != null && Area == LayoutArea.Content)
+        {
+            if (asideArea.Sticky)
+            {
+                endAreaName = "aside";
+                asideArea.AddExtraStyles("margin-right", Layout?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH);
+            }
+            else
+            {
+                endAreaName = null;
+                asideArea.AddExtraStyles("margin-right", "0");
+            }
+
+            contentArea?.AddExtraStyles("padding-right", string.IsNullOrEmpty(asideArea.Width) || !asideArea.Sticky ? "0" : asideArea.Width);
+        }
+
+        var noChange = string.Equals(startAreaName, endAreaName, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(endAreaName);
+        styles.AddStyle("grid-area", noChange
+                                   ? startAreaName
+                                   //   row-start      / column-start    / row-end       / column-end
+                                   : $"{startAreaName} / {startAreaName} / {endAreaName} / {endAreaName}"
+                       );
+    }
+
+    /// <summary>
+    /// Add the "width" and "height" values
+    /// </summary>
+    /// <param name="styles"></param>
+    private void AddWidthHeightStyles(StyleBuilder styles)
+    {
+        // Width
+        styles.AddStyle("width", Width, when: !string.IsNullOrEmpty(Width));
+
+        // Height
+        var height = Area switch
+        {
+            LayoutArea.Header => Layout?.HeaderHeight ?? "fit-content",
+            LayoutArea.Footer => Layout?.FooterHeight ?? "fit-content",
+            _ => Height
+        };
+
+        styles.AddStyle("height", height, when: !string.IsNullOrEmpty(height));
+    }
+
+    /// <summary>
+    /// Add the "top" value when Header is sticky
+    /// </summary>
+    /// <param name="styles"></param>
+    private void AddStickyStyle(StyleBuilder styles)
+    {
+        var isMiddleArea = Area == LayoutArea.Aside || Area == LayoutArea.Menu || Area == LayoutArea.Content;
+        if (isMiddleArea && Layout != null && Layout.HasHeader && Layout.HeaderSticky)
+        {
+            styles.AddStyle("top", Layout?.HeaderHeight ?? "0");
+        }
     }
 }

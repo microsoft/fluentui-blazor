@@ -6,6 +6,7 @@ using FluentUI.Demo.DocViewer.Extensions;
 using FluentUI.Demo.DocViewer.Services;
 using Markdig;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -24,7 +25,8 @@ internal class ApiClass
         "GetType",
         "SetParametersAsync",
         "ToString",
-        "Dispose"
+        "Dispose",
+        "DisposeAsync",
     ];
 
     private readonly Type _component;
@@ -119,6 +121,12 @@ internal class ApiClass
                         var propertyInfo = memberInfo as PropertyInfo;
                         var methodInfo = memberInfo as MethodInfo;
 
+                        var isObsolete = memberInfo.GetCustomAttribute<ObsoleteAttribute>() != null;
+                        if (isObsolete)
+                        {
+                            continue;
+                        }
+
                         if (propertyInfo != null)
                         {
                             var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
@@ -174,6 +182,12 @@ internal class ApiClass
                         // Methods
                         if (methodInfo != null)
                         {
+                            var isJSInvokable = memberInfo.GetCustomAttribute<JSInvokableAttribute>() != null;
+                            if (isJSInvokable)
+                            {
+                                continue;
+                            }
+
                             var genericArguments = "";
                             if (methodInfo.IsGenericMethod)
                             {
