@@ -5,6 +5,7 @@
 <CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
          style="@StyleValue"
+         @attributes="AdditionalAttributes"
          auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
         <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
