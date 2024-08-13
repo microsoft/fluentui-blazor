@@ -135,7 +135,7 @@ public partial class FluentGridItem : FluentComponentBase
     }
 
     /// <summary />
-    private static GridItemHidden ConvertToHidden(GridItemSize size)
+    internal static GridItemHidden ConvertToHidden(GridItemSize size)
     {
         return size switch
         {

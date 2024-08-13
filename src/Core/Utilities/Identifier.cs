@@ -7,6 +7,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 /// <summary />
 public static class Identifier
 {
+    private const int RANGE_FROM = 0x10000000;          // The smallest value to generate a number that will be converted to an 8-character string.
+    private const int RANGE_TO = int.MaxValue;          // The largest  value to generate a number that will be converted to an 8-character string.
     private static readonly Random _rnd = new();
 
     /// <summary>
@@ -14,6 +16,29 @@ public static class Identifier
     /// </summary>
     /// <returns></returns>
     public static IdentifierContext SequentialContext() => new((n) => $"f{n:0000}");
+
+    /// <summary>
+    /// Returns a new small Id (8 chars).
+    /// HTML id must start with a letter.
+    /// Example: f127d9ed
+    /// </summary>
+    /// <remarks>
+    /// You can use a <see cref="IdentifierContext"/> instance to customize the Generation process,
+    /// for example in Unit Tests.
+    /// </remarks>
+    /// <returns></returns>
+    public static string NewId()
+    {
+        const int LENGTH = 8;
+
+        if (IdentifierContext.Current == null)
+        {
+            var rnd = _rnd.Next(RANGE_FROM, RANGE_TO);
+            return $"f{rnd:x}"[..LENGTH];
+        }
+
+        return IdentifierContext.Current.GenerateId();
+    }
 
     /// <summary>
     /// Returns a new small Id.
@@ -24,8 +49,9 @@ public static class Identifier
     /// You can use a <see cref="IdentifierContext"/> instance to customize the Generation process,
     /// for example in Unit Tests.
     /// </remarks>
+    /// <param name="length">The length of the identifier.</param>
     /// <returns></returns>
-    public static string NewId(int length = 8)
+    public static string NewId(int length)
     {
         if (IdentifierContext.Current == null)
         {
@@ -34,12 +60,14 @@ public static class Identifier
                 throw new ArgumentOutOfRangeException(nameof(length), "length must be less than 16");
             }
 
+            var rnd = _rnd.Next(RANGE_FROM, RANGE_TO);
+
             if (length <= 8)
             {
-                return $"f{_rnd.Next():x}"[..length];
+                return $"f{rnd:x}"[..length];
             }
 
-            return $"f{_rnd.Next():x}{_rnd.Next():x}"[..length];
+            return $"f{rnd:x}{rnd:x}"[..length];
         }
 
         return IdentifierContext.Current.GenerateId();

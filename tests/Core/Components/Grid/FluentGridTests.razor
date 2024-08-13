@@ -121,24 +121,43 @@
         FluentGrid_Hidden(hidden, assert);
     }
 
-    [Fact]
-    public async Task FluentGrid_Grid_AdaptiveRendering()
+    [Theory]
+    [InlineData("xs", GridItemHidden.XxlAndDown)]
+    [InlineData("sm", GridItemHidden.XsAndUp)]
+    [InlineData("md", GridItemHidden.XsAndUp)]
+    [InlineData("lg", GridItemHidden.XsAndUp)]
+    [InlineData("xl", GridItemHidden.XsAndUp)]
+    [InlineData("xxl", GridItemHidden.XsAndUp)]
+    public async Task FluentGrid_Grid_AdaptiveRendering(string size, GridItemHidden hiddenWhen)
     {
         // Arrange && Act
         var cut = Render(
     @<FluentGrid AdaptiveRendering="true">
-        <FluentGridItem HiddenWhen="GridItemHidden.XsAndUp">Cell 1</FluentGridItem>
+        <FluentGridItem HiddenWhen="@hiddenWhen">Cell 1</FluentGridItem>
         <FluentGridItem HiddenWhen="GridItemHidden.XxlAndUp">Cell 2</FluentGridItem>
     </FluentGrid>
-        );
+    );
 
         // Simulate screen size Medium
         var grid = cut.FindComponent<FluentGrid>();
-        await grid.Instance.FluentGrid_MediaChangedAsync("md");
+        await grid.Instance.FluentGrid_MediaChangedAsync(size);
         grid.Render();
 
         //Assert
         Assert.DoesNotContain("Cell 1", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData(GridItemSize.Xs, GridItemHidden.Xs)]
+    [InlineData(GridItemSize.Sm, GridItemHidden.Sm)]
+    [InlineData(GridItemSize.Md, GridItemHidden.Md)]
+    [InlineData(GridItemSize.Lg, GridItemHidden.Lg)]
+    [InlineData(GridItemSize.Xl, GridItemHidden.Xl)]
+    [InlineData(GridItemSize.Xxl, GridItemHidden.Xxl)]
+    [InlineData(GridItemSize.Xs | GridItemSize.Xxl, GridItemHidden.None)]
+    public void FluentGrid_ConvertToHidden(GridItemSize size, GridItemHidden expected)
+    {
+        Assert.Equal(expected, FluentGridItem.ConvertToHidden(size));
     }
 
     [Fact]
@@ -160,4 +179,21 @@
         //Assert
         Assert.DoesNotContain("Cell 1", cut.Markup);
     }
+
+    [Fact]
+    public async Task FluentGrid_OnBreakpointEnterAsync()
+    {
+        GridItemSize? size;
+
+        // Arrange && Act
+        var cut = Render(@<FluentGrid OnBreakpointEnter="@(e => size = e)">My content</FluentGrid>);
+        size = null;
+
+        // Act
+        await cut.FindComponent<FluentGrid>().Instance.FluentGrid_MediaChangedAsync("xs");
+
+        //Assert
+        Assert.Equal(GridItemSize.Xs, size);
+    }
+
 }

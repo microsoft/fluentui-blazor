@@ -39,10 +39,12 @@ public class IdentifierTests
         var id0 = Identifier.NewId();
         var id1 = Identifier.NewId();
         var id2 = Identifier.NewId();
+        var id3 = Identifier.NewId(16);
 
         Assert.Equal("0000", id0);
         Assert.Equal("0001", id1);
         Assert.Equal("0002", id2);
+        Assert.Equal("0003", id3);
     }
 
     [Fact]
