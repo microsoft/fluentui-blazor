@@ -1,3 +1,8 @@
+---
+title: Migration to v5
+route: /MigrationV5
+---
+
 # Changes introduced in this version 5
 
 The following changes have been included in version 5.
