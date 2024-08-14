@@ -40,4 +40,9 @@ public class DocViewerOptions
     /// Path to the external source code files, where {0} will be replaced by the component name.
     /// </summary>
     public string SourceCodeUrl { get; set; } = "/sources/{0}.razor.txt";
+
+    /// <summary>
+    /// Gets or sets whether to use the console log provider.
+    /// </summary>
+    public bool EnableConsoleLogProvider { get; set; } = true;
 }

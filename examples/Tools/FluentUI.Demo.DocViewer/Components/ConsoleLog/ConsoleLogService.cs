@@ -5,7 +5,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace FluentUI.Demo.Client.Infrastructure.ConsoleLog;
+namespace FluentUI.Demo.DocViewer.Components.ConsoleLog;
 
 /// <summary />
 public class ConsoleLogService : TextWriter
@@ -64,7 +64,6 @@ public class ConsoleLogService : TextWriter
         _originalConsoleOut.Write(value);
         OnTraceLoggedHandler(Convert.ToString(value, CultureInfo.InvariantCulture));
     }
-
     /// <summary>
     /// Captures the original console output and logs the message: to the original console output and to the <see cref="Traces"/> list.
     /// </summary>
