@@ -6,6 +6,7 @@ csproj
 elementreference
 evenodd
 microsoft
+noattribute
 nonfile
 rrggbb
 tabindex

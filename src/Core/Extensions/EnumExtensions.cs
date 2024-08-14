@@ -17,51 +17,38 @@ public static class EnumExtensions
     /// Returns the Description attribute of an enum value if present.
     /// </summary>
     /// <param name="value"></param>
-    /// <param name="lowercase"></param>
     /// <returns></returns>
-    public static string? ToAttributeValue(this Enum? value, bool lowercase = true)
-        => value == null ? null : GetDescription(value, lowercase);
+    public static string? ToAttributeValue(this Enum? value)
+        => value == null ? null : GetDescription(value);
 
     /// <summary>
     /// Returns the Description attribute of an enum value if present.
-    /// Returns the enum name if the attribute is not found. 
+    /// Returns the enum name if the attribute is not found (in lower-case).
     /// </summary>
     /// <param name="value"></param>
-    /// <param name="lowercase"></param>
     /// <returns></returns>
-    public static string GetDescription(this Enum value, bool lowercase = true)
+    public static string GetDescription(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
         var attribute = memberInfo[0].GetCustomAttribute<DescriptionAttribute>();
 
-        var result = attribute?.Description ?? value.ToString();
-
-        if (lowercase)
-        {
-            return result.ToLowerInvariant();
-        }
+        var result = attribute?.Description ?? value.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture);
 
         return result;
     }
 
     /// <summary>
     /// Returns the Display attribute of an enum value if present.
-    /// Returns the enum name if the attribute is not found. 
+    /// Returns the enum name if the attribute is not found (in lower-case).
     /// </summary>
     /// <param name="value"></param>
-    /// <param name="lowercase"></param>
     /// <returns></returns>
-    public static string GetDisplay(this Enum value, bool lowercase = true)
+    public static string GetDisplay(this Enum value)
     {
         var memberInfo = value.GetType().GetMember(value.ToString());
         var attribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
 
-        var result = attribute?.GetName() ?? value.ToString();
-
-        if (lowercase)
-        {
-            return result.ToLowerInvariant();
-        }
+        var result = attribute?.GetName() ?? value.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture);
 
         return result;
     }
@@ -74,5 +61,18 @@ public static class EnumExtensions
     public static bool IsNullableEnum(this Type t)
     {
         return Nullable.GetUnderlyingType(t)?.IsEnum == true;
+    }
+
+    /// <summary>
+    /// Returns True if the enum value is marked as obsolete.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool IsObsolete(this Enum value)
+    {
+        var memberInfo = value.GetType().GetMember(value.ToString());
+        var attribute = memberInfo[0].GetCustomAttribute<ObsoleteAttribute>();
+
+        return attribute != null;
     }
 }

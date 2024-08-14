@@ -19,6 +19,19 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
   Components won't contain the scoped css identifier and the `::deep` is now useless.
   The `...bundle.scp.css` file is generated from the **Components.Scripts** project and automatically included in the **Components** project.
 
+- ### ToAttributeValue()
+
+  This extension method was updated to return
+  1. The `[Description]` attribute value **without changing the case** (upper/lower case)
+  2. The enumeration value **converted to lowercase** string, if the '[Description]' attribute is not found.
+
+  Examples:
+  - `[Description("MyValue")]` => `MyValue`
+  - `[Description("my-value")]` => `my-value`
+  - `enum Color { Default, Primary }` => `default`, `primary`
+
+  
+
 - ### JavaScript Interop
 
   We have migrated all **JavaScript** files to **TypeScript**.
