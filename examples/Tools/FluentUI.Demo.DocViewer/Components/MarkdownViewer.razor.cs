@@ -43,8 +43,6 @@ public partial class MarkdownViewer
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("OnInitializedAsync");
-
         // Markdown
         var page = DocViewerService.FromRoute(Route);
 

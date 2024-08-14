@@ -4,6 +4,7 @@
 
 using FluentUI.Demo.DocViewer.Components.ConsoleLog;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.DocViewer.Components;
 
@@ -12,16 +13,61 @@ namespace FluentUI.Demo.DocViewer.Components;
 /// </summary>
 public partial class ConsoleLogProvider
 {
+    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.DocViewer/Components/ConsoleLogProvider.razor.js";
+    private IJSObjectReference _jsModule = default!;
+
     /// <summary>
     /// Gets or sets the injected console log service.
     /// </summary>
     [Inject]
-    public required ConsoleLogService ConsoleService { get; set; }
+    internal ConsoleLogService ConsoleService { get; set; } = default!;
 
     /// <summary />
-    private void ClearConsole()
+    [Inject]
+    internal IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the class name for the component.
+    /// </summary>
+    [Parameter]
+    public string? Class { get; set; }
+
+    /// <summary>
+    /// Gets or sets the style for the component.
+    /// </summary>
+    [Parameter]
+    public string? Style { get; set; }
+
+    /// <summary>
+    /// Clear the console
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClear{ get; set; }
+
+    /// <summary>
+    /// Close the console
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    /// <summary />
+    private async Task ClearConsoleAsync()
     {
         ConsoleService.Clear();
+
+        if (OnClose.HasDelegate)
+        {
+            await OnClear.InvokeAsync();
+        }
+    }
+
+    /// <summary />
+    private async Task CloseConsoleAsync()
+    {
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync();
+        }
     }
 
     /// <summary>
@@ -31,5 +77,15 @@ public partial class ConsoleLogProvider
     protected override void OnInitialized()
     {
         ConsoleService.OnTraceLogged = (message) => InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            await _jsModule.InvokeVoidAsync("scrollToLastConsoleItem");
+        }
     }
 }
