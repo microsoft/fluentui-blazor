@@ -1,15 +1,15 @@
 ﻿<FluentButton OnClick="@ButtonClick">Default</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Primary" OnClick="@ButtonClick">Primary</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Outline" OnClick="@ButtonClick">Outline</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Subtle" OnClick="@ButtonClick">Subtle</FluentButton>
-<FluentButton Appearance="ButtonAppearance.Transparent" OnClick="@ButtonClick">Transparent</FluentButton>
-<FluentButton BackgroundColor="var(--highlight-bg)" Color="var(--presence-busy)" OnClick="@ButtonClick">Colored</FluentButton>
-<FluentButton Disabled="true" OnClick="@ButtonClick">Disabled</FluentButton>
+<FluentButton OnClick="@ButtonClick" Appearance="ButtonAppearance.Primary">Primary</FluentButton>
+<FluentButton OnClick="@ButtonClick" Appearance="ButtonAppearance.Outline">Outline</FluentButton>
+<FluentButton OnClick="@ButtonClick" Appearance="ButtonAppearance.Subtle">Subtle</FluentButton>
+<FluentButton OnClick="@ButtonClick" Appearance="ButtonAppearance.Transparent">Transparent</FluentButton>
+<FluentButton OnClick="@ButtonClick" BackgroundColor="var(--highlight-bg)" Color="var(--presence-busy)">Colored</FluentButton>
+<FluentButton OnClick="@ButtonClick" Disabled="true">Disabled</FluentButton>
 
 @code
 {
     void ButtonClick()
     {
-        Console.WriteLine("Button clicked Button clicked Button clicked Button clicked ");
+        Console.WriteLine("Button clicked");
     }
 }

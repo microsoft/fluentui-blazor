@@ -15,7 +15,11 @@
 
     async Task StartLoadingAsync()
     {
+        Console.WriteLine("Loading started");
+
         loading = true;
         await this.TimerWaitAsync(2000, () => loading = false);
+
+        Console.WriteLine("Loading finished");
     }
 }
