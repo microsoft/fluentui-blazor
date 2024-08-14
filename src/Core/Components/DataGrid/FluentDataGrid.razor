@@ -23,7 +23,7 @@
                           grid-template-columns=@_internalGridTemplateColumns
                           class="@GridClass()"
                           style="@Style"
-                          aria-rowcount="@(_internalGridContext.TotalViewItemCount + 1)"
+                          aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                           @onrowfocus=HandleOnRowFocusAsync
                           @onclosecolumnoptions="CloseColumnOptions"
                           @attributes="AdditionalAttributes">
