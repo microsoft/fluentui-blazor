@@ -32,16 +32,6 @@ public partial class EnumExtensionsTests
         var myDescription = MyEnum.MyDescription.GetDescription();
 
         // Assert
-        Assert.Equal("custom-value", myDescription);
-    }
-
-    [Fact]
-    public void EnumExtensions_Description_Original()
-    {
-        // Arrange
-        var myDescription = MyEnum.MyDescription.GetDescription(lowercase: false);
-
-        // Assert
         Assert.Equal("Custom-Value", myDescription);
     }
 
@@ -49,10 +39,10 @@ public partial class EnumExtensionsTests
     public void EnumExtensions_Description_NoAttribute()
     {
         // Arrange
-        var myDescription = MyEnum.NoAttribute.GetDescription(lowercase: false);
+        var myDescription = MyEnum.NoAttribute.GetDescription();
 
         // Assert
-        Assert.Equal("NoAttribute", myDescription);
+        Assert.Equal("noattribute", myDescription);
     }
 
     [Fact]
@@ -62,16 +52,6 @@ public partial class EnumExtensionsTests
         var myDispplay = MyEnum.MyDisplay.GetDisplay();
 
         // Assert
-        Assert.Equal("custom-value", myDispplay);
-    }
-
-    [Fact]
-    public void EnumExtensions_Display_Original()
-    {
-        // Arrange
-        var myDispplay = MyEnum.MyDisplay.GetDisplay(lowercase: false);
-
-        // Assert
         Assert.Equal("Custom-Value", myDispplay);
     }
 
@@ -79,10 +59,10 @@ public partial class EnumExtensionsTests
     public void EnumExtensions_Display_NoAttribute()
     {
         // Arrange
-        var myDispplay = MyEnum.NoAttribute.GetDisplay(lowercase: false);
+        var myDispplay = MyEnum.NoAttribute.GetDisplay();
 
         // Assert
-        Assert.Equal("NoAttribute", myDispplay);
+        Assert.Equal("noattribute", myDispplay);
     }
 
     [Fact]
@@ -90,16 +70,6 @@ public partial class EnumExtensionsTests
     {
         // Arrange
         var myDescription = MyEnum.MyDescription.ToAttributeValue();
-
-        // Assert
-        Assert.Equal("custom-value", myDescription);
-    }
-
-    [Fact]
-    public void EnumExtensions_ToAttribute_Original()
-    {
-        // Arrange
-        var myDescription = MyEnum.MyDescription.ToAttributeValue(lowercase: false);
 
         // Assert
         Assert.Equal("Custom-Value", myDescription);
@@ -137,4 +107,27 @@ public partial class EnumExtensionsTests
         // Assert
         Assert.False(isNullable);
     }
+
+#pragma warning disable CS0618 // Type or member is obsolete
+
+    [Fact]
+    public void EnumExtensions_IsObsoleteEnum_True()
+    {
+        // Arrange
+        var isObsolete = Color.Fill.IsObsolete();
+
+        // Assert
+        Assert.True(isObsolete);
+    }
+
+    [Fact]
+    public void EnumExtensions_IsObsoleteEnum_False()
+    {
+        // Arrange
+        var isObsolete = Color.Primary.IsObsolete();
+
+        // Assert
+        Assert.False(isObsolete);
+    }
+#pragma warning restore CS0618 // Type or member is obsolete
 }

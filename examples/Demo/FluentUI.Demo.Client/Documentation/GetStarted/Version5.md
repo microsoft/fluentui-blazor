@@ -19,6 +19,19 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
   Components won't contain the scoped css identifier and the `::deep` is now useless.
   The `...bundle.scp.css` file is generated from the **Components.Scripts** project and automatically included in the **Components** project.
 
+- ### ToAttributeValue()
+
+  This extension method was updated to return
+  1. The `[Description]` attribute value **without changing the case** (upper/lower case)
+  2. The enumeration value **converted to lowercase** string, if the '[Description]' attribute is not found.
+
+  Examples:
+  - `[Description("MyValue")]` => `MyValue`
+  - `[Description("my-value")]` => `my-value`
+  - `enum Color { Default, Primary }` => `default`, `primary`
+
+  
+
 - ### JavaScript Interop
 
   We have migrated all **JavaScript** files to **TypeScript**.
@@ -65,6 +78,20 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
   }
   ```
 
+## Color Enumeration
+
+  - ### Renamed values 🔃
+    `Default` is equivalent of previous `Neutral` and `Primary` is equivalent of previous `Accent` values.
+
+  - ### Removed values💥
+    `Neutral`, `Accent`, `Fill`, `FillInverse` values have been flagged as `Obsolete` and will be removed in the next version.
+
+    |v3 & v4|v5|
+    |---|---|
+    |`Color.Neutral`      (--neutral-foreground-rest)     | `Color.Default`       (--colorNeutralForeground1)        |
+    |`Color.Accent`       (--accent-fill-rest)            | `Color.Primary`       (--colorBrandForeground1)          |
+    |`Color.Fill`         (--neutral-fill-rest)           | `Color.Default`       (--colorNeutralForeground1)        |
+    |`Color.FillInverse`  (--neutral-fill-inverse-rest)   | `Color.Lightweight`   (--colorNeutralForegroundInverted) |
 
 ## FluentButton
 
@@ -115,6 +142,19 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
       |`Appearance.Stealth`    |`ButtonAppearance.Default`|
       |`Appearance.Filled`     |`ButtonAppearance.Default`|
 
+## FluentGridItem
+
+  - ### Renamed properties 🔃
+    These properties have been renamed to comply with the Blazor naming convention (Pascal case):
+    - `xs`, `sm`, `md`, `lg`, `xl`, `xxl` properties have been renamed to
+    - `Xs`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl`.
+
+    If you don't rename them correctly, you'll probably get a compilation error like this one:
+    ```   
+    InvalidOperationException: Unable to set property 'sm' on object of type 'Microsoft.FluentUI.AspNetCore.Components.FluentGridItem'.
+    The error was: Unable to cast object of type 'System.String' to type 'System.Nullable`1[System.Int32]'.
+    ```
+
 ## FluentLayout and FluentMainLayout
 
 - ### New components
@@ -137,16 +177,3 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
   The `FluentHeader`, `FluentBodyContent`, `FluentFooter`, `FluentMainLayout` components have been removed.
 
   Use the `FluentLayoutItem Area="..."` component instead.
-
-## FluentGridItem
-
-  - ### Renamed properties 🔃
-    These properties have been renamed to comply with the Blazor naming convention (Pascal case):
-    - `xs`, `sm`, `md`, `lg`, `xl`, `xxl` properties have been renamed to
-    - `Xs`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl`.
-
-    If you don't rename them correctly, you'll probably get a compilation error like this one:
-    ```   
-    InvalidOperationException: Unable to set property 'sm' on object of type 'Microsoft.FluentUI.AspNetCore.Components.FluentGridItem'.
-    The error was: Unable to cast object of type 'System.String' to type 'System.Nullable`1[System.Int32]'.
-    ```

@@ -13,18 +13,30 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum Color
 {
     /// <summary>
-    /// Use the '--neutral-foreground-rest' CSS variable color to draw the icon. 
+    /// Use the '--colorNeutralForeground1' CSS variable color to draw the icon. 
     /// Icon is drawn in the same color as the standard text. 
     /// </summary>
-    [Description("var(--neutral-foreground-rest)")]
-    Neutral,
+    [Description("var(--colorNeutralForeground1)")]
+    Default,
 
     /// <summary>
-    /// Use the '--accent-fill-rest' CSS variable color.
+    /// Use the '--colorBrandForeground1' CSS variable color.
     /// This is the default value.
     /// </summary>
-    [Description("var(--accent-fill-rest)")]
-    Accent,
+    [Description("var(--colorBrandForeground1)")]
+    Primary,
+
+    /// <summary>
+    /// Use the '--colorNeutralForegroundInverted' CSS variable color, adapts to light/dark mode.
+    /// </summary>
+    [Description("var(--colorNeutralForegroundInverted)")]
+    Lightweight,
+
+    /// <summary>
+    ///  Use the `--colorNeutralForegroundDisabled` CSS variable color, adapts to light/dark mode.
+    /// </summary>
+    [Description("var(--colorNeutralForegroundDisabled)")]
+    Disabled,
 
     /// <summary>
     /// Use the '--warning' CSS variable color.
@@ -59,32 +71,42 @@ public enum Color
     Success,
 
     /// <summary>
-    /// Use the '--neutral-fill-rest' CSS variable color, adapts to light/dark mode.
+    /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
     /// </summary>
-    [Description("var(--neutral-fill-rest)")]
+    [Description("var(--colorNeutralForeground1)")]
+    Custom,
+
+    #region Obsolete
+
+    /// <summary>
+    /// Use the '--colorNeutralForeground1' CSS variable color to draw the icon. 
+    /// Icon is drawn in the same color as the standard text. 
+    /// </summary>
+    [Description("var(--colorNeutralForeground1)")]
+    [Obsolete("Use Default instead.")]
+    Neutral,
+
+    /// <summary>
+    /// Use the '--colorBrandForeground1' CSS variable color.
+    /// This is the default value.
+    /// </summary>
+    [Description("var(--colorBrandForeground1)")]
+    [Obsolete("Use Primary instead.")]
+    Accent,
+
+    /// <summary>
+    /// Use the '--colorNeutralForeground1' CSS variable color, adapts to light/dark mode.
+    /// </summary>
+    [Description("var(--colorNeutralForeground1)")]
+    [Obsolete("Use Default instead.")]
     Fill,
 
     /// <summary>
-    /// Use the '--neutral-fill-inverse-rest' CSS variable color, adapts to light/dark mode.
+    /// Use the '--colorNeutralForegroundInverted' CSS variable color, adapts to light/dark mode.
     /// </summary>
-    [Description("var(--neutral-fill-inverse-rest)")]
+    [Description("var(--colorNeutralForegroundInverted)")]
+    [Obsolete("Use Lightweight instead.")]
     FillInverse,
 
-    /// <summary>
-    /// Use the '--neutral-layer-1' CSS variable color, adapts to light/dark mode.
-    /// </summary>
-    [Description("var(--neutral-layer-1)")]
-    Lightweight,
-
-    /// <summary>
-    ///  Use the --neutral-stroke-rest CSS variable color, adapts to light/dark mode.
-    /// </summary>
-    [Description("var(--neutral-stroke-rest)")]
-    Disabled,
-
-    /// <summary>
-    /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
-    /// </summary>
-    [Description("var(--neutral-foreground-rest)")]
-    Custom,
+    #endregion
 }

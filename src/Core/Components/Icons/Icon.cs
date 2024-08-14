@@ -99,8 +99,8 @@ public class Icon : IconInfo
         {
             var sizeAsString = ((int)Size).ToString(CultureInfo.InvariantCulture);
             var styleWidth = size ?? $"{sizeAsString}px";
-            var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
-            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+            var styleColor = color ?? Color ?? Components.Color.Primary.ToAttributeValue();
+            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--colorNeutralBackground1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
         }
 
         if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
