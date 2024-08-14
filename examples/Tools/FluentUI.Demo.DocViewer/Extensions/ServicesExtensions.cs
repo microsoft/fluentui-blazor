@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.DocViewer.Components.ConsoleLog;
 using FluentUI.Demo.DocViewer.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +26,13 @@ public static class ServicesExtensions
         var configuration = new DocViewerOptions();
         options.Invoke(configuration);
 
+        // Add Console Log Service
+        if (configuration.EnableConsoleLogProvider)
+        {
+            services.AddScoped<ConsoleLogService>();
+        }
+
+        // Add DocViewer Service
         services.AddScoped<DocViewerService>(factory =>
         {
             return new DocViewerService(configuration);

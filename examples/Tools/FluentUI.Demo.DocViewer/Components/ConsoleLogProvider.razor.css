@@ -1,0 +1,86 @@
+.fluent-console-log {
+  --scrollbar-console-bg: #21201f;
+  --scrollbar-console-thumb: #888;
+  --scrollbar-console-thumb-hover: #555;
+  position: relative;
+  background-color: var(--scrollbar-console-bg);
+  color: #c5c8c6;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 0;
+}
+
+  .fluent-console-log .title {
+    padding: 4px 0 0 8px;
+    height: 22px;
+    background-color: #3f3e3d;
+    font-weight: 600;
+  }
+
+  .fluent-console-log .clear-button {
+    position: absolute;
+    top: -2px;
+    right: 35px;
+  }
+
+  .fluent-console-log .close-button {
+    position: absolute;
+    top: -2px;
+    right: 5px;
+  }
+
+  .fluent-console-log ul {
+    overflow-x: auto;
+    overflow-y: scroll;
+    list-style-type: none;
+    padding: 4px 12px;
+    margin: 0;
+    height: calc(100% - 34px);
+  }
+
+  .fluent-console-log li {
+    margin: 2px 0;
+    display: flex;
+    align-items: baseline;
+  }
+
+  .fluent-console-log code {
+    color: #9d9d9d;
+    font-size: small;
+    margin-right: 10px;
+  }
+
+  .fluent-console-log span {
+    color: #c5c8c6;
+    font-weight: bold;
+  }
+
+  .fluent-console-log li::before {
+    content: '> '; /* Add a prompt before each message */
+    color: #6ab9ff; /* Blue color for the prompt */
+    font-weight: 900;
+    font-size: small;
+    margin-right: 5px;
+  }
+
+  /* Scrollbar */
+  .fluent-console-log ul {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-console-thumb) var(--scrollbar-console-bg);
+  }
+
+    .fluent-console-log ul::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    .fluent-console-log ul::-webkit-scrollbar-track {
+      background: var(--scrollbar-console-bg);
+    }
+
+    .fluent-console-log ul::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-console-thumb);
+    }
+
+      .fluent-console-log ul::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-console-hover);
+      }

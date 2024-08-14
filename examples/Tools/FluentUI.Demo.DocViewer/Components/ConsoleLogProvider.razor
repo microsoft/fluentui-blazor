@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+<div class="fluent-console-log @Class" style="@Style">
+    <div class="title">
+        Console
+    </div>
+    <fluent-button icon-only appearance="transparent" class="clear-button" @onclick="@ClearConsoleAsync">
+        <svg style="width: 20px; fill: white;" focusable="false" viewBox="0 0 20 20" aria-hidden="true">
+            <title>Clear</title>
+            <path d="M8.5 4h3a1.5 1.5 0 0 0-3 0Zm-1 0a2.5 2.5 0 0 1 5 0h5a.5.5 0 0 1 0 1h-1.05l-1.2 10.34A3 3 0 0 1 12.27 18H7.73a3 3 0 0 1-2.98-2.66L3.55 5H2.5a.5.5 0 0 1 0-1h5ZM5.74 15.23A2 2 0 0 0 7.73 17h4.54a2 2 0 0 0 1.99-1.77L15.44 5H4.56l1.18 10.23ZM8.5 7.5c.28 0 .5.22.5.5v6a.5.5 0 0 1-1 0V8c0-.28.22-.5.5-.5ZM12 8a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V8Z"></path>
+        </svg>
+    </fluent-button>
+    <fluent-button icon-only appearance="transparent" class="close-button" @onclick="@CloseConsoleAsync">
+        <svg style="width: 20px; fill: white;" focusable="false" viewBox="0 0 20 20" aria-hidden="true">
+            <title>Hide</title>
+            <path d="m10.5 11.17.87-1a.5.5 0 0 1 .76.66l-1.75 2a.5.5 0 0 1-.76 0l-1.75-2a.5.5 0 1 1 .76-.65l.87 1V7.5a.5.5 0 0 1 1 0v3.67ZM4 16a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4Zm-1-2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9h-5.5V8H17V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2h5.5v1H3v5Z"></path>
+        </svg>
+    </fluent-button> <ul id="console-items">
+        @foreach (var item in ConsoleService.Traces)
+        {
+            <li>
+                <code>@item.Recorded.ToString("HH:mm:ss")</code>
+                <span>@item.Message</span>
+            </li>
+        }
+    </ul>
+</div>

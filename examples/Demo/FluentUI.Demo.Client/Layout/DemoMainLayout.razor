@@ -1,9 +1,13 @@
-﻿@inject NavigationManager Navigation
+﻿@using FluentUI.Demo.DocViewer.Components
+@inject NavigationManager Navigation
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<FluentLayoutItem Area="@LayoutArea.Header" Style="padding: 12px; font-size: larger; font-weight: bold; display: flex; max-height: 24px;">
+<FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold; display: flex; align-items: center; height: 32px;">
+    @* Hamburger on Mobile *@
     <FluentLayoutHamburger Layout="@Layout" @bind-Opened="@MenuOpened" Style="margin: 2px 12px;" />
-    <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
+
+    @* Microsoft Logo *@
+    <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice" style="padding-left: 4px;">
         <g data-name="MS-symbol">
             <clipPath><path transform="matrix(1 0 0 -1 0 216)" d="M0 216h482V0H0z"></path></clipPath>
             <g clip-path="url(#a)">
@@ -15,9 +19,18 @@
             </g>
         </g>
     </svg>
+
+    <div style="flex-grow: 1" />
+
+    @* Open Console *@
+    <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                  OnClick="@(() => ConsoleLogOpened = !ConsoleLogOpened)"
+                  Appearance="ButtonAppearance.Subtle"
+                  BackgroundColor="@(ConsoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  Title="Open or hide the console" />
 </FluentLayoutItem>
 
-<FluentLayout @ref="@Layout" Style="height: calc(100vh - 84px);">
+<FluentLayout @ref="@Layout" Style="@(ConsoleLogOpened ? "height: calc(100vh - 230px);" : "height: calc(100vh - 80px);")">
 
     <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
         <DemoNavMenu />
@@ -29,6 +42,11 @@
 
 </FluentLayout>
 
+@if (ConsoleLogOpened)
+{
+    <ConsoleLogProvider Style="height: 150px" OnClose="@(() => ConsoleLogOpened = false)" />
+}
+
 <FluentLayoutItem Area="@LayoutArea.Footer" Style="font-size: smaller;">
     &copy; Microsoft @DateTime.Now.Year. All rights reserved.
 </FluentLayoutItem>
@@ -37,6 +55,7 @@
 {
     private FluentLayout? Layout;
     private bool MenuOpened = false;
+    private bool ConsoleLogOpened = false;
 
     protected override void OnInitialized()
     {
