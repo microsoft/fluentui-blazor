@@ -32,7 +32,7 @@ in the color set with the `Color` parameter.
 
 ## Explore Icons
 
-{ IconExplorer SourceCode=false }
+`{ IconExplorer SourceCode=false }  ⚠️ TO ACTIVATE LATER`
 
 ## Overview
 

@@ -71,6 +71,30 @@ public enum Color
     Success,
 
     /// <summary>
+    /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
+    /// </summary>
+    [Description("var(--colorNeutralForeground1)")]
+    Custom,
+
+    #region Obsolete
+
+    /// <summary>
+    /// Use the '--colorNeutralForeground1' CSS variable color to draw the icon. 
+    /// Icon is drawn in the same color as the standard text. 
+    /// </summary>
+    [Description("var(--colorNeutralForeground1)")]
+    [Obsolete("Use Default instead.")]
+    Neutral,
+
+    /// <summary>
+    /// Use the '--colorBrandForeground1' CSS variable color.
+    /// This is the default value.
+    /// </summary>
+    [Description("var(--colorBrandForeground1)")]
+    [Obsolete("Use Primary instead.")]
+    Accent,
+
+    /// <summary>
     /// Use the '--colorNeutralForeground1' CSS variable color, adapts to light/dark mode.
     /// </summary>
     [Description("var(--colorNeutralForeground1)")]
@@ -84,9 +108,5 @@ public enum Color
     [Obsolete("Use Lightweight instead.")]
     FillInverse,
 
-    /// <summary>
-    /// Supply an HTML hex color string value (#rrggbb or #rgb) for the CustomColor parameter.
-    /// </summary>
-    [Description("var(--colorNeutralForeground1)")]
-    Custom,
+    #endregion
 }
