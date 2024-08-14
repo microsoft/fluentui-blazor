@@ -44,6 +44,7 @@
 
   .doc-viewer ::deep blockquote {
     padding: 1px 0px 1px 12px;
+    margin-inline-end: 0px;
     background-color: var(--colorBrandBackground2);
     border-left: 6px solid var(--colorBrandBackground);
   }
@@ -54,6 +55,11 @@
     font-weight: 500;
     background-color: var(--colorNeutralBackground5);
     padding: 0px 4px;
+  }
+
+  .doc-viewer ::deep pre {
+    max-width: 100%;
+    overflow: auto;
   }
 
   .doc-viewer ::deep pre code {

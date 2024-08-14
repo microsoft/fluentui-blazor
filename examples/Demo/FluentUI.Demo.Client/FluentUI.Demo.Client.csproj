@@ -39,6 +39,7 @@
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
+  <!-- Copy all .razor files to .txt files in wwwroot\sources -->
   <Target Name="CopySources" BeforeTargets="BeforeBuild">
     <ItemGroup>
       <Sources Include="$(ProjectDir)\Documentation\**\*.razor" />
@@ -83,14 +84,6 @@
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Samples\Data\Faces.resx">
-      <LastGenOutput>Faces.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Samples\Data\LoremIpsum.resx">
-      <LastGenOutput>LoremIpsum.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   

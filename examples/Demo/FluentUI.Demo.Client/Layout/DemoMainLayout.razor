@@ -30,13 +30,13 @@
                   Title="Open or hide the console" />
 </FluentLayoutItem>
 
-<FluentLayout @ref="@Layout" Style="@(ConsoleLogOpened ? "height: calc(100vh - 230px);" : "height: calc(100vh - 80px);")">
+<FluentLayout @ref="@Layout" Style="@(ConsoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
 
     <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
         <DemoNavMenu />
     </FluentLayoutItem>
 
-    <FluentLayoutItem Area="@LayoutArea.Content" Style="padding: 8px;">
+    <FluentLayoutItem Area="@LayoutArea.Content" Style="padding: 8px; overflow: auto;">
         @Body
     </FluentLayoutItem>
 
