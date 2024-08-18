@@ -1,18 +1,19 @@
 name: Scheduled Issue updates
-description:
+description: "Scheduled task to close stale issues"
 resource: repository
 disabled: false
 where:
+  resource: repository
 configuration:
   resourceManagementConfiguration:
     scheduledSearches:
-      - description: "Close issues that where author has not provided reproduction code or repo"
-      - frequencies:
+      - description: "Close issues where author has not provided reproduction code or repo"
+        frequencies:
           - hourly:
               hour: 3
         filters:
-          - isOpen
-          - is:issue
+          - isOpen: true
+          - is: issue
           - hasLabel:
               label: Needs repro code or repository
           - noActivitySince:
@@ -20,4 +21,4 @@ configuration:
         actions:
           - addReply:
               reply: "This issue has been automatically closed as no reproduction code has been provided within **4 days**."
-          - closeIssue
+          - closeIssue: true
