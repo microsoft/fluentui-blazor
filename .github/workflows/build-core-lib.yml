@@ -127,7 +127,7 @@ jobs:
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          filefilters: '-*RegexGenerator.g.cs'
-         customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }} riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
+         customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }};riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
