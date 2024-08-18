@@ -36,8 +36,12 @@
         <DemoNavMenu />
     </FluentLayoutItem>
 
-    <FluentLayoutItem Area="@LayoutArea.Content" Style="padding: 8px; overflow: auto;">
+    <FluentLayoutItem Area="@LayoutArea.Content">
         @Body
+    </FluentLayoutItem>
+
+    <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true">
+        <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
     </FluentLayoutItem>
 
 </FluentLayout>

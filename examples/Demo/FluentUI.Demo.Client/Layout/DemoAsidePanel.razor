@@ -1,0 +1,13 @@
+﻿@inject NavigationManager Navigation
+
+@if (Headers != null)
+{
+    <ul>
+        @foreach (var header in Headers)
+        {
+            <li>
+                <a href="@($"#{header.Id}")">@(header.Title)</a>
+            </li>
+        }
+    </ul>
+}

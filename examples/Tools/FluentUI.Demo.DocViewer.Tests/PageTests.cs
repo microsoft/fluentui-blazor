@@ -1,14 +1,17 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.DocViewer.Models;
+using FluentUI.Demo.DocViewer.Tests.Services;
 using Xunit;
 
 namespace FluentUI.Demo.DocViewer.Tests;
 
 public class PageTests
 {
+    private readonly DocViewerServiceTests DocViewerService = new();
+
     [Fact]
     public void Page_HeaderContent()
     {
@@ -19,7 +22,7 @@ public class PageTests
 
                            My content";
 
-        var page = new Page(fileContent);
+        var page = new Page(DocViewerService, fileContent);
 
         Assert.Equal("Button", page.Title);
         Assert.Equal("/Button", page.Route);
@@ -34,7 +37,7 @@ public class PageTests
                            Header2: Value2
                            ---";
 
-        var page = new Page(fileContent);
+        var page = new Page(DocViewerService, fileContent);
 
         Assert.Equal(2, page.Headers.Count);
         Assert.Equal("Value1", page.Headers["Header1"]);
@@ -46,7 +49,7 @@ public class PageTests
     {
         var fileContent = @"My content";
 
-        var page = new Page(fileContent);
+        var page = new Page(DocViewerService,fileContent);
 
         Assert.Empty(page.Headers);
         Assert.Equal("My content", page.Content);
@@ -57,7 +60,7 @@ public class PageTests
     {
         var fileContent = @"";
 
-        var page = new Page(fileContent);
+        var page = new Page(DocViewerService,fileContent);
 
         Assert.Empty(page.Headers);
         Assert.Empty(page.Content);
