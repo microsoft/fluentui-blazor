@@ -25,6 +25,7 @@ on:
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
+  MIN_COVERAGE: "98"
 
 jobs:
   Build:
@@ -126,7 +127,7 @@ jobs:
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          filefilters: '-*RegexGenerator.g.cs'
-         customSettings: 'riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
+         customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }} riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
