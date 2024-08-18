@@ -97,7 +97,7 @@ public partial class FluentLayoutItem
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary />
-    override protected void OnInitialized()
+    protected override void OnInitialized()
     {
         Layout?.AddItem(this);
     }
