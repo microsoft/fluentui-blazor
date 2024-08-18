@@ -148,6 +148,8 @@ jobs:
       contents: read
       security-events: write
 
+    if: github.event_name != 'pull_request'  # Not analyzing PRs
+
     strategy:
       fail-fast: false
       matrix:
