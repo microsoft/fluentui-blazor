@@ -78,6 +78,13 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
   }
   ```
 
+ - ### Unit Test and Code Coverage
+
+   We have added unit tests for all components and services.
+   The code coverage is now at 99% for the **Core** project.
+
+   You will find more details on how to create unit tests in the `/docs/unit-tests.md` file.
+
 ## Color Enumeration
 
   - ### Renamed values 🔃
