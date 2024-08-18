@@ -51,7 +51,6 @@
         width: calc( 100% - 12px);
         justify-content: flex-start;
         padding-inline-start: 24px;
-
     }
 
     .fluent-toast ::deep .fluent-toast-small {
@@ -61,6 +60,7 @@
 
     .fluent-toast ::deep .fluent-toast-action:has(.timestamp) {
         cursor: initial;
+        width: auto;
     }
 
     .fluent-toast ::deep .fluent-toast-details {

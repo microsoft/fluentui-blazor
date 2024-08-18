@@ -7,7 +7,7 @@
 
 @if (ItemTemplate is not null)
 {
-    <div @ref="@Element" class="@ClassValue" style="@StyleValue">
+    <div @ref="@Element" id="@Id" class="@ClassValue" style="@StyleValue">
         @foreach (var item in Items)
         {
             <div class="sortable-item @(GetItemFiltered(item) ? "filtered" : "")">@ItemTemplate(item)</div>

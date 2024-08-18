@@ -323,6 +323,8 @@
     [Fact]
     public void FluentWizard_EditForm_EditContextIsInValid_OnNext()
     {
+        int stepIndex = 0;
+
         var testRecord1 = new TestRecord
             {
                 NumberBetween1and10 = 15,
@@ -333,7 +335,7 @@
                 NumberBetween1and10 = 15,
             };
 
-        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
+        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler" @bind-Value="@stepIndex">
         <Steps>
             <FluentWizardStep>
                 <FluentEditForm Model="testRecord1">
@@ -370,6 +372,7 @@
         }
 
         Assert.False(finishHandled);
+        Assert.Equal(0, stepIndex);
     }
 
     [Fact]
@@ -472,6 +475,34 @@
         step1.Click();
 
         Assert.Equal(indexFirstItem, currentIndex);
+    }
+
+    [Theory]
+    [InlineData(true, true, true, 2)]
+    [InlineData(true, true, false, 1)]
+    [InlineData(true, false, false, 0)]
+    [InlineData(false, false, false, 0)]
+    public void FluentWizard_LastDisableSteps(bool firstEnabled, bool secondEnabled, bool thirdEnabled, int nbClicks)
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Disabled="@(!firstEnabled)" />
+            <FluentWizardStep Disabled="@(!secondEnabled)" />
+            <FluentWizardStep Disabled="@(!thirdEnabled)" />
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Act: Click
+        for (int i = 0; i < nbClicks; i++)
+        {
+            var buttonNext = cut.Find("fluent-button[appearance='accent']");
+            buttonNext.Click();
+        }
+
+        // Assert
+        Assert.Contains("Done", cut.Markup);
     }
 
     private record TestRecord

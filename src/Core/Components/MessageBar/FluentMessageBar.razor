@@ -6,7 +6,7 @@
 
     @if (Type == MessageType.MessageBar)
     {
-        <div class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
+        <div id="@Id" class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
 
             @* Icon *@
             <div class="fluent-messagebar-icon">
@@ -71,7 +71,7 @@
     @* Notification *@
     @if (Type == MessageType.Notification)
     {
-        <div class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
+        <div id="@Id" class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
 
             @* Icon *@
             <div class="fluent-messagebar-notification-icon">

@@ -3,8 +3,10 @@ using BlazorWeb_CSharp.Client;
 using Microsoft.AspNetCore.Components.Authorization;
 #endif
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.Services.AddFluentUIComponents();
 
 #if (IndividualLocalAuth)
 builder.Services.AddAuthorizationCore();

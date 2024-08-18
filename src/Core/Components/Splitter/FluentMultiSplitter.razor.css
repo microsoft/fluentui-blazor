@@ -106,6 +106,10 @@
             content: '\025C0';            
         }
 
+        [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="collapse"]:before {
+            content: '\025B6';
+        }
+
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="resize"] {
             height: 16px;
             margin: 2px 0;
@@ -113,6 +117,10 @@
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
             content: '\025B6';
+        }
+
+        [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar > span[part="expand"]:before {
+            content: '\025C0';
         }
 
         .fluent-multi-splitter[orientation="horizontal"] ::deep > .fluent-multi-splitter-bar[status="resizable"]:hover {

@@ -2,15 +2,14 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion>8.0.0</RuntimeVersion>
-    <AspNetCoreVersion>8.0.6</AspNetCoreVersion>
-    <EfCoreVersion>8.0.6</EfCoreVersion>
+    <AspNetCoreVersion>8.0.7</AspNetCoreVersion>
+    <EfCoreVersion>8.0.7</EfCoreVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.0" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.9.2" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.9.0" />
-
     <!-- Build dependencies -->
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion)" />
@@ -26,17 +25,17 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion)" />
     <PackageVersion Include="Markdig.Signed" Version="0.34.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0-beta1.24219.2" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.10.48" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.3" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.4" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.28.9" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageVersion Include="xunit" Version="2.8.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
+    <PackageVersion Include="xunit" Version="2.9.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
   </ItemGroup>
 </Project>
