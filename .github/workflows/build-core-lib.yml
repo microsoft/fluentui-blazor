@@ -126,6 +126,7 @@ jobs:
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          filefilters: '-*RegexGenerator.g.cs'
+         riskHotspotsAnalysisThresholds: 'metricThresholdForCrapScore=30;metricThresholdForCyclomaticComplexity=30'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
