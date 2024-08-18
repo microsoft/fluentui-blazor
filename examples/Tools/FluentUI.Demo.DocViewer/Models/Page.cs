@@ -62,7 +62,7 @@ public record Page
     /// Returns the list of HTML headers included in the content.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<PageHtmlHeader> GetHtmlHeaders() => _pageHtmlHeaders ??= PageHtmlHeader.ExtractHeaders(Markdown.ToHtml(Content, DocViewerService.MarkdownPipeline));
+    public IEnumerable<PageHtmlHeader> GetHtmlHeaders() => _pageHtmlHeaders ??= PageHtmlHeader.ExtractHeaders(this, Markdown.ToHtml(Content, DocViewerService.MarkdownPipeline));
 
     /// <summary />
     internal async Task<List<Section>> ExtractSectionsAsync()
@@ -101,7 +101,7 @@ public record Page
         }
 
         // TOC: HTML Headers
-        _pageHtmlHeaders = PageHtmlHeader.ExtractHeaders(html);
+        _pageHtmlHeaders = PageHtmlHeader.ExtractHeaders(this, html);
 
         return sections;
 

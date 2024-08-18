@@ -1,13 +1,6 @@
-﻿@inject NavigationManager Navigation
-
-@if (Headers != null)
+﻿@if (Headers != null && Headers.Any())
 {
-    <ul>
-        @foreach (var header in Headers)
-        {
-            <li>
-                <a href="@($"#{header.Id}")">@(header.Title)</a>
-            </li>
-        }
-    </ul>
+    <div class="demo-aside">
+        @ConvertToMarkupString(Headers, firstLevel: 2)  @* Bypass the Level 0 header (H1) *@
+    </div>
 }
