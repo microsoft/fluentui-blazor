@@ -32,7 +32,11 @@
 
 <FluentLayout @ref="@Layout" Style="@(ConsoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
 
-    <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+    @{
+        var menuHeight = ConsoleLogOpened ? "calc(100vh - 90px - 150px)" : "calc(100vh - 90px)";
+    }
+    <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Sticky="true" Height="@menuHeight"
+                      Style="overflow-y: auto; padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
         <DemoNavMenu />
     </FluentLayoutItem>
 
@@ -54,20 +58,3 @@
 <FluentLayoutItem Area="@LayoutArea.Footer" Style="font-size: smaller;">
     &copy; Microsoft @DateTime.Now.Year. All rights reserved.
 </FluentLayoutItem>
-
-@code
-{
-    private FluentLayout? Layout;
-    private bool MenuOpened = false;
-    private bool ConsoleLogOpened = false;
-
-    protected override void OnInitialized()
-    {
-        // Reset the menu when the location changes
-        Navigation.RegisterLocationChangingHandler((e) =>
-        {
-            MenuOpened = false;
-            return ValueTask.CompletedTask;
-        });
-    }
-}
