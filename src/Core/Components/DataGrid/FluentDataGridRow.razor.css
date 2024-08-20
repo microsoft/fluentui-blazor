@@ -7,7 +7,7 @@
     z-index: 3;
 }
 
-.hover:not([row-type='header'],[row-type='sticky-header']):hover {
+.hover:not([row-type='header'],[row-type='sticky-header'],.loading-content-row):hover {
     cursor: pointer;
     background-color: var(--datagrid-hover-color, var(--neutral-fill-stealth-hover));
 }
