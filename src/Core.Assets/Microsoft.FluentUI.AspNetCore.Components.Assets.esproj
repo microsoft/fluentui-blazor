@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1327710">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1477582">
 	<PropertyGroup>
 		<DebugAssetsDirectory>dist\</DebugAssetsDirectory>
 		<StaticWebAssetSourceId>Microsoft.FluentUI.AspNetCore.Components</StaticWebAssetSourceId>
