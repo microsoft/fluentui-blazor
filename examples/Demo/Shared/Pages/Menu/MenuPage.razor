@@ -35,7 +35,36 @@
     Fluent UI design system.
 </p>
 
+<div>
+    <div><strong>FluentMenuProvider</strong></div>
+    <p>
+        With version 4.9.4 of the library, we introduced a <code>FluentMenuProvider</code>. The <code>FluentMenu</code> component has been updated to use this provider.
+        The <code>&lt;FluentMenuProvider /&gt;</code> is a new component to be placed at the <b>bottom</b> of your HTML page (like the other <b>Providers</b>),
+        which renders all menus (and menu items) at the provider location in the HTML structure. This allows for menus to appear <b>on top</b> other components.
+    </p>
+    <p>
+        You can disable this feature by adding the <code>UseMenuService="false"</code> attribute.
+        In this case, the menu is drawn at the location of your HTML code.
+    </p>
+</div>
+
 <h2 id="example">Example</h2>
+
+<DemoSection Title="Service provider" Component="@typeof(MenuServiceProviderExample)">
+    <p>
+        The <strong>first</strong> example contains the <code>UseMenuService="false"</code> attribute.
+        The menu is created where it is declared, which can pose encapsulation problems,
+        depending on the container used (in this case, a <code>FluentCard</code>).
+    </p>
+    <p>
+        The <strong>second</strong> example uses the <code>FluentMenuProvider</code> to display the menu.
+        In this case, the menu is generated at the end of the HTML page and attached to the button using the <code>Anchor</code> tag.
+        <bloquote>
+            It's mandatory to use a <code>Id</code> identifier on the clickable element
+            and an identical <code>Anchor</code> value on the menu, to link the two elements.
+        </bloquote>
+    </p>
+</DemoSection>
 
 <DemoSection Title="Default" Component="@typeof(SimpleMenuExample)"></DemoSection>
 
@@ -51,46 +80,49 @@
 
 <DemoSection Title="With icons" Component="@typeof(MenuIcon)">
     <Description>
+        <p>
+            When using <code>FluentIcon</code>s in a <code>FluentMenuItem</code>, you will run into issues with indentation when putting the icons in slots.
+            This problem originates from the following: (from <a href="https://www.fast.design/docs/components/menu#setup" rel="nofollow">https://www.fast.design/docs/components/menu#setup</a>):
+        </p>
+        <blockquote>
             <p>
-                When using <code>FluentIcon</code>s in a <code>FluentMenuItem</code>, you will run into issues with indentation when putting the icons in slots.
-                This problem originates from the following: (from <a href="https://www.fast.design/docs/components/menu#setup" rel="nofollow">https://www.fast.design/docs/components/menu#setup</a>):</p>
-            <blockquote>
-                <p>
-                    <code>fast-menu</code> applies <code>fast-menu-item</code>'s <code>startColumnCount</code> property based on an evaluation 
-                    of all of the <code>fast-menu-items</code> so the content text vertically aligns across all <code>fast-menu-items</code>. 
-                    If any <code>fast-menu-item</code> does not have a roll of <code>checkbox</code> or <code>radio</code> or the 
-                    <code>start</code> slot is not passed, <code>startColumnCount</code> is set to 0 which applies a <code>indent-0</code> class 
-                    to all the <code>fast-menu-item</code>s. If any <code>fast-menu-item</code> has a roll of <code>checkbox</code> or 
-                    <code>radio</code> or the <code>start</code> slot exists, <code>startColumnCount</code> is set to 1 which applies a 
-                    <code>indent-1</code> class to all the <code>fast-menu-item</code>s. Or if any <code>fast-menu-item</code> has a roll of 
-                    <code>checkbox</code> or <code>radio</code> and the <code>start</code> slot exists, <code>startColumnCount</code> is set to 
-                    2 which applies a <code>indent-2</code> class to all the <code>fast-menu-item</code>s.
-                </p>
-            </blockquote>
-            <p>
-                Because we are rendering the web components indirectly <code>fast-menu</code> doesn't know about the icons and their slots in the 
-                <code>fast-menu-items</code> when it renders (they don't exist in the DOM yet) so it can't determine the <code>startColumnCount</code>.
+                <code>fast-menu</code> applies <code>fast-menu-item</code>'s <code>startColumnCount</code> property based on an evaluation
+                of all of the <code>fast-menu-items</code> so the content text vertically aligns across all <code>fast-menu-items</code>.
+                If any <code>fast-menu-item</code> does not have a roll of <code>checkbox</code> or <code>radio</code> or the
+                <code>start</code> slot is not passed, <code>startColumnCount</code> is set to 0 which applies a <code>indent-0</code> class
+                to all the <code>fast-menu-item</code>s. If any <code>fast-menu-item</code> has a roll of <code>checkbox</code> or
+                <code>radio</code> or the <code>start</code> slot exists, <code>startColumnCount</code> is set to 1 which applies a
+                <code>indent-1</code> class to all the <code>fast-menu-item</code>s. Or if any <code>fast-menu-item</code> has a roll of
+                <code>checkbox</code> or <code>radio</code> and the <code>start</code> slot exists, <code>startColumnCount</code> is set to
+                2 which applies a <code>indent-2</code> class to all the <code>fast-menu-item</code>s.
             </p>
-            <p>
-                As a workaround, place the <code>FluentIcons</code> inside a <code>&lt;span slot="start"&gt;&lt;/span&gt;</code> 
-                (or <code>&lt;span slot="end"&gt;&lt;/span</code>&gt; in the menu items. For example:
-            </p>
-            <CodeSnippet>&lt;FluentMenu&gt;
-    &lt;FluentMenuItem&gt;
-        Menu item 1
-        &lt;span slot="start" &gt;
+        </blockquote>
+        <p>
+            Because we are rendering the web components indirectly <code>fast-menu</code> doesn't know about the icons and their slots in the
+            <code>fast-menu-items</code> when it renders (they don't exist in the DOM yet) so it can't determine the <code>startColumnCount</code>.
+        </p>
+        <p>
+            As a workaround, place the <code>FluentIcons</code> inside a <code>&lt;span slot="start"&gt;&lt;/span&gt;</code>
+            (or <code>&lt;span slot="end"&gt;&lt;/span</code>&gt; in the menu items. For example:
+        </p>
+        <CodeSnippet>
+            &lt;FluentMenu&gt;
+            &lt;FluentMenuItem&gt;
+            Menu item 1
+            &lt;span slot="start" &gt;
             &lt;FluentIcon Icon="Icons.Regular.Size16.Globe" Slot="start" Color="Color.Neutral" /&gt;
-        &lt;/span&gt;
-        &lt;span slot="end"&gt;
+            &lt;/span&gt;
+            &lt;span slot="end"&gt;
             &lt;FluentIcon Icon="Icons.Regular.Size16.Globe" Slot="end" Color="Color.Neutral" /&gt;
-        &lt;/span&gt;
-    &lt;/FluentMenuItem&gt;
-    :
-    :</CodeSnippet>
-            <p>
-                The script gets triggered then and the icons render in the right place. You can leave the <code>Slot</code> parameter in 
-                the <code>FluentIcon</code> but in this case it doesn't have to be there anymore.
-            </p>
+            &lt;/span&gt;
+            &lt;/FluentMenuItem&gt;
+            :
+            :
+        </CodeSnippet>
+        <p>
+            The script gets triggered then and the icons render in the right place. You can leave the <code>Slot</code> parameter in
+            the <code>FluentIcon</code> but in this case it doesn't have to be there anymore.
+        </p>
     </Description>
 </DemoSection>
 
