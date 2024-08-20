@@ -374,7 +374,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         UpdateAdditionalValidationAttributes();
 
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
 
     private void UpdateAdditionalValidationAttributes()
