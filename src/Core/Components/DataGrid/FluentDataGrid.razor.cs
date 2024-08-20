@@ -8,6 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.JSInterop;
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -215,6 +216,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public RenderFragment? LoadingContent { get; set; }
 
+    /// <summary>
+    /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
+    /// </summary>
+    [Parameter]
+    public bool AutoFit { get; set; }
+
+    /// <summary>
+    /// Gets the first (optional) SelectColumn
+    /// </summary>
+    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.Where(col => col is SelectColumn<TGridItem>).Cast<SelectColumn<TGridItem>>();
+
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 
@@ -293,7 +305,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        _internalGridTemplateColumns = GridTemplateColumns;
+        if (AutoFit)
+        {
+            _internalGridTemplateColumns = "auto-fit";
+        }
+        else
+        {
+            _internalGridTemplateColumns = GridTemplateColumns;
+        }
 
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -336,6 +355,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             catch (JSException ex)
             {
                 Console.WriteLine("[FluentDataGrid] " + ex.Message);
+            }
+
+            if (AutoFit && _gridReference is not null)
+            {
+                _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
             }
         }
 
@@ -420,12 +444,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
 
-        if (column is not null)
-        {
-            return SortByColumnAsync(column, direction);
-        }
-
-        return Task.CompletedTask;
+        return column is not null ? SortByColumnAsync(column, direction) : Task.CompletedTask;
     }
 
     /// <summary>
@@ -435,12 +454,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
     public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
     {
-        if (index >= 0 && index < _columns.Count)
-        {
-            return SortByColumnAsync(_columns[index], direction);
-        }
-
-        return Task.CompletedTask;
+        return index >= 0 && index < _columns.Count ? SortByColumnAsync(_columns[index], direction) : Task.CompletedTask;
     }
 
     /// <summary>
@@ -622,14 +636,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? GridClass()
     {
         var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
-        if (string.IsNullOrEmpty(value))
+
+        if (AutoFit)
         {
-            return null;
+            value += " auto-fit";
         }
-        else
-        {
-            return value;
-        }
+
+        return string.IsNullOrEmpty(value) ? null : value;
     }
 
     private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch

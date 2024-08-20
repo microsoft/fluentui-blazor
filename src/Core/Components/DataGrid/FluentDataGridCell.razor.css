@@ -2,6 +2,12 @@ fluent-data-grid-cell {
     text-overflow: ellipsis;
 }
 
+.auto-fit fluent-data-grid-cell {
+    text-overflow: unset;
+    overflow: visible;
+    visibility: hidden;
+}
+
 .multiline-text {
     white-space: inherit;
     overflow: auto;
@@ -18,14 +24,12 @@ fluent-data-grid-cell {
 }
 
     .column-header.col-justify-end, .column-header.col-justify-right {
-
         padding-right: 1px;
         padding-left: 1px;
         justify-content: end;
     }
 
     .column-header.col-justify-center {
-
         padding-left: 1px;
         padding-right: 1px;
         justify-content: center;
@@ -36,20 +40,20 @@ fluent-data-grid-cell {
         flex-grow: 1;
     }
 
-    .column-header > ::deep .keycapture .col-sort-container {
-        display: flex;
-        flex-grow: 1;
-    }
-
-    .column-header > ::deep .keycapture .col-sort-container .col-sort-button {
-        flex-grow: 1;
-        padding-inline-end: 5px;
-    }
-
-        .column-header > ::deep .keycapture .col-sort-container .col-sort-button::part(content) {
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .column-header > ::deep .keycapture .col-sort-container {
+            display: flex;
+            flex-grow: 1;
         }
+
+            .column-header > ::deep .keycapture .col-sort-container .col-sort-button {
+                flex-grow: 1;
+                padding-inline-end: 5px;
+            }
+
+                .column-header > ::deep .keycapture .col-sort-container .col-sort-button::part(content) {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
 
     .column-header.col-justify-end ::deep .col-title-text, .column-header.col-justify-right ::deep .col-title-text {
         text-align: end;
@@ -109,6 +113,3 @@ fluent-data-grid-cell {
     white-space: nowrap;
     font-weight: 600;
 }
-
-
-

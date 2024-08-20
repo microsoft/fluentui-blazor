@@ -91,7 +91,6 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
-
 export function enableColumnResizing(gridElement) {
     if (gridElement === latestGridElement)
         return;
@@ -159,7 +158,7 @@ export function enableColumnResizing(gridElement) {
 }
 
 export function resetColumnWidths(gridElement) {
-
+    
     gridElement.gridTemplateColumns = initialColumnsWidths;
 }
 
@@ -214,6 +213,25 @@ export function resizeColumnDiscrete(gridElement, column, change) {
     gridElement.gridTemplateColumns = columns
         .map(({ header }) => header.size)
         .join(' ');
+}
+
+export function autoFitGridColumns(gridElement, columnCount) {
+    let gridTemplateColumns = '';
+
+    for (var i = 0; i < columnCount; i++) {
+        const columnWidths = Array
+            .from(gridElement.querySelectorAll(`[grid-column="${i + 1}"]`))
+            .flatMap((x) => x.offsetWidth);
+
+        const maxColumnWidth = Math.max(...columnWidths);
+
+        gridTemplateColumns += ` ${maxColumnWidth}fr`;
+    }
+
+    gridElement.setAttribute("grid-template-columns", gridTemplateColumns);
+    gridElement.classList.remove("auto-fit");
+
+    initialColumnsWidths = gridTemplateColumns;
 }
 
 export function resizeColumnExact(gridElement, column, width) {
