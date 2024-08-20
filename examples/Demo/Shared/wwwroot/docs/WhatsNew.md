@@ -34,7 +34,6 @@
     - Run / 16, 20, 24 / Filled & Regular
     - Shopping Bag / 16, 20, 24 / Filled
 
-
 ## v4.9.3
 ### Components
 - [General] Inject LibraryConfiguring into DesignToken ([#2426](https://github.com/microsoft/fluentui-blazor/pull/2426))
