@@ -1,5 +1,16 @@
 ## 4.9.4
+
 ### Icons
+- Update to Fluent UI System Icons 1.1.253
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Sync Circle / 28, 32, 48 / Filled & Regular
+	- Calendar Arrow Repeat All / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Coin Multiple / 28, 32, 48 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Sync Circle / 24/ Filled & Regular
+
 - Update to Fluent UI System Icons 1.1.252
     
     **What's new (Name / Size(s) / Variant(s))**
@@ -22,7 +33,6 @@
     - Folder People / 20, 24 / Filled & Regular
     - Run / 16, 20, 24 / Filled & Regular
     - Shopping Bag / 16, 20, 24 / Filled
-
 
 ## v4.9.3
 ### Components
