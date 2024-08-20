@@ -199,6 +199,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>
     /// <summary />
     private async Task OnCheckedChangeHandlerAsync(CheckboxChangeEventArgs e)
     {
+        await Task.Delay(1);
         if (e.Checked == null && e.Indeterminate == null)
         {
             return;
