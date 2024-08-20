@@ -20,25 +20,31 @@
     Fluent UI design system. It uses the <code>&lt;FluentTreeItem&gt;</code> component to define the nodes.
 </p>
 
+<blockquote>
+    <p>
+        <em>NOTE:</em> When construction a tree by specifying <code>FluentTreeItem</code> components, an item can not be deselected by setting the <code>SelectedItem</code> parameter value to null. This only works when using the Items collection.
+    </p>
+</blockquote>
+
 <h2 id="example">Examples</h2>
 
-<DemoSection Title="Default with event handling" Component="@typeof(TreeViewDefault)"/>
+<DemoSection Title="Default with event handling" Component="@typeof(TreeViewDefault)" />
 
 <DemoSection Title="With Items" Component="@typeof(TreeViewWithItems)" />
 
 <DemoSection Title="With Unlimited Items" Component="@typeof(TreeViewWithUnlimitedItems)" />
 
-<DemoSection Title="Flat tree" Component="@typeof(TreeViewFlat)"/>
+<DemoSection Title="Flat tree" Component="@typeof(TreeViewFlat)" />
 
-<DemoSection Title="Some expanded" Component="@typeof(TreeViewSomeExpanded)"/>
+<DemoSection Title="Some expanded" Component="@typeof(TreeViewSomeExpanded)" />
 
-<DemoSection Title="Pre-selected tree item" Component="@typeof(TreeViewSelectedItem)"/>
+<DemoSection Title="Pre-selected tree item" Component="@typeof(TreeViewSelectedItem)" />
 
-<DemoSection Title="Disabled tree item" Component="@typeof(TreeViewDisabledItem)"/>
+<DemoSection Title="Disabled tree item" Component="@typeof(TreeViewDisabledItem)" />
 
-<DemoSection Title="With several nested items (expanded)" Component="@typeof(TreeViewNested)"/>
+<DemoSection Title="With several nested items (expanded)" Component="@typeof(TreeViewNested)" />
 
-<DemoSection Title="With data binding" Component="@typeof(TreeViewDataBinding)"/>
+<DemoSection Title="With data binding" Component="@typeof(TreeViewDataBinding)" />
 
 <h2 id="documentation">Documentation</h2>
 
