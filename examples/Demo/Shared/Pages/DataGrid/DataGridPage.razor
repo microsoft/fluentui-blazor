@@ -299,10 +299,38 @@ fluent-data-grid-row:has([row-selected]) {
             Example of using an outside <code>div</code> and the <code>Style</code> parameter to achieve a table like DataGrid with infinite horizontal scrollbars to display all content on all devices.
         </p>
         <p>
-            If you use this in combination with a sticky header, the style of the header will be lost for the columns that are renderded out of the view initially.
+            If you use this in combination with a sticky header, the style of the header will be lost for the columns that are rendered out of the view initially.
             You can fix this by adding the following <code>Style</code> to your data grid: <code>Style="min-width: max-content;"</code>
         </p>
 
+    </Description>
+</DemoSection>
+
+<DemoSection Title="Auto Fit" Component="@typeof(FluentUI.Demo.Shared.Pages.DataGrid.Examples.DataGridAutoFit)">
+    <Description>
+        <p>
+            The example and code below show what you need to add to one of your Blazor page components to implement auto-fit.
+        </p>
+        <p>
+            The <code>AutoFit</code> parameter is used to automatically adjust the column widths to fit the content. It only runs on
+            the first render and does not update when the content changes.
+        </p>
+        <p>
+            The column widths are calculated with the process below:
+            <ul>
+                <li>
+                    Loop through the columns and find the biggest width of each cell of the column
+                </li>
+                <li>
+                    Build the <code>GridTemplateColumns</code> string using the <code>fr</code> unit
+                </li>
+            </ul>
+        </p>
+        <p>
+            This does not work
+            when <code>Virtualization</code> is turned on. The <code>GridTemplateColumns</code> parameter is ignored
+            when <code>AutoFit</code> is set to <code>true</code>. This is untested in MAUI.
+        </p>
     </Description>
 </DemoSection>
 
