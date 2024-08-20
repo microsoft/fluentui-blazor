@@ -1,0 +1,32 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    @if (Menus != null)
+    {
+        @foreach (var item in Menus)
+        {
+            <FluentMenu UseMenuService="false"
+                        Anchor="@item.Anchor"
+                        Anchored="@item.Anchored"
+                        Class="@Class"
+                        Style="@Style"
+                        Id="@item.Id"
+                        Open="@item.Open"
+                        OpenChanged="@item.OpenChanged"
+                        VerticalThreshold="@item.VerticalThreshold"
+                        HorizontalThreshold="@item.HorizontalThreshold"
+                        AdditionalAttributes="@item.AdditionalAttributes"
+                        Data="@item.Data"
+                        HorizontalInset="@item.HorizontalInset"
+                        HorizontalPosition="@item.HorizontalPosition"
+                        ParentReference="@item.ParentReference"
+                        Trigger="@item.Trigger"
+                        VerticalInset="@item.VerticalInset"
+                        VerticalPosition="@item.VerticalPosition"
+                        Width="@item.Width">
+                @item.ChildContent
+            </FluentMenu>           
+        }
+    }
+</div>

@@ -1,0 +1,44 @@
+﻿<FluentStack>
+
+    <FluentCard>
+        <p>Click this button to open a Menu.</p>
+        <FluentButton Id="btnOpenMenuProvider1"
+                      Appearance="Appearance.Accent"
+                      OnClick="@(() => open1 = !open1)">
+            Open menu
+        </FluentButton>
+
+        <!-- UseMenuService="false" -->
+        <FluentMenu UseMenuService="false"
+                    Anchor="btnOpenMenuProvider1"
+                    @bind-Open="open1"
+                    VerticalThreshold="170">
+            <FluentMenuItem>Menu item 1</FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
+        </FluentMenu>
+    </FluentCard>
+
+    <FluentCard>
+        <p>Click this button to open a Menu.</p>
+        <FluentButton Id="btnOpenMenuProvider2"
+                      Appearance="Appearance.Accent"
+                      OnClick="@(() => open2 = !open2)">
+            Open menu
+        </FluentButton>
+
+        <!-- UseMenuService="true" (or undefined) -->
+        <FluentMenu UseMenuService="true"
+                    Anchor="btnOpenMenuProvider2"
+                    @bind-Open="open2"
+                    VerticalThreshold="170">
+            <FluentMenuItem>Menu item 1</FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
+        </FluentMenu>
+    </FluentCard>
+
+</FluentStack>
+
+@code {
+    bool open1 = false;
+    bool open2 = false;
+}

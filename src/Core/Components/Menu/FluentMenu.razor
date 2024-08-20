@@ -1,41 +1,45 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-<CascadingValue Value="this" IsFixed="true">
-    @if (Open)
-    {
-        @if (Anchored)
+
+@if (DrawMenuWithoutService)
+{
+    <CascadingValue Value="this" IsFixed="true">
+        @if (Open)
         {
-            <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
-            <FluentAnchoredRegion Anchor="@Anchor"
-                                  HorizontalDefaultPosition="@HorizontalPosition"
-                                  VerticalDefaultPosition="@VerticalPosition"
-                                  HorizontalInset="@HorizontalInset"
-                                  VerticalInset="@VerticalInset"
-                                  HorizontalViewportLock="true"
-                                  HorizontalThreshold="@HorizontalThreshold"
-                                  VerticalThreshold="@VerticalThreshold"
-                                  Shadow="@ElevationShadow.None"
-                                  Class="@ClassValue"
-                                  Style="@StyleValue"
-                                  @attributes="AdditionalAttributes">
-                <fluent-menu @ref=Element id="@Id">
-                    @ChildContent
-                </fluent-menu>
-            </FluentAnchoredRegion>
-        }
-        else
-        {
-            if (_contextMenu)
+            @if (Anchored)
             {
                 <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
+                <FluentAnchoredRegion Anchor="@Anchor"
+                                      HorizontalDefaultPosition="@HorizontalPosition"
+                                      VerticalDefaultPosition="@VerticalPosition"
+                                      HorizontalInset="@HorizontalInset"
+                                      VerticalInset="@VerticalInset"
+                                      HorizontalViewportLock="true"
+                                      HorizontalThreshold="@HorizontalThreshold"
+                                      VerticalThreshold="@VerticalThreshold"
+                                      Shadow="@ElevationShadow.None"
+                                      Class="@ClassValue"
+                                      Style="@StyleValue"
+                                      @attributes="AdditionalAttributes">
+                    <fluent-menu @ref=Element id="@Id">
+                        @ChildContent
+                    </fluent-menu>
+                </FluentAnchoredRegion>
             }
-            <fluent-menu @ref=Element
-                         id="@Id"
-                         class="@ClassValue"
-                         style="@StyleValue"
-                         @attributes="AdditionalAttributes">
-                @ChildContent
-            </fluent-menu>
+            else
+            {
+                if (_contextMenu)
+                {
+                    <FluentOverlay @bind-Visible="@Open" OnClose="@CloseAsync" Transparent="true" FullScreen="true" />
+                }
+                <fluent-menu @ref=Element
+                             id="@Id"
+                             class="@ClassValue"
+                             style="@StyleValue"
+                             @attributes="AdditionalAttributes">
+                    @ChildContent
+                </fluent-menu>
+            }
         }
-    }
-</CascadingValue>
+    </CascadingValue>
+}
