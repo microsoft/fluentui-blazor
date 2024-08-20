@@ -186,6 +186,13 @@ extends:
             summaryFileLocation: '**/*.cobertura.xml'
             reportDirectory: CoverageFolder
 
+        # Index sources and publish symbols
+
+        - task: PublishSymbols@2
+          inputs:
+            SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
+            SymbolServerType: 'TeamServices'
+
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2
           displayName: 'Pack $(Build.BuildNumber)'
