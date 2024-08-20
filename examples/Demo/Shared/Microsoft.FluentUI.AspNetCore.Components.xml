@@ -1891,6 +1891,16 @@
             A default fragment is used if loading content is not specified.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowHasAdditionalContent">
+            <summary>
+            Optionally row has additional content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowAdditionalContentTemplate">
+            <summary>
+            If specified, add content for row if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowHasAdditionalContent"/> return true.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
