@@ -1,1 +1,15 @@
 ﻿@page "/issue-tester"
+
+<FluentTabs>
+    <FluentTab Label="Tab1">
+        <CheckboxBug @bind-Value=@dummy />
+    </FluentTab>
+</FluentTabs>
+
+
+@code {
+
+    private Dummy dummy = new Dummy(false);
+
+
+}

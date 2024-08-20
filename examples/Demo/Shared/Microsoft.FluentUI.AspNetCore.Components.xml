@@ -8511,7 +8511,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.HorizontalAlignment">
             <summary>
-            Gets or sets the horizontal alignment of the components in the stack. 
+            Gets or sets the horizontal alignment of the components in the stack.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.VerticalAlignment">
@@ -8521,7 +8521,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Orientation">
             <summary>
-            Gets or sets the orientation of the stacked components. 
+            Gets or sets the orientation of the stacked components.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
