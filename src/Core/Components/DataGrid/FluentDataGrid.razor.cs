@@ -226,7 +226,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
-    private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
+    private bool _collectingColumns;// Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
@@ -252,8 +252,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
     // as sort order, the pagination state, or the data source itself. These fields help us detect when
     // things have changed, and to discard earlier load attempts that were superseded.
-    private int? _lastRefreshedPaginationStateHash;
-    private object? _lastAssignedItemsOrProvider;
+    private PaginationState? _lastRefreshedPaginationState;
+    private IQueryable<TGridItem>? _lastAssignedItems;
+    private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
 
     // If the PaginationState mutates, it raises this event. We use it to trigger a re-render.
@@ -303,16 +304,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         // Perform a re-query only if the data source or something else has changed
-        var _newItemsOrItemsProvider = Items ?? (object?)ItemsProvider;
-        var dataSourceHasChanged = _newItemsOrItemsProvider != _lastAssignedItemsOrProvider;
+        var dataSourceHasChanged = !Equals(Items, _lastAssignedItems) || !Equals(ItemsProvider, _lastAssignedItemsProvider);
         if (dataSourceHasChanged)
         {
-            _lastAssignedItemsOrProvider = _newItemsOrItemsProvider;
+            _lastAssignedItemsProvider = ItemsProvider;
+            _lastAssignedItems = Items;
             _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
         }
 
-        var mustRefreshData = dataSourceHasChanged
-            || (Pagination?.GetHashCode() != _lastRefreshedPaginationStateHash);
+        var paginationStateHasChanged =
+            Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
+            || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
+
+        var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged;
 
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
@@ -506,6 +510,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
             GridItemsProviderRequest<TGridItem> request = new(
                 startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
+            _lastRefreshedPaginationState = Pagination;
             var result = await ResolveItemsRequestAsync(request);
             if (!thisLoadCts.IsCancellationRequested)
             {
@@ -515,7 +520,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _pendingDataLoadCancellationTokenSource = null;
             }
             _internalGridContext.ResetRowIndexes(startIndex);
-            _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
         }
 
         StateHasChanged();
@@ -524,7 +528,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
     private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
     {
-        _lastRefreshedPaginationStateHash = Pagination?.GetHashCode();
+        _lastRefreshedPaginationState = Pagination;
 
         // Debounce the requests. This eliminates a lot of redundant queries at the cost of slight lag after interactions.
         // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
