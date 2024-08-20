@@ -213,12 +213,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Gets or sets the content to render when <see cref="Loading"/> is true.
     /// A default fragment is used if loading content is not specified.
     /// </summary>
-    [Parameter] public RenderFragment? LoadingContent { get; set; }
+    [Parameter]
+    public RenderFragment? LoadingContent { get; set; }
 
     /// <summary>
     /// Sets <see cref="GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
     /// </summary>
-    [Parameter] public bool AutoFit { get; set; }
+    [Parameter]
+    public bool AutoFit { get; set; }
 
     /// <summary>
     /// Gets the first (optional) SelectColumn
