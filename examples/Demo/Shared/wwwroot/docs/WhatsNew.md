@@ -1,3 +1,49 @@
+## 4.9.4
+
+### Icons
+- Update to Fluent UI System Icons 1.1.253
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Sync Circle / 28, 32, 48 / Filled & Regular
+	- Calendar Arrow Repeat All / 16, 20, 24, 28, 32, 48 / Filled & Regular
+	- Coin Multiple / 28, 32, 48 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Sync Circle / 24/ Filled & Regular
+
+- Update to Fluent UI System Icons 1.1.252
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Airplane / 16, 28, 32, 48 / Filled & Regular
+    - Globe Off / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Hat Graduation / 32, 48 / Filled & Regular
+    - Person Board Add / 16, 24, 28, 32 / Filled & Regular
+    - Shopping Bag Tag / 16, 28, 32, 48 / Filled & Regular
+    - Shopping Bag / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Teaching / 16, 24, 28, 32, 48 / Filled & Regular
+    - Window Brush / 20, 24 / Filled & Regular
+    - Window Column One Fourth Left Focus Left / 20 / Filled
+    - Window Column One Fourth Left Focus Top / 20 / Filled
+    - Window Column One Fourth Left / 20 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Building People / 16, 20, 24 / Filled & Regular          
+    - Circle Half Fill / 20, 24 / Filled & Regular
+    - Contact Card Link / 16, 20 / Filled & Regular
+    - Folder People / 20, 24 / Filled & Regular
+    - Run / 16, 20, 24 / Filled & Regular
+    - Shopping Bag / 16, 20, 24 / Filled
+
+## v4.9.3
+### Components
+- [General] Inject LibraryConfiguring into DesignToken ([#2426](https://github.com/microsoft/fluentui-blazor/pull/2426))
+- [Accordion] Add Id ([#2420](https://github.com/microsoft/fluentui-blazor/pull/2420))
+- [Templates] Replace faulty `Appearance.Filled` with `Appearance.Accent` for buttons ([#2436](https://github.com/microsoft/fluentui-blazor/pull/2436))
+
+### Demo site and documentation
+- [Docs] Fix broken GitHub link ([#2442](https://github.com/microsoft/fluentui-blazor/pull/2442))
+
+
 ## v4.9.2
 ### Components
 - [General] JavaScript Cache management ([#2388](https://github.com/microsoft/fluentui-blazor/pull/2388))
@@ -7,7 +53,7 @@
 - [MultiSplitter] Fix RTL direction ([#2380](https://github.com/microsoft/fluentui-blazor/pull/2380))
 - [Overflow] Add `Fixed` parameter ([#2393](https://github.com/microsoft/fluentui-blazor/pull/2393))
 - [Overflow] Add `Fixed` enumeration ([#2401](https://github.com/microsoft/fluentui-blazor/pull/2401))
-- [Search] Add `AutoComplete` parameter ([#2397]((https://github.com/microsoft/fluentui-blazor/pull/2397)))
+- [Search] Add `AutoComplete` parameter ([#2397](https://github.com/microsoft/fluentui-blazor/pull/2397))
 - [Select] Fix logic when setting new option ([#2384](https://github.com/microsoft/fluentui-blazor/pull/2384))
 - [SortableList] Adding Properties `FromListId` and `ToListId` ([#2385](https://github.com/microsoft/fluentui-blazor/pull/2385))
 - [SplashScreen] Pass parameters.Modal to `ShowSplashScreen...` methods ([#2398](https://github.com/microsoft/fluentui-blazor/pull/2398))

@@ -87,7 +87,7 @@ If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.ht
 <link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
 
-It is entirely possible to build a site without using **Reboot**. If you do not want to use Reboot and you used the templates as a starting poin, just remove the following line from the app.css file (it is the first line in the file):
+It is entirely possible to build a site without using **Reboot**. If you do not want to use Reboot and you used the templates as a starting point, just remove the following line from the app.css file (it is the first line in the file):
 
 ```
 @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
@@ -115,6 +115,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentDialogProvider />
 <FluentTooltipProvider />
 <FluentMessageBarProvider />
+<FluentMenuProvider />
 ```
 > **note:** You can remove providers that are not used in your application.
 > **note:** If you get scrollbars in your application, move the providers up in the page elements hierarchy, for example into the `FluentBodyContent` component.

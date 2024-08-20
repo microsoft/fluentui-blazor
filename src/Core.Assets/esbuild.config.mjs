@@ -1,5 +1,5 @@
 import * as esbuild from 'esbuild'
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 
 await esbuild.build({
     entryPoints: [ pkg.source ],

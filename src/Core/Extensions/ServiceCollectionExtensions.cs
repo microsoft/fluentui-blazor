@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDialogService, DialogService>();
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IKeyCodeService, KeyCodeService>();
+        services.AddScoped<IMenuService, MenuService>();
 
         var options = configuration ?? new();
         if (options.UseTooltipServiceProvider)
