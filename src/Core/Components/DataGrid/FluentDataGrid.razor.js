@@ -63,6 +63,7 @@ export function init(gridElement) {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
             document.body.removeEventListener('keydown', keyDownHandler);
+            delete initialColumnsWidths[gridElement.id];
         }
     };
 }
