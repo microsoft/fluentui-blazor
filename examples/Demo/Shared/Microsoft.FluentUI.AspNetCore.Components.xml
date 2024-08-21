@@ -2667,6 +2667,12 @@
             Gets the identifier of the year in the format yyyy.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.JSRuntime">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.#ctor">
             <summary />
         </member>
@@ -2691,6 +2697,16 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PickerMonthChanged">
             <summary>
             Fired when the display month changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.OnDoubleClick">
+            <summary>
+            Command executed when the user double-clicks on the date picker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.DoubleClickToToday">
+            <summary>
+            Gets or sets a value indicating whether today's date is set when double-clicking on the text field of date picker.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">

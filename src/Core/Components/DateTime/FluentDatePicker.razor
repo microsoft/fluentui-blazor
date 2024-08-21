@@ -11,6 +11,7 @@
                  Appearance="@Appearance"
                  @bind-Value="@CurrentValueAsString"
                  @onclick="@OnCalendarOpenHandlerAsync"
+                 @ondblclick="@OnDoubleClickHandlerAsync"
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
@@ -22,8 +23,8 @@
 
 @if (Opened)
 {
-    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
     <FluentAnchoredRegion Anchor="@Id"
+                          Id="@CalendarId"
                           HorizontalDefaultPosition="@(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right)"
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Unset"
