@@ -280,6 +280,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DataGridRowFocusEventArgs))]
     public FluentDataGrid()
     {
+        Id = Identifier.NewId();
         _columns = [];
         _internalGridContext = new(this);
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));

@@ -1,11 +1,26 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? Module { get; set; }
+
     /// <summary>
     /// When true, spin buttons will not be rendered.
     /// </summary>
@@ -37,7 +52,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     public int Size { get; set; } = 20;
 
     /// <summary>
-    /// Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long. 
+    /// Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long.
     /// </summary>
     [Parameter]
     public string Step { get; set; } = _stepAttributeValue;
@@ -59,6 +74,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
+
+    /// <summary>
+    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+    /// An Id value must be set to use this property.
+    /// </summary>
+    [Parameter]
+    public string? AutoComplete { get; set; }
 
     /// <summary>
     /// Gets or sets the error message to show when the field can not be parsed.
@@ -135,5 +157,20 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
     {
         InputHelpers<TValue>.ValidateInputParameters(Max, Min);
         base.OnParametersSet();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            if (AutoComplete != null && !string.IsNullOrEmpty(Id))
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+                await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
+            }
+
+        }
     }
 }
