@@ -7011,6 +7011,15 @@
             Navigation manager
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.HideStep">
             <summary>
             When true, spin buttons will not be rendered.
@@ -7038,7 +7047,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.Step">
             <summary>
-            Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long. 
+            Gets or sets the amount to increase/decrease the number with. Only use whole number when TValue is int or long.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.Max">
@@ -7054,6 +7063,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.Appearance">
             <summary>
             Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Appearance" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.AutoComplete">
+            <summary>
+            Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+            An Id value must be set to use this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.ParsingErrorMessage">

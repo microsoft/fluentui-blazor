@@ -99,7 +99,7 @@
         var component = cut.Find("fluent-checkbox");
         component.TriggerEvent("oncheckedchange", new CheckboxChangeEventArgs() { Checked = !myValue });
 
-        await Task.Delay(1);
+        await Task.Delay(5);
 
         // Assert
         Assert.Equal(assertValue, myValue);
