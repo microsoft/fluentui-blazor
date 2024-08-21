@@ -1,4 +1,4 @@
-var initialColumnsWidths = '';
+let initialColumnsWidths = {};
 var latestGridElement = null;
 
 export function init(gridElement) {
@@ -7,7 +7,7 @@ export function init(gridElement) {
     };
 
     if (gridElement.querySelectorAll('.column-header.resizable').length > 0) {
-        initialColumnsWidths = gridElement.gridTemplateColumns;
+        initialColumnsWidths[gridElement.id] = gridElement.gridTemplateColumns ;
         enableColumnResizing(gridElement);
     }
 
@@ -63,6 +63,7 @@ export function init(gridElement) {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
             document.body.removeEventListener('keydown', keyDownHandler);
+            delete initialColumnsWidths[gridElement.id];
         }
     };
 }
@@ -158,8 +159,8 @@ export function enableColumnResizing(gridElement) {
 }
 
 export function resetColumnWidths(gridElement) {
-    
-    gridElement.gridTemplateColumns = initialColumnsWidths;
+
+    gridElement.gridTemplateColumns = initialColumnsWidths[gridElement.id];
 }
 
 export function resizeColumnDiscrete(gridElement, column, change) {
@@ -231,7 +232,7 @@ export function autoFitGridColumns(gridElement, columnCount) {
     gridElement.setAttribute("grid-template-columns", gridTemplateColumns);
     gridElement.classList.remove("auto-fit");
 
-    initialColumnsWidths = gridTemplateColumns;
+    initialColumnsWidths[gridElement.id] = gridTemplateColumns;
 }
 
 export function resizeColumnExact(gridElement, column, width) {
