@@ -31,6 +31,11 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     public bool PreventDismissOnOverlayClick { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets if a dialog is visible or not (Hidden)
+    /// </summary>
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
     /// </summary>to use
     public bool PreventScroll { get; set; } = true;
@@ -87,7 +92,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// <summary>
     /// Gets or sets the height of the dialog. Must be a valid CSS height value like "600px" or "3em"
     /// Only used if Alignment is set to "HorizontalAlignment.Center"
-    /// </summary>  
+    /// </summary>
     public string? Height { get; set; }
 
     /// <summary>
@@ -121,7 +126,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     internal bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);
 
     /// <summary>
-    /// Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
+    /// Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value.
     /// </summary>
     internal bool ShowSecondaryAction => !string.IsNullOrEmpty(SecondaryAction);
 
