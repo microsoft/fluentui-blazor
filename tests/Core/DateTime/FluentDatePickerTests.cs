@@ -225,4 +225,38 @@ public class FluentDatePickerTests : TestBase
         // Assert
         Assert.Equal(System.DateTime.Parse("2022-03-12"), picker.Instance.Value);
     }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentDatePicker_DoubleClickToSetTodayInTextField(bool doubleClickToToday)
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.DoubleClickToToday, doubleClickToToday);
+        });
+
+        var textField = picker.Find("fluent-text-field");
+
+        // Double-Click
+        textField.DoubleClick();
+
+        // Assert
+        Assert.False(picker.Instance.Opened);
+
+        if (doubleClickToToday)
+        {
+            Assert.Equal(System.DateTime.Today, picker.Instance.Value);
+        }
+        else
+        {
+            Assert.Null(picker.Instance.Value);
+        }
+    }
 }

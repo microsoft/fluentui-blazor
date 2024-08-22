@@ -1,19 +1,26 @@
-﻿<div style="display: flex; flex-direction:row;  ">
-    <div style="margin-right: 10px;">
+﻿<p>
+    <FluentCheckbox Label="Double-click the text field to set Today's date" @bind-value="@DoubleClickToToday" />
+</p>
+<div style="display: flex; flex-direction:row; gap:10px; ">
+    <div>
         <FluentDatePicker Label="Meeting date" @bind-Value="@SelectedValue" ReadOnly />
     </div>
-    <div style="margin-right: 10px;">
-        <FluentDatePicker Label="Days view" AriaLabel="To" @bind-Value="@SelectedValue" />
-    </div>
-    <div style="margin-right: 10px;">
-        <FluentDatePicker Label="Months view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" />
+    <div>
+        <FluentDatePicker Label="Days view" AriaLabel="To" @bind-Value="@SelectedValue" DoubleClickToToday="@DoubleClickToToday" />
     </div>
     <div>
-        <FluentDatePicker Label="Years view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" />
+        <FluentDatePicker Label="Months view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" DoubleClickToToday="@DoubleClickToToday" />
+    </div>
+    <div>
+        <FluentDatePicker Label="Years view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" DoubleClickToToday="@DoubleClickToToday" />
     </div>
 </div>
-<p>Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))</p>
+<p>
+    Selected Date: @(SelectedValue?.ToString("yyyy-MM-dd"))
+</p>
+
 @code
 {
     private DateTime? SelectedValue = DateTime.Today.AddDays(-2);
+    private bool DoubleClickToToday;
 }
