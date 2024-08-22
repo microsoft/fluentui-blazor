@@ -3333,6 +3333,11 @@
             outside the dialog. Defaults to false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Visible">
+            <summary>
+            Gets or sets if a dialog is visible or nt (Hidden)
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.PreventScroll">
             <summary>
             Prevents scrolling outside of the dialog while it is shown.
