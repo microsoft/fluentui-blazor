@@ -25,6 +25,7 @@ public interface IDialogParameters
     DialogType DialogType { get; set; }
     bool PreventScroll { get; set; }
     bool PreventDismissOnOverlayClick { get; set; }
+    bool Visible { get; set; }
     EventCallback<DialogResult> OnDialogResult { get; set; }
     EventCallback<DialogInstance> OnDialogClosing { get; set; }
     EventCallback<DialogInstance> OnDialogOpened { get; set; }
