@@ -6,13 +6,13 @@
         <FluentDatePicker Label="Meeting date" @bind-Value="@SelectedValue" ReadOnly />
     </div>
     <div>
-        <FluentDatePicker Label="Days view" AriaLabel="To" @bind-Value="@SelectedValue" DoubleClickToToday="@DoubleClickToToday" />
+        <FluentDatePicker Label="Days view" AriaLabel="To" @bind-Value="@SelectedValue" DoubleClickToDate="@DoubleClickToDate" />
     </div>
     <div>
-        <FluentDatePicker Label="Months view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" DoubleClickToToday="@DoubleClickToToday" />
+        <FluentDatePicker Label="Months view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Months" DoubleClickToDate="@DoubleClickToDate" />
     </div>
     <div>
-        <FluentDatePicker Label="Years view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" DoubleClickToToday="@DoubleClickToToday" />
+        <FluentDatePicker Label="Years view" AriaLabel="To" @bind-Value="@SelectedValue" View="CalendarViews.Years" DoubleClickToDate="@DoubleClickToDate" />
     </div>
 </div>
 <p>
@@ -22,5 +22,11 @@
 @code
 {
     private DateTime? SelectedValue = DateTime.Today.AddDays(-2);
-    private bool DoubleClickToToday;
+    private DateTime? DoubleClickToDate = null;
+
+    private bool DoubleClickToToday
+    {
+        get => DoubleClickToDate.HasValue;
+        set => DoubleClickToDate = value ? DateTime.Today : null;
+    }
 }

@@ -57,10 +57,10 @@ public partial class FluentDatePicker : FluentCalendarBase
     public EventCallback<MouseEventArgs> OnDoubleClick { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether today's date is set when double-clicking on the text field of date picker.
+    /// Gets or sets a value which will be set when double-clicking on the text field of date picker.
     /// </summary>
     [Parameter]
-    public bool DoubleClickToToday { get; set; }
+    public DateTime? DoubleClickToDate { get; set; }
 
     public bool Opened { get; set; } = false;
 
@@ -107,9 +107,9 @@ public partial class FluentDatePicker : FluentCalendarBase
     {
         if (!ReadOnly)
         {
-            if (DoubleClickToToday)
+            if (DoubleClickToDate.HasValue)
             {
-                await OnSelectedDateAsync(DateTime.Today);
+                await OnSelectedDateAsync(DoubleClickToDate.Value);
             }
 
             if (OnDoubleClick.HasDelegate)
