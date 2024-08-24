@@ -137,8 +137,14 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             return;
         }
 
-        var row = GetRow(rowId, r => r.RowType == DataGridRowType.Default);
-        if (row != null)
+        var row = GetRow(rowId);
+
+        if (row != null && Owner.Grid.OnRowClick.HasDelegate)
+        {
+            await Owner.Grid.OnRowClick.InvokeAsync(row);
+        }
+
+        if (row != null && row.RowType == DataGridRowType.Default)
         {
             foreach (var column in Owner.Grid._columns)
             {
