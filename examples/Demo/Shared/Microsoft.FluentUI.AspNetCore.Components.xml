@@ -5983,7 +5983,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalInset">
             <summary>
-            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+            Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
             Default is false which places the region adjacent to the anchor element.
             </summary>
         </member>
@@ -6022,6 +6022,17 @@
             <summary>
             Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalViewportLock">
+            <summary>
+            Gets or sets the Horizontal viewport lock.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.HorizontalScaling">
+            <summary>
+            Gets or sets the horizontal scaling mode.
+            </summary>
+            [Parameter]
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />
