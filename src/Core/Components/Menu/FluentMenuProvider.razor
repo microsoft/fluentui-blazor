@@ -7,26 +7,28 @@
         @foreach (var item in Menus)
         {
             <FluentMenu UseMenuService="false"
+                        Id="@item.Id"
                         Anchor="@item.Anchor"
                         Anchored="@item.Anchored"
                         Class="@Class"
                         Style="@Style"
-                        Id="@item.Id"
+                        Width="@item.Width"
                         Open="@item.Open"
                         OpenChanged="@item.OpenChanged"
-                        VerticalThreshold="@item.VerticalThreshold"
-                        HorizontalThreshold="@item.HorizontalThreshold"
-                        AdditionalAttributes="@item.AdditionalAttributes"
                         Data="@item.Data"
-                        HorizontalInset="@item.HorizontalInset"
-                        HorizontalPosition="@item.HorizontalPosition"
                         ParentReference="@item.ParentReference"
                         Trigger="@item.Trigger"
+                        HorizontalInset="@item.HorizontalInset"
+                        HorizontalPosition="@item.HorizontalPosition"
+                        HorizontalScaling="@item.HorizontalScaling"
+                        HorizontalThreshold="@item.HorizontalThreshold"
+                        HorizontalViewportLock="@item.HorizontalViewportLock"
                         VerticalInset="@item.VerticalInset"
                         VerticalPosition="@item.VerticalPosition"
-                        Width="@item.Width">
+                        VerticalThreshold="@item.VerticalThreshold"
+                        AdditionalAttributes="@item.AdditionalAttributes">
                 @item.ChildContent
-            </FluentMenu>           
+            </FluentMenu>
         }
     }
 </div>
