@@ -9,6 +9,10 @@ export function overlayInitialize(dotNetHelper, id) {
         document.fluentOverlayData = {};
     }
 
+    if (document.fluentOverlayData[id]) {
+        return;
+    }
+
     document.fluentOverlayData[id] = {
 
         // Click event handler
