@@ -7241,6 +7241,15 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay._jsModule">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.ClassValue">
             <summary />
         </member>
@@ -7254,7 +7263,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.VisibleChanged">
             <summary>
-            Callback for when overlay visisbility changes.
+            Callback for when overlay visibility changes.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.OnClose">
@@ -7289,12 +7298,32 @@
             Gets or sets a value indicating whether the overlay is shown full screen or bound to the containing element.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.FullScreenInteractiveExceptElementId">
+            <summary>
+            Gets or sets a value indicating whether the overlay is shown full screen and the screen is interactive except for the element with the specified id.
+            Setting this property to a value will automatically set <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.FullScreen"/> to true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.IsInteractive">
+            <summary>
+            Gets a value indicating whether the overlay is interactive.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Dismissable">
+            <summary>
+            Gets of sets a value indicating if the overlay can be dismissed by clicking on it.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.BackgroundColor">
             <summary>
             Gets or sets the background color. 
             Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).
             Default is '#ffffff'.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.OnAfterRenderAsync(System.Boolean)">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.CheckRGBString">
             <remarks>

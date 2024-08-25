@@ -2,15 +2,31 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverlay
+public partial class FluentOverlay : IAsyncDisposable
 {
     private string? _color = null;
     private int _r, _g, _b;
+
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overlay/FluentOverlay.razor.js";
+    private DotNetObjectReference<FluentOverlay>? _dotNetHelper = null;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary />
     protected string? ClassValue => new CssBuilder("fluent-overlay")
@@ -24,6 +40,7 @@ public partial class FluentOverlay
         .AddStyle("cursor", "default", () => !Transparent)
         .AddStyle("position", "fixed", () => FullScreen)
         .AddStyle("position", "absolute", () => !FullScreen)
+        .AddStyle("pointer-events", "none", () => !string.IsNullOrEmpty(FullScreenInteractiveExceptElementId))
         .AddStyle("z-index", $"{ZIndex.Overlay}")
         .Build();
 
@@ -34,7 +51,7 @@ public partial class FluentOverlay
     public bool Visible { get; set; } = false;
 
     /// <summary>
-    /// Callback for when overlay visisbility changes.
+    /// Callback for when overlay visibility changes.
     /// </summary>
     [Parameter]
     public EventCallback<bool> VisibleChanged { get; set; }
@@ -77,6 +94,22 @@ public partial class FluentOverlay
     [Parameter]
     public bool FullScreen { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the overlay is shown full screen and the screen is interactive except for the element with the specified id.
+    /// Setting this property to a value will automatically set <see cref="FullScreen"/> to true.
+    /// </summary>
+    [Parameter]
+    public string? FullScreenInteractiveExceptElementId { get; set; } = null;
+
+    /// <summary>
+    /// Gets a value indicating whether the overlay is interactive.
+    /// </summary>
+    private bool IsInteractive => FullScreen && !string.IsNullOrEmpty(FullScreenInteractiveExceptElementId);
+
+    /// <summary>
+    /// Gets of sets a value indicating if the overlay can be dismissed by clicking on it.
+    /// Default is true.
+    /// </summary>
     [Parameter]
     public bool Dismissable { get; set; } = true;
 
@@ -94,8 +127,29 @@ public partial class FluentOverlay
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override void OnParametersSet()
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender && IsInteractive)
+        {
+            _dotNetHelper = DotNetObjectReference.Create(this);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrEmpty(FullScreenInteractiveExceptElementId))
+        {
+            FullScreen = true;
+        }
+
+        // Add a document.addEventListener when Visible is true
+        if (Visible && IsInteractive && _jsModule != null)
+        {
+            await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, FullScreenInteractiveExceptElementId);
+        }
+
         if (!Transparent && Opacity == 0)
         {
             Opacity = 0.4;
@@ -135,13 +189,14 @@ public partial class FluentOverlay
         }
     }
 
-    protected async Task OnCloseHandlerAsync(MouseEventArgs e)
+    [JSInvokable]
+    public async Task OnCloseHandlerAsync(MouseEventArgs e)
     {
-        if (!Dismissable)
+        if (!Dismissable || !Visible)
         {
             return;
         }
-
+        
         Visible = false;
 
         if (VisibleChanged.HasDelegate)
@@ -154,7 +209,20 @@ public partial class FluentOverlay
             await OnClose.InvokeAsync(e);
         }
 
-        return;
+        // Remove the document.removeEventListener
+        if (_jsModule != null && IsInteractive)
+        {
+            await _jsModule.InvokeVoidAsync("overlayDispose", FullScreenInteractiveExceptElementId);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_jsModule != null && IsInteractive)
+        {
+            await _jsModule.InvokeVoidAsync("overlayDispose", FullScreenInteractiveExceptElementId);
+            await _jsModule.DisposeAsync();
+        }
     }
 
 #if NET7_0_OR_GREATER

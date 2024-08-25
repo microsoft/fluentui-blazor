@@ -1,17 +1,30 @@
 ﻿
 <FluentButton Appearance="Appearance.Accent" @onclick="() => visible = !visible">Show Overlay</FluentButton>
+<FluentSwitch @bind-Value="@stayInteractive">Stay interactive</FluentSwitch>
 
 <FluentOverlay @bind-Visible=@visible
-               Opacity="0.4" 
+               Opacity="0.4"
                BackgroundColor="#e8f48c"
                FullScreen="true"
+               FullScreenInteractiveExceptElementId="@(stayInteractive ? "my-zone" : null)"
                OnClose="HandleOnClose"
                PreventScroll=true>
-    <FluentProgressRing />
+    @if (stayInteractive)
+    {
+        <div id="my-zone" style="background-color: white; width: 200px; height: 100px;">
+            <p>Non-interactive zone</p>
+            <FluentProgressRing />
+        </div>
+    }
+    else
+    {
+        <FluentProgressRing />
+    }
 </FluentOverlay>
 
 @code {
     bool visible = false;
+    bool stayInteractive = false;
 
     protected void HandleOnClose()
     {
