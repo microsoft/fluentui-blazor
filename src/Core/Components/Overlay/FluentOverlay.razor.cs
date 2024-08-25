@@ -127,16 +127,6 @@ public partial class FluentOverlay : IAsyncDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && IsInteractive)
-        {
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-        }
-    }
-
     protected override async Task OnParametersSetAsync()
     {
         if (!string.IsNullOrEmpty(FullScreenInteractiveExceptElementId))
@@ -145,9 +135,9 @@ public partial class FluentOverlay : IAsyncDisposable
         }
 
         // Add a document.addEventListener when Visible is true
-        if (Visible && IsInteractive && _jsModule != null)
+        if (Visible && IsInteractive)
         {
-            await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, FullScreenInteractiveExceptElementId);
+            await InvokeOverlayInitializeAsync();
         }
 
         if (!Transparent && Opacity == 0)
@@ -216,6 +206,10 @@ public partial class FluentOverlay : IAsyncDisposable
         }
     }
 
+    /// <summary>
+    /// Disposes the overlay.
+    /// </summary>
+    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         if (_jsModule != null && IsInteractive)
@@ -223,6 +217,15 @@ public partial class FluentOverlay : IAsyncDisposable
             await _jsModule.InvokeVoidAsync("overlayDispose", FullScreenInteractiveExceptElementId);
             await _jsModule.DisposeAsync();
         }
+    }
+
+    /// <summary />
+    private async Task InvokeOverlayInitializeAsync()
+    {
+        _dotNetHelper ??= DotNetObjectReference.Create(this);
+        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+
+        await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, FullScreenInteractiveExceptElementId);
     }
 
 #if NET7_0_OR_GREATER

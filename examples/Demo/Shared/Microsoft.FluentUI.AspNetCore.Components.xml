@@ -7322,7 +7322,13 @@
             Default is '#ffffff'.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.OnAfterRenderAsync(System.Boolean)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.DisposeAsync">
+            <summary>
+            Disposes the overlay.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InvokeOverlayInitializeAsync">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.CheckRGBString">

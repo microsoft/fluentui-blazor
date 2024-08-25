@@ -1,5 +1,3 @@
-let clickHandler;
-
 /**
  * Initialize the global click event handler
  * @param {any} dotNetHelper
@@ -15,8 +13,10 @@ export function overlayInitialize(dotNetHelper, id) {
 
         // Click event handler
         clickHandler: async function (event) {
-            var excludeElement = document.getElementById(id);
-            if (excludeElement && !excludeElement.contains(event.target)) {
+            const excludeElement = document.getElementById(id);
+            const isExcludeElement = excludeElement && excludeElement.contains(event.target);
+
+            if (!isExcludeElement) {
                 dotNetHelper.invokeMethodAsync('OnCloseHandlerAsync', event);
             }
         }
