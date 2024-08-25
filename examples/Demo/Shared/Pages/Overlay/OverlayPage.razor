@@ -10,7 +10,7 @@
 
 <h2 id="example">Examples</h2>
 
-<DemoSection Title="Default" Component="typeof(OverlayDefault)" >
+<DemoSection Title="Default" Component="typeof(OverlayDefault)">
     <Description>Overlay with a default white background</Description>
 </DemoSection>
 
@@ -27,7 +27,14 @@
 </DemoSection>
 
 <DemoSection Title="Full screen" Component="typeof(OverlayFullScreen)">
-    <Description>Overlay which takes up the whole screen</Description>
+    <Description>
+        Overlay which takes up the whole screen.<br /><br />
+        <b>Stay interactive</b>: By using the <code>FullScreenInteractiveExceptElementId</code> property, only the targeted element will not close the <b>FluentOverlay</b> panel.
+        The user can click anywhere else to close the <b>FluentOverlay</b>.<br />
+        When this property is set, the <code>FullScreen</code> is automatically set to <b>True</b>. <br /><br />
+        In this example, when the <b>Stay interactive</b> switch is checked, the <b>FluentOverlay</b> will only close when the user clicks outside the white zone and the user can increment the counter before to close the Overlay.<br />
+        When the switch is unchecked, the <b>FluentOverlay</b> will close when the user clicks anywhere on the screen.
+    </Description>
 </DemoSection>
 
 <h2 id="documentation">Documentation</h2>

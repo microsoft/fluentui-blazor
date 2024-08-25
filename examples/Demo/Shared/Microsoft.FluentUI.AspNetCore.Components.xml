@@ -2673,6 +2673,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.ClassValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupId">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Appearance">
             <summary>
             Gets or sets the design of this input.
