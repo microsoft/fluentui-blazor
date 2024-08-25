@@ -112,7 +112,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
     /// Default is false which places the region adjacent to the anchor element.
     /// </summary>
     [Parameter]
@@ -160,6 +160,18 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public int HorizontalThreshold { get; set; } = 200;
+
+    /// <summary>
+    /// Gets or sets the Horizontal viewport lock.
+    /// </summary>
+    [Parameter]
+    public bool HorizontalViewportLock { get; set; }
+
+    /// <summary>
+    /// Gets or sets the horizontal scaling mode.
+    /// </summary>
+    /// [Parameter]
+    public AxisScalingMode? HorizontalScaling { get; set; }
 
     protected override void OnInitialized()
     {
