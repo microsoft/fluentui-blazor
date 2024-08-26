@@ -1794,6 +1794,36 @@
             Exact: resize to the exact width specified (in pixels)
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeLabel">
+            <summary>
+            Label used for the text field in the resize options dialog.
+            Defaults to "Column width (in pixels)".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeGrowAriaLabel">
+            <summary>
+            Aria label for the resize grow button in the resize options dialog.
+            Defaults to "Grow column width".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeShrinkAriaLabel">
+            <summary>
+            Aria label for the resize shrink button in the resize options dialog.
+            Defaults to "Shrink column width".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeResetAriaLabel">
+            <summary>
+            Aria label for the resize reset button in the resize options dialog.
+            Defaults to "Reset column width".
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeSubmitAriaLabel">
+            <summary>
+            Aria label for the resize submit button in the resize options dialog.
+            Defaults to "Set column width".
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a

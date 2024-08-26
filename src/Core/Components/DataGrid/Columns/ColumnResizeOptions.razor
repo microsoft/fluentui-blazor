@@ -7,9 +7,9 @@
         <FluentLabel>@Label</FluentLabel>
 
         <FluentSpacer />
-        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" />
-        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" />
-        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" />
+        <FluentButton OnClick="@HandleShrinkAsync" IconStart="@(new CoreIcons.Regular.Size20.Subtract())" aria-label="@Grid.ResizeShrinkAriaLabel" />
+        <FluentButton OnClick="@HandleGrowAsync" IconStart="@(new CoreIcons.Regular.Size20.Add())" aria-label="@Grid.ResizeGrowAriaLabel" />
+        <FluentButton OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@Grid.ResizeResetAriaLabel" />
     }
     else
     {
@@ -26,10 +26,10 @@
                                  AutoComplete="off"
                                  @onkeydown="@HandleColumnWidthKeyDownAsync" />
             </div>
-            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@Appearance.Accent">
+            <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@Appearance.Accent" aria-label="@Grid.ResizeSubmitAriaLabel">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.Checkmark())" Color="@Color.Fill" />
             </FluentButton>
-            <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" />
+                <FluentButton Style="height: 30px;" OnClick="@HandleResetAsync" IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())" aria-label="@Grid.ResizeResetAriaLabel" />
         </FluentStack>
     }
 </FluentStack>

@@ -100,8 +100,40 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; }
 
+    /// <summary>
+    /// Label used for the text field in the resize options dialog.
+    /// Defaults to "Column width (in pixels)".
+    /// </summary>
     [Parameter]
     public string ResizeLabel { get; set; } = "Column width (in pixels)";
+
+    /// <summary>
+    /// Aria label for the resize grow button in the resize options dialog.
+    /// Defaults to "Grow column width".
+    /// </summary>
+    [Parameter]
+    public string ResizeGrowAriaLabel { get; set; } = "Grow column width";
+
+    /// <summary>
+    /// Aria label for the resize shrink button in the resize options dialog.
+    /// Defaults to "Shrink column width".
+    /// </summary>
+    [Parameter]
+    public string ResizeShrinkAriaLabel { get; set; } = "Shrink column width";
+
+    /// <summary>
+    /// Aria label for the resize reset button in the resize options dialog.
+    /// Defaults to "Reset column width".
+    /// </summary>
+    [Parameter]
+    public string ResizeResetAriaLabel { get; set; } = "Reset column widths";
+
+    /// <summary>
+    /// Aria label for the resize submit button in the resize options dialog.
+    /// Defaults to "Set column width".
+    /// </summary>
+    [Parameter]
+    public string ResizeSubmitAriaLabel { get; set; } = "Set column widths";
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
