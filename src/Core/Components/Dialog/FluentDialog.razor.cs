@@ -165,7 +165,10 @@ public partial class FluentDialog : FluentComponentBase
     public void Show()
     {
         Hidden = false;
-        Instance.Parameters.Visible = true;
+        if (Instance is not null)
+        {
+            Instance.Parameters.Visible = true;
+        }
         RefreshHeaderFooter();
     }
 
@@ -175,8 +178,10 @@ public partial class FluentDialog : FluentComponentBase
     public void Hide()
     {
         Hidden = true;
-        Instance.Parameters.Visible = false;
-        //RefreshHeaderFooter();
+        if (Instance is not null)
+        {
+            Instance.Parameters.Visible = false;
+        }
     }
 
     /// <summary>
