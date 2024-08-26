@@ -16,6 +16,10 @@ export function init(gridElement) {
         if (columnOptionsElement && event.composedPath().indexOf(columnOptionsElement) < 0) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
         }
+        const columnResizeElement = gridElement?.querySelector('.col-resize');
+        if (columnResizeElement && event.composedPath().indexOf(columnResizeElement) < 0) {
+            gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+        }
     };
     const keyDownHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
@@ -25,6 +29,21 @@ export function init(gridElement) {
                 gridElement.focus();
             }
             columnOptionsElement.addEventListener(
+                "keydown",
+                (event) => {
+                    if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+                        event.stopPropagation();
+                    }
+                }
+            );
+        }
+        const columnResizeElement = gridElement?.querySelector('.col-resize');
+        if (columnResizeElement) {
+            if (event.key === "Escape") {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+                gridElement.focus();
+            }
+            columnResizeElement.addEventListener(
                 "keydown",
                 (event) => {
                     if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -92,6 +111,53 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
+export function checkColumnResizePosition(gridElement) {
+    const colOptions = gridElement?._rowElements[0] && gridElement?.querySelector('.col-resize'); // Only match within *our* thead, not nested tables
+    if (colResize) {
+        // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
+        // beyond either side is off-screen or outside the scroll range of an ancestor
+        const gridRect = gridElement.getBoundingClientRect();
+        const resizeRect = colResize.getBoundingClientRect();
+        const leftOverhang = Math.max(0, gridRect.left - resizeRect.left);
+        const rightOverhang = Math.max(0, resizeRect.right - gridRect.right);
+        if (leftOverhang || rightOverhang) {
+            // In the unlikely event that it overhangs both sides, we'll center it
+            const applyOffset = leftOverhang && rightOverhang ? (leftOverhang - rightOverhang) / 2 : (leftOverhang - rightOverhang);
+            colResize.style.transform = `translateX(${applyOffset}px)`;
+        }
+
+        colResize.scrollIntoViewIfNeeded();
+
+        const autoFocusElem = colResize.querySelector('[autofocus]');
+        if (autoFocusElem) {
+            autoFocusElem.focus();
+        }
+    }
+}
+
+export function checkColumnPopupPosition(gridElement, selector) {
+    const colPopup = gridElement?._rowElements[0] && gridElement?.querySelector(selector); // Only match within *our* thead, not nested tables
+    if (colPopup) {
+        // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
+        // beyond either side is off-screen or outside the scroll range of an ancestor
+        const gridRect = gridElement.getBoundingClientRect();
+        const popupRect = colPopup.getBoundingClientRect();
+        const leftOverhang = Math.max(0, gridRect.left - popupRect.left);
+        const rightOverhang = Math.max(0, popupRect.right - gridRect.right);
+        if (leftOverhang || rightOverhang) {
+            // In the unlikely event that it overhangs both sides, we'll center it
+            const applyOffset = leftOverhang && rightOverhang ? (leftOverhang - rightOverhang) / 2 : (leftOverhang - rightOverhang);
+            colPopup.style.transform = `translateX(${applyOffset}px)`;
+        }
+
+        colPopup.scrollIntoViewIfNeeded();
+
+        const autoFocusElem = colPopup.querySelector('[autofocus]');
+        if (autoFocusElem) {
+            autoFocusElem.focus();
+        }
+    }
+}
 export function enableColumnResizing(gridElement) {
     if (gridElement === latestGridElement)
         return;
@@ -276,5 +342,6 @@ export function resizeColumnExact(gridElement, column, width) {
         .join(' ');
 
     gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+    gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
     gridElement.focus();
 }

@@ -128,6 +128,11 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
+    protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
+
+    private bool _isMenuOpen;
+    private readonly string _columnId = $"column-header{Identifier.NewId()}";
+
     /// <summary>
     /// Event callback for when the row is clicked.
     /// </summary>
@@ -217,5 +222,38 @@ public abstract partial class ColumnBase<TGridItem>
     public ColumnBase()
     {
         HeaderContent = RenderDefaultHeaderContent;
+    }
+
+    private async Task HandleColumnHeaderClickedAsync()
+    {
+        if ((Sortable is true || IsDefaultSortColumn) && (Grid.ResizableColumns || ColumnOptions is not null))
+        {
+            _isMenuOpen = !_isMenuOpen;
+        }
+        else if ((Sortable is true || IsDefaultSortColumn) && !Grid.ResizableColumns && ColumnOptions is null)
+        {
+            await Grid.SortByColumnAsync(this);
+        }
+        else if (Sortable is not true && !IsDefaultSortColumn && ColumnOptions is null && Grid.ResizableColumns)
+        {
+            await Grid.ShowColumnResizeAsync(this);
+        }
+    }
+
+    private string GetSortOptionText()
+    {
+        if (Grid.SortByAscending.HasValue && ShowSortIcon)
+        {
+            if (Grid.SortByAscending is true)
+            {
+                return Grid.SortMenuAscendingLabel;
+            }
+            else
+            {
+                return Grid.SortMenuDescendingLabel;
+            }
+        }
+
+        return Grid.SortMenuLabel;
     }
 }

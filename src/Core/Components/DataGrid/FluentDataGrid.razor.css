@@ -16,7 +16,7 @@ fluent-data-grid {
     font-weight: 600;
 }
 
-.col-options {
+.col-options, .col-resize {
     position: absolute;
     min-width: 250px;
     top: 2.2rem;

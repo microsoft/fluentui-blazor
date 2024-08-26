@@ -1786,12 +1786,47 @@
             manually. Size changes are not persisted.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeMenuLabel">
+            <summary>
+            Gets or sets the resize menu item text
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortMenuLabel">
+            <summary>
+            Gets or sets the sort menu item text
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortMenuAscendingLabel">
+            <summary>
+            Gets or sets the sort menu for ascending order item text
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortMenuDescendingLabel">
+            <summary>
+            Gets or sets the sort menu for descending order item text
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OptionsMenuLabel">
+            <summary>
+            Gets or sets the filter menu item text
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeType">
             <summary>
             To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
             ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
             Discrete: resize by a 10 pixels at a time
             Exact: resize to the exact width specified (in pixels)
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeLabel">
+            <summary>
+             Gets or sets the placeholder text for the column width input
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.HeaderCellAsButtonWithMenu">
+            <summary>
+             If true, enables the new style of header cell that includes a button to display all column options through a menu.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
@@ -1947,6 +1982,13 @@
             options UI that was previously displayed.
             </summary>
             <param name="column">The column whose options are to be displayed, if any are available.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnResizeAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
+            <summary>
+            Displays the column resize UI for the specified column, closing any other column
+            resize UI that was previously displayed.
+            </summary>
+            <param name="column">The column whose resize UI is to be displayed.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync">
             <summary>

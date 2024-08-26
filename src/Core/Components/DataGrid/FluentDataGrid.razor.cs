@@ -92,6 +92,36 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool ResizableColumns { get; set; }
 
     /// <summary>
+    /// Gets or sets the resize menu item text
+    /// </summary>
+    [Parameter]
+    public string ResizeMenuLabel { get; set; } = "Resize";
+
+    /// <summary>
+    /// Gets or sets the sort menu item text
+    /// </summary>
+    [Parameter]
+    public string SortMenuLabel { get; set; } = "Sort";
+
+    /// <summary>
+    /// Gets or sets the sort menu for ascending order item text
+    /// </summary>
+    [Parameter]
+    public string SortMenuAscendingLabel { get; set; } = "Sort (ascending)";
+
+    /// <summary>
+    /// Gets or sets the sort menu for descending order item text
+    /// </summary>
+    [Parameter]
+    public string SortMenuDescendingLabel { get; set; } = "Sort (descending)";
+
+    /// <summary>
+    /// Gets or sets the filter menu item text
+    /// </summary>
+    [Parameter]
+    public string OptionsMenuLabel { get; set; } = "Filter";
+
+    /// <summary>
     /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
     /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
@@ -100,8 +130,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; }
 
+    /// <summary>
+    ///  Gets or sets the placeholder text for the column width input
+    /// </summary>
     [Parameter]
     public string ResizeLabel { get; set; } = "Column width (in pixels)";
+
+    /// <summary>
+    ///  If true, enables the new style of header cell that includes a button to display all column options through a menu.
+    /// </summary>
+    [Parameter]
+    public bool HeaderCellAsButtonWithMenu { get; set; }
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -242,9 +281,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Tracking state for options and sorting
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
+    private ColumnBase<TGridItem>? _displayResizeForColumn;
     private ColumnBase<TGridItem>? _sortByColumn;
     private bool _sortByAscending;
     private bool _checkColumnOptionsPosition;
+    private bool _checkColumnResizePosition;
     private bool _manualGrid;
 
     // The associated ES6 module, which uses document-level event listeners
@@ -367,7 +408,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
-            _ = Module?.InvokeVoidAsync("checkColumnOptionsPosition", _gridReference).AsTask();
+            _ = Module?.InvokeVoidAsync("checkColumnPopupPosition", _gridReference, ".col-options").AsTask();
+        }
+
+        if (_checkColumnResizePosition && _displayResizeForColumn is not null)
+        {
+            _checkColumnResizePosition = false;
+            _ = Module?.InvokeVoidAsync("checkColumnPopupPosition", _gridReference, ".col-resize").AsTask();
         }
     }
 
@@ -484,6 +531,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _displayOptionsForColumn = column;
         _checkColumnOptionsPosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Displays the column resize UI for the specified column, closing any other column
+    /// resize UI that was previously displayed.
+    /// </summary>
+    /// <param name="column">The column whose resize UI is to be displayed.</param>
+    public Task ShowColumnResizeAsync(ColumnBase<TGridItem> column)
+    {
+        _displayResizeForColumn = column;
+        _checkColumnResizePosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -683,6 +743,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void CloseColumnOptions()
     {
         _displayOptionsForColumn = null;
+        StateHasChanged();
+    }
+
+    private void CloseColumnResize()
+    {
+        _displayResizeForColumn = null;
         StateHasChanged();
     }
 

@@ -27,6 +27,7 @@
                           aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                           @onrowfocus=HandleOnRowFocusAsync
                           @onclosecolumnoptions="CloseColumnOptions"
+                          @onclosecolumnresize="CloseColumnResize"
                           @attributes="AdditionalAttributes">
             @if (GenerateHeader != GenerateHeaderOption.None)
             {
@@ -150,21 +151,21 @@
                 @if (col == _displayOptionsForColumn)
                 {
                     <div class="col-options">
-                        <FluentStack Orientation="Orientation.Vertical">
                             @col.ColumnOptions
-                            @if (ResizeType is not null )
-                            {
-                                @if (@col.ColumnOptions is not null)
-                                {
-                                    <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
-                                }
-
-                                <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType Label="@ResizeLabel" TGridItem="TGridItem" />
-                            }
-
-                        </FluentStack>
                     </div>
                 }
+                @if (ResizableColumns && col == _displayResizeForColumn)
+                {
+                    <div class="col-resize">
+
+                        @if (ResizeType is not null)
+                        {
+                            <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType Label="@ResizeLabel" TGridItem="TGridItem" />
+                        }
+
+                    </div>
+                }
+
                 @if (ResizableColumns)
                 {
                     <FluentDivider class="col-width-draghandle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />
