@@ -6032,7 +6032,6 @@
             <summary>
             Gets or sets the horizontal scaling mode.
             </summary>
-            [Parameter]
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />
