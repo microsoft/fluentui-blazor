@@ -1,0 +1,162 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure
+
+@inherits FluentComponentBase
+
+@typeparam TItem
+
+@code
+{
+    public virtual RenderFragment Render(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @RenderOperator(condition, readOnly)
+
+        @RenderTypes(condition, readOnly)
+    };
+
+    public virtual RenderFragment RenderTypes(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        if (TypeHelper.IsEnum(Type))
+        {
+            @RenderEnum(condition, readOnly)
+        }
+        else if (TypeHelper.IsNumber(Type))
+        {
+            @RenderNumber(condition, readOnly)
+        }
+        else if (TypeHelper.IsDate(Type))
+        {
+            @RenderDate(condition, readOnly)
+        }
+        else if (TypeHelper.IsBool(Type))
+        {
+            @RenderBoolean(condition, readOnly)
+        }
+        else if (TypeHelper.IsString(Type))
+        {
+            @RenderString(condition, readOnly)
+        }
+    };
+
+    public virtual RenderFragment RenderOperator(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                        TOption="DataFilterComparisonOperator"
+                        Items="Operators"
+                        OptionText="@DisplayText"
+                        Height="200px"
+                        Width="@DataFilter.SelectOperatorWidth"
+                        @bind-SelectedOption="@condition.Operator"
+                        @bind-SelectedOption:after="@(async () => await AfterSetOperatorAsync(condition))"
+                        Disabled="readOnly" />
+    };
+
+    public virtual RenderFragment RenderIn(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        <DynamicComponent Type="@SelectorInEditorType" Parameters="@CreateEditorParameter(condition,readOnly)" />
+    };
+
+    public virtual RenderFragment RenderEnum(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @if (condition.Operator.IsEmpty())
+        {
+        }
+        else if (condition.Operator.IsIn())
+        {
+            @RenderIn(condition, readOnly)
+        }
+        else
+        {
+            <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                            Items="@EnumValues"
+                            OptionText="ValueDisplayTextInt"
+                            @bind-SelectedOption="condition.Value"
+                            @bind-SelectedOption:after="@DataFilter.FilterChangedAsync"
+                            Disabled="readOnly" />
+        }
+    };
+
+    public virtual RenderFragment RenderNumber(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @if (condition.Operator.IsEmpty())
+        {
+        }
+        else if (condition.Operator.IsIn())
+        {
+            @RenderIn(condition, readOnly)
+        }
+        else
+        {
+            <DynamicComponent Type="@NumericEditorType" Parameters="@CreateEditorParameter(condition,readOnly)" />
+        }
+    };
+
+    public virtual RenderFragment RenderDate(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @if (condition.Operator.IsEmpty())
+        {
+        }
+        else if (condition.Operator.IsIn())
+        {
+            @RenderIn(condition, readOnly)
+        }
+        else
+        {
+            @if (Type == typeof(DateTime) || Type == typeof(DateTime?))
+            {
+                <FluentDatePicker Value="Convert.ToDateTime(condition.Value)"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
+                                  Disabled="readOnly" />
+
+                <FluentTimePicker Value="Convert.ToDateTime(condition.Value)"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateTime()))"
+                                  Disabled="readOnly" />
+            }
+            else if (Type == typeof(DateOnly) || Type == typeof(DateOnly?))
+            {
+                <FluentDatePicker Value="@(ConvertTo<DateOnly>(condition.Value).ToDateTime())"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToDateOnly()))"
+                                  Disabled="readOnly" />
+            }
+            else if (Type == typeof(TimeOnly) || Type == typeof(TimeOnly?))
+            {
+                <FluentTimePicker Value="@(ConvertTo<TimeOnly>(condition.Value).ToDateTime())"
+                                  ValueChanged="@(async (e) => await SetValueAsync(condition, e.ToTimeOnly()))"
+                                  Disabled="readOnly" />
+            }
+        }
+    };
+
+    public virtual RenderFragment RenderBoolean(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @if (condition.Operator.IsEmpty())
+        {
+        }
+        else if (condition.Operator.IsIn())
+        {
+        }
+        else
+        {
+            <FluentCheckbox Value="Convert.ToBoolean(condition.Value)"
+                            ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
+                            Disabled="readOnly" />
+        }
+    };
+
+    public virtual RenderFragment RenderString(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @if (condition.Operator.IsEmpty())
+        {
+        }
+        else if (condition.Operator.IsIn())
+        {
+            @RenderIn(condition, readOnly)
+        }
+        else
+        {
+            <FluentTextField Value="@Convert.ToString(condition.Value)"
+                             ValueChanged="@(async (e) => await SetValueAsync(condition, e))"
+                             Disabled="readOnly" />
+        }
+    };
+}

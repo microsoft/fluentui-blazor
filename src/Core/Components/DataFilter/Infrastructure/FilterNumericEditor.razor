@@ -1,0 +1,11 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Components.DataFilter.Infrastructure
+
+@typeparam TItem
+@typeparam TProp where TProp : new()
+
+<FluentNumberField TValue="TProp"
+                   Min="@(InputHelpers<TProp>.GetMinValue())"
+                   Max="@(InputHelpers<TProp>.GetMaxValue())"
+                   Value="@Value"
+                   ValueChanged="@ValueChangedAsync"
+                   Disabled="ReadOnly" />

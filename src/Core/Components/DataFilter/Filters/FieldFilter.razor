@@ -1,0 +1,22 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+@inherits FilterBase<TItem>
+
+@typeparam TItem
+
+@code
+{
+    public override RenderFragment Render(DataFilterCriteriaCondition<TItem> condition, bool readOnly) => __builder =>
+    {
+        @RenderOperator(condition, readOnly)
+
+        @if (ValueTemplate != null)
+        {
+            @ValueTemplate(condition)
+        }
+        else
+        {
+            @RenderTypes(condition, readOnly)
+        }
+    };
+}

@@ -1,0 +1,111 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+@typeparam TItem
+
+<CascadingValue Value="this" IsFixed="true">
+    <div id="@Id" @attributes="@AdditionalAttributes" class="@ClassValue" style="@Style">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@RenderGroup(Criteria, null!, 0)
+
+@code
+{
+    public RenderFragment RenderAdd(DataFilterCriteria<TItem> group) => __builder =>
+    {
+        @if (!ReadOnly && (AllowAddGroup || AllowAddCondition))
+        {
+            <FluentMenuButton ButtonAppearance="Appearance.Stealth"
+                              Text="@TextMenuAdd"
+                              OnMenuChanged="@(async (e) => await AddAsync(group,e.Id!))">
+                @if (AllowAddCondition)
+                {
+                    <FluentMenuItem Id="Condition">@TextMenuAddCondition</FluentMenuItem>
+                }
+
+                @if (AllowAddGroup)
+                {
+                    <FluentMenuItem Id="Group">@TextMenuAddGroup</FluentMenuItem>
+                }
+            </FluentMenuButton>
+        }
+    };
+
+    public RenderFragment RenderGroup(DataFilterCriteria<TItem> group,
+                                      DataFilterCriteria<TItem> parent,
+                                      int groupIndex) => __builder =>
+    {
+        <FluentStack Orientation="Orientation.Vertical" Style="@($"{GetGroupStyle(groupIndex)}")">
+            <FluentStack Orientation="Orientation.Horizontal">
+                @if (AllowLogicalOperator)
+                {
+                    <FluentSelect TOption="DataFilterLogicalOperator"
+                                  Appearance="Appearance.Stealth"
+                                  Width="100px"
+                                  Items="@LogicalOperators"
+                                  OptionText="@DisplayText"
+                                  @bind-SelectedOption="group.Operator"
+                                  @bind-SelectedOption:after="@FilterChangedAsync"
+                                  Disabled="ReadOnly" />
+                }
+
+                @if (MenuAddPosition == DataFilterMenuAddPosition.Top)
+                {
+                    @RenderAdd(group)
+                }
+
+                @if (!ReadOnly && groupIndex > 0)
+                {
+                    <FluentButton Appearance="Appearance.Stealth"
+                                  OnClick="@(async () => await DeleteGroupAsync(group,parent))"
+                                  IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
+                }
+            </FluentStack>
+
+            @foreach (var condition in group.Conditions.Select((a, b) => new { Item = a, Index = b }))
+            {
+                <FluentStack Orientation="Orientation.Horizontal"
+                             VerticalAlignment="VerticalAlignment.Center"
+                             Style="@($"{GetConditionStyle(groupIndex,condition.Index)}")">
+
+                    <FluentCombobox Autocomplete="ComboboxAutocomplete.Both"
+                                    TOption="FilterBase<TItem>"
+                                    Items="@GetAvailableFilters(condition.Item)"
+                                    Height="200px"
+                                    OptionText="@(a => a.Title)"
+                                    SelectedOption="@GetFilter(condition.Item)"
+                                    SelectedOptionChanged="@(async (e) => await SetFilterAsync(condition.Item,e))"
+                                    Disabled="ReadOnly" />
+
+                    @if (!string.IsNullOrEmpty(condition.Item.FilterId))
+                    {
+                        @GetFilter(condition.Item)!.Render(condition.Item, ReadOnly)
+                    }
+
+                    @if (!ReadOnly)
+                    {
+                        <FluentButton Appearance="Appearance.Stealth"
+                                      OnClick="@(async () => await DeleteFilterAsync(group,condition.Item))"
+                                      IconStart="new CoreIcons.Regular.Size20.Dismiss()" />
+                    }
+                </FluentStack>
+            }
+
+            @if (MenuAddPosition == DataFilterMenuAddPosition.Bottom)
+            {
+                @RenderAdd(group)
+            }
+
+            @foreach (var item in group.Groups)
+            {
+                <FluentStack Orientation="Orientation.Horizontal">
+                    <span style="min-width: @(GroupIndentationWidth);"></span>
+
+                    @RenderGroup(item, group, groupIndex + 1)
+                </FluentStack>
+            }
+        </FluentStack>
+    };
+}
