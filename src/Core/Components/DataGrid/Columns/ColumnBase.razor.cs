@@ -12,6 +12,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public abstract partial class ColumnBase<TGridItem>
 {
+    private bool _isMenuOpen;
+    private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
+    private readonly string _columnId = $"column-header{Identifier.NewId()}";
+
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
@@ -130,9 +134,6 @@ public abstract partial class ColumnBase<TGridItem>
 
     protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
 
-    private bool _isMenuOpen;
-    private readonly string _columnId = $"column-header{Identifier.NewId()}";
-
     /// <summary>
     /// Event callback for when the row is clicked.
     /// </summary>
@@ -242,7 +243,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleSortMenuKeyDownAsync(KeyboardEventArgs args)
     {
-        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
         {
             await Grid.SortByColumnAsync(this);
             StateHasChanged();                          
@@ -252,7 +253,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleResizeMenuKeyDownAsync(KeyboardEventArgs args)
     {
-        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
         {
             await Grid.ShowColumnResizeAsync(this);
             _isMenuOpen = false;
@@ -261,7 +262,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleOptionsMenuKeyDownAsync(KeyboardEventArgs args)
     {
-        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
         {
             await Grid.ShowColumnOptionsAsync(this);
             _isMenuOpen = false;

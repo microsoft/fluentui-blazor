@@ -41,7 +41,7 @@
                             }
                         }
                     </FluentButton>
-                    <FluentMenu Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalScaling="@AxisScalingMode.Anchor">
+                    <FluentMenu Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalPosition="HorizontalPosition.End">
                         @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
                         {
                             <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync">
