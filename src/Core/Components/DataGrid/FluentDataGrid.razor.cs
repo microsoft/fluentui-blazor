@@ -104,19 +104,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// (Aria) Labels used in the column resize UI.
     /// </summary>
     [Parameter]
-    public ColumnResizeLabels ColumnResizeLabels { get; set; } = new();
+    public ColumnResizeLabels ColumnResizeLabels { get; set; } = ColumnResizeLabels.Default;
 
     /// <summary>
     /// Labels used in the column sort UI.
     /// </summary>
     [Parameter]
-    public ColumnSortLabels ColumnSortLabels { get; set; } = new();
+    public ColumnSortLabels ColumnSortLabels { get; set; } = ColumnSortLabels.Default;
 
     /// <summary>
     /// Labels used in the column options UI.
     /// </summary>
     [Parameter]
-    public ColumnOptionsLabels ColumnOptionsLabels { get; set; } = new();
+    public ColumnOptionsLabels ColumnOptionsLabels { get; set; } = ColumnOptionsLabels.Default;
 
     /// <summary>
     ///  If true, enables the new style of header cell that includes a button to display all column options through a menu.

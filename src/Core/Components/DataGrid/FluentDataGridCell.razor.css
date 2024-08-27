@@ -80,6 +80,10 @@ fluent-data-grid-cell {
     text-overflow: ellipsis;
 }
 
+::deep .col-sort-button.disabled::part(control) {
+    opacity: 1 !important;
+}
+
 .col-justify-center ::deep .col-sort-button::part(control) {
     justify-content: center;
 }

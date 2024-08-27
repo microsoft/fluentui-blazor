@@ -65,7 +65,7 @@
     int minMedals;
     int maxMedals = 130;
 
-    ColumnResizeLabels customLabels = new ColumnResizeLabels(DiscreteLabel: "Width (+/- 10px)", ResetAriaLabel: "restore");
+    ColumnResizeLabels customLabels = ColumnResizeLabels.Default with { DiscreteLabel = "Width (+/- 10px)", ResetAriaLabel = "Restore" };
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
