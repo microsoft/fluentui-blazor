@@ -13,6 +13,53 @@
         {
             @HeaderCellItemTemplate(this)
         }
+        else if (Grid.HeaderCellAsButtonWithMenu)
+        {
+            string? tooltip = Tooltip ? Title : null;
+
+            <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture">
+                <span class="col-sort-container" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" @oncontextmenu:preventDefault>
+                    <FluentButton Disabled="@(!AnyColumnActionEnabled)" Id="@_columnId" Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip">
+                        <div class="col-title-text" title="@tooltip">@Title</div>
+
+                        @if (Grid.SortByAscending.HasValue && ShowSortIcon)
+                        {
+                            if (Grid.SortByAscending == true)
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortUp())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.ArrowSortDown())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                            }
+                        }
+                        @if (Grid.ResizeType is not null && ColumnOptions is not null)
+                        {
+                            @if (Filtered.GetValueOrDefault())
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
+                            }
+                        }
+                    </FluentButton>
+                    <FluentMenu Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalPosition="HorizontalPosition.End">
+                        @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
+                        {
+                            <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync">
+                                @GetSortOptionText()
+                            </FluentMenuItem>
+                        }
+                        @if (Grid.ResizeType is not null && Grid.ResizableColumns)
+                        {
+                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync">@Grid.ColumnResizeLabels.ResizeMenu</FluentMenuItem>
+                        }
+                        @if (ColumnOptions is not null)
+                        {
+                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync">@Grid.ColumnOptionsLabels.OptionsMenu</FluentMenuItem>
+                        }
+                    </FluentMenu>
+                </span>
+            </FluentKeyCode>
+        }
         else
         {
             string? tooltip = Tooltip ? Title : null;

@@ -80,12 +80,20 @@ fluent-data-grid-cell {
     text-overflow: ellipsis;
 }
 
+::deep .col-sort-button.disabled::part(control) {
+    opacity: 1 !important;
+}
+
 .col-justify-center ::deep .col-sort-button::part(control) {
     justify-content: center;
 }
 
 .col-justify-end ::deep .col-sort-button::part(control), .col-justify-right ::deep .col-sort-button::part(control) {
     justify-content: end;
+}
+
+.col-justify-end ::deep .col-sort-button::part(start), .col-justify-right ::deep .col-sort-button::part(start) {
+    margin-inline-end: 0 !important;
 }
 
 .col-justify-center {
