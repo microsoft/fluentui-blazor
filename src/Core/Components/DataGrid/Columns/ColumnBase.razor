@@ -54,7 +54,7 @@
                         }
                         @if (ColumnOptions is not null)
                         {
-                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptions              MenuKeyDownAsync">@Grid.ColumnOptionsLabels.OptionsMenu</FluentMenuItem>
+                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptionsMenuKeyDownAsync">@Grid.ColumnOptionsLabels.OptionsMenu</FluentMenuItem>
                         }
                     </FluentMenu>
                 </span>
