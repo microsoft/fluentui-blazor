@@ -1342,11 +1342,6 @@
             Gets or sets the index of the Column to act upon
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.Label">
-            <summary>
-            Gets or sets the label to display above the resize options
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.ResizeType">
             <summary>
             Gets or sets the type of resize to perform
@@ -1782,8 +1777,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizableColumns">
             <summary>
-            If true, renders draggable handles around the column headers, allowing the user to resize the columns
-            manually. Size changes are not persisted.
+            If true, renders draggable handles around the column headers and adds a button to invoke a resize UI.
+            This allows the user to resize columns manually. Size changes are not persisted.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeType">
@@ -1794,33 +1789,9 @@
             Exact: resize to the exact width specified (in pixels)
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeLabel">
-            <summary>
-            Label used for the text field in the resize options dialog.
-            Defaults to "Column width (in pixels)".
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ColumnResizeLabels">
             <summary>
-            Aria labels for the resize buttons in the resize options UI.
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeShrinkAriaLabel">
-            <summary>
-            Aria label for the resize shrink button in the resize options dialog.
-            Defaults to "Shrink column width".
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeResetAriaLabel">
-            <summary>
-            Aria label for the resize reset button in the resize options dialog.
-            Defaults to "Reset column width".
-            </summary>
-        </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeSubmitAriaLabel">
-            <summary>
-            Aria label for the resize submit button in the resize options dialog.
-            Defaults to "Set column width".
+            (Aria) Labels used in the column resize UI.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
@@ -6061,7 +6032,6 @@
             <summary>
             Gets or sets the horizontal scaling mode.
             </summary>
-            [Parameter]
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.OnAfterRenderAsync(System.Boolean)">
             <summary />

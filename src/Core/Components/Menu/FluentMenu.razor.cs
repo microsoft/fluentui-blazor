@@ -170,7 +170,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// <summary>
     /// Gets or sets the horizontal scaling mode.
     /// </summary>
-    /// [Parameter]
+    [Parameter]
     public AxisScalingMode? HorizontalScaling { get; set; }
 
     protected override void OnInitialized()
