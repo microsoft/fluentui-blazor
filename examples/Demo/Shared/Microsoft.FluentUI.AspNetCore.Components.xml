@@ -7300,15 +7300,16 @@
             Gets or sets a value indicating whether the overlay is shown full screen or bound to the containing element.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.FullScreenInteractiveExceptElementId">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Interactive">
             <summary>
-            Gets or sets a value indicating whether the overlay is shown full screen and the screen is interactive except for the element with the specified id.
-            Setting this property to a value will automatically set <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.FullScreen"/> to true.
+            Gets or sets a value indicating whether the overlay is interactive, except for the element with the specified <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InteractiveExceptId"/>.
+            In other words, the elements below the overlay remain usable (mouse-over, click) and the overlay will closed when clicked.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.IsInteractive">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InteractiveExceptId">
             <summary>
-            Gets a value indicating whether the overlay is interactive.
+            Gets or sets the HTML identifier of the element that is not interactive when the overlay is shown.
+            This property is ignored if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Interactive"/> is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Dismissable">
@@ -7331,6 +7332,9 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InvokeOverlayInitializeAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InvokeOverlayDisposeAsync">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.CheckRGBString">

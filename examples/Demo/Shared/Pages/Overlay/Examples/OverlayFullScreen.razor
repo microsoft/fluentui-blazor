@@ -1,36 +1,17 @@
 ﻿
 <FluentButton Appearance="Appearance.Accent" @onclick="() => visible = !visible">Show Overlay</FluentButton>
 
-<FluentStack VerticalAlignment="VerticalAlignment.Center" Style="margin-top: 10px;">
-    <FluentSwitch @bind-Value="@stayInteractive">Stay interactive</FluentSwitch>
-    <FluentButton OnClick="@(e => counter++)">Increment</FluentButton>
-    <FluentLabel>Counter: @counter</FluentLabel>
-</FluentStack>
-
 <FluentOverlay @bind-Visible=@visible
                Opacity="0.4"
                BackgroundColor="#e8f48c"
                FullScreen="true"
-               FullScreenInteractiveExceptElementId="@(stayInteractive ? "my-zone" : null)"
                OnClose="HandleOnClose"
                PreventScroll=true>
-    @if (stayInteractive)
-    {
-        <div id="my-zone" style="background-color: white; width: 200px; height: 100px;">
-            <p>Non-interactive zone</p>
-            <FluentProgressRing />
-        </div>
-    }
-    else
-    {
-        <FluentProgressRing />
-    }
+    <FluentProgressRing />
 </FluentOverlay>
 
 @code {
     bool visible = false;
-    bool stayInteractive = false;
-    int counter = 0;
 
     protected void HandleOnClose()
     {

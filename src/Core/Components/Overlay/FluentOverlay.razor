@@ -7,7 +7,7 @@
          @onclick="@OnCloseHandlerAsync"
          @oncontextmenu="@OnCloseHandlerAsync"
          @oncontextmenu:preventDefault="true">
-        @if (!IsInteractive)
+        @if (!Interactive)
         {
             <div style="@($"display: flex; align-items:{Alignment.ToAttributeValue()}; justify-content: {Justification.ToAttributeValue()}; width: 100%; height: 100%")">
                 @ChildContent
@@ -15,7 +15,7 @@
         }
     </div>
 
-    @if (IsInteractive)
+    @if (Interactive)
     {
         <div style="@($"position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: {ZIndex.Overlay + 1}; display: flex; align-items:{Alignment.ToAttributeValue()}; justify-content: {Justification.ToAttributeValue()};")">
             @ChildContent
