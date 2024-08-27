@@ -1,6 +1,7 @@
 ﻿
 <FluentStack>
     <FluentSwitch @bind-Value="@interactive" Label="Interactive" />
+    <FluentSwitch @bind-Value="@interactiveExceptId" Label="Exception Zone (my-zone)" Disabled="@(!interactive)" />
     <FluentSwitch @bind-Value="@fullScreen" Label="Full screen" />
 </FluentStack>
 
@@ -20,7 +21,7 @@
                BackgroundColor="#e8f48c"
                FullScreen="@fullScreen"
                Interactive="@interactive"
-               InteractiveExceptId="my-zone"
+               InteractiveExceptId="@(interactiveExceptId ? "my-zone" : null)"
                OnClose="HandleOnClose"
                PreventScroll=true>
     <div id="my-zone">
@@ -33,7 +34,7 @@
     #my-zone {
         background-color: white;
         width: 200px;
-        height: 200px;
+        height: 160px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -44,6 +45,7 @@
 @code {
     bool visible = false;
     bool interactive = true;
+    bool interactiveExceptId = true;
     bool fullScreen = true;
     int counter = 0;
 
