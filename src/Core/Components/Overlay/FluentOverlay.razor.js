@@ -21,7 +21,7 @@ export function overlayInitialize(dotNetHelper, id) {
             const isExcludeElement = excludeElement && excludeElement.contains(event.target);
 
             if (!isExcludeElement) {
-                dotNetHelper.invokeMethodAsync('OnCloseHandlerAsync', event);
+                dotNetHelper.invokeMethodAsync('OnCloseInteractiveAsync', event);
             }
         }
     };
@@ -36,5 +36,6 @@ export function overlayDispose(id) {
     if (document.fluentOverlayData[id]) {
         document.removeEventListener('click', document.fluentOverlayData[id].clickHandler);
         document.fluentOverlayData[id] = null;
+        delete document.fluentOverlayData[id];
     }
 }

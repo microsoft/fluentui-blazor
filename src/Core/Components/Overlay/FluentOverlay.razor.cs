@@ -38,10 +38,17 @@ public partial class FluentOverlay : IAsyncDisposable
         .AddStyle("cursor", "auto", () => Transparent)
         .AddStyle("background-color", $"rgba({_r}, {_g}, {_b}, {Opacity.ToString()!.Replace(',', '.')})", () => !Transparent)
         .AddStyle("cursor", "default", () => !Transparent)
-        .AddStyle("position", "fixed", () => FullScreen)
-        .AddStyle("position", "absolute", () => !FullScreen)
+        .AddStyle("position", FullScreen ? "fixed" : "absolute")
+        .AddStyle("display", "flex")
+        .AddStyle("align-items", Alignment.ToAttributeValue())
+        .AddStyle("justify-content", Justification.ToAttributeValue())
         .AddStyle("pointer-events", "none", () => Interactive)
         .AddStyle("z-index", $"{ZIndex.Overlay}")
+        .Build();
+
+    /// <summary />
+    protected string? StyleContentValue => new StyleBuilder()
+        .AddStyle("pointer-events", "auto", () => Interactive)
         .Build();
 
     /// <summary>
@@ -133,13 +140,17 @@ public partial class FluentOverlay : IAsyncDisposable
     {
         if (Interactive)
         {
-            FullScreen = true;
-        }
+            // Add a document.addEventListener when Visible is true
+            if (Visible)
+            {
+                await InvokeOverlayInitializeAsync();
+            }
 
-        // Add a document.addEventListener when Visible is true
-        if (Visible && Interactive)
-        {
-            await InvokeOverlayInitializeAsync();
+            // Remove a document.addEventListener when Visible is false
+            else
+            {
+                await InvokeOverlayDisposeAsync();
+            }
         }
 
         if (!Transparent && Opacity == 0)
@@ -182,16 +193,33 @@ public partial class FluentOverlay : IAsyncDisposable
     }
 
     [JSInvokable]
-    public async Task OnCloseHandlerAsync(MouseEventArgs e)
+    public async Task OnCloseInteractiveAsync(MouseEventArgs e)
     {
-        // Remove the document.removeEventListener
-        await InvokeOverlayDisposeAsync();
-
         if (!Dismissable || !Visible)
         {
             return;
         }
-        
+
+        // Remove the document.removeEventListener
+        await InvokeOverlayDisposeAsync();
+
+        // Close the overlay
+        await OnCloseInternalHandlerAsync(e);
+    }
+
+    public async Task OnCloseHandlerAsync(MouseEventArgs e)
+    {
+        if (!Dismissable || !Visible || Interactive)
+        {
+            return;
+        }
+
+        // Close the overlay
+        await OnCloseInternalHandlerAsync(e);
+    }
+
+    private async Task OnCloseInternalHandlerAsync(MouseEventArgs e)
+    {        
         Visible = false;
 
         if (VisibleChanged.HasDelegate)
