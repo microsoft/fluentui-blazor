@@ -1332,6 +1332,56 @@
             Constructs an instance of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1" />.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.OptionsMenu">
+            <summary>
+            Gets or sets the text shown in the column menu
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnOptionsLabels.Default">
+            <summary>
+            Gets the default labels for the options UI.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.ResizeMenu">
+            <summary>
+            Gets or sets the text shown in the column menu 
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.DiscreteLabel">
+            <summary>
+            Gets or sets the label in the discrete mode resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.ExactLabel">
+            <summary>
+            Gets or sets the label in the exact mode resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.GrowAriaLabel">
+            <summary>
+            Gets or sets the aria label for the grow button in the discrete resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.ShrinkAriaLabel">
+            <summary>
+            Gets or sets the aria label for the shrink button in the discrete resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.ResetAriaLabel">
+            <summary>
+            Gets or sets the aria label for the reset button in the resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.SubmitAriaLabel">
+            <summary>
+            Gets or sets the aria label for the submit button in the resize UI
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeLabels.Default">
+            <summary>
+            Gets the default labels for the resize UI.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnResizeOptions`1.Grid">
             <summary>
             Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
@@ -1348,6 +1398,26 @@
             Discrete: resize by a 10 pixels at a time
             Exact: resize to the exact width specified (in pixels)
             The display of this component is dependant on a ResizeType being set
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenu">
+            <summary>
+            Gets or sets the text shown in the column menu 
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenuAscendingLabel">
+            <summary>
+            Gets or sets the text shown in the column menu when in ascending order
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.SortMenuDescendingLabel">
+            <summary>
+            Gets or sets the text shown in the column menu when in descending order
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnSortLabels.Default">
+            <summary>
+            Gets the default labels for the sort UI.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.GridSort`1">
@@ -1794,6 +1864,21 @@
             (Aria) Labels used in the column resize UI.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ColumnSortLabels">
+            <summary>
+            Labels used in the column sort UI.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ColumnOptionsLabels">
+            <summary>
+            Labels used in the column options UI.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.HeaderCellAsButtonWithMenu">
+            <summary>
+             If true, enables the new style of header cell that includes a button to display all column options through a menu.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -1947,6 +2032,13 @@
             options UI that was previously displayed.
             </summary>
             <param name="column">The column whose options are to be displayed, if any are available.</param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnResizeAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
+            <summary>
+            Displays the column resize UI for the specified column, closing any other column
+            resize UI that was previously displayed.
+            </summary>
+            <param name="column">The column whose resize UI is to be displayed.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync">
             <summary>

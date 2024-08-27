@@ -12,6 +12,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public abstract partial class ColumnBase<TGridItem>
 {
+    private bool _isMenuOpen;
+    private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
+    private readonly string _columnId = $"column-header{Identifier.NewId()}";
+
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
@@ -128,6 +132,8 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
+    protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
+
     /// <summary>
     /// Event callback for when the row is clicked.
     /// </summary>
@@ -217,5 +223,66 @@ public abstract partial class ColumnBase<TGridItem>
     public ColumnBase()
     {
         HeaderContent = RenderDefaultHeaderContent;
+    }
+
+    private async Task HandleColumnHeaderClickedAsync()
+    {
+        if ((Sortable is true || IsDefaultSortColumn) && (Grid.ResizableColumns || ColumnOptions is not null))
+        {
+            _isMenuOpen = !_isMenuOpen;
+        }
+        else if ((Sortable is true || IsDefaultSortColumn) && !Grid.ResizableColumns && ColumnOptions is null)
+        {
+            await Grid.SortByColumnAsync(this);
+        }
+        else if (Sortable is not true && !IsDefaultSortColumn && ColumnOptions is null && Grid.ResizableColumns)
+        {
+            await Grid.ShowColumnResizeAsync(this);
+        }
+    }
+
+    private async Task HandleSortMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
+        {
+            await Grid.SortByColumnAsync(this);
+            StateHasChanged();                          
+            _isMenuOpen = false;
+        }
+    }
+
+    private async Task HandleResizeMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
+        {
+            await Grid.ShowColumnResizeAsync(this);
+            _isMenuOpen = false;
+        }
+    }
+
+    private async Task HandleOptionsMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
+        {
+            await Grid.ShowColumnOptionsAsync(this);
+            _isMenuOpen = false;
+        }
+    }
+
+    private string GetSortOptionText()
+    {
+        if (Grid.SortByAscending.HasValue && ShowSortIcon)
+        {
+            if (Grid.SortByAscending is true)
+            {
+                return Grid.ColumnSortLabels.SortMenuAscendingLabel;
+            }
+            else
+            {
+                return Grid.ColumnSortLabels.SortMenuDescendingLabel;
+            }
+        }
+
+        return Grid.ColumnSortLabels.SortMenu;
     }
 }

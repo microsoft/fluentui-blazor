@@ -11,6 +11,7 @@
                 GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
                 RowClass="@rowClass"
                 RowStyle="@rowStyle"
+                HeaderCellAsButtonWithMenu="true"
                 Style="height: 405px;overflow:auto;"
                 ColumnResizeLabels="@customLabels">
     <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
@@ -25,8 +26,8 @@
     </PropertyColumn>
     <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
     <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
-    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
-    <PropertyColumn Property="@(c => c.Medals.Total)" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="Align.End" Tooltip="true">
+    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="false" Align="Align.End" />
+    <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="Align.End" Tooltip="true">
         <ColumnOptions>
             <div style="width: 100%; height: 150px;">
                 <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;">
@@ -64,7 +65,7 @@
     int minMedals;
     int maxMedals = 130;
 
-    ColumnResizeLabels customLabels = new ColumnResizeLabels(DiscreteLabel: "Width (+/- 10px)", ResetAriaLabel: "restore");
+    ColumnResizeLabels customLabels = ColumnResizeLabels.Default with { DiscreteLabel = "Width (+/- 10px)", ResetAriaLabel = "Restore" };
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
