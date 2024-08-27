@@ -11,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentOverlay : IAsyncDisposable
 {
+    private readonly string _defaultId = Identifier.NewId();
     private string? _color = null;
     private int _r, _g, _b;
 
@@ -50,6 +51,12 @@ public partial class FluentOverlay : IAsyncDisposable
     protected string? StyleContentValue => new StyleBuilder()
         .AddStyle("pointer-events", "auto", () => Interactive)
         .Build();
+
+    /// <summary>
+    /// Gets or sets the unique identifier of the overlay.
+    /// </summary>
+    [Parameter]
+    public string? Id { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the overlay is visible.
@@ -140,6 +147,11 @@ public partial class FluentOverlay : IAsyncDisposable
     {
         if (Interactive)
         {
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = _defaultId;
+            }
+
             // Add a document.addEventListener when Visible is true
             if (Visible)
             {
@@ -253,7 +265,8 @@ public partial class FluentOverlay : IAsyncDisposable
         _dotNetHelper ??= DotNetObjectReference.Create(this);
         _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
-        await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, InteractiveExceptId);
+        var containerId = FullScreen ? null : Id;
+        await _jsModule.InvokeVoidAsync("overlayInitialize", _dotNetHelper, containerId, InteractiveExceptId);
     }
 
     /// <summary />
