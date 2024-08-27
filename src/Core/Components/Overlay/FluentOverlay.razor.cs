@@ -184,6 +184,9 @@ public partial class FluentOverlay : IAsyncDisposable
     [JSInvokable]
     public async Task OnCloseHandlerAsync(MouseEventArgs e)
     {
+        // Remove the document.removeEventListener
+        await InvokeOverlayDisposeAsync();
+
         if (!Dismissable || !Visible)
         {
             return;
@@ -200,9 +203,6 @@ public partial class FluentOverlay : IAsyncDisposable
         {
             await OnClose.InvokeAsync(e);
         }
-
-        // Remove the document.removeEventListener
-        await InvokeOverlayDisposeAsync();
     }
 
     /// <summary>
@@ -211,9 +211,10 @@ public partial class FluentOverlay : IAsyncDisposable
     /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
+        await InvokeOverlayDisposeAsync();
+
         if (_jsModule != null)
         {
-            await InvokeOverlayDisposeAsync();
             await _jsModule.DisposeAsync();
         }
     }

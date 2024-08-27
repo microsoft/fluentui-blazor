@@ -24,10 +24,17 @@
                InteractiveExceptId="@(interactiveExceptId ? "my-zone" : null)"
                OnClose="HandleOnClose"
                PreventScroll=true>
-    <div id="my-zone">
-        <p>Non-interactive zone</p>
+    @if (interactive)
+    {
+        <div id="my-zone">
+            <p>Non-interactive zone</p>
+            <FluentProgressRing />
+        </div>
+    }
+    else
+    {
         <FluentProgressRing />
-    </div>
+    }
 </FluentOverlay>
 
 <style>
