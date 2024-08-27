@@ -85,8 +85,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public float ItemSize { get; set; } = 32;
 
     /// <summary>
-    /// If true, renders draggable handles around the column headers, allowing the user to resize the columns
-    /// manually. Size changes are not persisted.
+    /// If true, renders draggable handles around the column headers and adds a button to invoke a resize UI.
+    /// This allows the user to resize columns manually. Size changes are not persisted.
     /// </summary>
     [Parameter]
     public bool ResizableColumns { get; set; }
@@ -131,10 +131,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public DataGridResizeType? ResizeType { get; set; }
 
     /// <summary>
-    ///  Gets or sets the placeholder text for the column width input
+    /// (Aria) Labels used in the column resize UI.
     /// </summary>
     [Parameter]
-    public string ResizeLabel { get; set; } = "Column width (in pixels)";
+    public ColumnResizeLabels ColumnResizeLabels { get; set; } = new ColumnResizeLabels();
 
     /// <summary>
     ///  If true, enables the new style of header cell that includes a button to display all column options through a menu.
