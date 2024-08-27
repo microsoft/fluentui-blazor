@@ -240,20 +240,48 @@ public abstract partial class ColumnBase<TGridItem>
         }
     }
 
+    private async Task HandleSortMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        {
+            await Grid.SortByColumnAsync(this);
+            StateHasChanged();                          
+            _isMenuOpen = false;
+        }
+    }
+
+    private async Task HandleResizeMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        {
+            await Grid.ShowColumnResizeAsync(this);
+            _isMenuOpen = false;
+        }
+    }
+
+    private async Task HandleOptionsMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        {
+            await Grid.ShowColumnOptionsAsync(this);
+            _isMenuOpen = false;
+        }
+    }
+
     private string GetSortOptionText()
     {
         if (Grid.SortByAscending.HasValue && ShowSortIcon)
         {
             if (Grid.SortByAscending is true)
             {
-                return Grid.SortMenuAscendingLabel;
+                return Grid.ColumnSortLabels.SortMenuAscendingLabel;
             }
             else
             {
-                return Grid.SortMenuDescendingLabel;
+                return Grid.ColumnSortLabels.SortMenuDescendingLabel;
             }
         }
 
-        return Grid.SortMenuLabel;
+        return Grid.ColumnSortLabels.SortMenu;
     }
 }

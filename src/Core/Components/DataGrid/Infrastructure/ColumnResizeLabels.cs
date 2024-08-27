@@ -4,7 +4,8 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public record ColumnResizeLabels(string DiscreteLabel = "Column width",
+public record ColumnResizeLabels(string ResizeMenu = "Resize",
+    string DiscreteLabel = "Column width",
     string ExactLabel = "Column width (in pixels)",
     string GrowAriaLabel = "Grow column width",
     string ShrinkAriaLabel = "Shrink column width",

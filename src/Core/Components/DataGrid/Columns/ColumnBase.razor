@@ -41,20 +41,20 @@
                             }
                         }
                     </FluentButton>
-                    <FluentMenu Anchor="@_columnId" @bind-Open="@_isMenuOpen">
+                    <FluentMenu Style="min-width: 200px !important; max-width: 400px;" Anchor="@_columnId" @bind-Open="@_isMenuOpen" HorizontalViewportLock="false" HorizontalScaling="@AxisScalingMode.Anchor">
                         @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
                         {
-                            <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))">
+                            <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync">
                                 @GetSortOptionText()
                             </FluentMenuItem>
                         }
                         @if (Grid.ResizeType is not null && Grid.ResizableColumns)
                         {
-                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))">@Grid.ResizeMenuLabel</FluentMenuItem>
+                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnResizeAsync(this))" @onkeydown="HandleResizeMenuKeyDownAsync">@Grid.ColumnResizeLabels.ResizeMenu</FluentMenuItem>
                         }
                         @if (ColumnOptions is not null)
                         {
-                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))">@Grid.OptionsMenuLabel</FluentMenuItem>
+                            <FluentMenuItem OnClick="@(async () => await Grid.ShowColumnOptionsAsync(this))" @onkeydown="HandleOptions              MenuKeyDownAsync">@Grid.ColumnOptionsLabels.OptionsMenu</FluentMenuItem>
                         }
                     </FluentMenu>
                 </span>

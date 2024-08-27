@@ -92,36 +92,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool ResizableColumns { get; set; }
 
     /// <summary>
-    /// Gets or sets the resize menu item text
-    /// </summary>
-    [Parameter]
-    public string ResizeMenuLabel { get; set; } = "Resize";
-
-    /// <summary>
-    /// Gets or sets the sort menu item text
-    /// </summary>
-    [Parameter]
-    public string SortMenuLabel { get; set; } = "Sort";
-
-    /// <summary>
-    /// Gets or sets the sort menu for ascending order item text
-    /// </summary>
-    [Parameter]
-    public string SortMenuAscendingLabel { get; set; } = "Sort (ascending)";
-
-    /// <summary>
-    /// Gets or sets the sort menu for descending order item text
-    /// </summary>
-    [Parameter]
-    public string SortMenuDescendingLabel { get; set; } = "Sort (descending)";
-
-    /// <summary>
-    /// Gets or sets the filter menu item text
-    /// </summary>
-    [Parameter]
-    public string OptionsMenuLabel { get; set; } = "Filter";
-
-    /// <summary>
     /// To comply with WCAG 2.2, a one-click option should be offered to change column widths. We provide such an option through the
     /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
@@ -134,7 +104,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// (Aria) Labels used in the column resize UI.
     /// </summary>
     [Parameter]
-    public ColumnResizeLabels ColumnResizeLabels { get; set; } = new ColumnResizeLabels();
+    public ColumnResizeLabels ColumnResizeLabels { get; set; } = new();
+
+    /// <summary>
+    /// Labels used in the column sort UI.
+    /// </summary>
+    [Parameter]
+    public ColumnSortLabels ColumnSortLabels { get; set; } = new();
+
+    /// <summary>
+    /// Labels used in the column options UI.
+    /// </summary>
+    [Parameter]
+    public ColumnOptionsLabels ColumnOptionsLabels { get; set; } = new();
 
     /// <summary>
     ///  If true, enables the new style of header cell that includes a button to display all column options through a menu.

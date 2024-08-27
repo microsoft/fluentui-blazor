@@ -11,7 +11,7 @@
                 GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
                 RowClass="@rowClass"
                 RowStyle="@rowStyle"
-                HeaderCellAsButtonWithMenu=true
+                HeaderCellAsButtonWithMenu="true"
                 Style="height: 405px;overflow:auto;"
                 ColumnResizeLabels="@customLabels">
     <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
