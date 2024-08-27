@@ -85,8 +85,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public float ItemSize { get; set; } = 32;
 
     /// <summary>
-    /// If true, renders draggable handles around the column headers, allowing the user to resize the columns
-    /// manually. Size changes are not persisted.
+    /// If true, renders draggable handles around the column headers and adds a button to invoke a resize UI.
+    /// This allows the user to resize columns manually. Size changes are not persisted.
     /// </summary>
     [Parameter]
     public bool ResizableColumns { get; set; }
@@ -101,39 +101,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public DataGridResizeType? ResizeType { get; set; }
 
     /// <summary>
-    /// Label used for the text field in the resize options dialog.
-    /// Defaults to "Column width (in pixels)".
+    /// (Aria) Labels used in the column resize UI.
     /// </summary>
     [Parameter]
-    public string ResizeLabel { get; set; } = "Column width (in pixels)";
-
-    /// <summary>
-    /// Aria label for the resize grow button in the resize options dialog.
-    /// Defaults to "Grow column width".
-    /// </summary>
-    [Parameter]
-    public string ResizeGrowAriaLabel { get; set; } = "Grow column width";
-
-    /// <summary>
-    /// Aria label for the resize shrink button in the resize options dialog.
-    /// Defaults to "Shrink column width".
-    /// </summary>
-    [Parameter]
-    public string ResizeShrinkAriaLabel { get; set; } = "Shrink column width";
-
-    /// <summary>
-    /// Aria label for the resize reset button in the resize options dialog.
-    /// Defaults to "Reset column width".
-    /// </summary>
-    [Parameter]
-    public string ResizeResetAriaLabel { get; set; } = "Reset column widths";
-
-    /// <summary>
-    /// Aria label for the resize submit button in the resize options dialog.
-    /// Defaults to "Set column width".
-    /// </summary>
-    [Parameter]
-    public string ResizeSubmitAriaLabel { get; set; } = "Set column widths";
+    public ColumnResizeLabels ColumnResizeLabels { get; set; } = new ColumnResizeLabels();
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a

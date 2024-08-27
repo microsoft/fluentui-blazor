@@ -1800,10 +1800,9 @@
             Defaults to "Column width (in pixels)".
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeGrowAriaLabel">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ColumnResizeLabels">
             <summary>
-            Aria label for the resize grow button in the resize options dialog.
-            Defaults to "Grow column width".
+            Aria labels for the resize buttons in the resize options UI.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResizeShrinkAriaLabel">

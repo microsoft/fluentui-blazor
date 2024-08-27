@@ -3,7 +3,15 @@
 <p>To test set ResizeType on the DataGrid to either DataGridResizeType.Discrete or DataGridResizeType.Exact</p>
 <p>Remove the parameter completely to get the original behavior</p>
 
-<FluentDataGrid Items="@FilteredItems" ResizableColumns=true ResizeType="DataGridResizeType.Discrete" Pagination="@pagination" GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr" RowClass="@rowClass" RowStyle="@rowStyle" Style="height: 405px;overflow:auto;">
+<FluentDataGrid Items="@FilteredItems"
+                ResizableColumns=true
+                ResizeType="DataGridResizeType.Discrete"
+                Pagination="@pagination"
+                GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
+                RowClass="@rowClass"
+                RowStyle="@rowStyle"
+                Style="height: 405px;overflow:auto;"
+                ColumnResizeLabels="@customLabels">
     <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
         <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
     </TemplateColumn>
@@ -54,6 +62,8 @@
     string nameFilter = string.Empty;
     int minMedals;
     int maxMedals = 120;
+
+    ColumnResizeLabels customLabels = new ColumnResizeLabels(DiscreteLabel:"Width (+/- 10px)", ResetAriaLabel: "restore");
 
     GridSort<Country> rankSort = GridSort<Country>
         .ByDescending(x => x.Medals.Gold)
