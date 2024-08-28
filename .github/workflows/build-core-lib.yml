@@ -29,7 +29,7 @@ env:
 jobs:
   Build:
 
-    name: Build and Test Code Lib
+    name: Build and Test Core Lib
     runs-on: windows-latest
 
     permissions:
@@ -41,17 +41,15 @@ jobs:
      - name: Checkout source
        uses: actions/checkout@v4
 
-     #- name: Setup .NET 8.0
-     #  uses: actions/setup-dotnet@v4
-     #  with:
-     #   dotnet-version: 8.0.x
+     - name: Setup .NET 8.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 8.0.x
 
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
+        dotnet-version: 9.0.x
         dotnet-quality: preview
 
      # Build
