@@ -9,9 +9,31 @@ namespace FluentUI.Demo.SampleData;
 /// <summary>
 /// 
 /// </summary>
-public partial class Paragraphs
+public partial class Text
 {
     private static readonly string[] LoremIpsumWords = Resources.ResourceReader.EmbeddedText("LoremIpsum.txt").Split(';');
+    private static readonly string[] SectionItems = Resources.ResourceReader.EmbeddedText("Sections.txt").Split(';');
+
+    /// <summary>
+    /// Gets a list of pages with random sections and Lorem Ipsum text.
+    /// </summary>
+    public static IEnumerable<Page> Pages
+    {
+        get
+        {
+            var random = new Random();
+
+            foreach (var section in SectionItems)
+            {
+                yield return new Page(section, GenerateLoremIpsum(random.Next(1, 5), random.Next(30, 200)));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets a list of section titles.
+    /// </summary>
+    public static IEnumerable<string> Titles => SectionItems;
 
     /// <summary>
     /// Gets a list of 15 Lorem Ipsum texts.
@@ -63,4 +85,11 @@ public partial class Paragraphs
 
         return loremIpsumText.ToString();
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Title"></param>
+    /// <param name="Content"></param>
+    public record Page(string Title, string Content);
 }

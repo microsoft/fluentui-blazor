@@ -9,19 +9,19 @@
 
         <FluentLayoutItem Area="@LayoutArea.Menu" Width="150px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
             <div style="font-weight: bold;">Navigation</div>
-            @Samples.DataSource.NavigationMenu.Take(10).ToMarkupList("li")
+            @SampleData.Text.Titles.Take(10).ToMarkupList("li")
         </FluentLayoutItem>
 
         <FluentLayoutItem Area="@LayoutArea.Content">
             <div style="margin: 12px">
                 <div style="font-weight: bold;">Content</div>
-                @SampleData.Paragraphs.LoremIpsum.Take(10).ToMarkupList("p")
+                @SampleData.Text.LoremIpsum.Take(10).ToMarkupList("p")
             </div>
         </FluentLayoutItem>
 
         <FluentLayoutItem Area="@LayoutArea.Aside" Width="120px" Style="padding: 8px; background-color: var(--colorBrandBackground2);" Sticky="true">
             <div style="font-weight: bold;">News</div>
-            @SampleData.Paragraphs.LoremIpsum.ElementAt(2)[..200]
+            @SampleData.Text.LoremIpsum.ElementAt(2)[..200]
         </FluentLayoutItem>
 
         <FluentLayoutItem Area="@LayoutArea.Footer">

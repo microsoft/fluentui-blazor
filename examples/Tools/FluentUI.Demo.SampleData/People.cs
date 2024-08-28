@@ -9,7 +9,7 @@ namespace FluentUI.Demo.SampleData;
 /// <summary>
 /// 
 /// </summary>
-public partial class Persons
+public partial class People
 {
     private const string IMG_PREFIX_JPG = "data:image/jpeg;base64,";
 

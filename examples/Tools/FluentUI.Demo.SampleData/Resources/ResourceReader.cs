@@ -60,7 +60,7 @@ internal static class ResourceReader
     private static Stream GetStream(string filename)
     {
         var resourceName = $"{ResourceNamespace}.{filename}";
-        var assembly = typeof(Persons).Assembly;
+        var assembly = typeof(People).Assembly;
         var stream = assembly.GetManifestResourceStream(resourceName);
 
         if (stream == null)

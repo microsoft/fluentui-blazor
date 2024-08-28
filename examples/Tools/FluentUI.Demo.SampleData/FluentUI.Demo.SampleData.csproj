@@ -20,5 +20,8 @@
     <EmbeddedResource Include="Resources\*.jpg" />
     <EmbeddedResource Include="Resources\*.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="resources\Sections.txt" />
+  </ItemGroup>
 
 </Project>

@@ -27,7 +27,7 @@
         {
             <FluentLayoutItem Area="@LayoutArea.Menu" Sticky="@Menu.Sticky" Width="150px" Style="background-color: lightgoldenrodyellow;">
                 <strong>Menu Area</strong>
-                @Samples.DataSource.NavigationMenu.Take(10).ToMarkupList("li")
+                @SampleData.Text.Titles.Take(10).ToMarkupList("li")
             </FluentLayoutItem>
         }
 
@@ -35,7 +35,7 @@
         {
             <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky" Style="background-color: aliceblue;">
                 <strong>Content Area</strong>
-                @SampleData.Paragraphs.LoremIpsum.Take(10).ToMarkupList("p")
+                @SampleData.Text.LoremIpsum.Take(10).ToMarkupList("p")
             </FluentLayoutItem>
         }
 
@@ -43,7 +43,7 @@
         {
             <FluentLayoutItem Area="@LayoutArea.Aside" Sticky="@Aside.Sticky" Width="100px" Style="background-color: lightblue;">
                 <strong>Aside Area</strong>
-                @Samples.DataSource.NavigationMenu.OrderDescending().Take(8).ToMarkupList("p")
+                @SampleData.Text.Titles.OrderDescending().Take(8).ToMarkupList("p")
             </FluentLayoutItem>
         }
 
