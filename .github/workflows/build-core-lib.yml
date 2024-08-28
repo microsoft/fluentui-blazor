@@ -46,13 +46,22 @@ jobs:
        with:
         dotnet-version: 8.0.x
 
+     - name: Setup .NET 9.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 9.0.x
+
      # Build
 
      - name: Restore
        run: dotnet restore
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release -warnaserror
+       run: dotnet build ${{ env.PROJECTS }} -f net8.0 --configuration Release -warnaserror
+       working-directory: ${{ github.workspace }}
+
+     - name: Build
+       run: dotnet build ${{ env.PROJECTS }} -f net9.0 --configuration Release -warnaserror
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
@@ -161,13 +170,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
-            8.0.x
+            9.0.x
           include-prerelease: true
       - name: .NET Builld
-        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net9.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net9.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy
