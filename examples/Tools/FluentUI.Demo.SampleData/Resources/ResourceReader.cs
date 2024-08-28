@@ -23,7 +23,13 @@ internal static class ResourceReader
     {
         using var stream = GetStream(filename);
         var buffer = new byte[stream.Length];
-        stream.Read(buffer, 0, buffer.Length);
+        var bytesRead = 0;
+        var totalBytesRead = 0;
+
+        while ((bytesRead = stream.Read(buffer, totalBytesRead, buffer.Length - totalBytesRead)) > 0)
+        {
+            totalBytesRead += bytesRead;
+        }
 
         return buffer;
     }
