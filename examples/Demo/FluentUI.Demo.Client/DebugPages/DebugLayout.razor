@@ -35,7 +35,7 @@
         {
             <FluentLayoutItem Area="@LayoutArea.Content" Sticky="@Content.Sticky" Style="background-color: aliceblue;">
                 <strong>Content Area</strong>
-                @Samples.DataSource.LoremIpsum.Take(10).ToMarkupList("p")
+                @SampleData.Paragraphs.LoremIpsum.Take(10).ToMarkupList("p")
             </FluentLayoutItem>
         }
 

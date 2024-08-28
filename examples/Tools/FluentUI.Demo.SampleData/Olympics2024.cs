@@ -2,7 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-namespace FluentUI.Demo.SampleData.Data;
+namespace FluentUI.Demo.SampleData;
 
 /// <summary>
 /// Paris 2024 Olympics Medals

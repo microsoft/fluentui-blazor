@@ -6,6 +6,8 @@
 <FluentButton OnClick="@ButtonClick" BackgroundColor="var(--highlight-bg)" Color="var(--presence-busy)">Colored</FluentButton>
 <FluentButton OnClick="@ButtonClick" Disabled="true">Disabled</FluentButton>
 
+<img src="@SampleData.Persons.FacesForImg.First()" />
+
 @code
 {
     void ButtonClick()
