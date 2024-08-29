@@ -8,6 +8,7 @@
     <AspNetCoreVersion9>9.0.0-preview.7.24406.2</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.0-preview.7.24405.3</EfCoreVersion9>
   </PropertyGroup>
+  
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>
     <!-- For Sample Apps -->

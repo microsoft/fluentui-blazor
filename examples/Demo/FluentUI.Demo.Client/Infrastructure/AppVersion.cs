@@ -5,14 +5,19 @@
 using System.Reflection;
 
 namespace FluentUI.Demo.Client;
-internal class AppVersionService : IAppVersionService
+internal static class AppVersion
 {
-    public string Version
+
+    /// <summary>
+    /// Gets the version of the application.
+    /// Includes the (shortened) commit hash if available.
+    /// </summary>
+    public static string Version
     {
         get => GetVersionFromAssembly();
     }
 
-    static public string GetVersionFromAssembly()
+    private static string GetVersionFromAssembly()
     {
         string strVersion = default!;
         var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>();

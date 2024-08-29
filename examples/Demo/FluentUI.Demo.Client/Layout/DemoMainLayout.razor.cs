@@ -21,7 +21,7 @@ public partial class DemoMainLayout
 
     protected override void OnInitialized()
     {
-        _version = AppVersionService.GetVersionFromAssembly();
+        _version = AppVersion.Version;
 
         // Reset the menu when the location changes
         Navigation.RegisterLocationChangingHandler((e) =>
