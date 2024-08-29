@@ -12,15 +12,15 @@
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-		<VersionFile>4.9.4</VersionFile>
-		<VersionPrefix>4.9.4</VersionPrefix>
+		<VersionFile>4.10.0</VersionFile>
+		<VersionPrefix>4.10.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
 
     <!-- Enable code style analysis -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
 
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 
