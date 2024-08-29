@@ -128,7 +128,7 @@ jobs:
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml'
+         reports: '**/coverage.net9.0.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
