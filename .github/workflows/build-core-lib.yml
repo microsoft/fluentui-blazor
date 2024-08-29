@@ -44,7 +44,6 @@ jobs:
      - name: Setup .NET 8.0
        uses: actions/setup-dotnet@v4
        with:
-        cache: true
         dotnet-version: 8.0.x
 
      - name: Setup .NET 9.0
@@ -124,16 +123,10 @@ jobs:
          path: ./TestResults/ExtractedTests.md
 
      # Test Coverage
-     - name: Setup .NET 8.0
-       uses: actions/setup-dotnet@v4
-       with:
-          dotnet-version: 8.0.x
-          dotnet-quality: ga
-
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml'
+         reports: '**/coverage.net8.0.cobertura.xml;**/coverage.net9.0.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
