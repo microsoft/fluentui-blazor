@@ -13,7 +13,7 @@ public class FluentSliderLabelTests : TestBase
     }
 
     [Fact]
-    public void FluentSliderLabel_Default()
+    public void FluentSliderLaber_Default()
     {
         //Arrange
         var childContent = "<b>render me</b>";
