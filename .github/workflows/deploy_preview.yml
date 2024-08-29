@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and deploy Demo site
     env:
+      DOTNET_VERSION: "net9.0"
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_NOLOGO: true
@@ -34,15 +35,19 @@ jobs:
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
-            9.0.x
+          dotnet-version: 8.0.x
 
-      #- name: .NET Builld
-      #  run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+      - name: .NET Setup SDKs
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+          dotnet-quality: preview
+
+      - name: .NET Builld
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net9.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy
