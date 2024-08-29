@@ -27,9 +27,10 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion8)" />
+
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
@@ -38,6 +39,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion8)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion8)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion8)" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion8)" />
@@ -53,6 +55,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion9)" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion9)" />
