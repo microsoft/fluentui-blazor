@@ -77,6 +77,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool Virtualize { get; set; }
 
     /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. It defines how many additional items will be rendered
+    /// before and after the visible region to reduce rendering frequency during scrolling. While higher values can improve
+    /// scroll smoothness by rendering more items off-screen, they can also increase initial load times. Finding a balance
+    /// based on your data set size and user experience requirements is recommended. The default value is 3.
+    /// </summary>
+    [Parameter] public int OverscanCount { get; set; } = 3;
+
+    /// <summary>
     /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
     /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
     /// size and to ensure accurate scrolling.
@@ -678,7 +686,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-        var value = $"{Class} {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
+        var value = $"{Class} fluent-data-grid {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
 
         if (AutoFit)
         {
