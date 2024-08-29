@@ -7,7 +7,7 @@ using System.Text;
 namespace FluentUI.Demo.SampleData;
 
 /// <summary>
-/// 
+/// Returns a list of pages with random sections and Lorem Ipsum text.
 /// </summary>
 public partial class Text
 {

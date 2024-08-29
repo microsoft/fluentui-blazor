@@ -17,11 +17,8 @@
 
   <!-- Resources files -->
   <ItemGroup>
-    <EmbeddedResource Include="Resources\*.jpg" />
-    <EmbeddedResource Include="Resources\*.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="resources\Sections.txt" />
+    <EmbeddedResource Include="Resources\**\*.jpg" />
+    <EmbeddedResource Include="Resources\**\*.txt" />
   </ItemGroup>
 
 </Project>
