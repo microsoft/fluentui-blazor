@@ -3,7 +3,7 @@ title: Home
 route: /
 ---
 
-# Welcome to the FluentUI Blazor documentation
+# Welcome to the Fluent UI Blazor library documentation
 
 The **Fluent UI Blazor** library provides a robust and extensive set of [Blazor](https://blazor.net/) components.
 Some of those components are wrappers around Microsoft's official Fluent UI Web Components.
@@ -19,5 +19,5 @@ see the **"Getting Started"** section below.
 
 ## Getting Started
 
-By far rhe easiest way to get started is by using our templates. Setting them up is quick and easy.
+By far the easiest way to get started is by using our templates. Setting them up is quick and easy.
 See the [templates](/Templates) page for instructions and usage.

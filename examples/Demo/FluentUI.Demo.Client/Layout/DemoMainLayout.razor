@@ -1,10 +1,11 @@
 ﻿@using FluentUI.Demo.DocViewer.Components
-@inject NavigationManager Navigation
+@using System.Runtime.InteropServices
+
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
 <FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold; display: flex; align-items: center; height: 32px;">
     @* Hamburger on Mobile *@
-    <FluentLayoutHamburger Layout="@Layout" @bind-Opened="@MenuOpened" Style="margin: 2px 12px;" />
+    <FluentLayoutHamburger Layout="@_layout" @bind-Opened="@_menuOpened" Style="margin: 2px 12px;" />
 
     @* Microsoft Logo *@
     <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice" style="padding-left: 4px;">
@@ -24,13 +25,13 @@
 
     @* Open Console *@
     <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                  OnClick="@(() => ConsoleLogOpened = !ConsoleLogOpened)"
+                  OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
                   Appearance="ButtonAppearance.Subtle"
-                  BackgroundColor="@(ConsoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
                   Title="Open or hide the console" />
 </FluentLayoutItem>
 
-<FluentLayout @ref="@Layout" Style="@(ConsoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
+<FluentLayout @ref="@_layout" Style="@(_consoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
 
     <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Style="padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
         <DemoNavMenu />
@@ -42,28 +43,15 @@
 
 </FluentLayout>
 
-@if (ConsoleLogOpened)
+@if (_consoleLogOpened)
 {
-    <ConsoleLogProvider Style="height: 150px" OnClose="@(() => ConsoleLogOpened = false)" />
+    <ConsoleLogProvider Style="height: 150px" OnClose="@(() => _consoleLogOpened = false)" />
 }
 
-<FluentLayoutItem Area="@LayoutArea.Footer" Style="font-size: smaller;">
+<FluentLayoutItem Area="@LayoutArea.Footer" Style="font-size: smaller; display: flex;">
+    Version: @_version
+    &nbsp;-&nbsp;
+    <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
+    <div style="flex-grow: 1" />
     &copy; Microsoft @DateTime.Now.Year. All rights reserved.
 </FluentLayoutItem>
-
-@code
-{
-    private FluentLayout? Layout;
-    private bool MenuOpened = false;
-    private bool ConsoleLogOpened = false;
-
-    protected override void OnInitialized()
-    {
-        // Reset the menu when the location changes
-        Navigation.RegisterLocationChangingHandler((e) =>
-        {
-            MenuOpened = false;
-            return ValueTask.CompletedTask;
-        });
-    }
-}
