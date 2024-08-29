@@ -119,6 +119,12 @@ extends:
           displayName: 'Install .NET 8.0'
           inputs:
             version: 8.0.x
+            includePreviewVersions: false
+
+        - task: UseDotNet@2
+          displayName: 'Install .NET 9.0'
+          inputs:
+            version: 9.0.x
             includePreviewVersions: true
 
         # Set version number (exclude some folders)
