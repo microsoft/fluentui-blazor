@@ -2,9 +2,9 @@
   <PropertyGroup>
 
     <!-- Versioning -->
-    <VersionFile>4.9.3</VersionFile>
-    <VersionPrefix>4.9.3</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
+    <VersionFile>5.0.0</VersionFile>
+    <VersionPrefix>5.0.0</VersionPrefix>
+    <VersionSuffix>alpha.1</VersionSuffix>
 
     <Authors>Microsoft</Authors>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>

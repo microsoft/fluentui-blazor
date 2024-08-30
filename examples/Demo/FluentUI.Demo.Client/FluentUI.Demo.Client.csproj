@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
@@ -31,6 +31,7 @@
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
     <ProjectReference Include="..\..\Tools\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
     <ProjectReference Include="..\..\Tools\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Tools\FluentUI.Demo.SampleData\FluentUI.Demo.SampleData.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +41,7 @@
   </ItemGroup>
 
   <!-- Copy all .razor files to .txt files in wwwroot\sources -->
-  <Target Name="CopySources" BeforeTargets="BeforeBuild">
+  <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='net8.0'">
     <ItemGroup>
       <Sources Include="$(ProjectDir)\Documentation\**\*.razor" />
     </ItemGroup>
@@ -50,7 +51,7 @@
     <WriteLinesToFile File="$(ProjectDir)wwwroot\sources\files.txt" Lines="@(Sources->'%(Filename)%(Extension).txt')" Overwrite="true" />
   </Target>
 
-  <!-- TODO 
+  <!-- TODO
   <Target Name="CopyMarkdown" BeforeTargets="BeforeBuild">
     <ItemGroup>
       <Sources Include="$(ProjectDir)\Documentation\**\*.md" />
@@ -86,5 +87,5 @@
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  
+
 </Project>

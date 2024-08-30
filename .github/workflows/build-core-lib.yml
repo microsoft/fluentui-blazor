@@ -30,7 +30,7 @@ env:
 jobs:
   Build:
 
-    name: Build and Test Code Lib
+    name: Build and Test Core Lib
     runs-on: ubuntu-latest
 
     permissions:
@@ -46,6 +46,12 @@ jobs:
        uses: actions/setup-dotnet@v4
        with:
         dotnet-version: 8.0.x
+
+     - name: Setup .NET 9.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 9.0.x
+        dotnet-quality: preview
 
      # Build
 
@@ -122,7 +128,7 @@ jobs:
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml'
+         reports: '**/coverage.net8.0.cobertura.xml;**/coverage.net9.0.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
@@ -161,18 +167,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup .NET
+    - name: Setup .NET 8.0
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: |
-            8.0.x
-        
+        dotnet-version: 8.0.x
+
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+        dotnet-quality: preview
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
 
-    - if: matrix.language == 'csharp' 
+    - if: matrix.language == 'csharp'
       name: Manually build CSharp on .NET
       run: |
         dotnet build ${{ env.PROJECTS }}

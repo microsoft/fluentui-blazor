@@ -1,7 +1,7 @@
 import * as esbuild from 'esbuild'
 import { glob } from 'glob'
 import { writeFile, unlink } from 'fs/promises';
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 
 // JS: Microsoft.FluentUI.AspNetCore.Components.lib.module.js
 await esbuild.build({

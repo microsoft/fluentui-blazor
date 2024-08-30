@@ -1,12 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
   </PropertyGroup>
 
   <!-- Code Analysis -->
@@ -17,13 +15,13 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- Resources files -->
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
+    <EmbeddedResource Include="Resources\*.jpg" />
+    <EmbeddedResource Include="Resources\*.txt" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Markdig.Signed" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <None Remove="resources\Sections.txt" />
   </ItemGroup>
 
 </Project>
