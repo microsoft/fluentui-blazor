@@ -2765,6 +2765,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.ClassValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupId">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.Appearance">
             <summary>
             Gets or sets the design of this input.
@@ -7332,11 +7335,28 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay._jsModule">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.ClassValue">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.StyleValue">
             <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.StyleContentValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Id">
+            <summary>
+            Gets or sets the unique identifier of the overlay.
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Visible">
             <summary>
@@ -7345,7 +7365,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.VisibleChanged">
             <summary>
-            Callback for when overlay visisbility changes.
+            Callback for when overlay visibility changes.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.OnClose">
@@ -7380,12 +7400,42 @@
             Gets or sets a value indicating whether the overlay is shown full screen or bound to the containing element.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Interactive">
+            <summary>
+            Gets or sets a value indicating whether the overlay is interactive, except for the element with the specified <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InteractiveExceptId"/>.
+            In other words, the elements below the overlay remain usable (mouse-over, click) and the overlay will closed when clicked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InteractiveExceptId">
+            <summary>
+            Gets or sets the HTML identifier of the element that is not interactive when the overlay is shown.
+            This property is ignored if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Interactive"/> is false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.Dismissable">
+            <summary>
+            Gets of sets a value indicating if the overlay can be dismissed by clicking on it.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.BackgroundColor">
             <summary>
             Gets or sets the background color. 
             Needs to be formatted as an HTML hex color string (#rrggbb or #rgb).
             Default is '#ffffff'.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.DisposeAsync">
+            <summary>
+            Disposes the overlay.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InvokeOverlayInitializeAsync">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.InvokeOverlayDisposeAsync">
+            <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentOverlay.CheckRGBString">
             <remarks>
