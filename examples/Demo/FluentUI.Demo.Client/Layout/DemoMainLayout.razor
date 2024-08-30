@@ -34,7 +34,7 @@
 <FluentLayout @ref="@_layout" Style="@(_consoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
 
     @{
-        var menuHeight = ConsoleLogOpened ? "calc(100vh - 90px - 150px)" : "calc(100vh - 90px)";
+        var menuHeight = _consoleLogOpened ? "calc(100vh - 90px - 150px)" : "calc(100vh - 90px)";
     }
     <FluentLayoutItem Area="@LayoutArea.Menu" Width="200px" Sticky="true" Height="@menuHeight"
                       Style="overflow-y: auto; padding: 8px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
