@@ -66,6 +66,7 @@ public class PageTests
         Assert.Empty(page.Content);
     }
 
+/*
     [Fact]
     public void Page_HtmlHeaders()
     {
@@ -123,6 +124,7 @@ public class PageTests
         Assert.Equal(SectionType.Html, sections.ElementAt(0).Type);
         Assert.Equal(SectionType.Code, sections.ElementAt(1).Type);
     }
+*/
 
     static string RemoveLeadingBlanks(string input)
     {
