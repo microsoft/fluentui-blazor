@@ -100,9 +100,33 @@ public class PageTests
         Assert.Equal("/Button#level-3", htmlHeaders[2].AnchorId);
     }
 
+    [Fact]
+    public async Task Page_Sections()
+    {
+        var fileContent = @"---
+                           title: Button
+                           route: /Button
+                           ---
+
+                           # Section 1
+                           My content
+
+                           My content
+
+                           ```csharp
+                           My code
+                           ```";
+
+        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var sections = await page.ExtractSectionsAsync();
+
+        Assert.Equal(SectionType.Html, sections.ElementAt(0).Type);
+        Assert.Equal(SectionType.Code, sections.ElementAt(1).Type);
+    }
+
     static string RemoveLeadingBlanks(string input)
     {
-        var lines = input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = input.Split(new[] { Environment.NewLine, "\r", "\n" }, StringSplitOptions.None);
         for (var i = 0; i < lines.Length; i++)
         {
             lines[i] = lines[i].TrimStart();
