@@ -134,4 +134,36 @@ public partial class Olympics2024
         /// </summary>
         public int Total => Gold + Silver + Bronze;
     }
+
+    /// <summary>
+    /// Compares countries by the number of gold medals.
+    /// </summary>
+    public class GoldMedalComparer : IComparer<Country>
+    {
+        /// <summary>
+        /// Compares two countries by the number of gold medals.
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public int Compare(Country? c1, Country? c2)
+        {
+            if (c1 == null && c2 == null)
+            {
+                return 0;
+            }
+
+            if (c1 == null)
+            {
+                return -1;
+            }
+
+            if (c2 == null)
+            {
+                return 1;
+            }
+
+            return c1.Medals.Silver.CompareTo(c2.Medals.Silver);
+        }
+    }
 }
