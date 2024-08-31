@@ -1,12 +1,49 @@
 .demo-aside {
+  color: var(--colorNeutralForeground1);
+  border-left: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  padding: 0px 0px 24px 8px;
+  min-height: 40vh;
 }
 
-  /* First API Header */
-  .demo-aside ::deep li:nth-child(1 of li[api]) {
-    margin-top: 10px;
+  .demo-aside ::deep a {
+    color: var(--colorNeutralForeground1);
+    text-decoration: none;
   }
 
-  /* Last API Header */
-  .demo-aside ::deep li:nth-last-child(1 of li[api]) {
-    margin-bottom: 10px;
+    .demo-aside ::deep a:hover {
+      color: var(--colorNeutralForeground1);
+      text-decoration: underline;
+    }
+
+  .demo-aside ::deep ul:first-of-type {
+    padding-left: 1rem;
   }
+
+  .demo-aside ::deep ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .demo-aside ::deep li {
+    display: list-item;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Add a space only for Level 0 */
+  .demo-aside ::deep > ul > li {
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+    /* First API Header */
+    .demo-aside ::deep li:nth-child(1 of li[api]) {
+      margin-top: 24px;
+    }
+
+    /* Last API Header */
+    .demo-aside ::deep li:nth-last-child(1 of li[api]) {
+      margin-bottom: 10px;
+    }

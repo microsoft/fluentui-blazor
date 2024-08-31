@@ -8,9 +8,10 @@
 
     // All documentation pages
     default:
-        if (Headers != null && Headers.Any())
+        if (Headers != null && Headers.Any(i => i.Level > 1))
         {
             <div class="demo-aside">
+                <h2>On this page</h2>
                 @GetHtmlHeaders()
             </div>
         }
