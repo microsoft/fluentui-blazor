@@ -21,6 +21,7 @@ public record Page
     ///   ---
     ///   title: Button
     ///   route: /Button
+    ///   hidden: true
     ///   ---
     ///   My content
     /// 
@@ -36,6 +37,7 @@ public record Page
         Content = GetItem(items, "content");
         Title = GetItem(items, "title");
         Route = GetItem(items, "route");
+        Hidden = GetItem(items, "hidden") == "true";
     }
 
     /// <summary>
@@ -57,6 +59,12 @@ public record Page
     /// Gets the page title defined in the <see cref="Headers"/>
     /// </summary>
     public string Title { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the visibility of the page, defined in the <see cref="Headers"/>.
+    /// When the page is Hidden, it will not be displayed in the navigation, but it can be accessed directly.
+    /// </summary>
+    public bool Hidden { get; set; }
 
     /// <summary>
     /// Returns the list of HTML headers included in the content.

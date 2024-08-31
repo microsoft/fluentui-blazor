@@ -1,6 +1,18 @@
-﻿@if (Headers != null && Headers.Any())
+﻿@using FluentUI.Demo.DocViewer.Components
+@switch (Page)
 {
-    <div class="demo-aside">
-        @GetHtmlHeaders()
-    </div>
+    // Home page
+    case "":
+        <MarkdownViewer Route="file:HomeAside" />
+        break;
+
+    // All documentation pages
+    default:
+        if (Headers != null && Headers.Any())
+        {
+            <div class="demo-aside">
+                @GetHtmlHeaders()
+            </div>
+        }
+        break;
 }
