@@ -47,7 +47,7 @@ public record PageHtmlHeader
     internal static List<PageHtmlHeader> ExtractHeaders(Page page, string html)
     {
         var headers = new List<PageHtmlHeader>();
-        var regex = new Regex(@"<h(?<level>[12]) id=""(?<id>[^""]+)"">(?<title>[^<]+)</h[12]>",
+        var regex = new Regex(@"<h(?<level>[123456]) id=""(?<id>[^""]+)"">(?<title>[^<]+)</h[123456]>",
                                 RegexOptions.IgnoreCase);
 
         var matches = regex.Matches(html);

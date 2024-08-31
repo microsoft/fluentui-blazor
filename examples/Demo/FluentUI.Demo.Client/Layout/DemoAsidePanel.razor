@@ -1,6 +1,6 @@
 ﻿@if (Headers != null && Headers.Any())
 {
     <div class="demo-aside">
-        @ConvertToMarkupString(Headers, firstLevel: 2)  @* Bypass the Level 0 header (H1) *@
+        @GetHtmlHeaders()
     </div>
 }

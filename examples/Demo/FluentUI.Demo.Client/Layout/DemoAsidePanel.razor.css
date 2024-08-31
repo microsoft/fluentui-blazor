@@ -1,6 +1,12 @@
 .demo-aside {
 }
 
-  .demo-aside ::deep li[api][first] {
+  /* First API Header */
+  .demo-aside ::deep li:nth-child(1 of li[api]) {
     margin-top: 10px;
+  }
+
+  /* Last API Header */
+  .demo-aside ::deep li:nth-last-child(1 of li[api]) {
+    margin-bottom: 10px;
   }
