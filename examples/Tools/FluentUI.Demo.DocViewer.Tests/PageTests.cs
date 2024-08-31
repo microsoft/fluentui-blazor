@@ -22,7 +22,7 @@ public class PageTests
 
                            My content";
 
-        var page = new Page(DocViewerService, fileContent);
+        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
 
         Assert.Equal("Button", page.Title);
         Assert.Equal("/Button", page.Route);
@@ -37,7 +37,7 @@ public class PageTests
                            Header2: Value2
                            ---";
 
-        var page = new Page(DocViewerService, fileContent);
+        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
 
         Assert.Equal(2, page.Headers.Count);
         Assert.Equal("Value1", page.Headers["Header1"]);
@@ -49,7 +49,7 @@ public class PageTests
     {
         var fileContent = @"My content";
 
-        var page = new Page(DocViewerService,fileContent);
+        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
 
         Assert.Empty(page.Headers);
         Assert.Equal("My content", page.Content);
@@ -60,9 +60,54 @@ public class PageTests
     {
         var fileContent = @"";
 
-        var page = new Page(DocViewerService,fileContent);
+        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
 
         Assert.Empty(page.Headers);
         Assert.Empty(page.Content);
+    }
+
+    [Fact]
+    public void Page_HtmlHeaders()
+    {
+        var fileContent = @"---
+                           title: Button
+                           route: /Button
+                           ---
+
+                           # Level 1
+
+                           ## Level 2
+
+                           ### Level 3
+
+                           ## Level 2
+
+                           # Level 1
+
+                           My content";
+
+        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var htmlHeaders = page.GetHtmlHeaders()?.ToArray() ?? [];
+
+        Assert.Equal(5, htmlHeaders.Length);
+
+        Assert.Equal("Level 1", htmlHeaders[0].Title);
+        Assert.Equal("level-1", htmlHeaders[0].Id);
+        Assert.Equal("/Button#level-1", htmlHeaders[0].AnchorId);
+
+        Assert.Equal("Level 3", htmlHeaders[2].Title);
+        Assert.Equal("level-3", htmlHeaders[2].Id);
+        Assert.Equal("/Button#level-3", htmlHeaders[2].AnchorId);
+    }
+
+    static string RemoveLeadingBlanks(string input)
+    {
+        var lines = input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        for (var i = 0; i < lines.Length; i++)
+        {
+            lines[i] = lines[i].TrimStart();
+        }
+
+        return string.Join(Environment.NewLine, lines);
     }
 }
