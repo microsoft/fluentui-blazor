@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
+@{
+    var DemoRenderMode = new InteractiveWebAssemblyRenderMode(false);
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,11 +10,11 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="FluentUI.Demo.styles.css" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <HeadOutlet @rendermode="InteractiveWebAssembly" />
+    <HeadOutlet @rendermode="@DemoRenderMode" />
 </head>
 
 <body>
-    <Routes @rendermode="InteractiveWebAssembly" />
+    <Routes @rendermode="@DemoRenderMode" />
     <script src="_framework/blazor.web.js"></script>
 
     <!-- Include highlight.js -->
