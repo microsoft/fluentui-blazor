@@ -1,13 +1,26 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TGridItem
-<fluent-data-grid-cell cell-id="@CellId"
-                       cell-type=@CellType.ToAttributeValue()
-                       grid-column=@GridColumn
-                       class="@Class"
-                       style="@StyleValue"
-                       @onkeydown="@HandleOnCellKeyDownAsync"
-                       @onclick="@HandleOnCellClickAsync"
-                       @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-data-grid-cell>
+
+@if (CellType == DataGridCellType.Default || CellType == DataGridCellType.RowHeader)
+{
+    <td data-col-index=@GridColumn
+        class="@ClassValue"
+        style="@StyleValue"
+        @onkeydown="@HandleOnCellKeyDownAsync"
+        @onclick="@HandleOnCellClickAsync"
+        @attributes="AdditionalAttributes">
+        @ChildContent
+    </td>
+}
+else
+{
+    <th data-col-index=@GridColumn
+        class="@ClassValue"
+        style="@StyleValue"
+        @onkeydown="@HandleOnCellKeyDownAsync"
+        @onclick="@HandleOnCellClickAsync"
+        @attributes="AdditionalAttributes">
+        @ChildContent
+    </th>
+}

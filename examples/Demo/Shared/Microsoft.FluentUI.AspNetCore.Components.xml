@@ -1882,11 +1882,6 @@
             Labels used in the column options UI.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.HeaderCellAsButtonWithMenu">
-            <summary>
-             If true, enables the new style of header cell that includes a button to display all column options through a menu.
-            </summary>
-        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemKey">
              <summary>
              Optionally defines a value for @key on each rendered row. Typically this should be used to specify a

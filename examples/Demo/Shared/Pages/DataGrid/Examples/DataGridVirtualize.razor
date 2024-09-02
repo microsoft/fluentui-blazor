@@ -1,5 +1,5 @@
 ﻿<div style="height: 400px; overflow-y: scroll;">
-    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ItemSize="54" GridTemplateColumns="1fr 1fr 1fr 1fr" Style="height: 100%;">
+    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ItemSize="54" GridTemplateColumns="1fr 1fr 1fr 1fr" Style="height: 100%;" GenerateHeader="@GenerateHeaderOption.Sticky">
         <ChildContent>
             <PropertyColumn Property="@(c => c.Item1)" Sortable="true" />
             <PropertyColumn Property="@(c => c.Item2)" />
@@ -70,7 +70,7 @@
         items = null;
         grid?.SetLoadingState(true);
 
-        await Task.Delay(2500);
+        await Task.Delay(1500);
 
         items = GenerateSampleGridData(5000);
     }

@@ -134,6 +134,14 @@ public abstract partial class ColumnBase<TGridItem>
 
     protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
 
+    protected override void OnInitialized()
+    {
+        if (GetType() == typeof(SelectColumn<TGridItem>))
+        {
+            Align = Align.Center;
+        }
+    }
+
     /// <summary>
     /// Event callback for when the row is clicked.
     /// </summary>
@@ -246,7 +254,7 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
         {
             await Grid.SortByColumnAsync(this);
-            StateHasChanged();                          
+            StateHasChanged();
             _isMenuOpen = false;
         }
     }

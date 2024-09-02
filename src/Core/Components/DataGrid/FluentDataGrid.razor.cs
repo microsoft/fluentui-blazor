@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 using System.Diagnostics.CodeAnalysis;
@@ -125,12 +126,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter]
     public ColumnOptionsLabels ColumnOptionsLabels { get; set; } = ColumnOptionsLabels.Default;
-
-    /// <summary>
-    ///  If true, enables the new style of header cell that includes a button to display all column options through a menu.
-    /// </summary>
-    [Parameter]
-    public bool HeaderCellAsButtonWithMenu { get; set; }
 
     /// <summary>
     /// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
@@ -680,29 +675,39 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
              : "none";
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
-        => _sortByColumn == column
-        ? $"{ColumnClass(column)} {(_sortByAscending ? "col-sort-asc" : "col-sort-desc")}"
-        : ColumnClass(column);
+    {
+        return new CssBuilder(Class)
+           .AddClass(ColumnJustifyClass(column))
+           .AddClass("col-sort-asc", _sortByAscending)
+           .AddClass("col-sort-desc", !_sortByAscending)
+           .Build();
+    }
 
     private string? GridClass()
     {
-        var value = $"{Class} fluent-data-grid {(_pendingDataLoadCancellationTokenSource is null ? null : "loading")}".Trim();
 
-        if (AutoFit)
-        {
-            value += " auto-fit";
-        }
-
-        return string.IsNullOrEmpty(value) ? null : value;
+        return new CssBuilder("fluent-data-grid")
+            .AddClass(Class)
+            .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
+            .AddClass("auto-fit", AutoFit)
+            .Build();
     }
 
-    private static string? ColumnClass(ColumnBase<TGridItem> column) => column.Align switch
+    private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
-        Align.Start => $"col-justify-start {column.Class}",
-        Align.Center => $"col-justify-center {column.Class}",
-        Align.End => $"col-justify-end {column.Class}",
-        _ => column.Class,
-    };
+        return new CssBuilder(column.Class)
+            .AddClass("col-justify-start", column.Align == Align.Start)
+            .AddClass("col-justify-center", column.Align == Align.Center)
+            .AddClass("col-justify-end", column.Align == Align.End)
+            .Build();
+    }
+
+    private static string? ColumnStyle(ColumnBase<TGridItem> column)
+    {
+        return new StyleBuilder(column.Style)
+           .AddStyle("width", column.Width, column.Width is not null )
+           .Build();
+    }
 
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
