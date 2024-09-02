@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.DocViewer.Models;
+using FluentUI.Demo.DocViewer.Tests.Extensions;
 using FluentUI.Demo.DocViewer.Tests.Services;
 using Xunit;
 
@@ -22,7 +23,7 @@ public class PageTests
 
                            My content";
 
-        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
 
         Assert.Equal("Button", page.Title);
         Assert.Equal("/Button", page.Route);
@@ -37,7 +38,7 @@ public class PageTests
                            Header2: Value2
                            ---";
 
-        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
 
         Assert.Equal(2, page.Headers.Count);
         Assert.Equal("Value1", page.Headers["Header1"]);
@@ -49,7 +50,7 @@ public class PageTests
     {
         var fileContent = @"My content";
 
-        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
 
         Assert.Empty(page.Headers);
         Assert.Equal("My content", page.Content);
@@ -60,7 +61,7 @@ public class PageTests
     {
         var fileContent = @"";
 
-        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
 
         Assert.Empty(page.Headers);
         Assert.Empty(page.Content);
@@ -86,7 +87,7 @@ public class PageTests
 
                            My content";
 
-        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
         var htmlHeaders = page.GetHtmlHeaders()?.ToArray() ?? [];
 
         Assert.Equal(5, htmlHeaders.Length);
@@ -117,21 +118,10 @@ public class PageTests
                            My code
                            ```";
 
-        var page = new Page(DocViewerService, RemoveLeadingBlanks(fileContent));
+        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
         var sections = await page.ExtractSectionsAsync();
 
         Assert.Equal(SectionType.Html, sections.ElementAt(0).Type);
         Assert.Equal(SectionType.Code, sections.ElementAt(1).Type);
-    }
-
-    static string RemoveLeadingBlanks(string input)
-    {
-        var lines = input.Split(new[] { Environment.NewLine, "\r", "\n" }, StringSplitOptions.None);
-        for (var i = 0; i < lines.Length; i++)
-        {
-            lines[i] = lines[i].TrimStart();
-        }
-
-        return string.Join(Environment.NewLine, lines);
     }
 }
