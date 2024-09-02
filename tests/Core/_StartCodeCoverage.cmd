@@ -19,5 +19,5 @@ echo on
 cls
 
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-reportgenerator "-reports:coverage.net8.0.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*" -filefilters:"-*RegexGenerator.g.cs" riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30 riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30 minimumCoverageThresholds:lineCoverage=98
+reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*" -filefilters:"-*RegexGenerator.g.cs" riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30 riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30 minimumCoverageThresholds:lineCoverage=98
 start "" "C:\Temp\FluentUI\Coverage\index.htm"

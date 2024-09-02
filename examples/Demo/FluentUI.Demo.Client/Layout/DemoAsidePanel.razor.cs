@@ -4,6 +4,7 @@
 
 using FluentUI.Demo.DocViewer.Extensions;
 using FluentUI.Demo.DocViewer.Models;
+using FluentUI.Demo.DocViewer.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace FluentUI.Demo.Client.Layout;
@@ -16,7 +17,7 @@ public partial class DemoAsidePanel
 
     /// <summary />
     [Inject]
-    public Demo.DocViewer.Services.DocViewerService DocViewerService { get; set; } = default!;
+    public DocViewerService DocViewerService { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the page route (e.g. "Button", "").
