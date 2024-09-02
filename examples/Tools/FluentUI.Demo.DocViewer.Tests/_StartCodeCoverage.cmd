@@ -19,5 +19,5 @@ echo on
 cls
 
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-reportgenerator "-reports:coverage.net8.0.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage-DocView" -reporttypes:HtmlInline_AzurePipelines
-start "" "C:\Temp\FluentUI\Coverage-DocView\index.htm"
+reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage-DocViewer" -reporttypes:HtmlInline_AzurePipelines riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30 riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30
+start "" "C:\Temp\FluentUI\Coverage-DocViewer\index.htm"
