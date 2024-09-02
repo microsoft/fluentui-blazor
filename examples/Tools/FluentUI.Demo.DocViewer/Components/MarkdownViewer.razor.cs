@@ -2,10 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Text.RegularExpressions;
 using FluentUI.Demo.DocViewer.Models;
 using FluentUI.Demo.DocViewer.Services;
-using Markdig;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -57,8 +55,7 @@ public partial class MarkdownViewer
         _isPageNotFound = false;
         PageTitle = page.Title;
 
-        var html = Markdown.ToHtml(page.Content, DocViewerService.MarkdownPipeline);
-        Sections = await ExtractSectionsAsync(html);
+        Sections = await page.ExtractSectionsAsync();
     }
 
     /// <summary />
@@ -90,50 +87,7 @@ public partial class MarkdownViewer
         return type is null ? null : new ApiClass(DocViewerService, type);
     }
 
-    /// <summary />
-    private async Task<List<Section>> ExtractSectionsAsync(string content)
-    {
-        string[] tags =
-        [
-            @"({{(.*?)}})",                         // {{ MyComponent }}, {{ API => MyComponent }}
-            @"(<pre><code.*?>.*?</code></pre>)"     // <pre><code>...</code></pre>
-        ];
-
-        var sections = new List<Section>();
-
-        var regex = new Regex(string.Join('|', tags), RegexOptions.Singleline);
-        var matches = regex.Matches(content);
-
-        var lastIndex = 0;
-        foreach (Match match in matches)
-        {
-            if (match.Index > lastIndex)
-            {
-                // String before the Tag
-                await AddSectionAsync(content[lastIndex..match.Index]);
-            }
-
-            // Tag page
-            await AddSectionAsync(match.Value);
-
-            lastIndex = match.Index + match.Length;
-        }
-
-        if (lastIndex < content.Length)
-        {
-            await AddSectionAsync(content[lastIndex..]);
-        }
-
-        return sections;
-
-        // Add a section to the list
-        async Task AddSectionAsync(string content)
-        {
-            var section = new Section(DocViewerService);
-            await section.ReadAsync(content);
-            sections.Add(section);
-        }
-    }
+  
 
     /// <summary />
     private Type? GetComponentFromName(string name)

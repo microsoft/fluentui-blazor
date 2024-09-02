@@ -95,7 +95,7 @@ public class DocViewerService
                 {
                     using var reader = new StreamReader(stream);
                     var content = reader.ReadToEnd();
-                    pages.Add(new Page(content));
+                    pages.Add(new Page(this, content));
                 }
             }
         }

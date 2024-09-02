@@ -1,6 +1,6 @@
 ---
 title: My Counter (Test)
-route: /Counter
+route: /Test/Counter
 ---
 
 # My Counter Page

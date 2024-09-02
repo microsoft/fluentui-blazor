@@ -3,6 +3,8 @@
 // ------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
+using FluentUI.Demo.DocViewer.Services;
+using Markdig;
 
 namespace FluentUI.Demo.DocViewer.Models;
 
@@ -11,24 +13,31 @@ namespace FluentUI.Demo.DocViewer.Models;
 /// </summary>
 public record Page
 {
+    private readonly DocViewerService _docViewerService;
+    private IEnumerable<PageHtmlHeader>? _pageHtmlHeaders;
+
     /// <summary>
     /// 
     ///   ---
     ///   title: Button
     ///   route: /Button
+    ///   hidden: true
     ///   ---
     ///   My content
     /// 
     /// </summary>
+    /// <param name="service"></param>
     /// <param name="content"></param>
-    internal Page(string content)
+    internal Page(DocViewerService service, string content)
     {
+        _docViewerService = service;
         var items = ExtractHeaderContent(content);
 
         Headers = items.Where(i => i.Key != "content").ToDictionary();
         Content = GetItem(items, "content");
         Title = GetItem(items, "title");
         Route = GetItem(items, "route");
+        Hidden = GetItem(items, "hidden") == "true";
     }
 
     /// <summary>
@@ -50,6 +59,68 @@ public record Page
     /// Gets the page title defined in the <see cref="Headers"/>
     /// </summary>
     public string Title { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the visibility of the page, defined in the <see cref="Headers"/>.
+    /// When the page is Hidden, it will not be displayed in the navigation, but it can be accessed directly.
+    /// </summary>
+    public bool Hidden { get; set; }
+
+    /// <summary>
+    /// Returns the list of HTML headers included in the content.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<PageHtmlHeader> GetHtmlHeaders() => _pageHtmlHeaders ??= PageHtmlHeader.ExtractHeaders(this, Markdown.ToHtml(Content, DocViewerService.MarkdownPipeline));
+
+    /// <summary />
+    internal async Task<List<Section>> ExtractSectionsAsync()
+    {
+        var html = Markdown.ToHtml(Content, DocViewerService.MarkdownPipeline);
+
+        string[] tags =
+        [
+            @"({{(.*?)}})",                         // {{ MyComponent }}, {{ API => MyComponent }}
+            @"(<pre><code.*?>.*?</code></pre>)"     // <pre><code>...</code></pre>
+        ];
+
+        var sections = new List<Section>();
+
+        var regex = new Regex(string.Join('|', tags), RegexOptions.Singleline);
+        var matches = regex.Matches(html);
+
+        var lastIndex = 0;
+        foreach (Match match in matches)
+        {
+            if (match.Index > lastIndex)
+            {
+                // String before the Tag
+                await AddSectionAsync(html[lastIndex..match.Index]);
+            }
+
+            // Tag page
+            await AddSectionAsync(match.Value);
+
+            lastIndex = match.Index + match.Length;
+        }
+
+        if (lastIndex < html.Length)
+        {
+            await AddSectionAsync(html[lastIndex..]);
+        }
+
+        // TOC: HTML Headers
+        _pageHtmlHeaders = PageHtmlHeader.ExtractHeaders(this, html);
+
+        return sections;
+
+        // Add a section to the list
+        async Task AddSectionAsync(string content)
+        {
+            var section = new Section(_docViewerService);
+            await section.ReadAsync(content);
+            sections.Add(section);
+        }
+    }
 
     /// <summary>
     /// Returns the key value or a string.empty (if not found)

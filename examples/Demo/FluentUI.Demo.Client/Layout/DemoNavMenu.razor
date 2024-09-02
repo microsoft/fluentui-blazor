@@ -1,11 +1,13 @@
 ﻿@inject NavigationManager Navigation
 @inject FluentUI.Demo.DocViewer.Services.DocViewerService DocViewerService
 
-<ul>
-    @foreach (var page in DocViewerService.Pages.OrderBy(i => i.Title))
-    {
-        <li>
-            <a href="@(page.Route)">@(page.Title)</a>
-        </li>
-    }
-</ul>
+<div>
+    <ul>
+        @foreach (var page in DocViewerService.Pages.Where(i => !i.Hidden).OrderBy(i => i.Title))
+        {
+            <li>
+                <a href="@(page.Route)">@(page.Title)</a>
+            </li>
+        }
+    </ul>
+</div>
