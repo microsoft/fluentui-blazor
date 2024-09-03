@@ -1,2 +1,35 @@
 ﻿@page "/issue-tester"
 
+<div style="display: flex; flex-direction: column; align-items: flex-start; height: min-content;">
+    <label for="rtl-slider" style="margin-left: 8px;">rtl support</label>
+    <div dir="rtl" style="width: 100%;">
+        <FluentSlider id="rtl-slider" Min="0" Max="100" Step="10" @bind-Value=value2>
+            <FluentSliderLabel Position="10">10</FluentSliderLabel>
+            <FluentSliderLabel Position="20">20</FluentSliderLabel>
+            <FluentSliderLabel Position="40">40</FluentSliderLabel>
+            <FluentSliderLabel Position="60">60</FluentSliderLabel>
+            <FluentSliderLabel Position="80">80</FluentSliderLabel>
+        </FluentSlider>
+        Value 2: @value2
+        <FluentButton OnClick="() => value2 = 0 ">Reset</FluentButton>  @* THIS LINE IMPORTANT *@
+    </div>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; height: min-content;">
+    <label for="rtl-slider" style="margin-left: 8px;">rtl support</label>
+    <div dir="rtl" style="width: 100%;">
+        <FluentSlider id="rtl-slider" Min="0" Max="100" Step="10" @bind-Value=value1>
+            <FluentSliderLabel Position="10">10</FluentSliderLabel>
+            <FluentSliderLabel Position="20">20</FluentSliderLabel>
+            <FluentSliderLabel Position="40">40</FluentSliderLabel>
+            <FluentSliderLabel Position="60">60</FluentSliderLabel>
+            <FluentSliderLabel Position="80">80</FluentSliderLabel>
+        </FluentSlider>
+        Value 1: @value1
+        <FluentButton OnClick="() => value1 = 0 ">Reset</FluentButton>  @* THIS LINE IMPORTANT *@
+    </div>
+</div>
+
+@code {
+    int value1=30, value2 = 50;
+}
