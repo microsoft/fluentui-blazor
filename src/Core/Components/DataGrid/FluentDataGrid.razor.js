@@ -6,7 +6,7 @@ export function init(gridElement) {
         return;
     };
 
-    if (gridElement.querySelectorAll('.column-header.resizable').length > 0) {
+    if (gridElement.querySelectorAll('.col-header.resizable').length > 0) {
         initialColumnsWidths[gridElement.id] = gridElement.gridTemplateColumns ;
         enableColumnResizing(gridElement);
     }
@@ -167,7 +167,7 @@ export function enableColumnResizing(gridElement) {
     let headerBeingResized;
     let resizeHandle;
 
-    gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
+    gridElement.querySelectorAll('.col-header.resizable').forEach(header => {
         columns.push({ header });
         const onPointerMove = (e) => requestAnimationFrame(() => {
             if (!headerBeingResized) {
@@ -181,9 +181,10 @@ export function enableColumnResizing(gridElement) {
             const width = pointerLocalLeft - headerLocalLeft;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
-            min = header.querySelector('.col-options-button') ? 100 : 75;
+            //min = header.querySelector('.col-options-button') ? 100 : 75;
 
             column.size = Math.max(min, width) + 'px';
+            headerBeingResized.style.width = column.size;
 
             // Set initial sizes
             columns.forEach((column) => {
@@ -208,7 +209,7 @@ export function enableColumnResizing(gridElement) {
 
         const initResize = ({ target, pointerId }) => {
             resizeHandle = target;
-            headerBeingResized = target.parentNode;
+            headerBeingResized = target.parentNode.parentNode;
 
             resizeHandle.setPointerCapture(pointerId);
         };
@@ -231,7 +232,7 @@ export function resetColumnWidths(gridElement) {
 
 export function resizeColumnDiscrete(gridElement, column, change) {
 
-    let headers = gridElement.querySelectorAll('.column-header.resizable');
+    let headers = gridElement.querySelectorAll('.col-header.resizable');
     if (headers.length <= 0) {
         return
     }
@@ -239,13 +240,13 @@ export function resizeColumnDiscrete(gridElement, column, change) {
     let headerBeingResized;
     if (!column) {
 
-        if (!(document.activeElement.classList.contains("column-header") && document.activeElement.classList.contains("resizable"))) {
+        if (!(document.activeElement.classList.contains("col-header") && document.activeElement.classList.contains("resizable"))) {
             return;
         }
         headerBeingResized = document.activeElement;
     }
     else {
-        headerBeingResized = gridElement.querySelector('.column-header[grid-column="' + column + '"]');
+        headerBeingResized = gridElement.querySelector('.col-header[grid-column="' + column + '"]');
     }
     const columns = [];
 
@@ -303,12 +304,12 @@ export function autoFitGridColumns(gridElement, columnCount) {
 
 export function resizeColumnExact(gridElement, column, width) {
 
-    let headers = gridElement.querySelectorAll('.column-header.resizable');
+    let headers = gridElement.querySelectorAll('.col-header.resizable');
     if (headers.length <= 0) {
         return
     }
 
-    let headerBeingResized = gridElement.querySelector('.column-header[grid-column="' + column + '"]');
+    let headerBeingResized = gridElement.querySelector('.col-header[grid-column="' + column + '"]');
     if (!headerBeingResized) {
         return;
     }
