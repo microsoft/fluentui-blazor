@@ -167,6 +167,14 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// This method is only called when using the <see cref="IDialogService"/>.
     /// </remarks>
     public EventCallback<DialogInstance> OnDialogOpened { get; set; } = default!;
+
+    /// <summary>
+    /// Function that is called and awaited before the dialog is closed.
+    /// </summary>
+    /// <remarks>
+    /// This is a suitable callback to use when you need to validate the data in the dialog <em>before</em> it closes.
+    /// </remarks>
+    public Func<bool> OnDialogValidation { get; set; } = default!;
 }
 
 /// <summary>
