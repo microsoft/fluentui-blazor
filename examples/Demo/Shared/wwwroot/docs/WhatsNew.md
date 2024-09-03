@@ -1,43 +1,13 @@
 ﻿## v3.7.9
 
 ### Icons
-- Update to Fluent UI System Icons 1.1.253
-    
-    **What's new (Name / Size(s) / Variant(s))**
-    - Arrow Sync Circle / 28, 32, 48 / Filled & Regular
-	- Calendar Arrow Repeat All / 16, 20, 24, 28, 32, 48 / Filled & Regular
-	- Coin Multiple / 28, 32, 48 / Filled & Regular
- 
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Arrow Sync Circle / 24/ Filled & Regular
 
-- Update to Fluent UI System Icons 1.1.252
+- Update to Fluent UI System Icons 1.1.256 (since 1.1.247)
     
     **What's new (Name / Size(s) / Variant(s))**
+	- Accessibility More / 16, 20, 24 / Filled & Regular
     - Airplane / 16, 28, 32, 48 / Filled & Regular
-    - Globe Off / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
-    - Hat Graduation / 32, 48 / Filled & Regular
-    - Person Board Add / 16, 24, 28, 32 / Filled & Regular
-    - Shopping Bag Tag / 16, 28, 32, 48 / Filled & Regular
-    - Shopping Bag / 16, 20, 24, 28, 32, 48 / Filled & Regular
-    - Teaching / 16, 24, 28, 32, 48 / Filled & Regular
-    - Window Brush / 20, 24 / Filled & Regular
-    - Window Column One Fourth Left Focus Left / 20 / Filled
-    - Window Column One Fourth Left Focus Top / 20 / Filled
-    - Window Column One Fourth Left / 20 / Filled & Regular
- 
-    **What's updated (Name / Size(s) / Variant(s))**
-    - Building People / 16, 20, 24 / Filled & Regular          
-    - Circle Half Fill / 20, 24 / Filled & Regular
-    - Contact Card Link / 16, 20 / Filled & Regular
-    - Folder People / 20, 24 / Filled & Regular
-    - Run / 16, 20, 24 / Filled & Regular
-    - Shopping Bag / 16, 20, 24 / Filled
-
-- Update to Fluent UI System Icons 1.1.247
-    
-    **What's new (Name / Size(s) / Variant(s))**
-    - Accessibility More / 16, 20, 24 / Filled & Regular
+    - Arrow Sync Circle / 28, 32, 48 / Filled & Regular
     - Battery 0 / 28, 32 / Filled & Regular
     - Battery 1 / 28, 32 / Filled & Regular
     - Battery 10 / 28, 32 / Filled & Regular
@@ -50,27 +20,60 @@
     - Battery 8 / 28, 32 / Filled & Regular
     - Battery 9 / 28, 32 / Filled & Regular
     - Battery Charge / 28, 32 / Filled & Regular
+    - Bin Full / 48 / Filled & Regular
+	- Calendar Arrow Repeat All / 16, 20, 24, 28, 32, 48 / Filled & Regular
     - Calendar Sparkle / 32 / Light
     - Chat / 32 / Light
+    - Clock Toolbox / 32 / Filled & Regular
+	- Coin Multiple / 28, 32, 48 / Filled & Regular
     - Coin Stack / 16, 20, 24 / Filled & Regular
     - Database Arrow Up / 16 / Filled & Regular
+    - Database Search / 32 / Filled
+    - Database Search / 32 / Regular
+    - Document Globe / 20, 24 / Filled & Regular
+    - Form Sparkle / 20 / Filled & Regular
     - Game Chat / 20 / Filled & Regular
+    - Globe Off / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Hat Graduation / 32, 48 / Filled & Regular
+    - Layout Row Two Focus Top / 28 / Filled
     - Layout Row Two Focus Top Settings / 20, 28, 32 / Filled
     - Layout Row Two Focus Top Settings / 32 / Light
-    - Layout Row Two Focus Top / 28 / Filled
+    - Line Style Sketch / 16, 20, 24, 28, 32 / Filled & Regular
+    - Microscope / 32 / Filled & Regular
     - Paint Brush / 12 / Filled & Regular
     - Panel Right / 12 / Filled & Regular
     - People Edit / 32 / Filled & Regular
     - People Edit / 32 / Light
+    - Person Board Add / 16, 24, 28, 32 / Filled & Regular
     - Person Home / 16, 20, 24, 28, 32, 48 / Filled & Regular
     - Person Mail / 32 / Filled & Regular
     - Person Mail / 32 / Light
     - Puzzle Piece / 12 / Filled & Regular
+    - Puzzle Piece / 20, 28, 32, 48 / Filled & Regular
+    - Reward / 32 / Filled & Regular
+    - Shopping Bag / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Shopping Bag Tag / 16, 28, 32, 48 / Filled & Regular
+    - Tab Add / 32 / Filled, Light & Regular
+    - Teaching / 16, 24, 28, 32, 48 / Filled & Regular
     - Teaching / 20 / Filled & Regular
+    - Window Brush / 20, 24 / Filled & Regular
+    - Window Column One Fourth Left / 20 / Filled & Regular
+    - Window Column One Fourth Left Focus Left / 20 / Filled
+    - Window Column One Fourth Left Focus Top / 20 / Filled
  
-     **What's updated (Name / Size(s) / Variant(s))**
-     - Arrow Forward Down Lightning / 20, 24 / Filled & Regular
-     - Notebook Lightning / 20, 24 / Filled & Regular
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Arrow Forward Down Lightning / 20, 24 / Filled & Regular
+    - Arrow Sync Circle / 24/ Filled & Regular
+    - Building People / 16, 20, 24 / Filled & Regular          
+    - Chat Bubbles Question / 20 / Filled & Regular
+    - Circle Half Fill / 20, 24 / Filled & Regular
+    - Clipboard Text Edit / 32 / Filled & Regular
+    - Contact Card Link / 16, 20 / Filled & Regular
+    - Folder People / 20, 24 / Filled & Regular
+    - Notebook Lightning / 20, 24 / Filled & Regular
+    - Puzzle Piece / 20 / Filled & Regular
+    - Run / 16, 20, 24 / Filled & Regular
+    - Shopping Bag / 16, 20, 24 / Filled
 
 ## v3.7.8
 ### Components
