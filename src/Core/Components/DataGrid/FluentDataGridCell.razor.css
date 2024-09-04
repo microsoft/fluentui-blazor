@@ -17,7 +17,7 @@ td.col-justify-center {
 td.col-justify-end,
 td.col-justify-right {
     text-align: end;
-    padding-inline-end: calc(var(--design-unit) * 7px);
+    padding-inline-end: calc(var(--design-unit) * 4px);
 }
 
 td.grid-cell-placeholder:after {
@@ -94,9 +94,20 @@ td.grid-cell-placeholder:after {
     text-overflow: ellipsis;
 }
 
-.col-justify-end ::deep .col-sort-button::part(control) {
+.col-justify-center ::deep .col-sort-button::part(control),
+.col-justify-center ::deep .col-title {
+    justify-content: center;
+}
+
+.col-justify-end ::deep .col-sort-button::part(control),
+.col-justify-end ::deep .col-title {
     justify-content: end;
 }
+
+.col-justify-end ::deep .col-title {
+    padding-inline-end: 0 !important;
+}
+
 
 .col-justify-end ::deep .col-sort-button::part(start) {
     margin-inline-end: 0 !important;
@@ -106,3 +117,5 @@ td.grid-cell-placeholder:after {
 .col-justify-center ::deep .col-sort-button::part(end) {
     margin-inline-start: 0 !important;
 }
+
+

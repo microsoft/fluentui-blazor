@@ -1,5 +1,5 @@
 ﻿
-<FluentDataGrid id="defaultGrid" Items=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowClick="HandleRowFocus" OnCellClick="HandleCellFocus">
+<FluentDataGrid id="defaultGrid" Items=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowClick="HandleRowClick" OnCellClick="HandleCellClick">
     <TemplateColumn Title="Name">
         <FluentTextField @bind-Value="@context!.Name"/>
     </TemplateColumn>
@@ -30,12 +30,12 @@
         new SampleGridData("Bob", 20 )
     };
 
-    private void HandleRowFocus(FluentDataGridRow<SampleGridData> row)
+    private void HandleRowClick(FluentDataGridRow<SampleGridData> row)
     {
         DemoLogger.WriteLine($"Row focused: {row.RowIndex}");
     }
 
-    private void HandleCellFocus(FluentDataGridCell<SampleGridData> cell)
+    private void HandleCellClick(FluentDataGridCell<SampleGridData> cell)
     {
         DemoLogger.WriteLine($"Cell focused: {cell.GridColumn}");
     }
