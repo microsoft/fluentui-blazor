@@ -171,7 +171,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         }
         if (FieldBound)
         {
-            EditContext?.NotifyFieldChanged(FieldIdentifier);
+            // Thread Safety: Force `EditContext` to be re-associated with the Dispatcher
+            await InvokeAsync(() => EditContext?.NotifyFieldChanged(FieldIdentifier));
         }
     }
 
