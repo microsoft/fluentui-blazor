@@ -26,6 +26,9 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
     }
 
+    /// <summary />
+    private string PopupId => $"{Id}-popup";
+
     /// <summary>
     /// Gets or sets the design of this input.
     /// </summary>
