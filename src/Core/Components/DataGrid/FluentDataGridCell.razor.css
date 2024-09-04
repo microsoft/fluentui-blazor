@@ -1,7 +1,3 @@
-fluent-data-grid-cell {
-    text-overflow: ellipsis;
-}
-
 tbody > tr > td {
     padding-left: 0.8rem;
     overflow:hidden;
@@ -17,7 +13,7 @@ td.col-justify-center {
 td.col-justify-end,
 td.col-justify-right {
     text-align: end;
-    padding-inline-end: calc(var(--design-unit) * 4px);
+    padding-inline-end: calc(var(--design-unit) * 7px);
 }
 
 td.grid-cell-placeholder:after {
@@ -31,13 +27,6 @@ td.grid-cell-placeholder:after {
     text-align: center;
 }
 
-
-.auto-fit fluent-data-grid-cell {
-    text-overflow: unset;
-    overflow: visible;
-    visibility: hidden;
-}
-
 .multiline-text {
     white-space: inherit;
     overflow: auto;
@@ -48,26 +37,26 @@ td.grid-cell-placeholder:after {
     display: flex;
 }
 
-.col-header {
+.column-header {
     position:relative;
     width: 100%;
     padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) 1px calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px);
 }
 
-    .col-header ::deep .keycapture {
+    .column-header ::deep .keycapture {
         display: flex;
         flex-grow: 1;
         padding-inline-end: calc(var(--design-unit) * 1px);
     }
 
 
-        .col-header ::deep .col-sort-container,
-        .col-header ::deep .col-sort-button {
+        .column-header ::deep .col-sort-container,
+        .column-header ::deep .col-sort-button {
             display: flex;
             flex-grow: 1;
         }
 
-            .col-header ::deep .col-sort-button::part(content) {
+            .column-header ::deep .col-sort-button::part(content) {
                 overflow: hidden;
                 text-overflow: ellipsis;
             }

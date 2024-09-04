@@ -6,7 +6,7 @@ export function init(gridElement) {
         return;
     };
 
-    if (gridElement.querySelectorAll('.col-header.resizable').length > 0) {
+    if (gridElement.querySelectorAll('.column-header.resizable').length > 0) {
         initialColumnsWidths[gridElement.id] = gridElement.gridTemplateColumns ;
         enableColumnResizing(gridElement);
     }
@@ -167,7 +167,7 @@ export function enableColumnResizing(gridElement) {
     let headerBeingResized;
     let resizeHandle;
 
-    gridElement.querySelectorAll('.col-header.resizable').forEach(header => {
+    gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
         columns.push({ header });
         const onPointerMove = (e) => requestAnimationFrame(() => {
             if (!headerBeingResized) {
@@ -232,7 +232,7 @@ export function resetColumnWidths(gridElement) {
 
 export function resizeColumnDiscrete(gridElement, column, change) {
 
-    let headers = gridElement.querySelectorAll('.col-header.resizable');
+    let headers = gridElement.querySelectorAll('.column-header.resizable');
     if (headers.length <= 0) {
         return
     }
@@ -240,13 +240,13 @@ export function resizeColumnDiscrete(gridElement, column, change) {
     let headerBeingResized;
     if (!column) {
 
-        if (!(document.activeElement.classList.contains("col-header") && document.activeElement.classList.contains("resizable"))) {
+        if (!(document.activeElement.classList.contains("column-header") && document.activeElement.classList.contains("resizable"))) {
             return;
         }
         headerBeingResized = document.activeElement;
     }
     else {
-        headerBeingResized = gridElement.querySelector('.col-header[grid-column="' + column + '"]');
+        headerBeingResized = gridElement.querySelector('.column-header[data-col-index="' + column + '"]');
     }
     const columns = [];
 
@@ -264,6 +264,7 @@ export function resizeColumnDiscrete(gridElement, column, change) {
             else {
                 header.size = width + 'px';
             }
+            headerBeingResized.style.width = header.size;
         }
         else {
             if (header.size === undefined) {
@@ -272,6 +273,7 @@ export function resizeColumnDiscrete(gridElement, column, change) {
                 } else {
                     header.size = header.clientWidth + 'px';
                 }
+                header.style.width = header.size;
             }
         }
 
@@ -283,33 +285,14 @@ export function resizeColumnDiscrete(gridElement, column, change) {
         .join(' ');
 }
 
-export function autoFitGridColumns(gridElement, columnCount) {
-    let gridTemplateColumns = '';
-
-    for (var i = 0; i < columnCount; i++) {
-        const columnWidths = Array
-            .from(gridElement.querySelectorAll(`[grid-column="${i + 1}"]`))
-            .flatMap((x) => x.offsetWidth);
-
-        const maxColumnWidth = Math.max(...columnWidths);
-
-        gridTemplateColumns += ` ${maxColumnWidth}fr`;
-    }
-
-    gridElement.setAttribute("grid-template-columns", gridTemplateColumns);
-    gridElement.classList.remove("auto-fit");
-
-    initialColumnsWidths[gridElement.id] = gridTemplateColumns;
-}
-
 export function resizeColumnExact(gridElement, column, width) {
 
-    let headers = gridElement.querySelectorAll('.col-header.resizable');
+    let headers = gridElement.querySelectorAll('.column-header.resizable');
     if (headers.length <= 0) {
         return
     }
 
-    let headerBeingResized = gridElement.querySelector('.col-header[grid-column="' + column + '"]');
+    let headerBeingResized = gridElement.querySelector('.column-header[data-col-index="' + column + '"]');
     if (!headerBeingResized) {
         return;
     }
@@ -324,6 +307,8 @@ export function resizeColumnExact(gridElement, column, width) {
             const newWidth = width;
 
             header.size = Math.max(min, newWidth) + 'px';
+
+            headerBeingResized.style.width = header.size
         }
         else {
             if (header.size === undefined) {

@@ -207,7 +207,7 @@ code {
     background-color: var(--accent-stroke-control-active);
 }
 
-    .highlighted-row > fluent-data-grid-cell {
+    .highlighted-row > td {
         color: var(--neutral-fill-inverse-rest);
     }
 

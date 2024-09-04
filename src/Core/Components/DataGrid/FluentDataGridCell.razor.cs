@@ -56,7 +56,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     private ColumnBase<TGridItem>? Column => Owner.Owner.Grid._columns.ElementAtOrDefault(GridColumn - 1);
 
     protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("col-header", when: CellType == DataGridCellType.ColumnHeader)
+        .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)

@@ -20,7 +20,7 @@
         <table @ref=_gridReference
                id="@Id"
                class="@GridClass()"
-               style="@Style"
+               style="@StyleValue"
                aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                @onclosecolumnoptions="CloseColumnOptions"
                @onclosecolumnresize="CloseColumnResize"
@@ -29,7 +29,9 @@
             {
                 DataGridRowType headerType = DataGridRowType.Header;
                 if (GenerateHeader == GenerateHeaderOption.Sticky)
+                {
                     headerType = DataGridRowType.StickyHeader;
+                }
                 <thead row-type="@headerType.ToAttributeValue()">
                     <FluentDataGridRow RowType="@headerType" TGridItem="TGridItem" row-type="@headerType.ToAttributeValue()">
                         @_renderColumnHeaders
@@ -152,13 +154,14 @@
             else
                 col.ShowSortIcon = false;
 
-            <FluentDataGridCell @key="@col"
-                                TGridItem="TGridItem"
+            <FluentDataGridCell GridColumn="@oneBasedIndex"
                                 CellType="@DataGridCellType.ColumnHeader"
                                 Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
                                 Style="@ColumnStyle(col)"
-                                aria-sort="@AriaSortValue(col)"
-                                scope="col">
+                                @key="@col"
+                                scope="col"
+                                TGridItem="TGridItem"
+                                aria-sort="@AriaSortValue(col)">
                 <div class="col-header-content">
                     @col.HeaderContent
                     @if (col == _displayOptionsForColumn)
@@ -195,7 +198,7 @@
             return;
         }
 
-        <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row" row-id="empty-row">
+        <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
             <FluentDataGridCell Class="empty-content-cell" colspan="@(_columns.Count)">
                 @if (EmptyContent is null)
                 {

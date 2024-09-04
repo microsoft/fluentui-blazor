@@ -3,10 +3,10 @@
 <p>To test set ResizeType on the DataGrid to either DataGridResizeType.Discrete or DataGridResizeType.Exact</p>
 <p>Remove the parameter completely to get the original behavior</p>
 
-<div style="height: 405px;">
+<div style="height: 416px; overflow-x:auto;">
     <FluentDataGrid Items="@FilteredItems"
                     ResizableColumns=true
-                    ResizeType="DataGridResizeType.Discrete"
+                    ResizeType="DataGridResizeType.Exact"
                     Pagination="@pagination"
                     RowClass="@rowClass"
                     RowStyle="@rowStyle"

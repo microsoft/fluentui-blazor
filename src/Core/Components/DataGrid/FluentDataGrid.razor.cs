@@ -332,14 +332,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        if (AutoFit)
-        {
-            _internalGridTemplateColumns = "auto-fit";
-        }
-        else
-        {
-            _internalGridTemplateColumns = GridTemplateColumns;
-        }
 
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -382,11 +374,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             catch (JSException ex)
             {
                 Console.WriteLine("[FluentDataGrid] " + ex.Message);
-            }
-
-            if (AutoFit && _gridReference is not null)
-            {
-                _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
             }
         }
 
@@ -674,6 +661,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
              ? (_sortByAscending ? "ascending" : "descending")
              : "none";
 
+    private string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("table-layout", AutoFit ? "auto" : "fixed")
+        .AddStyle("width", "fit-content", when: AutoFit )
+        .Build();
+
+
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(Class)
@@ -689,7 +682,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         return new CssBuilder("fluent-data-grid")
             .AddClass(Class)
             .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
-            .AddClass("auto-fit", AutoFit)
             .Build();
     }
 
@@ -719,12 +711,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             if (_jsEventDisposable is not null)
             {
                 await _jsEventDisposable.InvokeVoidAsync("stop");
-                await _jsEventDisposable.DisposeAsync();
+                await _jsEventDisposable.DisposeAsync().ConfigureAwait(false);
             }
 
             if (Module is not null)
             {
-                await Module.DisposeAsync();
+                await Module.DisposeAsync().ConfigureAwait(false);
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||

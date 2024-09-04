@@ -413,7 +413,6 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                         builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
                         builder.AddAttribute(4, "onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyAllAsync));
                     }
-                    //builder.AddAttribute(5, "Style", "margin-left: 12px;");
                     builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
                                                         ? TitleAllIndeterminate
                                                         : (iconAllChecked == GetIcon(true) ? TitleAllChecked : TitleAllUnchecked));
