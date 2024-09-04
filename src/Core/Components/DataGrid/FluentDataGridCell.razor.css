@@ -61,21 +61,6 @@ td.grid-cell-placeholder:after {
                 text-overflow: ellipsis;
             }
 
-::deep .col-title {
-    padding: 0 calc((12 + (var(--design-unit) * 2 * var(--density))) * 1px);
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    user-select: none;
-}
-
-::deep .col-title-text {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: 600;
-}
-
 .col-justify-start ::deep .col-sort-button::part(control) {
     align-items: center;
     justify-content: start;
@@ -93,9 +78,6 @@ td.grid-cell-placeholder:after {
     justify-content: end;
 }
 
-.col-justify-end ::deep .col-title {
-    padding-inline-end: 0 !important;
-}
 
 
 .col-justify-end ::deep .col-sort-button::part(start) {
