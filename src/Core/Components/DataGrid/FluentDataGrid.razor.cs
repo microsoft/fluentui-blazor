@@ -249,7 +249,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Gets the first (optional) SelectColumn
     /// </summary>
+#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
     internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.OfType<SelectColumn<TGridItem>>();
+#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -669,7 +671,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         .AddStyle("table-layout", AutoFit ? "auto" : "fixed")
         .AddStyle("width", "fit-content", when: AutoFit )
         .Build();
-
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
     {
