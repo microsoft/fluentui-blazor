@@ -61,7 +61,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     protected string? StyleValue => new StyleBuilder(Style)
        .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
-       //.AddStyle("text-align-content", "center", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
        .Build();
 
     protected override void OnInitialized()

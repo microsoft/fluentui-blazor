@@ -7,7 +7,14 @@ export function init(gridElement) {
     };
 
     if (gridElement.querySelectorAll('.column-header.resizable').length > 0) {
-        initialColumnsWidths[gridElement.id] = gridElement.gridTemplateColumns ;
+        if (gridElement.gridTemplateColumns) {
+            initialColumnsWidths[gridElement.id] = gridElement.gridTemplateColumns;
+        }
+        else {
+            const columns = Array.from(gridElement.querySelectorAll('.column-header'));
+            initialColumnsWidths[gridElement.id] = columns.map(column => column.getBoundingClientRect().width + 'px');
+            gridElement.gridTemplateColumns = initialColumnsWidths[gridElement.id];
+        }
         enableColumnResizing(gridElement);
     }
 
@@ -181,7 +188,6 @@ export function enableColumnResizing(gridElement) {
             const width = pointerLocalLeft - headerLocalLeft;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
-            //min = header.querySelector('.col-options-button') ? 100 : 75;
 
             column.size = Math.max(min, width) + 'px';
             headerBeingResized.style.width = column.size;
@@ -226,8 +232,14 @@ export function enableColumnResizing(gridElement) {
 }
 
 export function resetColumnWidths(gridElement) {
+    const columnsWidths = initialColumnsWidths[gridElement.id];
 
-    gridElement.gridTemplateColumns = initialColumnsWidths[gridElement.id];
+    if (columnsWidths) {
+        const columns = Array.from(gridElement.querySelectorAll('.column-header'));
+        columns.forEach((column, index) => {
+            column.style.width = columnsWidths[index];
+        });
+    }
 }
 
 export function resizeColumnDiscrete(gridElement, column, change) {
@@ -240,10 +252,11 @@ export function resizeColumnDiscrete(gridElement, column, change) {
     let headerBeingResized;
     if (!column) {
 
-        if (!(document.activeElement.classList.contains("column-header") && document.activeElement.classList.contains("resizable"))) {
+        const targetElement = document.activeElement.parentElement.parentElement.parentElement.parentElement;
+        if (!(targetElement.classList.contains("column-header") && targetElement.classList.contains("resizable"))) {
             return;
         }
-        headerBeingResized = document.activeElement;
+        headerBeingResized = targetElement;
     }
     else {
         headerBeingResized = gridElement.querySelector('.column-header[data-col-index="' + column + '"]');

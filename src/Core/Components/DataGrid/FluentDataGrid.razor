@@ -37,9 +37,6 @@
                         @_renderColumnHeaders
                     </FluentDataGridRow>
                 </thead>
-                @*  <FluentDataGridRow RowType=@headerType TGridItem=TGridItem>
-            @_renderColumnHeaders
-            </FluentDataGridRow> *@
             }
             <tbody>
                 @if (Loading)
@@ -104,7 +101,6 @@
         var rowStyle = RowStyle?.Invoke(item) ?? null;
         Loading = false;
 
-        // <tr @key="@(ItemKey(item))" aria-rowindex="@rowIndex" class="@rowClass" style="@rowStyle" >
         <FluentDataGridRow @key="@(ItemKey(item))" aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
@@ -112,34 +108,27 @@
 
                 string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
-                // <td @key="@col" GridColumn=@(colIndex+1) class="@ColumnJustifyClass(col)" style="@col.Style" title="@tooltip" aria-label="@tooltip">
                 <FluentDataGridCell GridColumn=@(colIndex+1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip">
                     @((RenderFragment)(__builder => col.CellContent(__builder, item)))
                 </FluentDataGridCell>
-                // </td>
             }
         </FluentDataGridRow>
-        // </tr>
     }
 
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
         string? _rowsDataSize = $"height: {ItemSize}px";
 
-        // <tr aria-rowindex="@(placeholderContext.Index + 1)" style="@_rowsDataSize">
         <FluentDataGridRow aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
                 var col = _columns[colIndex];
 
-                // <td @key="@col" class="@("grid-cell-placeholder " + ColumnJustifyClass(col))" style="@col.Style">
                 <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@(colIndex+1) TGridItem="TGridItem">
                     @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
                 </FluentDataGridCell>
-                // </td>
             }
         </FluentDataGridRow>
-        // </tr>
     }
 
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
@@ -157,7 +146,7 @@
             <FluentDataGridCell GridColumn="@oneBasedIndex"
                                 CellType="@DataGridCellType.ColumnHeader"
                                 Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
-                                Style="@ColumnStyle(col)"
+                                Style="@ColumnStyle(col, colIndex)"
                                 @key="@col"
                                 scope="col"
                                 TGridItem="TGridItem"

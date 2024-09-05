@@ -284,7 +284,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
 
-    private string? _internalGridTemplateColumns;
+    private string?[] _internalGridTemplateColumns =[];
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
@@ -332,6 +332,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
+        if (GridTemplateColumns is not null)
+        {
+            _internalGridTemplateColumns = GridTemplateColumns.Split(' ');
+        }
 
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
@@ -422,9 +426,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (_internalGridTemplateColumns.Any() && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "1fr"));
+            _internalGridTemplateColumns = _columns.Select(x => x.Width ?? "auto").ToArray();
         }
 
         if (ResizableColumns)
@@ -685,7 +689,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .Build();
     }
 
-    private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
+    private string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)
             .AddClass("col-justify-start", column.Align == Align.Start)
@@ -694,10 +698,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .Build();
     }
 
-    private static string? ColumnStyle(ColumnBase<TGridItem> column)
+    private string? ColumnStyle(ColumnBase<TGridItem> column, int index)
     {
+        var w = "auto";
+        if (_internalGridTemplateColumns.Count() > 0 && index < _internalGridTemplateColumns.Count())
+        {
+            w = _internalGridTemplateColumns[index];
+        }
         return new StyleBuilder(column.Style)
-           .AddStyle("width", column.Width, column.Width is not null )
+           .AddStyle("width", column.Width ?? w)
            .Build();
     }
 
@@ -770,7 +779,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         //return Task.CompletedTask;
     }
 
-    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
+    public async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -778,7 +787,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    public async Task SetColumnWidthExactAsync(int columnIndex, int width)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -786,7 +795,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    internal async Task ResetColumnWidthsAsync()
+    public async Task ResetColumnWidthsAsync()
     {
         if (_gridReference is not null && Module is not null)
         {
