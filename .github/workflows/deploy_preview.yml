@@ -1,4 +1,4 @@
-name: Deploy docs and demo preview site to Azure Static Web App
+name: Deploy docs and demo preview site
 
 on:
   # Allow manually running the workflow

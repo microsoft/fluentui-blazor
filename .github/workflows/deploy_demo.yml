@@ -1,4 +1,4 @@
-name: Deploy docs and demo site to Azure Static Web Apps
+name: Deploy docs and demo site
 on:
   push:
     branches:
