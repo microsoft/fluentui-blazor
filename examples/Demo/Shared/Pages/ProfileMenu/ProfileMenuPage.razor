@@ -6,6 +6,22 @@
 
 <h1>ProfileMenu</h1>
 
+<FluentLayout>
+    <FluentHeader Style="height: 48px; background: var(--neutral-layer-4); color: var(--neutral-foreground-rest);">
+        <FluentSpacer />
+        <FluentProfileMenu Image="@(new Icons.Regular.Size48.Person().ToDataUri())"
+                           TopCorner="true">
+            <HeaderTemplate>
+                    <FluentButton Appearance="@Appearance.Accent">Sign In</FluentButton>
+            </HeaderTemplate>
+            <ChildContent>
+            </ChildContent>
+            <FooterTemplate>
+            </FooterTemplate>
+        </FluentProfileMenu>
+    </FluentHeader>
+</FluentLayout>
+
 <p>
     A "User Profile Menu" is a component commonly found on websites or applications.
     It typically appears in the top-right corner of a web page and provides options related to
