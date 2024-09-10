@@ -43,28 +43,13 @@
   <!-- Copy all .razor files to .txt files in wwwroot\sources -->
   <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='net8.0'">
     <ItemGroup>
-      <Sources Include="$(ProjectDir)\Documentation\**\*.razor" />
+      <Sources Include="$(ProjectDir)\Documentation\**\*.razor*" />
     </ItemGroup>
     <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 
     <!-- Add a task to generate files.txt with all filenames -->
     <WriteLinesToFile File="$(ProjectDir)wwwroot\sources\files.txt" Lines="@(Sources->'%(Filename)%(Extension).txt')" Overwrite="true" />
   </Target>
-
-  <!-- TODO
-  <Target Name="CopyMarkdown" BeforeTargets="BeforeBuild">
-    <ItemGroup>
-      <Sources Include="$(ProjectDir)\Documentation\**\*.md" />
-    </ItemGroup>
-    <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\documentation\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
-
-    Add a task to generate files.txt with all filenames
-    <WriteLinesToFile
-      File="$(ProjectDir)wwwroot\documentation\files.txt"
-      Lines="@(Sources->'%(Filename)%(Extension).txt')"
-      Overwrite="true" />
-  </Target>
-  -->
 
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
