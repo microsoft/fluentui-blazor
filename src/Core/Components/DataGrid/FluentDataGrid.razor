@@ -171,11 +171,11 @@
                         </div>
                     }
 
-                    @if (ResizableColumns)
-                    {
-                        <FluentDivider class="col-width-draghandle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />
-                    }
                 </div>
+                @if (ResizableColumns)
+                {
+                    <FluentDivider Class="resize-handle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />
+                }
             </FluentDataGridCell>
         }
     }

@@ -60,6 +60,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
+       .AddStyle("grid-column", GridColumn.ToString())
        .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
        .Build();
 

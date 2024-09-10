@@ -668,8 +668,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
              : "none";
 
     private string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("table-layout", AutoFit ? "auto" : "fixed")
+        //.AddStyle("table-layout", AutoFit ? "auto" : "fixed")
         .AddStyle("width", "fit-content", when: AutoFit )
+        .AddStyle("grid-template-columns", GridTemplateColumns)
+        .AddStyle("grid-auto-rows", "44px") //TODO: Implment Size parameter (44 (Default), 32 (Smaal), 23 (Extra Small))
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)

@@ -2,11 +2,12 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 
-@if (CellType == DataGridCellType.Default || CellType == DataGridCellType.RowHeader)
+@if (CellType == DataGridCellType.Default)
 {
     <td data-col-index=@GridColumn
         class="@ClassValue"
         style="@StyleValue"
+        role="gridcell"
         @onkeydown="@HandleOnCellKeyDownAsync"
         @onclick="@HandleOnCellClickAsync"
         @attributes="AdditionalAttributes">

@@ -1,8 +1,13 @@
-tbody > tr > td {
+th, td {
+    border-bottom: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-divider-rest);
+}
+
+td {
     padding-left: 0.8rem;
-    overflow:hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    min-height: 33px;
 }
 
 td.col-justify-center {

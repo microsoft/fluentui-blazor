@@ -6,6 +6,7 @@
     <tr class="@ClassValue"
         style="@StyleValue"
         data-row-index=@RowIndex
+        role="row"
         @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
         @onclick="@(e => HandleOnRowClickAsync(RowId))"
         @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"

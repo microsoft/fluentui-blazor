@@ -1,17 +1,20 @@
 .fluent-data-grid {
-    border-spacing: 0;
-    width: 100%;
+    width: auto;
+    flex: 1;
+    display: grid;
+    border-collapse: collapse;
+    align-items: center;
+    height: max-content;
+}
+
+thead,
+tbody
+{
+    display:contents;
 }
 
 ::deep tr {
-    border-bottom: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-divider-rest);
-    height: 34px;
-}
-
-tbody > tr > td {
-    white-space: nowrap;
-    padding-left: 0.8rem;
-    text-overflow: ellipsis;
+    display: contents;
 }
 
 .fluent-data-grid tbody tr .hover {
@@ -28,6 +31,7 @@ tbody > tr > td {
     border-radius: 0.3rem;
     box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
     padding: 1rem;
+    visibility: hidden;
     z-index: 1;
 }
 
@@ -56,7 +60,11 @@ tbody > tr > td {
     align-items: center;
 }
 
-::deep .col-width-draghandle {
+::deep .resize-handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
     height: 34px;
     cursor: col-resize;
     margin-left: calc(var(--design-unit) * 2px);
