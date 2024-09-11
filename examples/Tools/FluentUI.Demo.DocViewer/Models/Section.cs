@@ -29,6 +29,11 @@ public record Section
     public const string ARGUMENT_SOURCECODE = "sourcecode";
 
     /// <summary>
+    /// Key for the extra files displayed in the Component.
+    /// </summary>
+    public const string ARGUMENT_EXTRA_FILES = "files";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Section"/> class.
     /// </summary>
     /// <param name="docViewerService"></param>
@@ -51,6 +56,24 @@ public record Section
     /// Gets True if the contains SourceCode="false" in the arguments.
     /// </summary>
     public bool NoCode => Arguments.TryGetValue(ARGUMENT_SOURCECODE, out var sourceCodeValue) && sourceCodeValue.Equals("false", StringComparison.CurrentCultureIgnoreCase);
+
+    /// <summary>
+    /// Gets the files to display in extra tabs in the Component.
+    /// The format is "Tab1=File1;Tab2=File2".
+    /// </summary>
+    public IDictionary<string, string> ExtraFiles
+    {
+        get
+        {
+            if (Arguments.TryGetValue(ARGUMENT_EXTRA_FILES, out var extraFileValue))
+            {
+                var files = extraFileValue.Split(';');
+                return files.Select(f => f.Split(':')).ToDictionary(f => f[0].Trim(), f => f[1].Trim());
+            }
+
+            return new Dictionary<string, string>();
+        }
+    }
 
     /// <summary>
     /// Gets the parameters of the section. All keys are in lowercase.

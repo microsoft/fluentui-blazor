@@ -39,6 +39,28 @@
                     {
                         <DynamicComponent Type="@component" />
                     }
+                    else if (section.ExtraFiles.Count > 0)
+                    {
+                        <div class="demo-tabs">
+                            <fluent-tabs>
+                                <fluent-tab>Example</fluent-tab>
+                                @foreach (var tabName in section.ExtraFiles.Keys)
+                                {
+                                    <fluent-tab>@tabName</fluent-tab>
+                                }
+
+                                <fluent-tab-panel class="demo-section-example">
+                                    <DynamicComponent Type="@component" />
+                                </fluent-tab-panel>
+                                @foreach (var item in section.ExtraFiles)
+                                {
+                                    <fluent-tab-panel>
+                                        <pre><code id="@($"{section.Id}-{item.Key}")" class="@GetLanguageClassName(item.Value)" source>Loading...</code></pre>
+                                    </fluent-tab-panel>
+                                }
+                            </fluent-tabs>
+                        </div>
+                    }
                     else
                     {
                         <div class="demo-tabs">
@@ -50,7 +72,7 @@
                                     <DynamicComponent Type="@component" />
                                 </fluent-tab-panel>
                                 <fluent-tab-panel>
-                                    <pre><code id="@(section.Id)" class="language-razor" source>Loading...</code></pre>
+                                    <pre><code id="@(section.Id)" class="@GetLanguageClassName()" source>Loading...</code></pre>
                                 </fluent-tab-panel>
                             </fluent-tabs>
                         </div>
