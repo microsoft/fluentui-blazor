@@ -49,6 +49,8 @@ interface Blazor {
   theme: {
     isSystemDark(): boolean,
     isDarkMode(): boolean
+    getAllTokensValues(): any,
+    update(theme: Theme): void
   }
   addEventListener: (name: string, callback: (event: any) => void) => void;
 }
@@ -351,9 +353,24 @@ export function afterStarted(blazor: Blazor, mode: string) {
     isDarkMode: () => {
       const luminance: string = getComputedStyle(document.documentElement).getPropertyValue('--base-layer-luminance');
       return parseFloat(luminance) < 0.5;
-    }
-  }
+    },
 
+    getAllTokensValues: () => {
+      const theme: any = webLightTheme;
+      return Object.keys(theme).reduce((result, key) => {
+        result[key] = {
+          type: typeof theme[key],
+          value: theme[key]
+        };
+        return result;
+      }, {} as { [key: string]: { type: string, value: string } });
+    },
+
+    update: (theme: Theme) => {
+      console.log('Updating theme', theme);
+      setTheme(theme);
+    },
+  }
 
   if (typeof blazor.addEventListener === 'function' && mode === 'web') {
     customElements.define('fluent-page-script', FluentPageScript);

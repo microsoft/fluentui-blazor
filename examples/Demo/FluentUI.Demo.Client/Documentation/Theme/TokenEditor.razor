@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<div style="@Style">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var token in Tokens)
+            {
+                var name = token.Key;
+                var item = token.Value;
+
+                <tr>
+                    <td>
+                        <strong>@name</strong>
+                    </td>
+                    <td>
+                        <InputText type="@(item.Type == "number" ? "number" : "text")"
+                                   @bind-Value="@item.ValueAsString"
+                                   @bind-Value:after="@ApplyThemeAsync" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
