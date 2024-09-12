@@ -41,18 +41,28 @@ public partial class TokenEditor
         {
             var tokensJson = await JSRuntime.InvokeAsync<JsonElement>("Blazor.theme.getAllTokensValues");
             Tokens = JsonSerializer.Deserialize<Dictionary<string, TokenItem>>(tokensJson.GetRawText(), JsonOptions) ?? [];
+
+            foreach (var token in Tokens)
+            {
+                token.Value.Name = token.Key;
+            }
+
             StateHasChanged();
         }
     }
 
-    private class TokenItem
+    private static string GetInputType(TokenItem token)
     {
-        public string Type { get; set; } = string.Empty;
-        public object Value { get; set; }= string.Empty;
-        public string ValueAsString
+        if (token.Type == "number")
         {
-            get => Value?.ToString() ?? string.Empty;
-            set => Value = value;
+            return "number";
         }
+
+        if (token.MainSection == "color")
+        {
+            return "color";
+        }
+
+        return "text";
     }
 }

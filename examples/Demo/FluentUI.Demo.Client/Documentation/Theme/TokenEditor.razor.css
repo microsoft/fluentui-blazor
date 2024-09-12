@@ -1,0 +1,7 @@
+.theme-token-editor ::deep input {
+  width: 100px;
+}
+
+.theme-token-editor ::deep input[type='color'] {
+  width: 24px;
+}
