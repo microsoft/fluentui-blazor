@@ -1,11 +1,14 @@
-fluent-anchor[appearance="hypertext"]::part(control) {
-    display: inline-flex !important;
-}
 
 fluent-anchor[appearance="hypertext"]::part(start) {
+    display: unset;
+    position: relative;
+    top: calc(var(--design-unit)* 1px);
     margin-inline-end: calc(var(--design-unit) * 1px);
 }
 
 fluent-anchor[appearance="hypertext"]::part(end) {
+    display: unset;
+    position: relative;
+    top: calc(var(--design-unit)* 1px);
     margin-inline-start: calc(var(--design-unit) * 1px);
 }
