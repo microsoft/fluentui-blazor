@@ -137,11 +137,11 @@
         {
             var col = _columns[colIndex];
             var oneBasedIndex = colIndex + 1;
-            string CellId = Identifier.NewId();
+            //string CellId = Identifier.NewId();
             if (_sortByColumn == col)
-                col.ShowSortIcon = true;
+                col.IsActiveSortColumn = true;
             else
-                col.ShowSortIcon = false;
+                col.IsActiveSortColumn = false;
 
             <FluentDataGridCell GridColumn="@oneBasedIndex"
                                 CellType="@DataGridCellType.ColumnHeader"

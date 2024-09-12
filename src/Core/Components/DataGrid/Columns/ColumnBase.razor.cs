@@ -223,7 +223,7 @@ public abstract partial class ColumnBase<TGridItem>
         }
     }
 
-    public bool ShowSortIcon;
+    public bool IsActiveSortColumn;
 
     /// <summary>
     /// Constructs an instance of <see cref="ColumnBase{TGridItem}" />.
@@ -279,12 +279,12 @@ public abstract partial class ColumnBase<TGridItem>
 
     private string GetSortOptionText()
     {
-        if (Grid.SortByAscending.HasValue && ShowSortIcon)
+        if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
         {
             if (Grid.SortByAscending is true)
             {
                 return Grid.ColumnSortLabels.SortMenuAscendingLabel;
-            }
+        }
             else
             {
                 return Grid.ColumnSortLabels.SortMenuDescendingLabel;

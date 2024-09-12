@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -9,8 +10,6 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-
-using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -286,7 +285,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
 
-    private string?[] _internalGridTemplateColumns =[];
+    private string?[] _internalGridTemplateColumns = [];
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
@@ -494,10 +493,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
             _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != SortDirection.Descending;
-        }
 
-        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
-        return RefreshDataCoreAsync();
+            StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+            return RefreshDataCoreAsync();
+        }
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -669,7 +669,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? StyleValue => new StyleBuilder(Style)
         //.AddStyle("table-layout", AutoFit ? "auto" : "fixed")
-        .AddStyle("width", "fit-content", when: AutoFit )
+        .AddStyle("width", "fit-content", when: AutoFit)
         .AddStyle("grid-template-columns", GridTemplateColumns)
         .AddStyle("grid-auto-rows", "44px") //TODO: Implment Size parameter (44 (Default), 32 (Smaal), 23 (Extra Small))
         .Build();

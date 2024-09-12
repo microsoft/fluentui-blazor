@@ -24,7 +24,7 @@
                     <FluentButton Disabled="@(!AnyColumnActionEnabled)" Id="@_columnId" Appearance="Appearance.Stealth" class="col-sort-button" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip">
                         <div class="col-title-text" title="@tooltip">@Title</div>
 
-                        @if (Grid.SortByAscending.HasValue && ShowSortIcon)
+                        @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
                         {
                             if (Grid.SortByAscending == true)
                             {
