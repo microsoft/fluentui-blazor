@@ -8,6 +8,7 @@ namespace FluentUI.Demo.Client.Documentation.Theme;
 
 internal class TokenItem
 {
+    private const string DEFAULT_SECTION = "Default";
     private string? _mainSection;
     private string? _subSection;
 
@@ -32,7 +33,9 @@ internal class TokenItem
         var pattern = @"^[a-z]+";
         var match = Regex.Match(value, pattern);
 
-        return match.Success ? match.Value : string.Empty;
+        return match.Success
+            ? CapitalizeFirstLetter(match.Value)
+            : DEFAULT_SECTION;
     }
 
     private static string GetSubSectionName(string value)
@@ -41,7 +44,20 @@ internal class TokenItem
         var match = Regex.Match(value, pattern);
 
         return match.Success && match.Groups.Count > 1
-            ? match.Groups[1].Value
-            : string.Empty;
+            ? CapitalizeFirstLetter(match.Groups[1].Value)
+            : DEFAULT_SECTION;
+    }
+
+    public static string CapitalizeFirstLetter(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return input;
+        }
+
+        var firstChar = char.ToUpper(input[0]);
+        var restOfString = input.Substring(1);
+
+        return firstChar + restOfString;
     }
 }

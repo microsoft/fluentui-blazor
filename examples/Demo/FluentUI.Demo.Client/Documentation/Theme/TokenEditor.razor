@@ -2,16 +2,16 @@
 
 <div style="@Style" class="theme-token-editor">
 
-    @foreach (var mainSection in Tokens.Select(i => i.Value.MainSection).Distinct())
+    @foreach (var mainSection in Tokens.Select(i => i.Value.MainSection).Distinct().Order())
     {
         <details>
             <summary>
                 @mainSection
             </summary>
 
-            @foreach (var subSection in Tokens.Where(i => i.Value.MainSection == mainSection).Select(i => i.Value.SubSection).Distinct())
+            @foreach (var subSection in Tokens.Where(i => i.Value.MainSection == mainSection).Select(i => i.Value.SubSection).Distinct().Order())
             {
-                <details style="margin-left: 24px;">
+                <details>
                     <summary>
                         @subSection
                     </summary>

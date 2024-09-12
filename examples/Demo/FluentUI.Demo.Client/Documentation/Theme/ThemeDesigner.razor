@@ -2,6 +2,25 @@
     <TokenEditor Style="width: 500px; height: calc(100vh - 170px); overflow-y: auto; overflow-x: hidden;" />
     <div>
         <h3>Preview:</h3>
-        <fluent-button appearance="primary">Primary</fluent-button>
+        <div style="display: flex">
+            <fluent-button appearance="primary">Primary</fluent-button>
+            <fluent-button appearance="outline">Outline</fluent-button>
+            <fluent-button appearance="subtle">Subtle</fluent-button>
+            <fluent-button appearance="transparent">Transparent</fluent-button>
+        </div>
+        <br />
+
+        <fluent-menu>
+            <fluent-menu-button aria-label="Toggle Menu" appearance="primary" slot="trigger" tabindex="0" aria-haspopup="true" aria-expanded="false">Toggle Menu</fluent-menu-button>
+            <fluent-menu-list popover="">
+                <fluent-menu-item role="menuitem" tabindex="0" data-indent="0">Menu item 1</fluent-menu-item>
+                <fluent-menu-item role="menuitem" tabindex="-1" data-indent="0">Menu item 2</fluent-menu-item>
+                <fluent-menu-item role="menuitem" tabindex="-1" data-indent="0">Menu item 3</fluent-menu-item>
+                <fluent-menu-item role="menuitem" tabindex="-1" data-indent="0">Menu item 4</fluent-menu-item>
+            </fluent-menu-list>
+        </fluent-menu>
+        <br />
+
+     
     </div>
 </div>

@@ -2,6 +2,20 @@
   width: 100px;
 }
 
-.theme-token-editor ::deep input[type='color'] {
-  width: 24px;
+  .theme-token-editor ::deep input[type='color'] {
+    width: 24px;
+  }
+
+.theme-token-editor ::deep details,
+.theme-token-editor ::deep table {
+  margin-left: 16px
+}
+
+.theme-token-editor ::deep summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.theme-token-editor ::deep > details > summary {
+  list-style: square;
 }

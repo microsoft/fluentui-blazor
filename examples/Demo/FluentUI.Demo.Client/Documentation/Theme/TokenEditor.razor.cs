@@ -58,7 +58,7 @@ public partial class TokenEditor
             return "number";
         }
 
-        if (token.MainSection == "color")
+        if (token.MainSection == "Color")
         {
             return "color";
         }
