@@ -89,6 +89,8 @@ public class DebounceTests
             });
         });
 
+        await Task.Delay(5);     // To ensure the second call is made after the first one
+
         _ = Task.Run(() =>
         {
             debounce.Run(40, async () =>
