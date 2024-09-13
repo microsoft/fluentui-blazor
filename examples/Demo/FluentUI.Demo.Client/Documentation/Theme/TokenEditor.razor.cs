@@ -23,6 +23,9 @@ public partial class TokenEditor
     [Parameter]
     public string Style { get; set; } = string.Empty;
 
+    [Parameter]
+    public string SearchText { get; set; } = string.Empty;
+
     private IDictionary<string, TokenItem> Tokens { get; set; } = new Dictionary<string, TokenItem>();
 
     public IDictionary<string, object> GetTheme()
@@ -49,6 +52,19 @@ public partial class TokenEditor
 
             StateHasChanged();
         }
+    }
+
+    private IEnumerable<string> GetSections(string mainSection = "")
+    {
+        var tokenFilter = Tokens.Where(i => i.Key.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                                            i.Value.ValueAsString.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
+        if (string.IsNullOrEmpty(mainSection))
+        {
+            return tokenFilter.Select(i => i.Value.MainSection).Distinct().Order();
+        }
+
+        return tokenFilter.Where(i => i.Value.MainSection == mainSection).Select(i => i.Value.SubSection).Distinct().Order();
     }
 
     private static string GetInputType(TokenItem token)

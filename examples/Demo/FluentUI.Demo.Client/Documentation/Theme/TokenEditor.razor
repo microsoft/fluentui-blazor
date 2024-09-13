@@ -2,14 +2,14 @@
 
 <div style="@Style" class="theme-token-editor">
 
-    @foreach (var mainSection in Tokens.Select(i => i.Value.MainSection).Distinct().Order())
+    @foreach (var mainSection in GetSections())
     {
         <details>
             <summary>
                 @mainSection
             </summary>
 
-            @foreach (var subSection in Tokens.Where(i => i.Value.MainSection == mainSection).Select(i => i.Value.SubSection).Distinct().Order())
+            @foreach (var subSection in GetSections(mainSection))
             {
                 <details>
                     <summary>

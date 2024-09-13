@@ -1,5 +1,8 @@
 ﻿<div style="display: flex;">
-    <TokenEditor Style="width: 500px; height: calc(100vh - 170px); overflow-y: auto; overflow-x: hidden;" />
+    <div>
+        <input @bind-value="SearchText" @onkeypress="@(e => { if (e.Key == "Enter") { StateHasChanged(); } })" />
+        <TokenEditor SearchText="@SearchText" Style="width: 500px; height: calc(100vh - 170px); overflow-y: auto; overflow-x: hidden;" />
+    </div>
     <div>
         <h3>Preview:</h3>
         <div style="display: flex">
@@ -21,6 +24,6 @@
         </fluent-menu>
         <br />
 
-     
+
     </div>
 </div>
