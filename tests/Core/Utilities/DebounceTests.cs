@@ -48,14 +48,14 @@ public class DebounceTests
         var actionCalled = string.Empty;
 
         // Act
-        debounce.Run(150, async () =>
+        debounce.Run(50, async () =>
         {
             actionCalled = "Step1";
             actionCalledCount++;
             await Task.CompletedTask;
         });
 
-        debounce.Run(140, async () =>
+        debounce.Run(40, async () =>
         {
             actionCalled = "Step2";
             actionCalledCount++;
@@ -64,6 +64,42 @@ public class DebounceTests
 
         // Wait for the debounce to complete
         await debounce.CurrentTask;
+
+        // Assert
+        Assert.Equal("Step2", actionCalled);
+        Assert.Equal(1, actionCalledCount);
+    }
+
+    [Fact]
+    public async Task Debounce_MultipleCalls_Async()
+    {
+        // Arrange
+        var debounce = new Debounce();
+        var actionCalledCount = 0;
+        var actionCalled = string.Empty;
+
+        // Act: simulate two async calls
+        _ = Task.Run(() =>
+        {
+            debounce.Run(50, async () =>
+            {
+                actionCalled = "Step1";
+                actionCalledCount++;
+                await Task.CompletedTask;
+            });
+        });
+
+        _ = Task.Run(() =>
+        {
+            debounce.Run(40, async () =>
+            {
+                actionCalled = "Step2";
+                actionCalledCount++;
+                await Task.CompletedTask;
+            });
+        });
+
+        await Task.Delay(100);   // Wait for the debounce to complete
 
         // Assert
         Assert.Equal("Step2", actionCalled);
