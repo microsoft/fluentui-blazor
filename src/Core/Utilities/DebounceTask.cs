@@ -60,9 +60,9 @@ public sealed class DebounceTask : IDisposable
             _task = Task.Delay(TimeSpan.FromMilliseconds(milliseconds), _cts.Token)
                         .ContinueWith(t =>
                         {
-                            lock (_syncRoot)
+                            if (!_disposed && !_cts.IsCancellationRequested)
                             {
-                                if (!_disposed && !_cts.IsCancellationRequested)
+                                lock (_syncRoot)
                                 {
                                     _ = action.Invoke();
                                 }
