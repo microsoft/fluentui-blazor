@@ -5,10 +5,10 @@
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 /// <summary>
-/// The Debounce dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+/// The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
 /// This ensures that the action is only invoked once after the calls have stopped for the specified duration.
 /// </summary>
-internal sealed class Debounce : IDisposable
+public sealed class DebounceTask : IDisposable
 {
     // https://learn.microsoft.com/en-us/dotnet/standard/threading/timers
 
@@ -23,10 +23,21 @@ internal sealed class Debounce : IDisposable
     private CancellationTokenSource _cts = new();
 
     /// <summary>
-    /// Gets a value indicating whether the Debounce dispatcher is busy.
+    /// Gets a value indicating whether the DebounceTask dispatcher is busy.
     /// </summary>
     public bool Busy => _task?.Status == TaskStatus.Running && !_disposed;
 
+    /// <summary>
+    /// Gets the current task.
+    /// </summary>
+    public Task CurrentTask => _task ?? Task.CompletedTask;
+
+    /// <summary>
+    /// Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+    /// </summary>
+    /// <param name="milliseconds"></param>
+    /// <param name="action"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public void Run(int milliseconds, Func<Task> action)
     {
         // Check arguments
@@ -65,10 +76,8 @@ internal sealed class Debounce : IDisposable
         }
     }
 
-    public Task CurrentTask => _task ?? Task.CompletedTask;
-
     /// <summary>
-    /// Releases all resources used by the Debounce dispatcher.
+    /// Releases all resources used by the DebounceTask dispatcher.
     /// </summary>
     public void Dispose()
     {
