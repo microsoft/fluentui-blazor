@@ -14,13 +14,13 @@ using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public class DebounceTests
+public class Debounce2Tests
 {
     [Fact]
     public async Task Debounce_Default()
     {
         // Arrange
-        var debounce = new Debounce();
+        var debounce = new Debounce2();
         var actionCalled = false;
         var watcher = Stopwatch.StartNew();
 
@@ -43,7 +43,7 @@ public class DebounceTests
     public async Task Debounce_MultipleCalls()
     {
         // Arrange
-        var debounce = new Debounce();
+        var debounce = new Debounce2();
         var actionCalledCount = 0;
         var actionCalled = string.Empty;
 
@@ -74,7 +74,7 @@ public class DebounceTests
     public async Task Debounce_MultipleCalls_Async()
     {
         // Arrange
-        var debounce = new Debounce();
+        var debounce = new Debounce2();
         var actionCalledCount = 0;
         var actionCalled = string.Empty;
 
@@ -112,7 +112,7 @@ public class DebounceTests
     public async Task Debounce_Disposed()
     {
         // Arrange
-        var debounce = new Debounce();
+        var debounce = new Debounce2();
         var actionCalled = false;
 
         // Act
@@ -135,7 +135,7 @@ public class DebounceTests
     public async Task Debounce_Busy()
     {
         // Arrange
-        var debounce = new Debounce();
+        var debounce = new Debounce2();
 
         // Act
         debounce.Run(50, async () =>
@@ -154,7 +154,7 @@ public class DebounceTests
     public async Task Debounce_Exception()
     {
         // Arrange
-        var debounce = new Debounce();
+        var debounce = new Debounce2();
 
         // Act
         debounce.Run(50, async () =>
