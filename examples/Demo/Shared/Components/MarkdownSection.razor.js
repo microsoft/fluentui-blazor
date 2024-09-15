@@ -3,7 +3,9 @@ export function highlight() {
     var numberOfPreTags = preTagList.length;
     for (var i = 0; i < numberOfPreTags; i++) {
         var codeTag = preTagList[i].getElementsByTagName('code');
-        hljs.highlightElement(codeTag[0]);
+        if (hljs) {
+            hljs.highlightElement(codeTag[0]);
+        }
     }
 }
 
