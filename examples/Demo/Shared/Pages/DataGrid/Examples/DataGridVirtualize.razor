@@ -1,5 +1,5 @@
 ﻿<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
-    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ItemSize="54" Style="height: 100%;" GenerateHeader="@GenerateHeaderOption.Sticky">
+    <FluentDataGrid @ref="grid" Items=@items Virtualize="true" ItemSize="54" GenerateHeader="@GenerateHeaderOption.Sticky">
         <ChildContent>
             <PropertyColumn Width="25%" Property="@(c => c.Item1)" Sortable="true" />
             <PropertyColumn Width="25%" Property="@(c => c.Item2)" />

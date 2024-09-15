@@ -48,21 +48,32 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
     /// </summary>
     [CascadingParameter]
-    private InternalGridContext<TGridItem> GridContext { get; set; } = default!;
+    internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    private ColumnBase<TGridItem>? Column => Owner.Owner.Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    private ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
+
+    /// <summary>
+    /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
+    /// </summary>
+    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
+        .AddClass(Owner.Class)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("grid-column", GridColumn.ToString())
-       .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
-       .Build();
+        .AddStyle("grid-column", GridColumn.ToString(), () => (!Grid.Loading && Grid.Items is not null) || Grid.Virtualize)
+        .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
+        .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
+        .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem>)
+        .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.Loading && Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
+        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.Loading && !Grid.Virtualize && Grid.Items is not null)
+        .AddStyle(Owner.Style)
+        .Build();
 
     protected override void OnInitialized()
     {
@@ -72,9 +83,9 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary />
     internal async Task HandleOnCellClickAsync()
     {
-        if (GridContext.Grid.OnCellClick.HasDelegate)
+        if (Grid.OnCellClick.HasDelegate)
         {
-            await GridContext.Grid.OnCellClick.InvokeAsync(this);
+            await Grid.OnCellClick.InvokeAsync(this);
         }
 
         if (Column != null)

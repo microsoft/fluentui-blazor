@@ -32,7 +32,7 @@
                 {
                     headerType = DataGridRowType.StickyHeader;
                 }
-                <thead row-type="@headerType.ToAttributeValue()">
+                <thead>
                     <FluentDataGridRow RowType="@headerType" TGridItem="TGridItem" row-type="@headerType.ToAttributeValue()">
                         @_renderColumnHeaders
                     </FluentDataGridRow>
@@ -143,15 +143,14 @@
             else
                 col.IsActiveSortColumn = false;
 
-            <FluentDataGridCell GridColumn="@oneBasedIndex"
+            <FluentDataGridCell @key="@col"
+                                TGridItem="TGridItem"
+                                GridColumn="@oneBasedIndex"
                                 CellType="@DataGridCellType.ColumnHeader"
                                 Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
-                                Style="@ColumnStyle(col, colIndex)"
-                                @key="@col"
                                 scope="col"
-                                TGridItem="TGridItem"
                                 aria-sort="@AriaSortValue(col)">
-                <div class="col-header-content">
+
                     @col.HeaderContent
                     @if (col == _displayOptionsForColumn)
                     {
@@ -171,7 +170,7 @@
                         </div>
                     }
 
-                </div>
+
                 @if (ResizableColumns)
                 {
                     <FluentDivider Class="resize-handle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />
@@ -187,8 +186,8 @@
             return;
         }
 
-        <FluentDataGridRow TGridItem="TGridItem" Class="empty-content-row">
-            <FluentDataGridCell Class="empty-content-cell" colspan="@(_columns.Count)">
+        <FluentDataGridRow TGridItem="TGridItem">
+            <FluentDataGridCell Class="empty-content-cell" Style="@($"grid-column: 1 / {_columns.Count + 1}")">
                 @if (EmptyContent is null)
                 {
                     @("No data to show!")
@@ -204,8 +203,8 @@
 
     private void RenderLoadingContent(RenderTreeBuilder __builder)
     {
-        <FluentDataGridRow TGridItem = "TGridItem" Class="loading-content-row">
-            <FluentDataGridCell Class="loading-content-cell" colspan="@(_columns.Count)">
+        <FluentDataGridRow TGridItem = "TGridItem">
+            <FluentDataGridCell Class="loading-content-cell" Style="@($"grid-column: 1 / {_columns.Count + 1}")">
                 @if (LoadingContent is null)
                 {
                     <FluentStack HorizontalGap="3" HorizontalAlignment="@HorizontalAlignment.Center">

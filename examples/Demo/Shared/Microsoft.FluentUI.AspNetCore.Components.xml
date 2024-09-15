@@ -2079,7 +2079,7 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridContext">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
@@ -2087,6 +2087,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
             <summary>
             Gets a reference to the column that this cell belongs to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
@@ -2118,9 +2123,14 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Owner">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
@@ -13227,6 +13237,37 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Exact">
             <summary>
             Resize datagrid columns by exact pixel values
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize">
+            <summary>
+            The height of each <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
+            Values are in pixels.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Medium">
+            <summary>
+            Medium row height (default)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Small">
+            <summary>
+            Small row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Smaller">
+            <summary>
+            Smaller row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Large">
+            <summary>
+            Large row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Dynamic">
+            <summary>
+            Dynamic row height
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">

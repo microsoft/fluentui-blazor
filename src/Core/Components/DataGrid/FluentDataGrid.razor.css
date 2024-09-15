@@ -76,15 +76,12 @@ tbody
     z-index: 3;
 }
 
-thead[row-type='sticky-header'] {
+::deep tr[row-type='sticky-header'] > th {
     position: sticky;
     top: 0;
     background-color: var(--neutral-fill-stealth-rest);
     z-index: 2;
 }
 
-.hover:not([row-type='header'],[row-type='sticky-header'],.loading-content-row):hover {
-    cursor: pointer;
-    background-color: var(--datagrid-hover-color, var(--neutral-fill-stealth-hover));
-}
+
 

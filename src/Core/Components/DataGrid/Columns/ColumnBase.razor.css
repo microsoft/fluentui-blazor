@@ -1,18 +1,16 @@
-/* Contains the title text and sort indicator, and expands to fill as much of the col width as it can */
 .col-title {
     padding: 0.4rem 0.8rem !important;
-    min-width: 0;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    font-weight: 600 !important;
     user-select: none;
 }
 
-/* We put the column title text in its own element primarily so that it can use text-overflow: ellipsis */
 .col-title-text {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     font-weight: 600;
+}
+
+th.col-justify-center svg {
+    align-content: center;
+    text-align:center;
 }

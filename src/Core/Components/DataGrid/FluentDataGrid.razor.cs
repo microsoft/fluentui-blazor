@@ -245,6 +245,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFit { get; set; }
 
+    [Parameter]
+    public DataGridRowSize RowSize { get; set; } = DataGridRowSize.Medium;
+
     /// <summary>
     /// Gets the first (optional) SelectColumn
     /// </summary>
@@ -670,8 +673,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? StyleValue => new StyleBuilder(Style)
         //.AddStyle("table-layout", AutoFit ? "auto" : "fixed")
         .AddStyle("width", "fit-content", when: AutoFit)
-        .AddStyle("grid-template-columns", GridTemplateColumns)
-        .AddStyle("grid-auto-rows", "44px") //TODO: Implment Size parameter (44 (Default), 32 (Smaal), 23 (Extra Small))
+        .AddStyle("grid-template-columns", GridTemplateColumns, !string.IsNullOrWhiteSpace(GridTemplateColumns))
+        .AddStyle("grid-template-rows", "auto 100%", _internalGridContext.Items.Count == 0)
+        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.Items.Count == 0)
+        //.AddStyle("grid-auto-rows", $"{(int)RowSize}px", !Virtualize ) //TODO: Implment Size parameter (44 (Default), 32 (Smaal), 23 (Extra Small))
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
@@ -692,7 +697,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .Build();
     }
 
-    private string? ColumnJustifyClass(ColumnBase<TGridItem> column)
+    private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)
             .AddClass("col-justify-start", column.Align == Align.Start)
@@ -701,25 +706,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .Build();
     }
 
-    private string? ColumnStyle(ColumnBase<TGridItem> column, int index)
-    {
-        var w = "auto";
-        if (_internalGridTemplateColumns.Count() > 0 && index < _internalGridTemplateColumns.Count())
-        {
-            w = _internalGridTemplateColumns[index];
-        }
-        return new StyleBuilder(column.Style)
-           .AddStyle("width", column.Width ?? w)
-           .Build();
-    }
+    //private string? ColumnStyle(ColumnBase<TGridItem> column, int index)
+    //{
+    //    var w = "auto";
+    //    if (_internalGridTemplateColumns.Count() > 0 && index < _internalGridTemplateColumns.Count())
+    //    {
+    //        w = _internalGridTemplateColumns[index];
+    //    }
+    //    return new StyleBuilder(column.Style)
+    //       //.AddStyle("width", column.Width ?? w)
+    //       .Build();
+    //}
 
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
 
-        try
-        {
+        //try
+        //{
             if (_jsEventDisposable is not null)
             {
                 await _jsEventDisposable.InvokeVoidAsync("stop");
@@ -730,13 +735,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 await Module.DisposeAsync().ConfigureAwait(false);
             }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
+        //}
+        //catch (Exception ex) when (ex is JSDisconnectedException ||
+        //                           ex is OperationCanceledException)
+        //{
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
-        }
+        //}
     }
 
     private void CloseColumnOptions()

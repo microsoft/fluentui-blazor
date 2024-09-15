@@ -19,6 +19,7 @@ else
     <th data-col-index=@GridColumn
         class="@ClassValue"
         style="@StyleValue"
+        @oncontextmenu:preventDefault="true"
         @onkeydown="@HandleOnCellKeyDownAsync"
         @onclick="@HandleOnCellClickAsync"
         @attributes="AdditionalAttributes">
