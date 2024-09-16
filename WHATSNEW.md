@@ -1,4 +1,40 @@
+## v4.10.1
+
+### Icons
+- Update to Fluent UI System Icons 1.1.258 (changes since 1.1.256)
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Add Circle / 48 / Filled & Regular
+    - Alert / 32 / Light
+    - Book Number / 16 / Filled
+    - Clipboard Text Edit / 48 / Filled & Regular
+    - Design Ideas / 28, 32, 48 / Filled & Regular
+    - Document Folder / 28, 32, 48 / Filled & Regular
+    - Eye Off / 32 / Filled & Light & Regular
+    - Eye / 32 / Light
+    - Learning App / 16 / Filled & Regular
+    - Newsletter / 32 / Light
+    - Receipt / 48 / Filled & Regular
+    - Video Bluetooth / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Video USB / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ 
+    **What's updated (Name / Size(s) / Variant(s))**
+    - Approvals App / 32, 48 / Filled & Regular
+    - Design Ideas / 16, 20, 24 / Filled & Regular
+    - Puzzle Piece Shield / 20 / Filled & Regular
+    - Speaker Bluetooth / 28 / Filled           
+
 ## v4.10.0
+
+### Important notes
+
+With version 4.10 (and higher), we've introduced a new provider:
+`FluentMenuProvider` which corrects some menu positioning problems.
+See [#2510](https://github.com/microsoft/fluentui-blazor/pull/2510)
+
+By default, this provider is enabled. You must therefore add `<FluentMenuProvider />` 
+to your application. See [Code Setup](https://www.fluentui-blazor.net/CodeSetup)
+page of the documentation for more information.
 
 ### Components
 - [General] Add .net9.0 as targeted framework ([#2590](https://github.com/microsoft/fluentui-blazor/pull/2590))
