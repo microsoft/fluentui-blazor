@@ -8230,6 +8230,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1._jsModule">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
             <summary>
             Gets or sets the slider's minimal value.
@@ -8247,7 +8253,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Orientation">
             <summary>
-            Gets or sets the orentation of the slider. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Orientation"/>
+            Gets or sets the orientation of the slider. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Orientation"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Mode">
