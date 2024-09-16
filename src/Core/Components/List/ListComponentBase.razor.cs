@@ -228,6 +228,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                     {
                         // If the selected option is not in the list of items, reset the selected option
                         _currentSelectedOption = SelectedOption = default;
+                        // and also reset the value
+                        Value = null;
                         await SelectedOptionChanged.InvokeAsync(SelectedOption);
                     }
                 }
