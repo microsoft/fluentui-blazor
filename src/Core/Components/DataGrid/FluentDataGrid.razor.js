@@ -230,7 +230,7 @@ export function resizeColumnDiscrete(gridElement, column, change) {
         headerBeingResized = targetElement;
     }
     else {
-        headerBeingResized = gridElement.querySelector('.column-header[data-col-index="' + column + '"]');
+        headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]');
     }
 
 
@@ -258,7 +258,7 @@ export function resizeColumnDiscrete(gridElement, column, change) {
 
 export function resizeColumnExact(gridElement, column, width) {
     const columns = [];
-    let headerBeingResized = gridElement.querySelector('.column-header[data-col-index="' + column + '"]');
+    let headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]');
 
     if (!headerBeingResized) {
         return;
@@ -280,4 +280,23 @@ export function resizeColumnExact(gridElement, column, width) {
 
     gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
     gridElement.focus();
+}
+
+export function autoFitGridColumns(gridElement, columnCount) {
+    let gridTemplateColumns = '';
+
+    for (var i = 0; i < columnCount; i++) {
+        const columnWidths = Array
+            .from(gridElement.querySelectorAll(`[col-index="${i + 1}"]`))
+            .flatMap((x) => x.offsetWidth);
+
+        const maxColumnWidth = Math.max(...columnWidths);
+
+        gridTemplateColumns += ` ${maxColumnWidth}fr`;
+    }
+
+    gridElement.style.gridTemplateColumns = gridTemplateColumns;
+    gridElement.classList.remove("auto-fit");
+
+    grids[gridElement.id] = gridTemplateColumns;
 }

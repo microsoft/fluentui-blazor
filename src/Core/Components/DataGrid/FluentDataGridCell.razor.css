@@ -3,7 +3,7 @@ th, td {
 }
 
 td {
-    padding-left: 0.8rem;
+    padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width))* 1px) calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -39,6 +39,7 @@ td {
     white-space: inherit;
     overflow: auto;
     word-break: break-word;
+    align-content: start;
 }
 
 ::deep .col-header-content {

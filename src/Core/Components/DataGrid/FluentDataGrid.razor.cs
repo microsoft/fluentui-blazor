@@ -248,6 +248,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public DataGridRowSize RowSize { get; set; } = DataGridRowSize.Medium;
 
+    [Parameter]
+    public bool MultiLine { get; set; } = false;
+
     /// <summary>
     /// Gets the first (optional) SelectColumn
     /// </summary>
@@ -288,7 +291,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
 
-    private string?[] _internalGridTemplateColumns = [];
+    private string? _internalGridTemplateColumns;
 
     // We try to minimize the number of times we query the items provider, since queries may be expensive
     // We only re-query when the developer calls RefreshDataAsync, or if we know something's changed, such
@@ -338,7 +341,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (GridTemplateColumns is not null)
         {
-            _internalGridTemplateColumns = GridTemplateColumns.Split(' ');
+            _internalGridTemplateColumns = GridTemplateColumns;
         }
 
         // The associated pagination state may have been added/removed/replaced
@@ -396,6 +399,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _checkColumnResizePosition = false;
             _ = Module?.InvokeVoidAsync("checkColumnPopupPosition", _gridReference, ".col-resize").AsTask();
         }
+
+        if (AutoFit && _gridReference is not null)
+        {
+            _ = Module?.InvokeVoidAsync("autoFitGridColumns", _gridReference, _columns.Count).AsTask();
+        }
     }
 
     // Invoked by descendant columns at a special time during rendering
@@ -430,10 +438,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (_internalGridTemplateColumns.Any() && _columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns))
         {
-            _internalGridTemplateColumns = _columns.Select(x => x.Width ?? "auto").ToArray();
+            if (!AutoFit)
+            {
+                _internalGridTemplateColumns = string.Join(" ", Enumerable.Repeat("1fr", _columns.Count));
+            }
+
+            if (_columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
+            {
+                _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
+            }
+
         }
+
 
         if (ResizableColumns)
         {
@@ -672,8 +690,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? StyleValue => new StyleBuilder(Style)
         //.AddStyle("table-layout", AutoFit ? "auto" : "fixed")
-        .AddStyle("width", "fit-content", when: AutoFit)
-        .AddStyle("grid-template-columns", GridTemplateColumns, !string.IsNullOrWhiteSpace(GridTemplateColumns))
+        //.AddStyle("width", "fit-content", when: AutoFit)
+        //.AddStyle("grid-template-columns", GridTemplateColumns, !string.IsNullOrWhiteSpace(GridTemplateColumns))
+        .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns))
         .AddStyle("grid-template-rows", "auto 100%", _internalGridContext.Items.Count == 0)
         .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.Items.Count == 0)
         //.AddStyle("grid-auto-rows", $"{(int)RowSize}px", !Virtualize ) //TODO: Implment Size parameter (44 (Default), 32 (Smaal), 23 (Extra Small))
@@ -690,9 +709,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-
         return new CssBuilder("fluent-data-grid")
             .AddClass(Class)
+            .AddClass("auto-fit", AutoFit)
             .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
             .Build();
     }
@@ -723,8 +742,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _currentPageItemsChanged.Dispose();
 
-        //try
-        //{
+        try
+        {
             if (_jsEventDisposable is not null)
             {
                 await _jsEventDisposable.InvokeVoidAsync("stop");
@@ -735,13 +754,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 await Module.DisposeAsync().ConfigureAwait(false);
             }
-        //}
-        //catch (Exception ex) when (ex is JSDisconnectedException ||
-        //                           ex is OperationCanceledException)
-        //{
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
             // The JSRuntime side may routinely be gone already if the reason we're disposing is that
             // the client disconnected. This is not an error.
-        //}
+        }
     }
 
     private void CloseColumnOptions()

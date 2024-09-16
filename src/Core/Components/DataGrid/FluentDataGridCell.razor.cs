@@ -62,6 +62,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
+        .AddClass("multiline-text", when: Grid.MultiLine)
         .AddClass(Owner.Class)
         .Build();
 
@@ -71,7 +72,8 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem>)
         .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.Loading && Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
-        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.Loading && !Grid.Virtualize && Grid.Items is not null)
+        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.Loading && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
+        .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle(Owner.Style)
         .Build();
 

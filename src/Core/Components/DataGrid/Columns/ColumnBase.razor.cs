@@ -14,7 +14,7 @@ public abstract partial class ColumnBase<TGridItem>
 {
     private bool _isMenuOpen;
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
-    private readonly string _columnId = $"column-header{Identifier.NewId()}";
+    private readonly string _columnId = Identifier.NewId();
 
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
