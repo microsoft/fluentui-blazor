@@ -8047,7 +8047,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1">
             <summary>
-            Groups child <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/> components. 
+            Groups child <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/> components.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.Orientation">
@@ -8057,7 +8057,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.ChildContent">
             <summary>
-            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1"/>. 
+            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1"/>.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.OnParametersSet">
