@@ -4,7 +4,7 @@
 
 using System.Collections.Concurrent;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
+namespace Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
 
 /// <summary>
 /// Extension methods for <see cref="System.Timers.Timer"/>.
@@ -36,6 +36,7 @@ internal static class DispatcherTimerExtensions
         timer.Elapsed += Timer_Elapsed;
 
         // Store/Update function
+        TimerDebounceItem updateValueFactory(System.Timers.Timer k, TimerDebounceItem v) => v.UpdateAction(action);
         var item = _debounceInstances.AddOrUpdate(
                         key: timer,
                         addValue: new TimerDebounceItem()
@@ -43,7 +44,7 @@ internal static class DispatcherTimerExtensions
                             Status = new TaskCompletionSource(),
                             Action = action,
                         },
-                        updateValueFactory: (k, v) => v.UpdateAction(action));
+                        updateValueFactory: updateValueFactory);
 
         // Start the timer to keep track of the last call here.
         timer.Start();

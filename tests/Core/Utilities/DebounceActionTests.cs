@@ -9,13 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Bunit;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 public class DebounceActionTests
 {
+    private readonly ITestOutputHelper Output;
+
+    public DebounceActionTests(ITestOutputHelper output)
+    {
+        Output = output;
+    }
+
     [Fact]
     public async Task Debounce_Default()
     {
@@ -169,4 +180,57 @@ public class DebounceActionTests
         // Assert
         Assert.False(debounce.Busy);
     }
+
+    [Fact]
+    public void Debounce_DelayMustBePositive()
+    {
+        // Arrange
+        var debounce = new DebounceAction();
+
+        // Act
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+        {
+            debounce.Run(-10, () => Task.CompletedTask);
+        });
+    }
+
+    [Fact]
+    public async Task Debounce_FirstRunAlreadyStarted()
+    {
+        // Arrange
+        var debounce = new DebounceAction();
+        var actionCalledCount = 0;
+
+        // Act
+        debounce.Run(10, async () =>
+        {
+            Output.WriteLine("Step1 - Started");
+
+            await Task.Delay(100);
+            actionCalledCount++;
+
+            Output.WriteLine("Step1 - Completed");
+        });
+
+        await Task.Delay(20); // Wait for Step1 to start.
+
+        debounce.Run(10, async () =>
+        {
+            Output.WriteLine("Step2 - Started");
+
+            await Task.CompletedTask;
+            actionCalledCount++;
+
+            Output.WriteLine("Step2 - Completed");
+        });
+
+        // Wait for the debounce to complete
+        await debounce.CurrentTask;
+        await Task.Delay(200);
+
+        // Assert
+        Assert.Equal(2, actionCalledCount);
+    }
 }
+
+#pragma warning restore CS0618 // Type or member is obsolete
