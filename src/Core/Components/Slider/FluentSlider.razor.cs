@@ -24,17 +24,64 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     /// <summary />
     private IJSObjectReference? _jsModule { get; set; }
 
+    private TValue? max;
+    private TValue? min;
+    private bool updateSliderThumb = false;
+    private bool userChangedValue = false;
+
     /// <summary>
     /// Gets or sets the slider's minimal value.
     /// </summary>
     [Parameter, EditorRequired]
-    public TValue? Min { get; set; }
+    public TValue? Min
+    {
+        get => min;
+        set
+        {
+            if (min != value)
+            {
+                min = value;
+                updateSliderThumb = true;
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the slider's maximum value.
     /// </summary>
     [Parameter, EditorRequired]
-    public TValue? Max { get; set; }
+    public TValue? Max
+    {
+        get => max;
+        set
+        {
+            if (max != value)
+            {
+                max = value;
+                updateSliderThumb = true;
+            }
+        }
+    }
+
+    public override TValue? Value
+    {
+        get => base.Value;
+        set
+        {
+            if (base.Value != value)
+            {
+                base.Value = value;
+                if (userChangedValue)
+                {
+                    userChangedValue = false;
+                }
+                else
+                {
+                    updateSliderThumb = true;
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the slider's step value.
@@ -68,11 +115,21 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
         }
         else
         {
-            if (_jsModule is not null)
+            if (updateSliderThumb)
             {
-                await _jsModule!.InvokeVoidAsync("updateSlider", Element);
+                updateSliderThumb = false;
+                if (_jsModule is not null)
+                {
+                    await _jsModule!.InvokeVoidAsync("updateSlider", Element);
+                }
             }
         }
+    }
+
+    protected override Task ChangeHandlerAsync(ChangeEventArgs e)
+    {
+        userChangedValue = true;
+        return base.ChangeHandlerAsync(e);
     }
 
     protected override string? ClassValue
