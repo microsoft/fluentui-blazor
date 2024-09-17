@@ -8246,7 +8246,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
             <summary />
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1._jsModule">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Module">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
