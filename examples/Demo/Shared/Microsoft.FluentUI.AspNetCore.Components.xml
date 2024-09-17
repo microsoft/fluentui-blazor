@@ -1984,6 +1984,16 @@
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
+            <summary>
+            Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.MultiLine">
+            <summary>
+            Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectColumns">
             <summary>
             Gets the first (optional) SelectColumn
@@ -13269,11 +13279,6 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Large">
             <summary>
             Large row height
-            </summary>
-        </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Dynamic">
-            <summary>
-            Dynamic row height
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">
