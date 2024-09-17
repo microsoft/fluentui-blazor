@@ -68,7 +68,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("height", $"{Grid.ItemSize:0}px", () => Grid.Virtualize && RowType == DataGridRowType.Default)
+       //.AddStyle("height", $"{Grid.ItemSize:0}px", () => Grid.Virtualize && RowType == DataGridRowType.Default)
        //.AddStyle("height", "100%", () => (!Grid.Virtualize || InternalGridContext.Rows.Count == 0) && Grid.Loading && RowType == DataGridRowType.Default)
        .Build();
 

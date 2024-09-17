@@ -6,16 +6,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public enum DataGridRowSize
 {
+    /// <summary>
+    /// Small row height (default)
+    /// </summary>
+    Small = 32,
 
     /// <summary>
-    /// Medium row height (default)
+    /// Medium row height
     /// </summary>
     Medium = 44,
 
-    /// <summary>
-    /// Small row height
-    /// </summary>
-    Small = 32,
 
     /// <summary>
     /// Smaller row height

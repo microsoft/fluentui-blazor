@@ -97,7 +97,7 @@
 
     private void RenderRow(RenderTreeBuilder __builder, int rowIndex, TGridItem item)
     {
-        var rowClass = (ShowHover ? "hover " : RowClass?.Invoke(item) ?? null)?.TrimEnd();
+        var rowClass = RowClass?.Invoke(item) ?? null;
         var rowStyle = RowStyle?.Invoke(item) ?? null;
         Loading = false;
 

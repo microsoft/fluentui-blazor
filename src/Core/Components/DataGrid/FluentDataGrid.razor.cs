@@ -246,7 +246,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public bool AutoFit { get; set; }
 
     [Parameter]
-    public DataGridRowSize RowSize { get; set; } = DataGridRowSize.Medium;
+    public DataGridRowSize RowSize { get; set; } = DataGridRowSize.Small;
 
     [Parameter]
     public bool MultiLine { get; set; } = false;
@@ -451,7 +451,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
 
         }
-
 
         if (ResizableColumns)
         {

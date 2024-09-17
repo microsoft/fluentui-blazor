@@ -21,7 +21,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     private readonly Icon IconSelectedSingle = new CoreIcons.Filled.Size20.RadioButton();
 
     private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
-    private readonly List<TGridItem> _selectedItems = new List<TGridItem>();
+    private readonly List<TGridItem> _selectedItems = [];
 
     /// <summary>
     /// Initializes a new instance of <see cref="SelectColumn{TGridItem}"/>.
@@ -332,7 +332,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     private async Task KeepOnlyFirstSelectedItemAsync()
     {
-        if (_selectedItems.Count() <= 1)
+        if (_selectedItems.Count <= 1)
         {
             return;
         }

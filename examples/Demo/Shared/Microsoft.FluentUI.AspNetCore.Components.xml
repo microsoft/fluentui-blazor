@@ -13251,14 +13251,14 @@
             Values are in pixels.
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Medium">
-            <summary>
-            Medium row height (default)
-            </summary>
-        </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Small">
             <summary>
-            Small row height
+            Small row height (default)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Medium">
+            <summary>
+            Medium row height
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Smaller">
