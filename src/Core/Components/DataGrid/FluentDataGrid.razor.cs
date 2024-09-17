@@ -82,7 +82,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// scroll smoothness by rendering more items off-screen, they can also increase initial load times. Finding a balance
     /// based on your data set size and user experience requirements is recommended. The default value is 3.
     /// </summary>
-    [Parameter] public int OverscanCount { get; set; } = 3;
+    [Parameter]
+    public int OverscanCount { get; set; } = 3;
 
     /// <summary>
     /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
@@ -245,9 +246,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFit { get; set; }
 
+    /// <summary>
+    /// Gets or sets the size of each row in the grid based on the <see cref="DataGridRowSize"/> enum.
+    /// </summary>
     [Parameter]
     public DataGridRowSize RowSize { get; set; } = DataGridRowSize.Small;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+    /// </summary>
     [Parameter]
     public bool MultiLine { get; set; } = false;
 
