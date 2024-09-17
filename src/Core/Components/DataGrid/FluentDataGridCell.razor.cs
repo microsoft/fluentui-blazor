@@ -73,7 +73,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
         .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
         .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
-        .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.Loading && Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
+        .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.Loading && Grid.Virtualize && Grid.Items is not null && Owner.RowType == DataGridRowType.Default)
         .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.Loading && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)

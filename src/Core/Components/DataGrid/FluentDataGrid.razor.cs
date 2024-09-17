@@ -695,13 +695,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
              : "none";
 
     private string? StyleValue => new StyleBuilder(Style)
-        //.AddStyle("table-layout", AutoFit ? "auto" : "fixed")
-        //.AddStyle("width", "fit-content", when: AutoFit)
-        //.AddStyle("grid-template-columns", GridTemplateColumns, !string.IsNullOrWhiteSpace(GridTemplateColumns))
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns))
-        .AddStyle("grid-template-rows", "auto 100%", _internalGridContext.Items.Count == 0)
-        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.Items.Count == 0)
-        //.AddStyle("grid-auto-rows", $"{(int)RowSize}px", !Virtualize ) //TODO: Implment Size parameter (44 (Default), 32 (Smaal), 23 (Extra Small))
+        .AddStyle("grid-template-rows", "auto 1fr", _internalGridContext.Items.Count == 0 || Items is null)
+        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.TotalItemCount == 0 || Loading)
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
