@@ -765,7 +765,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         //return Task.CompletedTask;
     }
 
-    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
+    public async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -773,7 +773,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    public async Task SetColumnWidthExactAsync(int columnIndex, int width)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -781,7 +781,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    internal async Task ResetColumnWidthsAsync()
+    public async Task ResetColumnWidthsAsync()
     {
         if (_gridReference is not null && Module is not null)
         {
