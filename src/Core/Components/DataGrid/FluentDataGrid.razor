@@ -151,7 +151,9 @@
                                 scope="col"
                                 aria-sort="@AriaSortValue(col)">
 
-                    @col.HeaderContent
+                @col.HeaderContent
+                @if (HeaderCellAsButtonWithMenu)
+                {
                     @if (col == _displayOptionsForColumn)
                     {
                         <div class="col-options">
@@ -169,6 +171,26 @@
 
                         </div>
                     }
+                }
+                else
+                {
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            <FluentStack Orientation="Orientation.Vertical">
+                                @if (ResizeType is not null)
+                                {
+                                    <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                    @if (@col.ColumnOptions is not null)
+                                    {
+                                        <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                    }
+                                }
+                                @col.ColumnOptions
+                            </FluentStack>
+                        </div>
+                    }
+                }
 
 
                 @if (ResizableColumns)
@@ -203,7 +225,7 @@
 
     private void RenderLoadingContent(RenderTreeBuilder __builder)
     {
-        <FluentDataGridRow TGridItem = "TGridItem">
+        <FluentDataGridRow TGridItem="TGridItem">
             <FluentDataGridCell Class="loading-content-cell" Style="@($"grid-column: 1 / {_columns.Count + 1}")">
                 @if (LoadingContent is null)
                 {

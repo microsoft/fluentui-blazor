@@ -67,16 +67,19 @@ td {
 .col-justify-start ::deep .col-sort-button::part(control) {
     justify-content: start;
     overflow: hidden;
+    opacity: 1
 }
 
 .col-justify-center ::deep .col-sort-button::part(control) {
     justify-content: center;
     overflow: hidden;
+    opacity: 1
 }
 
 .col-justify-end ::deep .col-sort-button::part(control) {
     justify-content: end;
     overflow: hidden;
+    opacity: 1
 }
 
 

@@ -3,7 +3,7 @@
 <p>To test set ResizeType on the DataGrid to either DataGridResizeType.Discrete or DataGridResizeType.Exact</p>
 <p>Remove the parameter completely to get the original behavior</p>
 
-<div style="height: 380px; overflow-x:auto; display:flex;">
+<div style="height: 400px; overflow-x:auto; display:flex;">
     <FluentDataGrid Items="@FilteredItems"
                     ResizableColumns=true
                     ResizeType="DataGridResizeType.Discrete"
@@ -11,6 +11,7 @@
                     Pagination="@pagination"
                     RowClass="@rowClass"
                     RowStyle="@rowStyle"
+                    HeaderCellAsButtonWithMenu="false"
                     ColumnResizeLabels="@customLabels">
         <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
