@@ -22,7 +22,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? _jsModule { get; set; }
+    private IJSObjectReference? Module { get; set; }
 
     private TValue? max;
     private TValue? min;
@@ -111,16 +111,16 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     {
         if (firstRender)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
         }
         else
         {
             if (updateSliderThumb)
             {
                 updateSliderThumb = false;
-                if (_jsModule is not null)
+                if (Module is not null)
                 {
-                    await _jsModule!.InvokeVoidAsync("updateSlider", Element);
+                    await Module!.InvokeVoidAsync("updateSlider", Element);
                 }
             }
         }
@@ -185,35 +185,13 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
         };
     }
 
-    private static readonly string _stepAttributeValue = GetStepAttributeValue();
-
-    private static string GetStepAttributeValue()
-    {
-        // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
-        // of it for us. We will only get asked to parse the T for nonempty inputs.
-        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        if (targetType == typeof(int) ||
-            targetType == typeof(long) ||
-            targetType == typeof(short) ||
-            targetType == typeof(float) ||
-            targetType == typeof(double) ||
-            targetType == typeof(decimal))
-        {
-            return "1";
-        }
-        else
-        {
-            throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
-        }
-    }
-
     public async ValueTask DisposeAsync()
     {
         try
         {
-            if (_jsModule is not null)
+            if (Module is not null)
             {
-                await _jsModule.DisposeAsync();
+                await Module.DisposeAsync();
             }
         }
         catch (Exception ex) when (ex is JSDisconnectedException ||
