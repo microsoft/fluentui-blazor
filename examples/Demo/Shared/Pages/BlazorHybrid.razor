@@ -18,9 +18,11 @@
     included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag.
 </p>
 
-<CodeSnippet Language="language-html">
-    &lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
+<CodeSnippet Language="html">
+    @(
+@"<script app-name=""{NAME OF YOUR APP}"" src=""./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js""></script>
+<script src=""_framework/blazor.webview.js""></script>"
+    )
 </CodeSnippet>
 
 <p>
