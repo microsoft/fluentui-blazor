@@ -1,26 +1,87 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSlider<TValue> : FluentInputBase<TValue>
+public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDisposable
     where TValue : System.Numerics.INumber<TValue>
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSlider.razor.js";
+
+    /// <summary />
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    private IJSObjectReference? _jsModule { get; set; }
+
+    private TValue? max;
+    private TValue? min;
+    private bool updateSliderThumb = false;
+    private bool userChangedValue = false;
+
     /// <summary>
     /// Gets or sets the slider's minimal value.
     /// </summary>
     [Parameter, EditorRequired]
-    public TValue? Min { get; set; }
+    public TValue? Min
+    {
+        get => min;
+        set
+        {
+            if (min != value)
+            {
+                min = value;
+                updateSliderThumb = true;
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the slider's maximum value.
     /// </summary>
     [Parameter, EditorRequired]
-    public TValue? Max { get; set; }
+    public TValue? Max
+    {
+        get => max;
+        set
+        {
+            if (max != value)
+            {
+                max = value;
+                updateSliderThumb = true;
+            }
+        }
+    }
+
+    public override TValue? Value
+    {
+        get => base.Value;
+        set
+        {
+            if (base.Value != value)
+            {
+                base.Value = value;
+                if (userChangedValue)
+                {
+                    userChangedValue = false;
+                }
+                else
+                {
+                    updateSliderThumb = true;
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the slider's step value.
@@ -29,7 +90,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     public TValue? Step { get; set; }
 
     /// <summary>
-    /// Gets or sets the orentation of the slider. See <see cref="AspNetCore.Components.Orientation"/>
+    /// Gets or sets the orientation of the slider. See <see cref="AspNetCore.Components.Orientation"/>
     /// </summary>
     [Parameter]
     public Orientation? Orientation { get; set; }
@@ -45,6 +106,31 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+        }
+        else
+        {
+            if (updateSliderThumb)
+            {
+                updateSliderThumb = false;
+                if (_jsModule is not null)
+                {
+                    await _jsModule!.InvokeVoidAsync("updateSlider", Element);
+                }
+            }
+        }
+    }
+
+    protected override Task ChangeHandlerAsync(ChangeEventArgs e)
+    {
+        userChangedValue = true;
+        return base.ChangeHandlerAsync(e);
+    }
 
     protected override string? ClassValue
     {
@@ -118,6 +204,23 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         else
         {
             throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
