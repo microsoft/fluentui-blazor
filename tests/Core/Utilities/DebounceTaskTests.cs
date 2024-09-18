@@ -84,22 +84,29 @@ public class DebounceTaskTests
         var actionNextCalled = string.Empty;
 
         // Act: simulate two async calls
-        _ = Task.Run(async () =>
+        var t1 = Task.Run(async () =>
         {
-            await debounce.RunAsync(50, async () =>
+            try
             {
-                actionCalled = "Step1";
-                actionCalledCount++;
-                await Task.CompletedTask;
-            });
+                await debounce.RunAsync(50, async () =>
+                {
+                    actionCalled = "Step1";
+                    actionCalledCount++;
+                    await Task.CompletedTask;
+                });
 
-            actionNextCalled = "Next1";
-            actionNextCount++;
+                actionNextCalled = "Next1";
+                actionNextCount++;
+            }
+            catch (OperationCanceledException)
+            {
+                // Task cancelled
+            }
         });
 
-        await Task.Delay(20);     // To ensure the second call is made after the first one
+        await Task.Delay(15); // Wait for the first task to start
 
-        _ = Task.Run(async () =>
+        var t2 = Task.Run(async () =>
         {
             await debounce.RunAsync(40, async () =>
             {
@@ -112,7 +119,7 @@ public class DebounceTaskTests
             actionNextCount++;
         });
 
-        await Task.Delay(100);   // Wait for the debounce to complete
+        await Task.WhenAll(t1, t2);
 
         // Assert
         Assert.Equal("Step2", actionCalled);
