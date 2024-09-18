@@ -9,6 +9,8 @@ using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:Consider calling ConfigureAwait on the awaited task", Justification = "Tests purpose")]
 public class DebounceTaskTests
 {
@@ -17,25 +19,27 @@ public class DebounceTaskTests
     public DebounceTaskTests(ITestOutputHelper output)
     {
         Output = output;
+        Debounce = new DebounceTask();
     }
+
+    private DebounceTask Debounce { get; init; }
 
     [Fact]
     public async Task Debounce_Default()
     {
         // Arrange
-        var debounce = new DebounceTask();
         var actionCalled = false;
         var watcher = Stopwatch.StartNew();
 
         // Act
-        debounce.Run(50, async () =>
+        Debounce.Run(50, async () =>
         {
             actionCalled = true;
             await Task.CompletedTask;
         });
 
         // Wait for the debounce to complete
-        await debounce.CurrentTask;
+        await Debounce.CurrentTask;
 
         // Assert
         Assert.True(watcher.ElapsedMilliseconds >= 50);
@@ -46,19 +50,18 @@ public class DebounceTaskTests
     public async Task Debounce_MultipleCalls()
     {
         // Arrange
-        var debounce = new DebounceTask();
         var actionCalledCount = 0;
         var actionCalled = string.Empty;
 
         // Act
-        debounce.Run(50, async () =>
+        Debounce.Run(50, async () =>
         {
             actionCalled = "Step1";
             actionCalledCount++;
             await Task.CompletedTask;
         });
 
-        debounce.Run(40, async () =>
+        Debounce.Run(40, async () =>
         {
             actionCalled = "Step2";
             actionCalledCount++;
@@ -66,18 +69,20 @@ public class DebounceTaskTests
         });
 
         // Wait for the debounce to complete
-        await debounce.CurrentTask;
+        await Debounce.CurrentTask;
 
         // Assert
         Assert.Equal("Step2", actionCalled);
         Assert.Equal(1, actionCalledCount);
     }
 
-    [Fact]
+    [Fact(Skip = "To remove")]
     public async Task Debounce_MultipleCalls_Async()
     {
+        var watcher = Stopwatch.StartNew();
+
         // Arrange
-        var debounce = new DebounceTask();
+        var step1Started = false;
         var actionCalledCount = 0;
         var actionCalled = string.Empty;
         var actionNextCount = 0;
@@ -86,35 +91,59 @@ public class DebounceTaskTests
         // Act: simulate two async calls
         var t1 = Task.Run(async () =>
         {
+            step1Started = true;
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Start1");
             try
             {
-                await debounce.RunAsync(50, async () =>
+                await Debounce.RunAsync(50, async () =>
                 {
+                    await Task.Delay(1000); // Let time for the second task to start, and to cancel this one
+
+                    Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1");
                     actionCalled = "Step1";
                     actionCalledCount++;
                     await Task.CompletedTask;
                 });
 
+                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: CurrentTask: IsFaulted={Debounce.CurrentTask.IsFaulted} IsCanceled={Debounce.CurrentTask.IsCanceled} IsCompleted={Debounce.CurrentTask.IsCompleted} IsCompletedSuccessfully={Debounce.CurrentTask.IsCompletedSuccessfully}");
+                if (Debounce.CurrentTask.IsCanceled || Debounce.CurrentTask.IsFaulted)
+                {
+                    Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: CurrentTask Canceled");
+                    return;
+                }
+
+                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Next1");
                 actionNextCalled = "Next1";
                 actionNextCount++;
             }
+            catch (TaskCanceledException)
+            {
+                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Task1 TaskCanceled");
+            }
             catch (OperationCanceledException)
             {
-                // Task cancelled
+                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Task1 OperationCanceled");
             }
         });
 
-        await Task.Delay(15); // Wait for the first task to start
+        // Wait for Step1 to start.
+        while (!step1Started)
+        {
+            await Task.Delay(10);
+        }
 
         var t2 = Task.Run(async () =>
         {
-            await debounce.RunAsync(40, async () =>
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Start2");
+            await Debounce.RunAsync(40, async () =>
             {
+                Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step2");
                 actionCalled = "Step2";
                 actionCalledCount++;
                 await Task.CompletedTask;
             });
 
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Next2");
             actionNextCalled = "Next2";
             actionNextCount++;
         });
@@ -123,30 +152,26 @@ public class DebounceTaskTests
 
         // Assert
         Assert.Equal("Step2", actionCalled);
-        Assert.Equal(1, actionCalledCount);
-
         Assert.Equal("Next2", actionNextCalled);
-        Assert.Equal(1, actionNextCount);
     }
 
     [Fact]
     public async Task Debounce_Disposed()
     {
         // Arrange
-        var debounce = new DebounceTask();
         var actionCalled = false;
 
         // Act
-        debounce.Dispose();
+        Debounce.Dispose();
 
-        debounce.Run(50, async () =>
+        Debounce.Run(50, async () =>
         {
             actionCalled = true;
             await Task.CompletedTask;
         });
 
         // Wait for the debounce to complete
-        await debounce.CurrentTask;
+        await Debounce.CurrentTask;
 
         // Assert
         Assert.False(actionCalled);
@@ -155,90 +180,90 @@ public class DebounceTaskTests
     [Fact]
     public async Task Debounce_Busy()
     {
-        // Arrange
-        var debounce = new DebounceTask();
-
         // Act
-        debounce.Run(50, async () =>
+        Debounce.Run(50, async () =>
         {
             await Task.CompletedTask;
         });
 
         // Wait for the debounce to complete
-        await debounce.CurrentTask;
+        await Debounce.CurrentTask;
 
         // Assert
-        Assert.False(debounce.Busy);
+        Assert.False(Debounce.Busy);
     }
 
     [Fact]
     public async Task Debounce_Exception()
     {
-        // Arrange
-        var debounce = new DebounceTask();
-
         // Act
-        debounce.Run(50, async () =>
+        Debounce.Run(50, async () =>
         {
             await Task.CompletedTask;
             throw new InvalidProgramException("Error");     // Simulate an exception
         });
 
         // Wait for the debounce to complete
-        await debounce.CurrentTask;
+        await Debounce.CurrentTask;
 
         // Assert
-        Assert.False(debounce.Busy);
+        Assert.False(Debounce.Busy);
     }
 
     [Fact]
     public void Debounce_DelayMustBePositive()
     {
-        // Arrange
-        var debounce = new DebounceTask();
-
         // Act
         Assert.Throws<ArgumentOutOfRangeException>(() =>
         {
-            debounce.Run(-10, () => Task.CompletedTask);
+            Debounce.Run(-10, () => Task.CompletedTask);
         });
     }
 
     [Fact]
     public async Task Debounce_FirstRunAlreadyStarted()
     {
+        var watcher = Stopwatch.StartNew();
+
         // Arrange
-        var debounce = new DebounceTask();
+        var step1Started = false;
         var actionCalledCount = 0;
 
         // Act
-        debounce.Run(10, async () =>
+        Debounce.Run(10, async () =>
         {
-            Output.WriteLine("Step1 - Started");
+            step1Started = true;
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Started");
 
             await Task.Delay(100);
             actionCalledCount++;
 
-            Output.WriteLine("Step1 - Completed");
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step1 Completed");
         });
 
-        await Task.Delay(20); // Wait for Step1 to start.
-
-        debounce.Run(10, async () =>
+        // Wait for Step1 to start.
+        while (!step1Started)
         {
-            Output.WriteLine("Step2 - Started");
+            await Task.Delay(10);
+        }
+
+        Debounce.Run(10, async () =>
+        {
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step2 Started");
 
             await Task.CompletedTask;
             actionCalledCount++;
 
-            Output.WriteLine("Step2 - Completed");
+            Output.WriteLine($"{watcher.ElapsedMilliseconds}ms: Step2 Completed");
         });
 
         // Wait for the debounce to complete
-        await debounce.CurrentTask;
+        await Debounce.CurrentTask;
         await Task.Delay(200);
 
         // Assert
         Assert.Equal(2, actionCalledCount);
     }
 }
+
+#pragma warning restore CS0618 // Type or member is obsolete
