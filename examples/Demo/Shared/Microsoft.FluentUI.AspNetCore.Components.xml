@@ -2063,6 +2063,29 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthDiscreteAsync(System.Nullable{System.Int32},System.Single)">
+            <summary>
+            Resizes the column width by a discrete amount.
+            </summary>
+            <param name="columnIndex">The column to be resized</param>
+            <param name="widthChange">The amount of pixels to change width with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthExactAsync(System.Int32,System.Int32)">
+            <summary>
+            Resizes the column width to the exact width specified (in pixels).
+            </summary>
+            <param name="columnIndex">The column to be resized</param>
+            <param name="width">The new width in pixels</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResetColumnWidthsAsync">
+            <summary>
+            Resets the column widths to their initial values as specified with the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> parameter.
+            If no value is specified, the default value is "1fr" for each column.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
             Gets or sets the reference to the item that holds this cell's values.
