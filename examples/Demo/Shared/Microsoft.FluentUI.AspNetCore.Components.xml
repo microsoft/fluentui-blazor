@@ -15368,6 +15368,12 @@
             </code>
             </remarks>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.Debounce">
+            <summary>
+            The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            This ensures that the action is only invoked once after the calls have stopped for the specified duration.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder"/> class.
@@ -15422,6 +15428,126 @@
             <param name="prop"></param>
             <param name="value"></param>
             <returns>StyleBuilder</returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction">
+            <summary>
+            The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            This ensures that the action is only invoked once after the calls have stopped for the specified duration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.Busy">
+            <summary>
+            Gets a value indicating whether the DebounceTask dispatcher is busy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.CurrentTask">
+            <summary>
+            Gets the current task.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.Run(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.RunAsync(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.Dispose">
+            <summary>
+            Releases all resources used by the DebounceTask dispatcher.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask">
+            <summary>
+            The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            This ensures that the action is only invoked once after the calls have stopped for the specified duration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.Busy">
+            <summary>
+            Gets a value indicating whether the DebounceTask dispatcher is busy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.CurrentTask">
+            <summary>
+            Gets the current task.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.Run(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.RunAsync(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.Dispose">
+            <summary>
+            Releases all resources used by the DebounceTask dispatcher.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Timers.Timer"/>.
+            </summary>
+            <remarks>
+            Inspired from Microsoft.Toolkit.Uwp.UI.DispatcherQueueTimerExtensions
+            </remarks>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.Debounce(System.Timers.Timer,System.Func{System.Threading.Tasks.Task},System.Double)">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="timer"></param>
+            <param name="action"></param>
+            <param name="interval"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.Timer_Elapsed(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            Timer elapsed event handler.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem">
+            <summary>
+            Timer debounce item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem.Status">
+            <summary>
+            Gets the task completion source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem.Action">
+            <summary>
+            Gets or sets the action to execute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem.UpdateAction(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Updates the action to execute.
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Utilities.LinkerFlags.JsonSerialized">
             <summary>

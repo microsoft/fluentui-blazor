@@ -150,8 +150,9 @@
                                 Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
                                 scope="col"
                                 aria-sort="@AriaSortValue(col)">
-
-                    @col.HeaderContent
+                @col.HeaderContent
+                @if (HeaderCellAsButtonWithMenu)
+                {
                     @if (col == _displayOptionsForColumn)
                     {
                         <div class="col-options">
@@ -170,6 +171,28 @@
                         </div>
                     }
 
+                }
+                else
+                {
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            <FluentStack Orientation="Orientation.Vertical">
+                                @col.ColumnOptions
+                                @if (ResizeType is not null)
+                                {
+                                    @if (@col.ColumnOptions is not null)
+                                    {
+                                        <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                    }
+
+                                    <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                }
+
+                            </FluentStack>
+                        </div>
+                    }
+                }
 
                 @if (ResizableColumns)
                 {
