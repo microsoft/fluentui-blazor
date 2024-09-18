@@ -851,5 +851,4 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
     }
-
 }
