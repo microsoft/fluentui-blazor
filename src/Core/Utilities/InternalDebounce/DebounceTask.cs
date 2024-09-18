@@ -8,7 +8,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
 /// The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
 /// This ensures that the action is only invoked once after the calls have stopped for the specified duration.
 /// </summary>
-public class DebounceTask : IDisposable
+[Obsolete("Use Debounce, which inherits from DebounceAction.")]
+internal class DebounceTask : IDisposable
 {
 #if NET9_0_OR_GREATER
     private readonly System.Threading.Lock _syncRoot = new();
@@ -65,7 +66,7 @@ public class DebounceTask : IDisposable
                                     _ = action.Invoke();
                                 }
                             }
-                        }, _cts.Token, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Current);
+                        }, _cts.Token, TaskContinuationOptions.AttachedToParent, TaskScheduler.Default);
         }
         catch (TaskCanceledException)
         {
@@ -79,8 +80,6 @@ public class DebounceTask : IDisposable
     /// <param name="milliseconds"></param>
     /// <param name="action"></param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Required to return the current Task.")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0042:Do not use blocking calls in an async method", Justification = "Special case using CurrentTask")]
     public Task RunAsync(int milliseconds, Func<Task> action)
     {
         Run(milliseconds, action);
