@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentInputBase<TValue>
 {
-    private readonly Debouncer _debouncer = new();
+    private readonly Debounce _debounce = new();
 
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
@@ -64,7 +64,7 @@ public partial class FluentInputBase<TValue>
         }
         if (ImmediateDelay > 0)
         {
-            await _debouncer.DebounceAsync(ImmediateDelay, async () => await ChangeHandlerAsync(e));
+            await _debounce.RunAsync(ImmediateDelay, async () => await ChangeHandlerAsync(e));
         }
         else
         {
