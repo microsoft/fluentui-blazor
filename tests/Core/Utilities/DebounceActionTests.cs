@@ -2,15 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-using Bunit;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -18,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:Consider calling ConfigureAwait on the awaited task", Justification = "Tests purpose")]
 public class DebounceActionTests
 {
     private readonly ITestOutputHelper Output;
@@ -88,28 +82,36 @@ public class DebounceActionTests
         var debounce = new DebounceAction();
         var actionCalledCount = 0;
         var actionCalled = string.Empty;
+        var actionNextCount = 0;
+        var actionNextCalled = string.Empty;
 
         // Act: simulate two async calls
-        _ = Task.Run(() =>
+        _ = Task.Run(async () =>
         {
-            debounce.Run(50, async () =>
+            await debounce.RunAsync(50, async () =>
             {
                 actionCalled = "Step1";
                 actionCalledCount++;
                 await Task.CompletedTask;
             });
+
+            actionNextCalled = "Next1";
+            actionNextCount++;
         });
 
         await Task.Delay(5);     // To ensure the second call is made after the first one
 
-        _ = Task.Run(() =>
+        _ = Task.Run(async () =>
         {
-            debounce.Run(40, async () =>
+            await debounce.RunAsync(40, async () =>
             {
                 actionCalled = "Step2";
                 actionCalledCount++;
                 await Task.CompletedTask;
             });
+
+            actionNextCalled = "Next2";
+            actionNextCount++;
         });
 
         await Task.Delay(100);   // Wait for the debounce to complete
@@ -117,6 +119,9 @@ public class DebounceActionTests
         // Assert
         Assert.Equal("Step2", actionCalled);
         Assert.Equal(1, actionCalledCount);
+
+        Assert.Equal("Next2", actionNextCalled);
+        Assert.Equal(1, actionNextCount);
     }
 
     [Fact]

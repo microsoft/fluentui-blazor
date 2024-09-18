@@ -74,11 +74,26 @@ public class DebounceTask : IDisposable
     }
 
     /// <summary>
+    /// Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+    /// </summary>
+    /// <param name="milliseconds"></param>
+    /// <param name="action"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Required to return the current Task.")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0042:Do not use blocking calls in an async method", Justification = "Special case using CurrentTask")]
+    public Task RunAsync(int milliseconds, Func<Task> action)
+    {
+        Run(milliseconds, action);
+        return CurrentTask;
+    }
+
+    /// <summary>
     /// Releases all resources used by the DebounceTask dispatcher.
     /// </summary>
     public void Dispose()
     {
         _disposed = true;
         _cts?.Cancel();
+        GC.SuppressFinalize(this);
     }
 }
