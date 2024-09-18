@@ -36,7 +36,13 @@ internal static class DispatcherTimerExtensions
         timer.Elapsed += Timer_Elapsed;
 
         // Store/Update function
-        TimerDebounceItem updateValueFactory(System.Timers.Timer k, TimerDebounceItem v) => v.UpdateAction(action);
+        TimerDebounceItem updateValueFactory(System.Timers.Timer k, TimerDebounceItem v)
+        {
+            v.Status.SetCanceled();
+            v.Status = new TaskCompletionSource();
+            return v.UpdateAction(action);
+        }
+
         var item = _debounceInstances.AddOrUpdate(
                         key: timer,
                         addValue: new TimerDebounceItem()
@@ -81,7 +87,7 @@ internal static class DispatcherTimerExtensions
         /// <summary>
         /// Gets the task completion source.
         /// </summary>
-        public required TaskCompletionSource Status { get; init; }
+        public required TaskCompletionSource Status { get; set; }
 
         /// <summary>
         /// Gets or sets the action to execute.
