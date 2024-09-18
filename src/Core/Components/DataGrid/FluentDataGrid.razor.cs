@@ -96,6 +96,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
     /// Exact: resize to the exact width specified (in pixels)
+    /// Note: This does not affect resizing by mouse dragging, just the keyboard driven resize.
     /// </summary>
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; }
