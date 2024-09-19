@@ -1857,6 +1857,7 @@
             ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
             Discrete: resize by a 10 pixels at a time
             Exact: resize to the exact width specified (in pixels)
+            Note: This does not affect resizing by mouse dragging, just the keyboard driven resize.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ColumnResizeLabels">
@@ -2049,6 +2050,29 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthDiscreteAsync(System.Nullable{System.Int32},System.Single)">
+            <summary>
+            Resizes the column width by a discrete amount.
+            </summary>
+            <param name="columnIndex">The column to be resized</param>
+            <param name="widthChange">The amount of pixels to change width with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthExactAsync(System.Int32,System.Int32)">
+            <summary>
+            Resizes the column width to the exact width specified (in pixels).
+            </summary>
+            <param name="columnIndex">The column to be resized</param>
+            <param name="width">The new width in pixels</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResetColumnWidthsAsync">
+            <summary>
+            Resets the column widths to their initial values as specified with the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> parameter.
+            If no value is specified, the default value is "1fr" for each column.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
