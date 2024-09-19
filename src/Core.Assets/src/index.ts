@@ -109,18 +109,6 @@ export function afterServerStarted(blazor: any) {
 
 export function afterStarted(blazor: Blazor, mode: string) {
 
-  blazor.registerCustomEventType('radiogroupclick', {
-    browserEventName: 'click',
-    createEventArgs: event => {
-      if (event.target!._readOnly || event.target!._disabled) {
-        return null;
-      }
-      return {
-        value: event.target!.value
-      };
-    }
-  });
-
   blazor.registerCustomEventType('checkedchange', {
     browserEventName: 'change',
     createEventArgs: event => {
@@ -182,6 +170,19 @@ export function afterStarted(blazor: Blazor, mode: string) {
       return null;
     }
   });
+
+  blazor.registerCustomEventType('radiogroupchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      if (event.target!.localName == 'fluent-radio-group') {
+        return {
+          value: event.target.value,
+        }
+      };
+      return null;
+    }
+  });
+
   blazor.registerCustomEventType('selectedchange', {
     browserEventName: 'selected-change',
     createEventArgs: event => {
