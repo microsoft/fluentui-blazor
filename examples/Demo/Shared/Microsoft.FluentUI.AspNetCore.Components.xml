@@ -2833,6 +2833,21 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Threading.Tasks.Task})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.DateTime,System.Boolean,System.Threading.Tasks.Task},System.DateTime,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.FluentUI.AspNetCore.Components.CalendarTitles,System.Threading.Tasks.Task},Microsoft.FluentUI.AspNetCore.Components.CalendarTitles)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.Int32,System.Int32,System.Boolean,System.Threading.Tasks.Task},System.Int32,System.Int32,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.Int32,System.Boolean,System.Threading.Tasks.Task},System.Int32,System.Boolean)">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.#ctor">
             <inheritdoc cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.RangeOf`1"/>
         </member>
