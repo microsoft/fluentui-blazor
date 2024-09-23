@@ -18,14 +18,16 @@ public interface IAsyncQueryExecutor
     /// </summary>
     /// <typeparam name="T">The data type.</typeparam>
     /// <param name="queryable">An <see cref="IQueryable{T}" /> instance.</param>
+    /// <param name="cancellationToken">An <see cref="CancellationToken" /> instance.</param>
     /// <returns>The number of items in <paramref name="queryable"/>.</returns>.
-    Task<int> CountAsync<T>(IQueryable<T> queryable);
+    Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Asynchronously materializes the <see cref="IQueryable{T}" /> as an array, if supported.
     /// </summary>
     /// <typeparam name="T">The data type.</typeparam>
+    /// <param name="cancellationToken">An <see cref="CancellationToken" /> instance.</param>
     /// <param name="queryable">An <see cref="IQueryable{T}" /> instance.</param>
     /// <returns>The items in the <paramref name="queryable"/>.</returns>.
-    Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable);
+    Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
 }
