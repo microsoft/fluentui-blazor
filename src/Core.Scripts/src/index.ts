@@ -50,7 +50,8 @@ interface Blazor {
     isSystemDark(): boolean,
     isDarkMode(): boolean
     getAllTokensValues(): any,
-    update(theme: Theme): void
+    update(theme: Theme): void,
+    updateItem(token: string, value: any): void,
   }
   addEventListener: (name: string, callback: (event: any) => void) => void;
 }
@@ -345,6 +346,8 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
+  let currentTheme: Theme = { ...webLightTheme };
+
   blazor.theme = {
     isSystemDark: () => {
       return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -356,7 +359,7 @@ export function afterStarted(blazor: Blazor, mode: string) {
     },
 
     getAllTokensValues: () => {
-      const theme: any = webLightTheme;
+      const theme: any = currentTheme;
       return Object.keys(theme).reduce((result, key) => {
         result[key] = {
           type: typeof theme[key],
@@ -367,8 +370,11 @@ export function afterStarted(blazor: Blazor, mode: string) {
     },
 
     update: (theme: Theme) => {
-      console.log('Updating theme', theme);
       setTheme(theme);
+    },
+
+    updateItem: (token: string, value: any) => {
+      setTheme({ ...currentTheme, [token]: value });
     },
   }
 
