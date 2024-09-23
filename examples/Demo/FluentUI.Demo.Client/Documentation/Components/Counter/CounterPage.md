@@ -28,6 +28,8 @@ Value: @Value
 
 {{ MyCounter SourceCode=false }}
 
+{{ MyCounter Files=Razor:MyCounter.razor;Source:MyCounter.razor.js;CSS:MyCounter.razor.css;404:MyCounter.not.found }}
+
 This code is a live demo of a Counter
 
 |Example|Table|

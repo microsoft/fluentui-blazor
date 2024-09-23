@@ -67,8 +67,22 @@ public partial class MarkdownViewer
 
             foreach (var section in Sections.Where(i => i.Type == SectionType.Component))
             {
-                var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, section.Value);
-                await _jsModule.InvokeVoidAsync("loadAndHighlightCode", section.Id, url);
+                // Source Tab
+                if (section.ExtraFiles.Count <= 0)
+                {
+                    var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, section.Value + ".razor");
+                    await _jsModule.InvokeVoidAsync("loadAndHighlightCode", section.Id, url);
+                }
+
+                // Extra files
+                else
+                {
+                    foreach (var (tabName, file) in section.ExtraFiles)
+                    {
+                        var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, file);
+                        await _jsModule.InvokeVoidAsync("loadAndHighlightCode", $"{section.Id}-{tabName}", url);
+                    }
+                }
             }
 
             foreach (var section in Sections.Where(i => i.Type == SectionType.Code))
@@ -87,8 +101,6 @@ public partial class MarkdownViewer
         return type is null ? null : new ApiClass(DocViewerService, type);
     }
 
-  
-
     /// <summary />
     private Type? GetComponentFromName(string name)
     {
@@ -101,5 +113,24 @@ public partial class MarkdownViewer
                                .GetTypes()
                                .Where(t => t.IsSubclassOf(typeof(ComponentBase)) && !t.IsAbstract)
                                .FirstOrDefault(i => i.Name == name);
+    }
+
+    /// <summary />
+    private static string GetLanguageClassName(string? file = null)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            return "language-razor";
+        }
+
+        return Path.GetExtension(file) switch
+        {
+            ".cs" => "language-csharp",
+            ".razor" => "language-razor",
+            ".html" => "language-html",
+            ".css" => "language-css",
+            ".js" => "language-javascript",
+            _ => "language-plaintext"
+        };
     }
 }

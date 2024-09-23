@@ -65,7 +65,7 @@ public static class ServiceCollectionExtensions
             options.ResourcesAssembly = typeof(Client._Imports).Assembly;
             options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
             options.ApiCommentSummary = (component, member) => member is null ? CodeComments.GetSummary(component.Name) : CodeComments.GetSummary(member);
-            options.SourceCodeUrl = "/sources/{0}.razor.txt";
+            options.SourceCodeUrl = "/sources/{0}.txt";
         });
 
         return new DemoServices(services);

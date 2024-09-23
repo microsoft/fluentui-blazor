@@ -37,9 +37,9 @@ public class DocViewerOptions
     public Func<Type, MemberInfo?, string> ApiCommentSummary { get; set; } = (type, member) => member?.Name ?? type.Name;
 
     /// <summary>
-    /// Path to the external source code files, where {0} will be replaced by the component name.
+    /// Path to the external source code files, where {0} will be replaced by the razor component name 
     /// </summary>
-    public string SourceCodeUrl { get; set; } = "/sources/{0}.razor.txt";
+    public string SourceCodeUrl { get; set; } = "/sources/{0}.txt";
 
     /// <summary>
     /// Gets or sets whether to use the console log provider.
