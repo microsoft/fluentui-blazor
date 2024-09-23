@@ -2014,12 +2014,6 @@
             <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync">
-            <summary>
-            Removes the grid's sort on double click for the currently sorted column if it's not a default sort column.
-            </summary>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortByColumnAsync(System.Int32,Microsoft.FluentUI.AspNetCore.Components.SortDirection)">
             <summary>
             Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
@@ -2041,20 +2035,6 @@
             options UI that was previously displayed.
             </summary>
             <param name="column">The column whose options are to be displayed, if any are available.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(System.String)">
-            <summary>
-            Displays the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions"/> UI for the specified column <paramref name="title"/> found first,
-            closing any other column options UI that was previously displayed. If the title is not found, nothing happens.
-            </summary>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnOptionsAsync(System.Int32)">
-            <summary>
-            Displays the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.ColumnOptions"/> UI for the specified column <paramref name="index"/>,
-            closing any other column options UI that was previously displayed. If the index is out of range, nothing happens.
-            </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnResizeAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">

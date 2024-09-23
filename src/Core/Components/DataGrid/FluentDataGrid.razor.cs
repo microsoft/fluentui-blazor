@@ -484,12 +484,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Removes the grid's sort on double click for the currently sorted column if it's not a default sort column.
-    /// </summary>
-    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task RemoveSortByColumnAsync() => (_sortByColumn != null) ? RemoveSortByColumnAsync(_sortByColumn) : Task.CompletedTask;
-
-    /// <summary>
     /// Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
     /// </summary>
     /// <param name="index">The index of the column to sort by.</param>
@@ -532,27 +526,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column <paramref name="title"/> found first,
-    /// closing any other column options UI that was previously displayed. If the title is not found, nothing happens.
-    /// </summary>
-    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task ShowColumnOptionsAsync(string title)
-    {
-        var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
-        return (column is not null) ? ShowColumnOptionsAsync(column) : Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column <paramref name="index"/>,
-    /// closing any other column options UI that was previously displayed. If the index is out of range, nothing happens.
-    /// </summary>
-    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task ShowColumnOptionsAsync(int index)
-    {
-        return (index >= 0 && index < _columns.Count) ? ShowColumnOptionsAsync(_columns[index]) :  Task.CompletedTask;
-    }
-
-    /// <summary>
     /// Displays the column resize UI for the specified column, closing any other column
     /// resize UI that was previously displayed.
     /// </summary>
@@ -576,7 +549,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// (either <see cref="Items"/> or <see cref="ItemsProvider"/>).
     /// </summary>
     /// <returns>A <see cref="Task"/> that represents the completion of the operation.</returns>
-    public Task RefreshDataAsync() => RefreshDataCoreAsync();
+    public async Task RefreshDataAsync()
+    {
+        await RefreshDataCoreAsync();
+    }
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
     // because in that case there's going to be a re-render anyway.
