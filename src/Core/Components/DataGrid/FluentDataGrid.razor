@@ -148,22 +148,47 @@
                                 scope="col"
                                 TGridItem="TGridItem">
                 @col.HeaderContent
-                @if (col == _displayOptionsForColumn)
+
+                @if (HeaderCellAsButtonWithMenu)
                 {
-                    <div class="col-options">
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
                             @col.ColumnOptions
-                    </div>
+                        </div>
+                    }
+                    @if (ResizableColumns && col == _displayResizeForColumn)
+                    {
+                        <div class="col-resize">
+
+                            @if (ResizeType is not null)
+                            {
+                                <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                            }
+
+                        </div>
+                    }
                 }
-                @if (ResizableColumns && col == _displayResizeForColumn)
+                else
                 {
-                    <div class="col-resize">
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            <FluentStack Orientation="Orientation.Vertical">
+                                @col.ColumnOptions
+                                @if (ResizeType is not null)
+                                {
+                                    @if (@col.ColumnOptions is not null)
+                                    {
+                                        <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                    }
 
-                        @if (ResizeType is not null)
-                        {
-                            <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
-                        }
+                                    <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                }
 
-                    </div>
+                            </FluentStack>
+                        </div>
+                    }
                 }
 
                 @if (ResizableColumns)

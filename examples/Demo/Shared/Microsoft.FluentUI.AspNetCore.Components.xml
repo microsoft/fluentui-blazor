@@ -1862,6 +1862,7 @@
             ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
             Discrete: resize by a 10 pixels at a time
             Exact: resize to the exact width specified (in pixels)
+            Note: This does not affect resizing by mouse dragging, just the keyboard driven resize.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ColumnResizeLabels">
@@ -2054,6 +2055,29 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthDiscreteAsync(System.Nullable{System.Int32},System.Single)">
+            <summary>
+            Resizes the column width by a discrete amount.
+            </summary>
+            <param name="columnIndex">The column to be resized</param>
+            <param name="widthChange">The amount of pixels to change width with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthExactAsync(System.Int32,System.Int32)">
+            <summary>
+            Resizes the column width to the exact width specified (in pixels).
+            </summary>
+            <param name="columnIndex">The column to be resized</param>
+            <param name="width">The new width in pixels</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ResetColumnWidthsAsync">
+            <summary>
+            Resets the column widths to their initial values as specified with the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> parameter.
+            If no value is specified, the default value is "1fr" for each column.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Item">
             <summary>
@@ -2812,6 +2836,21 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Threading.Tasks.Task})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.DateTime,System.Boolean,System.Threading.Tasks.Task},System.DateTime,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.FluentUI.AspNetCore.Components.CalendarTitles,System.Threading.Tasks.Task},Microsoft.FluentUI.AspNetCore.Components.CalendarTitles)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.Int32,System.Int32,System.Boolean,System.Threading.Tasks.Task},System.Int32,System.Int32,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.Int32,System.Boolean,System.Threading.Tasks.Task},System.Int32,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.#ctor">
@@ -8052,7 +8091,7 @@
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1">
             <summary>
-            Groups child <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/> components. 
+            Groups child <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/> components.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.Orientation">
@@ -8062,7 +8101,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.ChildContent">
             <summary>
-            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1"/>. 
+            Gets or sets the child content to be rendering inside the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1"/>.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadioGroup`1.OnParametersSet">
@@ -8235,6 +8274,12 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Min">
             <summary>
             Gets or sets the slider's minimal value.
@@ -8252,7 +8297,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Orientation">
             <summary>
-            Gets or sets the orentation of the slider. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Orientation"/>
+            Gets or sets the orientation of the slider. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Orientation"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1.Mode">
@@ -15318,6 +15363,12 @@
             </code>
             </remarks>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.Debounce">
+            <summary>
+            The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            This ensures that the action is only invoked once after the calls have stopped for the specified duration.
+            </summary>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InlineStyleBuilder"/> class.
@@ -15372,6 +15423,126 @@
             <param name="prop"></param>
             <param name="value"></param>
             <returns>StyleBuilder</returns>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction">
+            <summary>
+            The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            This ensures that the action is only invoked once after the calls have stopped for the specified duration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.Busy">
+            <summary>
+            Gets a value indicating whether the DebounceTask dispatcher is busy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.CurrentTask">
+            <summary>
+            Gets the current task.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.Run(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.RunAsync(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceAction.Dispose">
+            <summary>
+            Releases all resources used by the DebounceTask dispatcher.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask">
+            <summary>
+            The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            This ensures that the action is only invoked once after the calls have stopped for the specified duration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.Busy">
+            <summary>
+            Gets a value indicating whether the DebounceTask dispatcher is busy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.CurrentTask">
+            <summary>
+            Gets the current task.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.Run(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.RunAsync(System.Int32,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="milliseconds"></param>
+            <param name="action"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DebounceTask.Dispose">
+            <summary>
+            Releases all resources used by the DebounceTask dispatcher.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Timers.Timer"/>.
+            </summary>
+            <remarks>
+            Inspired from Microsoft.Toolkit.Uwp.UI.DispatcherQueueTimerExtensions
+            </remarks>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.Debounce(System.Timers.Timer,System.Func{System.Threading.Tasks.Task},System.Double)">
+            <summary>
+            Delays the invocation of an action until a predetermined interval has elapsed since the last call.
+            </summary>
+            <param name="timer"></param>
+            <param name="action"></param>
+            <param name="interval"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.Timer_Elapsed(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            Timer elapsed event handler.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem">
+            <summary>
+            Timer debounce item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem.Status">
+            <summary>
+            Gets the task completion source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem.Action">
+            <summary>
+            Gets or sets the action to execute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce.DispatcherTimerExtensions.TimerDebounceItem.UpdateAction(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Updates the action to execute.
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.Utilities.LinkerFlags.JsonSerialized">
             <summary>

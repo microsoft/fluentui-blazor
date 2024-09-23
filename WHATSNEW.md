@@ -26,6 +26,16 @@
 
 ## v4.10.0
 
+### Important notes
+
+With version 4.10 (and higher), we've introduced a new provider:
+`FluentMenuProvider` which corrects some menu positioning problems.
+See [#2510](https://github.com/microsoft/fluentui-blazor/pull/2510)
+
+By default, this provider is enabled. You must therefore add `<FluentMenuProvider />` 
+to your application. See [Code Setup](https://www.fluentui-blazor.net/CodeSetup)
+page of the documentation for more information.
+
 ### Components
 - [General] Add .net9.0 as targeted framework ([#2590](https://github.com/microsoft/fluentui-blazor/pull/2590))
 - [Javascript Caching] Do not add version number to lib.module.js file ([#2572](https://github.com/microsoft/fluentui-blazor/pull/2572))

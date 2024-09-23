@@ -96,6 +96,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// ColumnOptions UI. This parameter allows you to enable or disable this resize UI.Enable it by setting the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
     /// Exact: resize to the exact width specified (in pixels)
+    /// Note: This does not affect resizing by mouse dragging, just the keyboard driven resize.
     /// </summary>
     [Parameter]
     public DataGridResizeType? ResizeType { get; set; }
@@ -765,7 +766,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         //return Task.CompletedTask;
     }
 
-    internal async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
+    /// <summary>
+    /// Resizes the column width by a discrete amount.
+    /// </summary>
+    /// <param name="columnIndex">The column to be resized</param>
+    /// <param name="widthChange">The amount of pixels to change width with</param>
+    /// <returns></returns>
+    public async Task SetColumnWidthDiscreteAsync(int? columnIndex, float widthChange)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -773,7 +780,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    internal async Task SetColumnWidthExactAsync(int columnIndex, int width)
+    /// <summary>
+    /// Resizes the column width to the exact width specified (in pixels).
+    /// </summary>
+    /// <param name="columnIndex">The column to be resized</param>
+    /// <param name="width">The new width in pixels</param>
+    /// <returns></returns>
+    public async Task SetColumnWidthExactAsync(int columnIndex, int width)
     {
         if (_gridReference is not null && Module is not null)
         {
@@ -781,12 +794,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
-    internal async Task ResetColumnWidthsAsync()
+    /// <summary>
+    /// Resets the column widths to their initial values as specified with the <see cref="GridTemplateColumns"/> parameter.
+    /// If no value is specified, the default value is "1fr" for each column.
+    /// </summary>
+    /// <returns></returns>
+    public async Task ResetColumnWidthsAsync()
     {
         if (_gridReference is not null && Module is not null)
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
     }
-
 }

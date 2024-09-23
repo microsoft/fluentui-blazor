@@ -18,7 +18,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
     public new FluentTextField? Element { get; set; } = default!;
     private Virtualize<TOption>? VirtualizationContainer { get; set; }
-    private readonly Debouncer _debouncer = new();
+    private readonly Debounce _debounce = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -295,12 +295,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
 
         if (ImmediateDelay > 0)
         {
-            await _debouncer.DebounceAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
+            await _debounce.RunAsync(ImmediateDelay, () => InvokeAsync(() => OnOptionsSearch.InvokeAsync(args)));
         }
         else
         {
             await OnOptionsSearch.InvokeAsync(args);
         }
+
+        Console.WriteLine($"args.Items: {args.Items?.Count()}");
 
         Items = args.Items?.Take(MaximumOptionsSearch);
 
