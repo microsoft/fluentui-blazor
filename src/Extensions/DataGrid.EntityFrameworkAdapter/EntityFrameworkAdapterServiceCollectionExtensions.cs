@@ -14,6 +14,6 @@ public static class EntityFrameworkAdapterServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddDataGridEntityFrameworkAdapter(this IServiceCollection services)
     {
-        services.AddSingleton<IAsyncQueryExecutor, EntityFrameworkAsyncQueryExecutor>();
+        services.AddScoped<IAsyncQueryExecutor, EntityFrameworkAsyncQueryExecutor>();
     }
 }
