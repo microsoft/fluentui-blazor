@@ -62,6 +62,7 @@ public partial class FluentInputBase<TValue>
         {
             return;
         }
+
         if (ImmediateDelay > 0)
         {
             await _debounce.RunAsync(ImmediateDelay, async () => await ChangeHandlerAsync(e));
