@@ -1679,6 +1679,11 @@
             This action is required to update you data model.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Selectable">
+            <summary>
+            Gets or sets the function executed to determine if the item can be selected.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Property">
             <summary>
             Gets or sets the function to executed to determine checked/unchecked status.
