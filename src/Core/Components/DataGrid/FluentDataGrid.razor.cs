@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
@@ -27,7 +28,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     [Inject]
-    private IServiceProvider Services { get; set; } = default!;
+    private IServiceScopeFactory ScopeFactory { get; set; } = default!;
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -275,6 +276,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // IQueryable only exposes synchronous query APIs. IAsyncQueryExecutor is an adapter that lets us invoke any
     // async query APIs that might be available. We have built-in support for using EF Core's async query APIs.
     private IAsyncQueryExecutor? _asyncQueryExecutor;
+    private AsyncServiceScope? _scope;
 
     // We cascade the InternalGridContext to descendants, which in turn call it to add themselves to _columns
     // This happens on every render so that the column list can be updated dynamically
@@ -367,9 +369,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var dataSourceHasChanged = !Equals(Items, _lastAssignedItems) || !Equals(ItemsProvider, _lastAssignedItemsProvider);
         if (dataSourceHasChanged)
         {
+            _scope?.Dispose();
+            _scope = ScopeFactory.CreateAsyncScope();
             _lastAssignedItemsProvider = ItemsProvider;
             _lastAssignedItems = Items;
-            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(Services, Items);
+            _asyncQueryExecutor = AsyncQueryExecutorSupplier.GetAsyncQueryExecutor(_scope.Value.ServiceProvider, Items);
         }
 
         var paginationStateHasChanged =
@@ -496,6 +500,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="title">The title of the column to sort by.</param>
     /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task SortByColumnAsync(string title, SortDirection direction = SortDirection.Auto)
     {
         var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
@@ -508,6 +513,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="index">The index of the column to sort by.</param>
     /// <param name="direction">The direction of sorting. The default is <see cref="SortDirection.Auto"/>. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task SortByColumnAsync(int index, SortDirection direction = SortDirection.Auto)
     {
         return index >= 0 && index < _columns.Count ? SortByColumnAsync(_columns[index], direction) : Task.CompletedTask;
@@ -536,6 +542,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// options UI that was previously displayed.
     /// </summary>
     /// <param name="column">The column whose options are to be displayed, if any are available.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task ShowColumnOptionsAsync(ColumnBase<TGridItem> column)
     {
         _displayOptionsForColumn = column;
@@ -549,6 +556,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// resize UI that was previously displayed.
     /// </summary>
     /// <param name="column">The column whose resize UI is to be displayed.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task ShowColumnResizeAsync(ColumnBase<TGridItem> column)
     {
         _displayResizeForColumn = column;
@@ -666,31 +674,37 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Normalizes all the different ways of configuring a data source so they have common GridItemsProvider-shaped API
     private async ValueTask<GridItemsProviderResult<TGridItem>> ResolveItemsRequestAsync(GridItemsProviderRequest<TGridItem> request)
     {
-        if (ItemsProvider is not null)
+        try
         {
-            var gipr = await ItemsProvider(request);
-            if (gipr.Items is not null)
+            if (ItemsProvider is not null)
             {
-                Loading = false;
+                var gipr = await ItemsProvider(request);
+                if (gipr.Items is not null)
+                {
+                    Loading = false;
+                }
+                return gipr;
             }
-            return gipr;
-        }
-        else if (Items is not null)
-        {
-            var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items);
-            _internalGridContext.TotalItemCount = totalItemCount;
-            var result = request.ApplySorting(Items).Skip(request.StartIndex);
-            if (request.Count.HasValue)
+            else if (Items is not null)
             {
-                result = result.Take(request.Count.Value);
+                var totalItemCount = _asyncQueryExecutor is null ? Items.Count() : await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
+                _internalGridContext.TotalItemCount = totalItemCount;
+                var result = request.ApplySorting(Items).Skip(request.StartIndex);
+                if (request.Count.HasValue)
+                {
+                    result = result.Take(request.Count.Value);
+                }
+                var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+                return GridItemsProviderResult.From(resultArray, totalItemCount);
             }
-            var resultArray = _asyncQueryExecutor is null ? [.. result] : await _asyncQueryExecutor.ToArrayAsync(result);
-            return GridItemsProviderResult.From(resultArray, totalItemCount);
         }
-        else
+        catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken)
         {
-            return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
+            // No-op; we canceled the operation, so it's fine to suppress this exception.
         }
+
+        Loading = false;
+        return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
     }
 
     private string AriaSortValue(ColumnBase<TGridItem> column)
@@ -747,6 +761,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public async ValueTask DisposeAsync()
     {
         _currentPageItemsChanged.Dispose();
+        _scope?.Dispose();
 
         try
         {

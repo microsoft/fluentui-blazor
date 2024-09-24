@@ -49,6 +49,38 @@
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
     }
+    
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_Selectable_SingleSelect_SelectedItems()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Single"
+                      Selectable="@(e => e.BirthDate.Year >= 2000)"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Equal(1, cut.FindAll("svg").Count);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+    }
 
     [Fact]
     public async Task FluentDataGrid_ColumSelect_SingleSelect_Property()
@@ -74,6 +106,39 @@
         await ClickOnRowAsync(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(items.Where(i => i.Selected));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_Selectable_SingleSelect_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Single"
+                      Selectable="@(e => e.BirthDate.Year >= 2000)"
+                      Property="@(e => e.Selected)"
+                      OnSelect="@(e => e.Item.Selected = e.Selected)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Equal(1, cut.FindAll("svg").Count);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
 
         // Act - Click and select Row 1
         await ClickOnRowAsync(cut, row: 1);
@@ -132,7 +197,43 @@
         await ClickOnRowAsync(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(SelectedItems);
+    }
 
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_Selectable_MultiSelect_SelectedItems()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      Selectable="@(e => e.BirthDate.Year >= 2000)"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Equal(2, cut.FindAll("svg").Count);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Equal(1, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(1, SelectedItems.Count());
+
+        // Act - Click and unselect Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
     }
 
     [Fact]
@@ -169,7 +270,44 @@
         await ClickOnRowAsync(cut, row: 0);
         Assert.Single(cut.FindAll("svg[row-selected]"));
         Assert.Single(items.Where(i => i.Selected));
+    }
 
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_Selectable_MultiSelect_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.Multiple"
+                      Selectable="@(e => e.BirthDate.Year >= 2000)"
+                      Property="@(e => e.Selected)"
+                      OnSelect="@(e => e.Item.Selected = e.Selected)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Equal(2, cut.FindAll("svg").Count);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Equal(1, cut.FindAll("svg[row-selected]").Count);
+        Assert.Equal(1, items.Where(i => i.Selected).Count());
+
+        // Act - Click and unselect Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
     }
 
     [Fact]
@@ -200,7 +338,6 @@
         await ClickOnAllAsync(cut);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
-
     }
 
     [Fact]
@@ -234,7 +371,6 @@
         await ClickOnAllAsync(cut);
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
-
     }
 
     [Fact]

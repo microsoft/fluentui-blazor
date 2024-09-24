@@ -1679,6 +1679,11 @@
             This action is required to update you data model.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Selectable">
+            <summary>
+            Gets or sets the function executed to determine if the item can be selected.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.Property">
             <summary>
             Gets or sets the function to executed to determine checked/unchecked status.
@@ -2025,6 +2030,7 @@
             </summary>
             <param name="title">The title of the column to sort by.</param>
             <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SortByColumnAsync(System.Int32,Microsoft.FluentUI.AspNetCore.Components.SortDirection)">
             <summary>
@@ -2032,6 +2038,7 @@
             </summary>
             <param name="index">The index of the column to sort by.</param>
             <param name="direction">The direction of sorting. The default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>. If the value is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RemoveSortByColumnAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
@@ -2046,6 +2053,7 @@
             options UI that was previously displayed.
             </summary>
             <param name="column">The column whose options are to be displayed, if any are available.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ShowColumnResizeAsync(Microsoft.FluentUI.AspNetCore.Components.ColumnBase{`0})">
             <summary>
@@ -2053,6 +2061,7 @@
             resize UI that was previously displayed.
             </summary>
             <param name="column">The column whose resize UI is to be displayed.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RefreshDataAsync">
             <summary>
@@ -2310,19 +2319,21 @@
             <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
             <returns>True if this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor"/> instance can perform asynchronous queries for the supplied <paramref name="queryable"/>, otherwise false.</returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor.CountAsync``1(System.Linq.IQueryable{``0})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor.CountAsync``1(System.Linq.IQueryable{``0},System.Threading.CancellationToken)">
             <summary>
             Asynchronously counts the items in the <see cref="T:System.Linq.IQueryable`1" />, if supported.
             </summary>
             <typeparam name="T">The data type.</typeparam>
             <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
+            <param name="cancellationToken">An <see cref="T:System.Threading.CancellationToken" /> instance.</param>
             <returns>The number of items in <paramref name="queryable"/>.</returns>.
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure.IAsyncQueryExecutor.ToArrayAsync``1(System.Linq.IQueryable{``0},System.Threading.CancellationToken)">
             <summary>
             Asynchronously materializes the <see cref="T:System.Linq.IQueryable`1" /> as an array, if supported.
             </summary>
             <typeparam name="T">The data type.</typeparam>
+            <param name="cancellationToken">An <see cref="T:System.Threading.CancellationToken" /> instance.</param>
             <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> instance.</param>
             <returns>The items in the <paramref name="queryable"/>.</returns>.
         </member>
@@ -2854,6 +2865,21 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.TryParseValueFromString(System.String,System.Nullable{System.DateTime}@,System.String@)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.AspNetCore.Components.Web.MouseEventArgs,System.Threading.Tasks.Task})">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.DateTime,System.Boolean,System.Threading.Tasks.Task},System.DateTime,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{Microsoft.FluentUI.AspNetCore.Components.CalendarTitles,System.Threading.Tasks.Task},Microsoft.FluentUI.AspNetCore.Components.CalendarTitles)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.Int32,System.Int32,System.Boolean,System.Threading.Tasks.Task},System.Int32,System.Int32,System.Boolean)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.KeyDown.SimulateClickAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Func{System.Int32,System.Boolean,System.Threading.Tasks.Task},System.Int32,System.Boolean)">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Components.DateTime.RangeOfDates.#ctor">
