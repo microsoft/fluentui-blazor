@@ -1,12 +1,13 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
-
-@* Label *@
 
 <fluent-text-input id="@Id"
                    name="@Name"
                    class="@ClassValue"
                    style="@StyleValue"
+                   appearance="@Appearance.ToAttributeValue()"
+                   placeholder="@Placeholder"
                    readonly="@ReadOnly"
                    aria-label="@AriaLabel"
                    disabled="@Disabled"
@@ -34,7 +35,7 @@
                        style="@StyleValue"
                        readonly="@ReadOnly"
                        autofocus="@Autofocus"
-                 x     placeholder="@Placeholder"
+                       placeholder="@Placeholder"
                  x     type="@TextFieldType.ToAttributeValue()"
                  x     list=@DataList
                  x     maxlength="@Maxlength"
@@ -43,12 +44,11 @@
                  x     size="@Size"
                  x     spellcheck="@Spellcheck"
                        id=@Id
-                 x     value=@Value
-                 x     current-value="@BindConverter.FormatValue(CurrentValue)"
+                       value=@Value
                        disabled="@Disabled"
                        name=@Name
                        required="@Required"
-                 x     appearance="@Appearance.ToAttributeValue()"
+                       appearance="@Appearance.ToAttributeValue()"
                        @onchange="@ChangeHandlerAsync"
                        @oninput="@InputHandlerAsync"
                        @attributes="AdditionalAttributes">

@@ -11,6 +11,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTextInput
 {
     /// <summary>
+    /// Gets or sets the visual appearance.
+    /// </summary>
+    [Parameter]
+    public TextInputAppearance Appearance { get; set; } = TextInputAppearance.Outline;
+
+    /// <summary>
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
