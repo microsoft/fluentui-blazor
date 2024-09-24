@@ -61,6 +61,7 @@ public class InputBaseTests : TestContext
     [InlineData("AriaLabel", "aria-label", "my-aria-label")]
     [InlineData("Autofocus", "autofocus", true)]
     [InlineData("Required", "required", true)]
+    [InlineData("Label", "", "my-label")]
     public void InputBase_DefaultProperties(string propName, string htmlName, object value)
     {
         var errors = new StringBuilder();
@@ -83,7 +84,9 @@ public class InputBaseTests : TestContext
             });
 
             // Assert
-            var isMatch = renderedComponent.Markup.ContainsAttribute(htmlName, value);
+            var isMatch = string.IsNullOrEmpty(htmlName)
+                        ? renderedComponent.Markup.Contains(value.ToString() ?? "")
+                        : renderedComponent.Markup.ContainsAttribute(htmlName, value);
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 

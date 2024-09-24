@@ -16,6 +16,14 @@
                    @onchange="@ChangeHandlerAsync"
                    @oninput="@InputHandlerAsync"
                    @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Label) || LabelTemplate != null)
+    {
+        <fluent-label>
+            @Label
+            @LabelTemplate
+        </fluent-label>
+    }
+
     @ChildContent
 </fluent-text-input>
 
