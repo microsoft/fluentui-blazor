@@ -7,6 +7,9 @@
     <FluentCheckbox @bind-Value="@SelectFromEntireRow"
                     @bind-Value:after="@(() => ResetSelectItems())"
                     Label="Use `SelectFromEntireRow` property" />
+    <FluentCheckbox @bind-Value="@SelectableBefore2000"
+                    @bind-Value:after="@(() => ResetSelectItems())"
+                    Label="Use `Selectable` property" />
 </FluentStack>
 
 @if (UseSelectedItems)
@@ -18,6 +21,7 @@
         <SelectColumn TGridItem="Person"
                       SelectMode="@Mode"
                       SelectFromEntireRow="@SelectFromEntireRow"
+                      Selectable="@(e => !SelectableBefore2000 || e.BirthDate.Year >= 2000)"
                       @bind-SelectedItems="@SelectedItems" />
         <PropertyColumn Width="100px" Property="@(p => p.PersonId)" Title="ID" />
         <PropertyColumn Width="300px" Property="@(p => p.Name)" />
@@ -38,6 +42,7 @@ else
         <SelectColumn TGridItem="Person"
                       SelectMode="@Mode"
                       SelectFromEntireRow="@SelectFromEntireRow"
+                      Selectable="@(e => !SelectableBefore2000 || e.BirthDate.Year >= 2000)"
                       Property="@(e => e.Selected)"
                       OnSelect="@(e => e.Item.Selected = e.Selected)"
                       SelectAll="@(People.All(p => p.Selected))"
@@ -56,6 +61,7 @@ else
 @code {
     bool UseSelectedItems = true;
     bool SelectFromEntireRow = true;
+    bool SelectableBefore2000 = false;
     DataGridSelectMode Mode = DataGridSelectMode.Single;
 
     IEnumerable<Person> SelectedItems = People.Where(p => p.Selected);
