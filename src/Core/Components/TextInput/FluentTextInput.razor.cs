@@ -16,7 +16,13 @@ public partial class FluentTextInput
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Parses a string to create the <see cref="FluentInputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
