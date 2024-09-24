@@ -6,6 +6,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TOption))]
 public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TOption : notnull
 {
+    /// <summary>
+    /// Gets the `Required` aria label.
+    /// </summary>
+    public static string RequiredAriaLabel = "Required";
+
     /// <summary />
     protected virtual MarkupString InlineStyleValue => new InlineStyleBuilder()
         .AddStyle($"#{Id}::part(listbox)", "max-height", Height, !string.IsNullOrWhiteSpace(Height))
@@ -39,4 +44,11 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TO
     /// </summary>
     [Parameter]
     public Appearance? Appearance { get; set; }
+
+    private string? GetAriaLabelWithRequired()
+    {
+        var label = AriaLabel ?? Label ?? Title ?? string.Empty;
+
+        return label + (Required ? $", {RequiredAriaLabel}" : string.Empty);
+    }
 }
