@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Reflection;
+using System.Text.RegularExpressions;
 using FluentUI.Demo.DocViewer.Models;
 using Markdig;
 
@@ -75,6 +76,51 @@ public class DocViewerService
                                          string.Compare(i.Route, $"/{routeName}", StringComparison.InvariantCultureIgnoreCase) == 0);
     }
 
+    /// <summary>
+    /// Loads the resource with the specified name.
+    /// </summary>
+    /// <param name="resourceName"></param>
+    /// <param name="isFullName"></param>
+    /// <param name="removeHeaders"></param>
+    /// <returns></returns>
+    public string LoadResource(string resourceName, bool isFullName = true, bool removeHeaders = false)
+    {
+        if (ResourcesAssembly is null)
+        {
+            return string.Empty;
+        }
+
+        var name = resourceName;
+
+        // For short name, take the first resource ending with the ".name"
+        if (!isFullName)
+        {
+            name = ResourcesAssembly.GetManifestResourceNames().FirstOrDefault(i => i.EndsWith("." + resourceName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        // Read the resource content
+        if (!string.IsNullOrEmpty(name))
+        {
+            using var stream = ResourcesAssembly.GetManifestResourceStream(name);
+            if (stream != null)
+            {
+                using var reader = new StreamReader(stream);
+                var content = reader.ReadToEnd();
+
+                // Remove the headers: --- xxx ---
+                if (removeHeaders)
+                {
+                    var patternHeaders = @"---[\s\S]*?---";
+                    content = Regex.Replace(content, patternHeaders, string.Empty);
+                }
+
+                return content;
+            }
+        }
+
+        return string.Empty;
+    }
+
     /// <summary />
     private IEnumerable<Page> LoadAllPages()
     {
@@ -90,13 +136,8 @@ public class DocViewerService
         {
             if (resourceName.EndsWith(".md"))
             {
-                using var stream = ResourcesAssembly.GetManifestResourceStream(resourceName);
-                if (stream != null)
-                {
-                    using var reader = new StreamReader(stream);
-                    var content = reader.ReadToEnd();
-                    pages.Add(new Page(this, content));
-                }
+                var content = LoadResource(resourceName);
+                pages.Add(new Page(this, resourceName, content));
             }
         }
 

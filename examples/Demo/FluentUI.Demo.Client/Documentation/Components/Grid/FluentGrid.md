@@ -136,3 +136,7 @@ the grid item takes a lot of time or leads to a lot of data being transferred.
     background-size: contain;
   }
 </style>
+
+## Migration from v4
+
+{{ INCLUDE File=MigrationFluentGridItem }}

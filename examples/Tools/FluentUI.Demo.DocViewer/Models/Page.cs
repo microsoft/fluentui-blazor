@@ -27,14 +27,16 @@ public record Page
     /// 
     /// </summary>
     /// <param name="service"></param>
-    /// <param name="content"></param>
-    internal Page(DocViewerService service, string content)
+    /// <param name="resourceName"></param>
+    /// <param name="fileContent"></param>
+    internal Page(DocViewerService service, string resourceName, string fileContent)
     {
         _docViewerService = service;
-        var items = ExtractHeaderContent(content);
+        var items = ExtractHeaderContent(fileContent);
 
+        ResourceName = resourceName;
+        Content = ReplaceIncludes(GetItem(items, "content"));
         Headers = items.Where(i => i.Key != "content").ToDictionary();
-        Content = GetItem(items, "content");
         Title = GetItem(items, "title");
         Route = GetItem(items, "route");
         Hidden = GetItem(items, "hidden") == "true";
@@ -44,6 +46,12 @@ public record Page
     /// Gets the header items.
     /// </summary>
     public IDictionary<string, string> Headers { get; }
+
+    /// <summary>
+    /// Gets the resource name (the file name).
+    /// Example: `FluentUI.Demo.Client.Documentation.Components.Button.FluentButton.md`
+    /// </summary>
+    public string ResourceName { get; }
 
     /// <summary>
     /// Gets the page content
@@ -168,5 +176,40 @@ public record Page
         }
 
         return dictionary;
+    }
+
+    /// <summary />
+    private string ReplaceIncludes(string content, int numberOfReplaces = 1)
+    {
+        for (var i = 0; i < numberOfReplaces; i++)
+        {
+            // Regular expression to match both "{{ INCLUDE File=... }}" and "{{ INCLUDE ... }}"
+            var pattern = @"\{\{ INCLUDE (?:File=)?(.+?) \}\}";
+            //var pattern = @"\{\{ INCLUDE File=([^\s\}]+) \}\}";
+            content = Regex.Replace(content, pattern, match => GetFileContent(match.Groups[1].Value));
+        }
+
+        return content;
+    }
+
+    /// <summary />
+    private string GetFileContent(string resourceName)
+    {
+        if (_docViewerService.ResourcesAssembly == null)
+        {
+            return string.Empty;
+        }
+
+        if (!resourceName.Contains('.'))
+        {
+            resourceName += ".md";
+        }
+
+        if (resourceName.EndsWith(".md"))
+        {
+            return _docViewerService.LoadResource(resourceName, isFullName: false, removeHeaders: true);
+        }
+
+        return $"FILE NOT FOUND: ${resourceName}";
     }
 }

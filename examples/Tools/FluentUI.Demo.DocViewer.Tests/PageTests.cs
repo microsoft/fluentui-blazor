@@ -23,8 +23,9 @@ public class PageTests
 
                            My content";
 
-        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
 
+        Assert.Equal("file.md", page.ResourceName);
         Assert.Equal("Button", page.Title);
         Assert.Equal("/Button", page.Route);
         Assert.Equal("My content", page.Content);
@@ -38,7 +39,7 @@ public class PageTests
                            Header2: Value2
                            ---";
 
-        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
 
         Assert.Equal(2, page.Headers.Count);
         Assert.Equal("Value1", page.Headers["Header1"]);
@@ -50,7 +51,7 @@ public class PageTests
     {
         var fileContent = @"My content";
 
-        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
 
         Assert.Empty(page.Headers);
         Assert.Equal("My content", page.Content);
@@ -61,7 +62,7 @@ public class PageTests
     {
         var fileContent = @"";
 
-        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
 
         Assert.Empty(page.Headers);
         Assert.Empty(page.Content);
@@ -87,7 +88,7 @@ public class PageTests
 
                            My content";
 
-        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
         var htmlHeaders = page.GetHtmlHeaders()?.ToArray() ?? [];
 
         Assert.Equal(5, htmlHeaders.Length);
@@ -118,7 +119,7 @@ public class PageTests
                            My code
                            ```";
 
-        var page = new Page(DocViewerService, fileContent.RemoveLeadingBlanks());
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
         var sections = await page.ExtractSectionsAsync();
 
         Assert.Equal(SectionType.Html, sections.ElementAt(0).Type);
