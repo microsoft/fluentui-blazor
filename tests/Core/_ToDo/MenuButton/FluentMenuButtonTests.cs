@@ -1,5 +1,6 @@
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.MenuButton;
@@ -30,6 +31,7 @@ public class FluentMenuButtonTests : TestBase
             .Add(p => p.MenuStyle, menuStyle)
             .Add(p => p.Items, items)
             .Add(p => p.OnMenuChanged, onMenuChanged)
+            .Add(p => p.IconStart, SampleIcons.Info)
         );
         //Act
 

@@ -5800,6 +5800,11 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentPersona.GetDefaultInitials(System.String)">
             <summary />
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.RequiredAriaLabel">
+            <summary>
+            Gets the `Required` aria label.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSelect`1.InlineStyleValue">
             <summary />
         </member>
@@ -6047,6 +6052,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.Text">
             <summary>
             Gets or sets the texts shown on th button.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.IconStart">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Icon"/> displayed at the start of button content.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.ButtonStyle">
