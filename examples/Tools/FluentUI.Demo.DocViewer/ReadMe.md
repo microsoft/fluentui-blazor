@@ -58,6 +58,16 @@ route: /Button
 ---
 ```
 
+You can also hide the page from the navigation menu using the `hidden` attribute.
+
+```markdown
+---
+title: Button
+route: /Button
+hidden: true
+---
+```
+
 ## Code section
 
 You can include code snippets in your markdown file.
@@ -88,6 +98,42 @@ You can embbed the component without tabs and without code using the following s
 
 ```markdown
 {{ MyCounter SourceCode="false" }}
+```
+
+You can also embbed the component with extra-tabs. You need to specify the files to include in each tabs
+using the format "[Tab Name]:[File Name]".
+
+```markdown
+{{ MyCounter Files=Razor:MyCounter.razor;Source:MyCounter.razor.js;CSS:MyCounter.razor.css }}
+```
+
+This will display four tabs:
+  - **Example** with the `MyCounter` component.
+  - **Razor** with the content of the `MyCounter.razor` file.
+  - **Source** with the content of the `MyCounter.razor.js` file.
+  - **CSS** with the content of the `MyCounter.razor.css` file.
+
+## API section
+
+You can include the API documentation of a component using `{{ API Type=[Component Name] }}` syntax.
+
+This documentation will be extracted from the XML documentation file associated with the assembly and
+will be displayed like three tables: **Parameters**, **Event Callbacks** and **Methods**.
+
+```markdown
+{{ API Type=MyCounter }}
+```
+
+## Include files
+
+You can include the content of another markdown file using the `{{ INCLUDE File=[File Name] }}` syntax.
+By default, if the extension is not specified, the `.md` extension will be added.
+The keyword `File` is optional.
+
+```markdown
+{{ INCLUDE File=MigrationGeneral }}
+{{ INCLUDE File=MigrationColor.md }}
+{{ INCLUDE MigrationFluentButton }}
 ```
 
 ## Example

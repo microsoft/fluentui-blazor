@@ -122,3 +122,7 @@ property, but you can also "move" these elements outside the `FluentLayout` to k
   }
 
 </style>
+
+## Migration from v4
+
+{{ INCLUDE File=MigrationFluentLayout }}
