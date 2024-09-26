@@ -48,6 +48,8 @@ public class FluentMenuButtonTests : TestBase
         string buttonStyle = default!;
         string menuStyle = default!;
         Dictionary<string, string> items = default!;
+        var icon = new SampleIcons.Samples.Info();
+
         Action<MenuChangeEventArgs> onMenuChanged = _ => { };
         var cut = TestContext.RenderComponent<FluentMenuButton>(parameters => parameters
             .Add(p => p.Button, button)
@@ -57,7 +59,7 @@ public class FluentMenuButtonTests : TestBase
             .Add(p => p.MenuStyle, menuStyle)
             .Add(p => p.Items, items)
             .Add(p => p.OnMenuChanged, onMenuChanged)
-            .Add(p => p.IconStart, SampleIcons.Info)
+            .Add(p => p.IconStart, icon)
         );
         //Act
 
