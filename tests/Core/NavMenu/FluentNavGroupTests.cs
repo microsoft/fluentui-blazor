@@ -135,11 +135,12 @@ public class FluentNavGroupTests : TestBase
     {
         // Arrange & Act
         var m = new FluentNavMenu();
+        var icon = new SampleIcons.Samples.Info();
         var cut = TestContext.RenderComponent<FluentNavGroup>(parameters =>
         {
             parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.Title, "Group title");
-            parameters.Add(p => p.Icon, SampleIcons.Info);
+            parameters.Add(p => p.Icon, icon);
             parameters.AddChildContent("NavGroups and NavLinks here");
         });
 
@@ -152,11 +153,12 @@ public class FluentNavGroupTests : TestBase
     {
         // Arrange & Act
         var m = new FluentNavMenu();
+        var icon = new SampleIcons.Samples.Info();  
         var cut = TestContext.RenderComponent<FluentNavGroup>(parameters =>
         {
             parameters.Add(p => p.Owner, m);
             parameters.Add(p => p.Title, "Group title");
-            parameters.Add(p => p.Icon, SampleIcons.Info);
+            parameters.Add(p => p.Icon, icon);
             parameters.Add(p => p.IconColor, Color.Neutral);
             parameters.AddChildContent("NavGroups and NavLinks here");
         });

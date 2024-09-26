@@ -110,9 +110,10 @@ public class FluentNavLinkTests : TestBase
     public void FluentNavLink_Icon()
     {
         // Arrange & Act
+        var icon = new SampleIcons.Samples.Info();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
-            parameters.Add(p => p.Icon, SampleIcons.Info);
+            parameters.Add(p => p.Icon, icon);
             parameters.AddChildContent("NavLink text");
         });
 
@@ -125,10 +126,11 @@ public class FluentNavLinkTests : TestBase
     {
         // Arrange & Act
         var m = new FluentNavMenu();
+        var icon = new SampleIcons.Samples.Info();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
             parameters.Add(p => p.Owner, m);
-            parameters.Add(p => p.Icon, SampleIcons.Info);
+            parameters.Add(p => p.Icon, icon);
             parameters.Add(p => p.IconColor, Color.Neutral);
             parameters.AddChildContent("NavLink text");
         });
@@ -142,10 +144,11 @@ public class FluentNavLinkTests : TestBase
     {
         // Arrange & Act
         var m = new FluentNavMenu();
+        var icon = new SampleIcons.Samples.Info();
         var cut = TestContext.RenderComponent<FluentNavLink>(parameters =>
         {
             parameters.Add(p => p.Owner, m);
-            parameters.Add(p => p.Icon, SampleIcons.Info);
+            parameters.Add(p => p.Icon, icon);
             parameters.Add(p => p.IconColor, Color.Custom);
             parameters.Add(p => p.CustomColor, "red");
             parameters.AddChildContent("NavLink text");
