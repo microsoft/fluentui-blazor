@@ -84,9 +84,9 @@
                                          multi-end="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Max == day)"
                                          aria-label="@dayProperties.Title"
                                          value="@dayProperties.DayIdentifier"
-                                         @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnSelectDayHandlerAsync, day, dayProperties.IsDisabled || dayProperties.IsInactive))"
-                                         @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))"
-                                         @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                                         @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnSelectDayHandlerAsync, day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))"
+                                         @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))"
+                                         @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))">
                                         @if (DaysTemplate == null)
                                         {
                                             @dayProperties.DayNumber
@@ -166,7 +166,7 @@
                         DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e) : false)" />
     }
 
-    
+
     @if (_pickerView == CalendarViews.Years)
     {
         <FluentCalendar View="CalendarViews.Years"
