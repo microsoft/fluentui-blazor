@@ -6468,6 +6468,12 @@
             Default is true.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.FadeIn">
+            <summary>
+            Gets or sets the fade in animation for the MessageBar.
+            Default is true.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.Link">
             <summary>
             A link can be shown after the message. 
