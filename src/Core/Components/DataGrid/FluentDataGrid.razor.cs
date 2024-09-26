@@ -512,6 +512,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Removes the grid's sort on double click for the currently sorted column if it's not a default sort column.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task RemoveSortByColumnAsync() => (_sortByColumn != null) ? RemoveSortByColumnAsync(_sortByColumn) : Task.CompletedTask;
+
+    /// <summary>
     /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column, closing any other column
     /// options UI that was previously displayed.
     /// </summary>
@@ -526,6 +532,29 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column <paramref name="title"/> found first,
+    /// closing any other column options UI that was previously displayed. If the title is not found, nothing happens.
+    /// </summary>
+    /// <param name="title">The column title whose options UI is to be displayed.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task ShowColumnOptionsAsync(string title)
+    {
+        var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+        return (column is not null) ? ShowColumnOptionsAsync(column) : Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column <paramref name="index"/>,
+    /// closing any other column options UI that was previously displayed. If the index is out of range, nothing happens.
+    /// </summary>
+    /// <param name="index">The column index whose options UI is to be displayed.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task ShowColumnOptionsAsync(int index)
+    {
+        return (index >= 0 && index < _columns.Count) ? ShowColumnOptionsAsync(_columns[index]) : Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Displays the column resize UI for the specified column, closing any other column
     /// resize UI that was previously displayed.
     /// </summary>
@@ -537,6 +566,29 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _checkColumnResizePosition = true; // Triggers a call to JSRuntime to position the options element, apply autofocus, and any other setup
         StateHasChanged();
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Displays the column resize UI for the specified column, closing any other column
+    /// resize UI that was previously displayed.
+    /// </summary>
+    /// <param name="title">The column title whose resize UI is to be displayed.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task ShowColumnResizeAsync(string title)
+    {
+        var column = _columns.FirstOrDefault(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+        return (column is not null) ? ShowColumnResizeAsync(column) : Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Displays the column resize UI for the specified column, closing any other column
+    /// resize UI that was previously displayed.
+    /// </summary>
+    /// <param name="index">The column index whose resize UI is to be displayed.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task ShowColumnResizeAsync(int index)
+    {
+        return (index >= 0 && index < _columns.Count) ? ShowColumnResizeAsync(_columns[index]) : Task.CompletedTask;
     }
 
     public void SetLoadingState(bool loading)
