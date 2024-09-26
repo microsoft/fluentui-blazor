@@ -26,7 +26,7 @@ const styleString = `
     #median:hover { background: var(--neutral-stroke-hover); }
     #median:active { background: var(--neutral-stroke-active); }
     #median:focus { background: var(--neutral-stroke-focus); }
-                
+
     #median span[part="handle"] {  border: 1px solid var(--neutral-stroke-strong-rest); border-radius: 1px; }
 
     ::slotted(*) { overflow: auto; }
@@ -80,7 +80,6 @@ class SplitPanels extends HTMLElement {
       const shadow = this.attachShadow({ mode: "open" });
       const styleSheet = new CSSStyleSheet();
       styleSheet.replaceSync(styleString);
-      // shadow.adoptedStyleSheets.push(styleSheet);
       shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets, styleSheet];
       shadow.innerHTML = template;
     }
@@ -190,9 +189,6 @@ class SplitPanels extends HTMLElement {
     if (newValue != oldValue) {
       (this as any as DOMStringMap)[name] = newValue;
     }
-    console.log(
-      `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-    );
   }
   ensurevalue(value: string | number | any) {
     if (!value)

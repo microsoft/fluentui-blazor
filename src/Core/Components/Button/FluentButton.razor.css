@@ -1,5 +1,7 @@
 .loading-button {
     position: relative;
+    height: calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* 1px);
+    display: inline-block;
 }
 
     .loading-button ::deep fluent-progress-ring {

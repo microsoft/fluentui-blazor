@@ -68,7 +68,7 @@
             {
                 @if (Grid.ResizeType is not null)
                 {
-                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Resize/filter this column">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Color="Color.Neutral" Width="20px" Style="opacity: 0.5;" />
                     </FluentButton>
                 }

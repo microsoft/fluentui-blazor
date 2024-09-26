@@ -1,4 +1,4 @@
-﻿export function addCopyButton() {
+export function addCopyButton() {
     var snippets = document.querySelectorAll('.snippet');
     var numberOfSnippets = snippets.length;
     for (var i = 0; i < numberOfSnippets; i++) {
@@ -17,5 +17,11 @@
                 }, 1000)
             });
         }
+    }
+}
+
+export function highlightElement(id) {
+    if (hljs) {
+        hljs.highlightElement(id);
     }
 }

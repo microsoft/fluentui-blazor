@@ -467,7 +467,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
 
-        _debouncer.Dispose();
+        _debounce.Dispose();
 
         Dispose(disposing: true);
     }

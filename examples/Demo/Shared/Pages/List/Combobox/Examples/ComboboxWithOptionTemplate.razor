@@ -2,6 +2,7 @@
 
 <FluentCombobox Items="@Data.People"
                 OptionValue="@(i => i.PersonId.ToString())"
+                OptionText="@(i => $"{i.FirstName} ({i.LastName})")"
                 @bind-Value="@value"
                 @bind-SelectedOption=@Person>
     <OptionTemplate>
