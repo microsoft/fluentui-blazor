@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
 @if (DrawTooltip)
@@ -13,6 +13,7 @@
                     auto-update-mode="@AutoUpdateMode"
                     horizontal-viewport-lock="@HorizontalViewportLock"
                     vertical-viewport-lock="@VerticalViewportLock"
+                    role="tooltip"
                     @ontooltipdismiss="HandleDismissed"
                     @attributes="AdditionalAttributes">
         @if (string.IsNullOrWhiteSpace(MaxWidth ?? GlobalOptions?.MaxWidth))
