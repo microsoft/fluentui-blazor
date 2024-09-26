@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 using System.Text.Json;
@@ -24,7 +25,12 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("visibility", "hidden", VisibleOnLoad == false)
         .Build();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
@@ -40,6 +46,12 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
+
+    /// <summary>
+    /// To prevent a flickering effect, set this property to False to hide the overflow items until the component is fully loaded.
+    /// </summary>
+    [Parameter]
+    public bool VisibleOnLoad { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the template to display the More button.
@@ -86,10 +98,18 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender)
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             _dotNetHelper = DotNetObjectReference.Create(this);
+            await _jsModule.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
+            VisibleOnLoad = true;
+        }
+    }
 
-            await _jsModule.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
+    public async Task RefreshAsync()
+    {
+        if (_jsModule is not null)
+        {
+            await _jsModule.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, IsHorizontal, Selectors);
         }
     }
 

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 /// <summary>
 /// Extension methods for <see cref="DateTime"/>.
@@ -95,6 +95,16 @@ public static class DateTimeExtensions
         }
 
         return self.AddDays(-1 * diff, culture).Date;
+    }
+
+    /// <summary>
+    /// Returns the first day of the week.
+    /// </summary>
+    /// <param name="self"></param>
+    /// <returns></returns>
+    public static DateTime StartOfWeek(this DateTime self)
+    {
+        return StartOfWeek(self, CultureInfo.CurrentUICulture);
     }
 
     /// <summary>

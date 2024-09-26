@@ -1,4 +1,4 @@
-﻿function GetMediaQueries() {
+function GetMediaQueries() {
     return [
         { id: 'xs', items: document._fluentGrid.mediaXS, query: '(max-width: 599.98px)' },
         { id: 'sm', items: document._fluentGrid.mediaSM, query: '(min-width: 600px) and (max-width: 959.98px)' },
@@ -51,7 +51,7 @@ export function FluentGridInitialize(id, dotNetHelper) {
     });
 }
 
-export function FluentGridCleanup(id, dotNetHelper) {
+export function FluentGridCleanup(id) {
     if (document._fluentGrid) {
         RemoveItem(document._fluentGrid.mediaXS, id);
         RemoveItem(document._fluentGrid.mediaSM, id);

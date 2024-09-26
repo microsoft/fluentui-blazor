@@ -2,70 +2,74 @@
 @inherits ListComponentBase<TOption>
 @typeparam TOption
 
-<CascadingValue Value=@_internalListContext Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
+<CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed=true>
     <div class="@ClassValue fluent-autocomplete-multiselect"
-         style="@StyleValue">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabel()" ChildContent="@LabelTemplate" Required="@Required" />
-        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" StopPropagation="true" PreventDefaultOnly="@PreventOnly" />
+         style="@StyleValue"
+         @attributes="AdditionalAttributes"
+         auto-height="@(!string.IsNullOrEmpty(MaxAutoHeight))">
+        <FluentKeyCode Anchor="@Id" OnKeyDown="@KeyDownHandlerAsync" Only="@CatchOnly" PreventDefaultOnly="@PreventOnly" />
 
         <FluentTextField role="combobox"
                          @ref="@Element"
                          Id="@Id"
+                         Name="@Name"
+                         Embedded="true"
+                         Required="@Required"
                          AutoComplete="@AutoComplete"
                          Appearance="@Appearance"
                          Disabled="@Disabled"
+                         ReadOnly="@ReadOnly"
+                         Label="@Label"
+                         LabelTemplate="@LabelTemplate"
                          Placeholder="@(SelectedOptions?.Any() is false ? Placeholder : string.Empty)"
                          aria-expanded="@(IsMultiSelectOpened ? "true" : "false")"
                          aria-controls="@(IsMultiSelectOpened ? IdPopup : string.Empty)"
                          aria-label="@GetAutocompleteAriaLabel()"
                          Value="@ValueText"
-                         Required="@Required"
                          @onclick="@OnDropDownExpandedAsync"
                          @oninput="@InputHandlerAsync"
-                         @onfocusout="@(e => { IsReachedMaxItems = false; })"
                          autofocus="@Autofocus"
                          Style="@ComponentWidth">
             @* Selected Items *@
             @if (this.SelectedOptions?.Any() == true)
             {
-                <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
-                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToPrevious();"
-                                    slot="previous-flipper"
-                                    aria-hidden="false"
-                                    aria-label="@TitleScrollToPrevious"
-                                    title="@TitleScrollToPrevious"
-                                    role="button"
-                                    tabindex="0"
-                                    class="previous fluent-autocomplete-previous"
-                                    direction="previous"></fluent-flipper>
-                    <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToNext();"
-                                    slot="next-flipper"
-                                    aria-hidden="false"
-                                    aria-label="@TitleScrollToNext"
-                                    title="@TitleScrollToNext"
-                                    role="button"
-                                    tabindex="0"
-                                    class="next fluent-autocomplete-next"
-                                    direction="next"></fluent-flipper>
-                    @foreach (var item in this.SelectedOptions)
-                    {
-                        if (SelectedOptionTemplate == null)
-                        {
-                            <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
-                                         OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
-                                         aria-label="@GetOptionText(item)">
-                                @GetOptionText(item)
-                            </FluentBadge>
-                        }
-                        else
-                        {
-                            @SelectedOptionTemplate(item)
-                        }
-                    }
-                    &nbsp;
-                </fluent-horizontal-scroll>
+                @* Normal (single) line height *@
+                if (string.IsNullOrEmpty(MaxAutoHeight))
+                {
+                    <fluent-horizontal-scroll id="@IdScroll" style="width: 100%;" slot="start">
+                        <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToPrevious();"
+                                        slot="previous-flipper"
+                                        aria-hidden="false"
+                                        aria-label="@TitleScrollToPrevious"
+                                        title="@TitleScrollToPrevious"
+                                        role="button"
+                                        tabindex="0"
+                                        class="previous fluent-autocomplete-previous"
+                                        direction="previous"></fluent-flipper>
+                        <fluent-flipper onclick="event.stopPropagation(); document.getElementById('@IdScroll').scrollToNext();"
+                                        slot="next-flipper"
+                                        aria-hidden="false"
+                                        aria-label="@TitleScrollToNext"
+                                        title="@TitleScrollToNext"
+                                        role="button"
+                                        tabindex="0"
+                                        class="next fluent-autocomplete-next"
+                                        direction="next"></fluent-flipper>
+                        @RenderSelectedOptions
+                        &nbsp;
+                    </fluent-horizontal-scroll>
+                }
+
+                @* Auto-height with items wrap *@
+                else
+                {
+                    <div id="@IdScroll" slot="start" class="auto-height" style="@($"max-height: {MaxAutoHeight};")">
+                        @RenderSelectedOptions
+                    </div>
+                }
+
             }
-            @if (!Disabled)
+            @if (!Disabled && !ReadOnly)
             {
                 if (this.SelectedOptions?.Any() == true || !string.IsNullOrEmpty(ValueText))
                 {
@@ -76,6 +80,9 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Clear"
+                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
+                                    tabindex="0"
+                                    role="button"
                                     OnClick="@OnClearAsync" />
                     }
                 }
@@ -88,6 +95,9 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="Search"
+                                    @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
+                                    tabindex="0"
+                                    role="button"
                                     OnClick="@OnDropDownExpandedAsync" />
                     }
                 }
@@ -97,6 +107,14 @@
         @* List of available items *@
         @if (IsMultiSelectOpened && (ShowOverlayOnEmptyResults || Items?.Any() == true))
         {
+            @if (SelectValueOnTab)
+            {
+                <FluentKeyCode Anchor="@Id"
+                               OnKeyDown="@KeyDownHandlerAsync"
+                               Only="@SelectValueOnTabOnly"
+                               PreventDefaultOnly="@SelectValueOnTabOnly" />
+            }
+
             <FluentOverlay OnClose="@(e => IsMultiSelectOpened = false)" Visible="true" Transparent="true" FullScreen="true" />
             <FluentAnchoredRegion Anchor="@Id"
                                   HorizontalDefaultPosition="HorizontalPosition.Right"
@@ -165,6 +183,7 @@
                       Selected="@GetOptionSelected(context.Item)"
                       Disabled="@(GetOptionDisabled(context.Item) ?? false)"
                       OnSelect="@OnSelectCallback(context.Item)"
+                      aria-selected="@(GetOptionSelected(context.Item) || optionValue == context.SelectableItem ? "true" : "false")"
                       selectable="@(optionValue == context.SelectableItem)">
             @if (OptionTemplate == null)
             {
@@ -175,5 +194,40 @@
                 @OptionTemplate(context.Item)
             }
         </FluentOption>
+    };
+
+    private RenderFragment RenderSelectedOptions => __builder =>
+    {
+        if (SelectedOptions != null)
+        {
+            foreach (var item in SelectedOptions)
+            {
+                if (SelectedOptionTemplate == null)
+                {
+                    var text = @GetOptionText(item);
+
+                    if (ReadOnly || Disabled)
+                    {
+                        <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                                     aria-label="@GetOptionText(item)">
+                            @text
+                        </FluentBadge>
+                    }
+                    else
+                    {
+                        <FluentBadge Appearance="@AspNetCore.Components.Appearance.Neutral"
+                                     OnDismissClick="@(e => RemoveSelectedItemAsync(item))"
+                                     DismissTitle="@(string.Format(AccessibilityRemoveItem, text))"
+                                     aria-label="@GetOptionText(item)">
+                            @text
+                        </FluentBadge>
+                    }
+                }
+                else
+                {
+                    @SelectedOptionTemplate(item)
+                }
+            }
+        }
     };
 }

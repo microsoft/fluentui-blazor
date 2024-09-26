@@ -12,6 +12,7 @@ public partial class FluentWizard : FluentComponentBase
 
     private readonly List<FluentWizardStep> _steps = new();
     private int _value = 0;
+    internal int _maxStepVisited = 0;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -100,6 +101,8 @@ public partial class FluentWizard : FluentComponentBase
                 _value = value;
             }
 
+            _maxStepVisited = Math.Max(_value, _maxStepVisited);
+
             SetCurrentStatusToStep(_value);
         }
     }
@@ -115,6 +118,7 @@ public partial class FluentWizard : FluentComponentBase
     /// This configuration overrides the whole rendering of the bottom-right section of the Wizard,
     /// including the built-in buttons and thus provides a full control over it.
     /// Custom Wizard buttons do not trigger the component OnChange and OnFinish events.
+    /// The OnChange event can be triggered using the <see cref="GoToStepAsync(int, bool)"/> method from your code.
     /// </summary>
     [Parameter]
     public RenderFragment<int>? ButtonTemplate { get; set; }
@@ -131,6 +135,13 @@ public partial class FluentWizard : FluentComponentBase
     /// </summary>
     [Parameter]
     public GridItemHidden? StepTitleHiddenWhen { get; set; } = GridItemHidden.XsAndDown;
+
+    /// <summary>
+    /// Gets or sets the way to navigate in the Wizard Steps.
+    /// Default is <see cref="WizardStepSequence.Linear"/>.
+    /// </summary>
+    [Parameter]
+    public WizardStepSequence StepSequence { get; set; } = WizardStepSequence.Linear;
 
     /// <summary />
     protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
@@ -150,6 +161,7 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
+            await ValueChanged.InvokeAsync(targetIndex);
             StateHasChanged();
         }
     }
@@ -172,6 +184,7 @@ public partial class FluentWizard : FluentComponentBase
         if (!isCanceled)
         {
             Value = targetIndex;
+            await ValueChanged.InvokeAsync(targetIndex);
             StateHasChanged();
         }
     }
@@ -180,6 +193,7 @@ public partial class FluentWizard : FluentComponentBase
     protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
+
         if (validateEditContexts)
         {
             var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
@@ -197,8 +211,6 @@ public partial class FluentWizard : FluentComponentBase
 
             await _steps[Value].InvokeOnSubmitForEditFormsAsync();
         }
-
-        await ValueChanged.InvokeAsync(targetIndex);
 
         return await OnStepChangeHandlerAsync(stepChangeArgs);
     }
@@ -235,6 +247,31 @@ public partial class FluentWizard : FluentComponentBase
         if (OnFinish.HasDelegate)
         {
             await OnFinish.InvokeAsync();
+        }
+    }
+
+    /// <summary>
+    /// Navigate to the specified step, with or without validate the current EditContexts.
+    /// </summary>
+    /// <param name="step">Index number of the step to display</param>
+    /// <param name="validateEditContexts">Validate the EditContext. Default is false.</param>
+    /// <returns></returns>
+    public Task GoToStepAsync(int step, bool validateEditContexts = false)
+    {
+        Value = step;
+        return ValidateAndGoToStepAsync(step, validateEditContexts);
+    }
+
+    internal async Task ValidateAndGoToStepAsync(int targetIndex, bool validateEditContexts)
+    {
+        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, validateEditContexts);
+        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
+
+        if (!isCanceled)
+        {
+            Value = targetIndex;
+            await ValueChanged.InvokeAsync(targetIndex);
+            StateHasChanged();
         }
     }
 
@@ -304,4 +341,8 @@ public partial class FluentWizard : FluentComponentBase
 
         return null;
     }
+
+    private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
+
+    private bool DisplayNextButton => Value < _steps.Count - 1 && _steps[(Value + 1)..].Any(i => !i.Disabled);
 }

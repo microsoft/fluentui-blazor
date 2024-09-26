@@ -2,7 +2,15 @@
 
 @using FluentUI.Demo.Shared.Pages.List.Autocomplete.Examples
 
+<PageTitle>@App.PageTitle("Autocomplete")</PageTitle>
+
 <h1>Autocomplete</h1>
+
+<blockquote>
+    @(new MarkupString(DemoNavProvider.EditFormOffIcon))
+    The <b>FluentAutocomplete</b> component is not yet fully compatible with the <code>EditForm</code> and <code>FluentEditForm</code> elements.
+    Some functionalities, such as error messages, the requirement message or the validation messages are missing.
+</blockquote>
 
 <h2 id="example">Examples</h2>
 
@@ -10,9 +18,13 @@
 
 <DemoSection Title="Customized options" Component="@typeof(AutocompleteCustomized)" />
 
-<DemoSection Title="Many Items" Component="@typeof(AutocompleteManyItems)" />
-
-<DemoSection Title="FluentPersona" Component="@typeof(AutocompletePersona)" />
+<DemoSection Title="Many Items" Component="@typeof(AutocompleteManyItems)">
+    <Description>
+        <p>
+            This example shows how you can use <code>ImmediateDelay</code> to control the delay between the user input and the search for options. A value of 0 means no delay
+        </p>
+    </Description>
+</DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 
@@ -22,10 +34,12 @@
 
 <h2>Accessibility</h2>
 
-This component is compatible with accessibility rules.<br/>
+This component is compatible with accessibility rules.
+<br />
 Except this <a href="https://accessibilityinsights.io/info-examples/web/aria-valid-attr-value/" target="_blank">Invalid ARIA attribute value: aria-controls="[id]-popup"</a> when the list is expanded (will be solved later).
 <br />
-You can customize these 3 messages to be read by screen readers<br/>
+You can customize these 3 messages to be read by screen readers
+<br />
 <ul>
     <li><code>FluentAutocomplete.AccessibilitySelected = "Selected {0}"</code> List of selected items.</li>
     <li><code>FluentAutocomplete.AccessibilityNotFound = "No items found"</code> When the search criteria returns an empty list.</li>

@@ -1,10 +1,10 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
-@inject LibraryConfiguration LibraryConfiguration
-
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 
 @if (!string.IsNullOrEmpty(Label) || ChildContent is not null)
 {
-    <label for="@ForId" class="fluent-input-label" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
+    var _orientation = Orientation == Orientation.Horizontal ? Orientation.ToAttributeValue() : null; 
+
+    <label for="@ForId" class="fluent-input-label" orientation="@_orientation" @attributes="@AdditionalAttributes" aria-label="@AriaLabel">
         @Label
         @ChildContent
         @if (Required)

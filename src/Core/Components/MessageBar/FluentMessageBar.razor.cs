@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -15,6 +19,7 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-messagebar", () => Type == MessageType.MessageBar)
+        .AddClass("fluent-messagebar-animation", () => FadeIn)
         .AddClass("dark", () => GlobalState.Luminance == StandardLuminance.DarkMode)
         .AddClass("fluent-messagebar-notification", () => Type == MessageType.Notification)
         .AddClass("intent-info", () => Intent == MessageIntent.Info)
@@ -154,6 +159,13 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     [Parameter]
     public bool AllowDismiss { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets the fade in animation for the MessageBar.
+    /// Default is true.
+    /// </summary>
+    [Parameter]
+    public bool FadeIn { get; set; } = true;
+
     ///// <summary>
     ///// On app and page level a Message bar should NOT have rounded corners. On component level it should.
     ///// </summary>  
@@ -252,13 +264,13 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
 
     protected void PauseTimeout()
     {
-        Console.WriteLine("PauseTimeout");
+        Console.WriteLine("[FluentMessageBar] Pause Timeout");
         _countdownTimer?.Pause();
     }
 
     protected void ResumeTimeout()
     {
-        Console.WriteLine("ResumeTimeout");
+        Console.WriteLine("[FluentMessageBar] Resume Timeout");
         _countdownTimer?.Resume();
     }
 

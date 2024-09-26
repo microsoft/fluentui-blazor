@@ -1,8 +1,8 @@
 // --------------------------------------------------------------
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 // --------------------------------------------------------------
-
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -16,7 +16,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Grid/FluentGrid.razor.js";
-    private DotNetObjectReference<FluentGrid>? _dotNetHelper = null;
 
     public FluentGrid()
     {
@@ -25,10 +24,17 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
+
+    /// <summary />
+    internal GridItemSize? CurrentSize { get; private set; }
 
     /// <summary>
     /// Gets or sets the distance between flexbox items, using a multiple of 4px.
@@ -42,6 +48,13 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     /// </summary>
     [Parameter]
     public JustifyContent Justify { get; set; } = JustifyContent.FlexStart;
+
+    /// <summary>
+    /// Gets or sets the adaptive rendering, which not render the HTML code when the item is hidden (true) or only hide the item by CSS (false).
+    /// Default is false.
+    /// </summary>
+    [Parameter]
+    public bool AdaptiveRendering { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the child content of component.
@@ -67,18 +80,21 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender && OnBreakpointEnter.HasDelegate)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("FluentGridInitialize", Id, _dotNetHelper);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            DotNetObjectReference<FluentGrid> dotNetHelper = DotNetObjectReference.Create(this);
+            await _jsModule.InvokeVoidAsync("FluentGridInitialize", Id, dotNetHelper);
         }
     }
 
     [JSInvokable]
     public async Task FluentGrid_MediaChangedAsync(string size)
     {
+        bool valid = Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum);
+        CurrentSize = valid ? sizeEnum : null;
+
         if (OnBreakpointEnter.HasDelegate)
         {
-            if (Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum))
+            if (valid)
             {
                 await OnBreakpointEnter.InvokeAsync(sizeEnum);
             }
@@ -87,9 +103,19 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (Module != null)
+        try
         {
-            await Module.InvokeVoidAsync("FluentGridCleanup", Id, _dotNetHelper);
+            if (_jsModule is not null)
+            {
+                await _jsModule.InvokeVoidAsync("FluentGridCleanup", Id);
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }

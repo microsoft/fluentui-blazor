@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -7,6 +8,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTextField : FluentInputBase<string?>
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -97,20 +102,20 @@ public partial class FluentTextField : FluentInputBase<string?>
         {
             if (AutoComplete != null && !string.IsNullOrEmpty(Id))
             {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
             }
 
             if (InputMode != null && !string.IsNullOrEmpty(Id))
             {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "inputmode", InputMode.ToAttributeValue());
             }
         }
 
         if (DataList != null && !string.IsNullOrEmpty(Id))
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await Module.InvokeVoidAsync("setDataList", Id, DataList);
         }
 

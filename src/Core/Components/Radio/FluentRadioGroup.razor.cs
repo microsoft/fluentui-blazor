@@ -2,11 +2,12 @@ using System.Diagnostics.CodeAnalysis;
 //using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Groups child <see cref="FluentRadio{TValue}"/> components. 
+/// Groups child <see cref="FluentRadio{TValue}"/> components.
 /// </summary>
 
 [CascadingTypeParameter(nameof(TValue))]
@@ -27,7 +28,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     public Orientation? Orientation { get; set; }
 
     /// <summary>
-    /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup{TValue}"/>. 
+    /// Gets or sets the child content to be rendering inside the <see cref="FluentRadioGroup{TValue}"/>.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -61,4 +62,12 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     /// <inheritdoc />
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        if (CurrentValueAsString != e?.Value?.ToString())
+        {
+            CurrentValueAsString = e?.Value?.ToString();
+        }
+    }
 }

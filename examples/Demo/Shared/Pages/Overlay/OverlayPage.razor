@@ -2,13 +2,15 @@
 
 @using FluentUI.Demo.Shared.Pages.Overlay.Examples
 
+<PageTitle>@App.PageTitle("Overlay")</PageTitle>
+
 <h1>Overlay</h1>
 
 <p>Overlays are used to temporarily overlay screen content to focus a dialog, progress or other information/interaction.</p>
 
 <h2 id="example">Examples</h2>
 
-<DemoSection Title="Default" Component="typeof(OverlayDefault)" >
+<DemoSection Title="Default" Component="typeof(OverlayDefault)">
     <Description>Overlay with a default white background</Description>
 </DemoSection>
 
@@ -25,7 +27,15 @@
 </DemoSection>
 
 <DemoSection Title="Full screen" Component="typeof(OverlayFullScreen)">
-    <Description>Overlay which takes up the whole screen</Description>
+    <Description>Overlay which takes up the whole screen.</Description>
+</DemoSection>
+
+<DemoSection Title="Interactive" Component="typeof(OverlayInteractive)">
+    <Description>
+        By using the <code>Interactive</code> and <code>InteractiveExceptId</code> properties, only the targeted element will not close the <b>FluentOverlay</b> panel.
+        The user can click anywhere else to close the <b>FluentOverlay</b>.<br />
+        In this example, the <b>FluentOverlay</b> will only close when the user clicks outside the white zone and the user can increment the counter before to close the Overlay.<br />
+    </Description>
 </DemoSection>
 
 <h2 id="documentation">Documentation</h2>

@@ -1,6 +1,8 @@
-@page "/Anchor"
+﻿@page "/Anchor"
 
 @using FluentUI.Demo.Shared.Pages.Anchor.Examples
+
+<PageTitle>@App.PageTitle("Anchor")</PageTitle>
 
 <h1>Anchor</h1>
 
@@ -23,7 +25,11 @@
 
 <DemoSection Title="Appearance" Component="@typeof(AnchorAppearance)" CollocatedFiles="@(new[] {"css"})"></DemoSection>
 
-<DemoSection Title="Anchors with icons" Component="@typeof(AnchorIcons)"></DemoSection>
+<DemoSection Title="Anchors with icons" Component="@typeof(AnchorIcons)">
+    <Description>
+        <p>By placing the icon the content of the anchor, it is possible to specify a <code>Color</code> for the icon.</p>
+    </Description>
+</DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 

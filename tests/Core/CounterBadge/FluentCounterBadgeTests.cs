@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -230,7 +234,9 @@ public class FluentCounterBadgeTests : TestBase
         TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             parameters.Add(p => p.ShowZero, true);
+#pragma warning restore CS0618 // Type or member is obsolete
             parameters.Add(p => p.Count, 0);
             parameters.AddChildContent("childcontent");
         });
@@ -246,7 +252,9 @@ public class FluentCounterBadgeTests : TestBase
         TestContext.Services.AddSingleton(GlobalState);
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             parameters.Add(p => p.ShowZero, true);
+#pragma warning restore CS0618 // Type or member is obsolete
             parameters.Add(p => p.Count, 10);
             parameters.AddChildContent("childcontent");
         });
@@ -351,7 +359,9 @@ public class FluentCounterBadgeTests : TestBase
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             parameters.Add(p => p.BadgeContent, "badgecontent");
+#pragma warning restore CS0618 // Type or member is obsolete
             parameters.Add(p => p.Count, 1);
         });
 
@@ -367,7 +377,9 @@ public class FluentCounterBadgeTests : TestBase
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             parameters.Add(p => p.BadgeContent, "badgecontent");
+#pragma warning restore CS0618 // Type or member is obsolete
             parameters.Add(p => p.Max, 2);
             parameters.Add(p => p.Count, 3);
         });
@@ -384,7 +396,9 @@ public class FluentCounterBadgeTests : TestBase
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             parameters.Add(p => p.BadgeContent, "badgecontent");
+#pragma warning restore CS0618 // Type or member is obsolete
             parameters.Add(p => p.Count, 0);
         });
 
@@ -400,7 +414,9 @@ public class FluentCounterBadgeTests : TestBase
 
         var cut = TestContext.RenderComponent<FluentCounterBadge>(parameters =>
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             parameters.Add(p => p.BadgeContent, (RenderFragment?)null);
+#pragma warning restore CS0618 // Type or member is obsolete
             parameters.Add(p => p.Count, 1);
         });
 

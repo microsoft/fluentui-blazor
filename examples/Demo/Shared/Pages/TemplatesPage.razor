@@ -1,23 +1,37 @@
 ﻿@page "/Templates"
+
+<PageTitle>@App.PageTitle("Templates")</PageTitle>
+
 <h1><FluentIcon Value="@(new Icons.Regular.Size24.Classification())" /> Project templates</h1>
 
 <p>
-	To make it easier to start a project that uses the Fluent UI Blazor components out of the box, we have created the <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/">Microsoft.FluentUI.AspNetCore.Templates</a>
-	package. The package contains templates for creating a Blazor Web App or Blazor WebAssembly Standalone App. They mimic the standard Blazor templates and
-	offer the exact same options (including authentication) when creating a new project either in Visual Studio or with a CLI.
+    To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the
+    <a target="top" href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/">Microsoft.FluentUI.AspNetCore.Templates</a> template package.
 </p>
 <p>
-	The Fluent UI Blazor library package is already added to the new project and all standard components have been replaced with Fluent UI counterparts 
-	(and a few extra have been added). All Bootstrap styling has been removed.</p>
+    The package contains templates for creating Blazor Server and/or Blazor WebAssembly apps which mimic the regular Blazor
+    templates. The Fluent UI Blazor components are already fully set up. If you choose to use the sample pages when creating a project,
+    all components have been replaced with Fluent UI counterparts (and a few extra have been added). All Bootstrap styling is removed of course as well.
+</p>
 <p>
-    The pages you get after creating a project with one of the templates look like this<sup>*</sup>
+    If you want to use the Icon component with applications based on the templates, we have already included and set up the Icon package for you.
+    The full collection of approximately 12 thousand icons in different variants and sizes can be browsed and searched from the <a href="/Icon">Icon</a> page.
+</p>
+<p>
+    If you want to use the Emoji component with applications based on the templates, you still need to make some changes to the project. See the
+    <a href="/IconsAndEmoji"> Icons and Emoji</a> page for more information.
+</p>
+
+<p>
+    The pages created from these templates will appear like the following based on the type of project and options selected during creation.
 </p>
 <p style="display: flex; flex-direction:column; align-items:center">
 	<img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/template-home.png" alt="Home page for site created Fluent UI templates" />
+    <br />
 	<img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/template-counter.png" alt="Counter page for site created Fluent UI templates" />
+    <br />
 	<img style="width: 750px;" src="_content/FluentUI.Demo.Shared/images/template-weather.png" alt="Fetch data page for site created Fluent UI templates" />
 </p>
-<p><em>*) It depends on the type of project and the choices made during project creation, which pages will be available in the generated app.</em></p>
 
 <blockquote>
 <strong>IMPORTANT!!</strong>
@@ -26,18 +40,18 @@
 
 <h2 id="installation">Installation</h2>
 <p>
-	Install the templates by running this command:
+	You can install the templates by running the following command:
 </p>
 
 <CodeSnippet>dotnet new install Microsoft.FluentUI.AspNetCore.Templates</CodeSnippet>
 
 <p>
-	The current version can be found on the <a href="https://www.nuget.org/packages/Microsoft.FLuentUI.AspNetCore.Templates/" rel="noopener noreferrer nofollow">NuGet page</a>.
+	The current version can be found on the <a href="https://www.nuget.org/packages/Microsoft.FLuentUI.AspNetCore.Templates/" rel="noopener noreferrer nofollow">NuGet site</a>.
 </p>
 
 <h2 id="usage">Usage</h2>
 <p>
-	After installing the templates you can create new a project from either the CLI or by using the 'Creating a new project`-dialog in Visual studio 2022.
+	After installing the templates, you can create a new project from either the CLI or by using the 'Creating a new project'-dialog in Visual Studio 2022.
 </p>
 
 <p>
@@ -53,7 +67,7 @@
 <CodeSnippet>dotnet new fluentblazorwasm -o {your project name}</CodeSnippet>
 
 <p>
-	In Visual Studio you can create a new project by selecting either the 'Fluent Blazor Server App' template or the 'Fluent Blazor WebAssembly Standalone App''
+	In Visual Studio you can create a new project by selecting either the 'Fluent Blazor Web App' template or the 'Fluent Blazor WebAssembly Standalone App'
 	template in the 'File-&gt;New-&gt;Project'-dialog. It looks like this:
 </p>
 <p style="display: flex; justify-content:center">
@@ -113,8 +127,8 @@
 	</table>
 </p>
 <p>
-	<em>*) For expanding/collapsing items, this uses a JavaScript file that is only active when running in SSR mode.</em><br />
-	<em>**) The NavMenu component is located in the Client project.</em>
+	<em>* For expanding/collapsing items, this uses a JavaScript file that is only active when running in SSR mode.</em><br />
+	<em>** The NavMenu component is located in the Client project.</em>
 	</p>
 
 <h2 id="uninstalling-the-templates">Uninstalling the templates</h2>

@@ -26,20 +26,55 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
     }
 
+    /// <summary />
+    private string PopupId => $"{Id}-popup";
+
     /// <summary>
     /// Gets or sets the design of this input.
     /// </summary>
     [Parameter]
     public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
 
+    /// <summary>
+    /// raised when calendar popup opened
+    /// </summary>
     [Parameter]
     public EventCallback<bool> OnCalendarOpen { get; set; }
+
+    /// <summary>
+    /// Defines the appearance of a Day cell.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
+
+    /// <summary>
+    /// Fired when the display month changes.
+    /// </summary>
+    [Parameter]
+    public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
+
+    /// <summary>
+    /// Command executed when the user double-clicks on the date picker.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnDoubleClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value which will be set when double-clicking on the text field of date picker.
+    /// </summary>
+    [Parameter]
+    public DateTime? DoubleClickToDate { get; set; }
 
     public bool Opened { get; set; } = false;
 
     protected override string? FormatValueAsString(DateTime? value)
     {
-        return Value?.ToString(Culture.DateTimeFormat.ShortDatePattern, Culture);
+        return Value?.ToString(View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+        }, Culture);
     }
 
     protected Task OnCalendarOpenHandlerAsync(MouseEventArgs e)
@@ -57,27 +92,54 @@ public partial class FluentDatePicker : FluentCalendarBase
         return Task.CompletedTask;
     }
 
-    protected Task OnSelectedDateAsync(DateTime? value)
+    protected async Task OnSelectedDateAsync(DateTime? value)
     {
+        DateTime? updatedValue = value;
+
+        if (Value is not null && value is not null)
+        {
+            updatedValue = Value?.TimeOfDay != TimeSpan.Zero
+            ? value?.Date + Value?.TimeOfDay
+            : value;
+        }
         Opened = false;
+        await OnSelectedDateHandlerAsync(updatedValue);
+    }
 
-        if (Value != null && Value?.TimeOfDay != TimeSpan.Zero)
+    protected async Task OnDoubleClickHandlerAsync(MouseEventArgs e)
+    {
+        if (!ReadOnly)
         {
-            DateTime currentValue = value ?? DateTime.MinValue;
-            Value = currentValue.Date + Value?.TimeOfDay;
-        }
-        else
-        {
-            Value = value;
-        }
+            if (DoubleClickToDate.HasValue)
+            {
+                await OnSelectedDateAsync(DoubleClickToDate.Value);
+            }
 
-        return Task.CompletedTask;
+            if (OnDoubleClick.HasDelegate)
+            {
+                await OnDoubleClick.InvokeAsync(e);
+            }
+        }
     }
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        if (View == CalendarViews.Years && int.TryParse(value, out var year))
+        {
+            value = new DateTime(year, 1, 1).ToString(Culture.DateTimeFormat.ShortDatePattern);
+        }
+
         BindConverter.TryConvertTo(value, Culture, out result);
+
         validationErrorMessage = null;
         return true;
     }
+
+    private string PlaceholderAccordingToView()
+        => View switch
+        {
+            CalendarViews.Years => "yyyy",
+            CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
+            _ => Culture.DateTimeFormat.ShortDatePattern
+        };
 }

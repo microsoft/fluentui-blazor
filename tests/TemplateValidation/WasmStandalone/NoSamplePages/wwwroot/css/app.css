@@ -27,26 +27,15 @@ body {
 .content {
     padding: 0.5rem 1.5rem;
     align-self: stretch !important;
+    width: 100%;
 }
 
 footer {
-    display: grid;
-    grid-template-columns: 10px auto auto 10px;
     background: var(--neutral-layer-4);
     color: var(--neutral-foreground-rest);
     align-items: center;
     padding: 10px 10px;
 }
-
-    footer .link1 {
-        grid-column: 2;
-        justify-content: start;
-    }
-
-    footer .link2 {
-        grid-column: 3;
-        justify-self: end;
-    }
 
     footer a {
         color: var(--neutral-foreground-rest);

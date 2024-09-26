@@ -1,14 +1,24 @@
+let initialColumnsWidths = {};
+var latestGridElement = null;
+
 export function init(gridElement) {
     if (gridElement === undefined || gridElement === null) {
         return;
     };
 
-    enableColumnResizing(gridElement);
+    if (gridElement.querySelectorAll('.column-header.resizable').length > 0) {
+        initialColumnsWidths[gridElement.id] = gridElement.gridTemplateColumns ;
+        enableColumnResizing(gridElement);
+    }
 
     const bodyClickHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement && event.composedPath().indexOf(columnOptionsElement) < 0) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+        }
+        const columnResizeElement = gridElement?.querySelector('.col-resize');
+        if (columnResizeElement && event.composedPath().indexOf(columnResizeElement) < 0) {
+            gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
         }
     };
     const keyDownHandler = event => {
@@ -19,6 +29,21 @@ export function init(gridElement) {
                 gridElement.focus();
             }
             columnOptionsElement.addEventListener(
+                "keydown",
+                (event) => {
+                    if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+                        event.stopPropagation();
+                    }
+                }
+            );
+        }
+        const columnResizeElement = gridElement?.querySelector('.col-resize');
+        if (columnResizeElement) {
+            if (event.key === "Escape") {
+                gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+                gridElement.focus();
+            }
+            columnResizeElement.addEventListener(
                 "keydown",
                 (event) => {
                     if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -57,14 +82,13 @@ export function init(gridElement) {
             document.body.removeEventListener('click', bodyClickHandler);
             document.body.removeEventListener('mousedown', bodyClickHandler);
             document.body.removeEventListener('keydown', keyDownHandler);
+            delete initialColumnsWidths[gridElement.id];
         }
     };
 }
 
-
-
 export function checkColumnOptionsPosition(gridElement) {
-    const colOptions = gridElement?._rowItems[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables
+    const colOptions = gridElement?._rowElements[0] && gridElement?.querySelector('.col-options'); // Only match within *our* thead, not nested tables
     if (colOptions) {
         // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
         // beyond either side is off-screen or outside the scroll range of an ancestor
@@ -87,17 +111,65 @@ export function checkColumnOptionsPosition(gridElement) {
     }
 }
 
+export function checkColumnResizePosition(gridElement) {
+    const colOptions = gridElement?._rowElements[0] && gridElement?.querySelector('.col-resize'); // Only match within *our* thead, not nested tables
+    if (colResize) {
+        // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
+        // beyond either side is off-screen or outside the scroll range of an ancestor
+        const gridRect = gridElement.getBoundingClientRect();
+        const resizeRect = colResize.getBoundingClientRect();
+        const leftOverhang = Math.max(0, gridRect.left - resizeRect.left);
+        const rightOverhang = Math.max(0, resizeRect.right - gridRect.right);
+        if (leftOverhang || rightOverhang) {
+            // In the unlikely event that it overhangs both sides, we'll center it
+            const applyOffset = leftOverhang && rightOverhang ? (leftOverhang - rightOverhang) / 2 : (leftOverhang - rightOverhang);
+            colResize.style.transform = `translateX(${applyOffset}px)`;
+        }
+
+        colResize.scrollIntoViewIfNeeded();
+
+        const autoFocusElem = colResize.querySelector('[autofocus]');
+        if (autoFocusElem) {
+            autoFocusElem.focus();
+        }
+    }
+}
+
+export function checkColumnPopupPosition(gridElement, selector) {
+    const colPopup = gridElement?._rowElements[0] && gridElement?.querySelector(selector); // Only match within *our* thead, not nested tables
+    if (colPopup) {
+        // We want the options popup to be positioned over the grid, not overflowing on either side, because it's possible that
+        // beyond either side is off-screen or outside the scroll range of an ancestor
+        const gridRect = gridElement.getBoundingClientRect();
+        const popupRect = colPopup.getBoundingClientRect();
+        const leftOverhang = Math.max(0, gridRect.left - popupRect.left);
+        const rightOverhang = Math.max(0, popupRect.right - gridRect.right);
+        if (leftOverhang || rightOverhang) {
+            // In the unlikely event that it overhangs both sides, we'll center it
+            const applyOffset = leftOverhang && rightOverhang ? (leftOverhang - rightOverhang) / 2 : (leftOverhang - rightOverhang);
+            colPopup.style.transform = `translateX(${applyOffset}px)`;
+        }
+
+        colPopup.scrollIntoViewIfNeeded();
+
+        const autoFocusElem = colPopup.querySelector('[autofocus]');
+        if (autoFocusElem) {
+            autoFocusElem.focus();
+        }
+    }
+}
 export function enableColumnResizing(gridElement) {
+    if (gridElement === latestGridElement)
+        return;
+    latestGridElement = gridElement;
     const columns = [];
-    let min = 50;
+    let min = 75;
     let headerBeingResized;
     let resizeHandle;
 
     gridElement.querySelectorAll('.column-header.resizable').forEach(header => {
         columns.push({ header });
         const onPointerMove = (e) => requestAnimationFrame(() => {
-            //console.log(`onPointerMove${headerBeingResized ? '' : ' [not resizing]'}`);
-
             if (!headerBeingResized) {
                 return;
             }
@@ -109,7 +181,7 @@ export function enableColumnResizing(gridElement) {
             const width = pointerLocalLeft - headerLocalLeft;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
-            min = header.querySelector('.col-options-button') ? 75 : 50;
+            min = header.querySelector('.col-options-button') ? 100 : 75;
 
             column.size = Math.max(min, width) + 'px';
 
@@ -130,15 +202,11 @@ export function enableColumnResizing(gridElement) {
         });
 
         const onPointerUp = () => {
-            //console.log('onPointerUp');
-
             headerBeingResized = undefined;
             resizeHandle = undefined;
         };
 
         const initResize = ({ target, pointerId }) => {
-            //console.log('initResize');
-
             resizeHandle = target;
             headerBeingResized = target.parentNode;
 
@@ -154,4 +222,126 @@ export function enableColumnResizing(gridElement) {
             dragHandle.addEventListener('pointerleave', onPointerUp);
         }
     });
+}
+
+export function resetColumnWidths(gridElement) {
+
+    gridElement.gridTemplateColumns = initialColumnsWidths[gridElement.id];
+}
+
+export function resizeColumnDiscrete(gridElement, column, change) {
+
+    let headers = gridElement.querySelectorAll('.column-header.resizable');
+    if (headers.length <= 0) {
+        return
+    }
+
+    let headerBeingResized;
+    if (!column) {
+
+        if (!(document.activeElement.classList.contains("column-header") && document.activeElement.classList.contains("resizable"))) {
+            return;
+        }
+        headerBeingResized = document.activeElement;
+    }
+    else {
+        headerBeingResized = gridElement.querySelector('.column-header[grid-column="' + column + '"]');
+    }
+    const columns = [];
+
+    let min = 50;
+
+    headers.forEach(header => {
+        if (header === headerBeingResized) {
+            min = headerBeingResized.querySelector('.col-options-button') ? 75 : 50;
+
+            const width = headerBeingResized.getBoundingClientRect().width + change;
+
+            if (change < 0) {
+                header.size = Math.max(min, width) + 'px';
+            }
+            else {
+                header.size = width + 'px';
+            }
+        }
+        else {
+            if (header.size === undefined) {
+                if (header.clientWidth === undefined || header.clientWidth === 0) {
+                    header.size = min + 'px';
+                } else {
+                    header.size = header.clientWidth + 'px';
+                }
+            }
+        }
+
+        columns.push({ header });
+    });
+
+    gridElement.gridTemplateColumns = columns
+        .map(({ header }) => header.size)
+        .join(' ');
+}
+
+export function autoFitGridColumns(gridElement, columnCount) {
+    let gridTemplateColumns = '';
+
+    for (var i = 0; i < columnCount; i++) {
+        const columnWidths = Array
+            .from(gridElement.querySelectorAll(`[grid-column="${i + 1}"]`))
+            .flatMap((x) => x.offsetWidth);
+
+        const maxColumnWidth = Math.max(...columnWidths);
+
+        gridTemplateColumns += ` ${maxColumnWidth}fr`;
+    }
+
+    gridElement.setAttribute("grid-template-columns", gridTemplateColumns);
+    gridElement.classList.remove("auto-fit");
+
+    initialColumnsWidths[gridElement.id] = gridTemplateColumns;
+}
+
+export function resizeColumnExact(gridElement, column, width) {
+
+    let headers = gridElement.querySelectorAll('.column-header.resizable');
+    if (headers.length <= 0) {
+        return
+    }
+
+    let headerBeingResized = gridElement.querySelector('.column-header[grid-column="' + column + '"]');
+    if (!headerBeingResized) {
+        return;
+    }
+    const columns = [];
+
+    let min = 50;
+
+    headers.forEach(header => {
+        if (header === headerBeingResized) {
+            min = headerBeingResized.querySelector('.col-options-button') ? 75 : 50;
+
+            const newWidth = width;
+
+            header.size = Math.max(min, newWidth) + 'px';
+        }
+        else {
+            if (header.size === undefined) {
+                if (header.clientWidth === undefined || header.clientWidth === 0) {
+                    header.size = min + 'px';
+                } else {
+                    header.size = header.clientWidth + 'px';
+                }
+            }
+        }
+
+        columns.push({ header });
+    });
+
+    gridElement.gridTemplateColumns = columns
+        .map(({ header }) => header.size)
+        .join(' ');
+
+    gridElement.dispatchEvent(new CustomEvent('closecolumnoptions', { bubbles: true }));
+    gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+    gridElement.focus();
 }

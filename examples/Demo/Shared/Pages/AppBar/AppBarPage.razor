@@ -2,6 +2,8 @@
 
 @using FluentUI.Demo.Shared.Pages.AppBar.Examples
 
+<PageTitle>@App.PageTitle("AppBar")</PageTitle>
+
 <h1>AppBar</h1>
 
 <p>The <code>FluentAppBar</code> component is an implementation of the AppBar as you know from the Teams application</p>
@@ -9,6 +11,13 @@
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default" Component="@typeof(AppBarDefault)"></DemoSection>
+
+<DemoSection Title="From list of apps" Component="@typeof(AppBarFromListOfApps)">
+    <Description>
+        <p>Example of using the AppBar with a list of apps</p>
+        <p>It also shows how to create a derived AppBarItem class that adds an <code>Order</code> property to explicitly set a custom order </p>
+    </Description>
+</DemoSection>
 
 <DemoSection Title="With OnClick event" Component="@typeof(AppBarClick)"></DemoSection>
 

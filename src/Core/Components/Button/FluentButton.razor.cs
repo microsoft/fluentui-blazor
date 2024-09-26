@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -13,10 +14,14 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
     /// <summary />
     [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
@@ -180,8 +185,8 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender && Id is not null && Type != ButtonType.Button)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-            await Module.InvokeVoidAsync("updateProxy", Id);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            await _jsModule.InvokeVoidAsync("updateProxy", Id);
         }
     }
 
@@ -233,12 +238,20 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
 
         return $"width: {size}px; height: {size}px;{inverse}";
     }
-    public ValueTask DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        if (Module is not null)
+        try
         {
-            return Module.DisposeAsync();
+            if (_jsModule is not null)
+            {
+                await _jsModule.DisposeAsync();
+            }
         }
-        return ValueTask.CompletedTask;
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿@page "/DesignTheme"
 @using FluentUI.Demo.Shared.Pages.Design.Examples
 
+<PageTitle>@App.PageTitle("Themes")</PageTitle>
+
 <h1>Themes</h1>
 
 <p>
@@ -23,7 +25,26 @@
 </p>
 
 <p>
-    3. (optional) To avoid a "flash" effect when the page loads (mainly in dark mode), as described below,
+    3. (optional) To ensure that your application is displayed correctly, we recommend you add these lines of code to your <code>app.css</code> file.
+    If you were using the <code>Reboot</code> style, as shown on the Setup page, these styles are already included.
+
+        <CodeSnippet Language="style">
+@(@"body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: var(--body-font);
+    font-size:   var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    font-weight: var(--font-weight);
+    color:       var(--neutral-foreground-rest);
+    background:  var(--neutral-fill-layer-rest);
+}")
+        </CodeSnippet>
+</p>
+
+<p>
+    4. (optional) To avoid a "flash" effect when the page loads (mainly in dark mode), as described below,
     we recommend you add these lines of code to the <code>index.html</code> or <code>App.razor</code> file (or <code>_layout.cshtml</code> file if 
     you upgraded you project from an earlier .NET version).
 
@@ -34,7 +55,7 @@
     </CodeSnippet>
 </p>
 <p>
-    4. Finally, you can add a button or page that allows the user to choose their theme.
+    5. Finally, you can add a button or page that allows the user to choose their theme.
     To do this, you need to use a <b>FluentDesignTheme</b> component on which you can bind the <b>Mode</b> and
     the <b>OfficeColor</b> properties, and to set a <b>StorageName</b> to save all this in the LocalStorage.
 
@@ -150,24 +171,6 @@
 
 <DemoSection Title="" Component="@typeof(DesignThemeDefault)" />
 
-<h2 id="DesignSystemProvider">FluentDesignSystemProvider</h2>
-
-<DemoSection Title="" Component="@typeof(DesignTokenEmbeddedDefault)">
-    <Description>
-        This panel is customized using the <strong>FluentDesignSystemProvider</strong> component,
-        where <b>AccentBaseColor</b> is red, <b>StrokeWidth</b> is 4 and <b>FillColor</b> is light gray.
-
-        <p>
-            See this <a href="/DesignTokens">"Design tokens" page</a> for more details.
-        </p>
-    </Description>
-</DemoSection>
-
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(FluentDesignTheme)" />
-
-<br />
-<br />
-
-<ApiDocumentation Component="typeof(FluentDesignSystemProvider)" />

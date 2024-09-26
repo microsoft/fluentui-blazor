@@ -2,34 +2,38 @@
 
 @using FluentUI.Demo.Shared.Pages.MessageBar.Examples
 
+<PageTitle>@App.PageTitle("MessageBar")</PageTitle>
+
 <h1>MessageBar</h1>
 
 <strong>IMPORTANT!!</strong>
 <p>
     MessageBars are rendered by the <code>&lt;FluentMessageBarProvider /&gt;</code>. This component needs to be added to the layout of your application/site.
-    For a message bar that needs to be shown at the top of the screen, you typically do this in the <code>MainLayout.razor</code> file at the location in 
+    For a message bar that needs to be shown at the top of the screen, you typically do this in the <code>MainLayout.razor</code> file at the location in
     the HTML structure where you want the message bars to appear  of the <code>&lt;main&gt;</code> section like this:
 </p>
 <p>
     <strong>
         For the MessageBars to work properly, the <code>&lt;FluentMessageBarProvider/&gt;</code> needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
-        either the provider itself of the component the provider is placed in.
+        either the provider itself or the component the provider is placed in.
     </strong>
 </p>
-<CodeSnippet>
-    &lt;main&gt;
-        &lt;nav&gt;
-        :
-        &lt;/nav&gt;
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;article id=&quot;article&quot;&gt;
-            &lt;FluentMessageBarProvider Section="MESSAGES_TOP"/&gt;
-                @@Body
-            &lt;/article&gt;
-        &lt;/div&gt;
-    &lt;/main&gt;
-</CodeSnippet>
 
+<CodeSnippet Language="razor">
+    @(
+@"<main>
+    <nav>
+        <!-- -->
+    </nav>
+    <div class=""content"">
+        <article id=""article"">
+            <FluentMessageBarProvider Section=""MESSAGES_TOP""/>
+            @Body
+        </article>
+    </div>
+</main>"
+    )
+</CodeSnippet>
 
 <h2 id="example">Examples</h2>
 
@@ -57,7 +61,7 @@
 
 <DemoSection Title="Simple messages" Component="typeof(MessageBarSimple)">
     <p>
-        This example show the different intents that can be shown in a MessageBar. 
+        This example show the different intents that can be shown in a MessageBar.
         This example does <b>not</b> use the <code>MessageBarService</code>.
     </p>
 </DemoSection>

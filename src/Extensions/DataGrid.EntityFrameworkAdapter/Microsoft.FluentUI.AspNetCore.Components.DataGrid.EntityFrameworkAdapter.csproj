@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter</PackageId>
 		<Authors>Microsoft</Authors>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -60,10 +60,4 @@
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <FilesToSign Include="$(OutDir)\Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.dll">
-      <Authenticode>Microsoft400</Authenticode>
-      <StrongName>StrongName</StrongName>
-    </FilesToSign>
-  </ItemGroup>
 </Project>

@@ -317,12 +317,14 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, true);
+        Assert.True(finishHandled);
     }
 
     [Fact]
     public void FluentWizard_EditForm_EditContextIsInValid_OnNext()
     {
+        int stepIndex = 0;
+
         var testRecord1 = new TestRecord
             {
                 NumberBetween1and10 = 15,
@@ -333,7 +335,7 @@
                 NumberBetween1and10 = 15,
             };
 
-        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler">
+        var cut = Render(@<FluentWizard OnFinish="OnFinishHandler" @bind-Value="@stepIndex">
         <Steps>
             <FluentWizardStep>
                 <FluentEditForm Model="testRecord1">
@@ -369,7 +371,8 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, false);
+        Assert.False(finishHandled);
+        Assert.Equal(0, stepIndex);
     }
 
     [Fact]
@@ -421,7 +424,85 @@
             finishHandled = true;
         }
 
-        Assert.Equal(finishHandled, false);
+        Assert.False(finishHandled);
+    }
+
+    [Theory]
+    [InlineData(WizardStepSequence.Linear, 0, 0, 0, 2)]
+    [InlineData(WizardStepSequence.Visited, 0, 1, 2, 0)]
+    [InlineData(WizardStepSequence.Any, 2, 2, 2, 0)]
+    public void FluentWizard_StepSequences(WizardStepSequence flexible,
+        int clickable1, int clickable2, int clickable3, int indexFirstItem)
+    {
+        var currentIndex = 0;
+
+        // Arrange && Act
+        var cut = Render(@<FluentWizard StepSequence="@flexible" @bind-Value="@currentIndex">
+        <Steps>
+            <FluentWizardStep Label="Step1" Summary="Summary 1">
+                Content 1
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step2" Summary="Summary 2">
+                Content 2
+            </FluentWizardStep>
+            <FluentWizardStep Label="Step3" Summary="Summary 3">
+                Content 3
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Assert before any click on Next button
+        int clickableLinks1 = cut.FindAll("li[style*='cursor: pointer']").Count;
+        Assert.Equal(clickable1, clickableLinks1);
+
+        // Assert after first click on Next button
+        var buttonNext1 = cut.Find("fluent-button[appearance='accent']");
+        buttonNext1.Click();
+
+        int clickableLinks2 = cut.FindAll("li[style*='cursor: pointer']").Count;
+        Assert.Equal(clickable2, clickableLinks2);
+
+        // Assert after a second click on Next button
+        var buttonNext2 = cut.Find("fluent-button[appearance='accent']");
+        buttonNext2.Click();
+
+        int clickableLinks3 = cut.FindAll("li[style*='cursor: pointer']").Count;
+        Assert.Equal(clickable3, clickableLinks3);
+
+        // Click on the first step
+        var step1 = cut.FindAll("li")[0];
+        step1.Click();
+
+        Assert.Equal(indexFirstItem, currentIndex);
+    }
+
+    [Theory]
+    [InlineData(true, true, true, 2)]
+    [InlineData(true, true, false, 1)]
+    [InlineData(true, false, false, 0)]
+    [InlineData(false, false, false, 0)]
+    public void FluentWizard_LastDisableSteps(bool firstEnabled, bool secondEnabled, bool thirdEnabled, int nbClicks)
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Disabled="@(!firstEnabled)" />
+            <FluentWizardStep Disabled="@(!secondEnabled)" />
+            <FluentWizardStep Disabled="@(!thirdEnabled)" />
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Act: Click
+        for (int i = 0; i < nbClicks; i++)
+        {
+            var buttonNext = cut.Find("fluent-button[appearance='accent']");
+            buttonNext.Click();
+        }
+
+        // Assert
+        Assert.Contains("Done", cut.Markup);
     }
 
     private record TestRecord

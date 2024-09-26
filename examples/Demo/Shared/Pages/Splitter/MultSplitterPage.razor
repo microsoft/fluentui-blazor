@@ -1,16 +1,9 @@
 ﻿@page "/MultiSplitter"
 @using FluentUI.Demo.Shared.Pages.Splitter.Examples
-@{
-#pragma warning disable FluentMultiSplitter
-}
 
-<h1>MultiSplitter (Experimental)</h1>
+<PageTitle>@App.PageTitle("MultiSplitter")</PageTitle>
 
-<blockquote style="font-style: normal;">
-    ⚠️ <b>This component is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.</b>.<br />
-    To use it, you need to add the following line to the top of your razor file <br />
-    <code>@($"@{{ #pragma warning disable FluentMultiSplitter }}")</code>
-</blockquote>
+<h1>MultiSplitter</h1>
 
 <p>The <b>MultiSplitter</b> splits the page into multiple sections and allows the user to control the page layout.</p>
 
@@ -44,7 +37,6 @@
 <blockquote>
     <p>Why have we created this new component when FluentSplitter already exists?</p>
     <p>We want to generalize this component by making it easier to have several (>2) panels per container. We've also used CSS variables to simplify the customization of colors and sizes.</p>
-    <p>Give us your feedback</p>
 </blockquote>
 
 <h2 id="example">Examples</h2>

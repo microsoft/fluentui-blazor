@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Dialog.ContentComponents;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 

@@ -1,0 +1,88 @@
+﻿@using Bunit
+@using FluentAssertions
+@using Xunit
+
+@inherits TestContext
+
+@code {
+
+    public DataGridSortByTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+
+        // Register Service
+        var keycodeService = new KeyCodeService();
+        Services.AddScoped<IKeyCodeService>(factory => keycodeService);
+    }
+
+    private readonly IQueryable<(string, string)> _items = new List<(string, string)> { ("B", "C"), ("A", "D"), ("D", "A"), ("C", "B") }.AsQueryable();
+
+    [Fact]
+    public async Task DataGridSortByTests_SortByColumnTitle_Ascending()
+    {
+        string[] expected = ["A", "B", "C", "D"];
+        FluentDataGrid<(string, string)> _dataGrid = null!;
+
+        var cut = Render(
+    @<FluentDataGrid TGridItem="(string, string)" Items="@_items" @ref="_dataGrid">
+        <PropertyColumn Title="Item1" Property="@(x => x.Item1)" />
+        <PropertyColumn Title="Item2" Property="@(x => x.Item2)" />
+    </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => _dataGrid.SortByColumnAsync("Item1", SortDirection.Ascending));
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task DataGridSortByTests_SortByColumnTitle_Descending()
+    {
+        string[] expected = ["D", "C", "B", "A"];
+        FluentDataGrid<(string, string)> _dataGrid = null!;
+
+        var cut = Render(
+    @<FluentDataGrid TGridItem="(string, string)" Items="@_items" @ref="_dataGrid">
+        <PropertyColumn Title="Item1" Property="@(x => x.Item1)" />
+        <PropertyColumn Title="Item2" Property="@(x => x.Item2)" />
+    </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => _dataGrid.SortByColumnAsync("Item1", SortDirection.Descending));
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async void DataGridSortByTests_SortByColumnIndex_Ascending()
+    {
+        string[] expected = ["A", "B", "C", "D"];
+        FluentDataGrid<(string, string)> _dataGrid = null!;
+
+        var cut = Render(
+    @<FluentDataGrid TGridItem="(string, string)" Items="@_items" @ref="_dataGrid">
+        <PropertyColumn Title="Item1" Property="@(x => x.Item1)" />
+        <PropertyColumn Title="Item2" Property="@(x => x.Item2)" />
+    </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => _dataGrid.SortByColumnAsync(0, SortDirection.Ascending));
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async void DataGridSortByTests_SortByColumnIndex_Descending()
+    {
+        string[] expected = ["D", "C", "B", "A"];
+        FluentDataGrid<(string, string)> _dataGrid = null!;
+
+        var cut = Render(
+    @<FluentDataGrid TGridItem="(string, string)" Items="@_items" @ref="_dataGrid">
+        <PropertyColumn Title="Item1" Property="@(x => x.Item1)" />
+        <PropertyColumn Title="Item2" Property="@(x => x.Item2)" />
+    </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => _dataGrid.SortByColumnAsync(0, SortDirection.Descending));
+
+        cut.Verify();
+    }
+}

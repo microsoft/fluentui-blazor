@@ -1,7 +1,8 @@
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 public static class EnumExtensions
 {
@@ -37,5 +38,17 @@ public static class EnumExtensions
         }
 
         return description;
+    }
+
+    public static string GetDisplayName(this Enum enumValue)
+    {
+        var memberInfo = enumValue.GetType().GetMember(enumValue.ToString());
+        var displayAttribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
+        return displayAttribute?.GetName() ?? enumValue.ToString();
+    }
+
+    public static bool IsNullableEnum(this Type t)
+    {
+        return Nullable.GetUnderlyingType(t)?.IsEnum == true;
     }
 }

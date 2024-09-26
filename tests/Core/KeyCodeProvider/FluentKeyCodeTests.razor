@@ -2,11 +2,15 @@
 @inherits TestContext
 @code
 {
+    public FluentKeyCodeTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+    }
+
     [Fact]
     public async Task FluentKeyCode_KeyA()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -26,10 +30,22 @@
     }
 
     [Fact]
+    public async Task FluentKeyCode_KeyDown_KeyA()
+    {
+        FluentKeyCodeEventArgs pressed = new();
+
+        // Arrange && Act
+        var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyUp="@(e => pressed = e)" /></div>);
+
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyUpRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+
+        // Assert
+        Assert.Equal(65, pressed.KeyCode);
+    }
+
+    [Fact]
     public async Task FluentKeyCode_ChildContent()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -51,8 +67,6 @@
     [Fact]
     public async Task FluentKeyCode_CtrlShiftAltMeta()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -80,8 +94,6 @@
     [InlineData(true, true, true, true, "Ctrl + Shift + Alt + Meta + A")]
     public async Task FluentKeyCode_KeyA_ToString(bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, string expected)
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -96,7 +108,6 @@
     [Fact]
     public async Task FluentKeyCode_Provider_Function()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
         FluentKeyCodeEventArgs pressed = new();
 
         // Register Service
@@ -130,7 +141,6 @@
     [Fact]
     public async Task FluentKeyCode_Provider_Interface()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
         FluentKeyCodeEventArgs pressed = new();
 
         // Register Service
@@ -161,8 +171,6 @@
     [Fact]
     public async Task FluentKeyCode_AnchorOrChildContent_Required()
     {
-        JSInterop.Mode = JSRuntimeMode.Loose;
-
         FluentKeyCodeEventArgs pressed = new();
 
         // Arrange && Act
@@ -179,16 +187,24 @@
 
     private class MyKeyCodeListener : IKeyCodeListener
     {
-        private Action<FluentKeyCodeEventArgs> _action;
+        private Action<FluentKeyCodeEventArgs> _actionKeyDown;
+        private Action<FluentKeyCodeEventArgs>? _actionKeyUp;
 
-        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> action)
+        public MyKeyCodeListener(Action<FluentKeyCodeEventArgs> actionKeyDown, Action<FluentKeyCodeEventArgs>? actionKeyUp = null)
         {
-            _action = action;
+            _actionKeyDown = actionKeyDown;
+            _actionKeyUp = actionKeyUp;
         }
 
         public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
         {
-            _action.Invoke(args);
+            _actionKeyDown.Invoke(args);
+            return Task.CompletedTask;
+        }
+
+        public Task OnKeyUpAsync(FluentKeyCodeEventArgs args)
+        {
+            _actionKeyUp?.Invoke(args);
             return Task.CompletedTask;
         }
     }

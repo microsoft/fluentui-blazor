@@ -1,18 +1,29 @@
 .fluent-profile-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
 }
+
+    .fluent-profile-menu:hover {
+        background-color: var(--fluent-profile-menu-hover);
+    }
 
     .fluent-profile-menu ::deep > .fluent-persona > .name {
         display: none;
     }
 
-    .fluent-profile-menu[top-corner] ::deep fluent-anchored-region {
+    .fluent-profile-menu[top-corner] ::deep + div + fluent-anchored-region {
         transform: unset !important;
         left: unset;
         right: -4px;
+        top: 32px;
     }
 
-[dir="rtl"] .fluent-profile-menu[top-corner] ::deep fluent-anchored-region {
+[dir="rtl"] .fluent-profile-menu[top-corner] ::deep + div + fluent-anchored-region {
     transform: unset !important;
     left: -4px;
     right: unset;
+    top: 32px;
 }

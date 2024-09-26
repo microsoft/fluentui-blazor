@@ -13,7 +13,8 @@
                      @attributes="@Attributes"
                      Match="@Match"
                      ActiveClass="@ActiveClass"
-                     title="@Tooltip">
+                     title="@Tooltip"
+                     onclick="@CustomToggleCode">
                 <div class="positioning-region">
                     <div class="content-region">
                         @_renderContent
@@ -35,24 +36,22 @@
 }
 else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
 {
-    <div>
-        <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync">
-            <NavLink class="@LinkClassValue"
-                     @attributes="@Attributes"
-                     Match="@Match"
-                     ActiveClass="@ActiveClass"
-                     title="@Tooltip">
-                @ChildContent
-            </NavLink>
+    <FluentMenuItem Disabled="@Disabled" OnClick="OnClickHandlerAsync" @onmenuchange="async ev => await OnClickHandlerAsync(new MouseEventArgs())">
+        <NavLink class="@LinkClassValue"
+                    @attributes="@Attributes"
+                    Match="@Match"
+                    ActiveClass="@ActiveClass"
+                    title="@Tooltip">
+            @ChildContent
+        </NavLink>
 
-            @if (Icon is not null)
-            {
-                <span slot="start">
-                    <FluentIcon Value="@Icon" Color="@IconColor" Class="fluent-nav-icon" />
-                </span>
-            }
-        </FluentMenuItem>
-    </div>
+        @if (Icon is not null)
+        {
+            <span slot="start">
+                <FluentIcon Value="@Icon" Color="@IconColor" CustomColor="@CustomColor" Class="fluent-nav-icon" />
+            </span>
+        }
+    </FluentMenuItem>
 }
 
 @code {
@@ -60,13 +59,13 @@ else if (!Owner.Expanded && Owner.CollapsedChildNavigation && SubMenu != null)
     {
         @if (Icon is not null)
         {
-            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" Class="fluent-nav-icon" />
+            <FluentIcon Value="@Icon" Width="20px" Color="@IconColor" CustomColor="@CustomColor" Class="fluent-nav-icon" />
         }
         else
         {
             <span class="fluent-nav-icon" style="min-width: 20px;"></span>
         }
-        <div class="fluent-nav-text">
+        <div class="fluent-nav-text @(Disabled ? "disabled" : "")">
             @ChildContent
         </div>
     }

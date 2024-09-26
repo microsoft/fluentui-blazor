@@ -5,7 +5,9 @@
                        cell-type=@CellType.ToAttributeValue()
                        grid-column=@GridColumn
                        class="@Class"
-                       style="@Style"
+                       style="@StyleValue"
+                       @onkeydown="@HandleOnCellKeyDownAsync"
+                       @onclick="@HandleOnCellClickAsync"
                        @attributes="AdditionalAttributes">
     @ChildContent
 </fluent-data-grid-cell>

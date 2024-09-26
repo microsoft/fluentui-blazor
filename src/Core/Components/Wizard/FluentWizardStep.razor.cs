@@ -15,6 +15,7 @@ public partial class FluentWizardStep : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
         .AddStyle("height", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .AddStyle("cursor", "pointer", when: IsStepClickable)
         .Build();
 
     /// <summary>
@@ -181,6 +182,45 @@ public partial class FluentWizardStep : FluentComponentBase
         foreach (var editForm in _editForms)
         {
             await editForm.Key.OnSubmit.InvokeAsync(editForm.Value);
+        }
+    }
+
+    private async Task OnClickHandlerAsync()
+    {
+        if (!IsStepClickable)
+        {
+            return;
+        }
+
+        await FluentWizard.ValidateAndGoToStepAsync(Index, validateEditContexts: Index > FluentWizard.Value);
+    }
+
+    private bool IsStepClickable
+    {
+        get
+        {
+            if (Disabled)
+            {
+                return false;
+            }
+
+            if (FluentWizard.Value == Index)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
+                Index > FluentWizard._maxStepVisited)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

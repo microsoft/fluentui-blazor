@@ -27,7 +27,7 @@ public partial class FluentPopover : FluentComponentBase
     public HorizontalPosition? HorizontalPosition { get; set; } = AspNetCore.Components.HorizontalPosition.Unset;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
     /// Default is true which places the region aligned with the anchor element.
     /// </summary>
     [Parameter]
@@ -51,6 +51,14 @@ public partial class FluentPopover : FluentComponentBase
     /// </summary>
     [Parameter]
     public int HorizontalThreshold { get; set; } = 0;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the region is positioned using css "position: fixed".
+    /// Otherwise the region uses "position: absolute".
+    /// Fixed placement allows the region to break out of parent containers.
+    /// </summary>
+    [Parameter]
+    public bool? FixedPlacement { get; set; }
 
     /// <summary>
     /// Gets or sets popover opened state.
@@ -122,11 +130,11 @@ public partial class FluentPopover : FluentComponentBase
     protected virtual async Task CloseAsync()
     {
         Open = false;
-        await AnchoredRegion.FocusToOriginalElementAsync();
         if (OpenChanged.HasDelegate)
         {
             await OpenChanged.InvokeAsync(Open);
         }
+        await AnchoredRegion.FocusToOriginalElementAsync();
     }
 
     /// <summary />

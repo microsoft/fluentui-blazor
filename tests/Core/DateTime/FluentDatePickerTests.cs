@@ -1,7 +1,11 @@
-using System.Globalization;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.DateTime;
@@ -131,6 +135,46 @@ public class FluentDatePickerTests : TestBase
     }
 
     [Fact]
+    public void FluentDatePicker_MonthsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.View, CalendarViews.Months);
+        });
+        var textfield = picker.Find("fluent-text-field");
+
+        // Assert
+        Assert.Equal("MMMM yyyy", textfield.Attributes["placeholder"]!.Value);
+    }
+
+    [Fact]
+    public void FluentDatePicker_YearsViewGetCorrectPlaceholder()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Culture, CultureInfo.GetCultureInfo("en-US"));
+            parameters.Add(p => p.View, CalendarViews.Years);
+        });
+        var textfield = picker.Find("fluent-text-field");
+
+        // Assert
+        Assert.Equal("yyyy", textfield.Attributes["placeholder"]!.Value);
+    }
+
+    [Fact]
     public void FluentCalendar_DisabledDate()
     {
 
@@ -157,5 +201,89 @@ public class FluentDatePickerTests : TestBase
 
         // Assert
         calendar.Verify();
+    }
+
+    [Fact]
+    public void FluentDatePicker_ChangeValueWhenDefaultIsNull()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.Value, null);
+        });
+
+        var textField = picker.Find("fluent-text-field");
+
+        // Set a new date value
+        textField.Change("2022-03-12");
+
+        // Assert
+        Assert.Equal(System.DateTime.Parse("2022-03-12"), picker.Instance.Value);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("2024-06-05")]
+    public void FluentDatePicker_DoubleClickToSetDateInTextField(string plainDateTime)
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+        System.DateTime? dt = string.IsNullOrEmpty(plainDateTime) ? null : System.DateTime.Parse(plainDateTime);
+
+        // Act
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.DoubleClickToDate, dt);
+        });
+
+        var textField = picker.Find("fluent-text-field");
+
+        // Double-Click
+        textField.DoubleClick();
+
+        // Assert
+        Assert.False(picker.Instance.Opened);
+
+        if (dt.HasValue)
+        {
+            Assert.Equal(dt.Value, picker.Instance.Value);
+        }
+        else
+        {
+            Assert.Null(picker.Instance.Value);
+        }
+    }
+
+    [Fact]
+    public void FluentDatePicker_OnDoubleClickEventTriggers()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        ctx.Services.AddSingleton(LibraryConfiguration);
+        var expected = "EventWorks";
+
+        // Act
+        var actual = string.Empty;
+
+        var picker = ctx.RenderComponent<FluentDatePicker>(parameters =>
+        {
+            parameters.Add(p => p.OnDoubleClick, e => actual = expected);
+        });
+
+        var textField = picker.Find("fluent-text-field");
+
+        // Double-Click
+        textField.DoubleClick();
+
+        // Assert
+        Assert.Equal(expected, actual);
     }
 }

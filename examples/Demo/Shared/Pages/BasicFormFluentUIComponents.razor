@@ -1,6 +1,8 @@
 ﻿@page "/basicform-fluentui-components"
 @inject DataSource Data
 
+<PageTitle>@App.PageTitle("Basic Form FluentUI")</PageTitle>
+
 <h1>Starfleet Starship Database</h1>
 <p>
     This form uses the Fluent UI input components. It uses a <code>DataAnnotationsValidator</code>, a <code>FluentValidationSummary</code>
@@ -20,21 +22,26 @@
             <FluentValidationMessage For="@(() => starship.Identifier)" />
         </div>
         <div>
-            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" />
+            <FluentTextArea Name="description" Rows=5 Cols=60 @bind-Value="starship.Description" Label="Description (optional)" Required />
+            <FluentValidationMessage For="@(() => starship.Description)" />
         </div>
         <div>
             <FluentAutocomplete TOption="Country"
+                                Name="countries"
                                 AutoComplete="off"
-                                Label="Select a country"
+                                Required
+                                Label="Select countries"
                                 Width="250px"
                                 Placeholder="Select countries"
                                 OnOptionsSearch="@OnSearchAsync"
                                 MaximumSelectedOptions="3"
                                 OptionText="@(item => item.Name)"
-                                @bind-SelectedOptions="@SelectedItems" />
+                                Multiple="true"
+                                @bind-SelectedOptions="@starship.Countries" />
+            <FluentValidationMessage For="@(() => starship.Countries)" />
         </div>
         <div>
-            <FluentSelect name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
+            <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" Required Label="Primary Classification">
                 <FluentOption Value="">Select classification ...</FluentOption>
                 <FluentOption Value="Exploration">Exploration</FluentOption>
                 <FluentOption Value="Diplomacy">Diplomacy</FluentOption>

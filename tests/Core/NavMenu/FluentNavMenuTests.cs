@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.NavMenu;
@@ -8,6 +9,7 @@ public class FluentNavMenuTests : TestBase
     public FluentNavMenuTests()
     {
         TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]

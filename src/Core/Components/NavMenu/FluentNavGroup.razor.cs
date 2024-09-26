@@ -50,7 +50,7 @@ public partial class FluentNavGroup : FluentNavBase
     public string? Title { get; set; }
 
     /// <summary>
-    /// If true, expands the nav group, otherwise collapse it. 
+    /// If true, expands the nav group, otherwise collapse it.
     /// Two-way bindable
     /// </summary>
     [Parameter]
@@ -69,7 +69,7 @@ public partial class FluentNavGroup : FluentNavBase
     public string? MaxHeight { get; set; }
 
     /// <summary>
-    /// Defines the vertical spacing between the NavGroup and adjecent items. 
+    /// Defines the vertical spacing between the NavGroup and adjacent items.
     /// Needs to be a valid CSS value.
     /// </summary>
     [Parameter]
@@ -82,8 +82,8 @@ public partial class FluentNavGroup : FluentNavBase
     public Icon ExpandIcon { get; set; } = new CoreIcons.Regular.Size12.ChevronRight();
 
     /// <summary>
-    /// Allows for specific markup and styling to be applied for the group title 
-    /// When using this, the containded <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
+    /// Allows for specific markup and styling to be applied for the group title
+    /// When using this, the contained <see cref="FluentNavLink"/>s and <see cref="FluentNavGroup"/>s need to be placed in a ChildContent tag.
     /// When specifying both Title and TitleTemplate, both will be rendered.
     /// </summary>
     [Parameter]
@@ -102,7 +102,18 @@ public partial class FluentNavGroup : FluentNavBase
         _renderButton = RenderButton;
     }
 
-    private Task ToggleExpandedAsync() => SetExpandedAsync(!Expanded);
+    private async Task ToggleExpandedAsync()
+    {
+
+        if (!Owner.Expanded && Owner.CollapsedChildNavigation)
+        {
+            await SetExpandedAsync(!_open);
+        }
+        else
+        {
+            await SetExpandedAsync(!Expanded);
+        }
+    }
 
     private async Task HandleExpanderKeyDownAsync(FluentKeyCodeEventArgs args)
     {
@@ -112,7 +123,7 @@ public partial class FluentNavGroup : FluentNavBase
         }
         Task handler = args.Key switch
         {
-            KeyCode.Enter => SetExpandedAsync(!Expanded),
+            KeyCode.Enter => ToggleExpandedAsync(),
             KeyCode.Right => SetExpandedAsync(true),
             KeyCode.Left => SetExpandedAsync(false),
             _ => Task.CompletedTask
@@ -122,16 +133,11 @@ public partial class FluentNavGroup : FluentNavBase
 
     private async Task SetExpandedAsync(bool value)
     {
-        if (value == Expanded)
-        {
-            return;
-        }
-
         if (!Owner.Expanded)
         {
             if (Owner.CollapsedChildNavigation)
             {
-                _open = !_open;
+                _open = value;
             }
             else
             {
@@ -140,6 +146,11 @@ public partial class FluentNavGroup : FluentNavBase
         }
         else
         {
+            if (value == Expanded)
+            {
+                return;
+            }
+
             Expanded = value;
 
             if (ExpandedChanged.HasDelegate)

@@ -3,7 +3,7 @@
 @typeparam TOption
 <CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
     @InlineStyleValue
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required" ChildContent="@LabelTemplate" />
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabelWithRequired()" Required="@Required" ChildContent="@LabelTemplate" />
     <fluent-select @ref=Element
                    id=@Id
                    class="@ClassValue"
@@ -15,6 +15,8 @@
                    appearance="@Appearance.ToAttributeValue()"
                    current-value="@Value"
                    required="@Required"
+                   name="@Name"
+                   @onchange="@ChangeHandlerAsync"
                    @onkeydown="@OnKeydownHandlerAsync"
                    @attributes="AdditionalAttributes">
         @_renderOptions

@@ -1,0 +1,195 @@
+﻿@using FluentAssertions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit;
+@inherits TestContext
+@code
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    public FluentSelectTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
+    }
+
+
+    [Fact]
+    public void FluentSelect_Simple()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myselect");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_NameAttribute()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myselect");
+            parameters.Add(p => p.Name, "myselectName");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(Appearance.Filled)]
+    [InlineData(Appearance.Stealth)]
+    [InlineData(Appearance.Accent)]
+    public void FluentSelect_Appearance(Appearance appearance)
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Items, Customers.Get());
+            parameters.Add(p => p.Appearance, appearance);
+        });
+
+        // Assert
+        cut.Verify(suffix: appearance.ToString());
+
+        // Assert
+        //cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_OptionValue()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.OptionValue, context => context.Id.ToString());
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_OptionText()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.OptionText, context => $"{context.Name} ({context.Id.ToString()})");
+            parameters.Add(p => p.Items, Customers.Get());
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+
+
+    [Fact]
+    public void FluentSelect_CustomIndicator()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSelect TOption="string">
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="indicator" />
+            <FluentOption Value="1">Option One</FluentOption>
+            <FluentOption Value="2">Option Two</FluentOption>
+            <FluentOption Value="3">Option Three</FluentOption>
+            <FluentOption Value="4">Option Four</FluentOption>
+        </FluentSelect>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentSelect_WithIcons()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSelect TOption="string">
+        <FluentOption Value="1">
+            Search
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+        </FluentOption>
+        <FluentOption Value="2" Selected="true">
+            Show
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+        </FluentOption>
+        <FluentOption Value="3">
+            Generate
+            <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Color="@Color.Neutral" Slot="start" />
+        </FluentOption>
+    </FluentSelect>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentSelect_PositionAbove()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSelect Position="SelectPosition.Above" TOption="string">
+                <FluentOption>Position forced above</FluentOption>
+                <FluentOption>Option Two</FluentOption>
+            </FluentSelect>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_PositionBelow()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSelect Position="SelectPosition.Below" TOption="string">
+        <FluentOption>Position forced above</FluentOption>
+        <FluentOption>Option Two</FluentOption>
+    </FluentSelect>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentSelect_OptionTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSelect Items="@(Customers.Get())" OptionValue="@(context => context.Id.ToString())">
+                <OptionTemplate>
+                    <FluentIcon Value="@(new SampleIcons.Samples.MyCircle())" Slot="end" />
+                    @(context.Name)
+                </OptionTemplate>
+            </FluentSelect>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Placeholder()
+    {
+        // Arrange
+        var cut = RenderComponent<FluentSelect<Customer>>(parameters =>
+        {
+            parameters.Add(p => p.Id, "myselect");
+            parameters.Add(p => p.Items, Customers.Get());
+            parameters.Add(p => p.Placeholder, "Make a selection...");
+        });
+
+        // Assert
+        Assert.Equal("Make a selection...", cut.Find("fluent-option").InnerHtml);
+        cut.Verify();
+    }
+}

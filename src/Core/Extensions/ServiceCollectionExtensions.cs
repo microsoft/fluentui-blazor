@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
+// This namespace is deliberately "Components" and not "Components.Extensions".
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static class ServiceCollectionExtensions
@@ -18,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDialogService, DialogService>();
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IKeyCodeService, KeyCodeService>();
+        services.AddScoped<IMenuService, MenuService>();
 
         var options = configuration ?? new();
         if (options.UseTooltipServiceProvider)

@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentCalendarBase
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
@@ -10,11 +10,13 @@
                  Autofocus="@Autofocus"
                  Appearance="@Appearance"
                  @bind-Value="@CurrentValueAsString"
-                 @onclick="@OnCalendarOpenHandlerAsync" 
+                 @onclick="@OnCalendarOpenHandlerAsync"
+                 @ondblclick="@OnDoubleClickHandlerAsync"
+                 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))"
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
-                 Placeholder="@(Placeholder ?? Culture.DateTimeFormat.ShortDatePattern)"
+                 Placeholder="@(Placeholder ?? PlaceholderAccordingToView())"
                  Name="@Name"
                  @attributes="@AdditionalAttributes">
     @((MarkupString)CalendarIcon)
@@ -22,19 +24,23 @@
 
 @if (Opened)
 {
-    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
+    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" Interactive="true" InteractiveExceptId="@PopupId" />
     <FluentAnchoredRegion Anchor="@Id"
-                          HorizontalDefaultPosition="@HorizontalPosition.Right"
+                          Id="@PopupId"
+                          HorizontalDefaultPosition="@(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right)"
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Unset"
                           Shadow="ElevationShadow.Flyout"
                           Class="fluent-datepicker-popup"
                           Style="@($"z-index: {ZIndex.DatePickerPopup}; border-radius: calc(var(--control-corner-radius) * 1px); padding: 12px;")">
         <FluentCalendar Culture="@Culture"
+                        View="@View"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"
                         DisabledSelectable="@DisabledSelectable"
                         Value="@Value"
-                        ValueChanged="@OnSelectedDateAsync" />
+                        ValueChanged="@OnSelectedDateAsync"
+                        DaysTemplate="@DaysTemplate"
+                        PickerMonthChanged="@PickerMonthChanged" />
     </FluentAnchoredRegion>
 }

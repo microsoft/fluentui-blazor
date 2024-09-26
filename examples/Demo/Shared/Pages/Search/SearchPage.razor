@@ -1,11 +1,13 @@
-@page "/Search"
+﻿@page "/Search"
 
 @using FluentUI.Demo.Shared.Pages.Search.Examples
+
+<PageTitle>@App.PageTitle("Search")</PageTitle>
 
 <h1>Search</h1>
 
 <p>
-    An implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/search" rel="nofollow">search</a> component. 
+    An implementation of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/search" rel="nofollow">search</a> component.
     The <code>&lt;FluentSearch&gt;</code> supports two visual appearances, outline and filled, with the control defaulting to the outline appearance.
 </p>
 <p>
@@ -15,11 +17,17 @@
 
 <h2 id="example">Examples</h2>
 
-<DemoSection Title="Default" Component="@typeof(SearchDefault)"></DemoSection>
+<DemoSection Title="Default" Component="@typeof(SearchDefault)">
+    <Description>
+        <p>The search box with a label has autocomplete turned off explicitly by using the <code>AutoComplete</code> parameter</p>
+    </Description>
+</DemoSection>
 
 <DemoSection Title="Interactive" Component="@typeof(SearchInteractive)"></DemoSection>
 
 <DemoSection Title="Interactive with debounce" Component="@typeof(SearchInteractiveWithDebounce)"></DemoSection>
+
+<DemoSection Title="Immediate (with and without debounce)" Component="@typeof(SearchImmediate)"></DemoSection>
 
 <DemoSection Title="States" Component="@typeof(SearchStates)"></DemoSection>
 

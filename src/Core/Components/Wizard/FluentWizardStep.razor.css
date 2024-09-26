@@ -30,6 +30,11 @@
         background-color: var(--neutral-stroke-hover);
     }
 
+[dir="rtl"] .fluent-wizard[position="left"] > ol > li:not(:last-child):after {
+    left: revert;
+    transform: translateX(calc(var(--fluent-wizard-circle-size) / -2));
+}
+
 /* Wizard with steps on Top */
 .fluent-wizard[position="top"] > ol > li {
     flex-direction: column;
@@ -56,10 +61,10 @@
     }
 
 
-    [dir="rtl"] .fluent-wizard[position="top"] > ol > li:not(:last-child):after {
-        left: unset;
-        right: calc(50% + calc(var(--fluent-wizard-circle-size) / 2 + var(--fluent-wizard-spacing)));
-    }
+[dir="rtl"] .fluent-wizard[position="top"] > ol > li:not(:last-child):after {
+    left: unset;
+    right: calc(50% + calc(var(--fluent-wizard-circle-size) / 2 + var(--fluent-wizard-spacing)));
+}
 
 /* Icon */
 .fluent-wizard > ol > li .fluent-wizard-icon {
@@ -69,10 +74,11 @@
 
 /* Icon Number */
 .fluent-wizard > ol > li .fluent-wizard-icon-number {
-    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 3px);
+    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 5px);
     font-size: small;
     color: var(--accent-fill-rest);
     text-align: center;
+    align-content: center;
 }
 
 .fluent-wizard[position="top"] > ol > li .fluent-wizard-icon-number {

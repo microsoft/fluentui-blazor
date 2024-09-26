@@ -4,11 +4,11 @@
 
 ### Machine setup
 
-To begin you'll need Git, .NET, and NodeJS setup on your machine.
+To begin you'll need Git, .NET, and NodeJS (v22.x or higher) setup on your machine.
 
 The `fluentui-blazor` repository uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
-Once Git is installed, you'll also need .NET and NodeJS. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org).
+Once Git is installed, you'll also need .NET and NodeJS. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 20.15 LTS version. 
 
 :::important
 The above steps are a one-time setup for your machine and do not need to be repeated after the initial configuration.

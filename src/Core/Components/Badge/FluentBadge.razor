@@ -1,21 +1,21 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 <fluent-badge @ref=Element
               id = "@Id"
               class="@ClassValue"
               style="@StyleValue"
-              appearance="@Appearance.ToAttributeValue()" 
+              appearance="@Appearance.ToAttributeValue()"
               fill="@Fill"
               color="@Fill"
               circular="@Circular"
               @onclick="@OnClickHandlerAsync"
               @attributes="AdditionalAttributes">
-    <div style="@InternalStyleValue">
+    <span style="@InternalStyleValue">
         @ChildContent
         @if (OnDismissClick.HasDelegate)
         {
-            <FluentIcon Value="@(DismissIcon ?? new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Style="margin: 2px 0px 0px 2px;" Title="@DismissTitle" OnClick="OnDismissClickHandlerAsync" />
+            <FluentIcon Value="@(DismissIcon ?? new CoreIcons.Regular.Size24.Dismiss())" Width="12px" Style="margin: 2px 0px 0px 2px;" Title="@DismissTitle" OnClick="OnDismissClickHandlerAsync" Focusable="true" />
         }
-    </div>
-    
+    </span>
+
 </fluent-badge>

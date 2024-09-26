@@ -7,6 +7,7 @@
 
     public FluentSliderTests()
     {
+        JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration);
     }
 
@@ -75,5 +76,20 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSlider_Binding()
+    {
+        // Arrange
+        int value = 3;
+        var cut = Render(@<FluentSlider Min="0" Max="10" Step="1" @bind-Value="@value"></FluentSlider>);
+
+        // Act
+        var slider = cut.Find("fluent-slider");
+        slider.TriggerEvent("onsliderchange", new ChangeEventArgs { Value = 2 });
+
+        // Assert
+        Assert.Equal(2, value);
     }
 }

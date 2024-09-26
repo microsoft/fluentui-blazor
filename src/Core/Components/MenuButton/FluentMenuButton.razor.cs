@@ -39,6 +39,12 @@ public partial class FluentMenuButton : FluentComponentBase
     public string? Text { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconStart { get; set; }
+
+    /// <summary>
     /// Gets or sets the button style.
     /// </summary>
     [Parameter]

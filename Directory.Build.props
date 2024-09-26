@@ -12,16 +12,19 @@
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-		<VersionFile>4.6.1</VersionFile>
-		<VersionPrefix>4.6.1</VersionPrefix>
+		<VersionFile>4.10.2</VersionFile>
+		<VersionPrefix>4.10.2</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
 
     <!-- Enable code style analysis -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
-	</PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+
+  </PropertyGroup>
 
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

@@ -1,7 +1,7 @@
 /*  NavMenu */
 .fluent-nav-menu {
     padding: 0 2px;
-    
+
 }
 
 ::deep .fluent-nav-item.expander:focus-within {
@@ -63,20 +63,28 @@
     margin-bottom: 2px;
 }
 
+::deep fluent-menu-item .fluent-nav-link {
+    width: 100%;
+    color: inherit;
+    align-items: center;
+    text-decoration: none;
+    display: flex;
+}
+
 /* level indenting */
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 24px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 48px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 72px;
 }
 
-::deep .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+::deep .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 96px;
 }
 
@@ -107,3 +115,9 @@
         ::deep.collapsed .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item {
             display: none;
         }
+
+@media (max-width: 600px) {
+    ::deep.collapsed .fluent-nav-text {
+        display: block;
+    }
+}

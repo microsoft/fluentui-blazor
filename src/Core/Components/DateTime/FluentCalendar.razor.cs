@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Components.DateTime;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -18,6 +20,10 @@ public partial class FluentCalendar : FluentCalendarBase
     private VerticalPosition _animationRunning = VerticalPosition.Unset;
     private DateTime? _pickerMonth = null;
     private readonly CalendarExtended? _calendarExtended = null;
+    private readonly RangeOfDates _rangeSelector = new RangeOfDates();
+
+    private readonly RangeOfDates _rangeSelectorMouseOver = new RangeOfDates();
+    private readonly List<DateTime> _selectedDatesMouseOver = new List<DateTime>();
 
     /// <summary />
     protected override string? ClassValue
@@ -74,17 +80,35 @@ public partial class FluentCalendar : FluentCalendarBase
     public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
 
     /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
-    /// </summary>
-    [Parameter]
-    public CalendarViews View { get; set; } = CalendarViews.Days;
-
-    /// <summary>
     /// Gets ot sets if the calendar items are animated during a period change.
     /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
+
+    /// <summary>
+    /// Gets or sets the way the user can select one or more dates
+    /// </summary>
+    [Parameter]
+    public CalendarSelectMode SelectMode { get; set; } = CalendarSelectMode.Single;
+
+    /// <summary>
+    /// Gets or sets the list of all selected dates, only when <see cref="SelectMode"/> is set to <see cref="CalendarSelectMode.Range" /> or <see cref="CalendarSelectMode.Multiple" />.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<DateTime> SelectedDates { get; set; } = new List<DateTime>();
+
+    /// <summary>
+    /// Fired when the selected dates change.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<DateTime>> SelectedDatesChanged { get; set; }
+
+    /// <summary>
+    /// Fired when the selected mouse over change, to display the future range of dates.
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, IEnumerable<DateTime>>? SelectDatesHover { get; set; }
 
     /// <summary />
     private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
@@ -151,23 +175,23 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
+    private async Task OnSelectMonthHandlerAsync(int year, int month, bool isReadOnly)
     {
         if (!isReadOnly)
         {
-            Value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+            var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+            await OnSelectedDateHandlerAsync(value);
         }
-        return Task.CompletedTask;
     }
 
     /// <summary />
-    private Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
+    private async Task OnSelectYearHandlerAsync(int year, bool isReadOnly)
     {
         if (!isReadOnly)
         {
-            Value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+            var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+            await OnSelectedDateHandlerAsync(value);
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -262,10 +286,163 @@ public partial class FluentCalendar : FluentCalendarBase
         await Task.CompletedTask;
     }
 
+    /// <summary />
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         BindConverter.TryConvertTo(value, Culture, out result);
         validationErrorMessage = null;
         return true;
+    }
+
+    /// <summary />
+    private (bool IsMultiple, DateTime Min, DateTime Max, bool InProgress) GetMultipleSelection()
+    {
+        bool inProgress = SelectDatesHover is not null;
+
+        if (SelectedDates == null || !SelectedDates.Any())
+        {
+            return (false, DateTime.MinValue, DateTime.MinValue, inProgress);
+        }
+
+        if (SelectDatesHover is null)
+        {
+            inProgress = !_rangeSelector.IsValid();
+        }
+        else
+        {
+            inProgress = _rangeSelectorMouseOver.IsValid();
+        }
+
+        return (
+            (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count() > 1,
+            SelectedDates.Min(),
+            SelectedDates.Max(),
+            inProgress
+               );
+    }
+
+    /// <summary />
+    protected virtual async Task OnSelectDayHandlerAsync(DateTime value, bool dayDisabled)
+    {
+        if (!dayDisabled)
+        {
+            switch (SelectMode)
+            {
+                // Single selection
+                case CalendarSelectMode.Single:
+                    await OnSelectedDateHandlerAsync(value);
+                    break;
+
+                // Multiple selection
+                case CalendarSelectMode.Multiple:
+
+                    if (SelectDatesHover is null)
+                    {
+                        if (SelectedDates.Contains(value))
+                        {
+                            SelectedDates = SelectedDates.Where(i => i != value);
+                        }
+                        else
+                        {
+                            SelectedDates = SelectedDates.Append(value);
+                        }
+
+                        if (SelectedDatesChanged.HasDelegate)
+                        {
+                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                        }
+                    }
+                    else
+                    {
+                        var range = SelectDatesHover.Invoke(value);
+
+                        SelectedDates = range.Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
+
+                        if (SelectedDatesChanged.HasDelegate)
+                        {
+                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                        }
+                    }
+
+                    break;
+
+                // Range of dates
+                case CalendarSelectMode.Range:
+
+                    bool resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
+
+                    // Reset the selection
+                    if (resetRange)
+                    {
+                        _rangeSelector.Clear();
+                        _rangeSelectorMouseOver.Clear();
+                    }
+
+                    // End the selection
+                    else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
+                    {
+                        _rangeSelector.End = value;
+                    }
+
+                    // Start and close a pre-selection
+                    else if (SelectDatesHover is not null)
+                    {
+                        var range = SelectDatesHover.Invoke(value);
+
+                        _rangeSelector.Start = range.Min();
+                        _rangeSelector.End = range.Max();
+                    }
+
+                    // Start the selection
+                    else
+                    {
+                        _rangeSelector.Start = value;
+                        _rangeSelector.End = null;
+
+                        await OnSelectDayMouseOverAsync(value, dayDisabled: false);
+                    }
+
+                    SelectedDates = _rangeSelector.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
+
+                    if (SelectedDatesChanged.HasDelegate)
+                    {
+                        await SelectedDatesChanged.InvokeAsync(SelectedDates);
+                    }
+                    break;
+            }
+
+        }
+    }
+
+    /// <summary />
+    private Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
+    {
+        if (dayDisabled ||
+            SelectMode == CalendarSelectMode.Single ||
+            (_rangeSelector.IsSingle() && SelectDatesHover is null))
+        {
+            return Task.CompletedTask;
+        }
+
+        if (SelectDatesHover is null)
+        {
+            _rangeSelectorMouseOver.Start = _rangeSelector.Start ?? value;
+            _rangeSelectorMouseOver.End = value;
+        }
+        else
+        {
+            var range = SelectDatesHover.Invoke(value);
+            _rangeSelectorMouseOver.Start = range.Min();
+            _rangeSelectorMouseOver.End = range.Max();
+        }
+
+        var days = DisabledDateFunc is null
+                 ? _rangeSelectorMouseOver.GetAllDates()
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day));
+
+        _selectedDatesMouseOver.Clear();
+        _selectedDatesMouseOver.AddRange(days);
+
+        return Task.CompletedTask;
     }
 }

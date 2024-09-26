@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -14,12 +15,21 @@ public partial class FluentKeyCode : IAsyncDisposable
     private DotNetObjectReference<FluentKeyCode>? _dotNetHelper = null;
     private readonly KeyCode[] _Modifiers = new[] { KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta };
 
+    /// <summary>
+    /// Prevent multiple KeyDown events.
+    /// </summary>
+    public static bool PreventMultipleKeyDown = false;
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     /// <summary />
     private ElementReference Element { get; set; }
@@ -49,6 +59,12 @@ public partial class FluentKeyCode : IAsyncDisposable
     /// </summary>
     [Parameter]
     public EventCallback<FluentKeyCodeEventArgs> OnKeyDown { get; set; }
+
+    /// <summary>
+    /// Event triggered when a KeyUp event is raised.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentKeyCodeEventArgs> OnKeyUp { get; set; }
 
     /// <summary>
     /// Ignore modifier keys (Shift, Alt, Ctrl, Meta) when evaluating the key code.
@@ -103,11 +119,16 @@ public partial class FluentKeyCode : IAsyncDisposable
                 throw new ArgumentNullException(Anchor, $"The {nameof(Anchor)} parameter must be set to the ID of an element. Or the {nameof(ChildContent)} must be set to apply the KeyCode engine to this content.");
             }
 
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             _dotNetHelper = DotNetObjectReference.Create(this);
 
-            _javaScriptEventId = await Module.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper);
-            Console.WriteLine("Registered: " + _javaScriptEventId);
+            var eventNames = string.Join(";", new[]
+            {
+                OnKeyDown.HasDelegate ? "KeyDown" : string.Empty,
+                OnKeyUp.HasDelegate ? "KeyUp" : string.Empty,
+            });
+
+            _javaScriptEventId = await _jsModule.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, eventNames.Length > 1 ? eventNames : "KeyDown", Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper, PreventMultipleKeyDown);
         }
     }
 
@@ -128,29 +149,47 @@ public partial class FluentKeyCode : IAsyncDisposable
     {
         if (OnKeyDown.HasDelegate)
         {
-            await OnKeyDown.InvokeAsync(new FluentKeyCodeEventArgs
-            {
-                Location = Enum.IsDefined(typeof(KeyLocation), location) ? (KeyLocation)location : KeyLocation.Unknown,
-                Key = Enum.IsDefined(typeof(KeyCode), keyCode) ? (KeyCode)keyCode : KeyCode.Unknown,
-                KeyCode = keyCode,
-                Value = value,
-                CtrlKey = ctrlKey,
-                ShiftKey = shiftKey,
-                AltKey = altKey,
-                MetaKey = metaKey,
-                TargetId = targetId,
-            });
+            await OnKeyDown.InvokeAsync(FluentKeyCodeEventArgs.Instance("keydown", keyCode, value, ctrlKey, shiftKey, altKey, metaKey, location, targetId));
         }
     }
 
-    public ValueTask DisposeAsync()
+    /// <summary>
+    /// Internal method.
+    /// </summary>
+    /// <param name="keyCode"></param>
+    /// <param name="value"></param>
+    /// <param name="ctrlKey"></param>
+    /// <param name="shiftKey"></param>
+    /// <param name="altKey"></param>
+    /// <param name="metaKey"></param>
+    /// <param name="location"></param>
+    /// <param name="targetId"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnKeyUpRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId)
     {
-        if (Module != null && !string.IsNullOrEmpty(_javaScriptEventId))
+        if (OnKeyUp.HasDelegate)
         {
-            return Module.InvokeVoidAsync("UnregisterKeyCode", _javaScriptEventId);
+            await OnKeyUp.InvokeAsync(FluentKeyCodeEventArgs.Instance("keyup", keyCode, value, ctrlKey, shiftKey, altKey, metaKey, location, targetId));
         }
+    }
 
-        return ValueTask.CompletedTask;
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_jsModule != null && !string.IsNullOrEmpty(_javaScriptEventId))
+            {
+                await _jsModule.InvokeVoidAsync("UnregisterKeyCode", _javaScriptEventId);
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }
 

@@ -2,6 +2,8 @@
 
 @using FluentUI.Demo.Shared.Pages.Tooltip.Examples
 
+<PageTitle>@App.PageTitle("Tooltip")</PageTitle>
+
 <h1>Tooltip</h1>
 <p>
     The <code>&lt;FluentTooltip&gt</code> component is used to provide extra information about another element when it is hovered.
@@ -13,35 +15,42 @@
 
 
 <h2 id="tooltipservice">Using Tooltip Service Provider</h2>
+<p>
+    We advise you to always use this service when working with tooltips so all definitions will be generated with global options
+    and will be written at the end of the HTML page to support different z-index levels.
+</p>
+<p>
+    Also, the later described option on having a tooltip appear on a click event <strong>will only work</strong> when using the Tooltip Service Provider.
+</p>
+<p>
 
-In the <b>Program.cs</b>, inject the Tooltip service with global options.
-You can also use the <b>Services.AddFluentUIComponents</b> method to register
-all required FluentUI services, including this one.
+    In the <b>Program.cs</b>, inject the Tooltip service with global options.
+    You can also use the <b>Services.AddFluentUIComponents</b> method to register
+    all required FluentUI services, including this one.
+</p>
 <CodeSnippet>builder.Services.AddScoped&lt;ITooltipService, TooltipService&gt;();</CodeSnippet>
-<br />
-At the end of your <b>MainLayout.razor</b> page, include the provider:
+<p>
+    At the end of your <b>MainLayout.razor</b> page, include the provider:
+</p>
 <CodeSnippet>&lt;FluentTooltipProvider /&gt;</CodeSnippet>
-<br />
-With this provider, all tooltip definitions will be generated with these global options
-and will be written at the end of the HTML page to support the different z-index levels.
-<br />
+
 <p>
     <strong>
         For the <code>&lt;FluentTooltipProvider/&gt;</code> to work properly, it needs interactivity! If you are using "per page" interactivity, make sure to add a <code>@@rendermode</code> to
-        either the provider itself of the component the provider is placed in.
+        either the provider itself or the component the provider is placed in.
     </strong>
 </p>
 <br />
 <b>Example</b>
-    <FluentStack>
+<FluentStack>
     <FluentButton Id="btnWithoutService" Appearance=Appearance.Accent>Tooltip without service</FluentButton>
-        <FluentTooltip Anchor="btnWithoutService" UseTooltipService="false" Position=TooltipPosition.Start>Example of tooltip</FluentTooltip>
-    </FluentStack>
-    <br/>
-    <FluentStack>
-        <FluentButton Id="btnWithService" Appearance=Appearance.Accent>Tooltip using TooltipService</FluentButton>
-        <FluentTooltip Anchor="btnWithService" Position=TooltipPosition.Start>Example of tooltip</FluentTooltip>
-    </FluentStack>
+    <FluentTooltip Anchor="btnWithoutService" UseTooltipService="false" Position=TooltipPosition.Start>Example of tooltip</FluentTooltip>
+</FluentStack>
+<br />
+<FluentStack>
+    <FluentButton Id="btnWithService" Appearance=Appearance.Accent>Tooltip using TooltipService</FluentButton>
+    <FluentTooltip Anchor="btnWithService" Position=TooltipPosition.Start>Example of tooltip</FluentTooltip>
+</FluentStack>
 <br />
 <br />
 
@@ -57,7 +66,7 @@ and will be written at the end of the HTML page to support the different z-index
 
 <DemoSection Title="Different delays" Component="@typeof(TooltipDelay)">
     <Description>
-        Hover one of the buttons to have a tooltip appear on hover at the position mentioned. <br/>
+        Hover one of the buttons to have a tooltip appear on hover at the position mentioned. <br />
         Unlike the other tooltip examples, these contain the <code>HideTooltipOnCursorLeave</code> attribute.
         which hides the tooltip when the cursor leaves (i.e. not hovering) its anchor (even when the cursor hovers the tooltip itself).
     </Description>

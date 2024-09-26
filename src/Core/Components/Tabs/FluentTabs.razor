@@ -1,27 +1,30 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-<CascadingValue Value="this" IsFixed="true">
+@{
+    var _overflow = TabsOverflow;
+}
+<CascadingValue Value="this">
     <fluent-tabs @ref=Element
                  id="@Id"
-                 class="@Class"
-                 style="@Style"
+                 class="@ClassValue"
+                 style="@StyleValue"
                  orientation=@Orientation.ToAttributeValue()
                  activeid=@ActiveTabId
                  activeindicator="@(ShowActiveIndicator.ToString().ToLower())"
                  @ontabchange="HandleOnTabChangedAsync"
                  @attributes="AdditionalAttributes">
         @ChildContent
-        @if (TabsOverflow.Any())
+        @if (_overflow.Any())
         {
             <FluentBadge Id="@IdMoreButton" Appearance="Appearance.Neutral" Style="@StyleMoreValues" slot="end">
-                @($"+{TabsOverflow.Count()}")
+                @($"+{_overflow.Count()}")
             </FluentBadge>
         }
     </fluent-tabs>
-    @if (TabsOverflow.Any())
+    @if (_overflow.Any())
     {
         <FluentMenu Anchor="@IdMoreButton" Trigger="MouseButton.Left" Anchored="true">
-            @foreach (var item in TabsOverflow)
+            @foreach (var item in _overflow)
             {
                 <FluentMenuItem Label="@item.Label" OnClick="@((e) => DisplayMoreTabAsync(item))" />
             }

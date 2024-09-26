@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
@@ -12,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentTabs : FluentComponentBase
 {
+    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
+
     private const string FLUENT_TAB_TAG = "fluent-tab";
     private readonly Dictionary<string, FluentTab> _tabs = [];
     //private string _activeId = string.Empty;
@@ -23,7 +26,7 @@ public partial class FluentTabs : FluentComponentBase
         .Build();
 
     /// <summary />
-    protected string? StyleValues => new StyleBuilder(Style)
+    protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("padding", "6px", () => Size == TabSize.Small)
         .AddStyle("padding", "12px 10px", () => Size == TabSize.Small)
         .AddStyle("padding", "16px 10px", () => Size == TabSize.Small)
@@ -38,6 +41,10 @@ public partial class FluentTabs : FluentComponentBase
         .AddStyle("cursor: pointer")
         .AddStyle("display", "none", () => !TabsOverflow.Any())
         .Build();
+
+    /// <summary />
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -142,14 +149,12 @@ public partial class FluentTabs : FluentComponentBase
     {
         if (firstRender)
         {
-
             _dotNetHelper = DotNetObjectReference.Create(this);
             // Overflow
-            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
-                "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js");
+            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             var horizontal = Orientation == Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
         }
     }
 
@@ -162,12 +167,11 @@ public partial class FluentTabs : FluentComponentBase
             ActiveTabId = tabId;
             await ActiveTabIdChanged.InvokeAsync(tabId);
         }
-
     }
 
     internal int RegisterTab(FluentTab tab)
     {
-        _tabs.Add(tab.Id!, tab);
+        _ = _tabs.TryAdd(tab.Id!, tab);
         return _tabs.Count - 1;
     }
 
@@ -238,7 +242,7 @@ public partial class FluentTabs : FluentComponentBase
     private async Task ResizeTabsForOverflowButtonAsync()
     {
         var horizontal = Orientation == Orientation.Horizontal;
-        await _jsModuleOverflow.InvokeVoidAsync("FluentOverflowResized", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+        await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
     }
 
     /// <summary />

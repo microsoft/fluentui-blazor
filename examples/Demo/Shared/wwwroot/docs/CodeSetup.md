@@ -38,19 +38,48 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
 ### Script
-As mentioned, we wrap the **Fluent UI Web Components** which are implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
+We wrap the **Fluent UI Web Components**, which are implemented in a script file, for quite a few of our components. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
 
-When using **SSR (Static Server Rendering)**, you will need to include the web components script in your `App.razor`. As there is no Blazor script being loaded/used, our script will also not get loaded.
+In some cases, like when using .NET 8's new **SSR (Static Server Rendering)** rendermode, it might be necessary to include our library script in your `App.razor` manually. You can do so as follows:
 
 ```html
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>
 ```
 If you would later add interactivity, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
-### Reboot (optional)
+### Styles
+
+The styles used by FluentUI are included in the package. You normally don't need to do anything to include them in your project.
+
+If needed, you can add the following line to the `<head>`> section of your `index.html`, `_Layout.cshtml` or `App.razor` file in the
+project you installed the package in:
+
+```html
+<link href="{PROJECT_NAME}.styles.css" rel="stylesheet" />
+```
+
+It is possible that the line is already there (but commented out).
+
+>**IMPORTANT:**
+>When you change the root namespace/assembly name of your project, you need to update the {PROJECT_NAME} in your code accordingly.
+          
+You can always add your own styles, using the `class` or `style` attribute on the components.
+By default, the classes are organised and checked by the component itself (in particular by checking that the class names are valid).
+Some frameworks, such as **Tailwind CSS**, add exceptions to class names (e.g. `min-h-[16px]` or `bg-[#ff0000]`).
+In this case, you need to disable class name validation by adding this code to your `Program.cs` file:
+
+```csharp
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.ValidateClassNames = false;
+});
+```
+
+#### Reboot 
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components for Blazor. It provides an elegant, consistent, and simple baseline to build upon.
+The library automatically includes reboot through the 
 
 If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
 
@@ -58,7 +87,7 @@ If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.ht
 <link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
 ```
 
-It is entirely possible to build a site without using **Reboot**. If you do not want to use Reboot and you used the templates as a starting poin, just remove the following line from the app.css file (it is the first line in the file):
+It is entirely possible to build a site without using **Reboot**. If you do not want to use Reboot and you used the templates as a starting point, just remove the following line from the app.css file (it is the first line in the file):
 
 ```
 @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
@@ -86,6 +115,7 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentDialogProvider />
 <FluentTooltipProvider />
 <FluentMessageBarProvider />
+<FluentMenuProvider />
 ```
 > **note:** You can remove providers that are not used in your application.
 > **note:** If you get scrollbars in your application, move the providers up in the page elements hierarchy, for example into the `FluentBodyContent` component.
@@ -118,6 +148,34 @@ This is literally all you need in your views to use Fluent UI Blazor components.
 ## Configuring the Design System
 The **Fluent UI Blazor** components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
+
+### For Right-To-Left languages
+
+One of the most common design tokens is the `Direction` design token. It is required to make the application components visually configured for the right-to-left languages. In order to implement such configuration you need to use the `Direction` design token together with the `FluentDesignTheme` component in the main layout of your Right-to-Left pages:
+
+```csharp
+@* MainRtlLayout.razor *@
+
+@using Microsoft.FluentUI.AspNetCore.Components.DesignTokens
+@inject Direction DirectionDesignToken
+@inherits LayoutComponentBase
+...
+@Body
+...
+<FluentDesignTheme Direction="@Direction" />
+@code {
+    LocalizationDirection Direction { get; set; }
+    protected override async Task OnAfterRenderAsync(bool f)
+    {
+        await base.OnAfterRenderAsync(f);
+        if(!f)
+            return;
+        await DirectionDesignToken.WithDefault("rtl");
+        Direction = LocalizationDirection.RightToLeft;
+        StateHasChanged();
+    }
+}
+```
 
 ## Blazor Hybrid
 You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra step (for now) as described below:

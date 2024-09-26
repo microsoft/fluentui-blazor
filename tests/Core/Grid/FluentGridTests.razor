@@ -1,10 +1,11 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits TestContext
 @code
 {
     public FluentGridTests()
     {
-        this.JSInterop.Mode = JSRuntimeMode.Loose;
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
     [Fact]
@@ -79,6 +80,7 @@
         //Assert
         cut.Verify();
     }
+
     #pragma warning disable xUnit1025 
     [Theory]
     [InlineData(GridItemHidden.Xs, "xs")]
@@ -113,4 +115,44 @@
         Assert.Equal(assert, hiddenAttribute);
     }
     #pragma warning restore xUnit1025
+
+    [Fact]
+    public async void FluentGrid_Grid_AdaptiveRendering()
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentGrid AdaptiveRendering="true">
+        <FluentGridItem HiddenWhen="GridItemHidden.XsAndUp">Cell 1</FluentGridItem>
+        <FluentGridItem HiddenWhen="GridItemHidden.XxlAndUp">Cell 2</FluentGridItem>
+    </FluentGrid>
+    );
+
+        // Simulate screen size Medium
+        var grid = cut.FindComponent<FluentGrid>();
+        await grid.Instance.FluentGrid_MediaChangedAsync("md");
+        grid.Render();
+
+        //Assert
+        Assert.DoesNotContain("Cell 1", cut.Markup);
+    }
+
+    [Fact]
+    public async void FluentGrid_GridItem_AdaptiveRendering()
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentGrid>
+        <FluentGridItem AdaptiveRendering="true" HiddenWhen="GridItemHidden.XsAndUp">Cell 1</FluentGridItem>
+        <FluentGridItem HiddenWhen="GridItemHidden.XxlAndUp">Cell 2</FluentGridItem>
+    </FluentGrid>
+    );
+
+        // Simulate screen size Medium
+        var grid = cut.FindComponent<FluentGrid>();
+        await grid.Instance.FluentGrid_MediaChangedAsync("md");
+        grid.Render();
+
+        //Assert
+        Assert.DoesNotContain("Cell 1", cut.Markup);
+    }
 }

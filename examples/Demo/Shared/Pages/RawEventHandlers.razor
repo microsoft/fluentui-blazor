@@ -1,5 +1,7 @@
 ﻿@page "/handlers"
 
+<PageTitle>@App.PageTitle("Handlers")</PageTitle>
+
 <div>
     <h1>Menu</h1>
     <fluent-menu>
@@ -15,7 +17,7 @@
 <div>
     <h1>Menu component</h1>
     <FluentMenu>
-        <FluentMenuItem @onclick="() => PerformClick(_menuComponentItems)" role="menuitem">Menu item 1</FluentMenuItem>
+        <FluentMenuItem @onclick="() => PerformClick(_menuComponentItems)">Menu item 1</FluentMenuItem>
     </FluentMenu>
 
     @foreach (var item in _menuComponentItems)

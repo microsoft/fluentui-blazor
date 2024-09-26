@@ -83,10 +83,37 @@ public partial class FluentDialogProvider : IDisposable
             {
                 dialogInstance.Parameters = parameters;
 
+                if (TryGetContent(parameters, out var content) && content != null)
+                {
+                    dialogInstance.Content = content;
+                }
+
                 InvokeAsync(StateHasChanged);
             }
             return reference;
         });
+    }
+
+    // Check if the content object is a IDialogParameters<TContent> and get the Content property.
+    private bool TryGetContent(object obj, out object? content)
+    {
+        content = null;
+
+        // Check if the interface is a generic type and inherits from IDialogParameters<TContent>
+        foreach (var i in obj.GetType().GetInterfaces())
+        {
+            if (i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDialogParameters<>))
+            {
+                var contentProperty = i.GetProperty("Content");
+                if (contentProperty != null)
+                {
+                    content = contentProperty.GetValue(obj);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     internal void DismissInstance(string id, DialogResult result)
