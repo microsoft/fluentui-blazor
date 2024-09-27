@@ -8,8 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
 /// The DebounceTask dispatcher delays the invocation of an action until a predetermined interval has elapsed since the last call.
 /// This ensures that the action is only invoked once after the calls have stopped for the specified duration.
 /// </summary>
-[Obsolete("Use Debounce, which inherits from DebounceTask.")]
-internal class DebounceAction : IDisposable
+public class DebounceAction : IDisposable
 {
     private bool _disposed;
     private readonly System.Timers.Timer _timer = new();
@@ -54,12 +53,26 @@ internal class DebounceAction : IDisposable
     /// <param name="milliseconds"></param>
     /// <param name="action"></param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Required to return the current Task.")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0042:Do not use blocking calls in an async method", Justification = "Special case using CurrentTask")]
+    //[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Required to return the current Task.")]
+    //[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0042:Do not use blocking calls in an async method", Justification = "Special case using CurrentTask")]
     public Task RunAsync(int milliseconds, Func<Task> action)
     {
-        Run(milliseconds, action);
-        return CurrentTask;
+        // Check arguments
+        if (milliseconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(milliseconds), milliseconds, "The milliseconds must be greater than to zero.");
+        }
+
+        ArgumentNullException.ThrowIfNull(action);
+
+        // DebounceTask
+        if (!_disposed)
+        {
+            _taskCompletionSource = _timer.Debounce(action, milliseconds);
+            return _taskCompletionSource.Task;
+        }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>

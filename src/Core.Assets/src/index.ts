@@ -51,7 +51,7 @@ body:has(.prevent-scroll) {
     --highlight-bg: #fff3cd;
 }
 
-
+fluent-number-field.invalid,
 [role='checkbox'].invalid::part(control),
 [role='combobox'].invalid::part(control),
 fluent-combobox.invalid::part(control),
@@ -277,11 +277,21 @@ export function afterStarted(blazor: Blazor, mode: string) {
       }
     }
   });
+
   blazor.registerCustomEventType('splittercollapsed', {
     browserEventName: 'splittercollapsed',
     createEventArgs: event => {
       return {
         collapsed: event.detail.collapsed
+      }
+    }
+  });
+
+  blazor.registerCustomEventType('controlinput', {
+    browserEventName: 'input',
+    createEventArgs: event => {
+      return {
+        value: event.target.control.value
       }
     }
   });
@@ -296,7 +306,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
       return parseFloat(luminance) < 0.5;
     }
   }
-
 
   if (typeof blazor.addEventListener === 'function' && mode === 'web') {
     customElements.define('fluent-page-script', FluentPageScript);
