@@ -19,7 +19,6 @@ public partial class FluentMessageBar : FluentComponentBase, IDisposable
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-messagebar", () => Type == MessageType.MessageBar)
-        .AddClass("fluent-messagebar-animation", () => FadeIn)
         .AddClass("dark", () => GlobalState.Luminance == StandardLuminance.DarkMode)
         .AddClass("fluent-messagebar-notification", () => Type == MessageType.Notification)
         .AddClass("intent-info", () => Intent == MessageIntent.Info)
