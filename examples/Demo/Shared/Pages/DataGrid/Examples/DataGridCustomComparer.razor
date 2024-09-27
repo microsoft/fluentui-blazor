@@ -10,6 +10,7 @@
 
 }
 
+
 <FluentToolbar>
 <FluentRadioGroup Name="rt" @bind-Value="@_resizeType" Label="Resize type">
     <FluentRadio Value="@((DataGridResizeType?)null)">None</FluentRadio>
@@ -19,6 +20,7 @@
 <FluentSpacer Width="25"/>
 <FluentCheckbox @bind-Value="@_showActionsMenu" Label="Use menu for column actions" />
 </FluentToolbar>
+<div style="height: 400px; overflow-x:auto; display:flex;">
 <FluentDataGrid Items="@FilteredItems"
                 ResizableColumns=true
                 ResizeType="@_resizeType"
@@ -41,20 +43,20 @@
     </PropertyColumn>
     @* <TemplateColumn Title="Name" InitialSortDirection=SortDirection.Descending SortBy="@nameSort" IsDefaultSortColumn=true Filtered="!string.IsNullOrWhiteSpace(nameFilter)">
         <ColumnOptions>
-            <div class="search-box">
-                <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." />
-            </div>
+        <div class="search-box">
+        <FluentSearch type="search" Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." />
+        </div>
         </ColumnOptions>
         <ChildContent>
-            @(context.Name)
+        @(context.Name)
         </ChildContent>
-    </TemplateColumn> *@
-    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" />
-    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
-    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
-    <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.End" />
-</FluentDataGrid>
-
+        </TemplateColumn> *@
+        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" />
+        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" />
+        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="true" Align="Align.End" />
+        <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Align="Align.End" />
+    </FluentDataGrid>
+</div>
 
 <FluentPaginator State="@pagination">
     <SummaryTemplate>
