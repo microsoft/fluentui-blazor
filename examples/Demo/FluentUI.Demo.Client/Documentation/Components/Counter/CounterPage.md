@@ -52,3 +52,5 @@ function hello() {
   console.log('Hello World');
 }
 ```
+
+{{ API Type=FluentButton }}
