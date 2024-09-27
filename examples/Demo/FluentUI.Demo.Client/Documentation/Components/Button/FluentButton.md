@@ -51,3 +51,7 @@ Buttons can be square, rounded, or circular.
 ## API FluentButton
 
 {{ API Type=FluentButton }}
+
+## Migration from v4
+
+{{ INCLUDE File=MigrationFluentButton }}
