@@ -27,6 +27,7 @@
                    title="@Title"
                    appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                    @onclick="@OnClickHandlerAsync"
+                   @onclick:stopPropagation="@StopPropagation"
                    @attributes="AdditionalAttributes">
         @if (IconStart != null)
         {
