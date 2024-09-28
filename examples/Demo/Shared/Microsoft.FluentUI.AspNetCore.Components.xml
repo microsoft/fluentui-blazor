@@ -926,6 +926,11 @@
             The text usually displayed in a 'tooltip' popup when the mouse is over the button.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
