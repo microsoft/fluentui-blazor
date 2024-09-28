@@ -56,7 +56,7 @@ public partial class TableOfContents : IAsyncDisposable
     protected NavigationManager NavigationManager { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the heading for the ToC 
+    /// Gets or sets the heading for the ToC
     /// Defaults to 'In this article'
     /// </summary>
     [Parameter]
@@ -89,7 +89,7 @@ public partial class TableOfContents : IAsyncDisposable
                 _expanded = false;
             }
 
-            await BackToTopAsync();
+            //await BackToTopAsync();
             await QueryDomAsync();
 
         }
