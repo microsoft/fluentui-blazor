@@ -36,7 +36,15 @@ else
 }
 
 app.UseHttpsRedirection();
+
+#if NET8_0
 app.UseStaticFiles();
+#endif
+
+#if NET9_0_OR_GREATER
+app.MapStaticAssets();
+#endif
+
 app.UseAntiforgery();
 
 app.MapRazorComponents<FluentUI.Demo.Components.App>()
