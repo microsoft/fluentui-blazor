@@ -141,7 +141,7 @@ public partial class ApiDocumentation
                                     Type = propertyInfo.ToTypeNameString(),
                                     EnumValues = GetEnumValues(propertyInfo),
                                     Default = defaultVaue,
-                                    Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name),
+                                    Description = GetMembersDescription(Component, propertyInfo),
                                     IsParameter = isParameter,
                                     Icon = icon
                                 });
@@ -156,7 +156,7 @@ public partial class ApiDocumentation
                                     MemberType = MemberTypes.Event,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
-                                    Description = CodeComments.GetSummary(Component.Name + "." + propertyInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + propertyInfo.Name)
+                                    Description = GetMembersDescription(Component, propertyInfo)
                                 });
                             }
                         }
@@ -176,7 +176,7 @@ public partial class ApiDocumentation
                                 Name = methodInfo.Name + genericArguments,
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                                 Type = methodInfo.ToTypeNameString(),
-                                Description = CodeComments.GetSummary(Component.Name + "." + methodInfo.Name) ?? CodeComments.GetSummary(Component.BaseType?.Name + "." + methodInfo.Name)
+                                Description = GetMembersDescription(Component, methodInfo)
                             });
                         }
                     }
@@ -192,6 +192,25 @@ public partial class ApiDocumentation
         }
 
         return _allMembers.Where(i => i.MemberType == type);
+    }
+
+    /// <summary>
+    /// Gets member description. If none provided, base member description is returned.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="component"></param>
+    /// <param name="memberInfo"></param>
+    /// <returns>member description</returns>
+    private static string GetMembersDescription<T>(Type component, T memberInfo) where T : MemberInfo
+    {
+        var description = CodeComments.GetSummary(component.Name + "." + memberInfo.Name);
+
+        if (description == null && component.BaseType != null)
+        {
+            description = GetMembersDescription(component.BaseType, memberInfo);
+        }
+
+        return description ?? string.Empty;
     }
 
     private static string[] GetEnumValues(PropertyInfo? propertyInfo)
