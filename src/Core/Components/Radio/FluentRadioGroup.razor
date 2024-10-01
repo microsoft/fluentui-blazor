@@ -12,6 +12,7 @@
                         name="@_context!.GroupName"
                         orientation="@Orientation.ToAttributeValue()"
                         required="@Required"
+                        value="@CurrentValueAsString"
                         @onradiogroupchange="HandleChange"
                         @attributes="AdditionalAttributes">
         @ChildContent
