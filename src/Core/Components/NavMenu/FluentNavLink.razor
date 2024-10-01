@@ -7,7 +7,7 @@
 @if (Owner == null || Owner.Expanded || (HasIcon && (!Owner.CollapsedChildNavigation || SubMenu == null)))
 {
     <div id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" disabled="@Disabled" style="@Style" role="menuitem">
-        @if (!OnClick.HasDelegate && !string.IsNullOrEmpty(Href))
+        @if (!OnClick.HasDelegate && Href is not null)
         {
             <NavLink class="@LinkClassValue"
                      @attributes="@Attributes"
