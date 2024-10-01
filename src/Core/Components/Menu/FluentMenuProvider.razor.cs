@@ -19,6 +19,7 @@ public partial class FluentMenuProvider : FluentComponentBase
 
     /// <summary />
     internal string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("display", "fixed")   // To prevent the menu from displaying a scrollbar in body
         .Build();
 
     /// <summary>

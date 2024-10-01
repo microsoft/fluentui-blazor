@@ -9667,6 +9667,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.ClassValue">
             <summary />
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.StyleValue">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem"/> class.
