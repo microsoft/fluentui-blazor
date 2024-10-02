@@ -58,4 +58,47 @@
         // Assert
         Assert.True(clicked);
     }
+
+    [Fact]
+    public void FluentButton_StopPropagationFalse()
+    {
+        bool clickedondiv = false;
+        bool clicked = false;
+
+        // Arrange
+        // Not adding StopPropagation here explicitly because it is false by default
+        var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
+                            <FluentButton OnClick="@(e => { clicked = true; } )">
+                                My button
+                            </FluentButton>
+                          </div>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clickedondiv);
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_StopPropagationTrue()
+    {
+        bool clickedondiv = false;
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
+                            <FluentButton StopPropagation="true" OnClick="@(e => { clicked = true; } )">
+                                My button
+                            </FluentButton>
+                          </div>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.False(clickedondiv);
+        Assert.True(clicked);
+    }
 }

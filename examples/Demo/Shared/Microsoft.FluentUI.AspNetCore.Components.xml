@@ -926,6 +926,11 @@
             The text usually displayed in a 'tooltip' popup when the mouse is over the button.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -7803,6 +7808,11 @@
             Default is Small.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Open">
+            <summary>
+            Gets or sets the Menu status.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
             <summary>
             Gets or sets whether popover should be forced to top right or top left (RTL).
@@ -8102,7 +8112,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Context">
             <summary>
-            Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>. 
+            Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.ReadOnly">
@@ -8155,7 +8165,7 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.OnInitialized">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.OnParametersSet">
             <inheritdoc />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioContext">
@@ -9683,6 +9693,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.StyleValue">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
