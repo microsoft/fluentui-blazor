@@ -10,7 +10,7 @@
     them to your project in an easy way. Some might even end up in the trashcan.
 </p>
 <p>
-    As these components are not part of the official library, they are not included in the NuGet package. Also, please note that we only 
+    As these components are not part of the official library, they are not included in the NuGet package. Same as with the rest of the library, we only 
     offer support for these specific components through the <a href="https://github.com/microsoft/fluentui-blazor/">GitHub repository</a> on a best effort base.
     <br />
     We hope you will help us test-drive the components, both here in the demo environment but also in your own projects, and give us 
@@ -34,14 +34,13 @@
     <ul>
         <li>MarkdownSection depends on external package <code>Markdig</code>. We do not intend to add components to the library that have external dependencies</li>
         <li>
-            TableOfContents needs to be refreshed if other components (like for example a <code>MarkdownSection</code>) add headings into the DOM. This is possible
-            but requires a fair ammount of steps we can not automate. We thefore choose to make a sample implementation available in the lab. 
+            TableOfContents needs to be refreshed if other components (like for example a <code>MarkdownSection</code>) add headings into the DOM. This is
+            possible but requires a fair ammount of steps we can not automate. We therefore choose to make a sample implementation available in the lab.
             The TableOfContents page explains and shows the steps needed to make this work.
         </li>
     </ul>
 </p>
 
-<DemoSection Component="typeof(IssueTester)" Title="Testbed for issues reported on GH" />
 
 @code {
     [Parameter]
