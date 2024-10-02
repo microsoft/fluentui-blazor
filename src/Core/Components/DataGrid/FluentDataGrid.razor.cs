@@ -757,8 +757,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // No-op; we canceled the operation, so it's fine to suppress this exception.
         }
-
-        Loading = false;
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
     }
 
