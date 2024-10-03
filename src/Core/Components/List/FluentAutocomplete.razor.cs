@@ -302,8 +302,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await OnOptionsSearch.InvokeAsync(args);
         }
 
-        Console.WriteLine($"args.Items: {args.Items?.Count()}");
-
         Items = args.Items?.Take(MaximumOptionsSearch);
 
         SelectableItem = Items != null
