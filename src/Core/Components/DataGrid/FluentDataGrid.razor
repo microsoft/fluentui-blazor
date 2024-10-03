@@ -81,7 +81,6 @@
         var rowIndex = initialRowIndex;
         if (_internalGridContext.Items.Any())
         {
-            Loading = false;
             foreach (var item in _internalGridContext.Items)
             {
                 RenderRow(__builder, rowIndex++, item);
@@ -97,7 +96,6 @@
     {
         var rowClass = RowClass?.Invoke(item) ?? null;
         var rowStyle = RowStyle?.Invoke(item) ?? null;
-        Loading = false;
         <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@_internalGridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
