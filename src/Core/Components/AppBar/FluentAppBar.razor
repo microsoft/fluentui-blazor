@@ -23,7 +23,7 @@
                                  HorizontalAlignment="HorizontalAlignment.Center"
                                  VerticalAlignment="VerticalAlignment.Center"
                                  VerticalGap="0"
-                                 Style="--appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); width: 56px; height: 56px;">
+                                 Style="--appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); width: var(--appbar-item-size, 56px); height: var(--appbar-item-size, 56px);">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" part="icon-rest" />
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" part="icon-active" />
                     </FluentStack>
@@ -52,7 +52,7 @@
                     <FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: calc(var(--design-unit) * 0.5px)">
                         @foreach (var item in _searchResults)
                         {
-                            <FluentGridItem xs="4" Style="width: 100px; height: 85px;">
+                            <FluentGridItem xs="4" Style="width: 100px; height: 85px; display: flex; height: 85px; align-content: center; flex-wrap: wrap; justify-content: center;">
                                 <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" inpopover="true" />
                             </FluentGridItem>
                         }

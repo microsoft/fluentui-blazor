@@ -133,7 +133,10 @@ public partial class FluentAppBar : FluentComponentBase
 
     private async Task InitializeOverflowAsync()
     {
-        await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR);
+        if (_jsModuleOverflow is not null)
+        {
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR);
+        }
     }
 
     private Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);

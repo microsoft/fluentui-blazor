@@ -1,7 +1,7 @@
 ::deep .fluent-appbar-item {
-    width: var(--appbar-item-height, 56px);
+    width: var(--appbar-item-size, 56px);
     --appbar-active-indicator-width: calc(var(--design-unit) * 0.5px);
-    height: var(--appbar-item-height, 56px);
+    height: var(--appbar-item-size, 56px);
 }
 
     ::deep .fluent-appbar-item:hover {
