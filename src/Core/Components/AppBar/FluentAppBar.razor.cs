@@ -136,11 +136,6 @@ public partial class FluentAppBar : FluentComponentBase
         await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR);
     }
 
-    private void TogglePopover()
-    {
-        _showMoreItems = !_showMoreItems;
-    }
-
     private Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
 
     private async Task HandlePopoverKeyDownAsync(FluentKeyCodeEventArgs args)
@@ -171,12 +166,6 @@ public partial class FluentAppBar : FluentComponentBase
         {
             await PopoverVisibilityChanged.InvokeAsync(_showMoreItems);
         }
-
-        //if (_showMoreItems)
-        //{
-        //StateHasChanged();
-        //_appSearch?.FocusAsync();
-        //}
 
         await Task.CompletedTask;
     }
