@@ -1,7 +1,16 @@
-﻿<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 295px; padding: 10px;">
+﻿@{
+    string stylevalue = $"background-color: var(--neutral-layer-3); overflow: auto; resize: {(_orientation ? "vertical; height: 300px; width: 500px;" : "horizontal; width: 500px; height: 300px;")} padding: 10px;";
+}
+<div style="@stylevalue">
     <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
+        <FluentStack Orientation="Orientation.Horizontal">
         <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-        <FluentAppBar Style="height: 100%; background-color: var(--neutral-layer-2);" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+        <FluentSwitch @bind-Value="_orientation" CheckedMessage="Vertical" UncheckedMessage="Horizontal" Label="Orientation" />
+        </FluentStack>
+        @{
+            var wh = _orientation ? "height: 100%;" : "width: 100%;";
+        }
+        <FluentAppBar Orientation="@(_orientation ? Orientation.Vertical : Orientation.Horizontal)" Style="@($"{wh} background-color: var(--neutral-layer-2);")" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
             <FluentAppBarItem Href="/AppBarDefault"
                               Match="NavLinkMatch.All"
@@ -75,7 +84,7 @@
 
 
 @code {
-
+    private bool _orientation = true;
     private bool _showSearch = true;
 
     private static Icon ResourcesIcon(bool active = false) =>

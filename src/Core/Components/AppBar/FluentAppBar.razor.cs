@@ -20,6 +20,7 @@ public partial class FluentAppBar : FluentComponentBase
     private bool _showMoreItems = false;
     private string? _searchTerm = string.Empty;
     private IEnumerable<IAppBarItem> _searchResults = [];
+    private Orientation _orientation = Orientation.Vertical;
 
     // ToDo: Implement focus on popup
     //private FluentSearch? _appSearch;
@@ -38,6 +39,19 @@ public partial class FluentAppBar : FluentComponentBase
     [Parameter]
     public bool PopoverShowSearch { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets the <see cref="AspNetCore.Components.Orientation"/> of the app bar.
+    /// </summary>
+    [Parameter]
+    public Orientation Orientation
+    {
+        get => _orientation;
+        set {
+            _orientation = value;
+            InvokeAsync(InitializeOverflowAsync);
+        }
+
+    }
     /// <summary>
     /// Event to be called when the visibility of the popover changes.
     /// </summary>
@@ -84,7 +98,7 @@ public partial class FluentAppBar : FluentComponentBase
             // Overflow
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, false, OVERFLOW_SELECTOR);
+            await InitializeOverflowAsync();
         }
     }
 
@@ -115,6 +129,11 @@ public partial class FluentAppBar : FluentComponentBase
         }
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task InitializeOverflowAsync()
+    {
+        await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR);
     }
 
     private void TogglePopover()

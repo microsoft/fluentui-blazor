@@ -2,8 +2,8 @@
 @inherits FluentComponentBase
 
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
-    <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation">
-        <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
+    <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()">
+        <FluentStack Orientation="@Orientation" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
             @if (Items is null)
             {
                 @ChildContent
@@ -23,7 +23,7 @@
                                  HorizontalAlignment="HorizontalAlignment.Center"
                                  VerticalAlignment="VerticalAlignment.Center"
                                  VerticalGap="0"
-                                 Style="width: 100%; --appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); height: 56px;">
+                                 Style="--appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); width: 56px; height: 56px;">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" part="icon-rest" />
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" part="icon-active" />
                     </FluentStack>
@@ -53,7 +53,7 @@
                         @foreach (var item in _searchResults)
                         {
                             <FluentGridItem xs="4" Style="width: 100px; height: 85px;">
-                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" Class="popover" />
+                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" inpopover="true" />
                             </FluentGridItem>
                         }
                     </FluentGrid>
