@@ -35,14 +35,6 @@ internal static class DispatcherTimerExtensions
         // If we're not in immediate mode, then we'll execute when the current timer expires.
         timer.Elapsed += Timer_Elapsed;
 
-        // Store/Update function
-        TimerDebounceItem updateValueFactory(System.Timers.Timer k, TimerDebounceItem v)
-        {
-            v.Status.SetCanceled();
-            v.Status = new TaskCompletionSource();
-            return v.UpdateAction(action);
-        }
-
         var item = _debounceInstances.AddOrUpdate(
                         key: timer,
                         addValue: new TimerDebounceItem()
@@ -50,7 +42,12 @@ internal static class DispatcherTimerExtensions
                             Status = new TaskCompletionSource(),
                             Action = action,
                         },
-                        updateValueFactory: updateValueFactory);
+                        updateValueFactory: (k, v) =>
+                        {
+                            v.Status.SetCanceled();
+                            v.Status = new TaskCompletionSource();
+                            return v.UpdateAction(action);
+                        });
 
         // Start the timer to keep track of the last call here.
         timer.Start();
@@ -73,8 +70,27 @@ internal static class DispatcherTimerExtensions
 
             if (_debounceInstances.TryRemove(timer, out var item))
             {
-                _ = (item?.Action.Invoke());
-                item?.Status.SetResult();
+                if (item == null)
+                {
+                    return;
+                }
+
+                var task = item.Action.Invoke();
+                task.ContinueWith(t =>
+                {
+                    if (t.IsFaulted)
+                    {
+                        item.Status.SetException(t.Exception);
+                    }
+                    else if (t.IsCanceled)
+                    {
+                        item.Status.SetCanceled();
+                    }
+                    else
+                    {
+                        item.Status.SetResult();
+                    }
+                });
             }
         }
     }
