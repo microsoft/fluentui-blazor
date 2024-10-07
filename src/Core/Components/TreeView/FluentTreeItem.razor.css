@@ -1,3 +1,15 @@
-﻿.treeitem-text {
+.treeitem-text {
     pointer-events: none;
+}
+
+[dir='rtl'] fluent-tree-item[selected]::after {
+    right: calc(var(--focus-stroke-width)* 1px);
+}
+
+[dir='rtl'] fluent-tree-item.nested::part(expand-collapse-button) {
+    right: var(--expand-collapse-button-nested-width, calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* -1px));
+}
+
+[dir='rtl'] fluent-tree-item.nested:not(.expanded)::part(expand-collapse-button) {
+    transform: rotate(180deg);
 }
