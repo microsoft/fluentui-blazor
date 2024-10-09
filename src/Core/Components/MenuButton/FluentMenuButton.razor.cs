@@ -92,10 +92,16 @@ public partial class FluentMenuButton : FluentComponentBase
 
     private async Task OnMenuChangeAsync(MenuChangeEventArgs args)
     {
+        if (!OnMenuChanged.HasDelegate)
+        {
+            return;
+        }
+
         if (args is not null && args.Id is not null)
         {
             await OnMenuChanged.InvokeAsync(args);
         }
+
         _visible = false;
     }
 
