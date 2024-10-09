@@ -1,94 +1,94 @@
 ﻿<style>
-    .smallicons {
-    --appbar-item-size: 40px;
+    .fluent-appbar.smallicons {
+    --appbar-item-size: 58;
     }
 </style>
 @{
-    string stylevalue = $"background-color: var(--neutral-layer-3); overflow: auto; resize: {(_orientation ? "vertical;" : "horizontal;")}  height: 350px; width: 500px; padding: 10px;";
+    string stylevalue = $"background-color: var(--neutral-layer-3); overflow: auto; resize: {(_vertical ? "vertical; width: 78px; height: 300px;" : "horizontal; width: 380px; height: 58px;")}  padding: 10px;";
 }
-<div class="smallicons" style="@stylevalue">
-    <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
-        <FluentStack Orientation="Orientation.Horizontal">
-        <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-        <FluentSwitch @bind-Value="_orientation" CheckedMessage="Vertical" UncheckedMessage="Horizontal" Label="Orientation" />
-        </FluentStack>
+<FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
+    <FluentStack Orientation="Orientation.Horizontal">
+    <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
+    <FluentSwitch @bind-Value="_vertical" CheckedMessage="Vertical" UncheckedMessage="Horizontal" Label="Orientation" />
+    </FluentStack>
+    <div class="smallicons" style="@stylevalue">
         @{
-            var wh = _orientation ? "height: 100%;" : "width: 100%;";
+            var wh = _vertical ? "height: 100%; width: 58px;" : "width: 100%;";
         }
-        <FluentAppBar Orientation="@(_orientation ? Orientation.Vertical : Orientation.Horizontal)" Style="@($"{wh} background-color: var(--neutral-layer-2);")" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+        <FluentAppBar Orientation="@(_vertical ? Orientation.Vertical : Orientation.Horizontal)" Class="smallicons" Style="@($"{wh} background-color: var(--neutral-layer-2);")" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
             <FluentAppBarItem Href="/AppBarDefault"
-                              Match="NavLinkMatch.All"
-                              IconRest="ResourcesIcon()"
-                              IconActive="ResourcesIcon(active: true)"
-                              Text="Resources" />
+                                Match="NavLinkMatch.All"
+                                IconRest="ResourcesIcon()"
+                                IconActive="ResourcesIcon(active: true)"
+                                Text="Resources" />
             <FluentAppBarItem Href="/AppBar"
-                              IconRest="ConsoleLogsIcon()"
-                              IconActive="ConsoleLogsIcon(active: true)"
-                              Text="Console Logs" />
+                                IconRest="ConsoleLogsIcon()"
+                                IconActive="ConsoleLogsIcon(active: true)"
+                                Text="Console Logs" />
 
             <FluentAppBarItem Href="/StructuredLogs"
-                              IconRest="StructuredLogsIcon()"
-                              IconActive="StructuredLogsIcon(active: true)"
-                              Text="Logs"
-                              Tooltip="Structured Logs"/>
+                                IconRest="StructuredLogsIcon()"
+                                IconActive="StructuredLogsIcon(active: true)"
+                                Text="Logs"
+                                Tooltip="Structured Logs"/>
             <FluentAppBarItem Href="/Traces"
-                              IconRest="TracesIcon()"
-                              IconActive="TracesIcon(active: true)"
-                              Text="Traces" />
+                                IconRest="TracesIcon()"
+                                IconActive="TracesIcon(active: true)"
+                                Text="Traces" />
             <FluentAppBarItem Href="/Metrics"
-                              IconRest="MetricsIcon()"
-                              IconActive="MetricsIcon(active: true)"
-                              Text="Metrics" />
+                                IconRest="MetricsIcon()"
+                                IconActive="MetricsIcon(active: true)"
+                                Text="Metrics" />
             <FluentAppBarItem Href="/AppBarPage"
-                              IconRest="ResourcesIcon()"
-                              IconActive="ResourcesIcon(active: true)"
-                              Text="Resources 2" />
+                                IconRest="ResourcesIcon()"
+                                IconActive="ResourcesIcon(active: true)"
+                                Text="Resources 2" />
             <FluentAppBarItem Href="/AppBar"
-                              IconRest="ConsoleLogsIcon()"
-                              IconActive="ConsoleLogsIcon(active: true)"
-                              Text="Console Logs 2" />
+                                IconRest="ConsoleLogsIcon()"
+                                IconActive="ConsoleLogsIcon(active: true)"
+                                Text="Console Logs 2" />
 
             <FluentAppBarItem Href="/StructuredLogs"
-                              IconRest="StructuredLogsIcon()"
-                              IconActive="StructuredLogsIcon(active: true)"
-                              Text="Structured Logs 2" />
+                                IconRest="StructuredLogsIcon()"
+                                IconActive="StructuredLogsIcon(active: true)"
+                                Text="Structured Logs 2" />
             <FluentAppBarItem Href="/Traces"
-                              IconRest="TracesIcon()"
-                              IconActive="TracesIcon(active: true)"
-                              Text="Traces 2" />
+                                IconRest="TracesIcon()"
+                                IconActive="TracesIcon(active: true)"
+                                Text="Traces 2" />
             <FluentAppBarItem Href="/Metrics"
-                              IconRest="MetricsIcon()"
-                              IconActive="MetricsIcon(active: true)"
-                              Text="Metrics 2" />
+                                IconRest="MetricsIcon()"
+                                IconActive="MetricsIcon(active: true)"
+                                Text="Metrics 2" />
             <FluentAppBarItem Href="/AppBarPage"
-                              IconRest="ResourcesIcon()"
-                              IconActive="ResourcesIcon(active: true)"
-                              Text="Resources 3" />
+                                IconRest="ResourcesIcon()"
+                                IconActive="ResourcesIcon(active: true)"
+                                Text="Resources 3" />
             <FluentAppBarItem Href="/AppBar"
-                              IconRest="ConsoleLogsIcon()"
-                              IconActive="ConsoleLogsIcon(active: true)"
-                              Text="Console Logs 3" />
+                                IconRest="ConsoleLogsIcon()"
+                                IconActive="ConsoleLogsIcon(active: true)"
+                                Text="Console Logs 3" />
 
             <FluentAppBarItem Href="/StructuredLogs"
-                              IconRest="StructuredLogsIcon()"
-                              IconActive="StructuredLogsIcon(active: true)"
-                              Text="Structured Logs 3" />
+                                IconRest="StructuredLogsIcon()"
+                                IconActive="StructuredLogsIcon(active: true)"
+                                Text="Structured Logs 3" />
             <FluentAppBarItem Href="/Traces"
-                              IconRest="TracesIcon()"
-                              IconActive="TracesIcon(active: true)"
-                              Text="Traces 3" />
+                                IconRest="TracesIcon()"
+                                IconActive="TracesIcon(active: true)"
+                                Text="Traces 3" />
             <FluentAppBarItem Href="/Metrics"
-                              IconRest="MetricsIcon()"
-                              IconActive="MetricsIcon(active: true)"
-                              Text="Metrics 3" />
+                                IconRest="MetricsIcon()"
+                                IconActive="MetricsIcon(active: true)"
+                                Text="Metrics 3" />
         </FluentAppBar>
-    </FluentStack>
-</div>
+    </div>
+</FluentStack>
 
 
 @code {
-    private bool _orientation = true;
+    private bool _vertical = true;
     private bool _showSearch = true;
 
     private static Icon ResourcesIcon(bool active = false) =>

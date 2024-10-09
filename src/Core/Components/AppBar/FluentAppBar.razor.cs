@@ -76,12 +76,16 @@ public partial class FluentAppBar : FluentComponentBase
     /// </summary>
     public IEnumerable<IAppBarItem> AppsOverflow => _internalAppBarContext.Apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
 
-    internal string? ClassValue => new CssBuilder("nav-menu-container")
+    internal string? ClassValue => new CssBuilder("fluent-appbar")
         .AddClass(Class)
         .Build();
 
     internal string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("display: flex")
+        .AddStyle("display", "flex")
+        .AddStyle("flex-direction", "row", Orientation == Orientation.Horizontal)
+        .AddStyle("flex-direction", "column", Orientation == Orientation.Vertical)
+        .AddStyle("height", "100%", Orientation == Orientation.Vertical)
+        .AddStyle("gap", "calc(var(--design-unit) * 0.5px)")
         .Build();
 
     protected override void OnInitialized()
@@ -135,7 +139,8 @@ public partial class FluentAppBar : FluentComponentBase
     {
         if (_jsModuleOverflow is not null)
         {
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper,Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
         }
     }
 

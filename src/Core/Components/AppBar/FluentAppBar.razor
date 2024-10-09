@@ -3,7 +3,7 @@
 
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
     <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()">
-        <FluentStack Orientation="@Orientation" HorizontalAlignment="HorizontalAlignment.Center" VerticalGap="0">
+
             @if (Items is null)
             {
                 @ChildContent
@@ -18,18 +18,18 @@
             @if (AppsOverflow.Any())
             {
                 <FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-                <div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
+            <div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: calc(var(--appbar-item-size)* 1px);" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
                     <FluentStack Orientation="Orientation.Vertical"
                                  HorizontalAlignment="HorizontalAlignment.Center"
                                  VerticalAlignment="VerticalAlignment.Center"
                                  VerticalGap="0"
-                                 Style="--appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); width: var(--appbar-item-size, 56px); height: var(--appbar-item-size, 56px);">
+                                 Style="--appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); height: 100%;">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" part="icon-rest" />
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" part="icon-active" />
                     </FluentStack>
                 </div>
             }
-        </FluentStack>
+
         @if (AppsOverflow.Any())
         {
             @*ToDo: Make styling configurable *@
