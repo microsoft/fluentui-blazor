@@ -71,6 +71,7 @@ public partial class FluentMenuButton : FluentComponentBase
 
     /// <summary>
     /// The callback to invoke when a menu item is chosen.
+    /// Using this event prevents the execution of any OnClick event on an included FluentMenuItem.
     /// </summary>
     [Parameter]
     public EventCallback<MenuChangeEventArgs> OnMenuChanged { get; set; }
