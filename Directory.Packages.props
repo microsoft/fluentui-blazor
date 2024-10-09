@@ -48,6 +48,8 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Json" Version="8.0.4" />
+
+    <PackageVersion Include="Microsoft.NET.ILLink.Task" Version="8.0.100-1.23067.1"/>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
     <!-- Build dependencies -->
@@ -64,5 +66,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion9)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
+
+    <PackageVersion Include="Microsoft.NET.ILLink.Task" Version="9.0.0-rc.1.24431.7"/>
   </ItemGroup>
 </Project>
