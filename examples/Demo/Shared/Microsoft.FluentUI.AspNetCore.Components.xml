@@ -926,6 +926,11 @@
             The text usually displayed in a 'tooltip' popup when the mouse is over the button.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -1199,7 +1204,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.TooltipText">
             <summary>
-            Gets or sets the value to be used as the tooltip and aria-label in this column's cells
+            Gets or sets the function that defines the value to be used as the tooltip and aria-label in this column's cells
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderTooltip">
+            <summary>
+            Gets or sets the tooltip text for the column header.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate">
@@ -6121,6 +6131,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
+            Using this event prevents the execution of any OnClick event on an included FluentMenuItem.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">
@@ -6465,6 +6476,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.AllowDismiss">
             <summary>
             Gets or sets the ability to dismiss the notification.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.FadeIn">
+            <summary>
+            Gets or sets the fade in animation for the MessageBar.
             Default is true.
             </summary>
         </member>
@@ -7769,6 +7786,11 @@
             Default is Small.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Open">
+            <summary>
+            Gets or sets the Menu status.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
             <summary>
             Gets or sets whether popover should be forced to top right or top left (RTL).
@@ -8068,7 +8090,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Context">
             <summary>
-            Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>. 
+            Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.ReadOnly">
@@ -8121,7 +8143,7 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.OnInitialized">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.OnParametersSet">
             <inheritdoc />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioContext">
@@ -9649,6 +9671,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.StyleValue">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
@@ -13938,6 +13963,12 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Light">
             <summary>
             Light variant of FluentUI System Icons
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Color">
+            <summary>
+            Color variant of FluentUI System Icons
+            > Note: FOR TESTING PURPOSES ONLY. Not yet fully supported.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">

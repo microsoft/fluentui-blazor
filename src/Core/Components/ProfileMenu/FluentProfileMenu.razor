@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue" top-corner="@TopCorner"
-     @onclick="@(e => PopoverVisible = !PopoverVisible)">
+     @onclick="@(e => Open = !Open)">
     @StartTemplate
     <FluentPersona Id="@PersonaId"
                    Image="@Image"
@@ -19,7 +19,7 @@
                Class="@PopoverClass"
                Style="@PopoverStyle"
                HorizontalPosition="@HorizontalPosition.Start"
-               @bind-Open="@PopoverVisible"
+               @bind-Open="@Open"
                @attributes="@AdditionalAttributes">
     <Header>
         @if (HeaderTemplate is null && (!string.IsNullOrEmpty(HeaderLabel) || !string.IsNullOrEmpty(HeaderButton)))

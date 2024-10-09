@@ -20,7 +20,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("width", Width ?? $"{_icon.Width}px", Width != string.Empty)
-        .AddStyle("fill", GetIconColor())
+        .AddStyle("fill", GetIconColor(), () => _icon.Variant != IconVariant.Color)
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !_icon.ContainsSVG)
         .Build();
@@ -110,10 +110,7 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
-        if (_icon == null)
-        {
-            _icon = new Icon();
-        }
+        _icon ??= new Icon();
 
         if (!string.IsNullOrEmpty(CustomColor) && Color != AspNetCore.Components.Color.Custom)
         {

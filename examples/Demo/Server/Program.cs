@@ -30,7 +30,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+#if NET8_0
 app.UseStaticFiles();
+#else
+app.MapStaticAssets();
+#endif
 
 app.UseRouting();
 

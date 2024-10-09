@@ -152,6 +152,12 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]

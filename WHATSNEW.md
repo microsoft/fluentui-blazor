@@ -1,3 +1,137 @@
+## V4.10.2
+
+### General
+- \[General\] Update to latest .NET 8 and .NET 9 RC2 SDK.
+- \[Debounce\] Fix the Debounce class with async methods ([#2759](https://github.com/microsoft/fluentui-blazor/pull/2759))
+
+### Components
+- \[Button\] Add StopPropagation + UnitTests ([#2732](https://github.com/microsoft/fluentui-blazor/pull/2732))
+- \[DataGrid\] Add `HeaderTootip` to columns to allow for custom header tooltip text ([#2775](https://github.com/microsoft/fluentui-blazor/pull/2775))
+- \[DataGrid\] Changes related to loading behavior ([#2739](https://github.com/microsoft/fluentui-blazor/pull/2739))
+- \[DataGrid\] Fix disposed object access error in EntityFrameworkAdapter [#2769] ([#2781](https://github.com/microsoft/fluentui-blazor/pull/2781))
+- \[DataGrid\] Support for multiple IAsyncQueryExecutor registrations ([#2730](https://github.com/microsoft/fluentui-blazor/pull/2730))
+- \[FluentNavLink\] An issue where empty strings were not allowed in Href ([#2722](https://github.com/microsoft/fluentui-blazor/pull/2722))
+- \[FluentRadioGroup\] Fix binding error ([#2742](https://github.com/microsoft/fluentui-blazor/pull/2742))
+- \[Menu\] Add z-index to MenuProvider ([#2772](https://github.com/microsoft/fluentui-blazor/pull/2772))
+- \[MenuButton\] Fix the MenuItem OnClick used with MenuButton ([#2784](https://github.com/microsoft/fluentui-blazor/pull/2784))
+- \[MessageBar\] Update way animation is applied to the MessageBar ([#2723](https://github.com/microsoft/fluentui-blazor/pull/2723))
+- \[NavMenu\] Make submenu in collapsed state work again ([#2771](https://github.com/microsoft/fluentui-blazor/pull/2771))
+- \[Overlay\] Fix the detection of ExcludedElement for WASM ([#2755](https://github.com/microsoft/fluentui-blazor/pull/2755))
+- \[ProfileMenu\] Add `Open` attribute ([#2741](https://github.com/microsoft/fluentui-blazor/pull/2741))
+- \[Providers\] To prevent the menu and tooltip from displaying a scrollbar in body ([#2744](https://github.com/microsoft/fluentui-blazor/pull/2744))
+- \[Tooltip\] Add role so screen reader can announce tooltip text ([#2724](https://github.com/microsoft/fluentui-blazor/pull/2724))
+- \[TreeView\] Improve RTL support ([#2770](https://github.com/microsoft/fluentui-blazor/pull/2770))
+- \[TreeView\] prevent runtime errors in change handeling ([#2776](https://github.com/microsoft/fluentui-blazor/pull/2776))
+
+### Demo site and documentation
+- \[Docs\] Components inheriting ListComponentBase missing member descriptions  ([#2735](https://github.com/microsoft/fluentui-blazor/pull/2735))
+- \[Docs\] Fix nullable reference types not always showing in API documentation ([#2758](https://github.com/microsoft/fluentui-blazor/pull/2758))
+- \[Docs\] Fixes missing method descriptions for APIs ([#2764](https://github.com/microsoft/fluentui-blazor/pull/2764))
+- \[Docs\] Removes extra period from TemplatesPage.razor ([#2777](https://github.com/microsoft/fluentui-blazor/pull/2777))
+- \[Docs\] Removes unnecessary output to console for Grid page ([#2767](https://github.com/microsoft/fluentui-blazor/pull/2767))
+
+
+### Icons
+- Update to Fluent UI System Icons 1.1.260 (changes since 1.1.258). New **color** icons have been added!
+    
+    **What's new (Name / Size(s) / Variant(s))**
+    - Arrow Circle Up Left / 16 / Filled & Regular
+    - Arrow Circle Up Right / 16 / Filled & Regular
+    - Building Checkmark / 16, 20 / Filled & Regular
+    - Clock Alarm / 48 / Filled & Regular
+    - Clothes Hanger / 12, 16, 20, 24 / Filled & Regular
+    - Comment Quote / 16, 20, 24, 28 / Filled & Regular
+    - Comment Text / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Glance Horizontal / 28, 48 / Filled & Regular
+    - Glance / 16, 28, 32, 48 / Filled & Regular
+    - Megaphone / 12 / Filled & Regular
+    - Mic Link / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Pen Sync / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - People Link / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - People Queue / 28, 32, 48 / Filled & Regular
+    - Person Head Hint / 16, 20, 24 / Filled & Regular
+    - Person Sound Spatial / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Sound Wave Circle Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
+    - Sound Wave Circle / 16, 28, 32, 48 / Filled & Regular
+
+    **What's updated (Name / Size(s) / Variant(s))**
+
+    - Comment / 12 / Filled & Regular
+    - TV USB / 16, 48 / Filled & Regular
+
+    **New style — Color!** 
+
+    - Add Circle / 16, 20, 24, 28, 32 / Color
+    - Alert / 16, 20, 24, 28, 32, 48 / Color
+    - Approvals App / 16, 20, 24, 28, 32 / Color
+    - Apps / 16, 20, 24, 28, 32, 48 / Color
+    - Arrow Trending Lines / 20, 24 / Color
+    - Beach / 16, 20, 24, 28, 32, 48 / Color
+    - Building Multiple / 20, 24 / Color
+    - Building People / 16, 20, 24 / Color
+    - Building Store / 16, 20, 24 / Color
+    - Building / 16, 20, 24, 32, 48 / Color
+    - Calendar Cancel / 16, 20, 24 / Color
+    - Calendar Checkmark / 16, 20, 24 / Color
+    - Calendar Clock / 16, 20, 24 / Color
+    - Calendar People / 20 / Color
+    - Calendar / 16, 20, 24, 28, 32, 48 / Color
+    - Camera / 16, 20, 24 / Color
+    - Chat Bubbles Question / 16, 20, 24 / Color
+    - Chat More / 16, 20, 24 / Color
+    - Chat Multiple / 16, 20, 24 / Color
+    - Checkbox Person / 16, 20, 24 / Color
+    - Checkbox / 16, 20, 24 / Color
+    - Checkmark Circle / 16, 20, 24, 32, 48 / Color
+    - Clipboard Text Edit / 20, 24, 32 / Color
+    - Clipboard / 16, 20, 24, 28, 32, 48 / Color
+    - Clock Alarm / 16, 20, 24, 32, 48 / Color
+    - Cloud Dismiss / 16, 20, 24, 28, 32, 48 / Color
+    - Cloud / 16, 20, 24, 28, 32, 48 / Color
+    - Code Block / 16, 20, 24, 28, 32, 48 / Color
+    - Coin Multiple / 16, 20 / Color
+    - Data Bar Vertical Ascending / 16, 20, 24 / Color
+    - Dismiss Circle / 16, 20, 24, 28, 32, 48 / Color
+    - Document Add / 16, 20, 24, 28, 48 / Color
+    - Document Folder / 16, 20, 24 / Color
+    - Document Lock / 16, 20, 24, 28, 48 / Color
+    - Document / 16, 20, 24, 28, 32, 48 / Color
+    - Edit / 16, 20, 24, 32 / Color
+    - Error Circle / 16, 20, 24, 48 / Color
+    - Food / 16, 20, 24, 28, 32, 48 / Color
+    - Game Chat / 20 / Color
+    - Globe Shield / 20, 24, 48 / Color
+    - Headphones / 20, 24, 28, 32, 48 / Color
+    - Headset / 16, 20, 24, 28, 32, 48 / Color
+    - History / 16, 20, 24, 28, 32, 48 / Color
+    - Home / 16, 20, 24, 28, 32, 48 / Color
+    - Library / 16, 20, 24, 28, 32 / Color
+    - Mail Multiple / 16, 20, 24, 28, 32 / Color
+    - Mail / 16, 20, 24, 28, 32, 48 / Color
+    - Mic / 16, 20, 24, 28, 32, 48 / Color
+    - Org / 16, 20, 24, 28, 32, 48 / Color
+    - People Home / 16, 20, 24, 28, 32, 48 / Color
+    - People Team / 16, 20, 24, 28, 32, 48 / Color
+    - People / 16, 20, 24, 28, 32, 48 / Color
+    - Person Available / 16, 20, 24 / Color
+    - Person / 16, 20, 24, 28, 32, 48 / Color
+    - Pin / 16, 20, 24, 28, 32, 48 / Color
+    - Poll / 16, 20, 24, 32 / Color
+    - Question Circle / 16, 20, 24, 28, 32, 48 / Color
+    - Receipt / 16, 20, 24, 28, 32 / Color
+    - Reward / 16, 20, 24 / Color
+    - Scan Person / 16, 20, 24, 28, 48 / Color
+    - Scan Type / 20, 24 / Color
+    - Search Visual / 16, 20, 24 / Color
+    - Shield Checkmark / 16, 20, 24, 28, 48 / Color
+    - Shield / 16, 20, 24, 28, 32, 48 / Color
+    - Shifts / 16, 20, 24, 28, 32 / Color
+    - Text Edit Style / 16, 20, 24 / Color
+    - Vault / 16, 20, 24 / Color
+    - Video / 16, 20, 24, 28, 32, 48 / Color
+    - Warning / 16, 20, 24, 28, 32, 48 / Color
+    - Wrench / 16, 20, 24 / Color
+
 ## v4.10.1
 
 ### General
