@@ -25,9 +25,9 @@ internal static class AsyncQueryExecutorSupplier
     {
         if (queryable is not null)
         {
-            var executor = services.GetService<IAsyncQueryExecutor>();
+            var executors = services.GetServices<IAsyncQueryExecutor>();
 
-            if (executor is null)
+            if (executors is null)
             {
                 // It's useful to detect if the developer is unaware that they should be using the EF adapter, otherwise
                 // they will likely never notice and simply deploy an inefficient app that blocks threads on each query.
@@ -37,9 +37,15 @@ internal static class AsyncQueryExecutorSupplier
                     throw new InvalidOperationException($"The supplied {nameof(IQueryable)} is provided by Entity Framework. To query it efficiently, see https://github.com/microsoft/fluentui-blazor#use-the-datagrid-component-with-ef-core for the needed steps.");
                 }
             }
-            else if (executor.IsSupported(queryable))
+            else
             {
-                return executor;
+                foreach (var executor in executors)
+                {
+                    if (executor.IsSupported(queryable))
+                    {
+                        return executor;
+                    }
+                }
             }
         }
 
