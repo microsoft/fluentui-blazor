@@ -55,10 +55,16 @@ public abstract partial class ColumnBase<TGridItem>
     public bool Tooltip { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the value to be used as the tooltip and aria-label in this column's cells
+    /// Gets or sets the function that defines the value to be used as the tooltip and aria-label in this column's cells
     /// </summary>
     [Parameter]
     public Func<TGridItem, string?>? TooltipText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip text for the column header.
+    /// </summary>
+    [Parameter]
+    public string? HeaderTooltip { get; set; }
 
     /// <summary>
     /// Gets or sets an optional template for this column's header cell.

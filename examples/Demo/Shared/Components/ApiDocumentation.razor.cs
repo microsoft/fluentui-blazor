@@ -141,7 +141,7 @@ public partial class ApiDocumentation
                                     Type = propertyInfo.ToTypeNameString(),
                                     EnumValues = GetEnumValues(propertyInfo),
                                     Default = defaultVaue,
-                                    Description = GetMembersDescription(Component, propertyInfo),
+                                    Description = GetDescription(Component, propertyInfo),
                                     IsParameter = isParameter,
                                     Icon = icon
                                 });
@@ -156,7 +156,7 @@ public partial class ApiDocumentation
                                     MemberType = MemberTypes.Event,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
-                                    Description = GetMembersDescription(Component, propertyInfo)
+                                    Description = GetDescription(Component, propertyInfo)
                                 });
                             }
                         }
@@ -176,7 +176,7 @@ public partial class ApiDocumentation
                                 Name = methodInfo.Name + genericArguments,
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                                 Type = methodInfo.ToTypeNameString(),
-                                Description = GetMembersDescription(Component, methodInfo)
+                                Description = GetDescription(Component, methodInfo)
                             });
                         }
                     }
@@ -195,19 +195,52 @@ public partial class ApiDocumentation
     }
 
     /// <summary>
-    /// Gets member description. If none provided, base member description is returned.
+    /// Gets member description for generic MemberInfo.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="component"></param>
     /// <param name="memberInfo"></param>
     /// <returns>member description</returns>
-    private static string GetMembersDescription<T>(Type component, T memberInfo) where T : MemberInfo
+    private static string GetDescription<T>(Type component, T memberInfo) where T : MemberInfo
     {
-        var description = CodeComments.GetSummary(component.Name + "." + memberInfo.Name);
+        return DescriptionFromCodeComments(component, memberInfo.Name);
+    }
+
+    /// <summary>
+    /// Gets description
+    /// </summary>
+    /// <param name="component"></param>
+    /// <param name="methodInfo"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// see the following about name mangling when dealing with generics
+    /// https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings
+    /// </remarks>
+    private static string GetDescription(Type component, MethodInfo methodInfo)
+    {
+        var genericArgumentCount = methodInfo.GetGenericArguments().Length;
+        var mangledName = methodInfo.Name + (genericArgumentCount == 0 ? "" : $"``{genericArgumentCount}");
+
+        var description = DescriptionFromCodeComments(component, mangledName);
+
+        return description;
+    }
+
+    /// <summary>
+    /// Gets member description from source generated class of component
+    /// descriptions. If none found, component base member description
+    /// is returned.
+    /// </summary>
+    /// <param name="component"></param>
+    /// <param name="name">name of property, method, or event</param>
+    /// <returns></returns>
+    private static string DescriptionFromCodeComments(Type component, string name)
+    {
+        var description = CodeComments.GetSummary(component.Name + "." + name);
 
         if (description == null && component.BaseType != null)
         {
-            description = GetMembersDescription(component.BaseType, memberInfo);
+            description = DescriptionFromCodeComments(component.BaseType, name);
         }
 
         return description ?? string.Empty;

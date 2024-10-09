@@ -15,7 +15,7 @@
         }
         else if (Grid.HeaderCellAsButtonWithMenu)
         {
-            string? tooltip = Tooltip ? Title : null;
+            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
             <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
 
@@ -67,7 +67,7 @@
         }
         else
         {
-            string? tooltip = Tooltip ? Title : null;
+            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
             @if (Align == Align.Start || Align == Align.Center)
             {

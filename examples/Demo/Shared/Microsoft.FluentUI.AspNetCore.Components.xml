@@ -1204,7 +1204,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.TooltipText">
             <summary>
-            Gets or sets the value to be used as the tooltip and aria-label in this column's cells
+            Gets or sets the function that defines the value to be used as the tooltip and aria-label in this column's cells
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderTooltip">
+            <summary>
+            Gets or sets the tooltip text for the column header.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate">
@@ -6154,6 +6159,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
+            Using this event prevents the execution of any OnClick event on an included FluentMenuItem.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">

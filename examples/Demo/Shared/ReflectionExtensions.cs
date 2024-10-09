@@ -181,9 +181,12 @@ public static class ReflectionExtensions
     public static string ToTypeNameString(this MethodInfo methodInfo, Func<Type, Queue<string>, string> typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
+        bool isNullableType = !methodInfo.ReturnType.IsValueType
+                && (new NullabilityInfoContext().Create(methodInfo.ReturnParameter).ReadState is NullabilityState.Nullable);
+
         return methodInfo.ReturnType.ToNameStringWithValueTupleNames(
             methodInfo.ReturnParameter?.GetCustomAttribute<TupleElementNamesAttribute>()?.TransformNames, typeNameConverter,
-            invokeTypeNameConverterForGenericType);
+            invokeTypeNameConverterForGenericType) + (isNullableType ? "?" : "");
     }
 
     /// <summary>
@@ -206,9 +209,12 @@ public static class ReflectionExtensions
     public static string ToTypeNameString(this PropertyInfo propertyInfo, Func<Type, Queue<string>, string> typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
+        bool isNullableType = !propertyInfo.PropertyType.IsValueType
+                && (new NullabilityInfoContext().Create(propertyInfo).WriteState is NullabilityState.Nullable);
+
         return propertyInfo.PropertyType.ToNameStringWithValueTupleNames(
             propertyInfo.GetCustomAttribute<TupleElementNamesAttribute>()?.TransformNames, typeNameConverter,
-            invokeTypeNameConverterForGenericType);
+            invokeTypeNameConverterForGenericType) + (isNullableType ? "?" : "");
     }
 
     /// <summary>
