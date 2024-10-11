@@ -35,6 +35,11 @@ public class MenuService : IMenuService, IDisposable
     }
 
     /// <summary>
+    /// <see cref="IMenuService.ProviderId" />
+    /// </summary>
+    public string? ProviderId { get; set; }
+
+    /// <summary>
     /// <see cref="IMenuService.Add(FluentMenu)" />
     /// </summary>
     public void Add(FluentMenu menu)
