@@ -77,18 +77,8 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
         if (firstRender)
         {
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            await UpdateSliderLabelAsync();
-        }
-    }
-
-    private async Task UpdateSliderLabelAsync()
-    {
-
-        if (_jsModule is not null)
-        {
             await _jsModule.InvokeVoidAsync("updateSliderLabel", Id);
         }
-
     }
 
     public async ValueTask DisposeAsync()
