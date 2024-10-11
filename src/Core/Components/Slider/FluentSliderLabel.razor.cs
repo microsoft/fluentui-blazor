@@ -38,10 +38,16 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
     public bool? HideMark { get; set; }
 
     /// <summary>
-    /// Gets or sets disabled state of the label. This is generally controlled by the parent.
+    /// Gets the disabled state of the label. This is controlled by the owning <see cref="FluentSlider{TValue}"/>.
     /// </summary>
     [Parameter]
-    public bool? Disabled { get; set; }
+    public bool? Disabled {
+        get => Owner.Disabled;
+        set { }
+    }
+
+    [CascadingParameter]
+    internal FluentSlider<TValue> Owner { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -71,8 +77,18 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
         if (firstRender)
         {
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            await UpdateSliderLabelAsync();
+        }
+    }
+
+    private async Task UpdateSliderLabelAsync()
+    {
+
+        if (_jsModule is not null)
+        {
             await _jsModule.InvokeVoidAsync("updateSliderLabel", Id);
         }
+
     }
 
     public async ValueTask DisposeAsync()

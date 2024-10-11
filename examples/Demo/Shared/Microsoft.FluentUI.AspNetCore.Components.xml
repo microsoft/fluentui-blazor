@@ -8427,7 +8427,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Disabled">
             <summary>
-            Gets or sets disabled state of the label. This is generally controlled by the parent.
+            Gets the disabled state of the label. This is controlled by the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.ChildContent">
