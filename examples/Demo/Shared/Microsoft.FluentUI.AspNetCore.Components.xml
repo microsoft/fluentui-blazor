@@ -6319,6 +6319,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.#ctor">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.ClassValue">
             <summary />
         </member>
@@ -6342,6 +6345,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.OnMenuUpdated">
             <summary>
             Action to be called when the menu is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.ProviderId">
+            <summary>
+            Gets or sets the FluentMenuProvider ID.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus">
@@ -6381,6 +6389,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.Menus">
             <summary>
             <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.ProviderId">
+            <summary>
+            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.ProviderId" />
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Add(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
