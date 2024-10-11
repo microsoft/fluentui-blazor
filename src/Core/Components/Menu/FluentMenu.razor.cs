@@ -183,6 +183,11 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
         _menuService = ServiceProvider?.GetService<IMenuService>();
         if (MenuService != null && DrawMenuWithService)
         {
+            if (string.IsNullOrEmpty(MenuService.ProviderId))
+            {
+                throw new ArgumentNullException(nameof(UseMenuService), "<FluentMenuProvider /> needs to be added to the main layout of your application/site.");
+            }
+
             MenuService.Add(this);
         }
 
