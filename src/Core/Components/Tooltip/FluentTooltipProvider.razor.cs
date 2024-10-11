@@ -13,7 +13,8 @@ public partial class FluentTooltipProvider : FluentComponentBase, IDisposable
 
     /// <summary />
     internal string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("display", "fixed")   // To prevent the tooltip from displaying a scrollbar in body
+        .AddStyle("position", "fixed")   // To prevent the tooltip from displaying a scrollbar in body
+        .AddStyle("z-index", ZIndex.Menu.ToString())
         .Build();
 
     [Inject]
