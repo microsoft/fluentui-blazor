@@ -8833,16 +8833,19 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.HorizontalAlignment">
             <summary>
             Gets or sets the horizontal alignment of the components in the stack.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Left"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.VerticalAlignment">
             <summary>
             Gets or sets the vertical alignment of the components in the stack.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Top"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Orientation">
             <summary>
             Gets or sets the orientation of the stacked components.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">

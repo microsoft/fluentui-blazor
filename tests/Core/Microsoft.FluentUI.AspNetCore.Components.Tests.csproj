@@ -59,4 +59,10 @@
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Slider\FluentSliderLabelTests.FluentSliderLabel_Default.received.html">
+      <DependentUpon>FluentSliderLabelTests.cs</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>
