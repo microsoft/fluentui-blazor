@@ -8,6 +8,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSliderLabel.razor.js";
+    private bool? _disabled;
 
     public FluentSliderLabel()
     {
@@ -41,9 +42,10 @@ public partial class FluentSliderLabel<TValue> : FluentComponentBase, IAsyncDisp
     /// Gets the disabled state of the label. This is controlled by the owning <see cref="FluentSlider{TValue}"/>.
     /// </summary>
     [Parameter]
-    public bool? Disabled {
-        get => Owner.Disabled;
-        set { }
+    public bool? Disabled
+    {
+        get => Owner is null ? _disabled : Owner.Disabled;
+        set => _disabled = Owner is null ? value : Owner.Disabled;
     }
 
     [CascadingParameter]
