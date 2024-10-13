@@ -11,7 +11,22 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// left (full height), right (full height)
     /// or screen middle (using Width and Height properties).
     /// </summary>
-    public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
+    public virtual HorizontalAlignment Alignment
+    {
+        set
+        {
+            if (value == HorizontalAlignment.Stretch)
+            {
+                throw new ArgumentException("Alignment HorizontalAlignment.Stretch is not supported for DialogParameters");
+            }
+            _alignment = value;
+        }
+        get
+        {
+            return _alignment;
+        }
+    }
+    private HorizontalAlignment _alignment = HorizontalAlignment.Center;
 
     /// <summary>
     /// Gets or sets the title of the dialog.
