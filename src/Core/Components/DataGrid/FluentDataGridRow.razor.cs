@@ -14,6 +14,8 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 {
     internal string RowId { get; set; } = string.Empty;
     private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
+    private bool _isSingleClick = false;
+    private readonly int _clickDelay = 300; // Delay in milliseconds
 
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values.
@@ -103,18 +105,32 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     internal async Task HandleOnRowClickAsync(string rowId)
     {
-        var row = GetRow(rowId);
-
-        if (row != null && Owner.Grid.OnRowClick.HasDelegate)
+        if (_isSingleClick)
         {
-            await Owner.Grid.OnRowClick.InvokeAsync(row);
+            _isSingleClick = false;
+            return;
         }
 
-        if (row != null && row.RowType == DataGridRowType.Default)
+        _isSingleClick = true;
+
+        await Task.Delay(_clickDelay);
+
+        if (_isSingleClick)
         {
-            foreach (var column in Owner.Grid._columns)
+            _isSingleClick = false; 
+            var row = GetRow(rowId);
+
+            if (row != null && Owner.Grid.OnRowClick.HasDelegate)
             {
-                await column.OnRowClickAsync(row);
+                await Owner.Grid.OnRowClick.InvokeAsync(row);
+            }
+
+            if (row != null && row.RowType == DataGridRowType.Default)
+            {
+                foreach (var column in Owner.Grid._columns)
+                {
+                    await column.OnRowClickAsync(row);
+                }
             }
         }
     }
