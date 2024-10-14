@@ -197,6 +197,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
         if (Owner != null)
         {
+            Selected = args.Selected.Value;
             await Owner.ItemSelectedChangeAsync(this);
         }
     }
