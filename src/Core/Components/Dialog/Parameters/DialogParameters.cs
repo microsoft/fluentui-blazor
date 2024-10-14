@@ -4,6 +4,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
+    private HorizontalAlignment _alignment = HorizontalAlignment.Center;
+
     public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
@@ -26,8 +28,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
             return _alignment;
         }
     }
-    private HorizontalAlignment _alignment = HorizontalAlignment.Center;
-
+    
     /// <summary>
     /// Gets or sets the title of the dialog.
     /// </summary>
