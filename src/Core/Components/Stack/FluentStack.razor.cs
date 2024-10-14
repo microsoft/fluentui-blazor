@@ -86,6 +86,7 @@ public partial class FluentStack : FluentComponentBase
             HorizontalAlignment.Center => "center",
             HorizontalAlignment.Right => "end",
             HorizontalAlignment.End => "end",
+            HorizontalAlignment.Stretch => "stretch",
             _ => "start",
         };
     }
