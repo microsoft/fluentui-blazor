@@ -4,7 +4,7 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid style="height: 100%;" Loading="@(numResults == null)" ItemsProvider="foodRecallProvider" OnRowDoubleClick="@((e)=>DemoLogger.WriteLine($"Row double clicked! ({e.RowIndex})"))" OnRowClick="@((e)=>DemoLogger.WriteLine($"Row clicked! ({e.RowIndex})"))" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
+    <FluentDataGrid style="height: 100%;" Loading="@(numResults == null)" ItemsProvider="foodRecallProvider" OnRowDoubleClick="@(()=>DemoLogger.WriteLine($"Row double clicked!"))" OnRowClick="@(()=>DemoLogger.WriteLine($"Row clicked!"))" Virtualize="true" ItemSize="46" GenerateHeader="GenerateHeaderOption.Sticky" TGridItem="FoodRecall" >
         <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
         <PropertyColumn Property="@(c => c!.State)" Style="color: #af5f00 ;" />
         <PropertyColumn Property="@(c => c!.City)" />
