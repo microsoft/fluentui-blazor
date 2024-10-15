@@ -141,6 +141,16 @@ public abstract partial class ColumnBase<TGridItem>
     protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
 
     /// <summary>
+    /// Get items.
+    /// </summary>
+    protected ICollection<TGridItem> Items => InternalGridContext.Items;
+
+    /// <summary>
+    /// Get Total Item Count.
+    /// </summary>
+    protected int TotalItemCount => InternalGridContext.TotalItemCount;
+
+    /// <summary>
     /// Event callback for when the row is clicked.
     /// </summary>
     /// <param name="row"></param>
