@@ -3517,6 +3517,7 @@
             Gets or sets the dialog position:
             left (full height), right (full height)
             or screen middle (using Width and Height properties).
+            HorizontalAlignment.Stretch is not supported for this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Title">
@@ -13867,6 +13868,11 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.End">
             <summary>
             The content is aligned to the end.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Stretch">
+            <summary>
+            The content is stretched to fill the available space.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition">

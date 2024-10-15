@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <PackageId>Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client</PackageId>
+		<Authors>Microsoft</Authors>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Owners>Microsoft Corporation</Owners>
+		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Summary>An adapter for using the Fluent UI Blazor DataGrid with OData Client.</Summary>
+		<PackageTags>Fluent UI, Blazor, DataGrid, .NET8</PackageTags>
+		<Title>Microsoft Fluent UI DataGrid adapter for Entity Framework</Title>
+		<Description>An adapter for using the Fluent UI Blazor DataGrid with OData Client.</Description>
+		<SignAssembly>false</SignAssembly>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<LangVersion>latest</LangVersion>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IsPackable>true</IsPackable>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<IsShipping>true</IsShipping>
+		<Optimize>True</Optimize>
+		<NoWarn>1701;1702;8669;1591</NoWarn>
+		<DebuggerSupport>false</DebuggerSupport>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.OData.Client" />
+		<PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+
+</Project>
