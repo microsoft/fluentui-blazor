@@ -26,11 +26,14 @@
     </p>
 </blockquote>
 
+<p>
+    When using a TreeView with dynamic items, always use th <code>Items</code> collection to define the tree structure. The <code>FluentTreeItem</code> component should only be used to define the tree nodes when the tree structure is static.
+</p>
 <h2 id="example">Examples</h2>
 
 <DemoSection Title="Default with event handling" Component="@typeof(TreeViewDefault)" />
 
-<DemoSection Title="With Items" Component="@typeof(TreeViewWithItems)" />
+<DemoSection Title="Dynamic tree generation via Items" Component="@typeof(TreeViewWithItems)" />
 
 <DemoSection Title="With Unlimited Items" Component="@typeof(TreeViewWithUnlimitedItems)" />
 

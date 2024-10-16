@@ -1,6 +1,6 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@typeparam TValue
+@typeparam TValue where TValue : System.Numerics.INumber<TValue>
 <fluent-slider-label @ref=Element
                      id="@Id"
                      class="@Class"
