@@ -139,8 +139,8 @@ public partial class FluentAppBar : FluentComponentBase
     {
         if (_jsModuleOverflow is not null)
         {
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper,Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, _orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper,Id, _orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
         }
     }
 

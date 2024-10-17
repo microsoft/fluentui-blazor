@@ -1,8 +1,6 @@
 let resizeObserver;
 let observerAddRemove;
-let lastId;
-let lastOrientation;
-
+let lastHandledState = { id: null, isHorizontal: null };
 export function fluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySelector, threshold) {
     var localSelector = querySelector;
     if (!localSelector) {
@@ -28,6 +26,20 @@ export function fluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
             fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelector, threshold);
         });
     });
+    var el = document.getElementById(id);
+
+    // Stop the resize observation if the element is already observed
+    if (resizeObserver && el) {
+        resizeObserver.unobserve(el);
+    }
+
+    let resizeTimeout;
+    resizeObserver = new ResizeObserver((entries) => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelector, threshold);
+        }, 100); // Adjust the timeout as needed
+    });
 
     // Create a ResizeObserver, started later
     resizeObserver = new ResizeObserver((entries) => {
@@ -35,11 +47,13 @@ export function fluentOverflowInitialize(dotNetHelper, id, isHorizontal, querySe
     });
 
     // Start the resize observation
-    var el = document.getElementById(id);
     if (el) {
         resizeObserver.observe(el);
         observerAddRemove.observe(el, { childList: true, subtree: false });
     }
+
+    lastHandledState.id = id;
+    lastHandledState.isHorizontal = isHorizontal;
 }
 
 // When the Element[id] is resized, set overflow attribute to all element outside of this element.
@@ -52,7 +66,7 @@ export function fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelec
         querySelector = ":scope .fluent-overflow-item";
     }
     else {
-        querySelector = ":scope " + querySelector;
+        querySelector = ":scope >" + querySelector;
     }
     let allItems = container.querySelectorAll(querySelector);
     let items = container.querySelectorAll(querySelector + ":not([fixed])");      // List of first level element of this container
@@ -65,8 +79,7 @@ export function fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelec
 
     containerMaxSize -= threshold; // Account for the overflow bage width
 
-    if (lastId === id && lastOrientation != isHorizontal) {
-        // Reset overflow attribute and overflowSize
+    if (lastHandledState.id === id && lastHandledState.isHorizontal !== isHorizontal) {
         allItems.forEach(element => {
             element.removeAttribute("overflow");
             element.overflowSize = null;
@@ -126,9 +139,8 @@ export function fluentOverflowRefresh(dotNetHelper, id, isHorizontal, querySelec
         });
         dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", JSON.stringify(listOfOverflow));
     }
-    lastId = id;
-    lastOrientation = isHorizontal;
-
+    lastHandledState.id = id;
+    lastHandledState.isHorizontal = isHorizontal;
 }
 
 export function fluentOverflowDispose(id) {
