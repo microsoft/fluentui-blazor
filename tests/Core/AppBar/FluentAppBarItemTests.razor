@@ -34,6 +34,23 @@
     }
 
     [Fact]
+    public void FluentAppBarItem_ChildContent_Horizontal()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar Orientation="Orientation.Horizontal">
+                <FluentAppBarItem Href="/" IconRest="@(new SampleIcons.Samples.Info())" Text="My item">
+                    <div>Child content</div>
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentAppBarItem_Default()
     {
         // Arrange

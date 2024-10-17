@@ -100,7 +100,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             _dotNetHelper = DotNetObjectReference.Create(this);
-            await _jsModule.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors);
+            await _jsModule.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
             VisibleOnLoad = true;
         }
     }
@@ -109,7 +109,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     {
         if (_jsModule is not null)
         {
-            await _jsModule.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, IsHorizontal, Selectors);
+            await _jsModule.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
         }
     }
 
@@ -147,7 +147,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
     internal void Unregister(FluentOverflowItem item)
     {
         _items.Remove(item);
-        _jsModule?.InvokeVoidAsync("FluentOverflowDispose", item.Id);
+        _jsModule?.InvokeVoidAsync("fluentOverflowDispose", item.Id);
     }
 
     /// <inheritdoc />
@@ -159,7 +159,7 @@ public partial class FluentOverflow : FluentComponentBase, IAsyncDisposable
 
             if (_jsModule is not null)
             {
-                await _jsModule.InvokeVoidAsync("FluentOverflowDispose", Id);
+                await _jsModule.InvokeVoidAsync("fluentOverflowDispose", Id);
                 await _jsModule.DisposeAsync();
             }
         }

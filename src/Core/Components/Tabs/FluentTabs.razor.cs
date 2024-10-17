@@ -154,7 +154,7 @@ public partial class FluentTabs : FluentComponentBase
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             var horizontal = Orientation == Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG,25);
         }
     }
 

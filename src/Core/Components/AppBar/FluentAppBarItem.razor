@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@Style" title="@(Tooltip ?? Text)">
+<div id=@Id @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" title="@(Tooltip ?? Text)">
     <FluentCounterBadge Count="@Count"
                         Max="99"
                         ShowOverflow="true"
@@ -9,7 +9,7 @@
                         BackgroundColor="@Color.Error"
                         Color="Color.Fill"
                         HorizontalPosition="55"
-                        VerticalPosition="70">
+                        VerticalPosition="60">
         <NavLink href="@Href" Match="Match" @onclick="OnClickHandlerAsync">
             <FluentStack Orientation="Orientation.Vertical"
                          HorizontalAlignment="HorizontalAlignment.Center"

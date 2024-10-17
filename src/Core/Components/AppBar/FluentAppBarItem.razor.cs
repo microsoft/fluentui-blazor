@@ -96,6 +96,11 @@ public partial class FluentAppBarItem : FluentComponentBase, IAppBarItem, IDispo
         .AddClass(Class)
         .Build();
 
+    internal string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("min-height", "calc(var(--appbar-item-size) * 1px - 20px)", Owner.AppBar.Orientation == Orientation.Vertical)
+        .AddStyle("min-width", "calc(var(--appbar-item-size) * 1px)", Owner.AppBar.Orientation == Orientation.Horizontal)
+        .Build();
+
     protected async Task OnClickHandlerAsync(MouseEventArgs ev)
     {
         if (OnClick.HasDelegate)

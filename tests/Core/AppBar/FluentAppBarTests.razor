@@ -26,6 +26,16 @@
     }
 
     [Fact]
+    public void FluentAppBar_ChildContent_Horizontal()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar Orientation="@Orientation.Horizontal"><div>Child content</div></FluentAppBar>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentAppBar_Overflow()
     {
         // Arrange
