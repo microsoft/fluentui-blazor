@@ -3,7 +3,7 @@
 <FluentGrid Spacing="4">
     <FluentGridItem xs="12">
         <h4>With auto-fit</h4>
-        <FluentDataGrid Items="@people" AutoFit="true">
+        <FluentDataGrid Items="@people" Style="width: 100%;" AutoFit="true">
             <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
             <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
             <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />

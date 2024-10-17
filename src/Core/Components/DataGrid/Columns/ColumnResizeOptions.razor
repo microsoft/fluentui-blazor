@@ -24,6 +24,7 @@
                                  ImmediateDelay="200"
                                  Label="@Grid.ColumnResizeLabels.ExactLabel"
                                  AutoComplete="off"
+                                 Autofocus="true"
                                  @onkeydown="@HandleColumnWidthKeyDownAsync" />
             </div>
             <FluentButton Style="height: 30px;" OnClick="@HandleColumnWidthAsync" Appearance="@Appearance.Accent" aria-label="@(Grid.ColumnResizeLabels.SubmitAriaLabel)">
