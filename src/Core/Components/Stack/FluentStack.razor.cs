@@ -26,18 +26,21 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the horizontal alignment of the components in the stack.
+    /// Default is <see cref="HorizontalAlignment.Left"/>
     /// </summary>
     [Parameter]
     public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
 
     /// <summary>
     /// Gets or sets the vertical alignment of the components in the stack.
+    /// Default is <see cref="VerticalAlignment.Top"/>
     /// </summary>
     [Parameter]
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Top;
 
     /// <summary>
     /// Gets or sets the orientation of the stacked components.
+    /// Default is <see cref="Orientation.Horizontal"/>.
     /// </summary>
     [Parameter]
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
@@ -83,6 +86,7 @@ public partial class FluentStack : FluentComponentBase
             HorizontalAlignment.Center => "center",
             HorizontalAlignment.Right => "end",
             HorizontalAlignment.End => "end",
+            HorizontalAlignment.Stretch => "stretch",
             _ => "start",
         };
     }

@@ -29,4 +29,9 @@ public enum HorizontalAlignment
     /// The content is aligned to the end.
     /// </summary>
     End,
+
+    /// <summary>
+    /// The content is stretched to fill the available space.
+    /// </summary>
+    Stretch,
 }

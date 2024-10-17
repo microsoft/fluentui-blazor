@@ -19,6 +19,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public new FluentTextField? Element { get; set; } = default!;
     private Virtualize<TOption>? VirtualizationContainer { get; set; }
     private readonly Debounce _debounce = new();
+    private bool _shouldRender = true;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -268,12 +269,17 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
+    protected override bool ShouldRender() => _shouldRender;
+
+    /// <summary />
     protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {
         if (ReadOnly || Disabled)
         {
             return;
         }
+
+        _shouldRender = false;
 
         ValueText = e.Value?.ToString() ?? string.Empty;
         await RaiseValueTextChangedAsync(ValueText);
@@ -312,6 +318,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         {
             await VirtualizationContainer.RefreshDataAsync();
         }
+
+        _shouldRender = true;
+        StateHasChanged();
     }
 
     private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)

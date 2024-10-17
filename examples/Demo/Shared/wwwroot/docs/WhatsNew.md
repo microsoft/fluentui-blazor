@@ -1,6 +1,7 @@
 ## V4.10.2
 
 ### General
+- \[General\] Update to latest .NET 8 and .NET 9 RC2 SDK. 
 - \[Debounce\] Fix the Debounce class with async methods ([#2759](https://github.com/microsoft/fluentui-blazor/pull/2759))
 
 ### Components

@@ -3545,6 +3545,7 @@
             Gets or sets the dialog position:
             left (full height), right (full height)
             or screen middle (using Width and Height properties).
+            HorizontalAlignment.Stretch is not supported for this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Title">
@@ -3844,32 +3845,36 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowPanelAsync``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowPanelAsync``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})"/>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccess(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccess(System.String,System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarning(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarning(System.String,System.String,System.String)">
             <summary>
             Shows a warning message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowError(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowError(System.String,System.String,System.String)">
             <summary>
             Shows an error message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfo(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfo(System.String,System.String,System.String)">
             <summary>
             Shows an information message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
@@ -3891,32 +3896,36 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccessAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccessAsync(System.String,System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarningAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarningAsync(System.String,System.String,System.String)">
             <summary>
             Shows a warning message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowErrorAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowErrorAsync(System.String,System.String,System.String)">
             <summary>
             Shows an error message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfoAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfoAsync(System.String,System.String,System.String)">
             <summary>
             Shows an information message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
@@ -5695,6 +5704,9 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectableItem">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShouldRender">
+            <summary />
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
             <summary />
         </member>
@@ -6347,6 +6359,9 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.#ctor">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.ClassValue">
             <summary />
         </member>
@@ -6370,6 +6385,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.OnMenuUpdated">
             <summary>
             Action to be called when the menu is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.ProviderId">
+            <summary>
+            Gets or sets the FluentMenuProvider ID.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus">
@@ -6409,6 +6429,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.Menus">
             <summary>
             <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.ProviderId">
+            <summary>
+            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.ProviderId" />
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Add(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
@@ -8442,7 +8467,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Disabled">
             <summary>
-            Gets or sets disabled state of the label. This is generally controlled by the parent.
+            Gets the disabled state of the label. This is controlled by the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.ChildContent">
@@ -8848,16 +8873,19 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.HorizontalAlignment">
             <summary>
             Gets or sets the horizontal alignment of the components in the stack.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Left"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.VerticalAlignment">
             <summary>
             Gets or sets the vertical alignment of the components in the stack.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Top"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Orientation">
             <summary>
             Gets or sets the orientation of the stacked components.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
@@ -13899,6 +13927,11 @@
             The content is aligned to the end.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Stretch">
+            <summary>
+            The content is stretched to fill the available space.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition">
             <summary>
             Describes the horizontal positioning of a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion"/>.
@@ -14022,7 +14055,7 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Color">
             <summary>
             Color variant of FluentUI System Icons
-            > Note: FOR TESTING ONLY. This variant is not supported yet in the FluentUI System Icons.
+            > Note: FOR TESTING PURPOSES ONLY. Not yet fully supported.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">

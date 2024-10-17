@@ -35,16 +35,15 @@
     Fluent UI design system.
 </p>
 
-<div>
-    <div><strong>FluentMenuProvider</strong></div>
+<div class="demopanel" style="padding: 1rem; margin-bottom: 1rem;">
+    <h5>FluentMenuProvider</h5>
     <p>
-        With version 4.9.4 of the library, we introduced a <code>FluentMenuProvider</code>. The <code>FluentMenu</code> component has been updated to use this provider.
-        The <code>&lt;FluentMenuProvider /&gt;</code> is a new component to be placed at the <b>bottom</b> of your HTML page (like the other <b>Providers</b>),
-        which renders all menus (and menu items) at the provider location in the HTML structure. This allows for menus to appear <b>on top</b> other components.
+        With version 4.9.4 of the library, we introduced the <code>FluentMenuProvider</code> component. The Menu component has been updated to use this provider.
+        The <code>&lt;FluentMenuProvider /&gt;</code> needs to be placed at the <b>bottom</b> of your HTML page (just like the other <b>...Providers</b> components).
+        It will renders all menus (and menu items) at the provider location in the HTML structure. This allows for menus to appear <b>on top</b> other components.
     </p>
     <p>
-        You can disable this feature by adding the <code>UseMenuService="false"</code> attribute.
-        In this case, the menu is drawn at the location of your HTML code.
+        You can disable this feature by adding the <code>UseMenuService</code> parameter (with a value of "false") to you FluentMenu component. In this case, the menu will be rendered at the location it is placed at in the page.
     </p>
 </div>
 
