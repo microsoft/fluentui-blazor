@@ -1,5 +1,7 @@
 ﻿@implements IDialogContentComponent<SimplePerson>
 
+<FluentMessageBarProvider Section="@App.MESSAGES_DIALOG" MaxMessageCount="1" />
+
 <FluentDialogBody>
     <h3>Hello @Content.Firstname </h3>
     <p>Your lastname is @Content.Lastname and you are @Content.Age years young </p>
