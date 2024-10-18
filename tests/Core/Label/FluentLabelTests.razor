@@ -1,0 +1,197 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    [Inject]
+    private LibraryConfiguration LibraryConfiguration { get; set; } = new LibraryConfiguration();
+
+    [Fact]
+    public void FluentInputLabel_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel>Test label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_Color()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Color="Color.Warning">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentLabel_CustomColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Color="Color.Custom" CustomColor="deepskyblue">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentLabel_Style()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Style="color: chocolate;">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    // Generate a test for Typography enum
+    [Fact]
+    public void FluentLabel_TypographyHeader()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.Header">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyBody()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.Body">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyHeroTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.HeroTitle">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyPageTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.PageTitle">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographySubject()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.Subject">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyPaneHeader()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.PaneHeader">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyEmaiHeader()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.EmailHeader">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentLabel_TypographyH1()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.H1">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyH2()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.H2">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyH3()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.H3">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyH4()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.H4">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyH5()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.H5">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_TypographyH6()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Typo="Typography.H6">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    // Disabled
+    [Fact]
+    public void FluentLabel_Disabled()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Disabled="true">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    //Weight
+    [Fact]
+    public void FluentLabel_Weight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Weight="FontWeight.Bold">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+    //Alignment
+    [Fact]
+    public void FluentLabel_Alignment()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Alignment="AspNetCore.Components.HorizontalAlignment.Center">Test label</FluentLabel>);
+        // Assert
+        cut.Verify();
+    }
+
+
+}

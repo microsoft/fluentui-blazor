@@ -14,9 +14,11 @@ public partial class FluentLabel : FluentComponentBase
         .AddClass("fluent-typo-right", () => Alignment == HorizontalAlignment.Right || Alignment == HorizontalAlignment.End)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("color", Color.ToAttributeValue(), () => Color != null)
+    protected string? StyleValue => new StyleBuilder()
+        .AddStyle("color", Color.ToAttributeValue(), () => Color != null && Color != AspNetCore.Components.Color.Custom)
+        .AddStyle("color", CustomColor, () => Color == AspNetCore.Components.Color.Custom)
         .AddStyle("margin-block", MarginBlock, () => !string.IsNullOrEmpty(MarginBlock) && !DefaultMarginBlock)
+        .AddStyle(Style)
         .Build();
 
     /// <summary>
@@ -44,6 +46,14 @@ public partial class FluentLabel : FluentComponentBase
     public Color? Color { get; set; }
 
     /// <summary>
+    /// Gets or sets the color of the label to a custom value.
+    /// Needs to be formatted as a valid CSS color value (HTML hex color string (#rrggbb or #rgb), CSS variable or named color).
+    /// ⚠️ Only available when Color is set to Color.Custom.
+    /// </summary>
+    [Parameter]
+    public string? CustomColor { get; set; }
+
+    /// <summary>
     /// Gets or sets the font weight of the component:
     /// Normal (400), Bold (600) or Bolder (800).
     /// </summary>
@@ -69,4 +79,14 @@ public partial class FluentLabel : FluentComponentBase
     private bool? Bolder => Weight == FontWeight.Bolder;
 
     private bool DefaultMarginBlock => string.Compare(MarginBlock, "default", StringComparison.OrdinalIgnoreCase) == 0;
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+
+        if (!string.IsNullOrEmpty(CustomColor) && Color != AspNetCore.Components.Color.Custom)
+        {
+            throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
+        }
+    }
 }
