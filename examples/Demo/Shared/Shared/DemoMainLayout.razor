@@ -27,6 +27,17 @@
                     </svg>
                 </div>
             </a>
+            <div>
+                <link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" id="rebootStyles" />
+                <script>
+                    function toggleRebootStyles() {
+                        const rebootLink = document.getElementById('rebootStyles');
+                        rebootLink.disabled = !rebootLink.disabled;
+                    }
+                </script>
+                <input type="checkbox" id="toggleStyles" onclick="toggleRebootStyles()" style="margin-left: 10px;" checked />
+                <span style="color: var(--neutral-foreground-rest); font-weight: normal; ">Reboot.css</span>
+            </div>
             <FluentSpacer />
 
             <div class="search">
