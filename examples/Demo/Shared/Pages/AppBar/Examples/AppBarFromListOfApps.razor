@@ -1,13 +1,14 @@
-﻿<div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 295px; padding: 10px;">
-    <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
-        <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-        <FluentAppBar Items="@_apps.OrderBy(a => a.Order)"
-                      Style="height: 100%; background-color: var(--neutral-layer-2);"
+﻿<FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
+    <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
+    <div style="background-color: var(--neutral-layer-3); overflow: auto; resize: vertical; height: 356px; width: 500px; padding: 10px;">
+        <FluentAppBar
+                      Items="@_apps.OrderBy(a => a.Order)"
+                      Style="width: 68px; height: 100%; background-color: var(--neutral-layer-2);"
                       PopoverVisibilityChanged="HandlePopover"
                       PopoverShowSearch="@_showSearch">
         </FluentAppBar>
-    </FluentStack>
-</div>
+    </div>
+</FluentStack>
 
 
 @code {
@@ -19,7 +20,7 @@
     private List<FluentCustomAppBarItem> _apps => new List<FluentCustomAppBarItem>
     {
         new FluentCustomAppBarItem { Order = 15, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Aaaaa", Href = "/AppBarDefault" },
-        new FluentCustomAppBarItem { Order = 14, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Bbbbb", Href = "/AppBarPage" },
+        new FluentCustomAppBarItem { Order = 14, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Bbbbb", Href = "/AppBar" },
         new FluentCustomAppBarItem { Order = 13, IconRest = ResourcesIcon(), IconActive = ResourcesIcon(active: true), Text = "Ccccc" },
         new FluentCustomAppBarItem { Order = 12, IconRest = ConsoleLogsIcon(), IconActive = ConsoleLogsIcon(active: true), Text = "Ddddd" },
         new FluentCustomAppBarItem { Order = 11, IconRest = ConsoleLogsIcon(), IconActive = ConsoleLogsIcon(active: true), Text = "Eeeee" },

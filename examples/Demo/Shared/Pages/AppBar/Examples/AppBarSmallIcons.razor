@@ -1,16 +1,21 @@
-﻿@{
-    string stylevalue = $"background-color: var(--neutral-layer-3); overflow: auto; resize: {(_vertical ? "vertical; width: 86px; height: 320px;" : "horizontal;width: 440px; height: 68px;")}  padding: 10px;";
+﻿<style>
+    .fluent-appbar.smallicons {
+    --appbar-item-size: 58;
+    }
+</style>
+@{
+    string stylevalue = $"background-color: var(--neutral-layer-3); overflow: auto; resize: {(_vertical ? "vertical; width: 78px; height: 300px;" : "horizontal; width: 380px; height: 58px;")}  padding: 10px;";
 }
 <FluentStack Orientation="Orientation.Vertical" Style="height: 100%;">
     <FluentStack Orientation="Orientation.Horizontal">
     <FluentSwitch @bind-Value="_showSearch" CheckedMessage="Show" UncheckedMessage="Hide" Label="Show search in popover" />
-    <FluentSwitch @bind-Value="_vertical" @bind-Value:after="@HandleOrientationChanged" CheckedMessage="Vertical" UncheckedMessage="Horizontal" Label="Orientation" />
+    <FluentSwitch @bind-Value="_vertical" CheckedMessage="Vertical" UncheckedMessage="Horizontal" Label="Orientation" />
     </FluentStack>
-    <div style="@stylevalue">
+    <div class="smallicons" style="@stylevalue">
         @{
-            var wh = _vertical ? "height: 100%; width: 100%;" : "";
+            var wh = _vertical ? "height: 100%; width: 58px;" : "width: 100%;";
         }
-        <FluentAppBar Orientation="@(_vertical ? Orientation.Vertical : Orientation.Horizontal)" Style="@(" background-color: var(--neutral-layer-2);")" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
+        <FluentAppBar Orientation="@(_vertical ? Orientation.Vertical : Orientation.Horizontal)" Class="smallicons" Style="@($"{wh} background-color: var(--neutral-layer-2);")" PopoverVisibilityChanged="HandlePopover" PopoverShowSearch="@_showSearch">
 
             <FluentAppBarItem Href="/AppBarDefault"
                                 Match="NavLinkMatch.All"
@@ -21,12 +26,12 @@
                                 IconRest="ConsoleLogsIcon()"
                                 IconActive="ConsoleLogsIcon(active: true)"
                                 Text="Console Logs" />
+
             <FluentAppBarItem Href="/StructuredLogs"
                                 IconRest="StructuredLogsIcon()"
                                 IconActive="StructuredLogsIcon(active: true)"
                                 Text="Logs"
-                                Tooltip="Structured Logs"
-                                Count="4"/>
+                                Tooltip="Structured Logs"/>
             <FluentAppBarItem Href="/Traces"
                                 IconRest="TracesIcon()"
                                 IconActive="TracesIcon(active: true)"
@@ -43,6 +48,7 @@
                                 IconRest="ConsoleLogsIcon()"
                                 IconActive="ConsoleLogsIcon(active: true)"
                                 Text="Console Logs 2" />
+
             <FluentAppBarItem Href="/StructuredLogs"
                                 IconRest="StructuredLogsIcon()"
                                 IconActive="StructuredLogsIcon(active: true)"
@@ -63,6 +69,7 @@
                                 IconRest="ConsoleLogsIcon()"
                                 IconActive="ConsoleLogsIcon(active: true)"
                                 Text="Console Logs 3" />
+
             <FluentAppBarItem Href="/StructuredLogs"
                                 IconRest="StructuredLogsIcon()"
                                 IconActive="StructuredLogsIcon(active: true)"
@@ -79,34 +86,30 @@
     </div>
 </FluentStack>
 
+
 @code {
     private bool _vertical = true;
     private bool _showSearch = true;
 
     private static Icon ResourcesIcon(bool active = false) =>
-        active ? new Icons.Filled.Size24.AppFolder()
-               : new Icons.Regular.Size24.AppFolder();
+        active ? new Icons.Filled.Size16.AppFolder()
+               : new Icons.Regular.Size16.AppFolder();
 
     private static Icon ConsoleLogsIcon(bool active = false) =>
-        active ? new Icons.Filled.Size24.SlideText()
-               : new Icons.Regular.Size24.SlideText();
+        active ? new Icons.Filled.Size16.SlideText()
+               : new Icons.Regular.Size16.SlideText();
 
     private static Icon StructuredLogsIcon(bool active = false) =>
-        active ? new Icons.Filled.Size24.SlideTextSparkle()
-               : new Icons.Regular.Size24.SlideTextSparkle();
+        active ? new Icons.Filled.Size16.SlideTextSparkle()
+               : new Icons.Regular.Size16.SlideTextSparkle();
 
     private static Icon TracesIcon(bool active = false) =>
-        active ? new Icons.Filled.Size24.GanttChart()
-               : new Icons.Regular.Size24.GanttChart();
+        active ? new Icons.Filled.Size16.GanttChart()
+               : new Icons.Regular.Size16.GanttChart();
 
     private static Icon MetricsIcon(bool active = false) =>
-        active ? new Icons.Filled.Size24.ChartMultiple()
-               : new Icons.Regular.Size24.ChartMultiple();
+        active ? new Icons.Filled.Size16.ChartMultiple()
+               : new Icons.Regular.Size16.ChartMultiple();
 
     private void HandlePopover(bool visible) => DemoLogger.WriteLine($"Popover visibility changed to {visible}");
-
-    private void HandleOrientationChanged()
-    {
-        DemoLogger.WriteLine($"Orientation changed to {(_vertical ? "vertical" : "horizontal") }");
-    }
 }
