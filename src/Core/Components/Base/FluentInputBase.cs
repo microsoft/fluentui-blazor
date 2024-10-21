@@ -171,7 +171,8 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
         }
         if (FieldBound)
         {
-            EditContext?.NotifyFieldChanged(FieldIdentifier);
+            // Thread Safety: Force `EditContext` to be re-associated with the Dispatcher
+            await InvokeAsync(() => EditContext?.NotifyFieldChanged(FieldIdentifier));
         }
     }
 
@@ -374,7 +375,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     {
         UpdateAdditionalValidationAttributes();
 
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
 
     private void UpdateAdditionalValidationAttributes()
@@ -466,7 +467,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
             EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
 
-        _debouncer.Dispose();
+        _debounce.Dispose();
 
         Dispose(disposing: true);
     }

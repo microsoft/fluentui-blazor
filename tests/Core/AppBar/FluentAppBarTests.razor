@@ -26,6 +26,16 @@
     }
 
     [Fact]
+    public void FluentAppBar_ChildContent_Horizontal()
+    {
+        // Arrange
+        // Act
+        var cut = Render(@<FluentAppBar Orientation="@Orientation.Horizontal"><div>Child content</div></FluentAppBar>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentAppBar_Overflow()
     {
         // Arrange
@@ -33,9 +43,9 @@
         // Act
         var cut = Render<FluentAppBar>(
             @<FluentAppBar Id="appbar">
-                <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item tooltip">
+                <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new SampleIcons.Samples.Info())" IconActive="@(new SampleIcons.Samples.Warning())" Tooltip="My item tooltip">
                 </FluentAppBarItem>
-                <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item 2 tooltip">
+                <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new SampleIcons.Samples.Info())" IconActive="@(new SampleIcons.Samples.Warning())" Tooltip="My item 2 tooltip">
                 </FluentAppBarItem>
                 </FluentAppBar>
             );
@@ -59,9 +69,9 @@
         // Act
         var cut = Render<FluentAppBar>(
     @<FluentAppBar Id="appbar" PopoverShowSearch="false">
-        <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item tooltip">
+        <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new SampleIcons.Samples.Info())" IconActive="@(new SampleIcons.Samples.Warning())" Tooltip="My item tooltip">
         </FluentAppBarItem>
-        <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item 2 tooltip">
+        <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new SampleIcons.Samples.Info())" IconActive="@(new SampleIcons.Samples.Warning())" Tooltip="My item 2 tooltip">
         </FluentAppBarItem>
     </FluentAppBar>
         );

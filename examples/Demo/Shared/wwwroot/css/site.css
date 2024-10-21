@@ -204,7 +204,7 @@ code {
 }
 
 .highlighted-row {
-    background-color: var(--accent-fill-rest);
+    background-color: var(--accent-stroke-control-active);
 }
 
     .highlighted-row > fluent-data-grid-cell {

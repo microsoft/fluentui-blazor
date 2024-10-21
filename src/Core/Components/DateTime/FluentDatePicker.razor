@@ -11,6 +11,8 @@
                  Appearance="@Appearance"
                  @bind-Value="@CurrentValueAsString"
                  @onclick="@OnCalendarOpenHandlerAsync"
+                 @ondblclick="@OnDoubleClickHandlerAsync"
+                 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))"
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"
@@ -22,8 +24,9 @@
 
 @if (Opened)
 {
-    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" />
+    <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" Interactive="true" InteractiveExceptId="@PopupId" />
     <FluentAnchoredRegion Anchor="@Id"
+                          Id="@PopupId"
                           HorizontalDefaultPosition="@(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right)"
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Unset"

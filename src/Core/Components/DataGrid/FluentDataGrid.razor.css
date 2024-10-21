@@ -5,7 +5,7 @@ fluent-data-grid {
 ::deep .empty-content-row,
 ::deep .loading-content-row {
     width: 100%;
-    height: 100% !important ;
+    height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,11 +13,10 @@ fluent-data-grid {
 
 ::deep .empty-content-cell,
 ::deep .loading-content-cell {
-
     font-weight: 600;
 }
 
-.col-options {
+.col-options, .col-resize {
     position: absolute;
     min-width: 250px;
     top: 2.2rem;
@@ -54,7 +53,6 @@ fluent-data-grid {
     justify-content: center;
     align-items: center;
 }
-
 
 ::deep .col-width-draghandle {
     height: auto;

@@ -18,6 +18,7 @@
         <ColumnsCollectedNotifier TGridItem="TGridItem" />
 
         <fluent-data-grid @ref=_gridReference
+                          id="@Id"
                           no-tabbing=@NoTabbing
                           generate-header="none"
                           grid-template-columns=@_internalGridTemplateColumns
@@ -26,6 +27,7 @@
                           aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                           @onrowfocus=HandleOnRowFocusAsync
                           @onclosecolumnoptions="CloseColumnOptions"
+                          @onclosecolumnresize="CloseColumnResize"
                           @attributes="AdditionalAttributes">
             @if (GenerateHeader != GenerateHeaderOption.None)
             {
@@ -79,7 +81,6 @@
         var rowIndex = initialRowIndex;
         if (_internalGridContext.Items.Any())
         {
-            Loading = false;
             foreach (var item in _internalGridContext.Items)
             {
                 RenderRow(__builder, rowIndex++, item);
@@ -95,7 +96,6 @@
     {
         var rowClass = RowClass?.Invoke(item) ?? null;
         var rowStyle = RowStyle?.Invoke(item) ?? null;
-        Loading = false;
         <FluentDataGridRow @key="@(ItemKey(item))" GridTemplateColumns=@_internalGridTemplateColumns aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
             {
@@ -126,7 +126,6 @@
         </FluentDataGridRow>
     }
 
-
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
     {
         @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
@@ -147,24 +146,49 @@
                                 scope="col"
                                 TGridItem="TGridItem">
                 @col.HeaderContent
-                @if (col == _displayOptionsForColumn)
-                {
-                    <div class="col-options">
-                        <FluentStack Orientation="Orientation.Vertical">
-                            @col.ColumnOptions
-                            @if (ResizeType is not null )
-                            {
-                                @if (@col.ColumnOptions is not null)
-                                {
-                                    <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
-                                }
 
-                                <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType Label="@ResizeLabel" TGridItem="TGridItem" />
+                @if (HeaderCellAsButtonWithMenu)
+                {
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            @col.ColumnOptions
+                        </div>
+                    }
+                    @if (ResizableColumns && col == _displayResizeForColumn)
+                    {
+                        <div class="col-resize">
+
+                            @if (ResizeType is not null)
+                            {
+                                <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
                             }
 
-                        </FluentStack>
-                    </div>
+                        </div>
+                    }
                 }
+                else
+                {
+                    @if (col == _displayOptionsForColumn)
+                    {
+                        <div class="col-options">
+                            <FluentStack Orientation="Orientation.Vertical">
+                                @col.ColumnOptions
+                                @if (ResizeType is not null)
+                                {
+                                    @if (@col.ColumnOptions is not null)
+                                    {
+                                        <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
+                                    }
+
+                                    <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                }
+
+                            </FluentStack>
+                        </div>
+                    }
+                }
+
                 @if (ResizableColumns)
                 {
                     <FluentDivider class="col-width-draghandle" Orientation="Orientation.Vertical" Role="DividerRole.Separator" />

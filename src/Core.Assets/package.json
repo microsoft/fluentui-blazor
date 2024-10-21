@@ -16,7 +16,7 @@
     "@microsoft/fast-foundation": "2.49.6",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
-    "esbuild": "^0.20.2",
+    "esbuild": "0.23.1",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "8.57.0",
     "rimraf": "^5.0.5",

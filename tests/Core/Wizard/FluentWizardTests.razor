@@ -477,6 +477,34 @@
         Assert.Equal(indexFirstItem, currentIndex);
     }
 
+    [Theory]
+    [InlineData(true, true, true, 2)]
+    [InlineData(true, true, false, 1)]
+    [InlineData(true, false, false, 0)]
+    [InlineData(false, false, false, 0)]
+    public void FluentWizard_LastDisableSteps(bool firstEnabled, bool secondEnabled, bool thirdEnabled, int nbClicks)
+    {
+        // Arrange
+        var cut = Render(@<FluentWizard>
+        <Steps>
+            <FluentWizardStep Disabled="@(!firstEnabled)" />
+            <FluentWizardStep Disabled="@(!secondEnabled)" />
+            <FluentWizardStep Disabled="@(!thirdEnabled)" />
+        </Steps>
+    </FluentWizard>
+    );
+
+        // Act: Click
+        for (int i = 0; i < nbClicks; i++)
+        {
+            var buttonNext = cut.Find("fluent-button[appearance='accent']");
+            buttonNext.Click();
+        }
+
+        // Assert
+        Assert.Contains("Done", cut.Markup);
+    }
+
     private record TestRecord
     {
         [Range(1, 10)]

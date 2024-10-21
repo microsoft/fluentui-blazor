@@ -22,7 +22,7 @@
         @if (ShowDismiss == true)
         {
             <FluentButton Id="dialog_close" Appearance="Appearance.Stealth" OnClick="@(() => Dialog.CancelAsync())" aria-label="@Dialog.Instance?.Parameters?.DismissTitle">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size24.Dismiss())" Width="16px" />
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Dismiss())" Width="20px" Color="Color.Neutral"  />
             </FluentButton>
             <FluentTooltip Anchor="dialog_close" Placement="Placement.Bottom">@Dialog.Instance?.Parameters?.DismissTitle</FluentTooltip>
         }

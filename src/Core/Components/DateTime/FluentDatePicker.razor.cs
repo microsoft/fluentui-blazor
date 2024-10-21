@@ -26,6 +26,9 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
     }
 
+    /// <summary />
+    private string PopupId => $"{Id}-popup";
+
     /// <summary>
     /// Gets or sets the design of this input.
     /// </summary>
@@ -49,6 +52,18 @@ public partial class FluentDatePicker : FluentCalendarBase
     /// </summary>
     [Parameter]
     public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
+
+    /// <summary>
+    /// Command executed when the user double-clicks on the date picker.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnDoubleClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value which will be set when double-clicking on the text field of date picker.
+    /// </summary>
+    [Parameter]
+    public DateTime? DoubleClickToDate { get; set; }
 
     public bool Opened { get; set; } = false;
 
@@ -89,6 +104,22 @@ public partial class FluentDatePicker : FluentCalendarBase
         }
         Opened = false;
         await OnSelectedDateHandlerAsync(updatedValue);
+    }
+
+    protected async Task OnDoubleClickHandlerAsync(MouseEventArgs e)
+    {
+        if (!ReadOnly)
+        {
+            if (DoubleClickToDate.HasValue)
+            {
+                await OnSelectedDateAsync(DoubleClickToDate.Value);
+            }
+
+            if (OnDoubleClick.HasDelegate)
+            {
+                await OnDoubleClick.InvokeAsync(e);
+            }
+        }
     }
 
     protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)

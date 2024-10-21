@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
 {
     /// <summary>
-    /// Gets context for this <see cref="FluentRadio{TValue}"/>. 
+    /// Gets context for this <see cref="FluentRadio{TValue}"/>.
     /// </summary>
     internal FluentRadioContext? Context { get; private set; }
 
@@ -78,7 +78,7 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     }
 
     /// <inheritdoc />
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
         Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
 

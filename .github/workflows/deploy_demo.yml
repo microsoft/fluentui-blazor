@@ -1,4 +1,4 @@
-name: Azure Static Web Apps CI/CD
+name: Deploy docs and demo site
 on:
   push:
     branches:
@@ -13,20 +13,13 @@ on:
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
-
-  workflow_dispatch:
-    branches:
-      - main
-    paths-ignore:
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-
 jobs:
   build_deploy_demo:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and deploy Demo site
     env:
+      DOTNET_VERSION: "net9.0"
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_NOLOGO: true
@@ -41,12 +34,17 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: .NET Setup SDKs
+      - name: Setup .NET 8.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
-          include-prerelease: true
+          dotnet-version: 8.0.x
+          dotnet-quality: ga
+
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+          dotnet-quality: preview
 
       - name: NPM Install
         uses: actions/setup-node@v4
@@ -57,10 +55,10 @@ jobs:
       - run: npm install "src/Core.Assets/"
 
       - name: .NET Builld
-        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy

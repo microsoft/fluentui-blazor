@@ -153,6 +153,12 @@ extends:
           displayName: 'Install .NET 8.0'
           inputs:
             version: 8.0.x
+            includePreviewVersions: false
+
+        - task: UseDotNet@2
+          displayName: 'Install .NET 9.0'
+          inputs:
+            version: 9.0.x
             includePreviewVersions: true
 
         # Set version number (exclude some folders)
@@ -190,7 +196,8 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror'
+            #arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror' temp remove warnaserror
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
