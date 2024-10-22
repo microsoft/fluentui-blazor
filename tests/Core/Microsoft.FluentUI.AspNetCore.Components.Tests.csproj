@@ -59,4 +59,8 @@
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="_ToDo\Label\" />
+  </ItemGroup>
 </Project>
