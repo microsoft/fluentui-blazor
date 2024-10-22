@@ -268,24 +268,6 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
-  blazor.registerCustomEventType('cellfocus', {
-    browserEventName: 'cell-focused',
-    createEventArgs: event => {
-      return {
-        cellId: event.detail.attributes['cell-id'].value
-      };
-    }
-  });
-
-  blazor.registerCustomEventType('rowfocus', {
-    browserEventName: 'row-focused',
-    createEventArgs: event => {
-      return {
-        rowId: event.detail.attributes['row-id'].value
-      };
-    }
-  });
-
   blazor.registerCustomEventType('splitterresized', {
     browserEventName: 'splitterresized',
     createEventArgs: event => {

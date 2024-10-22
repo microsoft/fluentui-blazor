@@ -1,7 +1,7 @@
 /* Ensure all the flags are the same size, and centered */
 .flag {
     height: 1rem;
-    margin: auto;
+    margin-top: 7px;
     border: 1px solid var(--neutral-layer-3);
 }
 .search-box {

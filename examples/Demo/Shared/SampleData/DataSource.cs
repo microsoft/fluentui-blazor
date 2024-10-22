@@ -295,7 +295,7 @@ public class DataSource
         new Country("tr", "Turkey", new Medals { Gold = 0, Silver = 3, Bronze = 5}),
         new Country("ug", "Uganda", new Medals { Gold = 1, Silver = 1, Bronze = 0}),
         new Country("ua", "Ukraine", new Medals { Gold = 3, Silver = 5, Bronze = 4}),
-        new Country("us", "United States", new Medals { Gold = 40, Silver = 44, Bronze = 42}),
+        new Country("us", "United States of America", new Medals { Gold = 40, Silver = 44, Bronze = 42}),
         new Country("uz", "Uzbekistan", new Medals { Gold = 8, Silver = 2, Bronze = 3}),
         new Country("zm", "Zambia", new Medals { Gold = 0, Silver = 0, Bronze = 1})
 
