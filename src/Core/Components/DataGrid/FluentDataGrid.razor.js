@@ -133,7 +133,14 @@ export function enableColumnResizing(gridElement) {
             }
 
             const horizontalScrollOffset = document.documentElement.scrollLeft;
-            const width = (horizontalScrollOffset + e.clientX) - headerBeingResized.offsetLeft;
+            let width;
+
+            if (document.body.dir === '' || document.body.dir === 'ltr') {
+                width = (horizontalScrollOffset + e.clientX) - headerBeingResized.offsetLeft;
+            }
+            else {
+                width = headerBeingResized.offsetLeft + headerBeingResized.clientWidth - (horizontalScrollOffset + e.clientX);
+            }
 
             const column = columns.find(({ header }) => header === headerBeingResized);
             column.size = Math.max(minWidth, width) + 'px';
