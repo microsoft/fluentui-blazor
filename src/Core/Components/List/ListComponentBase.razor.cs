@@ -2,13 +2,13 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,7 +22,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
     private bool _multiple = false;
     private bool _hasInitializedParameters;
-    private List<TOption> _selectedOptions = [];
+    protected List<TOption> _selectedOptions = [];
     protected TOption? _currentSelectedOption;
     protected readonly RenderFragment _renderOptions;
 
@@ -209,57 +209,78 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                         isSetValue = true;
                         newValue = (string?)parameter.Value;
                         break;
+                    case nameof(Items):
+                        if (Items is not null)
+                        {
+                           newSelectedOption = Items.FirstOrDefault(i => OptionSelected?.Invoke(i) == true);
+                           newValue = GetOptionValue(newSelectedOption);
+                        }
+                        break;
                     default:
                         break;
                 }
             }
 
-            if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
+            if (newSelectedOption is not null || newValue is not null || Value is not null)
             {
-                if (Items != null)
+                if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
                 {
-                    if (Items.Contains(newSelectedOption))
+                    if (Items != null)
                     {
-                        _currentSelectedOption = newSelectedOption;
-                        // Make value follow new selected option
-                        Value = GetOptionValue(_currentSelectedOption);
+                        if (Items.Contains(newSelectedOption))
+                        {
+                            _currentSelectedOption = newSelectedOption;
+                            // Make value follow new selected option
+                            Value = GetOptionValue(_currentSelectedOption);
+                            await ValueChanged.InvokeAsync(Value);
+                        }
+                        else
+                        {
+                            // If the selected option is not in the list of items, reset the selected option
+                            _currentSelectedOption = SelectedOption = default;
+                            // and also reset the value
+                            Value = null;
+                            await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                        }
                     }
                     else
                     {
+                        // If Items is null, we don't know if the selected option is in the list of items, so we just set it
+                        _currentSelectedOption = newSelectedOption;
+                    }
+                }
+
+                if (isSetValue && newValue is null)
+                {
+                    // Check if one of the Items is selected
+                    if (Items is not null)
+                    {
+                        newSelectedOption = Items.FirstOrDefault(item => OptionSelected?.Invoke(item) == true);
+                        if (newSelectedOption is not null)
+                        {
+                            _currentSelectedOption = SelectedOption = newSelectedOption;
+                            newValue = GetOptionValue(_currentSelectedOption);
+                        }
+                    }
+
+                    if (newValue is null)
+                    {
                         // If the selected option is not in the list of items, reset the selected option
                         _currentSelectedOption = SelectedOption = default;
-                        // and also reset the value
-                        Value = null;
-                        await SelectedOptionChanged.InvokeAsync(SelectedOption);
-                    }
-                }
-                else
-                {
-                    // If Items is null, we don't know if the selected option is in the list of items, so we just set it
-                    _currentSelectedOption = newSelectedOption;
-                }
-            }
-            else if (isSetValue && Items != null && GetOptionValue(_currentSelectedOption) != newValue)
-            {
-                newSelectedOption = Items.FirstOrDefault(item => GetOptionValue(item) == newValue);
 
-                if (newSelectedOption != null)
-                {
-                    _currentSelectedOption = SelectedOption = newSelectedOption;
-                }
-                else
-                {
-                    // If the selected option is not in the list of items, reset the selected option
-                    _currentSelectedOption = SelectedOption = default;
-                    if (this is not FluentCombobox<TOption>)
+                        if (this is not FluentCombobox<TOption>)
+                        {
+                            Value = null;
+                            await ValueChanged.InvokeAsync(Value);
+                        }
+                    }
+                    else
                     {
-                        Value = null;
+                        Value = newValue;
                         await ValueChanged.InvokeAsync(Value);
                     }
+                    await SelectedOptionChanged.InvokeAsync(SelectedOption);
                 }
-
-                await SelectedOptionChanged.InvokeAsync(SelectedOption);
-
             }
         }
 
@@ -323,9 +344,9 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
         if (Multiple)
         {
-            if (SelectedOptions != null && _selectedOptions != SelectedOptions)
+            if (SelectedOptions != null && SelectedOptions.Any() && _selectedOptions != SelectedOptions)
             {
-                _selectedOptions = new List<TOption>(SelectedOptions);
+                _selectedOptions = [.. SelectedOptions];
             }
 
             if (SelectedOptions == null && Items != null && OptionSelected != null)
@@ -501,8 +522,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
                 SelectedOption = item;
 
-                InternalValue = Value = value;
-
+                //InternalValue = Value = value;
+                InternalValue = value;
                 await RaiseChangedEventsAsync();
             }
         }
@@ -515,7 +536,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             if (SelectedOptionsChanged.HasDelegate)
             {
-                await SelectedOptionsChanged.InvokeAsync(_selectedOptions);
+                if (_selectedOptions.Count != 0)
+                {
+                    await SelectedOptionsChanged.InvokeAsync(_selectedOptions);
+                }
             }
         }
         else
@@ -525,9 +549,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
             }
         }
-
-        // Calling ValueChanged is now done through FluentInputBase.SetCurrentValueAsync
-        //StateHasChanged();
     }
 
     protected virtual async Task OnKeydownHandlerAsync(KeyboardEventArgs e)
@@ -536,7 +557,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             return;
         }
-
+        if (e.ShiftKey == true || e.AltKey == true || e.CtrlKey == true)
+        {
+            return;
+        }
         // This delay is needed for WASM to be able to get the updated value of the active descendant.
         // Without it, the value sometimes lags behind and you then need two keypresses to move to the next/prev option.
         await Task.Delay(1);
