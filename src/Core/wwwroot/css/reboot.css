@@ -34,6 +34,16 @@ body, .body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+body[data-theme="light"],
+body[data-theme="system-light"] {
+    color-scheme: light;
+}
+
+body[data-theme="dark"],
+body[data-theme="system-dark"] {
+    color-scheme: dark;
+}
+
 hr {
     margin: 1rem 0;
     color: inherit;
