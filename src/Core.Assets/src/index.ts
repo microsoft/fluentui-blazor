@@ -314,6 +314,15 @@ export function afterStarted(blazor: Blazor, mode: string) {
     }
   });
 
+  blazor.registerCustomEventType('comboboxchange', {
+    browserEventName: 'change',
+    createEventArgs: event => {
+      return {
+        value: event.target._selectedOptions[0] ? event.target._selectedOptions[0].value : event.target.value 
+      }
+    }
+  });
+
   blazor.theme = {
     isSystemDark: () => {
       return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
