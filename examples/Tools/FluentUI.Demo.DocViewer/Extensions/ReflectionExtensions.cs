@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
@@ -60,6 +60,22 @@ public static class ReflectionExtensions
     }
 
     /// <summary>
+    /// Checks if the specified member is or return a nullable value type. 
+    /// </summary>
+    /// <param name="member">Member to check.</param>
+    /// <returns>True if the type is nullable like int?</returns>
+    public static bool IsNullable(this MemberInfo member)
+    {
+        return member switch
+        {
+            MethodInfo method => !method.ReturnType.IsValueType && (new NullabilityInfoContext().Create(method.ReturnParameter).ReadState is NullabilityState.Nullable),
+            PropertyInfo property => !property.PropertyType.IsValueType && (new NullabilityInfoContext().Create(property).WriteState is NullabilityState.Nullable),
+            FieldInfo field => !field.FieldType.IsValueType && (new NullabilityInfoContext().Create(field).WriteState is NullabilityState.Nullable),
+            _ => false
+        };
+    }
+
+    /// <summary>
     /// Convert type to the proper type _name.
     /// Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
     /// if type names should be decorated in some way either by converting text to markdown or 
@@ -92,7 +108,9 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full type _name</returns>
-    public static string ToNameString(this Type type, Func<Type, Queue<string?>?, string>? typeNameConverter,
+    public static string ToNameString(
+        this Type type,
+        Func<Type, Queue<string?>?, string>? typeNameConverter,
         bool invokeTypeNameConverterForGenericType = false)
     {
         return type.ToNameString(null, typeNameConverter, invokeTypeNameConverterForGenericType);
@@ -116,7 +134,9 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full list of parameter types and their names</returns>
-    public static string ToParametersString(this MethodBase methodInfo, Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+    public static string ToParametersString(
+        this MethodBase methodInfo,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
         var parameters = methodInfo.GetParameters();
@@ -145,7 +165,9 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full type _name of the parameter</returns>
-    public static string ToTypeNameString(this ParameterInfo parameterInfo, Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+    public static string ToTypeNameString(
+        this ParameterInfo parameterInfo,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
         if (parameterInfo.ParameterType.IsByRef)
@@ -179,12 +201,14 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full type _name of the return value</returns>
-    public static string ToTypeNameString(this MethodInfo methodInfo, Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+    public static string ToTypeNameString(
+        this MethodInfo methodInfo,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
         return methodInfo.ReturnType.ToNameStringWithValueTupleNames(
             methodInfo.ReturnParameter?.GetCustomAttribute<TupleElementNamesAttribute>()?.TransformNames, typeNameConverter,
-            invokeTypeNameConverterForGenericType);
+            invokeTypeNameConverterForGenericType) + (IsNullable(methodInfo) ? "?" : string.Empty);
     }
 
     /// <summary>
@@ -204,12 +228,14 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full type _name of the property</returns>
-    public static string ToTypeNameString(this PropertyInfo propertyInfo, Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+    public static string ToTypeNameString(
+        this PropertyInfo propertyInfo,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
         return propertyInfo.PropertyType.ToNameStringWithValueTupleNames(
             propertyInfo.GetCustomAttribute<TupleElementNamesAttribute>()?.TransformNames, typeNameConverter,
-            invokeTypeNameConverterForGenericType);
+            invokeTypeNameConverterForGenericType) + (IsNullable(propertyInfo) ? "?" : string.Empty);
     }
 
     /// <summary>
@@ -229,12 +255,14 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full type _name of the field</returns>
-    public static string ToTypeNameString(this FieldInfo fieldInfo, Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+    public static string ToTypeNameString(
+        this FieldInfo fieldInfo,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
         return fieldInfo.FieldType.ToNameStringWithValueTupleNames(
             fieldInfo.GetCustomAttribute<TupleElementNamesAttribute>()?.TransformNames, typeNameConverter,
-            invokeTypeNameConverterForGenericType);
+            invokeTypeNameConverterForGenericType) + (IsNullable(fieldInfo) ? "?" : string.Empty);
     }
 
     /// <summary>
@@ -255,7 +283,10 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full _name of the specified type</returns>
-    public static string ToNameStringWithValueTupleNames(this Type type, IList<string?>? tupleNames, Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+    public static string ToNameStringWithValueTupleNames(
+        this Type type,
+        IList<string?>? tupleNames,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
         bool invokeTypeNameConverterForGenericType = false)
     {
         var tq = tupleNames == null ? null : new Queue<string?>(tupleNames);
@@ -282,14 +313,18 @@ public static class ReflectionExtensions
     /// ToNameString() to avoid infinite recursion.  
     /// This is an optional parameter with default value of false.</param>
     /// <returns>Full type _name</returns>
-    public static string ToNameString(this Type type, Queue<string?>? tupleFieldNames, Func<Type, Queue<string?>?, string>? typeNameConverter = null, bool invokeTypeNameConverterForGenericType = false)
+    public static string ToNameString(
+        this Type type,
+        Queue<string?>? tupleFieldNames,
+        Func<Type, Queue<string?>?, string>? typeNameConverter = null,
+        bool invokeTypeNameConverterForGenericType = false)
     {
         if (type.IsByRef)
         {
             return "ref " + type.GetElementType()?.ToNameString(tupleFieldNames, typeNameConverter, invokeTypeNameConverterForGenericType);
         }
 
-        var decoratedTypeName = type.IsGenericType || tupleFieldNames  is null ? null : typeNameConverter?.Invoke(type, tupleFieldNames);
+        var decoratedTypeName = type.IsGenericType || tupleFieldNames is null ? null : typeNameConverter?.Invoke(type, tupleFieldNames);
 
         if (decoratedTypeName != null && (tupleFieldNames == null || tupleFieldNames.Count == 0))
         {
@@ -299,7 +334,7 @@ public static class ReflectionExtensions
         }
 
         string? newTypeName = null;
-        
+
         if (KnownTypeNames.TryGetValue(type, out var value))
         {
             newTypeName = value;
