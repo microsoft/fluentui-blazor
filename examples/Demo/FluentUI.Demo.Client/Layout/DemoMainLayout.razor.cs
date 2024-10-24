@@ -30,4 +30,16 @@ public partial class DemoMainLayout
             return ValueTask.CompletedTask;
         });
     }
+
+    private bool IsHomePage()
+    {
+        if (Navigation.Uri == Navigation.BaseUri)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;
 }
