@@ -1,11 +1,16 @@
 ﻿<div style="display: flex; gap: 12px;">
-    <FluentTextInput Appearance="@TextInputAppearance.Outline" Placeholder="Outline" @bind-Value="@value" Immediate="true" />
-    <FluentTextInput Appearance="@TextInputAppearance.Underline" Placeholder="Underline" @bind-Value="@value" Immediate="true" />
-    <FluentTextInput Appearance="@TextInputAppearance.FilledLighter" Placeholder="FilledLighter" @bind-Value="@value" Immediate="true" />
-    <FluentTextInput Appearance="@TextInputAppearance.FilledDarker" Placeholder="FilledDarker" @bind-Value="@value" Immediate="true" />
+    <FluentTextInput Appearance="@TextInputAppearance.Outline" Placeholder="Outline" @bind-Value="@Value" />
+    <FluentTextInput Appearance="@TextInputAppearance.Underline" Placeholder="Underline" @bind-Value="@Value" />
+    <FluentTextInput Appearance="@TextInputAppearance.FilledLighter" Placeholder="FilledLighter" @bind-Value="@Value" />
+    <FluentTextInput Appearance="@TextInputAppearance.FilledDarker" Placeholder="FilledDarker" @bind-Value="@Value" />
+</div>
+
+
+<div>
+    Value = @Value
 </div>
 
 @code
 {
-    string value = "";
+    string Value = "";
 }

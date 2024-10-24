@@ -10,3 +10,7 @@ Input allows the user to enter and edit text.
 ## Appearance
 
 {{ TextInputAppearances }}
+
+## Binding with ImmediateDelay
+
+{{ TextInputImmediate }}
