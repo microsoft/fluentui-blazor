@@ -143,14 +143,13 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
             {
                 await OnSelectedItemChangedHandlerAsync(item);
             }
+
+            if (Value != value)
+            {
+                await base.ChangeHandlerAsync(e);
+            }
         }
     }
-
-    protected override async Task InputHandlerAsync(ChangeEventArgs e)
-    {
-        await base.ChangeHandlerAsync(e);
-    }
-
 
     protected override string? GetOptionValue(TOption? item)
     {
