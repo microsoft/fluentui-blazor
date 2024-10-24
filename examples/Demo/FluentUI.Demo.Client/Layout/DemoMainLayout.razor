@@ -31,7 +31,7 @@
                   Title="Open or hide the console" />
 </FluentLayoutItem>
 
-<FluentLayout @ref="@_layout" Style="@(_consoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
+<FluentLayout @ref="@_layout" @key="@GetLayoutKey()" Style="@(_consoleLogOpened ? "height: calc(100vh - 230px); width: 100vw;" : "height: calc(100vh - 80px); width: 100vw;")">
 
     @{
         var menuHeight = _consoleLogOpened ? "calc(100vh - 90px - 150px)" : "calc(100vh - 90px)";
@@ -41,13 +41,25 @@
         <DemoNavMenu />
     </FluentLayoutItem>
 
-    <FluentLayoutItem Area="@LayoutArea.Content">
-        @Body
-    </FluentLayoutItem>
+    @if (IsHomePage())
+    {
+        <FluentLayoutItem Area="@LayoutArea.Content">
+            <div class="demo-home">
+                <div>@Body</div>
+                <div><DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" /></div>
+            </div>
+        </FluentLayoutItem>
+    }
+    else
+    {
+        <FluentLayoutItem Area="@LayoutArea.Content">
+            @Body
+        </FluentLayoutItem>
 
-    <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true">
-        <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
-    </FluentLayoutItem>
+        <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true">
+            <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
+        </FluentLayoutItem>
+    }
 
 </FluentLayout>
 
