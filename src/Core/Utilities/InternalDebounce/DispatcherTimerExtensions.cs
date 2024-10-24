@@ -76,7 +76,7 @@ internal static class DispatcherTimerExtensions
                 }
 
                 var task = item.Action.Invoke();
-                task.ContinueWith(t =>
+                _ = task.ContinueWith(t =>
                 {
                     if (t.IsFaulted)
                     {
@@ -90,7 +90,7 @@ internal static class DispatcherTimerExtensions
                     {
                         item.Status.SetResult();
                     }
-                });
+                }, TaskScheduler.Default);
             }
         }
     }
