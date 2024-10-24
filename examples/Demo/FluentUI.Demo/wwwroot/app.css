@@ -1,4 +1,4 @@
-@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+/* @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css'; */
 
 body {
   margin: 0;
@@ -9,6 +9,5 @@ body {
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase300);
   background: var(--colorNeutralBackground2);
 }
