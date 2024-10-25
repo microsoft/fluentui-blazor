@@ -2,19 +2,12 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inherits FluentComponentBase
 
-<div class="@ClassValue"
+<div class="@ClassValue" 
      style="@StyleValue"
-     drop-files="@DropOver"
      disabled="@Disabled"
-     @ondragenter="@(e => DropOver = true)"
-     @ondragenter:stopPropagation
-     @ondragover="@(e => DropOver = true)"
-     @ondragover:stopPropagation
-     @ondragleave="@(e => DropOver = false)"
-     @ondragleave:stopPropagation
-     @ondragend="@(e => DropOver = false)">
+     @ref="@_containerElement">
 
-    <div class="inputfile-content" style="z-index: @(DropOver ? null : 999)">
+    <div class="inputfile-content">
 
         @ChildContent
 
@@ -31,8 +24,9 @@
         </div>
     </div>
 
-    <div style="grid-column: 1; grid-row: 1; @(DropOver ? $"z-index: {ZIndex.InputFileDropZone}" : null)">
+    <div style="grid-column: 1; grid-row: 1; ">
         <InputFile OnChange="OnUploadFilesHandlerAsync"
+                   @ref="@_inputFile"
                    id="@Id"
                    multiple=@Multiple
                    accept="@Accept"

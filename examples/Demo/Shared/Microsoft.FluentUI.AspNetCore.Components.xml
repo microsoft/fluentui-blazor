@@ -4867,6 +4867,15 @@
             Gets the variant of the icon: Filled, Regular.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile2.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile2.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile2.Module">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
         </member>
@@ -6335,6 +6344,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.Checked">
             <summary>
             Gets or sets a value indicating whether the element is checked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.KeepOpen">
+            <summary>
+            Gets or sets a value indicates whether the FluentMenu should remain open after an action.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.ChildContent">

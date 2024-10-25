@@ -2,11 +2,13 @@
     display: grid;
     grid-gap: 10px;
     background-color: var(--neutral-fill-hover);
+    border: 1px dashed var(--accent-fill-rest);
 }
 
     .fluent-inputfile-container[drop-files] {
-        border: 2px dashed var(--accent-foreground-focus);
+        border: 1px solid var(--accent-fill-rest);
     }
+
     .fluent-inputfile-container .inputfile-content {
         grid-column: 1;
         grid-row: 1;
