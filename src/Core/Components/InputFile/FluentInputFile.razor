@@ -2,12 +2,12 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inherits FluentComponentBase
 
-<div class="@ClassValue" 
+<div class="@ClassValue"
      style="@StyleValue"
      disabled="@Disabled"
      @ref="@_containerElement">
 
-    <div class="inputfile-content">
+    <div class="inputfile-content" style="@($"z-index: {ZIndex.InputFileDropZone + 1} ")">
 
         @ChildContent
 
