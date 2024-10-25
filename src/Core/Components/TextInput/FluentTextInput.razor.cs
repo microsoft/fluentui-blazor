@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
-public partial class FluentTextInput
+/// <summary>
+/// A text input component that allows users to enter and edit a single line of text.
+/// </summary>
+public partial class FluentTextInput : FluentInputImmediateBase<string?>
 {
     /// <summary>
     /// Gets or sets the visual appearance.
@@ -22,11 +24,80 @@ public partial class FluentTextInput
     [Parameter]
     public string? Placeholder { get; set; }
 
+    ///// <summary>
+    ///// Gets or sets the content to be rendered inside the component.
+    ///// </summary>
+    //[Parameter]
+    //public RenderFragment? ChildContent { get; set; }
+
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the content to prefix the input component.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public virtual RenderFragment? StartTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to suffix the input component.
+    /// </summary>
+    [Parameter]
+    public virtual RenderFragment? EndTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id of a datalist element that provides a list of suggested values.
+    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see>.
+    /// </summary>
+    [Parameter]
+    public string? DataList { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of characters allowed in the input
+    /// </summary>
+    [Parameter]
+    public int? MaxLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets the minimum number of characters allowed in the input
+    /// </summary>
+    [Parameter]
+    public int? MinLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets a regular expression that the value must match to pass validation.
+    /// </summary>
+    [Parameter]
+    public string? Pattern { get; set; }
+
+    /// <summary>
+    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
+    /// An Id value must be set to use this property.
+    /// </summary>
+    [Parameter]
+    public string? AutoComplete { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text filed type. See <see cref="Components.TextInputType"/>
+    /// </summary>
+    [Parameter]
+    public TextInputType? TextFieldType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the input. See <see cref="Components.TextInputSize"/>
+    /// </summary>
+    [Parameter]
+    public TextInputSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether spellcheck should be used.
+    /// </summary>
+    [Parameter]
+    public bool? Spellcheck { get; set; }           // TODO: To verify if this is supported by the component
+
+    /// <summary>
+    /// Gets or sets the type of data that can be entered by the user when editing the element or its content.
+    /// This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
+    /// </summary>
+    [Parameter]
+    public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
 
     /// <summary>
     /// Parses a string to create the <see cref="FluentInputBase{TValue}.Value"/>.

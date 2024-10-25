@@ -1,4 +1,10 @@
-﻿<FluentTextInput Appearance="@TextInputAppearance.Outline" Placeholder="Updated after 400ms" @bind-Value="@Value" Immediate="true" ImmediateDelay="400" />
+﻿<div style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <FluentTextInput Appearance="@TextInputAppearance.Outline"
+                     Placeholder="Updated after 400ms"
+                     @bind-Value="@Value"
+                     Immediate="true"
+                     ImmediateDelay="400" />
+</div>
 
 <div>
     Value = @Value

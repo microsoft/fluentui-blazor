@@ -2,56 +2,50 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<fluent-text-input id="@Id"
-                   name="@Name"
-                   class="@ClassValue"
-                   style="@StyleValue"
-                   appearance="@Appearance.ToAttributeValue()"
-                   placeholder="@Placeholder"
-                   readonly="@ReadOnly"
+<fluent-text-input appearance="@Appearance.ToAttributeValue()"
+                   autocomple="@AutoComplete"
+                   autofocus="@Autofocus"
                    aria-label="@AriaLabel"
                    disabled="@Disabled"
-                   autofocus="@Autofocus"
+                   class="@ClassValue"
+                   id="@Id"
+                   inputmode="@InputMode"
+                   list=@DataList
+                   maxlength="@MaxLength"
+                   minlength="@MinLength"
+                   name="@Name"
+                   pattern="@Pattern"
+                   placeholder="@Placeholder"
+                   readonly="@ReadOnly"
                    required="@Required"
+                   spellcheck="@Spellcheck"
+                   control-size="@Size.ToAttributeValue()"
+                   style="@StyleValue"
+                   type="@TextFieldType.ToAttributeValue()"
                    value="@Value"
                    @onchange="@ChangeHandlerAsync"
                    @oninput="@InputHandlerAsync"
                    @attributes="AdditionalAttributes">
     @if (!string.IsNullOrEmpty(Label) || LabelTemplate != null)
     {
-        <fluent-label>
+        <fluent-label required="@Required">
             @Label
             @LabelTemplate
         </fluent-label>
     }
 
-    @ChildContent
+    @if (StartTemplate != null)
+    {
+        <div slot="start">
+            @StartTemplate
+        </div>
+    }
+
+    @if (EndTemplate != null)
+    {
+        <div slot="end">
+            @EndTemplate
+        </div>
+    }
+
 </fluent-text-input>
-
-@*
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
-
-    <fluent-text-input class="@ClassValue"
-                       style="@StyleValue"
-                       readonly="@ReadOnly"
-                       autofocus="@Autofocus"
-                       placeholder="@Placeholder"
-                 x     type="@TextFieldType.ToAttributeValue()"
-                 x     list=@DataList
-                 x     maxlength="@Maxlength"
-                 x     minlength="@Minlength"
-                 x     pattern=@Pattern
-                 x     size="@Size"
-                 x     spellcheck="@Spellcheck"
-                       id=@Id
-                       value=@Value
-                       disabled="@Disabled"
-                       name=@Name
-                       required="@Required"
-                       appearance="@Appearance.ToAttributeValue()"
-                       @onchange="@ChangeHandlerAsync"
-                       @oninput="@InputHandlerAsync"
-                       @attributes="AdditionalAttributes">
-        @ChildContent
-    </fluent-text-input>
-*@

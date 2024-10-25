@@ -1,0 +1,16 @@
+﻿<div style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <FluentTextInput Label="Company Url" Value="microsoft">
+        <StartTemplate>
+            <fluent-label>https://</fluent-label>
+        </StartTemplate>
+        <EndTemplate>
+            <fluent-label>.com</fluent-label>
+        </EndTemplate>
+    </FluentTextInput>
+
+    <FluentTextInput Label="Email" TextFieldType="TextInputType.Email">
+        <StartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" />
+        </StartTemplate>
+    </FluentTextInput>
+</div>
