@@ -1,5 +1,8 @@
 ---
 title: What's New
+order: 0010
+category: 10|Get Started
+icon: Regular.Info
 route: /WhatsNew
 ---
 

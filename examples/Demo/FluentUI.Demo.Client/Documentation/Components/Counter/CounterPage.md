@@ -1,5 +1,7 @@
 ---
 title: My Counter (Test)
+category: 0200|Labs
+icon: Regular.ArrowBetweenUp
 route: /Test/Counter
 ---
 
