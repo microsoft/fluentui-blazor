@@ -19,6 +19,7 @@ public record Page
     /// <summary>
     /// 
     ///   ---
+    ///   category: 20|Components
     ///   title: Button
     ///   route: /Button
     ///   hidden: true
@@ -38,8 +39,24 @@ public record Page
         Content = ReplaceIncludes(GetItem(items, "content"));
         Headers = items.Where(i => i.Key != "content").ToDictionary();
         Title = GetItem(items, "title");
+        Order = GetItem(items, "order");
+        Icon = GetItem(items, "icon");
         Route = GetItem(items, "route");
         Hidden = GetItem(items, "hidden") == "true";
+
+        var category = GetItem(items, "category");
+        if (!string.IsNullOrEmpty(category))
+        {
+            var parts = category.Split(['|'], 2);
+            if (parts.Length == 2)
+            {
+                Category = (parts[0].Trim(), parts[1].Trim());
+            }
+            else
+            {
+                Category = (string.Empty, category.Trim());
+            }
+        }
     }
 
     /// <summary>
@@ -67,6 +84,21 @@ public record Page
     /// Gets the page title defined in the <see cref="Headers"/>
     /// </summary>
     public string Title { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the page order defined in the <see cref="Headers"/>
+    /// </summary>
+    public string Order { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the page icon defined in the <see cref="Headers"/>
+    /// </summary>
+    public string Icon { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the page category defined in the <see cref="Headers"/>
+    /// </summary>
+    public (string Key, string Title) Category { get; } = (string.Empty, string.Empty);
 
     /// <summary>
     /// Gets or sets the visibility of the page, defined in the <see cref="Headers"/>.
