@@ -3,10 +3,20 @@
 
 <div>
     <ul>
-        @foreach (var page in DocViewerService.Pages.Where(i => !i.Hidden).OrderBy(i => i.Route))
+        @* TODO: Need to manage multiple levels (not only 2) *@
+        @foreach (var category in NavItems)
         {
             <li>
-                <a href="@(page.Route)">@(page.Title)</a>
+                @category.Title
+
+                <ul>
+                    @foreach (var page in category.Items)
+                    {
+                        <li>
+                            <a href="@(page.Route)">@(page.Title)</a>
+                        </li>
+                    }
+                </ul>
             </li>
         }
     </ul>
