@@ -44,19 +44,20 @@ export function initializeFileDropZone(containerElement, inputFile) {
         inputFile.dispatchEvent(event);
     }
 
-    function onPaste(e) {
-        // Set the files property of the input element and raise the change event
-        inputFile.files = e.clipboardData.files;
-        const event = new Event('change', { bubbles: true });
-        inputFile.dispatchEvent(event);
-    }
+    // We'll implement this later
+    //function onPaste(e) {
+    //    // Set the files property of the input element and raise the change event
+    //    inputFile.files = e.clipboardData.files;
+    //    const event = new Event('change', { bubbles: true });
+    //    inputFile.dispatchEvent(event);
+    //}
 
     // Register all events
     containerElement.addEventListener("dragenter", onDragHover);
     containerElement.addEventListener("dragover", onDragHover);
     containerElement.addEventListener("dragleave", onDragLeave);
     containerElement.addEventListener("drop", onDrop);
-    containerElement.addEventListener('paste', onPaste);
+    //containerElement.addEventListener('paste', onPaste);
 
     // The returned object allows to unregister the events when the Blazor component is destroyed
     return {
@@ -65,7 +66,7 @@ export function initializeFileDropZone(containerElement, inputFile) {
             containerElement.removeEventListener('dragover', onDragHover);
             containerElement.removeEventListener('dragleave', onDragLeave);
             containerElement.removeEventListener("drop", onDrop);
-            containerElement.removeEventListener('paste', onPaste);
+            //containerElement.removeEventListener('paste', onPaste);
         }
     }
 }
