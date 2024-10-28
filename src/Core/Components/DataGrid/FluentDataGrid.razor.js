@@ -1,5 +1,4 @@
 let initialColumnsWidths = {};
-var latestGridElement = null;
 
 export function init(gridElement) {
     if (gridElement === undefined || gridElement === null) {
@@ -159,9 +158,6 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 export function enableColumnResizing(gridElement) {
-    if (gridElement === latestGridElement)
-        return;
-    latestGridElement = gridElement;
     const columns = [];
     let min = 75;
     let headerBeingResized;
@@ -224,7 +220,9 @@ export function enableColumnResizing(gridElement) {
             resizeHandle = target;
             headerBeingResized = target.parentNode;
 
-            resizeHandle.setPointerCapture(pointerId);
+            if (resizeHandle) {
+                resizeHandle.setPointerCapture(pointerId);
+            }
         };
 
         const dragHandle = header.querySelector('.col-width-draghandle');
