@@ -125,4 +125,72 @@ public class PageTests
         Assert.Equal(SectionType.Html, sections.ElementAt(0).Type);
         Assert.Equal(SectionType.Code, sections.ElementAt(1).Type);
     }
+
+    [Fact]
+    public void Page_Category_NoOrder()
+    {
+        var fileContent = @"---
+                           category: Get started
+                           ---
+                           My content";
+
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
+
+        Assert.Equal("Get started", page.Category.Title);
+        Assert.Equal("", page.Category.Key);
+    }
+
+    [Fact]
+    public void Page_Category_KeyTitle()
+    {
+        var fileContent = @"---
+                           category: 10 | Get started
+                           ---
+                           My content";
+
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
+
+        Assert.Equal("Get started", page.Category.Title);
+        Assert.Equal("10", page.Category.Key);
+    }
+
+    [Fact]
+    public void Page_Category_MultipleKeys()
+    {
+        var fileContent = @"---
+                           category: 10|Get started#Invalid
+                           ---
+                           My content";
+
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
+
+        Assert.Equal("Get started", page.Category.Title);
+        Assert.Equal("10", page.Category.Key);
+    }
+
+    [Fact]
+    public void Page_Order_Default()
+    {
+        var fileContent = @"---
+                           order: 10
+                           ---
+                           My content";
+
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
+
+        Assert.Equal("10", page.Order);
+    }
+
+    [Fact]
+    public void Page_Order_Undefined()
+    {
+        var fileContent = @"---
+                           title: My title
+                           ---
+                           My content";
+
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
+
+        Assert.Equal(string.Empty, page.Order);
+    }
 }

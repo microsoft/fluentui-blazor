@@ -46,7 +46,7 @@ into equivalent HTML pages.
    }
    ```
 
-## Header: Title and Routing
+## Header: Title, Routing and Category
 
 Each markdown file contains a header that defines the page title and the
 the route to this documentation page.
@@ -65,6 +65,19 @@ You can also hide the page from the navigation menu using the `hidden` attribute
 title: Button
 route: /Button
 hidden: true
+---
+```
+
+You can classify pages into categories using the `category` attribute.
+This allows you to present the navigation structure with these categories, possibly sorted on the basis of the key
+(to avoid alphabetical classification). Similarly, pages can be classified using the `order` parameter.
+
+```markdown
+---
+category: 10|Getting Started
+title: Button
+order: 20
+route: /Button
 ---
 ```
 
