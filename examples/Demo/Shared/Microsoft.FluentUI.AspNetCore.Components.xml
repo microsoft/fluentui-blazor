@@ -5526,6 +5526,13 @@
             Gets or sets the color of the component. It supports the theme colors.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.CustomColor">
+            <summary>
+            Gets or sets the color of the label to a custom value.
+            Needs to be formatted as a valid CSS color value (HTML hex color string (#rrggbb or #rgb), CSS variable or named color).
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.Weight">
             <summary>
             Gets or sets the font weight of the component:
@@ -5543,6 +5550,9 @@
             <summary>
             Gets or sets the child content of component.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.OnParametersSet">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.Orientation">
             <summary>
