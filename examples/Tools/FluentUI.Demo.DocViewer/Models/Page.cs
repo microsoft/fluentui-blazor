@@ -40,6 +40,7 @@ public record Page
         Headers = items.Where(i => i.Key != "content").ToDictionary();
         Title = GetItem(items, "title");
         Order = GetItem(items, "order");
+        Icon = GetItem(items, "icon");
         Route = GetItem(items, "route");
         Hidden = GetItem(items, "hidden") == "true";
 
@@ -88,6 +89,11 @@ public record Page
     /// Gets the page order defined in the <see cref="Headers"/>
     /// </summary>
     public string Order { get; } = string.Empty;
+
+    /// <summary>
+    /// Gets the page icon defined in the <see cref="Headers"/>
+    /// </summary>
+    public string Icon { get; } = string.Empty;
 
     /// <summary>
     /// Gets the page category defined in the <see cref="Headers"/>

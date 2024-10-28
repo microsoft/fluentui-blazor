@@ -193,4 +193,17 @@ public class PageTests
 
         Assert.Equal(string.Empty, page.Order);
     }
+
+    [Fact]
+    public void Page_Icon_Default()
+    {
+        var fileContent = @"---
+                           icon: Regular.ControlButton
+                           ---
+                           My content";
+
+        var page = new Page(DocViewerService, "file.md", fileContent.RemoveLeadingBlanks());
+
+        Assert.Equal("Regular.ControlButton", page.Icon);
+    }
 }
