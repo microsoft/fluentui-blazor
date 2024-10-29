@@ -7,6 +7,6 @@
       "fluentui-blazor@microsoft.com"
     ],
     "projectName": "DEVDIV",
-    "repositoryName": "microsoft-fluentui-blazor",
+    "repositoryName": "fluentui-blazor",
     "template": "TFSDEVDIV"
   }
