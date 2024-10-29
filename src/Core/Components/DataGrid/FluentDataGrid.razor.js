@@ -1,4 +1,3 @@
-var latestGridElement = null;
 let grids = [];
 const minWidth = 100;
 
@@ -8,6 +7,11 @@ export function init(gridElement) {
     };
 
     enableColumnResizing(gridElement);
+
+    let start = gridElement.querySelector('td:first-child');
+    //start.focus();
+    //start.style.backgroundColor = '#50b988';
+    //start.style.color = 'white';
 
     const bodyClickHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
@@ -19,6 +23,17 @@ export function init(gridElement) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
         }
     };
+    const changeStyle = (sibling) => {
+        if (sibling !== null) {
+            start.focus();
+            start.style.backgroundColor = '';
+            start.style.color = '';
+            sibling.focus();
+            //sibling.style.backgroundColor = '#50b988';
+            //sibling.style.color = 'white';
+            start = sibling;
+        }
+    }
     const keyDownHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
         if (columnOptionsElement) {
@@ -50,6 +65,35 @@ export function init(gridElement) {
                 }
             );
         }
+
+        if (start) {
+            const idx = start.cellIndex;
+
+            if (event.key === "ArrowUp") {
+                // up arrow
+                const previousRow = start.parentElement.previousElementSibling;
+                if (previousRow !== null) {
+                    const previousSibling = previousRow.cells[idx];
+                    changeStyle(previousSibling);
+                }
+            } else if (event.key === "ArrowDown") {
+                // down arrow
+                const nextRow = start.parentElement.nextElementSibling;
+                if (nextRow !== null) {
+                    const nextSibling = nextRow.cells[idx];
+                    changeStyle(nextSibling);
+                }
+            } else if (event.key === "ArrowLeft") {
+                // left arrow
+                const previousSibling = start.previousElementSibling;
+                changeStyle(previousSibling);
+            } else if (event.key === "ArrowRight") {
+                // right arrow
+                const nextsibling = start.nextElementSibling;
+                changeStyle(nextsibling);
+            }
+        }
+
     };
 
     const cells = gridElement.querySelectorAll('[role="gridcell"]');

@@ -68,6 +68,12 @@
         else
         {
             string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
+            string? wdelta = "20px";
+
+            if (Grid.ResizeType is not null || ColumnOptions is not null)
+            {
+                wdelta = "56px";
+            }
 
             @if (Align == Align.Start || Align == Align.Center)
             {
@@ -87,7 +93,7 @@
             @if (Sortable.HasValue ? Sortable.Value : IsSortableByDefault())
             {
                 <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
-                    <FluentButton Appearance="Appearance.Stealth" Class="col-sort-button" Style="width: calc(100% - 56px);" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
+                    <FluentButton Appearance="Appearance.Stealth" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip">
                             <div class="col-title-text" title="@tooltip">@Title</div>
 
                         @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
@@ -110,7 +116,7 @@
             }
             else
             {
-                 <FluentButton Disabled="true" Id="@_columnId" Appearance="Appearance.Stealth" Class="col-sort-button" Style="width: calc(100% - 56px);" aria-label="@tooltip" title="@tooltip">
+                                 <FluentButton Disabled="true" Id="@_columnId" Appearance="Appearance.Stealth" Class="col-sort-button" Style="@($"width: calc(100% - {wdelta});")" aria-label="@tooltip" title="@tooltip">
 
                     <div class="col-title-text" title="@tooltip">@Title</div>
                     @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
