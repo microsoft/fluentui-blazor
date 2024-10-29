@@ -1,3 +1,60 @@
+## V4.10.3
+
+### Important note
+- The main class name for the `FluentAppBar` component has been renamed from `nav-menu-container` to `fluent-appbar`. If you have custom CSS in your app targeting that class, you need to change that to you the new class name.
+
+
+### General
+- \[General\] Apply global color-scheme to reflect theme in use ([#2854](https://github.com/microsoft/fluentui-blazor/pull/2854))
+
+### Components
+- \[AppBar\] Make it work in horizontal orientation as well ([#2760](https://github.com/microsoft/fluentui-blazor/pull/2760))
+- \[AutoComplete\] Add KeepOpen property ([#2829](https://github.com/microsoft/fluentui-blazor/pull/2829))
+- \[Autocomplete\] Fix the Autocomplete search rendering on slow connections ([#2820](https://github.com/microsoft/fluentui-blazor/pull/2820))
+- \[ComboBox\] Fix OnValueChanged being called multiple times ([#2855](https://github.com/microsoft/fluentui-blazor/pull/2855))
+- \[DataGrid\] Fix resize in RTL mode ([#2843](https://github.com/microsoft/fluentui-blazor/pull/2843))
+- \[Dialog\] Prevent tooltip from being shown on load ([#2856](https://github.com/microsoft/fluentui-blazor/pull/2856))
+- \[FileInput\] Fix uploading the same file twice by drag&drop ([#2865](https://github.com/microsoft/fluentui-blazor/pull/2865))
+- \[Label\] Add CustomColor parameter and implementation ([#2828](https://github.com/microsoft/fluentui-blazor/pull/2828))
+- \[Menu\/Tooltip] Fixed incorrectly previously ([#2790](https://github.com/microsoft/fluentui-blazor/pull/2790))
+- \[MenuItem\] Add KeepOpen parameter ([#2852](https://github.com/microsoft/fluentui-blazor/pull/2852))
+- \[MenuProvider\] Check whether the FluentMenuProvider is included ([#2793](https://github.com/microsoft/fluentui-blazor/pull/2793))
+- \[MessageBox\] Add settable primary action text for Show... methods ([#2808](https://github.com/microsoft/fluentui-blazor/pull/2808))
+- \[NumberField\] Fix looping error ([#2807](https://github.com/microsoft/fluentui-blazor/pull/2807))
+- \[Select\] Fix multiple issues ([#2840](https://github.com/microsoft/fluentui-blazor/pull/2840))
+- \[Slider\] Make label respond to `Disabled` state ([#2796](https://github.com/microsoft/fluentui-blazor/pull/2796))
+- \[Splitter\] Fix trimming issue ([#2859](https://github.com/microsoft/fluentui-blazor/pull/2859))
+- \[Stack\] Added 'Stretch' horizontal alignment option ([#2800](https://github.com/microsoft/fluentui-blazor/pull/2800))
+- \[Templates\] Fix typo 'paceholder' ([#2801](https://github.com/microsoft/fluentui-blazor/pull/2801))
+- \[TreeView\] Fix OnSelectedChange when using Items ([#2811](https://github.com/microsoft/fluentui-blazor/pull/2811))
+
+### Demo site and documentation
+- \[Docs\] Make MenuProvider message more prominent ([#2792](https://github.com/microsoft/fluentui-blazor/pull/2792))
+
+### Icons
+- Update to Fluent UI System Icons 1.1.261 (changes since 1.1.260) plus a fix for not usingthe right colors in the new 'Color icons.
+
+ **What's new (Name / Size(s) / Variant(s))**
+ - Arrow Down Right / 16, 20, 24, 32, 48 / Filled & Regular
+ - Arrow Repeat All / 28, 48 / Filled & Regular
+ - Attach / 28, 48 / Filled & Regular
+ - Calendar Mention / 16 / Filled & Regular
+ - Calendar Person / 16, 20, 32 / Filled & Regular
+ - Comment Multiple Mention / 16, 20 / Filled & Regular
+ - Document Text / 28, 32, 48 / Filled & Regular
+ - Equal Circle / 16 / Filled & Regular
+ - Folder Document / 16, 20, 24, 28 / Filled & Regular
+ - Mail Inbox Person / 16, 20, 32 / Filled & Regular
+ - Mail Inbox / 32 / Filled & Regular
+ - Mail Read Multiple / 32 / Light
+ - Plug Connected / 28, 32, 48 / Filled & Regular
+
+ **What's updated (Name / Size(s) / Variant(s))**
+ - Calendar Mention / 20 / Filled & Regular
+ - Comment Mention / 16, 20 / Filled & Regular
+ - Document Mention / 16, 20 / Filled & Regular
+ - Document One Page Multiple / 16, 20, 24 / Filled & Regular
+
 ## V4.10.2
 
 ### General

@@ -109,11 +109,9 @@ export function checkColumnPopupPosition(gridElement, selector) {
 
 export function enableColumnResizing(gridElement) {
     const columns = [];
+    let min = 75;
     let headerBeingResized;
-
-    if (gridElement === latestGridElement)
-        return;
-    latestGridElement = gridElement;
+    let resizeHandle;
 
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -157,6 +155,7 @@ export function enableColumnResizing(gridElement) {
         });
 
         const onPointerUp = (e) => {
+
             window.removeEventListener('pointermove', onPointerMove);
             window.removeEventListener('pointerup', onPointerUp);
             window.removeEventListener('pointercancel', onPointerUp);
@@ -174,12 +173,15 @@ export function enableColumnResizing(gridElement) {
             headerBeingResized = target.parentNode;
             headerBeingResized.classList.add('header--being-resized');
 
+
             window.addEventListener('pointermove', onPointerMove);
             window.addEventListener('pointerup', onPointerUp);
             window.addEventListener('pointercancel', onPointerUp);
             window.addEventListener('pointerleave', onPointerUp);
 
-            target.setPointerCapture(pointerId);
+            if (resizeHandle) {
+                resizeHandle.setPointerCapture(pointerId);
+            }
         };
 
         header.querySelector('.resize-handle').addEventListener('pointerdown', initResize);

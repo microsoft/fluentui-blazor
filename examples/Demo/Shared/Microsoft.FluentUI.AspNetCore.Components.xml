@@ -313,6 +313,11 @@
             Gets or sets if the popover shows the search box.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.Orientation">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Orientation"/> of the app bar.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.PopoverVisibilityChanged">
             <summary>
             Event to be called when the visibility of the popover changes.
@@ -5505,6 +5510,13 @@
             Gets or sets the color of the component. It supports the theme colors.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.CustomColor">
+            <summary>
+            Gets or sets the color of the label to a custom value.
+            Needs to be formatted as a valid CSS color value (HTML hex color string (#rrggbb or #rgb), CSS variable or named color).
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.Weight">
             <summary>
             Gets or sets the font weight of the component:
@@ -5522,6 +5534,9 @@
             <summary>
             Gets or sets the child content of component.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.OnParametersSet">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.Orientation">
             <summary>
@@ -5683,6 +5698,12 @@
             Default is false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeepOpen">
+            <summary>
+            Gets or sets whether the drop-down panel stays open after selecting an item,
+            until the number of selected items reaches the maximum (only using the mouse).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -5735,6 +5756,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.LibraryConfiguration">
@@ -6339,6 +6363,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.Checked">
             <summary>
             Gets or sets a value indicating whether the element is checked.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.KeepOpen">
+            <summary>
+            Gets or sets a value indicates whether the FluentMenu should remain open after an action.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.ChildContent">

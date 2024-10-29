@@ -20,6 +20,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("onsplitterresized", typeof(SplitterResizedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onsplittercollapsed", typeof(SplitterCollapsedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("oncontrolinput", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("oncomboboxchange", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

@@ -224,6 +224,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public bool SelectValueOnTab { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets whether the drop-down panel stays open after selecting an item,
+    /// until the number of selected items reaches the maximum (only using the mouse).
+    /// </summary>
+    [Parameter]
+    public bool KeepOpen { get; set; } = false;
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -287,6 +294,7 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
             IsReachedMaxItems = true;
+            RenderComponent();
             return;
         }
 
@@ -319,8 +327,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await VirtualizationContainer.RefreshDataAsync();
         }
 
-        _shouldRender = true;
-        StateHasChanged();
+        RenderComponent();
+
+        // Activate the rendering
+        void RenderComponent()
+        {
+            _shouldRender = true;
+            StateHasChanged();
+        }
     }
 
     private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)
@@ -534,9 +548,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         ValueText = string.Empty;
         await RaiseValueTextChangedAsync(ValueText);
 
-        IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
         await DisplayLastSelectedItemAsync();
+
+        if (MustBeClosed())
+        {
+            IsMultiSelectOpened = false;
+        }
     }
 
     /// <summary />
@@ -618,5 +636,26 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await ValueChanged.InvokeAsync(ValueText);
         }
 
+    }
+
+    /// <summary />
+    private bool MustBeClosed()
+    {
+        if (KeepOpen == false)
+        {
+            return true;
+        }
+
+        if (MaximumSelectedOptions is null || MaximumSelectedOptions <= 1)
+        {
+            return true;
+        }
+
+        if (MaximumSelectedOptions > 0 && _selectedOptions.Count >= MaximumSelectedOptions)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
