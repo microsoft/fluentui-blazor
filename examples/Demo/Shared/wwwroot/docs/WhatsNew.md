@@ -1,5 +1,8 @@
 ## V4.10.3
 
+### Important note
+- The main class name for the `FluentAppBar` component has been renamed from `nav-menu-container` to `fluent-appbar`. If you have custom CSS in your app targeting that class, you need to change that to you the new class name.
+
 ### General
 - \[General\] Apply global color-scheme to reflect theme in use ([#2854](https://github.com/microsoft/fluentui-blazor/pull/2854))
 
