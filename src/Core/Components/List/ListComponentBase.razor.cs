@@ -536,7 +536,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             if (SelectedOptionsChanged.HasDelegate)
             {
-                if (_selectedOptions.Count != 0)
+                if (_selectedOptions.Count != 0 || SelectedOptions?.Any() == true)
                 {
                     await SelectedOptionsChanged.InvokeAsync(_selectedOptions);
                 }
