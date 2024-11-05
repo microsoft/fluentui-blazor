@@ -144,6 +144,10 @@ maintaining accessibility. This is accomplished through setting various "design 
 You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra steps (for now) described below.
 
 ### Temporary workaround for MAUI/WPF/Windows Forms issues
+
+> [!NOTE]
+> The workaround below only applies to .NET 8 (and below). As of .NET 9 this workaround is no longer needed. If you have this workaround in place for .NET 9 your Blazor Hybrid project **will not load**.
+
 Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404)). 
 There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
