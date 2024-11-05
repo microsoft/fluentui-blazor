@@ -433,7 +433,7 @@
         await cut.InvokeAsync(async () => await cut.FindComponents<FluentKeyCode>()
                                    .ElementAt(popoverOpened ? 1 : 0)
                                    .Instance
-                                   .OnKeyDownRaisedAsync((int)key, string.Empty, false, false, false, false, 0, string.Empty));
+                                   .OnKeyDownRaisedAsync((int)key, string.Empty, false, false, false, false, 0, string.Empty, false));
     }
 
     // Search customers
