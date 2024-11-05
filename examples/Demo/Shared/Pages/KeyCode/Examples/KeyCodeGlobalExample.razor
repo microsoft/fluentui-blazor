@@ -1,10 +1,14 @@
 ﻿@inject IKeyCodeService KeyCodeService
 @implements IAsyncDisposable
 
-<FluentSwitch @bind-Value="@IncludeKeyUp"
-              CheckedMessage="KeyDown and KeyUp"
-              UncheckedMessage="KeyDown only"
-              Style="margin-bottom: 10px;" />
+<FluentStack Style="margin-bottom: 10px;">
+    <FluentSwitch @bind-Value="@IncludeKeyUp"
+                  CheckedMessage="KeyDown and KeyUp"
+                  UncheckedMessage="KeyDown only" />
+    <FluentSwitch @bind-Value="@StopRepeat"
+                  CheckedMessage="Stop Repeat"
+                  UncheckedMessage="Allow Repeat" />
+</FluentStack>
 
 <FluentCard>
     @if (!KeyPressed.Any())
@@ -21,6 +25,7 @@
 @code
 {
     private bool IncludeKeyUp = false;
+    private bool StopRepeat = false;
     private List<(string Key, string Event)> KeyPressed = new();
 
     protected override void OnInitialized()
@@ -32,6 +37,11 @@
     private Task OnKeyHandleAsync(FluentKeyCodeEventArgs args)
     {
         if (!IncludeKeyUp && args.Name == "keyup")
+        {
+            return Task.CompletedTask;
+        }
+
+        if (StopRepeat && args.Repeat)
         {
             return Task.CompletedTask;
         }

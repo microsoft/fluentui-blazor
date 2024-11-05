@@ -1,4 +1,4 @@
-export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper, preventMultipleKeydown) {
+export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, onlyCodes, excludeCodes, stopPropagation, preventDefault, preventDefaultOnly, dotNetHelper, preventMultipleKeydown, stopRepeat) {
     const element = globalDocument
                   ? document
                   : elementRef == null ? document.getElementById(id) : elementRef;
@@ -27,6 +27,10 @@ export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, only
         const handler = function (e, netMethod) {
             const keyCode = e.which || e.keyCode || e.charCode;
 
+            if (stopRepeat && e.repeat) {
+                return;
+            }
+
             if (!!dotNetHelper && !!dotNetHelper.invokeMethodAsync) {
 
                 const targetId = e.currentTarget?.id ?? "";
@@ -52,7 +56,7 @@ export function RegisterKeyCode(globalDocument, eventNames, id, elementRef, only
                     if (isStopPropagation) {
                         e.stopPropagation();
                     }
-                    dotNetHelper.invokeMethodAsync(netMethod, keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location, targetId);
+                    dotNetHelper.invokeMethodAsync(netMethod, keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location, targetId, e.repeat);
                     return;
                 }
             }

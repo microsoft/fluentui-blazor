@@ -2,7 +2,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class FluentKeyCodeEventArgs
 {
-    internal static FluentKeyCodeEventArgs Instance(string name, int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId)
+    internal static FluentKeyCodeEventArgs Instance(string name, int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId, bool repeat)
     {
         return new FluentKeyCodeEventArgs
         {
@@ -16,6 +16,7 @@ public class FluentKeyCodeEventArgs
             AltKey = altKey,
             MetaKey = metaKey,
             TargetId = targetId,
+            Repeat = repeat
         };
     }
 
@@ -70,6 +71,11 @@ public class FluentKeyCodeEventArgs
     /// Gets the identifier of the targeted DOM element.
     /// </summary>
     public string TargetId { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets a boolean value that is true if the given key is being held down such that it is automatically repeating.
+    /// </summary>
+    public bool Repeat { get; init; } = false;
 
     /// <summary>
     /// Returns a string that represents the key pressed.

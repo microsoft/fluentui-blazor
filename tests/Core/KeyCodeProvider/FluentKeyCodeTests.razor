@@ -16,7 +16,7 @@
         // Arrange && Act
         var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyDown="@(e => pressed = e)" /></div>);
 
-        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone", false);
 
         // Assert
         Assert.Equal(65, pressed.KeyCode);
@@ -37,7 +37,7 @@
         // Arrange && Act
         var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyUp="@(e => pressed = e)" /></div>);
 
-        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyUpRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyUpRaisedAsync(65, "A", false, false, false, false, 0, "myZone", false);
 
         // Assert
         Assert.Equal(65, pressed.KeyCode);
@@ -51,7 +51,7 @@
         // Arrange && Act
         var cut = Render(@<FluentKeyCode OnKeyDown="@(e => pressed = e)">Hello World</FluentKeyCode>);
 
-        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone");
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", false, false, false, false, 0, "myZone", false);
 
         // Assert
         Assert.Equal(65, pressed.KeyCode);
@@ -72,7 +72,7 @@
         // Arrange && Act
         var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyDown="@(e => pressed = e)" /></div>);
 
-        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", true, true, true, true, 0, "myZone");
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", true, true, true, true, 0, "myZone", false);
 
         // Assert
         Assert.Equal(65, pressed.KeyCode);
@@ -99,7 +99,7 @@
         // Arrange && Act
         var cut = Render(@<div id="myZone"><FluentKeyCode Anchor="myZone" OnKeyDown="@(e => pressed = e)" /></div>);
 
-        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", ctrlKey, shiftKey, altKey, metaKey, 0, "myZone");
+        await cut.FindComponent<FluentKeyCode>().Instance.OnKeyDownRaisedAsync(65, "A", ctrlKey, shiftKey, altKey, metaKey, 0, "myZone", false);
 
         // Assert
         Assert.Equal(expected, pressed.ToString());
