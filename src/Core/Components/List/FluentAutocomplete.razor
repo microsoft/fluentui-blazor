@@ -79,7 +79,7 @@
                                     Width="12px"
                                     Style="cursor: pointer;"
                                     Slot="end"
-                                    Title="Clear"
+                                    Title="@AccessibilityIconDismiss"
                                     Focusable="true"
                                     @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     OnClick="@OnClearAsync" />
@@ -93,7 +93,7 @@
                                     Width="16px"
                                     Style="cursor: pointer;"
                                     Slot="end"
-                                    Title="Search"
+                                    Title="@AccessibilityIconSearch"
                                     Focusable="true"
                                     @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
                                     OnClick="@OnDropDownExpandedAsync" />
