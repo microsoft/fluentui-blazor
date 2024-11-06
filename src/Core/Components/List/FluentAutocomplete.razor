@@ -80,9 +80,8 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="@AccessibilityIconDismiss"
+                                    Focusable="true"
                                     @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
-                                    tabindex="0"
-                                    role="button"
                                     OnClick="@OnClearAsync" />
                     }
                 }
@@ -95,9 +94,8 @@
                                     Style="cursor: pointer;"
                                     Slot="end"
                                     Title="@AccessibilityIconSearch"
+                                    Focusable="true"
                                     @onfocus="@(e => { IsReachedMaxItems = false; IsMultiSelectOpened = false; })"
-                                    tabindex="0"
-                                    role="button"
                                     OnClick="@OnDropDownExpandedAsync" />
                     }
                 }
