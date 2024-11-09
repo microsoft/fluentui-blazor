@@ -149,6 +149,7 @@ public partial class FluentKeyCode : IAsyncDisposable
     /// <param name="metaKey"></param>
     /// <param name="location"></param>
     /// <param name="targetId"></param>
+    /// <param name="repeat"></param>
     /// <returns></returns>
     [JSInvokable]
     public async Task OnKeyDownRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId, bool repeat)
@@ -170,6 +171,7 @@ public partial class FluentKeyCode : IAsyncDisposable
     /// <param name="metaKey"></param>
     /// <param name="location"></param>
     /// <param name="targetId"></param>
+    /// <param name="repeat"></param>
     /// <returns></returns>
     [JSInvokable]
     public async Task OnKeyUpRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId, bool repeat)
