@@ -1,1 +1,10 @@
-﻿
+﻿<FluentTreeView Items="@list" @bind-SelectedItem="this.selectedItem">
+
+</FluentTreeView>
+
+@code
+{
+    private ITreeViewItem? selectedItem;
+    private List<TreeViewItem> list = new List<TreeViewItem>() { new TreeViewItem() { Expanded = true, Text = "test 1", Items = new List<TreeViewItem>() { new TreeViewItem() { Text = "sub test 2" } } },
+        new TreeViewItem() { Text = "test 2" } };
+}
