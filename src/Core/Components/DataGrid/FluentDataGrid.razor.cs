@@ -266,13 +266,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool MultiLine { get; set; } = false;
 
-    /// <summary>
-    /// Gets the first (optional) SelectColumn
-    /// </summary>
-#pragma warning disable CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
-    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.OfType<SelectColumn<TGridItem>>();
-#pragma warning restore CA2021 // Do not call Enumerable.Cast<T> or Enumerable.OfType<T> with incompatible types
-
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 

@@ -190,6 +190,10 @@
         animation: none;
     }
 
+[dir="rtl"] .fluent-calendar ::deep .day[disabled]::before {
+    transform: translate(4px, 0px) rotate(45deg);
+}
+
 /*
     "Months" View
 */
