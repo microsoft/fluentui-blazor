@@ -1,35 +1,64 @@
 ## V4.10.4
 
+### General
+- \[General\] Supports .NET 9 GA version
+
+### Components
+- \[Accordion\] Fix RTL specific styling ([#2917](https://github.com/microsoft/fluentui-blazor/pull/2917))
+- \[Autocomplete\] Fix Icon Titles (Dismiss and Search) and delete predefined element ([#2891](https://github.com/microsoft/fluentui-blazor/pull/2891))
+- \[Autocomplete\] Fix the Autocomplete Clear button ([#2906](https://github.com/microsoft/fluentui-blazor/pull/2906))
+- \[Calendar\] Fix the Calendar disabled day in RTL direction ([#2909](https://github.com/microsoft/fluentui-blazor/pull/2909))
+- \[DataGrid\] Fix `SelectAll` after reloading data when the `Virtualize` is set ([#2915](https://github.com/microsoft/fluentui-blazor/pull/2915))
+- \[DataGrid\] Remove optimalization check as it can break in certain scenarios ([#2875](https://github.com/microsoft/fluentui-blazor/pull/2875))
+- \[KeyCode\] Add a new `StopRepeat` property ([#2908](https://github.com/microsoft/fluentui-blazor/pull/2908))
+- \[MessageBar\] Implement ClearAfterNavigation on provider level ([#2919](https://github.com/microsoft/fluentui-blazor/pull/2919))
+- \[TreeItem\] Only pass initially selected state to the web component ([#2916](https://github.com/microsoft/fluentui-blazor/pull/2916))
+
+### Demo site and documentation
+- \[Docs\] Update README with Blazor Hybrid workaround note ([#2892](https://github.com/microsoft/fluentui-blazor/pull/2892))
+
 ### Icons
-- Update to Fluent UI System Icons 1.1.263 (changes since 1.1.261)
+- Update to Fluent UI System Icons 1.1.265 (changes since 1.1.261)
 
  **What's new (Name / Size(s) / Variant(s))**
+ - Animal Paw Print / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Bounce / 12, 28, 48 / Filled & Regular
+ - Arrow Clockwise Dashes / 28, 48 / Filled & Regular
+ - Arrow Clockwise Dashes Settings / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Down Left / 12, 28 / Filled & Regular
  - Arrow Flow Diagonal Up Right / 12, 28, 48 / Filled & Regular
- - Arrow Up Right Dashes / 12, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Up Right / 12, 28 / Filled & Regular
- - Arrow Wrap Up To Down / 20, 32 / Filled & Regular
+ - Arrow Up Right Dashes / 12, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Wrap / 32 / Filled & Regular
+ - Arrow Wrap Up To Down / 20, 32 / Filled & Regular
+ - Chat Off / 16 / Filled & Regular
  - Coin Multiple / 16, 24 / Filled & Regular
  - Comment Badge / 16, 20, 24 / Filled & Regular
- - Data Usage Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ - Connected / 24, 32 / Filled & Regular
  - Data Usage / 28, 32, 48 / Filled & Regular
+ - Data Usage Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ - Document One Page Multiple / 16, 20, 24 / Filled & Regular
  - Document One Page Multiple / 16, 20, 24 / Filled & Regular
  - Document One Page Multiple Sparkle / 16, 20, 24 / Filled & Regular
+ - Document One Page Multiple Sparkle / 16, 20, 24 / Filled & Regular
+ - Lightbulb / 32 / Light
  - Line Horizontal 1 Dash Dot Dash / 20 / Filled & Regular
  - Line Horizontal 1 Dot / 20 / Filled & Regular
  - Line Horizontal 3 / 16, 24, 28, 32, 48 / Filled & Regular
  - Navigation / 28, 32, 48 / Filled & Regular
  - Pause Circle / 16 / Filled & Regular
- - Stack Off / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ - Square Text Arrow Repeat All / 16, 20, 24 / Filled & Regular
  - Stack / 28, 48 / Filled & Regular
+ - Stack Off / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Text Bullet List Square / 28 / Filled & Regular
- - TextBox Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - TextBox / 20, 28, 32, 48 / Filled & Regular
+ - TextBox Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
+ - Translate / 32 / Filled & Regular
 
  **What's updated (Name / Size(s) / Variant(s))**
  - Add Circle / 16 / Filled & Regular
+ - Arrow Clockwise Dashes / 16, 20, 24, 32 / Filled & Regular
+ - Arrow Counterclockwise Dashes / 20, 24 / Filled & Regular
  - Coin Multiple / 20 / Filled & Regular
  - Subtract Circle Arrow Back / 16 / Filled & Regular
  - Subtract Circle Arrow Forward / 16 / Filled & Regular
