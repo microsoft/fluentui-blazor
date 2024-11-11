@@ -4,9 +4,7 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 <CascadingValue TValue="InternalGridContext<TGridItem>" IsFixed="true" Value="@_internalGridContext">
-    @{
-        StartCollectingColumns();
-    }
+
     @if (!_manualGrid)
     {
         @ChildContent

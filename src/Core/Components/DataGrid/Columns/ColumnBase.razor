@@ -2,9 +2,8 @@
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @typeparam TGridItem
-@{
-    Grid.AddColumn(this, InitialSortDirection, IsDefaultSortColumn);
-}
+@implements IDisposable
+
 @code
 {
     private void RenderDefaultHeaderContent(RenderTreeBuilder __builder)
@@ -171,4 +170,18 @@
             @PlaceholderTemplate(placeholderContext)
         }
     }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Grid.AddColumn(this, InitialSortDirection, IsDefaultSortColumn);
+    }
+
+    public void Dispose()
+    {
+        if (Grid != null)
+            Grid.RemoveColumn(this);
+
+    }
+
 }

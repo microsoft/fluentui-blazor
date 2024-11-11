@@ -245,6 +245,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFit { get; set; }
 
+    /// <summary>
+    /// Gets the first (optional) SelectColumn
+    /// </summary>
+    internal IEnumerable<SelectColumn<TGridItem>> SelectColumns => _columns.OfType<SelectColumn<TGridItem>>();
+
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 
@@ -257,7 +262,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // This happens on every render so that the column list can be updated dynamically
     private readonly InternalGridContext<TGridItem> _internalGridContext;
     internal readonly List<ColumnBase<TGridItem>> _columns;
-    private bool _collectingColumns;// Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
 
     // Tracking state for options and sorting
     private ColumnBase<TGridItem>? _displayOptionsForColumn;
@@ -327,6 +331,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
+        int l_ColumnsCount = _columns.Count;
+        _columns.Clear();
+
         if (AutoFit)
         {
             _internalGridTemplateColumns = "auto-fit";
@@ -364,7 +371,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        return (_columns.Count > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
+        return (l_ColumnsCount > 0 && mustRefreshData) ? RefreshDataCoreAsync() : Task.CompletedTask;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -403,28 +410,44 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Invoked by descendant columns at a special time during rendering
     internal void AddColumn(ColumnBase<TGridItem> column, SortDirection? initialSortDirection, bool isDefaultSortColumn)
     {
-        if (_collectingColumns)
+
+        // Check if the Column is already added
+        if (_columns.Contains(column))
         {
-            _columns.Add(column);
-
-            if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
-            {
-                _sortByColumn = column;
-                _sortByAscending = initialSortDirection.Value != SortDirection.Descending;
-                _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
-            }
+            return;
         }
+
+        _columns.Add(column);
+
+        if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
+        {
+            _sortByColumn = column;
+            _sortByAscending = initialSortDirection.Value != SortDirection.Descending;
+            _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
+        }
+
+        StateHasChanged();
     }
 
-    private void StartCollectingColumns()
+    internal void RemoveColumn(ColumnBase<TGridItem> column)
     {
-        _columns.Clear();
-        _collectingColumns = true;
+        _columns.Remove(column);
+
+        if (_sortByColumn == column && !column.IsDefaultSortColumn)
+        {
+            _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
+            _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != SortDirection.Descending;
+        }
+
+        StateHasChanged();
+
     }
+
+
 
     private void FinishCollectingColumns()
     {
-        _collectingColumns = false;
+
         _manualGrid = _columns.Count == 0;
 
         if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Where(x => x is not SelectColumn<TGridItem>).Any(x => !string.IsNullOrWhiteSpace(x.Width)))

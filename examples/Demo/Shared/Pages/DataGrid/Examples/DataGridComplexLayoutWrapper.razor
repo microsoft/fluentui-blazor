@@ -1,0 +1,13 @@
+﻿<FluentDataGrid Items="@people">
+    @Columns
+</FluentDataGrid>
+
+@code {
+
+
+    IQueryable<Person> people = new DataSource().People;
+
+
+    [Parameter]
+    public RenderFragment Columns { get; set; }
+}

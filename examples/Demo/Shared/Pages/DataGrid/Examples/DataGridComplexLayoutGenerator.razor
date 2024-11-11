@@ -1,0 +1,9 @@
+﻿@typeparam TGridItem
+
+<PropertyColumn TGridItem="Person" TProp="int" Property="@(p => p.PersonId)" Sortable="true" />
+<PropertyColumn TGridItem="Person" TProp="String" Property="@(p => p.FirstName)" Sortable="true" />
+<PropertyColumn TGridItem="Person" TProp="DateOnly" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+
+@code {
+
+}
