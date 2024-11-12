@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -6,6 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class).Build();
 
@@ -83,7 +87,12 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     {
         MessageService.OnMessageItemsUpdated += OnMessageItemsUpdatedHandler;
         MessageService.OnMessageItemsUpdatedAsync += OnMessageItemsUpdatedHandlerAsync;
-        base.OnInitialized();
+
+        if (ClearAfterNavigation)
+        {
+            NavigationManager.LocationChanged += ClearMessages;
+        }
+        
     }
 
     /// <summary />
@@ -92,7 +101,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    protected async virtual Task OnMessageItemsUpdatedHandlerAsync()
+    protected virtual async Task OnMessageItemsUpdatedHandlerAsync()
     {
         await Task.Run(() =>
         {
@@ -100,10 +109,24 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
         });
     }
 
+    private void ClearMessages(object? sender, LocationChangedEventArgs args)
+    {
+        if (AllMessagesForCategory.Any())
+        {
+            InvokeAsync(() =>
+            {
+                MessageService.Clear(Section);
+                StateHasChanged();
+            });
+        }
+    }
+
     /// <summary />
     public void Dispose()
     {
         MessageService.OnMessageItemsUpdated -= OnMessageItemsUpdatedHandler;
         MessageService.OnMessageItemsUpdatedAsync -= OnMessageItemsUpdatedHandlerAsync;
+
+        NavigationManager.LocationChanged -= ClearMessages;
     }
 }
