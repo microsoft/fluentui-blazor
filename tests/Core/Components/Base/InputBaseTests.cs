@@ -66,6 +66,8 @@ public class InputBaseTests : TestContext
     {
         var errors = new StringBuilder();
 
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
         foreach (var componentType in BaseHelpers.GetDerivedTypes(baseType: typeof(FluentInputBase<>), except: Excluded))
         {
             // Convert to generic type if needed

@@ -62,6 +62,8 @@ public class ComponentBaseTests : TestContext
     {
         var errors = new StringBuilder();
 
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
         foreach (var componentType in BaseHelpers.GetDerivedTypes<FluentComponentBase>(except: Excluded))
         {
             // Convert to generic type if needed
