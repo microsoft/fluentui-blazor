@@ -44,13 +44,13 @@ jobs:
             8.0.x
             9.0.x
         dotnet-quality: ga
-        
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
 
-    - if: matrix.language == 'csharp' 
+    - if: matrix.language == 'csharp'
       name: Manually build CSharp on .NET
       run: |
         dotnet build Microsoft.FluentUI.sln
