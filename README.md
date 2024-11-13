@@ -190,6 +190,14 @@ and offers support, like most other open source projects, on a best effort base 
 We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/main/docs/contributing.md). 
 We also have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/main/docs/unit-tests.md)
 
+### 🏆 Contributors
+
+<a href="https://github.com/microsoft/fluentui-blazor/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=microsoft/fluentui-blazor" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
+
 ## Joining the Community
 
 Looking to get answers to questions or engage with us in real-time? Our community is  active on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) and [Discord](https://discord.gg/FcSNfg4). Submit requests 
