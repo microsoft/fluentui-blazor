@@ -1,4 +1,4 @@
-﻿fluent-tab {
+fluent-tab {
     -webkit-user-select: none;
     user-select: none;
     font-weight: 400;
@@ -25,7 +25,7 @@
 }
 
 ::deep .fluent-tab-close {
-    fill: var(--neutral-fill-strong-active);
+    fill: var(--neutral-fill-strong-active) !important;
     cursor: pointer;
     max-width: 12px;
     max-height: 12px;
@@ -33,5 +33,5 @@
 }
 
     ::deep .fluent-tab-close:hover {
-        fill: var(--neutral-fill-strong-hover);
+        fill: var(--neutral-fill-strong-hover) !important;
     }
