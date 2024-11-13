@@ -164,7 +164,7 @@ extends:
           displayName: 'Install .NET 9.0'
           inputs:
             version: 9.0.x
-            includePreviewVersions: true
+            includePreviewVersions: false
 
         # Set version number (exclude some folders)
         - task: PowerShell@2
