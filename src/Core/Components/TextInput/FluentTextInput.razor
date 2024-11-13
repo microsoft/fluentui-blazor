@@ -4,13 +4,13 @@
 
 <fluent-text-input @ref="@Element"
                    appearance="@Appearance.ToAttributeValue()"
-                   autocomple="@AutoComplete"
+                   autocomplete="@AutoComplete"
                    autofocus="@Autofocus"
                    aria-label="@AriaLabel"
                    disabled="@Disabled"
                    class="@ClassValue"
                    id="@Id"
-                   inputmode="@InputMode"
+                   inputmode="@InputMode.ToAttributeValue()"
                    list=@DataList
                    maxlength="@MaxLength"
                    minlength="@MinLength"
