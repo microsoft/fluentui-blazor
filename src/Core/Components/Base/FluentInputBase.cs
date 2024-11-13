@@ -479,6 +479,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// Disposes the component.
     /// </summary>
     /// <param name="disposing"></param>
+    [ExcludeFromCodeCoverage()]
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
@@ -506,6 +507,7 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// <summary>
     /// Disposes the component.
     /// </summary>
+    [ExcludeFromCodeCoverage()]
     public void Dispose()
     {
         Dispose(disposing: true);
