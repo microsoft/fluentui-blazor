@@ -104,6 +104,12 @@ public partial class FluentKeyCode : IAsyncDisposable
     public KeyCode[] PreventDefaultOnly { get; set; } = Array.Empty<KeyCode>();
 
     /// <summary>
+    /// Gets or sets whether the key pressed can be repeated.
+    /// </summary>
+    [Parameter]
+    public bool StopRepeat { get; set; }
+
+    /// <summary>
     /// Gets or sets a collection of additional attributes that will be applied to the created element.
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
@@ -128,7 +134,7 @@ public partial class FluentKeyCode : IAsyncDisposable
                 OnKeyUp.HasDelegate ? "KeyUp" : string.Empty,
             });
 
-            _javaScriptEventId = await _jsModule.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, eventNames.Length > 1 ? eventNames : "KeyDown", Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper, PreventMultipleKeyDown);
+            _javaScriptEventId = await _jsModule.InvokeAsync<string>("RegisterKeyCode", GlobalDocument, eventNames.Length > 1 ? eventNames : "KeyDown", Anchor, ChildContent is null ? null : Element, Only, IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore, StopPropagation, PreventDefault, PreventDefaultOnly, _dotNetHelper, PreventMultipleKeyDown, StopRepeat);
         }
     }
 
@@ -143,13 +149,14 @@ public partial class FluentKeyCode : IAsyncDisposable
     /// <param name="metaKey"></param>
     /// <param name="location"></param>
     /// <param name="targetId"></param>
+    /// <param name="repeat"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnKeyDownRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId)
+    public async Task OnKeyDownRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId, bool repeat)
     {
         if (OnKeyDown.HasDelegate)
         {
-            await OnKeyDown.InvokeAsync(FluentKeyCodeEventArgs.Instance("keydown", keyCode, value, ctrlKey, shiftKey, altKey, metaKey, location, targetId));
+            await OnKeyDown.InvokeAsync(FluentKeyCodeEventArgs.Instance("keydown", keyCode, value, ctrlKey, shiftKey, altKey, metaKey, location, targetId, repeat));
         }
     }
 
@@ -164,13 +171,14 @@ public partial class FluentKeyCode : IAsyncDisposable
     /// <param name="metaKey"></param>
     /// <param name="location"></param>
     /// <param name="targetId"></param>
+    /// <param name="repeat"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnKeyUpRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId)
+    public async Task OnKeyUpRaisedAsync(int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId, bool repeat)
     {
         if (OnKeyUp.HasDelegate)
         {
-            await OnKeyUp.InvokeAsync(FluentKeyCodeEventArgs.Instance("keyup", keyCode, value, ctrlKey, shiftKey, altKey, metaKey, location, targetId));
+            await OnKeyUp.InvokeAsync(FluentKeyCodeEventArgs.Instance("keyup", keyCode, value, ctrlKey, shiftKey, altKey, metaKey, location, targetId, repeat));
         }
     }
 

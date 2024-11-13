@@ -14,6 +14,8 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
     public static string AccessibilityRemoveItem = "Remove {0}";
+    public static string AccessibilityIconDismiss = "Clear";
+    public static string AccessibilityIconSearch = "Search";
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;

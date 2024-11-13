@@ -67,7 +67,7 @@
         );
 
         // Pre-Assert
-        Assert.Equal(1, cut.FindAll("svg").Count);
+        Assert.Single(cut.FindAll("svg"));
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(SelectedItems);
 
@@ -131,7 +131,7 @@
     );
 
         // Pre-Assert
-        Assert.Equal(1, cut.FindAll("svg").Count);
+        Assert.Single(cut.FindAll("svg"));
         Assert.Empty(cut.FindAll("svg[row-selected]"));
         Assert.Empty(items.Where(i => i.Selected));
 
@@ -227,8 +227,8 @@
 
         // Act - Click and select Row 1
         await ClickOnRowAsync(cut, row: 1);
-        Assert.Equal(1, cut.FindAll("svg[row-selected]").Count);
-        Assert.Equal(1, SelectedItems.Count());
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
 
         // Act - Click and unselect Row 1
         await ClickOnRowAsync(cut, row: 1);
@@ -301,8 +301,8 @@
 
         // Act - Click and select Row 1
         await ClickOnRowAsync(cut, row: 1);
-        Assert.Equal(1, cut.FindAll("svg[row-selected]").Count);
-        Assert.Equal(1, items.Where(i => i.Selected).Count());
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(items.Where(i => i.Selected));
 
         // Act - Click and unselect Row 1
         await ClickOnRowAsync(cut, row: 1);
