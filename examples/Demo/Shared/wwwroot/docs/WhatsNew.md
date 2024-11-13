@@ -23,39 +23,33 @@
 - Update to Fluent UI System Icons 1.1.265 (changes since 1.1.261)
 
  **What's new (Name / Size(s) / Variant(s))**
- - Animal Paw Print / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Bounce / 12, 28, 48 / Filled & Regular
  - Arrow Clockwise Dashes / 28, 48 / Filled & Regular
- - Arrow Clockwise Dashes Settings / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Down Left / 12, 28 / Filled & Regular
  - Arrow Flow Diagonal Up Right / 12, 28, 48 / Filled & Regular
  - Arrow Up Right / 12, 28 / Filled & Regular
  - Arrow Up Right Dashes / 12, 20, 24, 28, 32, 48 / Filled & Regular
  - Arrow Wrap / 32 / Filled & Regular
  - Arrow Wrap Up To Down / 20, 32 / Filled & Regular
- - Chat Off / 16 / Filled & Regular
  - Coin Multiple / 16, 24 / Filled & Regular
  - Comment Badge / 16, 20, 24 / Filled & Regular
- - Connected / 24, 32 / Filled & Regular
  - Data Usage / 28, 32, 48 / Filled & Regular
  - Data Usage Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Document One Page Multiple / 16, 20, 24 / Filled & Regular
  - Document One Page Multiple / 16, 20, 24 / Filled & Regular
  - Document One Page Multiple Sparkle / 16, 20, 24 / Filled & Regular
  - Document One Page Multiple Sparkle / 16, 20, 24 / Filled & Regular
- - Lightbulb / 32 / Light
  - Line Horizontal 1 Dash Dot Dash / 20 / Filled & Regular
  - Line Horizontal 1 Dot / 20 / Filled & Regular
  - Line Horizontal 3 / 16, 24, 28, 32, 48 / Filled & Regular
  - Navigation / 28, 32, 48 / Filled & Regular
  - Pause Circle / 16 / Filled & Regular
- - Square Text Arrow Repeat All / 16, 20, 24 / Filled & Regular
  - Stack / 28, 48 / Filled & Regular
  - Stack Off / 16, 20, 24, 28, 32, 48 / Filled & Regular
  - Text Bullet List Square / 28 / Filled & Regular
  - TextBox / 20, 28, 32, 48 / Filled & Regular
  - TextBox Checkmark / 16, 20, 24, 28, 32, 48 / Filled & Regular
- - Translate / 32 / Filled & Regular
+
 
  **What's updated (Name / Size(s) / Variant(s))**
  - Add Circle / 16 / Filled & Regular
