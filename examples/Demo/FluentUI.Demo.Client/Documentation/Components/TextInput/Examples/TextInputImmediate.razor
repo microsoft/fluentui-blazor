@@ -2,6 +2,7 @@
     <FluentTextInput Appearance="@TextInputAppearance.Outline"
                      Placeholder="Updated after 400ms"
                      @bind-Value="@Value"
+                     @bind-Value:after="@(() => Console.WriteLine($"TextInput updated to '{Value}'.") )"
                      Immediate="true"
                      ImmediateDelay="400" />
 </div>

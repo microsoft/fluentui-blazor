@@ -2,7 +2,8 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<fluent-text-input appearance="@Appearance.ToAttributeValue()"
+<fluent-text-input @ref="@Element"
+                   appearance="@Appearance.ToAttributeValue()"
                    autocomple="@AutoComplete"
                    autofocus="@Autofocus"
                    aria-label="@AriaLabel"

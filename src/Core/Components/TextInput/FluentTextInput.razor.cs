@@ -4,14 +4,21 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
 {
+    private const string JAVASCRIPT_FILE = JAVASCRIPT_ROOT + "TextInput/FluentTextInput.razor.js";
+
+    /// <inheritdoc />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
     /// <summary>
     /// Gets or sets the visual appearance.
     /// </summary>
@@ -23,12 +30,6 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>
     /// </summary>
     [Parameter]
     public string? Placeholder { get; set; }
-
-    ///// <summary>
-    ///// Gets or sets the content to be rendered inside the component.
-    ///// </summary>
-    //[Parameter]
-    //public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Gets or sets the content to prefix the input component.
@@ -98,6 +99,20 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>
     /// </summary>
     [Parameter]
     public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Import the JavaScript module
+            var jsModule = await ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+
+            // Call a function from the JavaScript module
+            // Wait for this PR to delete the code: https://github.com/microsoft/fluentui/pull/33144
+            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TextInput.ObserveAttributeChanges", Element);
+        }
+    }
 
     /// <summary>
     /// Parses a string to create the <see cref="FluentInputBase{TValue}.Value"/>.
