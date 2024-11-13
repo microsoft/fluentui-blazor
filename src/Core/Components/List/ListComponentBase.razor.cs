@@ -210,10 +210,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                         newValue = (string?)parameter.Value;
                         break;
                     case nameof(Items):
-                        if (Items is not null)
+                        if (Items is not null && OptionSelected is not null)
                         {
-                           newSelectedOption = Items.FirstOrDefault(i => OptionSelected?.Invoke(i) == true);
-                           newValue = GetOptionValue(newSelectedOption);
+                            newSelectedOption = Items.FirstOrDefault(i => OptionSelected?.Invoke(i) == true);
+                            newValue = GetOptionValue(newSelectedOption);
                         }
                         break;
                     default:
