@@ -156,4 +156,14 @@
         Assert.Equal(expectedDelayedValue, value);
         cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
     }
+
+    [Theory]
+    [InlineData(FluentInputAppearance.Filled, TextInputAppearance.FilledDarker)]
+    [InlineData(FluentInputAppearance.Outline, TextInputAppearance.Outline)]
+    public void FluentInputText_ToTextInputAppearance(FluentInputAppearance appearance, TextInputAppearance expected)
+    {
+        var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextInputAppearance(appearance);
+
+        Assert.Equal(expected, value);
+    }
 }
