@@ -1,10 +1,13 @@
 ansi
 appsettings
 blazor
+brotli
 cref
 csproj
 elementreference
 evenodd
+gzip
+javascript
 microsoft
 noattribute
 nonfile

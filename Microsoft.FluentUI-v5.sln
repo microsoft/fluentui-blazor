@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.SampleData", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.SampleApi", "examples\Tools\FluentUI.Demo.SampleApi\FluentUI.Demo.SampleApi.csproj", "{E67B08B6-AEE4-4281-8700-1C87A5A3C11E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests", "tests\Integration\Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.csproj", "{F380FA22-53D8-4381-B89B-4047AF544D53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{E67B08B6-AEE4-4281-8700-1C87A5A3C11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E67B08B6-AEE4-4281-8700-1C87A5A3C11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E67B08B6-AEE4-4281-8700-1C87A5A3C11E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F380FA22-53D8-4381-B89B-4047AF544D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F380FA22-53D8-4381-B89B-4047AF544D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F380FA22-53D8-4381-B89B-4047AF544D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F380FA22-53D8-4381-B89B-4047AF544D53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{C78BB9AD-B8CF-417B-990E-02410447649F} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
 		{32466925-47C6-420F-B869-5F922162C3A7} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
 		{E67B08B6-AEE4-4281-8700-1C87A5A3C11E} = {B98A7516-E9B2-4301-B6A3-33656BF4F4D9}
+		{F380FA22-53D8-4381-B89B-4047AF544D53} = {A7EC98D2-21E3-4967-8C5A-D62E640305EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44D95FF7-AEBE-41FB-9D40-CF1E09ADC6BC}
