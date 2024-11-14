@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentGrid : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = JAVASCRIPT_ROOT + "Grid/FluentGrid.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Grid/FluentGrid.razor.js";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentGrid"/> class.
@@ -74,7 +74,7 @@ public partial class FluentGrid : FluentComponentBase
         if (firstRender && OnBreakpointEnter.HasDelegate)
         {
             // Import the JavaScript module
-            var jsModule = await ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             // Call a function from the JavaScript module
             var dotNetHelper = DotNetObjectReference.Create(this);
