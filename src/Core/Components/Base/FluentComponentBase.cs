@@ -20,7 +20,8 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// 
+    /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
+    /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
     internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
 
@@ -56,10 +57,11 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     }
 
     /// <summary>
-    /// 
+    /// Dispose the <paramref name="jsModule"/> object.
     /// </summary>
     /// <param name="jsModule"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
         await JSModule.DisposeAsync(jsModule);

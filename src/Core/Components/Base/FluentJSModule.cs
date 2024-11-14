@@ -9,6 +9,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 #pragma warning disable MA0004 // Use Task.ConfigureAwait
 
+/// <summary>
+/// Base class to manage the JavaScript function from the FluentUI Blazor components.
+/// </summary>
 internal class FluentJSModule : IAsyncDisposable
 {
     private IJSObjectReference? _jsModule;
@@ -18,6 +21,10 @@ internal class FluentJSModule : IAsyncDisposable
     /// </summary>
     public const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentJSModule"/> class.
+    /// </summary>
+    /// <param name="jsRuntime"></param>
     public FluentJSModule(IJSRuntime jsRuntime)
     {
         JSRuntime = jsRuntime;
@@ -33,7 +40,7 @@ internal class FluentJSModule : IAsyncDisposable
     /// Gets the JavaScript module imported with the <see cref="ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
-    public IJSObjectReference JSModule => _jsModule ?? throw new InvalidOperationException("You must call `ImportJavaScriptModuleAsync` method before accessing the JSModule property.");
+    public IJSObjectReference ObjectReference => _jsModule ?? throw new InvalidOperationException("You must call `ImportJavaScriptModuleAsync` method before accessing the JSModule property.");
 
     /// <summary>
     /// Invoke the JavaScript runtime to import the JavaScript module.
@@ -47,7 +54,7 @@ internal class FluentJSModule : IAsyncDisposable
     }
 
     /// <summary>
-    /// Dispose the <see cref="JSModule"/> object.
+    /// Dispose the <see cref="ObjectReference"/> object.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
@@ -75,10 +82,11 @@ internal class FluentJSModule : IAsyncDisposable
     }
 
     /// <summary>
-    /// Dispose the <see cref="JSModule"/> object.
+    /// Dispose the <see cref="ObjectReference"/> object.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
+    [ExcludeFromCodeCoverage]
     internal virtual ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
         return ValueTask.CompletedTask;

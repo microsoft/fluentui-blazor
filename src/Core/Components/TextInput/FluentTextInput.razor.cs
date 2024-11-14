@@ -115,7 +115,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     }
 
     /// <summary>
-    /// Parses a string to create the <see cref="FluentInputBase{TValue}.Value"/>.
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
     /// </summary>
     /// <param name="value">The string value to be parsed.</param>
     /// <param name="result">The result to inject into the Value.</param>
