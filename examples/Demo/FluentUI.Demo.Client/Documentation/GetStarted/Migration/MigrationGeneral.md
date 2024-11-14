@@ -62,7 +62,7 @@ hidden: true
           if (firstRender)
           {
               // Import the JavaScript module
-              var jsModule = await ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+              var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
               // Call a function from the JavaScript module
               await jsModule.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Button.MyFunction");
