@@ -20,6 +20,7 @@
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.48.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="0.34.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.162" />

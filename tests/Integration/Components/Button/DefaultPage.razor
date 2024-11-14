@@ -1,5 +1,21 @@
 ﻿@page "/button/default"
 @page "/"
 <div>
-    Hello World
+    Hello World: @Value
 </div>
+<button @onclick="@Increment">Increment</button>
+
+@code
+{
+    private int Value = 0;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    private void Increment()
+    {
+        Value++;
+    }
+}

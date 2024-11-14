@@ -9,6 +9,12 @@
 
 <body>
     <Routes />
-    <script src="_framework/blazor.web.js"></script>
+    <app>Loading...</app>
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Blazor.start();
+        });
+    </script>
 </body>
 </html>
