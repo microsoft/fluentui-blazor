@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <!-- Copy all .razor files to .txt files in wwwroot\sources -->
-  <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='net8.0'">
+  <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='net9.0'">
     <ItemGroup>
       <Sources Include="$(ProjectDir)\Documentation\**\*.razor*" />
     </ItemGroup>
