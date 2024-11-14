@@ -42,16 +42,11 @@ jobs:
      - name: Checkout source
        uses: actions/checkout@v4
 
-     - name: Setup .NET 8.0
-       uses: actions/setup-dotnet@v4
-       with:
-        dotnet-version: 8.0.x
-
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
        with:
         dotnet-version: 9.0.x
-        dotnet-quality: preview
+        dotnet-quality: ga
 
      # Build
 
@@ -128,7 +123,7 @@ jobs:
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml;**/coverage.net8.0.cobertura.xml;**/coverage.net9.0.cobertura.xml'
+         reports: '**/coverage.cobertura.xml;**/coverage.net9.0.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
@@ -167,16 +162,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-
     - name: Setup .NET 9.0
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-        dotnet-quality: preview
+        dotnet-quality: ga
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
