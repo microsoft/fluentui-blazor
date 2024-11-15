@@ -142,6 +142,6 @@ public class ComponentBaseTests : TestContext
     private class MyComponent : FluentGrid
     {
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
-        public IJSObjectReference GetJSModule() => base.JSModule;
+        public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
     }
 }

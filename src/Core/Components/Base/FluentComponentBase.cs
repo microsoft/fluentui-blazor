@@ -11,67 +11,37 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Base class for FluentUI Blazor components.
 /// </summary>
-public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable
+public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFluentComponentBase
 {
-    private IJSObjectReference? _jsModule;
+    private FluentJSModule? _jsModule;
 
-    /// <summary>
-    /// Gets the root path for the JavaScript files.
-    /// </summary>
-    protected const string JAVASCRIPT_ROOT = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/";
-
-    /// <summary>
-    /// Gets or sets a reference to the JavaScript runtime.
-    /// This property is injected by the Blazor framework.
-    /// </summary>
+    /// <summary />
     [Inject]
-    protected virtual IJSRuntime JSRuntime { get; set; } = default!;
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
-    /// Gets the JavaScript module imported with the <see cref="ImportJavaScriptModuleAsync"/> method.
+    /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
-    protected virtual IJSObjectReference JSModule => _jsModule ?? throw new InvalidOperationException("You must call `ImportJavaScriptModuleAsync` method before accessing the JSModule property.");
+    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
 
-    /// <summary>
-    /// Invoke the JavaScript runtime to import the JavaScript module.
-    /// </summary>
-    /// <param name="file">Name of the JavaScript file to import (e.g. JAVASCRIPT_ROOT + "Button/FluentButton.razor.js").</param>
-    /// <returns></returns>
-    protected virtual async Task<IJSObjectReference> ImportJavaScriptModuleAsync(string file)
-    {
-        _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", file);  // TO ADD: .FormatCollocatedUrl(LibraryConfiguration)
-        return _jsModule;
-    }
-
-    /// <summary>
-    /// Gets or sets the unique identifier.
-    /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
-    /// </summary>
+    /// <inheritdoc />
     [Parameter]
     public virtual string? Id { get; set; }
 
-    /// <summary>
-    /// Gets or sets the CSS class names. If given, these will be included in the class attribute of the component.
-    /// </summary>
+    /// <inheritdoc />
     [Parameter]
     public virtual string? Class { get; set; }
 
-    /// <summary>
-    /// Gets or sets the in-line styles. If given, these will be included in the style attribute of the component.
-    /// </summary>
+    /// <inheritdoc />
     [Parameter]
     public virtual string? Style { get; set; }
 
-    /// <summary>
-    /// Gets or sets custom data, to attach any user data object to the component.
-    /// </summary>
+    /// <inheritdoc />
     [Parameter]
     public virtual object? Data { get; set; }
 
-    /// <summary>
-    /// Gets or sets a collection of additional attributes that will be applied to the created element.
-    /// </summary>
+    /// <inheritdoc />
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
@@ -81,34 +51,19 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
-    public async ValueTask DisposeAsync()
+    public virtual async ValueTask DisposeAsync()
     {
-        await DisposeAsync(_jsModule);
-
-        if (_jsModule != null)
-        {
-            try
-            {
-                await _jsModule.DisposeAsync();
-            }
-            catch (Exception ex) when (ex is JSDisconnectedException ||
-                                       ex is OperationCanceledException)
-            {
-                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-                // the client disconnected. This is not an error.
-            }
-        }
-
-        GC.SuppressFinalize(this);
+        await JSModule.DisposeAsync();
     }
 
     /// <summary>
-    /// Dispose the <see cref="JSModule"/> object.
+    /// Dispose the <paramref name="jsModule"/> object.
     /// </summary>
+    /// <param name="jsModule"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    protected virtual ValueTask DisposeAsync(IJSObjectReference? jsModule)
+    [ExcludeFromCodeCoverage]
+    protected virtual async ValueTask DisposeAsync(IJSObjectReference? jsModule)
     {
-        return ValueTask.CompletedTask;
+        await JSModule.DisposeAsync(jsModule);
     }
 }

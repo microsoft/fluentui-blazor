@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -31,7 +32,7 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
     public int ImmediateDelay { get; set; } = 0;
 
     /// <summary>
-    /// Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="FluentInputBase{TValue}.ValueChanged"/> event too often.
+    /// Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="InputBase{TValue}.ValueChanged"/> event too often.
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
