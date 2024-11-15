@@ -4,10 +4,10 @@ route: /Migration/Button
 hidden: true
 ---
 
-- ### New properties
+### New properties
   `Size`,  `Shape`, `DisabledFocusable` are new properties.
 
-- ### Renamed properties 🔃
+### Renamed properties 🔃
   The `Action` property has been renamed to `FormAction`.
   
   The `Enctype` property has been renamed to `FormEncType`.
@@ -18,10 +18,10 @@ hidden: true
   
   The `Target` property has been renamed to `FormTarget`.
 
-- ### Removed properties💥
+### Removed properties💥
   The `CurrentValue` property has been removed. Use `Value` instead.
 
-- ### Appearance 💥
+### Appearance 💥
   The `Appearance` property has been updated to use the `ButtonAppearance` enum
     instead of `Appearance` enum.
 
@@ -32,7 +32,7 @@ hidden: true
     - `Subtle`
     - `Transparent`
 
-**Migration from v4 to v5:**
+### Migrating to v5
 
 You can use the `ToButtonAppearance()` method to convert the `Appearance` property to the `ButtonAppearance` enum.
 ```csharp	

@@ -137,6 +137,6 @@ the grid item takes a lot of time or leads to a lot of data being transferred.
   }
 </style>
 
-## Migration from v4
+## Migrating to v5
 
 {{ INCLUDE File=MigrationFluentGridItem }}
