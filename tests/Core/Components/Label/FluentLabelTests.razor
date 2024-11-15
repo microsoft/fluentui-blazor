@@ -12,8 +12,6 @@
     [Fact]
     public void FluentLabel_Default()
     {
-        // Arrange
-        using var id = Identifier.SequentialContext();
 
         // Act
         var cut = Render(@<FluentLabel>fluent label</FluentLabel>);
@@ -63,8 +61,6 @@
     [Fact]
     public void FluentLabel_Required()
     {
-        // Arrange
-        using var id = Identifier.SequentialContext();
 
         // Act
         var cut = Render(@<FluentLabel Required="true">fluent label</FluentLabel>);
