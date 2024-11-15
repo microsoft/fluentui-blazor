@@ -58,4 +58,8 @@
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Text\" />
+  </ItemGroup>
 </Project>
