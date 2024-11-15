@@ -4,9 +4,7 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Migration;
 
-/// <summary>
-/// 
-/// </summary>
+/// <summary />
 public static class AppearanceExtensions
 {
     /// <summary>

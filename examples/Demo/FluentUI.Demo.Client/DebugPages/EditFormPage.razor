@@ -1,0 +1,12 @@
+﻿@page "/Debug/EditForm"
+
+<h1>Just a simple page to do some experimenting</h1>
+
+<InputText @bind-Value="@MyValue" />
+<FluentTextInput Value="@MyValue" />
+
+MyValue: @MyValue
+
+@code {
+    public string MyValue { get; set; } = "Test";
+}

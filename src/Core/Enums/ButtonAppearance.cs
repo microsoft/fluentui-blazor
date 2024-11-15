@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The visual appearance of the FluentButton.
+/// The visual appearance of the <see cref="FluentButton" />.
 /// </summary>
 public enum ButtonAppearance
 {

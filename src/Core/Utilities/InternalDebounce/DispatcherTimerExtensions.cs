@@ -90,7 +90,7 @@ internal static class DispatcherTimerExtensions
                     {
                         item.Status.SetResult();
                     }
-                }, TaskScheduler.Default);
+                }, TaskScheduler.Current);
             }
         }
     }
