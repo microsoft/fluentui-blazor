@@ -40,12 +40,12 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         title.MarkupMatches(@$"<div class=""title"" part=""title"" aria-label=""February 2022"">
-                                 <div part=""label"" class=""label"">February 2022</div>
+                                 <div part=""label"" class=""label"" role=""button"" tabindex=""0"">February 2022</div>
                                  <div part=""move"" class=""change-period"">
-                                   <div class=""previous"" title=""January"">
+                                   <div class=""previous"" title=""January"" role=""button"" tabindex=""0"">
                                      {FluentCalendar.ArrowUp}
                                    </div>
-                                   <div class=""next"" title=""March"">
+                                   <div class=""next"" title=""March"" role=""button"" tabindex=""0"">
                                      {FluentCalendar.ArrowDown}
                                    </div>
                                  </div>
@@ -70,12 +70,12 @@ public partial class FluentCalendarTests : TestContext
 
         // Assert
         title.MarkupMatches(@$"<div class=""title"" part=""title"" aria-label=""{monthNameWithYear}"">
-                                 <div part=""label"" class=""label"">{monthNameWithYear}</div>
+                                 <div part=""label"" class=""label"" role=""button"" tabindex=""0"">{monthNameWithYear}</div>
                                  <div part=""move"" class=""change-period"">
-                                   <div class=""previous"" title=""{prevMonthName}"">
+                                   <div class=""previous"" title=""{prevMonthName}"" role=""button"" tabindex=""0"">
                                      {FluentCalendar.ArrowUp}
                                    </div>
-                                   <div class=""next"" title=""{nextMonthName}"">
+                                   <div class=""next"" title=""{nextMonthName}"" role=""button"" tabindex=""0"">
                                      {FluentCalendar.ArrowDown}
                                    </div>
                                  </div>
@@ -151,6 +151,8 @@ public partial class FluentCalendarTests : TestContext
         // Assert
         day.MarkupMatches(@"<div part=""day""
                                  class=""day""
+                                 role=""button""
+                                 tabindex=""0""
                                  aria-label=""February 20""
                                  value=""2022-02-20"">20</div>");
     }

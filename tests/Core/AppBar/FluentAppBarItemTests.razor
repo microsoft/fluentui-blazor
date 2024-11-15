@@ -24,7 +24,24 @@
         // Act
         var cut = Render<FluentAppBarItem>(
             @<FluentAppBar>
-                <FluentAppBarItem Href="/" IconRest="@SampleIcons.Info" Text="My item">
+                <FluentAppBarItem Href="/" IconRest="@(new SampleIcons.Samples.Info())" Text="My item">
+                    <div>Child content</div>
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAppBarItem_ChildContent_Horizontal()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar Orientation="Orientation.Horizontal">
+                <FluentAppBarItem Href="/" IconRest="@(new SampleIcons.Samples.Info())" Text="My item">
                     <div>Child content</div>
                 </FluentAppBarItem>
             </FluentAppBar>);
@@ -41,7 +58,7 @@
         // Act
         var cut = Render<FluentAppBarItem>(
             @<FluentAppBar>
-                <FluentAppBarItem Href="/" Text="My item" IconRest="@SampleIcons.Info">
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new SampleIcons.Samples.Info())">
                 </FluentAppBarItem>
             </FluentAppBar>);
 
@@ -57,7 +74,7 @@
         // Act
         var cut = Render<FluentAppBarItem>(
             @<FluentAppBar>
-                <FluentAppBarItem Href="/" IconRest="@SampleIcons.Info">
+                <FluentAppBarItem Href="/" IconRest="@(new SampleIcons.Samples.Info())">
                 </FluentAppBarItem>
             </FluentAppBar>);
 
@@ -73,7 +90,7 @@
         // Act
         var cut = Render<FluentAppBarItem>(
             @<FluentAppBar>
-                <FluentAppBarItem Href="/" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning">
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new SampleIcons.Samples.Info())" IconActive="@(new SampleIcons.Samples.Warning())">
                 </FluentAppBarItem>
             </FluentAppBar>);
 
@@ -89,7 +106,7 @@
         // Act
         var cut = Render<FluentAppBarItem>(
             @<FluentAppBar>
-                <FluentAppBarItem Href="/" Text="My item" IconRest="@SampleIcons.Info" IconActive="@SampleIcons.Warning" Tooltip="My item tooltip">
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new SampleIcons.Samples.Info())" IconActive="@(new SampleIcons.Samples.Warning())" Tooltip="My item tooltip">
                 </FluentAppBarItem>
             </FluentAppBar>);
 

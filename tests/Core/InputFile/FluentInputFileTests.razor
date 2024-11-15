@@ -4,6 +4,7 @@
 {
     public FluentInputFileTests()
     {
+        JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 

@@ -2,21 +2,23 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 @attribute [CascadingTypeParameter(nameof(TValue))]
-<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" style="margin-bottom: calc(var(--design-unit) * 3px);" />
-<fluent-slider @ref=Element
-               class="@ClassValue"
-               style="@StyleValue"
-               readonly="@ReadOnly"
-               min="@FormatValueAsString(Min)"
-               max="@FormatValueAsString(Max)"
-               step="@FormatValueAsString(Step)"
-               orientation="@Orientation.ToAttributeValue()"
-               mode="@Mode.ToAttributeValue()"
-               id="@Id"
-               value="@FormatValueAsString(Value)"
-               disabled="@Disabled"
-               name=@Name
-               required=@Required
-               @onsliderchange="@ChangeHandlerAsync">
-    @ChildContent
-</fluent-slider>
+<CascadingValue Value="this" IsFixed="true">
+    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" style="margin-bottom: calc(var(--design-unit) * 3px);" />
+    <fluent-slider @ref=Element
+                   class="@ClassValue"
+                   style="@StyleValue"
+                   readonly="@ReadOnly"
+                   min="@FormatValueAsString(Min)"
+                   max="@FormatValueAsString(Max)"
+                   step="@FormatValueAsString(Step)"
+                   orientation="@Orientation.ToAttributeValue()"
+                   mode="@Mode.ToAttributeValue()"
+                   id="@Id"
+                   value="@FormatValueAsString(Value)"
+                   disabled="@Disabled"
+                   name=@Name
+                   required=@Required
+                   @onsliderchange="@ChangeHandlerAsync">
+        @ChildContent
+    </fluent-slider>
+</CascadingValue>

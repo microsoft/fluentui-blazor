@@ -13,12 +13,20 @@ public partial class FluentMenuProvider : FluentComponentBase
     private IMenuService? _menuService = null;
 
     /// <summary />
+    public FluentMenuProvider()
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary />
     internal string? ClassValue => new CssBuilder(Class)
         .AddClass("fluent-menu-provider")
         .Build();
 
     /// <summary />
     internal string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("position", "fixed")   // To prevent the menu from displaying a scrollbar in body
+        .AddStyle("z-index", ZIndex.Menu.ToString())
         .Build();
 
     /// <summary>
@@ -40,6 +48,7 @@ public partial class FluentMenuProvider : FluentComponentBase
 
         if (MenuService != null)
         {
+            MenuService.ProviderId = Id;
             MenuService.OnMenuUpdated = () => InvokeAsync(StateHasChanged);
         }
     }

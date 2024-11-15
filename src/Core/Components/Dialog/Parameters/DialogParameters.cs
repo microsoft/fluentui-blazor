@@ -4,15 +4,32 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
+    private HorizontalAlignment _alignment = HorizontalAlignment.Center;
+
     public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)
     /// or screen middle (using Width and Height properties).
+    /// HorizontalAlignment.Stretch is not supported for this property.
     /// </summary>
-    public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
-
+    public virtual HorizontalAlignment Alignment
+    {
+        set
+        {
+            if (value == HorizontalAlignment.Stretch)
+            {
+                throw new ArgumentException("Alignment HorizontalAlignment.Stretch is not supported for DialogParameters");
+            }
+            _alignment = value;
+        }
+        get
+        {
+            return _alignment;
+        }
+    }
+    
     /// <summary>
     /// Gets or sets the title of the dialog.
     /// </summary>

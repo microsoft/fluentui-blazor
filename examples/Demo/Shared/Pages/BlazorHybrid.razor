@@ -6,6 +6,10 @@
 <h1>Blazor Hybrid</h1>
 
 <p>
+    <strong>Note:</strong> The workaround below only applies to .NET 8 (and below). As of .NET 9 this workaround is no longer needed. If you have this workaround in place for .NET 9 your Blazor Hybrid project <strong>will not load</strong>.
+</p>
+
+<p>
     It is possible to use this library in your Blazor Hybrid projects. Setup is almost the same as described in the "Getting started" section above,
     however to get everything to work you'll need to take one extra step:
 </p>
@@ -18,9 +22,11 @@
     included in the general library script and needs to be included with a script tag <strong>before</strong> the <code>_framework/blazor.webview.js</code> script tag.
 </p>
 
-<CodeSnippet Language="language-html">
-    &lt;script app-name=&quot;{NAME OF YOUR APP}&quot; src=&quot;./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;_framework/blazor.webview.js&quot;&gt;&lt;/script&gt;
+<CodeSnippet Language="html">
+    @(
+@"<script app-name=""{NAME OF YOUR APP}"" src=""./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js""></script>
+<script src=""_framework/blazor.webview.js""></script>"
+    )
 </CodeSnippet>
 
 <p>

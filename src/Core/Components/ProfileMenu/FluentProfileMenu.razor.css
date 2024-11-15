@@ -14,14 +14,16 @@
         display: none;
     }
 
-    .fluent-profile-menu[top-corner] ::deep fluent-anchored-region {
+    .fluent-profile-menu[top-corner] ::deep + div + fluent-anchored-region {
         transform: unset !important;
         left: unset;
         right: -4px;
+        top: 32px;
     }
 
-[dir="rtl"] .fluent-profile-menu[top-corner] ::deep fluent-anchored-region {
+[dir="rtl"] .fluent-profile-menu[top-corner] ::deep + div + fluent-anchored-region {
     transform: unset !important;
     left: -4px;
     right: unset;
+    top: 32px;
 }

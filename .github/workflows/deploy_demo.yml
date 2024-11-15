@@ -1,4 +1,4 @@
-name: Azure Static Web Apps CI/CD
+name: Deploy docs and demo site
 on:
   push:
     branches:
@@ -43,8 +43,8 @@ jobs:
       - name: Setup .NET 9.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9`.0.x
-          dotnet-quality: preview
+          dotnet-version: 9.0.x
+          dotnet-quality: ga
 
       - name: NPM Install
         uses: actions/setup-node@v4

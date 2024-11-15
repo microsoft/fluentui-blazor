@@ -102,6 +102,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         // of it for us. We will only get asked to parse the T for nonempty inputs.
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         if (targetType == typeof(sbyte) ||
+            targetType == typeof(byte) ||
             targetType == typeof(int) ||
             targetType == typeof(long) ||
             targetType == typeof(short) ||

@@ -1,2 +1,40 @@
-﻿@page "/issue-tester"
+﻿@page "/counter"
 
+
+<FluentSelect Value="@_test.BMAddress" Items="@_ddval"
+              ValueChanged="UpdateSelect2" />
+@foreach (var t in _test.CBVal)
+{
+    <FluentCheckbox Value="t.Rval" />
+}
+
+
+@code {
+
+    private readonly test _test = new();
+    private readonly List<string> _ddval = new() { "one", "two" };
+
+    private readonly List<Row> _t2 = new() { new Row { Rval = true }, new Row { Rval = false }, new Row { Rval = false }, new Row { Rval = true } };
+    private readonly List<Row> _t3 = new() { new Row { Rval = false }, new Row { Rval = true }, new Row { Rval = true }, new Row { Rval = true } };
+
+    private void UpdateSelect2(string newVal)
+    {
+        _test.BMAddress = newVal;
+        if (newVal == "one") _test.CBVal = _t3;
+        if (newVal == "two") _test.CBVal = _t2;
+        if (newVal == null) _test.CBVal = new List<Row>();
+    }
+
+    public class test
+    {
+        public string BMAddress { get; set; } = "one";
+        public List<Row> CBVal { get; set; } = new();
+    }
+
+    public class Row
+    {
+        public bool Rval { get; set; }
+    }
+
+
+}

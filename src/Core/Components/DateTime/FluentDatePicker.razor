@@ -12,6 +12,7 @@
                  @bind-Value="@CurrentValueAsString"
                  @onclick="@OnCalendarOpenHandlerAsync"
                  @ondblclick="@OnDoubleClickHandlerAsync"
+                 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnCalendarOpenHandlerAsync))"
                  ReadOnly="@ReadOnly"
                  Disabled="@Disabled"
                  Required="@Required"

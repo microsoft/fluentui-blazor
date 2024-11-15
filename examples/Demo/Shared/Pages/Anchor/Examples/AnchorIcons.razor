@@ -1,20 +1,43 @@
-﻿<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
+﻿<h4>Neutral appearane</h4>
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
     <FluentAnchor Href="#" IconStart="@(new Icons.Regular.Size16.Globe())">
-        With icon at start
+        Icon at start
     </FluentAnchor>
 
     <FluentAnchor Href="#" IconEnd="@(new Icons.Regular.Size16.Globe())">
-        With icon at end
+        Icon at end
+    </FluentAnchor>
+
+    <FluentAnchor Href="#">
+        <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Success" Slot="start" />
+        Icon at start in content
+    </FluentAnchor>
+
+    <FluentAnchor Href="#">
+        Icon at end in content
+        <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Success" Slot="end" />
     </FluentAnchor>
 </div>
-
-<p>With icon in the content. By doing it this way, it is possible to specify <code>Color</code> for the icon.</p>
-<FluentAnchor Href="#">
-        With icon in content
-    <FluentIcon Value="@(new Icons.Regular.Size32.Globe())" Color="@Color.Accent" Slot="end" />
+<h4>Hypertext appearane</h4>
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
+    <FluentAnchor Appearance="@Appearance.Hypertext" Href="#" IconStart="@(new Icons.Regular.Size16.Globe())">
+        Icon at start
     </FluentAnchor>
 
+    <FluentAnchor Appearance="@Appearance.Hypertext" Href="#" IconEnd="@(new Icons.Regular.Size16.Globe())">
+        Icon at end
+    </FluentAnchor>
 
+    <FluentAnchor Appearance="@Appearance.Hypertext" Href="#">
+        <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Success" Slot="start" />
+        Icon at start in content
+    </FluentAnchor>
+
+    <FluentAnchor Appearance="@Appearance.Hypertext" Href="#">
+        Icon at start in content
+        <FluentIcon Value="@(new Icons.Regular.Size16.Globe())" Color="@Color.Success" Slot="end" />
+    </FluentAnchor>
+</div>
 
 <div style="display: flex; align-items: center; gap: 10px; margin-top: 1em;">
     With icon in default slot:

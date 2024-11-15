@@ -13,17 +13,21 @@ public class FluentSliderLabelTests : TestBase
     }
 
     [Fact]
-    public void FluentSliderLaber_Default()
+    public void FluentSliderLabel_Default()
     {
+
         //Arrange
+        FluentSlider<int> slider = new();
         var childContent = "<b>render me</b>";
         int position = default!;
         bool? hideMark = default!;
         bool? disabled = default!;
+
         var cut = TestContext.RenderComponent<FluentSliderLabel<int>>(parameters => parameters
             .Add(p => p.Position, position)
             .Add(p => p.HideMark, hideMark)
             .Add(p => p.Disabled, disabled)
+            .AddCascadingValue(slider)
             .AddChildContent(childContent)
         );
         //Act

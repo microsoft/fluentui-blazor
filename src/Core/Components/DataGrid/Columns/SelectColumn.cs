@@ -21,7 +21,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     private readonly Icon IconSelectedSingle = new CoreIcons.Filled.Size20.RadioButton();
 
     private DataGridSelectMode _selectMode = DataGridSelectMode.Single;
-    private readonly List<TGridItem> _selectedItems = new List<TGridItem>();
+    private readonly List<TGridItem> _selectedItems = [];
 
     /// <summary>
     /// Initializes a new instance of <see cref="SelectColumn{TGridItem}"/>.
@@ -70,6 +70,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             {
                 _selectedItems.Clear();
                 _selectedItems.AddRange(value);
+                SelectAll = false;
             }
         }
     }
@@ -177,6 +178,12 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public EventCallback<bool?> SelectAllChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the function executed to determine if the item can be selected.
+    /// </summary>
+    [Parameter]
+    public Func<TGridItem, bool>? Selectable { get; set; }
+
+    /// <summary>
     /// Gets or sets the function to executed to determine checked/unchecked status.
     /// </summary>
     [Parameter]
@@ -271,7 +278,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary />
     private async Task AddOrRemoveSelectedItemAsync(TGridItem? item)
     {
-        if (item != null)
+        if (item != null && (Selectable == null || Selectable.Invoke(item)))
         {
             if (SelectedItems.Contains(item))
             {
@@ -332,7 +339,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
 
     private async Task KeepOnlyFirstSelectedItemAsync()
     {
-        if (_selectedItems.Count() <= 1)
+        if (_selectedItems.Count <= 1)
         {
             return;
         }
@@ -364,6 +371,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     {
         return (item) => new RenderFragment((builder) =>
         {
+            if (Selectable != null && Selectable.Invoke(item) == false)
+            {
+                return;
+            }
+
             var selected = _selectedItems.Contains(item) || Property.Invoke(item);
 
             // Sync with SelectedItems list
@@ -381,6 +393,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             builder.AddAttribute(1, "Value", GetIcon(selected));
             builder.AddAttribute(2, "Title", selected ? TitleChecked : TitleUnchecked);
             builder.AddAttribute(3, "row-selected", selected);
+
             if (!SelectFromEntireRow)
             {
                 builder.AddAttribute(4, "style", "cursor: pointer;");
@@ -506,7 +519,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         _selectedItems.Clear();
         if (SelectAll == true)
         {
-            _selectedItems.AddRange(InternalGridContext.Items);
+            _selectedItems.AddRange(InternalGridContext.Grid.Items?.ToArray() ?? InternalGridContext.Items);
         }
 
         if (SelectedItemsChanged.HasDelegate)

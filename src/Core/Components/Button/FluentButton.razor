@@ -21,7 +21,7 @@ else
     {
         <fluent-button @ref=Element
                class="@(LoadingOverlay ? string.Empty : Class)"
-               style="@(LoadingOverlay ? "width: 100%;" : Style)"
+               style="@Style"
                autofocus=@Autofocus
                form=@FormId
                formaction=@Action
@@ -40,6 +40,7 @@ else
                title=@Title
                appearance=@Appearance.ToAttributeValue()
                @onclick="@OnClickHandlerAsync"
+               @onclick:stopPropagation="@StopPropagation"
                @attributes="AdditionalAttributes">
             @if (IconStart != null)
             {

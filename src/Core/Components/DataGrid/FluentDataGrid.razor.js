@@ -1,5 +1,4 @@
 let initialColumnsWidths = {};
-var latestGridElement = null;
 
 export function init(gridElement) {
     if (gridElement === undefined || gridElement === null) {
@@ -159,9 +158,6 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 export function enableColumnResizing(gridElement) {
-    if (gridElement === latestGridElement)
-        return;
-    latestGridElement = gridElement;
     const columns = [];
     let min = 75;
     let headerBeingResized;
@@ -174,11 +170,21 @@ export function enableColumnResizing(gridElement) {
                 return;
             }
 
-            const gridLeft = gridElement.getBoundingClientRect().left;
-            const headerLocalLeft = headerBeingResized.getBoundingClientRect().left - gridLeft;
-            const pointerLocalLeft = e.clientX - gridLeft;
+            let gridEdge;
+            let headerLocalEdge;
+            let pointerLocalEdge;
 
-            const width = pointerLocalLeft - headerLocalLeft;
+            if (document.body.dir === '' || document.body.dir === 'ltr') {
+                gridEdge = gridElement.getBoundingClientRect().left;
+                headerLocalEdge = headerBeingResized.getBoundingClientRect().left - gridEdge;
+                pointerLocalEdge = e.clientX - gridEdge;
+            }
+            else {
+                gridEdge = gridElement.getBoundingClientRect().right;
+                headerLocalEdge = gridEdge - headerBeingResized.getBoundingClientRect().right;
+                pointerLocalEdge = gridEdge - e.clientX;
+            }
+            const width = pointerLocalEdge - headerLocalEdge;
 
             const column = columns.find(({ header }) => header === headerBeingResized);
             min = header.querySelector('.col-options-button') ? 100 : 75;
@@ -201,16 +207,22 @@ export function enableColumnResizing(gridElement) {
                 .join(' ');
         });
 
-        const onPointerUp = () => {
+        const onPointerUp = (e) => {
             headerBeingResized = undefined;
             resizeHandle = undefined;
+
+            if (e.target.hasPointerCapture(e.pointerId)) {
+                e.target.releasePointerCapture(e.pointerId);
+            }
         };
 
         const initResize = ({ target, pointerId }) => {
             resizeHandle = target;
             headerBeingResized = target.parentNode;
 
-            resizeHandle.setPointerCapture(pointerId);
+            if (resizeHandle) {
+                resizeHandle.setPointerCapture(pointerId);
+            }
         };
 
         const dragHandle = header.querySelector('.col-width-draghandle');

@@ -15,7 +15,7 @@
         }
         else if (Grid.HeaderCellAsButtonWithMenu)
         {
-            string? tooltip = Tooltip ? Title : null;
+            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
             <FluentKeyCode Only="new [] { KeyCode.Ctrl, KeyCode.Enter}" OnKeyDown="HandleKeyDown" class="keycapture">
                 <span class="col-sort-container" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" @oncontextmenu:preventDefault>
@@ -62,13 +62,13 @@
         }
         else
         {
-            string? tooltip = Tooltip ? Title : null;
+            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
             @if (Align == Align.Start || Align == Align.Center)
             {
                 @if (Grid.ResizeType is not null)
                 {
-                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Filter this column">
+                    <FluentButton Appearance="Appearance.Stealth" class="col-options-button" @onclick="@(() => Grid.ShowColumnOptionsAsync(this))" aria-label="Resize/filter this column">
                         <FluentIcon Value="@(new CoreIcons.Regular.Size24.ChevronDown())" Color="Color.Neutral" Width="20px" Style="opacity: 0.5;" />
                     </FluentButton>
                 }
