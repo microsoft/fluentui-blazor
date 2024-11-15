@@ -1,0 +1,21 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-text id="@Id"
+             class="@ClassValue"
+             style="@StyleValue"
+             as="@As.ToAttributeValue()"
+             size="@Size.ToAttributeValue()"
+             weight="@Weight.ToAttributeValue()"
+             align="@Align.ToAttributeValue()"
+             font="@Font.ToAttributeValue()"
+             nowrap="@Nowrap"
+             truncate="@Truncate"
+             block="@Block"
+             italic="@Italic"
+             underline="@Underline"
+             strikethrough="@Strikethrough"
+             @attributes=AdditionalAttributes>
+    @ChildContent
+</fluent-text>
