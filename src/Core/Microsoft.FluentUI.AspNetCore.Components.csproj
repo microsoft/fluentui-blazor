@@ -115,8 +115,5 @@
       <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Text\" />
-  </ItemGroup>
 
 </Project>
