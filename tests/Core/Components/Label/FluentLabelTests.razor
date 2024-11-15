@@ -30,7 +30,7 @@
         var cut = Render(@<FluentLabel Size="@size">fluent label</FluentLabel>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-label weight=\"regular\" size=\"{expectedAttribute}\">fluent label</fluent-label>");
+        cut.MarkupMatches($"<fluent-label size=\"{expectedAttribute}\">fluent label</fluent-label>");
     }
 
     [Theory]
@@ -42,7 +42,7 @@
         var cut = Render(@<FluentLabel Weight="@weight">fluent label</FluentLabel>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-label size=\"medium\" weight=\"{expectedAttribute}\">fluent label</fluent-label>");
+        cut.MarkupMatches($"<fluent-label weight=\"{expectedAttribute}\">fluent label</fluent-label>");
     }
 
     [Fact]
