@@ -1,0 +1,15 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-label id="@Id"
+              class="@ClassValue"
+              style="@StyleValue"
+              size="@Size.ToAttributeValue()"
+              weight="@Weight.ToAttributeValue()"
+              disabled="@Disabled"
+              required="@Required"
+              @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-label>
+
