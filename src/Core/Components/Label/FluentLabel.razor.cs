@@ -31,13 +31,13 @@ public partial class FluentLabel
     /// Gets or sets the size of the label.
     /// </summary>
     [Parameter]
-    public LabelSize? Size { get; set; } //= LabelSize.Medium;
+    public LabelSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets the weight of the label text.
     /// </summary>
     [Parameter]
-    public LabelWeight? Weight { get; set; } //= LabelWeight.Regular;
+    public LabelWeight? Weight { get; set; }
 
     /// <summary>
     /// Gets or sets the disabled state of the label.
