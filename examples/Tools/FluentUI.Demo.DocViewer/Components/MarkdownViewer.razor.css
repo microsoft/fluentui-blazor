@@ -89,7 +89,7 @@
   /* Demo Section */
 
   .doc-viewer ::deep .demo-tabs {
-    min-height: 200px;
+    min-height: 100px;
   }
 
   .doc-viewer ::deep .demo-section-example {
