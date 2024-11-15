@@ -4,7 +4,7 @@
     <PackageId>Microsoft.FluentUI.AspNetCore.Components</PackageId>
 
     <Summary>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Summary>
-    <PackageTags>Fluent UI, Blazor, Web Components, .NET8</PackageTags>
+    <PackageTags>Fluent UI, Blazor, Web Components, .NET9</PackageTags>
     <Title>Microsoft Fluent UI Web Components for Blazor</Title>
     <Description>A set of Blazor components wrapping Microsoft’s official Fluent UI Web Components. They implement the latest state of the Fluent design language, are built on FAST and work in every major browser.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -24,7 +24,7 @@
     <DebugType>embedded</DebugType>
 
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
-
+    
     <!-- Disable the auto-generated CSS Bundle, to use the Components.Scripts project -->
     <DisableScopedCssBundling>true</DisableScopedCssBundling>
     <ScopedCssEnabled>false</ScopedCssEnabled>
@@ -70,7 +70,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Http" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='net8.0'">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='net9.0'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -89,7 +89,7 @@
   <!-- Copy XML files to the Demo project (to generate the API documentation) -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net8.0\*.xml" />
+      <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net9.0\*.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\FluentUI.Demo.Client" />
   </Target>
