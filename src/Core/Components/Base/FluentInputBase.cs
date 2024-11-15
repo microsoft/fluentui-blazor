@@ -126,7 +126,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
         if (isValid)
         {
-            Value = result;
+            CurrentValue = result;
         }
         else
         {

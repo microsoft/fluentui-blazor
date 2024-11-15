@@ -15,6 +15,14 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TextInput/FluentTextInput.razor.js";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
+    /// </summary>
+    public FluentTextInput()
+    {
+        ValueExpression = () => Value;
+    }
+
     /// <inheritdoc />
     [Parameter]
     public ElementReference Element { get; set; }
