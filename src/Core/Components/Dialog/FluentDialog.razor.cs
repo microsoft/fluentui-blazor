@@ -244,7 +244,7 @@ public partial class FluentDialog : FluentComponentBase
 
             if (Instance.Parameters.OnDialogValidation != null && !dialogResult.Cancelled)
             {
-                var isValid = Instance.Parameters.OnDialogValidation();
+                var isValid = await Instance.Parameters.OnDialogValidation();
 
                 if (!isValid)
                 {

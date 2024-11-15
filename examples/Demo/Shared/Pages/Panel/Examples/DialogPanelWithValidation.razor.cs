@@ -31,7 +31,7 @@ public partial class DialogPanelWithValidation
             PrimaryAction = "Yes",
             SecondaryAction = "No",
             PreventDismissOnOverlayClick = true,
-            OnDialogValidation = () =>
+            OnDialogValidation = async () =>
             {
                 var result = simplePerson.Firstname.Length > 0 && simplePerson.Lastname.Length > 0;
 
@@ -48,6 +48,8 @@ public partial class DialogPanelWithValidation
                         options.Section = App.MESSAGES_DIALOG;
                     });
                 }
+
+                await Task.Delay(100);
 
                 return result;
             }

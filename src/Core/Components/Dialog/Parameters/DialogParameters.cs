@@ -157,7 +157,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// <remarks>
     /// This is a suitable callback to use when you need to validate the data in the dialog <em>before</em> it closes.
     /// </remarks>
-    public Func<bool> OnDialogValidation { get; set; } = default!;
+    public Func<Task<bool>> OnDialogValidation { get; set; } = default!;
 }
 
 /// <summary>
