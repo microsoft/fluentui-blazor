@@ -1,0 +1,52 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<string?>
+
+<fluent-text-input @ref="@Element"
+                   appearance="@Appearance.ToAttributeValue()"
+                   autocomplete="@AutoComplete"
+                   autofocus="@Autofocus"
+                   aria-label="@AriaLabel"
+                   disabled="@Disabled"
+                   class="@ClassValue"
+                   id="@Id"
+                   inputmode="@InputMode.ToAttributeValue()"
+                   list=@DataList
+                   maxlength="@MaxLength"
+                   minlength="@MinLength"
+                   name="@Name"
+                   pattern="@Pattern"
+                   placeholder="@Placeholder"
+                   readonly="@ReadOnly"
+                   required="@Required"
+                   spellcheck="@Spellcheck"
+                   control-size="@Size.ToAttributeValue()"
+                   style="@StyleValue"
+                   type="@TextFieldType.ToAttributeValue()"
+                   value="@CurrentValueAsString"
+                   @onchange="@ChangeHandlerAsync"
+                   @oninput="@InputHandlerAsync"
+                   @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Label) || LabelTemplate != null)
+    {
+        <fluent-label required="@Required">
+            @Label
+            @LabelTemplate
+        </fluent-label>
+    }
+
+    @if (StartTemplate != null)
+    {
+        <div slot="start">
+            @StartTemplate
+        </div>
+    }
+
+    @if (EndTemplate != null)
+    {
+        <div slot="end">
+            @EndTemplate
+        </div>
+    }
+
+</fluent-text-input>

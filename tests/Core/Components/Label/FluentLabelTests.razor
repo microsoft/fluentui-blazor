@@ -1,0 +1,125 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentLabelTests()
+    {
+        //Services.AddSingleton<LibraryConfiguration>();
+    }
+
+    [Fact]
+    public void FluentLabel_Default()
+    {
+
+        // Act
+        var cut = Render(@<FluentLabel>fluent label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(LabelSize.Small, "small")]
+    [InlineData(LabelSize.Medium, "medium")]
+    [InlineData(LabelSize.Large, "large")]
+    public void FluentLabel_Size(LabelSize size, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Size="@size">fluent label</FluentLabel>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-label size=\"{expectedAttribute}\">fluent label</fluent-label>");
+    }
+
+    [Theory]
+    [InlineData(LabelWeight.Regular, "regular")]
+    [InlineData(LabelWeight.Semibold, "semibold")]
+    public void FluentLabel_Weight(LabelWeight weight, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Weight="@weight">fluent label</FluentLabel>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-label weight=\"{expectedAttribute}\">fluent label</fluent-label>");
+    }
+
+    [Fact]
+    public void FluentLabel_Disabled()
+    {
+        // Arrange
+        using var id = Identifier.SequentialContext();
+
+        // Act
+        var cut = Render(@<FluentLabel Disabled="true">fluent label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_Required()
+    {
+
+        // Act
+        var cut = Render(@<FluentLabel Required="true">fluent label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_ClassAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Class="additional-class">fluent-label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_StyleAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Style="background-color: green;">fluent-label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("id-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentLabel_IdAttribute(string? id)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel Id="@id">fluent-label</FluentLabel>);
+
+        // Assert
+        cut.Verify(suffix: id);
+    }
+
+    [Fact]
+    public void FluentLabel_AdditionalAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel additional-attribute-name="additional-attribute-value">fluent-label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabel_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLabel additional-attribute1-name="additional-attribute1-value" additional-attribute2-name="additional-attribute2-value">fluent-label</FluentLabel>);
+
+        // Assert
+        cut.Verify();
+    }
+}

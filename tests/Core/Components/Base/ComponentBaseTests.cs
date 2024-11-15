@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
@@ -32,6 +33,17 @@ public class ComponentBaseTests : TestContext
         { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
     };
 
+    /// <summary />
+    public ComponentBaseTests(ITestOutputHelper testOutputHelper)
+    {
+        Output = testOutputHelper;
+    }
+
+    /// <summary>
+    /// Gets the test output helper.
+    /// </summary>
+    public ITestOutputHelper Output { get; }
+
     /// <summary>
     /// Test to verify that all FluentUI components implement the default properties (Id, Class, Style)
     /// from <see cref="FluentComponentBase"/>.
@@ -46,18 +58,18 @@ public class ComponentBaseTests : TestContext
     [InlineData("Class", "class", "My-Specific-Class")]
     [InlineData("Style", "style", "My-Specific-Style")]
     [InlineData("extra-attribute", "extra-attribute", "My-Specific-Attribute")]  // AdditionalAttributes
-    public void ComponentBase_DefaultProperties(string propName, string? htmlName, string value)
+    public void ComponentBase_DefaultProperties(string propName, string htmlName, object value)
     {
         var errors = new StringBuilder();
 
-        foreach (var componentType in GetFluentComponents())
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<FluentComponentBase>(except: Excluded))
         {
             // Convert to generic type if needed
-            var type = componentType;
-            if (ComponentInitializer.ContainsKey(componentType))
-            {
-                type = ComponentInitializer[componentType](componentType);
-            }
+            var type = ComponentInitializer.ContainsKey(componentType)
+                     ? ComponentInitializer[componentType](componentType)
+                     : componentType;
 
             // Arrange and Act
             var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
@@ -70,8 +82,9 @@ public class ComponentBaseTests : TestContext
             });
 
             // Assert
-            var pattern = @$"\b{htmlName}\s*=\s*[""'][^""']*\b{value}\b[^""']*[""']";
-            var isMatch = Regex.IsMatch(renderedComponent.Markup, pattern);
+            var isMatch = renderedComponent.Markup.ContainsAttribute(htmlName, value);
+
+            Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 
             if (!isMatch)
             {
@@ -129,19 +142,6 @@ public class ComponentBaseTests : TestContext
     private class MyComponent : FluentGrid
     {
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
-        public IJSObjectReference GetJSModule() => base.JSModule;
-    }
-
-    /// <summary>
-    /// Returns all FluentUI components, which inherit from <see cref="FluentComponentBase"/>.
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<Type> GetFluentComponents()
-    {
-        var componentBaseType = typeof(FluentComponentBase);
-        var assembly = typeof(AspNetCore.Components._Imports).Assembly;
-
-        return assembly.GetTypes()
-                       .Where(t => componentBaseType.IsAssignableFrom(t) && !t.IsAbstract && !Excluded.Contains(t));
+        public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
     }
 }

@@ -1,0 +1,14 @@
+﻿<div style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <FluentTextInput Required="true" Label="Required" Placeholder="Required" @bind-Value="@Value" />
+    <FluentTextInput Disabled="true" Label="Disabled" Placeholder="Disabled" @bind-Value="@Value" />
+    <FluentTextInput ReadOnly="true" Label="ReadOnly" Placeholder="ReadOnly" @bind-Value="@Value" />
+</div>
+
+<div>
+    Value = @Value
+</div>
+
+@code
+{
+    string Value = "";
+}

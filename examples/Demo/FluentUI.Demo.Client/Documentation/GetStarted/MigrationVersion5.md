@@ -28,6 +28,10 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentGridItem }}
 
+## FluentLabel
+
+{{ INCLUDE MigrationFluentLabel }}
+
 ## FluentLayout and FluentMainLayout
 
 {{ INCLUDE MigrationFluentLayout }}
