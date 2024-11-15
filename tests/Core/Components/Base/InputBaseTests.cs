@@ -10,12 +10,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
 
-public class ComponentBaseTests : TestContext
+public class InputBaseTests : TestContext
 {
     /// <summary>
     /// List of components to exclude from the test.
@@ -30,11 +31,11 @@ public class ComponentBaseTests : TestContext
     /// </summary>
     private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
     {
-        { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
+        // { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
     };
 
     /// <summary />
-    public ComponentBaseTests(ITestOutputHelper testOutputHelper)
+    public InputBaseTests(ITestOutputHelper testOutputHelper)
     {
         Output = testOutputHelper;
     }
@@ -45,8 +46,8 @@ public class ComponentBaseTests : TestContext
     public ITestOutputHelper Output { get; }
 
     /// <summary>
-    /// Test to verify that all FluentUI components implement the default properties (Id, Class, Style)
-    /// from <see cref="FluentComponentBase"/>.
+    /// Test to verify that all FluentUI components implement the default properties (Label, Disabled, ReadOnly, ...)
+    /// from <see cref="FluentInputBase{TValue}"/>.
     ///
     /// ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
     /// </summary>
@@ -54,17 +55,20 @@ public class ComponentBaseTests : TestContext
     /// <param name="htmlName">HTML attribute name</param>
     /// <param name="value">Value</param>
     [Theory]
-    [InlineData("Id", "id", "My-Specific-ID")]
-    [InlineData("Class", "class", "My-Specific-Class")]
-    [InlineData("Style", "style", "My-Specific-Style")]
-    [InlineData("extra-attribute", "extra-attribute", "My-Specific-Attribute")]  // AdditionalAttributes
-    public void ComponentBase_DefaultProperties(string propName, string htmlName, object value)
+    [InlineData("Name", "name", "my-name")]
+    [InlineData("Disabled", "disabled", true)]
+    [InlineData("ReadOnly", "readonly", true)]
+    [InlineData("AriaLabel", "aria-label", "my-aria-label")]
+    [InlineData("Autofocus", "autofocus", true)]
+    [InlineData("Required", "required", true)]
+    [InlineData("Label", "", "my-label")]
+    public void InputBase_DefaultProperties(string propName, string htmlName, object value)
     {
         var errors = new StringBuilder();
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
-        foreach (var componentType in BaseHelpers.GetDerivedTypes<FluentComponentBase>(except: Excluded))
+        foreach (var componentType in BaseHelpers.GetDerivedTypes(baseType: typeof(FluentInputBase<>), except: Excluded))
         {
             // Convert to generic type if needed
             var type = ComponentInitializer.ContainsKey(componentType)
@@ -82,7 +86,9 @@ public class ComponentBaseTests : TestContext
             });
 
             // Assert
-            var isMatch = renderedComponent.Markup.ContainsAttribute(htmlName, value);
+            var isMatch = string.IsNullOrEmpty(htmlName)
+                        ? renderedComponent.Markup.Contains(value.ToString() ?? "")
+                        : renderedComponent.Markup.ContainsAttribute(htmlName, value);
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 
@@ -94,54 +100,5 @@ public class ComponentBaseTests : TestContext
         }
 
         Assert.True(errors.Length == 0, errors.ToString());
-    }
-
-    [Fact]
-    public void ComponentBase_JsModule()
-    {
-        // Arrange
-        JSInterop.Mode = JSRuntimeMode.Strict;
-        Services.AddSingleton<LibraryConfiguration>();
-
-        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(i => i?.ToString()?.EndsWith(MyComponent.JAVASCRIPT_FILENAME) == true));
-        module.Mode = JSRuntimeMode.Loose;
-
-        // Act
-        var cut = RenderComponent<MyComponent>(parameter =>
-        {
-            parameter.Add(p => p.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, e => { }));
-        });
-
-        // Assert
-        Assert.NotNull(cut.Instance.GetJSModule());
-    }
-
-    [Fact]
-    public void ComponentBase_JsModule_Undefined()
-    {
-        // Arrange
-        JSInterop.Mode = JSRuntimeMode.Strict;
-        Services.AddSingleton<LibraryConfiguration>();
-
-        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(i => i?.ToString()?.EndsWith(MyComponent.JAVASCRIPT_FILENAME) == true));
-        module.Mode = JSRuntimeMode.Loose;
-
-        // Assert
-        Assert.Throws<InvalidOperationException>(() =>
-        {
-            // Act: no OnBreakpointEnter
-            var cut = RenderComponent<MyComponent>(parameter =>
-            {
-            });
-
-            var module = cut.Instance.GetJSModule();
-        });
-    }
-
-    // Class used by the "ComponentBase_JsModule" test
-    private class MyComponent : FluentGrid
-    {
-        public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
-        public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
     }
 }

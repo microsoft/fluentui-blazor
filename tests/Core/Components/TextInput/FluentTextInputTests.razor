@@ -1,0 +1,169 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentTextInputTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton<LibraryConfiguration>();
+    }
+
+    [Fact]
+    public void FluentInputText_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput Appearance="@TextInputAppearance.Outline"
+                 Autofocus="true"
+                 AriaLabel="My aria label"
+                 Label="My Label"
+                 Name="MyName"
+                 Placeholder="My help"
+                 Value="My Value" />
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TextInputAppearance.Outline, "outline")]
+    [InlineData(TextInputAppearance.Underline, "underline")]
+    [InlineData(TextInputAppearance.FilledLighter, "filled-lighter")]
+    [InlineData(TextInputAppearance.FilledDarker, "filled-darker")]
+    public void FluentInputText_Appearance(TextInputAppearance appearance, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput Appearance="@appearance" />);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text-input appearance=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
+    [InlineData(TextInputMode.None, "none")]
+    [InlineData(TextInputMode.Text, "text")]
+    [InlineData(TextInputMode.Decimal, "decimal")]
+    [InlineData(TextInputMode.Numeric, "numeric")]
+    [InlineData(TextInputMode.Telephone, "tel")]
+    [InlineData(TextInputMode.Search, "search")]
+    [InlineData(TextInputMode.Email, "email")]
+    [InlineData(TextInputMode.Url, "url")]
+    public void FluentInputText_InputMode(TextInputMode inputMode, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput InputMode="@inputMode" />);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" inputmode=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
+    [InlineData(TextInputType.Text, "text")]
+    [InlineData(TextInputType.Email, "email")]
+    [InlineData(TextInputType.Password, "password")]
+    [InlineData(TextInputType.Telephone, "tel")]
+    [InlineData(TextInputType.Url, "url")]
+    public void FluentInputText_TextFieldType(TextInputType type, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput TextFieldType="@type" />);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" type=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
+    [InlineData(TextInputSize.Small, "small")]
+    [InlineData(TextInputSize.Medium, "medium")]
+    [InlineData(TextInputSize.Large, "large")]
+    public void FluentInputText_Size(TextInputSize size, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput Size="@size" />);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" control-size=\"{expectedAttribute}\" />");
+    }
+
+    [Fact]
+    public void FluentInputText_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentTextInput>
+        <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
+    </FluentTextInput>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentInputText_StartEndTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentTextInput>
+        <StartTemplate>Start</StartTemplate>
+        <EndTemplate>End</EndTemplate>
+    </FluentTextInput>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentInputText_OnChange()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("new value");
+
+        // Assert
+        Assert.Equal("new value", value);
+        cut.MarkupMatches("<fluent-text-input appearance=\"outline\" value=\"new value\" />");
+    }
+
+    [Theory]
+    [InlineData(false, 0, "init", "init")]              // No Immediate
+    [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
+    [InlineData(true, 100, "init", "new value")]        // With Immediate and Delay = 100 ms
+    public async Task FluentInputText_OnInput(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
+
+        // Act
+        cut.Find("fluent-text-input").Input("new value");
+
+        // Assert: Immediate
+        Assert.Equal(expectedImmediateValue, value);
+        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
+
+        // Assert: After a small delay
+        await Task.Delay(200);
+        Assert.Equal(expectedDelayedValue, value);
+        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
+    }
+
+    [Theory]
+    [InlineData(FluentInputAppearance.Filled, TextInputAppearance.FilledDarker)]
+    [InlineData(FluentInputAppearance.Outline, TextInputAppearance.Outline)]
+    public void FluentInputText_ToTextInputAppearance(FluentInputAppearance appearance, TextInputAppearance expected)
+    {
+        var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextInputAppearance(appearance);
+
+        Assert.Equal(expected, value);
+    }
+}

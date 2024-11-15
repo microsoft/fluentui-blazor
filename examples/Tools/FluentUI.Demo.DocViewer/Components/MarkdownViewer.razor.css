@@ -141,7 +141,7 @@
       }
 
       .doc-viewer ::deep .api-table td code {
-        font-weight: 500;
+        font-weight: 600;
         background-color: rgb(243, 243, 243);
       }
 

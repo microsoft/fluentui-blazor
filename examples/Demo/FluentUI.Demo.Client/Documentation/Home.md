@@ -18,9 +18,13 @@ see the **"Getting Started"** section below.
 
 ## Introduction and getting started video
 
-<iframe width="450" height="252" src="https://www.youtube.com/embed/lUZ5mrg2Q8k?si=Xv4_EJxP0Z_GFdLQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<!--
+commented out because YT is constantly throwing JS errors
 
+<iframe width="450" height="252" src="https://www.youtube.com/embed/lUZ5mrg2Q8k?si=Xv4_EJxP0Z_GFdLQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+-->
 ## Getting Started
 
 By far the easiest way to get started is by using our templates. Setting them up is quick and easy.
 See the [templates](/Templates) page for instructions and usage.
+

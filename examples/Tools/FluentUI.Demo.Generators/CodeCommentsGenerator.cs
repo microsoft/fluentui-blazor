@@ -19,8 +19,10 @@ public class CodeCommentsGenerator : IIncrementalGenerator
 {
     private static readonly string[] REGEX_CLEANUP =
     [
-        "Microsoft\\.FluentUI\\.AspNetCore\\.Components\\.",
-        "FluentUI\\.Demo\\.Client\\."
+        @"Microsoft\.FluentUI\.AspNetCore\.Components\.",
+        @"FluentUI\.Demo\.Client\.",
+        @"\[\[.*?\]\]",
+        @"\[.*?\]"
     ];
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
