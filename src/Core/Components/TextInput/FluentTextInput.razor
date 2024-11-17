@@ -29,10 +29,10 @@
                    @attributes="AdditionalAttributes">
     @if (!string.IsNullOrEmpty(Label) || LabelTemplate != null)
     {
-        <fluent-label required="@Required">
+        <FluentLabel Required="@Required">
             @Label
             @LabelTemplate
-        </fluent-label>
+        </FluentLabel>
     }
 
     @if (StartTemplate != null)
