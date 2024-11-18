@@ -8,10 +8,14 @@ export function raiseFluentInputFile(fileInputId) {
 export function attachClickHandler(buttonId, fileInputId) {
     var button = document.getElementById(buttonId);
     var fileInput = document.getElementById(fileInputId);
-    if (button && fileInput) {
+
+    if (button && fileInput && !button.fluentuiBlazorFileInputHandlerAttached) {
+
         button.addEventListener("click", function (e) {
             fileInput.click();
         });
+
+        button.fluentuiBlazorFileInputHandlerAttached = true;
     }
 }
 
