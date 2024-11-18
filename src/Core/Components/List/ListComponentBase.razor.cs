@@ -344,12 +344,17 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
         if (Multiple)
         {
+            if (SelectedOptions?.Any() == false && _selectedOptions.Count > 0)
+            {
+                _selectedOptions = [];
+            }
+
             if (SelectedOptions != null && SelectedOptions.Any() && _selectedOptions != SelectedOptions)
             {
                 _selectedOptions = [.. SelectedOptions];
             }
 
-            if (SelectedOptions == null && Items != null && OptionSelected != null)
+            if (SelectedOptions == null && Items != null && OptionSelected != null && _selectedOptions != null)
             {
                 _selectedOptions.AddRange(Items.Where(item => OptionSelected.Invoke(item) && !_selectedOptions.Contains(item)));
                 InternalValue = GetOptionValue(_selectedOptions.FirstOrDefault());
