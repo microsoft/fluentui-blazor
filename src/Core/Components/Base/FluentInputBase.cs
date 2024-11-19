@@ -127,11 +127,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public bool Required { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
+    /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
@@ -145,6 +141,16 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         {
             // TODO
         }
+    }
+
+    /// <summary>
+    /// Returns the aria-label attribute value with the label and required indicator.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual string? GetAriaLabelWithRequired()
+    {
+        return (AriaLabel ?? Label ?? string.Empty) +
+               (Required ? $", Required" : string.Empty);
     }
 
     #endregion

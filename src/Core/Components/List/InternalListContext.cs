@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The list cascades this so that descendant options can talk back to it.
+/// The component cascades this so that descendant options can talk back to it.
 /// It's an internal type so it doesn't show up in unrelated components by mistake
 /// </summary>
 internal class InternalListContext<TOption>
@@ -15,10 +15,10 @@ internal class InternalListContext<TOption>
     /// <summary>
     /// Initializes a new instance of the <see cref="InternalListContext{TOption}"/> class.
     /// </summary>
-    /// <param name="list"></param>
-    public InternalListContext(FluentListBase<TOption> list)
+    /// <param name="component"></param>
+    public InternalListContext(FluentListBase<TOption> component)
     {
-        ListComponent = list;
+        ListComponent = component;
     }
 
     public FluentListBase<TOption> ListComponent { get; }

@@ -30,13 +30,17 @@ public partial class FluentOption : FluentComponentBase
     public string? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is selected.
+    /// Gets or sets the value indicating whether the element is selected.
+    /// This should be used with two-way binding.
     /// </summary>
+    /// <example>
+    /// @bind-Value="model.PropertyName"
+    /// </example>
     [Parameter]
     public bool Selected { get; set; }
 
     /// <summary>
-    /// Called whenever the selection changed.
+    /// Gets or sets a callback that updates the bound value.
     /// </summary>
     [Parameter]
     public EventCallback<bool> SelectedChanged { get; set; }
@@ -54,7 +58,7 @@ public partial class FluentOption : FluentComponentBase
     public EventCallback<string> OnSelect { get; set; }
 
     /// <summary />
-    public async Task OnSelectHandlerAsync()
+    private async Task OnSelectHandlerAsync()
     {
         if (Disabled)
         {
@@ -80,11 +84,6 @@ public partial class FluentOption : FluentComponentBase
                 {
                     await InternalListContext.ValueChanged.InvokeAsync(Value);
                 }
-
-                //if (InternalListContext.SelectedOptionChanged.HasDelegate)
-                //{
-                //    await InternalListContext.SelectedOptionChanged.InvokeAsync();
-                //}
             }
         }
     }

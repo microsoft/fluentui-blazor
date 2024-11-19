@@ -96,7 +96,7 @@ public partial class MarkdownViewer
     {
         var type = DocViewerService.ApiAssembly
                                   ?.GetTypes()
-                                  ?.FirstOrDefault(i => i.Name == name);
+                                  ?.FirstOrDefault(i => i.Name == name || i.Name.StartsWith($"{name}`1"));
 
         return type is null ? null : new ApiClass(DocViewerService, type);
     }

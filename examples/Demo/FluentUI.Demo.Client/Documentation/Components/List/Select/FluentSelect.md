@@ -11,10 +11,14 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## TEST
 
-Only use one **primary** button in a layout for the most important action.
-If there are more than two buttons with equal priority, all buttons should have neutral backgrounds.
-
-When there are many available minor actions, use the **outline**, **subtle**, or **transparent** appearances
-on all buttons to avoid a busy layout.
-
 {{ SelectDefault }}
+
+## API FluentSelect
+
+{{ API Type=FluentSelect }}
+
+{{ API Type=FluentOption }}
+
+## Migrating to v5
+
+TODO

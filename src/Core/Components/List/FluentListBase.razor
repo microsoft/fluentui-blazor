@@ -24,7 +24,7 @@
                               Selected="@GetOptionSelected(item)"
                               Disabled="@(GetOptionDisabled(item))"
                               OnSelect="@OnSelectCallback(item)"
-                              aria-selected="@(GetOptionSelected(item) ? "true" : "false")">
+                              aria-selected="@(GetOptionSelected(item) ? "true" : null)">
                     @if (OptionTemplate is not null)
                     {
                         @OptionTemplate(item)

@@ -2,10 +2,24 @@
 @inherits FluentListBase<TOption>
 @typeparam TOption
 
+@* This file must be updated when the `fluent-select` web-component will be available  *@
+
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
-    <select id="@Id"
-            class="@ClassValue"
+    @if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
+    {
+        <div style="margin-top: 4px;">
+            <label for="@Id" aria-label="@GetAriaLabelWithRequired">
+                @Label
+                @LabelTemplate
+            </label>
+        </div>
+    }
+    <select class="@ClassValue"
+            disabled="@Disabled"
+            id="@Id"
+            name="@Name"
             style="@StyleValue"
+            @onchange="ChangeHandlerAsync"
             @attributes=AdditionalAttributes>
         @RenderOptions()
     </select>
