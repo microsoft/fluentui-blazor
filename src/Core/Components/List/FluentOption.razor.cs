@@ -51,12 +51,6 @@ public partial class FluentOption : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// Called whenever the selection changed.
-    /// </summary>
-    [Parameter]
-    public EventCallback<string> OnSelect { get; set; }
-
     /// <summary />
     private async Task OnSelectHandlerAsync()
     {
@@ -72,18 +66,11 @@ public partial class FluentOption : FluentComponentBase
             await SelectedChanged.InvokeAsync(Selected);
         }
 
-        if (OnSelect.HasDelegate)
+        if (InternalListContext is not null && InternalListContext.ListComponent.Items is null)
         {
-            await OnSelect.InvokeAsync(Value);
-        }
-        else
-        {
-            if (InternalListContext is not null && InternalListContext.ListComponent.Items is null)
+            if (InternalListContext.ValueChanged.HasDelegate)
             {
-                if (InternalListContext.ValueChanged.HasDelegate)
-                {
-                    await InternalListContext.ValueChanged.InvokeAsync(Value);
-                }
+                await InternalListContext.ValueChanged.InvokeAsync(Value);
             }
         }
     }

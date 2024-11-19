@@ -21,9 +21,9 @@
             @foreach (TOption item in Items)
             {
                 <FluentOption Value="@GetOptionValue(item)"
-                              Selected="@GetOptionSelected(item)"
                               Disabled="@(GetOptionDisabled(item))"
-                              OnSelect="@OnSelectCallback(item)"
+                              Selected="@GetOptionSelected(item)"
+                              SelectedChanged="@(e => OnSelectedItemChangedHandlerAsync(item))"
                               aria-selected="@(GetOptionSelected(item) ? "true" : null)">
                     @if (OptionTemplate is not null)
                     {

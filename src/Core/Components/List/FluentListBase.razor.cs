@@ -100,12 +100,6 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     }
 
     /// <summary />
-    protected EventCallback<string> OnSelectCallback(TOption? item)
-    {
-        return EventCallback.Factory.Create<string>(this, (e) => OnSelectedItemChangedHandlerAsync(item));
-    }
-
-    /// <summary />
     protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
         if (Disabled || item == null)
