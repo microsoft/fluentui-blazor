@@ -14,10 +14,14 @@
             </label>
         </div>
     }
-    <select class="@ClassValue"
+    <select aria-label="@AriaLabel"
+            autofocus="@Autofocus"
+            class="@ClassValue"
             disabled="@Disabled"
             id="@Id"
             name="@Name"
+            readonly="@ReadOnly"
+            required="@Required"
             style="@StyleValue"
             @onchange="ChangeHandlerAsync"
             @attributes=AdditionalAttributes>
