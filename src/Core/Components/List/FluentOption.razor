@@ -9,7 +9,7 @@
         disabled="@Disabled"
         value="@Value"
         selected="@Selected"
-        aria-selected="@(Selected ? "true" : "false")"
+        aria-selected="@(Selected ? "true" : null)"
         @onclick="@OnSelectHandlerAsync"
         @attributes="@AdditionalAttributes">
     @ChildContent

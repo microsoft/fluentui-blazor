@@ -1,0 +1,147 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Three" };
+
+    private enum MyDigitsEnum
+    {
+        One,
+        Two,
+        Three
+    }
+
+    public FluentSelectTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton<LibraryConfiguration>();
+    }
+
+    [Fact]
+    public void FluentSelect_Default()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Manual()
+    {
+        // Arrange and Act
+        var cut = Render(
+    @<FluentSelect TOption="string">
+        <FluentOption Value="One">One</FluentOption>
+        <FluentOption Value="Two">Two</FluentOption>
+        <FluentOption Value="Three">Three</FluentOption>
+    </FluentSelect>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Template()
+    {
+        // Arrange and Act
+        var cut = Render(
+    @<FluentSelect Items="@Digits">
+        <OptionTemplate>
+            @if (!String.IsNullOrEmpty(context))
+        {
+            <span>[</span>
+            @context
+            <span>]</span>
+        }
+        </OptionTemplate>
+    </FluentSelect>);
+
+        // Assert
+        var two = cut.Find("option[value='Two']");
+        Assert.Equal("[Two]", two.InnerHtml);
+    }
+
+    [Fact]
+    public void FluentSelect_Enum()
+    {
+        MyDigitsEnum selectedColor = MyDigitsEnum.One;
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@GetEnumValues()" @bind-Value="@selectedColor" />);
+
+        // Assert
+        cut.Verify();
+
+        // Local function
+        IEnumerable<MyDigitsEnum> GetEnumValues() => Enum.GetValues(typeof(MyDigitsEnum)).Cast<MyDigitsEnum>();
+    }
+
+    [Fact]
+    public void FluentSelect_OptionFunctions()
+    {
+        // Arrange && Act
+        //  - Disable the "Two" option
+        //  - Uppercase the text
+        //  - Add a prefix to the value
+        //  - Select the "One" option
+        var cut = Render(
+    @<FluentSelect Items="@Digits"
+              OptionDisabled="@(item => item == "Two")"
+              OptionText="@(item => item?.ToUpper())"
+              OptionValue="@(item => $"value-{item}")"
+              OptionSelected="@(item => item == "One")" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Default_InitialSelection()
+    {
+        string? value = "Two";
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" Value="@value" />);
+        var two = cut.Find("option[value='Two']");
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+        Assert.Equal("true", two.GetAttribute("aria-selected"));
+    }
+
+    [Fact]
+    public void FluentSelect_Binding_InitialSelection()
+    {
+        string? value = "Two";
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
+        var two = cut.Find("option[value='Two']");
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+        Assert.Equal("true", two.GetAttribute("aria-selected"));
+    }
+
+    [Fact]
+    public void FluentSelect_Binding_Updated()
+    {
+        string? value = "Two";
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
+
+        // Act and re-render
+        cut.FindComponent<FluentSelect<string>>().SetParametersAndRender(parameters => parameters.Add(p => p.Value, "One"));
+        var one = cut.Find("option[value='One']");
+
+        // Assert
+        Assert.True(one.HasAttribute("selected"));
+        Assert.Equal("true", one.GetAttribute("aria-selected"));
+    }
+}

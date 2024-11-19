@@ -1,10 +1,10 @@
 ﻿<FluentSelect Label="Simple" Items="@Digits" />
 
 <FluentSelect Label="Functions" Items="@Digits"
-OptionDisabled="@(item => item == "Two")"
-OptionText="@(item => item?.ToUpper())"
-OptionValue="@(item => $"value-{item}")"
-OptionSelected="@(item => item == "One")" />
+              OptionDisabled="@(item => item == "Two")"
+              OptionText="@(item => item?.ToUpper())"
+              OptionValue="@(item => $"value-{item}")"
+              OptionSelected="@(item => item == "One")" />
 
 <FluentSelect Label="Binding" Items="@Digits" @bind-Value="@Value" />
 
