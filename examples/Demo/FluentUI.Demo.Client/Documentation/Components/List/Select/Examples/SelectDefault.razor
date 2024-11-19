@@ -1,0 +1,17 @@
+﻿<FluentSelect Items="@Digits" />
+
+<FluentSelect @bind-Value="@Value">
+    <FluentOption Value="One">One</FluentOption>
+    <FluentOption Value="Two">Two</FluentOption>
+    <FluentOption Value="Three">Three</FluentOption>
+</FluentSelect>
+
+<div>
+    Selected value: @Value
+</div>
+
+@code {
+
+    private string[] Digits = new string[] { "One", "Two", "Three" };
+    private string? Value;
+}

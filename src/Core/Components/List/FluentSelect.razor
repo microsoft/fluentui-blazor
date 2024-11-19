@@ -1,0 +1,12 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentListBase<TOption>
+@typeparam TOption
+
+<CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
+    <select id="@Id"
+            class="@ClassValue"
+            style="@StyleValue"
+            @attributes=AdditionalAttributes>
+        @RenderOptions()
+    </select>
+</CascadingValue>

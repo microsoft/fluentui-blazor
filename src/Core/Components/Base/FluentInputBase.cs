@@ -19,6 +19,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 {
     private FluentJSModule? _jsModule;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentInputBase{TValue}"/> class.
+    /// </summary>
+    protected FluentInputBase()
+    {
+        ValueExpression = () => CurrentValueOrDefault;
+    }
+
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -28,6 +36,11 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
     internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+
+    /// <summary>
+    /// Internal usage only: to define the default `ValueExpression`.
+    /// </summary>
+    internal TValue CurrentValueOrDefault { get => CurrentValue ?? default!; set => CurrentValue = value; }
 
     #region IFluentComponentBase
 
@@ -120,20 +133,18 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <param name="e"></param>
     /// <returns></returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
-    protected virtual Task ChangeHandlerAsync(ChangeEventArgs e)
+    protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
         var isValid = TryParseValueFromString(e.Value?.ToString(), out var result, out var validationErrorMessage);
 
         if (isValid)
         {
-            CurrentValue = result;
+            await InvokeAsync(() => CurrentValue = result);
         }
         else
         {
             // TODO
         }
-
-        return Task.CompletedTask;
     }
 
     #endregion
