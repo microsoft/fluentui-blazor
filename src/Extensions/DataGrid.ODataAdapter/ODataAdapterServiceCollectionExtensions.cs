@@ -1,4 +1,4 @@
-using Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.Extensions.DependencyInjection;

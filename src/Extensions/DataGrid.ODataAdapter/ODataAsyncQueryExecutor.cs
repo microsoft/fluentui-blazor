@@ -1,7 +1,7 @@
 using Microsoft.OData.Client;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client;
+namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter;
 
 internal class ODataAsyncQueryExecutor : IAsyncQueryExecutor
 {

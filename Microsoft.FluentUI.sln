@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUI.Demo.AssetExplorer
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Microsoft.FluentUI.AspNetCore.Components.Assets", "src\Core.Assets\Microsoft.FluentUI.AspNetCore.Components.Assets.esproj", "{292081C2-5076-467C-AEFF-12DC0617531A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client", "src\Extensions\DataGrid.OData.Client\Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client.csproj", "{AFFDA282-83AB-44FA-B400-C935BBFE3308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter", "src\Extensions\DataGrid.ODataAdapter\Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj", "{AFFDA282-83AB-44FA-B400-C935BBFE3308}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

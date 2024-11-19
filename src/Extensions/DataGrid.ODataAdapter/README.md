@@ -24,7 +24,7 @@ The `FluentDataGrid` recognizes DataServiceQuery-supplied `IQueryable` instances
 ## Installation
 Install the package by running the command:
 ```
-dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client
+dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter
 ```
 
 ## Usage

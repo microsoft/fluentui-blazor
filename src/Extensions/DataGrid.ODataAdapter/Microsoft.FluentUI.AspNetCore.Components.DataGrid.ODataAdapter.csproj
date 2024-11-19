@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <PackageId>Microsoft.FluentUI.AspNetCore.Components.DataGrid.OData.Client</PackageId>
+    <PackageId>Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter</PackageId>
 		<Authors>Microsoft</Authors>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
 		<NeutralLanguage>en</NeutralLanguage>
