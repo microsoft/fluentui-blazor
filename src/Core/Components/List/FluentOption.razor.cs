@@ -65,13 +65,5 @@ public partial class FluentOption : FluentComponentBase
         {
             await SelectedChanged.InvokeAsync(Selected);
         }
-
-        if (InternalListContext is not null && InternalListContext.ListComponent.Items is null)
-        {
-            if (InternalListContext.ValueChanged.HasDelegate)
-            {
-                await InternalListContext.ValueChanged.InvokeAsync(Value);
-            }
-        }
     }
 }

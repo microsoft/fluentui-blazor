@@ -30,6 +30,16 @@
     }
 
     [Fact]
+    public void FluentSelect_Label()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Label="List of digits" Required="true" Items="@Digits" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentSelect_Manual()
     {
         // Arrange and Act
@@ -143,5 +153,50 @@
         // Assert
         Assert.True(one.HasAttribute("selected"));
         Assert.Equal("true", one.GetAttribute("aria-selected"));
+    }
+
+    [Fact]
+    public void FluentSelect_Data()
+    {
+        // Arrange
+        var myData = "MyData";
+        var cut = Render(@<FluentSelect Items="@Digits" Data="@myData" />);
+
+        // Assert
+        var component = cut.FindComponent<FluentSelect<string>>();
+        Assert.Equal("MyData", component.Instance.Data);
+    }
+
+    [Fact]
+    public void FluentSelect_Option_Clicked()
+    {
+        string? value = "One";
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@Digits" Value="@value" />);
+        var two = cut.Find("option[value='Two']");
+
+        // Act
+        two.Click();
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+        Assert.Equal("true", two.GetAttribute("aria-selected"));
+    }
+
+    [Fact]
+    public void FluentSelect_DisabledOption_Clicked()
+    {
+        string? value = "One";
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@Digits" Value="@value" OptionDisabled="@(e => e == "Two")" />);
+        var two = cut.Find("option[value='Two']");
+
+        // Act
+        two.Click();
+
+        // Assert
+        Assert.False(two.HasAttribute("selected"));
     }
 }

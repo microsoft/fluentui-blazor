@@ -8,7 +8,7 @@
     @if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
     {
         <div style="margin-top: 4px;">
-            <label for="@Id" aria-label="@GetAriaLabelWithRequired">
+            <label for="@Id" aria-label="@GetAriaLabelWithRequired()">
                 @Label
                 @LabelTemplate
             </label>

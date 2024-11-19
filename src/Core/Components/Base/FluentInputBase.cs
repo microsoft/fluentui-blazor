@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -40,6 +41,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <summary>
     /// Internal usage only: to define the default `ValueExpression`.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal TValue CurrentValueOrDefault { get => CurrentValue ?? default!; set => CurrentValue = value; }
 
     #region IFluentComponentBase

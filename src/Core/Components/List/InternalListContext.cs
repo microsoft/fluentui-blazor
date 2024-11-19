@@ -21,6 +21,9 @@ internal class InternalListContext<TOption>
         ListComponent = component;
     }
 
+    /// <summary>
+    /// Gets the list component.
+    /// </summary>
     public FluentListBase<TOption> ListComponent { get; }
 
     /// <summary>
