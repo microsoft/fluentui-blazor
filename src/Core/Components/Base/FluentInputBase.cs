@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -19,6 +20,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 {
     private FluentJSModule? _jsModule;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentInputBase{TValue}"/> class.
+    /// </summary>
+    protected FluentInputBase()
+    {
+        ValueExpression = () => CurrentValueOrDefault;
+    }
+
     /// <summary />
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -28,6 +37,12 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
     /// </summary>
     internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+
+    /// <summary>
+    /// Internal usage only: to define the default `ValueExpression`.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    internal TValue CurrentValueOrDefault { get => CurrentValue ?? default!; set => CurrentValue = value; }
 
     #region IFluentComponentBase
 
@@ -114,26 +129,30 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public bool Required { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
+    /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
-    protected virtual Task ChangeHandlerAsync(ChangeEventArgs e)
+    protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
         var isValid = TryParseValueFromString(e.Value?.ToString(), out var result, out var validationErrorMessage);
 
         if (isValid)
         {
-            CurrentValue = result;
+            await InvokeAsync(() => CurrentValue = result);
         }
         else
         {
             // TODO
         }
+    }
 
-        return Task.CompletedTask;
+    /// <summary>
+    /// Returns the aria-label attribute value with the label and required indicator.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual string? GetAriaLabelWithRequired()
+    {
+        return (AriaLabel ?? Label ?? string.Empty) +
+               (Required ? $", Required" : string.Empty);
     }
 
     #endregion
