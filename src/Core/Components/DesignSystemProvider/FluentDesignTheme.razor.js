@@ -18,7 +18,7 @@ export function addThemeChangeEvent(dotNetHelper, id) {
             // This can fail when localStorage does not contain a valid JSON object
             const theme = element.themeStorage.readLocalStorage();
             if (theme == null) {
-                return theme;
+                return null;
             }
             else {
                 UpdateBodyDataSetTheme(theme.mode);
