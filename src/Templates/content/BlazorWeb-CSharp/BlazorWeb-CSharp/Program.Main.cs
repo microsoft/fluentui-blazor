@@ -1,7 +1,6 @@
 #if (IndividualLocalAuth)
+#if (UseServer)
 using Microsoft.AspNetCore.Components.Authorization;
-#if (!UseServer && !UseWebAssembly)
-using Microsoft.AspNetCore.Components.Server;
 #endif
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,52 +24,53 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-#if (!UseServer && !UseWebAssembly)
+        #if (!UseServer && !UseWebAssembly)
         builder.Services.AddRazorComponents();
-#else
+        #else
         builder.Services.AddRazorComponents()
-#if (UseServer && UseWebAssembly)
+          #if (UseServer && UseWebAssembly && IndividualLocalAuth)
+            .AddInteractiveServerComponents()
+            .AddInteractiveWebAssemblyComponents()
+            .AddAuthenticationStateSerialization();
+          #elif (UseServer && UseWebAssembly)
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
-#elif (UseServer)
+          #elif (UseServer)
             .AddInteractiveServerComponents();
-#elif (UseWebAssembly)
+          #elif (UseWebAssembly && IndividualLocalAuth)
+            .AddInteractiveWebAssemblyComponents()
+            .AddAuthenticationStateSerialization();
+          #elif (UseWebAssembly)
             .AddInteractiveWebAssemblyComponents();
-#endif
-#endif
+          #endif
+        #endif
         builder.Services.AddFluentUIComponents();
 
-#if (IndividualLocalAuth)
+        #if (IndividualLocalAuth)
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddScoped<IdentityUserAccessor>();
         builder.Services.AddScoped<IdentityRedirectManager>();
-#if (UseServer && UseWebAssembly)
-        builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
-#elif (UseServer)
+        #if (UseServer)
         builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
-#elif (UseWebAssembly)
-        builder.Services.AddScoped<AuthenticationStateProvider, PersistingServerAuthenticationStateProvider>();
-#else
-        builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
-#endif
+        #endif
 
-#if (!UseServer)
-        builder.Services.AddAuthorization();
-#endif
         builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
             .AddIdentityCookies();
+        #if (!UseServer)
+        builder.Services.AddAuthorization();
+        #endif
 
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-#if (UseLocalDB)
+        #if (UseLocalDB)
             options.UseSqlServer(connectionString));
-#else
+        #else
             options.UseSqlite(connectionString));
-#endif
+        #endif
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -80,7 +80,7 @@ public class Program
 
         builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-#endif
+        #endif
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -100,41 +100,41 @@ public class Program
 #endif
         {
             app.UseExceptionHandler("/Error");
-#if (HasHttpsProfile)
+        #if (HasHttpsProfile)
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
-#endif
+        #endif
         }
 
-#if (HasHttpsProfile)
+        #if (HasHttpsProfile)
         app.UseHttpsRedirection();
 
-#endif
-        app.UseStaticFiles();
+        #endif
         app.UseAntiforgery();
 
-#if (UseServer && UseWebAssembly)
+        app.MapStaticAssets();
+        #if (UseServer && UseWebAssembly)
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode()
             .AddInteractiveWebAssemblyRenderMode()
-#elif (UseServer)
+        #elif (UseServer)
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode();
-#elif (UseWebAssembly)
+        #elif (UseWebAssembly)
         app.MapRazorComponents<App>()
             .AddInteractiveWebAssemblyRenderMode()
-#else
+        #else
         app.MapRazorComponents<App>();
-#endif
-#if (UseWebAssembly)
+        #endif
+        #if (UseWebAssembly)
             .AddAdditionalAssemblies(typeof(Client._Imports).Assembly);
-#endif
+        #endif
 
-#if (IndividualLocalAuth)
+        #if (IndividualLocalAuth)
         // Add additional endpoints required by the Identity /Account Razor components.
         app.MapAdditionalIdentityEndpoints();
 
-#endif
+        #endif
         app.Run();
     }
 }

@@ -7,7 +7,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddFluentUIComponents();
 #if (!NoAuth)
@@ -16,10 +15,10 @@ builder.Services.AddFluentUIComponents();
 #if (IndividualLocalAuth)
 builder.Services.AddOidcAuthentication(options =>
 {
-#if (MissingAuthority)
+    #if(MissingAuthority)
     // Configure your authentication provider options here.
     // For more information, see https://aka.ms/blazor-standalone-auth
-#endif
+    #endif
     builder.Configuration.Bind("Local", options.ProviderOptions);
 });
 #endif
@@ -29,7 +28,7 @@ builder.Services.AddMsalAuthentication(options =>
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
 });
 #endif
-#if (OrganizationalAuth)
+#if(OrganizationalAuth)
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
