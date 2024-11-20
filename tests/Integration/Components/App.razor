@@ -4,17 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-    <HeadOutlet />
+    <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 
 <body>
-    <Routes />
-    <app>Loading...</app>
-    <script src="_framework/blazor.web.js" autostart="false"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            Blazor.start();
-        });
-    </script>
+    <Routes @rendermode="InteractiveServer" />
+    <script src="_framework/blazor.web.js"></script>
 </body>
 </html>

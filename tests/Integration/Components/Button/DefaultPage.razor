@@ -1,7 +1,9 @@
 ﻿@page "/button/default"
 @page "/"
+@rendermode RenderMode.InteractiveServer
+
 <div>
-    Hello World: @Value
+    Current count: @Value
 </div>
 <button @onclick="@Increment">Increment</button>
 
