@@ -5,9 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
+    @*#if (Framework == 'net8.0')
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="BlazorWeb-CSharp.styles.css" />
+    ##else
     <link rel="stylesheet" href="@Assets["app.css"]" />
     <link rel="stylesheet" href="@Assets["BlazorWeb-CSharp.styles.css"]" />
     <ImportMap />
+    ##endif*@
     @*#if (SampleContent)
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     ##endif*@

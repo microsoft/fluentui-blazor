@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
@@ -11,8 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="!!REPLACE_WITH_ASPNETCORE_8_VERSION!!" Condition="'$(Framework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(Framework)' == 'net9.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="!!REPLACE_WITH_ASPNETCORE_8_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(Framework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(Framework)' == 'net9.0'" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-*" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-*" />
   </ItemGroup>

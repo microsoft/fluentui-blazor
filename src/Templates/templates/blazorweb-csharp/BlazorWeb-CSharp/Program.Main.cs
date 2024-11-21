@@ -110,9 +110,14 @@ public class Program
         app.UseHttpsRedirection();
 
         #endif
+		#if (Framework == "net8.0")
+		app.UseStaticFiles();
+		#endif
         app.UseAntiforgery();
 
+		#if (Framework == "net9.0")
         app.MapStaticAssets();
+		#endif
         #if (UseServer && UseWebAssembly)
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode()

@@ -27,6 +27,7 @@
 		<!-- for templates -->
 		<AspirePackageVersion>9.0.0</AspirePackageVersion>
 		<MicrosoftExtensionsHttpResiliencePackageVersion>9.0.0</MicrosoftExtensionsHttpResiliencePackageVersion>
+		<MicrosoftAspNetCorePackageVersionForNet8>8.0.11</MicrosoftAspNetCorePackageVersionForNet8>
 		<MicrosoftAspNetCorePackageVersionForNet9>9.0.0</MicrosoftAspNetCorePackageVersionForNet9>
 
 	</PropertyGroup>
@@ -85,7 +86,13 @@
 			</TemplateProjectFiles>
 		</ItemGroup>
 
-		<WriteLinesToFile File="%(TemplateProjectFiles.DestinationFile)" Lines="$([System.IO.File]::ReadAllText('%(TemplateProjectFiles.FullPath)')&#xD;&#xA;																								 .Replace('!!REPLACE_WITH_LATEST_VERSION!!', '$(AspirePackageVersion)')&#xD;&#xA;																								 .Replace('!!REPLACE_WITH_ASPNETCORE_9_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet9)')&#xD;&#xA;																								 .Replace('!!REPLACE_WITH_DOTNET_EXTENSIONS_VERSION!!', '$(MicrosoftExtensionsHttpResiliencePackageVersion)'))" Overwrite="true" />
+		<WriteLinesToFile File="%(TemplateProjectFiles.DestinationFile)"
+											Lines="$([System.IO.File]::ReadAllText('%(TemplateProjectFiles.FullPath)')
+																								 .Replace('!!REPLACE_WITH_LATEST_VERSION!!', '$(PackageVersion)')
+																								 .Replace('!!REPLACE_WITH_ASPNETCORE_8_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet8)')
+																								 .Replace('!!REPLACE_WITH_ASPNETCORE_9_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet9)')
+																								 .Replace('!!REPLACE_WITH_DOTNET_EXTENSIONS_VERSION!!', '$(MicrosoftExtensionsHttpResiliencePackageVersion)'))"
+											Overwrite="true" />
 	</Target>
 
 	<!-- Grabs the contents of the templates folder and copies them to IntermediateOutputPath directory -->
