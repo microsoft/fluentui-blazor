@@ -27,6 +27,7 @@ internal class ApiClass
         "ToString",
         "Dispose",
         "DisposeAsync",
+        "ValueExpression",
     ];
 
     private readonly Type _component;

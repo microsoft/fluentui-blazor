@@ -1,0 +1,251 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentTextTests()
+    {
+
+    }
+
+    [Fact]
+    public void FluentText_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText>This is a fluent text.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentText_ClassAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Class="custom-class">This is a fluent text with class.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentText_StyleAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Style="color: red;">This is a fluent text with style.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("id-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentText_IdAttribute(string? id)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Id="@id">fluent-text</FluentText>);
+
+        // Assert
+        cut.Verify(suffix: id);
+    }
+
+    [Fact]
+    public void FluentText_AdditionalAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText additional-attribute-name="additional-attribute-value">fluent-text</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentText_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText additional-attribute1-name="additional-attribute1-value" additional-attribute2-name="additional-attribute2-value">fluent-text</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(TextAlign.Start, "start")]
+    [InlineData(TextAlign.End, "end")]
+    [InlineData(TextAlign.Center, "center")]
+    [InlineData(TextAlign.Justify, "justify")]
+    public void FluentText_Align(TextAlign align, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Align="@align">fluent text</FluentText>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"span\" align=\"{expectedAttribute}\">fluent text</fluent-text>");
+    }
+
+    [Theory]
+    [InlineData(TextWeight.Regular, "regular")]
+    [InlineData(TextWeight.Bold, "bold")]
+    public void FluentText_Weight(TextWeight weight, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Weight="@weight">fluent text</FluentText>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"span\" weight=\"{expectedAttribute}\">fluent text</fluent-text>");
+    }
+
+    [Theory]
+    [InlineData(TextTag.Span, "span")]
+    [InlineData(TextTag.Paragraph, "p")]
+    [InlineData(TextTag.Pre, "pre")]
+    [InlineData(TextTag.H1, "h1")]
+    [InlineData(TextTag.H2, "h2")]
+    [InlineData(TextTag.H3, "h3")]
+    [InlineData(TextTag.H4, "h4")]
+    [InlineData(TextTag.H5, "h5")]
+    [InlineData(TextTag.H6, "h6")]
+    public void FluentText_Tag(TextTag tag, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText As="@tag">fluent text</FluentText>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"{expectedAttribute}\">fluent text</fluent-text>");
+    }
+
+    [Theory]
+    [InlineData(TextSize.Size100, "100")]
+    [InlineData(TextSize.Size200, "200")]
+    [InlineData(TextSize.Size300, "300")]
+    [InlineData(TextSize.Size400, "400")]
+    [InlineData(TextSize.Size500, "500")]
+    [InlineData(TextSize.Size600, "600")]
+    [InlineData(TextSize.Size700, "700")]
+    [InlineData(TextSize.Size800, "800")]
+    [InlineData(TextSize.Size900, "900")]
+    [InlineData(TextSize.Size1000, "1000")]
+    public void FluentText_Size(TextSize size, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Size="@size">fluent text</FluentText>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"span\" size=\"{expectedAttribute}\">fluent text</fluent-text>");
+    }
+
+    [Theory]
+    [InlineData(TextFont.Base, "base")]
+    [InlineData(TextFont.Numeric,"numeric")]
+    [InlineData(TextFont.Monospace,"monospace")]
+    public void FluentText_Font(TextFont font, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Font="@font">fluent text</FluentText>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"span\" font=\"{expectedAttribute}\">fluent text</fluent-text>");
+    }
+
+    [Fact]
+    public void FluentText_Nowrap()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Nowrap="true">This is a fluent text.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+
+    [Fact]
+    public void FluentText_Italic()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Italic="true">This is a fluent text.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentText_Underline()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Underline="true">This is a fluent text.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentText_Strikethrough()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Strikethrough="true">This is a fluent text.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentText_Block()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Block="true">This is a fluent text.</FluentText>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "var(--colorBrandForeground1)")]
+    [InlineData(Color.Default, "var(--colorNeutralForeground1)")]
+    [InlineData(Color.Lightweight, "var(--colorNeutralForegroundInverted)")]
+    [InlineData(Color.Disabled, "var(--colorNeutralForegroundDisabled)")]
+    [InlineData(Color.Warning, "var(--warning)")]
+    [InlineData(Color.Info, "var(--info)")]
+    [InlineData(Color.Error, "var(--error)")]
+    [InlineData(Color.Success, "var(--success)")]
+    [InlineData(Color.Custom, "var(--colorNeutralForeground1)")]
+    public void FluentText_Color(Color color, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Color="@color">fluent text</FluentText>   );
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"span\" style=\"color: {expectedAttribute};\">fluent text</fluent-text>");
+    }
+
+    [Theory]
+    [InlineData("#FF5733")]
+    [InlineData("rgb(255, 87, 51)")]
+    [InlineData("hsl(9, 100%, 60%)")]
+    public void FluentText_CustomColor(string customColor)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentText Color="Color.Custom" CustomColor="@customColor">fluent text</FluentText>);
+
+        // Assert
+        cut.MarkupMatches($"<fluent-text as=\"span\" style=\"color: {customColor};\">fluent text</fluent-text>");
+    }
+
+    [Fact]
+    public void FluentText_CustomColor_RequiresColorAttribute()
+    {
+        Assert.Throws<ArgumentException>(() =>
+        {
+            // Arrange & Act
+            var cut = Render(@<FluentText CustomColor="#ff0000">This is a text</FluentText>);
+
+            // Assert an exception because Color=Color.Custom is required
+        });
+    }
+}

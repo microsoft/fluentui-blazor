@@ -1,0 +1,40 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering
+@inherits FluentInputBase<TOption>
+@typeparam TOption
+
+@code
+{
+    /// <summary>
+    /// Internal method to render the options.
+    /// See the <see cref="RenderOptions"/> method for the public API.
+    /// </summary>
+    /// <param name="__builder"></param>
+    private void InternalRenderOptions(RenderTreeBuilder __builder)
+    {
+        if (Items is null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            @foreach (TOption item in Items)
+            {
+                <FluentOption Value="@GetOptionValue(item)"
+                              Disabled="@(GetOptionDisabled(item))"
+                              Selected="@GetOptionSelected(item)"
+                              SelectedChanged="@(e => OnSelectedItemChangedHandlerAsync(item))"
+                              aria-selected="@(GetOptionSelected(item) ? "true" : null)">
+                    @if (OptionTemplate is not null)
+                    {
+                        @OptionTemplate(item)
+                    }
+                    else
+                    {
+                        @GetOptionText(item)
+                    }
+                </FluentOption>
+            }
+        }
+    }
+}

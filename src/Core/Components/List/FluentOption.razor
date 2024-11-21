@@ -1,0 +1,16 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+@* This file must be updated when the `fluent-select` web-component will be available  *@
+
+<option id="@Id"
+        class="@Class"
+        style="@Style"
+        disabled="@Disabled"
+        value="@Value"
+        selected="@Selected"
+        aria-selected="@(Selected ? "true" : null)"
+        @onclick="@OnSelectHandlerAsync"
+        @attributes="@AdditionalAttributes">
+    @ChildContent
+</option>

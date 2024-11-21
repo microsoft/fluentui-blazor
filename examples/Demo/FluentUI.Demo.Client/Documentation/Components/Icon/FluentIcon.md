@@ -89,7 +89,7 @@ public class MyCircle : Microsoft.FluentUI.AspNetCore.Components.Icon
 
 > Using the `IconSize.Custom` size, certain restrictions will apply: `FluentButton.Loading` or `Icon.ToMarkup` could be affected.
 
-## Migration from v4
+## Migrating to v5
 
 {{ INCLUDE File=MigrationColor }}
 
