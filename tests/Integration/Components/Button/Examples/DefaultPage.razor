@@ -1,0 +1,17 @@
+﻿@page "/"
+@page "/button/default"
+
+<div>
+    Current count: @Value
+</div>
+<FluentButton Appearance="ButtonAppearance.Primary" OnClick="@Increment">Increment</FluentButton>
+
+@code
+{
+    private int Value = 0;
+
+    private void Increment()
+    {
+        Value++;
+    }
+}

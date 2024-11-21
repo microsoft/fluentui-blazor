@@ -13,20 +13,73 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
 
+/// <summary>
+/// Fixture that starts the web server before the tests and stops it after the tests.
+/// </summary>
 public class StartServerFixture : IAsyncLifetime
 {
-    private const string ExeFileName = @"C:\VSO\Perso\fluentui-blazor-v5\tests\Integration\bin\Debug\net9.0\Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.exe";
+    private const int KILL_TIMEOUT_MILLISECONDS = 1000;
+    private const string PROCESS_FILENAME = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.exe";
+    private const string PROJECT_FILENAME = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.csproj";
 
-    private Process? ServerProcess { get; set; }
+    private Process? _serverProcess;
 
+    /// <summary>
+    /// Gets the server URL.
+    /// </summary>
+    public string ServerUrl => "http://localhost:5050";
+
+    /// <summary>
+    /// Starts the server process.
+    /// </summary>
+    /// <returns></returns>
     public Task InitializeAsync()
+    {
+        // Kill the existing server process (if the previous DisposeAsync was not called)
+        KillExistingServerProcess();
+
+#if DEBUG 
+        var mode = "Debug";
+#else
+        var mode = "Release";
+#endif
+
+        // Start the process
+        // dotnet run -c Release -f net9.0 --no-build --urls "http://localhost:5050"
+        _serverProcess = new Process();
+        _serverProcess.StartInfo.WorkingDirectory = GetProjectFolder();
+        _serverProcess.StartInfo.FileName = "dotnet";
+        _serverProcess.StartInfo.Arguments = $"run --urls \"{ServerUrl}\" -f net9.0 -c {mode} --no-build";
+
+        var started = _serverProcess.Start();
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Stops the server process.
+    /// </summary>
+    /// <returns></returns>
+    public Task DisposeAsync()
+    {
+        // Kill the process
+        if (_serverProcess != null && !_serverProcess.HasExited)
+        {
+            _serverProcess.Kill();
+            _serverProcess.WaitForExit(KILL_TIMEOUT_MILLISECONDS);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void KillExistingServerProcess()
     {
         // Find the process with the specified file path
         var targetProcess = Process.GetProcesses().FirstOrDefault(p =>
         {
             try
             {
-                return p.MainModule?.FileName.Equals(ExeFileName, StringComparison.OrdinalIgnoreCase) ?? false;
+                return p.MainModule?.FileName.Equals(PROCESS_FILENAME, StringComparison.OrdinalIgnoreCase) ?? false;
             }
             catch (Exception)
             {
@@ -39,28 +92,18 @@ public class StartServerFixture : IAsyncLifetime
         if (targetProcess != null)
         {
             targetProcess.Kill();
-            targetProcess.WaitForExit();
+            targetProcess.WaitForExit(KILL_TIMEOUT_MILLISECONDS);
         }
-
-        // Start the process
-        ServerProcess = new Process();
-        ServerProcess.StartInfo.FileName = ExeFileName;
-        ServerProcess.StartInfo.UseShellExecute = false;
-        ServerProcess.StartInfo.CreateNoWindow = false;
-        var started = ServerProcess.Start();
-
-        return Task.CompletedTask;
     }
 
-    public Task DisposeAsync()
+    private string GetProjectFolder()
     {
-        // Kill the process
-        if (ServerProcess != null && !ServerProcess.HasExited)
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory != null && !directory.GetFiles(PROJECT_FILENAME).Any())
         {
-            ServerProcess.Kill();
-            ServerProcess.WaitForExit(1000);
+            directory = directory.Parent;
         }
 
-        return Task.CompletedTask;
+        return directory?.FullName ?? throw new FileNotFoundException("Project file not found.");
     }
 }

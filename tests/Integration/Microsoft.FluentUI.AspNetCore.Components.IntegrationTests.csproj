@@ -7,7 +7,7 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
-    <StartupObject>Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components.Program</StartupObject>
+    <StartupObject>Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

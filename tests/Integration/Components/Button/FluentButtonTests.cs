@@ -13,17 +13,17 @@ using Microsoft.Playwright;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests;
+namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components.Button;
 
 #pragma warning disable CS0612 // Type or member is obsolete
 
-[Collection("Web Server Collection")]
-public class MyUnitTests
+[Collection(StartServerCollection.Name)]
+public class FluentButtonTests
 {
     private readonly ITestOutputHelper _output;
     private readonly StartServerFixture _server;
 
-    public MyUnitTests(ITestOutputHelper output, StartServerFixture server)
+    public FluentButtonTests(ITestOutputHelper output, StartServerFixture server)
     {
         _output = output;
         _server = server;
@@ -33,20 +33,20 @@ public class MyUnitTests
     public async Task Navigate_to_counter_ensure_current_counter_increases_on_click()
     {
         //Arrange
-        using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+        using var playwright = await Playwright.Playwright.CreateAsync();
         await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
         {
-            //Devtools = true
+            Devtools = true
         });
         var page = await browser.NewPageAsync();
         page.Console += (_, msg) => _output.WriteLine(msg.Text);
 
         //Act
-        await page.GotoAsync($"http://localhost:5000/button/default");
+        await page.GotoAsync($"{_server.ServerUrl}/button/default");
         await Task.Delay(300);
 
-        await page.ClickAsync("button");
-        await Task.Delay(300);
+        await page.ClickAsync("fluent-button");
+        await Task.Delay(1000);
 
         //Assert
         var content = await page.ContentAsync();

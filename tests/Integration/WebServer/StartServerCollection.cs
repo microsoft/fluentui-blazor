@@ -14,8 +14,14 @@ using Xunit.Sdk;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
 
-[CollectionDefinition("Web Server Collection")]
+/// <summary>
+/// Collection definition for the web server.
+/// </summary>
+[CollectionDefinition(StartServerCollection.Name)]
 public class StartServerCollection : ICollectionFixture<StartServerFixture>
 {
-
+    /// <summary>
+    /// The name of the collection.
+    /// </summary>
+    public const string Name = "Web Server Collection";
 }

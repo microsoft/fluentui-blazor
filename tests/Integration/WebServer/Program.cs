@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
 public class Program
 {
     public static void Main(string[] args)
@@ -15,7 +15,11 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorComponents()
-            .AddInteractiveServerComponents();
+                        .AddInteractiveServerComponents();
+
+        // Add FluentUI Blazor services
+        builder.Services.AddHttpClient();
+        builder.Services.AddFluentUIComponents();
 
         var app = builder.Build();
 
@@ -28,12 +32,10 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
         app.UseAntiforgery();
-
         app.MapStaticAssets();
         app.MapRazorComponents<App>()
-            .AddInteractiveServerRenderMode();
+           .AddInteractiveServerRenderMode();
 
         app.Run();
     }
