@@ -5,7 +5,7 @@
   "identity": "Microsoft.Maui.Fluent.BlazorSolution.CSharp.9.0",
   "groupIdentity": "Microsoft.Maui.Fluent.BlazorSolution",
   "precedence": "9902",
-  "name": ".NET MAUI Fluent Blazor Hybrid and Web App",
+  "name": "Fluent .NET MAUI Blazor Hybrid and Web App",
   "description": "A multi-project app for creating a .NET MAUI Fluent Blazor Hybrid application with a Blazor Web project with a shared user interface, using the Fluent UI Blazor components.",
   "shortName": "fluentmaui-blazor-web",
   "tags": {
