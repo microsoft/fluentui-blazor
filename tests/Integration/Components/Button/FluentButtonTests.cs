@@ -36,17 +36,22 @@ public class FluentButtonTests
         using var playwright = await Playwright.Playwright.CreateAsync();
         await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
         {
-            Devtools = true
+            //Devtools = true
         });
         var page = await browser.NewPageAsync();
         page.Console += (_, msg) => _output.WriteLine(msg.Text);
 
         //Act
         await page.GotoAsync($"{_server.ServerUrl}/button/default");
-        await Task.Delay(300);
+        await page.WaitForConsoleMessageAsync(new PageWaitForConsoleMessageOptions()
+        {
+            Predicate = msg => msg.Text.Contains("WebSocket connected"),
+            Timeout = 1000
+        });
+        await Task.Delay(100);
 
         await page.ClickAsync("fluent-button");
-        await Task.Delay(1000);
+        await page.Locator("text=Current count: 2").IsVisibleAsync();
 
         //Assert
         var content = await page.ContentAsync();
