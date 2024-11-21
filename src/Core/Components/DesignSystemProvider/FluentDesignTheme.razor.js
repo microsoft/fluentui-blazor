@@ -17,8 +17,13 @@ export function addThemeChangeEvent(dotNetHelper, id) {
         try {
             // This can fail when localStorage does not contain a valid JSON object
             const theme = element.themeStorage.readLocalStorage();
-            UpdateBodyDataSetTheme(theme.mode);
-            return theme == null ? theme : JSON.stringify(theme);
+            if (theme == null) {
+                return null;
+            }
+            else {
+                UpdateBodyDataSetTheme(theme.mode);
+                return JSON.stringify(theme);
+            }
         } catch (error) {
             ClearLocalStorage(id);
             console.error(`FluentDesignTheme: failing to load theme from localStorage.`, error);
