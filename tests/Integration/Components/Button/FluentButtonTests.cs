@@ -2,12 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
 using Microsoft.Playwright;
 using Xunit;
@@ -48,10 +42,10 @@ public class FluentButtonTests
             Predicate = msg => msg.Text.Contains("WebSocket connected"),
             Timeout = 1000
         });
-        await Task.Delay(100);
+        await Task.Delay(100);  // Wait for page to render
 
         await page.ClickAsync("fluent-button");
-        await page.Locator("text=Current count: 2").IsVisibleAsync();
+        await Task.Delay(100);  // Wait for page to render
 
         //Assert
         var content = await page.ContentAsync();
