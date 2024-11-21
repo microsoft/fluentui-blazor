@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk" InitialTargets="AddTemplatesToPackageAsContent">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<Authors>Microsoft</Authors>
 		<ContentTargetFolders>Content</ContentTargetFolders>
 		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
