@@ -94,25 +94,17 @@
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\FluentUI.Demo.Client" />
   </Target>
 
-  <!-- Embedd other languages under root resx file -->
+  <!-- Resources Localization -->
   <ItemGroup>
-    <None Include="**\*.*.resx" />
-    <None Update="**\*.*.resx">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).resx</DependentUpon>
-    </None>
-
-    <Compile Update="**\*.Designer.cs">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>%(ParentFile).resx</DependentUpon>
-    </Compile>
-
-    <EmbeddedResource Update="**\*.resx">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>%(ParentFile).Designer.cs</LastGenOutput>
+    <PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    
+    <EmbeddedResource Update="Localization\LanguageResource.resx">
+      <Public>false</Public>
+      <AsConstants>true</AsConstants>
     </EmbeddedResource>
   </ItemGroup>
+  
 </Project>

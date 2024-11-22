@@ -2,8 +2,11 @@
 @using Microsoft.AspNetCore.Components.Rendering;
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
+@inject IFluentLocalizer Localizer
+@Localizer[LanguageResource.FluentSample_Hello]
 
 <AddTag Name="span" TagWhen="@(() => LoadingOverlay)" class="@ClassValue" style="@StyleValue">
+    
     <fluent-button class="@(LoadingOverlay ? null : ClassValue)"
                    style="@(LoadingOverlay ? null : StyleValue)"
                    autofocus="@AutoFocus"
@@ -28,7 +31,8 @@
                    appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                    @onclick="@OnClickHandlerAsync"
                    @onclick:stopPropagation="@StopPropagation"
-                   @attributes="AdditionalAttributes">
+                   @attributes="AdditionalAttributes">        
+
         @if (IconStart != null)
         {
             if (Loading)

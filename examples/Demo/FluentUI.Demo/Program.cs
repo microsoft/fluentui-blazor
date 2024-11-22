@@ -16,7 +16,10 @@ builder.Services
 builder.Services.AddHttpClient();
 
 // Add FluentUI services
-builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIComponents(config =>
+{
+    config.Localizer = new MyLocalizer();
+});
 
 // Add Demo server services
 builder.Services.AddFluentUIDemoServices().ForServer();
@@ -46,3 +49,14 @@ app.MapRazorComponents<FluentUI.Demo.Components.App>()
     .AddAdditionalAssemblies(typeof(FluentUI.Demo.Client._Imports).Assembly);
 
 app.Run();
+
+class MyLocalizer : IFluentLocalizer
+{
+    public string? this[string key, params object[] arguments]
+    {
+        get
+        {
+            return key;
+        }
+    }
+}

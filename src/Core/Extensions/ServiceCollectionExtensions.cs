@@ -34,6 +34,8 @@ public static class ServiceCollectionExtensions
             services.AddSingleton(options);
         */
 
+        services.AddScoped<IFluentLocalizer>(provider => configuration?.Localizer ?? new FluentLocalizer());
+
         return services;
     }
 
