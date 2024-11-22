@@ -7,18 +7,26 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Localizer that uses the FluentUI language resource to localize strings.
 /// </summary>
-public class FluentLocalizer : IFluentLocalizer
+public class FluentLocalizer
 {
-    /// <summary>
-    /// Returns the localized string for the given key.
-    /// By default, the English (InvariantCulture) resource is used.
-    /// </summary>
-    public virtual string? this[string key, params object[] arguments]
+    /// <summary />
+    public virtual string this[string key, params object[] arguments]
     {
         get
         {
-            var resourceString = Localization.LanguageResource.ResourceManager.GetString(key, System.Globalization.CultureInfo.InvariantCulture);
-            return resourceString;
+            return GetDefault(key, arguments);
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="arguments"></param>
+    /// <returns></returns>
+    protected string GetDefault(string key, params object[] arguments)
+    {
+        return Localization.LanguageResource.ResourceManager.GetString(key, System.Globalization.CultureInfo.InvariantCulture)
+            ?? throw new ArgumentException($"Key '{key}' not found in LanguageResource.", paramName: nameof(key));
     }
 }

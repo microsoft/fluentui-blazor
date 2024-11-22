@@ -24,7 +24,7 @@ public class LibraryConfiguration
     /// <summary>
     /// Gets or sets the FluentLocalizer instance used to localize the library components.
     /// </summary>
-    public IFluentLocalizer? Localizer { get; set; }
+    public FluentLocalizer? Localizer { get; set; }
 
     /// <summary>
     /// Gets or sets the value indicating whether the library should validate CSS class names.

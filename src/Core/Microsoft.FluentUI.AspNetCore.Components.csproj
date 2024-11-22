@@ -103,6 +103,7 @@
     
     <EmbeddedResource Update="Localization\LanguageResource.resx">
       <Public>false</Public>
+      <OmitGetResourceString>true</OmitGetResourceString>
       <AsConstants>true</AsConstants>
     </EmbeddedResource>
   </ItemGroup>
