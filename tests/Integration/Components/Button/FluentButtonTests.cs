@@ -9,8 +9,6 @@ using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components.Button;
 
-#pragma warning disable CS0612 // Type or member is obsolete
-
 [Collection(StartServerCollection.Name)]
 public class FluentButtonTests : FluentPlaywrightBaseTest
 {
@@ -23,7 +21,7 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
     public async Task FluentButton_IncrementCounter()
     {
         // Arrange
-        var page = await WaitOpenPageAsync($"/button/default");
+        var page = await WaitOpenPageAsync($"/button/default", openDevTools: false);
 
         // Act
         await page.ClickAsync("fluent-button");
@@ -38,4 +36,3 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
     }
 }
 
-#pragma warning restore CS0612 // Type or member is obsolete

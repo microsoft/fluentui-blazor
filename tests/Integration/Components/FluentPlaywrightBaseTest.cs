@@ -8,6 +8,8 @@ using Xunit.Abstractions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components;
 
+#pragma warning disable CS0612 // Type or member is obsolete
+
 public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
 {
     private IPlaywright? _playwright;
@@ -34,12 +36,12 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
     /// </summary>
     protected virtual StartServerFixture Server { get; set; }
 
-    public async Task<IPage> WaitOpenPageAsync(string url)
+    public async Task<IPage> WaitOpenPageAsync(string url, bool openDevTools = false)
     {
         _playwright = await Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
         {
-            //Devtools = true
+            Devtools = openDevTools
         });
 
         var page = await _browser.NewPageAsync();
@@ -71,3 +73,5 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
         _playwright?.Dispose();
     }
 }
+
+#pragma warning restore CS0612 // Type or member is obsolete
