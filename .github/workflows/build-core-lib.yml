@@ -144,6 +144,23 @@ jobs:
        with:
          path: CoverageReports/SummaryGithub.md
 
+   # Integration Tests
+
+     - name: Build Integration Tests
+       run: dotnet build ${{ env.INTEGRATION_TEST }} --verbosity normal --configuration Release
+       working-directory: ${{ github.workspace }}
+
+     - name: Install Playwright
+       if: success() || failure()
+       shell: pwsh
+       working-directory: ${{ github.workspace }}
+       run: |
+         ./tests/Integration/bin/Release/net9.0/playwright.ps1 install
+
+     - name: Run Integration Tests
+       run: dotnet test ${{ env.INTEGRATION_TEST }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release
+       working-directory: ${{ github.workspace }}
+
   analyze:
     name: Analyze
     runs-on: ubuntu-latest

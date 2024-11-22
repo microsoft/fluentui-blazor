@@ -9,8 +9,12 @@ First, make sure you have the Playwright for .NET package installed. If you don'
 
 ```powershell
 dotnet build
-pwsh bin/Debug/net<version>/playwright.ps1 install
+./bin/Debug/net9.0/playwright.ps1 install
 ```
+
+> **Note**: `dotnet build` needs to be run from the `Integration` folder.
+
+More details on https://playwright.dev/dotnet/docs/intro
 
 ## Web Server for testing
 
