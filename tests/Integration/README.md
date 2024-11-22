@@ -37,16 +37,30 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
     public async Task FluentButton_IncrementCounter()
     {
         // Arrange
-        var page = await WaitOpenPageAsync($"/button/default");
-        
+        var page = await WaitOpenPageAsync($"/button/default", openDevTools: false);
+
         // Act
         await page.ClickAsync("fluent-button");
-        await Task.Delay(100);  // Wait for page to render
-        
+
         // Assert
-        var content = await page.ContentAsync();
-        Assert.Contains("Current count: 1", content);
+        await Assertions.Expect(page.GetByTestId("current-value"))
+                        .ToContainTextAsync("1");
     }
+}
+```
+
+```razor
+@page "/button/default"
+
+<div>
+    Current count: <span data-testid="current-value">@Value</span>
+</div>
+<FluentButton Appearance="ButtonAppearance.Primary" OnClick="@Increment">Increment</FluentButton>
+
+@code
+{
+    private int Value = 0;
+    private void Increment() => Value++;
 }
 ```
 
