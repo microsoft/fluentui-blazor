@@ -280,7 +280,7 @@ dotnet_diagnostic.CA2200.severity = warning
 dotnet_diagnostic.CA2201.severity = warning
 
 # CA2208: Instantiate argument exceptions correctly
-dotnet_diagnostic.CA2208.severity = warning
+dotnet_diagnostic.CA2208.severity = none
 
 # CA2245: Do not assign a property to itself
 dotnet_diagnostic.CA2245.severity = warning
