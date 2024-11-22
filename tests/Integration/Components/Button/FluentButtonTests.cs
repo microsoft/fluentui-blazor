@@ -29,6 +29,10 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
 
         // Assert
         var content = await page.ContentAsync();
+        await page.ScreenshotAsync(new()
+        {
+            Path = $"{Server.ScreenshotsFolder}FluentButton_IncrementCounter.png"
+        });
 
         Trace.WriteLine(content);
 

@@ -30,6 +30,11 @@ public class StartServerFixture : IAsyncLifetime
     public string BaseUrl => "http://localhost:5050";
 
     /// <summary>
+    /// Gets the folder where the screenshots are saved.
+    /// </summary>
+    public string ScreenshotsFolder => @"C:\Temp\FluentUI\Screenshots\";
+
+    /// <summary>
     /// Starts the server process.
     /// </summary>
     /// <returns></returns>
