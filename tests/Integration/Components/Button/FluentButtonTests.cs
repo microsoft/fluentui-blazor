@@ -12,45 +12,27 @@ namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.Components.B
 #pragma warning disable CS0612 // Type or member is obsolete
 
 [Collection(StartServerCollection.Name)]
-public class FluentButtonTests
+public class FluentButtonTests : FluentPlaywrightBaseTest
 {
-    private readonly ITestOutputHelper _output;
-    private readonly StartServerFixture _server;
-
     public FluentButtonTests(ITestOutputHelper output, StartServerFixture server)
+        : base(output, server)
     {
-        _output = output;
-        _server = server;
     }
 
     [Fact]
-    public async Task Navigate_to_counter_ensure_current_counter_increases_on_click()
+    public async Task FluentButton_IncrementCounter()
     {
-        //Arrange
-        using var playwright = await Playwright.Playwright.CreateAsync();
-        await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
-        {
-            //Devtools = true
-        });
-        var page = await browser.NewPageAsync();
-        page.Console += (_, msg) => _output.WriteLine(msg.Text);
+        // Arrange
+        var page = await WaitOpenPageAsync($"/button/default");
 
-        //Act
-        await page.GotoAsync($"{_server.ServerUrl}/button/default");
-        await page.WaitForConsoleMessageAsync(new PageWaitForConsoleMessageOptions()
-        {
-            Predicate = msg => msg.Text.Contains("WebSocket connected"),
-            Timeout = 1000
-        });
-        await Task.Delay(100);  // Wait for page to render
-
+        // Act
         await page.ClickAsync("fluent-button");
         await Task.Delay(100);  // Wait for page to render
 
-        //Assert
+        // Assert
         var content = await page.ContentAsync();
 
-        _output.WriteLine(content);
+        Trace.WriteLine(content);
 
         Assert.Contains("Current count: 1", content);
     }

@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{0A73C6AE-F69
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A7EC98D2-21E3-4967-8C5A-D62E640305EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Tests", "tests\Core\Microsoft.FluentUI.AspNetCore.Components.Tests.csproj", "{3A9FE7FC-69CB-4698-A676-39A3A13399B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components.Tests", "tests\Core\Components.Tests.csproj", "{3A9FE7FC-69CB-4698-A676-39A3A13399B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{F273876F-7528-42B3-BFE8-7CFF8ED1E2A2}"
 EndProject
@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.SampleData", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUI.Demo.SampleApi", "examples\Tools\FluentUI.Demo.SampleApi\FluentUI.Demo.SampleApi.csproj", "{E67B08B6-AEE4-4281-8700-1C87A5A3C11E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests", "tests\Integration\Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.csproj", "{F380FA22-53D8-4381-B89B-4047AF544D53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components.IntegrationTests", "tests\Integration\Components.IntegrationTests.csproj", "{F380FA22-53D8-4381-B89B-4047AF544D53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

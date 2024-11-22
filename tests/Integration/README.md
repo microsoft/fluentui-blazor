@@ -19,6 +19,33 @@ This server is automatically started and stopped by the tests (see `StartServerF
 
 The server is started to listen on `http://localhost:5050`.
 
+To start the server automatically, you need to include the test in a specific collection of tests:
+```csharp
+[Collection(StartServerCollection.Name)]
+public class FluentButtonTests : FluentPlaywrightBaseTest
+{
+    public FluentButtonTests(ITestOutputHelper output, StartServerFixture server)
+        : base(output, server)
+    {
+    }
+
+    [Fact]
+    public async Task FluentButton_IncrementCounter()
+    {
+        // Arrange
+        var page = await WaitOpenPageAsync($"/button/default");
+        
+        // Act
+        await page.ClickAsync("fluent-button");
+        await Task.Delay(100);  // Wait for page to render
+        
+        // Assert
+        var content = await page.ContentAsync();
+        Assert.Contains("Current count: 1", content);
+    }
+}
+```
+
 > ⚠️ **Notes:**
 >
 > If you interrupt a test abruptly (for example, by pressing the Stop button on the Test Explorer)

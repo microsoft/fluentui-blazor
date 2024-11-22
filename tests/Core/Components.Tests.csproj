@@ -7,6 +7,8 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

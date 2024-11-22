@@ -20,14 +20,14 @@ public class StartServerFixture : IAsyncLifetime
 {
     private const int KILL_TIMEOUT_MILLISECONDS = 1000;
     private const string PROCESS_FILENAME = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.exe";
-    private const string PROJECT_FILENAME = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.csproj";
+    private const string PROJECT_FILENAME = "Components.IntegrationTests.csproj";
 
     private Process? _serverProcess;
 
     /// <summary>
     /// Gets the server URL.
     /// </summary>
-    public string ServerUrl => "http://localhost:5050";
+    public string BaseUrl => "http://localhost:5050";
 
     /// <summary>
     /// Starts the server process.
@@ -49,7 +49,7 @@ public class StartServerFixture : IAsyncLifetime
         _serverProcess = new Process();
         _serverProcess.StartInfo.WorkingDirectory = GetProjectFolder();
         _serverProcess.StartInfo.FileName = "dotnet";
-        _serverProcess.StartInfo.Arguments = $"run --urls \"{ServerUrl}\" -f net9.0 -c {mode} --no-build";
+        _serverProcess.StartInfo.Arguments = $"run --urls \"{BaseUrl}\" -f net9.0 -c {mode} --no-build";
 
         var started = _serverProcess.Start();
 
@@ -104,6 +104,6 @@ public class StartServerFixture : IAsyncLifetime
             directory = directory.Parent;
         }
 
-        return directory?.FullName ?? throw new FileNotFoundException("Project file not found.");
+        return directory?.FullName ?? throw new FileNotFoundException($"Project '{PROJECT_FILENAME}' file not found.");
     }
 }

@@ -8,6 +8,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
     <StartupObject>Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer.Program</StartupObject>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.IntegrationTests</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.IntegrationTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
