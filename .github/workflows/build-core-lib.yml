@@ -24,9 +24,8 @@ on:
 
 env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
-  TESTS: |
-    "./tests/Core/Components.Tests.csproj",
-    "./tests/Integration/Components.IntegrationTests.csproj"
+  TESTS: "./tests/Core/Components.Tests.csproj"
+  INTEGRATION_TEST: "./tests/Integration/Components.IntegrationTests.csproj"
   MIN_COVERAGE: "98"
 
 jobs:
