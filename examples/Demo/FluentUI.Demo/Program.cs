@@ -48,7 +48,7 @@ app.MapStaticAssets();
 app.UseAntiforgery();
 
 // Use the localization services
-app.UseRequestLocalization(new RequestLocalizationOptions().AddSupportedUICultures(["fr"]));
+app.UseRequestLocalization(new RequestLocalizationOptions().AddSupportedUICultures(["en", "fr"]));
 
 app.MapRazorComponents<FluentUI.Demo.Components.App>()
     .AddInteractiveServerRenderMode()
@@ -57,9 +57,9 @@ app.MapRazorComponents<FluentUI.Demo.Components.App>()
 
 app.Run();
 
-internal class MyLocalizer : FluentLocalizer
+internal class MyLocalizer : IFluentLocalizer
 {
-    public override string this[string key, params object[] arguments]
+    public string this[string key, params object[] arguments]
     {
         get
         {
@@ -68,18 +68,20 @@ internal class MyLocalizer : FluentLocalizer
             //  - app.UseRequestLocalization(new RequestLocalizationOptions().AddSupportedUICultures(["fr"]));
             var language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
+            Console.WriteLine(language);
+
             // Returns the French version of the string
             if (language == "fr")
             {
                 return key switch
                 {
                     "FluentSample_Hello" => "Bonjour",
-                    _ => base[key, arguments],
+                    _ => IFluentLocalizer.GetDefault(key, arguments),
                 };
             }
 
             // By default, returns the English version of the string
-            return base[key, arguments];
+            return IFluentLocalizer.GetDefault(key, arguments);
         }
     }
 }
