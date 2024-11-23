@@ -21,7 +21,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
-    private IJSObjectReference?  _jsModule { get; set; }
+    private IJSObjectReference? _jsModule { get; set; }
 
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
