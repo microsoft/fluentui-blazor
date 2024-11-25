@@ -28,5 +28,10 @@ public enum TextFieldType
     /// <summary>
     /// A text field that is used for URL input.
     /// </summary>
-    Url
+    Url,
+
+    /// <summary>
+    /// A text field that is used for color input (hexadecimal color value).
+    /// </summary>
+    Color,
 }
