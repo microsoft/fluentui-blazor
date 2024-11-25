@@ -14757,6 +14757,21 @@
             A text field that is used for URL input.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Color">
+            <summary>
+            A text field that is used for color input (hexadecimal color value).
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Search">
+            <summary>
+            A text field that is used to search for a value. (accessibility)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Number">
+            <summary>
+            A text field that is used for number input, if you don't want to use the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1"/> component.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.TextPosition">
             <summary>
             The position of the text relative to the avatar/presence in <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPersona"/>.
