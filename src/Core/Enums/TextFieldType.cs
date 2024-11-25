@@ -34,4 +34,14 @@ public enum TextFieldType
     /// A text field that is used for color input (hexadecimal color value).
     /// </summary>
     Color,
+
+    /// <summary>
+    /// A text field that is used to search for a value. (accessibility)
+    /// </summary>
+    Search,
+
+    /// <summary>
+    /// A text field that is used for number input, if you don't want to use the <see cref="Microsoft.FluentUI.AspNetCore.Components.FluentNumberField{TValue}"/> component.
+    /// </summary>
+    Number,
 }
