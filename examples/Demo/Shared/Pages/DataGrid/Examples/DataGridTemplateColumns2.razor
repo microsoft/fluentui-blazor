@@ -1,5 +1,11 @@
 ﻿
-<FluentDataGrid id="defaultGrid" Items=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowClick="HandleRowClick" OnCellClick="HandleCellClick">
+<FluentDataGrid id="defaultGrid"
+    Items=RowsGrid.AsQueryable()
+    GridTemplateColumns="1fr 1fr"
+    TGridItem=SampleGridData
+    OnRowClick="HandleRowClick"
+    OnCellClick="HandleCellClick"
+    RowSize="@DataGridRowSize.Medium">
     <TemplateColumn Title="Name">
         <FluentTextField @bind-Value="@context!.Name"/>
     </TemplateColumn>
