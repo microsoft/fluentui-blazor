@@ -5224,6 +5224,11 @@
             its default action should not be taken as it normally would be.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.StopRepeat">
+            <summary>
+            Gets or sets whether the key pressed can be repeated.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.AdditionalAttributes">
             <summary>
             Gets or sets a collection of additional attributes that will be applied to the created element.
@@ -5232,7 +5237,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String,System.Boolean)">
             <summary>
             Internal method.
             </summary>
@@ -5244,9 +5249,10 @@
             <param name="metaKey"></param>
             <param name="location"></param>
             <param name="targetId"></param>
+            <param name="repeat"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyUpRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyUpRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String,System.Boolean)">
             <summary>
             Internal method.
             </summary>
@@ -5258,6 +5264,7 @@
             <param name="metaKey"></param>
             <param name="location"></param>
             <param name="targetId"></param>
+            <param name="repeat"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Name">
@@ -5310,6 +5317,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.TargetId">
             <summary>
             Gets the identifier of the targeted DOM element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Repeat">
+            <summary>
+            Gets a boolean value that is true if the given key is being held down such that it is automatically repeating.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.ToString">
