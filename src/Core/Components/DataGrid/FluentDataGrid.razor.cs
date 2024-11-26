@@ -28,6 +28,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
 
     [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
     private IServiceScopeFactory ScopeFactory { get; set; } = default!;
 
     [Inject]
@@ -245,6 +248,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFit { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid should save its paging state in the URL.
+    /// </summary>
+    [Parameter]
+    public bool SaveStateInUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets a prefix to use when saving the grid state in the URL.
+    /// </summary>
+    /// <remarks>Only relevant when <see cref="SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
+    [Parameter]
+    public string? SaveStatePrefix { get; set; }
+
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 
@@ -322,6 +338,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     protected override void OnInitialized()
     {
         KeyCodeService.RegisterListener(OnKeyDownAsync);
+        if (SaveStateInUrl)
+        {
+            LoadStateFromQueryString(new Uri(NavigationManager.Uri).Query);
+        }
     }
 
     /// <inheritdoc />
@@ -795,6 +815,59 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         StateHasChanged();
     }
 
+    private void LoadStateFromQueryString(string queryString)
+    {
+        if (!SaveStateInUrl)
+        {
+            return;
+        }
+
+        var query = System.Web.HttpUtility.ParseQueryString(queryString);
+        if (query.AllKeys.Contains($"{SaveStatePrefix}orderby"))
+        {
+            var orderBy = query[$"{SaveStatePrefix}orderby"]!.Split(' ',2);
+            var title = orderBy[0];
+
+            var column = _columns.FirstOrDefault(c => c.Title == title);
+            if (column is not null)
+            {
+                _sortByColumn = column;
+                _sortByAscending = orderBy.Length == 2 && orderBy[1] == "asc";
+            }
+        }
+
+        if (Pagination is not null)
+        {
+            if (query.AllKeys.Contains($"{SaveStatePrefix}page") && int.TryParse(query[$"{SaveStatePrefix}page"]!, out int page))
+            {
+                Pagination.SetCurrentPageIndexAsync(page - 1);
+            }
+
+            if (query.AllKeys.Contains($"{SaveStatePrefix}top") && int.TryParse(query[$"{SaveStatePrefix}top"]!, out int itemsPerPage))
+            {
+                Pagination.ItemsPerPage = itemsPerPage;
+            }
+        }
+    }
+
+    private void SaveStateToQueryString()
+    {
+        if (!SaveStateInUrl)
+        {
+            return;
+        }
+
+        var stateParams = new Dictionary<string, object?>();
+        if (_sortByColumn is not null)
+        {
+            var order = _sortByAscending ? "asc" : "desc";
+            stateParams.Add($"{SaveStatePrefix}orderby", $"{_sortByColumn.Title} {order}");
+        }
+        stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
+        stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
+        NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
+    }
+
     private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)
     {
         var rowId = args.RowId;
@@ -865,5 +938,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        SaveStateToQueryString();
     }
 }
