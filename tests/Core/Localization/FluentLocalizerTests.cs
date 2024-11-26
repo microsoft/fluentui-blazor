@@ -25,11 +25,13 @@ public class FluentLocalizerTests : TestContext
         Services.AddFluentUIComponents();
         var localizer = Services.GetRequiredService<IFluentLocalizer>();
 
-        // Act - GetDefault returns always the English value.
-        var value = localizer["Fake_Hello", "Denis"];
+        // Act
+        var value1 = localizer["Fake_Hello", "Denis"];                  // Only English value is available in the FluentUI-Blazor lib
+        var value2 = localizer.GetDefault("Fake_Hello", "Denis");       // GetDefault returns always the English value.
 
         // Assert
-        Assert.Equal("Hello Denis", value);
+        Assert.Equal("Hello Denis", value1);
+        Assert.Equal("Hello Denis", value2);
     }
 
     [Theory]
