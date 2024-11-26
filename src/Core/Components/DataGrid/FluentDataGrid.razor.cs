@@ -258,6 +258,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Gets or sets a prefix to use when saving the grid state in the URL.
     /// </summary>
     /// <remarks>Only relevant when <see cref="SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
+    [Parameter]
     public string? SaveStatePrefix { get; set; }
 
     private ElementReference? _gridReference;
@@ -816,12 +817,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private void LoadStateFromQueryString(string queryString)
     {
+        if (!SaveStateInUrl)
+        {
+            return;
+        }
+
         var query = System.Web.HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby"))
         {
             var orderBy = query[$"{SaveStatePrefix}orderby"]!.Split(' ',2);
             var title = orderBy[0];
-            
+
             var column = _columns.FirstOrDefault(c => c.Title == title);
             if (column is not null)
             {
@@ -846,18 +852,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private void SaveStateToQueryString()
     {
-        if (SaveStateInUrl)
+        if (!SaveStateInUrl)
         {
-            var stateParams = new Dictionary<string, object?>();
-            if (_sortByColumn is not null)
-            {
-                var order = _sortByAscending ? "asc" : "desc";
-                stateParams.Add($"{SaveStatePrefix}orderby", $"{_sortByColumn.Title} {order}");
-            }
-            stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
-            stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
-            NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
+            return;
         }
+
+        var stateParams = new Dictionary<string, object?>();
+        if (_sortByColumn is not null)
+        {
+            var order = _sortByAscending ? "asc" : "desc";
+            stateParams.Add($"{SaveStatePrefix}orderby", $"{_sortByColumn.Title} {order}");
+        }
+        stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
+        stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
+        NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
     }
 
     private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)
