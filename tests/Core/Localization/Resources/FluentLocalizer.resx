@@ -120,10 +120,4 @@
   <data name="Fake_Hello" xml:space="preserve">
     <value>Hello {0}</value>
   </data>
-  <data name="FluentLayoutHamburger_Title" xml:space="preserve">
-    <value>Menu</value>
-  </data>
-  <data name="FluentInputBase_Required" xml:space="preserve">
-    <value>Required</value>
-  </data>
 </root>

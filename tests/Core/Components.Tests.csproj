@@ -60,4 +60,10 @@
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\Resources\FluentLocalizer.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

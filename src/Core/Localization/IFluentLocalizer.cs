@@ -32,6 +32,8 @@ public interface IFluentLocalizer
             throw new ArgumentException($"Key '{key}' not found in LanguageResource.", paramName: nameof(key));
         }
 
-        return string.Format(System.Globalization.CultureInfo.InvariantCulture, localizedString, arguments);
+        return arguments.Length > 0
+            ? string.Format(System.Globalization.CultureInfo.InvariantCulture, localizedString, arguments)
+            : localizedString;
     }
 }
