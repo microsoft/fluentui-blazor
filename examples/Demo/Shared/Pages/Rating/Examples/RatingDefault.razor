@@ -1,8 +1,7 @@
 ﻿
 <FluentStack VerticalAlignment="VerticalAlignment.Center">
     <FluentRating Max="5"
-                  Label="Rate me?"
-                  AriaLabel="Rate me!"
+                  Label="Rate me!"
                   @bind-Value="@SelectedValue"
                   OnHoverValueChanged="@(i => HoverValue = i)" />
     <FluentLabel>@LabelText</FluentLabel>

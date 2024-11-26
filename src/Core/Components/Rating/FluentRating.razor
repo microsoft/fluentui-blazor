@@ -12,7 +12,7 @@
      style="@StyleValue"
      role="radiogroup"
      aria-readonly="@(ReadOnly ? "true" : null)"
-     aria-label="@AriaLabel"
+     aria-label="@(AriaLabel ?? Label ?? null)"
      @onmouseleave="@OnMouseLeaveAsync">
 
     @foreach (var index in Enumerable.Range(1, Max))
