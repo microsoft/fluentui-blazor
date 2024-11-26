@@ -25,7 +25,13 @@ public interface IFluentLocalizer
     /// <returns>The string resource.</returns>
     public static string GetDefault(string key, params object[] arguments)
     {
-        return Localization.LanguageResource.ResourceManager.GetString(key, System.Globalization.CultureInfo.InvariantCulture)
-            ?? throw new ArgumentException($"Key '{key}' not found in LanguageResource.", paramName: nameof(key));
+        var localizedString = Localization.LanguageResource.ResourceManager.GetString(key, System.Globalization.CultureInfo.InvariantCulture);
+
+        if (localizedString == null)
+        {
+            throw new ArgumentException($"Key '{key}' not found in LanguageResource.", paramName: nameof(key));
+        }
+
+        return string.Format(System.Globalization.CultureInfo.InvariantCulture, localizedString, arguments);
     }
 }
