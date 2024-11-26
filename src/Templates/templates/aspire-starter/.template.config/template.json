@@ -23,7 +23,7 @@
     "type": "solution",
     "editorTreatAs": "solution"
   },
-  "precedence": "9001",
+  "precedence": "9003",
   "identity": "Fluent.Aspire.Starter.CSharp.8.0",
   "thirdPartyNotices": "https://aka.ms/dotnet/aspire/third-party-notices",
   "groupIdentity": "Fluent.Aspire.Starter",
