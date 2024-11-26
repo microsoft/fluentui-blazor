@@ -37,6 +37,7 @@ public class ComponentBaseTests : TestContext
     public ComponentBaseTests(ITestOutputHelper testOutputHelper)
     {
         Output = testOutputHelper;
+        Services.AddFluentUIComponents();
     }
 
     /// <summary>

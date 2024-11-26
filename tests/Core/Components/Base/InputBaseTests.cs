@@ -39,6 +39,7 @@ public class InputBaseTests : TestContext
     public InputBaseTests(ITestOutputHelper testOutputHelper)
     {
         Output = testOutputHelper;
+        Services.AddFluentUIComponents();
     }
 
     /// <summary>
@@ -66,6 +67,7 @@ public class InputBaseTests : TestContext
     public void InputBase_DefaultProperties(string propName, string htmlName, object value)
     {
         var errors = new StringBuilder();
+        var localizer = Services.GetRequiredService<IFluentLocalizer>();
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
@@ -82,6 +84,7 @@ public class InputBaseTests : TestContext
                 parameters.Add(p => p.Type, type);
                 parameters.Add(p => p.Parameters, new Dictionary<string, object>
                 {
+                    { "Localizer", localizer },
                     { propName, value }
                 });
             });

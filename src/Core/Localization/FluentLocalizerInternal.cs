@@ -9,6 +9,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 internal class FluentLocalizerInternal : IFluentLocalizer
 {
+
+    /// <summary>
+    /// Gets the default IFluentLocalizer.
+    /// </summary>
+    public static readonly IFluentLocalizer Default = new FluentLocalizerInternal();
+
     /// <summary>
     /// Gets the string resource with the given name.
     /// </summary>

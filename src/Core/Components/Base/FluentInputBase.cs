@@ -32,6 +32,10 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary />
+    [Inject]
+    protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
+
     /// <summary>
     /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
@@ -152,7 +156,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected virtual string? GetAriaLabelWithRequired()
     {
         return (AriaLabel ?? Label ?? string.Empty) +
-               (Required ? $", Required" : string.Empty);
+               (Required ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
     }
 
     #endregion

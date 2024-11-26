@@ -2,10 +2,6 @@
 @using Microsoft.AspNetCore.Components.Rendering;
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
-@inject IFluentLocalizer Localizer
-
-@Localizer[LanguageResource.FluentSample_Hello]
-@Localizer[LanguageResource.FluentSample_Bye]
 
 <AddTag Name="span" TagWhen="@(() => LoadingOverlay)" class="@ClassValue" style="@StyleValue">
     
