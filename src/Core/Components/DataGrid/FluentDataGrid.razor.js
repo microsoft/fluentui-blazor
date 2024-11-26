@@ -1,7 +1,7 @@
 let grids = [];
 const minWidth = 100;
 
-export function init(gridElement) {
+export function init(gridElement, autoFocus) {
     if (gridElement === undefined || gridElement === null) {
         return;
     };
@@ -9,9 +9,10 @@ export function init(gridElement) {
     enableColumnResizing(gridElement);
 
     let start = gridElement.querySelector('td:first-child');
-    //start.focus();
-    //start.style.backgroundColor = '#50b988';
-    //start.style.color = 'white';
+
+    if (autoFocus) {
+        start.focus();
+    }
 
     const bodyClickHandler = event => {
         const columnOptionsElement = gridElement?.querySelector('.col-options');
@@ -23,14 +24,10 @@ export function init(gridElement) {
             gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
         }
     };
-    const changeStyle = (sibling) => {
+    const keyboardNavigation = (sibling) => {
         if (sibling !== null) {
             start.focus();
-            start.style.backgroundColor = '';
-            start.style.color = '';
             sibling.focus();
-            //sibling.style.backgroundColor = '#50b988';
-            //sibling.style.color = 'white';
             start = sibling;
         }
     }
@@ -66,7 +63,7 @@ export function init(gridElement) {
             );
         }
 
-        if (start) {
+        if (start === document.activeElement) {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
@@ -74,24 +71,27 @@ export function init(gridElement) {
                 const previousRow = start.parentElement.previousElementSibling;
                 if (previousRow !== null) {
                     const previousSibling = previousRow.cells[idx];
-                    changeStyle(previousSibling);
+                    keyboardNavigation(previousSibling);
                 }
             } else if (event.key === "ArrowDown") {
                 // down arrow
                 const nextRow = start.parentElement.nextElementSibling;
                 if (nextRow !== null) {
                     const nextSibling = nextRow.cells[idx];
-                    changeStyle(nextSibling);
+                    keyboardNavigation(nextSibling);
                 }
             } else if (event.key === "ArrowLeft") {
                 // left arrow
-                const previousSibling = start.previousElementSibling;
-                changeStyle(previousSibling);
+                const previousSibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.previousElementSibling : start.nextElementSibling;
+                keyboardNavigation(previousSibling);
             } else if (event.key === "ArrowRight") {
                 // right arrow
-                const nextsibling = start.nextElementSibling;
-                changeStyle(nextsibling);
+                const nextsibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.nextElementSibling : start.previousElementSibling;
+                keyboardNavigation(nextsibling);
             }
+        }
+        else {
+            start = document.activeElement;
         }
 
     };

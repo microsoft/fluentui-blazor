@@ -266,6 +266,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool MultiLine { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the grids' first cell should be focused.
+    /// </summary>
+    [Parameter]
+    public bool AutoFocus{ get; set; } = false;
+
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 
@@ -391,7 +397,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             try
             {
-                _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference);
+                _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
             }
             catch (JSException ex)
             {
