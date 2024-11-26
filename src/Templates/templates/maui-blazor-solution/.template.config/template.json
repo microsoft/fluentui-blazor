@@ -1,10 +1,10 @@
 {
-  "$schema": "http://json.schemastore.org/template",
+  "$schema": "https://json.schemastore.org/template",
   "author": "Microsoft",
   "classifications": [ "MAUI", "Android", "iOS", "macOS", "Mac Catalyst", "Windows", "Tizen", "Blazor", "Blazor Hybrid", "Mobile", "Fluent" ],
   "identity": "Microsoft.Maui.Fluent.BlazorSolution.CSharp.9.0",
-  "groupIdentity": "Microsoft.Maui.Fluent.BlazorSolution",
-  "precedence": "9902",
+  "groupIdentity": "Microsoft.Maui.BlazorSolution",
+  "precedence": "9004",
   "name": "Fluent .NET MAUI Blazor Hybrid and Web App",
   "description": "A multi-project app for creating a .NET MAUI Fluent Blazor Hybrid application with a Blazor Web project with a shared user interface, using the Fluent UI Blazor components.",
   "shortName": "fluentmaui-blazor-web",
