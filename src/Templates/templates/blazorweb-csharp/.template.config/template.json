@@ -11,7 +11,7 @@
   "defaultName": "BlazorApp",
   "description": "A project template for creating a Blazor web app that supports both server-side rendering and client interactivity. This template can be used for web apps with rich dynamic user interfaces (UIs).",
   "groupIdentity": "Microsoft.Web.Fluent.Blazor",
-  "precedence": "9901",
+  "precedence": "9002",
   "guids": [
     "4C26868E-5E7C-458D-82E3-040509D0C71F",
     "5990939C-7E7B-4CFA-86FF-44CA5756498A",
