@@ -24,7 +24,11 @@
     <DebugType>embedded</DebugType>
 
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
-    
+
+    <!-- Write the generated files to a specific folder -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(SolutionDir).generated</CompilerGeneratedFilesOutputPath>
+
     <!-- Disable the auto-generated CSS Bundle, to use the Components.Scripts project -->
     <DisableScopedCssBundling>true</DisableScopedCssBundling>
     <ScopedCssEnabled>false</ScopedCssEnabled>
