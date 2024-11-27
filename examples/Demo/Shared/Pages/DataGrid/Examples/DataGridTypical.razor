@@ -13,7 +13,9 @@
                     RowStyle="@rowStyle"
                     HeaderCellAsButtonWithMenu="true"
                     ColumnResizeLabels="@customLabels"
-                    AutoFocus="true">
+                    AutoFocus="true"
+                    SaveStateInUrl="true"
+                    SaveStatePrefix="g1">
         <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
         </TemplateColumn>
