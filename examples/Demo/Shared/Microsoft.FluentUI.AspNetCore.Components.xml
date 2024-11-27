@@ -2019,6 +2019,16 @@
             <summary>
             Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
             </summary>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">
+            <summary>
+            Gets or sets a value indicating whether the grid should save its paging state in the URL.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStatePrefix">
+            <summary>
+            Gets or sets a prefix to use when saving the grid state in the URL.
+            </summary>
+            <remarks>Only relevant when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
             <summary>
@@ -8298,7 +8308,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconColor">
             <summary>
-            Gets or sets the icon drawing and fill color. 
+            Gets or sets the icon drawing and fill color.
             Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>

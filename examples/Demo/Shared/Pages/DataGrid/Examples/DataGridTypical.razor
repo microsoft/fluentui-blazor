@@ -12,8 +12,10 @@
                     RowClass="@rowClass"
                     RowStyle="@rowStyle"
                     HeaderCellAsButtonWithMenu="true"
-                    ColumnResizeLabels="@customLabels">
-        <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
+                    ColumnResizeLabels="@customLabels"
+                SaveStateInUrl="true"
+                SaveStatePrefix="g1">
+    <TemplateColumn Tooltip="true" HeaderTooltip="Flag of each team" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
         </TemplateColumn>
         <PropertyColumn Class="country-name" Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the country">
@@ -47,6 +49,7 @@
         </PropertyColumn>
     </FluentDataGrid>
 </div>
+
 
 <FluentPaginator State="@pagination" />
 
