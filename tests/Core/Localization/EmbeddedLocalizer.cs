@@ -31,14 +31,13 @@ public class EmbeddedLocalizer : IFluentLocalizer
             //  - builder.Services.AddLocalization();
             //  - app.UseRequestLocalization(new RequestLocalizationOptions().AddSupportedUICultures(["en", "fr", "nl"]));
 
-            // Returns the localized version of the string
-            // By default, returns the English version of the string
-            var localizedString = ResourceManager.GetString(key, CultureInfo.CurrentUICulture)
-                               ?? IFluentLocalizer.GetDefault(key);
+            // Gets the localized version of the string
+            var localizedString = ResourceManager.GetString(key, CultureInfo.CurrentCulture);
 
-            return arguments.Length > 0
-                ? string.Format(CultureInfo.CurrentCulture, localizedString, arguments)
-                : localizedString;
+            // Fallback to the Default/English if no translation is found
+            return localizedString == null
+                ? IFluentLocalizer.GetDefault(key, arguments)
+                : string.Format(CultureInfo.CurrentCulture, localizedString, arguments);
         }
     }
 }
