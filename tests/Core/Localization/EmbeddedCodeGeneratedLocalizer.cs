@@ -2,21 +2,22 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
+using System.Linq;
 using System.Resources;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Localization;
 
 /// <summary>
-/// This Localizer uses the embedded resources to manually read the localize strings.
-/// If you are using the 'ResXFileCodeGenerator' tool, you should use the <see cref="EmbeddedCodeGeneratedLocalizer"/> instead.
+/// This Localizer uses the embedded resources configured using the 'ResXFileCodeGenerator' tool.
+/// If you are NOT using the 'ResXFileCodeGenerator' tool, you should use the <see cref="EmbeddedLocalizer"/> instead.
 /// </summary>
-public class EmbeddedLocalizer : IFluentLocalizer
+public class EmbeddedCodeGeneratedLocalizer : IFluentLocalizer
 {
-    private const string BaseName = "Microsoft.FluentUI.AspNetCore.Components.Tests.Localization.Resources.FluentLocalizer";   // .resx files
-    private static readonly ResourceManager ResourceManager = new ResourceManager(BaseName, Assembly.GetExecutingAssembly());
-
     /// <summary>
     /// Gets the string resource with the given key, depending of the current UI culture.
     /// </summary>
@@ -33,7 +34,7 @@ public class EmbeddedLocalizer : IFluentLocalizer
 
             // Returns the localized version of the string
             // By default, returns the English version of the string
-            var localizedString = ResourceManager.GetString(key, CultureInfo.CurrentUICulture)
+            var localizedString = Resources.FluentLocalizer.ResourceManager.GetString(key, CultureInfo.CurrentCulture)
                                ?? IFluentLocalizer.GetDefault(key);
 
             return arguments.Length > 0

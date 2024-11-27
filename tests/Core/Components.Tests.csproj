@@ -63,7 +63,13 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Localization\Resources\FluentLocalizer.resx">
-      <Generator></Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FluentLocalizer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Update="Localization\Resources\FluentLocalizer.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FluentLocalizer.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

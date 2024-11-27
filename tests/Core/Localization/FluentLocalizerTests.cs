@@ -77,6 +77,26 @@ public class FluentLocalizerTests : TestContext
         Assert.Equal(expectedValue, value);
     }
 
+    [Theory]
+    [InlineData("en", "Hello Denis")]
+    [InlineData("fr", "Bonjour Denis")]     // See the "FluentLocalizer.fr.resx" embedded resource file in the project
+    [InlineData("nl", "Dag Denis")]         // See the "FluentLocalizer.nl.resx" embedded resource file in the project
+    public void FluentLocalizer_EmbeddedCodeGeneratedResources(string language, string expectedValue)
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+        // Arrange
+        Services.AddFluentUIComponents(config => config.Localizer = new EmbeddedCodeGeneratedLocalizer());
+        var localizer = Services.GetRequiredService<IFluentLocalizer>();
+
+        // Act - GetDefault returns always the English value.
+        var value = localizer["Fake_Hello", "Denis"];
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+
     [Fact]
     public void FluentLocalizer_UnknownKey()
     {
