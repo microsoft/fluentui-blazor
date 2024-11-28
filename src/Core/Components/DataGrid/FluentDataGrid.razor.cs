@@ -817,18 +817,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             .Build();
     }
 
-    //private string? ColumnStyle(ColumnBase<TGridItem> column, int index)
-    //{
-    //    var w = "auto";
-    //    if (_internalGridTemplateColumns.Count() > 0 && index < _internalGridTemplateColumns.Count())
-    //    {
-    //        w = _internalGridTemplateColumns[index];
-    //    }
-    //    return new StyleBuilder(column.Style)
-    //       //.AddStyle("width", column.Width ?? w)
-    //       .Build();
-    //}
-
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {

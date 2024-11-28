@@ -4,7 +4,7 @@
 @inject NavigationManager NavManager
 
 <div style="height: 434px; overflow:auto;" tabindex="-1">
-    <FluentDataGrid Style="height: 100%;"
+    <FluentDataGrid
                     Loading="@(numResults == null)"
                     ItemsProvider="foodRecallProvider"
                     OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"

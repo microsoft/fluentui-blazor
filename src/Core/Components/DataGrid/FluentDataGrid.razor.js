@@ -345,7 +345,7 @@ export function autoFitGridColumns(gridElement, columnCount) {
 
         const maxColumnWidth = Math.max(...columnWidths);
 
-        gridTemplateColumns += ` ${maxColumnWidth}fr`;
+        gridTemplateColumns += ` ${maxColumnWidth}px`;
     }
 
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
