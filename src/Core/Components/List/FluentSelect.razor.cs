@@ -47,7 +47,9 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TO
 
     private string? GetAriaLabelWithRequired()
     {
+#pragma warning disable CS0618 // Type or member is obsolete
         var label = AriaLabel ?? Label ?? Title ?? string.Empty;
+#pragma warning restore CS0618 // Type or member is obsolete
 
         return label + (Required ? $", {RequiredAriaLabel}" : string.Empty);
     }

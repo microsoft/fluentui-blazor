@@ -1,4 +1,5 @@
 ﻿@using Xunit;
+@using HorizontalAlignment = Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment
 @inherits TestContext
 @code
 {
@@ -113,6 +114,27 @@
         // Assert
         Assert.Equal("My new title", cut.Find("h4").InnerHtml);
         Assert.Equal("Oh yes", cut.Find("fluent-button[appearance='accent']").InnerHtml);
+    }
+
+    [Fact]
+    public async Task FluentDialogService_AlignmentInvalid()
+    {
+        Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = Render(@<FluentDialogProvider/>   );
+        var dialogService = Services.GetRequiredService<IDialogService>();
+
+        // Act/Assert
+        var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
+        {
+            var dialog = await dialogService.ShowDialogAsync<TestDialogHeaderFooter>(new DialogParameters()
+            {
+                Alignment = HorizontalAlignment.Stretch, // Stretch is not supported
+            });
+        });
+
+        Assert.Equal("Alignment HorizontalAlignment.Stretch is not supported for DialogParameters", exception.Message);
     }
 
     private class UpdateDialogUser

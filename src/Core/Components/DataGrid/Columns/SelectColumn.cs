@@ -70,6 +70,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             {
                 _selectedItems.Clear();
                 _selectedItems.AddRange(value);
+                SelectAll = false;
             }
         }
     }
@@ -518,7 +519,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         _selectedItems.Clear();
         if (SelectAll == true)
         {
-            _selectedItems.AddRange(InternalGridContext.Items);
+            _selectedItems.AddRange(InternalGridContext.Grid.Items?.ToArray() ?? InternalGridContext.Items);
         }
 
         if (SelectedItemsChanged.HasDelegate)

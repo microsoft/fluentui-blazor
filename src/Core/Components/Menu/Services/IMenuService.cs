@@ -12,6 +12,11 @@ public interface IMenuService : IDisposable
     Action OnMenuUpdated { get; set; }
 
     /// <summary>
+    /// Gets or sets the FluentMenuProvider ID.
+    /// </summary>
+    public string? ProviderId { get; set; }
+
+    /// <summary>
     /// Gets the list of menus.
     /// </summary>
     IEnumerable<FluentMenu> Menus { get; }

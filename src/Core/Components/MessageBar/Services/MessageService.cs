@@ -62,7 +62,7 @@ public class MessageService : IMessageService, IDisposable
         MessageLock.EnterReadLock();
         try
         {
-            IEnumerable<Message>? messages = string.IsNullOrEmpty(section)
+            var messages = string.IsNullOrEmpty(section)
                        ? MessageList
                        : MessageList.Where(x => x.Section == section);
 
@@ -301,11 +301,11 @@ public class MessageService : IMessageService, IDisposable
             return;
         }
 
-        IEnumerable<Message>? messages = string.IsNullOrEmpty(section)
+        var messages = string.IsNullOrEmpty(section)
             ? MessageList
             : MessageList.Where(i => i.Section == section);
 
-        foreach (Message message in messages)
+        foreach (var message in messages)
         {
             message.OnClose -= Remove;
         }

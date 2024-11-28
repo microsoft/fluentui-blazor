@@ -7,8 +7,12 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentInputFile : FluentComponentBase
+public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 {
+    private ElementReference? _containerElement;
+    private InputFile? _inputFile;
+    private IJSObjectReference? _containerInstance;
+    
     public static string ResourceLoadingBefore = "Loading...";
     public static string ResourceLoadingCompleted = "Completed";
     public static string ResourceLoadingCanceled = "Canceled";
@@ -193,10 +197,15 @@ public partial class FluentInputFile : FluentComponentBase
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && !string.IsNullOrEmpty(AnchorId))
+        if (firstRender)
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
+            _containerInstance = await Module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", _containerElement, _inputFile!.Element);
+        }
+
+        if (!string.IsNullOrEmpty(AnchorId) && Module is not null)
+        {
             await Module.InvokeVoidAsync("attachClickHandler", AnchorId, Id);
         }
     }
@@ -208,8 +217,6 @@ public partial class FluentInputFile : FluentComponentBase
         {
             throw new ApplicationException($"The maximum number of files accepted is {MaximumFileCount}, but {e.FileCount} were supplied.");
         }
-
-        DropOver = false;
 
         // Use the native Blazor event
         if (OnInputFileChange.HasDelegate)
@@ -403,6 +410,21 @@ public partial class FluentInputFile : FluentComponentBase
         if (ProgressTitle != title)
         {
             ProgressTitle = title;
+        }
+    }
+
+    // Unregister the drop zone events
+    public async ValueTask DisposeAsync()
+    {
+        if (_containerInstance != null)
+        {
+            await _containerInstance.InvokeVoidAsync("dispose");
+            await _containerInstance.DisposeAsync();
+        }
+
+        if (Module != null)
+        {
+            await Module.DisposeAsync();
         }
     }
 }

@@ -19,15 +19,22 @@ internal class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IDisposa
 
     private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
     {
-        await _lock.WaitAsync();
-
         try
         {
-            return await operation();
+            await _lock.WaitAsync();
+
+            try
+            {
+                return await operation();
+            }
+            finally
+            {
+                _lock.Release();
+            }
         }
-        finally
+        catch (ObjectDisposedException)
         {
-            _lock.Release();
+            return default!;
         }
     }
 

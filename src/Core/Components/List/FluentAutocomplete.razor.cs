@@ -14,11 +14,14 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public static string AccessibilityNotFound = "No items found";
     public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
     public static string AccessibilityRemoveItem = "Remove {0}";
+    public static string AccessibilityIconDismiss = "Clear";
+    public static string AccessibilityIconSearch = "Search";
     internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
 
     public new FluentTextField? Element { get; set; } = default!;
     private Virtualize<TOption>? VirtualizationContainer { get; set; }
     private readonly Debounce _debounce = new();
+    private bool _shouldRender = true;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
@@ -223,6 +226,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     [Parameter]
     public bool SelectValueOnTab { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets whether the drop-down panel stays open after selecting an item,
+    /// until the number of selected items reaches the maximum (only using the mouse).
+    /// </summary>
+    [Parameter]
+    public bool KeepOpen { get; set; } = false;
+
     /// <summary />
     private string? ListStyleValue => new StyleBuilder()
         .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
@@ -268,6 +278,9 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     private TOption? SelectableItem { get; set; }
 
     /// <summary />
+    protected override bool ShouldRender() => _shouldRender;
+
+    /// <summary />
     protected override async Task InputHandlerAsync(ChangeEventArgs e)
     {
         if (ReadOnly || Disabled)
@@ -275,12 +288,15 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             return;
         }
 
+        _shouldRender = false;
+
         ValueText = e.Value?.ToString() ?? string.Empty;
         await RaiseValueTextChangedAsync(ValueText);
 
         if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
         {
             IsReachedMaxItems = true;
+            RenderComponent();
             return;
         }
 
@@ -302,8 +318,6 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await OnOptionsSearch.InvokeAsync(args);
         }
 
-        Console.WriteLine($"args.Items: {args.Items?.Count()}");
-
         Items = args.Items?.Take(MaximumOptionsSearch);
 
         SelectableItem = Items != null
@@ -313,6 +327,15 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         if (VirtualizationContainer != null)
         {
             await VirtualizationContainer.RefreshDataAsync();
+        }
+
+        RenderComponent();
+
+        // Activate the rendering
+        void RenderComponent()
+        {
+            _shouldRender = true;
+            StateHasChanged();
         }
     }
 
@@ -527,9 +550,13 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
         ValueText = string.Empty;
         await RaiseValueTextChangedAsync(ValueText);
 
-        IsMultiSelectOpened = false;
         await base.OnSelectedItemChangedHandlerAsync(item);
         await DisplayLastSelectedItemAsync();
+
+        if (MustBeClosed())
+        {
+            IsMultiSelectOpened = false;
+        }
     }
 
     /// <summary />
@@ -611,5 +638,26 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
             await ValueChanged.InvokeAsync(ValueText);
         }
 
+    }
+
+    /// <summary />
+    private bool MustBeClosed()
+    {
+        if (KeepOpen == false)
+        {
+            return true;
+        }
+
+        if (MaximumSelectedOptions is null || MaximumSelectedOptions <= 1)
+        {
+            return true;
+        }
+
+        if (MaximumSelectedOptions > 0 && _selectedOptions.Count >= MaximumSelectedOptions)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

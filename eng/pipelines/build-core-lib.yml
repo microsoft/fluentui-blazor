@@ -76,6 +76,11 @@ extends:
   #template: v1/1ES.Unofficial.PipelineTemplate.yml@1esPipelines
   template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
   parameters:
+    sdl:
+      policheck:
+        enabled: true
+      tsa:
+        enabled: true
     # Update the pool with your team's 1ES hosted pool.
     pool:
       name: NetCore1ESPool-Internal
@@ -159,7 +164,7 @@ extends:
           displayName: 'Install .NET 9.0'
           inputs:
             version: 9.0.x
-            includePreviewVersions: true
+            includePreviewVersions: false
 
         # Set version number (exclude some folders)
         - task: PowerShell@2

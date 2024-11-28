@@ -55,7 +55,7 @@
     }
 
     [Fact]
-    public async Task FluentTreeViewItems_SelectedItem_Change()
+    public void FluentTreeViewItems_SelectedItem_Change()
     {
         // Arrange
         var selectedItem = Items.ElementAt(0).Items?.ElementAt(1);  // Item 1.2
@@ -63,16 +63,16 @@
 
         // Act
         var tree = cut.FindComponent<FluentTreeView>();
-        await tree.Instance.HandleCurrentSelectedChangeAsync(new TreeChangeEventArgs()
-            {
-                AffectedId = "id22",
-                Selected = true,
-            });
+        tree.Instance.HandleCurrentSelectedChange(new TreeChangeEventArgs()
+        {
+            AffectedId = "id12",
+            Selected = true,
+        });
 
         tree.Render();
 
         // Assert
-        Assert.Equal("id22", selectedItem?.Id);
+        Assert.Equal("id12", selectedItem?.Id);
         cut.Verify();
     }
 

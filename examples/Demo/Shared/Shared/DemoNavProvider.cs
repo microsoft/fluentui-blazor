@@ -574,7 +574,11 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.DocumentTextLink(),
                         title: "TableOfContents"
                     ),
-
+                    new NavLink(
+                        href: "/issue-tester",
+                        icon: new Icons.Regular.Size20.WrenchScrewdriver(),
+                        title: "Issue Tester"
+                    ),
                 ]
             )
         ];

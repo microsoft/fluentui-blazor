@@ -313,6 +313,11 @@
             Gets or sets if the popover shows the search box.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.Orientation">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Orientation"/> of the app bar.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAppBar.PopoverVisibilityChanged">
             <summary>
             Event to be called when the visibility of the popover changes.
@@ -926,6 +931,11 @@
             The text usually displayed in a 'tooltip' popup when the mouse is over the button.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.StopPropagation">
+            <summary>
+            Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -1199,7 +1209,12 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.TooltipText">
             <summary>
-            Gets or sets the value to be used as the tooltip and aria-label in this column's cells
+            Gets or sets the function that defines the value to be used as the tooltip and aria-label in this column's cells
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderTooltip">
+            <summary>
+            Gets or sets the tooltip text for the column header.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate">
@@ -1987,10 +2002,16 @@
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SelectColumns">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">
             <summary>
-            Gets the first (optional) SelectColumn
+            Gets or sets a value indicating whether the grid should save its paging state in the URL.
             </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStatePrefix">
+            <summary>
+            Gets or sets a prefix to use when saving the grid state in the URL.
+            </summary>
+            <remarks>Only relevant when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
             <summary>
@@ -3507,6 +3528,7 @@
             Gets or sets the dialog position:
             left (full height), right (full height)
             or screen middle (using Width and Height properties).
+            HorizontalAlignment.Stretch is not supported for this property.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.Title">
@@ -3806,32 +3828,36 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowPanelAsync``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})">
             <inheritdoc cref="M:Microsoft.FluentUI.AspNetCore.Components.IDialogService.ShowPanelAsync``1(System.Type,Microsoft.FluentUI.AspNetCore.Components.DialogParameters{``0})"/>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccess(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccess(System.String,System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarning(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarning(System.String,System.String,System.String)">
             <summary>
             Shows a warning message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowError(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowError(System.String,System.String,System.String)">
             <summary>
             Shows an error message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfo(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfo(System.String,System.String,System.String)">
             <summary>
             Shows an information message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmation(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
@@ -3853,32 +3879,36 @@
             </summary>
             <param name="parameters">Parameters to pass to component being displayed.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccessAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowSuccessAsync(System.String,System.String,System.String)">
             <summary>
             Shows a success message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarningAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowWarningAsync(System.String,System.String,System.String)">
             <summary>
             Shows a warning message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowErrorAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowErrorAsync(System.String,System.String,System.String)">
             <summary>
             Shows an error message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfoAsync(System.String,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowInfoAsync(System.String,System.String,System.String)">
             <summary>
             Shows an information message box. Does not have a callback function.
             </summary>
             <param name="message">The message to display.</param>
+            <param name="primaryAction">The text to display on the primary button.</param>
             <param name="title">The title to display on the dialog.</param>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DialogService.ShowConfirmationAsync(System.Object,System.Func{Microsoft.FluentUI.AspNetCore.Components.DialogResult,System.Threading.Tasks.Task},System.String,System.String,System.String,System.String)">
@@ -5172,6 +5202,11 @@
             its default action should not be taken as it normally would be.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.StopRepeat">
+            <summary>
+            Gets or sets whether the key pressed can be repeated.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.AdditionalAttributes">
             <summary>
             Gets or sets a collection of additional attributes that will be applied to the created element.
@@ -5180,7 +5215,7 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnAfterRenderAsync(System.Boolean)">
             <summary />
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyDownRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String,System.Boolean)">
             <summary>
             Internal method.
             </summary>
@@ -5192,9 +5227,10 @@
             <param name="metaKey"></param>
             <param name="location"></param>
             <param name="targetId"></param>
+            <param name="repeat"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyUpRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String)">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCode.OnKeyUpRaisedAsync(System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String,System.Boolean)">
             <summary>
             Internal method.
             </summary>
@@ -5206,6 +5242,7 @@
             <param name="metaKey"></param>
             <param name="location"></param>
             <param name="targetId"></param>
+            <param name="repeat"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Name">
@@ -5258,6 +5295,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.TargetId">
             <summary>
             Gets the identifier of the targeted DOM element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.Repeat">
+            <summary>
+            Gets a boolean value that is true if the given key is being held down such that it is automatically repeating.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentKeyCodeEventArgs.ToString">
@@ -5458,6 +5500,13 @@
             Gets or sets the color of the component. It supports the theme colors.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.CustomColor">
+            <summary>
+            Gets or sets the color of the label to a custom value.
+            Needs to be formatted as a valid CSS color value (HTML hex color string (#rrggbb or #rgb), CSS variable or named color).
+            ⚠️ Only available when Color is set to Color.Custom.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.Weight">
             <summary>
             Gets or sets the font weight of the component:
@@ -5475,6 +5524,9 @@
             <summary>
             Gets or sets the child content of component.
             </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentLabel.OnParametersSet">
+            <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentLayout.Orientation">
             <summary>
@@ -5636,6 +5688,12 @@
             Default is false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.KeepOpen">
+            <summary>
+            Gets or sets whether the drop-down panel stays open after selecting an item,
+            until the number of selected items reaches the maximum (only using the mouse).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ListStyleValue">
             <summary />
         </member>
@@ -5655,6 +5713,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.SelectableItem">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.ShouldRender">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.InputHandlerAsync(Microsoft.AspNetCore.Components.ChangeEventArgs)">
@@ -5685,6 +5746,9 @@
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.RaiseValueTextChangedAsync(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentAutocomplete`1.MustBeClosed">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.LibraryConfiguration">
@@ -6121,6 +6185,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuButton.OnMenuChanged">
             <summary>
             The callback to invoke when a menu item is chosen.
+            Using this event prevents the execution of any OnClick event on an included FluentMenuItem.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenu.ClassValue">
@@ -6290,6 +6355,11 @@
             Gets or sets a value indicating whether the element is checked.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.KeepOpen">
+            <summary>
+            Gets or sets a value indicates whether the FluentMenu should remain open after an action.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -6306,6 +6376,9 @@
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuItem.OnClickHandlerAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.#ctor">
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMenuProvider.ClassValue">
@@ -6331,6 +6404,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.OnMenuUpdated">
             <summary>
             Action to be called when the menu is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.ProviderId">
+            <summary>
+            Gets or sets the FluentMenuProvider ID.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus">
@@ -6370,6 +6448,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.Menus">
             <summary>
             <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.Menus" />
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.MenuService.ProviderId">
+            <summary>
+            <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IMenuService.ProviderId" />
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.MenuService.Add(Microsoft.FluentUI.AspNetCore.Components.FluentMenu)">
@@ -6465,6 +6548,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.AllowDismiss">
             <summary>
             Gets or sets the ability to dismiss the notification.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentMessageBar.FadeIn">
+            <summary>
+            Gets or sets the fade in animation for the MessageBar.
             Default is true.
             </summary>
         </member>
@@ -7769,6 +7858,11 @@
             Default is Small.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.Open">
+            <summary>
+            Gets or sets the Menu status.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentProfileMenu.TopCorner">
             <summary>
             Gets or sets whether popover should be forced to top right or top left (RTL).
@@ -8068,7 +8162,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.Context">
             <summary>
-            Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>. 
+            Gets context for this <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.ReadOnly">
@@ -8121,7 +8215,7 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.OnInitialized">
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentRadio`1.OnParametersSet">
             <inheritdoc />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentRadioContext">
@@ -8187,7 +8281,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconColor">
             <summary>
-            Gets or sets the icon drawing and fill color. 
+            Gets or sets the icon drawing and fill color.
             Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
@@ -8392,7 +8486,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.Disabled">
             <summary>
-            Gets or sets disabled state of the label. This is generally controlled by the parent.
+            Gets the disabled state of the label. This is controlled by the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentSlider`1"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentSliderLabel`1.ChildContent">
@@ -8798,16 +8892,19 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.HorizontalAlignment">
             <summary>
             Gets or sets the horizontal alignment of the components in the stack.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Left"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.VerticalAlignment">
             <summary>
             Gets or sets the vertical alignment of the components in the stack.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Top"/>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Orientation">
             <summary>
             Gets or sets the orientation of the stacked components.
+            Default is <see cref="F:Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"/>.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentStack.Width">
@@ -9649,6 +9746,9 @@
             <summary />
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.ClassValue">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltipProvider.StyleValue">
             <summary />
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentTreeItem.#ctor">
@@ -13820,6 +13920,11 @@
             The content is aligned to the end.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Stretch">
+            <summary>
+            The content is stretched to fill the available space.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition">
             <summary>
             Describes the horizontal positioning of a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion"/>.
@@ -13938,6 +14043,12 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Light">
             <summary>
             Light variant of FluentUI System Icons
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.IconVariant.Color">
+            <summary>
+            Color variant of FluentUI System Icons
+            > Note: FOR TESTING PURPOSES ONLY. Not yet fully supported.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.InputFileMode">
@@ -14596,6 +14707,21 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Url">
             <summary>
             A text field that is used for URL input.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Color">
+            <summary>
+            A text field that is used for color input (hexadecimal color value).
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Search">
+            <summary>
+            A text field that is used to search for a value. (accessibility)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Number">
+            <summary>
+            A text field that is used for number input, if you don't want to use the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1"/> component.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.TextPosition">

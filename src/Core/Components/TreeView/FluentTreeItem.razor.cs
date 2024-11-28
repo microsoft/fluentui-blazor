@@ -197,6 +197,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
 
         if (Owner != null)
         {
+            Selected = args.Selected.Value;
             await Owner.ItemSelectedChangeAsync(this);
         }
     }
@@ -210,7 +211,7 @@ public partial class FluentTreeItem : FluentComponentBase, IDisposable
             builder.AddAttribute(i++, "Id", item.Id);
             builder.AddAttribute(i++, "Items", item.Items);
             builder.AddAttribute(i++, "Text", item.Text);
-            builder.AddAttribute(i++, "Selected", owner.SelectedItem == item);
+            builder.AddAttribute(i++, "InitiallySelected", owner.SelectedItem == item);
             builder.AddAttribute(i++, "Expanded", item.Expanded);
             builder.AddAttribute(i++, "Disabled", item.Disabled);
             builder.AddAttribute(i++, "IconCollapsed", item.IconCollapsed);

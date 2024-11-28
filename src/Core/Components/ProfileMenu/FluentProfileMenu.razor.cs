@@ -21,7 +21,11 @@ public partial class FluentProfileMenu : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
-    private bool PopoverVisible { get; set; } = false;
+    /// <summary>
+    /// Gets or sets the Menu status.
+    /// </summary>
+    [Parameter]
+    public bool Open { get; set; } = false;
 
     /// <summary>
     /// Gets or sets whether popover should be forced to top right or top left (RTL).

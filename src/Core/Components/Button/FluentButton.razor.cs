@@ -152,6 +152,12 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets a way to prevent further propagation of the current event in the capturing and bubbling phases.
+    /// </summary>
+    [Parameter]
+    public bool StopPropagation { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -194,7 +200,7 @@ public partial class FluentButton : FluentComponentBase, IAsyncDisposable
     protected virtual MarkupString CustomStyle => new InlineStyleBuilder()
         .AddStyle($"#{Id}::part(control)", "background", $"padding-box linear-gradient({BackgroundColor}, {BackgroundColor}), border-box {BackgroundColor}", when: !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle($"#{Id}::part(control)", "color", $"{Color}", when: !string.IsNullOrEmpty(Color))
-        .AddStyle($"#{Id}::part(control):hover", "opacity", "0.8", when: !string.IsNullOrEmpty(Color) || !string.IsNullOrEmpty(BackgroundColor))
+        .AddStyle($"#{Id}::part(control):not(:disabled):hover", "opacity", "0.8", when: !string.IsNullOrEmpty(Color) || !string.IsNullOrEmpty(BackgroundColor))
         .BuildMarkupString();
 
     /// <summary>

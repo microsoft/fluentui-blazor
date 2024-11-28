@@ -49,7 +49,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
         else if (_context.ParentContext != CascadedContext)
         {
             // This should never be possible in any known usage pattern, but if it happens, we want to know
-            throw new InvalidOperationException("An FluentRadioGroup cannot change context after creation");
+            throw new InvalidOperationException("A FluentRadioGroup cannot change context after creation");
         }
 
         // Mutate the FluentRadioContext instance in place. Since this is a non-fixed cascading parameter, the descendant
@@ -65,7 +65,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
 
     private void HandleChange(ChangeEventArgs e)
     {
-        if (CurrentValueAsString != e?.Value?.ToString())
+        if (CurrentValueAsString != e?.Value?.ToString() && e?.Value is not null)
         {
             CurrentValueAsString = e?.Value?.ToString();
         }

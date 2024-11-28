@@ -18,12 +18,11 @@ export function overlayInitialize(dotNetHelper, containerId, id) {
 
         // Click event handler
         clickHandler: async function (event) {
-            const excludeElement = document.getElementById(id);
-            const isExcludeElement = excludeElement && excludeElement.contains(event.target);
-            const isInsideContainer = isClickInsideContainer(event, containerId);
+            const isInsideContainer = isClickInsideContainer(event, document.getElementById(containerId));
+            const isInsideExcludedElement = !!document.getElementById(id) && isClickInsideContainer(event, document.getElementById(id));
 
-            if (isInsideContainer && !isExcludeElement) {
-                dotNetHelper.invokeMethodAsync('OnCloseInteractiveAsync', event);
+            if (isInsideContainer && !isInsideExcludedElement) {
+                dotNetHelper.invokeMethodAsync('OnCloseInteractiveAsync', event); 
             }
         }
     };
@@ -48,11 +47,10 @@ export function overlayDispose(id) {
 }
 
 /**
- * Determines whether a mouse click event occurred inside a specific HTML element identified by its `id`.
+ * Determines whether a mouse click event occurred inside a specific HTML element.
  */
-function isClickInsideContainer(event, id) {
-    if (id && document.getElementById(id)) {
-        const container = document.getElementById(id);
+function isClickInsideContainer(event, container) {
+    if (!!container) {
         const rect = container.getBoundingClientRect();
 
         return (
