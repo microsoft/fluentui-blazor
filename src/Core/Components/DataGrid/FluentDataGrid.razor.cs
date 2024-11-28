@@ -891,12 +891,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (Pagination is not null)
         {
-            if (query.AllKeys.Contains($"{SaveStatePrefix}page") && int.TryParse(query[$"{SaveStatePrefix}page"]!, out int page))
+            if (query.AllKeys.Contains($"{SaveStatePrefix}page") && int.TryParse(query[$"{SaveStatePrefix}page"]!, out var page))
             {
                 Pagination.SetCurrentPageIndexAsync(page - 1);
             }
 
-            if (query.AllKeys.Contains($"{SaveStatePrefix}top") && int.TryParse(query[$"{SaveStatePrefix}top"]!, out int itemsPerPage))
+            if (query.AllKeys.Contains($"{SaveStatePrefix}top") && int.TryParse(query[$"{SaveStatePrefix}top"]!, out var itemsPerPage))
             {
                 Pagination.ItemsPerPage = itemsPerPage;
             }
