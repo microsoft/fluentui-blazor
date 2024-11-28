@@ -53,7 +53,7 @@ td {
     padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) 1px calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px);
 }
 
-.column-header:first-of-type {
+.column-header:not(.select-all):first-of-type {
     padding-inline-start: calc(var(--design-unit) * 2px);
 }
 
