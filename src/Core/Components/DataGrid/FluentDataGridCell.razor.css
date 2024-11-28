@@ -53,6 +53,9 @@ td {
     padding: calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px) 1px calc((var(--design-unit) + var(--focus-stroke-width) - var(--stroke-width)) * 1px);
 }
 
+.column-header:first-of-type {
+    padding-inline-start: calc(var(--design-unit) * 2px);
+}
 
 ::deep .col-sort-button {
     width: calc(100% - 20px);
