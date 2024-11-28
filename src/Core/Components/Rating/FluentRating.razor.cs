@@ -9,7 +9,6 @@ public partial class FluentRating : FluentInputBase<int>
 {
     private bool _updatingCurrentValue = false;
     private int? _hoverValue = null;
-    private bool _labelUsed;
 
     /// <summary />
     protected override string? ClassValue => new CssBuilder(base.ClassValue)
