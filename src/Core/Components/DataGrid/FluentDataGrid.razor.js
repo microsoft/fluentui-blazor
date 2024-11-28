@@ -70,6 +70,7 @@ export function init(gridElement, autoFocus) {
                 // up arrow
                 const previousRow = start.parentElement.previousElementSibling;
                 if (previousRow !== null) {
+                    event.preventDefault();
                     const previousSibling = previousRow.cells[idx];
                     keyboardNavigation(previousSibling);
                 }
@@ -77,17 +78,22 @@ export function init(gridElement, autoFocus) {
                 // down arrow
                 const nextRow = start.parentElement.nextElementSibling;
                 if (nextRow !== null) {
+                    event.preventDefault();
                     const nextSibling = nextRow.cells[idx];
                     keyboardNavigation(nextSibling);
                 }
             } else if (event.key === "ArrowLeft") {
                 // left arrow
+                event.preventDefault();
                 const previousSibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.previousElementSibling : start.nextElementSibling;
                 keyboardNavigation(previousSibling);
+                event.stopPropagation();
             } else if (event.key === "ArrowRight") {
                 // right arrow
+                event.preventDefault();
                 const nextsibling = (document.body.dir === '' || document.body.dir === 'ltr') ? start.nextElementSibling : start.previousElementSibling;
                 keyboardNavigation(nextsibling);
+                event.stopPropagation();
             }
         }
         else {
