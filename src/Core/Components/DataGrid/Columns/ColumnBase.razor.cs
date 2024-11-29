@@ -26,6 +26,13 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter]
     public string? Title { get; set; }
 
+
+    /// <summary>
+    /// Gets or sets the index (1-based) of the column
+    /// </summary>
+    [Parameter]
+    public int Index { get; set; }
+
     /// <summary>
     /// Gets or sets the an optional CSS class name.
     /// If specified, this is included in the class attribute of header and grid cells

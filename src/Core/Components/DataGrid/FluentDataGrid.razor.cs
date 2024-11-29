@@ -448,6 +448,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (_collectingColumns)
         {
+            column.Index = _columns.Count + 1;
             _columns.Add(column);
 
             if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)

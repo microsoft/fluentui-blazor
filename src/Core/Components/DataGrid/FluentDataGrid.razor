@@ -118,11 +118,11 @@
         string? _rowsDataSize = $"height: {ItemSize}px";
 
         <FluentDataGridRow aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
-            @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+            @for (var i = 0; i < _columns.Count; i++)
             {
-                var col = _columns[colIndex];
+                var col = _columns[i];
 
-                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@(colIndex+1) TGridItem="TGridItem">
+                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@col.Index TGridItem="TGridItem">
                     @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
                 </FluentDataGridCell>
             }
@@ -131,11 +131,10 @@
 
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
     {
-        @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+        @for (var i = 0; i < _columns.Count; i++)
         {
-            var col = _columns[colIndex];
-            var oneBasedIndex = colIndex + 1;
-            //string CellId = Identifier.NewId();
+            var col = _columns[i];
+
             if (_sortByColumn == col)
                 col.IsActiveSortColumn = true;
             else
@@ -143,7 +142,7 @@
 
             <FluentDataGridCell @key="@col"
                                 TGridItem="TGridItem"
-                                GridColumn="@oneBasedIndex"
+                                GridColumn="@col.Index"
                                 CellType="@DataGridCellType.ColumnHeader"
                                 Class="@(@ColumnHeaderClass(col) + (ResizableColumns ? " resizable" : ""))"
                                 scope="col"
@@ -163,7 +162,7 @@
 
                             @if (ResizeType is not null)
                             {
-                                <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
                             }
 
                         </div>
@@ -177,7 +176,7 @@
                             <FluentStack Orientation="Orientation.Vertical">
                                 @if (ResizeType is not null)
                                 {
-                                    <ColumnResizeOptions Column="@oneBasedIndex" ResizeType=@ResizeType TGridItem="TGridItem" />
+                                    <ColumnResizeOptions Column="@col.Index" ResizeType=@ResizeType TGridItem="TGridItem" />
                                     @if (@col.ColumnOptions is not null)
                                     {
                                         <FluentDivider Role="DividerRole.Separator" Style="width: 100%;" />
