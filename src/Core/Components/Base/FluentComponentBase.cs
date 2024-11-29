@@ -19,6 +19,10 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary />
+    [Inject]
+    protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
+
     /// <summary>
     /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
     /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.

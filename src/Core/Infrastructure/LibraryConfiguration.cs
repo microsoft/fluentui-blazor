@@ -22,6 +22,11 @@ public class LibraryConfiguration
     public bool UseTooltipServiceProvider { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the FluentLocalizer instance used to localize the library components.
+    /// </summary>
+    public IFluentLocalizer? Localizer { get; set; }
+
+    /// <summary>
     /// Gets or sets the value indicating whether the library should validate CSS class names.
     /// respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
     /// Default is true.

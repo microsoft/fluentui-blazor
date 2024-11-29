@@ -37,7 +37,7 @@ public partial class FluentLayoutHamburger
     /// Gets or sets the title to display when the user hovers over the hamburger icon.
     /// </summary>
     [Parameter]
-    public string Title { get; set; } = "Menu";
+    public string? Title { get; set; }
 
     /// <summary>
     /// Gets or sets the icon to display.
@@ -73,6 +73,8 @@ public partial class FluentLayoutHamburger
     /// <summary />
     protected override void OnInitialized()
     {
+        Title = Localizer["FluentLayoutHamburger_Title"];
+
         var layout = Layout ?? LayoutContainer;
         layout?.AddHamburger(this);
     }
