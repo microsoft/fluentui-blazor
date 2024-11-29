@@ -1185,7 +1185,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Index">
             <summary>
-            Gets or sets the (1-based) index of the column
+            Gets or sets the index (1-based) of the column
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
