@@ -12,19 +12,43 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
-    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
+    /// <param name="serviceLifetime">In case you want to use any of the services outside of the request, you can change the lifetime to <see cref="ServiceLifetime.Singleton"/>. Normally all services are registered as <see cref="ServiceLifetime.Scoped"/>.</param>
+    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
     {
-        services.AddScoped<GlobalState>();
-        services.AddScoped<IToastService, ToastService>();
-        services.AddScoped<IDialogService, DialogService>();
-        services.AddScoped<IMessageService, MessageService>();
-        services.AddScoped<IKeyCodeService, KeyCodeService>();
-        services.AddScoped<IMenuService, MenuService>();
+        if(serviceLifetime == ServiceLifetime.Transient)
+        {
+            throw new ArgumentException("Transient lifetime is not supported for Fluent UI services.", nameof(serviceLifetime));
+        }
+        if (serviceLifetime == ServiceLifetime.Singleton)
+        {
+            services.AddSingleton<GlobalState>();
+            services.AddSingleton<IToastService, ToastService>();
+            services.AddSingleton<IDialogService, DialogService>();
+            services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<IKeyCodeService, KeyCodeService>();
+            services.AddSingleton<IMenuService, MenuService>();
+        }
+        else
+        {
+            services.AddScoped<GlobalState>();
+            services.AddScoped<IToastService, ToastService>();
+            services.AddScoped<IDialogService, DialogService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IKeyCodeService, KeyCodeService>();
+            services.AddScoped<IMenuService, MenuService>();
+        }
 
         var options = configuration ?? new();
         if (options.UseTooltipServiceProvider)
         {
-            services.AddScoped<ITooltipService, TooltipService>();
+            if (serviceLifetime == ServiceLifetime.Singleton)
+            {
+                services.AddSingleton<ITooltipService, TooltipService>();
+            }
+            else
+            {
+                services.AddScoped<ITooltipService, TooltipService>();
+            }
         }
         services.AddSingleton(options);
 
@@ -38,11 +62,12 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
-    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, Action<LibraryConfiguration> configuration)
+    /// <param name="serviceLifetime">In case you want to use any of the services outside of the request, you can change the lifetime to <see cref="ServiceLifetime.Singleton"/>. Normally all services are registered as <see cref="ServiceLifetime.Scoped"/>.</param>
+    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, Action<LibraryConfiguration> configuration, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
     {
         LibraryConfiguration options = new();
         configuration.Invoke(options);
 
-        return AddFluentUIComponents(services, options);
+        return AddFluentUIComponents(services, options, serviceLifetime);
     }
 }
