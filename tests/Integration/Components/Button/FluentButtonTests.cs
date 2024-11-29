@@ -25,18 +25,15 @@ public class FluentButtonTests : FluentPlaywrightBaseTest
 
         // Act
         await page.ClickAsync("fluent-button");
-        await Task.Delay(100);  // Wait for page to render
 
         // Assert
-        var content = await page.ContentAsync();
+        await Assertions.Expect(page.GetByTestId("current-value"))
+                        .ToContainTextAsync("1");
+
         await page.ScreenshotAsync(new()
         {
             Path = $"{Server.ScreenshotsFolder}FluentButton_IncrementCounter.png"
         });
-
-        Trace.WriteLine(content);
-
-        Assert.Contains("Current count: 1", content);
     }
 }
 
