@@ -407,6 +407,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
+        SaveStateToQueryString();
+
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
@@ -938,11 +940,5 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-        SaveStateToQueryString();
     }
 }
