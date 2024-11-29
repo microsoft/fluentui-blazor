@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 
@@ -121,14 +121,23 @@ internal partial class IconsCodeGenerator
             foreach (var size in allSizes)
             {
                 // CSharp
-                var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, $"{variant}{size}.cs"));
+                var folder = Path.Combine(Configuration.TargetFolder.FullName, variant);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                var file = new FileInfo(Path.Combine(folder, $"{variant}{size}.cs"));
                 var iconsForSizeAndVariant = icons.Where(i => i.Size == size && i.Variant == variant).OrderBy(i => i.Name);
 
-                Logger.Invoke($"Generating {file.Name}, containing {iconsForSizeAndVariant.Count()} icons.");
-                var classContent = GenerateClass(size, variant, iconsForSizeAndVariant);
+                if (iconsForSizeAndVariant.Any())
+                {
+                    Logger.Invoke($"Generating {file.Name}, containing {iconsForSizeAndVariant.Count()} icons.");
 
-                File.WriteAllText(file.FullName, classContent);
-                generatedFiles.Add(file);
+                    var classContent = GenerateClass(size, variant, iconsForSizeAndVariant);
+
+                    File.WriteAllText(file.FullName, classContent);
+                    generatedFiles.Add(file);
+                }
             }
         }
 
