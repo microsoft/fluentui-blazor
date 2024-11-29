@@ -271,6 +271,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid should save its paging state in the URL.
+    /// <para>This is an experimental feature, which might cause unwanted jumping in the page when you change something in the grid.</para>
     /// </summary>
     [Parameter]
     public bool SaveStateInUrl { get; set; }
@@ -424,6 +425,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 Console.WriteLine("[FluentDataGrid] " + ex.Message);
             }
         }
+
+        SaveStateToQueryString();
 
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
@@ -980,11 +983,5 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await Module.InvokeVoidAsync("resetColumnWidths", _gridReference);
         }
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-        SaveStateToQueryString();
     }
 }
