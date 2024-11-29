@@ -203,11 +203,11 @@ code {
     padding: 5px;
 }
 
-.highlighted-row {
+.highlighted {
     background-color: var(--accent-stroke-control-active);
 }
 
-    .highlighted-row > fluent-data-grid-cell {
+    .highlighted > td {
         color: var(--neutral-fill-inverse-rest);
     }
 
