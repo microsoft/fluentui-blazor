@@ -3,17 +3,14 @@
 @typeparam TGridItem
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 <CascadingValue Value="this" Name="OwningRow">
-    <fluent-data-grid-row class="@ClassValue"
-                          style="@StyleValue"
-                          row-id="@RowId"
-                          row-index=@RowIndex
-                          grid-template-columns=@GridTemplateColumns
-                          row-type=@RowType.ToAttributeValue()
-                          @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
-                          @onclick="@(e => HandleOnRowClickAsync(RowId))"
-                          @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"
-                          @attributes="AdditionalAttributes"
-                          @oncellfocus=HandleOnCellFocusAsync>
+    <tr class="@ClassValue"
+        style="@StyleValue"
+        data-row-index=@RowIndex
+        role="row"
+        @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
+        @onclick="@(e => HandleOnRowClickAsync(RowId))"
+        @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"
+        @attributes="AdditionalAttributes">
         @ChildContent
-    </fluent-data-grid-row>
+    </tr>
 </CascadingValue>

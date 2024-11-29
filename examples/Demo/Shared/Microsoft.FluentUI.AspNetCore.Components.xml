@@ -1183,6 +1183,11 @@
             This is rendered automatically if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Index">
+            <summary>
+            Gets or sets the index (1-based) of the column
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
             <summary>
             Gets or sets the an optional CSS class name.
@@ -1858,6 +1863,14 @@
              is small or if you are using pagination.
              </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OverscanCount">
+            <summary>
+            This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>. It defines how many additional items will be rendered
+            before and after the visible region to reduce rendering frequency during scrolling. While higher values can improve
+            scroll smoothness by rendering more items off-screen, they can also increase initial load times. Finding a balance
+            based on your data set size and user experience requirements is recommended. The default value is 3.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemSize">
             <summary>
             This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>. It defines an expected height in pixels for
@@ -2002,6 +2015,16 @@
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
+            <summary>
+            Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.MultiLine">
+            <summary>
+            Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">
             <summary>
             Gets or sets a value indicating whether the grid should save its paging state in the URL.
@@ -2013,6 +2036,11 @@
             Gets or sets a prefix to use when saving the grid state in the URL.
             </summary>
             <remarks>Only relevant when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoFocus">
+            <summary>
+            Gets or sets a value indicating whether the grids' first cell should be focused.
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
             <summary>
@@ -2169,7 +2197,7 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridContext">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
@@ -2177,6 +2205,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
             <summary>
             Gets a reference to the column that this cell belongs to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
@@ -2208,9 +2241,14 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Owner">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
@@ -13429,6 +13467,32 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Exact">
             <summary>
             Resize datagrid columns by exact pixel values
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize">
+            <summary>
+            The height of each <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
+            Values are in pixels.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Small">
+            <summary>
+            Small row height (default)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Medium">
+            <summary>
+            Medium row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Smaller">
+            <summary>
+            Smaller row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Large">
+            <summary>
+            Large row height
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">
