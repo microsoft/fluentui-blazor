@@ -250,6 +250,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets a value indicating whether the grid should save its paging state in the URL.
+    /// <para>This is an experimental feature, which might cause unwanted jumping in the page when you change something in the grid.</para>
     /// </summary>
     [Parameter]
     public bool SaveStateInUrl { get; set; }
