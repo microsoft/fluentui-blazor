@@ -4,8 +4,10 @@
 		<TargetFrameworks>net8.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
-		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons.$(ICONS_BUILD)</AssemblyName>
-		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
+    <BaseAssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</BaseAssemblyName>
+    <AssemblyName Condition="'$(ICONS_BUILD)' == ''">$(BaseAssemblyName)</AssemblyName>
+    <AssemblyName Condition="'$(ICONS_BUILD)' != ''">$(BaseAssemblyName).$(ICONS_BUILD)</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
