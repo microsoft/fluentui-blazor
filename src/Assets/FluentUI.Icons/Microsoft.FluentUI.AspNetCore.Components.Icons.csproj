@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
-		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons.$(ICONS_BUILD)</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -23,6 +23,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
 
+    <DefineConstants>$(DefineConstants);ICONS_BUILD=$(ICONS_BUILD)</DefineConstants>
 		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
 	</PropertyGroup>
 
@@ -42,5 +43,14 @@
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
 	</ItemGroup>
+
+  <!-- Condition to generate multiple DLLs -->
+  <PropertyGroup Condition="'$(ICONS_BUILD)' != ''">
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(ICONS_BUILD)' != ''">
+    <Compile Include="Icons\$(ICONS_BUILD)*.cs" />
+  </ItemGroup>
 
 </Project>

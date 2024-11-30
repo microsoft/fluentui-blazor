@@ -1,7 +1,11 @@
-﻿namespace Microsoft.FluentUI.AspNetCore.Components;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Custom icon loaded from <see cref="Icons.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)"/>
+/// Custom icon loaded from <see cref="Icons.GetInstance(IconInfo)"/>
 /// </summary>
 public class CustomIcon : Icon
 {
