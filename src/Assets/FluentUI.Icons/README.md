@@ -11,7 +11,7 @@ The [Microsoft.FluentUI.AspNetCore.Component](https://github.com/microsoft/fluen
 a set of [Blazor](https://blazor.net) components which you can use to build applications
 that have the look and feel or modern Microsoft applications.
 
-This library is a set of icons wrapping Microsoft’s official [Fluent UI Icon library](https://github.com/microsoft/fluentui-system-icons).
+This library is a set of icons wrapping Microsoftâ€™s official [Fluent UI Icon library](https://github.com/microsoft/fluentui-system-icons).
 
 ## Getting Started
 

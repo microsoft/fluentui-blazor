@@ -35,10 +35,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Icons\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
 	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
 	    <PrivateAssets>all</PrivateAssets>

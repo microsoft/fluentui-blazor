@@ -4,8 +4,10 @@
 		<TargetFrameworks>net8.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emoji</PackageId>
-		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emoji</AssemblyName>
-		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emoji</RootNamespace>
+    <BaseAssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emoji</BaseAssemblyName>
+    <AssemblyName Condition="'$(EMOJI_BUILD)' == ''">$(BaseAssemblyName)</AssemblyName>
+    <AssemblyName Condition="'$(EMOJI_BUILD)' != ''">$(BaseAssemblyName).$(EMOJI_BUILD)</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emoji</RootNamespace>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -22,6 +24,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
 
+    <DefineConstants>$(DefineConstants);EMOJI_BUILD=$(EMOJI_BUILD)</DefineConstants>
 		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
 	</PropertyGroup>
 
@@ -38,4 +41,13 @@
 	  </PackageReference>
 	</ItemGroup>
 
+  <!-- Condition to generate multiple DLLs -->
+  <PropertyGroup Condition="'$(EMOJI_BUILD)' != ''">
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EMOJI_BUILD)' != ''">
+    <Compile Include="Emojis\$(EMOJI_BUILD)*.cs" />
+  </ItemGroup>
+  
 </Project>

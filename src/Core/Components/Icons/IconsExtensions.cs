@@ -15,7 +15,7 @@ public static partial class IconsExtensions
     /// <summary>
     /// Returns a new instance of the icon.
     /// </summary>
-    /// <param name="icon">The <see cref="IconInfo"/> to instanciate.</param>
+    /// <param name="icon">The <see cref="IconInfo"/> to instantiate.</param>
     /// <remarks>
     /// This method requires dynamic access to code. This code may be removed by the trimmer.
     /// </remarks>
@@ -63,7 +63,7 @@ public static partial class IconsExtensions
     {
         var assembly = AppDomain.CurrentDomain
                                 .GetAssemblies()
-                                .FirstOrDefault(i => i.ManifestModule.Name == LibraryName);
+                                .FirstOrDefault(i => i.ManifestModule.Name.StartsWith(LibraryName, StringComparison.Ordinal));
 
         if (assembly != null)
         {
