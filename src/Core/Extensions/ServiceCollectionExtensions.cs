@@ -12,12 +12,12 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
-    /// <param name="serviceLifetime">In case you want to use any of the services outside of the request, you can change the lifetime to <see cref="ServiceLifetime.Singleton"/>. Normally all services are registered as <see cref="ServiceLifetime.Scoped"/>.</param>
-    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
+    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
-        if(serviceLifetime == ServiceLifetime.Transient)
+        var serviceLifetime = configuration?.ServiceLifetime ?? ServiceLifetime.Scoped;
+        if (serviceLifetime == ServiceLifetime.Transient)
         {
-            throw new ArgumentException("Transient lifetime is not supported for Fluent UI services.", nameof(serviceLifetime));
+            throw new NotSupportedException("Transient lifetime is not supported for Fluent UI services.");
         }
         if (serviceLifetime == ServiceLifetime.Singleton)
         {
@@ -62,12 +62,11 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
-    /// <param name="serviceLifetime">In case you want to use any of the services outside of the request, you can change the lifetime to <see cref="ServiceLifetime.Singleton"/>. Normally all services are registered as <see cref="ServiceLifetime.Scoped"/>.</param>
-    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, Action<LibraryConfiguration> configuration, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
+    public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, Action<LibraryConfiguration> configuration)
     {
         LibraryConfiguration options = new();
         configuration.Invoke(options);
 
-        return AddFluentUIComponents(services, options, serviceLifetime);
+        return AddFluentUIComponents(services, options);
     }
 }
