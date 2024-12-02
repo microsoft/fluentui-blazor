@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
-		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons.Core</AssemblyName>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -27,13 +27,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Icons\**" />
-	  <Content Remove="Icons\**" />
-	  <EmbeddedResource Remove="Icons\**" />
-	  <None Remove="Icons\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
@@ -46,7 +39,12 @@
 	  </PackageReference>
 	</ItemGroup>
 
+  <!-- List of Icon projects -->
 	<ItemGroup>
+    <Compile Remove="Icons\**" />
+    <EmbeddedResource Remove="Icons\**" />
+    <None Remove="Icons\**" />
+    
 	  <ProjectReference Include="Icons\Color\Icons.Color.csproj" PrivateAssets="All" />
 	  <ProjectReference Include="Icons\Filled\Icons.Filled.csproj" PrivateAssets="All" />
 	  <ProjectReference Include="Icons\Light\Icons.Light.csproj" PrivateAssets="All" />
@@ -60,12 +58,12 @@
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
     <ItemGroup>
       <!-- Filter out unnecessary files -->
-      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))"/>
+      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
     </ItemGroup>
 
     <ItemGroup>
       <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
-      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)"/>
+      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
     </ItemGroup>
   </Target>
 

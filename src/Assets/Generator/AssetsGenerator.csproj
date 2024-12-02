@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>FluentAssetsGenerator</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

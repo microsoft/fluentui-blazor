@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Icons.Core", "FluentUI.Icons\Icons.Core.csproj", "{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components.Icons.Package", "FluentUI.Icons\Components.Icons.Package.csproj", "{DC366683-C48A-4506-9CB1-7C2AFEF5E35A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator", "Generator\Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsGenerator", "Generator\AssetsGenerator.csproj", "{09CF3927-40A3-4138-9B07-8CD2BB18B005}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components.Emoji", "FluentUI.Emojis\Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components.Emoji.Package", "FluentUI.Emojis\Components.Emoji.Package.csproj", "{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.FluentUI.AspNetCore.Components", "..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj", "{9B74E3E5-C339-45C8-B6EC-128A00FBA48F}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Icons.Regular", "FluentUI.Icons\Icons\Regular\Icons.Regular.csproj", "{A939A68A-CA4F-8A50-1BFC-7C8745A14E6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Icons.Test", "FluentUI.Icons\Icons\Test\Icons.Test\Icons.Test.csproj", "{B0EEAF12-D3E7-4BCF-BBE5-B76376FD4849}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Emoji", "Emoji", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DC366683-C48A-4506-9CB1-7C2AFEF5E35A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9F88D6E5-6D3B-4EBA-8009-2D496A3F918C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8F962AED-D38C-4997-4AA5-E4C313A888B2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{525F476B-189D-7A19-EF0C-E0E65B1B2E38} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{80A27FDD-8726-8AC7-5474-908C27C1C2FF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}

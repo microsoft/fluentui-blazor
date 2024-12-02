@@ -1,10 +1,14 @@
-﻿using System.IO.Compression;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
+using System.IO.Compression;
 using System.Text;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Custom emoji loaded from <see cref="Emojis.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)"/>
+/// Custom emoji loaded from <see cref="EmojiExtensions.GetInstance(EmojiInfo)"/>
 /// </summary>
 public class CustomEmoji : Emoji
 {
@@ -28,16 +32,14 @@ public class CustomEmoji : Emoji
     {
         var bytes = Encoding.UTF8.GetBytes(str);
 
-        using (var msi = new MemoryStream(bytes))
-        using (var mso = new MemoryStream())
+        using var msi = new MemoryStream(bytes);
+        using var mso = new MemoryStream();
+        using (var gs = new GZipStream(mso, CompressionMode.Compress))
         {
-            using (var gs = new GZipStream(mso, CompressionMode.Compress))
-            {
-                CopyTo(msi, gs);
-            }
-
-            return mso.ToArray();
+            CopyTo(msi, gs);
         }
+
+        return mso.ToArray();
     }
 
     /// <summary />

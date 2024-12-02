@@ -1,27 +1,32 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public static partial class Icons
+public static partial class IconsExtensions
 {
     private const string Namespace = "Microsoft.FluentUI.AspNetCore.Components";
-    private const string LibraryName = "Microsoft.FluentUI.AspNetCore.Components.Icons.dll";
+    private const string LibraryName = "Microsoft.FluentUI.AspNetCore.Components.Icons";
 
     /// <summary>
     /// Returns a new instance of the icon.
     /// </summary>
+    /// <param name="icon">The <see cref="IconInfo"/> to instantiate.</param>
     /// <remarks>
     /// This method requires dynamic access to code. This code may be removed by the trimmer.
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
-    public static CustomIcon GetInstance(IconInfo icon)
+    public static CustomIcon GetInstance(this IconInfo icon)
     {
         var assembly = AppDomain.CurrentDomain
                                 .GetAssemblies()
-                                .FirstOrDefault(i => i.ManifestModule.Name == LibraryName);
+                                .FirstOrDefault(i => i.ManifestModule.Name.StartsWith(LibraryName, StringComparison.Ordinal));
 
         if (assembly != null)
         {
@@ -29,7 +34,7 @@ public static partial class Icons
                                    .Where(i => i.BaseType == typeof(Icon));
 
             // Ex. Microsoft.FluentUI.AspNetCore.Components.Icons+Filled+Size10+PresenceAvailable
-            var iconFullName = $"{Namespace}.Icons+{icon.Variant}+Size{(int)icon.Size}+{icon.Name}";
+            var iconFullName = $"{Namespace}.Icons.{icon.Variant}.Size{(int)icon.Size}+{icon.Name}";
             var iconType = allIcons.FirstOrDefault(i => i.FullName == iconFullName);
 
             if (iconType != null)
@@ -58,7 +63,7 @@ public static partial class Icons
     {
         var assembly = AppDomain.CurrentDomain
                                 .GetAssemblies()
-                                .FirstOrDefault(i => i.ManifestModule.Name == LibraryName);
+                                .FirstOrDefault(i => i.ManifestModule.Name.StartsWith(LibraryName, StringComparison.Ordinal));
 
         if (assembly != null)
         {
@@ -67,7 +72,7 @@ public static partial class Icons
                                             && i.Name != nameof(CustomIcon));
 
             var allIcons = allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo());
-            
+
             return allIcons ?? Array.Empty<IconInfo>();
         }
 
