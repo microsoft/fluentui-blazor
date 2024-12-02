@@ -5,17 +5,8 @@ Icons and Emoji are provided through additional packages (except for the icons t
 [Microsoft.FluentUI.AspNetCore.Components.Emoji](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Emoji) packages 
 is enough to make the resources available to your code.
 
-**Important:** Starting with v4.11.0 you need to add the following <code>&#64;using</code> statements to your _Imports.razor file:
-
-```
-@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
-@* add line below only if you are using the Emoji package *@
-@using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji
-```
- 
 We use the [.NET trimming capabilities](https://learn.microsoft.com/aspnet/core/blazor/host-and-deploy/configure-trimmer) to publish only those 
-assests that are actually being used in your program. Usually this results in some very small DLL's that only contain the resources that are 
-actually being used in your application.
+assests that are actually being used in your program. Usually this results in only some very small DLL's in your application files.
  
 We support the **complete** [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) and 
 [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) collections.
@@ -40,6 +31,13 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emojis
 
  
 #### Using the `FluentIcon` component
+
+**Important:** Starting with v4.11.0 you need to add the following <code>&#64;using</code> statement to your _Imports.razor file:
+
+```
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+```
+
 
 > **Note:** Use the [Icon explorer](/Icon#explorer) to search through the entire collection of icons. You can easily copy a complete icon component 
 instance from the explorer by clicking the clipboard in the results list.
@@ -88,6 +86,12 @@ After adding the class, you can start using this custom icon like a "normal" Flu
 ```
  
 #### Using the `FluentEmoji` component
+**Important:** Starting with v4.11.0 you need to add the following <code>&#64;using</code> statement to your _Imports.razor file:
+
+```
+@using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji
+```
+
 > **Note:** Use the [Emoji explorer](/Emoji#explore-emojis) to search through the entire collection of emoji. You can easily copy a complete emoji component 
 instance from the explorer by clicking the clipboard in the results list.
  
