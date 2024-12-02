@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
@@ -52,9 +52,24 @@
     <ProjectReference Include="Emojis\PeopleBody\Emoji.PeopleBody.csproj" PrivateAssets="All" />
     <ProjectReference Include="Emojis\SmileysEmotion\Emoji.SmileysEmotion.csproj" PrivateAssets="All" />
     <ProjectReference Include="Emojis\Symbols\Emoji.Symbols.csproj" PrivateAssets="All" />
-    <ProjectReference Include="Emojis\TravelPlaces\Emoji.TravelPlaces.csproj" PrivateAssets="All" />
-    
+    <ProjectReference Include="Emojis\TravelPlaces\Emoji.TravelPlaces.csproj" PrivateAssets="All" />    
   </ItemGroup>
 
-  
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <!-- Filter out unnecessary files -->
+      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
+      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
+    </ItemGroup>
+  </Target>
+
+
 </Project>
