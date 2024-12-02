@@ -1,13 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emojis.AnimalsNature</AssemblyName>
-		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis</RootNamespace>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis.AnimalsNature</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

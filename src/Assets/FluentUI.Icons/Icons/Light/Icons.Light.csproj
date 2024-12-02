@@ -2,12 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
 	  <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons.Light</AssemblyName>
-		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons.Light</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

@@ -18,6 +18,10 @@
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
 
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
 		<!-- Enable code style analysis -->
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>

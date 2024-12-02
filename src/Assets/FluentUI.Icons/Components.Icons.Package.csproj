@@ -2,15 +2,10 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
-		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons</RootNamespace>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<ImplicitUsings>enable</ImplicitUsings>
 		<IsTrimmable>true</IsTrimmable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
 
 		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Summary>
@@ -44,7 +39,7 @@
     <Compile Remove="Icons\**" />
     <EmbeddedResource Remove="Icons\**" />
     <None Remove="Icons\**" />
-    
+
 	  <ProjectReference Include="Icons\Color\Icons.Color.csproj" PrivateAssets="All" />
 	  <ProjectReference Include="Icons\Filled\Icons.Filled.csproj" PrivateAssets="All" />
 	  <ProjectReference Include="Icons\Light\Icons.Light.csproj" PrivateAssets="All" />
