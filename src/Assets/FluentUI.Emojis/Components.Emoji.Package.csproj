@@ -38,4 +38,13 @@
 	  </PackageReference>
 	</ItemGroup>
 
+  <!-- List of Emoji projects -->
+  <ItemGroup>
+    <Compile Remove="Emojis\**" />
+    <EmbeddedResource Remove="Emojis\**" />
+    <None Remove="Emojis\**" />
+
+  </ItemGroup>
+
+  
 </Project>

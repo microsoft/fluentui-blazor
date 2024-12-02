@@ -90,8 +90,14 @@ internal class EmojisCodeGenerator
                         continue;
                     }
 
-                    var filename = $"{group}-{style}-{skintone}.cs";
-                    var file = new FileInfo(Path.Combine(Configuration.TargetFolder.FullName, filename));
+                    var folder = Path.Combine(Configuration.TargetFolder.FullName, group);
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+
+                    var filename = $"{style}-{skintone}.cs";
+                    var file = new FileInfo(Path.Combine(folder, filename));
 
                     Logger.Invoke($"Generating {file.Name}, containing {emojisForFile.Count()} emojis.");
                     var classContent = GenerateClass(group, style, skintone, emojisForFile);
@@ -143,7 +149,7 @@ internal class EmojisCodeGenerator
         var size = content.Size.Width;
         var svgContent = content.Content;
         var group = Tools.ToPascalCase(file.Emoji.Meta.Group, "_");
-        var svgZipped = String.Join(", ", Tools.Zip(svgContent).Select(i => Convert.ToString(i)));
+        var svgZipped = string.Join(", ", Tools.Zip(svgContent).Select(i => Convert.ToString(i)));
         var svgBytes = $"new byte [] {{ {svgZipped} }}";
 
         builder.AppendLine($"{indentationString}public class {file.Emoji.Name} : Emoji {{ public {file.Emoji.Name}() : base(\"{file.Emoji.Name}\", EmojiSize.Size{size}, EmojiGroup.{group}, EmojiSkintone.{file.SkinTone}, EmojiStyle.{file.Style}, {svgBytes}) {{ }} }}");

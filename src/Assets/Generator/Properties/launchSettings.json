@@ -14,7 +14,7 @@
     // 2. To generate all emojis in Emojis Lib
     "Generate All Emojis": {
       "commandName": "Project",
-      "commandLineArgs": "--Assets=C:/_Temp/fluentui-emoji --Library=Emoji --Target=C:/_Temp/Generated-Emojis"
+      "commandLineArgs": "--Assets=C:/_Temp/Emoji --Library=Emoji --Target=C:/_Temp/Generated-Emojis"
     },
 
     // 3. To generate only icons used by Core lib
