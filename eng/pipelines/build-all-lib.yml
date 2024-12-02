@@ -5,10 +5,12 @@ trigger: none    # Disable dev and main branches.
 pr: none         # Disable pull request triggers.
 
 parameters:
-  - name: Projects  	    # List of projects to build #**/Microsoft.FluentUI.AspNetCore.Components.Emoji.csproj
+  - name: Projects  	    # List of projects to build 
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
       **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj
+      **/Components.Icons.Package.csproj
+      **/Components.Emoji.Package.csproj
       **/Microsoft.FluentUI.AspNetCore.Templates.csproj
       **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
 
