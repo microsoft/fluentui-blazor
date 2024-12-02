@@ -44,6 +44,16 @@
     <EmbeddedResource Remove="Emojis\**" />
     <None Remove="Emojis\**" />
 
+    <ProjectReference Include="Emojis\Activities\Emoji.Activities.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\AnimalsNature\Emoji.AnimalsNature.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\Flags\Emoji.Flags.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\FoodDrink\Emoji.FoodDrink.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\Objects\Emoji.Objects.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\PeopleBody\Emoji.PeopleBody.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\SmileysEmotion\Emoji.SmileysEmotion.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\Symbols\Emoji.Symbols.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\TravelPlaces\Emoji.TravelPlaces.csproj" PrivateAssets="All" />
+    
   </ItemGroup>
 
   
