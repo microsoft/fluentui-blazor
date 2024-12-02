@@ -8,11 +8,11 @@ parameters:
   - name: Projects  	    # List of projects to build 
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
-      **/Microsoft.FluentUI.AspNetCore.Components.Icons.csproj
       **/Components.Icons.Package.csproj
       **/Components.Emoji.Package.csproj
       **/Microsoft.FluentUI.AspNetCore.Templates.csproj
       **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
     default: |
