@@ -17,6 +17,23 @@
     To use them, simply reference this package in your project.
 </p>
 <p>
+    <div class="demopanel" style="margin: 1rem 0; padding: 1.5rem;">
+        <h3>Important</h3>
+        As of version 4.11.0 of our Emoji package, we are packaging each emoji category (activity, food, etc.) in its own assembly.
+        This became necessary due to the large number of emoji and some compiler limitations. Nothing has changed on how the Emoji package needs to be installed or added to your project.
+        There is a just a small change needed to your imports file (or using statements).
+        <br />
+        <br />
+        <blockquote>
+        To use the new version in your (upgraded) projects, you need add the following <code>&#64;using</code> statement to your _Imports.razor file:
+        <CodeSnippet Language="csharp">&#64;using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji</CodeSnippet>
+        </blockquote>
+        <br />
+        Alternatively, you can use the full namespace in your code or define the alias for the namespace at the top of your file.
+    </div>
+</p>
+
+<p>
     You can use any of these emoji by levaraging the <code>&lt;FluentEmoji&gt;</code> component. See below for the parameters and examples. There is
     also a search capability available on this page which allows you to browse through all the available emoji.
 </p>

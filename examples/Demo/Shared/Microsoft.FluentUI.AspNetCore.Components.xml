@@ -4314,6 +4314,28 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji">
+            <summary>
+            Custom emoji loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.#ctor(Microsoft.FluentUI.AspNetCore.Components.Emoji)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji"/> class.
+            </summary>
+            <param name="emoji"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.Zip(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Emoji">
             <summary>
             FluentUI Emoji content.
@@ -4366,6 +4388,32 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiCompress.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)">
+            <summary>
+            Returns a new instance of the emoji.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAllEmojis">
+            <summary>
+            Returns a new instance of the emoji.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.AllEmojis">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo">
@@ -4719,6 +4767,22 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
+            <summary>
+            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor(Microsoft.FluentUI.AspNetCore.Components.Icon)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> class.
+            </summary>
+            <param name="icon"></param>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1">
             <summary>
             FluentIcon is a component that renders an icon from the Fluent System icon set.
@@ -4911,6 +4975,33 @@
             <summary>
             Gets the variant of the icon: Filled, Regular.
             </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)">
+            <summary>
+            Returns a new instance of the icon.
+            </summary>
+            <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAllIcons">
+            <summary>
+            Returns a new instance of the icon.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.AllIcons">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
