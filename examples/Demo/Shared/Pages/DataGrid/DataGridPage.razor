@@ -11,13 +11,21 @@
     and <code>&lt;FluentDataGridCell&gt;</code> components are typically created programmatically by the parent grid but some
     authors may find it useful to create them manually.
 </p>
+
 <p>
-    <code>&lt;FluentDataGrid&gt;</code> wraps the <code>&lt;fluent-data-grid&gt;</code> element, a web component implementation
-    of a data grid leveraging the Fluent  UI design system. Besides this we also provide wrappers for the <code>&lt;fluent-data-grid-row&gt;</code> and
-    <code>&lt;fluent-data-grid-cell&gt;</code>
-    web components. Internally <code>&lt;FluentDataGrid&gt;</code> is using the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/quickgrid?view=aspnetcore-8.0">QuickGrid</a>
-    code where all the rendering is replaced with the web components. We also added some extras like column resizing and row/column specific styling.
+    <div class="demopanel" style="margin: 1rem 0; padding: 1.5rem;">
+        <h3>Important</h3>
+        As of version 4.11.0, the DataGrid uses standard HTML table elements for rendering the grid (previously web components were used for this). When upgrading to this version, please be aware of the following:
+        <ul>
+            <li>A lot of changes have been made to the structure of the rendered content and the class names used. If you have been overriding grid classes in your own code, these probably no longer work.</li>
+            <li>When you have rows in a table with content that needs to span multiple lines, you now need to use and set the new MultiLine (bool) parameter of the FluentDataGrid. Previously this could be done by setting a RowClass on a column but that does not work anymore</li>
+            <li>
+                The parameter <code>ResizeLabel</code> has been removed in favor of 3 new parameters. This makes changing strings in the DataGrid UI easier. See <FluentAnchor Href="#changeuistrings" Appearance="Appearance.Hypertext">Change strings used in the UI</FluentAnchor> for more information.
+            </li>
+        </ul>
+    </div>
 </p>
+
 <p>
     Do not use the <code>RowStyle</code> parameter to dynamically update a row style after rendering (for example to highlight a row which was clicked on)
     as this will interfere with the DataGrid scripts that use this attribute as well. Use the <code>RowClass</code> instead.
@@ -49,6 +57,29 @@
     A sort can be removed by right clicking on the header column (with exception of the default sort).
 </p>
 
+<h2 id="changeuistrings">Change strings used in the UI</h2>
+<p>
+    The DataGrid has a number of strings that are used in the UI. These can be changed by setting the <code>ColumnOptionLabels</code>, <code>ColumnResizeLabels</code> and <code>ColumnSortLabels</code> parameters.
+    Each of these parameters is a record that contains properties for the strings that that specific piece of UI is using. There is a default implementation for each record.
+    See below for a simplified example on how you can change these strings.
+</p>
+<CodeSnippet Language="razor">private ColumnResizeLabels _resizeLabels = ColumnResizeLabels.Default;
+:
+:
+ protected override async Task OnInitializedAsync()
+ {
+     _resizeLabels = ColumnResizeLabels.Default with
+     {
+         ExactLabel = &quot;...&quot;,
+         ResizeMenu = &quot;...&quot;
+
+     };
+:
+:
+</CodeSnippet>
+<p>You only need to override the values that you actually want to change.</p>
+
+
 <h2 if="usewithef">Using the DataGrid component with EF Core</h2>
 <p>
     If you want to use the <code>FluentDataGrid</code> with data provided through EF Core, you need to install an additional package so the
@@ -62,6 +93,22 @@
 <h3>Usage</h3>
     In your <code>Program.cs</code> file you need to add the following after the <code>builder.Services.AddFluentUIComponents();</code> line:
 <CodeSnippet Language="csharp">builder.Services.AddDataGridEntityFrameworkAdapter();</CodeSnippet>
+
+<h2 if="usewithodata">Using the DataGrid component with OData</h2>
+<p><i>Added in 4.11.0</i></p>
+<p>
+    If you want to use the <code>FluentDataGrid</code> with data provided through OData, you need to install an additional package so the
+    grid knows how to resolve queries asynchronously for efficiency.
+</p>
+
+<h3>Installation</h3>
+    Install the package by running the command:
+<CodeSnippet>dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter</CodeSnippet>
+
+<h3>Usage</h3>
+    In your <code>Program.cs</code> file you need to add the following after the <code>builder.Services.AddFluentUIComponents();</code> line:
+<CodeSnippet Language="csharp">builder.Services.AddDataGridODataAdapter();</CodeSnippet>
+
 
 <h2 id="example">Examples</h2>
 
