@@ -26,7 +26,6 @@ public abstract partial class ColumnBase<TGridItem>
     [Parameter]
     public string? Title { get; set; }
 
-
     /// <summary>
     /// Gets or sets the index (1-based) of the column
     /// </summary>

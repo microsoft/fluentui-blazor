@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -33,6 +34,13 @@ public class LibraryConfiguration
     /// By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
     /// </summary>
     public bool HideTooltipOnCursorLeave { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the service lifetime for the library services, when using Fluent UI in WebAssembly, it can make sense to use <see cref="ServiceLifetime.Singleton"/>.
+    /// Default is <see cref="ServiceLifetime.Scoped"/>.
+    /// <para>Only <see cref="ServiceLifetime.Scoped"/> and <see cref="ServiceLifetime.Singleton"/> are supported.</para>
+    /// </summary>
+    public ServiceLifetime ServiceLifetime { get; set; } = ServiceLifetime.Scoped;
 
     /// <summary>
     /// Gets or sets the value indicating whether the library should validate CSS class names.
