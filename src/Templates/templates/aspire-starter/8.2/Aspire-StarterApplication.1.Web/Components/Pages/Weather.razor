@@ -1,7 +1,6 @@
 ﻿@page "/weather"
-@attribute [StreamRendering(true)]
+@rendermode InteractiveServer
 @attribute [OutputCache(Duration = 5)]
-
 @inject WeatherApiClient WeatherApi
 
 <PageTitle>Weather</PageTitle>

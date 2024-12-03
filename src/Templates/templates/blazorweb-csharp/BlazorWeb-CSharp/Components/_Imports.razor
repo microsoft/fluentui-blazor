@@ -14,6 +14,8 @@
 @using BlazorWeb_CSharp
 @*#if (UseWebAssembly) -->
 @using BlazorWeb_CSharp.Client
+##endif*@
+@*#if (UseWebAssembly && SampleContent) -->
 @using BlazorWeb_CSharp.Client.Layout
 ##endif*@
 @using BlazorWeb_CSharp.Components
