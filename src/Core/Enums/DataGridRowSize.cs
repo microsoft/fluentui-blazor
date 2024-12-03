@@ -16,7 +16,6 @@ public enum DataGridRowSize
     /// </summary>
     Medium = 44,
 
-
     /// <summary>
     /// Smaller row height
     /// </summary>
