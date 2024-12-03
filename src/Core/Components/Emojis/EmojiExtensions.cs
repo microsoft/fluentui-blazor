@@ -21,7 +21,7 @@ public static partial class EmojiExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="EmojiInfo.Name"/> is not found in predefined emojis.</exception>
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
-    public static CustomEmoji GetInstance(EmojiInfo emoji)
+    public static CustomEmoji GetInstance(this EmojiInfo emoji)
     {
         var assembly = AppDomain.CurrentDomain
                                 .GetAssemblies()
