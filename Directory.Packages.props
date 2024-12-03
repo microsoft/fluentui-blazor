@@ -10,8 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.10.2" />
-    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.10.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.10.4" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.10.4" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="1.31.3" />
