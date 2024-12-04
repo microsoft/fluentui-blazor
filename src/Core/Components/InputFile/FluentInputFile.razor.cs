@@ -12,7 +12,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     private ElementReference? _containerElement;
     private InputFile? _inputFile;
     private IJSObjectReference? _containerInstance;
-
+    
     public static string ResourceLoadingBefore = "Loading...";
     public static string ResourceLoadingCompleted = "Completed";
     public static string ResourceLoadingCanceled = "Canceled";
@@ -201,12 +201,12 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
-            if (!string.IsNullOrEmpty(AnchorId))
-            {
-                await Module.InvokeVoidAsync("attachClickHandler", AnchorId, Id);
-            }
-
             _containerInstance = await Module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", _containerElement, _inputFile!.Element);
+        }
+
+        if (!string.IsNullOrEmpty(AnchorId) && Module is not null)
+        {
+            await Module.InvokeVoidAsync("attachClickHandler", AnchorId, Id);
         }
     }
 

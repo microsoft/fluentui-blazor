@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId Condition="'$(IndividualLocalAuth)' == 'True'">aspnet-XmlEncodedAppName-53bc9b9d-9d6a-45d4-8429-2a2761773502</UserSecretsId>
+    <NoDefaultLaunchSettingsFile Condition="'$(ExcludeLaunchSettings)' == 'True'">True</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
+
+  <!--#if (IndividualLocalAuth && !UseLocalDB) -->
+  <ItemGroup>
+    <None Update="Data\app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <!--#endif -->
+  <!--#if (UseWebAssembly || IndividualLocalAuth) -->
+  <ItemGroup>
+    <ProjectReference Include="..\XmlEncodedAppName.Web.Client\XmlEncodedAppName.Web.Client.csproj" Condition="'$(UseWebAssembly)' == 'True'" />
+    <ProjectReference Include="..\XmlEncodedAppName.Shared\XmlEncodedAppName.Shared.csproj" Condition="'$(UseWebAssembly)' != 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" Condition="'$(UseWebAssembly)' == 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(UseLocalDB)' != 'True'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(UseLocalDB)' == 'True'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" Condition="'$(IndividualLocalAuth)' == 'True'" />
+  </ItemGroup>
+  <!--#else -->
+  <ItemGroup>
+    <ProjectReference Include="..\XmlEncodedAppName.Shared\XmlEncodedAppName.Shared.csproj" />
+  </ItemGroup>
+  <!--#endif -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+  </ItemGroup>
+
+</Project>

@@ -258,7 +258,6 @@ public partial class FluentWizard : FluentComponentBase
     /// <returns></returns>
     public Task GoToStepAsync(int step, bool validateEditContexts = false)
     {
-        Value = step;
         return ValidateAndGoToStepAsync(step, validateEditContexts);
     }
 
