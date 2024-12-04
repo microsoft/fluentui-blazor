@@ -54,7 +54,7 @@ variables:
   - template: /eng/pipelines/version.yml@self
 
   - name: SignType
-    value: test
+    value: real
 
   - name: TeamName
     value: fluentui-blazor
