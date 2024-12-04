@@ -3734,7 +3734,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent.Intent">
             <summary>
             Gets or sets the intent of the message box. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.MessageBoxIntent"/> for details.
-            </summary>    
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent.Icon">
             <summary>
