@@ -116,7 +116,7 @@ extends:
             packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
             packageParentPath: '$(Build.ArtifactStagingDirectory)'
             nuGetFeedType: internal
-            publishVstsFeed: public/dotnet8
+            publishVstsFeed: public/dotnet9
             allowPackageConflicts: true
 
         steps:
