@@ -35,7 +35,7 @@
 
   <!--#endif -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="[4.11.0,)" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="[4.11.0,)" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
   </ItemGroup>
 </Project>

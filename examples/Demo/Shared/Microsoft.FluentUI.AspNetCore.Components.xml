@@ -2931,6 +2931,12 @@
             Gets or sets a value which will be set when double-clicking on the text field of date picker.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupHorizontalPosition">
+            <summary>
+            Gets or sets an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition"/> for the popup displayed when the user open the calendar.
+            By default, this value is Left or Right, depending of the 'CurrentUICulture.TextInfo.IsRightToLeft' value.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
         </member>
