@@ -1,6 +1,8 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @implements IDialogContentComponent<MessageBoxContent>
-
+@{
+#pragma warning disable CS0618
+}
 <div class="fluent-messagebox">
     <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
         @if (Content.Icon != null)
@@ -8,7 +10,11 @@
             <FluentIcon Value="@Content.Icon" Color="@Content.IconColor" Width="24px" Class="icon" />
         }
         <div>
+            @Content.Message
             @Content.MarkupMessage
         </div>
     </FluentStack>
 </div>
+@{
+#pragma warning restore CS0618
+}
