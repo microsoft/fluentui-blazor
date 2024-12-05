@@ -242,9 +242,9 @@ public partial class FluentDialog : FluentComponentBase
                 await Instance.Parameters.OnDialogClosing.InvokeAsync(Instance);
             }
 
-            if (Instance.Parameters.OnDialogValidation != null && !dialogResult.Cancelled)
+            if (Instance.Parameters.ValidateDialogAsync != null && !dialogResult.Cancelled)
             {
-                var isValid = await Instance.Parameters.OnDialogValidation();
+                var isValid = await Instance.Parameters.ValidateDialogAsync();
 
                 if (!isValid)
                 {

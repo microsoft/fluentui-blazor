@@ -31,7 +31,7 @@ public partial class DialogPanelWithValidation
             PrimaryAction = "Yes",
             SecondaryAction = "No",
             PreventDismissOnOverlayClick = true,
-            OnDialogValidation = async () =>
+            ValidateDialogAsync = async () =>
             {
                 var result = simplePerson.Firstname.Length > 0 && simplePerson.Lastname.Length > 0;
 

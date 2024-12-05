@@ -3660,7 +3660,7 @@
             This method is only called when using the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IDialogService"/>.
             </remarks>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.OnDialogValidation">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.ValidateDialogAsync">
             <summary>
             Function that is called and awaited before the dialog is closed.
             </summary>
