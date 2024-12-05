@@ -5,7 +5,7 @@ trigger: none    # Disable dev and main branches.
 pr: none         # Disable pull request triggers.
 
 parameters:
-  - name: Projects  	    # List of projects to build 
+  - name: Projects  	    # List of projects to build
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
       **/Components.Icons.Package.csproj
@@ -84,7 +84,7 @@ extends:
             packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
             packageParentPath: '$(Build.ArtifactStagingDirectory)'
             nuGetFeedType: internal
-            publishVstsFeed: public/dotnet8
+            publishVstsFeed: public/dotnet9
             allowPackageConflicts: true
 
         steps:
@@ -142,7 +142,7 @@ extends:
             filePath: $(System.DefaultWorkingDirectory)/eng/pipelines/update-assembly-version.ps1
             arguments: > # Use this to avoid newline characters in multiline string
               -sourcePath "$(System.DefaultWorkingDirectory)/"
-              -excludePatterns "**/src/Templates/content/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
+              -excludePatterns "**/src/Templates/templates/**/*.csproj", "**/tests/TemplateValidation/**/*.csproj"
               -assemblyVersion "$(AssemblyVersion)"
               -packageVersion "$(PackageVersion)"
 

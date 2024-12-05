@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
@@ -17,7 +17,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
 
-		<PackageOutputPath>..\..\..\artifacts</PackageOutputPath>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
