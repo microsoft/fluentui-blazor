@@ -13,6 +13,15 @@
 <h4>Text with InputMode</h4>
 <FluentTextField @bind-Value=value5 TextFieldType="TextFieldType.Text" InputMode="InputMode.Numeric">Text with InputMode</FluentTextField>
 
+<h4>Color picker</h4>
+<FluentTextField @bind-Value=value6 TextFieldType="TextFieldType.Color" Style="width:178px">Color picker</FluentTextField>
+
+<h4>Search input</h4>
+<FluentTextField @bind-Value=value7 TextFieldType="TextFieldType.Search">Search</FluentTextField>
+
+<h4>Numeric</h4>
+<FluentTextField @bind-Value=value8 TextFieldType="TextFieldType.Number">Number</FluentTextField>
+
 @code {
-    string? value1, value2, value3, value4, value5;
+    string? value1, value2, value3, value4, value5, value6, value7, value8;
 }

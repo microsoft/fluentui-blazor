@@ -3,7 +3,7 @@
 
 @if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
 {
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required">@LabelTemplate</FluentInputLabel>
+    <FluentInputLabel ForId="@Id" Label="@Label" Required="@Required">@LabelTemplate</FluentInputLabel>
 }
 
 <div Id="@Id"
@@ -11,6 +11,7 @@
      style="@StyleValue"
      role="radiogroup"
      aria-readonly="@(ReadOnly ? "true" : null)"
+     aria-label="@(AriaLabel ?? Label ?? null)"
      @onmouseleave="@OnMouseLeaveAsync">
 
     @foreach (var index in Enumerable.Range(1, Max))
@@ -28,7 +29,6 @@
         {
             <input type="radio" checked="@(index == Value)" name="@GroupName"
                    value="@index"
-                   aria-label="@Label"
                    @onfocus="@(() => OnClickAsync(index, fromFocus: true))" />
 
             <FluentIcon Value="@GetIcon(index)"

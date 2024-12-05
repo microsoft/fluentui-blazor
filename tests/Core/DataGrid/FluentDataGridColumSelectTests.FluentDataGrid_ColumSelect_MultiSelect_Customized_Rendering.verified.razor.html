@@ -1,26 +1,30 @@
 
-<fluent-data-grid generate-header="none" grid-template-columns="50px 1fr" aria-rowcount="4" blazor:onrowfocus="1" blazor:onclosecolumnoptions="2" b-ppmhrkw1mj="" blazor:elementreference="">
-  <fluent-data-grid-row row-id="r1" row-index="0" row-type="header" blazor:onkeydown="3" blazor:onclick="4" blazor:ondblclick="5" blazor:oncellfocus="6" b-upi3f9mbnn="">
-    <fluent-data-grid-cell cell-id="c1" cell-type="columnheader" grid-column="1" class="column-header col-justify-start " aria-sort="none" scope="col" b-w6qdxfylwy="">
-      <div style="cursor: pointer; margin-left: 12px;" blazor:onclick="19">➖</div>
-    </fluent-data-grid-cell>
-    <fluent-data-grid-cell cell-id="c2" cell-type="columnheader" grid-column="2" class="column-header col-justify-start " aria-sort="none" scope="col" b-w6qdxfylwy="">
-      <div class="col-title" b-pxhtqoo8qd="">
-        <div class="col-title-text" b-pxhtqoo8qd="">Name</div>
-      </div>
-    </fluent-data-grid-cell>
-  </fluent-data-grid-row>
-  <fluent-data-grid-row row-id="r2" row-index="1" grid-template-columns="50px 1fr" row-type="default" blazor:onkeydown="7" blazor:onclick="8" blazor:ondblclick="9" aria-rowindex="2" blazor:oncellfocus="10" b-upi3f9mbnn="">
-    <fluent-data-grid-cell cell-id="c3" cell-type="default" grid-column="1" class="col-justify-start " b-w6qdxfylwy="">
-    </fluent-data-grid-cell>
-    <fluent-data-grid-cell cell-id="c4" cell-type="default" grid-column="2" class="col-justify-start " b-w6qdxfylwy="">Jean Martin</fluent-data-grid-cell>
-  </fluent-data-grid-row>
-  <fluent-data-grid-row row-id="r3" row-index="2" grid-template-columns="50px 1fr" row-type="default" blazor:onkeydown="11" blazor:onclick="12" blazor:ondblclick="13" aria-rowindex="3" blazor:oncellfocus="14" b-upi3f9mbnn="">
-    <fluent-data-grid-cell cell-id="c5" cell-type="default" grid-column="1" class="col-justify-start " b-w6qdxfylwy="">✅</fluent-data-grid-cell>
-    <fluent-data-grid-cell cell-id="c6" cell-type="default" grid-column="2" class="col-justify-start " b-w6qdxfylwy="">Kenji Sato</fluent-data-grid-cell>
-  </fluent-data-grid-row>
-  <fluent-data-grid-row row-id="r4" row-index="3" grid-template-columns="50px 1fr" row-type="default" blazor:onkeydown="15" blazor:onclick="16" blazor:ondblclick="17" aria-rowindex="4" blazor:oncellfocus="18" b-upi3f9mbnn="">
-    <fluent-data-grid-cell cell-id="c7" cell-type="default" grid-column="1" class="col-justify-start " b-w6qdxfylwy="">✅</fluent-data-grid-cell>
-    <fluent-data-grid-cell cell-id="c8" cell-type="default" grid-column="2" class="col-justify-start " b-w6qdxfylwy="">Julie Smith</fluent-data-grid-cell>
-  </fluent-data-grid-row>
-</fluent-data-grid>
+<table id="xxx" class="fluent-data-grid" style="grid-template-columns: 50px auto;" aria-rowcount="4" blazor:onclosecolumnoptions="1" blazor:onclosecolumnresize="2" b-ppmhrkw1mj="" blazor:elementreference="">
+  <thead b-ppmhrkw1mj="">
+    <tr data-row-index="0" role="row" blazor:onkeydown="3" blazor:onclick="4" blazor:ondblclick="5" row-type="header" b-upi3f9mbnn="">
+      <th col-index="1" class="column-header select-all col-justify-center col-sort-desc" style="grid-column: 1; text-align: center; align-content: center; padding-top: calc(var(--design-unit) * 2.5px); height: 32px; min-height: 44px;" blazor:oncontextmenu:preventdefault="" blazor:onkeydown="18" blazor:onclick="19" scope="col" aria-sort="none" b-w6qdxfylwy="">
+        <div style="cursor: pointer; margin-left: 12px;" blazor:onclick="20" blazor:onkeydown="21">➖</div>
+      </th>
+      <th col-index="2" class="column-header col-justify-start col-sort-desc" style="grid-column: 2; height: 32px; min-height: 44px;" blazor:oncontextmenu:preventdefault="" blazor:onkeydown="22" blazor:onclick="23" scope="col" aria-sort="none" b-w6qdxfylwy="">
+        <div class="col-title" style="width: calc(100% - 20px);" b-pxhtqoo8qd="">
+          <div class="col-title-text" b-pxhtqoo8qd="">Name</div>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody b-ppmhrkw1mj="">
+    <tr data-row-index="2" role="row" blazor:onkeydown="9" blazor:onclick="10" blazor:ondblclick="11" aria-rowindex="2" b-upi3f9mbnn="">
+      <td col-index="1" class="col-justify-center" style="grid-column: 1; text-align: center; align-content: center; padding-inline-start: calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px); padding-top: calc(var(--design-unit) * 1.5px); height: 32px;" role="gridcell" tabindex="0" blazor:onkeydown="24" blazor:onclick="25" b-w6qdxfylwy="">
+      </td>
+      <td col-index="2" class="col-justify-start" style="grid-column: 2; height: 32px;" role="gridcell" tabindex="0" blazor:onkeydown="26" blazor:onclick="27" b-w6qdxfylwy="">Jean Martin</td>
+    </tr>
+    <tr data-row-index="3" role="row" blazor:onkeydown="12" blazor:onclick="13" blazor:ondblclick="14" aria-rowindex="3" b-upi3f9mbnn="">
+      <td col-index="1" class="col-justify-center" style="grid-column: 1; text-align: center; align-content: center; padding-inline-start: calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px); padding-top: calc(var(--design-unit) * 1.5px); height: 32px;" role="gridcell" tabindex="0" blazor:onkeydown="28" blazor:onclick="29" b-w6qdxfylwy="">✅</td>
+      <td col-index="2" class="col-justify-start" style="grid-column: 2; height: 32px;" role="gridcell" tabindex="0" blazor:onkeydown="30" blazor:onclick="31" b-w6qdxfylwy="">Kenji Sato</td>
+    </tr>
+    <tr data-row-index="4" role="row" blazor:onkeydown="15" blazor:onclick="16" blazor:ondblclick="17" aria-rowindex="4" b-upi3f9mbnn="">
+      <td col-index="1" class="col-justify-center" style="grid-column: 1; text-align: center; align-content: center; padding-inline-start: calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px); padding-top: calc(var(--design-unit) * 1.5px); height: 32px;" role="gridcell" tabindex="0" blazor:onkeydown="32" blazor:onclick="33" b-w6qdxfylwy="">✅</td>
+      <td col-index="2" class="col-justify-start" style="grid-column: 2; height: 32px;" role="gridcell" tabindex="0" blazor:onkeydown="34" blazor:onclick="35" b-w6qdxfylwy="">Julie Smith</td>
+    </tr>
+  </tbody>
+</table>

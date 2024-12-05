@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XmlEncodedProjectName.ServiceDefaults\XmlEncodedProjectName.ServiceDefaults.csproj" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+  </ItemGroup>
+
+  <!--#if (UseRedisCache) -->
+  <ItemGroup>
+    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.2.2" />
+  </ItemGroup>
+
+  <!--#endif -->
+</Project>

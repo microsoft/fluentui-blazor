@@ -203,11 +203,11 @@ code {
     padding: 5px;
 }
 
-.highlighted-row {
+.highlighted {
     background-color: var(--accent-stroke-control-active);
 }
 
-    .highlighted-row > fluent-data-grid-cell {
+    .highlighted > td {
         color: var(--neutral-fill-inverse-rest);
     }
 
@@ -252,6 +252,7 @@ kbd {
         content: "An error has occurred: "
     }
 
+/* Animate the blazor FluentUI during the loading */
 .loading-progress {
     position: relative;
     display: block;
@@ -260,25 +261,47 @@ kbd {
     margin: 20vh auto 1rem auto;
 }
 
-    .loading-progress circle {
-        fill: none;
-        stroke: var( --neutral-fill-layer-rest);
-        stroke-width: 0.6rem;
-        transform-origin: 50% 50%;
-        transform: rotate(-90deg);
+#logo-anim path:nth-child(1) {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    stroke-width: 1.25em;
+    fill: #682A7B;
+    fill-opacity: 0.1;
+    animation: line-anim 2s ease forwards, fill-anim 1s ease forwards 1.5s;
+}
+
+#logo-anim path:nth-child(2) {
+    stroke-width: 1.25em;
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    fill: #4A81C3;
+    fill-opacity: 0.1;
+    animation: line-anim 2s ease forwards, fill-anim 3s ease forwards 1.2s;
+}
+
+@keyframes line-anim {
+    to {
+        stroke-dashoffset: 0;
+        stroke-width: 0;
+    }
+}
+
+@keyframes fill-anim {
+    from {
+        fill-opacity: 0.1;
     }
 
-        .loading-progress circle:last-child {
-            stroke: #1b6ec2;
-            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
+    to {
+        fill-opacity: 1;
+    }
+}
 
 .loading-progress-text {
     position: absolute;
     text-align: center;
     font-weight: bold;
     inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
+    margin-top:80px;
 }
 
     .loading-progress-text:after {

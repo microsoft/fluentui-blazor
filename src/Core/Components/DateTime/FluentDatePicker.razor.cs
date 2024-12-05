@@ -65,6 +65,13 @@ public partial class FluentDatePicker : FluentCalendarBase
     [Parameter]
     public DateTime? DoubleClickToDate { get; set; }
 
+    /// <summary>
+    /// Gets or sets an <see cref="HorizontalPosition"/> for the popup displayed when the user open the calendar.
+    /// By default, this value is Left or Right, depending of the 'CurrentUICulture.TextInfo.IsRightToLeft' value.
+    /// </summary>
+    [Parameter]
+    public HorizontalPosition? PopupHorizontalPosition { get; set; }
+
     public bool Opened { get; set; } = false;
 
     protected override string? FormatValueAsString(DateTime? value)
