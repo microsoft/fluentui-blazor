@@ -73,10 +73,10 @@ public static partial class IconsExtensions
 
             var allIcons = allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo());
 
-            return allIcons ?? Array.Empty<IconInfo>();
+            return allIcons ?? [];
         }
 
-        return Array.Empty<IconInfo>();
+        return [];
     }
 
     /// <summary />
