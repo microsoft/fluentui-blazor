@@ -5,7 +5,7 @@ trigger: none    # Disable dev and main branches.
 pr: none         # Disable pull request triggers.
 
 parameters:
-  - name: Projects  	    # List of projects to build 
+  - name: Projects  	    # List of projects to build
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
       **/Components.Icons.Package.csproj
@@ -84,7 +84,7 @@ extends:
             packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
             packageParentPath: '$(Build.ArtifactStagingDirectory)'
             nuGetFeedType: internal
-            publishVstsFeed: public/dotnet8
+            publishVstsFeed: public/dotnet9
             allowPackageConflicts: true
 
         steps:
