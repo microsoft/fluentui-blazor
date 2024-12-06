@@ -7,6 +7,7 @@
         style="@StyleValue"
         data-row-index=@RowIndex
         role="row"
+        row-type="@RowType.ToAttributeValue()"
         @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
         @onclick="@(e => HandleOnRowClickAsync(RowId))"
         @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"

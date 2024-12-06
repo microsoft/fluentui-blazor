@@ -63,7 +63,8 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => new CssBuilder("fluent-data-grid-row")
+        .AddClass(Class)
         .AddClass("hover", when: Grid.ShowHover)
         .Build();
 
