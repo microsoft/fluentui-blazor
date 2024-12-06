@@ -48,7 +48,7 @@ public partial class EmojiExplorer
 
         EmojisFound =
         [
-            .. Emojis.AllEmojis
+            .. EmojiExtensions.AllEmojis
                                         .Where(i => i.Style == Criteria.Style
                                                  && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
                                         .OrderBy(i => i.Name)

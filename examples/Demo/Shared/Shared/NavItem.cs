@@ -12,7 +12,7 @@ public abstract record NavItem
     public string Title { get; init; } = string.Empty;
     public string? Href { get; init; }
     public NavLinkMatch Match { get; init; } = NavLinkMatch.Prefix;
-    public Icon Icon { get; init; } = new Icons.Regular.Size20.Document();
+    public Icon Icon { get; init; } = new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size20.Document();
 }
 
 public record NavLink : NavItem

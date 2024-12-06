@@ -28,7 +28,7 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
 To use the icons, you will need to add the following using statement to your `_Imports.razor` file:
 
 ```razor
-@using icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 ```
 
 Then you can use the icons in your Blazor components like this:
