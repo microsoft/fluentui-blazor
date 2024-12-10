@@ -39,7 +39,7 @@ public partial class PreviewCard
 
             if (Emoji != null)
             {
-                return $"{Emoji.Group}.{Emoji.Style}.{Emoji.Skintone}.{Emoji.Name}";
+                return $"{Emoji.Group}.{Emoji.Style}.{Emoji.Skintone}.{Emoji.Name}".Replace("_", "");
             }
 
             return string.Empty;
@@ -51,7 +51,7 @@ public partial class PreviewCard
         if (Icon != null)
         {
             // Icons.[IconVariant].[IconSize].[IconName]
-            var value = $"Value=\"@(new Icons.{FullName}())\"";
+            var value = $"Value=\"@(new Microsoft.FluentUI.AspNetCore.Components.Icons.{FullName}())\"";
             var color = IconColor == Color.Accent ? string.Empty : $" Color=\"@Color.{IconColor}\"";
 
             var code = $"<FluentIcon {value}{color} />";
@@ -72,7 +72,7 @@ public partial class PreviewCard
         if (Emoji != null)
         {
             // Emojis.[EmojiGroup].[EmojiStyle].[EmojiSkintone].[EmojiName]
-            var value = $"Value=\"@(new Emojis.{FullName}())\"";
+            var value = $"Value=\"@(new Microsoft.FluentUI.AspNetCore.Components.Emojis.{FullName}())\"";
 
             var code = $"<FluentEmoji {value} />";
 
