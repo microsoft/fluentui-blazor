@@ -34,7 +34,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   /**
    * Function to run after the Blazor application starts. This function is called only once.
    */
-  export function afterStarted(blazor: any, mode: StartedMode) {
+  export function afterStarted(blazor: Blazor, mode: StartedMode) {
     if (afterStartedCalled) return;
     Logger.debug(`afterStarted mode "${mode}"`, blazor);
 
