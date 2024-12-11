@@ -7,7 +7,6 @@
   -  To create a new custom component, you can add a new file in the `Components` folder,
      and register it in the `afterStarted` method in the `Startup` file.
 
-
   -  To create a new custom event, you can add a new function in the `FluentUICustomEvents` file,
      and register it in the `afterStarted` method in the `Startup` file.
 
