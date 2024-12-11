@@ -33,3 +33,14 @@ In the event of an NPM authentication problem (E401), you will probably need to 
      and register it in the `afterStarted` method in the `Startup` file.
 
   -  All **FluentUI WebComponents** are defined and initialized in the `FluentUIWebComponents` file.
+
+## Update the list of FluentUI Web components
+
+To update the list of FluentUI Web components, you can run the `_ExtractWebComponents.ps1` script.
+This script will extract all FluentUI Web Components from the `.\node_modules\@fluentui\web-components\dist\web-components.d.ts` file.
+
+  1. Set the lastest `@fluentui/web-components` package version in the `package.json`.
+  2. Run `npm install` to install the latest package.
+  3. Open the PowerShell terminal in the `Core.Scripts` directory.
+  4. Run this Script using the following command: `.\_ExtractWebComponents.ps1`
+  5. Copy the output and paste it in the `FluentUIWebComponents.ts` file.
