@@ -36,7 +36,7 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
     /// </summary>
     protected virtual StartServerFixture Server { get; set; }
 
-    public async Task<IPage> WaitOpenPageAsync(string url, bool openDevTools = false)
+    public async Task<IPage> WaitOpenPageAsync(string url, bool? openDevTools = null)
     {
         _playwright = await Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
@@ -51,7 +51,7 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
         await page.WaitForConsoleMessageAsync(new PageWaitForConsoleMessageOptions()
         {
             Predicate = msg => msg.Text.Contains("WebSocket connected"),
-            Timeout = 1000
+            Timeout = 2000
         });
         await Task.Delay(100);  // Wait for page to render
 
