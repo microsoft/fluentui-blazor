@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Globalization;
 using FluentUI.Demo.Client;
 using Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,7 +21,7 @@ builder.Services.AddLocalization();
 // Add FluentUI services
 builder.Services.AddFluentUIComponents(config =>
 {
-    config.Localizer = new MyLocalizer();
+    config.Localizer = new FluentUI.Demo.MyLocalizer();
 });
 
 // Add Demo server services
@@ -56,32 +55,3 @@ app.MapRazorComponents<FluentUI.Demo.Components.App>()
     .AddAdditionalAssemblies(typeof(FluentUI.Demo.Client._Imports).Assembly);
 
 app.Run();
-
-internal class MyLocalizer : IFluentLocalizer
-{
-    public string this[string key, params object[] arguments]
-    {
-        get
-        {
-            // Need to add
-            //  - builder.Services.AddLocalization();
-            //  - app.UseRequestLocalization(new RequestLocalizationOptions().AddSupportedUICultures(["fr"]));
-            var language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-
-            Console.WriteLine(language);
-
-            // Returns the French version of the string
-            if (language == "fr")
-            {
-                return key switch
-                {
-                    "FluentSample_Hello" => "Bonjour",
-                    _ => IFluentLocalizer.GetDefault(key, arguments),
-                };
-            }
-
-            // By default, returns the English version of the string
-            return IFluentLocalizer.GetDefault(key, arguments);
-        }
-    }
-}

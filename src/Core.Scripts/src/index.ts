@@ -13,6 +13,10 @@
   -  All FluentUI WebComponents are defined and initialized in the `FluentUIWebComponents` file.
 */
 
+/* ***********************************************/
+/* ⚠️ PLEASE DO NOT MODIFY ANYTHING IN THIS FILE */
+/* ***********************************************/
+
 import { Microsoft as StartupFile } from './Startup';
 import Startup = StartupFile.FluentUI.Blazor.Startup;
 
@@ -25,3 +29,6 @@ export const afterWebStarted = Startup.afterWebStarted;
 export const afterServerStarted = Startup.afterServerStarted;
 export const afterWebAssemblyStarted = Startup.afterWebAssemblyStarted;
 
+// Initialize the common methods to use with the Fluent UI Blazor library.
+import { Microsoft as ExportedMethodsFile } from './ExportedMethods';
+ExportedMethodsFile.FluentUI.Blazor.ExportedMethods.initialize();
