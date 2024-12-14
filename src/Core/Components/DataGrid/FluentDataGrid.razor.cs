@@ -289,6 +289,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFocus{ get; set; } = false;
 
+    /// <summary>
+    /// Gets the grids' current query executor.
+    /// </summary>
+    public IAsyncQueryExecutor? AsyncQueryExecutor => _asyncQueryExecutor;
+
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 

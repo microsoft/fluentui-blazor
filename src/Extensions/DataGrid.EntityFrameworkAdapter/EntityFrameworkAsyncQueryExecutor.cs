@@ -4,7 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter;
 
-internal class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IDisposable
+internal class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IEntityFrameworkAsyncQueryExecutor, IDisposable
 {
     private readonly SemaphoreSlim _lock = new(1);
 
@@ -17,7 +17,7 @@ internal class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IDisposa
     public Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
         => ExecuteAsync(() => queryable.ToArrayAsync(cancellationToken));
 
-    private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
+    public async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
     {
         try
         {
