@@ -43,6 +43,11 @@ public class FluentInputFileEventArgs : EventArgs
     public string ContentType { get; internal set; } = string.Empty;
 
     /// <summary>
+    /// Gets the last modified date of the current file in an upload process.
+    /// </summary>
+    public DateTimeOffset LastModified { get; internal set; } = default!;
+
+    /// <summary>
     /// Gets the label to display in an upload process.
     /// </summary>
     public string ProgressTitle { get; internal set; } = string.Empty;
