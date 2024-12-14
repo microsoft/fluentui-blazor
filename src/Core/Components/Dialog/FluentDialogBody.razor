@@ -1,0 +1,23 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<fluent-dialog-body style="@StyleValue" class="@ClassValue" id="@Id" @attributes="@AdditionalAttributes">
+
+    @if (TitleTemplate is not null)
+    {
+        <div id="@($"{Id}-title")" slot="title">@TitleTemplate</div>
+    }
+
+    @if (TitleActionTemplate is not null)
+    {
+        <div id="@($"{Id}-title-action")" slot="title-action">@TitleActionTemplate</div>
+    }
+
+    @ChildContent
+
+    @if (ActionTemplate is not null)
+    {
+        <div id="@($"{Id}-action")" class="dialog-actions" slot="action">@ActionTemplate</div>
+    }
+   
+</fluent-dialog-body>

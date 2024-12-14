@@ -1,0 +1,24 @@
+@media (min-width: 480px) {
+  fluent-dialog-body .dialog-actions {
+    background: red;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-block-start: calc(var(--spacingVerticalS)* -1);
+    padding-block-start: var(--spacingVerticalS);
+  }
+}
+
+fluent-dialog-body .dialog-actions {
+  box-sizing: border-box;
+  background: var(--colorNeutralBackground1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingVerticalS);
+  inset-block-end: 0;
+  margin-block-end: calc(var(--spacingVerticalXXL)* -1);
+  padding-block-end: var(--spacingVerticalXXL);
+  padding-block-start: var(--spacingVerticalL);
+  position: sticky;
+  z-index: 2;
+}
