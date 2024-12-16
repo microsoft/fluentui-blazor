@@ -13,10 +13,27 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         return Task.CompletedTask;
     }
 
-    /// <summary />
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0025:Implement the functionality instead of throwing NotImplementedException", Justification = "Under development")]
-    public Task<IDialogReference> ShowDialogAsync<TData>(Type dialogComponent, TData data, DialogParameters parameters) where TData : class
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, object, DialogParameters)"/>
+    public virtual Task<IDialogReference> ShowDialogAsync(Type dialogComponent, object data, DialogParameters parameters)
     {
-        throw new NotImplementedException();
+        if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
+        {
+            throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component", nameof(dialogComponent));
+        }
+
+        if (this.ProviderNotAvailable())
+        {
+            throw new FluentServiceProviderException<FluentDialogProvider>();
+        }
+
+        throw new InvalidOperationException("Hello");
+        //IDialogReference? dialogReference = new DialogReference(parameters.Id, this);
+        //return await OnShowAsync.Invoke(dialogReference, dialogComponent, parameters, data);
+    }
+
+    /// <summary />
+    public Task<IDialogReference> ShowDialogAsync<TDialog>(object data, DialogParameters parameters) where TDialog : IDialogContentComponent
+    {
+        return ShowDialogAsync(typeof(TDialog), data, parameters);
     }
 }

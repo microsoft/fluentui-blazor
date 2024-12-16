@@ -16,12 +16,12 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.ProviderId" />
     /// </summary>
-    public virtual string? ProviderId { get; set; }
+    string? IFluentServiceBase<TComponent>.ProviderId { get; set; }
 
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.Items" />
     /// </summary>
-    public virtual IEnumerable<TComponent> Items
+    IEnumerable<TComponent> IFluentServiceBase<TComponent>.Items
     {
         get
         {
@@ -40,12 +40,12 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.OnUpdatedAsync" />
     /// </summary>
-    public virtual Func<TComponent, Task> OnUpdatedAsync { get; set; } = (item) => Task.CompletedTask;
+    Func<TComponent, Task> IFluentServiceBase<TComponent>.OnUpdatedAsync { get; set; } = (item) => Task.CompletedTask;
 
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.Add(TComponent)" />
     /// </summary>
-    public virtual void Add(TComponent item)
+    void IFluentServiceBase<TComponent>.Add(TComponent item)
     {
         _lock.EnterWriteLock();
         try
@@ -61,7 +61,7 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.Remove(TComponent)" />
     /// </summary>
-    public virtual void Remove(TComponent item)
+    void IFluentServiceBase<TComponent>.Remove(TComponent item)
     {
         _lock.EnterWriteLock();
         try
@@ -81,7 +81,7 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.Clear()" />
     /// </summary>
-    public virtual void Clear()
+    void IFluentServiceBase<TComponent>.Clear()
     {
         _lock.EnterWriteLock();
         try
@@ -92,5 +92,19 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
         {
             _lock.ExitWriteLock();
         }
+    }
+
+    /// <summary>
+    /// Gets the current instance of the service,
+    /// converted to the <see cref="IFluentServiceBase{TComponent}"/> interface.
+    /// </summary>
+    internal IFluentServiceBase<TComponent> InternalService => this;
+
+    /// <summary>
+    /// <see cref="IDisposable.Dispose" />
+    /// </summary>
+    public void Dispose()
+    {
+        InternalService.Clear();
     }
 }

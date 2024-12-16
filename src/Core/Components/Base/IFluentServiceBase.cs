@@ -8,13 +8,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// Common interface for a service provider (DialogService, MenuService, ...).
 /// </summary>
 /// <typeparam name="TComponent"></typeparam>
-public interface IFluentServiceBase<TComponent> where TComponent : FluentComponentBase
+public interface IFluentServiceBase<TComponent> : IDisposable where TComponent : FluentComponentBase
 {
     /// <summary>
     /// Gets or sets the Provider ID.
     /// This value is set by the provider and will be empty if the provider is not initialized.
     /// </summary>
-    public string? ProviderId { get; set; }
+    string? ProviderId { get; set; }
 
     /// <summary>
     /// Gets the list of <typeparamref name="TComponent"/>.

@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<fluent-dialog>
+<fluent-dialog id="@Id" class="@Class" style="@Style" @attributes="AdditionalAttributes">
     @* Content *@
     @if (Instance is not null)
     {

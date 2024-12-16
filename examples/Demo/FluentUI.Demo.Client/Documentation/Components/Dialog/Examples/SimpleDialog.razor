@@ -1,0 +1,13 @@
+﻿@implements IDialogContentComponent
+
+Hello World
+
+@code {
+    [CascadingParameter]
+    public FluentDialog? Dialog { get; set; }
+
+    public class MySimpleData
+    {
+        public string? Name { get; set; }
+    }
+}

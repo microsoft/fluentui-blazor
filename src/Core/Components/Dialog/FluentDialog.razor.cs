@@ -12,6 +12,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentDialog : FluentComponentBase
 {
+    /// <summary />
+    [Inject]
+    private IDialogService? DialogService { get; set; }
+
     /// <summary>
     /// Gets or sets the instance used by the <see cref="DialogService" />.
     /// </summary>
@@ -23,4 +27,23 @@ public partial class FluentDialog : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    ///// <summary>
+    ///// Initializes the component.
+    ///// </summary>
+    ///// <exception cref="FluentServiceProviderException{FluentDialogProvider}"></exception>
+    //protected override void OnInitialized()
+    //{
+    //    if (DialogService != null)
+    //    {
+    //        if (DialogService.ProviderNotAvailable())
+    //        {
+    //            throw new FluentServiceProviderException<FluentDialogProvider>();
+    //        }
+
+    //        DialogService.Add(this);
+    //    }
+
+    //    base.OnInitialized();
+    //}
 }

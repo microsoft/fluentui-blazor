@@ -1,0 +1,30 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton OnClick="OpenDialogAsync">
+    Open Dialog
+</FluentButton>
+
+@code
+{
+    private async Task OpenDialogAsync()
+    {
+        DialogParameters parameters = new()
+        {
+            Title = $"My title",
+        };
+        
+        var data = new SimpleDialog.MySimpleData();
+        var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(data, parameters);
+        var result = await dialog.Result;
+
+        if (result.Data is not null)
+        {
+            var simplePerson = result.Data as SimpleDialog.MySimpleData;
+            Console.WriteLine($"Dialog closed with {simplePerson?.Name} - Canceled: {result.Cancelled}");
+        }
+        else
+        {
+            Console.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
+        }
+    }
+}
