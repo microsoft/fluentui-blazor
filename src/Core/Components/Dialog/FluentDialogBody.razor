@@ -5,19 +5,19 @@
 
     @if (TitleTemplate is not null)
     {
-        <div id="@($"{Id}-title")" slot="title">@TitleTemplate</div>
+        <div slot="title">@TitleTemplate</div>
     }
 
     @if (TitleActionTemplate is not null)
     {
-        <div id="@($"{Id}-title-action")" slot="title-action">@TitleActionTemplate</div>
+        <div slot="title-action">@TitleActionTemplate</div>
     }
 
     @ChildContent
 
     @if (ActionTemplate is not null)
     {
-        <div id="@($"{Id}-action")" slot="action">@ActionTemplate</div>
+        <div slot="action">@ActionTemplate</div>
     }
    
 </fluent-dialog-body>

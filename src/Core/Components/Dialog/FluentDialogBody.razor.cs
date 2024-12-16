@@ -13,14 +13,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentDialogBody : FluentComponentBase
 {
-    /// <summary>
-    /// Initializes a new instance of <see cref="FluentDialogBody" />.
-    /// </summary>
-    public FluentDialogBody()
-    {
-        Id = Identifier.NewId();
-    }
-
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
         .Build();
