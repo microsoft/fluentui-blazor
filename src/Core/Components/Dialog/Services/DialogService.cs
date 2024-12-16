@@ -14,7 +14,8 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, object, DialogParameters)"/>
-    public virtual Task<IDialogReference> ShowDialogAsync(Type dialogComponent, object data, DialogParameters parameters)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "<Pending>")]
+    public virtual async Task<IDialogReference> ShowDialogAsync(Type dialogComponent, object data, DialogParameters parameters)
     {
         if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
         {
@@ -26,7 +27,16 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
             throw new FluentServiceProviderException<FluentDialogProvider>();
         }
 
-        throw new InvalidOperationException("Hello");
+        var dialogInstance = new DialogInstance(dialogComponent, parameters, data);
+        var dialogReference = new DialogReference(Guid.NewGuid(), dialogInstance, this);
+        var dialog = new FluentDialog(this, dialogInstance);
+
+        InternalService.Items.Add(dialog);
+
+        await InternalService.OnUpdatedAsync.Invoke(dialog);
+
+        return dialogReference;
+        //throw new InvalidOperationException("Hello");
         //IDialogReference? dialogReference = new DialogReference(parameters.Id, this);
         //return await OnShowAsync.Invoke(dialogReference, dialogComponent, parameters, data);
     }

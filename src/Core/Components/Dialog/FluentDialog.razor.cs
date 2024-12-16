@@ -13,6 +13,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialog : FluentComponentBase
 {
     /// <summary />
+    public FluentDialog()
+    {
+    }
+
+    /// <summary />
+    internal FluentDialog(IDialogService? dialogService, DialogInstance? instance)
+    {
+        DialogService = dialogService;
+        Instance = instance;
+    }
+
+    /// <summary />
     [Inject]
     private IDialogService? DialogService { get; set; }
 

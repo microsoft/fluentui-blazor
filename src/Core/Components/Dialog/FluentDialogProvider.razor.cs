@@ -50,7 +50,10 @@ public partial class FluentDialogProvider : FluentComponentBase
         if (DialogService is not null)
         {
             DialogService.ProviderId = Id;
-            DialogService.OnUpdatedAsync = async (item) => await InvokeAsync(StateHasChanged);
+            DialogService.OnUpdatedAsync = async (item) =>
+            {
+                await InvokeAsync(StateHasChanged);
+            };
         }
     }
 }
