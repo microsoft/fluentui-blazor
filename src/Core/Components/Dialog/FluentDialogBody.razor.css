@@ -1,5 +1,5 @@
 /* Desktop and Mobile */
-fluent-dialog-body .actions-container {
+fluent-dialog-body > div[slot="action"] {
   display: flex;
   gap: var(--spacingVerticalS);
   flex-direction: column;
@@ -7,7 +7,7 @@ fluent-dialog-body .actions-container {
 
 /* Desktop */
 @container (min-width: 480px) {
-  fluent-dialog-body .actions-container {
+  fluent-dialog-body > div[slot="action"] {
     flex-direction: row;
   }
 }
