@@ -6,9 +6,9 @@
     {
         <div>@DialogService.Items.Count</div>
 
-        @foreach (var item in DialogService.Items)
+        @foreach (var dialog in DialogService.Items)
         {
-            <FluentDialog Id="@item.Id" Instance="@item.Instance" />
+            <FluentDialog Id="@dialog.Id" Instance="@dialog.Instance" />
         }
     }
 </div>

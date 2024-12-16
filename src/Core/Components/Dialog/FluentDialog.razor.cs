@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -20,6 +21,7 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     internal FluentDialog(IDialogService? dialogService, DialogInstance? instance)
     {
+        Id = Identifier.NewId();
         DialogService = dialogService;
         Instance = instance;
     }
