@@ -13,7 +13,10 @@
         <div slot="title-action">@TitleActionTemplate</div>
     }
 
-    @ChildContent
+    @if (ChildContent is not null)
+    {
+        <div>@ChildContent</div>
+    }
 
     @if (ActionTemplate is not null)
     {
