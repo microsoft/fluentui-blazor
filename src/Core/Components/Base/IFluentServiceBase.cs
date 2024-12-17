@@ -21,7 +21,7 @@ public interface IFluentServiceBase<TComponent> : IDisposable
     /// <summary>
     /// Gets the list of <typeparamref name="TComponent"/>.
     /// </summary>
-    ConcurrentBag<TComponent> Items { get; }
+    ConcurrentDictionary<string, TComponent> Items { get; }
 
     /// <summary>
     /// Action to be called when the <typeparamref name="TComponent"/> is updated.

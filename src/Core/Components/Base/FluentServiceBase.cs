@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TComponent"></typeparam>
 public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TComponent>
 {
-    private readonly ConcurrentBag<TComponent> _list = [];
+    private readonly ConcurrentDictionary<string, TComponent> _list = [];
 
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.ProviderId" />
@@ -22,7 +22,7 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.Items" />
     /// </summary>
-    ConcurrentBag<TComponent> IFluentServiceBase<TComponent>.Items => _list;
+    ConcurrentDictionary<string, TComponent> IFluentServiceBase<TComponent>.Items => _list;
    
     /// <summary>
     /// <see cref="IFluentServiceBase{TComponent}.OnUpdatedAsync" />

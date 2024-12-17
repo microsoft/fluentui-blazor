@@ -39,10 +39,10 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         }
 
         var dialogInstance = new DialogInstance(dialogComponent, parameters, data);
-        var dialogReference = new DialogReference(Guid.NewGuid(), dialogInstance, this);
+        var dialogReference = new DialogReference(dialogInstance, this);
         var dialog = new FluentDialog(_serviceProvider, this, dialogInstance);
 
-        InternalService.Items.Add(dialog);
+        InternalService.Items.TryAdd(dialog?.Id ?? "", dialog ?? throw new InvalidOperationException("Failed to create FluentDialog."));
 
         await InternalService.OnUpdatedAsync.Invoke(dialog);
 

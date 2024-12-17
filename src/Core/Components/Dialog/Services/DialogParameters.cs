@@ -13,4 +13,9 @@ public class DialogParameters
     /// Gets or sets the title of the dialog.
     /// </summary>
     public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the action raised when the dialog is opened or closed.
+    /// </summary>
+    public Action<DialogEventArgs>? OnStateChange { get; set; }
 }

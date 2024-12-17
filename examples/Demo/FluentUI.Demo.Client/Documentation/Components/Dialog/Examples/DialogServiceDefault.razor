@@ -11,6 +11,10 @@
         DialogParameters parameters = new()
         {
             Title = $"My title",
+            OnStateChange = (e) =>
+            {
+                Console.WriteLine($"Dialog state changed: {e.State}");
+            }
         };
         
         var data = new SimpleDialog.MySimpleData();

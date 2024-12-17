@@ -11,15 +11,11 @@ public class DialogReference : IDialogReference
     private readonly TaskCompletionSource<DialogResult> _resultCompletion = new();
 
     /// <summary />
-    public DialogReference(Guid dialogInstanceId, DialogInstance dialogInstance, IDialogService dialogService)
+    public DialogReference(DialogInstance dialogInstance, IDialogService dialogService)
     {
-        DialogInstanceId = dialogInstanceId;
         Instance = dialogInstance;
         _dialogService = dialogService;
     }
-
-    /// <summary />
-    internal Guid DialogInstanceId { get; }
 
     /// <summary />
     public DialogInstance Instance { get; set; }

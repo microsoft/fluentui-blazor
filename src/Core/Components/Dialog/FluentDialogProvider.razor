@@ -4,9 +4,9 @@
 <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
     @if (DialogService != null)
     {
-        @foreach (var dialog in DialogService.Items)
+        @foreach (var dialog in DialogService.Items.Values)
         {
-            <FluentDialog Id="@dialog.Id" Instance="@dialog.Instance" />
+            <FluentDialog Id="@dialog.Id" Instance="@dialog.Instance" OnStateChange="@(dialog.Instance?.Parameters.OnStateChange ?? EmptyOnStateChange)" />
         }
     }
 </div>
