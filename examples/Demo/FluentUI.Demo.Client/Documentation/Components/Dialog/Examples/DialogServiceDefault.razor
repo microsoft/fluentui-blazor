@@ -38,7 +38,7 @@
                 Console.WriteLine($"Dialog state changed: {e.State}");
             };
         });
-
+        
         var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(parameters);
         var result = await dialog.Result;
 
