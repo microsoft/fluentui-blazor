@@ -74,23 +74,21 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private Task OnToggleAsync(DialogToggleEventArgs args)
+    private async Task OnToggleAsync(DialogToggleEventArgs args)
     {
         var dialogEventArgs = new DialogEventArgs(this, args);
         var dialogId = dialogEventArgs?.Id ?? string.Empty;
 
         if (OnStateChange.HasDelegate)
         {
-            return OnStateChange.InvokeAsync(dialogEventArgs);
+            await OnStateChange.InvokeAsync(dialogEventArgs);
         }
 
-        // Remove the HTML code from the Provider
+        // Remove the HTML code from the DialogProvider
         if (LaunchedFromService && dialogEventArgs?.State == DialogState.Closed && !string.IsNullOrEmpty(dialogId))
         {
             (DialogService as DialogService)?.InternalService.Items.TryRemove(dialogId, out _);
         }
-
-        return Task.CompletedTask;
     }
 
     /// <summary>

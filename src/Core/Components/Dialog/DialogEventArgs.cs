@@ -38,7 +38,7 @@ public class DialogEventArgs : EventArgs
             {
                 State = DialogState.Opening;
             }
-            else if (string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
             {
                 State = DialogState.Closing;
             }
