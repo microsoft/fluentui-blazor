@@ -4,8 +4,6 @@
 <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
     @if (DialogService != null)
     {
-        <div>@DialogService.Items.Count</div>
-
         @foreach (var dialog in DialogService.Items)
         {
             <FluentDialog Id="@dialog.Id" Instance="@dialog.Instance" />

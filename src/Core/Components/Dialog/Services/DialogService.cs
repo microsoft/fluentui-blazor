@@ -7,6 +7,17 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogService
 {
+    private readonly IServiceProvider _serviceProvider;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public DialogService(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
     /// <summary />
     public Task CloseAsync(DialogReference dialog, DialogResult result)
     {
@@ -29,11 +40,13 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
 
         var dialogInstance = new DialogInstance(dialogComponent, parameters, data);
         var dialogReference = new DialogReference(Guid.NewGuid(), dialogInstance, this);
-        var dialog = new FluentDialog(this, dialogInstance);
+        var dialog = new FluentDialog(_serviceProvider, this, dialogInstance);
 
         InternalService.Items.Add(dialog);
 
         await InternalService.OnUpdatedAsync.Invoke(dialog);
+
+        //await dialog.ShowAsync();
 
         return dialogReference;
         //throw new InvalidOperationException("Hello");

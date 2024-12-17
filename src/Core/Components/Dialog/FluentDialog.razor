@@ -5,10 +5,12 @@
     @* Content *@
     @if (Instance is not null)
     {
-        <DynamicComponent Type="@Instance.ContentType" Parameters="Instance.GetParameterDictionary()" />
+        <DynamicComponent Type="@Instance.ContentType"
+                          Parameters="Instance.GetParameterDictionary()" />
     }
     else
     {
         @ChildContent
     }
 </fluent-dialog>
+

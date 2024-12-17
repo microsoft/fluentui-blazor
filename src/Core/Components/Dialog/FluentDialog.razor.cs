@@ -3,7 +3,9 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,14 +18,22 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     public FluentDialog()
     {
+        Id = Identifier.NewId();
     }
 
-    /// <summary />
-    internal FluentDialog(IDialogService? dialogService, DialogInstance? instance)
+    /// <summary>
+    /// internal constructor used by the <see cref="DialogService" />
+    /// and the <see cref="FluentDialogProvider"/>.
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <param name="dialogService"></param>
+    /// <param name="instance"></param>
+    internal FluentDialog(IServiceProvider serviceProvider, IDialogService? dialogService, DialogInstance? instance)
+        : this()
     {
-        Id = Identifier.NewId();
         DialogService = dialogService;
         Instance = instance;
+        JSRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
     }
 
     /// <summary />
@@ -42,22 +52,37 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    ///// <summary>
-    ///// Initializes the component.
-    ///// </summary>
-    ///// <exception cref="FluentServiceProviderException{FluentDialogProvider}"></exception>
-    //protected override void OnInitialized()
-    //{
-    //    if (DialogService != null)
-    //    {
-    //        if (DialogService.ProviderNotAvailable())
-    //        {
-    //            throw new FluentServiceProviderException<FluentDialogProvider>();
-    //        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && LaunchedFromService)
+        {
+            return ShowAsync();
+        }
 
-    //        DialogService.Add(this);
-    //    }
+        return Task.CompletedTask;
+    }
 
-    //    base.OnInitialized();
-    //}
+    /// <summary>
+    /// 
+    /// </summary>
+    public async Task ShowAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public async Task HideAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", Id);
+    }
+
+    /// <summary />
+    private bool LaunchedFromService => Instance is not null;
 }

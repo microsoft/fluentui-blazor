@@ -19,7 +19,7 @@ public sealed class DialogInstance
     public Type? ContentType { get; }
 
     /// <summary />
-    public object Content { get; internal set; } = default!;
+    public object? Content { get; internal set; }
 
     /// <summary />
     public DialogParameters Parameters { get; internal set; }
@@ -32,6 +32,9 @@ public sealed class DialogInstance
             return null;
         }
 
-        return new Dictionary<string, object>(StringComparer.Ordinal) { { "Content", Content } };
+        return new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { nameof(Content), Content },
+        };
     }
 }
