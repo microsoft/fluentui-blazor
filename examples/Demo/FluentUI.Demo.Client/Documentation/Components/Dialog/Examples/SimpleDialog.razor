@@ -8,7 +8,7 @@
         Hello Body
         <div>
             Name: @Name
-            Data: @Data.Name
+            Data: @Content.Name
         </div>
     </ChildContent>
 
@@ -27,12 +27,12 @@
     public string Name { get; set; } = string.Empty;
 
     [Parameter]
-    public MyData Data { get; set; } = new();
+    public MyData Content { get; set; } = new();
 
     private void UpdateName()
     {
         Name = "Denis";
-        Data.Name = "Denis";
+        Content.Name = "Denis";
     }
 
     public class MyData

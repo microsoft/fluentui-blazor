@@ -14,7 +14,6 @@ public class DialogParameters
     /// <summary />
     public DialogParameters()
     {
-        
     }
 
     /// <summary />
@@ -31,7 +30,7 @@ public class DialogParameters
     /// <summary>
     /// Gets the content of the dialog.
     /// </summary>
-    public IDictionary<string, object?> Data { get; set; } = EmptyData;
+    public IDictionary<string, object?> Content { get; set; } = EmptyData;
 
     /// <summary>
     /// Gets or sets the action raised when the dialog is opened or closed.

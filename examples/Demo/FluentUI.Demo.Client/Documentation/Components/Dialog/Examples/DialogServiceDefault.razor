@@ -2,17 +2,17 @@
 
 <FluentButton OnClick="OpenDialogAsync">Open Dialog</FluentButton>
 
-@data["Name"]
-@((data["Data"] as SimpleDialog.MyData)?.Name)
+@items["Name"]
+@((items["Content"] as SimpleDialog.MyData)?.Name)
 
-<FluentButton OnClick="@(e => { StateHasChanged(); Console.WriteLine((data["Data"] as SimpleDialog.MyData)?.Name); })">Refresh</FluentButton>
+<FluentButton OnClick="@(e => { StateHasChanged(); Console.WriteLine((items["Data"] as SimpleDialog.MyData)?.Name); })">Refresh</FluentButton>
 
 @code
 {
-    private Dictionary<string, object?> data = new()
+    private Dictionary<string, object?> items = new()
     {
         { nameof(SimpleDialog.Name), "John" },
-        { nameof(SimpleDialog.Data), new SimpleDialog.MyData()
+        { nameof(SimpleDialog.Content), new SimpleDialog.MyData()
         {
             Name = "John"
         } },
@@ -32,7 +32,7 @@
         var parameters = new DialogParameters(factory =>
         {
             factory.Title = "My title";
-            factory.Data = data;
+            factory.Content = items;
             factory.OnStateChange = (e) =>
             {
                 Console.WriteLine($"Dialog state changed: {e.State}");
@@ -42,7 +42,7 @@
         var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(parameters);
         var result = await dialog.Result;
 
-        if (result.Data is not null)
+        if (result.Content is not null)
         {
             Console.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
         }

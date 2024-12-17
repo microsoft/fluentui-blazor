@@ -8,14 +8,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DialogResult
 {
     /// <summary />
-    protected internal DialogResult(object? data, bool cancelled)
+    protected internal DialogResult(object? content, bool cancelled)
     {
-        Data = data;
+        Content = content;
         Cancelled = cancelled;
     }
 
     /// <summary />
-    public object? Data { get; set; }
+    public object? Content { get; set; }
 
     /// <summary />
     public bool Cancelled { get; }
@@ -24,5 +24,5 @@ public class DialogResult
     public static DialogResult Ok<T>(T result) => new(result, cancelled: false);
 
     /// <summary />
-    public static DialogResult Cancel(object? data = null) => new(data ?? default, cancelled: true);
+    public static DialogResult Cancel(object? content = null) => new(content ?? default, cancelled: true);
 }
