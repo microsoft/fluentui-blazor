@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -19,18 +21,18 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
     }
 
     /// <summary />
-    public Task CloseAsync(DialogReference dialog, DialogResult result)
+    public Task CloseAsync(DialogInstance dialog, DialogResult result)
     {
         return Task.CompletedTask;
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogParameters)"/>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "<Pending>")]
-    public virtual async Task<IDialogReference> ShowDialogAsync(Type dialogComponent, DialogParameters parameters)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "TODO")]
+    public virtual async Task<IDialogInstance> ShowDialogAsync(Type componentType, DialogParameters parameters)
     {
-        if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
+        if (!componentType.IsSubclassOf(typeof(ComponentBase)))
         {
-            throw new ArgumentException($"{dialogComponent.FullName} must be a Dialog Component", nameof(dialogComponent));
+            throw new ArgumentException($"{componentType.FullName} must be a Blazor Component", nameof(componentType));
         }
 
         if (this.ProviderNotAvailable())
@@ -38,24 +40,18 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
             throw new FluentServiceProviderException<FluentDialogProvider>();
         }
 
-        var dialogInstance = new DialogInstance(dialogComponent, parameters);
-        var dialogReference = new DialogReference(dialogInstance, this);
-        var dialog = new FluentDialog(_serviceProvider, this, dialogInstance);
+        var instance = new DialogInstance(this, componentType, parameters);
+        var dialog = new FluentDialog(_serviceProvider, instance);
 
+        // Add the dialog to the service, and render it.
         InternalService.Items.TryAdd(dialog?.Id ?? "", dialog ?? throw new InvalidOperationException("Failed to create FluentDialog."));
-
         await InternalService.OnUpdatedAsync.Invoke(dialog);
 
-        //await dialog.ShowAsync();
-
-        return dialogReference;
-        //throw new InvalidOperationException("Hello");
-        //IDialogReference? dialogReference = new DialogReference(parameters.Id, this);
-        //return await OnShowAsync.Invoke(dialogReference, dialogComponent, parameters, data);
+        return instance;
     }
 
     /// <summary />
-    public Task<IDialogReference> ShowDialogAsync<TDialog>(DialogParameters parameters) where TDialog : IDialogContentComponent
+    public Task<IDialogInstance> ShowDialogAsync<TDialog>(DialogParameters parameters) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), parameters);
     }

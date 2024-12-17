@@ -26,12 +26,11 @@ public partial class FluentDialog : FluentComponentBase
     /// and the <see cref="FluentDialogProvider"/>.
     /// </summary>
     /// <param name="serviceProvider"></param>
-    /// <param name="dialogService"></param>
     /// <param name="instance"></param>
-    internal FluentDialog(IServiceProvider serviceProvider, IDialogService? dialogService, DialogInstance? instance)
+    internal FluentDialog(IServiceProvider serviceProvider, DialogInstance instance)
         : this()
     {
-        DialogService = dialogService;
+        DialogService = instance.DialogService;
         Instance = instance;
         JSRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
     }

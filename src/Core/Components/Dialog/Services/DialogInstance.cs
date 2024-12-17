@@ -5,18 +5,39 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public sealed class DialogInstance
+public class DialogInstance : IDialogInstance
 {
+    private readonly TaskCompletionSource<DialogResult> _resultCompletion = new();
+
     /// <summary />
-    public DialogInstance(Type? type, DialogParameters parameters)
+    public DialogInstance(IDialogService dialogService, Type componentType, DialogParameters parameters)
     {
-        ContentType = type;
+        ComponentType = componentType;
         Parameters = parameters;
+        DialogService = dialogService;
     }
 
     /// <summary />
-    public Type? ContentType { get; }
+    internal Type ComponentType { get; }
 
     /// <summary />
-    public DialogParameters Parameters { get; internal set; }  
+    internal IDialogService DialogService { get; }
+
+    /// <summary />
+    public DialogParameters Parameters { get; internal set; }
+
+    /// <summary />
+    public Task<DialogResult> Result => _resultCompletion.Task;
+
+    /// <summary />
+    public Task CloseAsync()
+    {
+        return DialogService.CloseAsync(this, DialogResult.Cancel());
+    }
+
+    /// <summary />
+    public Task CloseAsync(DialogResult result)
+    {
+        return DialogService.CloseAsync(this, result);
+    }
 }

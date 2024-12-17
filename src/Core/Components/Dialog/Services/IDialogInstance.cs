@@ -7,13 +7,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Interface for DialogReference
 /// </summary>
-public interface IDialogReference
+public interface IDialogInstance
 {
     /// <summary />
     Task<DialogResult> Result { get; }
-
-    /// <summary />
-    DialogInstance Instance { get; set; }
 
     /// <summary />
     Task CloseAsync();
