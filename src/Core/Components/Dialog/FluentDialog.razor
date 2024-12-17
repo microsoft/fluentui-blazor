@@ -11,7 +11,7 @@
     @if (Instance is not null)
     {
         <DynamicComponent Type="@Instance.ContentType"
-                          Parameters="Instance.GetParameterDictionary()" />
+                          Parameters="Instance.Parameters.Data" />
     }
     else
     {

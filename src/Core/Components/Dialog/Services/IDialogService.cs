@@ -14,20 +14,16 @@ public partial interface IDialogService : IFluentServiceBase<FluentDialog>
 
     /// <summary>
     /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="data"/> 
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
-    /// <param name="data">Content to pass to component being displayed.</param>
     /// <param name="parameters">Parameters to configure the dialog component.</param>
-    Task<IDialogReference> ShowDialogAsync(Type dialogComponent, object data, DialogParameters parameters);
+    Task<IDialogReference> ShowDialogAsync(Type dialogComponent, DialogParameters parameters);
 
     /// <summary>
-    /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="data"/> 
+    /// Shows a dialog with the component type as the body.
     /// </summary>
     /// <typeparam name="TDialog">Type of component to display.</typeparam>
-    /// <param name="data">Content to pass to component being displayed.</param>
     /// <param name="parameters">Parameters to configure the dialog component.</param>
-    Task<IDialogReference> ShowDialogAsync<TDialog>(object data, DialogParameters parameters)
+    Task<IDialogReference> ShowDialogAsync<TDialog>(DialogParameters parameters)
          where TDialog : IDialogContentComponent;
 }

@@ -24,9 +24,9 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         return Task.CompletedTask;
     }
 
-    /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, object, DialogParameters)"/>
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogParameters)"/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "<Pending>")]
-    public virtual async Task<IDialogReference> ShowDialogAsync(Type dialogComponent, object data, DialogParameters parameters)
+    public virtual async Task<IDialogReference> ShowDialogAsync(Type dialogComponent, DialogParameters parameters)
     {
         if (!typeof(IDialogContentComponent).IsAssignableFrom(dialogComponent))
         {
@@ -38,7 +38,7 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
             throw new FluentServiceProviderException<FluentDialogProvider>();
         }
 
-        var dialogInstance = new DialogInstance(dialogComponent, parameters, data);
+        var dialogInstance = new DialogInstance(dialogComponent, parameters);
         var dialogReference = new DialogReference(dialogInstance, this);
         var dialog = new FluentDialog(_serviceProvider, this, dialogInstance);
 
@@ -55,8 +55,8 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
     }
 
     /// <summary />
-    public Task<IDialogReference> ShowDialogAsync<TDialog>(object data, DialogParameters parameters) where TDialog : IDialogContentComponent
+    public Task<IDialogReference> ShowDialogAsync<TDialog>(DialogParameters parameters) where TDialog : IDialogContentComponent
     {
-        return ShowDialogAsync(typeof(TDialog), data, parameters);
+        return ShowDialogAsync(typeof(TDialog), parameters);
     }
 }

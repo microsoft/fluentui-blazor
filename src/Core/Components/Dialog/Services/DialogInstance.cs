@@ -8,33 +8,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public sealed class DialogInstance
 {
     /// <summary />
-    public DialogInstance(Type? type, DialogParameters parameters, object content)
+    public DialogInstance(Type? type, DialogParameters parameters)
     {
         ContentType = type;
         Parameters = parameters;
-        Content = content;
     }
 
     /// <summary />
     public Type? ContentType { get; }
 
     /// <summary />
-    public object? Content { get; internal set; }
-
-    /// <summary />
-    public DialogParameters Parameters { get; internal set; }
-
-    /// <summary />
-    internal Dictionary<string, object>? GetParameterDictionary()
-    {
-        if (Content is null)
-        {
-            return null;
-        }
-
-        return new Dictionary<string, object>(StringComparer.Ordinal)
-        {
-            { nameof(Content), Content },
-        };
-    }
+    public DialogParameters Parameters { get; internal set; }  
 }

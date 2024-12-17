@@ -8,11 +8,15 @@
 
     <ChildContent>
         Hello Body
+        <div>
+            Name: @Name
+            Data: @Data.Name
+        </div>
     </ChildContent>
 
     <ActionTemplate>
         <FluentButton Appearance="ButtonAppearance.Primary">One</FluentButton>
-        <FluentButton>Two</FluentButton>
+        <FluentButton OnClick="@UpdateName">Update Name</FluentButton>
     </ActionTemplate>
 
 </FluentDialogBody>
@@ -22,10 +26,19 @@
     public FluentDialog? Dialog { get; set; }
 
     [Parameter]
-    public object? Content { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public class MySimpleData
+    [Parameter]
+    public MyData Data { get; set; } = new();
+
+    private void UpdateName()
     {
-        public string? Name { get; set; }
+        Name = "Denis";
+        Data.Name = "Denis";
+    }
+
+    public class MyData
+    {
+        public string Name { get; set; } = string.Empty;
     }
 }

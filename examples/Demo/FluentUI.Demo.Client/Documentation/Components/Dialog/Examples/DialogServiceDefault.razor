@@ -1,30 +1,50 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton OnClick="OpenDialogAsync">
-    Open Dialog
-</FluentButton>
+<FluentButton OnClick="OpenDialogAsync">Open Dialog</FluentButton>
+
+@data["Name"]
+@((data["Data"] as SimpleDialog.MyData)?.Name)
+
+<FluentButton OnClick="@(e => { StateHasChanged(); Console.WriteLine((data["Data"] as SimpleDialog.MyData)?.Name); })">Refresh</FluentButton>
 
 @code
 {
+    private Dictionary<string, object?> data = new()
+    {
+        { nameof(SimpleDialog.Name), "John" },
+        { nameof(SimpleDialog.Data), new SimpleDialog.MyData()
+        {
+            Name = "John"
+        } },
+    };
+
     private async Task OpenDialogAsync()
     {
-        DialogParameters parameters = new()
+        // var parameters = new DialogParameters()
+        // {
+        //     Title = $"My title",
+        //     OnStateChange = (e) =>
+        //     {
+        //         Console.WriteLine($"Dialog state changed: {e.State}");
+        //     }
+        // };
+
+        var parameters = new DialogParameters(factory =>
         {
-            Title = $"My title",
-            OnStateChange = (e) =>
+            factory.Title = "My title";
+            factory.Data = data;
+            factory.OnStateChange = (e) =>
             {
                 Console.WriteLine($"Dialog state changed: {e.State}");
-            }
-        };
-        
-        var data = new SimpleDialog.MySimpleData();
-        var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(data, parameters);
+            };
+        });
+
+        var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(parameters);
         var result = await dialog.Result;
 
         if (result.Data is not null)
         {
-            var simplePerson = result.Data as SimpleDialog.MySimpleData;
-            Console.WriteLine($"Dialog closed with {simplePerson?.Name} - Canceled: {result.Cancelled}");
+            Console.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
         }
         else
         {
