@@ -5,16 +5,12 @@
     </TitleTemplate>
 
     <ChildContent>
-        Hello Body
-        <div>
-            Name: @Name
-            Data: @Content.Name
-        </div>
+        Hello @Name (@Age)
     </ChildContent>
 
     <ActionTemplate>
-        <FluentButton Appearance="ButtonAppearance.Primary">One</FluentButton>
-        <FluentButton OnClick="@UpdateName">Update Name</FluentButton>
+        <FluentButton Appearance="ButtonAppearance.Primary">OK</FluentButton>
+        <FluentButton>Cancel</FluentButton>
     </ActionTemplate>
 
 </FluentDialogBody>
@@ -27,16 +23,5 @@
     public string Name { get; set; } = string.Empty;
 
     [Parameter]
-    public MyData Content { get; set; } = new();
-
-    private void UpdateName()
-    {
-        Name = "Denis";
-        Content.Name = "Denis";
-    }
-
-    public class MyData
-    {
-        public string Name { get; set; } = string.Empty;
-    }
+    public int Age { get; set; }
 }

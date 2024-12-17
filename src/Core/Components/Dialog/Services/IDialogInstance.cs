@@ -10,6 +10,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IDialogInstance
 {
     /// <summary />
+    string Id { get; }
+
+    /// <summary />
     Task<DialogResult> Result { get; }
 
     /// <summary />

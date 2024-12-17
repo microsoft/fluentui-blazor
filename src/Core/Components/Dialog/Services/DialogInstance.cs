@@ -2,12 +2,14 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 public class DialogInstance : IDialogInstance
 {
-    private readonly TaskCompletionSource<DialogResult> _resultCompletion = new();
+    internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
 
     /// <summary />
     public DialogInstance(IDialogService dialogService, Type componentType, DialogParameters parameters)
@@ -15,6 +17,7 @@ public class DialogInstance : IDialogInstance
         ComponentType = componentType;
         Parameters = parameters;
         DialogService = dialogService;
+        Id = Identifier.NewId();
     }
 
     /// <summary />
@@ -27,7 +30,10 @@ public class DialogInstance : IDialogInstance
     public DialogParameters Parameters { get; internal set; }
 
     /// <summary />
-    public Task<DialogResult> Result => _resultCompletion.Task;
+    public Task<DialogResult> Result => ResultCompletion.Task;
+
+    /// <summary />
+    public string Id { get; }
 
     /// <summary />
     public Task CloseAsync()

@@ -10,12 +10,12 @@ public class DialogResult
     /// <summary />
     protected internal DialogResult(object? content, bool cancelled)
     {
-        Content = content;
+        Value = content;
         Cancelled = cancelled;
     }
 
     /// <summary />
-    public object? Content { get; set; }
+    public object? Value { get; set; }
 
     /// <summary />
     public bool Cancelled { get; }

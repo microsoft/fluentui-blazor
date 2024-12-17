@@ -23,6 +23,12 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
     /// <summary />
     public Task CloseAsync(DialogInstance dialog, DialogResult result)
     {
+        // Remove the HTML code from the DialogProvider
+        ServiceProvider.Items.TryRemove(dialog.Id, out _);
+
+        // Set the result of the dialog
+        dialog.ResultCompletion.SetResult(result);
+
         return Task.CompletedTask;
     }
 
@@ -44,8 +50,8 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         var dialog = new FluentDialog(_serviceProvider, instance);
 
         // Add the dialog to the service, and render it.
-        InternalService.Items.TryAdd(dialog?.Id ?? "", dialog ?? throw new InvalidOperationException("Failed to create FluentDialog."));
-        await InternalService.OnUpdatedAsync.Invoke(dialog);
+        ServiceProvider.Items.TryAdd(dialog?.Id ?? "", dialog ?? throw new InvalidOperationException("Failed to create FluentDialog."));
+        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
 
         return instance;
     }

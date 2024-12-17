@@ -28,8 +28,8 @@ public partial class FluentDialog : FluentComponentBase
     /// <param name="serviceProvider"></param>
     /// <param name="instance"></param>
     internal FluentDialog(IServiceProvider serviceProvider, DialogInstance instance)
-        : this()
     {
+        Id = instance.Id;
         DialogService = instance.DialogService;
         Instance = instance;
         JSRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
@@ -84,9 +84,10 @@ public partial class FluentDialog : FluentComponentBase
         }
 
         // Remove the HTML code from the DialogProvider
-        if (LaunchedFromService && dialogEventArgs?.State == DialogState.Closed && !string.IsNullOrEmpty(dialogId))
+        if (LaunchedFromService && Instance  is not null && dialogEventArgs?.State == DialogState.Closed && !string.IsNullOrEmpty(dialogId))
         {
-            (DialogService as DialogService)?.InternalService.Items.TryRemove(dialogId, out _);
+            var service = DialogService as DialogService;
+            service?.CloseAsync(Instance, DialogResult.Cancel());
         }
     }
 

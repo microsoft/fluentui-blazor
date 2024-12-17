@@ -33,13 +33,13 @@ public abstract class FluentServiceBase<TComponent> : IFluentServiceBase<TCompon
     /// Gets the current instance of the service,
     /// converted to the <see cref="IFluentServiceBase{TComponent}"/> interface.
     /// </summary>
-    internal IFluentServiceBase<TComponent> InternalService => this;
+    internal IFluentServiceBase<TComponent> ServiceProvider => this;
 
     /// <summary>
     /// <see cref="IDisposable.Dispose" />
     /// </summary>
     public void Dispose()
     {
-        InternalService.Items.Clear();
+        ServiceProvider.Items.Clear();
     }
 }

@@ -8,8 +8,8 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Component that defines a layout for a page, using a grid composed of a Header, a Footer and 3 columns: Menu, Content and Aside Pane.
-/// For mobile devices (&lt; 768px), the layout is a single column with the Menu, Content and Footer panes stacked vertically.
+/// Component that defines a layout for a page, using a grid composed of a Header, a Footer and 3 columns: Menu, Value and Aside Pane.
+/// For mobile devices (&lt; 768px), the layout is a single column with the Menu, Value and Footer panes stacked vertically.
 /// </summary>
 public partial class FluentLayout
 {

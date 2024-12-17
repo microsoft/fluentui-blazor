@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IFluentServiceBase<TComponent> : IDisposable
 {
     /// <summary>
-    /// Gets the Provider ID.
+    /// Gets the ServiceProvider ID.
     /// This value is set by the provider and will be empty if the provider is not initialized.
     /// </summary>
     public string? ProviderId { get; internal set; }

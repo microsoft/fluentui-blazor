@@ -2,37 +2,17 @@
 
 <FluentButton OnClick="OpenDialogAsync">Open Dialog</FluentButton>
 
-@items["Name"]
-@((items["Content"] as SimpleDialog.MyData)?.Name)
-
-<FluentButton OnClick="@(e => { StateHasChanged(); Console.WriteLine((items["Data"] as SimpleDialog.MyData)?.Name); })">Refresh</FluentButton>
-
 @code
 {
-    private Dictionary<string, object?> items = new()
-    {
-        { nameof(SimpleDialog.Name), "John" },
-        { nameof(SimpleDialog.Content), new SimpleDialog.MyData()
-        {
-            Name = "John"
-        } },
-    };
-
     private async Task OpenDialogAsync()
     {
-        // var parameters = new DialogParameters()
-        // {
-        //     Title = $"My title",
-        //     OnStateChange = (e) =>
-        //     {
-        //         Console.WriteLine($"Dialog state changed: {e.State}");
-        //     }
-        // };
-
         var parameters = new DialogParameters(factory =>
         {
             factory.Title = "My title";
-            factory.Content = items;
+
+            factory.Content.Add(nameof(SimpleDialog.Name), "John");
+            factory.Content.Add(nameof(SimpleDialog.Age), 20);
+
             factory.OnStateChange = (e) =>
             {
                 Console.WriteLine($"Dialog state changed: {e.State}");
@@ -42,13 +22,13 @@
         var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(parameters);
         var result = await dialog.Result;
 
-        if (result.Content is not null)
+        if (result.Cancelled)
         {
-            Console.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
+            Console.WriteLine($"Dialog closed - Canceled");
         }
         else
         {
-            Console.WriteLine($"Dialog closed - Canceled: {result.Cancelled}");
+            Console.WriteLine($"Dialog closed - OK");
         }
     }
 }
