@@ -6,7 +6,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
    */
   export function Show(id: string): void {
     const dialog = document.getElementById(id) as any;
-    console.log('Show dialog ' + id, dialog);
     dialog?.show();
   }
 
@@ -15,7 +14,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
  * @param id The id of the fluent-dialog to display
  */
   export function Hide(id: string): void {
-    console.log('Hide dialog ' + id);
     const dialog = document.getElementById(id) as any;
     dialog?.hide();
   }

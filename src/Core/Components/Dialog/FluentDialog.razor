@@ -1,7 +1,12 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<fluent-dialog id="@Id" class="@Class" style="@Style" @attributes="AdditionalAttributes">
+<fluent-dialog id="@Id"
+               class="@Class"
+               style="@Style"
+               @ondialogbeforetoggle="@OnBeforeToggleAsync"
+               @ondialogtoggle="@OnToggleAsync"
+               @attributes="AdditionalAttributes">
     @* Content *@
     @if (Instance is not null)
     {

@@ -53,6 +53,12 @@ public partial class FluentDialog : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Command executed when the user clicks on the button.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DialogEventArgs> OnStateChange { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     /// <param name="firstRender"></param>
@@ -67,8 +73,21 @@ public partial class FluentDialog : FluentComponentBase
         return Task.CompletedTask;
     }
 
+    private Task OnBeforeToggleAsync(DialogToggleEventArgs args)
+    {
+        var dialogEventArgs = new DialogEventArgs(this, args);
+        return OnStateChange.InvokeAsync(dialogEventArgs);
+    }
+
+    /// <summary />
+    private Task OnToggleAsync(DialogToggleEventArgs args)
+    {
+        var dialogEventArgs = new DialogEventArgs(this, args);
+        return OnStateChange.InvokeAsync(dialogEventArgs);
+    }
+
     /// <summary>
-    /// 
+    /// Displays the dialog.
     /// </summary>
     public async Task ShowAsync()
     {
@@ -76,7 +95,7 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary>
-    /// 
+    /// Hide the dialog.
     /// </summary>
     public async Task HideAsync()
     {
