@@ -27,7 +27,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     private TValue? max;
     private TValue? min;
     private bool updateSliderThumb = false;
-    private bool userChangedValue = false;
 
     /// <summary>
     /// Gets or sets the slider's minimal value.
@@ -71,14 +70,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
             if (base.Value != value)
             {
                 base.Value = value;
-                if (userChangedValue)
-                {
-                    userChangedValue = false;
-                }
-                else
-                {
-                    updateSliderThumb = true;
-                }
+                updateSliderThumb = true;
             }
         }
     }
@@ -124,12 +116,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
                 }
             }
         }
-    }
-
-    protected override Task ChangeHandlerAsync(ChangeEventArgs e)
-    {
-        userChangedValue = true;
-        return base.ChangeHandlerAsync(e);
     }
 
     protected override string? ClassValue
