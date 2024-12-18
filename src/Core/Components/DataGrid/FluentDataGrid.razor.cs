@@ -242,7 +242,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Gets or sets a value indicating whether the grid is in a loading data state.
     /// </summary>
     [Parameter]
-    public bool Loading { get; set; }
+    public bool? Loading { get; set; }
 
     /// <summary>
     /// Gets or sets the content to render when <see cref="Loading"/> is true.
