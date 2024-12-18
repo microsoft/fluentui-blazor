@@ -239,10 +239,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public RenderFragment? EmptyContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the grid is in a loading data state.
+    /// Gets or sets a value to indicate the grid loading data state.
+    /// If not set and a <see cref="ItemsProvider"/> is present, the grid will show <see cref="LoadingContent"/> until the provider's first return.
     /// </summary>
     [Parameter]
-    public bool? Loading { get; set; }
+    public bool? Loading { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the content to render when <see cref="Loading"/> is true.
@@ -287,7 +288,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Gets or sets a value indicating whether the grids' first cell should be focused.
     /// </summary>
     [Parameter]
-    public bool AutoFocus{ get; set; } = false;
+    public bool AutoFocus { get; set; } = false;
+
+    // Returns Loading if set (controlled). If not controlled,
+    // we assume the grid is loading until the next data load completes
+    internal bool EffectiveLoadingValue => Loading ?? ItemsProvider is not null;
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -403,7 +408,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
             || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
 
-        var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged;
+        var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || Loading is null;
 
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
@@ -643,7 +648,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         return (index >= 0 && index < _columns.Count) ? ShowColumnResizeAsync(_columns[index]) : Task.CompletedTask;
     }
 
-    public void SetLoadingState(bool loading)
+    public void SetLoadingState(bool? loading)
     {
         Loading = loading;
     }
@@ -733,9 +738,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _internalGridContext.TotalViewItemCount = Pagination?.ItemsPerPage ?? providerResult.TotalItemCount;
 
             Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
-            if (_internalGridContext.TotalItemCount > 0)
+            if (_internalGridContext.TotalItemCount > 0 && Loading is null)
             {
                 Loading = false;
+                StateHasChanged();
             }
 
             // We're supplying the row _index along with each row's data because we need it for aria-rowindex, and we have to account for
@@ -757,9 +763,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             if (ItemsProvider is not null)
             {
                 var gipr = await ItemsProvider(request);
-                if (gipr.Items is not null)
+                if (gipr.Items is not null && Loading is null)
                 {
                     Loading = false;
+                    StateHasChanged();
                 }
                 return gipr;
             }
@@ -791,7 +798,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? StyleValue => new StyleBuilder(Style)
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns))
         .AddStyle("grid-template-rows", "auto 1fr", _internalGridContext.Items.Count == 0 || Items is null)
-        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.TotalItemCount == 0 || Loading)
+        .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
