@@ -147,6 +147,11 @@ public partial class FluentWizardStep : FluentComponentBase
         }
     }
 
+    public void ClearEditFormAndContext()
+    {
+        _editForms.Clear();
+    }
+
     public bool ValidateEditContexts()
     {
         var isValid = true;
