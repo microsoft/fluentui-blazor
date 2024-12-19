@@ -57,6 +57,12 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
 
+    ///// <summary>
+    ///// Gets or sets the type of modal dialog.
+    ///// </summary>
+    //[Parameter]
+    //public bool Modal { get; set; }
+
     /// <summary>
     /// Command executed when the user clicks on the button.
     /// </summary>
@@ -129,4 +135,7 @@ public partial class FluentDialog : FluentComponentBase
             _ => null
         };
     }
+
+    /// <summary />
+    private bool IsPanel() => GetAlignmentAttribute() != null;
 }

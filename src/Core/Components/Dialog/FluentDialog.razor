@@ -1,13 +1,15 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<fluent-dialog id="@Id"
-               class="@Class"
-               style="@Style"
-               panel="@GetAlignmentAttribute()"
-               @ondialogbeforetoggle="@OnToggleAsync"
-               @ondialogtoggle="@OnToggleAsync"
-               @attributes="AdditionalAttributes">
+<AddTag Name="@(IsPanel() ? "fluent-drawer" : "fluent-dialog")"
+        fuib
+        id="@Id"
+        class="@Class"
+        style="@Style"
+        position="@(IsPanel() ? GetAlignmentAttribute() : null)"
+        @ondialogbeforetoggle="@OnToggleAsync"
+        @ondialogtoggle="@OnToggleAsync"
+        @attributes="AdditionalAttributes">
     @* Content *@
     @if (Instance is not null)
     {
@@ -20,4 +22,4 @@
     {
         @ChildContent
     }
-</fluent-dialog>
+</AddTag>
