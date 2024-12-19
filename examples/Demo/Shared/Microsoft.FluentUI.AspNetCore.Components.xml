@@ -2001,7 +2001,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading">
             <summary>
-            Gets or sets a value indicating whether the grid is in a loading data state.
+            Gets or sets a value to indicate the grid loading data state.
+            If not set and a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/> is present, the grid will show <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent"/> until the provider's first return.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
