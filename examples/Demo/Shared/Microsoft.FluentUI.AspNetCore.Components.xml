@@ -4405,6 +4405,8 @@
             </summary>
             <remarks>
             This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an emoji in your code).
             </remarks>
             <returns></returns>
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
@@ -4420,6 +4422,9 @@
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.AllEmojis">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAssembly(System.String)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo">
@@ -4992,6 +4997,8 @@
             <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
             <remarks>
             This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an icon in your code).
             </remarks>
             <returns></returns>
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
@@ -5007,6 +5014,9 @@
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.AllIcons">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAssembly(System.String)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
@@ -5230,6 +5240,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ContentType">
             <summary>
             Gets the content type of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.LastModified">
+            <summary>
+            Gets the last modified date of the current file in an upload process.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ProgressTitle">

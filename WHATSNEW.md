@@ -4,7 +4,6 @@
 - The `DataGrid` **now uses HTML table based rendering**. A lot of changes have been made to the structure of the rendered content and the class names used. If you have been overriding grid classes, these probably no longer work and need to be changed in your own code. For more information, please see the DataGrid documentation page.
 - As of version 4.11.0 of our Icons and Emoji packages, we are packaging each icon variant (filled, regular, etc.) and emoji category (animals, food, etc.) in its own assembly. **If you are updating to this version, you will need to make some minor updates to your code**. Please see the 'Icons and Emoji' section below.
 
-
 ### General
 - \[General\] Ability to change service lifetime ([#2991](https://github.com/microsoft/fluentui-blazor/pull/2991))
 
@@ -14,6 +13,7 @@
 - \[DataGrid\] Add OData Adaptor package ([#2938](https://github.com/microsoft/fluentui-blazor/pull/2938))
 - \[DataGrid\] Alter rendering to use table elements ([#2664](https://github.com/microsoft/fluentui-blazor/pull/2664))
 - \[Datagrid\] Page reload issue when using `SaveStateInUrl` ([#2987](https://github.com/microsoft/fluentui-blazor/pull/2987))
+- \[DataGrid\] Respecting control state of Loading parameter ([#3064](https://github.com/microsoft/fluentui-blazor/pull/3064))
 - \[DataGrid\] Save paging state in URL ([#2972](https://github.com/microsoft/fluentui-blazor/pull/2972))
 - \[DatePicker\] Add `PopupHorizontalPosition` property ([#3001](https://github.com/microsoft/fluentui-blazor/pull/3001))
 - \[DesignTheme\] DesignTheme no console error if no storage defined ([#2956](https://github.com/microsoft/fluentui-blazor/pull/2956))
@@ -25,6 +25,7 @@
 - \[Templates\] Add new and update existing templates ([#2961](https://github.com/microsoft/fluentui-blazor/pull/2961))
 - \[TextField\] Add support for additional field types ([#2971](https://github.com/microsoft/fluentui-blazor/pull/2971))
 - \[Wizard\] Fix validation within GoToNextStepAsync method ([#2944](https://github.com/microsoft/fluentui-blazor/pull/2944))
+- \[Wizard\] Unregister EditForms in FluentWizardStep when DeferredLoading is enabled ([#3065](https://github.com/microsoft/fluentui-blazor/pull/3065))
 
 ### Demo site and documentation
 - \[Docs\] Add .NET Conf 2024 video ([#2984](https://github.com/microsoft/fluentui-blazor/pull/2984))
@@ -114,8 +115,7 @@ Starting with v4.11.0 you need to add the following `@using` statement to your `
   - TextBox Settings / 20 / Filled
 
 
-- Emoij packages have been updated to the latest version of the Fluent Emoji collection.
-  
+- Emoij packages have been updated to the latest version of the Fluent Emoji collection.  
 
 ## V4.10.4
 
