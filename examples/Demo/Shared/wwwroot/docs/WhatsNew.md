@@ -6,6 +6,7 @@
 
 ### General
 - \[General\] Ability to change service lifetime ([#2991](https://github.com/microsoft/fluentui-blazor/pull/2991))
+- \[Unit Tests\] Fix the CodeCoverage script, using .NET9 only ([#3047](https://github.com/microsoft/fluentui-blazor/pull/3047))
 
 ### Components
 - \[Autocomplete\] Fix the internal array when SelectedOptions is empty ([#2945](https://github.com/microsoft/fluentui-blazor/pull/2945))
@@ -17,7 +18,9 @@
 - \[DataGrid\] Save paging state in URL ([#2972](https://github.com/microsoft/fluentui-blazor/pull/2972))
 - \[DatePicker\] Add `PopupHorizontalPosition` property ([#3001](https://github.com/microsoft/fluentui-blazor/pull/3001))
 - \[DesignTheme\] DesignTheme no console error if no storage defined ([#2956](https://github.com/microsoft/fluentui-blazor/pull/2956))
+- \[InputFile\] \[Docs\] Add null check on initialization ([#3062](https://github.com/microsoft/fluentui-blazor/pull/3062))
 - \[InputFile\] Make it work icw a loading Button ([#2940](https://github.com/microsoft/fluentui-blazor/pull/2940))
+- \[InputFile\] Set last modified date ([#3044](https://github.com/microsoft/fluentui-blazor/pull/3044))
 - \[MessageBox\] Allow HTML markup in message ([#3010](https://github.com/microsoft/fluentui-blazor/pull/3010))
 - \[Popover\] Go to the next focusable Element ([#3013](https://github.com/microsoft/fluentui-blazor/pull/3013))
 - \[Rating\] Improve a11y support ([#2978](https://github.com/microsoft/fluentui-blazor/pull/2978))
@@ -32,7 +35,8 @@
 - \[Docs\] Add an animation of the Fluent UI Blazor logo ([#2985](https://github.com/microsoft/fluentui-blazor/pull/2985))
 - \[Docs\] Add clarification for when Select is used with `Multiple="true"` ([#2997](https://github.com/microsoft/fluentui-blazor/pull/2997))
 - \[Docs\] Embedding skeleton-test-pattern.svg file ([#2983](https://github.com/microsoft/fluentui-blazor/pull/2983))
- 
+- \[Docs\] Fix TreeView example ([#3035](https://github.com/microsoft/fluentui-blazor/pull/3035))
+
 ### Icons and Emoji
 As of version 4.11.0 of our Icons and Emoji packages, we are packaging each icon variant (filled, regular, etc.) and emoji category (animals, food, etc.) in its own assembly. This became necessary due to the large number of icons and some compiler limitations. Nothing has changed on how the packages need to be installed or added to your project.
 
