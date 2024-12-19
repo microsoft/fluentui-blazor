@@ -4,7 +4,6 @@
 - The `DataGrid` **now uses HTML table based rendering**. A lot of changes have been made to the structure of the rendered content and the class names used. If you have been overriding grid classes, these probably no longer work and need to be changed in your own code. For more information, please see the DataGrid documentation page.
 - As of version 4.11.0 of our Icons and Emoji packages, we are packaging each icon variant (filled, regular, etc.) and emoji category (animals, food, etc.) in its own assembly. **If you are updating to this version, you will need to make some minor updates to your code**. Please see the 'Icons and Emoji' section below.
 
-
 ### General
 - \[General\] Ability to change service lifetime ([#2991](https://github.com/microsoft/fluentui-blazor/pull/2991))
 
@@ -14,6 +13,7 @@
 - \[DataGrid\] Add OData Adaptor package ([#2938](https://github.com/microsoft/fluentui-blazor/pull/2938))
 - \[DataGrid\] Alter rendering to use table elements ([#2664](https://github.com/microsoft/fluentui-blazor/pull/2664))
 - \[Datagrid\] Page reload issue when using `SaveStateInUrl` ([#2987](https://github.com/microsoft/fluentui-blazor/pull/2987))
+- \[DataGrid\] Respecting control state of Loading parameter ([#3064](https://github.com/microsoft/fluentui-blazor/pull/3064))
 - \[DataGrid\] Save paging state in URL ([#2972](https://github.com/microsoft/fluentui-blazor/pull/2972))
 - \[DatePicker\] Add `PopupHorizontalPosition` property ([#3001](https://github.com/microsoft/fluentui-blazor/pull/3001))
 - \[DesignTheme\] DesignTheme no console error if no storage defined ([#2956](https://github.com/microsoft/fluentui-blazor/pull/2956))
@@ -25,6 +25,7 @@
 - \[Templates\] Add new and update existing templates ([#2961](https://github.com/microsoft/fluentui-blazor/pull/2961))
 - \[TextField\] Add support for additional field types ([#2971](https://github.com/microsoft/fluentui-blazor/pull/2971))
 - \[Wizard\] Fix validation within GoToNextStepAsync method ([#2944](https://github.com/microsoft/fluentui-blazor/pull/2944))
+- \[Wizard\] Unregister EditForms in FluentWizardStep when DeferredLoading is enabled ([#3065](https://github.com/microsoft/fluentui-blazor/pull/3065))
 
 ### Demo site and documentation
 - \[Docs\] Add .NET Conf 2024 video ([#2984](https://github.com/microsoft/fluentui-blazor/pull/2984))
@@ -45,43 +46,69 @@ Starting with v4.11.0 you need to add the following `@using` statement to your `
 @using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
-- Update to Fluent UI System Icons 1.1.266 (changes since 1.1.265)
+- Update to Fluent UI System Icons 1.1.270 (changes since 1.1.265)
 
   **What's new (Name / Size(s) / Variant(s))**
   - Animal Paw Print / 16, 20, 24, 28, 32, 48 / Filled & Regular
   - Arrow Clockwise Dashes / 28, 48 / Filled & Regular
   - Arrow Clockwise Dashes Settings / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Bot / 16, 28, 32, 48 / Filled & Regular
+  - Bot Add / 16, 28, 32, 48 / Filled & Regular
+  - Bot Sparkle / 16, 28, 32, 48 / Filled & Regular
   - Brain / 20, 24 / Filled & Regular
   - Brain Sparkle / 20 / Filled & Regular
+  - Chat History / 20, 24, 28 / Filled & Regular
   - Chat Off / 16 / Filled & Regular
   - Circle Hint / 28, 32, 48 / Filled & Regular
   - Circle Hint Cursor / 16, 20, 24 / Filled & Regular
   - Circle Hint Dismiss / 16, 20, 24 / Filled & Regular
   - Circle Multiple Concentric / 16, 20, 24 / Filled & Regular
+  - Circle Multiple Hint Checkmark / 20, 24, 28 / Filled & Regular
+  - Circle Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Regular
   - Connected / 24, 32 / Filled & Regular
+  - Copy / 28 / Filled & Regular
   - Database Checkmark / 16, 20, 24 / Filled & Regular
   - Directions / 28, 32, 48 / Filled & Regular
+  - Document / 24, 28, 32, 48 / Light
   - Document One Page Multiple / 16, 20, 24 / Filled & Regular
   - Document One Page Multiple Sparkle / 16, 20, 24 / Filled & Regular
+  - Document Sparkle / 16, 20, 24, 28, 32, 48 / Filled & Light & Regular
   - Folder Open / 28 / Filled & Regular
   - Folder Open Down / 16, 20, 24, 28 / Filled & Regular
   - HD Off / 16, 20, 24 / Filled & Regular
+  - Home Empty / 20, 24, 28 / Filled & Regular
   - Lightbulb / 32 / Light
+  - Location Checkmark / 12, 16, 20, 24, 48 / Filled & Regular
   - Mail Inbox / 48 / Filled & Regular
   - Mail Inbox Person / 48 / Filled & Regular
   - Mail Read Briefcase / 20, 24 / Filled & Regular
+  - Paint Bucket Brush / 16, 20, 24, 28 / Filled & Regular
+  - Re Order Vertical / 16, 20, 24 / Filled & Regular
   - Row Child / 16, 20, 24, 28, 32 / Filled & Regular
+  - Savings / 32 / Filled & Regular
+  - Share Screen Start / 16 / Filled & Regular
   - Square Text Arrow Repeat All / 16, 20, 24 / Filled & Regular
   - Translate / 32 / Filled & Regular
+  - Weather Moon / 32 / Filled & Light & Regular
+  - Weather Sunny / 32 / Light
 
   **What's updated (Name / Size(s) / Variant(s))**
+  - Bot Add / 24 / Filled & Regular
   - Brain Circuit / 20, 24 / Filled & Regular
+  - Checkmark Circle / 16 / Filled & Regular
+  - Checkmark Circle Warning / 16 / Filled & Regular
+  - Checkmark Lock / 16 / Filled & Regular
   - Circle Hint / 16, 24 / Filled & Regular
+  - Clock / 16 / Filled & Regular
   - Clock Bill / 16, 20, 24, 32 / Filled & Regular
   - Clock Lock / 16 / Filled & Regular
-  - Clock / 16 / Filled & Regular
   - Diamond / 16, 20, 24, 28, 32, 48 / Filled & Regular
   - Directions / 16, 20, 24 / Filled & Regular
+  - Document / 32, 48 / Filled & Regular
+  - Document Lightning / 32 / Light
+  - Document Signature / 32 / Light
+  - People Community / 12, 16, 20, 24, 28, 32, 48 / Filled & Light & Regular
+  - People Community Add / 20, 24, 28 / Filled & Regular
   - TextBox Align Center / 20 / Filled
   - TextBox More / 20 / Filled
   - TextBox Rotate 90 / 20 / Filled
@@ -89,7 +116,7 @@ Starting with v4.11.0 you need to add the following `@using` statement to your `
 
 
 - Emoij packages have been updated to the latest version of the Fluent Emoji collection.
-- 
+
 ## V4.10.4
 
 ### General
