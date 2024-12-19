@@ -1183,6 +1183,11 @@
             This is rendered automatically if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Index">
+            <summary>
+            Gets or sets the index (1-based) of the column
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
             <summary>
             Gets or sets the an optional CSS class name.
@@ -1858,6 +1863,14 @@
              is small or if you are using pagination.
              </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OverscanCount">
+            <summary>
+            This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>. It defines how many additional items will be rendered
+            before and after the visible region to reduce rendering frequency during scrolling. While higher values can improve
+            scroll smoothness by rendering more items off-screen, they can also increase initial load times. Finding a balance
+            based on your data set size and user experience requirements is recommended. The default value is 3.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemSize">
             <summary>
             This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>. It defines an expected height in pixels for
@@ -1988,7 +2001,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading">
             <summary>
-            Gets or sets a value indicating whether the grid is in a loading data state.
+            Gets or sets a value to indicate the grid loading data state.
+            If not set and a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/> is present, the grid will show <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent"/> until the provider's first return.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
@@ -2000,6 +2014,33 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoFit">
             <summary>
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
+            <summary>
+            Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.MultiLine">
+            <summary>
+            Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">
+            <summary>
+            Gets or sets a value indicating whether the grid should save its paging state in the URL.
+            <para>This is an experimental feature, which might cause unwanted jumping in the page when you change something in the grid.</para>
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStatePrefix">
+            <summary>
+            Gets or sets a prefix to use when saving the grid state in the URL.
+            </summary>
+            <remarks>Only relevant when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoFocus">
+            <summary>
+            Gets or sets a value indicating whether the grids' first cell should be focused.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
@@ -2157,7 +2198,7 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridContext">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
@@ -2165,6 +2206,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
             <summary>
             Gets a reference to the column that this cell belongs to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
@@ -2196,9 +2242,14 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Owner">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
@@ -2879,6 +2930,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.DoubleClickToDate">
             <summary>
             Gets or sets a value which will be set when double-clicking on the text field of date picker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupHorizontalPosition">
+            <summary>
+            Gets or sets an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition"/> for the popup displayed when the user open the calendar.
+            By default, this value is Left or Right, depending of the 'CurrentUICulture.TextInfo.IsRightToLeft' value.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
@@ -3678,7 +3735,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent.Intent">
             <summary>
             Gets or sets the intent of the message box. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.MessageBoxIntent"/> for details.
-            </summary>    
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent.Icon">
             <summary>
@@ -4264,6 +4321,28 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji">
+            <summary>
+            Custom emoji loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.#ctor(Microsoft.FluentUI.AspNetCore.Components.Emoji)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji"/> class.
+            </summary>
+            <param name="emoji"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.Zip(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Emoji">
             <summary>
             FluentUI Emoji content.
@@ -4316,6 +4395,37 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiCompress.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)">
+            <summary>
+            Returns a new instance of the emoji.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an emoji in your code).
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAllEmojis">
+            <summary>
+            Returns a new instance of the emoji.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.AllEmojis">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAssembly(System.String)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo">
@@ -4669,6 +4779,22 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
+            <summary>
+            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor(Microsoft.FluentUI.AspNetCore.Components.Icon)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> class.
+            </summary>
+            <param name="icon"></param>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1">
             <summary>
             FluentIcon is a component that renders an icon from the Fluent System icon set.
@@ -4861,6 +4987,38 @@
             <summary>
             Gets the variant of the icon: Filled, Regular.
             </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)">
+            <summary>
+            Returns a new instance of the icon.
+            </summary>
+            <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an icon in your code).
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAllIcons">
+            <summary>
+            Returns a new instance of the icon.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.AllIcons">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAssembly(System.String)">
+            <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
@@ -5083,6 +5241,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ContentType">
             <summary>
             Gets the content type of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.LastModified">
+            <summary>
+            Gets the last modified date of the current file in an upload process.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ProgressTitle">
@@ -8270,7 +8433,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentRating.IconColor">
             <summary>
-            Gets or sets the icon drawing and fill color. 
+            Gets or sets the icon drawing and fill color.
             Value comes from the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.Color"/> enumeration. Defaults to Accent.
             </summary>
         </member>
@@ -13419,6 +13582,32 @@
             Resize datagrid columns by exact pixel values
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize">
+            <summary>
+            The height of each <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
+            Values are in pixels.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Small">
+            <summary>
+            Small row height (default)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Medium">
+            <summary>
+            Medium row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Smaller">
+            <summary>
+            Smaller row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Large">
+            <summary>
+            Large row height
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">
             <summary>
             The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -14698,6 +14887,21 @@
             A text field that is used for URL input.
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Color">
+            <summary>
+            A text field that is used for color input (hexadecimal color value).
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Search">
+            <summary>
+            A text field that is used to search for a value. (accessibility)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.TextFieldType.Number">
+            <summary>
+            A text field that is used for number input, if you don't want to use the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1"/> component.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.TextPosition">
             <summary>
             The position of the text relative to the avatar/presence in <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentPersona"/>.
@@ -15335,6 +15539,13 @@
             <summary>
             Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
             By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ServiceLifetime">
+            <summary>
+            Gets or sets the service lifetime for the library services, when using Fluent UI in WebAssembly, it can make sense to use <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>.
+            Default is <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>.
+            <para>Only <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> and <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> are supported.</para>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ValidateClassNames">

@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Drawing;
+using System.Diagnostics;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 

@@ -13,15 +13,18 @@
         {
             <FluentIcon Value="@Icon" Width="20px" Class="fluent-tab-icon" />
         }
-        @if (LabelEditable)
+        @if (Header is null)
         {
-            <span contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" Title="Click to edit this tab name" style="padding: 3px 5px;">
+            @if (LabelEditable)
+            {
+                <span contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" Title="Click to edit this tab name" style="padding: 3px 5px;">
+                    @Label
+                </span>
+            }
+            else
+            {
                 @Label
-            </span>
-        }
-        else
-        {
-            @Label
+            }
         }
 
         @Header

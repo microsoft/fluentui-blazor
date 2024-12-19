@@ -21,7 +21,9 @@ export function addCopyButton() {
 }
 
 export function highlightElement(id) {
-    if (hljs) {
-        hljs.highlightElement(id);
+    try {
+        hljs?.highlightElement(id);
+    } catch (e) {
+        // highlightJS may fail when the user navigates away from the page quickly. Which when not catched will result in a crash.
     }
 }

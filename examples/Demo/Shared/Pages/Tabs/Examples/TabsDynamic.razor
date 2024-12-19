@@ -22,6 +22,7 @@
                   OptionValue="@(i => $"tab-{i.Index}")"
                   @bind-Value="@SelectedTabId" />
     <FluentButton OnClick="@AddAndSelect">Add and select</FluentButton>
+
 @code
 {
     List<DataSource.MonthItem> Items = new List<DataSource.MonthItem>(DataSource.AllMonths);

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text.RegularExpressions;
 
@@ -55,7 +55,6 @@ public class EmojiFileData
 /// <summary>
 /// Returns the SVG content of the emoji, with or without the root SVG element.
 /// </summary>
-/// <param name="file"></param>
 /// <param name="removeSvgRoot"></param>
 /// <returns></returns>
 public (string Content, Size Size) GetContent(bool removeSvgRoot = true)

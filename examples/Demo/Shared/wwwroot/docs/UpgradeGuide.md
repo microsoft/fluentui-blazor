@@ -1,3 +1,25 @@
+## Breaking changes v4.11.0
+
+As of version 4.11.0 of our Icons and Emoji packages, we are packaging each icon variant (filled, outlined, regular, etc.) and emoji category (animals, food, etc.) in its own assembly.
+This became necessary due to the large number of icons and some compiler limitations. Nothing has changed on how the packages need to be installed or added to your project.
+
+There is a just a small change needed to your imports file (or using statements).
+
+To use the new versions in your (upgraded) projects, you need add the following <code>&#64;using</code> statement to your _Imports.razor file:
+
+```
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+@* add line below only if you are using the Emoji package *@
+@using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji
+```
+        
+Alternatively, you can use the full namespace(s) in your code or define the alias(es) for the namespace(s) at the top of your file(s).
+        
+When creating an application through one of the Fluent templates (v4.11.0 or higher), everything with regards to the icons will already be correctly set up for you.
+The templates do not use emoji so you'll need to make the necessary change yourself after addin the Emoji package.
+
+
+
 ## Breaking changes v4.8.0
 
 The `Option<TType>`-type is a utility class that can be used to define list of options that are presented in a `FluentSelect` or any of the other list components. We have [examples of showing how this work](https://www.fluentui-blazor.net/Select#fromalistofoptiontit) available on the demo site.

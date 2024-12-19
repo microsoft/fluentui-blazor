@@ -223,6 +223,11 @@ public partial class FluentWizard : FluentComponentBase
             await _steps[Value].OnChange.InvokeAsync(args);
         }
 
+        if (_steps[Value].DeferredLoading && !args.IsCancelled)
+        {
+            _steps[Value].ClearEditFormAndContext();
+        }
+
         return args;
     }
 
@@ -258,7 +263,6 @@ public partial class FluentWizard : FluentComponentBase
     /// <returns></returns>
     public Task GoToStepAsync(int step, bool validateEditContexts = false)
     {
-        Value = step;
         return ValidateAndGoToStepAsync(step, validateEditContexts);
     }
 
