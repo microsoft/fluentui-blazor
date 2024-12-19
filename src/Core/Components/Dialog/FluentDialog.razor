@@ -4,18 +4,20 @@
 <fluent-dialog id="@Id"
                class="@Class"
                style="@Style"
+               panel="@GetAlignmentAttribute()"
                @ondialogbeforetoggle="@OnToggleAsync"
                @ondialogtoggle="@OnToggleAsync"
                @attributes="AdditionalAttributes">
     @* Content *@
     @if (Instance is not null)
     {
-        <DynamicComponent Type="@Instance.ComponentType"
-                          Parameters="Instance.Parameters.Content" />
+        <CascadingValue Value="Instance">
+            <DynamicComponent Type="@Instance.ComponentType"
+                              Parameters="Instance.Parameters.Content" />
+        </CascadingValue>
     }
     else
     {
         @ChildContent
     }
 </fluent-dialog>
-

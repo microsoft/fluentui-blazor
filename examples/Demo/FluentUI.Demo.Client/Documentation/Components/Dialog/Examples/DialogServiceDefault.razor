@@ -1,14 +1,16 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton OnClick="OpenDialogAsync">Open Dialog</FluentButton>
+<FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.End))">Open Panel</FluentButton>
+<FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.Default))">Open Dialog</FluentButton>
 
 @code
 {
-    private async Task OpenDialogAsync()
+    private async Task OpenDialogAsync(DialogAlignment alignment)
     {
         var parameters = new DialogParameters(factory =>
         {
             factory.Title = "My title";
+            factory.Alignment = alignment;
 
             factory.Content.Add(nameof(SimpleDialog.Name), "John");
             factory.Content.Add(nameof(SimpleDialog.Age), 20);

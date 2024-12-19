@@ -1,3 +1,8 @@
+fluent-dialog-body {
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+}
+
 /* Desktop and Mobile */
 fluent-dialog-body > div[slot="action"] {
   display: flex;

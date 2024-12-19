@@ -1,7 +1,7 @@
 ﻿<FluentDialogBody>
 
     <TitleTemplate>
-        My Title
+        @Dialog?.Parameters.Title
     </TitleTemplate>
 
     <ChildContent>
@@ -17,11 +17,16 @@
 
 @code {
     [CascadingParameter]
-    public FluentDialog? Dialog { get; set; }
+    public DialogInstance? Dialog { get; set; }
 
     [Parameter]
     public string Name { get; set; } = string.Empty;
 
     [Parameter]
     public int Age { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("OnInitialized: " + Dialog?.Parameters.Title);
+    }
 }

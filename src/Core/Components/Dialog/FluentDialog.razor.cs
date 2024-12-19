@@ -52,6 +52,12 @@ public partial class FluentDialog : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the alignment of the dialog (center, left, right).
+    /// </summary>
+    [Parameter]
+    public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
+
+    /// <summary>
     /// Command executed when the user clicks on the button.
     /// </summary>
     [Parameter]
@@ -109,4 +115,18 @@ public partial class FluentDialog : FluentComponentBase
 
     /// <summary />
     private bool LaunchedFromService => Instance is not null;
+
+    /// <summary />
+    private string? GetAlignmentAttribute()
+    {
+        // Get the alignment from the DialogService (if used) or the Alignment property.
+        var alignment = Instance?.Parameters.Alignment ?? Alignment;
+
+        return alignment switch
+        {
+            DialogAlignment.Start => "start",
+            DialogAlignment.End => "end",
+            _ => null
+        };
+    }
 }

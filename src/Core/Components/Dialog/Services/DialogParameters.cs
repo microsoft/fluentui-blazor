@@ -9,8 +9,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class DialogParameters
 {
-    private static readonly Dictionary<string, object?> EmptyData = new(StringComparer.Ordinal);
-
     /// <summary />
     public DialogParameters()
     {
@@ -28,9 +26,14 @@ public class DialogParameters
     public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets the dialog alignment.
+    /// </summary>
+    public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
+
+    /// <summary>
     /// Gets the content of the dialog.
     /// </summary>
-    public IDictionary<string, object?> Content { get; set; } = EmptyData;
+    public IDictionary<string, object?> Content { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
 
     /// <summary>
     /// Gets or sets the action raised when the dialog is opened or closed.
