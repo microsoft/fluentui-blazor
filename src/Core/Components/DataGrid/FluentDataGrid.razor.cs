@@ -812,8 +812,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass()
     {
-        return new CssBuilder("fluent-data-grid")
-            .AddClass(Class)
+        return new CssBuilder(Class)
+            .AddClass("fluent-data-grid")
             .AddClass("auto-fit", AutoFit)
             .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
             .Build();
@@ -877,7 +877,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var query = System.Web.HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby"))
         {
-            var orderBy = query[$"{SaveStatePrefix}orderby"]!.Split(' ',2);
+            var orderBy = query[$"{SaveStatePrefix}orderby"]!.Split(' ', 2);
             var title = orderBy[0];
 
             var column = _columns.FirstOrDefault(c => c.Title == title);
