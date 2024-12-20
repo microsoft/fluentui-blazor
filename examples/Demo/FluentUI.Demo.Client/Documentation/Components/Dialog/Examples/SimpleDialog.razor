@@ -5,8 +5,8 @@
     </TitleTemplate>
 
     <ChildContent>
-        <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Age" ReadOnly="true" />
-
+        <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Person.Age" />
+        <hr />
         @LongText
     </ChildContent>
 
@@ -27,14 +27,20 @@
     [CascadingParameter]
     public required IDialogInstance Dialog { get; set; }
 
+    // A simple type is not updatable
     [Parameter]
-    public string Name { get; set; } = string.Empty;
+    public string? Name { get; set; }
 
+    // A class is updatable
     [Parameter]
-    public string Age { get; set; } = string.Empty;
+    public PersonDetails Person { get; set; } = new();  
+
+    // A nullable type is optional
+    [Parameter]
+    public int? NotAssignedParam { get; set; }
 
     private async Task btnOK_Click()
-    {        
+    {
         await Dialog.CloseAsync(DialogResult.Ok("Yes"));
     }
 
@@ -46,5 +52,11 @@
     private static MarkupString GetVeryLongText()
     {
         return (MarkupString)string.Join("", SampleData.Text.LoremIpsum.Select(i => $"<p>{i}</p>"));
+    }
+
+    public class PersonDetails
+    {
+        public string Age { get; set; } = "";
+        public override string ToString() => $"Age: {Age}";
     }
 }
