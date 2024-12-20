@@ -188,10 +188,10 @@ export function enableColumnResizing(gridElement) {
             let width;
 
             if (document.body.dir === '' || document.body.dir === 'ltr') {
-                width = (horizontalScrollOffset + e.clientX) - headerBeingResized.offsetLeft;
+                width = (horizontalScrollOffset + e.clientX) - headerBeingResized.getClientRects()[0].x;
             }
             else {
-                width = headerBeingResized.offsetLeft + headerBeingResized.clientWidth - (horizontalScrollOffset + e.clientX);
+                width = headerBeingResized.getClientRects()[0].x + headerBeingResized.clientWidth - (horizontalScrollOffset + e.clientX);
             }
 
             const column = columns.find(({ header }) => header === headerBeingResized);
