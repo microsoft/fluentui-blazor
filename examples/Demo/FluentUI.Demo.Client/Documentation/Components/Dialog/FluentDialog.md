@@ -9,7 +9,7 @@ route: /Dialog
 
 ## Services
 
-{{ DialogServiceDefault }}
+{{ DialogServiceDefault Files=Code:DialogServiceDefault.razor;SimpleDialog.razor:SimpleDialog.razor }}
 
 ## API FluentDialogBody
 
