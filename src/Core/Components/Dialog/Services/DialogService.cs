@@ -32,9 +32,9 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         return Task.CompletedTask;
     }
 
-    /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogParameters)"/>
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "TODO")]
-    public virtual async Task<IDialogInstance> ShowDialogAsync(Type componentType, DialogParameters parameters)
+    public virtual async Task<IDialogInstance> ShowDialogAsync(Type componentType, DialogOptions options)
     {
         if (!componentType.IsSubclassOf(typeof(ComponentBase)))
         {
@@ -46,7 +46,7 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
             throw new FluentServiceProviderException<FluentDialogProvider>();
         }
 
-        var instance = new DialogInstance(this, componentType, parameters);
+        var instance = new DialogInstance(this, componentType, options);
         var dialog = new FluentDialog(_serviceProvider, instance);
 
         // Add the dialog to the service, and render it.
@@ -56,9 +56,15 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         return instance;
     }
 
-    /// <summary />
-    public Task<IDialogInstance> ShowDialogAsync<TDialog>(DialogParameters parameters) where TDialog : ComponentBase
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(DialogOptions)"/>
+    public Task<IDialogInstance> ShowDialogAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
-        return ShowDialogAsync(typeof(TDialog), parameters);
+        return ShowDialogAsync(typeof(TDialog), options);
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(Action{DialogOptions})"/>
+    public Task<IDialogInstance> ShowDialogAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    {
+        return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
     }
 }

@@ -7,18 +7,33 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Parameters for configuring a dialog.
 /// </summary>
-public class DialogParameters
+public class DialogOptions : IFluentComponentBase
 {
     /// <summary />
-    public DialogParameters()
+    public DialogOptions()
     {
     }
 
     /// <summary />
-    public DialogParameters(Action<DialogParameters> implementationFactory)
+    public DialogOptions(Action<DialogOptions> implementationFactory)
     {
         implementationFactory.Invoke(this);
     }
+
+    /// <inheritdoc />
+    public string? Id { get; set; }
+
+    /// <inheritdoc />
+    public string? Class { get; set; }
+
+    /// <inheritdoc />
+    public string? Style { get; set; }
+
+    /// <inheritdoc />
+    public object? Data { get; set; }
+
+    /// <inheritdoc />
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the dialog.

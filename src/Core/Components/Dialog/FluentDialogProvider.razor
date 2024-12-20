@@ -6,7 +6,14 @@
     {
         @foreach (var dialog in DialogService.Items.Values)
         {
-            <FluentDialog Id="@dialog.Id" Instance="@dialog.Instance" OnStateChange="@(dialog.Instance?.Parameters.OnStateChange ?? EmptyOnStateChange)" />
+            var parameters = dialog.Instance?.Parameters;
+            <FluentDialog Id="@dialog.Id"
+                          Class="@parameters?.Class"
+                          Style="@parameters?.Style"
+                          Data="@parameters?.Data"
+                          Instance="@dialog.Instance"
+                          OnStateChange="@(dialog.Instance?.Parameters.OnStateChange ?? EmptyOnStateChange)"
+                          @attributes="@AdditionalAttributes" />
         }
     }
 </div>

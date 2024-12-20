@@ -7,21 +7,20 @@
 {
     private async Task OpenDialogAsync(DialogAlignment alignment)
     {
-        var parameters = new DialogParameters(factory =>
+        var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
         {
-            factory.Title = "My title";
-            factory.Alignment = alignment;
+            options.Title = "My title";
+            options.Alignment = alignment;
 
-            factory.Content.Add(nameof(SimpleDialog.Name), "John");
-            factory.Content.Add(nameof(SimpleDialog.Age), 20);
+            options.Content.Add(nameof(SimpleDialog.Name), "John");
+            options.Content.Add(nameof(SimpleDialog.Age), 20);
 
-            factory.OnStateChange = (e) =>
+            options.OnStateChange = (e) =>
             {
                 Console.WriteLine($"Dialog state changed: {e.State}");
             };
         });
-        
-        var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(parameters);
+
         var result = await dialog.Result;
 
         if (result.Cancelled)
