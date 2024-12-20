@@ -157,11 +157,7 @@ export function checkColumnPopupPosition(gridElement, selector) {
     }
 }
 
-let LatestGridElement = null;
 export function enableColumnResizing(gridElement) {
-    if (gridElement === LatestGridElement)
-        return;
-    LatestGridElement = gridElement;
     const columns = [];
     let min = 75;
     let headerBeingResized;
