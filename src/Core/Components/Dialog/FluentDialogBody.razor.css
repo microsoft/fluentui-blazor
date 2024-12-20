@@ -1,4 +1,4 @@
-fluent-dialog-body[fuib] {
+fluent-dialog[position][fuib] fluent-dialog-body[fuib] {
   grid-template-rows: auto 1fr auto;
   height: 100%;
 }

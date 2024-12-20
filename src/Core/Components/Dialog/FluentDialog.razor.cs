@@ -36,6 +36,16 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
+    protected string? ClassValue => new CssBuilder(Class)
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("height", Instance?.Options.Height, when: IsDialog())
+        .AddStyle("width", Instance?.Options.Width)
+        .Build();
+
+    /// <summary />
     [Inject]
     private IDialogService? DialogService { get; set; }
 
@@ -167,4 +177,17 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private bool IsPanel() => (Instance?.Options.Alignment ?? Alignment) != DialogAlignment.Default;
 
+    /// <summary />
+    private bool IsDialog() => !IsPanel();
+
+    /// <summary />
+    private MarkupString? GetDialogStyle()
+    {
+        if (string.IsNullOrEmpty(StyleValue))
+        {
+            return null;
+        }
+
+        return (MarkupString)$"<style>#{Id}::part(dialog) {{ {StyleValue} }}</style>";
+    }
 }

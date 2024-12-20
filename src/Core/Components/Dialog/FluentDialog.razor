@@ -4,13 +4,15 @@
 <fluent-dialog
         fuib
         id="@Id"
-        class="@Class"
-        style="@Style"
+        class="@ClassValue"
+        style="@StyleValue"
         position="@GetAlignmentAttribute()"
         type="@GetModalAttribute()"
         @ondialogbeforetoggle="@OnToggleAsync"
         @ondialogtoggle="@OnToggleAsync"
         @attributes="AdditionalAttributes">
+
+    @GetDialogStyle()
 
     @if (Instance is not null)
     {

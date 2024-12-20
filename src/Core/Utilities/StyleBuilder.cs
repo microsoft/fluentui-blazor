@@ -49,7 +49,7 @@ public readonly struct StyleBuilder
     /// <param name="prop"></param>
     /// <param name="value">Style to add</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value) => AddRaw($"{prop}: {value}");
+    public StyleBuilder AddStyle(string prop, string? value) => string.IsNullOrEmpty(value) ? this : AddRaw($"{prop}: {value}");
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
