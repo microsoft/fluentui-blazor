@@ -62,5 +62,5 @@ public class DialogEventArgs : EventArgs
     /// <summary>
     /// Gets the instance used by the <see cref="DialogService" />.
     /// </summary>
-    public DialogInstance? Instance { get; set; }
+    public IDialogInstance? Instance { get; set; }
 }

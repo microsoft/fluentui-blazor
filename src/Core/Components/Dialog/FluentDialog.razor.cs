@@ -53,7 +53,7 @@ public partial class FluentDialog : FluentComponentBase
     /// Gets or sets the instance used by the <see cref="DialogService" />.
     /// </summary>
     [Parameter]
-    public DialogInstance? Instance { get; set; }
+    public IDialogInstance? Instance { get; set; }
 
     /// <summary>
     /// Used when not calling the <see cref="DialogService" /> to show a dialog.
@@ -110,7 +110,7 @@ public partial class FluentDialog : FluentComponentBase
         }
 
         // Remove the HTML code from the DialogProvider
-        if (LaunchedFromService && Instance  is not null && dialogEventArgs?.State == DialogState.Closed && !string.IsNullOrEmpty(dialogId))
+        if (LaunchedFromService && Instance is not null && dialogEventArgs?.State == DialogState.Closed && !string.IsNullOrEmpty(dialogId))
         {
             var service = DialogService as DialogService;
             service?.CloseAsync(Instance, DialogResult.Cancel());

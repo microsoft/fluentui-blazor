@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Service for showing dialogs.
 /// </summary>
-public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogService
+public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialogService
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -22,16 +22,20 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         _serviceProvider = serviceProvider;
     }
 
-    /// <inheritdoc cref="IDialogService.CloseAsync(DialogInstance, DialogResult)"/>
-    public Task CloseAsync(DialogInstance dialog, DialogResult result)
+    /// <inheritdoc cref="IDialogService.CloseAsync(IDialogInstance, DialogResult)"/>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "<Pending>")]
+    public async Task CloseAsync(IDialogInstance dialog, DialogResult result)
     {
         // Remove the HTML code from the DialogProvider
-        ServiceProvider.Items.TryRemove(dialog.Id, out _);
+        if (!ServiceProvider.Items.TryRemove(dialog.Id, out _))
+        {
+            throw new InvalidOperationException($"Failed to remove dialog from DialogProvider: the ID '{dialog.Id}' doesn't exist in the DialogServiceProvider.");
+        }
+
+        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
 
         // Set the result of the dialog
-        dialog.ResultCompletion.SetResult(result);
-
-        return Task.CompletedTask;
+        (dialog as DialogInstance)?.ResultCompletion.SetResult(result);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
@@ -49,11 +53,10 @@ public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogSer
         }
 
         var instance = new DialogInstance(this, componentType, options);
-        var dialog = new FluentDialog(_serviceProvider, instance);
 
         // Add the dialog to the service, and render it.
-        ServiceProvider.Items.TryAdd(dialog?.Id ?? "", dialog ?? throw new InvalidOperationException("Failed to create FluentDialog."));
-        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentDialog."));
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
 
         return instance;
     }

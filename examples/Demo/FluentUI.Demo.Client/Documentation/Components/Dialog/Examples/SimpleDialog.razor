@@ -10,21 +10,31 @@
     </ChildContent>
 
     <ActionTemplate>
-        <FluentButton Appearance="ButtonAppearance.Primary">OK</FluentButton>
+        <FluentButton OnClick="btnOK_Click" Appearance="ButtonAppearance.Primary">OK</FluentButton>
         <FluentButton>Cancel</FluentButton>
     </ActionTemplate>
 
 </FluentDialogBody>
 
 @code {
+
+    // If you want to use this razor component in standalone mode,
+    // you can use a nullable IDialogInstance property.
+    // If the value is not null, the component is running using the DialogService.
+    // `public IDialogInstance? Dialog { get; set; }`
     [CascadingParameter]
-    public IDialogInstance? Dialog { get; set; }
+    public required IDialogInstance Dialog { get; set; }
 
     [Parameter]
     public string Name { get; set; } = string.Empty;
 
     [Parameter]
     public int Age { get; set; }
+
+    private async Task btnOK_Click()
+    {        
+        await Dialog.CloseAsync();
+    }
 
     protected override void OnInitialized()
     {

@@ -11,19 +11,20 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class DialogInstance : IDialogInstance
 {
+    private readonly Type _componentType;
     internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
 
     /// <summary />
     internal DialogInstance(IDialogService dialogService, Type componentType, DialogOptions options)
     {
-        ComponentType = componentType;
+        _componentType = componentType;
         Options = options;
         DialogService = dialogService;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
     }
 
     /// <summary />
-    internal Type ComponentType { get; }
+    Type IDialogInstance.ComponentType => _componentType;
 
     /// <summary />
     internal IDialogService DialogService { get; }

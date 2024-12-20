@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Interface for DialogService
 /// </summary>
-public partial interface IDialogService : IFluentServiceBase<FluentDialog>
+public partial interface IDialogService : IFluentServiceBase<IDialogInstance>
 {
     /// <summary>
     /// Closes the dialog with the specified result.
@@ -17,7 +17,7 @@ public partial interface IDialogService : IFluentServiceBase<FluentDialog>
     /// <param name="dialog">Instance of the dialog to close.</param>
     /// <param name="result">Result of closing the dialog box.</param>
     /// <returns></returns>
-    Task CloseAsync(DialogInstance dialog, DialogResult result);
+    Task CloseAsync(IDialogInstance dialog, DialogResult result);
 
     /// <summary>
     /// Shows a dialog with the component type as the body,

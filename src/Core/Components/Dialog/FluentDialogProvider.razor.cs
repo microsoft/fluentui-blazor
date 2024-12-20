@@ -40,9 +40,6 @@ public partial class FluentDialogProvider : FluentComponentBase
     protected virtual IDialogService? DialogService => _dialogService ??= ServiceProvider?.GetService<IDialogService>();
 
     /// <summary />
-    protected IEnumerable<FluentDialog>? Dialogs => DialogService?.Items.Values;
-
-    /// <summary />
     protected override void OnInitialized()
     {
         base.OnInitialized();

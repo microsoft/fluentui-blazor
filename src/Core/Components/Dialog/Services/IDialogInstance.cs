@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IDialogInstance
 {
     /// <summary>
+    /// Gets the component type of the dialog.
+    /// </summary>
+    internal Type ComponentType { get; }
+
+    /// <summary>
     /// Gets the unique identifier for the dialog.
     /// If this value is not set in the <see cref="DialogOptions"/>, a new identifier is generated.
     /// </summary>
