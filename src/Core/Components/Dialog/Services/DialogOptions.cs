@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Parameters for configuring a dialog.
+/// Options for configuring a dialog.
 /// </summary>
 public class DialogOptions : IFluentComponentBase
 {
@@ -39,6 +39,15 @@ public class DialogOptions : IFluentComponentBase
     /// Gets or sets the title of the dialog.
     /// </summary>
     public string? Title { get; set; }
+
+    ///// <summary>
+    ///// Gets or sets a value indicating whether this dialog is displayed modally.
+    ///// </summary>
+    ///// <remarks>
+    ///// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+    ///// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+    ///// </remarks>
+    //public bool Modal { get; set; }
 
     /// <summary>
     /// Gets or sets the dialog alignment.

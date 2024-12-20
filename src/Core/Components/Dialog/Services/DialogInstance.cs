@@ -12,12 +12,12 @@ public class DialogInstance : IDialogInstance
     internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
 
     /// <summary />
-    internal DialogInstance(IDialogService dialogService, Type componentType, DialogOptions parameters)
+    internal DialogInstance(IDialogService dialogService, Type componentType, DialogOptions options)
     {
         ComponentType = componentType;
-        Parameters = parameters;
+        Options = options;
         DialogService = dialogService;
-        Id = string.IsNullOrEmpty(parameters.Id) ? Identifier.NewId() : parameters.Id;
+        Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
     }
 
     /// <summary />
@@ -27,7 +27,7 @@ public class DialogInstance : IDialogInstance
     internal IDialogService DialogService { get; }
 
     /// <summary />
-    public DialogOptions Parameters { get; internal set; }
+    public DialogOptions Options { get; internal set; }
 
     /// <summary />
     public Task<DialogResult> Result => ResultCompletion.Task;

@@ -6,20 +6,22 @@
         id="@Id"
         class="@Class"
         style="@Style"
-        position="@(IsPanel() ? GetAlignmentAttribute() : null)"
+        position="@GetAlignmentAttribute()"
+        type="@GetModalAttribute()"
         @ondialogbeforetoggle="@OnToggleAsync"
         @ondialogtoggle="@OnToggleAsync"
         @attributes="AdditionalAttributes">
-    @* Content *@
+    
     @if (Instance is not null)
     {
         <CascadingValue Value="Instance">
             <DynamicComponent Type="@Instance.ComponentType"
-                              Parameters="Instance.Parameters.Content" />
+                              Parameters="Instance.Options.Content" />
         </CascadingValue>
     }
     else
     {
         @ChildContent
     }
+
 </AddTag>

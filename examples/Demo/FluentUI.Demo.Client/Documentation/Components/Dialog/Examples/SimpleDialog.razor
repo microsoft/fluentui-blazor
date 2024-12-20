@@ -1,7 +1,7 @@
 ﻿<FluentDialogBody>
 
     <TitleTemplate>
-        @Dialog?.Parameters.Title
+        @Dialog?.Options.Title
     </TitleTemplate>
 
     <ChildContent>
@@ -27,6 +27,6 @@
 
     protected override void OnInitialized()
     {
-        Console.WriteLine("OnInitialized: " + Dialog?.Parameters.Title);
+        Console.WriteLine("OnInitialized: " + Dialog?.Options.Title);
     }
 }

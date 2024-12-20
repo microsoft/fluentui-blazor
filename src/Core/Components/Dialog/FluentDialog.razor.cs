@@ -58,8 +58,12 @@ public partial class FluentDialog : FluentComponentBase
     public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
 
     ///// <summary>
-    ///// Gets or sets the type of modal dialog.
+    ///// Gets or sets a value indicating whether this dialog is displayed modally.
     ///// </summary>
+    ///// <remarks>
+    ///// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+    ///// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+    ///// </remarks>
     //[Parameter]
     //public bool Modal { get; set; }
 
@@ -125,17 +129,42 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetAlignmentAttribute()
     {
-        // Get the alignment from the DialogService (if used) or the Alignment property.
-        var alignment = Instance?.Parameters.Alignment ?? Alignment;
-
-        return alignment switch
+        // Alignment is only used when the dialog is a panel.
+        if (IsPanel())
         {
-            DialogAlignment.Start => "start",
-            DialogAlignment.End => "end",
-            _ => null
-        };
+            // Get the alignment from the DialogService (if used) or the Alignment property.
+            var alignment = Instance?.Options.Alignment ?? Alignment;
+
+            return alignment switch
+            {
+                DialogAlignment.Start => "start",
+                DialogAlignment.End => "end",
+                _ => null
+            };
+        }
+
+        return null;
     }
 
     /// <summary />
-    private bool IsPanel() => GetAlignmentAttribute() != null;
+    private string? GetModalAttribute()
+    {
+        switch (IsPanel())
+        {
+            // Dialog
+            case false:
+                // TODO: To find a way to catch the click event outside the dialog.
+                return "modal";
+
+            // Panels
+            case true:
+                // TODO: To find a way to catch the click event outside the dialog.
+                return "modal";
+
+        }
+    }
+
+    /// <summary />
+    private bool IsPanel() => (Instance?.Options.Alignment ?? Alignment) != DialogAlignment.Default;
+
 }
