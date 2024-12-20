@@ -6,6 +6,7 @@
 
     <ChildContent>
         Hello @Name (@Age)
+        @GetVeryLongText()
     </ChildContent>
 
     <ActionTemplate>
@@ -28,5 +29,10 @@
     protected override void OnInitialized()
     {
         Console.WriteLine("OnInitialized: " + Dialog?.Options.Title);
+    }
+
+    private MarkupString GetVeryLongText()
+    {
+        return (MarkupString)string.Join("", SampleData.Text.LoremIpsum.Select(i => $"<p>{i}</p>"));
     }
 }

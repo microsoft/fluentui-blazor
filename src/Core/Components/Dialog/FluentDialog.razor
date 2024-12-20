@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<AddTag Name="@(IsPanel() ? "fluent-drawer" : "fluent-dialog")"
+<fluent-dialog
         fuib
         id="@Id"
         class="@Class"
@@ -11,7 +11,7 @@
         @ondialogbeforetoggle="@OnToggleAsync"
         @ondialogtoggle="@OnToggleAsync"
         @attributes="AdditionalAttributes">
-    
+
     @if (Instance is not null)
     {
         <CascadingValue Value="Instance">
@@ -24,4 +24,4 @@
         @ChildContent
     }
 
-</AddTag>
+</fluent-dialog>
