@@ -2,7 +2,6 @@
 @inherits FluentCalendarBase
 
 <div id="@Id" class="@ClassValue" style="@StyleValue" readonly="@(ReadOnly ? true : null)">
-
     @if (_pickerView == CalendarViews.Days)
     {
         <div>
@@ -13,7 +12,9 @@
             @* Title bar (label, previous and next buttons) *@
             <div class="title" part="title" aria-label="@titles.Label">
                 <div part="label" class="@GetAnimationClass("label")" readonly="@ReadOnly"
-                     @onclick="@(e => TitleClickHandlerAsync(titles))">
+                     role="button" tabindex="0"
+                     @onclick="@(e => TitleClickHandlerAsync(titles))"
+                     @onkeydown="(e => KeyDown.SimulateClickAsync(e, TitleClickHandlerAsync, titles))">
                     @titles.Label
                 </div>
                 <div part="move" class="change-period">
@@ -23,7 +24,8 @@
                     }
                     else
                     {
-                        <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync">
+                        <div class="previous" title="@titles.PreviousTitle" @onclick="@OnPreviousButtonHandlerAsync"
+                             role="button" tabindex="0" @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnPreviousButtonHandlerAsync))">
                             @((MarkupString)ArrowUp)
                         </div>
                     }
@@ -33,7 +35,8 @@
                     }
                     else
                     {
-                        <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync">
+                        <div class="next" title="@titles.NextTitle" @onclick="@OnNextButtonHandlerAsync"
+                             role="button" tabindex="0" @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnNextButtonHandlerAsync))">
                             @((MarkupString)ArrowDown)
                         </div>
                     }
@@ -69,6 +72,8 @@
 
                                     <div part="day"
                                          class="@GetAnimationClass("day")"
+                                         role="@(dayProperties.IsDisabled || dayProperties.IsInactive ? null : "button")"
+                                         tabindex="@(dayProperties.IsDisabled || dayProperties.IsInactive ? null : 0)"
                                          disabled="@dayProperties.IsDisabled"
                                          inactive="@dayProperties.IsInactive"
                                          today="@dayProperties.IsToday"
@@ -79,8 +84,9 @@
                                          multi-end="@(multipleSelection.IsMultiple && SelectMode == CalendarSelectMode.Range && multipleSelection.Max == day)"
                                          aria-label="@dayProperties.Title"
                                          value="@dayProperties.DayIdentifier"
-                                         @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))"
-                                         @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive))">
+                                         @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnSelectDayHandlerAsync, day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))"
+                                         @onclick="@(e => OnSelectDayHandlerAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))"
+                                         @onmouseover="@(e => OnSelectDayMouseOverAsync(day, dayProperties.IsDisabled || dayProperties.IsInactive || ReadOnly))">
                                         @if (DaysTemplate == null)
                                         {
                                             @dayProperties.DayNumber
@@ -111,6 +117,9 @@
                                  aria-label="@monthProperties.Title"
                                  title="@monthProperties.Title"
                                  value="@monthProperties.MonthIdentifier"
+                                 role="button"
+                                 tabindex="@(monthProperties.IsDisabled || monthProperties.IsReadOnly ? null : 0)"
+                                 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnSelectMonthHandlerAsync, year, month.Index, monthProperties.IsReadOnly))"
                                  @onclick="@(e => OnSelectMonthHandlerAsync(year, month.Index, monthProperties.IsReadOnly))">
                                 @month.Abbreviated
                             </div>
@@ -132,6 +141,8 @@
                                  aria-label="@year.Year"
                                  title="@year.Year"
                                  value="@yearProperties.YearIdentifier"
+                                 tabindex="@(yearProperties.IsDisabled || yearProperties.IsReadOnly ? null : 0)"
+                                 @onkeydown="(e => KeyDown.SimulateClickAsync(e, OnSelectYearHandlerAsync, year.Year, yearProperties.IsReadOnly))"
                                  @onclick="@(e => OnSelectYearHandlerAsync(year.Year, yearProperties.IsReadOnly))">
                                 @year.Year
                             </div>
@@ -155,7 +166,7 @@
                         DisabledDateFunc="@(e => DisabledDateFunc != null ? DisabledDateFunc(e) : false)" />
     }
 
-    
+
     @if (_pickerView == CalendarViews.Years)
     {
         <FluentCalendar View="CalendarViews.Years"

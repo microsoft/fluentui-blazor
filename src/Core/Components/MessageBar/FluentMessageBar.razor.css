@@ -1,4 +1,4 @@
-﻿/* OneRow */
+/* OneRow */
 
 .fluent-messagebar {
     font-family: var(--body-font);
@@ -13,6 +13,9 @@
     border-radius: calc(var(--control-corner-radius) * 1px);
     padding: 0 12px;
     column-gap: 8px;
+}
+
+.fluent-messagebar[animation="fadein"] {
     animation: fadein 1.5s;
 }
 
@@ -121,7 +124,6 @@
     min-height: 36px;
     padding: 0 12px;
     column-gap: 8px;
-    animation: fadein 1.5s;
 }
 
     .fluent-messagebar-notification.intent-info {

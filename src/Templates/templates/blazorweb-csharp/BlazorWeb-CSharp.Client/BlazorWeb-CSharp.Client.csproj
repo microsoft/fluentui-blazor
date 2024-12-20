@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+    <RootNamespace Condition="'$(name)' != '$(name{-VALUE-FORMS-}safe_namespace)'">BlazorWeb-CSharp.Client</RootNamespace>
+    <AssemblyName Condition="'$(name)' != '$(name{-VALUE-FORMS-}safe_namespace)'">$(AssemblyName.Replace(' ', '_'))</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="!!REPLACE_WITH_ASPNETCORE_8_VERSION!!" Condition="'$(Framework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(Framework)' == 'net9.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="!!REPLACE_WITH_ASPNETCORE_8_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(Framework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="!!REPLACE_WITH_ASPNETCORE_9_VERSION!!" Condition="'$(IndividualLocalAuth)' == 'True' AND '$(Framework)' == 'net9.0'" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="!!REPLACE_WITH_LATEST_VERSION!!" />
+  </ItemGroup>
+
+</Project>

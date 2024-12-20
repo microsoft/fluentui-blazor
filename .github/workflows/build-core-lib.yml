@@ -29,7 +29,7 @@ env:
 jobs:
   Build:
 
-    name: Build and Test Code Lib
+    name: Build and Test Core Lib
     runs-on: windows-latest
 
     permissions:
@@ -45,6 +45,13 @@ jobs:
        uses: actions/setup-dotnet@v4
        with:
         dotnet-version: 8.0.x
+        dotnet-quality: ga
+
+     - name: Setup .NET 9.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 9.0.x
+        dotnet-quality: ga
 
      # Build
 
@@ -52,7 +59,7 @@ jobs:
        run: dotnet restore
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} --configuration Release -warnaserror
+       run: dotnet build ${{ env.PROJECTS }} --configuration Release
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
@@ -117,18 +124,17 @@ jobs:
          path: ./TestResults/ExtractedTests.md
 
      # Test Coverage
-
      - name: Report Generator
        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
        with:
-         reports: '**/coverage.cobertura.xml'
+         reports: '**/coverage.cobertura.xml;**/coverage.net8.0.cobertura.xml;**/coverage.net9.0.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
-       uses: actions/upload-artifact@v2
+       uses: actions/upload-artifact@v4
        with:
          name: CoverageReports
          path: CoverageReports
@@ -143,6 +149,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Demo site
     env:
+      DOTNET_VERSION: "net9.0"
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_NOLOGO: true
@@ -160,14 +167,14 @@ jobs:
       - name: .NET Setup SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
-          include-prerelease: true
+          dotnet-version: 9.0.x
+          dotnet-quality: ga
+
       - name: .NET Builld
-        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: .NET Publish
-        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f net8.0 -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
+        run: dotnet publish ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true
 
       - name: Deploy demo site to new Azure Static Web App
         id: builddeploy

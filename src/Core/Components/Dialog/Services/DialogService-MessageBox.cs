@@ -8,8 +8,9 @@ public partial class DialogService
     /// Shows a success message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowSuccess(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowSuccess(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -17,10 +18,10 @@ public partial class DialogService
             Intent = MessageBoxIntent.Success,
             Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
             IconColor = Color.Success,
-            Message = message,
+            MarkupMessage = new MarkupString(message),
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK",
+        PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
         SecondaryAction = string.Empty,
     });
 
@@ -28,8 +29,9 @@ public partial class DialogService
     /// Shows a warning message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowWarning(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowWarning(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -37,10 +39,10 @@ public partial class DialogService
             Intent = MessageBoxIntent.Warning,
             Icon = new CoreIcons.Filled.Size24.Warning(),
             IconColor = Color.Warning,
-            Message = message,
+            MarkupMessage = new MarkupString(message),
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK",
+        PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
         SecondaryAction = string.Empty,
     });
 
@@ -48,8 +50,9 @@ public partial class DialogService
     /// Shows an error message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowError(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowError(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -57,10 +60,10 @@ public partial class DialogService
             Intent = MessageBoxIntent.Error,
             Icon = new CoreIcons.Filled.Size24.DismissCircle(),
             IconColor = Color.Error,
-            Message = message,
+            MarkupMessage = new MarkupString(message),
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK",
+        PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "Close" : primaryAction,
         SecondaryAction = string.Empty,
     });
 
@@ -68,8 +71,9 @@ public partial class DialogService
     /// Shows an information message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public void ShowInfo(string message, string? title = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
+    public void ShowInfo(string message, string? title = null, string? primaryAction = null) => ShowMessageBox(new DialogParameters<MessageBoxContent>()
     {
         Content = new MessageBoxContent()
         {
@@ -77,10 +81,10 @@ public partial class DialogService
             Intent = MessageBoxIntent.Info,
             Icon = new CoreIcons.Filled.Size24.Info(),
             IconColor = Color.Info,
-            Message = message,
+            MarkupMessage = new MarkupString(message),
         },
         DialogType = DialogType.MessageBox,
-        PrimaryAction = "OK",
+        PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
         SecondaryAction = string.Empty,
     });
 
@@ -103,7 +107,7 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText,
@@ -142,8 +146,9 @@ public partial class DialogService
     /// Shows a success message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null)
+    public async Task<IDialogReference> ShowSuccessAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -152,10 +157,10 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Success,
                 Icon = new CoreIcons.Filled.Size24.CheckmarkCircle(),
                 IconColor = Color.Success,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK",
+            PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
             SecondaryAction = string.Empty,
         });
 
@@ -163,8 +168,9 @@ public partial class DialogService
     /// Shows a warning message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null)
+    public async Task<IDialogReference> ShowWarningAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -173,10 +179,10 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Warning,
                 Icon = new CoreIcons.Filled.Size24.Warning(),
                 IconColor = Color.Warning,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK",
+            PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
             SecondaryAction = string.Empty,
         });
 
@@ -184,8 +190,9 @@ public partial class DialogService
     /// Shows an error message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null)
+    public async Task<IDialogReference> ShowErrorAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -194,10 +201,10 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Error,
                 Icon = new CoreIcons.Filled.Size24.DismissCircle(),
                 IconColor = Color.Error,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK",
+            PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "Close" : primaryAction,
             SecondaryAction = string.Empty,
         });
 
@@ -205,8 +212,9 @@ public partial class DialogService
     /// Shows an information message box. Does not have a callback function.
     /// </summary>
     /// <param name="message">The message to display.</param>
+    /// <param name="primaryAction">The text to display on the primary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null)
+    public async Task<IDialogReference> ShowInfoAsync(string message, string? title = null, string? primaryAction = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -215,10 +223,10 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Info,
                 Icon = new CoreIcons.Filled.Size24.Info(),
                 IconColor = Color.Info,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
-            PrimaryAction = "OK",
+            PrimaryAction = string.IsNullOrWhiteSpace(primaryAction) ? "OK" : primaryAction,
             SecondaryAction = string.Empty,
         });
 
@@ -232,7 +240,7 @@ public partial class DialogService
     /// <param name="primaryText">The text to display on the primary button.</param>
     /// <param name="secondaryText">The text to display on the secondary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
+    public async Task<IDialogReference> ShowConfirmationAsync(object receiver, Func<DialogResult, Task> callback, string message, string? primaryText = "Yes", string? secondaryText = "No", string? title = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -241,7 +249,7 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText,
@@ -257,7 +265,7 @@ public partial class DialogService
     /// <param name="primaryText">The text to display on the primary button.</param>
     /// <param name="secondaryText">The text to display on the secondary button.</param>
     /// <param name="title">The title to display on the dialog.</param>
-    public async Task<IDialogReference> ShowConfirmationAsync(string message, string primaryText = "Yes", string secondaryText = "No", string? title = null)
+    public async Task<IDialogReference> ShowConfirmationAsync(string message, string? primaryText = "Yes", string? secondaryText = "No", string? title = null)
         => await ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
         {
             Content = new MessageBoxContent()
@@ -266,7 +274,7 @@ public partial class DialogService
                 Intent = MessageBoxIntent.Confirmation,
                 Icon = new CoreIcons.Regular.Size24.QuestionCircle(),
                 IconColor = Color.Success,
-                Message = message,
+                MarkupMessage = new MarkupString(message),
             },
             DialogType = DialogType.MessageBox,
             PrimaryAction = primaryText,

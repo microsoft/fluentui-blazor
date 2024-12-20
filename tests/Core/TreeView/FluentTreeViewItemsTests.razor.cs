@@ -25,6 +25,6 @@ public partial class FluentTreeViewItemsTests
         ]),
     };
 
-    private readonly Icon IconCollapsed = SampleIcons.Info;
-    private readonly Icon IconExpanded = SampleIcons.Warning;
+    private readonly Icon IconCollapsed = new SampleIcons.Samples.Info();
+    private readonly Icon IconExpanded = new SampleIcons.Samples.Warning();
 }

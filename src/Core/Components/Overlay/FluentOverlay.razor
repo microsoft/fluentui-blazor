@@ -4,10 +4,11 @@
 {
     <div class="@ClassValue"
          style="@StyleValue"
-         @onclick="@OnCloseHandlerAsync" 
-         @oncontextmenu="@OnCloseHandlerAsync" 
-         @oncontextmenu:preventDefault>
-        <div style="@( $"display: flex; align-items:{Alignment.ToAttributeValue()}; justify-content: {Justification.ToAttributeValue()}; width: 100%; height: 100%")">
+         id="@Id"
+         @onclick="@OnCloseHandlerAsync"
+         @oncontextmenu="@OnCloseHandlerAsync"
+         @oncontextmenu:preventDefault="true">
+        <div style="@StyleContentValue">
             @ChildContent
         </div>
     </div>

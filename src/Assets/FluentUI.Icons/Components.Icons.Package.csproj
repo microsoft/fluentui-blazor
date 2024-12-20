@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>false</SignAssembly>
+
+		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Summary>
+		<PackageTags>Icons, Fluent UI, Blazor, .NET8</PackageTags>
+		<Title>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Title>
+		<Description>A Blazor wrapper library for the official Microsoft Fluent UI System Icons library.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+
+  <!-- List of Icon projects -->
+	<ItemGroup>
+    <Compile Remove="Icons\**" />
+    <EmbeddedResource Remove="Icons\**" />
+    <None Remove="Icons\**" />
+
+	  <ProjectReference Include="Icons\Color\Icons.Color.csproj" PrivateAssets="All" />
+	  <ProjectReference Include="Icons\Filled\Icons.Filled.csproj" PrivateAssets="All" />
+	  <ProjectReference Include="Icons\Light\Icons.Light.csproj" PrivateAssets="All" />
+	  <ProjectReference Include="Icons\Regular\Icons.Regular.csproj" PrivateAssets="All" />
+	</ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <!-- Filter out unnecessary files -->
+      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
+      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

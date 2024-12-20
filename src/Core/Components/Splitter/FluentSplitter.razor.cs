@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -100,7 +101,9 @@ public partial class FluentSplitter : FluentComponentBase
 
     [Parameter]
     public EventCallback<SplitterResizedEventArgs> OnResized { get; set; }
-
+    
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplitterResizedEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplitterCollapsedEventArgs))]
     public FluentSplitter()
     {
         Id = Identifier.NewId();

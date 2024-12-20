@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -11,10 +12,12 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js";
 
+    private bool _opened = false;
     private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
     private Point _clickedPoint = default;
     private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
+    private IMenuService? _menuService = null;
     private IJSObjectReference _jsModule = default!;
 
     /// <summary />
@@ -44,6 +47,21 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary />
+    [Inject]
+    public IServiceProvider? ServiceProvider { get; set; } // https://github.com/dotnet/aspnetcore/issues/24193
+
+    /// <summary />
+    protected virtual IMenuService? MenuService => _menuService;
+
+    /// <summary>
+    /// Use IMenuService to create the menu, if this service was injected.
+    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
+    /// Default, true.
+    /// </summary>
+    [Parameter]
+    public bool UseMenuService { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the identifier of the source component clickable by the end user.
     /// </summary>
@@ -61,7 +79,25 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     /// Gets or sets the Menu status.
     /// </summary>
     [Parameter]
-    public bool Open { get; set; }
+    public bool Open
+    {
+        get
+        {
+            return _opened;
+        }
+
+        set
+        {
+            if (_opened != value)
+            {
+                _opened = value;
+                if (DrawMenuWithService)
+                {
+                    UpdateMenuProviderAsync().ConfigureAwait(true);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -76,7 +112,7 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis. 
+    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
     /// Default is false which places the region adjacent to the anchor element.
     /// </summary>
     [Parameter]
@@ -125,12 +161,36 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     [Parameter]
     public int HorizontalThreshold { get; set; } = 200;
 
+    /// <summary>
+    /// Gets or sets the Horizontal viewport lock.
+    /// </summary>
+    [Parameter]
+    public bool HorizontalViewportLock { get; set; }
+
+    /// <summary>
+    /// Gets or sets the horizontal scaling mode.
+    /// </summary>
+    [Parameter]
+    public AxisScalingMode? HorizontalScaling { get; set; }
+
     protected override void OnInitialized()
     {
         if (Anchored && string.IsNullOrEmpty(Anchor))
         {
             Anchored = false;
         }
+
+        _menuService = ServiceProvider?.GetService<IMenuService>();
+        if (MenuService != null && DrawMenuWithService)
+        {
+            if (string.IsNullOrEmpty(MenuService.ProviderId))
+            {
+                throw new ArgumentNullException(nameof(UseMenuService), "<FluentMenuProvider /> needs to be added to the main layout of your application/site.");
+            }
+
+            MenuService.Add(this);
+        }
+
         base.OnInitialized();
     }
 
@@ -212,6 +272,48 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     internal void Unregister(FluentMenuItem item)
     {
         items.Remove(item.Id!);
+    }
+
+    /// <summary />
+    private bool DrawMenuWithoutService
+    {
+        get
+        {
+            return MenuService is not null && UseMenuService == true && !string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(Anchor) && Anchored == true
+                ? false     // Use the MenuService to draw the menu
+                : true;     // Use the default way to draw the menu
+        }
+    }
+
+    /// <summary />
+    private bool DrawMenuWithService => !DrawMenuWithoutService;
+
+    /// <summary />
+    private async Task UpdateMenuProviderAsync()
+    {
+        if (MenuService == null || DrawMenuWithoutService)
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(Id))
+        {
+            throw new ArgumentNullException(nameof(Id), $"The {nameof(Id)} attribute is required.");
+        }
+
+        await MenuService.RefreshMenuAsync(Id, Open);
+    }
+
+    /// <summary />
+    internal async Task SetOpenAsync(bool value)
+    {
+        Open = value;
+        StateHasChanged();
+
+        if (OpenChanged.HasDelegate)
+        {
+            await OpenChanged.InvokeAsync(Open);
+        }
     }
 
     /// <summary>

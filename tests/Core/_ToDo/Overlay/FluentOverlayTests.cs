@@ -1,9 +1,17 @@
 using Bunit;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Overlay;
 public class FluentOverlayTests : TestBase
 {
+    public FluentOverlayTests()
+    {
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
+        TestContext.Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+
+    }
+
     [Fact]
     public void FluentOverlay_Default()
     {

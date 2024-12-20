@@ -11,6 +11,12 @@ public partial class FluentTooltipProvider : FluentComponentBase, IDisposable
         => new CssBuilder(Class).AddClass("fluent-tooltip-provider")
                                  .Build();
 
+    /// <summary />
+    internal string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("position", "fixed")   // To prevent the tooltip from displaying a scrollbar in body
+        .AddStyle("z-index", ZIndex.Menu.ToString())
+        .Build();
+
     [Inject]
     private ITooltipService TooltipService { get; set; } = default!;
 

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Bunit;
 using Xunit;
 
@@ -28,6 +32,22 @@ public class FluentMessageBarTests : TestBase
     }
 
     [Fact]
+    public void FluentMessageBar_WithId()
+    {
+        TestContext.Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentMessageBar>(parameters =>
+        {
+            parameters.Add(p => p.Title, "This is a message");
+            parameters.Add(p => p.Id, "uniqueId");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentMessageBar_AllowDismiss()
     {
         TestContext.Services.AddFluentUIComponents();
@@ -37,6 +57,22 @@ public class FluentMessageBarTests : TestBase
         {
             parameters.Add(p => p.Title, "This is a message");
             parameters.Add(p => p.AllowDismiss, false);
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentMessageBar_DisableFadeIn()
+    {
+        TestContext.Services.AddFluentUIComponents();
+
+        // Arrange
+        var cut = TestContext.RenderComponent<FluentMessageBar>(parameters =>
+        {
+            parameters.Add(p => p.Title, "This is a message");
+            parameters.Add(p => p.FadeIn, false);
         });
 
         // Assert

@@ -20,7 +20,8 @@
                      disabled=@Disabled
                      appearance="@Appearance.ToAttributeValue()"
                      required="@Required"
-                     @onchange="@ChangeHandlerAsync"
+                     @oncomboboxchange="@ChangeHandlerAsync"
+                     @oncontrolinput="@InputHandlerAsync"
                      autofocus="@Autofocus"
                      name="@Name"
                      @attributes="AdditionalAttributes">

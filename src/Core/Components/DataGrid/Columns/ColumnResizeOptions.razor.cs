@@ -22,12 +22,6 @@ public partial class ColumnResizeOptions<TGridItem>
     public int Column { get; set; }
 
     /// <summary>
-    /// Gets or sets the label to display above the resize options
-    /// </summary>
-    [Parameter]
-    public string? Label{ get; set; }
-
-    /// <summary>
     /// Gets or sets the type of resize to perform
     /// Discrete: resize by a 10 pixels at a time
     /// Exact: resize to the exact width specified (in pixels)
@@ -42,8 +36,6 @@ public partial class ColumnResizeOptions<TGridItem>
         {
             throw new ArgumentException("Column must have a value greater than zero");
         }
-
-        Label = Grid.ResizeLabel;
     }
 
     private async Task HandleShrinkAsync()

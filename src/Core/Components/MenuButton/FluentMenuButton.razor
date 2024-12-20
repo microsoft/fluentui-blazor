@@ -3,7 +3,7 @@
 @inherits FluentComponentBase
 
 <div class="fluent-menubutton-container">
-    <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Style=@ButtonStyle aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
+    <FluentButton Id="@_buttonId" @ref="Button" Appearance="@ButtonAppearance" Style=@ButtonStyle IconStart="@IconStart" aria-haspopup="true" aria-expanded="@_visible" @onclick=ToggleMenu @onkeydown=OnKeyDown>
         @Text
         <FluentIcon Value="@(new CoreIcons.Regular.Size12.ChevronDown())" Slot="end" Color="@_iconColor" />
     </FluentButton>

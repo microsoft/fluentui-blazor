@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 <CascadingValue TValue="FluentRadioContext" Value="_context">
@@ -10,10 +10,10 @@
                         readonly=@ReadOnly
                         disabled=@Disabled
                         name="@_context!.GroupName"
-                        value="@BindConverter.FormatValue(Value?.ToString())"
                         orientation="@Orientation.ToAttributeValue()"
                         required="@Required"
-                        @onradiogroupclick="@((e) => CurrentValueAsString = e?.Value?.ToString())"
+                        value="@CurrentValueAsString"
+                        @onradiogroupchange="HandleChange"
                         @attributes="AdditionalAttributes">
         @ChildContent
     </fluent-radio-group>

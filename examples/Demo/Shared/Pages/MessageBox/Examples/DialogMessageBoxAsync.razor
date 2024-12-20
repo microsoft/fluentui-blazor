@@ -49,7 +49,7 @@
 
     private async Task ShowConfirmationAsync()
     {
-        var dialog = await DialogService.ShowConfirmationAsync("Do you have two eyes?", "Yup", "Nope", "Eyes on you");
+        var dialog = await DialogService.ShowConfirmationAsync("Are you <strong>sure</strong> you want to delete this item? <br /><br />This will also remove any linked items");
         var result = await dialog.Result;
         canceled = result.Cancelled;
     }

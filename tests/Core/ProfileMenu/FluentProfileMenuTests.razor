@@ -48,12 +48,12 @@
                    FooterLink="Account"
                    OnHeaderButtonClick="@(e => signOutClicked = true)"
                    OnFooterLinkClick="@(e => viewAccountClicked = true)" />
-    );
+        );
 
         // Open the Popover
         var button = cut.Find(".fluent-profile-menu");
         button.Click();
-        
+
         // sign out
         var signOut = cut.Find("fluent-button");
         signOut.Click();
@@ -74,11 +74,11 @@
     {
         // Arrange && Act
         var cut = Render(
-            @<FluentProfileMenu Initials="DV">
-                <HeaderTemplate>Header</HeaderTemplate>
-                <ChildContent>Body</ChildContent>
-                <FooterTemplate>Footer</FooterTemplate>
-            </FluentProfileMenu>);
+    @<FluentProfileMenu Initials="DV">
+        <HeaderTemplate>Header</HeaderTemplate>
+        <ChildContent>Body</ChildContent>
+        <FooterTemplate>Footer</FooterTemplate>
+    </FluentProfileMenu>);
 
         // Open the Popover
         var button = cut.Find(".initials");
@@ -93,12 +93,30 @@
     {
         // Arrange && Act
         var cut = Render(
-            @<FluentProfileMenu Image="@SamplePicture">
-                <StartTemplate>Before</StartTemplate>
-                <EndTemplate>After</EndTemplate>
-            </FluentProfileMenu>);
+    @<FluentProfileMenu Image="@SamplePicture">
+        <StartTemplate>Before</StartTemplate>
+        <EndTemplate>After</EndTemplate>
+    </FluentProfileMenu>);
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProfileMenu_OpenTrue()
+    {
+        var opened = true;
+
+        // Arrange
+        var cut = Render(@<FluentProfileMenu Open="@opened" />).FindComponent<FluentProfileMenu>();
+
+        // Assert: Opened
+        Assert.Contains("fluent-anchored-region", cut.Markup);
+
+        // Assert: Closed
+        opened = false;
+        cut.SetParametersAndRender(parameters => parameters.Add(p => p.Open, opened));
+
+        Assert.DoesNotContain("fluent-anchored-region", cut.Markup);
     }
 }

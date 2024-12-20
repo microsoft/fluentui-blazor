@@ -37,7 +37,7 @@ public partial class FluentRating : FluentInputBase<int>
     public Icon IconOutline { get; set; } = new CoreIcons.Regular.Size20.Star();
 
     /// <summary>
-    /// Gets or sets the icon drawing and fill color. 
+    /// Gets or sets the icon drawing and fill color.
     /// Value comes from the <see cref="Color"/> enumeration. Defaults to Accent.
     /// </summary>
     [Parameter]

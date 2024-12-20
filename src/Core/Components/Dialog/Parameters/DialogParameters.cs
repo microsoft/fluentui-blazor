@@ -4,15 +4,32 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public class DialogParameters : ComponentParameters, IDialogParameters
 {
+    private HorizontalAlignment _alignment = HorizontalAlignment.Center;
+
     public string Id { get; set; } = Identifier.NewId();
 
     /// <summary>
     /// Gets or sets the dialog position:
     /// left (full height), right (full height)
     /// or screen middle (using Width and Height properties).
+    /// HorizontalAlignment.Stretch is not supported for this property.
     /// </summary>
-    public virtual HorizontalAlignment Alignment { get; set; } = HorizontalAlignment.Center;
-
+    public virtual HorizontalAlignment Alignment
+    {
+        set
+        {
+            if (value == HorizontalAlignment.Stretch)
+            {
+                throw new ArgumentException("Alignment HorizontalAlignment.Stretch is not supported for DialogParameters");
+            }
+            _alignment = value;
+        }
+        get
+        {
+            return _alignment;
+        }
+    }
+    
     /// <summary>
     /// Gets or sets the title of the dialog.
     /// </summary>
@@ -29,6 +46,11 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// outside the dialog. Defaults to false.
     /// </summary>
     public bool PreventDismissOnOverlayClick { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets if a dialog is visible or not (Hidden)
+    /// </summary>
+    public bool Visible { get; set; } = true;
 
     /// <summary>
     /// Prevents scrolling outside of the dialog while it is shown.
@@ -87,7 +109,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     /// <summary>
     /// Gets or sets the height of the dialog. Must be a valid CSS height value like "600px" or "3em"
     /// Only used if Alignment is set to "HorizontalAlignment.Center"
-    /// </summary>  
+    /// </summary>
     public string? Height { get; set; }
 
     /// <summary>
@@ -121,7 +143,7 @@ public class DialogParameters : ComponentParameters, IDialogParameters
     internal bool ShowPrimaryAction => !string.IsNullOrEmpty(PrimaryAction);
 
     /// <summary>
-    /// Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value. 
+    /// Gets whether the secondary button is displayed or not. Depends on SecondaryAction having a value.
     /// </summary>
     internal bool ShowSecondaryAction => !string.IsNullOrEmpty(SecondaryAction);
 

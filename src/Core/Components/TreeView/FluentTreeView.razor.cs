@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTreeView : FluentComponentBase, IDisposable
 {
     private readonly Dictionary<string, FluentTreeItem> _allItems = [];
-    private readonly Debouncer _currentSelectedChangedDebouncer = new();
+    private readonly Debounce _currentSelectedChangedDebounce = new();
     private bool _disposed;
 
     public static string LoadingMessage = "Loading...";
@@ -120,7 +120,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
                 {
                     await currentTreeItem.OnExpandedAsync(new TreeViewItemExpandedEventArgs(currentTreeItem, item.Expanded));
                 }
-                
+
                 await InvokeAsync(StateHasChanged);
             }
         }
@@ -146,7 +146,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         _allItems.Remove(fluentTreeItem.Id!);
     }
 
-    internal async Task HandleCurrentSelectedChangeAsync(TreeChangeEventArgs args)
+    internal void HandleCurrentSelectedChange(TreeChangeEventArgs args)
     {
         if (!_allItems.TryGetValue(args.AffectedId!, out FluentTreeItem? treeItem))
         {
@@ -154,7 +154,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
         }
 
         var previouslySelected = CurrentSelected;
-        await _currentSelectedChangedDebouncer.DebounceAsync(50, () => InvokeAsync(async () =>
+        _currentSelectedChangedDebounce.Run(50, () => InvokeAsync(async () =>
         {
             CurrentSelected = treeItem?.Selected == true ? treeItem : null;
             if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)
@@ -190,7 +190,7 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
 
         if (disposing)
         {
-            _currentSelectedChangedDebouncer?.Dispose();
+            _currentSelectedChangedDebounce?.Dispose();
             _allItems.Clear();
         }
 

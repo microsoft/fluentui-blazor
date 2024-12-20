@@ -7,6 +7,7 @@
                     Placeholder="search"
                     OnOptionsSearch="@OnSearch"
                     MaximumSelectedOptions="3"
+                    KeepOpen="true"
                     OptionText="@(item => item.FirstName)"
                     OptionStyle="min-height: 40px;"
                     @bind-SelectedOptions="@SelectedItems">

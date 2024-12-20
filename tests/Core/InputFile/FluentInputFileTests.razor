@@ -4,6 +4,7 @@
 {
     public FluentInputFileTests()
     {
+        JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddSingleton(LibraryConfiguration.ForUnitTests);
     }
 
@@ -186,4 +187,25 @@
         Assert.False(fileUploaded, "OnFileUploaded");
         Assert.False(progressChange, "OnProgressChange");
     }
+
+	[Fact]
+	public void FluentInputFile_LastModifiedDateSet()
+	{
+		var lastChanged = new DateTimeOffset(2024, 12, 14, 15, 30, 0, TimeSpan.Zero);
+		var fileToUpload = InputFileContent.CreateFromText("Text content", "Filename.txt", lastChanged);
+		bool lastModifiedSet = false;
+
+		// Arrange
+		var cut = Render(@<FluentInputFile OnCompleted="@(e => {
+			var fileEvent = e.Single();
+			lastModifiedSet = fileEvent.LastModified == lastChanged;})">
+	</FluentInputFile>);
+
+		// Act
+		var inputFile = cut.FindComponent<InputFile>();
+		inputFile.UploadFiles(fileToUpload);
+
+		// Assert
+		Assert.True(lastModifiedSet, "LastModifiedSet");
+	}
 }

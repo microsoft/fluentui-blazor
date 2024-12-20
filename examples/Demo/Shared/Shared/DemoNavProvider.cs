@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;
 
 namespace FluentUI.Demo.Shared;
 
@@ -574,7 +574,11 @@ public class DemoNavProvider
                         icon: new Icons.Regular.Size20.DocumentTextLink(),
                         title: "TableOfContents"
                     ),
-
+                    new NavLink(
+                        href: "/issue-tester",
+                        icon: new Icons.Regular.Size20.WrenchScrewdriver(),
+                        title: "Issue Tester"
+                    ),
                 ]
             )
         ];

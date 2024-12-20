@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Emoji</PackageId>
+		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emoji</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>false</SignAssembly>
+		<Summary>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Summary>
+		<PackageTags>Emoji, Fluent UI, Blazor, .NET8</PackageTags>
+		<Title>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Title>
+		<Description>A Blazor wrapper library for the official Microsoft Fluent UI Emoji set.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\..\icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+	  <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+
+  <!-- List of Emoji projects -->
+  <ItemGroup>
+    <Compile Remove="Emojis\**" />
+    <EmbeddedResource Remove="Emojis\**" />
+    <None Remove="Emojis\**" />
+
+    <ProjectReference Include="Emojis\Activities\Emoji.Activities.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\AnimalsNature\Emoji.AnimalsNature.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\Flags\Emoji.Flags.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\FoodDrink\Emoji.FoodDrink.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\Objects\Emoji.Objects.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\PeopleBody\Emoji.PeopleBody.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\SmileysEmotion\Emoji.SmileysEmotion.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\Symbols\Emoji.Symbols.csproj" PrivateAssets="All" />
+    <ProjectReference Include="Emojis\TravelPlaces\Emoji.TravelPlaces.csproj" PrivateAssets="All" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <!-- Filter out unnecessary files -->
+      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
+      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)" />
+    </ItemGroup>
+  </Target>
+
+
+</Project>

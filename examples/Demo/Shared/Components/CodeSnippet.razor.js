@@ -1,4 +1,4 @@
-﻿export function addCopyButton() {
+export function addCopyButton() {
     var snippets = document.querySelectorAll('.snippet');
     var numberOfSnippets = snippets.length;
     for (var i = 0; i < numberOfSnippets; i++) {
@@ -17,5 +17,13 @@
                 }, 1000)
             });
         }
+    }
+}
+
+export function highlightElement(id) {
+    try {
+        hljs?.highlightElement(id);
+    } catch (e) {
+        // highlightJS may fail when the user navigates away from the page quickly. Which when not catched will result in a crash.
     }
 }

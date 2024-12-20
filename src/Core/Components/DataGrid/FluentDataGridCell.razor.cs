@@ -23,7 +23,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// Gets or sets the cell type. See <see cref="DataGridCellType"/>.
     /// </summary>
     [Parameter]
-    public DataGridCellType? CellType { get; set; } = DataGridCellType.Default;
+    public DataGridCellType CellType { get; set; }
 
     /// <summary>
     /// Gets or sets the column index of the cell.
@@ -48,17 +48,38 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
     /// </summary>
     [CascadingParameter]
-    private InternalGridContext<TGridItem> GridContext { get; set; } = default!;
+    internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    private ColumnBase<TGridItem>? Column => Owner.Owner.Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    private ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
+
+    /// <summary>
+    /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
+    /// </summary>
+    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
+
+    protected string? ClassValue => new CssBuilder(Class)
+        .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
+        .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
+        .AddClass("multiline-text", when: Grid.MultiLine)
+        .AddClass(Owner.Class)
+        .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-       .AddStyle("height", $"{GridContext.Grid.ItemSize:0}px", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
-       .AddStyle("align-content", "center", () => !GridContext.Grid.Loading && GridContext.Grid.Virtualize && Owner.RowType == DataGridRowType.Default && string.IsNullOrEmpty(Style))
-       .Build();
+        .AddStyle("grid-column", GridColumn.ToString(), () => (!Grid.EffectiveLoadingValue && Grid.Items is not null) || Grid.Virtualize)
+        .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
+        .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
+        .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
+        .AddStyle("padding-top", "calc(var(--design-unit) * 2.5px)", Column is SelectColumn<TGridItem> && (Grid.RowSize == DataGridRowSize.Medium || Owner.RowType == DataGridRowType.Header))
+        .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
+        .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
+        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
+        .AddStyle("height", "100%", InternalGridContext.TotalItemCount == 0 || (Grid.EffectiveLoadingValue && Grid.Items is null) || Grid.MultiLine)
+        .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
+        .AddStyle(Owner.Style)
+        .Build();
 
     protected override void OnInitialized()
     {
@@ -68,9 +89,9 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary />
     internal async Task HandleOnCellClickAsync()
     {
-        if (GridContext.Grid.OnCellClick.HasDelegate)
+        if (Grid.OnCellClick.HasDelegate)
         {
-            await GridContext.Grid.OnCellClick.InvokeAsync(this);
+            await Grid.OnCellClick.InvokeAsync(this);
         }
 
         if (Column != null)
