@@ -2,9 +2,9 @@
 
 - [Overview](#overview)
 - [Unit Tests](#unit-tests)
-- [Why unit test?](#why-unit-test)]
+- [Why unit test?](#why-unit-test)
 - [Six Best practices](#six-best-practices)
-- [Code Coverage](#code-coverage)]
+- [Code Coverage](#code-coverage)
 - [FluentUI Blazor Unit Tests](#fluentui-blazor-unit-tests)
    - [Test File Template](#test-file-template)
    - [Example with a simple property](#example-with-a-simple-property)
