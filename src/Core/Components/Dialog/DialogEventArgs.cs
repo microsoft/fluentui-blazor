@@ -49,6 +49,14 @@ public class DialogEventArgs : EventArgs
         }
     }
 
+    /// <summary />
+    internal DialogEventArgs(IDialogInstance instance, DialogState state)
+    {
+        Id = instance.Id;
+        Instance = instance;
+        State = state;
+    }
+
     /// <summary>
     /// Gets the ID of the FluentDialog component.
     /// </summary>
@@ -57,10 +65,10 @@ public class DialogEventArgs : EventArgs
     /// <summary>
     /// Gets the state of the FluentDialog component.
     /// </summary>
-    public DialogState State { get; set; }
+    public DialogState State { get; }
 
     /// <summary>
     /// Gets the instance used by the <see cref="DialogService" />.
     /// </summary>
-    public IDialogInstance? Instance { get; set; }
+    public IDialogInstance? Instance { get; }
 }

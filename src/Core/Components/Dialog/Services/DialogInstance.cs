@@ -29,6 +29,9 @@ public class DialogInstance : IDialogInstance
     /// <summary />
     internal IDialogService DialogService { get; }
 
+    /// <summary />
+    internal FluentDialog? FluentDialog { get; set; }
+
     /// <inheritdoc cref="IDialogInstance.Options"/>
     public DialogOptions Options { get; internal set; }
 

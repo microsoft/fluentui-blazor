@@ -1,16 +1,16 @@
 ﻿<FluentDialogBody>
 
     <TitleTemplate>
-        My Title
+        My title
     </TitleTemplate>
 
     <ChildContent>
-        Hello Body
+        @SampleData.Text.GenerateLoremIpsum(paragraphCount: 1)
     </ChildContent>
 
     <ActionTemplate>
-        <FluentButton Appearance="ButtonAppearance.Primary">One</FluentButton>
-        <FluentButton>Two</FluentButton>
+        <FluentButton Disabled="true" Appearance="ButtonAppearance.Primary">One</FluentButton>
+        <FluentButton Disabled="true">Two</FluentButton>
     </ActionTemplate>
 
 </FluentDialogBody>

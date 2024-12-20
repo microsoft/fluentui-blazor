@@ -33,15 +33,27 @@ public class DialogResult
     /// <summary>
     /// Creates a dialog result with the specified content.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="result"></param>
-    /// <returns></returns>
+    /// <typeparam name="T">Type of the content.</typeparam>
+    /// <param name="result">The content of the dialog result.</param>
+    /// <returns>The dialog result.</returns>
     public static DialogResult Ok<T>(T result) => new(result, cancelled: false);
 
     /// <summary>
     /// Creates a dialog result with the specified content.
     /// </summary>
-    /// <param name="content"></param>
-    /// <returns></returns>
-    public static DialogResult Cancel(object? content = null) => new(content ?? default, cancelled: true);
+    /// <returns>The dialog result.</returns>
+    public static DialogResult Ok() => Ok<object?>(result: null);
+
+    /// <summary>
+    /// Creates a dialog result with the specified content.
+    /// </summary>
+    /// <param name="result">The content of the dialog result.</param>
+    /// <returns>The dialog result.</returns>
+    public static DialogResult Cancel<T>(T result) => new(result, cancelled: true);
+
+    /// <summary>
+    /// Creates a dialog result with the specified content.
+    /// </summary>
+    /// <returns>The dialog result.</returns>
+    public static DialogResult Cancel() => Cancel<object?>(result: null);
 }

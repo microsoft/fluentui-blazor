@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Event arguments for the Dialog toggle event.
+/// Event arguments for the FluentDialog toggle event.
 /// </summary>
 internal class DialogToggleEventArgs : EventArgs
 {

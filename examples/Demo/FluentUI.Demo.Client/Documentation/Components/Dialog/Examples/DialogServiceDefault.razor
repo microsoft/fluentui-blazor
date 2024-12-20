@@ -14,11 +14,11 @@
             options.Height = "300px";
 
             options.Parameters.Add(nameof(SimpleDialog.Name), "John");
-            options.Parameters.Add(nameof(SimpleDialog.Age), 20);
+            options.Parameters.Add(nameof(SimpleDialog.Age), "20");
 
             options.OnStateChange = (e) =>
             {
-                Console.WriteLine($"Dialog state changed: {e.State}");
+                Console.WriteLine($"State changed: {e.State}");
             };
         });
 
@@ -26,11 +26,11 @@
 
         if (result.Cancelled)
         {
-            Console.WriteLine($"Dialog closed - Canceled");
+            Console.WriteLine($"Dialog Canceled: {result.Value}");
         }
         else
         {
-            Console.WriteLine($"Dialog closed - OK");
+            Console.WriteLine($"Dialog Saved: {result.Value}");
         }
     }
 }

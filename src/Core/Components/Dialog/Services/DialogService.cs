@@ -26,16 +26,19 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "<Pending>")]
     public async Task CloseAsync(IDialogInstance dialog, DialogResult result)
     {
-        // Remove the HTML code from the DialogProvider
-        if (!ServiceProvider.Items.TryRemove(dialog.Id, out _))
-        {
-            throw new InvalidOperationException($"Failed to remove dialog from DialogProvider: the ID '{dialog.Id}' doesn't exist in the DialogServiceProvider.");
-        }
+        var dialogInstance = dialog as DialogInstance;
 
-        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        // Raise the DialogState.Closing event
+        dialogInstance?.FluentDialog?.RaiseOnStateChangeAsync(dialog, DialogState.Closing);
+
+        // Remove the dialog from the DialogProvider
+        await RemoveDialogFromProviderAsync(dialog);
 
         // Set the result of the dialog
-        (dialog as DialogInstance)?.ResultCompletion.SetResult(result);
+        dialogInstance?.ResultCompletion.TrySetResult(result);
+
+        // Raise the DialogState.Closed event
+        dialogInstance?.FluentDialog?.RaiseOnStateChangeAsync(dialog, DialogState.Closed);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
@@ -71,5 +74,27 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     public Task<IDialogInstance> ShowDialogAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
+    }
+
+    /// <summary>
+    /// Removes the dialog from the DialogProvider.
+    /// </summary>
+    /// <param name="dialog"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    internal Task RemoveDialogFromProviderAsync(IDialogInstance? dialog)
+    {
+        if (dialog is null)
+        {
+            return Task.CompletedTask;
+        }
+
+        // Remove the HTML code from the DialogProvider
+        if (!ServiceProvider.Items.TryRemove(dialog.Id, out _))
+        {
+            throw new InvalidOperationException($"Failed to remove dialog from DialogProvider: the ID '{dialog.Id}' doesn't exist in the DialogServiceProvider.");
+        }
+
+        return ServiceProvider.OnUpdatedAsync.Invoke(dialog);
     }
 }

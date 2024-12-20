@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -19,20 +18,6 @@ public partial class FluentDialog : FluentComponentBase
     public FluentDialog()
     {
         Id = Identifier.NewId();
-    }
-
-    /// <summary>
-    /// internal constructor used by the <see cref="DialogService" />
-    /// and the <see cref="FluentDialogProvider"/>.
-    /// </summary>
-    /// <param name="serviceProvider"></param>
-    /// <param name="instance"></param>
-    internal FluentDialog(IServiceProvider serviceProvider, DialogInstance instance)
-    {
-        Id = instance.Id;
-        DialogService = instance.DialogService;
-        Instance = instance;
-        JSRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
     }
 
     /// <summary />
@@ -92,6 +77,12 @@ public partial class FluentDialog : FluentComponentBase
     {
         if (firstRender && LaunchedFromService)
         {
+            var instance = Instance as DialogInstance;
+            if (instance is not null)
+            {
+                instance.FluentDialog = this;
+            }
+
             return ShowAsync();
         }
 
@@ -101,21 +92,42 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private async Task OnToggleAsync(DialogToggleEventArgs args)
     {
-        var dialogEventArgs = new DialogEventArgs(this, args);
-        var dialogId = dialogEventArgs?.Id ?? string.Empty;
-
-        if (OnStateChange.HasDelegate)
+        // Raise the event received from the Web Component
+        var dialogEventArgs = await RaiseOnStateChangeAsync(args);
+        
+        if (LaunchedFromService)
         {
-            await OnStateChange.InvokeAsync(dialogEventArgs);
-        }
+            switch (dialogEventArgs.State)
+            {
+                // Set the result of the dialog
+                case DialogState.Closing:
+                    (Instance as DialogInstance)?.ResultCompletion.TrySetResult(DialogResult.Cancel());
+                    break;
 
-        // Remove the HTML code from the DialogProvider
-        if (LaunchedFromService && Instance is not null && dialogEventArgs?.State == DialogState.Closed && !string.IsNullOrEmpty(dialogId))
-        {
-            var service = DialogService as DialogService;
-            service?.CloseAsync(Instance, DialogResult.Cancel());
+                // Remove the dialog from the DialogProvider
+                case DialogState.Closed:
+                    (DialogService as DialogService)?.RemoveDialogFromProviderAsync(Instance);
+                    break;
+            }
         }
     }
+
+    /// <summary />
+    private async Task<DialogEventArgs> RaiseOnStateChangeAsync(DialogEventArgs args)
+    {
+        if (OnStateChange.HasDelegate)
+        {
+            await OnStateChange.InvokeAsync(args);
+        }
+
+        return args;
+    }
+
+    /// <summary />
+    private Task<DialogEventArgs> RaiseOnStateChangeAsync(DialogToggleEventArgs args) => RaiseOnStateChangeAsync(new DialogEventArgs(this, args));
+
+    /// <summary />
+    internal Task<DialogEventArgs> RaiseOnStateChangeAsync(IDialogInstance instance, DialogState state) => RaiseOnStateChangeAsync(new DialogEventArgs(instance, state));
 
     /// <summary>
     /// Displays the dialog.
@@ -161,7 +173,7 @@ public partial class FluentDialog : FluentComponentBase
     {
         switch (IsPanel())
         {
-            // Dialog
+            // FluentDialog
             case false:
                 // TODO: To find a way to catch the click event outside the dialog.
                 return "modal";

@@ -31,7 +31,7 @@ public interface IDialogInstance
     Task<DialogResult> Result { get; }
 
     /// <summary>
-    /// Closes the dialog with a cancel result.
+    /// Closes the dialog with a Cancel result.
     /// </summary>
     /// <returns></returns>
     Task CloseAsync();
