@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Service for showing dialogs.
+/// </summary>
 public partial class DialogService : FluentServiceBase<FluentDialog>, IDialogService
 {
     private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="DialogService"/> class.
     /// </summary>
-    /// <param name="serviceProvider"></param>
+    /// <param name="serviceProvider">List of services available in the application.</param>
     public DialogService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
 
-    /// <summary />
+    /// <inheritdoc cref="IDialogService.CloseAsync(DialogInstance, DialogResult)"/>
     public Task CloseAsync(DialogInstance dialog, DialogResult result)
     {
         // Remove the HTML code from the DialogProvider

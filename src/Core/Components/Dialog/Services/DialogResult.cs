@@ -4,25 +4,44 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Represents the result of a dialog.
+/// </summary>
 public class DialogResult
 {
-    /// <summary />
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogResult"/> class.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="cancelled"></param>
     protected internal DialogResult(object? content, bool cancelled)
     {
         Value = content;
         Cancelled = cancelled;
     }
 
-    /// <summary />
-    public object? Value { get; set; }
+    /// <summary>
+    /// Gets the content of the dialog result.
+    /// </summary>
+    public object? Value { get; }
 
-    /// <summary />
+    /// <summary>
+    /// Gets a value indicating whether the dialog was cancelled.
+    /// </summary>
     public bool Cancelled { get; }
 
-    /// <summary />
+    /// <summary>
+    /// Creates a dialog result with the specified content.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="result"></param>
+    /// <returns></returns>
     public static DialogResult Ok<T>(T result) => new(result, cancelled: false);
 
-    /// <summary />
+    /// <summary>
+    /// Creates a dialog result with the specified content.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
     public static DialogResult Cancel(object? content = null) => new(content ?? default, cancelled: true);
 }

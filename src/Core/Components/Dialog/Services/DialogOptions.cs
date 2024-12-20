@@ -9,12 +9,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class DialogOptions : IFluentComponentBase
 {
-    /// <summary />
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogOptions"/> class.
+    /// </summary>
     public DialogOptions()
     {
     }
 
-    /// <summary />
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogOptions"/> class
+    /// using the specified implementation factory.
+    /// </summary>
+    /// <param name="implementationFactory"></param>
     public DialogOptions(Action<DialogOptions> implementationFactory)
     {
         implementationFactory.Invoke(this);
@@ -55,9 +61,10 @@ public class DialogOptions : IFluentComponentBase
     public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
 
     /// <summary>
-    /// Gets the content of the dialog.
+    /// Gets a list of dialog parameters.
+    /// Each parameter must correspond to a `[Parameter]` property defined in the component.
     /// </summary>
-    public IDictionary<string, object?> Content { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
+    public IDictionary<string, object?> Parameters { get; set; } = new Dictionary<string, object?>(StringComparer.Ordinal);
 
     /// <summary>
     /// Gets or sets the action raised when the dialog is opened or closed.

@@ -6,7 +6,9 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Represents a dialog instance used with the <see cref="IDialogService"/>.
+/// </summary>
 public class DialogInstance : IDialogInstance
 {
     internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
@@ -26,22 +28,22 @@ public class DialogInstance : IDialogInstance
     /// <summary />
     internal IDialogService DialogService { get; }
 
-    /// <summary />
+    /// <inheritdoc cref="IDialogInstance.Options"/>
     public DialogOptions Options { get; internal set; }
 
-    /// <summary />
+    /// <inheritdoc cref="IDialogInstance.Result"/>
     public Task<DialogResult> Result => ResultCompletion.Task;
 
-    /// <summary />
+    /// <inheritdoc cref="IDialogInstance.Id"/>"
     public string Id { get; }
 
-    /// <summary />
+    /// <inheritdoc cref="IDialogInstance.CloseAsync()"/>
     public Task CloseAsync()
     {
         return DialogService.CloseAsync(this, DialogResult.Cancel());
     }
 
-    /// <summary />
+    /// <inheritdoc cref="IDialogInstance.CloseAsync(DialogResult)"/>
     public Task CloseAsync(DialogResult result)
     {
         return DialogService.CloseAsync(this, result);

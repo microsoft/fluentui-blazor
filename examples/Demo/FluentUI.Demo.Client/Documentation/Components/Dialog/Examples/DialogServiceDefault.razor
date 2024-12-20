@@ -12,8 +12,8 @@
             options.Title = "My title";
             options.Alignment = alignment;
 
-            options.Content.Add(nameof(SimpleDialog.Name), "John");
-            options.Content.Add(nameof(SimpleDialog.Age), 20);
+            options.Parameters.Add(nameof(SimpleDialog.Name), "John");
+            options.Parameters.Add(nameof(SimpleDialog.Age), 20);
 
             options.OnStateChange = (e) =>
             {
