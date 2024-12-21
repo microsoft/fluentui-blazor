@@ -6,7 +6,7 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
+public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/TextField/FluentTextField.razor.js";
 
@@ -177,6 +177,23 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
         {
             Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
             await Module.InvokeVoidAsync("setNumberFieldValue", Element, Value!.ToString());
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (Module is not null)
+            {
+                await Module.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException)
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
