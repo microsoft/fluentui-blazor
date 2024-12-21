@@ -68,20 +68,24 @@ public class CodeCommentsGenerator : IIncrementalGenerator
         sb.AppendLine("        Dictionary<string, string> summaryData = new Dictionary<string, string>()");
         sb.AppendLine("        {");
 
-        foreach (var m in members)
+        if (members.Count > 0)
         {
-            var paramName = CleanupParamName(m.Attribute("name").Value.ToString());
-            var summary = CleanupSummary(m.Descendants().First().ToString());
-
-            if (summary != "<summary />")
+            foreach (var m in members)
             {
-                sb.AppendLine("            [\"" + paramName + "\"] = \"" + summary + "\", ");
+                var paramName = CleanupParamName(m.Attribute("name").Value.ToString());
+                var summary = CleanupSummary(m.Descendants().First().ToString());
+
+                if (summary != "<summary />")
+                {
+                    sb.AppendLine("            [\"" + paramName + "\"] = \"" + summary + "\", ");
+                }
             }
+
+            var lastComma = sb.ToString().LastIndexOf(',');
+
+            sb.Remove(lastComma, 1);
         }
-
-        var lastComma = sb.ToString().LastIndexOf(',');
-
-        sb.Remove(lastComma, 1);
+        
         sb.AppendLine("        };");
         sb.AppendLine();
         sb.AppendLine("        KeyValuePair<string, string> foundPair = summaryData.FirstOrDefault(x => x.Key.Equals(name));");
