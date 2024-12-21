@@ -173,5 +173,10 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>
             }
 
         }
+        else
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            await Module.InvokeVoidAsync("setNumberFieldValue", Element, Value!.ToString());
+        }
     }
 }

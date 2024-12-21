@@ -17,3 +17,11 @@ export function setDataList(id, datalistid) {
     }
     shadowRoot.appendChild(dataList);
 }
+
+export function setNumberFieldValue(ref, value) {
+    if (ref !== undefined && ref != null) {
+        if (ref.value !== value) {
+            ref.value = value;
+        }
+    }
+}
