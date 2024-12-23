@@ -160,6 +160,17 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         base.OnParametersSet();
     }
 
+    /// <summary>
+    /// set to true when value is changed by the fluent-number-field either by input or by the spin buttons.
+    /// </summary>
+    private bool inputChanged = false;
+
+    protected override Task InputHandlerAsync(ChangeEventArgs e)
+    {
+        inputChanged = true;
+        return base.InputHandlerAsync(e);
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -175,8 +186,15 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         }
         else
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            await Module.InvokeVoidAsync("setNumberFieldValue", Element, Value!.ToString());
+            if (inputChanged)
+            {
+                inputChanged = false;
+            }
+            else
+            {
+                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+                await Module.InvokeVoidAsync("setNumberFieldValue", Element, Value!.ToString());
+            }
         }
     }
 
