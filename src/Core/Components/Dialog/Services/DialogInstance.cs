@@ -41,10 +41,22 @@ public class DialogInstance : IDialogInstance
     /// <inheritdoc cref="IDialogInstance.Id"/>"
     public string Id { get; }
 
+    /// <inheritdoc cref="IDialogInstance.CancelAsync()"/>
+    public Task CancelAsync()
+    {
+        return DialogService.CloseAsync(this, DialogResult.Cancel());
+    }
+
     /// <inheritdoc cref="IDialogInstance.CloseAsync()"/>
     public Task CloseAsync()
     {
-        return DialogService.CloseAsync(this, DialogResult.Cancel());
+        return DialogService.CloseAsync(this, DialogResult.Ok());
+    }
+
+    /// <inheritdoc cref="IDialogInstance.CloseAsync{T}(T)"/>
+    public Task CloseAsync<T>(T result)
+    {
+        return DialogService.CloseAsync(this, DialogResult.Ok(result));
     }
 
     /// <inheritdoc cref="IDialogInstance.CloseAsync(DialogResult)"/>

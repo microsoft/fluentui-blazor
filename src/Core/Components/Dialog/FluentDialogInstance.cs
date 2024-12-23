@@ -15,7 +15,7 @@ public abstract class FluentDialogInstance : ComponentBase
     /// 
     /// </summary>
     [CascadingParameter]
-    public required IDialogInstance Dialog { get; set; }
+    public required IDialogInstance DialogInstance { get; set; }
 
     /// <summary>
     /// 
@@ -32,13 +32,13 @@ public abstract class FluentDialogInstance : ComponentBase
     /// <returns></returns>
     protected override Task OnInitializedAsync()
     {
-        var footer = Dialog.Options.Footer;
+        var footer = DialogInstance.Options.Footer;
         footer.PrimaryAction.Label ??= "OK";
         footer.PrimaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: true);
         footer.SecondaryAction.Label ??= "Cancel";
         footer.SecondaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: false);
 
-        OnInitializeDialog(Dialog.Options.Header, Dialog.Options.Footer);
+        OnInitializeDialog(DialogInstance.Options.Header, DialogInstance.Options.Footer);
 
         return base.OnInitializedAsync();
     }

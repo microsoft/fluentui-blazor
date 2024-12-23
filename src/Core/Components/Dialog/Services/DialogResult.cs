@@ -7,14 +7,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents the result of a dialog.
 /// </summary>
-public class DialogResult
+public class DialogResult<TContent>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DialogResult"/> class.
+    /// Initializes a new instance of the <see cref="DialogResult{TContent}"/> class.
     /// </summary>
     /// <param name="content"></param>
     /// <param name="cancelled"></param>
-    protected internal DialogResult(object? content, bool cancelled)
+    protected internal DialogResult(TContent? content, bool cancelled)
     {
         Value = content;
         Cancelled = cancelled;
@@ -23,7 +23,7 @@ public class DialogResult
     /// <summary>
     /// Gets the content of the dialog result.
     /// </summary>
-    public object? Value { get; }
+    public TContent? Value { get; }
 
     /// <summary>
     /// Gets a value indicating whether the dialog was cancelled.
@@ -56,4 +56,34 @@ public class DialogResult
     /// </summary>
     /// <returns>The dialog result.</returns>
     public static DialogResult Cancel() => Cancel<object?>(result: null);
+}
+
+/// <summary>
+/// Represents the result of a dialog.
+/// </summary>
+public class DialogResult : DialogResult<object>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogResult{TContent}"/> class.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="cancelled"></param>
+    protected internal DialogResult(object? content, bool cancelled) : base(content, cancelled)
+    {
+    }
+
+    /// <summary>
+    /// Gets the content of the dialog result.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T GetValue<T>()
+    {
+        if (Value is T variable)
+        {
+            return variable;
+        }
+
+        return default(T)!;
+    }
 }

@@ -5,9 +5,10 @@
     </TitleTemplate>
 
     <ChildContent>
-        <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Person.Age" />
-        <hr />
-        @LongText
+        <FluentTextInput Label="Name:" @bind-Value="@Name" Disabled="true" />
+        <FluentTextInput Label="Age:" @bind-Value="@Person.Age" />
+        <FluentLabel>Description</FluentLabel>
+        @Person.VeryLongDescription
     </ChildContent>
 
     <ActionTemplate>
@@ -18,8 +19,6 @@
 </FluentDialogBody>
 
 @code {
-    private static MarkupString LongText = GetVeryLongText();
-
     // If you want to use this razor component in standalone mode,
     // you can use a nullable IDialogInstance property.
     // If the value is not null, the component is running using the DialogService.
@@ -47,16 +46,5 @@
     private async Task btnCancel_Click()
     {
         await Dialog.CloseAsync(DialogResult.Cancel("No"));
-    }
-
-    private static MarkupString GetVeryLongText()
-    {
-        return (MarkupString)string.Join("", SampleData.Text.LoremIpsum.Select(i => $"<p>{i}</p>"));
-    }
-
-    public class PersonDetails
-    {
-        public string Age { get; set; } = "";
-        public override string ToString() => $"Age: {Age}";
     }
 }

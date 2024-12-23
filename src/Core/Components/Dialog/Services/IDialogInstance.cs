@@ -34,6 +34,12 @@ public interface IDialogInstance
     /// Closes the dialog with a Cancel result.
     /// </summary>
     /// <returns></returns>
+    Task CancelAsync();
+
+    /// <summary>
+    /// Closes the dialog with the specified result.
+    /// </summary>
+    /// <returns></returns>
     Task CloseAsync();
 
     /// <summary>
@@ -42,4 +48,11 @@ public interface IDialogInstance
     /// <param name="result">Result to close the dialog with.</param>
     /// <returns></returns>
     Task CloseAsync(DialogResult result);
+
+    /// <summary>
+    /// Closes the dialog with the specified result.
+    /// </summary>
+    /// <param name="result">Result to close the dialog with.</param>
+    /// <returns></returns>
+    Task CloseAsync<T>(T result);
 }
