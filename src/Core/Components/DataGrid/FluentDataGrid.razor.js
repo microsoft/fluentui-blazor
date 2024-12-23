@@ -63,7 +63,8 @@ export function init(gridElement, autoFocus) {
             );
         }
 
-        if (start === document.activeElement) {
+        // check if start is a child of gridElement
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start) {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
