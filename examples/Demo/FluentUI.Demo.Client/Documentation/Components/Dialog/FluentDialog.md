@@ -203,14 +203,6 @@ You can also use the `FluentDialogBody` component directly in your component, wi
 
 {{ API Type=DialogService }}
 
-## API DialogInstance
-
-{{ API Type=DialogInstance }}
-
-## API DialogResult
-
-{{ API Type=DialogResult }}
-
 ## API FluentDialogBody
 
 {{ API Type=FluentDialogBody }}
