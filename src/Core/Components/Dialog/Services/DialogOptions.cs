@@ -42,9 +42,14 @@ public class DialogOptions : IFluentComponentBase
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
-    /// Gets or sets the title of the dialog.
+    /// Gets the header title of the dialog.
     /// </summary>
-    public string? Title { get; set; }
+    public DialogOptionsHeader Header { get; } = new();
+
+    /// <summary>
+    /// Gets the footer actions of the dialog.
+    /// </summary>
+    public DialogOptionsFooter Footer { get; } = new();
 
     /// <summary>
     /// Gets or sets the dialog alignment.

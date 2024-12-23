@@ -176,12 +176,12 @@ public partial class FluentDialog : FluentComponentBase
             // FluentDialog
             case false:
                 // TODO: To find a way to catch the click event outside the dialog.
-                return "modal";
+                return "alert";
 
             // Panels
             case true:
                 // TODO: To find a way to catch the click event outside the dialog.
-                return "modal";
+                return "alert";
 
         }
     }

@@ -1,26 +1,53 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering
 @inherits FluentComponentBase
 
 <fluent-dialog-body fuib style="@StyleValue" class="@ClassValue" id="@Id" @attributes="@AdditionalAttributes">
 
+    @* Header Title *@
     @if (TitleTemplate is not null)
     {
         <div slot="title">@TitleTemplate</div>
     }
+    else if (!string.IsNullOrEmpty(Instance?.Options.Header.Title))
+    {
+        <div slot="title">@((MarkupString)(Instance.Options.Header.Title))</div>
+    }
 
+    @* Header Action *@
     @if (TitleActionTemplate is not null)
     {
         <div slot="title-action">@TitleActionTemplate</div>
     }
 
+    @* Content *@
     @if (ChildContent is not null)
     {
         <div>@ChildContent</div>
     }
 
+    @* Footer *@
     @if (ActionTemplate is not null)
     {
         <div slot="action">@ActionTemplate</div>
     }
-   
+    else if (Instance?.Options.Footer.HasActions == true)
+    {
+        <div slot="action">
+
+            @foreach (var action in Instance.Options.Footer.Actions)
+            {
+                if (action.ToDisplay)
+                {
+                    <FluentButton OnClick="@(async e => await ActionClickHandlerAsync(action))"
+                                  Disabled="@action.Disabled"
+                                  Appearance="action.Appearance">
+                        @action.Label
+                    </FluentButton>
+                }
+            }
+
+        </div>
+    }
+
 </fluent-dialog-body>

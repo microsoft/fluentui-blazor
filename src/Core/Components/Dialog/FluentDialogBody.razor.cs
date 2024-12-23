@@ -21,6 +21,10 @@ public partial class FluentDialogBody : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .Build();
 
+    /// <summary />
+    [CascadingParameter]
+    private IDialogInstance? Instance { get; set; }
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
@@ -44,4 +48,23 @@ public partial class FluentDialogBody : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ActionTemplate { get; set; }
+
+    /// <summary />
+    private async Task ActionClickHandlerAsync(DialogOptionsFooterAction item)
+    {
+        if (item.Disabled || Instance is null)
+        {
+            return;
+        }
+
+        if (item.OnClickAsync is not null )
+        {
+            await item.OnClickAsync(Instance);
+        }
+        else
+        {
+            var result = item.Appearance == ButtonAppearance.Primary ? DialogResult.Ok() : DialogResult.Cancel();
+            await Instance.CloseAsync(result);
+        }
+    }
 }

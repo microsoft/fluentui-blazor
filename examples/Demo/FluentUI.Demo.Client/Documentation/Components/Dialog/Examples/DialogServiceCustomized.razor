@@ -3,7 +3,6 @@
 <FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.End))">Open Panel</FluentButton>
 <FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.Default))">Open Dialog</FluentButton>
 
-
 <hr />
 <div>
     John: @John
@@ -11,22 +10,18 @@
 
 @code
 {
-    private SimpleDialog.PersonDetails John = new() { Age = "20" };
+    private SimpleDialogCustomized.PersonDetails John = new() { Age = "20" };
 
     private async Task OpenDialogAsync(DialogAlignment alignment)
     {
-        var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
+        var dialog = await DialogService.ShowDialogAsync<SimpleDialogCustomized>(options =>
         {
-            options.Alignment = alignment;
-            //options.Style = alignment == DialogAlignment.Default ? "max-height: 400px;" : null;
-
             options.Header.Title = "My title";
+            options.Alignment = alignment;
+            options.Style = alignment == DialogAlignment.Default ? "max-height: 400px;" : null;
 
-            options.Footer.PrimaryAction.Label = "Save";
-            options.Footer.SecondaryAction.Label = "Cancel";
-
-            options.Parameters.Add(nameof(SimpleDialog.Name), "John");  // Simple type
-            options.Parameters.Add(nameof(SimpleDialog.Person), John);  // Updatable object
+            options.Parameters.Add(nameof(SimpleDialogCustomized.Name), "John");  // Simple type
+            options.Parameters.Add(nameof(SimpleDialogCustomized.Person), John);  // Updatable object
 
             options.OnStateChange = (e) =>
             {

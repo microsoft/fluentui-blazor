@@ -1,8 +1,20 @@
 ﻿<FluentDialogBody>
-    <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Person.Age" />
-    <FluentButton OnClick="@(e => Dialog.Options.Footer.PrimaryAction.Disabled = !Dialog.Options.Footer.PrimaryAction.Disabled)">Switch</FluentButton>
-    <hr />
-    @LongText
+
+    <TitleTemplate>
+        @Dialog?.Options.Header.Title
+    </TitleTemplate>
+
+    <ChildContent>
+        <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Person.Age" />
+        <hr />
+        @LongText
+    </ChildContent>
+
+    <ActionTemplate>
+        <FluentButton OnClick="btnOK_Click" Appearance="ButtonAppearance.Primary">OK</FluentButton>
+        <FluentButton OnClick="btnCancel_Click">Cancel</FluentButton>
+    </ActionTemplate>
+
 </FluentDialogBody>
 
 @code {
@@ -21,7 +33,7 @@
 
     // A class is updatable
     [Parameter]
-    public PersonDetails Person { get; set; } = new();
+    public PersonDetails Person { get; set; } = new();  
 
     // A nullable type is optional
     [Parameter]
