@@ -1,20 +1,10 @@
-﻿<FluentDialogBody>
+﻿@inherits FluentDialogInstance
+
+<FluentDialogBody>
     <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Person.Age" />
-    <FluentButton OnClick="@(e => Dialog.Options.Footer.PrimaryAction.Disabled = !Dialog.Options.Footer.PrimaryAction.Disabled)">Switch</FluentButton>
-    <hr />
-    @LongText
 </FluentDialogBody>
 
 @code {
-    private static MarkupString LongText = GetVeryLongText();
-
-    // If you want to use this razor component in standalone mode,
-    // you can use a nullable IDialogInstance property.
-    // If the value is not null, the component is running using the DialogService.
-    // `public IDialogInstance? FluentDialog { get; set; }`
-    [CascadingParameter]
-    public required IDialogInstance Dialog { get; set; }
-
     // A simple type is not updatable
     [Parameter]
     public string? Name { get; set; }
@@ -23,23 +13,22 @@
     [Parameter]
     public PersonDetails Person { get; set; } = new();
 
-    // A nullable type is optional
-    [Parameter]
-    public int? NotAssignedParam { get; set; }
-
-    private async Task btnOK_Click()
+    protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)
     {
-        await Dialog.CloseAsync(DialogResult.Ok("Yes"));
+        header.Title = $"Hello {Name}";
+        footer.SecondaryAction.Visible = false;
     }
 
-    private async Task btnCancel_Click()
+    protected override Task OnActionClickedAsync(bool primary)
     {
-        await Dialog.CloseAsync(DialogResult.Cancel("No"));
-    }
-
-    private static MarkupString GetVeryLongText()
-    {
-        return (MarkupString)string.Join("", SampleData.Text.LoremIpsum.Select(i => $"<p>{i}</p>"));
+        if (primary)
+        {
+            return Dialog.CloseAsync(DialogResult.Ok("Yes"));
+        }
+        else
+        {
+            return Dialog.CloseAsync(DialogResult.Cancel("No"));
+        }
     }
 
     public class PersonDetails

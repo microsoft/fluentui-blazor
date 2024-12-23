@@ -18,12 +18,6 @@
         var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
         {
             options.Alignment = alignment;
-            //options.Style = alignment == DialogAlignment.Default ? "max-height: 400px;" : null;
-
-            options.Header.Title = "My title";
-
-            options.Footer.PrimaryAction.Label = "Save";
-            options.Footer.SecondaryAction.Label = "Cancel";
 
             options.Parameters.Add(nameof(SimpleDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(SimpleDialog.Person), John);  // Updatable object
