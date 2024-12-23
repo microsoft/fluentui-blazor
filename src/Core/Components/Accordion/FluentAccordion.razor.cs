@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
@@ -52,6 +56,7 @@ public partial class FluentAccordion : FluentComponentBase
             var Id = args.ActiveId;
             if (Id is not null && items.TryGetValue(Id!, out FluentAccordionItem? item))
             {
+                item.Expanded = args.Expanded;
                 await OnAccordionItemChange.InvokeAsync(item);
                 await ActiveIdChanged.InvokeAsync(Id);
             }
