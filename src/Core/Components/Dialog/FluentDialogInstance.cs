@@ -24,7 +24,6 @@ public abstract class FluentDialogInstance : ComponentBase
     /// <param name="footer"></param>
     protected virtual void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)
     {
-        
     }
 
     /// <summary>
@@ -33,10 +32,11 @@ public abstract class FluentDialogInstance : ComponentBase
     /// <returns></returns>
     protected override Task OnInitializedAsync()
     {
-        Dialog.Options.Footer.PrimaryAction.Label = "OK";
-        Dialog.Options.Footer.PrimaryAction.OnClickAsync = (e) => OnActionClickedAsync(primary: true);
-        Dialog.Options.Footer.SecondaryAction.Label = "Cancel";
-        Dialog.Options.Footer.SecondaryAction.OnClickAsync = (e) => OnActionClickedAsync(primary: false);
+        var footer = Dialog.Options.Footer;
+        footer.PrimaryAction.Label ??= "OK";
+        footer.PrimaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: true);
+        footer.SecondaryAction.Label ??= "Cancel";
+        footer.SecondaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: false);
 
         OnInitializeDialog(Dialog.Options.Header, Dialog.Options.Footer);
 

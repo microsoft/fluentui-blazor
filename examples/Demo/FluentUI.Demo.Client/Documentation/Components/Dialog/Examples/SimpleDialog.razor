@@ -1,7 +1,7 @@
 ﻿@inherits FluentDialogInstance
 
 <FluentDialogBody>
-    <FluentTextInput Label="@($"Hello {Name}. How old are you?")" @bind-Value="@Person.Age" />
+    <FluentTextInput Label="@($"How old are you?")" @bind-Value="@Person.Age" />
 </FluentDialogBody>
 
 @code {
@@ -13,21 +13,23 @@
     [Parameter]
     public PersonDetails Person { get; set; } = new();
 
+    // Initialize the dialog
     protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)
     {
         header.Title = $"Hello {Name}";
-        footer.SecondaryAction.Visible = false;
+        footer.SecondaryAction.Visible = true;
     }
 
-    protected override Task OnActionClickedAsync(bool primary)
+    // Handle the action click
+    protected override async Task OnActionClickedAsync(bool primary)
     {
         if (primary)
         {
-            return Dialog.CloseAsync(DialogResult.Ok("Yes"));
+            await Dialog.CloseAsync(DialogResult.Ok("Yes"));
         }
         else
         {
-            return Dialog.CloseAsync(DialogResult.Cancel("No"));
+            await Dialog.CloseAsync(DialogResult.Cancel("No"));
         }
     }
 
