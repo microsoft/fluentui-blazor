@@ -18,10 +18,19 @@ export function setDataList(id, datalistid) {
     shadowRoot.appendChild(dataList);
 }
 
-export function setNumberFieldValue(ref, value) {
+export function ensureCurrentValueMatch(ref) {
     if (ref !== undefined && ref != null) {
-        if (ref.value !== value) {
-            ref.value = value;
-        }
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "attributes") {
+                    ref.value = mutation.target.getAttribute("value");
+                }
+            });
+        });
+        observer.observe(ref, {
+            attributes: true,
+            attributeFilter: ["value"],
+        });
     }
 }
+
