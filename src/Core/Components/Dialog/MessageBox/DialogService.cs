@@ -77,9 +77,9 @@ public partial class DialogService : IDialogService
     }
 
     /// <inheritdoc cref="IDialogService.ShowMessageBoxAsync(MessageBoxOptions)"/>/>
-    public async Task<DialogResult> ShowMessageBoxAsync(MessageBoxOptions options)
+    public Task<DialogResult> ShowMessageBoxAsync(MessageBoxOptions options)
     {
-        var dialog = await ShowDialogAsync<FluentMessageBox>(config =>
+        return ShowDialogAsync<FluentMessageBox>(config =>
         {
             config.Header.Title = options.Title;
             config.Footer.PrimaryAction.Label = options.PrimaryButton;
@@ -88,9 +88,5 @@ public partial class DialogService : IDialogService
             config.Parameters.Add(nameof(FluentMessageBox.Icon), options.Icon);
             config.Parameters.Add(nameof(FluentMessageBox.IconColor), options.IconColor);
         });
-
-        var result = await dialog.Result;
-
-        return result;
     }
 }

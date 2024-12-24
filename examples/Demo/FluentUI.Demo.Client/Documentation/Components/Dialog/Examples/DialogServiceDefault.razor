@@ -13,7 +13,7 @@
 
     private async Task OpenDialogAsync()
     {
-        var dialog = await DialogService.ShowDialogAsync<Dialog.SimpleDialog>(options =>
+        var result = await DialogService.ShowDialogAsync<Dialog.SimpleDialog>(options =>
         {
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John);  // Updatable object
@@ -23,8 +23,6 @@
                 Console.WriteLine($"State changed: {e.State}");
             };
         });
-
-        var result = await dialog.Result;
 
         if (result.Cancelled)
         {

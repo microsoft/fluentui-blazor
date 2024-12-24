@@ -24,14 +24,14 @@ public partial interface IDialogService : IFluentServiceBase<IDialogInstance>
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
     /// <param name="options">Options to configure the dialog component.</param>
-    Task<IDialogInstance> ShowDialogAsync(Type dialogComponent, DialogOptions options);
+    Task<DialogResult> ShowDialogAsync(Type dialogComponent, DialogOptions options);
 
     /// <summary>
     /// Shows a dialog with the component type as the body.
     /// </summary>
     /// <typeparam name="TDialog">Type of component to display.</typeparam>
     /// <param name="options">Options to configure the dialog component.</param>
-    Task<IDialogInstance> ShowDialogAsync<TDialog>(DialogOptions options)
+    Task<DialogResult> ShowDialogAsync<TDialog>(DialogOptions options)
          where TDialog : ComponentBase;
 
     /// <summary>
@@ -39,6 +39,6 @@ public partial interface IDialogService : IFluentServiceBase<IDialogInstance>
     /// </summary>
     /// <typeparam name="TDialog">Type of component to display.</typeparam>
     /// <param name="options">Options to configure the dialog component.</param>
-    Task<IDialogInstance> ShowDialogAsync<TDialog>(Action<DialogOptions> options)
+    Task<DialogResult> ShowDialogAsync<TDialog>(Action<DialogOptions> options)
          where TDialog : ComponentBase;
 }

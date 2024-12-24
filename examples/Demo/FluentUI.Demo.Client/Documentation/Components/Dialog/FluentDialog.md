@@ -37,12 +37,10 @@ Any Blazor component can be used as a dialog type.
 ```csharp
 @inject IDialogService DialogService
 
-var dialog = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
+var result = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
 {
     // Options
 });
-
-var result = await dialog.Result;
 
 if (result.Cancelled == false)
 {
@@ -78,7 +76,7 @@ The previous `FluentDialogInstance` object is optional. You can create your own 
    Several **options** can be used to customize the dialog box, such as styles, title, button text, etc.
 
 ```csharp
-var dialog = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
+var result = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
 {
     options.Header.Title = "Dialog Title";
     options.Alignment = DialogAlignment.Default;
@@ -136,7 +134,7 @@ the **key is the name of the property** in the dialog box, and the **value** is 
 ```csharp
 PersonDetails John = new() { Age = "20" };
 
-var dialog = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
+var result = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
 {
     options.Parameters.Add(nameof(SimpleDialog.Name), "John");  // Simple type
     options.Parameters.Add(nameof(SimpleDialog.Person), John);  // Updatable object

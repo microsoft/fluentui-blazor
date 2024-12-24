@@ -46,7 +46,7 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
-    public virtual async Task<IDialogInstance> ShowDialogAsync(Type componentType, DialogOptions options)
+    public virtual async Task<DialogResult> ShowDialogAsync(Type componentType, DialogOptions options)
     {
         if (!componentType.IsSubclassOf(typeof(ComponentBase)))
         {
@@ -64,17 +64,17 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
         ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentDialog."));
         await ServiceProvider.OnUpdatedAsync.Invoke(instance);
 
-        return instance;
+        return await instance.Result;
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(DialogOptions)"/>
-    public Task<IDialogInstance> ShowDialogAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDialogAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), options);
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(Action{DialogOptions})"/>
-    public Task<IDialogInstance> ShowDialogAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    public Task<DialogResult> ShowDialogAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
     {
         return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
     }

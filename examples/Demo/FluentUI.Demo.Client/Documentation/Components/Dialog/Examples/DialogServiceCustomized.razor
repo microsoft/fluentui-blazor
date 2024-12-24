@@ -14,7 +14,7 @@
 
     private async Task OpenDialogAsync(DialogAlignment alignment)
     {
-        var dialog = await DialogService.ShowDialogAsync<Dialog.CustomizedDialog>(options =>
+        var result = await DialogService.ShowDialogAsync<Dialog.CustomizedDialog>(options =>
         {
             options.Header.Title = "Dialog Title";
             options.Alignment = alignment;
@@ -29,8 +29,6 @@
             };
         });
         
-        var result = await dialog.Result;
-
         if (result.Cancelled)
         {
             Console.WriteLine($"Dialog Canceled: {result.Value}");
