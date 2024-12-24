@@ -18,7 +18,7 @@
 
     private async Task ShowSuccessAsync()
     {
-        var result = await DialogService.ShowSuccessAsync("The action was a success");
+        var result = await DialogService.ShowSuccessAsync("The action was a success");        
         Canceled = result.Cancelled;
     }
 
@@ -60,8 +60,8 @@
                 Message = "My <strong>customized</strong> message",
                 Icon = new Icons.Regular.Size24.Games(),
                 IconColor = Color.Success,
-                PrimaryAction = "Plus",
-                SecondaryAction = "Minus",
+                PrimaryButton = "Plus",
+                SecondaryButton = "Minus",
             });
 
         Canceled = result.Cancelled;

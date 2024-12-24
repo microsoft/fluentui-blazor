@@ -22,12 +22,12 @@ public class MessageBoxOptions
     /// <summary>
     /// Gets or sets the text to display in the primary action button.
     /// </summary>
-    public string? PrimaryAction { get; set; }
+    public string? PrimaryButton { get; set; }
 
     /// <summary>
     /// Gets or sets the text to display in the secondary action button.
     /// </summary>
-    public string? SecondaryAction { get; set; }
+    public string? SecondaryButton { get; set; }
 
     /// <summary>
     /// Gets or sets the icon to display in the dialog.
