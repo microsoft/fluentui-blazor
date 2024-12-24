@@ -22,6 +22,10 @@
             <li>
                 The parameter <code>ResizeLabel</code> has been removed in favor of 3 new parameters. This makes changing strings in the DataGrid UI easier. See <FluentAnchor Href="#changeuistrings" Appearance="Appearance.Hypertext">Change strings used in the UI</FluentAnchor> for more information.
             </li>
+            <li>It is currently not possible to use the <code>OnRowFocus</code> and <code>OnCellFocus</code> event callbacks. You can use the <code>OnRowClick</code>, <code>OnRowDoubleClick</code> and <code>OnCellClick</code> alternatives.
+
+                As of v4.11.1 the <code>OnCellFocus</code> event callback will be operational again. For <code>OnRowFocus</code>, we are waiting for the necessary support being added by the different browsers. See https://chromestatus.com/feature/6237396851228672 for more information.
+            </li>
         </ul>
     </div>
 </p>
