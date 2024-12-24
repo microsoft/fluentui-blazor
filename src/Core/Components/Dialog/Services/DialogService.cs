@@ -23,7 +23,6 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.CloseAsync(IDialogInstance, DialogResult)"/>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "<Pending>")]
     public async Task CloseAsync(IDialogInstance dialog, DialogResult result)
     {
         var dialogInstance = dialog as DialogInstance;
@@ -42,7 +41,6 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     }
 
     /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0004:Use Task.ConfigureAwait", Justification = "TODO")]
     public virtual async Task<IDialogInstance> ShowDialogAsync(Type componentType, DialogOptions options)
     {
         if (!componentType.IsSubclassOf(typeof(ComponentBase)))

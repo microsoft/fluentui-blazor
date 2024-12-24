@@ -1,0 +1,13 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Dialog.MessageBox
+
+<FluentDialogBody Style="max-height: 300px;">
+    <div class="fluent-message-box">
+        @if (Icon != null)
+        {
+            <FluentIcon Value="@Icon" Color="@IconColor" Width="32px" Class="icon" />
+        }
+        <div class="message">
+            @Message
+        </div>
+    </div>
+</FluentDialogBody>
