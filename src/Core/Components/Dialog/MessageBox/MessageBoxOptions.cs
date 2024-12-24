@@ -30,6 +30,16 @@ public class MessageBoxOptions
     public string? SecondaryButton { get; set; }
 
     /// <summary>
+    /// Gets or sets the text to display in the primary action button.
+    /// </summary>
+    public string? PrimaryShortCut { get; set; } = "Enter";
+
+    /// <summary>
+    /// Gets or sets the text to display in the secondary action button.
+    /// </summary>
+    public string? SecondaryShortCut { get; set; } = "Escape";
+
+    /// <summary>
     /// Gets or sets the icon to display in the dialog.
     /// </summary>
     public Icon? Icon { get; set; }

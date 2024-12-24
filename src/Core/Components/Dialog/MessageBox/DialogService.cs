@@ -18,6 +18,7 @@ public partial class DialogService : IDialogService
             Title = title ?? Localizer["MessageBox_Success"],
             Message = message,
             PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.CheckmarkCircle(),
             IconColor = Color.Success,
         });
@@ -31,6 +32,7 @@ public partial class DialogService : IDialogService
             Title = title ?? Localizer["MessageBox_Warning"],
             Message = message,
             PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.Warning(),
             IconColor = Color.Warning,
         });
@@ -44,6 +46,7 @@ public partial class DialogService : IDialogService
             Title = title ?? Localizer["MessageBox_Error"],
             Message = message,
             PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.DismissCircle(),
             IconColor = Color.Error,
         });
@@ -57,6 +60,7 @@ public partial class DialogService : IDialogService
             Title = title ?? Localizer["MessageBox_Information"],
             Message = message,
             PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.Info(),
             IconColor = Color.Info,
         });
@@ -70,7 +74,9 @@ public partial class DialogService : IDialogService
             Title = title ?? Localizer["MessageBox_Confirmation"],
             Message = message,
             PrimaryButton = primaryButton ?? Localizer["MessageBox_ButtonYes"],
+            PrimaryShortCut = "Enter;Y",
             SecondaryButton = secondaryButton ?? Localizer["MessageBox_ButtonNo"],
+            SecondaryShortCut = "Escape;N",
             Icon = new CoreIcons.Regular.Size20.QuestionCircle(),
             IconColor = Color.Default,
         });
@@ -83,7 +89,9 @@ public partial class DialogService : IDialogService
         {
             config.Header.Title = options.Title;
             config.Footer.PrimaryAction.Label = options.PrimaryButton;
+            config.Footer.PrimaryAction.ShortCut = options.PrimaryShortCut;
             config.Footer.SecondaryAction.Label = options.SecondaryButton;
+            config.Footer.SecondaryAction.ShortCut = options.SecondaryShortCut;
             config.Parameters.Add(nameof(FluentMessageBox.Message), new MarkupString(options.Message ?? ""));
             config.Parameters.Add(nameof(FluentMessageBox.Icon), options.Icon);
             config.Parameters.Add(nameof(FluentMessageBox.IconColor), options.IconColor);

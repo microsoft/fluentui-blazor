@@ -65,6 +65,8 @@ It is then retrieved in the `DialogResult` like in the example below.
 
 By default, the `FluentDialogInstance` class will offer two buttons, one to validate and one to cancel (**OK** and **Cancel**).
 You can override the actions of these buttons by overriding the `OnActionClickedAsync` method.
+By default the shortcut key **Enter** is associated with the **OK** button and the shortcut key **Escape** is associated with the **Cancel** button.
+But your can update these shortcuts by overriding the `ShortCut` property.
 
 {{ DialogServiceDefault Files=Code:DialogServiceDefault.razor;SimpleDialog:SimpleDialog.razor;PersonDetails:PersonDetails.cs }}
 
@@ -119,6 +121,8 @@ var result = await DialogService.ShowDialogAsync<CustomizedDialog>(options =>
     public required IDialogInstance Dialog { get; set; }
 }
 ```
+
+> **Notes**: Adding your custom buttons to the dialog box, the default shortcuts **Enter** and **Escape** will no longer work.
 
 {{ DialogServiceCustomized Files=Code:DialogServiceCustomized.razor;CustomizedDialog:CustomizedDialog.razor;PersonDetails:PersonDetails.cs }}
 

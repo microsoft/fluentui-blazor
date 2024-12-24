@@ -45,3 +45,13 @@ await DialogService.ShowSuccessAsync(message: "The action was a <strong>success<
 ```
 
 {{ DialogMessageBox }}
+
+## Shortcuts
+
+By default, the shortcut key **Enter** is associated with the **Primary** button (OK)
+and the shortcut key **Escape** is associated with the **Secondary** button (Cancel).
+
+If a single **OK** button is displayed, the shortcut keys **Enter** or **Escape** will close the dialog.
+
+For the Confirmation dialog, the shortcut keys **Enter** and **Y** are associated with the **Primary** button (Yes).
+And the shortcut keys **Escape** and **N** are associated with the **Secondary** button (No).

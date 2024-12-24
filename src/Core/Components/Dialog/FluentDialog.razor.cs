@@ -149,6 +149,62 @@ public partial class FluentDialog : FluentComponentBase
     private bool LaunchedFromService => Instance is not null;
 
     /// <summary />
+    private async Task OnKeyDownHandlerAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+    {
+        if (Instance is null)
+        {
+            return;
+        }
+
+        var shortCut = $"{(e.CtrlKey ? "Ctrl+" : string.Empty)}{(e.AltKey ? "Alt+" : string.Empty)}{(e.ShiftKey ? "Shift+" : string.Empty)}{e.Key}";
+
+        // OK button
+        var primaryPressed = await ShortCutPressedAsync(Instance.Options.Footer.PrimaryAction, shortCut, Instance.CloseAsync);
+        if (primaryPressed)
+        {
+            return;
+        }
+
+        // Cancel button
+        var secondaryPressed = await ShortCutPressedAsync(Instance.Options.Footer.SecondaryAction, shortCut, Instance.CancelAsync);
+        if (secondaryPressed)
+        {
+            return;
+        }
+
+        // Call the OnClickAsync or defaultAction if the shortcut is the button.ShortCut.
+        async Task<bool> ShortCutPressedAsync(DialogOptionsFooterAction button, string shortCut, Func<Task> defaultAction)
+        {
+            if (string.IsNullOrEmpty(button.ShortCut) || Instance is null || !button.ToDisplay)
+            {
+                return false;
+            }
+
+            var buttonShortcuts = button.ShortCut.Split(";");
+            foreach (var buttonShortcut in buttonShortcuts)
+            {
+
+                if (string.Equals(buttonShortcut.Trim(), shortCut, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (button.OnClickAsync is not null)
+                    {
+                        await button.OnClickAsync.Invoke(Instance);
+                    }
+                    else
+                    {
+                        await defaultAction.Invoke();
+                    }
+
+                    return true;
+                }
+            }
+           
+
+            return false;
+        }
+    }
+
+    /// <summary />
     private string? GetAlignmentAttribute()
     {
         // Alignment is only used when the dialog is a panel.

@@ -13,6 +13,7 @@ public class DialogOptionsFooterAction
     internal DialogOptionsFooterAction(ButtonAppearance appearance)
     {
         Appearance = appearance;
+        ShortCut = appearance == ButtonAppearance.Primary ? "Enter" : "Escape";
     }
 
     /// <summary />
@@ -22,6 +23,13 @@ public class DialogOptionsFooterAction
     /// Gets or sets the label of the action button.
     /// </summary>
     public string? Label { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shortcut key for the action button.
+    /// By default, "Enter" for the primary action and "Escape" for the secondary action.
+    /// Example: "Enter", "Escape", "Ctrl+Enter", "Escape;Enter"
+    /// </summary>
+    public string? ShortCut { get; set; }
 
     /// <summary>
     /// Gets or sets whether the action button is visible.
