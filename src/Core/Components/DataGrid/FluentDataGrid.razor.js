@@ -173,7 +173,7 @@ export function enableColumnResizing(gridElement) {
     headers.forEach(header => {
         columns.push({
             header,
-            size: `minmax(${minWidth}px,1fr)`,
+            size: `minmax(${minWidth}px,auto)`,
         });
 
         const onPointerMove = (e) => requestAnimationFrame(() => {
