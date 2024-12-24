@@ -17,10 +17,15 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     /// Initializes a new instance of the <see cref="DialogService"/> class.
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
-    public DialogService(IServiceProvider serviceProvider)
+    /// <param name="localizer">Localizer for the application.</param>
+    public DialogService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;
+        Localizer = localizer ?? FluentLocalizerInternal.Default;
     }
+
+    /// <summary />
+    protected IFluentLocalizer Localizer { get; }
 
     /// <inheritdoc cref="IDialogService.CloseAsync(IDialogInstance, DialogResult)"/>
     public async Task CloseAsync(IDialogInstance dialog, DialogResult result)

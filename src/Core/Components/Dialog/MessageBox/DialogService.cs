@@ -15,9 +15,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? "Success",
+            Title = title ?? Localizer["MessageBox_Success"],
             Message = message,
-            PrimaryButton = button ?? "OK",
+            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
             Icon = new CoreIcons.Filled.Size20.CheckmarkCircle(),
             IconColor = Color.Success,
         });
@@ -28,9 +28,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? "Warning",
+            Title = title ?? Localizer["MessageBox_Warning"],
             Message = message,
-            PrimaryButton = button ?? "OK",
+            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
             Icon = new CoreIcons.Filled.Size20.Warning(),
             IconColor = Color.Warning,
         });
@@ -41,9 +41,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? "Error",
+            Title = title ?? Localizer["MessageBox_Error"],
             Message = message,
-            PrimaryButton = button ?? "OK",
+            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
             Icon = new CoreIcons.Filled.Size20.DismissCircle(),
             IconColor = Color.Error,
         });
@@ -54,9 +54,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? "Information",
+            Title = title ?? Localizer["MessageBox_Information"],
             Message = message,
-            PrimaryButton = button ?? "OK",
+            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
             Icon = new CoreIcons.Filled.Size20.Info(),
             IconColor = Color.Info,
         });
@@ -67,10 +67,10 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? "Confirmation",
+            Title = title ?? Localizer["MessageBox_Confirmation"],
             Message = message,
-            PrimaryButton = primaryButton ?? "Yes",
-            SecondaryButton = secondaryButton ?? "No",
+            PrimaryButton = primaryButton ?? Localizer["MessageBox_ButtonYes"],
+            SecondaryButton = secondaryButton ?? Localizer["MessageBox_ButtonNo"],
             Icon = new CoreIcons.Regular.Size20.QuestionCircle(),
             IconColor = Color.Default,
         });
