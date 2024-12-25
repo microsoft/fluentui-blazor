@@ -100,6 +100,14 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         }
     }
 
+    internal async Task HandleOnCellFocusAsync()
+    {
+        if (CellType == DataGridCellType.Default)
+        {
+            await Grid.OnCellFocus.InvokeAsync(this);
+        }
+    }
+
     internal async Task HandleOnCellKeyDownAsync(KeyboardEventArgs e)
     {
         if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
