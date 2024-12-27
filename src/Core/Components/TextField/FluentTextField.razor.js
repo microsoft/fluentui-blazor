@@ -17,3 +17,20 @@ export function setDataList(id, datalistid) {
     }
     shadowRoot.appendChild(dataList);
 }
+
+export function ensureCurrentValueMatch(ref) {
+    if (ref !== undefined && ref != null) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "attributes") {
+                    ref.value = mutation.target.getAttribute("value");
+                }
+            });
+        });
+        observer.observe(ref, {
+            attributes: true,
+            attributeFilter: ["value"],
+        });
+    }
+}
+
