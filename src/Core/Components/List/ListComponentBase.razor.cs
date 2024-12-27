@@ -364,8 +364,10 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             if (SelectedOption == null && Items != null && OptionSelected != null)
             {
-                TOption? item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
-                InternalValue = GetOptionValue(item);
+                var item = Items.FirstOrDefault(i => OptionSelected.Invoke(i));
+                var value = GetOptionValue(item);
+                InternalValue = value;
+                ValueChanged.InvokeAsync(value);
             }
         }
 
