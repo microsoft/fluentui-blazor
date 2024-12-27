@@ -1,0 +1,67 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentDialogTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        DialogService = Services.GetRequiredService<IDialogService>();
+        DialogProvider = RenderComponent<FluentDialogProvider>();
+    }
+
+    /// <summary>
+    /// Gets the dialog service.
+    /// </summary>
+    public IDialogService DialogService { get; }
+
+    /// <summary>
+    /// Gets the dialog provider.
+    /// </summary>
+    public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
+
+    [Fact]
+    public async Task FluentDialog_Render()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var result = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDialog_OpenClose()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions()
+            {
+                AutoClose = true,
+            };
+
+        // Act
+        var result = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+                {
+                    options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                });
+
+        // Wait for the dialog to be closed (autoc-closed)
+        await result;
+
+        // Assert
+        Assert.Equal(1, renderOptions.OnInitializedCount);
+        Assert.Equal(1, renderOptions.OnParametersSetCount);
+    }
+}

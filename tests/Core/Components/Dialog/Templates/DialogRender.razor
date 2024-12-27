@@ -1,0 +1,41 @@
+﻿<FluentDialogBody>
+    Hello @Name
+</FluentDialogBody>
+
+@code {
+
+    [CascadingParameter]
+    public required IDialogInstance Dialog { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public DialogRenderOptions Options { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(10);
+        Options.OnInitializedCount++;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(10);
+        Options.OnParametersSetCount++;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            return;
+        }
+
+        if (Options.AutoClose)
+        {
+            await Task.Delay(10);
+            await Dialog.CloseAsync(Options.AutoCloseResult);
+        }
+    }
+}
