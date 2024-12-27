@@ -21,6 +21,7 @@ public class DialogOptionsFooterAction
 
     /// <summary>
     /// Gets or sets the label of the action button.
+    /// By default, this label is not set. So the button will not be displayed.
     /// </summary>
     public string? Label { get; set; }
 

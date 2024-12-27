@@ -2,6 +2,9 @@
 @inherits TestContext
 @code
 {
+    // A timeout can be set when you open a dialog box and do not close it.
+    private const int TEST_TIMEOUT = 3000;
+
     public FluentDialogTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -21,14 +24,14 @@
     /// </summary>
     public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
 
-    [Fact]
+    [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentDialog_Render()
     {
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
         // Act
-        var result = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
                {
                    options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
@@ -41,7 +44,7 @@
         DialogProvider.Verify();
     }
 
-    [Fact]
+    [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentDialog_OpenClose()
     {
         // Arrange
@@ -51,17 +54,64 @@
             };
 
         // Act
-        var result = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
                 {
                     options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
                     options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
                 });
 
-        // Wait for the dialog to be closed (autoc-closed)
-        await result;
+        // Wait for the dialog to be closed (auto-closed)
+        var result = await dialogTask;
 
         // Assert
         Assert.Equal(1, renderOptions.OnInitializedCount);
         Assert.Equal(1, renderOptions.OnParametersSetCount);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(true, null, null, "Escape", false, false, false)]
+    [InlineData(true, null, "Escape", "Escape", false, false, false)]
+    [InlineData(true, null, "Escape;Ctrl+Escape", "Escape", true, false, false)]
+    [InlineData(false, null, null, "Enter", false, false, false)]
+    [InlineData(false, "Enter", null, "Enter", false, false, false)]
+    [InlineData(false, "Enter;Ctrl+Enter", null, "Enter", true, false, false)]
+    public async Task FluentDialog_ShortcutToClose(bool expectedCancelled, string? primaryShortcut, string? secondaryShortcut, string key, bool ctrl, bool shift, bool alt)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+        var keyEventArg = new KeyboardEventArgs()
+            {
+                Key = key,
+                AltKey = alt,
+                CtrlKey = ctrl,
+                ShiftKey = shift,
+            };
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                   options.Footer.PrimaryAction.Label = "OK";
+                   if (!string.IsNullOrEmpty(primaryShortcut))
+                   {
+                       options.Footer.PrimaryAction.ShortCut = primaryShortcut;
+                   }
+
+                   options.Footer.SecondaryAction.Label = "Cancel";
+                   if (!string.IsNullOrEmpty(secondaryShortcut))
+                   {
+                       options.Footer.SecondaryAction.ShortCut = secondaryShortcut;
+                   }
+               });
+
+        // Send a shortcut to close the dialog
+        DialogProvider.Find("fluent-dialog").KeyDown(keyEventArg);
+
+        var result = await dialogTask;
+
+        // Assert
+        Assert.Equal(expectedCancelled, result.Cancelled);
     }
 }
