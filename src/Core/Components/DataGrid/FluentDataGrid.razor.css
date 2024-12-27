@@ -1,6 +1,5 @@
 .fluent-data-grid {
     width: auto;
-    flex: 1;
     display: grid;
     border-collapse: collapse;
     align-items: center;
