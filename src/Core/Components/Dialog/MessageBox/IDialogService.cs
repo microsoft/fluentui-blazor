@@ -40,9 +40,9 @@ public partial interface IDialogService
     /// </summary>
     /// <param name="message">Message to display in the dialog.</param>
     /// <param name="title">Title to display in the dialog header. Default is "Information".</param>
-    /// <param name="primaryAction">Text to display in the primary action button. Default is "OK".</param>
+    /// <param name="button">Text to display in the primary action button. Default is "OK".</param>
     /// <returns>Result of the dialog. Always `Cancelled = false`.</returns>
-    Task<DialogResult> ShowInfoAsync(string message, string? title = null, string? primaryAction = null);
+    Task<DialogResult> ShowInfoAsync(string message, string? title = null, string? button = null);
 
     /// <summary>
     /// Shows a dialog with a confirmation icon, a message and a Yes/No buttons.

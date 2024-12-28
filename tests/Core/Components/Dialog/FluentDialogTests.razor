@@ -135,6 +135,32 @@
         Assert.Equal(1, renderOptions.OnParametersSetCount);
     }
 
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ActionToClose()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+                {
+                    options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                    options.Footer.PrimaryAction.Label = "OK";
+                    options.Footer.SecondaryAction.Label = "Cancel";
+                });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Click the primary action to close the dialog
+        DialogProvider.Find("fluent-button").Click();
+
+        // Assert
+        Assert.DoesNotContain("<fluent-dialog ", DialogProvider.Markup);
+    }
+
     [Theory(Timeout = TEST_TIMEOUT)]
     [ClassData(typeof(Data.ShortcutsData))]
     public async Task FluentDialog_ShortcutToClose(Data.ShortcutsDataItem item)

@@ -50,7 +50,7 @@ public partial class FluentDialogBody : FluentComponentBase
     public RenderFragment? ActionTemplate { get; set; }
 
     /// <summary />
-    private async Task ActionClickHandlerAsync(DialogOptionsFooterAction item)
+    internal async Task ActionClickHandlerAsync(DialogOptionsFooterAction item)
     {
         if (item.Disabled || Instance is null)
         {
