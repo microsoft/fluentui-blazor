@@ -8,6 +8,8 @@ public class DialogRenderOptions
 {
     public bool AutoClose { get; set; }
 
+    public int AutoCloseDelay { get; set; }
+
     public DialogResult AutoCloseResult { get; set; } = DialogResult.Ok(true);
 
     public int OnInitializedCount { get; set; }

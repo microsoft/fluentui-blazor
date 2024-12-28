@@ -1,8 +1,11 @@
-﻿<FluentDialogBody>
+﻿@implements IDisposable
+<FluentDialogBody>
     Hello @Name
 </FluentDialogBody>
 
 @code {
+
+    private System.Threading.Timer? _timer;
 
     [CascadingParameter]
     public required IDialogInstance Dialog { get; set; }
@@ -29,13 +32,29 @@
     {
         if (firstRender)
         {
+            if (Options.AutoClose && Options.AutoCloseDelay > 0)
+            {
+                _timer = new System.Threading.Timer(async _ =>
+                {
+                    await Dialog.CloseAsync(Options.AutoCloseResult);
+                }, null, Options.AutoCloseDelay, 5000);
+            }
+
             return;
         }
 
-        if (Options.AutoClose)
+        if (Options.AutoClose && Options.AutoCloseDelay <= 0)
         {
             await Task.Delay(10);
             await Dialog.CloseAsync(Options.AutoCloseResult);
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_timer is not null)
+        {
+            _timer.Dispose();
         }
     }
 }

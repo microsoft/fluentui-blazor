@@ -73,8 +73,8 @@
     public async Task FluentDialog_ShortcutToClose(Data.ShortcutsDataItem item)
     {
         // Arrange
-        var renderOptions = new Templates.DialogRenderOptions();
-        
+        var renderOptions = item.RenderOptions ?? new Templates.DialogRenderOptions();
+
         // Act
         var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
                {
@@ -82,24 +82,57 @@
                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
 
                    options.Footer.PrimaryAction.Label = "OK";
-                   if (!string.IsNullOrEmpty(item.PrimaryShortcut))
+                   if (item.PrimaryShortcut is not null)
                    {
                        options.Footer.PrimaryAction.ShortCut = item.PrimaryShortcut;
                    }
 
                    options.Footer.SecondaryAction.Label = "Cancel";
-                   if (!string.IsNullOrEmpty(item.SecondaryShortcut))
+                   if (item.SecondaryShortcut is not null)
                    {
                        options.Footer.SecondaryAction.ShortCut = item.SecondaryShortcut;
                    }
                });
 
         // Send a shortcut to close the dialog
-        DialogProvider.Find("fluent-dialog").KeyDown(item.Pressed);
+        if (item.Pressed is not null)
+        {
+            DialogProvider.Find("fluent-dialog").KeyDown(item.Pressed);
+        }
 
         var result = await dialogTask;
 
         // Assert
         Assert.Equal(item.ExpectedCancelled, result.Cancelled);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ShortcutInvalid()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions()
+            {
+                AutoClose = true,
+                AutoCloseDelay = 200,
+                AutoCloseResult = DialogResult.Ok("AUTO_CLOSED"),
+            };
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   options.Footer.PrimaryAction.Label = "OK";
+                   options.Footer.SecondaryAction.Label = "Cancel";
+               });
+
+        // Send a shortcut to close the dialog
+        DialogProvider.Find("fluent-dialog").KeyDown("A");
+
+        var result = await dialogTask;
+
+        // Assert
+        Assert.False(result.Cancelled);
+        Assert.Equal("AUTO_CLOSED", result.Value);
     }
 }
