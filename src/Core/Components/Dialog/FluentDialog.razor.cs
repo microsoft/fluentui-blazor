@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -90,11 +91,11 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnToggleAsync(DialogToggleEventArgs args)
+    internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
         // Raise the event received from the Web Component
         var dialogEventArgs = await RaiseOnStateChangeAsync(args);
-        
+
         if (LaunchedFromService)
         {
             switch (dialogEventArgs.State)
@@ -117,7 +118,7 @@ public partial class FluentDialog : FluentComponentBase
     {
         if (OnStateChange.HasDelegate)
         {
-            await OnStateChange.InvokeAsync(args);
+            await InvokeAsync(() => OnStateChange.InvokeAsync(args));
         }
 
         return args;
@@ -132,6 +133,7 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary>
     /// Displays the dialog.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public async Task ShowAsync()
     {
         await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
@@ -140,6 +142,7 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary>
     /// Hide the dialog.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public async Task HideAsync()
     {
         await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", Id);
@@ -198,7 +201,6 @@ public partial class FluentDialog : FluentComponentBase
                     return true;
                 }
             }
-           
 
             return false;
         }

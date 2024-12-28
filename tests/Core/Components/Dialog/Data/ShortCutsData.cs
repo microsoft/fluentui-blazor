@@ -17,6 +17,10 @@ public class ShortcutsData : IEnumerable<object[]>
                                             Pressed: ToPress("Enter"))];
 
         yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+                                            Pressed: ToPress("Enter"),
+                                            PrimaryClickAsync: (e) => e.CloseAsync() )];
+
+        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
                                             PrimaryShortcut: "Enter",
                                             Pressed: ToPress("Enter"))];
 
@@ -31,6 +35,10 @@ public class ShortcutsData : IEnumerable<object[]>
         // Secondary Action
         yield return [new ShortcutsDataItem(ExpectedCancelled: true,
                                             Pressed: ToPress("Escape"))];
+
+        yield return [new ShortcutsDataItem(ExpectedCancelled: true,
+                                            Pressed: ToPress("Escape"),
+                                            SecondaryClickAsync: (e) => e.CancelAsync() )];
 
         yield return [new ShortcutsDataItem(ExpectedCancelled: true,
                                             SecondaryShortcut: "Escape",
@@ -83,6 +91,8 @@ public class ShortcutsData : IEnumerable<object[]>
 public record ShortcutsDataItem(
     bool ExpectedCancelled,
     string? PrimaryShortcut = null,
+    Func<IDialogInstance, Task>? PrimaryClickAsync = null,
     string? SecondaryShortcut = null,
+    Func<IDialogInstance, Task>? SecondaryClickAsync = null,
     KeyboardEventArgs? Pressed = null,
     DialogRenderOptions? RenderOptions = null);
