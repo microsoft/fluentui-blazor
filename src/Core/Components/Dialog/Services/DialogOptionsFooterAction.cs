@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -28,8 +30,15 @@ public class DialogOptionsFooterAction
     /// <summary>
     /// Gets or sets the shortcut key for the action button.
     /// By default, "Enter" for the primary action and "Escape" for the secondary action.
-    /// Example: "Enter", "Escape", "Ctrl+Enter", "Escape;Enter"
     /// </summary>
+    /// <remarks>
+    /// The shortcut key is a combination of one or more keys separated by a plus sign.
+    /// You must use the key names defined in the <see cref="KeyboardEventArgs.Key"/> class.
+    /// You can use the following modifier keys: "Ctrl", "Alt", "Shift", in this order.
+    /// </remarks>
+    /// <example>
+    /// "Enter", "Escape", "Ctrl+Enter", "Ctrl+Alt+Shift+Enter", "Escape;Enter".
+    /// </example>
     public string? ShortCut { get; set; }
 
     /// <summary>

@@ -69,24 +69,12 @@
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]
-    [InlineData(true, null, null, "Escape", false, false, false)]
-    [InlineData(true, null, "Escape", "Escape", false, false, false)]
-    [InlineData(true, null, "Escape;Ctrl+Escape", "Escape", true, false, false)]
-    [InlineData(false, null, null, "Enter", false, false, false)]
-    [InlineData(false, "Enter", null, "Enter", false, false, false)]
-    [InlineData(false, "Enter;Ctrl+Enter", null, "Enter", true, false, false)]
-    public async Task FluentDialog_ShortcutToClose(bool expectedCancelled, string? primaryShortcut, string? secondaryShortcut, string key, bool ctrl, bool shift, bool alt)
+    [ClassData(typeof(Data.ShortcutsData))]
+    public async Task FluentDialog_ShortcutToClose(Data.ShortcutsDataItem item)
     {
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
-        var keyEventArg = new KeyboardEventArgs()
-            {
-                Key = key,
-                AltKey = alt,
-                CtrlKey = ctrl,
-                ShiftKey = shift,
-            };
-
+        
         // Act
         var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
                {
@@ -94,24 +82,24 @@
                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
 
                    options.Footer.PrimaryAction.Label = "OK";
-                   if (!string.IsNullOrEmpty(primaryShortcut))
+                   if (!string.IsNullOrEmpty(item.PrimaryShortcut))
                    {
-                       options.Footer.PrimaryAction.ShortCut = primaryShortcut;
+                       options.Footer.PrimaryAction.ShortCut = item.PrimaryShortcut;
                    }
 
                    options.Footer.SecondaryAction.Label = "Cancel";
-                   if (!string.IsNullOrEmpty(secondaryShortcut))
+                   if (!string.IsNullOrEmpty(item.SecondaryShortcut))
                    {
-                       options.Footer.SecondaryAction.ShortCut = secondaryShortcut;
+                       options.Footer.SecondaryAction.ShortCut = item.SecondaryShortcut;
                    }
                });
 
         // Send a shortcut to close the dialog
-        DialogProvider.Find("fluent-dialog").KeyDown(keyEventArg);
+        DialogProvider.Find("fluent-dialog").KeyDown(item.Pressed);
 
         var result = await dialogTask;
 
         // Assert
-        Assert.Equal(expectedCancelled, result.Cancelled);
+        Assert.Equal(item.ExpectedCancelled, result.Cancelled);
     }
 }
