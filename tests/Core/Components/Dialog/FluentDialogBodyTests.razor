@@ -1,0 +1,70 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentDialogBodyTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        DialogService = Services.GetRequiredService<IDialogService>();
+        DialogProvider = RenderComponent<FluentDialogProvider>();
+    }
+
+    /// <summary>
+    /// Gets the dialog service.
+    /// </summary>
+    public IDialogService DialogService { get; }
+
+    /// <summary>
+    /// Gets the dialog provider.
+    /// </summary>
+    public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
+
+    [Fact]
+    public void FluentDialogBody_Default()
+    {
+        var cut = Render(
+    @<FluentDialogBody>
+        <TitleTemplate>My title</TitleTemplate>
+        <TitleActionTemplate>My title actions</TitleActionTemplate>
+        <ChildContent>My content</ChildContent>
+        <ActionTemplate>
+            My actions
+        </ActionTemplate>
+    </FluentDialogBody>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("Enabled_Visible", false, true)]
+    [InlineData("Disabled_Visible", true, true)]
+    [InlineData("Disabled_Invisible", true, false)]
+    public void FluentDialogBody_Instance(string name, bool buttonDisabled, bool buttonVisible)
+    {
+        // Arrange
+        var options = new DialogOptions();
+        var instance = new DialogInstance(DialogService, typeof(Templates.DialogRender), options);
+
+        options.Header.Title = "My title";
+
+        options.Footer.PrimaryAction.Label = "OK";
+        options.Footer.PrimaryAction.Disabled = false;
+
+        options.Footer.SecondaryAction.Label = "Cancel";
+        options.Footer.SecondaryAction.Disabled = buttonDisabled;
+        options.Footer.SecondaryAction.Visible = buttonVisible;
+
+        // Act
+        var cut = Render(
+    @<CascadingValue Value="@instance">
+        <FluentDialogBody>My content</FluentDialogBody>
+    </CascadingValue>);
+
+        // Assert
+        cut.Verify(suffix: name);
+    }
+}
