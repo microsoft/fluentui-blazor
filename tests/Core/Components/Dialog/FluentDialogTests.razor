@@ -230,4 +230,24 @@
         Assert.False(result.Cancelled);
         Assert.Equal("AUTO_CLOSED", result.Value);
     }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_WithInstance()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogWithInstance>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
 }

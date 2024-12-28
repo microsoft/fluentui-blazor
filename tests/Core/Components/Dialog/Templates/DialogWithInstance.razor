@@ -1,0 +1,85 @@
+﻿@implements IDisposable
+@inherits FluentDialogInstance
+
+<FluentDialogBody>
+    Hello @Name
+</FluentDialogBody>
+
+@code {
+
+    private System.Threading.Timer? _timer;
+
+    [CascadingParameter]
+    public required IDialogInstance Dialog { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public DialogRenderOptions Options { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await Task.Delay(10);
+        Options.OnInitializedCount++;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        await Task.Delay(10);
+        Options.OnParametersSetCount++;
+    }
+
+    // Initialize the dialog
+    protected override void OnInitializeDialog(DialogOptionsHeader header, DialogOptionsFooter footer)
+    {
+        base.OnInitializeDialog(header, footer);
+        header.Title = $"Dialog Title - {Name}";
+        footer.SecondaryAction.Visible = true;
+    }
+
+    // Handle the action click
+    protected override async Task OnActionClickedAsync(bool primary)
+    {
+        if (primary)
+        {
+            await DialogInstance.CloseAsync("Yes");
+        }
+        else
+        {
+            await DialogInstance.CancelAsync();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Options.AutoClose && Options.AutoCloseDelay > 0)
+            {
+                _timer = new System.Threading.Timer(async _ =>
+                {
+                    await Dialog.CloseAsync(Options.AutoCloseResult);
+                }, null, Options.AutoCloseDelay, 5000);
+            }
+
+            return;
+        }
+
+        if (Options.AutoClose && Options.AutoCloseDelay <= 0)
+        {
+            await Task.Delay(10);
+            await Dialog.CloseAsync(Options.AutoCloseResult);
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_timer is not null)
+        {
+            _timer.Dispose();
+        }
+    }
+}
