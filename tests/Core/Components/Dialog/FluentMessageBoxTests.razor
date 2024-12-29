@@ -28,6 +28,19 @@
     public async Task FluentMessageBox_Success()
     {
         // Act
+        var dialogTask = DialogService.ShowSuccessAsync("My message");
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBox_SuccessCustomized()
+    {
+        // Act
         var dialogTask = DialogService.ShowSuccessAsync("My message", "My title", "OK");
 
         // Don't wait for the dialog to be closed
@@ -39,6 +52,19 @@
 
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_Info()
+    {
+        // Act
+        var dialogTask = DialogService.ShowInfoAsync("My message");
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBox_InfoCustomized()
     {
         // Act
         var dialogTask = DialogService.ShowInfoAsync("My message", "My title", "OK");
@@ -54,6 +80,19 @@
     public async Task FluentMessageBox_Warning()
     {
         // Act
+        var dialogTask = DialogService.ShowWarningAsync("My message");
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBox_WarningCustomized()
+    {
+        // Act
         var dialogTask = DialogService.ShowWarningAsync("My message", "My title", "OK");
 
         // Don't wait for the dialog to be closed
@@ -67,6 +106,19 @@
     public async Task FluentMessageBox_Error()
     {
         // Act
+        var dialogTask = DialogService.ShowErrorAsync("My message");
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBox_ErrorCustomized()
+    {
+        // Act
         var dialogTask = DialogService.ShowErrorAsync("My message", "My title", "OK");
 
         // Don't wait for the dialog to be closed
@@ -78,6 +130,19 @@
 
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_Confirmation()
+    {
+        // Act
+        var dialogTask = DialogService.ShowConfirmationAsync("My message");
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBox_ConfirmationCustomized()
     {
         // Act
         var dialogTask = DialogService.ShowConfirmationAsync("My message", "My title", "Yes", "No");
