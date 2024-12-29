@@ -153,4 +153,17 @@
         // Assert
         DialogProvider.Verify();
     }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBox_EmptyOptions()
+    {
+        // Act
+        var dialogTask = DialogService.ShowMessageBoxAsync(new());
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
 }

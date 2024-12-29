@@ -56,4 +56,18 @@ public partial class FluentDialogProvider : FluentComponentBase
 
     /// <summary />
     private static Action<DialogEventArgs> EmptyOnStateChange => (_) => { };
+
+    /// <summary>
+    /// Only for Unit Tests
+    /// </summary>
+    /// <param name="id"></param>
+    internal void UpdateId(string? id)
+    {
+        Id = id;
+
+        if (DialogService is not null)
+        {
+            DialogService.ProviderId = id;
+        }
+    }
 }

@@ -253,6 +253,49 @@
         DialogProvider.Verify();
     }
 
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ComponentRule()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var ex = await Assert.ThrowsAsync<ArgumentException>(async () =>
+        {
+            var dialogTask = await DialogService.ShowDialogAsync(typeof(string), new DialogOptions());
+        });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Equal("System.String must be a Blazor Component (Parameter 'componentType')", ex.Message);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ProviderRequired()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+        DialogProvider.Instance.UpdateId(null);
+
+        // Act
+        var ex = await Assert.ThrowsAsync<FluentServiceProviderException<FluentDialogProvider>>(async () =>
+        {
+            var dialogTask = await DialogService.ShowDialogAsync<Templates.DialogWithInstance>(options =>
+                   {
+                          options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                          options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                      });
+        });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Equal("FluentDialogProvider needs to be added to the main layout of your application/site.", ex.Message);
+    }
+
     [Fact]
     public void FluentDialog_DialogResult()
     {
