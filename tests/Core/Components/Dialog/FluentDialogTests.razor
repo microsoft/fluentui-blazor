@@ -108,6 +108,8 @@
         await dialog.Instance.OnToggleAsync(toggleArgs);
 
         // Assert
+        Assert.NotNull(dialogEventArgs?.Instance);
+        Assert.Equal("my-id", dialogEventArgs?.Id);
         Assert.Equal(state, dialogEventArgs?.State);
     }
 
@@ -249,5 +251,72 @@
 
         // Assert
         DialogProvider.Verify();
+    }
+
+    [Fact]
+    public void FluentDialog_DialogResult()
+    {
+        // Arrange
+        var result = new DialogResult(content: "OK", cancelled: false);
+
+        // Assert
+        Assert.Equal("OK", result.Value);
+        Assert.Equal("OK", result.GetValue<string>());
+        Assert.Equal(0, result.GetValue<int>());
+
+        Assert.False(result.Cancelled);
+    }
+
+    [Fact]
+    public void FluentDialog_DialogResult_Ok()
+    {
+        // Arrange
+        var result = DialogResult.Ok("My content");
+
+        // Assert
+        Assert.Equal("My content", result.Value);
+        Assert.False(result.Cancelled);
+    }
+
+    [Fact]
+    public void FluentDialog_DialogResult_Cancel()
+    {
+        // Arrange
+        var result = DialogResult.Cancel("My content");
+
+        // Assert
+        Assert.Equal("My content", result.Value);
+        Assert.True(result.Cancelled);
+    }
+
+    [Fact]
+    public async Task FluentDialog_Instance()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Id = "my-dialog";
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   options.AdditionalAttributes = new Dictionary<string, object> { { "data-test", "my-dialog" } };
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Find the dialog and close it
+        var dialog = DialogProvider.FindComponent<FluentDialog>();
+        var instanceId = dialog.Instance.Instance?.Id;
+        await dialog.Instance.Instance!.CloseAsync<int>(42);
+
+        // Wait for the dialog to be closed (auto-closed)
+        var result = await dialogTask;
+
+        // Assert
+        Assert.Equal("my-dialog", instanceId);
+        Assert.Equal(42, result.Value);
     }
 }
