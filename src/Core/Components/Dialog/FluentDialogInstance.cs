@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,7 +16,13 @@ public abstract class FluentDialogInstance : ComponentBase
     /// Gets or sets the dialog instance.
     /// </summary>
     [CascadingParameter]
-    public required IDialogInstance DialogInstance { get; set; }
+    public virtual required IDialogInstance DialogInstance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the localizer.
+    /// </summary>
+    [Inject]
+    public virtual required IFluentLocalizer Localizer { get; set; }
 
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
@@ -37,9 +44,9 @@ public abstract class FluentDialogInstance : ComponentBase
     protected override Task OnInitializedAsync()
     {
         var footer = DialogInstance.Options.Footer;
-        footer.PrimaryAction.Label ??= "OK";
+        footer.PrimaryAction.Label ??= Localizer[LanguageResource.MessageBox_ButtonOk];
         footer.PrimaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: true);
-        footer.SecondaryAction.Label ??= "Cancel";
+        footer.SecondaryAction.Label ??= Localizer[LanguageResource.MessageBox_ButtonCancel];
         footer.SecondaryAction.OnClickAsync ??= (e) => OnActionClickedAsync(primary: false);
 
         OnInitializeDialog(DialogInstance.Options.Header, DialogInstance.Options.Footer);

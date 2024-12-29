@@ -150,4 +150,7 @@
   <data name="MessageBox_Confirmation" xml:space="preserve">
     <value>Confirmation</value>
   </data>
+  <data name="MessageBox_ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

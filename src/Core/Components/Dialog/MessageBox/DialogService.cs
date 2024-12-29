@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Dialog.MessageBox;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -15,9 +16,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? Localizer["MessageBox_Success"],
+            Title = title ?? Localizer[LanguageResource.MessageBox_Success],
             Message = message,
-            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryButton = button ?? Localizer[LanguageResource.MessageBox_ButtonOk],
             PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.CheckmarkCircle(),
             IconColor = Color.Success,
@@ -29,9 +30,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? Localizer["MessageBox_Warning"],
+            Title = title ?? Localizer[LanguageResource.MessageBox_Warning],
             Message = message,
-            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryButton = button ?? Localizer[LanguageResource.MessageBox_ButtonOk],
             PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.Warning(),
             IconColor = Color.Warning,
@@ -43,9 +44,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? Localizer["MessageBox_Error"],
+            Title = title ?? Localizer[LanguageResource.MessageBox_Error],
             Message = message,
-            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryButton = button ?? Localizer[LanguageResource.MessageBox_ButtonOk],
             PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.DismissCircle(),
             IconColor = Color.Error,
@@ -57,9 +58,9 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? Localizer["MessageBox_Information"],
+            Title = title ?? Localizer[LanguageResource.MessageBox_Information],
             Message = message,
-            PrimaryButton = button ?? Localizer["MessageBox_ButtonOk"],
+            PrimaryButton = button ?? Localizer[LanguageResource.MessageBox_ButtonOk],
             PrimaryShortCut = "Enter;Escape",
             Icon = new CoreIcons.Filled.Size20.Info(),
             IconColor = Color.Info,
@@ -71,11 +72,11 @@ public partial class DialogService : IDialogService
     {
         return ShowMessageBoxAsync(new MessageBoxOptions
         {
-            Title = title ?? Localizer["MessageBox_Confirmation"],
+            Title = title ?? Localizer[LanguageResource.MessageBox_Confirmation],
             Message = message,
-            PrimaryButton = primaryButton ?? Localizer["MessageBox_ButtonYes"],
+            PrimaryButton = primaryButton ?? Localizer[LanguageResource.MessageBox_ButtonYes],
             PrimaryShortCut = "Enter;Y",
-            SecondaryButton = secondaryButton ?? Localizer["MessageBox_ButtonNo"],
+            SecondaryButton = secondaryButton ?? Localizer[LanguageResource.MessageBox_ButtonNo],
             SecondaryShortCut = "Escape;N",
             Icon = new CoreIcons.Regular.Size20.QuestionCircle(),
             IconColor = Color.Default,
