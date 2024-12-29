@@ -143,15 +143,14 @@
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
-        // Act
-        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
-                {
-                    options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
-                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        var dialogOptions = new DialogOptions();
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        dialogOptions.Footer.PrimaryAction.Label = "OK";
+        dialogOptions.Footer.SecondaryAction.Label = "Cancel";
 
-                    options.Footer.PrimaryAction.Label = "OK";
-                    options.Footer.SecondaryAction.Label = "Cancel";
-                });
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(dialogOptions);
 
         // Don't wait for the dialog to be closed
         await Task.CompletedTask;
