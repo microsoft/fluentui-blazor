@@ -352,6 +352,7 @@
         // Find the dialog and close it
         var dialog = DialogProvider.FindComponent<FluentDialog>();
         var instanceId = dialog.Instance.Instance?.Id;
+        var instanceIndex = dialog.Instance.Instance?.Index;
         await dialog.Instance.Instance!.CloseAsync<int>(42);
 
         // Wait for the dialog to be closed (auto-closed)
@@ -360,5 +361,6 @@
         // Assert
         Assert.Equal("my-dialog", instanceId);
         Assert.Equal(42, result.Value);
+        Assert.True(instanceIndex > 0);
     }
 }

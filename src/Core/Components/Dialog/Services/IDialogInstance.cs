@@ -21,6 +21,11 @@ public interface IDialogInstance
     string Id { get; }
 
     /// <summary>
+    /// Gets the index of the dialog (sequential number).
+    /// </summary>
+    long Index { get; }
+
+    /// <summary>
     /// Gets the options used to configure the dialog.
     /// </summary>
     DialogOptions Options { get; }

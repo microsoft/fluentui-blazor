@@ -1,7 +1,7 @@
 ﻿<FluentDialogBody>
 
     <TitleTemplate>
-        @Dialog?.Options.Header.Title
+        @Dialog.Options.Header.Title
     </TitleTemplate>
 
     <ChildContent>
@@ -26,13 +26,16 @@
     [CascadingParameter]
     public required IDialogInstance Dialog { get; set; }
 
+    [Inject]
+    public required IDialogService DialogService { get; set; }
+
     // A simple type is not updatable
     [Parameter]
     public string? Name { get; set; }
 
     // A class is updatable
     [Parameter]
-    public PersonDetails Person { get; set; } = new();  
+    public PersonDetails Person { get; set; } = new();
 
     // A nullable type is optional
     [Parameter]
@@ -40,7 +43,15 @@
 
     private async Task btnOK_Click()
     {
-        await Dialog.CloseAsync(DialogResult.Ok("Yes"));
+        int.TryParse(Person.Age, out var age);
+        if (age <= 0)
+        {
+            await DialogService.ShowErrorAsync("Age must be a positive number.");
+        }
+        else
+        {
+            await Dialog.CloseAsync(DialogResult.Ok("Yes"));
+        }
     }
 
     private async Task btnCancel_Click()

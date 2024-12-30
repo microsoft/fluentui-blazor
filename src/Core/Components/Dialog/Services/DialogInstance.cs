@@ -11,6 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class DialogInstance : IDialogInstance
 {
+    private static long _counter;
     private readonly Type _componentType;
     internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
 
@@ -21,6 +22,7 @@ public class DialogInstance : IDialogInstance
         Options = options;
         DialogService = dialogService;
         Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
+        Index = Interlocked.Increment(ref _counter);
     }
 
     /// <summary />
@@ -40,6 +42,9 @@ public class DialogInstance : IDialogInstance
 
     /// <inheritdoc cref="IDialogInstance.Id"/>"
     public string Id { get; }
+
+    /// <inheritdoc cref="IDialogInstance.Index"/>"
+    public long Index { get; }
 
     /// <inheritdoc cref="IDialogInstance.CancelAsync()"/>
     public Task CancelAsync()
