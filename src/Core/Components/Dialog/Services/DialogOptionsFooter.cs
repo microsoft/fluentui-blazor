@@ -26,7 +26,7 @@ public class DialogOptionsFooter
     public DialogOptionsFooterAction SecondaryAction { get; } = new(ButtonAppearance.Default);
 
     /// <summary />
-    internal IEnumerable<DialogOptionsFooterAction> Actions => [SecondaryAction, PrimaryAction];
+    internal IEnumerable<DialogOptionsFooterAction> Actions => [PrimaryAction, SecondaryAction];
 
     /// <summary />
     internal bool HasActions => PrimaryAction.ToDisplay || SecondaryAction.ToDisplay;
