@@ -11,6 +11,7 @@
         @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
         @onclick="@(e => HandleOnRowClickAsync(RowId))"
         @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"
+        @onfocus="@HandleOnRowFocusAsync"
         @attributes="AdditionalAttributes">
         @ChildContent
     </tr>

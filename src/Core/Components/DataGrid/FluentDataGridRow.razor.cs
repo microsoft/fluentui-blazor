@@ -93,15 +93,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         cells.Remove(cell.CellId!);
     }
 
-    private async Task HandleOnCellFocusAsync(DataGridCellFocusEventArgs args)
+    internal async Task HandleOnRowFocusAsync()
     {
-        var cellId = args.CellId;
-        if (cells.TryGetValue(cellId!, out var cell))
+        if (Grid.OnRowFocus.HasDelegate)
         {
-            if (cell != null && cell.CellType == DataGridCellType.Default)
-            {
-                await Grid.OnCellFocus.InvokeAsync(cell);
-            }
+            await Grid.OnRowFocus.InvokeAsync(this);
         }
     }
 

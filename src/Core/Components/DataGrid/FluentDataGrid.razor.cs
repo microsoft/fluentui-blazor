@@ -185,6 +185,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Gets or sets a callback when a row is focused.
+    /// As of 4.11 a row is a tr element with a 'display: contents'. Browsers can not focus such elements currently, but work is underway to fix that.
     /// </summary>
     [Parameter]
     public EventCallback<FluentDataGridRow<TGridItem>> OnRowFocus { get; set; }
@@ -918,18 +919,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
         stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
         NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
-    }
-
-    private async Task HandleOnRowFocusAsync(DataGridRowFocusEventArgs args)
-    {
-        var rowId = args.RowId;
-        if (_internalGridContext.Rows.TryGetValue(rowId!, out var row))
-        {
-            if (row != null && row.RowType == DataGridRowType.Default)
-            {
-                await OnRowFocus.InvokeAsync(row);
-            }
-        }
     }
 
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
