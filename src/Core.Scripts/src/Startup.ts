@@ -1,16 +1,16 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
-import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
 import { StartedMode } from './d-ts/StartedMode';
+import { SmartTextArea } from './Components/SmartComponents/SmartTextArea';
+import { FluentPageScript } from './Components/PageScript/FluentPageScript';
 
 export namespace Microsoft.FluentUI.Blazor.Startup {
 
   // Alias
   import Logger = LoggerFile.FluentUI.Blazor.Utilities.Logger;
   import FluentUIComponents = FluentUIComponentsFile.FluentUI.Blazor.FluentUIWebComponents;
-  import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
 
@@ -46,6 +46,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
+    SmartTextArea.registerComponent(blazor, mode);
     // [^^^ Add your other custom components before this line ^^^]
 
     // Register all custom events
