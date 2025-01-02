@@ -13568,18 +13568,18 @@
             Cell is a row header.
             </summary>
         </member>
-        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRendermode">
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode">
             <summary>
             The type of rendering to use for the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRendermode.Grid">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode.Grid">
             <summary>
             Uses display:grid with HTML table elements to render the DataGrid.
             With this mode fr units canbe used to set the column widths.
             </summary>
         </member>
-        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRendermode.Table">
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode.Table">
             <summary>
             Uses HTML table elements only to render the DataGrid.
             With this mode fr units cannot be used to set the column widths.
