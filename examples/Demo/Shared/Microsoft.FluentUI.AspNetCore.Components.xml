@@ -1956,6 +1956,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowFocus">
             <summary>
             Gets or sets a callback when a row is focused.
+            As of 4.11 a row is a tr element with a 'display: contents'. Browsers can not focus such elements currently, but work is underway to fix that.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellFocus">
@@ -13565,6 +13566,23 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridCellType.RowHeader">
             <summary>
             Cell is a row header.
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRendermode">
+            <summary>
+            The type of rendering to use for the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRendermode.Grid">
+            <summary>
+            Uses display:grid with HTML table elements to render the DataGrid.
+            With this mode fr units canbe used to set the column widths.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRendermode.Table">
+            <summary>
+            Uses HTML table elements only to render the DataGrid.
+            With this mode fr units cannot be used to set the column widths.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType">

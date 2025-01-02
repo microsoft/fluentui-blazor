@@ -259,6 +259,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFit { get; set; }
 
+    [Parameter]
+    public DataGridRendermode Rendermode { get; set; } = DataGridRendermode.Grid;
+
     /// <summary>
     /// Gets or sets the size of each row in the grid based on the <see cref="DataGridRowSize"/> enum.
     /// </summary>
@@ -815,6 +818,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         return new CssBuilder(Class)
             .AddClass("fluent-data-grid")
+            .AddClass("grid", Rendermode == DataGridRendermode.Grid)
             .AddClass("auto-fit", AutoFit)
             .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
             .Build();
