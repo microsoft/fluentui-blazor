@@ -2,8 +2,7 @@
 
 <h2>FluentDataGrid</h2>
 <div style="height: 400px; width: 800px; overflow-y: scroll;">
-    <FluentDataGrid @ref="grid1" Items=@items Virtualize="true" RowSize="DataGridRowSize.Medium" ItemSize="44" ResizableColumns="true" Rendermode="DataGridRendermode.Table">
-
+    <FluentDataGrid @ref="grid1" Items=@items Virtualize="true" RowSize="DataGridRowSize.Medium" ItemSize="44" GenerateHeader="@GenerateHeaderOption.Sticky" Rendermode="DataGridRendermode.Table">
         <PropertyColumn Property="@(c => c.Item1)" Sortable="true" />
         <PropertyColumn Property="@(c => c.Item2)" />
         <PropertyColumn Property="@(c => c.Item3)" Align="Align.Center" />
@@ -23,11 +22,8 @@
         <PropertyColumn Property="@(c => c.Item14)" />
         <PropertyColumn Property="@(c => c.Item15)" Align="Align.Center" />
         <PropertyColumn Property="@(c => c.Item16)" Align="Align.End" />
-
-
     </FluentDataGrid>
 </div>
-
 
 @code {
     FluentDataGrid<SampleGridData>? grid1;
