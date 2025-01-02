@@ -8,6 +8,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -27,7 +28,11 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     private TValue? max;
     private TValue? min;
     private bool updateSliderThumb = false;
-    private bool userChangedValue = false;
+    private DebounceAction Debounce { get; init; }
+    public FluentSlider()
+    {
+        Debounce = new DebounceAction();
+    }
 
     /// <summary>
     /// Gets or sets the slider's minimal value.
@@ -71,14 +76,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
             if (base.Value != value)
             {
                 base.Value = value;
-                if (userChangedValue)
-                {
-                    userChangedValue = false;
-                }
-                else
-                {
-                    updateSliderThumb = true;
-                }
+                updateSliderThumb = true;
             }
         }
     }
@@ -120,16 +118,13 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
                 updateSliderThumb = false;
                 if (Module is not null)
                 {
-                    await Module!.InvokeVoidAsync("updateSlider", Element);
+                    Debounce.Run(100, async () =>
+                    {
+                        await Module!.InvokeVoidAsync("updateSlider", Element);
+                    });
                 }
             }
         }
-    }
-
-    protected override Task ChangeHandlerAsync(ChangeEventArgs e)
-    {
-        userChangedValue = true;
-        return base.ChangeHandlerAsync(e);
     }
 
     protected override string? ClassValue
