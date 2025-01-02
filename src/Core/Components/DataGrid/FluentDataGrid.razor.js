@@ -180,6 +180,7 @@ export function enableColumnResizing(gridElement) {
             if (!headerBeingResized) {
                 return;
             }
+            gridElement.style.tableLayout = "fixed";
 
             const horizontalScrollOffset = document.documentElement.scrollLeft;
             let width;
@@ -212,7 +213,7 @@ export function enableColumnResizing(gridElement) {
             window.removeEventListener('pointercancel', onPointerUp);
             window.removeEventListener('pointerleave', onPointerUp);
 
-            headerBeingResized.classList.remove('header--being-resized');
+            headerBeingResized.classList.remove('header-being-resized');
             headerBeingResized = null;
 
             if (e.target.hasPointerCapture(e.pointerId)) {
@@ -222,7 +223,7 @@ export function enableColumnResizing(gridElement) {
 
         const initResize = ({ target, pointerId }) => {
             headerBeingResized = target.parentNode;
-            headerBeingResized.classList.add('header--being-resized');
+            headerBeingResized.classList.add('header-being-resized');
 
 
             window.addEventListener('pointermove', onPointerMove);
