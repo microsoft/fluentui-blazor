@@ -63,7 +63,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
-        .AddClass("multiline-text", when: Grid.MultiLine)
+        .AddClass("multiline-text", when: Grid.MultiLine && CellType != DataGridCellType.ColumnHeader)
         .AddClass(Owner.Class)
         .Build();
 
@@ -78,6 +78,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
         .AddStyle("height", "100%", InternalGridContext.TotalItemCount == 0 || (Grid.EffectiveLoadingValue && Grid.Items is null) || Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
+        .AddStyle("display", "flex", CellType == DataGridCellType.ColumnHeader && !Grid.HeaderCellAsButtonWithMenu && !Grid.ResizableColumns)
         .AddStyle(Owner.Style)
         .Build();
 
