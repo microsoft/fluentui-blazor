@@ -20,10 +20,6 @@ export class FluentTextSuggestion extends HTMLElement {
     customElements.define('fluent-text-suggestion', FluentTextSuggestion);
   };
 
-  constructor() {
-    super();
-  }
-
   /**
    * Gets the value of the suggestion attribute.
    */
@@ -106,6 +102,7 @@ export class FluentTextSuggestion extends HTMLElement {
 
     this.suggestionDisplay = new InlineSuggestionDisplay(this, this.textArea);
 
+    this.textArea.spellcheck = false;
     this.textArea.addEventListener('keydown', e => this.handleKeyDown(e));
     this.textArea.addEventListener('keyup', e => this.handleKeyUp(e));
     this.textArea.addEventListener('mousedown', () => this.removeExistingOrPendingSuggestion());

@@ -9,6 +9,8 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
   private fakeCaret: FakeCaret | null = null;
   private originalValueProperty: PropertyDescriptor;
 
+  public static SUGGESTION_VISIBLE_ATTRIBUTE: string = 'fluent-suggestion-visible';
+
   constructor(private owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement) {
     // When any other JS code asks for the value of the textarea, we want to return the value
     // without any pending suggestion, otherwise it will break things like bindings
@@ -44,7 +46,7 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
     this.suggestionStartPos = this.textArea.selectionStart;
     this.suggestionEndPos = this.suggestionStartPos + suggestion.length;
 
-    this.textArea.setAttribute('data-suggestion-visible', '');
+    this.textArea.setAttribute(InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE, '');
     this.valueIncludingSuggestion = this.valueIncludingSuggestion.substring(0, this.suggestionStartPos) + suggestion + this.valueIncludingSuggestion.substring(this.suggestionStartPos);
     this.textArea.setSelectionRange(this.suggestionStartPos, this.suggestionEndPos);
 
@@ -61,7 +63,7 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
     this.suggestionStartPos = null;
     this.suggestionEndPos = null;
     this.fakeCaret?.hide();
-    this.textArea.removeAttribute('data-suggestion-visible');
+    this.textArea.removeAttribute(InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE);
 
     // The newly-inserted text could be so long that the new caret position is off the bottom of the textarea.
     // It won't scroll to the new caret position by default
@@ -85,29 +87,48 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
 
     this.suggestionStartPos = null;
     this.suggestionEndPos = null;
-    this.textArea.removeAttribute('data-suggestion-visible');
+    this.textArea.removeAttribute(InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE);
     this.fakeCaret?.hide();
   }
 }
 
 class FakeCaret {
   readonly caretDiv: HTMLDivElement;
-
+  
   constructor(owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement) {
     this.caretDiv = document.createElement('div');
-    this.caretDiv.classList.add('smart-textarea-caret');
     owner.appendChild(this.caretDiv);
+
+    const caretStyle = document.createElement('style');
+    caretStyle.innerHTML = `
+            @keyframes caret-blink {
+              from, to {
+                opacity: 100%;
+              }
+              50% {
+                opacity: 0%;
+              }
+            }
+
+            [${InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE}]::selection {
+              color: #999;
+            }
+        `;
+    owner.appendChild(caretStyle);
   }
 
   show() {
     const caretOffset = getCaretOffsetFromOffsetParent(this.textArea);
     const style = this.caretDiv.style;
+    style.position = 'absolute';
     style.display = 'block';
     style.top = caretOffset.top + 'px';
     style.left = caretOffset.left + 'px';
     style.height = caretOffset.height + 'px';
+    style.width = '1.0px';
     style.zIndex = this.textArea.style.zIndex;
     style.backgroundColor = caretOffset.elemStyle.caretColor;
+    style.animation = 'caret-blink 1.025s step-end infinite';
   }
 
   hide() {
