@@ -11,7 +11,7 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
 
   public static SUGGESTION_VISIBLE_ATTRIBUTE: string = 'fluent-suggestion-visible';
 
-  constructor(private owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement) {
+  constructor(private owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement | HTMLInputElement) {
     // When any other JS code asks for the value of the textarea, we want to return the value
     // without any pending suggestion, otherwise it will break things like bindings
     this.originalValueProperty = findPropertyRecursive(textArea, 'value');
@@ -43,7 +43,7 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
 
   show(suggestion: string): void {
     this.latestSuggestionText = suggestion;
-    this.suggestionStartPos = this.textArea.selectionStart;
+    this.suggestionStartPos = this.textArea.selectionStart ?? 0;
     this.suggestionEndPos = this.suggestionStartPos + suggestion.length;
 
     this.textArea.setAttribute(InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE, '');
@@ -94,8 +94,8 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
 
 class FakeCaret {
   readonly caretDiv: HTMLDivElement;
-  
-  constructor(owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement) {
+
+  constructor(owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement | HTMLInputElement) {
     this.caretDiv = document.createElement('div');
     owner.appendChild(this.caretDiv);
 

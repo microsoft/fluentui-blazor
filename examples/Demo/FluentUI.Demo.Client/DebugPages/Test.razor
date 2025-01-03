@@ -2,10 +2,13 @@
 <h3>Test</h3>
 
 
-<InputText @bind-Value="@test" />
+<FluentTextInput @bind-Value="@test" />
+
+<input type="text" id="my-text" />
+<fluent-text-suggestion anchor="my-text" value="abc" />
 
 <textarea id="my-area" spellcheck="false" />
-<fluent-text-suggestion anchor="my-area" id="my-suggestion" value="abc" minlength="3" delay="10" />
+<fluent-text-suggestion anchor="my-area" value="abc" minlength="3" delay="10" />
 
 @code {
     public string test { get; set; } = "test";

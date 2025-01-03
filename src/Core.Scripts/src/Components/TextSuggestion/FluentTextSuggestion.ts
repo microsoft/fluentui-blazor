@@ -6,7 +6,7 @@ import { SuggestionDisplay } from "./SuggestionDisplay";
 export class FluentTextSuggestion extends HTMLElement {
 
   private typingDebounceTimeout: number | null = null;
-  private textArea!: HTMLTextAreaElement;
+  private textArea!: HTMLTextAreaElement | HTMLInputElement;
   private suggestionDisplay!: SuggestionDisplay;
   private pendingSuggestionAbortController?: AbortController;
   private isInitialized: boolean = false;
@@ -90,11 +90,14 @@ export class FluentTextSuggestion extends HTMLElement {
   // Initialize the textarea element, adding the KeyboardEvent listeners.
   private initializeTextArea(): void {
 
-    if (this.anchor === null || !(document.getElementById(this.anchor) instanceof HTMLTextAreaElement)) {
+    const isTextArea = this.anchor !== null && document.getElementById(this.anchor) instanceof HTMLTextAreaElement;
+    const isTextField = this.anchor !== null && document.getElementById(this.anchor) instanceof HTMLInputElement && (document.getElementById(this.anchor) as HTMLInputElement).type === "text";
+
+    if (this.anchor === null || (!isTextArea && !isTextField)) {
       throw new Error(`Impossible to find a textarea element, with the id: '${this.anchor}'.`);
     }
 
-    this.textArea = document.getElementById(this.anchor) as HTMLTextAreaElement;
+    this.textArea = document.getElementById(this.anchor) as HTMLTextAreaElement | HTMLInputElement;
 
     //this.suggestionDisplay = this.shouldUseInlineSuggestions(this.textArea)
     //  ? new InlineSuggestionDisplay(this, this.textArea)
@@ -103,8 +106,8 @@ export class FluentTextSuggestion extends HTMLElement {
     this.suggestionDisplay = new InlineSuggestionDisplay(this, this.textArea);
 
     this.textArea.spellcheck = false;
-    this.textArea.addEventListener('keydown', e => this.handleKeyDown(e));
-    this.textArea.addEventListener('keyup', e => this.handleKeyUp(e));
+    this.textArea.addEventListener('keydown', e => this.handleKeyDown(e as KeyboardEvent));
+    this.textArea.addEventListener('keyup', e => this.handleKeyUp(e as KeyboardEvent));
     this.textArea.addEventListener('mousedown', () => this.removeExistingOrPendingSuggestion());
     this.textArea.addEventListener('focusout', () => this.removeExistingOrPendingSuggestion());
 
@@ -176,7 +179,7 @@ export class FluentTextSuggestion extends HTMLElement {
     const isAtEndOfCurrentLine =
       this.textArea.selectionStart === this.textArea.selectionEnd
       && (this.textArea.selectionStart === this.textArea.value.length ||
-        this.textArea.value[this.textArea.selectionStart] === '\n');
+        this.textArea.value[this.textArea.selectionStart ?? 0] === '\n');
 
     if (!isAtEndOfCurrentLine) {
       return;
@@ -261,11 +264,6 @@ export class FluentTextSuggestion extends HTMLElement {
       } else {
         this.removeAttribute(name);
       }
-    }
-
-    // anchor attribute changed
-    if (name === "anchor") {
-      this.initializeTextArea();
     }
 
     // value attribute changed
