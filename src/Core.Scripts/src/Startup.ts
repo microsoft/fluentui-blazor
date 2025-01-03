@@ -3,8 +3,8 @@ import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
 import { StartedMode } from './d-ts/StartedMode';
-import { SmartTextArea } from './Components/SmartComponents/SmartTextArea';
 import { FluentPageScript } from './Components/PageScript/FluentPageScript';
+import { FluentTextSuggestion } from './Components/TextSuggestion/FluentTextSuggestion';
 
 export namespace Microsoft.FluentUI.Blazor.Startup {
 
@@ -46,7 +46,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     // Initialize all custom components
     FluentPageScript.registerComponent(blazor, mode);
-    SmartTextArea.registerComponent(blazor, mode);
+    FluentTextSuggestion.registerComponent(blazor, mode);
     // [^^^ Add your other custom components before this line ^^^]
 
     // Register all custom events

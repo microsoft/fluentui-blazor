@@ -1,15 +1,15 @@
-import { getCaretOffsetFromOffsetParent } from "./CaretUtil";
-import { SmartTextArea } from "./SmartTextArea";
+import { getCaretOffsetFromOffsetParent, scrollTextAreaDownToCaretIfNeeded } from "./CaretUtil";
+import { FluentTextSuggestion } from "./FluentTextSuggestion";
 import { SuggestionDisplay } from "./SuggestionDisplay";
 
 export class InlineSuggestionDisplay implements SuggestionDisplay {
-  latestSuggestionText: string = '';
-  suggestionStartPos: number | null = null;
-  suggestionEndPos: number | null = null;
-  fakeCaret: FakeCaret | null = null;
-  originalValueProperty: PropertyDescriptor;
+  private latestSuggestionText: string = '';
+  private suggestionStartPos: number | null = null;
+  private suggestionEndPos: number | null = null;
+  private fakeCaret: FakeCaret | null = null;
+  private originalValueProperty: PropertyDescriptor;
 
-  constructor(private owner: SmartTextArea, private textArea: HTMLTextAreaElement) {
+  constructor(private owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement) {
     // When any other JS code asks for the value of the textarea, we want to return the value
     // without any pending suggestion, otherwise it will break things like bindings
     this.originalValueProperty = findPropertyRecursive(textArea, 'value');
@@ -93,7 +93,7 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
 class FakeCaret {
   readonly caretDiv: HTMLDivElement;
 
-  constructor(owner: SmartTextArea, private textArea: HTMLTextAreaElement) {
+  constructor(owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement) {
     this.caretDiv = document.createElement('div');
     this.caretDiv.classList.add('smart-textarea-caret');
     owner.appendChild(this.caretDiv);
@@ -125,8 +125,4 @@ function findPropertyRecursive(obj: any, propName: string): PropertyDescriptor {
   }
 
   throw new Error(`Property ${propName} not found on object or its prototype chain`);
-}
-
-function scrollTextAreaDownToCaretIfNeeded(textArea: HTMLTextAreaElement) {
-    throw new Error("Function not implemented.");
 }
