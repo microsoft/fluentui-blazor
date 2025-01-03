@@ -1,3 +1,4 @@
+import { TextArea, TextInput } from "@fluentui/web-components";
 import { StartedMode } from "../../d-ts/StartedMode";
 import { insertTextAtCaretPosition, scrollTextAreaDownToCaretIfNeeded } from "./CaretUtil";
 import { InlineSuggestionDisplay } from "./InlineSuggestionDisplay";
@@ -92,12 +93,22 @@ export class FluentTextSuggestion extends HTMLElement {
 
     const isTextArea = this.anchor !== null && document.getElementById(this.anchor) instanceof HTMLTextAreaElement;
     const isTextField = this.anchor !== null && document.getElementById(this.anchor) instanceof HTMLInputElement && (document.getElementById(this.anchor) as HTMLInputElement).type === "text";
+    const isFluentTextArea = this.anchor !== null && document.getElementById(this.anchor) instanceof TextArea;
+    const isFluentTextInput = this.anchor !== null && document.getElementById(this.anchor) instanceof TextInput && (document.getElementById(this.anchor) as TextInput).type === "text";
 
-    if (this.anchor === null || (!isTextArea && !isTextField)) {
-      throw new Error(`Impossible to find a textarea element, with the id: '${this.anchor}'.`);
+    if (this.anchor === null || (!isTextArea && !isTextField && !isFluentTextArea && !isFluentTextInput)) {
+      throw new Error(`Impossible to find a textarea or a textinput element, with the id: '${this.anchor}'.`);
     }
 
-    this.textArea = document.getElementById(this.anchor) as HTMLTextAreaElement | HTMLInputElement;
+    if (isFluentTextInput) {
+      this.textArea = document.getElementById(this.anchor)?.shadowRoot?.querySelector("input[id='control']") as HTMLInputElement;
+    }
+    else if (isFluentTextArea) {
+      this.textArea = document.getElementById(this.anchor)?.shadowRoot?.querySelector("textarea[id='control']") as HTMLTextAreaElement;
+    }
+    else {
+      this.textArea = document.getElementById(this.anchor) as HTMLTextAreaElement | HTMLInputElement;
+    }
 
     //this.suggestionDisplay = this.shouldUseInlineSuggestions(this.textArea)
     //  ? new InlineSuggestionDisplay(this, this.textArea)
@@ -118,6 +129,9 @@ export class FluentTextSuggestion extends HTMLElement {
 
   // Handle the keydown event.
   private handleKeyDown(event: KeyboardEvent): void {
+
+    console.log(event);
+
     switch (event.key) {
       case 'Tab':
         if (this.suggestionDisplay.isShowing()) {
