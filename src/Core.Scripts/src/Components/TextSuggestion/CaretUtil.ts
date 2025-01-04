@@ -1,8 +1,8 @@
-import * as caretPos from 'caret-pos';
+import caretXY from "./Caret-xy";
 
 export function scrollTextAreaDownToCaretIfNeeded(textArea: HTMLTextAreaElement | HTMLInputElement) {
   // Note that this only scrolls *down*, because that's the only scenario after a suggestion is accepted
-  const pos = caretPos.position(textArea);
+  const pos = caretXY(textArea);
   const lineHeightInPixels = parseFloat(window.getComputedStyle(textArea).lineHeight);
   if (pos.top > textArea.clientHeight + textArea.scrollTop - lineHeightInPixels) {
     textArea.scrollTop = pos.top - textArea.clientHeight + lineHeightInPixels;
@@ -11,11 +11,11 @@ export function scrollTextAreaDownToCaretIfNeeded(textArea: HTMLTextAreaElement 
 
 export function getCaretOffsetFromOffsetParent(elem: HTMLTextAreaElement | HTMLInputElement): { top: number, left: number, height: number, elemStyle: CSSStyleDeclaration } {
   const elemStyle = window.getComputedStyle(elem);
-  const pos = caretPos.position(elem);
+  const pos = caretXY(elem);
 
   return {
-    top: pos.top + parseFloat(elemStyle.borderTopWidth) + elem.offsetTop - elem.scrollTop,
-    left: pos.left + parseFloat(elemStyle.borderLeftWidth) + elem.offsetLeft - elem.scrollLeft - 0.25,
+    top: pos.top, // + parseFloat(elemStyle.borderTopWidth) + elem.offsetTop - elem.scrollTop,
+    left: pos.left, // + parseFloat(elemStyle.borderLeftWidth) + elem.offsetLeft - elem.scrollLeft - 0.25,
     height: pos.height,
     elemStyle: elemStyle,
   }

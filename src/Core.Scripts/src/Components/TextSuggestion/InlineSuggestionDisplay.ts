@@ -112,9 +112,23 @@ class FakeCaret {
 
             [${InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE}]::selection {
               color: #999;
+              background-color: transparent;
             }
         `;
     owner.appendChild(caretStyle);
+
+    const shadowRoot = findFirstShadowRoot(textArea);
+    if (shadowRoot !== null && shadowRoot instanceof ShadowRoot) {
+      const style = document.createElement('style');
+      style.textContent = `
+        input[${InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE}]::selection,
+        textarea[${InlineSuggestionDisplay.SUGGESTION_VISIBLE_ATTRIBUTE}]::selection {
+          color: #999;
+          background-color: transparent;
+        }
+      `;
+      shadowRoot.appendChild(style);
+    }
   }
 
   show() {
@@ -146,4 +160,21 @@ function findPropertyRecursive(obj: any, propName: string): PropertyDescriptor {
   }
 
   throw new Error(`Property ${propName} not found on object or its prototype chain`);
+}
+
+function findFirstShadowRoot(element: Element) {
+  let currentNode: Node | null = element;
+
+  while (currentNode) {
+    // Check if the current node is a shadow root
+    const rootNode = currentNode.getRootNode();
+    if (rootNode instanceof ShadowRoot) {
+      return rootNode; // Return the first ShadowRoot found
+    }
+
+    // Move to the next parent node
+    currentNode = currentNode.parentNode;
+  }
+
+  return null; // No ShadowRoot found
 }

@@ -25,7 +25,6 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "@fluentui/web-components": "3.0.0-beta.74",
-    "caret-pos": "^2.0.0"
+    "@fluentui/web-components": "3.0.0-beta.74"
   }
 }

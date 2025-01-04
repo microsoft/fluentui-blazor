@@ -130,8 +130,6 @@ export class FluentTextSuggestion extends HTMLElement {
   // Handle the keydown event.
   private handleKeyDown(event: KeyboardEvent): void {
 
-    console.log(event);
-
     switch (event.key) {
       case 'Tab':
         if (this.suggestionDisplay.isShowing()) {
@@ -183,7 +181,7 @@ export class FluentTextSuggestion extends HTMLElement {
 
   // If the user has paused typing, we should show a suggestion.
   private handleTypingPaused() {
-    if (document.activeElement !== this.textArea) {
+    if (this.getActiveElement() !== this.textArea) {
       return;
     }
 
@@ -243,27 +241,6 @@ export class FluentTextSuggestion extends HTMLElement {
     }
   }
 
-  // Show or update the suggestion text.
-  private showOrUpdateSuggestion(suggestionText: string | null = ''): void {
-    this.pendingSuggestionAbortController?.abort();
-    this.pendingSuggestionAbortController = new AbortController();
-
-    const snapshot = {
-      abortSignal: this.pendingSuggestionAbortController.signal,
-      textAreaValue: this.textArea.value,
-      cursorPosition: this.textArea.selectionStart,
-    };
-
-    if (suggestionText != null && suggestionText !== ''
-      && snapshot.textAreaValue === this.textArea.value
-      && snapshot.cursorPosition === this.textArea.selectionStart) {
-      if (!suggestionText.endsWith(' ')) {
-        suggestionText += ' ';
-      }
-
-      this.suggestionDisplay.show(suggestionText);
-    }
-  }
 
   /**
    * Update the attribute value.
@@ -315,5 +292,18 @@ export class FluentTextSuggestion extends HTMLElement {
 
   private isNotNullOrEmpty(value: string | null): boolean {
     return value !== null && value !== undefined && value !== '';
+  }
+
+  private getActiveElement(): Element | null {
+
+    if (document.activeElement instanceof TextArea) {
+      return document.activeElement?.shadowRoot?.querySelector("textarea[id='control']") as HTMLTextAreaElement
+    }
+
+    else if (document.activeElement instanceof TextInput) {
+      return document.activeElement?.shadowRoot?.querySelector("input[id='control']") as HTMLInputElement
+    }
+
+    return document.activeElement;
   }
 }
