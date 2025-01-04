@@ -31,6 +31,6 @@
     function updateAttribute(anchor) {
         const element = document.querySelector(`fluent-text-suggestion[anchor="${anchor}"]`);
         const newValue = element.getAttribute("value") === 'abc' ? 'def' : 'abc';
-        element.setAttribute("value", newValue);
+        element.value = newValue;
     }
 </script>

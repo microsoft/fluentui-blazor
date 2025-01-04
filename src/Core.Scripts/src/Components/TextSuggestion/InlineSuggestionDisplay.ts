@@ -146,8 +146,6 @@ class FakeCaret {
   }
 
   show() {
-    console.log(this.owner.shadowQuerySelector, this.addExtraTop());
-
     const caretOffset = getCaretOffsetFromOffsetParent(this.textArea);
     const style = this.caretDiv.style;
     style.position = 'absolute';
