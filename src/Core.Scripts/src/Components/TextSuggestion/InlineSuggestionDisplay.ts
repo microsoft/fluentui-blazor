@@ -95,7 +95,7 @@ export class InlineSuggestionDisplay implements SuggestionDisplay {
 class FakeCaret {
   readonly caretDiv: HTMLDivElement;
 
-  constructor(owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement | HTMLInputElement) {
+  constructor(private owner: FluentTextSuggestion, private textArea: HTMLTextAreaElement | HTMLInputElement) {
     this.caretDiv = document.createElement('div');
     owner.appendChild(this.caretDiv);
 
@@ -131,13 +131,29 @@ class FakeCaret {
     }
   }
 
+  addExtraTop(): number {
+    // This is a hack to make the caret appear in the right place in the FluentTextInput.
+    // TODO: how to find these 6px by code?
+    if (this.owner.shadowQuerySelector !== null && this.owner.shadowQuerySelector.includes("input")) {
+      return 6;
+    }
+
+    return 0;
+  }
+
+  addExtraLeft(): number {
+    return 0;
+  }
+
   show() {
+    console.log(this.owner.shadowQuerySelector, this.addExtraTop());
+
     const caretOffset = getCaretOffsetFromOffsetParent(this.textArea);
     const style = this.caretDiv.style;
     style.position = 'absolute';
     style.display = 'block';
-    style.top = caretOffset.top + 'px';
-    style.left = caretOffset.left + 'px';
+    style.top = (caretOffset.top + this.addExtraTop()) + 'px';
+    style.left = (caretOffset.left + this.addExtraLeft()) + 'px';
     style.height = caretOffset.height + 'px';
     style.width = '1.0px';
     style.zIndex = this.textArea.style.zIndex;

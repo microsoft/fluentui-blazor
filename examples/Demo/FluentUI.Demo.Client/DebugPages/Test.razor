@@ -5,11 +5,11 @@
 <br/>
 
 <fluent-text-input id="my-field" />
-<fluent-text-suggestion anchor="my-field" value="abc" />
+<fluent-text-suggestion anchor="my-field" shadowQuerySelector="input[id='control']" value="abc" />
 <br />
 
 <fluent-textarea id="my-field-area" />
-<fluent-text-suggestion anchor="my-field-area" value="abc" />
+<fluent-text-suggestion anchor="my-field-area" shadowQuerySelector="textarea[id='control']" value="abc" />
 <br />
 
 <input type="text" id="my-text" />
@@ -19,3 +19,18 @@
 <textarea id="my-area" spellcheck="false" />
 <fluent-text-suggestion anchor="my-area" value="abc" minlength="3" delay="10" />
 <br />
+
+<script>
+    setInterval(() => {
+        updateAttribute("my-field");
+        updateAttribute("my-field-area");
+        updateAttribute("my-text");
+        updateAttribute("my-area");
+    }, 2000);
+
+    function updateAttribute(anchor) {
+        const element = document.querySelector(`fluent-text-suggestion[anchor="${anchor}"]`);
+        const newValue = element.getAttribute("value") === 'abc' ? 'def' : 'abc';
+        element.setAttribute("value", newValue);
+    }
+</script>

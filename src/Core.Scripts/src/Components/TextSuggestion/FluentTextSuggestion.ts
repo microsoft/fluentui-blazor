@@ -1,4 +1,3 @@
-import { TextArea, TextInput } from "@fluentui/web-components";
 import { StartedMode } from "../../d-ts/StartedMode";
 import { insertTextAtCaretPosition, scrollTextAreaDownToCaretIfNeeded } from "./CaretUtil";
 import { InlineSuggestionDisplay } from "./InlineSuggestionDisplay";
@@ -77,6 +76,21 @@ export class FluentTextSuggestion extends HTMLElement {
     this.updateAttribute("delay", value);
   }
 
+
+  /**
+   * Gets the QuerySelector of the input element, included in the shadow DOM.
+   */
+  get shadowQuerySelector(): string | null {
+    return this.getAttribute("shadowQuerySelector");
+  }
+
+  /**
+   * Sets the QuerySelector of the input element, included in the shadow DOM.
+   */
+  set shadowQuerySelector(value: string | null) {
+    this.updateAttribute("shadowQuerySelector", value);
+  }
+
   // Custom element added to page.
   connectedCallback() {
     this.initializeTextArea();
@@ -91,23 +105,20 @@ export class FluentTextSuggestion extends HTMLElement {
   // Initialize the textarea element, adding the KeyboardEvent listeners.
   private initializeTextArea(): void {
 
-    const isTextArea = this.anchor !== null && document.getElementById(this.anchor) instanceof HTMLTextAreaElement;
-    const isTextField = this.anchor !== null && document.getElementById(this.anchor) instanceof HTMLInputElement && (document.getElementById(this.anchor) as HTMLInputElement).type === "text";
-    const isFluentTextArea = this.anchor !== null && document.getElementById(this.anchor) instanceof TextArea;
-    const isFluentTextInput = this.anchor !== null && document.getElementById(this.anchor) instanceof TextInput && (document.getElementById(this.anchor) as TextInput).type === "text";
+    const element = this.isNullOrEmpty(this.anchor)
+      ? null
+      : document.getElementById(this.anchor!);
 
-    if (this.anchor === null || (!isTextArea && !isTextField && !isFluentTextArea && !isFluentTextInput)) {
+    if (element === null) {
       throw new Error(`Impossible to find a textarea or a textinput element, with the id: '${this.anchor}'.`);
     }
 
-    if (isFluentTextInput) {
-      this.textArea = document.getElementById(this.anchor)?.shadowRoot?.querySelector("input[id='control']") as HTMLInputElement;
-    }
-    else if (isFluentTextArea) {
-      this.textArea = document.getElementById(this.anchor)?.shadowRoot?.querySelector("textarea[id='control']") as HTMLTextAreaElement;
-    }
-    else {
-      this.textArea = document.getElementById(this.anchor) as HTMLTextAreaElement | HTMLInputElement;
+    this.textArea = this.isNotNullOrEmpty(this.shadowQuerySelector)
+      ? this.textArea = element?.shadowRoot?.querySelector(this.shadowQuerySelector!) as HTMLTextAreaElement | HTMLInputElement
+      : element as HTMLTextAreaElement | HTMLInputElement;
+
+    if (this.textArea === null) {
+      throw new Error(`Impossible to find a textarea or a textinput element, with the id: '${this.anchor}'.`);
     }
 
     //this.suggestionDisplay = this.shouldUseInlineSuggestions(this.textArea)
@@ -296,12 +307,8 @@ export class FluentTextSuggestion extends HTMLElement {
 
   private getActiveElement(): Element | null {
 
-    if (document.activeElement instanceof TextArea) {
-      return document.activeElement?.shadowRoot?.querySelector("textarea[id='control']") as HTMLTextAreaElement
-    }
-
-    else if (document.activeElement instanceof TextInput) {
-      return document.activeElement?.shadowRoot?.querySelector("input[id='control']") as HTMLInputElement
+    if (this.isNotNullOrEmpty(this.shadowQuerySelector)) {
+      return document.activeElement?.shadowRoot?.querySelector(this.shadowQuerySelector!) as HTMLTextAreaElement | HTMLInputElement;
     }
 
     return document.activeElement;
