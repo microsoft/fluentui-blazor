@@ -5,10 +5,11 @@ route: /Dialog
 
 # Dialog
 
-`FluentDialog` is a window overlaid on either the primary window or another dialog window.
-Windows under a modal dialog are inert. That is, users cannot interact with content outside an active dialog window.
-Inert content outside an active dialog is typically visually obscured or dimmed so it is difficult to discern, and in some implementations,
-attempts to interact with the inert content cause the dialog to close.
+A **Dialog** is a supplemental surface that can provide helpful interactions or require someone to take an
+action before they can continue their task, like confirming a deletion.
+
+**Dialogs** are often interruptions, so use them for important actions.
+If you need to give someone an update on an action they just took but that they don't need to act on, try a toast.
 
 ## Best practices
 

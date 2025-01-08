@@ -163,8 +163,8 @@
     }
 
     [Theory(Timeout = TEST_TIMEOUT)]
-    [ClassData(typeof(Data.ShortcutsData))]
-    public async Task FluentDialog_ShortcutToClose(Data.ShortcutsDataItem item)
+    [ClassData(typeof(Data.ShortcutData))]
+    public async Task FluentDialog_ShortcutToClose(Data.ShortcutDataItem item)
     {
         // Arrange
         var renderOptions = item.RenderOptions ?? new Templates.DialogRenderOptions();
@@ -292,7 +292,7 @@
         await Task.CompletedTask;
 
         // Assert
-        Assert.Equal("FluentDialogProvider needs to be added to the main layout of your application/site.", ex.Message);
+        Assert.Equal("FluentDialogProvider needs to be added to the page/component hierarchy of your application/site. Usually this will be 'MainLayout' but depending on your setup it could be at a different location.", ex.Message);
     }
 
     [Fact]

@@ -13,7 +13,7 @@ public class FluentServiceProviderException<TProvider> : Exception
     /// Creates a new instance of the <see cref="FluentServiceProviderException{TProvider}"/> class.
     /// </summary>
     public FluentServiceProviderException()
-        : base($"{typeof(TProvider).Name} needs to be added to the main layout of your application/site.")
+        : base($"{typeof(TProvider).Name} needs to be added to the page/component hierarchy of your application/site. Usually this will be 'MainLayout' but depending on your setup it could be at a different location.")
     {
 
     }

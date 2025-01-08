@@ -8,61 +8,61 @@ using Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Dialog.Templates
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Dialog.Data;
 
-public class ShortcutsData : IEnumerable<object[]>
+public class ShortcutData : IEnumerable<object[]>
 {
     public IEnumerator<object[]> GetEnumerator()
     {
         // Primary Action
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             Pressed: ToPress("Enter"))];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             Pressed: ToPress("Enter"),
                                             PrimaryClickAsync: (e) => e.CloseAsync() )];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             PrimaryShortcut: "Enter",
                                             Pressed: ToPress("Enter"))];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             PrimaryShortcut: "Enter;Ctrl+Enter",
                                             Pressed: ToPress("Enter", ctrlKey: true))];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             PrimaryShortcut: "Ctrl+Alt+Shift+Enter",
                                             Pressed: ToPress("Enter", ctrlKey: true, shiftKey: true, altKey: true))];
 
         // Secondary Action
-        yield return [new ShortcutsDataItem(ExpectedCancelled: true,
+        yield return [new ShortcutDataItem(ExpectedCancelled: true,
                                             Pressed: ToPress("Escape"))];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: true,
+        yield return [new ShortcutDataItem(ExpectedCancelled: true,
                                             Pressed: ToPress("Escape"),
                                             SecondaryClickAsync: (e) => e.CancelAsync() )];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: true,
+        yield return [new ShortcutDataItem(ExpectedCancelled: true,
                                             SecondaryShortcut: "Escape",
                                             Pressed: ToPress("Escape"))];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: true,
+        yield return [new ShortcutDataItem(ExpectedCancelled: true,
                                             SecondaryShortcut: "Escape;Ctrl+Escape",
                                             Pressed: ToPress("Escape", ctrlKey: true))];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: true,
+        yield return [new ShortcutDataItem(ExpectedCancelled: true,
                                             SecondaryShortcut: "Ctrl+Alt+Shift+Escape",
                                             Pressed: ToPress("Escape", ctrlKey: true, shiftKey: true, altKey: true))];
 
         // Unknown Shortcut
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             Pressed: ToPress("A"),
                                             RenderOptions: CloseAfter200ms)];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             PrimaryShortcut: "",
                                             Pressed: ToPress("A"),
                                             RenderOptions: CloseAfter200ms)];
 
-        yield return [new ShortcutsDataItem(ExpectedCancelled: false,
+        yield return [new ShortcutDataItem(ExpectedCancelled: false,
                                             SecondaryShortcut: "",
                                             Pressed: ToPress("A"),
                                             RenderOptions: CloseAfter200ms)];
@@ -88,7 +88,7 @@ public class ShortcutsData : IEnumerable<object[]>
     }
 }
 
-public record ShortcutsDataItem(
+public record ShortcutDataItem(
     bool ExpectedCancelled,
     string? PrimaryShortcut = null,
     Func<IDialogInstance, Task>? PrimaryClickAsync = null,
