@@ -109,6 +109,7 @@
       <Public>false</Public>
       <OmitGetResourceString>true</OmitGetResourceString>
       <AsConstants>true</AsConstants>
+      <NoWarn>CS1591</NoWarn>
     </EmbeddedResource>
   </ItemGroup>
   

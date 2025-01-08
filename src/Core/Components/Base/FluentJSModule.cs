@@ -7,8 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-#pragma warning disable MA0004 // Use Task.ConfigureAwait
-
 /// <summary>
 /// Base class to manage the JavaScript function from the FluentUI Blazor components.
 /// </summary>
@@ -92,5 +90,3 @@ internal class FluentJSModule : IAsyncDisposable
         return ValueTask.CompletedTask;
     }
 }
-
-#pragma warning restore MA0004 // Use Task.ConfigureAwait

@@ -1,0 +1,16 @@
+.fluent-message-box {
+  display: flex;
+  margin-top: 10px;
+  justify-content: start;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+}
+
+  .fluent-message-box .icon {
+      min-width: 32px;
+  }
+
+  .fluent-message-box .message {
+    
+  }

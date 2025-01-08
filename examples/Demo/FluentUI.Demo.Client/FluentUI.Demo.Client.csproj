@@ -43,7 +43,7 @@
   <!-- Copy all .razor files to .txt files in wwwroot\sources -->
   <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='net9.0'">
     <ItemGroup>
-      <Sources Include="$(ProjectDir)\Documentation\**\*.razor*" />
+      <Sources Include="$(ProjectDir)\Documentation\**\*.razor*;$(ProjectDir)\Documentation\**\*.cs" />
     </ItemGroup>
     <Copy SourceFiles="@(Sources)" DestinationFiles="@(Sources->'$(ProjectDir)wwwroot\sources\%(Filename)%(Extension).txt')" SkipUnchangedFiles="true" />
 

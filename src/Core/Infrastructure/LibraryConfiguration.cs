@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -20,6 +22,13 @@ public class LibraryConfiguration
     /// If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
     /// </summary>
     public bool UseTooltipServiceProvider { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the service lifetime for the library services, when using Fluent UI in WebAssembly, it can make sense to use <see cref="ServiceLifetime.Singleton"/>.
+    /// Default is <see cref="ServiceLifetime.Scoped"/>.
+    /// <para>Only <see cref="ServiceLifetime.Scoped"/> and <see cref="ServiceLifetime.Singleton"/> are supported.</para>
+    /// </summary>
+    public ServiceLifetime ServiceLifetime { get; set; } = ServiceLifetime.Scoped;
 
     /// <summary>
     /// Gets or sets the FluentLocalizer instance used to localize the library components.

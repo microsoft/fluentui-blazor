@@ -9,7 +9,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Content placed within a <see cref="FluentGrid"/> layout using the <see cref="FluentGridItem"/> component.
+/// Value placed within a <see cref="FluentGrid"/> layout using the <see cref="FluentGridItem"/> component.
 /// </summary>
 public partial class FluentGridItem : FluentComponentBase
 {

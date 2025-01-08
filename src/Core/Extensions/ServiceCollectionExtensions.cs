@@ -19,22 +19,18 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">Library configuration</param>
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
-        /*
-            services.AddScoped<GlobalState>();
-            services.AddScoped<IToastService, ToastService>();
-            services.AddScoped<IDialogService, DialogService>();
-            services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IKeyCodeService, KeyCodeService>();
+        var options = configuration ?? new();
 
-            var options = configuration ?? new();
-            if (options.UseTooltipServiceProvider)
-            {
-                services.AddScoped<ITooltipService, TooltipService>();
-            }
-            services.AddSingleton(options);
-        */
+        var serviceLifetime = options?.ServiceLifetime ?? ServiceLifetime.Scoped;
+        if (serviceLifetime == ServiceLifetime.Transient)
+        {
+            throw new NotSupportedException("Transient lifetime is not supported for Fluent UI services.");
+        }
 
-        services.AddScoped<IFluentLocalizer>(provider => configuration?.Localizer ?? FluentLocalizerInternal.Default);
+        // Add services
+        services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
+        services.Add<IDialogService, DialogService>(serviceLifetime);
+        services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
 
         return services;
     }
@@ -50,5 +46,30 @@ public static class ServiceCollectionExtensions
         configuration.Invoke(options);
 
         return AddFluentUIComponents(services, options);
+    }
+
+    /// <summary />
+    private static IServiceCollection Add<TService>(this IServiceCollection services, Func<IServiceProvider, TService> implementationFactory, ServiceLifetime lifetime)
+        where TService : class
+    {
+        return lifetime switch
+        {
+            ServiceLifetime.Singleton => services.AddSingleton(implementationFactory),
+            ServiceLifetime.Scoped => services.AddScoped(implementationFactory),
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported.")
+        };
+    }
+
+    /// <summary />
+    private static IServiceCollection Add<TService, TImplementation>(this IServiceCollection services, ServiceLifetime lifetime)
+        where TService : class
+        where TImplementation : class, TService
+    {
+        return lifetime switch
+        {
+            ServiceLifetime.Singleton => services.AddSingleton<TService, TImplementation>(),
+            ServiceLifetime.Scoped => services.AddScoped<TService, TImplementation>(),
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported.")
+        };
     }
 }
