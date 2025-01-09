@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class FluentDialogHeader : FluentComponentBase
@@ -7,9 +9,6 @@ public partial class FluentDialogHeader : FluentComponentBase
     /// <summary />
     [CascadingParameter]
     private FluentDialog Dialog { get; set; } = default!;
-
-    /// <summary />
-    private int TabIndex { get; set; } = 0;
 
     /// <summary />
     protected string? ClassValue => new CssBuilder(Class)
@@ -35,11 +34,16 @@ public partial class FluentDialogHeader : FluentComponentBase
     public bool? ShowDismiss { get; set; }
 
     /// <summary>
-    /// When false, uses the default tabindex of 0 in the header.
-    /// If defined, the header will have a tabindex of -1. 
+    /// When true, shows the "Close" button tooltip in the header.
     /// </summary>
     [Parameter]
-    public bool ExcludeFromTabFocus { get; set; } = false;
+    public bool? ShowDismissTooltip { get; set; } = true;
+
+    /// <summary>
+    /// When 0, the "Close" button tooltip will not be displayed when the dialog is open.
+    /// </summary>
+    [Parameter]
+    public int? TabIndex { get; set; } = 0;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -66,11 +70,6 @@ public partial class FluentDialogHeader : FluentComponentBase
         if (Dialog.Instance is not null)
         {
             ShowDismiss ??= Dialog.Instance.Parameters.ShowDismiss;
-
-            if (ExcludeFromTabFocus)
-            {
-                TabIndex = -1;
-            }
         }
     }
 }
