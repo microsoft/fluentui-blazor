@@ -34,4 +34,9 @@ public enum HorizontalAlignment
     /// The content is stretched to fill the available space.
     /// </summary>
     Stretch,
+
+    /// <summary>
+    /// The items are evenly distributed within the alignment container along the main axis.
+    /// </summary>
+    SpaceBetween,
 }
