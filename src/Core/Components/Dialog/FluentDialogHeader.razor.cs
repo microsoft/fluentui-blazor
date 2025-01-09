@@ -40,7 +40,7 @@ public partial class FluentDialogHeader : FluentComponentBase
     public bool? ShowDismissTooltip { get; set; } = true;
 
     /// <summary>
-    /// When 0, the "Close" button tooltip will not be displayed when the dialog is open.
+    /// Allows developers to make elements sequentially focusable and determine their relative ordering for navigation (usually with the Tab key).
     /// </summary>
     [Parameter]
     public int? TabIndex { get; set; } = 0;
