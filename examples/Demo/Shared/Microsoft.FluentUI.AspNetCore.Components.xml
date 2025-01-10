@@ -3554,6 +3554,16 @@
             If defined, this value will replace the one defined in the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.ShowDismissTooltip">
+            <summary>
+            When true, shows the "Close" button tooltip in the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.TabIndex">
+            <summary>
+            Allows developers to make elements sequentially focusable and determine their relative ordering for navigation (usually with the Tab key).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
