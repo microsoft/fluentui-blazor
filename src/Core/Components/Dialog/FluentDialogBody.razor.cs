@@ -69,6 +69,6 @@ public partial class FluentDialogBody : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsPanel() => Instance?.Options.Alignment != DialogAlignment.Default;
+    private bool IsPanel() => FluentDialog.IsPanel(Instance?.Options.Alignment);
 
 }

@@ -245,7 +245,7 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsPanel() => (Instance?.Options.Alignment ?? Alignment) != DialogAlignment.Default;
+    private bool IsPanel() => IsPanel(Instance?.Options.Alignment ?? Alignment);
 
     /// <summary />
     private bool IsDialog() => !IsPanel();
@@ -260,4 +260,11 @@ public partial class FluentDialog : FluentComponentBase
 
         return (MarkupString)$"<style>#{Id}::part(dialog) {{ {StyleValue} }}</style>";
     }
+
+    /// <summary>
+    /// Returns true if the dialog is a panel.
+    /// </summary>
+    /// <param name="alignment"></param>
+    /// <returns></returns>
+    internal static bool IsPanel(DialogAlignment? alignment) => alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
 }
