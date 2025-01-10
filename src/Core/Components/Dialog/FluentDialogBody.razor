@@ -40,7 +40,7 @@
     {
         <div slot="@(IsPanel() ? "footer" : "action")">
 
-            @foreach (var action in Instance.Options.Footer.Actions)
+            @foreach (var action in Instance.Options.Footer.GetActions())
             {
                 if (action.ToDisplay)
                 {

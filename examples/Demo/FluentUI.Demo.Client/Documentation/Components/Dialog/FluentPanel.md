@@ -21,7 +21,7 @@ You can pass the **type of Dialog** to be displayed and the **options** to be pa
 
 Once the user closes the dialog window, the `ShowPanelAsync` method returns a `DialogResult` object containing the return data.
 
-See the [Dialog](/Dialog) documentation for more information.
+👉 See the [Dialog](/Dialog) documentation for more information.
 
 > **Note:** The `ShowPanelAsync` method is identical to the `ShowDialogAsync` method.
 > With the exception of the **default value** of the `options.Alignment` property, which is `DialogAlignment.End`.
@@ -43,16 +43,3 @@ var result = await DialogService.ShowPanelAsync<Dialog.SimpleDialog>(options =>
 ```
 
 {{ DialogServicePanel Files=Code:DialogServicePanel.razor;SimpleDialog:SimpleDialog.razor;PersonDetails:PersonDetails.cs }}
-
-## API DialogService
-
-{{ API Type=DialogService }}
-
-## API FluentDialogBody
-
-{{ API Type=FluentDialogBody }}
-
-## API FluentDialog
-
-{{ API Type=FluentDialog }}
-

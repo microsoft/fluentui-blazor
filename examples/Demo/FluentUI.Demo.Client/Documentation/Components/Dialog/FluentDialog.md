@@ -231,3 +231,7 @@ You can also use the `FluentDialogBody` component directly in your component, wi
 ## API FluentDialog
 
 {{ API Type=FluentDialog }}
+
+## Options
+
+{{ API Type=DialogOptions }}
