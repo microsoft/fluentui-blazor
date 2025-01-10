@@ -35,6 +35,18 @@ public partial class FluentDialogHeader : FluentComponentBase
     public bool? ShowDismiss { get; set; }
 
     /// <summary>
+    /// When true, shows the "Close" button tooltip in the header.
+    /// </summary>
+    [Parameter]
+    public bool? ShowDismissTooltip { get; set; } = true;
+
+    /// <summary>
+    /// Allows developers to make elements sequentially focusable and determine their relative ordering for navigation (usually with the Tab key).
+    /// </summary>
+    [Parameter]
+    public int? TabIndex { get; set; } = 0;
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
