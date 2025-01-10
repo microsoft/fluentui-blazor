@@ -43,3 +43,21 @@ var result = await DialogService.ShowPanelAsync<Dialog.SimpleDialog>(options =>
 ```
 
 {{ DialogServicePanel Files=Code:DialogServicePanel.razor;SimpleDialog:SimpleDialog.razor;PersonDetails:PersonDetails.cs }}
+
+## Modal Panel
+
+Unlike the [dialog box](/Dialog), the panel does not block interaction with the application.
+
+- When a panel is defined as **modal**, the user can close the panel by clicking outside it (`Cancel`).
+- When a panel is defined as **non-modal**, the user can continue to interact with the application, without closing the panel.
+  To close it, the user must click on one of the panel actions (OK / Cancel).
+
+By default, the Panel is displayed modally (Modal = true).
+
+```csharp
+var result = await DialogService.ShowPanelAsync<SimpleDialog>(options =>
+{
+    options.Modal = true;
+});
+```` 
+

@@ -245,7 +245,7 @@ public partial class FluentDialog : FluentComponentBase
 
             // Panels
             case true:
-                return isModal ? "non-modal" : "modal";
+                return isModal ? "modal" : "non-modal";
 
         }
     }

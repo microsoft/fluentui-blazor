@@ -1,5 +1,10 @@
 ﻿@inject IDialogService DialogService
 
+<div>
+    <InputCheckbox @bind-Value="@IsModal" />
+    <FluentLabel Style="margin-bottom: 12px;">Is Modal</FluentLabel>
+</div>
+
 <FluentButton OnClick="@(e => OpenPanelAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Panel (Start)</FluentButton>
 <FluentButton OnClick="@(e => OpenPanelAsync(DialogAlignment.End))" Appearance="ButtonAppearance.Primary">Open Panel (End)</FluentButton>
 
@@ -10,12 +15,14 @@
 
 @code
 {
+    private bool IsModal = true;
     private Dialog.PersonDetails John = new() { Age = "20" };
 
     private async Task OpenPanelAsync(DialogAlignment alignment)
     {
         var result = await DialogService.ShowPanelAsync<Dialog.SimpleDialog>(options =>
         {
+            options.Modal = IsModal;
             options.Alignment = alignment;
 
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type
