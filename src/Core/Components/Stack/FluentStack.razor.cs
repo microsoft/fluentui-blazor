@@ -99,6 +99,8 @@ public partial class FluentStack : FluentComponentBase
             VerticalAlignment.Top => "start",
             VerticalAlignment.Center => "center",
             VerticalAlignment.Bottom => "end",
+            VerticalAlignment.Stretch => "stretch",
+            VerticalAlignment.SpaceBetween => Orientation == Orientation.Horizontal ? "start" : "space-between",
             _ => "start",
         };
     }

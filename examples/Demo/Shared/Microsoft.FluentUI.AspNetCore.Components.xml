@@ -15133,6 +15133,16 @@
             The content is aligned to the bottom
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Stretch">
+            <summary>
+            The content is stretched to fill the available space.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.SpaceBetween">
+            <summary>
+            The items are evenly distributed within the alignment container along the main axis.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.VerticalPosition">
             <summary>
             Describes the vertical positioning of a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion"/>.
