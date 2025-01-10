@@ -9,6 +9,7 @@
 - \[DataGrid\] Make combination of `ResizableColumns` and `AutoFit` work ([#3098](https://github.com/microsoft/fluentui-blazor/pull/3098))
 - \[DataGrid\] Restore `OnRowFocus` and `OnCellFocus` ([#3097](https://github.com/microsoft/fluentui-blazor/pull/3097))
 - \[DataGrid\] Smoother resizing ([#3072](https://github.com/microsoft/fluentui-blazor/pull/3072))
+- \[Dialog\] Add event before closing panel to allow validation ([#2614](https://github.com/microsoft/fluentui-blazor/pull/2614))
 - \[DialogHeader\] Allow dialog title exclusion from tab index ([#3137](https://github.com/microsoft/fluentui-blazor/pull/3137))
 - \[FluentSlider\] \[FluentNumberField\] Fix #2948 ([#3077](https://github.com/microsoft/fluentui-blazor/pull/3077))
 - \[ListComponentBase\] Invoke `ValueChanged` when initially selecting an option ([#3105](https://github.com/microsoft/fluentui-blazor/pull/3105))
