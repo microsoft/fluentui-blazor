@@ -141,6 +141,16 @@ public record Section
         return Task.FromResult(this);
     }
 
+    /// <summary>
+    /// Gets the value of the argument with the specified key.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public string? GetArgumentValue(string key)
+    {
+        return Arguments.TryGetValue(key.ToLower(), out var value) ? value : null;
+    }
+
     /// <summary />
     private static (string Name, Dictionary<string, string> Arguments) ParseComponent(string input)
     {

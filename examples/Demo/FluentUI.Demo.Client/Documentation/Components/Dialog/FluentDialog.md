@@ -234,4 +234,18 @@ You can also use the `FluentDialogBody` component directly in your component, wi
 
 ## Options
 
-{{ API Type=DialogOptions }}
+### DialogOptions
+
+{{ API Type=DialogOptions Properties=All }}
+
+### DialogOptionsHeader
+
+{{ API Type=DialogOptionsHeader Properties=All }}
+
+### DialogOptionsFooter
+
+{{ API Type=DialogOptionsFooter Properties=All }}
+
+### DialogOptionsFooterAction
+
+{{ API Type=DialogOptionsFooterAction Properties=All }}
