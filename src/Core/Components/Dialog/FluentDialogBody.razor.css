@@ -1,14 +1,23 @@
-fluent-dialog[position][fuib] fluent-dialog-body[fuib] {
+/*
+    These styles are identical to fluent web components slots.
+    But we need to duplicated because the "action" and "footer" slots are a single `div` containing the buttons.
+*/
+
+/* Desktop and Mobile */
+fluent-dialog[fuib] fluent-dialog-body[fuib] {
   grid-template-rows: auto 1fr auto;
   height: 100%;
 }
 
-  /* Desktop and Mobile */
   fluent-dialog-body[fuib] > div[slot="action"] {
     display: flex;
     gap: var(--spacingVerticalS);
     flex-direction: column;
   }
+
+fluent-drawer[fuib] fluent-drawer-body[fuib] {
+  overflow-y: auto;
+}
 
 /* Desktop */
 @container (min-width: 480px) {
