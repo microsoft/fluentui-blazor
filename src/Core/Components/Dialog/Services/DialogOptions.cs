@@ -57,6 +57,16 @@ public class DialogOptions : IFluentComponentBase
     public DialogAlignment? Alignment { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether this dialog is displayed modally.
+    /// By default, the dialog is displayed modally (Modal = true).
+    /// </summary>
+    /// <remarks>
+    /// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+    /// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+    /// </remarks>
+    public bool? Modal { get; set; }
+
+    /// <summary>
     /// Gets or sets the width of the dialog. Must be a valid CSS width value like '600px' or '3em'
     /// Only used if Alignment is set to <see cref="DialogAlignment.Default"/>.
     /// </summary>

@@ -53,16 +53,16 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
 
-    ///// <summary>
-    ///// Gets or sets a value indicating whether this dialog is displayed modally.
-    ///// </summary>
-    ///// <remarks>
-    ///// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
-    ///// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
-    ///// </remarks>
-    //TODO: Need to detect when the user clicks outside the dialog to close it (or uses ESC). Because we need to remove the dialog from the DialogServiceProvider.
-    //[Parameter]
-    //public bool Modal { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether this dialog is displayed modally.
+    /// By default, the dialog is displayed modally (Modal = true).
+    /// </summary>
+    /// <remarks>
+    /// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+    /// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+    /// </remarks>
+    [Parameter]
+    public bool Modal { get; set; } = true;
 
     /// <summary>
     /// Command executed when the user clicks on the button.
@@ -230,15 +230,21 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetModalAttribute()
     {
+        // In Web Components, the type="modal" has the opposite function to that generally used by Windows (WPP or WinForms).
+        // See https://learn.microsoft.com/en-us/windows/apps/design/controls/dialogs-and-flyouts/dialogs
+        // See https://www.telerik.com/blazor-ui/documentation/components/window/modal
+
+        var isModal = Instance?.Options?.Modal ?? Modal;
+
         switch (IsPanel())
         {
             // FluentDialog
             case false:
-                return "alert";
+                return isModal ? "alert" : "modal";
 
             // Panels
             case true:
-                return "non-modal";
+                return isModal ? "non-modal" : "modal";
 
         }
     }
