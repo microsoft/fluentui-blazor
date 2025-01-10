@@ -41,4 +41,22 @@ public partial interface IDialogService : IFluentServiceBase<IDialogInstance>
     /// <param name="options">Options to configure the dialog component.</param>
     Task<DialogResult> ShowDialogAsync<TDialog>(Action<DialogOptions> options)
          where TDialog : ComponentBase;
+
+    /// <summary>
+    /// Shows a panel with the component type as the body.
+    /// By default, the panel is open at the right (end) of the screen.
+    /// </summary>
+    /// <typeparam name="TDialog">Type of component to display.</typeparam>
+    /// <param name="options">Options to configure the dialog component.</param>
+    Task<DialogResult> ShowPanelAsync<TDialog>(DialogOptions options)
+         where TDialog : ComponentBase;
+
+    /// <summary>
+    /// Shows a panel with the component type as the body.
+    /// By default, the panel is open at the right (end) of the screen.
+    /// </summary>
+    /// <typeparam name="TDialog">Type of component to display.</typeparam>
+    /// <param name="options">Options to configure the dialog component.</param>
+    Task<DialogResult> ShowPanelAsync<TDialog>(Action<DialogOptions> options)
+         where TDialog : ComponentBase;
 }

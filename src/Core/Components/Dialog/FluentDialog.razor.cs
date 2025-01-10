@@ -60,6 +60,7 @@ public partial class FluentDialog : FluentComponentBase
     ///// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
     ///// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
     ///// </remarks>
+    //TODO: Need to detect when the user clicks outside the dialog to close it (or uses ESC). Because we need to remove the dialog from the DialogServiceProvider.
     //[Parameter]
     //public bool Modal { get; set; }
 
@@ -233,13 +234,11 @@ public partial class FluentDialog : FluentComponentBase
         {
             // FluentDialog
             case false:
-                // TODO: To find a way to catch the click event outside the dialog.
                 return "alert";
 
             // Panels
             case true:
-                // TODO: To find a way to catch the click event outside the dialog.
-                return "alert";
+                return "non-modal";
 
         }
     }

@@ -79,6 +79,21 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
         return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
     }
 
+    /// <inheritdoc cref="IDialogService.ShowPanelAsync{TDialog}(DialogOptions)"/>
+    public Task<DialogResult> ShowPanelAsync<TDialog>(DialogOptions options) where TDialog : ComponentBase
+    {
+        options.Alignment ??= DialogAlignment.End;
+        return ShowDialogAsync(typeof(TDialog), options);
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowPanelAsync{TDialog}(Action{DialogOptions})"/>
+    public Task<DialogResult> ShowPanelAsync<TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    {
+        var dialogOptions = new DialogOptions(options);
+        dialogOptions.Alignment ??= DialogAlignment.End;
+        return ShowDialogAsync(typeof(TDialog), dialogOptions);
+    }
+
     /// <summary>
     /// Removes the dialog from the DialogProvider.
     /// </summary>

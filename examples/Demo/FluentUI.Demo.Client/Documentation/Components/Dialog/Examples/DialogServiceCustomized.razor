@@ -1,7 +1,6 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Drawer</FluentButton>
-<FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.Default))" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
+<FluentButton OnClick="@OpenDialogAsync" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
 
 <hr />
 <div>
@@ -12,13 +11,11 @@
 {
     private Dialog.PersonDetails John = new() { Age = "20" };
 
-    private async Task OpenDialogAsync(DialogAlignment alignment)
+    private async Task OpenDialogAsync()
     {
         var result = await DialogService.ShowDialogAsync<Dialog.CustomizedDialog>(options =>
         {
             options.Header.Title = "Dialog Title";
-            options.Alignment = alignment;
-            options.Style = alignment == DialogAlignment.Default ? "max-height: 400px;" : null;
 
             options.Parameters.Add(nameof(Dialog.CustomizedDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(Dialog.CustomizedDialog.Person), John);  // Updatable object

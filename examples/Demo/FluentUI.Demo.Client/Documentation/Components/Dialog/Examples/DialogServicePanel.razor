@@ -1,6 +1,7 @@
 ﻿@inject IDialogService DialogService
 
-<FluentButton OnClick="@OpenDialogAsync" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
+<FluentButton OnClick="@(e => OpenPanelAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Panel (Start)</FluentButton>
+<FluentButton OnClick="@(e => OpenPanelAsync(DialogAlignment.End))" Appearance="ButtonAppearance.Primary">Open Panel (End)</FluentButton>
 
 <hr />
 <div>
@@ -11,10 +12,12 @@
 {
     private Dialog.PersonDetails John = new() { Age = "20" };
 
-    private async Task OpenDialogAsync()
+    private async Task OpenPanelAsync(DialogAlignment alignment)
     {
-        var result = await DialogService.ShowDialogAsync<Dialog.SimpleDialog>(options =>
+        var result = await DialogService.ShowPanelAsync<Dialog.SimpleDialog>(options =>
         {
+            options.Alignment = alignment;
+
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John);  // Updatable object
 

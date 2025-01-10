@@ -52,9 +52,9 @@ public class DialogOptions : IFluentComponentBase
     public DialogOptionsFooter Footer { get; } = new();
 
     /// <summary>
-    /// Gets or sets the dialog alignment.
+    /// Gets or sets the dialog alignment (by default, the dialog is centered).
     /// </summary>
-    public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
+    public DialogAlignment? Alignment { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the dialog. Must be a valid CSS width value like '600px' or '3em'
