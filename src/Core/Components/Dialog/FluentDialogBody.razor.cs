@@ -67,4 +67,8 @@ public partial class FluentDialogBody : FluentComponentBase
             await Instance.CloseAsync(result);
         }
     }
+
+    /// <summary />
+    private bool IsPanel() => Instance?.Options.Alignment != DialogAlignment.Default;
+
 }

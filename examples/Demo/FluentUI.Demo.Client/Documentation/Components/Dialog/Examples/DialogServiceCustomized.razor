@@ -1,5 +1,6 @@
 ﻿@inject IDialogService DialogService
 
+<FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Drawer</FluentButton>
 <FluentButton OnClick="@(e => OpenDialogAsync(DialogAlignment.Default))" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
 
 <hr />
