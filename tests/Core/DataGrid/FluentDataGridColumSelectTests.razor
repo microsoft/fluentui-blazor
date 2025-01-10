@@ -147,6 +147,180 @@
     }
 
     [Fact]
+    public void FluentDataGrid_ColumSelect_SingleStickySelect_Rendering()
+    {
+        IEnumerable<Person> SelectedItems = new[] { People.ElementAt(1) };
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.SingleSticky"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_SingleStickySelect_SelectedItems()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.SingleSticky"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_SingleStickySameItemSelect_SelectedItems()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.SingleSticky"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+
+        // Act - Click and select Row 0 a second time
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_Selectable_SingleStickySelect_SelectedItems()
+    {
+        IEnumerable<Person> SelectedItems = Array.Empty<Person>();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@People" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.SingleSticky"
+                      Selectable="@(e => e.BirthDate.Year >= 2000)"
+                      @bind-SelectedItems="@SelectedItems" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+        );
+
+        // Pre-Assert
+        Assert.Single(cut.FindAll("svg"));
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(SelectedItems);
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(SelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_SingleStickySelect_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.SingleSticky"
+                      Property="@(e => e.Selected)"
+                      OnSelect="@(e => e.Item.Selected = e.Selected)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(items.Where(i => i.Selected));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumSelect_Selectable_SingleStickySelect_Property()
+    {
+        var items = new List<Person>(People).AsQueryable();
+
+        // Arrange
+        var cut = Render(
+    @<FluentDataGrid Items="@items" TGridItem="Person">
+        <SelectColumn TGridItem="Person"
+                      SelectMode="@DataGridSelectMode.SingleSticky"
+                      Selectable="@(e => e.BirthDate.Year >= 2000)"
+                      Property="@(e => e.Selected)"
+                      OnSelect="@(e => e.Item.Selected = e.Selected)" />
+        <PropertyColumn Property="@(p => p.Name)" />
+    </FluentDataGrid>
+    );
+
+        // Pre-Assert
+        Assert.Single(cut.FindAll("svg"));
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 0
+        await ClickOnRowAsync(cut, row: 0);
+        Assert.Empty(cut.FindAll("svg[row-selected]"));
+        Assert.Empty(items.Where(i => i.Selected));
+
+        // Act - Click and select Row 1
+        await ClickOnRowAsync(cut, row: 1);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+        Assert.Single(items.Where(i => i.Selected));
+    }
+
+    [Fact]
     public void FluentDataGrid_ColumSelect_MultiSelect_Rendering()
     {
         IEnumerable<Person> SelectedItems = new[] { People.ElementAt(1), People.ElementAt(2) };
