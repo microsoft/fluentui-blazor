@@ -33,13 +33,13 @@
                     headerType = DataGridRowType.StickyHeader;
                 }
                 <thead>
-                    <FluentDataGridRow RowType="@headerType" TGridItem="TGridItem" row-type="@headerType.ToAttributeValue()">
+                    <FluentDataGridRow RowType="@headerType" TGridItem="TGridItem" >
                         @_renderColumnHeaders
                     </FluentDataGridRow>
                 </thead>
             }
             <tbody>
-                @if (Loading)
+                @if (EffectiveLoadingValue)
                 {
                     @_renderLoadingContent
                 }
@@ -59,7 +59,8 @@
                                         OverscanCount="@OverscanCount"
                                         ItemsProvider="@ProvideVirtualizedItemsAsync"
                                         ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                                        Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                                        Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))"
+                                        SpacerElement="tr"/>
                         }
                     }
                     else

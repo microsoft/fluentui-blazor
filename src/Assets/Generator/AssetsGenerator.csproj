@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>FluentAssetsGenerator</AssemblyName>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

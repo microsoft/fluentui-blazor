@@ -238,7 +238,6 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
         foreach (IBrowserFile file in allFiles)
         {
             ProgressFileDetails = new ProgressFileDetails(fileNumber, file.Name, 0);
-
             // Keep a trace of this file
             FluentInputFileEventArgs? fileDetails = new()
             {
@@ -247,6 +246,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
                 Name = file.Name,
                 ContentType = file.ContentType,
                 Size = file.Size,
+                LastModified = file.LastModified,
                 IsCancelled = false,
             };
             uploadedFiles.Add(fileDetails);

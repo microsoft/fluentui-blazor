@@ -10,6 +10,7 @@
     public FluentWizardTests()
     {
         this.Services.AddSingleton(LibraryConfiguration);
+        JSInterop.Mode = JSRuntimeMode.Loose;
     }
 
     [Fact]

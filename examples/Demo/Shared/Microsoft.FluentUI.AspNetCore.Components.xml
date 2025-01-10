@@ -1956,6 +1956,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowFocus">
             <summary>
             Gets or sets a callback when a row is focused.
+            As of 4.11 a row is a tr element with a 'display: contents'. Browsers can not focus such elements currently, but work is underway to fix that.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellFocus">
@@ -2001,7 +2002,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading">
             <summary>
-            Gets or sets a value indicating whether the grid is in a loading data state.
+            Gets or sets a value to indicate the grid loading data state.
+            If not set and a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/> is present, the grid will show <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent"/> until the provider's first return.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
@@ -3552,6 +3554,16 @@
             If defined, this value will replace the one defined in the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.ShowDismissTooltip">
+            <summary>
+            When true, shows the "Close" button tooltip in the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.TabIndex">
+            <summary>
+            Allows developers to make elements sequentially focusable and determine their relative ordering for navigation (usually with the Tab key).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -4413,6 +4425,8 @@
             </summary>
             <remarks>
             This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an emoji in your code).
             </remarks>
             <returns></returns>
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
@@ -4428,6 +4442,9 @@
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.AllEmojis">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAssembly(System.String)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo">
@@ -5000,6 +5017,8 @@
             <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
             <remarks>
             This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an icon in your code).
             </remarks>
             <returns></returns>
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
@@ -5015,6 +5034,9 @@
             <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.AllIcons">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAssembly(System.String)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
@@ -5238,6 +5260,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ContentType">
             <summary>
             Gets the content type of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.LastModified">
+            <summary>
+            Gets the last modified date of the current file in an upload process.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ProgressTitle">
@@ -13559,6 +13586,23 @@
             Cell is a row header.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode">
+            <summary>
+            The type of rendering to use for the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode.Grid">
+            <summary>
+            Uses display:grid with HTML table elements to render the DataGrid.
+            With this mode fr units canbe used to set the column widths.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode.Table">
+            <summary>
+            Uses HTML table elements only to render the DataGrid.
+            With this mode fr units cannot be used to set the column widths.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType">
             <summary>
             The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -14093,6 +14137,11 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Stretch">
             <summary>
             The content is stretched to fill the available space.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.SpaceBetween">
+            <summary>
+            The items are evenly distributed within the alignment container along the main axis.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition">
@@ -15100,6 +15149,16 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Bottom">
             <summary>
             The content is aligned to the bottom
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Stretch">
+            <summary>
+            The content is stretched to fill the available space.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.SpaceBetween">
+            <summary>
+            The items are evenly distributed within the alignment container along the main axis.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.VerticalPosition">

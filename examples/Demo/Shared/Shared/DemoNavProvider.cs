@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;
 
 namespace FluentUI.Demo.Shared;
 

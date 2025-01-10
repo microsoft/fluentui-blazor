@@ -22,6 +22,10 @@
             <li>
                 The parameter <code>ResizeLabel</code> has been removed in favor of 3 new parameters. This makes changing strings in the DataGrid UI easier. See <FluentAnchor Href="#changeuistrings" Appearance="Appearance.Hypertext">Change strings used in the UI</FluentAnchor> for more information.
             </li>
+            <li>It is currently not possible to use the <code>OnRowFocus</code> and <code>OnCellFocus</code> event callbacks. You can use the <code>OnRowClick</code>, <code>OnRowDoubleClick</code> and <code>OnCellClick</code> alternatives.
+
+                As of v4.11.1 the <code>OnCellFocus</code> event callback will be operational again. For <code>OnRowFocus</code>, we are waiting for the necessary support being added by the different browsers. See https://chromestatus.com/feature/6237396851228672 for more information.
+            </li>
         </ul>
     </div>
 </p>
@@ -56,6 +60,13 @@
     The DataGrid supports sorting by clicking on the column headers. The default sort direction is ascending. Clicking on the same column header again will toggle the sort direction.
     A sort can be removed by right clicking on the header column (with exception of the default sort).
 </p>
+
+<h2 id="styling">Row size</h2>
+<p>
+    As of v4.11.0, the Datagrid offers a <code>RowSize</code> parameter which allows you to use different preset row heights. The value uses the <code>DataGridRowSize</code> enumeration for its type.
+    When using <code>Virtualize</code>, the <code>ItemSize</code> value isused is still used to indicate the row height.
+</p>
+
 
 <h2 id="changeuistrings">Change strings used in the UI</h2>
 <p>
@@ -145,7 +156,7 @@
             It is possible to change this behavior by using a CSS style like this to set a background on selected rows:
             <code>
                 <pre>
-fluent-data-grid-row:has([row-selected]) {
+.fluent-data-grid-row:has([row-selected]) > td {
     background-color: var(--neutral-fill-stealth-hover)
 }</pre>
             </code>

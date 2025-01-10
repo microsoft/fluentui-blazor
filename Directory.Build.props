@@ -12,9 +12,9 @@
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-		<VersionFile>4.11.0</VersionFile>
-		<VersionPrefix>4.11.0</VersionPrefix>
-		<VersionSuffix>beta.1</VersionSuffix>
+		<VersionFile>4.11.1</VersionFile>
+		<VersionPrefix>4.11.1</VersionPrefix>
+		<VersionSuffix></VersionSuffix>
 		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
 		<FileVersion>$(VersionFile)</FileVersion>
 

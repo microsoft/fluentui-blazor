@@ -60,6 +60,7 @@ internal partial class IconsCodeGenerator
     /// Generates one class for the given icons.
     /// </summary>
     /// <param name="icons"></param>
+    /// <param name="className"></param>
     /// <returns></returns>
     public FileInfo GenerateOneClass(IEnumerable<Icon> icons, string className)
     {

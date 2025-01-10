@@ -1,11 +1,11 @@
 ## About 
 Use this package if the data you want to display in the `FluentDataGrid` (component in the `Microsoft.FluentUI.AspNetCore.Components library`) comes from [Microsoft.OData.Client](https://www.nuget.org/packages/Microsoft.OData.Client).
 
-Microsoft OData Client library's DataServiceContext gives you a DataServiceQuery property for each resource in your OData service endpoint. Simply supply this as the grid's RowsData parameter:
+Microsoft OData Client library's DataServiceContext gives you a DataServiceQuery property for each resource in your OData service endpoint. Simply supply this as the grid's `Items` parameter:
 ```
 @inject DataServiceContext MyServiceContext
 
-<FluentDataGrid RowsData="@MyServiceContext.People">
+<FluentDataGrid Items="@MyServiceContext.People">
     ...
 </FluentDataGrid>
 ```
@@ -14,7 +14,7 @@ You may also use any DataServiceQuery-supported LINQ operator to filter the data
 ```
 @inject DataServiceContext MyServiceContext
 
-<FluentDataGrid RowsData="@MyServiceContext.Documents.Where(d => d.CategoryId == currentCategoryId)">
+<FluentDataGrid Items="@MyServiceContext.Documents.Where(d => d.CategoryId == currentCategoryId)">
     ...
 </FluentDataGrid>
 ```

@@ -63,7 +63,8 @@ export function init(gridElement, autoFocus) {
             );
         }
 
-        if (start === document.activeElement) {
+        // check if start is a child of gridElement
+        if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start) {
             const idx = start.cellIndex;
 
             if (event.key === "ArrowUp") {
@@ -172,22 +173,23 @@ export function enableColumnResizing(gridElement) {
     headers.forEach(header => {
         columns.push({
             header,
-            size: `minmax(${minWidth}px,1fr)`,
+            size: `minmax(${minWidth}px,auto)`,
         });
 
         const onPointerMove = (e) => requestAnimationFrame(() => {
             if (!headerBeingResized) {
                 return;
             }
+            gridElement.style.tableLayout = "fixed";
 
             const horizontalScrollOffset = document.documentElement.scrollLeft;
             let width;
 
             if (document.body.dir === '' || document.body.dir === 'ltr') {
-                width = (horizontalScrollOffset + e.clientX) - headerBeingResized.offsetLeft;
+                width = (horizontalScrollOffset + e.clientX) - headerBeingResized.getClientRects()[0].x;
             }
             else {
-                width = headerBeingResized.offsetLeft + headerBeingResized.clientWidth - (horizontalScrollOffset + e.clientX);
+                width = headerBeingResized.getClientRects()[0].x + headerBeingResized.clientWidth - (horizontalScrollOffset + e.clientX);
             }
 
             const column = columns.find(({ header }) => header === headerBeingResized);
@@ -211,7 +213,7 @@ export function enableColumnResizing(gridElement) {
             window.removeEventListener('pointercancel', onPointerUp);
             window.removeEventListener('pointerleave', onPointerUp);
 
-            headerBeingResized.classList.remove('header--being-resized');
+            headerBeingResized.classList.remove('header-being-resized');
             headerBeingResized = null;
 
             if (e.target.hasPointerCapture(e.pointerId)) {
@@ -221,7 +223,7 @@ export function enableColumnResizing(gridElement) {
 
         const initResize = ({ target, pointerId }) => {
             headerBeingResized = target.parentNode;
-            headerBeingResized.classList.add('header--being-resized');
+            headerBeingResized.classList.add('header-being-resized');
 
 
             window.addEventListener('pointermove', onPointerMove);

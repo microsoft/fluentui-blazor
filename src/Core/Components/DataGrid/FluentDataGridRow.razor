@@ -7,9 +7,11 @@
         style="@StyleValue"
         data-row-index=@RowIndex
         role="row"
+        row-type="@(RowType != DataGridRowType.Default ? RowType.ToAttributeValue() : null)"
         @onkeydown="@(e => HandleOnRowKeyDownAsync(RowId, e))"
         @onclick="@(e => HandleOnRowClickAsync(RowId))"
         @ondblclick="@(e => HandleOnRowDoubleClickAsync(RowId))"
+        @onfocus="@HandleOnRowFocusAsync"
         @attributes="AdditionalAttributes">
         @ChildContent
     </tr>
