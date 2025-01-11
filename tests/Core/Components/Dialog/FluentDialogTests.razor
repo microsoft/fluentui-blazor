@@ -363,4 +363,57 @@
         Assert.Equal(42, result.Value);
         Assert.True(instanceIndex > 0);
     }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("type=\"alert\"", null)]
+    [InlineData("type=\"alert\"", true)]
+    [InlineData("type=\"modal\"", false)]
+    public async Task FluentDialog_Modal(string expectedContains, bool? modal)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Modal = modal;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_InverseActions()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                   options.Footer.PrimaryAction.Label = "Primary";
+                   options.Footer.SecondaryAction.Label = "Secondary";
+                   options.Footer.IsPrimaryFirst = false;
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        var buttons = DialogProvider.FindAll("fluent-button");
+
+        // Assert: Verify that the "Primary" button appears AFTER the "Secondary" button
+        Assert.Collection(buttons,
+            button => Assert.Contains("Secondary", button.InnerHtml),
+            button => Assert.Contains("Primary", button.InnerHtml));
+    }
 }
