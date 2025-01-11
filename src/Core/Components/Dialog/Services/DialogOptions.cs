@@ -26,19 +26,32 @@ public class DialogOptions : IFluentComponentBase
         implementationFactory.Invoke(this);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets or sets the unique identifier of the Dialog element.
+    /// </summary>
     public string? Id { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets or sets the CSS class names.
+    /// If given, these will be included in the class attribute of the `fluent-dialog` or `fluent-drawer` element.
+    /// To apply you styles to the `dialog` element, you need to create a class like `my-class::part(dialog) { ... }`
+    /// </summary>
     public string? Class { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets or sets the in-line styles.
+    /// If given, these will be included in the style attribute of the `dialog` element.
+    /// </summary>
     public string? Style { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets or sets custom data, to attach any user data object to the component.
+    /// </summary>
     public object? Data { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets or sets a collection of additional attributes that will be applied to the created element.
+    /// </summary>
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
