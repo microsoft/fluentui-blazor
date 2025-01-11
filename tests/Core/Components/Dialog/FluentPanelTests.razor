@@ -142,4 +142,40 @@
             button => Assert.Contains("Secondary", button.InnerHtml),
             button => Assert.Contains("Primary", button.InnerHtml));
     }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(null, null)]
+    [InlineData("small", DialogSize.Small)]
+    [InlineData("medium", DialogSize.Medium)]
+    [InlineData("large", DialogSize.Large)]
+    [InlineData("full", DialogSize.Full)]
+    public async Task FluentPanel_Size(string? expected, DialogSize? size)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowPanelAsync<Templates.DialogRender>(options =>
+               {
+                   options.Size = size;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-drawer");
+
+        if (expected is null)
+        {
+            Assert.False(dialog.HasAttribute("size"));
+        }
+        else
+        {
+            Assert.Equal(expected, dialog.GetAttribute("size"));
+        }
+    }
 }
