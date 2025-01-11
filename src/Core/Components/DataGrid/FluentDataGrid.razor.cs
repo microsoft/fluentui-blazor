@@ -809,8 +809,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         return new CssBuilder(Class)
            .AddClass(ColumnJustifyClass(column))
-           .AddClass("col-sort-asc", _sortByAscending)
-           .AddClass("col-sort-desc", !_sortByAscending)
+           .AddClass("col-sort-asc", _sortByAscending && column.IsActiveSortColumn)
+           .AddClass("col-sort-desc", !_sortByAscending && column.IsActiveSortColumn)
            .Build();
     }
 
