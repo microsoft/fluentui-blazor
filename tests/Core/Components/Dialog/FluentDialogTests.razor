@@ -283,9 +283,9 @@
         {
             var dialogTask = await DialogService.ShowDialogAsync<Templates.DialogWithInstance>(options =>
                    {
-                          options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
-                          options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
-                      });
+                       options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                       options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   });
         });
 
         // Don't wait for the dialog to be closed
@@ -415,5 +415,21 @@
         Assert.Collection(buttons,
             button => Assert.Contains("Secondary", button.InnerHtml),
             button => Assert.Contains("Primary", button.InnerHtml));
+    }
+
+    [Fact]
+    public void FluentDialog_Options_Ctor()
+    {
+        // Arrange
+        var options = new DialogOptions() { Data = "My data" };
+        var header = new DialogOptionsHeader() { Title = "My title" };
+        var footer = new DialogOptionsFooter() { IsPrimaryFirst = false };
+        var action = new DialogOptionsFooterAction() { Label = "My action" };
+
+        // Assert
+        Assert.Equal("My data", options.Data);
+        Assert.Equal("My title", header.Title);
+        Assert.Equal("My action", action.Label);
+        Assert.False(footer.IsPrimaryFirst);
     }
 }
