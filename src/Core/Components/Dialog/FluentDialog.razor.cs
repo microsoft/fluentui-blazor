@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -28,8 +29,8 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Instance?.Options.Height, when: IsDialog())
-        .AddStyle("width", Instance?.Options.Width)
-        .AddStyle("max-width", "calc(-48px + 100vw)", when: !string.IsNullOrEmpty(Instance?.Options.Width))
+        .AddStyle("width", Instance?.Options.Width, when: !string.IsNullOrEmpty(Instance?.Options.Width))
+        .AddStyle("max-width", "calc(-48px + 100vw)", when: !string.IsNullOrEmpty(Instance?.Options.Width)) // By default the fluent-dialog.max-width is "600px".
         .AddStyle("width", "100%", when: IsPanel() && string.IsNullOrEmpty(Instance?.Options.Width))
         .Build();
 
@@ -249,6 +250,12 @@ public partial class FluentDialog : FluentComponentBase
                 return isModal ? "modal" : "non-modal";
 
         }
+    }
+
+    /// <summary />
+    private string? GetSizeAttribute()
+    {
+        return Instance?.Options?.Size.ToAttributeValue();
     }
 
     /// <summary />
