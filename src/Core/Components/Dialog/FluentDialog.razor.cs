@@ -29,6 +29,7 @@ public partial class FluentDialog : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Instance?.Options.Height, when: IsDialog())
         .AddStyle("width", Instance?.Options.Width)
+        .AddStyle("max-width", "calc(-48px + 100vw)", when: !string.IsNullOrEmpty(Instance?.Options.Width))
         .AddStyle("width", "100%", when: IsPanel() && string.IsNullOrEmpty(Instance?.Options.Width))
         .Build();
 
