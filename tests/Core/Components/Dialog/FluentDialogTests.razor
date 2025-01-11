@@ -403,7 +403,7 @@
 
                    options.Footer.PrimaryAction.Label = "Primary";
                    options.Footer.SecondaryAction.Label = "Secondary";
-                   options.Footer.IsPrimaryFirst = false;
+                   options.Footer.PrimaryFirst = false;
                });
 
         // Don't wait for the dialog to be closed
@@ -423,13 +423,13 @@
         // Arrange
         var options = new DialogOptions() { Data = "My data" };
         var header = new DialogOptionsHeader() { Title = "My title" };
-        var footer = new DialogOptionsFooter() { IsPrimaryFirst = false };
+        var footer = new DialogOptionsFooter() { PrimaryFirst = false };
         var action = new DialogOptionsFooterAction() { Label = "My action" };
 
         // Assert
         Assert.Equal("My data", options.Data);
         Assert.Equal("My title", header.Title);
         Assert.Equal("My action", action.Label);
-        Assert.False(footer.IsPrimaryFirst);
+        Assert.False(footer.PrimaryFirst);
     }
 }
