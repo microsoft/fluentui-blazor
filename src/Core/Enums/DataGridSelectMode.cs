@@ -12,6 +12,11 @@ public enum DataGridSelectMode
     Single,
 
     /// <summary>
+    /// Allow only one selected row. Keep selection if same row is clicked.
+    /// </summary>
+    SingleSticky,
+
+    /// <summary>
     /// Allow multiple selected rows.
     /// </summary>
     Multiple,
