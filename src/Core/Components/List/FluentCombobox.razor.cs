@@ -155,7 +155,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     {
         if (item != null)
         {
-            return OptionText.Invoke(item) ?? OptionValue.Invoke(item) ?? item.ToString();
+            return OptionValue.Invoke(item) ?? OptionText.Invoke(item) ?? item.ToString();
         }
         else
         {
