@@ -22,6 +22,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
+    public const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
+    public const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
 
     /// <summary />
     [Inject]
@@ -809,8 +811,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         return new CssBuilder(Class)
            .AddClass(ColumnJustifyClass(column))
-           .AddClass("col-sort-asc", _sortByAscending)
-           .AddClass("col-sort-desc", !_sortByAscending)
+           .AddClass("col-sort-asc", _sortByAscending && column.IsActiveSortColumn)
+           .AddClass("col-sort-desc", !_sortByAscending && column.IsActiveSortColumn)
            .Build();
     }
 
