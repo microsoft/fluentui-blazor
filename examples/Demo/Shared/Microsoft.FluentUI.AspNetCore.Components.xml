@@ -1631,7 +1631,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode">
             <summary>
-            Gets or sets the selection mode (Single or Multiple).
+            Gets or sets the selection mode (Single, SingleSticky or Multiple).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconUnchecked">
@@ -13667,6 +13667,11 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Single">
             <summary>
             Allow only one selected row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.SingleSticky">
+            <summary>
+            Allow only one selected row. Keep selection if same row is clicked.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Multiple">
