@@ -33,6 +33,7 @@ td {
     font-weight: 600;
     text-align: center;
     height: 100%;
+    user-select: none;
 }
 
 .multiline-text {

@@ -77,7 +77,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
         .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize && Owner.RowType == DataGridRowType.Default && CellType == DataGridCellType.ColumnHeader)
         .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
-        .AddStyle("height", "100%", InternalGridContext.TotalItemCount == 0 || (Grid.EffectiveLoadingValue && Grid.Items is null) || Grid.MultiLine)
+        .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("display", "flex", CellType == DataGridCellType.ColumnHeader && !Grid.HeaderCellAsButtonWithMenu && !Grid.ResizableColumns && (Column is null || (Column!.Sortable.HasValue && !Column!.Sortable.Value)))
         .AddStyle(Owner.Style)
