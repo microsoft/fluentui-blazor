@@ -76,7 +76,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
         .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
         .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
-        .AddStyle("height", "100%", InternalGridContext.TotalItemCount == 0 || (Grid.EffectiveLoadingValue && Grid.Items is null) || Grid.MultiLine)
+        .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("display", "flex", CellType == DataGridCellType.ColumnHeader && !Grid.HeaderCellAsButtonWithMenu && !Grid.ResizableColumns)
         .AddStyle(Owner.Style)
