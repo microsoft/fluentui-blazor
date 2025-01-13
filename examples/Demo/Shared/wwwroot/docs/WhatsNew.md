@@ -3,7 +3,7 @@
 ### Components
 - \[DataGrid\] Add SingleSticky selection mode ([#3150](https://github.com/microsoft/fluentui-blazor/pull/3150))
 - \[DataGrid\] Tweak `display: flex` and DataGridDisplayMode.Table ([#3156](https://github.com/microsoft/fluentui-blazor/pull/3156))
-- \[Tabs\] Remove 40px height compensation for some cases ([#3149](https://github.com/microsoft/fluentui-blazor/pull/3149))
+- \[DataGrid\] Make Empty/Loading row not respond to hover and `OnRowClick` ([#3166](https://github.com/microsoft/fluentui-blazor/pull/3166))
 
 ## V4.11.1
 
