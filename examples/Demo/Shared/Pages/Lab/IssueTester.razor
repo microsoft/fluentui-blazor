@@ -1,1 +1,64 @@
-﻿
+﻿@page "/test"
+
+<style>
+    .column-header {
+        border-right: 2px solid;
+    }
+</style>
+
+
+<div style="height: 200px; overflow-y: scroll;">
+    <FluentDataGrid DisplayMode="DataGridDisplayMode.Table" TGridItem="Testt" Items="testList.AsQueryable()" GenerateHeader="GenerateHeaderOption.Sticky">
+        <TemplateColumn Sortable="true" Title="First Column Header" Align="Align.Center" Width="200px">
+            @context.a
+        </TemplateColumn>
+        <TemplateColumn Sortable="true" Title="Second Column Header" Align="Align.Center" Width="200px">
+            @context.b
+        </TemplateColumn>
+        <TemplateColumn Sortable="true" Title="Third Column Header" Align="Align.Center" Width="200px">
+            @context.c
+        </TemplateColumn>
+    </FluentDataGrid>
+</div>
+
+
+@code {
+    class Testt
+    {
+        public string a = "a";
+        public string b = "b";
+        public string c = "c";
+    }
+
+    private List<Testt> testList = new()
+    {
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+        new(),
+    };
+}
