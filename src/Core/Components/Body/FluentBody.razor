@@ -1,0 +1,17 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<body id="@Id" class="@ClassValue" style="@Style" @attributes="AdditionalAttributes">
+
+    @if (UseReboot)
+    {
+        <link href="/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
+    }
+
+    @if (AddBlazorScript)
+    {
+        <script src="_framework/blazor.web.js"></script>
+    }
+
+    @ChildContent
+</body>
