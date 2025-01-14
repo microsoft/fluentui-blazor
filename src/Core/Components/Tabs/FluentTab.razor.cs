@@ -17,7 +17,8 @@ public partial class FluentTab : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("height", $"{Owner?.Height}; overflow-y: auto", () => !string.IsNullOrEmpty(Owner?.Height))
+        .AddStyle("height", "100%", () => !string.IsNullOrEmpty(Owner?.Height))
+        .AddStyle("overflow-y", "auto", () => !string.IsNullOrEmpty(Owner?.Height))
         .Build();
 
     /// <summary />
