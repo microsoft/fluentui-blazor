@@ -1,10 +1,15 @@
+## V4.11.3
+
+### Components
+- \[DataGrid\] Fix cell height issue and make header really sticky ([#3173](https://github.com/microsoft/fluentui-blazor/pull/3173))
+- \[Tabs\] Remove height compensation ([#3149](https://github.com/microsoft/fluentui-blazor/pull/3149))
+
 ## V4.11.2
 
 ### Components
 - \[DataGrid\] Add SingleSticky selection mode ([#3150](https://github.com/microsoft/fluentui-blazor/pull/3150))
 - \[DataGrid\] Tweak `display: flex` and DataGridDisplayMode.Table ([#3156](https://github.com/microsoft/fluentui-blazor/pull/3156))
 - \[DataGrid\] Make Empty/Loading row not respond to hover and `OnRowClick` ([#3166](https://github.com/microsoft/fluentui-blazor/pull/3166))
-
 
 ## V4.11.1
 

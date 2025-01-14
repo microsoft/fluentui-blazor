@@ -1,3 +1,9 @@
+## V4.11.3
+
+### Components
+- \[DataGrid\] Fix cell height issue and make header really sticky ([#3173](https://github.com/microsoft/fluentui-blazor/pull/3173))
+- \[Tabs\] Remove height compensation ([#3149](https://github.com/microsoft/fluentui-blazor/pull/3149))
+
 ## V4.11.2
 
 ### Components
