@@ -5,8 +5,8 @@ trigger:
   batch: true
   branches:
     include:
-    - main
     - dev
+    - dev-v5  
     - archives/v3
 
   paths:
