@@ -1,8 +1,11 @@
 ﻿@inject IDialogService DialogService
 
-<div>
+<div style="margin-bottom: 12px;">
+    <FluentLabel>Is Modal</FluentLabel>
     <InputCheckbox @bind-Value="@IsModal" />
-    <FluentLabel Style="margin-bottom: 12px;">Is Modal</FluentLabel>
+
+    <FluentLabel>Size</FluentLabel>
+    <FluentSelect Items="@AllSizes" @bind-Value="@Size" />
 </div>
 
 <FluentButton OnClick="@OpenDialogAsync" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
@@ -15,6 +18,7 @@
 @code
 {
     private bool IsModal = true;
+    private DialogSize? Size;
     private Dialog.PersonDetails John = new() { Age = "20" };
 
     private async Task OpenDialogAsync()
@@ -22,6 +26,7 @@
         var result = await DialogService.ShowDialogAsync<Dialog.SimpleDialog>(options =>
         {
             options.Modal = IsModal;
+            options.Size = Size;
 
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Person), John);  // Updatable object
@@ -41,4 +46,7 @@
             Console.WriteLine($"Dialog Saved: {result.Value}");
         }
     }
+
+    private IEnumerable<DialogSize?> AllSizes
+        => Enum.GetValues(typeof(DialogSize)).Cast<DialogSize?>().Prepend(null);
 }

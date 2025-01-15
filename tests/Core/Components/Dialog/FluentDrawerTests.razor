@@ -1,0 +1,181 @@
+﻿@using Xunit;
+@inherits TestContext
+@code
+{
+    // A timeout can be set when you open a dialog box and do not close it.
+    private const int TEST_TIMEOUT = 3000;
+
+    public FluentDrawerTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        DialogService = Services.GetRequiredService<IDialogService>();
+        DialogProvider = RenderComponent<FluentDialogProvider>();
+    }
+
+    /// <summary>
+    /// Gets the dialog service.
+    /// </summary>
+    public IDialogService DialogService { get; }
+
+    /// <summary>
+    /// Gets the dialog provider.
+    /// </summary>
+    public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDrawer_Render()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains("fluent-drawer", DialogProvider.Markup);
+        Assert.Contains("fluent-drawer-body", DialogProvider.Markup);
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDrawer_Options()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        var options = new DialogOptions();
+        options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+        options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options);
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("position=\"start\"", DialogAlignment.Start)]
+    [InlineData("position=\"end\"", DialogAlignment.End)]
+    public async Task FluentDrawer_Position(string expectedContains, DialogAlignment alignment)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options =>
+               {
+                   options.Alignment = alignment;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("type=\"modal\"", null)]
+    [InlineData("type=\"modal\"", true)]
+    [InlineData("type=\"non-modal\"", false)]
+    public async Task FluentDrawer_Modal(string expectedContains, bool? modal)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options =>
+               {
+                   options.Modal = modal;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDrawer_InverseActions()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                   options.Footer.PrimaryAction.Label = "Primary";
+                   options.Footer.SecondaryAction.Label = "Secondary";
+                   options.Footer.PrimaryFirst = false;
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        var buttons = DialogProvider.FindAll("fluent-button");
+
+        // Assert: Verify that the "Primary" button appears AFTER the "Secondary" button
+        Assert.Collection(buttons,
+            button => Assert.Contains("Secondary", button.InnerHtml),
+            button => Assert.Contains("Primary", button.InnerHtml));
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(null, null)]
+    [InlineData("small", DialogSize.Small)]
+    [InlineData("medium", DialogSize.Medium)]
+    [InlineData("large", DialogSize.Large)]
+    [InlineData("full", DialogSize.Full)]
+    public async Task FluentDrawer_Size(string? expected, DialogSize? size)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDrawerAsync<Templates.DialogRender>(options =>
+               {
+                   options.Size = size;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-drawer");
+
+        if (expected is null)
+        {
+            Assert.False(dialog.HasAttribute("size"));
+        }
+        else
+        {
+            Assert.Equal(expected, dialog.GetAttribute("size"));
+        }
+    }
+}
