@@ -161,6 +161,11 @@ jobs:
        run: dotnet test ${{ env.INTEGRATION_TEST }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release
        working-directory: ${{ github.workspace }}
 
+     - name: Handle Test Failure
+       if: failure()
+       run: echo "Integration tests failed. Taking necessary actions..."
+       working-directory: ${{ github.workspace }}
+
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
