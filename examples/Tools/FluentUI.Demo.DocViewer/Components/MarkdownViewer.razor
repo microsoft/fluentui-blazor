@@ -82,7 +82,8 @@
 
                 case SectionType.Api:
                     var classType = section.Arguments?["type"];
-                    var apiClass = GetApiClassFromName(classType);
+                    var allProperties = section.GetArgumentValue("properties")?.ToLower() == "all";
+                    var apiClass = GetApiClassFromName(classType, allProperties);
 
                     @if (apiClass == null)
                     {

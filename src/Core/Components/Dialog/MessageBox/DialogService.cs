@@ -88,6 +88,7 @@ public partial class DialogService : IDialogService
     {
         return ShowDialogAsync<FluentMessageBox>(config =>
         {
+            config.Modal = true;
             config.Header.Title = options.Title;
             config.Footer.PrimaryAction.Label = options.PrimaryButton;
             config.Footer.PrimaryAction.ShortCut = options.PrimaryShortCut;

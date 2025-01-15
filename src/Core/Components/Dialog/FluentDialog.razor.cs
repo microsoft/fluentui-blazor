@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -28,7 +29,9 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Instance?.Options.Height, when: IsDialog())
-        .AddStyle("width", Instance?.Options.Width)
+        .AddStyle("width", Instance?.Options.Width, when: !string.IsNullOrEmpty(Instance?.Options.Width))
+        .AddStyle("max-width", "calc(-48px + 100vw)", when: !string.IsNullOrEmpty(Instance?.Options.Width)) // By default the fluent-dialog.max-width is "600px".
+        .AddStyle("width", "100%", when: IsDrawer() && string.IsNullOrEmpty(Instance?.Options.Width))
         .Build();
 
     /// <summary />
@@ -53,15 +56,16 @@ public partial class FluentDialog : FluentComponentBase
     [Parameter]
     public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
 
-    ///// <summary>
-    ///// Gets or sets a value indicating whether this dialog is displayed modally.
-    ///// </summary>
-    ///// <remarks>
-    ///// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
-    ///// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
-    ///// </remarks>
-    //[Parameter]
-    //public bool Modal { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether this dialog is displayed modally.
+    /// By default, the dialog is displayed modally (Modal = true).
+    /// </summary>
+    /// <remarks>
+    /// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+    /// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+    /// </remarks>
+    [Parameter]
+    public bool Modal { get; set; } = true;
 
     /// <summary>
     /// Command executed when the user clicks on the button.
@@ -209,8 +213,8 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetAlignmentAttribute()
     {
-        // Alignment is only used when the dialog is a panel.
-        if (IsPanel())
+        // Alignment is only used when the dialog is a drawer (panel).
+        if (IsDrawer())
         {
             // Get the alignment from the DialogService (if used) or the Alignment property.
             var alignment = Instance?.Options.Alignment ?? Alignment;
@@ -229,26 +233,36 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetModalAttribute()
     {
-        switch (IsPanel())
-        {
-            // FluentDialog
-            case false:
-                // TODO: To find a way to catch the click event outside the dialog.
-                return "alert";
+        // In Web Components, the type="modal" has the opposite function to that generally used by Windows (WPP or WinForms).
+        // See https://learn.microsoft.com/en-us/windows/apps/design/controls/dialogs-and-flyouts/dialogs
+        // See https://www.telerik.com/blazor-ui/documentation/components/window/modal
 
-            // Panels
+        var isModal = Instance?.Options?.Modal ?? Modal;
+
+        switch (IsDrawer())
+        {
+            // Dialog
+            case false:
+                return isModal ? "alert" : "modal";
+
+            // Drawers / Panels
             case true:
-                // TODO: To find a way to catch the click event outside the dialog.
-                return "alert";
+                return isModal ? "modal" : "non-modal";
 
         }
     }
 
     /// <summary />
-    private bool IsPanel() => (Instance?.Options.Alignment ?? Alignment) != DialogAlignment.Default;
+    private string? GetSizeAttribute()
+    {
+        return Instance?.Options?.Size.ToAttributeValue();
+    }
 
     /// <summary />
-    private bool IsDialog() => !IsPanel();
+    private bool IsDrawer() => IsDrawer(Instance?.Options.Alignment ?? Alignment);
+
+    /// <summary />
+    private bool IsDialog() => !IsDrawer();
 
     /// <summary />
     private MarkupString? GetDialogStyle()
@@ -260,4 +274,11 @@ public partial class FluentDialog : FluentComponentBase
 
         return (MarkupString)$"<style>#{Id}::part(dialog) {{ {StyleValue} }}</style>";
     }
+
+    /// <summary>
+    /// Returns true if the dialog is a drawer (panel).
+    /// </summary>
+    /// <param name="alignment"></param>
+    /// <returns></returns>
+    internal static bool IsDrawer(DialogAlignment? alignment) => alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
 }

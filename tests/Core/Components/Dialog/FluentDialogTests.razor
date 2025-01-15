@@ -47,7 +47,7 @@
     [Theory(Timeout = TEST_TIMEOUT)]
     [InlineData("position=\"start\"", DialogAlignment.Start)]
     [InlineData("position=\"end\"", DialogAlignment.End)]
-    public async Task FluentDialog_Panel(string expectedContains, DialogAlignment alignment)
+    public async Task FluentDialog_Drawer(string expectedContains, DialogAlignment alignment)
     {
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
@@ -283,9 +283,9 @@
         {
             var dialogTask = await DialogService.ShowDialogAsync<Templates.DialogWithInstance>(options =>
                    {
-                          options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
-                          options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
-                      });
+                       options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                       options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   });
         });
 
         // Don't wait for the dialog to be closed
@@ -362,5 +362,110 @@
         Assert.Equal("my-dialog", instanceId);
         Assert.Equal(42, result.Value);
         Assert.True(instanceIndex > 0);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("type=\"alert\"", null)]
+    [InlineData("type=\"alert\"", true)]
+    [InlineData("type=\"modal\"", false)]
+    public async Task FluentDialog_Modal(string expectedContains, bool? modal)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Modal = modal;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_InverseActions()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                   options.Footer.PrimaryAction.Label = "Primary";
+                   options.Footer.SecondaryAction.Label = "Secondary";
+                   options.Footer.PrimaryFirst = false;
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        var buttons = DialogProvider.FindAll("fluent-button");
+
+        // Assert: Verify that the "Primary" button appears AFTER the "Secondary" button
+        Assert.Collection(buttons,
+            button => Assert.Contains("Secondary", button.InnerHtml),
+            button => Assert.Contains("Primary", button.InnerHtml));
+    }
+
+    [Fact]
+    public void FluentDialog_Options_Ctor()
+    {
+        // Arrange
+        var options = new DialogOptions() { Data = "My data" };
+        var header = new DialogOptionsHeader() { Title = "My title" };
+        var footer = new DialogOptionsFooter() { PrimaryFirst = false };
+        var action = new DialogOptionsFooterAction() { Label = "My action" };
+
+        // Assert
+        Assert.Equal("My data", options.Data);
+        Assert.Equal("My title", header.Title);
+        Assert.Equal("My action", action.Label);
+        Assert.False(footer.PrimaryFirst);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(null, null)]
+    [InlineData("small", DialogSize.Small)]
+    [InlineData("medium", DialogSize.Medium)]
+    [InlineData("large", DialogSize.Large)]
+    [InlineData("full", DialogSize.Full)]
+    public async Task FluentDialog_Size(string? expected, DialogSize? size)
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Size = size;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-dialog");
+
+        if (expected is null)
+        {
+            Assert.False(dialog.HasAttribute("size"));
+        }
+        else
+        {
+            Assert.Equal(expected, dialog.GetAttribute("size"));
+        }
     }
 }

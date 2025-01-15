@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DialogOptionsHeader
 {
     /// <summary />
-    internal DialogOptionsHeader()
+    public DialogOptionsHeader()
     {
         
     }

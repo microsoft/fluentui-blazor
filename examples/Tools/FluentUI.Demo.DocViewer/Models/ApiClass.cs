@@ -33,16 +33,19 @@ internal class ApiClass
     private readonly Type _component;
     private readonly DocViewerService _docViewerService;
     private IEnumerable<ApiClassMember>? _allMembers;
+    private readonly bool _allProperties;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiClass"/> class.
     /// </summary>
     /// <param name="docViewerService"></param>
     /// <param name="component"></param>
-    public ApiClass(DocViewerService docViewerService, Type component)
+    /// <param name="allProperties">False to returns only [Parameter] properties</param>
+    public ApiClass(DocViewerService docViewerService, Type component, bool allProperties = false)
     {
         _docViewerService = docViewerService;
         _component = component;
+        _allProperties = allProperties;
     }
 
     /// <summary>
@@ -61,7 +64,7 @@ internal class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => i.IsParameter);
+    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => _allProperties ? true : i.IsParameter);
 
     /// <summary>
     /// Gets the list of Events for the specified component.

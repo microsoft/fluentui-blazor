@@ -15,12 +15,12 @@ public enum DialogAlignment
     Default,
 
     /// <summary>
-    /// Panel of the left.
+    /// Drawer (panel) of the left.
     /// </summary>
     Start,
 
     /// <summary>
-    /// Panel of the right.
+    /// Drawer (panel) of the right.
     /// </summary>
     End,
 }
