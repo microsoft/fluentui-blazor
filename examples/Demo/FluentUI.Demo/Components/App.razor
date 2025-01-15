@@ -36,6 +36,7 @@
 
     protected override void OnInitialized()
     {
-        reboot = Navigation.Uri.Contains("reboot", StringComparison.InvariantCultureIgnoreCase);
+        var query = new Uri(Navigation.Uri).Query;
+        reboot = query.Contains("reboot", StringComparison.InvariantCultureIgnoreCase);
     }
 }

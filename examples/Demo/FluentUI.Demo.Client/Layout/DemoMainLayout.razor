@@ -23,6 +23,13 @@
 
     <div style="flex-grow: 1" />
 
+    @* Reboot *@
+    <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                  OnClick="@ReloadReboot"
+                  Appearance="ButtonAppearance.Subtle"
+                  BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  Title="Use the Reboot.css styles" />
+
     @* Open Console *@
     <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
                   OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
