@@ -411,5 +411,4 @@ Microsoft.Fast.Components.FluentUI.xml
 /examples/Demo/Shared/Microsoft.Fast.Components.FluentUI.xml
 /tests/TemplateValidation/**/Data/Migrations
 /tests/TemplateValidation/**/Data/*
-/global.json
 /spelling.dic

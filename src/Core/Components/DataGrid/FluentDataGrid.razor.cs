@@ -22,6 +22,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEvent, IAsyncDisposable
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js";
+    public const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
+    public const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
 
     /// <summary />
     [Inject]
@@ -800,9 +802,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
              : "none";
 
     private string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns))
+        .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("grid-template-rows", "auto 1fr", _internalGridContext.Items.Count == 0 || Items is null)
         .AddStyle("height", $"calc(100% - {(int)RowSize}px)", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
+        .AddStyle("border-collapse", "separate", GenerateHeader == GenerateHeaderOption.Sticky)
+        .AddStyle("border-spacing", "0", GenerateHeader == GenerateHeaderOption.Sticky)
         .Build();
 
     private string? ColumnHeaderClass(ColumnBase<TGridItem> column)

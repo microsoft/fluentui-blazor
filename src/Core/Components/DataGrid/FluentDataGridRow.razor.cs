@@ -106,6 +106,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         var row = GetRow(rowId);
 
+        if (row is not null && !string.IsNullOrWhiteSpace(row.Class) && (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS) || row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS)))
+        {
+            return;
+        }
+
         if (row != null && Grid.OnRowClick.HasDelegate)
         {
             await Grid.OnRowClick.InvokeAsync(row);
