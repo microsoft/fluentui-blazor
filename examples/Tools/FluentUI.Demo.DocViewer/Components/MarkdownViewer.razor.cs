@@ -92,13 +92,13 @@ public partial class MarkdownViewer
         }
     }
 
-    private ApiClass? GetApiClassFromName(string? name)
+    private ApiClass? GetApiClassFromName(string? name, bool allProperties = false)
     {
         var type = DocViewerService.ApiAssembly
                                   ?.GetTypes()
                                   ?.FirstOrDefault(i => i.Name == name || i.Name.StartsWith($"{name}`1"));
 
-        return type is null ? null : new ApiClass(DocViewerService, type);
+        return type is null ? null : new ApiClass(DocViewerService, type, allProperties);
     }
 
     /// <summary />

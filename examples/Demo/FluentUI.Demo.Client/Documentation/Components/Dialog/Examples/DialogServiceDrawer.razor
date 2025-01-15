@@ -8,7 +8,8 @@
     <FluentSelect Items="@AllSizes" @bind-Value="@Size" />
 </div>
 
-<FluentButton OnClick="@OpenDialogAsync" Appearance="ButtonAppearance.Primary">Open Dialog</FluentButton>
+<FluentButton OnClick="@(e => OpenDrawerAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Drawer (Start)</FluentButton>
+<FluentButton OnClick="@(e => OpenDrawerAsync(DialogAlignment.End))" Appearance="ButtonAppearance.Primary">Open Drawer (End)</FluentButton>
 
 <hr />
 <div>
@@ -21,11 +22,12 @@
     private DialogSize? Size;
     private Dialog.PersonDetails John = new() { Age = "20" };
 
-    private async Task OpenDialogAsync()
+    private async Task OpenDrawerAsync(DialogAlignment alignment)
     {
-        var result = await DialogService.ShowDialogAsync<Dialog.SimpleDialog>(options =>
+        var result = await DialogService.ShowDrawerAsync<Dialog.SimpleDialog>(options =>
         {
             options.Modal = IsModal;
+            options.Alignment = alignment;
             options.Size = Size;
 
             options.Parameters.Add(nameof(Dialog.SimpleDialog.Name), "John");  // Simple type

@@ -16,6 +16,11 @@ public class DialogOptionsFooter
     }
 
     /// <summary>
+    /// Gets or sets whether the primary action is displayed first.
+    /// </summary>
+    public bool PrimaryFirst { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the primary action for the footer.
     /// </summary>
     public DialogOptionsFooterAction PrimaryAction { get; } = new(ButtonAppearance.Primary);
@@ -26,7 +31,8 @@ public class DialogOptionsFooter
     public DialogOptionsFooterAction SecondaryAction { get; } = new(ButtonAppearance.Default);
 
     /// <summary />
-    internal IEnumerable<DialogOptionsFooterAction> Actions => [PrimaryAction, SecondaryAction];
+    internal IEnumerable<DialogOptionsFooterAction> GetActions()
+        => PrimaryFirst ? [PrimaryAction, SecondaryAction] : [SecondaryAction, PrimaryAction];
 
     /// <summary />
     internal bool HasActions => PrimaryAction.ToDisplay || SecondaryAction.ToDisplay;

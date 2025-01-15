@@ -27,7 +27,7 @@ If you need to give someone an update on an action they just took but that they 
 
 ## Usage
 
-The simplest way is to use the DialogService to display a dialog box.
+The simplest way to display a dialog box is to use the **DialogService**.
 By injecting this service, you have `ShowDialogAsync` methods at your disposal.
 You can pass the **type of Dialog** to be displayed and the **options** to be passed to that window.
 
@@ -70,6 +70,24 @@ By default the shortcut key **Enter** is associated with the **OK** button and t
 But your can update these shortcuts by overriding the `ShortCut` property.
 
 {{ DialogServiceDefault Files=Code:DialogServiceDefault.razor;SimpleDialog:SimpleDialog.razor;PersonDetails:PersonDetails.cs }}
+
+## Modal Dialog
+
+Modal dialog boxes provide contextual information about the application.
+They block interaction with the application until they are explicitly removed.
+They often require action on the part of the user.
+
+When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+
+By default, the dialog is displayed modally (Modal = true).
+
+```csharp
+var result = await DialogService.ShowDialogAsync<SimpleDialog>(options =>
+{
+    options.Modal = true;
+});
+```` 
 
 ## Customized
 
@@ -213,3 +231,21 @@ You can also use the `FluentDialogBody` component directly in your component, wi
 ## API FluentDialog
 
 {{ API Type=FluentDialog }}
+
+## Options
+
+### DialogOptions
+
+{{ API Type=DialogOptions Properties=All }}
+
+### DialogOptionsHeader
+
+{{ API Type=DialogOptionsHeader Properties=All }}
+
+### DialogOptionsFooter
+
+{{ API Type=DialogOptionsFooter Properties=All }}
+
+### DialogOptionsFooterAction
+
+{{ API Type=DialogOptionsFooterAction Properties=All }}
