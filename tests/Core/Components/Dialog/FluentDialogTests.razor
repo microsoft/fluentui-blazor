@@ -47,7 +47,7 @@
     [Theory(Timeout = TEST_TIMEOUT)]
     [InlineData("position=\"start\"", DialogAlignment.Start)]
     [InlineData("position=\"end\"", DialogAlignment.End)]
-    public async Task FluentDialog_Panel(string expectedContains, DialogAlignment alignment)
+    public async Task FluentDialog_Drawer(string expectedContains, DialogAlignment alignment)
     {
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();

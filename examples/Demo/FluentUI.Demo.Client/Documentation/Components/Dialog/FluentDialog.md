@@ -27,7 +27,7 @@ If you need to give someone an update on an action they just took but that they 
 
 ## Usage
 
-The simplest way is to use the **DialogService** to display a dialog box.
+The simplest way to display a dialog box is to use the **DialogService**.
 By injecting this service, you have `ShowDialogAsync` methods at your disposal.
 You can pass the **type of Dialog** to be displayed and the **options** to be passed to that window.
 

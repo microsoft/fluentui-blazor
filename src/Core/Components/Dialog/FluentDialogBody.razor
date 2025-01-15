@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Components.Rendering
 @inherits FluentComponentBase
 
-<AddTag Name="@(IsPanel() ? "fluent-drawer-body" : "fluent-dialog-body")"
+<AddTag Name="@(IsDrawer() ? "fluent-drawer-body" : "fluent-dialog-body")"
         fuib
         style="@StyleValue"
         class="@ClassValue"
@@ -22,7 +22,7 @@
     @* Header Action *@
     @if (TitleActionTemplate is not null)
     {
-        <div slot="@(IsPanel() ? "close" : "title-action")">@TitleActionTemplate</div>
+        <div slot="@(IsDrawer() ? "close" : "title-action")">@TitleActionTemplate</div>
     }
 
     @* Content *@
@@ -34,11 +34,11 @@
     @* Footer *@
     @if (ActionTemplate is not null)
     {
-        <div slot="@(IsPanel() ? "footer" : "action")">@ActionTemplate</div>
+        <div slot="@(IsDrawer() ? "footer" : "action")">@ActionTemplate</div>
     }
     else if (Instance?.Options.Footer.HasActions == true)
     {
-        <div slot="@(IsPanel() ? "footer" : "action")">
+        <div slot="@(IsDrawer() ? "footer" : "action")">
 
             @foreach (var action in Instance.Options.Footer.GetActions())
             {

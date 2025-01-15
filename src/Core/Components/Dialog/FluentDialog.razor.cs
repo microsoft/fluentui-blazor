@@ -29,7 +29,7 @@ public partial class FluentDialog : FluentComponentBase
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("height", Instance?.Options.Height, when: IsDialog())
         .AddStyle("width", Instance?.Options.Width)
-        .AddStyle("width", "100%", when: IsPanel() && string.IsNullOrEmpty(Instance?.Options.Width))
+        .AddStyle("width", "100%", when: IsDrawer() && string.IsNullOrEmpty(Instance?.Options.Width))
         .Build();
 
     /// <summary />
@@ -211,8 +211,8 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     private string? GetAlignmentAttribute()
     {
-        // Alignment is only used when the dialog is a panel.
-        if (IsPanel())
+        // Alignment is only used when the dialog is a drawer (panel).
+        if (IsDrawer())
         {
             // Get the alignment from the DialogService (if used) or the Alignment property.
             var alignment = Instance?.Options.Alignment ?? Alignment;
@@ -237,13 +237,13 @@ public partial class FluentDialog : FluentComponentBase
 
         var isModal = Instance?.Options?.Modal ?? Modal;
 
-        switch (IsPanel())
+        switch (IsDrawer())
         {
-            // FluentDialog
+            // Dialog
             case false:
                 return isModal ? "alert" : "modal";
 
-            // Panels
+            // Drawers / Panels
             case true:
                 return isModal ? "modal" : "non-modal";
 
@@ -251,10 +251,10 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    private bool IsPanel() => IsPanel(Instance?.Options.Alignment ?? Alignment);
+    private bool IsDrawer() => IsDrawer(Instance?.Options.Alignment ?? Alignment);
 
     /// <summary />
-    private bool IsDialog() => !IsPanel();
+    private bool IsDialog() => !IsDrawer();
 
     /// <summary />
     private MarkupString? GetDialogStyle()
@@ -268,9 +268,9 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary>
-    /// Returns true if the dialog is a panel.
+    /// Returns true if the dialog is a drawer (panel).
     /// </summary>
     /// <param name="alignment"></param>
     /// <returns></returns>
-    internal static bool IsPanel(DialogAlignment? alignment) => alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
+    internal static bool IsDrawer(DialogAlignment? alignment) => alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
 }

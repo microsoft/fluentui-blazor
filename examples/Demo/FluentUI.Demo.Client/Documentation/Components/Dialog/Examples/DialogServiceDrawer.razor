@@ -5,8 +5,8 @@
     <FluentLabel Style="margin-bottom: 12px;">Is Modal</FluentLabel>
 </div>
 
-<FluentButton OnClick="@(e => OpenPanelAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Panel (Start)</FluentButton>
-<FluentButton OnClick="@(e => OpenPanelAsync(DialogAlignment.End))" Appearance="ButtonAppearance.Primary">Open Panel (End)</FluentButton>
+<FluentButton OnClick="@(e => OpenDrawerAsync(DialogAlignment.Start))" Appearance="ButtonAppearance.Primary">Open Drawer (Start)</FluentButton>
+<FluentButton OnClick="@(e => OpenDrawerAsync(DialogAlignment.End))" Appearance="ButtonAppearance.Primary">Open Drawer (End)</FluentButton>
 
 <hr />
 <div>
@@ -18,9 +18,9 @@
     private bool IsModal = true;
     private Dialog.PersonDetails John = new() { Age = "20" };
 
-    private async Task OpenPanelAsync(DialogAlignment alignment)
+    private async Task OpenDrawerAsync(DialogAlignment alignment)
     {
-        var result = await DialogService.ShowPanelAsync<Dialog.SimpleDialog>(options =>
+        var result = await DialogService.ShowDrawerAsync<Dialog.SimpleDialog>(options =>
         {
             options.Modal = IsModal;
             options.Alignment = alignment;
