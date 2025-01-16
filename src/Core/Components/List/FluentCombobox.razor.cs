@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where TOption : notnull
+public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyncDisposable where TOption : notnull
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentCombobox.razor.js";
 
@@ -36,6 +36,12 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     /// </summary>
     [Parameter]
     public bool? Open { get; set; }
+
+    /// <summary>
+    /// Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown button. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool? EnableClickToClose { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the placement for the listbox when the combobox is open.
@@ -64,6 +70,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", "off");
+
+                if (EnableClickToClose ?? true)
+                {
+                    await Module.InvokeVoidAsync("attachIndicatorClickHandler", Id);
+                }
             }
         }
     }
@@ -161,5 +172,15 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         {
             return null;
         }
+    }
+
+    public new async ValueTask DisposeAsync()
+    {
+        if (Module is not null && !string.IsNullOrEmpty(Id))
+        {
+            await Module.InvokeVoidAsync("detachIndicatorClickHandler", Id);
+            await Module.DisposeAsync();
+        }
+        await base.DisposeAsync();
     }
 }
