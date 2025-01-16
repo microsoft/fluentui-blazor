@@ -490,7 +490,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new Exception("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (string.IsNullOrWhiteSpace(_internalGridTemplateColumns))
+        // Always re-evaluate after collecting columns when using displaymode grid. A column might be added or hidden and the _internalGridTemplateColumns needs to reflect that.
+        if (DisplayMode == DataGridDisplayMode.Grid)
         {
             if (!AutoFit)
             {
@@ -501,7 +502,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 _internalGridTemplateColumns = string.Join(" ", _columns.Select(x => x.Width ?? "auto"));
             }
-
         }
 
         if (ResizableColumns)
