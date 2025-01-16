@@ -1,11 +1,102 @@
-.fluent-body {
+/*
+ * Microsoft Fluent UI Blazor library - Required styles
+ * Copyright 2025 Microsoft
+ *
+ * Normalization of HTML elements, copied and ajusted from Normalize.css
+ * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ */
+
+html {
+  line-height: 1.15; /* Correct the line height in all browsers. */
+  -webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  : root {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
   margin: 0;
   padding: 0;
   height: 100vh;
   overflow: hidden;
-  color: var(--colorNeutralForeground1);
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
   font-weight: var(--fontWeightRegular);
-  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground1);
+}
+
+h6, h5, h4, h3, h2, h1 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
+}
+
+h1 {
+  font-size: var(--fontSizeHero900);
+  line-height: var(--lineHeightHero900);
+}
+
+h2 {
+  font-size: var(--fontSizeHero800);
+  line-height: var(--lineHeightHero800);
+}
+
+h3 {
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
+}
+
+h4 {
+  font-size: var(--fontSizeHero600);
+  line-height: var(--lineHeightHero600);
+}
+
+h5 {
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
+}
+
+h6 {
+  font-size: var(--fontSizeBase400);
+  line-height: var(--lineHeightBase400);
+}
+
+a {
+  color: var(--colorBrandForegroundLink);
+  text-decoration: underline;
+}
+
+  a:hover {
+    color: var(--colorBrandForegroundLinkHover);
+  }
+
+  a:active {
+    color: var(--colorBrandForegroundLinkSelected);
+  }
+
+  a:not([href]):not([class]),
+  a:not([href]):not([class]):hover {
+    color: inherit;
+    text-decoration: none;
+  }
+
+kbd {
+  color: var(--colorBrandForeground2);
+  background-color: var(--colorNeutralBackground6);
+}
+
+mark {
+  background-color: var(--highlight-bg);
+}
+
+[hidden] {
+  display: none !important;
 }
