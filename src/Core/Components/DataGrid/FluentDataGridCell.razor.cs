@@ -63,7 +63,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
-        .AddClass("multiline-text", when: Grid.MultiLine && CellType != DataGridCellType.ColumnHeader)
+        .AddClass("multiline-text", when: Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && CellType != DataGridCellType.ColumnHeader)
         .AddClass(Owner.Class)
         .Build();
 
