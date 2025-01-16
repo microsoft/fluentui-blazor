@@ -5943,7 +5943,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.EnableClickToClose">
             <summary>
-            Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown arrow. Default is false.
+            Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown button. Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Position">

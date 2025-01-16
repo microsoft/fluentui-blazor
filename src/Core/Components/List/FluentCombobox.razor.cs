@@ -38,7 +38,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
     public bool? Open { get; set; }
 
     /// <summary>
-    /// Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown arrow or input area. Default is false.
+    /// Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown button. Default is false.
     /// </summary>
     [Parameter]
     public bool? EnableClickToClose { get; set; } = false;
@@ -73,7 +73,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
 
                 if (EnableClickToClose ?? true)
                 {
-                    await Module.InvokeVoidAsync("attachClickHandlers", Id);
+                    await Module.InvokeVoidAsync("attachIndicatorClickHandler", Id);
                 }
             }
         }
@@ -178,7 +178,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
     {
         if (Module is not null && !string.IsNullOrEmpty(Id))
         {
-            await Module.InvokeVoidAsync("detachHandlers", Id);
+            await Module.InvokeVoidAsync("detachIndicatorClickHandler", Id);
             await Module.DisposeAsync();
         }
         await base.DisposeAsync();

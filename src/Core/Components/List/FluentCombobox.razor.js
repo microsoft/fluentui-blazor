@@ -8,15 +8,13 @@ export function setControlAttribute(id, attrName, value) {
     }
 }
 
-export function attachClickHandlers(id) {
+export function attachIndicatorClickHandler(id) {
     const combobox = document.querySelector("#" + id);
     if (!combobox) return;
 
     const indicator = combobox.shadowRoot?.querySelector('[part="indicator"]');
-    const inputbox = combobox.shadowRoot?.querySelector('[part="selected-value"]');
 
-    // Ensure at least one element exists
-    if (!indicator && !inputbox) return;
+    if (!indicator) return;
 
     const clickHandler = (event) => {
         if (combobox.hasAttribute('open')) {
@@ -35,28 +33,20 @@ export function attachClickHandlers(id) {
         }
     };
 
-    // Attach listeners if elements are available
     if (indicator) {
         indicator.addEventListener('click', clickHandler);
     }
-    if (inputbox) {
-        inputbox.addEventListener('click', clickHandler);
-    }
 
-    // Store handlers for cleanup
-    handlers.set(id, { indicator, inputbox, clickHandler });
+    handlers.set(id, { indicator, clickHandler });
 }
 
 export function detachHandlers(id) {
     const handler = handlers.get(id);
     if (handler) {
-        const { indicator, inputbox, clickHandler } = handler;
+        const { indicator, clickHandler } = handler;
 
         if (indicator) {
             indicator.removeEventListener('click', clickHandler);
-        }
-        if (inputbox) {
-            inputbox.removeEventListener('click', clickHandler);
         }
 
         handlers.delete(id);
