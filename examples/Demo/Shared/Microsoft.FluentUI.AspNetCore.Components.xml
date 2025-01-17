@@ -9813,6 +9813,15 @@
             Removes all queued toasts with toast intent Custom
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.Orientation">
             <summary>
             Gets or sets the toolbar's orentation. See <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.Orientation"/>
@@ -9821,6 +9830,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.EnableArrowKeyTextNavigation">
+            <summary>
+            Gets or sets a value indicating whether arrow key navigation within text input fields is enabled. Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.ServiceProvider">
