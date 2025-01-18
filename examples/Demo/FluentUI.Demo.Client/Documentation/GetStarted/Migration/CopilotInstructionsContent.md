@@ -50,7 +50,7 @@ Warn about the use of `CurrentValue` property,
 
 > The `CurrentValue` property has been removed. Use `Value` instead.
 
-# Compent FluentGridItem 
+# Component FluentGridItem 
 
 These properties only for the component `FluentGridItem` have been renamed:
 - `xs` to `Xs`
@@ -59,5 +59,19 @@ These properties only for the component `FluentGridItem` have been renamed:
 - `lg` to `Lg`
 - `xl` to `Xl`
 - `xxl` to `Xxl`
+
+# Component FluentLabel
+
+Warm the user that the property  `Weight` is now used to determine if the label text is shown regular or semibold
+Remove the following properties : 
+- `Alignment`
+- `Color`
+- `CustomColor`
+- `MarginBlock`
+- `Typo`
+
+In case where the component FluentLabel is used, write the following comment : 
+    Label is now exclusivly being used for labeling input fields.
+    If you want to use a more v4 compatible component to show text using Fluent's opinions on typography, you can use the new `Text` component instead.
 
 ```
