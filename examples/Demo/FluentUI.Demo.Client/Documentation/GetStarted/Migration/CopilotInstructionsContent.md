@@ -54,3 +54,9 @@ Copy the content below and paste it into your GitHub Copilot custom instructions
 ```
 {{ INCLUDE FILE=CopilotInstructions }}
 ```
+
+### How to use the custom 
+
+Once you enable the feature in VS or VS Code, and you added the `copilot-instructions.md` in the right folder (`.github`). 
+
+You need to ask the chat to migrate the file selected. 
