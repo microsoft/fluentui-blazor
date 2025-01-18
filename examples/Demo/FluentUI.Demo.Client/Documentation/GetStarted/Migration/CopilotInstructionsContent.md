@@ -50,4 +50,14 @@ Warn about the use of `CurrentValue` property,
 
 > The `CurrentValue` property has been removed. Use `Value` instead.
 
+# Compent FluentGridItem 
+
+These properties only for the component `FluentGridItem` have been renamed:
+- `xs` to `Xs`
+- `sm` to `Sm`
+- `md` to `Md`
+- `lg` to `Lg`
+- `xl` to `Xl`
+- `xxl` to `Xxl`
+
 ```
