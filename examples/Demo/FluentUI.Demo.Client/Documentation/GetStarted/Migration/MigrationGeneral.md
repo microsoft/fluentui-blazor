@@ -107,3 +107,6 @@ Once your migration is done, you can remove the file or the part of the FluentUI
 
     > Whitespace between instructions is ignored, so the instructions can be written as a single paragraph, each on a new line, or separated by blank lines for legibility.
 
+#### Enable custom instruction in Visual Studio or Visual Studio Code. 
+
+GitHub's team has a perfect step-by-step void to enable : [Enabling or disabling custom instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot#enabling-or-disabling-custom-instructions).
