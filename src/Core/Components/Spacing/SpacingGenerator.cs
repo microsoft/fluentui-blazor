@@ -46,6 +46,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 // System.Console.WriteLine(SpacingGenerator.Script);
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Non Production Code")]
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage(Justification = "Non Production Code")]
 internal class SpacingGenerator
 {
     private int _spaceCount = 8;
