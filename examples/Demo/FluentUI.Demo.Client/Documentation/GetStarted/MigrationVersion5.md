@@ -35,3 +35,12 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 ## FluentLayout and FluentMainLayout
 
 {{ INCLUDE MigrationFluentLayout }}
+
+## Migration using GitHub Copilot
+
+{{ INCLUDE CopilotInstructionsContent }}
+
+### Custom instructions' content
+```md
+{{ INCLUDE CopilotInstructions.md }}
+```
