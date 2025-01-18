@@ -74,4 +74,21 @@ In case where the component FluentLabel is used, write the following comment :
     Label is now exclusivly being used for labeling input fields.
     If you want to use a more v4 compatible component to show text using Fluent's opinions on typography, you can use the new `Text` component instead.
 
+# Component FluentLayout
+
+- The component FluentHeader has been replaced by the component FluentLayoutItem with the parameter Area with the value "LayoutArea.Header"
+
+- The component FluentFooter has been replaced by the component FluentLayoutItem with the parameter Area with the value "LayoutArea.Footer"
+
+- The component FluentBodyContent has been replaced by the component FluentLayoutItem with the parameter Area with the value "LayoutArea.Content"
+
+# Component FluentMainLayout
+
+If the code contains the FluentMainLayout, following the next step to migrate in a correct way the component. 
+
+- Replace the componement "FluentMainLayout" to "FluentLayout". 
+- Replace the sub component "Header" to "FluentLayoutItem" add a parameter Area with the value "LayoutArea.Header" 
+- Replace the sub component "Body" to "FluentLayoutItem" add a parameter Area with the value "LayoutArea.Content"
+- Replace the sub component "NavMenuContent" to "NavMenuContent" add a parameter Area with the value "LayoutArea.Menu"
+- Insert the content of "SubHeader" to "FluentLayoutItem" with Area setted as "LayoutArea.Header". Remove the SubHeader. If the component NavMenuContent doesn't exist, creates it.
 ```
