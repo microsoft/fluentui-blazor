@@ -36,6 +36,11 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentLayout }}
 
-# Migrate with GitHub Copilot custom instructions
+## Migration using GitHub Copilot
 
 {{ INCLUDE CopilotInstructionsContent }}
+
+### Custom instructions' content
+```md
+{{ INCLUDE CopilotInstructions.md }}
+```
