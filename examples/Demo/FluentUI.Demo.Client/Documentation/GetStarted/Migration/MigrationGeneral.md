@@ -77,3 +77,14 @@ hidden: true
    The code coverage is now at 99% for the **Core** project.
 
    You will find more details on how to create unit tests in the `/docs/unit-tests.md` file.
+
+- ### Using GitHub Copilot Custom Instructions for Migration
+
+To streamline your migration process, we provide custom instructions for GitHub Copilot in the `copilot-instructions.md` file. These instructions help Copilot understand our codebase conventions, naming patterns, and migration requirements.
+
+By importing these custom instructions into your GitHub Copilot settings, you'll get more accurate and context-aware suggestions specifically tailored to FluentUI Blazor migration tasks.
+
+Example benefits:
+- Migrate complete file following new namespacing and new parameters
+- Renaming old name from V3-V4 to V5
+
