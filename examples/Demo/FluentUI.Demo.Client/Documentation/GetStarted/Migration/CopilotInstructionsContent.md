@@ -52,5 +52,5 @@ Copy the content below and paste it into your GitHub Copilot custom instructions
 ## Custom instructions' content
 
 ```
-{{ INCLUDE FILE=copilot-instructions }}
+{{ INCLUDE FILE=CopilotInstructions }}
 ```
