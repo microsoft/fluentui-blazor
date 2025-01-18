@@ -11,6 +11,36 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
  *    System.Console.WriteLine(SpacingGenerator.Script);
  *    
  *  Example, using https://dotnetfiddle.net/
+ *  
+ * We ran several tests to determine the number of elements (e.g. `.ml-?`) to generate, depending on requirements 
+ * and the size of the CSS file generated. We determined that 8 elements is a good compromise
+ * Spacing can be up to 32px (positive or negative).
+ *   
+ *    Count = 01   =>   Max spacing size:  4px - File size:  24 kb.
+ *    Count = 02   =>   Max spacing size:  8px - File size:  37 kb.
+ *    Count = 03   =>   Max spacing size: 12px - File size:  51 kb.
+ *    Count = 04   =>   Max spacing size: 16px - File size:  64 kb.
+ *    Count = 05   =>   Max spacing size: 20px - File size:  78 kb.
+ *    Count = 06   =>   Max spacing size: 24px - File size:  91 kb.
+ *    Count = 07   =>   Max spacing size: 28px - File size: 105 kb.
+ * => Count = 08   =>   Max spacing size: 32px - File size: 118 kb.
+ *    Count = 09   =>   Max spacing size: 36px - File size: 132 kb.
+ *    Count = 10   =>   Max spacing size: 40px - File size: 146 kb.
+ *    Count = 11   =>   Max spacing size: 44px - File size: 159 kb.
+ *    Count = 12   =>   Max spacing size: 48px - File size: 173 kb.
+ *    Count = 13   =>   Max spacing size: 52px - File size: 187 kb.
+ *    Count = 14   =>   Max spacing size: 56px - File size: 201 kb.
+ *    Count = 15   =>   Max spacing size: 60px - File size: 215 kb.
+ *    Count = 16   =>   Max spacing size: 64px - File size: 229 kb.
+ *    Count = 17   =>   Max spacing size: 68px - File size: 243 kb.
+ *    Count = 18   =>   Max spacing size: 72px - File size: 257 kb.
+ *    Count = 19   =>   Max spacing size: 76px - File size: 271 kb.
+ *    Count = 20   =>   Max spacing size: 80px - File size: 284 kb.
+ *    Count = 21   =>   Max spacing size: 84px - File size: 298 kb.
+ *    Count = 22   =>   Max spacing size: 88px - File size: 312 kb.
+ *    Count = 23   =>   Max spacing size: 92px - File size: 326 kb.
+ *    Count = 24   =>   Max spacing size: 96px - File size: 340 kb.
+ *    
  */
 
 // System.Console.WriteLine(SpacingGenerator.Script);
@@ -18,12 +48,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Non Production Code")]
 internal class SpacingGenerator
 {
+    private int _spaceCount = 8;
     private readonly System.Text.StringBuilder _script = new();
 
-    public static string Script => new SpacingGenerator().Generate();
+    public static string Script => new SpacingGenerator().Generate(8);
 
-    public string Generate()
+    public static string GenerateScript(int count) => new SpacingGenerator().Generate(count);
+
+    private string Generate(int count)
     {
+        _spaceCount = count;
+        SpacingValues = CreateSpacingValues(_spaceCount, negative: false, withZero: true, withAuto: true);
+        SpacingNegativeValues = CreateSpacingValues(_spaceCount, negative: true, withZero: false, withAuto: false);
+
         ApplySpacingPositiveNegative("");
 
         foreach (var breakpoint in BreakpointsCssUtilitiesOnly)
@@ -36,7 +73,7 @@ internal class SpacingGenerator
         return _script.ToString();
     }
 
-    readonly System.Collections.Generic.Dictionary<string, string> BreakpointsCssUtilitiesOnly = new(System.StringComparer.Ordinal)
+    private readonly System.Collections.Generic.Dictionary<string, string> BreakpointsCssUtilitiesOnly = new(System.StringComparer.Ordinal)
     {
         { "sm", "600px" },
         { "md", "960px" },
@@ -45,55 +82,35 @@ internal class SpacingGenerator
         { "xxl", "2560px" },
     };
 
-    readonly System.Collections.Generic.Dictionary<string, string> SpacingValues = new(System.StringComparer.Ordinal)
-    {
-        { "0",  "0" },
-        { "1",  "var(--design-unit)" },
-        { "2",  "calc(var(--design-unit) * 2)" },
-        { "3",  "calc(var(--design-unit) * 3)" },
-        { "4",  "calc(var(--design-unit) * 4)" },
-        { "5",  "calc(var(--design-unit) * 5)" },
-        { "6",  "calc(var(--design-unit) * 6)" },
-        { "7",  "calc(var(--design-unit) * 7)" },
-        { "8",  "calc(var(--design-unit) * 8)" },
-        { "9",  "calc(var(--design-unit) * 9)" },
-        { "10", "calc(var(--design-unit) * 10)" },
-        { "11", "calc(var(--design-unit) * 11)" },
-        { "12", "calc(var(--design-unit) * 12)" },
-        { "13", "calc(var(--design-unit) * 13)" },
-        { "14", "calc(var(--design-unit) * 14)" },
-        { "15", "calc(var(--design-unit) * 15)" },
-        { "16", "calc(var(--design-unit) * 16)" },
-        { "17", "calc(var(--design-unit) * 17)" },
-        { "18", "calc(var(--design-unit) * 18)" },
-        { "19", "calc(var(--design-unit) * 19)" },
-        { "20", "calc(var(--design-unit) * 20)" },
-        { "auto", "auto" },
-    };
+    private System.Collections.Generic.Dictionary<string, string> SpacingValues = new(System.StringComparer.Ordinal);
 
-    readonly System.Collections.Generic.Dictionary<string, string> SpacingNegativeValues = new(System.StringComparer.Ordinal)
+    private System.Collections.Generic.Dictionary<string, string> SpacingNegativeValues = new(System.StringComparer.Ordinal);
+
+    private static System.Collections.Generic.Dictionary<string, string> CreateSpacingValues(int count, bool negative, bool withZero, bool withAuto)
     {
-        { "n1",  "calc(-1 * var(--design-unit))" },
-        { "n2",  "calc(-2 * var(--design-unit))" },
-        { "n3",  "calc(-3 * var(--design-unit))" },
-        { "n4",  "calc(-4 * var(--design-unit))" },
-        { "n5",  "calc(-5 * var(--design-unit))" },
-        { "n6",  "calc(-6 * var(--design-unit))" },
-        { "n7",  "calc(-7 * var(--design-unit))" },
-        { "n8",  "calc(-8 * var(--design-unit))" },
-        { "n9",  "calc(-9 * var(--design-unit))" },
-        { "n10", "calc(-10 * var(--design-unit))" },
-        { "n11", "calc(-11 * var(--design-unit))" },
-        { "n12", "calc(-12 * var(--design-unit))" },
-        { "n13", "calc(-13 * var(--design-unit))" },
-        { "n14", "calc(-14 * var(--design-unit))" },
-        { "n15", "calc(-15 * var(--design-unit))" },
-        { "n16", "calc(-16 * var(--design-unit))" },
-        { "n17", "calc(-17 * var(--design-unit))" },
-        { "n18", "calc(-18 * var(--design-unit))" },
-        { "n19", "calc(-19 * var(--design-unit))" },
-        { "n20", "calc(-20 * var(--design-unit))" },
-    };
+        var values = new System.Collections.Generic.Dictionary<string, string>(System.StringComparer.Ordinal);
+
+        if (withZero)
+        {
+            values.Add("0", "0");
+        }
+
+        for (var i = 1; i <= count; i++)
+        {
+            var key = $"{(negative ? "n" : "")}{i}";
+            var value = negative || i > 1
+                      ? $"calc({(negative ? -i : i)} * var(--design-unit))"
+                      : $"var(--design-unit)";
+            values.Add(key, value);
+        }
+
+        if (withAuto)
+        {
+            values.Add("auto", "auto");
+        }
+
+        return values;
+    }
 
     private void ApplySpacingPositiveNegative(string breakpoint)
     {
