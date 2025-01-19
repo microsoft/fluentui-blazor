@@ -3,12 +3,12 @@
     <FluentTextInput Label="Padding" Placeholder="Padding" @bind-Value="@Padding" Immediate />
 </div>
 
-<div style="border: 1px solid gray;">
+<div style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
     <FluentButton Margin="@Margin" Padding="@Padding" Appearance="ButtonAppearance.Primary">Button</FluentButton>
 </div>
 
 @code
 {
-    string Margin = string.Empty;
-    string Padding = string.Empty;
+    string Margin = "ma-2";
+    string Padding = "4px 12px";
 }
