@@ -1,0 +1,14 @@
+﻿<div style="display: flex; gap: 12px; margin-bottom: 12px;">
+    <FluentTextInput Label="Margin" Placeholder="Margin" @bind-Value="@Margin" Immediate />
+    <FluentTextInput Label="Padding" Placeholder="Padding" @bind-Value="@Padding" Immediate />
+</div>
+
+<div style="border: 1px solid gray;">
+    <FluentButton Margin="@Margin" Padding="@Padding" Appearance="ButtonAppearance.Primary">Button</FluentButton>
+</div>
+
+@code
+{
+    string Margin = string.Empty;
+    string Padding = string.Empty;
+}

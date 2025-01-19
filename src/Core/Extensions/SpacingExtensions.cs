@@ -28,8 +28,13 @@ internal static class SpacingExtensions
     /// </example>
     /// <param name="value"></param>    
     /// <returns></returns>
-    public static (string Style, string Class) SpacingToStyle(this string value)
+    public static (string Style, string Class) SpacingToStyle(this string? value)
     {
+        if (value == null)
+        {
+            return ("", "");
+        }
+
         var values = value.Split(Separators, StringSplitOptions.RemoveEmptyEntries)
                           .Select(i => i.Trim())
                           .ToArray();

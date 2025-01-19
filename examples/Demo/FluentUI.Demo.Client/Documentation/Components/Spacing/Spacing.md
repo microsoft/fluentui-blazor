@@ -134,3 +134,7 @@ Example:
 <FluentButton Margin="mt-0" />                     => <fluent-button class="mt-0" />
 <FluentButton Margin="mt-0" Padding="pa-3" />      => <fluent-button class="mt-0 pa-3" />
 ```
+
+## Demo
+
+{{ SpacingDefault }}
