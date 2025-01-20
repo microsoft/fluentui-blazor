@@ -2017,6 +2017,11 @@
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoItemsPerPage">
+            <summary>
+            Automatically fit the number of items per page to the available height.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
             <summary>
             Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
@@ -2149,6 +2154,15 @@
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.UpdateItemsPerPageAsync(System.Int32)">
+             <summary>
+             Updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Pagination"/>s ItemPerPage parameter.
+             Guards the CurrentPageIndex from getting greater than the LastPageIndex
+            
+             </summary>
+             <param name="visibleRows">The maixmum number of rows that fits the available space</param>
+             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthDiscreteAsync(System.Nullable{System.Int32},System.Single)">
             <summary>
@@ -7863,6 +7877,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.ItemsPerPage">
             <summary>
             Gets or sets the number of items on each page.
+            To set it and update any associated <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>, call <see cref="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetItemsPerPageAsync(System.Int32)" />
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.CurrentPageIndex">
@@ -7896,6 +7911,22 @@
             </summary>
             <param name="pageIndex">The new, zero-based page index.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetItemsPerPageAsync(System.Int32)">
+            <summary>
+            Sets the items per page and notifies any associated <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>
+            to fetch and render updated data.
+            </summary>
+            <param name="itemsPerPage">The new number of items per page.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetTotalItemCountAsync(System.Int32,System.Boolean)">
+            <summary>
+            Sets the total number of items nd makes sure the current page index stays valid.
+            </summary>
+            <param name="totalItemCount">The total number of items</param>
+            <param name="force">If true, the total item count will be updated even if it is the same as the current value.</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.AnchorId">
             <summary>

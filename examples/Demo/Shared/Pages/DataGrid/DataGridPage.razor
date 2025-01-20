@@ -1,4 +1,4 @@
-﻿@page "/DataGrid"
+﻿@page "/datagrid-overview"
 
 @using FluentUI.Demo.Shared.Pages.DataGrid.Examples;
 @using Microsoft.FluentUI.AspNetCore.Components;
@@ -122,275 +122,31 @@
 
 
 <h2 id="example">Examples</h2>
-
-<DemoSection Title="Get started" Component="@typeof(DataGridGetStarted)">
-    <Description>
-        The example and code below show what you need to add to one of your Blazor page components to render a very simple grid (with sortable columns)
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
-    <Description>
-        <p>The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.</p>
-        <p>To utilize the <b>SelectColumn</b> feature in the Fluent DataGrid, there are two approaches available:</p>
-
-        <p>
-            <b>Automatic Management via <code>SelectedItems</code></b>
-            <ul>
-                <li>Provide a list of data via the <code>Items</code> property.</li>
-                <li>Let the grid handle selected rows entirely through the <code>SelectedItems</code> property.</li>
-            </ul>
-        </p>
-        <p>
-            <b>Manual Management via <code>Property</code> and <code>OnSelect</code>:</b>
-            <ul>
-                <li>Control how selected lines are saved manually.</li>
-                <li>Utilize the <code>Property</code>, <code>OnSelect</code>, and <code>SelectAll</code> attributes.</li>
-            </ul>
-            This method offers more flexibility but requires additional configuration, making it particularly useful when
-            using <code>Virtualize</code> or directly managing a custom <code>IsSelected</code> property.
-        </p>
-
-        <blockquote>
-            By default the Fluent Design System recommends to only use the checkbox to indicate selected rows.
-            It is possible to change this behavior by using a CSS style like this to set a background on selected rows:
-            <code>
-                <pre>
-.fluent-data-grid-row:has([row-selected]) > td {
-    background-color: var(--neutral-fill-stealth-hover)
-}</pre>
-            </code>
-        </blockquote>
-
-    </Description>
-</DemoSection>
-
 <p>
-    Using this <code>SelectColumn</code>, you can customize the checkboxes by using <code>ChildContent</code> to define the contents of the selection for each row of the grid;
-    or <code>SelectAllTemplate</code> to customize the header of this column.
-    If you don't want the user to be able to interact (click and change) on the SelectAll header, you can set the <code>SelectAllDisabled="true"</code> attribute.
-    <br /><br />
-
-    Example:
-    <CodeSnippet Language="razor">
-        &lt;SelectAllTemplate>
-        @@(context.AllSelected == true ? "✅" : context.AllSelected == null ? "➖" : "⬜")
-        &lt;/SelectAllTemplate>
-        &lt;ChildContent>
-        @@(SelectedItems.Contains(context) ? "✅" : " ") @@* Using SelectedItems         *@@
-        @@(context.Selected ? "✅" : " ")                @@* Using Property and OnSelect *@@
-        &lt;/ChildContent>
-    </CodeSnippet>
+    See the following pages for examples and additional documentation on the situations that ech example shows.
 </p>
-
-<DemoSection Title="Typical usage" Component="@typeof(DataGridTypical)" CollocatedFiles="@(new[] {"css"})">
-    <Description>
-        <p>
-            Here is an example of a data grid that uses in-memory data and enables features including pagination, sorting, filtering, column options, row highlighting and column resizing.
-        </p>
-        <p>
-            All columns, except 'Bronze', have a <code>Tooltip</code> parameter value of <code>true</code>.<br />
-            When using this for a <code>TemplateColumn</code> (like 'Rank' here), you need to also supply a value for the <code>TooltipText</code> parameter. <b>No value given equals no tooltip shown</b>.<br />
-            When using this for a <code>PropertyColumn</code>, a value for the <code>TooltipText</code> is <b>not</b> required. By default, the value given for <code>Property</code>
-            will be re-used for the tooltip. If you do supply a value for <code>TooltipText</code> its outcome will be used instead.
-            <br />
-            <br />
-            <code>TooltipText</code> is a lambda function that takes the current item as input and returns the text to show in the tooltip (and <code>aria-label</code>).
-            Look at the Razor tab to see how this is done and how it can be customized.
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="SortBy Rank" Component="@typeof(DataGridRankSort)">
-    <Description>
-        <p>
-            Here is an example that demonstrates the rank sort.
-        </p>
-    </Description>
-</DemoSection>
+<FluentStack Orientation="Orientation.Vertical" >
+    <FluentAnchor Href="/datagrid-auto-fit" Appearance="Appearance.Hypertext">Auto fit</FluentAnchor>
+    <FluentAnchor Href="/datagrid-auto-items-per-page" Appearance="Appearance.Hypertext">Auto items per page</FluentAnchor>
+    <FluentAnchor Href="/datagrid-custom-comparer" Appearance="Appearance.Hypertext">Custom comparer</FluentAnchor>
+    <FluentAnchor Href="/datagrid-custom-paging" Appearance="Appearance.Hypertext">Custom paging</FluentAnchor>
+    <FluentAnchor Href="/datagrid-custom-sort" Appearance="Appearance.Hypertext">Custom sorting</FluentAnchor>
+    <FluentAnchor Href="/datagrid-dynamic-columns" Appearance="Appearance.Hypertext">Dynamic columns</FluentAnchor>
+    <FluentAnchor Href="/datagrid-get-started" Appearance="Appearance.Hypertext">Getting started</FluentAnchor>
+    <FluentAnchor Href="/datagrid-header-generation" Appearance="Appearance.Hypertext">Header generation</FluentAnchor>
+    <FluentAnchor Href="/datagrid-loading-and-empty-content" Appearance="Appearance.Hypertext">Intemittent loading</FluentAnchor>
+    <FluentAnchor Href="/datagrid-manual" Appearance="Appearance.Hypertext">Manual grid</FluentAnchor>
+    <FluentAnchor Href="/datagrid-multi-line" Appearance="Appearance.Hypertext">Multi line text in cells</FluentAnchor>
+    <FluentAnchor Href="/datagrid-multi-select" Appearance="Appearance.Hypertext">Single/Multi select</FluentAnchor>
+    <FluentAnchor Href="/datagrid-remote-data" Appearance="Appearance.Hypertext">Remote data</FluentAnchor>
+    <FluentAnchor Href="/datagrid-scrollbars" Appearance="Appearance.Hypertext">Table with scrollbars</FluentAnchor>
+    <FluentAnchor Href="/datagrid-template-columns" Appearance="Appearance.Hypertext">Template columns</FluentAnchor>
+    <FluentAnchor Href="/datagrid-template-columns-2" Appearance="Appearance.Hypertext">More template columns</FluentAnchor>
+    <FluentAnchor Href="/datagrid-typical" Appearance="Appearance.Hypertext">Typical grid usage</FluentAnchor>
+    <FluentAnchor Href="/datagrid-virtualize" Appearance="Appearance.Hypertext">Virtualized grid</FluentAnchor>
+</FluentStack>
 
 
-<DemoSection Title="Remote data" Component="@typeof(DataGridRemoteData)">
-    <Description>
-        <p>
-            If you're using Blazor WebAssembly, it's very common to fetch data from a JSON API on a server. If you want to
-            fetch only the data that's needed for the current page/viewport and apply any sorting or filtering rules on the
-            server, you can use the <code>ItemsProvider</code> parameter.
-        </p>
-        <p>
-            You can also use <code>ItemsProvider</code> with Blazor Server if it needs to query an external endpoint, or in any
-            other case where your requirements aren't covered by an <code>IQueryable</code>.
-        </p>
-        <p>
-            To do this, supply a callback matching the <code>GridItemsProvider&lt;TGridItem&gt;</code> delegate type, where <code>TGridItem</code>
-            is the type of data displayed in the grid. Your callback will be given a parameter of type <code>GridItemsProviderRequest&lt;TGridItem&gt;</code>
-            which specifies the start index, maximum row count, and sort order of data to return. As well as returning the matching items, you need
-            to return a <code>totalItemCount</code> so that paging or virtualization can work.
-        </p>
-        <p>
-            Here is an example of connecting a grid to the public <a href="https://open.fda.gov/apis/food/enforcement/" target="_blank">OpenFDA Food Enforcement database</a>.
-        </p>
-        <p>
-            This grid is using a 'sticky' header (i.e. the header is always visible when scrolling). The buttons in the last column disappear under the header when scrolling.
-            In this example they don't really do anything more than writing a message in the console log'
-        </p>
-        <p>
-            The second column has a custom <code>Style</code> parameter set and applied to it. The 4th column has its <code>Tooltip</code>
-            parameter set to true. This will show the full content of the cell when hovering over it. See the 'Razor' tab for how these
-            parameters have been applied.
-        </p>
-    </Description>
-</DemoSection>
-
-
-<DemoSection Title="Virtualized grid" Component="@typeof(DataGridVirtualize)">
-    <Description>
-        <p>
-            It can be expensive both to fetch and to render large numbers of items. If the amount of data you're
-            displaying might be large, you should use either paging or virtualization.
-        </p>
-        <p>
-            Virtualization provides the appearance of continuous scrolling through an arbitrarily-large data set,
-            while only needing to fetch and render the rows that are currently in the scroll viewport. This can provide
-            excellent performance even when the data set is vast. FluentDataGrid's virtualization feature is built on Blazor's
-            built-in <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/virtualization?view=aspnetcore-6.0">Virtualize component</a>, so it shares the
-            same capabilities, requirements, and limitations.
-        </p>
-        <p>
-            Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
-            properly and reliably, every row rendered must have the same known height. <strong>
-                This is handled by the
-                <code>FluentDataGrid</code> code
-            </strong>.
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Intermittent loading" Component="@typeof(DataGridNotVirtualizedLoadingAndEmpty)">
-    <Description>
-        <p>
-            Use the options below the grid to toggle the content of this non virtualized grid on and off and to simulate a loading state
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Template columns" Component="@typeof(DataGridTemplateColumns)" CollocatedFiles="@(new[] { "css" })">
-    <Description>
-        <p>
-            <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
-            infer the column's title or sort order automatically.
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Dynamic columns" Component="@typeof(DataGridDynamicColumns)">
-    <Description>
-        <p>
-            You can make columns appear conditionally using normal Razor logic such as <code>@@if</code>. Example:
-        </p>
-        <p>
-            Also, in this example the column's Width parameter is being set instead of specifying all widths for all
-            columns in the <code>GridTemplateColumn</code> parameter.
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] { "css" })">
-    <Description>
-        <p>
-            Here a custom comparer is being used to sort counties by the length of their name. The code has examples for both
-            <code>PropertyColumn</code> and <code>TemplateColumn</code> implementations (see the Razor tab).<br />
-            For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it
-            could of course be placed in its own file.
-        </p>
-        <p>
-            For the paginator, this example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
-        </p>
-        <p>
-            This example also shows using an <code>OnRowFocus</code> event callback to detect which row the cursor is over. By setting <code>ShowHover</code>
-            to true, the current row will be highlighted. By default the system will use the designated hover color for this but you can specify an alternative
-            color by setting the <code>--datagrid-hover-color</code> CSS variable. See the Razor tab for how this is done in this example.
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Custom paging UI" Component="@typeof(DataGridCustomPaging)" CollocatedFiles="@(new[] { "css" })">
-    <Description>
-        <p>
-            You can customize the appearance of <code>Paginator</code> by supplying a <code>SummaryTemplate</code>.
-            If you want further customization, you can create your own alternative UI that works with
-            <code>PaginationState</code>. Example:
-        </p>
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Manual grid" Component="@typeof(DataGridManual)"></DemoSection>
-
-<DemoSection Title="Template columns 2" Component="@typeof(DataGridTemplateColumns2)">
-    <Description>
-        <p>
-            <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
-            infer the column's title or sort order automatically.
-        </p>
-    </Description>
-</DemoSection>
-
-
-<DemoSection Title="Column headers" Component="@typeof(DataGridColumnHeaderGeneration)">
-    <Description>
-        The DataGrid can generate column headers by using the <code>System.ComponentModel.DataAnnotations.DisplayAttribute</code> on properties
-        shown in the grid.
-        <br />
-        See the 'Razor' tab on how these attributes have been applied to the class properties.
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Multiline text content" Component="@typeof(DataGridMultilineText)">
-    <Description>
-        Set the grid parameter <code>MultiLine</code> to true when you have cells in your data that will take up more than a single line.
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Table with scrollbars" Component="@typeof(DataGridTableScrollbars)">
-    <Description>
-        <p>
-            Example of using an outside <code>div</code> and the <code>Style</code> parameter to achieve a table like DataGrid with infinite horizontal scrollbars to display all content on all devices.
-        </p>
-        <p>
-            If you use this in combination with a sticky header, the style of the header will be lost for the columns that are rendered out of the view initially.
-            You can fix this by adding the following <code>Style</code> to your data grid: <code>Style="min-width: max-content;"</code>
-        </p>
-
-    </Description>
-</DemoSection>
-
-<DemoSection Title="Auto Fit" Component="@typeof(FluentUI.Demo.Shared.Pages.DataGrid.Examples.DataGridAutoFit)">
-    <Description>
-        <p>
-            The example and code below show what you need to add to one of your Blazor page components to implement auto-fit.
-        </p>
-        <p>
-            The <code>AutoFit</code> parameter is used to automatically adjust the column widths to fit the content. It only runs on
-            the first render and does not update when the content changes.
-        </p>
-        <p>
-            The column widths are calculated with the process below:
-            <ul>
-                <li>
-                    Loop through the columns and find the biggest width of each cell of the column
-                </li>
-                <li>
-                    Build the <code>GridTemplateColumns</code> string using the <code>fr</code> unit
-                </li>
-            </ul>
-        </p>
-        <p>
-            This does not work
-            when <code>Virtualization</code> is turned on. The <code>GridTemplateColumns</code> parameter is ignored
-            when <code>AutoFit</code> is set to <code>true</code>. This is untested in MAUI.
-        </p>
-    </Description>
-</DemoSection>
 
 <h2 id="documentation">Documentation</h2>
 

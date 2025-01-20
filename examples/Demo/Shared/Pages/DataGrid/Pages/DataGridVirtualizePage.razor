@@ -1,0 +1,26 @@
+﻿@page "/datagrid-virtualize"
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples
+
+<PageTitle>Virtualize</PageTitle>
+<DemoSection Title="Virtualized grid" Component="@typeof(DataGridVirtualize)">
+    <Description>
+        <p>
+            It can be expensive both to fetch and to render large numbers of items. If the amount of data you're
+            displaying might be large, you should use either paging or virtualization.
+        </p>
+        <p>
+            Virtualization provides the appearance of continuous scrolling through an arbitrarily-large data set,
+            while only needing to fetch and render the rows that are currently in the scroll viewport. This can provide
+            excellent performance even when the data set is vast. FluentDataGrid's virtualization feature is built on Blazor's
+            built-in <a target="_blank" href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/virtualization?view=aspnetcore-6.0">Virtualize component</a>, so it shares the
+            same capabilities, requirements, and limitations.
+        </p>
+        <p>
+            Enabling virtualization is just a matter of passing <code>Virtualize="true"</code>. For it to work
+            properly and reliably, every row rendered must have the same known height. <strong>
+                This is handled by the
+                <code>FluentDataGrid</code> code
+            </strong>.
+        </p>
+    </Description>
+</DemoSection>

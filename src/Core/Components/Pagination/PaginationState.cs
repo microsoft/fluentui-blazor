@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -9,6 +13,7 @@ public class PaginationState
 {
     /// <summary>
     /// Gets or sets the number of items on each page.
+    /// To set it and update any associated <see cref="FluentDataGrid{TGridItem}"/>, call <see cref="SetItemsPerPageAsync(int)" />
     /// </summary>
     public int ItemsPerPage { get; set; } = 10;
 
@@ -52,9 +57,33 @@ public class PaginationState
         return CurrentPageItemsChanged.InvokeCallbacksAsync(this);
     }
 
-    public Task SetTotalItemCountAsync(int totalItemCount)
+    /// <summary>
+    /// Sets the items per page and notifies any associated <see cref="FluentDataGrid{TGridItem}"/>
+    /// to fetch and render updated data.
+    /// </summary>
+    /// <param name="itemsPerPage">The new number of items per page.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public async Task SetItemsPerPageAsync(int itemsPerPage)
     {
-        if (totalItemCount == TotalItemCount)
+        ItemsPerPage = itemsPerPage;
+
+        await CurrentPageItemsChanged.InvokeCallbacksAsync(this);
+        if (TotalItemCount.HasValue)
+        {
+            await SetTotalItemCountAsync(TotalItemCount.Value, true);
+        }
+        return;
+    }
+
+    /// <summary>
+    /// Sets the total number of items nd makes sure the current page index stays valid.
+    /// </summary>
+    /// <param name="totalItemCount">The total number of items</param>
+    /// <param name="force">If true, the total item count will be updated even if it is the same as the current value.</param>
+    /// <returns></returns>
+    public Task SetTotalItemCountAsync(int totalItemCount, bool force = false)
+    {
+        if (totalItemCount == TotalItemCount && !force)
         {
             return Task.CompletedTask;
         }

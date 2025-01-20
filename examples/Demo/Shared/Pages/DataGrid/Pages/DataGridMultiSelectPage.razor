@@ -1,0 +1,58 @@
+﻿@page "/datagrid-multi-select"
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples
+
+<PageTitle>Multi select</PageTitle>
+
+<DemoSection Title="Multi Select" Component="@typeof(DataGridMultiSelect)">
+    <Description>
+        <p>The same example, adding a <code>SelectColumn</code>, to allow multi-select rows.</p>
+        <p>To utilize the <b>SelectColumn</b> feature in the Fluent DataGrid, there are two approaches available:</p>
+
+        <p>
+            <b>Automatic Management via <code>SelectedItems</code></b>
+            <ul>
+                <li>Provide a list of data via the <code>Items</code> property.</li>
+                <li>Let the grid handle selected rows entirely through the <code>SelectedItems</code> property.</li>
+            </ul>
+        </p>
+        <p>
+            <b>Manual Management via <code>Property</code> and <code>OnSelect</code>:</b>
+            <ul>
+                <li>Control how selected lines are saved manually.</li>
+                <li>Utilize the <code>Property</code>, <code>OnSelect</code>, and <code>SelectAll</code> attributes.</li>
+            </ul>
+            This method offers more flexibility but requires additional configuration, making it particularly useful when
+            using <code>Virtualize</code> or directly managing a custom <code>IsSelected</code> property.
+        </p>
+
+        <blockquote>
+            By default the Fluent Design System recommends to only use the checkbox to indicate selected rows.
+            It is possible to change this behavior by using a CSS style like this to set a background on selected rows:
+            <code>
+                <pre>
+.fluent-data-grid-row:has([row-selected]) > td {
+    background-color: var(--neutral-fill-stealth-hover)
+}</pre>
+            </code>
+        </blockquote>
+
+    </Description>
+</DemoSection>
+
+<p>
+    Using this <code>SelectColumn</code>, you can customize the checkboxes by using <code>ChildContent</code> to define the contents of the selection for each row of the grid;
+    or <code>SelectAllTemplate</code> to customize the header of this column.
+    If you don't want the user to be able to interact (click and change) on the SelectAll header, you can set the <code>SelectAllDisabled="true"</code> attribute.
+    <br /><br />
+
+    Example:
+    <CodeSnippet Language="razor">
+        &lt;SelectAllTemplate>
+        @@(context.AllSelected == true ? "✅" : context.AllSelected == null ? "➖" : "⬜")
+        &lt;/SelectAllTemplate>
+        &lt;ChildContent>
+        @@(SelectedItems.Contains(context) ? "✅" : " ") @@* Using SelectedItems         *@@
+        @@(context.Selected ? "✅" : " ")                @@* Using Property and OnSelect *@@
+        &lt;/ChildContent>
+    </CodeSnippet>
+</p>
