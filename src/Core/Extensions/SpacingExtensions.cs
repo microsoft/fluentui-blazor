@@ -6,7 +6,10 @@ using System.Globalization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-internal static class SpacingExtensions
+/// <summary>
+/// Convert a spacing value to a CSS style.
+/// </summary>
+public static class SpacingExtensions
 {
     private static readonly char[] Separators = [' ', ';'];
     private static readonly string[] StyleKeyWords = ["auto", "inherit", "initial", "revert", "revert-layer", "unset"];
@@ -77,7 +80,7 @@ internal static class SpacingExtensions
         return values.Select(v => IsNumber(v) ? v + "px" : v).ToArray();
     }
 
-    public static bool IsNumber(string value)
+    private static bool IsNumber(string value)
     {
         return string.IsNullOrWhiteSpace(value)
             ? false
