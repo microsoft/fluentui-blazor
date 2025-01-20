@@ -55,7 +55,7 @@
 /* Padding */
 
 .padding-container {
-  border: 1px dashed black;
+  border: 2px solid black;
   background-color: #C3D08B; /* Light green */
   color: black;
   height: 100%;
@@ -103,7 +103,7 @@
 .content {
   min-width: 100px;
   min-height: 24px;
-  border: 1px solid black;
+  border: 1px dashed black;
   background-color: #8CB6C0; /* Light blue */
   color: black;
   display: flex;
