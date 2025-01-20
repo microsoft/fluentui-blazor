@@ -80,6 +80,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
         .AddStyle("display", "flex", CellType == DataGridCellType.ColumnHeader && !Grid.HeaderCellAsButtonWithMenu && !Grid.ResizableColumns && (Column is null || (Column!.Sortable.HasValue && !Column!.Sortable.Value)))
+        .AddStyle("z-index", (Grid._columns.Count - Column?.Index).ToString(), CellType == DataGridCellType.ColumnHeader)
         .AddStyle(Owner.Style)
         .Build();
 
