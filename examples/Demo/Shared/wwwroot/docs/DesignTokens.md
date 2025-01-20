@@ -242,7 +242,7 @@ Given the following `.razor` page fragment:
 
 ```cshtml
 <FluentButton @ref="ref1">A button</FluentButton>
-<FluentButton @ref="ref2" Appearance.Accent>Another button</FluentButton>
+<FluentButton @ref="ref2" Appearance="Appearance.Accent">Another button</FluentButton>
 <FluentButton @ref="ref3">And one more</FluentButton>
 <FluentButton @ref="ref4" @onclick=OnClick>Last button</FluentButton>
 ```
