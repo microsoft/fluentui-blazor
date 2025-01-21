@@ -36,6 +36,6 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentLayout }}
 
-## Migration using GitHub Copilot
+## Migrate to v5 with help from GitHub Copilot chat
 
 {{ INCLUDE CopilotInstructionsContent }}

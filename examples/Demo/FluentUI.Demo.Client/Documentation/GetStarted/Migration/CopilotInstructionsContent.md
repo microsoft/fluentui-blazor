@@ -10,7 +10,7 @@ By importing these custom instructions into your GitHub Copilot settings, you'll
 
 Example benefits:
 - Migrate complete file following new namespacing and new parameters
-- Renaming old names from V3-V4 to V5
+- Renaming old names from v3-v4 to v5
 
 > ⚠️ Note
 >
