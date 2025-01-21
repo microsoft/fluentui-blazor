@@ -1,12 +1,12 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@inherits FluentInputImmediateBase<bool?>
+@inherits FluentInputBase<bool?>
 
 <fluent-field label-position="after">
-    <FluentLabel Required="@Required" for="@Id" slot="label" >
+    <label Required="@Required" for="@Id" slot="label">
         @Label
         @LabelTemplate
-    </FluentLabel>
+    </label>
 
     <fluent-checkbox id="@Id"
                      @ref="@Element"
@@ -22,6 +22,7 @@
                      @onchange="@ChangeHandlerAsync"
                      @attributes="AdditionalAttributes"
                      slot="input">
+
         @if (StartTemplate != null)
         {
             <div slot="start">
@@ -36,4 +37,12 @@
             </div>
         }
     </fluent-checkbox>
+
+    @if (!string.IsNullOrEmpty(RequiredLabel) || RequiredLabelTemplate != null)
+    {
+        <FluentLabel Required="@Required" slot="message" flag="value-missing">
+            @RequiredLabel
+            @RequiredLabelTemplate
+        </FluentLabel>
+    }
 </fluent-field>

@@ -24,22 +24,25 @@ Although not recommended by FluentUI, a checkbox can be rendered inline with tex
 ```
 <div>
     Name:
-    <Checkbox Style="display: inline-block;" />
+    <FluentCheckBox Style="display: inline-block;" />
 </div>
 ```
 
-## Binding with ImmediateDelay
-
-In some cases, you may want to bind the value of the checkbox to a property of a model
-and update the model immediately after the user changes the state. This can be achieved by setting the `Immediate` and the optional `ImmediateDelay` properties.
-
-{{ CheckboxImmediate }}
-
 ## States
 
-A checkbox can be in different states, such as `Disabled`, `Indeterminate`, and `Required`.
+A checkbox can be in different states, such as `Disabled`, `Required`, and `Indeterminate`.
 
-{{ CheckboxState }}
+### Disabled
+
+{{ CheckboxDisabled }}
+
+### Required
+
+{{ CheckboxRequired }}
+
+### Indeterminate
+
+{{ CheckboxIndeterminate }}
 
 ## Prefix and Suffix
 

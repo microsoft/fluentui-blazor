@@ -1,0 +1,31 @@
+﻿
+<h2>With required validation</h2>
+<EditForm Model="new object()">
+    <div style="display: flex;flex-direction: column; gap: 12px;">
+        <FluentCheckbox Shape="@CheckboxShape.Square"
+                        Label="Square required"
+                        Required="true" />
+
+        <FluentCheckbox Shape="@CheckboxShape.Circular"
+                        Label="Circular required"
+                        Required="true" />
+
+        <FluentButton Type="ButtonType.Submit">Submit</FluentButton>
+    </div>
+</EditForm>
+<h2>With defined required validation text</h2>
+<EditForm Model="new object()">
+    <div style="display: flex;flex-direction: column; gap: 12px;">
+        <FluentCheckbox Shape="@CheckboxShape.Square"
+                        Label="Square required with defined required validation text"
+                        RequiredLabel="This filed is required"
+                        Required="true" />
+
+        <FluentCheckbox Shape="@CheckboxShape.Circular"
+                        Label="Circular required with defined required validation text"
+                        RequiredLabel="This filed is required"
+                        Required="true" />
+
+        <FluentButton Type="ButtonType.Submit">Submit</FluentButton>
+    </div>
+</EditForm>

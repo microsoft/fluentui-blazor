@@ -5,17 +5,15 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentCheckbox component is used to render a checkbox input.
 /// </summary>
-public partial class FluentCheckbox : FluentInputImmediateBase<bool?>, IFluentComponentElementBase
+public partial class FluentCheckbox : FluentInputBase<bool?>, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TextInput/FluentTextInput.razor.js";
-
     /// <inheritdoc />
     [Parameter]
     public ElementReference Element { get; set; }
@@ -45,6 +43,19 @@ public partial class FluentCheckbox : FluentInputImmediateBase<bool?>, IFluentCo
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets the text to required label when the checkbox should be checked.
+    /// </summary>
+    [Parameter]
+    public string? RequiredLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to required label Gets or sets the text to required label when the checkbox should be checked..
+    /// This is usually displayed just above the checkbox
+    /// </summary>
+    [Parameter]
+    public virtual RenderFragment? RequiredLabelTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to prefix the input component.
     /// </summary>
     [Parameter]
@@ -63,17 +74,10 @@ public partial class FluentCheckbox : FluentInputImmediateBase<bool?>, IFluentCo
     public CheckboxSize? Size { get; set; } = CheckboxSize.Medium;
 
     /// <inheritdoc />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnParametersSet()
     {
-        if (firstRender)
-        {
-            // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            // Call a function from the JavaScript module
-            // Wait for this PR to delete the code: https://github.com/microsoft/fluentui/pull/33144
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TextInput.ObserveAttributeChanges", Element);
-        }
+        base.OnParametersSet();
+        Id ??= $"checkbox-{Identifier.NewId()}";
     }
 
     /// <summary>
