@@ -361,3 +361,33 @@ export function autoFitGridColumns(gridElement, columnCount) {
 
     grids[gridElement.id] = gridTemplateColumns;
 }
+
+function calculateVisibleRows(gridElement, rowHeight) {
+    if (rowHeight <= 0) {
+        return 0;
+    }
+
+    const gridContainer = gridElement.parentElement;
+
+    if (!gridContainer) {
+        return 0;
+    }
+
+    const availableHeight = gridContainer?.clientHeight || window.visualViewport?.height || window.innerHeight;
+
+    const visibleRows = Math.max(Math.floor(availableHeight / rowHeight), 1);
+    return visibleRows;
+}
+
+export function dynamicItemsPerPage(gridElement, dotNetObject, rowSize) {
+    const observer = new ResizeObserver(() => {
+        const visibleRows = calculateVisibleRows(gridElement, rowSize)
+        dotNetObject.invokeMethodAsync('UpdateItemsPerPageAsync', visibleRows)
+            .catch(err => console.error("Error invoking Blazor method:", err));
+    });
+
+    const targetElement = gridElement.parentElement;
+    if (targetElement) {
+        observer.observe(targetElement);
+    }
+}

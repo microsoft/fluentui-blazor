@@ -100,7 +100,7 @@ blockquote p:last-child {
 nav.sitenav {
     padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
-    width: 18rem;
+    width: 20rem;
     overflow-y: auto;
 }
 

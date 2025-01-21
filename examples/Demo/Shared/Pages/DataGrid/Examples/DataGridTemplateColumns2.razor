@@ -1,18 +1,18 @@
 ﻿
 <FluentDataGrid id="defaultGrid"
-    Items=RowsGrid.AsQueryable()
-    GridTemplateColumns="1fr 1fr"
-    TGridItem=SampleGridData
-    OnRowClick="HandleRowClick"
-    OnRowFocus="HandleRowFocus"
-    OnCellClick="HandleCellClick"
-    OnCellFocus="HandleCellFocus"
-    RowSize="@DataGridRowSize.Medium">
+                Items=RowsGrid.AsQueryable()
+                GridTemplateColumns="1fr 1fr"
+                TGridItem=SampleGridData
+                OnRowClick="HandleRowClick"
+                OnRowFocus="HandleRowFocus"
+                OnCellClick="HandleCellClick"
+                OnCellFocus="HandleCellFocus"
+                RowSize="@DataGridRowSize.Medium">
     <TemplateColumn Title="Name">
-        <FluentTextField @bind-Value="@context!.Name"/>
+        <FluentTextField @bind-Value="@context!.Name" />
     </TemplateColumn>
     <TemplateColumn Title="Age">
-        <FluentNumberField @bind-Value="@context!.Age" TValue="int"/>
+        <FluentNumberField @bind-Value="@context!.Age" TValue="int" />
     </TemplateColumn>
 </FluentDataGrid>
 

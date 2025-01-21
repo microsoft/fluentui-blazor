@@ -261,6 +261,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public bool AutoFit { get; set; }
 
+    /// <summary>
+    /// Automatically fit the number of items per page to the available height.
+    /// </summary>
+    [Parameter]
+    public bool AutoItemsPerPage { get; set; }
+
     [Parameter]
     public DataGridDisplayMode DisplayMode { get; set; } = DataGridDisplayMode.Grid;
 
@@ -301,6 +307,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal bool EffectiveLoadingValue => Loading ?? ItemsProvider is not null;
 
     private ElementReference? _gridReference;
+    //private DotNetObjectReference<Type>? _dotNetObjectReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 
     // IQueryable only exposes synchronous query APIs. IAsyncQueryExecutor is an adapter that lets us invoke any
@@ -431,6 +438,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             try
             {
                 _jsEventDisposable = await Module.InvokeAsync<IJSObjectReference>("init", _gridReference, AutoFocus);
+                if (AutoItemsPerPage)
+                {
+                    await Module.InvokeVoidAsync("dynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
+                }
             }
             catch (JSException ex)
             {
@@ -443,7 +454,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (_checkColumnOptionsPosition && _displayOptionsForColumn is not null)
         {
             _checkColumnOptionsPosition = false;
-            _ = Module?.InvokeVoidAsync("checkColumnPopupPosition", _gridReference, ".col-options").AsTask();
+            Module?.InvokeVoidAsync("checkColumnPopupPosition", _gridReference, ".col-options").AsTask();
         }
 
         if (_checkColumnResizePosition && _displayResizeForColumn is not null)
@@ -929,6 +940,42 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
         NavigationManager.NavigateTo(NavigationManager.GetUriWithQueryParameters(stateParams), replace: true);
     }
+
+    /// <summary>
+    /// Updates the <see cref="Pagination"/>s ItemPerPage parameter.
+    /// Guards the CurrentPageIndex from getting greater than the LastPageIndex
+    ///
+    /// </summary>
+    /// <param name="visibleRows">The maixmum number of rows that fits the available space</param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task UpdateItemsPerPageAsync(int visibleRows)
+    {
+        if (Pagination is null)
+        {
+            return;
+        }
+
+        if (visibleRows < 2)
+        {
+            visibleRows = 2;
+        }
+
+        await Pagination.SetItemsPerPageAsync(visibleRows - 1); // subtract 1 for the table header
+
+        //if (Pagination.CurrentPageIndex > Pagination.LastPageIndex && Pagination.LastPageIndex.HasValue && Pagination.LastPageIndex.Value > 0)
+        //{
+        //    await Pagination.SetCurrentPageIndexAsync(Pagination.LastPageIndex.Value);
+        //}
+
+        //await RefreshDataAsync();
+        //StateHasChanged();
+    }
+
+    //public void SetPageReference(Type page)
+    //{
+    //    _dotNetObjectReference = DotNetObjectReference.Create(page);
+    //}
 
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
