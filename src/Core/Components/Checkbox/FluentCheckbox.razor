@@ -1,0 +1,39 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<bool?>
+
+<fluent-field label-position="after">
+    <FluentLabel Required="@Required" for="@Id" slot="label" >
+        @Label
+        @LabelTemplate
+    </FluentLabel>
+
+    <fluent-checkbox id="@Id"
+                     @ref="@Element"
+                     disabled="@Disabled"
+                     autofocus="@Autofocus"
+                     checked="@Checked"
+                     indeterminate="@Indeterminate"
+                     name="@Name"
+                     required="@Required"
+                     value="@Value"
+                     shape="@Shape.ToAttributeValue()"
+                     size="@Size.ToAttributeValue()"
+                     @onchange="@ChangeHandlerAsync"
+                     @attributes="AdditionalAttributes"
+                     slot="input">
+        @if (StartTemplate != null)
+        {
+            <div slot="start">
+                @StartTemplate
+            </div>
+        }
+
+        @if (EndTemplate != null)
+        {
+            <div slot="end">
+                @EndTemplate
+            </div>
+        }
+    </fluent-checkbox>
+</fluent-field>

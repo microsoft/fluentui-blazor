@@ -1,0 +1,23 @@
+﻿
+
+<div style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <FluentCheckbox Shape="@CheckboxShape.Square" Label="Square checked" @bind-Checked="@CheckedValue" />
+    <FluentCheckbox Shape="@CheckboxShape.Circular" Label="Circular checked" @bind-Checked="@CheckedValue" />
+</div>
+
+<div style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <FluentCheckbox Shape="@CheckboxShape.Square" Label="Square unchecked" @bind-Checked="@UncheckedValue" />
+    <FluentCheckbox Shape="@CheckboxShape.Circular" Label="Circular unchecked" @bind-Checked="@UncheckedValue" />
+</div>
+
+<div style="display: flex; gap: 12px; margin-bottom: 24px;">
+    <FluentCheckbox Shape="@CheckboxShape.Square" Label="Square indeterminate" @bind-Indeterminate="@IndeterminateValue" />
+    <FluentCheckbox Shape="@CheckboxShape.Circular" Label="Circular indeterminate" @bind-Indeterminate="@IndeterminateValue" />
+</div>
+
+@code
+{
+    bool CheckedValue = true;
+    bool UncheckedValue = false;
+    bool IndeterminateValue = true;
+}
