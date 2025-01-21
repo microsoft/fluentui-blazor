@@ -13,7 +13,7 @@ The following properties of the FluentButton have been renamed :
 
 Special attention is required for the Appearance property.
 This is only valid for FluentButton.
-The name stays the same but the type has changed as following : 
+The name stays the same but the value has changed as follows:
 
 `Appearance.Neutral` to `ButtonAppearance.Default`
 `Appearance.Accent` to `ButtonAppearance.Primary`
