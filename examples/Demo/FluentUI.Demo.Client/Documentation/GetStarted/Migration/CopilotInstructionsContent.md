@@ -27,9 +27,9 @@ Once your migration is done, you can remove the file or the part of the FluentUI
    Create the `.github` directory if it does not already exist.
 
 2. Click on the following link to view and copy the content of this **migration instruction**
-   inside the `copilot-instruction.md` file.
+   inside the `copilot-instructions.md` file.
 
-   📥 <a href="/copilot-instructions.md" target="_blank">copilot-instruction.md</a>
+   📥 <a href="/copilot-instructions.md" target="_blank">copilot-instructions.md</a>
 
 3. In your existing project, after adding the new FluentUI-Blazor v5,
    you can start using the custom instructions to help you migrate your code.
