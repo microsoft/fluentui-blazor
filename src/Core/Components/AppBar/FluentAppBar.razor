@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
-    <nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()">
+    <nav @ref="@Element" id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()">
 
             @if (Items is null)
             {
