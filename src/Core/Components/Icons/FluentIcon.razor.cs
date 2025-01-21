@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using System.Globalization;
 
@@ -19,11 +18,11 @@ public partial class FluentIcon<Icon> : FluentComponentBase
     private Icon _icon = default!;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("width", Width ?? $"{_icon.Width.ToString(CultureInfo.InvariantCulture)}px", when: () => Width != string.Empty)
         .AddStyle("fill", GetIconColor(), when: (value) => !string.IsNullOrEmpty(value))
         .AddStyle("cursor", "pointer", when: () => OnClick.HasDelegate)

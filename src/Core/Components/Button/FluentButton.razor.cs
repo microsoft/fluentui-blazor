@@ -5,7 +5,6 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -19,32 +18,16 @@ public partial class FluentButton : FluentComponentBase
     private bool LoadingOverlay => Loading && IconStart == null && IconEnd == null;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("loading-button", when: () => LoadingOverlay)
-        .AddClass(Margin.SpacingToStyle().Class)
-        .AddClass(Padding.SpacingToStyle().Class)
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
         .AddStyle("opacity", "0.3", when: () => Disabled && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
-        .AddStyle("margin", Margin.SpacingToStyle().Style)
-        .AddStyle("padding", Padding.SpacingToStyle().Style)
         .Build();
-
-    /// <summary>
-    /// Gets or sets the component CSS margin property.
-    /// </summary>
-    [Parameter]
-    public virtual string? Margin { get; set; }             // TODO: To move to IFluentComponentBase
-
-    /// <summary>
-    /// Gets or sets the component CSS padding property.
-    /// </summary>
-    [Parameter]
-    public virtual string? Padding { get; set; }            // TODO: To move to IFluentComponentBase
 
     /// <summary>
     /// Gets or sets whether the button should be focused when the page is loaded.

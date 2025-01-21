@@ -7,18 +7,19 @@ using System.Globalization;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Convert a spacing value to a CSS style.
+/// Convert a spacing value to a CSS styleValue.
 /// </summary>
 public static class SpacingExtensions
 {
+    private static KeyValuePair<string?, (string Style, string Class)> _previousSpacingToStyle = new(key: null, value: ("", ""));
     private static readonly char[] Separators = [' ', ';'];
     private static readonly string[] StyleKeyWords = ["auto", "inherit", "initial", "revert", "revert-layer", "unset"];
 
     /// <summary>
-    /// Converts a spacing value to a CSS style.
+    /// Converts a spacing value to a CSS styleValue.
     /// The <paramref name="value"/> can be a string with one or more values separated by spaces, coma or semicolon.
     /// You can use the `padding` or `margin` pattern defined my the W3C
-    /// or a class name if the value is not a valid CSS keyword like `auto`, `inherit`, `initial`, ...
+    /// or a classValue name if the value is not a valid CSS keyword like `auto`, `inherit`, `initial`, ...
     /// </summary>
     /// <example>
     ///  - SpacingToStyle("auto")             => Style = "auto"               Class = ""
@@ -26,16 +27,22 @@ public static class SpacingExtensions
     ///  - SpacingToStyle("10px 20px")        => Style = "10px 20px"          Class = ""
     ///  - SpacingToStyle("10px 20px 30px")   => Style = "10px 20px 30px"     Class = ""
     ///  - SpacingToStyle("mr-0")             => Style = ""                   Class = "mr-0"
-    ///  - SpacingToStyle("my-class")         => Style = ""                   Class = "my-class"
-    ///  - SpacingToStyle("mr-0 my-class")    => Style = ""                   Class = "mr-0 my-class"
+    ///  - SpacingToStyle("my-classValue")         => Style = ""                   Class = "my-classValue"
+    ///  - SpacingToStyle("mr-0 my-classValue")    => Style = ""                   Class = "mr-0 my-classValue"
     /// </example>
     /// <param name="value"></param>    
     /// <returns></returns>
     public static (string Style, string Class) SpacingToStyle(this string? value)
     {
+        // To optimize multiple calls with the same value
+        if (string.Equals(_previousSpacingToStyle.Key, value, StringComparison.Ordinal))
+        {
+            return _previousSpacingToStyle.Value;
+        }
+
         if (value == null)
         {
-            return ("", "");
+            return SaveInCacheAndReturns(value, "", "");
         }
 
         var values = value.Split(Separators, StringSplitOptions.RemoveEmptyEntries)
@@ -45,7 +52,7 @@ public static class SpacingExtensions
         // No value
         if (values.Length == 0)
         {
-            return ("", "");
+            return SaveInCacheAndReturns(value, "", "");
         }
 
         // A keyword cannot be used with other values
@@ -58,10 +65,10 @@ public static class SpacingExtensions
         var firstValue = values[0];
         if (StyleKeyWords.Contains(firstValue, StringComparer.OrdinalIgnoreCase))
         {
-            return (values[0], "");
+            return SaveInCacheAndReturns(value, values[0], "");
         }
 
-        // In CSS, class names cannot start with a digit.
+        // In CSS, classValue names cannot start with a digit.
         // The margin/padding syntax is a number followed by a unit (px, em, rem, %, ...)
         var isStyle = char.IsDigit(firstValue[0]) ||
                       firstValue[0] == '-' && firstValue.Length > 1 && char.IsDigit(firstValue[1]) ||
@@ -69,10 +76,16 @@ public static class SpacingExtensions
 
         if (isStyle)
         {
-            return (string.Join(' ', AddMissingPixels(values)), "");
+            return SaveInCacheAndReturns(value, string.Join(' ', AddMissingPixels(values)), "");
         }
 
-        return ("", value);
+        return SaveInCacheAndReturns(value, "", value);
+    }
+
+    private static (string Style, string Class) SaveInCacheAndReturns(string? value, string styleValue, string classValue)
+    {
+        _previousSpacingToStyle = new KeyValuePair<string?, (string, string)>(value, (styleValue, classValue));
+        return (styleValue, classValue);
     }
 
     private static string[] AddMissingPixels(string[] values)

@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -43,6 +45,16 @@ public class DialogOptions : IFluentComponentBase
     /// If given, these will be included in the style attribute of the `dialog` element.
     /// </summary>
     public string? Style { get; set; }
+
+    /// <summary>
+    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/margin">CSS margin</see> property.
+    /// </summary>
+    public string? Margin { get; set; }
+
+    /// <summary>
+    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/padding">CSS padding</see> property.
+    /// </summary>
+    public string? Padding { get; set; }
 
     /// <summary>
     /// Gets or sets custom data, to attach any user data object to the component.
@@ -106,4 +118,20 @@ public class DialogOptions : IFluentComponentBase
     /// Gets or sets the action raised when the dialog is opened or closed.
     /// </summary>
     public Action<DialogEventArgs>? OnStateChange { get; set; }
+
+    /// <summary>
+    /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.
+    /// </summary>
+    internal virtual string? ClassValue => new CssBuilder(Class)
+        .AddClass(Margin.SpacingToStyle().Class)
+        .AddClass(Padding.SpacingToStyle().Class)
+        .Build();
+
+    /// <summary>
+    /// Gets the style builder, containing the default margin and padding values.
+    /// </summary>
+    internal virtual string? StyleValue => new StyleBuilder(Style)
+        .AddStyle("margin", Margin.SpacingToStyle().Style)
+        .AddStyle("padding", Padding.SpacingToStyle().Style)
+        .Build();
 }

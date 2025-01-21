@@ -11,7 +11,7 @@ public interface IFluentComponentBase
 {
     /// <summary>
     /// Gets or sets the unique identifier.
-    /// The value will be used as the HTML <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
+    /// The value will be used as the HTML <see href="https://developer.mozilla.org/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
     /// </summary>
     string? Id { get; set; }
 
@@ -24,6 +24,16 @@ public interface IFluentComponentBase
     /// Gets or sets the in-line styles. If given, these will be included in the style attribute of the component.
     /// </summary>
     string? Style { get; set; }
+
+    /// <summary>
+    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/margin">CSS margin</see> property.
+    /// </summary>
+    string? Margin { get; set; }
+
+    /// <summary>
+    /// Gets or sets the component <see href="https://developer.mozilla.org/docs/Web/CSS/padding">CSS padding</see> property.
+    /// </summary>
+    string? Padding { get; set; }
 
     /// <summary>
     /// Gets or sets custom data, to attach any user data object to the component.

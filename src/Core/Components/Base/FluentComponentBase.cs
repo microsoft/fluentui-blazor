@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -29,6 +30,20 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
 
+    /// <summary>
+    /// Gets the class builder, containing the default margin and padding values.
+    /// </summary>
+    protected virtual CssBuilder DefaultClassBuilder => new CssBuilder(Class)
+        .AddClass(Margin.SpacingToStyle().Class)
+        .AddClass(Padding.SpacingToStyle().Class);
+
+    /// <summary>
+    /// Gets the style builder, containing the default margin and padding values.
+    /// </summary>
+    protected virtual StyleBuilder DefaultStyleBuilder => new StyleBuilder(Style)
+        .AddStyle("margin", Margin.SpacingToStyle().Style)
+        .AddStyle("padding", Padding.SpacingToStyle().Style);
+
     /// <inheritdoc />
     [Parameter]
     public virtual string? Id { get; set; }
@@ -40,6 +55,14 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// <inheritdoc />
     [Parameter]
     public virtual string? Style { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Margin { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Padding { get; set; }
 
     /// <inheritdoc />
     [Parameter]

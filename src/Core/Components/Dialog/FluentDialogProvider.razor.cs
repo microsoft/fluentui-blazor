@@ -21,12 +21,12 @@ public partial class FluentDialogProvider : FluentComponentBase
     }
 
     /// <summary />
-    internal string? ClassValue => new CssBuilder(Class)
+    internal string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-dialog-provider")
         .Build();
 
     /// <summary />
-    internal string? StyleValue => new StyleBuilder(Style)
+    internal string? StyleValue => DefaultStyleBuilder
         .AddStyle("z-index", ZIndex.Dialog.ToString(CultureInfo.InvariantCulture))
         .Build();
 

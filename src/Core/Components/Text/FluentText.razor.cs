@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,11 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentText : FluentComponentBase
 {
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("color", GetTextColor(), when: (value) => !string.IsNullOrEmpty(value))
         .Build();
 

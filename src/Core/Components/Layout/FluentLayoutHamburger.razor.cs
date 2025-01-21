@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,7 +15,7 @@ public partial class FluentLayoutHamburger
     /// <summary>
     /// <inheritdoc cref="FluentComponentBase.Class"/>
     /// </summary>
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-layout-hamburger")
         .Build();
 
