@@ -27,6 +27,11 @@ public partial class FluentLayout
         .Build();
 
     /// <summary>
+    /// <inheritdoc cref="FluentComponentBase.Style"/>
+    /// </summary>
+    protected string? StyleValue => DefaultStyleBuilder.Build();
+
+    /// <summary>
     /// Gets or sets the vertical scrollbar position: global to the entire Layout, or inside the content area.
     /// </summary>
     [Parameter]

@@ -20,6 +20,11 @@ public partial class FluentLayoutHamburger
         .Build();
 
     /// <summary>
+    /// <inheritdoc cref="FluentComponentBase.Style"/>
+    /// </summary>
+    protected string? StyleValue => DefaultStyleBuilder.Build();
+
+    /// <summary>
     /// Gets or sets the parent layout component.
     /// </summary>
     [CascadingParameter]
