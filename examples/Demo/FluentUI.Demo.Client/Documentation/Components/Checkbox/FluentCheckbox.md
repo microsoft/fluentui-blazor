@@ -5,22 +5,21 @@ route: /Checkbox
 
 # Checkbox
 
-A **FluentTextInput** component enables a user to enter text into an app.
-It's typically used to capture a single line of text.
-The text displays on the screen in a simple, uniform format.
+A **FluentCheckbox** component enables a user to select or deselect an option.
+It's typically used to capture a boolean value.
 
 ## Appearance
 
-The apparent style of a text input can be changed by setting the `Appearance` property, but also by setting the `Size` property.
+The apparent style of a checkbox can be changed by setting the `Shape` property, but also by setting the `Size` property.
 
-You can also add a label to the text input by setting the `Label` property and a placeholder by setting the `Placeholder` property.
-The label will be automatically positioned above the text input, and the placeholder will be displayed inside the text input.
+You can also add a label to the checkbox by setting the `Label` property.
+The label will be automatically positioned next to the checkbox.
 
-We recommand to use a spacing of 24px between text fields and other components.
+We recommend using a spacing of 24px between checkboxes and other components.
 
 {{ CheckboxAppearances }}
 
-Although not recommended by FluentUI, an input can be rendered inline with text using a style attribute.
+Although not recommended by FluentUI, a checkbox can be rendered inline with text using a style attribute.
 
 ```
 <div>
@@ -31,27 +30,24 @@ Although not recommended by FluentUI, an input can be rendered inline with text 
 
 ## Binding with ImmediateDelay
 
-In some cases, you may want to bind the value of the text input to a property of a model
-and update the model immediately after the user types a character. But you may also want to delay the update.
-This can be achieved by setting the `Immediate` and the optional `ImmediateDelay` properties.
+In some cases, you may want to bind the value of the checkbox to a property of a model
+and update the model immediately after the user changes the state. This can be achieved by setting the `Immediate` and the optional `ImmediateDelay` properties.
 
-{{ TextInputImmediate }}
+{{ CheckboxImmediate }}
 
 ## States
 
-A text input can be in different states, such as `Disabled`, `ReadOnly`, and `Required`.
+A checkbox can be in different states, such as `Disabled`, `Indeterminate`, and `Required`.
 
-{{ TextInputState }}
+{{ CheckboxState }}
 
 ## Prefix and Suffix
 
-You can use the `StartTemplate` and `EndTemplate` properties to add a prefix or a suffix to the text input
-as `https://` and `.com` or an icon.
+You can use the `StartTemplate` and `EndTemplate` properties to add content before or after the checkbox.
 
-These templates are automatically positioned with a small margin between the text entered and the prefix/suffix.
-You cannot therefore fill the entire background of these templates, with a colour for example.
+These templates are automatically positioned with a small margin between the checkbox and the prefix/suffix.
 
-{{ TextInputPrefixSuffix }}
+{{ CheckboxPrefixSuffix }}
 
 ## API FluentCheckbox
 
