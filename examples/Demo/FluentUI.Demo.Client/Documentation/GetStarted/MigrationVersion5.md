@@ -39,8 +39,3 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 ## Migration using GitHub Copilot
 
 {{ INCLUDE CopilotInstructionsContent }}
-
-### Custom instructions' content
-```md
-{{ INCLUDE CopilotInstructions.md }}
-```

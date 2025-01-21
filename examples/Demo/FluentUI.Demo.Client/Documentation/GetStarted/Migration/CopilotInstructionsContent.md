@@ -24,33 +24,18 @@ Once your migration is done, you can remove the file or the part of the FluentUI
 ### How to enable custom instruction
 
 1. In the root of your repository, create a file named `.github/copilot-instructions.md`.
-
    Create the `.github` directory if it does not already exist.
 
-2.  Copy the content of the migration instruction inside the `copilot-instruction.md` file
+2. Click on the following link to view and copy the content of this **migration instruction**
+   inside the `copilot-instruction.md` file.
 
-    > Whitespace between instructions is ignored, so the instructions can be written as a single paragraph, each on a new line, or separated by blank lines for legibility.
+   📥 <a href="/copilot-instructions.md" target="_blank">copilot-instruction.md</a>
+
+3. In your existing project, after adding the new FluentUI-Blazor v5,
+   you can start using the custom instructions to help you migrate your code.
+
+   Example of Copilot instructions: "Can you migrate this file to the new FluentUI-Blazor v5?
 
 ### Enable custom instruction in Visual Studio or Visual Studio Code. 
 
 GitHub's team has a perfect step-by-step void to enable : [Enabling or disabling custom instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot#enabling-or-disabling-custom-instructions).
-
-## GitHub Copilot Custom Instructions for FluentUI Blazor Migration
-
-The following content contains specialized instructions for GitHub Copilot to assist in migrating components to FluentUI Blazor. These instructions help Copilot understand our:
-
-- Component architecture
-- Code conventions
-- Namespace organization
-- Migration patterns
-- TypeScript integration
-
-### How to Use
-
-Copy the content below and paste it into your GitHub Copilot custom instructions settings to enable context-aware assistance during migration tasks.
-
-### How to use the custom instruction
-
-Once you enabled the feature in VS or VS Code, you added the `copilot-instructions.md` in the right folder (`.github`). 
-
-You need to ask the chat to migrate the file selected. 
