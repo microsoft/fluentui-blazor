@@ -124,6 +124,9 @@ You can specify a **CSS value** respecting the CSS [padding](https://developer.m
 or CSS [margin](https://developer.mozilla.org/docs/Web/CSS/margin) pattern.
 Or you can specify a **class name** like defined above on this page.
 
+> If you use one of these properties to include a complete style (e.g. `style=“margin: 10px;”`)
+> then this style will be ignored. The property `Style` can be used to include a complete style.
+
 Example:
 ```html
 <FluentButton Margin="10px" />                     => <fluent-button style="margin: 10px;" />

@@ -14,6 +14,7 @@ public static class SpacingExtensions
     private static KeyValuePair<string?, (string Style, string Class)> _previousSpacingToStyle = new(key: null, value: ("", ""));
     private static readonly char[] Separators = [' ', ';'];
     private static readonly string[] StyleKeyWords = ["auto", "inherit", "initial", "revert", "revert-layer", "unset"];
+    private static readonly char[] InvalidCharsInClassName = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '|', '\\', ':', ';', '"', '\'', '<', '>', ',', '?', '/'];
 
     /// <summary>
     /// Converts a spacing value to a CSS styleValue.
@@ -22,11 +23,11 @@ public static class SpacingExtensions
     /// or a classValue name if the value is not a valid CSS keyword like `auto`, `inherit`, `initial`, ...
     /// </summary>
     /// <example>
-    ///  - SpacingToStyle("auto")             => Style = "auto"               Class = ""
-    ///  - SpacingToStyle("10px")             => Style = "10px"               Class = ""
-    ///  - SpacingToStyle("10px 20px")        => Style = "10px 20px"          Class = ""
-    ///  - SpacingToStyle("10px 20px 30px")   => Style = "10px 20px 30px"     Class = ""
-    ///  - SpacingToStyle("mr-0")             => Style = ""                   Class = "mr-0"
+    ///  - SpacingToStyle("auto")                  => Style = "auto"               Class = ""
+    ///  - SpacingToStyle("10px")                  => Style = "10px"               Class = ""
+    ///  - SpacingToStyle("10px 20px")             => Style = "10px 20px"          Class = ""
+    ///  - SpacingToStyle("10px 20px 30px")        => Style = "10px 20px 30px"     Class = ""
+    ///  - SpacingToStyle("mr-0")                  => Style = ""                   Class = "mr-0"
     ///  - SpacingToStyle("my-classValue")         => Style = ""                   Class = "my-classValue"
     ///  - SpacingToStyle("mr-0 my-classValue")    => Style = ""                   Class = "mr-0 my-classValue"
     /// </example>
@@ -79,6 +80,19 @@ public static class SpacingExtensions
             return SaveInCacheAndReturns(value, string.Join(' ', AddMissingPixels(values)), "");
         }
 
+        // A `calc` function is a valid style
+        if (firstValue.StartsWith("calc(", StringComparison.OrdinalIgnoreCase))
+        {
+            return SaveInCacheAndReturns(value, value, "");
+        }
+
+        // Check if value contains invalid characters for a class name
+        if (value.IndexOfAny(InvalidCharsInClassName) >= 0)
+        {
+            return SaveInCacheAndReturns(value, "", "");
+        }
+
+        // Like a class name
         return SaveInCacheAndReturns(value, "", value);
     }
 

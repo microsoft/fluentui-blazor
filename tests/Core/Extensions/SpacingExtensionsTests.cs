@@ -18,6 +18,8 @@ public class SpacingExtensionsTests
     [InlineData("10% 15em 20 25px", "10% 15em 20px 25px", "")]
     [InlineData("-10 -15", "-10px -15px", "")]
     [InlineData("+10 +15%", "+10px +15%", "")]
+    [InlineData("margin: 10px", "", "")]
+    [InlineData("border: 1px", "", "")]
     public void SpacingExtensions_Style(string value, string expectedStyle, string expectedClass)
     {
         // Arrange & Act
@@ -33,6 +35,7 @@ public class SpacingExtensionsTests
     [InlineData("mr-0", "", "mr-0")]
     [InlineData("my-class", "", "my-class")]
     [InlineData("mr-0 my-class", "", "mr-0 my-class")]
+    [InlineData("Inv@lid", "", "")]
     public void SpacingExtensions_Class(string value, string expectedStyle, string expectedClass)
     {
         // Arrange & Act
@@ -50,6 +53,7 @@ public class SpacingExtensionsTests
     [InlineData("revert", "revert", "")]
     [InlineData("revert-layer", "revert-layer", "")]
     [InlineData("unset", "unset", "")]
+    [InlineData("calc(100px - 10px)", "calc(100px - 10px)", "")]
     public void SpacingExtensions_Keywords(string value, string expectedStyle, string expectedClass)
     {
         // Arrange & Act
@@ -58,5 +62,17 @@ public class SpacingExtensionsTests
         // Assert
         Assert.Equal(expectedStyle, converted.Style);
         Assert.Equal(expectedClass, converted.Class);
+    }
+
+    [Theory]
+    [InlineData("auto 0px")]
+    [InlineData("revert 10px")]
+    public void SpacingExtensions_Invalid(string value)
+    {
+        // Arrange & Act
+        var ex = Assert.Throws<ArgumentException>(() => value.SpacingToStyle());
+
+        // Assert
+        Assert.Equal("The value cannot contain a CSS keyword and a class name or style value. (Parameter 'value')", ex.Message);
     }
 }
