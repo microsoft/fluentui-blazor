@@ -380,18 +380,13 @@ function calculateVisibleRows(gridElement, rowHeight) {
 }
 
 export function dynamicItemsPerPage(gridElement, dotNetObject, rowSize) {
-    let timeout;
-
     const observer = new ResizeObserver(() => {
         const visibleRows = calculateVisibleRows(gridElement, rowSize)
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            dotNetObject.invokeMethodAsync('UpdateItemsPerPageAsync', visibleRows)
-                .catch(err => console.error("Error invoking Blazor method:", err));
-        }, 50);
+        dotNetObject.invokeMethodAsync('UpdateItemsPerPageAsync', visibleRows)
+            .catch(err => console.error("Error invoking Blazor method:", err));
     });
 
-    const targetElement = gridElement.parentElement; 
+    const targetElement = gridElement.parentElement;
     if (targetElement) {
         observer.observe(targetElement);
     }
