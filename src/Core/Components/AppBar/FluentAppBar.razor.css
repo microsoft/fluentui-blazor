@@ -29,6 +29,7 @@
 }
 
 ::deep div[part="label"] {
+    color: var(--neutral-foreground-rest);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
