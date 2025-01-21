@@ -28,7 +28,7 @@ Warn about the use of `CurrentValue` property,
 
 # FluentGridItem component
 
-These properties only for the component `FluentGridItem` have been renamed:
+These properties have been renamed only for the `FluentGridItem` component:
 - `xs` to `Xs`
 - `sm` to `Sm`
 - `md` to `Md`
@@ -46,9 +46,9 @@ Remove the following properties :
 - `MarginBlock`
 - `Typo`
 
-In case where the component FluentLabel is used, write the following comment : 
-    Label is now exclusivly being used for labeling input fields.
-    If you want to use a component that shows text using Fluent's opinions on typography and is more compatible with what was used in v4, you can use the new `Text` component instead.
+In case where the FluentLabel component is used, write the following comment:
+- Label is now exclusivly being used for labeling input fields.
+- If you want to use a component that shows text using Fluent's opinions on typography and is more compatible with what was used in v4, you can use the new `Text` component instead.
 
 # FluentLayout component
 
