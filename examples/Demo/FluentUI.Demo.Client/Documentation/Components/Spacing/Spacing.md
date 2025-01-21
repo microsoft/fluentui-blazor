@@ -8,11 +8,11 @@ route: /Spacing
 We include a wide range of shorthand responsive margin and padding utility
 classes to modify an element’s appearance.
 
-**Spacing** is a way to modify `padding` or `margin` without creating new classes.
+**Spacing** is a way to modify the CSS `padding` or `margin` styles without creating new classes.
 
 ## How it works
 
-Use the `margin` or `padding` **property** and choose a **direction**.
+Use the `Margin` or `Padding` **property** and choose a **direction**.
 Then add **size**, ranging from 0 to 8.
 
 Spacing utilities that apply to all breakpoints, from `xs` to `xl`,
@@ -22,8 +22,8 @@ for `xs` and `{property}{direction}-{breakpoint}-{size}` for `sm`, `md`, `lg`, a
 
 The **properties**:
 
-- `m` for classes that set margin
-- `p` for classes that set padding
+- `m` for classes that set `Margin`.
+- `p` for classes that set `padding`.
 
 The **direction** property applies to:
 
@@ -64,33 +64,6 @@ The size changes with an interval of, by default, **4 pixels** (see the CSS vari
 - `n7` sets `margin` or `padding` to `-28px`
 - `n8` sets `margin` or `padding` to `-32px`
 
-## CSS variables
-
-**Spacing** uses these CSS variables.
-You can update these values, depending of your choices.
-
-```css
---spacingVerticalNone:    0;
---spacingVerticalXS:      4px;
---spacingVerticalS:       8px;
---spacingVerticalM:       12px;
---spacingVerticalL:       16px;
---spacingVerticalXL:      20px;
---spacingVerticalXXL:     24px;
---spacingVerticalXXXL:    28px;
---spacingVerticalXXXXL:   32px;
-
---spacingHorizontalNone:  0;
---spacingHorizontalXS:    4px;
---spacingHorizontalS:     8px;
---spacingHorizontalM:     12px;
---spacingHorizontalL:     16px;
---spacingHorizontalXL:    20px;
---spacingHorizontalXXL:   24px;
---spacingHorizontalXXXL:  28px;
---spacingHorizontalXXXXL: 32px;
-```
-
 ## Example
 
 ```css
@@ -107,7 +80,7 @@ You can update these values, depending of your choices.
 /* margin-right: 8px; margin-left: 8px; */
 .px-2 {
   padding-right: var(--spacingHorizontalS) !important;
-  padding-left: var(--spacingHorizontalS) !important;
+  padding-left:  var(--spacingHorizontalS) !important;
 }
 
 /* padding: 12px 12px; */
@@ -141,3 +114,29 @@ Example:
 ## Demo
 
 {{ SpacingDefault }}
+
+## Appendix - CSS variables
+
+**Spacing** uses these CSS variables, that can be customized:
+
+```css
+--spacingVerticalNone:    0;
+--spacingVerticalXS:      4px;
+--spacingVerticalS:       8px;
+--spacingVerticalM:       12px;
+--spacingVerticalL:       16px;
+--spacingVerticalXL:      20px;
+--spacingVerticalXXL:     24px;
+--spacingVerticalXXXL:    28px;
+--spacingVerticalXXXXL:   32px;
+
+--spacingHorizontalNone:  0;
+--spacingHorizontalXS:    4px;
+--spacingHorizontalS:     8px;
+--spacingHorizontalM:     12px;
+--spacingHorizontalL:     16px;
+--spacingHorizontalXL:    20px;
+--spacingHorizontalXXL:   24px;
+--spacingHorizontalXXXL:  28px;
+--spacingHorizontalXXXXL: 32px;
+```
