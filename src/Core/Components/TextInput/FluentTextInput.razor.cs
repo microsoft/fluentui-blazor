@@ -13,8 +13,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TextInput/FluentTextInput.razor.js";
-
     /// <inheritdoc />
     [Parameter]
     public ElementReference Element { get; set; }
@@ -105,12 +103,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     {
         if (firstRender)
         {
-            // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            // Call a function from the JavaScript module
-            // Wait for this PR to delete the code: https://github.com/microsoft/fluentui/pull/33144
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TextInput.ObserveAttributeChanges", Element);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
         }
     }
 

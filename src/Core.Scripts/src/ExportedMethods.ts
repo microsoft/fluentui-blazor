@@ -1,4 +1,5 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
+import { Microsoft as AttributesFile } from './Utilities/Attributes';
 import { Microsoft as FluentDialogFile } from './Components/Dialog/FluentDialog';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
@@ -16,6 +17,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     // Utilities methods (Logger)
     (window as any).Microsoft.FluentUI.Blazor.Utilities = (window as any).Microsoft.FluentUI.Blazor.Utilities || {};
     (window as any).Microsoft.FluentUI.Blazor.Utilities.Logger = LoggerFile.FluentUI.Blazor.Utilities.Logger;
+    (window as any).Microsoft.FluentUI.Blazor.Utilities.Attributes = AttributesFile.FluentUI.Blazor.Utilities.Attributes;
 
     // Dialog methods
     (window as any).Microsoft.FluentUI.Blazor.Components = (window as any).Microsoft.FluentUI.Blazor.Components || {};
