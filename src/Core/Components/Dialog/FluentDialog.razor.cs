@@ -23,11 +23,11 @@ public partial class FluentDialog : FluentComponentBase
     }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("height", Instance?.Options.Height, when: IsDialog())
         .AddStyle("width", Instance?.Options.Width, when: !string.IsNullOrEmpty(Instance?.Options.Width))
         .AddStyle("max-width", "calc(-48px + 100vw)", when: !string.IsNullOrEmpty(Instance?.Options.Width)) // By default the fluent-dialog.max-width is "600px".

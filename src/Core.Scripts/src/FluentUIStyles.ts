@@ -20,7 +20,25 @@ body:has(.prevent-scroll) {
     --presence-blocked: var(--colorPaletteRedBackground3);
     --presence-unknown: var(--colorNeutralForeground3);
     --highlight-bg: #fff3cd;
-    --design-unit: 4px;
+
+    --spacingVerticalNone: 0;
+    --spacingVerticalXS: 4px;
+    --spacingVerticalS: 8px;
+    --spacingVerticalM: 12px;
+    --spacingVerticalL: 16px;
+    --spacingVerticalXL: 20px;
+    --spacingVerticalXXL: 24px;
+    --spacingVerticalXXXL: 28px;
+    --spacingVerticalXXXXL: 32px;
+    --spacingHorizontalNone: 0;
+    --spacingHorizontalXS: 4px;
+    --spacingHorizontalS: 8px;
+    --spacingHorizontalM: 12px;
+    --spacingHorizontalL: 16px;
+    --spacingHorizontalXL: 20px;
+    --spacingHorizontalXXL: 24px;
+    --spacingHorizontalXXXL: 28px;
+    --spacingHorizontalXXXXL: 32px;
 }
 `;
 

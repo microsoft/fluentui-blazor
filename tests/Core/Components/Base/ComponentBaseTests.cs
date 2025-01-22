@@ -51,17 +51,22 @@ public class ComponentBaseTests : TestContext
     ///
     /// ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
     /// </summary>
-    /// <param name="propName">Blazor Component property name</param>
-    /// <param name="htmlName">HTML attribute name</param>
-    /// <param name="value">Value</param>
+    /// <param name="blazor">Blazor Component property name/value</param>
+    /// <param name="html">Expected HTML attribute name/value</param>
     [Theory]
-    [InlineData("Id", "id", "My-Specific-ID")]
-    [InlineData("Class", "class", "My-Specific-Class")]
-    [InlineData("Style", "style", "My-Specific-Style")]
-    [InlineData("extra-attribute", "extra-attribute", "My-Specific-Attribute")]  // AdditionalAttributes
-    public void ComponentBase_DefaultProperties(string propName, string htmlName, object value)
+    [InlineData("Id='id='My-Specific-ID'", "id='My-Specific-ID'")]
+    [InlineData("Class='My-Specific-Item'", "class='My-Specific-Item'")]
+    [InlineData("Style='My-Specific-Style'", "style='My-Specific-Style'")]
+    [InlineData("Margin='10px'", "style='margin: 10px;*'")]                                                 // `*` is required to accept `;` in the Regex
+    [InlineData("Padding='10px'", "style='padding: 10px;*'")]                                               // `*` is required to accept `;` in the Regex
+    [InlineData("Margin='my-margin'", "class='my-margin'")]
+    [InlineData("Padding='my-padding'", "class='my-padding'")]
+    [InlineData("extra-attribute='My-Specific-Attribute'", "extra-attribute='My-Specific-Attribute'")]      // AdditionalAttributes
+    public void ComponentBase_DefaultProperties(string blazor, string html)
     {
         var errors = new StringBuilder();
+        var blazorAttribute = ParseHtmlAttribute(blazor);
+        var htmlAttribute = ParseHtmlAttribute(html);
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
@@ -78,18 +83,18 @@ public class ComponentBaseTests : TestContext
                 parameters.Add(p => p.Type, type);
                 parameters.Add(p => p.Parameters, new Dictionary<string, object>
                 {
-                    { propName, value }
+                    { blazorAttribute.Name, blazorAttribute.Value }
                 });
             });
 
             // Assert
-            var isMatch = renderedComponent.Markup.ContainsAttribute(htmlName, value);
+            var isMatch = renderedComponent.Markup.ContainsAttribute(htmlAttribute.Name, htmlAttribute.Value);
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 
             if (!isMatch)
             {
-                var error = $"\"{componentType.Name}\" does not use the \"{propName}\" property/attribute (missing HTML attribute {htmlName}=\"{value}\").";
+                var error = $"\"{componentType.Name}\" does not use the \"{blazorAttribute.Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
                 errors.AppendLine(error);
             }
         }
@@ -137,6 +142,21 @@ public class ComponentBaseTests : TestContext
 
             var module = cut.Instance.GetJSModule();
         });
+    }
+
+    // Helper method to parse HTML attributes
+    private static (string Name, string Value) ParseHtmlAttribute(string attributeString)
+    {
+        var parts = attributeString.Split(['='], 2);
+        if (parts.Length != 2)
+        {
+            throw new ArgumentException("Invalid attribute string format.", nameof(attributeString));
+        }
+
+        var name = parts[0].Trim();
+        var value = parts[1].Trim(' ', '"', '\'');
+
+        return (name, value);
     }
 
     // Class used by the "ComponentBase_JsModule" test
