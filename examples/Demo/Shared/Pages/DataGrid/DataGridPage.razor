@@ -1,4 +1,4 @@
-﻿@page "/datagrid-overview"
+﻿@page "/datagrid"
 
 @using FluentUI.Demo.Shared.Pages.DataGrid.Examples;
 @using Microsoft.FluentUI.AspNetCore.Components;
@@ -125,28 +125,31 @@
 <p>
     See the following pages for examples and additional documentation on the situations that ech example shows.
 </p>
-<FluentStack Orientation="Orientation.Vertical" >
+<FluentStack Orientation="Orientation.Vertical" Style="margin-bottom: 1rem;" >
+    <h3>Basics</h3>
+    <FluentAnchor Href="/datagrid-get-started" Appearance="Appearance.Hypertext">Getting started</FluentAnchor>
+    <FluentAnchor Href="/datagrid-typical" Appearance="Appearance.Hypertext">Typical grid usage</FluentAnchor>
+    <h3>Layout</h3>
+    <FluentAnchor Href="/datagrid-loading-and-empty-content" Appearance="Appearance.Hypertext">...Content parameters</FluentAnchor>
     <FluentAnchor Href="/datagrid-auto-fit" Appearance="Appearance.Hypertext">Auto fit</FluentAnchor>
     <FluentAnchor Href="/datagrid-auto-items-per-page" Appearance="Appearance.Hypertext">Auto items per page</FluentAnchor>
-    <FluentAnchor Href="/datagrid-custom-comparer" Appearance="Appearance.Hypertext">Custom comparer</FluentAnchor>
     <FluentAnchor Href="/datagrid-custom-paging" Appearance="Appearance.Hypertext">Custom paging</FluentAnchor>
-    <FluentAnchor Href="/datagrid-custom-sort" Appearance="Appearance.Hypertext">Custom sorting</FluentAnchor>
-    <FluentAnchor Href="/datagrid-dynamic-columns" Appearance="Appearance.Hypertext">Dynamic columns</FluentAnchor>
-    <FluentAnchor Href="/datagrid-get-started" Appearance="Appearance.Hypertext">Getting started</FluentAnchor>
-    <FluentAnchor Href="/datagrid-header-generation" Appearance="Appearance.Hypertext">Header generation</FluentAnchor>
-    <FluentAnchor Href="/datagrid-loading-and-empty-content" Appearance="Appearance.Hypertext">Intemittent loading</FluentAnchor>
-    <FluentAnchor Href="/datagrid-manual" Appearance="Appearance.Hypertext">Manual grid</FluentAnchor>
     <FluentAnchor Href="/datagrid-multi-line" Appearance="Appearance.Hypertext">Multi line text in cells</FluentAnchor>
-    <FluentAnchor Href="/datagrid-multi-select" Appearance="Appearance.Hypertext">Single/Multi select</FluentAnchor>
-    <FluentAnchor Href="/datagrid-remote-data" Appearance="Appearance.Hypertext">Remote data</FluentAnchor>
     <FluentAnchor Href="/datagrid-scrollbars" Appearance="Appearance.Hypertext">Table with scrollbars</FluentAnchor>
+    <h3>Sorting</h3>
+    <FluentAnchor Href="/datagrid-custom-comparer-sort" Appearance="Appearance.Hypertext">Custom comparer</FluentAnchor>
+    <FluentAnchor Href="/datagrid-custom-gridsort" Appearance="Appearance.Hypertext">Custom sorting</FluentAnchor>
+    <h3>Columns</h3>
+    <FluentAnchor Href="/datagrid-multi-select" Appearance="Appearance.Hypertext">Single/Multi select</FluentAnchor>
+    <FluentAnchor Href="/datagrid-dynamic-columns" Appearance="Appearance.Hypertext">Dynamic columns</FluentAnchor>
+    <FluentAnchor Href="/datagrid-header-generation" Appearance="Appearance.Hypertext">Header generation</FluentAnchor>
     <FluentAnchor Href="/datagrid-template-columns" Appearance="Appearance.Hypertext">Template columns</FluentAnchor>
     <FluentAnchor Href="/datagrid-template-columns-2" Appearance="Appearance.Hypertext">More template columns</FluentAnchor>
-    <FluentAnchor Href="/datagrid-typical" Appearance="Appearance.Hypertext">Typical grid usage</FluentAnchor>
+    <h3>Advanced</h3>
     <FluentAnchor Href="/datagrid-virtualize" Appearance="Appearance.Hypertext">Virtualized grid</FluentAnchor>
+    <FluentAnchor Href="/datagrid-remote-data" Appearance="Appearance.Hypertext">Remote data</FluentAnchor>
+    <FluentAnchor Href="/datagrid-manual" Appearance="Appearance.Hypertext">Manual grid</FluentAnchor>
 </FluentStack>
-
-
 
 <h2 id="documentation">Documentation</h2>
 

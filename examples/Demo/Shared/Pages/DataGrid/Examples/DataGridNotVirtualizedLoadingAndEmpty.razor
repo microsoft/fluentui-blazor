@@ -7,7 +7,10 @@
             <PropertyColumn Property="@(c => c.Item4)" Align="Align.End" />
         </ChildContent>
         <EmptyContent>
-            <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />&nbsp; Nothing to see here. Carry on!
+            <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Center" HorizontalGap="10">
+                <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />
+                <div>Nothing to see here. Carry on!</div>
+            </FluentStack>
         </EmptyContent>
     </FluentDataGrid>
 </div>

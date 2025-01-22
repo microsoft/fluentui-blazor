@@ -386,9 +386,24 @@ public class DemoNavProvider
                         children:
                         [
                             new NavLink(
-                                href: "/datagrid-overview",
+                                href: "/datagrid",
                                 icon: new Icons.Regular.Size20.Grid(),
                                 title: "Overview"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-get-started",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Getting started"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-typical",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Typical grid usage"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-loading-and-empty-content",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "...Content parameters"
                             ),
                             new NavLink (
                                 href:"/datagrid-auto-fit",
@@ -401,44 +416,9 @@ public class DemoNavProvider
                                 title: "Auto items per page"
                             ),
                             new NavLink (
-                                href:"/datagrid-custom-comparer",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Custom comparer"
-                            ),
-                            new NavLink (
                                 href:"/datagrid-custom-paging",
                                 icon: new Icons.Regular.Size20.Grid(),
                                 title: "Custom paging"
-                            ),
-                            new NavLink (
-                                href:"/datagrid-custom-sort",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Custom sorting"
-                            ),
-                            new NavLink (
-                                href:"/datagrid-dynamic-columns",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Dynamic columns"
-                            ),
-                            new NavLink (
-                                href:"/datagrid-get-started",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Getting started"
-                            ),
-                            new NavLink (
-                                href:"/datagrid-header-generation",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Header generation"
-                            ),
-                            new NavLink (
-                                href:"/datagrid-loading-and-empty-content",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Intemittent loading"
-                            ),
-                            new NavLink (
-                                href:"/datagrid-manual",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Manual grid"
                             ),
                             new NavLink (
                                 href:"/datagrid-multi-line",
@@ -446,19 +426,34 @@ public class DemoNavProvider
                                 title: "Multi line text in cells"
                             ),
                             new NavLink (
+                                href:"/datagrid-scrollbars",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Table with scrollbars"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-custom-comparer-sort",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Custom comparer sort"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-custom-gridsort",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Custom GridSort"
+                            ),
+                            new NavLink (
                                 href:"/datagrid-multi-select",
                                 icon: new Icons.Regular.Size20.Grid(),
                                 title: "Single/Multi select"
                             ),
                             new NavLink (
-                                href:"/datagrid-remote-data",
+                                href:"/datagrid-dynamic-columns",
                                 icon: new Icons.Regular.Size20.Grid(),
-                                title: "Remote data"
+                                title: "Dynamic columns"
                             ),
                             new NavLink (
-                                href:"/datagrid-scrollbars",
+                                href:"/datagrid-header-generation",
                                 icon: new Icons.Regular.Size20.Grid(),
-                                title: "Table with scrollbars"
+                                title: "Header generation"
                             ),
                             new NavLink (
                                 href:"/datagrid-template-columns",
@@ -471,14 +466,19 @@ public class DemoNavProvider
                                 title: "More template columns"
                             ),
                             new NavLink (
-                                href:"/datagrid-typical",
-                                icon: new Icons.Regular.Size20.Grid(),
-                                title: "Typical grid usage"
-                            ),
-                            new NavLink (
                                 href:"/datagrid-virtualize",
                                 icon: new Icons.Regular.Size20.Grid(),
                                 title: "Virtualized grid"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-remote-data",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Remote data"
+                            ),
+                            new NavLink (
+                                href:"/datagrid-manual",
+                                icon: new Icons.Regular.Size20.Grid(),
+                                title: "Manual grid"
                             ),
                         ]
                     ),
