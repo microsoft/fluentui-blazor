@@ -58,14 +58,6 @@ public class DesignTokenGenerator : IIncrementalGenerator
             sb.AppendLine("/// </summary>");
             sb.AppendLine($"public sealed class {name} : DesignToken<{type}>");
             sb.AppendLine("{");
-            //sb.AppendLine("\t/// <summary>");
-            //sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
-            //sb.AppendLine("\t/// </summary>");
-            //sb.AppendLine($"\tpublic {name}()");
-            //sb.AppendLine("\t{");
-            //sb.AppendLine($"\t\tName = Constants.{name};");
-            //sb.AppendLine("\t}");
-            //sb.AppendLine("");
             sb.AppendLine("\t/// <summary>");
             sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
             sb.AppendLine("\t/// </summary>");
