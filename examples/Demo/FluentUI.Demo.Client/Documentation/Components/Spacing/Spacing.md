@@ -91,14 +91,17 @@ The size changes with an interval of, by default, **4 pixels** (see the CSS vari
 
 ## `Margin` and `Padding` component attributes
 
-All **FluentUI Blazor components** contain the `Margin` and `Padding` attributes.
+All **FluentUI Blazor components** have the `Margin` and `Padding` parameters.
 
 You can specify a **CSS value** respecting the CSS [padding](https://developer.mozilla.org/docs/Web/CSS/padding)
 or CSS [margin](https://developer.mozilla.org/docs/Web/CSS/margin) pattern.
-Or you can specify a **class name** like defined above on this page.
+Or you can use a **class name** like shown earlier on this page.
 
-> If you use one of these properties to include a complete style (e.g. `style=“margin: 10px;”`)
-> then this style will be ignored. The property `Style` can be used to include a complete style.
+> The contents of these **Margin** and **Padding** parameters can contain either the **value** of
+> these margins or paddings (e.g. `10px`), or the name of a CSS class (e.g. `mt-0`).
+> If you use one of these parameters to include a complete style (e.g. `margin: 10px;` or `border: 1px`)
+> then this style will be ignored.
+> If you wish to do this, you must use the `Style` parameter.
 
 Example:
 ```html
@@ -117,7 +120,8 @@ Example:
 
 ## Appendix - CSS variables
 
-**Spacing** uses these CSS variables, that can be customized:
+**Spacing** uses these CSS variables for the default values.
+These values can be customized or overridden in your own CSS files.
 
 ```css
 --spacingVerticalNone:    0;

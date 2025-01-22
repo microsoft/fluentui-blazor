@@ -30,8 +30,8 @@ public partial class SpacingComputedBoxes
 
         if (JSModule != null)
         {
-            var margin = Margin.SpacingToStyle();
-            var padding = Padding.SpacingToStyle();
+            var margin = Margin.ConvertSpacing();
+            var padding = Padding.ConvertSpacing();
 
             await JSModule.InvokeVoidAsync(
                 "setSpacing",

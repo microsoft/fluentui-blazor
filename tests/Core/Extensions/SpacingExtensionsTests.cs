@@ -23,7 +23,7 @@ public class SpacingExtensionsTests
     public void SpacingExtensions_Style(string value, string expectedStyle, string expectedClass)
     {
         // Arrange & Act
-        var converted = value.SpacingToStyle();
+        var converted = value.ConvertSpacing();
 
         // Assert
         Assert.Equal(expectedStyle, converted.Style);
@@ -39,7 +39,7 @@ public class SpacingExtensionsTests
     public void SpacingExtensions_Class(string value, string expectedStyle, string expectedClass)
     {
         // Arrange & Act
-        var converted = value.SpacingToStyle();
+        var converted = value.ConvertSpacing();
 
         // Assert
         Assert.Equal(expectedStyle, converted.Style);
@@ -57,7 +57,7 @@ public class SpacingExtensionsTests
     public void SpacingExtensions_Keywords(string value, string expectedStyle, string expectedClass)
     {
         // Arrange & Act
-        var converted = value.SpacingToStyle();
+        var converted = value.ConvertSpacing();
 
         // Assert
         Assert.Equal(expectedStyle, converted.Style);
@@ -70,7 +70,7 @@ public class SpacingExtensionsTests
     public void SpacingExtensions_Invalid(string value)
     {
         // Arrange & Act
-        var ex = Assert.Throws<ArgumentException>(() => value.SpacingToStyle());
+        var ex = Assert.Throws<ArgumentException>(() => value.ConvertSpacing());
 
         // Assert
         Assert.Equal("The value cannot contain a CSS keyword and a class name or style value. (Parameter 'value')", ex.Message);

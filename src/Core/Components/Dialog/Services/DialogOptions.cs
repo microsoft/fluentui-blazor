@@ -123,15 +123,15 @@ public class DialogOptions : IFluentComponentBase
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.
     /// </summary>
     internal virtual string? ClassValue => new CssBuilder(Class)
-        .AddClass(Margin.SpacingToStyle().Class)
-        .AddClass(Padding.SpacingToStyle().Class)
+        .AddClass(Margin.ConvertSpacing().Class)
+        .AddClass(Padding.ConvertSpacing().Class)
         .Build();
 
     /// <summary>
     /// Gets the style builder, containing the default margin and padding values.
     /// </summary>
     internal virtual string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("margin", Margin.SpacingToStyle().Style)
-        .AddStyle("padding", Padding.SpacingToStyle().Style)
+        .AddStyle("margin", Margin.ConvertSpacing().Style)
+        .AddStyle("padding", Padding.ConvertSpacing().Style)
         .Build();
 }

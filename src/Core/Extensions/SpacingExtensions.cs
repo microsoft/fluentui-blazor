@@ -23,17 +23,17 @@ public static class SpacingExtensions
     /// or a classValue name if the value is not a valid CSS keyword like `auto`, `inherit`, `initial`, ...
     /// </summary>
     /// <example>
-    ///  - SpacingToStyle("auto")                  => Style = "auto"               Class = ""
-    ///  - SpacingToStyle("10px")                  => Style = "10px"               Class = ""
-    ///  - SpacingToStyle("10px 20px")             => Style = "10px 20px"          Class = ""
-    ///  - SpacingToStyle("10px 20px 30px")        => Style = "10px 20px 30px"     Class = ""
-    ///  - SpacingToStyle("mr-0")                  => Style = ""                   Class = "mr-0"
-    ///  - SpacingToStyle("my-classValue")         => Style = ""                   Class = "my-classValue"
-    ///  - SpacingToStyle("mr-0 my-classValue")    => Style = ""                   Class = "mr-0 my-classValue"
+    ///  - ConvertSpacing("auto")                  => Style = "auto"               Class = ""
+    ///  - ConvertSpacing("10px")                  => Style = "10px"               Class = ""
+    ///  - ConvertSpacing("10px 20px")             => Style = "10px 20px"          Class = ""
+    ///  - ConvertSpacing("10px 20px 30px")        => Style = "10px 20px 30px"     Class = ""
+    ///  - ConvertSpacing("mr-0")                  => Style = ""                   Class = "mr-0"
+    ///  - ConvertSpacing("my-classValue")         => Style = ""                   Class = "my-classValue"
+    ///  - ConvertSpacing("mr-0 my-classValue")    => Style = ""                   Class = "mr-0 my-classValue"
     /// </example>
     /// <param name="value"></param>    
     /// <returns></returns>
-    public static (string Style, string Class) SpacingToStyle(this string? value)
+    public static (string Style, string Class) ConvertSpacing(this string? value)
     {
         // To optimize multiple calls with the same value
         if (string.Equals(_previousSpacingToStyle.Key, value, StringComparison.Ordinal))
@@ -43,7 +43,7 @@ public static class SpacingExtensions
 
         if (value == null)
         {
-            return SaveInCacheAndReturns(value, "", "");
+            return SaveInCacheAndGet(value, "", "");
         }
 
         var values = value.Split(Separators, StringSplitOptions.RemoveEmptyEntries)
@@ -53,7 +53,7 @@ public static class SpacingExtensions
         // No value
         if (values.Length == 0)
         {
-            return SaveInCacheAndReturns(value, "", "");
+            return SaveInCacheAndGet(value, "", "");
         }
 
         // A keyword cannot be used with other values
@@ -66,7 +66,7 @@ public static class SpacingExtensions
         var firstValue = values[0];
         if (StyleKeyWords.Contains(firstValue, StringComparer.OrdinalIgnoreCase))
         {
-            return SaveInCacheAndReturns(value, values[0], "");
+            return SaveInCacheAndGet(value, values[0], "");
         }
 
         // In CSS, classValue names cannot start with a digit.
@@ -77,32 +77,32 @@ public static class SpacingExtensions
 
         if (isStyle)
         {
-            return SaveInCacheAndReturns(value, string.Join(' ', AddMissingPixels(values)), "");
+            return SaveInCacheAndGet(value, string.Join(' ', AddPxWhenNeeded(values)), "");
         }
 
         // A `calc` function is a valid style
         if (firstValue.StartsWith("calc(", StringComparison.OrdinalIgnoreCase))
         {
-            return SaveInCacheAndReturns(value, value, "");
+            return SaveInCacheAndGet(value, value, "");
         }
 
         // Check if value contains invalid characters for a class name
         if (value.IndexOfAny(InvalidCharsInClassName) >= 0)
         {
-            return SaveInCacheAndReturns(value, "", "");
+            return SaveInCacheAndGet(value, "", "");
         }
 
         // Like a class name
-        return SaveInCacheAndReturns(value, "", value);
+        return SaveInCacheAndGet(value, "", value);
     }
 
-    private static (string Style, string Class) SaveInCacheAndReturns(string? value, string styleValue, string classValue)
+    private static (string Style, string Class) SaveInCacheAndGet(string? value, string styleValue, string classValue)
     {
         _previousSpacingToStyle = new KeyValuePair<string?, (string, string)>(value, (styleValue, classValue));
         return (styleValue, classValue);
     }
 
-    private static string[] AddMissingPixels(string[] values)
+    private static string[] AddPxWhenNeeded(string[] values)
     {
         return values.Select(v => IsNumber(v) ? v + "px" : v).ToArray();
     }

@@ -12,9 +12,23 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
  *    
  *  Example, using https://dotnetfiddle.net/
  *  
- * We ran several tests to determine the number of elements (e.g. `.ml-?`) to generate, depending on requirements 
- * and the size of the CSS file generated. We determined that 8 elements is a good compromise
- * Spacing can be up to 32px (positive or negative).
+ *  We ran several tests to determine the number of elements (e.g. .ml-?) to generate, depending on requirements
+ *  and the size of the CSS file generated. We determined that 8 elements, where Spacing can then be set up to 32px
+ *  (either positive or negative), gives a good compromise between options and size of the CSS file.
+ *
+ *  1. To generate this CSS content, you can run this command in a C# Console Application:
+ *
+ *       System.Console.WriteLine(SpacingGenerator.Script);    // Default `Count` is 8
+ *
+ *  2. To find what file size corresponds to what count, the following code can be run in a C# Console Application.
+ *
+ *       for (int i = 1; i < 25; i++)
+ *       {
+ *           var script = SpacingGenerator.GenerateScript(i);
+ *           System.Console.WriteLine($"   Count = {i:00}   =>   Max spacing size: {i*4}px - File size:  {script.Length / 1024} kb.");
+ *       }
+ *   
+ *  Results:
  *   
  *    Count = 01   =>   Max spacing size:  4px - File size:  29 kb.
  *    Count = 02   =>   Max spacing size:  8px - File size:  43 kb.
@@ -41,14 +55,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
  *    Count = 23   =>   Max spacing size: 92px - File size: 378 kb.
  *    Count = 24   =>   Max spacing size: 96px - File size: 397 kb.
  *    
- *    for (int i = 1; i < 25; i++)
- *    {
- *        var script = SpacingGenerator.GenerateScript(i);
- *        System.Console.WriteLine($"   Count = {i:00}   =>   Max spacing size: {i*4}px - File size:  {script.Length / 1024} kb.");
- *    }
  */
-
-// System.Console.WriteLine(SpacingGenerator.Script);
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Non Production Code")]
 [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage(Justification = "Non Production Code")]

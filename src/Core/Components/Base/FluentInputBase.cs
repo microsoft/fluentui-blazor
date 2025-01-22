@@ -82,15 +82,15 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Gets the class builder, containing the default margin and padding values.
     /// </summary>
     protected virtual CssBuilder DefaultClassBuilder => new CssBuilder(Class)
-        .AddClass(Margin.SpacingToStyle().Class)
-        .AddClass(Padding.SpacingToStyle().Class);
+        .AddClass(Margin.ConvertSpacing().Class)
+        .AddClass(Padding.ConvertSpacing().Class);
 
     /// <summary>
     /// Gets the style builder, containing the default margin and padding values.
     /// </summary>
     protected virtual StyleBuilder DefaultStyleBuilder => new StyleBuilder(Style)
-        .AddStyle("margin", Margin.SpacingToStyle().Style)
-        .AddStyle("padding", Padding.SpacingToStyle().Style);
+        .AddStyle("margin", Margin.ConvertSpacing().Style)
+        .AddStyle("padding", Padding.ConvertSpacing().Style);
 
     /// <summary>
     /// Gets a CSS class string that combines the `Class` attribute and and a string indicating
