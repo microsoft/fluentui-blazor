@@ -30,7 +30,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <summary />
     [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
     [Inject]
