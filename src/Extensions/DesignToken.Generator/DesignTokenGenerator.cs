@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,14 +58,14 @@ public class DesignTokenGenerator : IIncrementalGenerator
             sb.AppendLine("/// </summary>");
             sb.AppendLine($"public sealed class {name} : DesignToken<{type}>");
             sb.AppendLine("{");
-            sb.AppendLine("\t/// <summary>");
-            sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
-            sb.AppendLine("\t/// </summary>");
-            sb.AppendLine($"\tpublic {name}()");
-            sb.AppendLine("\t{");
-            sb.AppendLine($"\t\tName = Constants.{name};");
-            sb.AppendLine("\t}");
-            sb.AppendLine("");
+            //sb.AppendLine("\t/// <summary>");
+            //sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
+            //sb.AppendLine("\t/// </summary>");
+            //sb.AppendLine($"\tpublic {name}()");
+            //sb.AppendLine("\t{");
+            //sb.AppendLine($"\t\tName = Constants.{name};");
+            //sb.AppendLine("\t}");
+            //sb.AppendLine("");
             sb.AppendLine("\t/// <summary>");
             sb.AppendLine($"\t/// Constructs an instance of the {name} design token");
             sb.AppendLine("\t/// </summary>");
@@ -76,15 +80,17 @@ public class DesignTokenGenerator : IIncrementalGenerator
         context.AddSource($"DesignTokens.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
 
         sb.Clear();
-        sb.AppendLine("using Microsoft.Extensions.DependencyInjection;\n");
+        sb.AppendLine("using Microsoft.Extensions.DependencyInjection;");
+        sb.AppendLine("using Microsoft.JSInterop;\n");
         sb.AppendLine("namespace Microsoft.FluentUI.AspNetCore.Components.DesignTokens;\n");
         sb.AppendLine("public static class ServiceCollectionExtensions");
         sb.AppendLine("{");
-        sb.AppendLine("\tpublic static void AddDesignTokens(this IServiceCollection services)");
+        sb.AppendLine("\tpublic static void AddDesignTokens(this IServiceCollection services, LibraryConfiguration? config)");
         sb.AppendLine("\t{");
         foreach (FieldInfo info in GetConstants(typeof(DesignTokenConstants)))
         {
-            sb.AppendLine($"\t\tservices.AddTransient<{info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1)}>();");
+            var name = info.Name[0].ToString().ToUpperInvariant() + info.Name.Substring(1);
+            sb.AppendLine($"\t\tservices.AddTransient<{name}>(p => new {name}(p.GetRequiredService<IJSRuntime>(), config));");
         }
         sb.AppendLine("\t}");
         sb.AppendLine("}");

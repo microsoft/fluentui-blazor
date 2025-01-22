@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
 using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
@@ -52,7 +56,7 @@ public static class ServiceCollectionExtensions
         }
         services.AddSingleton(options);
 
-        services.AddDesignTokens();
+        services.AddDesignTokens(options);
 
         return services;
     }
