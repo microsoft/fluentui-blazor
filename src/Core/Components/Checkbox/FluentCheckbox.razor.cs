@@ -10,7 +10,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The FluentCheckbox component is used to render a checkbox input.
+/// The FluentCheckbox component is used to render a checkbox input...
 /// </summary>
 public partial class FluentCheckbox : FluentInputBase<bool?>, IFluentComponentElementBase
 {
