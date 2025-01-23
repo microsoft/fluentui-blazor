@@ -40,7 +40,7 @@ export function attachIndicatorClickHandler(id) {
     handlers.set(id, { indicator, clickHandler });
 }
 
-export function detachHandlers(id) {
+export function detachIndicatorClickHandler(id) {
     const handler = handlers.get(id);
     if (handler) {
         const { indicator, clickHandler } = handler;
