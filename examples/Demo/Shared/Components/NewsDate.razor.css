@@ -1,0 +1,36 @@
+.calendar {
+    width: 30px;
+    border: 1px solid var(--accent-fill-rest);
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.calendar-header {
+    background-color: var(--accent-fill-active);
+    color: var(--neutral-fill-rest);
+    text-align: center;
+}
+
+    .calendar-header .month{
+        height: 20px;
+        font-size: 0.7em;
+        font-weight: bold;
+    }
+
+    .calendar-header .year {
+        height: 10px;
+        font-size: 0.7em;
+    }
+
+.calendar-body {
+    text-align: center;
+    position: relative;
+}
+
+    .calendar-body .date {
+        font-size: 1em;
+        font-weight: bolder;
+        color: var(--accent-fill-rest)
+    }

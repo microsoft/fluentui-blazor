@@ -1,0 +1,27 @@
+﻿<div class="calendar">
+    <div class="calendar-header">
+        <div class="month">@Month</div>
+        @if (@IncludeYear)
+        {
+            <div class="year">@Year</div>
+        }
+    </div>
+    <div class="calendar-body">
+        <div class="date">@Day</div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string? Day { get; set; }
+
+    [Parameter, EditorRequired]
+    public string? Month { get; set; }
+
+    [Parameter, EditorRequired]
+    public string? Year { get; set; }
+
+    [Parameter]
+    public bool IncludeYear { get; set; } = false;
+
+}
