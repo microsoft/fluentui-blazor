@@ -4,16 +4,9 @@
  *
  * Normalization of HTML elements, copied and ajusted from Normalize.css
  * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ *
+ * You can disable this style by setting the attribute `no-style` on the `body` element, in your source code.
  */
-
-html {
-  line-height: 1.15; /* Correct the line height in all browsers. */
-  -webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. */
-}
-
-* {
-  box-sizing: border-box;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   : root {
@@ -34,37 +27,48 @@ body {
   background-color: var(--colorNeutralBackground1);
 }
 
-h6, h5, h4, h3, h2, h1 {
-  margin-top: 0;
-  font-weight: var(--fontWeightMedium);
+* {
+  box-sizing: border-box;
 }
 
 h1 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeHero900);
   line-height: var(--lineHeightHero900);
 }
 
 h2 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeHero800);
   line-height: var(--lineHeightHero800);
 }
 
 h3 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeHero700);
   line-height: var(--lineHeightHero700);
 }
 
 h4 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeHero600);
   line-height: var(--lineHeightHero600);
 }
 
 h5 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeBase500);
   line-height: var(--lineHeightBase500);
 }
 
 h6 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeBase400);
   line-height: var(--lineHeightBase400);
 }

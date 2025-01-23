@@ -46,8 +46,20 @@ body:has(.prevent-scroll) {
    * Update the default FluentUI Blazor styles to the document
    */
   export const applyStyles = (): void => {
+
     var styleSheet = new CSSStyleSheet();
     styleSheet.replaceSync(styles);
     document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+
+    // Read the default style `fluentui-blazor.css`.
+    const useDefaultStyle = document.body?.hasAttribute('no-fuib-style') === true || document.documentElement?.hasAttribute('no-fuib-style') === true;
+
+    if (!useDefaultStyle) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = '_content/Microsoft.FluentUI.AspNetCore.Components/css/default-fuib.css';
+      document.head.appendChild(link);
+    }
   }
 }
