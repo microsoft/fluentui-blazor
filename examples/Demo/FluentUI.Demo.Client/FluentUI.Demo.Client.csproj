@@ -37,6 +37,7 @@
   <ItemGroup>
     <EmbeddedResource Include="**\*.md" />
     <EmbeddedResource Remove="DebugPages\_README.md" />
+    <EmbeddedResource Remove="wwwroot\copilot-instructions.md" />
     <AdditionalFiles Include="$(ProjectDir)/*.xml" />
   </ItemGroup>
 
@@ -54,11 +55,6 @@
   <!-- Embedd other languages under root resx file -->
   <ItemGroup>
     <None Include="**\*.*.resx" />
-    <None Remove="documentation\getstarted\migration\MigrationColor.md" />
-    <None Remove="documentation\getstarted\migration\MigrationFluentButton.md" />
-    <None Remove="documentation\getstarted\migration\MigrationFluentGridItem.md" />
-    <None Remove="documentation\getstarted\migration\MigrationFluentLayout.md" />
-    <None Remove="Documentation\GetStarted\Migration\MigrationGeneral.md" />
     <None Update="**\*.*.resx">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).resx</DependentUpon>

@@ -30,7 +30,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <summary />
     [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    protected IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
     [Inject]
@@ -64,6 +64,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <inheritdoc />
     [Parameter]
+    public virtual string? Margin { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Padding { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
     public virtual object? Data { get; set; }
 
     #endregion
@@ -71,16 +79,30 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     #region FluentInputBase
 
     /// <summary>
+    /// Gets the class builder, containing the default margin and padding values.
+    /// </summary>
+    protected virtual CssBuilder DefaultClassBuilder => new CssBuilder(Class)
+        .AddClass(Margin.ConvertSpacing().Class)
+        .AddClass(Padding.ConvertSpacing().Class);
+
+    /// <summary>
+    /// Gets the style builder, containing the default margin and padding values.
+    /// </summary>
+    protected virtual StyleBuilder DefaultStyleBuilder => new StyleBuilder(Style)
+        .AddStyle("margin", Margin.ConvertSpacing().Style)
+        .AddStyle("padding", Padding.ConvertSpacing().Style);
+
+    /// <summary>
     /// Gets a CSS class string that combines the `Class` attribute and and a string indicating
     /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
     /// Derived components should typically use this value for the primary HTML element class attribute.
     /// </summary>
-    protected virtual string? ClassValue => new CssBuilder(Class).AddClass(base.CssClass).Build();
+    protected virtual string? ClassValue => DefaultClassBuilder.AddClass(base.CssClass).Build();
 
     /// <summary>
     /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
     /// </summary>
-    protected virtual string? StyleValue => new StyleBuilder(Style).Build();
+    protected virtual string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary>
     /// Determines if the element should receive document focus on page load.

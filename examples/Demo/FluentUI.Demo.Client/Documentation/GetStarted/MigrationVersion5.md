@@ -35,3 +35,7 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 ## FluentLayout and FluentMainLayout
 
 {{ INCLUDE MigrationFluentLayout }}
+
+## Migrate to v5 with help from GitHub Copilot chat
+
+{{ INCLUDE CopilotInstructionsContent }}

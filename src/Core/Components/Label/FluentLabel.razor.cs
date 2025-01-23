@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -14,15 +13,15 @@ public partial class FluentLabel
 {
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary>
-    /// Gets or sets wether the label show a required marking (red star).
+    /// Gets or sets whether the label show a required marking (red star).
     /// </summary>
     [Parameter]
     public bool Required { get; set; }

@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -14,11 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDialogBody : FluentComponentBase
 {
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
+    protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary />
@@ -57,7 +56,7 @@ public partial class FluentDialogBody : FluentComponentBase
             return;
         }
 
-        if (item.OnClickAsync is not null )
+        if (item.OnClickAsync is not null)
         {
             await item.OnClickAsync(Instance);
         }
