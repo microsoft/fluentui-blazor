@@ -144,3 +144,26 @@ These values can be customized or overridden in your own CSS files.
 --spacingHorizontalXXXL:  28px;
 --spacingHorizontalXXXXL: 32px;
 ```
+
+## Appendix - Boostrap
+
+If you use **Bootstrap** (or **MudBlazor**) in your project, we use the same class names
+(for consistency and ease of use). In this case, you choice to use **Bootstrap** or **FluentUI Blazor**
+classes for margins and paddings. You need to check the loading order of the **Styles** files in your main page:
+
+For a project named **FluentUI.Demo**, in this example the Boostrap stylesheet is loaded after the FluentUI stylesheet.
+So, the **Bootstrap** classes override the **FluentUI Blazor** classes.
+**Bootstrap** will therefore be used for margins and paddings.
+
+```html
+<link rel="stylesheet" href="FluentUI.Demo.styles.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
+```
+
+In this new example, **FluentUI Blazor** classes override **Boostrap**.
+**FluentUI Blazor** will therefore be used for margins and paddings.
+
+```html
+<link rel="stylesheet" href="FluentUI.Demo.styles.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
+```
