@@ -67,8 +67,8 @@ h3 {
 }
 
 h4 {
-  font-size: var(--fontSizeHero600);
-  line-height: var(--lineHeightHero600);
+  font-size: var(--fontSizeBase600);
+  line-height: var(--lineHeightBase600);
 }
 
 h5 {
