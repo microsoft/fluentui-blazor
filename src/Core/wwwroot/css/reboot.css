@@ -1,13 +1,16 @@
 /*
  * Microsoft Fluent UI Blazor library - Reboot v2.0.0
- * Copyright 2024 Microsoft
+ * Copyright 2025 Microsoft
  *
  * Normalization of HTML elements, copied and ajusted from Bootstrap's Reboot which is based on Normalize.css
  * Licensed under MIT (https://github.com/microsoft/fluentui-blazor/blob/main/LICENSE)
  *
  * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+ *
+ * You can enable this style by setting the attribute `use-reboot` on the `body` element, in your source code.
+*/
+
 * {
   box-sizing: border-box;
 }
@@ -44,7 +47,7 @@ hr {
 h6, h5, h4, h3, h2, h1 {
   margin-top: 0;
   margin-bottom: 0.75rem;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   font-family: inherit;
 }
 
@@ -87,7 +90,6 @@ p {
   margin-bottom: 1rem;
   font-family: var(--fontFamilyBase);
 }
-
 
 a {
 }
@@ -145,10 +147,6 @@ dd {
   margin-bottom: 0.5rem;
   margin-left: 0;
 }
-/*
-blockquote {
-    margin: 0 0 1rem;
-}*/
 
 b,
 strong {
@@ -246,11 +244,6 @@ kbd {
 figure {
   margin: 0 0 1rem;
 }
-
-/*img,
-svg {
-    vertical-align: middle;
-}*/
 
 table {
   font-size: var(--fontSizeBase300);
@@ -398,14 +391,6 @@ legend + * {
   -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
-  direction: ltr;
-}
-*/
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
