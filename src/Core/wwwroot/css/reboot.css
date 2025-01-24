@@ -91,9 +91,6 @@ p {
   font-family: var(--fontFamilyBase);
 }
 
-a {
-}
-
 blockquote {
   border-left: 5px solid var(--colorBrandBackground);
   border-right: none;
@@ -198,11 +195,25 @@ a {
 
 pre,
 code,
-kbd,
 samp {
   font-family: var(--fontFamilyMonospace);
   font-size: 1em;
 }
+
+kbd {
+  padding: 0.10rem 0.25rem;
+  font-family: var(--fontFamilyMonospace);
+  font-size: var(--fontSizeBase300);
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground3);
+  border-radius: var(--borderRadiusMedium);
+  border: 1px solid var(--colorBrandForeground1);
+}
+
+  kbd kbd {
+    padding: 0;
+    font-size: 1em;
+  }
 
 pre {
   display: block;
@@ -219,27 +230,12 @@ pre {
   }
 
 code {
-  font-size: 0.875em;
-  color: var(--colorCompoundBrandForeground1);
   word-wrap: break-word;
 }
 
 a > code {
   color: inherit;
 }
-
-kbd {
-  padding: 0.1875rem 0.375rem;
-  font-size: 0.875em;
-  color: var(--colorBrandForeground2);
-  background-color: var(--colorNeutralBackground6);
-  border-radius: 0.25rem;
-}
-
-  kbd kbd {
-    padding: 0;
-    font-size: 1em;
-  }
 
 figure {
   margin: 0 0 1rem;
@@ -360,12 +356,6 @@ legend {
   margin-bottom: 0.5rem;
   font-size: calc(1.275rem + 0.3vw);
   line-height: inherit;
-}
-
-@media (min-width: 1200px) {
-  legend {
-    font-size: 1.5rem;
-  }
 }
 
 legend + * {

@@ -92,6 +92,16 @@ body {
 }
 ```
 
+## HTML5 [hidden] attribute
+
+HTML5 adds a new global attribute named `[hidden]`, which is styled as `display: none` by default.
+Borrowing an idea from [PureCSS](https://purecss.io), we improve upon this default by making
+`[hidden] { display: none !important; }` to help prevent its display from getting accidentally overridden.
+
+```html
+<input type="text" hidden>
+```
+
 ## Examples
 
 Here are some examples of the default styles applied to HTML elements:
