@@ -18,7 +18,7 @@ the <a href="_content/Microsoft.FluentUI.AspNetCore.Components/css/default-fuib.
 file, which is included in the package and **automatically applied to your site**.
 
 These styles are inspired by the **[Normalize.css](https://necolas.github.io/normalize.css/)** library.
-**Normalize.css** makes browsers render all elements more consistently and in line with modern standards.
+This lib makes browsers render all elements more consistently and in line with modern standards.
 It precisely targets only the styles that need normalizing.
 
 ## Deactivating default sytles
