@@ -54,6 +54,29 @@
     }
 
     [Theory]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, Fuib.VerticalAlignment.Top)]
+    [InlineData("justify-content: start; align-items: center;", Orientation.Horizontal, Fuib.VerticalAlignment.Center)]
+    [InlineData("justify-content: start; align-items: end;", Orientation.Horizontal, Fuib.VerticalAlignment.Bottom)]
+    [InlineData("justify-content: start; align-items: stretch;", Orientation.Horizontal, Fuib.VerticalAlignment.Stretch)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Horizontal, Fuib.VerticalAlignment.SpaceBetween)]
+    [InlineData("justify-content: start; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Top)]
+    [InlineData("justify-content: center; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Center)]
+    [InlineData("justify-content: end; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Bottom)]
+    [InlineData("justify-content: stretch; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.Stretch)]
+    [InlineData("justify-content: space-between; align-items: start;", Orientation.Vertical, Fuib.VerticalAlignment.SpaceBetween)]
+    public void FluentStack_VerticalAlignment(string expectedStyle, Orientation orientation, Fuib.VerticalAlignment alignment)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentStack Orientation="@((Orientation)orientation)" VerticalAlignment="@alignment" />);
+        var styles = cut.Find("div").GetAttribute("style");
+
+        Output.WriteLine($"{orientation}, {alignment} => {styles}");
+
+        // Assert
+        Assert.Contains(expectedStyle, styles);
+    }
+
+    [Theory]
     [InlineData("", null, null)]
     [InlineData("width: 100px; height: 100px;", "100px", "100px")]
     public void FluentStack_WidthHeight(string expectedStyle, string? width, string? height)
