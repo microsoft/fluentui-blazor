@@ -20,8 +20,8 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
         .AddStyle("justify-content", GetVerticalAlignment(), () => Orientation == Orientation.Vertical)
+        .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
 
         .AddStyle("justify-content", GetHorizontalAlignment(), () => Orientation == Orientation.Horizontal)
         .AddStyle("align-items", GetVerticalAlignment(), () => Orientation == Orientation.Horizontal)
