@@ -29,6 +29,7 @@ public partial class FluentStack : FluentComponentBase
         .AddStyle("column-gap", WithMissingPixels(HorizontalGap), () => !string.IsNullOrEmpty(HorizontalGap))
         .AddStyle("row-gap", WithMissingPixels(VerticalGap), () => !string.IsNullOrEmpty(VerticalGap))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("flex-wrap", "wrap", () => Wrap)
 
         .Build();
@@ -59,6 +60,12 @@ public partial class FluentStack : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Width { get; set; } = "100%";
+
+    /// <summary>
+    /// Gets or sets the height of the stack.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the stack wraps.

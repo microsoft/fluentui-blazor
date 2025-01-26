@@ -11,3 +11,6 @@ hidden: true
   If this value is an integer, the unit `px` is automatically added.
 
   This should not generate any breaking changes.
+
+### New properties
+  `Height` is a new property.

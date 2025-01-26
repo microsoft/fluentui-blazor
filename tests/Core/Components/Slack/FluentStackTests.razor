@@ -1,0 +1,27 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentStackTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Theory]
+    [InlineData("stack-horizontal", null)]
+    [InlineData("stack-horizontal", Orientation.Horizontal)]
+    [InlineData("stack-vertical", Orientation.Vertical)]
+    public void FluentStack_Orientation(string expectedClass, Orientation? orientation)
+    {
+        // Arrange && Act
+        var cut = orientation == null
+                ? Render(@<FluentStack />)
+                : Render(@<FluentStack Orientation="@((Orientation)orientation)" />);
+
+        // Assert
+        Assert.Contains($"class=\"{expectedClass}\"", cut.Markup);
+    }
+}
