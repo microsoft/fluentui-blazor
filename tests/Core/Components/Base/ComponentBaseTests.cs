@@ -22,7 +22,8 @@ public class ComponentBaseTests : TestContext
     /// </summary>
     private static readonly Type[] Excluded = new[]
     {
-        typeof(AspNetCore.Components._Imports)
+        typeof(AspNetCore.Components._Imports),
+        typeof(DialogOptions),
     };
 
     /// <summary>
@@ -30,7 +31,8 @@ public class ComponentBaseTests : TestContext
     /// </summary>
     private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
     {
-        { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
+        { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) },
+        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(int)) },
     };
 
     /// <summary />
@@ -70,7 +72,7 @@ public class ComponentBaseTests : TestContext
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
-        foreach (var componentType in BaseHelpers.GetDerivedTypes<FluentComponentBase>(except: Excluded))
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
         {
             // Convert to generic type if needed
             var type = ComponentInitializer.ContainsKey(componentType)

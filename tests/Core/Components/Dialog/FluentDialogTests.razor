@@ -468,4 +468,32 @@
             Assert.Equal(expected, dialog.GetAttribute("size"));
         }
     }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_MarginPadding()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        var dialogOptions = new DialogOptions()
+            {
+                Class = "my-class",
+                Style = "border: 1px solid red;",
+                Margin = "10px",
+                Padding = "20px",
+            };
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(dialogOptions);
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains("class=\"my-class\"", DialogProvider.Markup);
+        Assert.Contains("style=\"margin: 10px; padding: 20px; border: 1px solid red;\"", DialogProvider.Markup);
+        Assert.Contains("{ margin: 10px; padding: 20px; border: 1px solid red; }", DialogProvider.Markup);
+    }
 }

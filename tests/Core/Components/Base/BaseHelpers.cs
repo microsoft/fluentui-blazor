@@ -53,6 +53,19 @@ internal static class BaseHelpers
     {
         while (type != null && type != typeof(object))
         {
+            // Interface
+            if (genericType.IsInterface)
+            {
+                foreach (var item in type.GetInterfaces())
+                {
+                    if (item == genericType)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            // Class
             var cur = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
             if (cur == genericType)
             {
