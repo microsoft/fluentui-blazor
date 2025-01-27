@@ -1,9 +1,9 @@
-.stack-vertical {
+.fluent-stack-vertical {
   display: flex;
   flex-direction: column;
 }
 
-.stack-horizontal {
+.fluent-stack-horizontal {
   display: flex;
   flex-direction: row;
 }

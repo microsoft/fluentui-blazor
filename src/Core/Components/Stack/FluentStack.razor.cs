@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -14,8 +13,8 @@ public partial class FluentStack : FluentComponentBase
 {
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
-        .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
-        .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
+        .AddClass("fluent-stack-horizontal", () => Orientation == Orientation.Horizontal)
+        .AddClass("fluent-stack-vertical", () => Orientation == Orientation.Vertical)
         .Build();
 
     /// <summary />
@@ -26,8 +25,8 @@ public partial class FluentStack : FluentComponentBase
         .AddStyle("justify-content", GetHorizontalAlignment(), () => Orientation == Orientation.Horizontal)
         .AddStyle("align-items", GetVerticalAlignment(), () => Orientation == Orientation.Horizontal)
 
-        .AddStyle("column-gap", WithMissingPixels(HorizontalGap), () => !string.IsNullOrEmpty(HorizontalGap))
-        .AddStyle("row-gap", WithMissingPixels(VerticalGap), () => !string.IsNullOrEmpty(VerticalGap))
+        .AddStyle("column-gap", HorizontalGap.AddMissingPx(), () => !string.IsNullOrEmpty(HorizontalGap))
+        .AddStyle("row-gap", VerticalGap.AddMissingPx(), () => !string.IsNullOrEmpty(VerticalGap))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("flex-wrap", "wrap", () => Wrap)
@@ -121,15 +120,5 @@ public partial class FluentStack : FluentComponentBase
             VerticalAlignment.SpaceBetween => Orientation == Orientation.Horizontal ? "start" : "space-between",
             _ => "start",
         };
-    }
-
-    private static string? WithMissingPixels(string? value)
-    {
-        if (int.TryParse(value, CultureInfo.InvariantCulture, out var pixels))
-        {
-            return $"{pixels}px";
-        }
-
-        return value;
     }
 }

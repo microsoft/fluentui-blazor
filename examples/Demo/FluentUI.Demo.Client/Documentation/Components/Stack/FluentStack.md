@@ -1,18 +1,16 @@
 ---
-title: Slack
-route: /Slack
+title: Stack
+route: /Stack
 ---
 
-# Slack
+# Stack
 
 A `FluentStack` is a container-type component that can be used to arrange its
 child components in a **horizontal** or **vertical** stack.
 
 ## Characteristics
 
-Although the `FluentStack` component has a number of different parameters,
-there are some in particular that define the overall layout that the
-component has:
+The following three parameters define the overall layout of this component and the child components it encloses:
 
 1. **Orientation**: Refers to whether the stacking of child components
    is **horizontal** (default) or **vertical**.
@@ -60,7 +58,7 @@ This example shows two `FluentStack`.
 
 The alignment of the contents of both `FluentStack` can be changed
 by selecting one the different options from each of the lists
-(which are placed in a FluentStack themselves as well).
+(which themselves are placed and positioned using a FluentStack as well).
 
 {{ StackCustomized }}
 

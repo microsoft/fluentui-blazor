@@ -14,9 +14,9 @@
     private ITestOutputHelper Output { get; }
 
     [Theory]
-    [InlineData("stack-horizontal", null)]
-    [InlineData("stack-horizontal", Orientation.Horizontal)]
-    [InlineData("stack-vertical", Orientation.Vertical)]
+    [InlineData("fluent-stack-horizontal", null)]
+    [InlineData("fluent-stack-horizontal", Orientation.Horizontal)]
+    [InlineData("fluent-stack-vertical", Orientation.Vertical)]
     public void FluentStack_Orientation(string expectedClass, Orientation? orientation)
     {
         // Arrange && Act
