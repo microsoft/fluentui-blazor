@@ -47,6 +47,7 @@
     [Theory(Timeout = TEST_TIMEOUT)]
     [InlineData("position=\"start\"", DialogAlignment.Start)]
     [InlineData("position=\"end\"", DialogAlignment.End)]
+    [InlineData("", (DialogAlignment)999)]
     public async Task FluentDialog_Drawer(string expectedContains, DialogAlignment alignment)
     {
         // Arrange
