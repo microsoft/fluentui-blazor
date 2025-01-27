@@ -96,6 +96,27 @@ public static class SpacingExtensions
         return SaveInCacheAndGet(value, "", value);
     }
 
+    /// <summary>
+    /// Add missing `px` to a value if it is an integer number.
+    /// </summary>
+    /// <example>
+    /// AddMissingPx("10") => "10px"
+    /// AddMissingPx("10px") => "10px"
+    /// AddMissingPx("10%") => "10%"
+    /// AddMissingPx("10.0") => "10.0"
+    /// </example>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string? AddMissingPx(this string? value)
+    {
+        if (int.TryParse(value, CultureInfo.InvariantCulture, out var pixels))
+        {
+            return $"{pixels}px";
+        }
+
+        return value;
+    }
+
     private static (string Style, string Class) SaveInCacheAndGet(string? value, string styleValue, string classValue)
     {
         _previousSpacingToStyle = new KeyValuePair<string?, (string, string)>(value, (styleValue, classValue));

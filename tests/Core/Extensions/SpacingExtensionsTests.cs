@@ -75,4 +75,20 @@ public class SpacingExtensionsTests
         // Assert
         Assert.Equal("The value cannot contain a CSS keyword and a class name or style value. (Parameter 'value')", ex.Message);
     }
+
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData("10", "10px")]
+    [InlineData("10px", "10px")]
+    [InlineData("10%", "10%")]
+    [InlineData("10.0", "10.0")]
+    [InlineData("abc", "abc")]
+    public void SpacingExtensions_AddMissingPx(string? value, string? expectedResult)
+    {
+        // Arrange & Act
+        var converted = value.AddMissingPx();
+
+        // Assert
+        Assert.Equal(expectedResult, converted);
+    }
 }
