@@ -160,6 +160,7 @@
     [Theory]
     [InlineData(FluentInputAppearance.Filled, TextInputAppearance.FilledDarker)]
     [InlineData(FluentInputAppearance.Outline, TextInputAppearance.Outline)]
+    [InlineData((FluentInputAppearance)999, TextInputAppearance.Outline)]
     public void FluentInputText_ToTextInputAppearance(FluentInputAppearance appearance, TextInputAppearance expected)
     {
         var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextInputAppearance(appearance);

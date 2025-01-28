@@ -7,8 +7,8 @@
         @foreach (var dialog in DialogService.Items.Values.OrderBy(i => i.Index))
         {
             <FluentDialog Id="@dialog.Id"
-                          Class="@dialog.Options?.Class"
-                          Style="@dialog.Options?.Style"
+                          Class="@dialog.Options?.ClassValue"
+                          Style="@dialog.Options?.StyleValue"
                           Data="@dialog.Options?.Data"
                           Instance="@dialog"
                           OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"

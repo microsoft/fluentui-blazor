@@ -155,6 +155,7 @@
     [InlineData(GridItemSize.Xl, GridItemHidden.Xl)]
     [InlineData(GridItemSize.Xxl, GridItemHidden.Xxl)]
     [InlineData(GridItemSize.Xs | GridItemSize.Xxl, GridItemHidden.None)]
+    [InlineData((GridItemSize)999, GridItemHidden.None)]
     public void FluentGrid_ConvertToHidden(GridItemSize size, GridItemHidden expected)
     {
         Assert.Equal(expected, FluentGridItem.ConvertToHidden(size));
