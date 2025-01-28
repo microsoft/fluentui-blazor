@@ -1,13 +1,3 @@
-/* @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css'; */
-
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow: hidden;
-  color: var(--colorNeutralForeground1);
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  background: var(--colorNeutralBackground2);
+
 }

@@ -72,8 +72,11 @@ public class DocViewerService
     /// <returns></returns>
     public Page? FromRoute(string routeName)
     {
-        return Pages.FirstOrDefault(i => string.Compare(i.Route, routeName, StringComparison.InvariantCultureIgnoreCase) == 0 ||
-                                         string.Compare(i.Route, $"/{routeName}", StringComparison.InvariantCultureIgnoreCase) == 0);
+        var uri = new Uri("http://dummy.com/" + routeName);
+        var path = uri.AbsolutePath.TrimStart('/');
+
+        return Pages.FirstOrDefault(i => string.Compare(i.Route, path, StringComparison.InvariantCultureIgnoreCase) == 0 ||
+                                         string.Compare(i.Route, $"/{path}", StringComparison.InvariantCultureIgnoreCase) == 0);
     }
 
     /// <summary>

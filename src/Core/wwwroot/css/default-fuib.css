@@ -1,0 +1,99 @@
+/*
+ * Microsoft Fluent UI Blazor library - Required styles
+ * Copyright 2025 Microsoft
+ *
+ * Normalization of HTML elements, copied and ajusted from Normalize.css
+ * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ *
+ * You can disable this style by setting the attribute `no-fuib-style` on the `body` element, in your source code.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  : root {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  font-weight: var(--fontWeightRegular);
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h6, h5, h4, h3, h2, h1 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
+}
+
+h1 {
+  font-size: var(--fontSizeHero900);
+  line-height: var(--lineHeightHero900);
+}
+
+h2 {
+  font-size: var(--fontSizeHero800);
+  line-height: var(--lineHeightHero800);
+}
+
+h3 {
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
+}
+
+h4 {
+  font-size: var(--fontSizeBase600);
+  line-height: var(--lineHeightBase600);
+}
+
+h5 {
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
+}
+
+h6 {
+  font-size: var(--fontSizeBase400);
+  line-height: var(--lineHeightBase400);
+}
+
+a {
+  color: var(--colorBrandForegroundLink);
+  text-decoration: underline;
+}
+
+  a:hover {
+    color: var(--colorBrandForegroundLinkHover);
+  }
+
+  a:active {
+    color: var(--colorBrandForegroundLinkSelected);
+  }
+
+  a:not([href]):not([class]),
+  a:not([href]):not([class]):hover {
+    color: inherit;
+    text-decoration: none;
+  }
+
+kbd {
+  color: var(--colorBrandForeground2);
+  background-color: var(--colorNeutralBackground6);
+}
+
+mark {
+  background-color: var(--highlight-bg);
+}
+
+[hidden] {
+  display: none !important;
+}
