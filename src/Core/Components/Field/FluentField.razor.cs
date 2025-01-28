@@ -65,6 +65,7 @@ public partial class FluentField
 
     private string GetStyle()
     {
-        return $"margin-top: 8px; align-self: flex-start;{(string.IsNullOrEmpty(LabelWidth) ? "" : LabelWidth)}";
+        // TODO: To use a StyleBuilder
+        return $"margin-top: 8px; align-self: flex-start;{(string.IsNullOrEmpty(LabelWidth) ? "" : $"width: {LabelWidth};")}";
     }
 }
