@@ -20,6 +20,7 @@ public partial class AppearanceExtensionsTests
     [InlineData(Appearance.Stealth, ButtonAppearance.Default)]
     [InlineData(Appearance.Filled, ButtonAppearance.Default)]
     [InlineData(Appearance.Filled | Appearance.Accent, ButtonAppearance.Default)]
+    [InlineData((Appearance)999, ButtonAppearance.Default)]
     public void Appearance_ToButtonAppearance(Appearance appearance, ButtonAppearance expected)
     {
         Assert.Equal(expected, appearance.ToButtonAppearance());
