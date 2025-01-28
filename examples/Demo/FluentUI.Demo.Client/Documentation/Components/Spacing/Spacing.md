@@ -145,11 +145,12 @@ These values can be customized or overridden in your own CSS files.
 --spacingHorizontalXXXXL: 32px;
 ```
 
-## Appendix - Boostrap
+## Appendix - Bootstrap
 
-If you use **Bootstrap** (or **MudBlazor**) in your project, we use the same class names
-(for consistency and ease of use). In this case, you choice to use **Bootstrap** or **FluentUI Blazor**
-classes for margins and paddings. You need to check the loading order of the **Styles** files in your main page:
+When using **Bootstrap** or **MudBlazor** (and possibly others) in your project,
+you will notice we use the same class names in some cases (this is done for consistency and ease of use).
+In this case, you make the choice to use **Bootstrap** or **FluentUI Blazor** classes for margins and paddings.
+You do this by setting the loading order of the **Styles** files in your main page:
 
 For a project named **FluentUI.Demo**, in this example the Boostrap stylesheet is loaded after the FluentUI stylesheet.
 So, the **Bootstrap** classes override the **FluentUI Blazor** classes.
@@ -160,10 +161,10 @@ So, the **Bootstrap** classes override the **FluentUI Blazor** classes.
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
 ```
 
-In this new example, **FluentUI Blazor** classes override **Boostrap**.
-**FluentUI Blazor** will therefore be used for margins and paddings.
+In this second example, the **FluentUI Blazor** classes override those from **Boostrap**.
+The **FluentUI Blazor** values will therefore be used for margins and paddings.
 
 ```html
-<link rel="stylesheet" href="FluentUI.Demo.styles.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="FluentUI.Demo.styles.css" />
 ```
