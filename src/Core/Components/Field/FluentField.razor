@@ -1,0 +1,39 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+
+@if (HasLabel || HasMessage)
+{
+    <fluent-field label-position="@LabelPosition.ToAttributeValue()">
+
+        @if (HasLabel)
+        {
+            <FluentLabel slot="label" for="@ForId" Required="@Required" Disabled="@Disabled" Style="@GetStyle()">
+                @Label
+                @LabelTemplate
+            </FluentLabel>
+        }
+
+        <div slot="input">
+            @ChildContent
+        </div>
+
+        @if (HasMessage)
+        {
+            <FluentText slot="message" size="@TextSize.Size200">
+                @if (MessageIcon is not null)
+                {
+                    <FluentIcon Value="@MessageIcon" Width="12px" Margin="0 4px 0 0" />
+                }
+                @Message
+                @MessageTemplate
+            </FluentText>
+        }
+
+    </fluent-field>
+}
+else
+{
+    @ChildContent
+}
