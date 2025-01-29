@@ -11,28 +11,30 @@
 
     @if (HasLabel)
     {
-        // TODO
-    }
-
-
-    {
-    <FluentLabel slot="label" for="@GetId()"
-                 Required="@Parameters.Required"
-                 Disabled="@Parameters.Disabled"
-                 Style="@LabelStyle">
-        @Parameters.Label
-        @Parameters.LabelTemplate
-    </FluentLabel>
+        <FluentLabel slot="label" for="@(ForId ?? GetId())"
+                     Required="@Parameters.Required"
+                     Disabled="@Parameters.Disabled"
+                     Style="@LabelStyle">
+            @Parameters.Label
+            @Parameters.LabelTemplate
+        </FluentLabel>
     }
 
     @if (ChildContent is not null)
     {
-        <div slot="input" id="@GetId("input")">
+        @if (Parameters.HasInputComponent)
+        {
             @ChildContent
-        </div>
+        }
+        else
+        {
+            <div slot="input" id="@GetId("input")">
+                @ChildContent
+            </div>
+        }
     })
 
-    @if (HasMessage)
+    @if (HasMessage && Parameters.MessageCondition() == true)
     {
         <FluentText slot="message" size="@TextSize.Size200">
             @if (Parameters.MessageIcon is not null)

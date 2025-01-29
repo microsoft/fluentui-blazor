@@ -60,4 +60,9 @@ public interface IFluentField
     /// Gets or sets the template for the message to display below the field.
     /// </summary>
     RenderFragment? MessageTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the message should be displayed.
+    /// </summary>
+    Func<bool>? MessageCondition { get; set; }
 }

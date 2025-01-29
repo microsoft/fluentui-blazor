@@ -12,6 +12,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentField : FluentComponentBase, IFluentField
 {
+    private readonly string _defaultId = Identifier.NewId();
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -25,10 +27,16 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     /// <summary>
-    /// 
+    /// Gets or sets an existing Input component to use in the field.
     /// </summary>
     [Parameter]
     public IFluentField? InputComponent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ID of the Input component to associate with the field.
+    /// </summary>
+    [Parameter]
+    public string? ForId { get; set; }
 
     /// <see cref="IFluentField.Label"/>"
     [Parameter]
@@ -72,9 +80,13 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public RenderFragment? MessageTemplate { get; set; }
 
+    /// <see cref="IFluentField.MessageCondition" />
+    [Parameter]
+    public Func<bool>? MessageCondition { get; set; }
+
     private FluentFieldParameters Parameters => new FluentFieldParameters(this);
 
-    private string GetId(string? slot = null) => $"{Id}{(string.IsNullOrEmpty(slot) ? "" : "-" + slot)}";
+    private string GetId(string? slot = null) => $"{Id ?? _defaultId}{(string.IsNullOrEmpty(slot) ? "" : "-" + slot)}";
 
     private bool HasLabel => !string.IsNullOrWhiteSpace(Parameters.Label) || Parameters.LabelTemplate is not null;
 
@@ -84,6 +96,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     private class FluentFieldParameters
     {
         private readonly FluentField _component;
+        public bool HasInputComponent => _component.InputComponent != null;
         public FluentFieldParameters(FluentField component) => _component = component;
         public string? Label => _component.Label ?? _component.InputComponent?.Label;
         public RenderFragment? LabelTemplate => _component.LabelTemplate ?? _component.InputComponent?.LabelTemplate;
@@ -94,5 +107,6 @@ public partial class FluentField : FluentComponentBase, IFluentField
         public string? Message => _component.Message ?? _component.InputComponent?.Message;
         public Icon? MessageIcon => _component.MessageIcon ?? _component.InputComponent?.MessageIcon;
         public RenderFragment? MessageTemplate => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate;
+        public Func<bool> MessageCondition => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (() => true);
     }
 }

@@ -165,6 +165,10 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <see cref="IFluentField.MessageTemplate" />"/>
     public virtual RenderFragment? MessageTemplate { get; set; }
 
+    /// <see cref="IFluentField.MessageCondition" />
+    [Parameter]
+    public virtual Func<bool>? MessageCondition { get; set; }
+
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
