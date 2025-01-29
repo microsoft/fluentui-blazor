@@ -6226,6 +6226,12 @@
             ⚠️ Only available when Multiple = true.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ChangeOnEnterOnly">
+            <summary>
+            Gets or sets whether using the up and down arrow keys should change focus and select immediately or that selection is done only on Enter.
+            ⚠️ Only applicable in single select scenarios.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptionsChanged">
             <summary>
             Called whenever the selection changed.
