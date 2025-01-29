@@ -1,6 +1,7 @@
 
-<fluent-text-input appearance="outline" blazor:onchange="1" blazor:oninput="2" blazor:elementreference="xxx">
-  <fluent-label>
+<fluent-field id="xxx" label-position="above" class="my-3">
+  <fluent-label id="xxx" slot="label" for="xxx">
     <div style="font-weight: bold;">My label</div>
   </fluent-label>
-</fluent-text-input>
+  <fluent-text-input appearance="outline" id="xxx" slot="input" blazor:onfocusout="1" blazor:onchange="2" blazor:oninput="3" blazor:elementreference="xxx"></fluent-text-input>)
+</fluent-field>

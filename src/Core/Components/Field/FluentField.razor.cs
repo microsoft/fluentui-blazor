@@ -26,7 +26,7 @@ public partial class FluentField : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
 
-    private string? LabelStyle => new StyleBuilder("margin-top: 8px; align-self: flex-start;")
+    private string? LabelStyle => new StyleBuilder()
         .AddStyle("width", LabelWidth, when: () => !string.IsNullOrEmpty(LabelWidth))
         .Build();
 

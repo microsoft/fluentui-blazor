@@ -1,0 +1,4 @@
+fluent-field[label-position='before'] > fluent-label[slot='label'] {
+  margin-top: 8px;
+  align-self: flex-start;
+}
