@@ -102,7 +102,7 @@ public abstract partial class FluentListBase<TOption> : FluentInputBase<TOption>
     /// <summary />
     protected virtual async Task OnSelectedItemChangedHandlerAsync(TOption? item)
     {
-        if (Disabled || item == null)
+        if (Disabled ?? false || item == null)
         {
             return;
         }

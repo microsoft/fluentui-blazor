@@ -3,37 +3,45 @@
 @inherits FluentComponentBase
 
 
-@if (HasLabel || HasMessage)
-{
-    <fluent-field label-position="@LabelPosition.ToAttributeValue()">
+<fluent-field id="@GetId("field")"
+              label-position="@(Parameters.LabelPosition.ToAttributeValue())"
+              class="@ClassValue"
+              style="@StyleValue"
+              @attributes="AdditionalAttributes">
 
-        @if (HasLabel)
-        {
-            <FluentLabel slot="label" for="@ForId" Required="@Required" Disabled="@Disabled" Style="@GetStyle()">
-                @Label
-                @LabelTemplate
-            </FluentLabel>
-        }
+    @if (HasLabel)
+    {
+        // TODO
+    }
 
-        <div slot="input">
+
+    {
+    <FluentLabel slot="label" for="@GetId()"
+                 Required="@Parameters.Required"
+                 Disabled="@Parameters.Disabled"
+                 Style="@LabelStyle">
+        @Parameters.Label
+        @Parameters.LabelTemplate
+    </FluentLabel>
+    }
+
+    @if (ChildContent is not null)
+    {
+        <div slot="input" id="@GetId("input")">
             @ChildContent
         </div>
+    })
 
-        @if (HasMessage)
-        {
-            <FluentText slot="message" size="@TextSize.Size200">
-                @if (MessageIcon is not null)
-                {
-                    <FluentIcon Value="@MessageIcon" Width="12px" Margin="0 4px 0 0" />
-                }
-                @Message
-                @MessageTemplate
-            </FluentText>
-        }
+    @if (HasMessage)
+    {
+        <FluentText slot="message" size="@TextSize.Size200">
+            @if (Parameters.MessageIcon is not null)
+            {
+                <FluentIcon Value="@Parameters.MessageIcon" Width="12px" Margin="2px 4px 0 0" />
+            }
+            @Parameters.Message
+            @Parameters.MessageTemplate
+        </FluentText>
+    }
 
-    </fluent-field>
-}
-else
-{
-    @ChildContent
-}
+</fluent-field>

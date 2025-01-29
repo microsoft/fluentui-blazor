@@ -3,69 +3,96 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// 
+/// Field adds a label, validation message, and hint text to a control.
 /// </summary>
-public partial class FluentField
+public partial class FluentField : FluentComponentBase, IFluentField
 {
     /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    private string? LabelStyle => new StyleBuilder("margin-top: 8px; align-self: flex-start;")
+        .AddStyle("width", LabelWidth, when: () => !string.IsNullOrEmpty(LabelWidth))
+        .Build();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public IFluentField? InputComponent { get; set; }
+
+    /// <see cref="IFluentField.Label"/>"
     [Parameter]
     public string? Label { get; set; }
 
-    /// <summary />
+    /// <see cref="IFluentField.LabelTemplate"/>"
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
-    /// <summary />
+    /// <see cref="IFluentField.LabelPosition"/>"
     [Parameter]
-    public FieldLabelPosition LabelPosition { get; set; } = FieldLabelPosition.Above;
+    public FieldLabelPosition? LabelPosition { get; set; } = FieldLabelPosition.Above;
 
-    /// <summary />
+    /// <see cref="IFluentField.LabelWidth"/>"
     [Parameter]
     public string? LabelWidth { get; set; }
 
-    /// <summary>
-    /// Gets or sets whether the label show a required marking (red star).
-    /// </summary>
+    /// <see cref="IFluentField.Required"/>"
     [Parameter]
-    public bool Required { get; set; }
+    public bool? Required { get; set; }
+
+    /// <see cref="IFluentField.Disabled"/>"
+    [Parameter]
+    public bool? Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the disabled state of the label.
+    /// Gets or sets the child content of the field.
     /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary />
-    [Parameter]
-    public string? ForId { get; set; }
-
-    /// <summary />
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary />
+    /// <see cref="IFluentField.Message"/>"
     [Parameter]
     public string? Message { get; set; }
 
-    /// <summary />
+    /// <see cref="IFluentField.MessageIcon"/>"
     [Parameter]
     public Icon? MessageIcon { get; set; }
 
-    /// <summary />
+    /// <see cref="IFluentField.MessageTemplate"/>"
     [Parameter]
     public RenderFragment? MessageTemplate { get; set; }
 
-    private bool HasLabel => !string.IsNullOrWhiteSpace(Label) || LabelTemplate is not null;
+    private FluentFieldParameters Parameters => new FluentFieldParameters(this);
 
-    private bool HasMessage => !string.IsNullOrWhiteSpace(Message) || MessageTemplate is not null || MessageIcon is not null;
+    private string GetId(string? slot = null) => $"{Id}{(string.IsNullOrEmpty(slot) ? "" : "-" + slot)}";
 
-    private string GetStyle()
+    private bool HasLabel => !string.IsNullOrWhiteSpace(Parameters.Label) || Parameters.LabelTemplate is not null;
+
+    private bool HasMessage => !string.IsNullOrWhiteSpace(Parameters.Message) || Parameters.MessageTemplate is not null || Parameters.MessageIcon is not null;
+
+    // Conversion class for FluentField parameters
+    private class FluentFieldParameters
     {
-        // TODO: To use a StyleBuilder
-        return $"margin-top: 8px; align-self: flex-start;{(string.IsNullOrEmpty(LabelWidth) ? "" : $"width: {LabelWidth};")}";
+        private readonly FluentField _component;
+        public FluentFieldParameters(FluentField component) => _component = component;
+        public string? Label => _component.Label ?? _component.InputComponent?.Label;
+        public RenderFragment? LabelTemplate => _component.LabelTemplate ?? _component.InputComponent?.LabelTemplate;
+        public string? LabelWidth => _component.LabelWidth ?? _component.InputComponent?.LabelWidth;
+        public FieldLabelPosition LabelPosition => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? FieldLabelPosition.Above;
+        public bool Required => _component.Required ?? _component.InputComponent?.Required ?? false;
+        public bool Disabled => _component.Disabled ?? _component.InputComponent?.Disabled ?? false;
+        public string? Message => _component.Message ?? _component.InputComponent?.Message;
+        public Icon? MessageIcon => _component.MessageIcon ?? _component.InputComponent?.MessageIcon;
+        public RenderFragment? MessageTemplate => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate;
     }
 }

@@ -52,3 +52,13 @@
              MessageIcon="@FluentStatus.SuccessIcon">
     TOTO
 </FluentField>
+
+<hr />
+<FluentTextInput Label="@LabelSample"/>
+<br/>
+<FluentButton OnClick="@(e => LabelSample = LabelSample + "x")">Click</FluentButton>
+
+@code
+{
+    string LabelSample = "Label sample";
+}

@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase
+public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField
 {
     private FluentJSModule? _jsModule;
 
@@ -117,25 +117,6 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the form control is disabled and doesn't participate in form submission.
-    /// </summary>
-    [Parameter]
-    public virtual bool Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text to label the input. This is usually displayed just above the input.
-    /// </summary>
-    [Parameter]
-    public virtual string? Label { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to label the input component.
-    /// This is usually displayed just above the input
-    /// </summary>
-    [Parameter]
-    public virtual RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
     /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
@@ -149,11 +130,40 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual bool ReadOnly { get; set; }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the element needs to have a value.
-    /// </summary>
+    /// <see cref="IFluentField.Disabled" />
     [Parameter]
-    public bool Required { get; set; }
+    public virtual bool? Disabled { get; set; }
+
+    /// <see cref="IFluentField.Label" />
+    [Parameter]
+    public virtual string? Label { get; set; }
+
+    /// <see cref="IFluentField.LabelTemplate" />
+    [Parameter]
+    public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <see cref="IFluentField.LabelPosition" />
+    [Parameter]
+    public virtual FieldLabelPosition? LabelPosition { get; set; }
+
+    /// <see cref="IFluentField.LabelWidth" />
+    [Parameter]
+    public virtual string? LabelWidth { get; set; }
+
+    /// <see cref="IFluentField.Required" />
+    [Parameter]
+    public virtual bool? Required { get; set; }
+
+    /// <see cref="IFluentField.Message" />"/>
+    [Parameter]
+    public virtual string? Message { get; set; }
+
+    /// <see cref="IFluentField.MessageIcon" />"/>
+    [Parameter]
+    public virtual Icon? MessageIcon { get; set; }
+
+    /// <see cref="IFluentField.MessageTemplate" />"/>
+    public virtual RenderFragment? MessageTemplate { get; set; }
 
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
@@ -178,7 +188,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected virtual string? GetAriaLabelWithRequired()
     {
         return (AriaLabel ?? Label ?? string.Empty) +
-               (Required ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
+               (Required == true ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
     }
 
     #endregion
