@@ -1,37 +1,39 @@
 /*
  * Microsoft Fluent UI Blazor library - Reboot v2.0.0
- * Copyright 2024 Microsoft
+ * Copyright 2025 Microsoft
  *
  * Normalization of HTML elements, copied and ajusted from Bootstrap's Reboot which is based on Normalize.css
  * Licensed under MIT (https://github.com/microsoft/fluentui-blazor/blob/main/LICENSE)
  *
  * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  * Bootstrap is licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+ *
+ * You can enable this style by setting the attribute `use-reboot` on the `body` element, in your source code.
+*/
+
 * {
   box-sizing: border-box;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
-  :root {
+  : root {
     scroll-behavior: smooth;
   }
 }
 
 html {
-  font-family: var(--body-font);
+  font-family: var(--fontFamilyBase);
 }
 
-body, .body {
+body {
   margin: 0;
-  font-family: var(--body-font);
-  font-size: var(--type-ramp-base-font-size);
-  line-height: var(--type-ramp-base-line-height);
-  font-weight: var(--font-weight);
-  color: var(--neutral-foreground-rest);
-  background-color: var(--neutral-fill-layer-rest);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  font-weight: var(--fontWeightRegular);
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground1);
 }
 
 hr {
@@ -45,72 +47,67 @@ hr {
 h6, h5, h4, h3, h2, h1 {
   margin-top: 0;
   margin-bottom: 0.75rem;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   font-family: inherit;
 }
 
 h1 {
-  font-size: var(--type-ramp-plus-5-font-size);
-  line-height: var(--type-ramp-plus-5-line-height);
+  font-size: var(--fontSizeHero900);
+  line-height: var(--lineHeightHero900);
 }
 
 h2 {
-  font-size: var(--type-ramp-plus-4-font-size);
-  line-height: var(--type-ramp-plus-4-line-height);
+  font-size: var(--fontSizeHero800);
+  line-height: var(--lineHeightHero800);
 }
 
 h3 {
-  font-size: var(--type-ramp-plus-3-font-size);
-  line-height: var(--type-ramp-plus-3-line-height);
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
 }
 
 h4 {
-  font-size: var(--type-ramp-plus-2-font-size);
-  line-height: var(--type-ramp-plus-2-line-height);
+  font-size: var(--fontSizeBase600);
+  line-height: var(--lineHeightBase600);
 }
 
 h5 {
-  font-size: var(--type-ramp-plus-1-font-size);
-  line-height: var(--type-ramp-plus-1-line-height);
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
 }
 
 h6 {
-  font-size: var(--type-ramp-base-font-size);
-  line-height: var(--type-ramp-base-line-height);
+  font-size: var(--fontSizeBase400);
+  line-height: var(--lineHeightBase400);
 }
 
 
 p {
-  font-size: var(--type-ramp-base-font-size);
-  line-height: var(--type-ramp-base-line-height);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
   font-weight: 400;
   margin-top: 0;
   margin-bottom: 1rem;
-  font-family: var(--body-font);
-}
-
-
-a {
+  font-family: var(--fontFamilyBase);
 }
 
 blockquote {
-  border-left: 5px solid var(--accent-fill-rest);
+  border-left: 5px solid var(--colorBrandBackground);
   border-right: none;
-  font-size: var(--type-ramp-base-font-size);
+  font-size: var(--fontSizeBase300);
   font-style: italic;
   padding: 2px 15px;
 }
 
 [dir='rtl'] blockquote {
   border-left: none;
-  border-right: 5px solid var(--accent-fill-rest);
+  border-right: 5px solid var(--colorBrandBackground);
 }
 
 abbr[title] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;
-  -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
 }
 
@@ -147,10 +144,6 @@ dd {
   margin-bottom: 0.5rem;
   margin-left: 0;
 }
-/*
-blockquote {
-    margin: 0 0 1rem;
-}*/
 
 b,
 strong {
@@ -183,16 +176,16 @@ sup {
 }
 
 a {
-  color: var(--accent-foreground-rest);
+  color: var(--colorBrandForegroundLink);
   text-decoration: underline;
 }
 
   a:hover {
-    color: var(--accent-foreground-hover);
+    color: var(--colorBrandForegroundLinkHover);
   }
 
   a:active {
-    color: var(--accent-foreground-active);
+    color: var(--colorBrandForegroundLinkSelected);
   }
 
   a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -202,11 +195,25 @@ a {
 
 pre,
 code,
-kbd,
 samp {
-  font-family: var(--font-monospace);
+  font-family: var(--fontFamilyMonospace);
   font-size: 1em;
 }
+
+kbd {
+  padding: 0.10rem 0.25rem;
+  font-family: var(--fontFamilyMonospace);
+  font-size: var(--fontSizeBase300);
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground3);
+  border-radius: var(--borderRadiusMedium);
+  border: 1px solid var(--colorBrandForeground1);
+}
+
+  kbd kbd {
+    padding: 0;
+    font-size: 1em;
+  }
 
 pre {
   display: block;
@@ -223,8 +230,6 @@ pre {
   }
 
 code {
-  font-size: 0.875em;
-  color: var(--accent-foreground-rest);
   word-wrap: break-word;
 }
 
@@ -232,31 +237,13 @@ a > code {
   color: inherit;
 }
 
-kbd {
-  padding: 0.1875rem 0.375rem;
-  font-size: 0.875em;
-  color: var(--neutral-base-color);
-  background-color: var(--neutral-fill-layer-rest);
-  border-radius: 0.25rem;
-}
-
-  kbd kbd {
-    padding: 0;
-    font-size: 1em;
-  }
-
 figure {
   margin: 0 0 1rem;
 }
 
-/*img,
-svg {
-    vertical-align: middle;
-}*/
-
 table {
-  font-size: var(--type-ramp-base-font-size);
-  line-height: var(--type-ramp-base-line-height);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
   font-weight: 400;
   margin-top: 0;
   margin-bottom: 1rem;
@@ -273,7 +260,6 @@ caption {
 
 th {
   text-align: inherit;
-  text-align: -webkit-match-parent;
 }
 
 thead,
@@ -292,7 +278,7 @@ label {
 }
 
 button {
-  border-radius: var(--control-corner-radius);
+  border-radius: var(--borderRadiusMedium);
 }
 
   button:focus:not(:focus-visible) {
@@ -372,12 +358,6 @@ legend {
   line-height: inherit;
 }
 
-@media (min-width: 1200px) {
-  legend {
-    font-size: 1.5rem;
-  }
-}
-
 legend + * {
   clear: left;
 }
@@ -401,14 +381,6 @@ legend + * {
   -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
-  direction: ltr;
-}
-*/
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }

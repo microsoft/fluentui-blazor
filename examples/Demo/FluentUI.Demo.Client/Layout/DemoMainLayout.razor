@@ -3,7 +3,7 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold; display: flex; align-items: center; height: 32px;">
+<FluentLayoutItem Area="@LayoutArea.Header" Style="font-size: larger; font-weight: bold; display: flex; align-items: center; height: 44px;">
     @* Hamburger on Mobile *@
     <FluentLayoutHamburger Layout="@_layout" @bind-Opened="@_menuOpened" Style="margin: 2px 12px;" />
 
@@ -22,6 +22,13 @@
     </svg>
 
     <div style="flex-grow: 1" />
+
+    @* Reboot *@
+    <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                  OnClick="@ReloadReboot"
+                  Appearance="ButtonAppearance.Subtle"
+                  BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  Title="Use the Reboot.css styles" />
 
     @* Open Console *@
     <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
