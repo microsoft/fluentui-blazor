@@ -86,7 +86,7 @@ public partial class FluentField : FluentComponentBase
 
     private FluentFieldParameters Parameters => new FluentFieldParameters(this);
 
-    private string GetId(string? slot = null) => $"{Id ?? _defaultId}{(string.IsNullOrEmpty(slot) ? "" : "-" + slot)}";
+    private string GetId(string? slot = null) => $"{Parameters.Id ?? _defaultId}{(string.IsNullOrEmpty(slot) ? "" : "-" + slot)}";
 
     private bool HasLabel => !string.IsNullOrWhiteSpace(Parameters.Label) || Parameters.LabelTemplate is not null;
 
@@ -98,6 +98,7 @@ public partial class FluentField : FluentComponentBase
         private readonly FluentField _component;
         public bool HasInputComponent => _component.InputComponent != null;
         public FluentFieldParameters(FluentField component) => _component = component;
+        public string? Id => _component.Id ?? _component.InputComponent?.Id;
         public string? Label => _component.Label ?? _component.InputComponent?.Label;
         public RenderFragment? LabelTemplate => _component.LabelTemplate ?? _component.InputComponent?.LabelTemplate;
         public string? LabelWidth => _component.LabelWidth ?? _component.InputComponent?.LabelWidth;

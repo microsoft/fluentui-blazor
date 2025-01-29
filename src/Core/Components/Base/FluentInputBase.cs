@@ -52,7 +52,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <inheritdoc />
     [Parameter]
-    public virtual string? Id { get; set; }
+    public virtual string? Id { get; set; } = Identifier.NewId();
 
     /// <inheritdoc />
     [Parameter]

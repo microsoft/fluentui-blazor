@@ -11,6 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public interface IFluentField
 {
+    /// <see cref="IFluentComponentBase.Id"/>
+    string? Id { get; set; }
 
     /// <summary>
     /// Gets or sets the text to label the input. This is usually displayed just above the input.
