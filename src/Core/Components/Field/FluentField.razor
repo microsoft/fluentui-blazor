@@ -3,8 +3,8 @@
 @inherits FluentComponentBase
 
 
-<fluent-field id="@GetId("field")"
-              label-position="@(Parameters.LabelPosition.ToAttributeValue())"
+<fluent-field id="@(Parameters.HasInputComponent ? GetId("field") : GetId())"
+              label-position="@Parameters.LabelPosition.ToAttributeValue()"
               class="@ClassValue"
               style="@StyleValue"
               @attributes="AdditionalAttributes">

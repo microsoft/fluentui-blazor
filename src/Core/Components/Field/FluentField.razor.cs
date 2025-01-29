@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Field adds a label, validation message, and hint text to a control.
 /// </summary>
-public partial class FluentField : FluentComponentBase, IFluentField
+public partial class FluentField : FluentComponentBase
 {
     private readonly string _defaultId = Identifier.NewId();
 

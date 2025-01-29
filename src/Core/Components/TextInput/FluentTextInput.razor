@@ -2,13 +2,12 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<FluentField InputComponent="@this">
+<FluentField InputComponent="@this" Class="@ClassValue" Style="@StyleValue">
     <fluent-text-input @ref="@Element"
                        appearance="@Appearance.ToAttributeValue()"
                        autocomplete="@AutoComplete"
                        autofocus="@Autofocus"
                        aria-label="@AriaLabel"
-                       class="@ClassValue"
                        disabled="@Disabled"
                        id="@Id"
                        inputmode="@InputMode.ToAttributeValue()"
@@ -22,7 +21,6 @@
                        required="@Required"
                        slot="input"
                        spellcheck="@Spellcheck"
-                       style="@StyleValue"
                        control-size="@Size.ToAttributeValue()"
                        type="@TextFieldType.ToAttributeValue()"
                        value="@CurrentValueAsString"

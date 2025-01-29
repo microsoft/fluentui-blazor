@@ -1,5 +1,6 @@
 ﻿<FluentField Label="Label above"
              ForId="field-21"
+             Class="ma-8"
              MessageCondition="@(() => Value1.Length > 3)"
              Message="This is a success message"
              MessageIcon="@FluentStatus.SuccessIcon">
@@ -55,7 +56,7 @@
 </FluentField>
 
 <hr />
-<FluentTextInput Label="@LabelSample" Required="true" />
+<FluentTextInput Label="@LabelSample" Required="true" Margin="30px"/>
 <br />
 <FluentButton OnClick="@(e => LabelSample = LabelSample + "x")">Click</FluentButton>
 
