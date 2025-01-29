@@ -421,7 +421,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             Pagination?.ItemsPerPage != _lastRefreshedPaginationState?.ItemsPerPage
             || Pagination?.CurrentPageIndex != _lastRefreshedPaginationState?.CurrentPageIndex;
 
-        var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || Loading is null;
+        var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || EffectiveLoadingValue;
 
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
