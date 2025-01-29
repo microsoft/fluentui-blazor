@@ -153,4 +153,7 @@
   <data name="MessageBox_ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="TextInput_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
 </root>

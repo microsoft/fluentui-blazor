@@ -2,10 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<FluentField InputComponent="@this"
-             MessageCondition="@(() => Required == true && string.IsNullOrEmpty(CurrentValueAsString))"
-             MessageIcon="@FluentStatus.ErrorIcon"
-             Message="This field is required">
+<FluentField InputComponent="@this">
     <fluent-text-input @ref="@Element"
                        appearance="@Appearance.ToAttributeValue()"
                        autocomplete="@AutoComplete"
@@ -29,6 +26,7 @@
                        control-size="@Size.ToAttributeValue()"
                        type="@TextFieldType.ToAttributeValue()"
                        value="@CurrentValueAsString"
+                       @onfocusout="@FocusOutHandlerAsync"
                        @onchange="@ChangeHandlerAsync"
                        @oninput="@InputHandlerAsync"
                        @attributes="AdditionalAttributes">

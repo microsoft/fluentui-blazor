@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,6 +14,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
 {
+    private bool _focusLost;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
+    /// </summary>
+    public FluentTextInput()
+    {
+        // Default conditions for the message
+        MessageCondition = () => _focusLost && (Required ?? false) && !(Disabled ?? false) && !ReadOnly && string.IsNullOrEmpty(CurrentValueAsString);
+        MessageIcon = FluentStatus.ErrorIcon;
+        Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+    }
+
     /// <inheritdoc />
     [Parameter]
     public ElementReference Element { get; set; }
@@ -119,5 +133,16 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        _focusLost = true;
+        return Task.CompletedTask;
     }
 }
