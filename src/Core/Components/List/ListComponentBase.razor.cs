@@ -168,6 +168,13 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     public virtual IEnumerable<TOption>? SelectedOptions { get; set; }
 
     /// <summary>
+    /// Gets or sets whether using the up and down arrow keys should change focus and select immediately or that selection is done only on Enter.
+    /// ⚠️ Only applicable in single select scenarios.
+    /// </summary>
+    [Parameter]
+    public virtual bool ChangeOnEnterOnly { get; set; } = false;
+
+    /// <summary>
     /// Called whenever the selection changed.
     /// ⚠️ Only available when Multiple = true.
     /// </summary>
@@ -574,7 +581,11 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
         var item = _internalListContext.Options.FirstOrDefault(i => i.Id == id);
 
-        if (item is not null)
+        if (item is null)
+        {
+            return;
+        }
+        if (!ChangeOnEnterOnly || (ChangeOnEnterOnly && e.Code == "Enter"))
         {
             await item.OnClickHandlerAsync();
         }
