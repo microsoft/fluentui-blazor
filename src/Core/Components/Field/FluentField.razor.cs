@@ -14,8 +14,12 @@ public partial class FluentField : FluentComponentBase
 {
     private readonly string _defaultId = Identifier.NewId();
 
+    [Inject]
+    private LibraryConfiguration Configuration { get; set; } = default!;
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
+        .AddClass(Configuration.DefaultStyles.FluentFieldClass)
         .Build();
 
     /// <summary />
@@ -28,6 +32,10 @@ public partial class FluentField : FluentComponentBase
 
     /// <summary>
     /// Gets or sets an existing Input component to use in the field.
+    /// Setting this parameter will define the parameters
+    /// Label, LabelTemplate, LabelPosition, LabelWidth,
+    /// Required, Disabled,
+    /// Message, MessageIcon, MessageTemplate, and MessageCondition.
     /// </summary>
     [Parameter]
     public IFluentField? InputComponent { get; set; }
@@ -86,7 +94,30 @@ public partial class FluentField : FluentComponentBase
 
     private FluentFieldParameters Parameters => new FluentFieldParameters(this);
 
-    private string GetId(string? slot = null) => $"{Parameters.Id ?? _defaultId}{(string.IsNullOrEmpty(slot) ? "" : "-" + slot)}";
+    internal string? GetId(string slot)
+    {
+        // Wrapper of an Input component
+        if (Parameters.HasInputComponent)
+        {
+            var id = (string.IsNullOrEmpty(ForId) ? Id : ForId) ?? _defaultId;
+            return slot switch
+            {
+                "field" => $"{id}-field",
+                "input" => $"{id}",
+                "label" => $"{id}-label",
+                _ => throw new ArgumentException($"Invalid slot: {slot}"),
+            };
+        }
+
+        // Standalone FluentField
+        return slot switch
+        {
+            "field" => Id,
+            "input" => string.IsNullOrEmpty(ForId) ? $"{Id ?? _defaultId}-input" : ForId,
+            "label" => string.IsNullOrEmpty(Id) ? null : $"{Id}-label",
+            _ => throw new ArgumentException($"Invalid slot: {slot}"),
+        };
+    }
 
     private bool HasLabel => !string.IsNullOrWhiteSpace(Parameters.Label) || Parameters.LabelTemplate is not null;
 
@@ -96,9 +127,10 @@ public partial class FluentField : FluentComponentBase
     private class FluentFieldParameters
     {
         private readonly FluentField _component;
-        public bool HasInputComponent => _component.InputComponent != null;
         public FluentFieldParameters(FluentField component) => _component = component;
-        public string? Id => _component.Id ?? _component.InputComponent?.Id;
+
+        public bool HasInputComponent => _component.InputComponent != null;
+
         public string? Label => _component.Label ?? _component.InputComponent?.Label;
         public RenderFragment? LabelTemplate => _component.LabelTemplate ?? _component.InputComponent?.LabelTemplate;
         public string? LabelWidth => _component.LabelWidth ?? _component.InputComponent?.LabelWidth;

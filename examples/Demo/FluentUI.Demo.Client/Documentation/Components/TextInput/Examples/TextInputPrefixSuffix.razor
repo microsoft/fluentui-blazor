@@ -1,5 +1,5 @@
-﻿<div style="display: flex; gap: 12px; margin-bottom: 24px;">
-    <FluentTextInput Label="Company Url" @bind-Value="@_sometext1">
+﻿<FluentStack>
+    <FluentTextInput Label="Company Url" @bind-Value="@Sometext1">
         <StartTemplate>
             <fluent-label>https://</fluent-label>
         </StartTemplate>
@@ -8,14 +8,14 @@
         </EndTemplate>
     </FluentTextInput>
 
-    <FluentTextInput Label="Email" TextFieldType="TextInputType.Email" @bind-Value="@_sometext2" Style="width: 300px;">
+    <FluentTextInput Label="Email" TextFieldType="TextInputType.Email" @bind-Value="@Sometext2" Style="width: 300px;">
         <StartTemplate>
             <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" />
         </StartTemplate>
     </FluentTextInput>
-</div>
+</FluentStack>
 
 @code {
-    private string _sometext1 = "microsoft";
-    private string _sometext2 = "fluentui-blazor@microsoft.com";
+    private string Sometext1 = "microsoft";
+    private string Sometext2 = "fluentui-blazor@microsoft.com";
 }

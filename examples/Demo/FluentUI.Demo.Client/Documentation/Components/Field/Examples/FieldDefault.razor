@@ -1,64 +1,55 @@
-﻿<FluentField Label="Label above"
-             ForId="field-21"
-             Class="ma-8"
-             MessageCondition="@(() => Value1.Length > 3)"
-             Message="This is a success message"
-             MessageIcon="@FluentStatus.SuccessIcon">
-    <InputText id="field-21" @bind-Value="@Value1" />
-</FluentField>
+﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
+    <FluentField Label="Label above"
+                 ForId="field-21"
+                 MessageCondition="@(() => Value1.Length > 3)"
+                 Message="This is a success message"
+                 MessageIcon="@FluentStatus.SuccessIcon">
+        <InputText id="field-21" @bind-Value="@Value1" />
+    </FluentField>
 
-<hr />
+    <FluentField Label="Label before"
+                 LabelPosition="@FieldLabelPosition.Before"
+                 LabelWidth="150px"
+                 ForId="field-22"
+                 Required="true"
+                 Message="This is an error message"
+                 MessageIcon="@FluentStatus.ErrorIcon">
+        <fluent-text-input id="field-22" />
+    </FluentField>
 
-<FluentField Label="Label before"
-             LabelPosition="@FieldLabelPosition.Before"
-             LabelWidth="150px"
-             ForId="field-22"
-             Required="true"
-             Message="This is an error message"
-             MessageIcon="@FluentStatus.ErrorIcon">
-    <fluent-text-input id="field-22" />
-</FluentField>
+    <FluentField Label="Other label before"
+                 LabelPosition="@FieldLabelPosition.Before"
+                 LabelWidth="150px"
+                 ForId="field-23"
+                 Required="true"
+                 Message="This is an info message"
+                 MessageIcon="@FluentStatus.InfoIcon">
+        <fluent-text-input id="field-23" />
+    </FluentField>
 
-<hr />
+    <FluentField Label="Label after"
+                 LabelPosition="@FieldLabelPosition.After"
+                 ForId="field-24"
+                 Message="This is a warning message"
+                 MessageIcon="@FluentStatus.WarningIcon">
+        <fluent-text-input id="field-24" />
+    </FluentField>
 
-<FluentField Label="Other label before"
-             LabelPosition="@FieldLabelPosition.Before"
-             LabelWidth="150px"
-             ForId="field-23"
-             Required="true"
-             Message="This is an info message"
-             MessageIcon="@FluentStatus.InfoIcon">
-    <fluent-text-input id="field-23" />
-</FluentField>
+    <FluentField>
+        <fluent-text-input />
+    </FluentField>
 
-<hr />
+    <FluentField Label="Label above"
+                 Message="This is a success message"
+                 MessageIcon="@FluentStatus.SuccessIcon">
+        TOTO
+    </FluentField>
 
-<FluentField Label="Label after"
-             LabelPosition="@FieldLabelPosition.After"
-             ForId="field-24"
-             Message="This is a warning message"
-             MessageIcon="@FluentStatus.WarningIcon">
-    <fluent-text-input id="field-24" />
-</FluentField>
+    <FluentTextInput id="myText" Label="@LabelSample" Required="true" Margin="30px" />
+    <br />
+    <FluentButton OnClick="@(e => LabelSample = LabelSample + "x")">Click</FluentButton>
 
-<hr />
-
-<FluentField>
-    <fluent-text-input />
-</FluentField>
-
-<hr />
-
-<FluentField Label="Label above"
-             Message="This is a success message"
-             MessageIcon="@FluentStatus.SuccessIcon">
-    TOTO
-</FluentField>
-
-<hr />
-<FluentTextInput id="myText" Label="@LabelSample" Required="true" Margin="30px"/>
-<br />
-<FluentButton OnClick="@(e => LabelSample = LabelSample + "x")">Click</FluentButton>
+</FluentStack>
 
 @code
 {

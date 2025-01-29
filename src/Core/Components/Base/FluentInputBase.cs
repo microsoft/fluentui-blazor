@@ -97,12 +97,15 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
     /// Derived components should typically use this value for the primary HTML element class attribute.
     /// </summary>
-    protected virtual string? ClassValue => DefaultClassBuilder.AddClass(base.CssClass).Build();
+    protected virtual string? ClassValue => DefaultClassBuilder
+        .AddClass(base.CssClass)
+        .Build();
 
     /// <summary>
     /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
     /// </summary>
-    protected virtual string? StyleValue => DefaultStyleBuilder.Build();
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
     /// Determines if the element should receive document focus on page load.

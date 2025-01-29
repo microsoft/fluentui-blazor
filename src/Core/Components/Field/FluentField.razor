@@ -3,7 +3,7 @@
 @inherits FluentComponentBase
 
 
-<fluent-field id="@(Parameters.HasInputComponent ? GetId("field") : GetId())"
+<fluent-field id="@GetId("field")"
               label-position="@Parameters.LabelPosition.ToAttributeValue()"
               class="@ClassValue"
               style="@StyleValue"
@@ -11,7 +11,9 @@
 
     @if (HasLabel)
     {
-        <FluentLabel slot="label" for="@(ForId ?? GetId())"
+        <FluentLabel Id="@GetId("label")"
+                     slot="label"
+                     for="@GetId("input")"
                      Required="@Parameters.Required"
                      Disabled="@Parameters.Disabled"
                      Style="@LabelStyle">
