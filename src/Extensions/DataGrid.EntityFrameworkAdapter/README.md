@@ -29,10 +29,23 @@ Install the package by running the command:
 dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter
 ```
 
+## Creating a derived AsyncQueryExecutor implementation
+Starting with v4.11.4, the `EntityFrameworkAsyncQueryExecutor` class is made public
+so that you can derive from it and override the `ExecuteAsync` method to provide
+custom query execution logic. This is useful if you want to add custom query processing
+logic, such as logging, caching, or query translation or if you want specific [error handling](https://github.com/microsoft/fluentui-blazor/issues/3269).
+
 ## Usage
-In your Program.cs file you need to add the following:
+When using the provided implementation, you need to add add the following in the `Program.cs` file:
+
 ```
 builder.Services.AddDataGridEntityFrameworkAdapter();
+```
+
+When using a custom implementation, you need to add this custom implementation to the DI container in the `Program.cs` file yourself.
+You do **not** call `AddDataGridEntityFrameworkAdapter` in this case.
+```
+builder.Services.AddScoped<IAsyncQueryExecutor, MyCustomAsyncQueryExecutor>();
 ```
 
 ## Support
