@@ -14,8 +14,8 @@
         <FluentLabel Id="@GetId("label")"
                      slot="label"
                      for="@GetId("input")"
-                     Required="@Parameters.Required"
-                     Disabled="@Parameters.Disabled"
+                     Required="@(Parameters.Required ?? false)"
+                     Disabled="@(Parameters.Disabled ?? false)"
                      Style="@LabelStyle">
             @Parameters.Label
             @Parameters.LabelTemplate
@@ -36,7 +36,7 @@
         }
     })
 
-    @if (HasMessage && Parameters.MessageCondition() == true)
+    @if (HasMessage && Parameters.MessageCondition?.Invoke() == true)
     {
         <FluentText slot="message" size="@TextSize.Size200">
             @if (Parameters.MessageIcon is not null)

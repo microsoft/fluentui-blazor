@@ -92,7 +92,7 @@ public partial class FluentField : FluentComponentBase
     [Parameter]
     public Func<bool>? MessageCondition { get; set; }
 
-    private FluentFieldParameters Parameters => new FluentFieldParameters(this);
+    private FluentFieldParameterSelector Parameters => new(this);
 
     internal string? GetId(string slot)
     {
@@ -122,24 +122,4 @@ public partial class FluentField : FluentComponentBase
     private bool HasLabel => !string.IsNullOrWhiteSpace(Parameters.Label) || Parameters.LabelTemplate is not null;
 
     private bool HasMessage => !string.IsNullOrWhiteSpace(Parameters.Message) || Parameters.MessageTemplate is not null || Parameters.MessageIcon is not null;
-
-    // Conversion class for FluentField parameters
-    private class FluentFieldParameters
-    {
-        private readonly FluentField _component;
-        public FluentFieldParameters(FluentField component) => _component = component;
-
-        public bool HasInputComponent => _component.InputComponent != null;
-
-        public string? Label => _component.Label ?? _component.InputComponent?.Label;
-        public RenderFragment? LabelTemplate => _component.LabelTemplate ?? _component.InputComponent?.LabelTemplate;
-        public string? LabelWidth => _component.LabelWidth ?? _component.InputComponent?.LabelWidth;
-        public FieldLabelPosition LabelPosition => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? FieldLabelPosition.Above;
-        public bool Required => _component.Required ?? _component.InputComponent?.Required ?? false;
-        public bool Disabled => _component.Disabled ?? _component.InputComponent?.Disabled ?? false;
-        public string? Message => _component.Message ?? _component.InputComponent?.Message;
-        public Icon? MessageIcon => _component.MessageIcon ?? _component.InputComponent?.MessageIcon;
-        public RenderFragment? MessageTemplate => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate;
-        public Func<bool> MessageCondition => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (() => true);
-    }
 }
