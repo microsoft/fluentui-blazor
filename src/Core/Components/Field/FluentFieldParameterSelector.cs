@@ -77,4 +77,10 @@ internal class FluentFieldParameterSelector : IFluentField
         get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (() => true);
         set => throw new NotSupportedException();
     }
+
+    public bool? MessageState
+    {
+        get => _component.MessageState ?? _component.InputComponent?.MessageState;
+        set => throw new NotSupportedException();
+    }
 }

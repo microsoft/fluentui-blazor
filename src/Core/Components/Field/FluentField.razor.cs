@@ -92,6 +92,10 @@ public partial class FluentField : FluentComponentBase
     [Parameter]
     public Func<bool>? MessageCondition { get; set; }
 
+    /// <see cref="IFluentField.MessageIcon"/>"
+    [Parameter]
+    public bool? MessageState { get; set; }
+
     private FluentFieldParameterSelector Parameters => new(this);
 
     internal string? GetId(string slot)

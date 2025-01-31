@@ -76,6 +76,53 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     #endregion
 
+    #region IFluentField
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual bool? Disabled { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Label { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual FieldLabelPosition? LabelPosition { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? LabelWidth { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual bool? Required { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Message { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual Icon? MessageIcon { get; set; }
+
+    /// <inheritdoc />
+    public virtual RenderFragment? MessageTemplate { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual Func<bool>? MessageCondition { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual bool? MessageState { get; set; }
+
+    #endregion
+
     #region FluentInputBase
 
     /// <summary>
@@ -132,45 +179,6 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// </summary>
     [Parameter]
     public virtual bool ReadOnly { get; set; }
-
-    /// <see cref="IFluentField.Disabled" />
-    [Parameter]
-    public virtual bool? Disabled { get; set; }
-
-    /// <see cref="IFluentField.Label" />
-    [Parameter]
-    public virtual string? Label { get; set; }
-
-    /// <see cref="IFluentField.LabelTemplate" />
-    [Parameter]
-    public virtual RenderFragment? LabelTemplate { get; set; }
-
-    /// <see cref="IFluentField.LabelPosition" />
-    [Parameter]
-    public virtual FieldLabelPosition? LabelPosition { get; set; }
-
-    /// <see cref="IFluentField.LabelWidth" />
-    [Parameter]
-    public virtual string? LabelWidth { get; set; }
-
-    /// <see cref="IFluentField.Required" />
-    [Parameter]
-    public virtual bool? Required { get; set; }
-
-    /// <see cref="IFluentField.Message" />"/>
-    [Parameter]
-    public virtual string? Message { get; set; }
-
-    /// <see cref="IFluentField.MessageIcon" />"/>
-    [Parameter]
-    public virtual Icon? MessageIcon { get; set; }
-
-    /// <see cref="IFluentField.MessageTemplate" />"/>
-    public virtual RenderFragment? MessageTemplate { get; set; }
-
-    /// <see cref="IFluentField.MessageCondition" />
-    [Parameter]
-    public virtual Func<bool>? MessageCondition { get; set; }
 
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
