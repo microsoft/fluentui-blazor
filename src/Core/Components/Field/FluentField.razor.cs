@@ -99,7 +99,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public FieldMessageState? MessageState { get; set; }
 
-    private FluentFieldParameterSelector Parameters => new(this);
+    private FluentFieldParameterSelector Parameters => new(this, Localizer);
 
     internal string? GetId(string slot)
     {

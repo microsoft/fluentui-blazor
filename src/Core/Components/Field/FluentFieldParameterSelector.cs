@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,8 +14,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 internal class FluentFieldParameterSelector : IFluentField
 {
     private readonly FluentField _component;
+    private readonly IFluentLocalizer _localizer;
 
-    public FluentFieldParameterSelector(FluentField component) => _component = component;
+    internal FluentFieldParameterSelector(FluentField component, IFluentLocalizer localizer)
+    {
+        _component = component;
+        _localizer = localizer;
+    }
 
     public bool HasInputComponent => _component.InputComponent != null;
 
@@ -83,7 +89,6 @@ internal class FluentFieldParameterSelector : IFluentField
         get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (field => true);
         set => throw new NotSupportedException();
     }
-
     public FieldMessageState? MessageState
     {
         get => _component.MessageState ?? _component.InputComponent?.MessageState;
@@ -105,9 +110,9 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return MessageState switch
         {
-            FieldMessageState.Success => "Success message",
-            FieldMessageState.Error => "Error message",
-            FieldMessageState.Warning => "Warning message",
+            FieldMessageState.Success => _localizer[LanguageResource.Field_SuccessMessage],
+            FieldMessageState.Error => _localizer[LanguageResource.Field_ErrorMessage],
+            FieldMessageState.Warning => _localizer[LanguageResource.Field_WarningMessage],
             _ => null
         };
     }
