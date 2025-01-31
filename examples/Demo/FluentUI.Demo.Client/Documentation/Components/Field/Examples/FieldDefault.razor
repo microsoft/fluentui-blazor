@@ -49,9 +49,10 @@
     <FluentTextInput Label="My label 4"
                      @bind-Value="@Value4"
                      Immediate="true"
-                     MessageCondition="@(i => i.When(() => Value4.Length > 5, "More than 5", icon: new Icons.Regular.Size16.Image())
-                                               .When(() => Value4.Length > 3, "More than 3", FieldMessageState.Error)
-                                               .When(() => Value4.Length > 1, "More than 1", FieldMessageState.Success)
+                     MessageCondition="@(i => i.When(() => Value4.Length > 7).Display(FieldMessageState.Warning)
+                                               .When(() => Value4.Length > 5).Display("More than 5", new Icons.Regular.Size16.Image())
+                                               .When(() => Value4.Length > 3).Display("More than 3", FieldMessageState.Error)
+                                               .When(() => Value4.Length > 1).Display("More than 1", FieldMessageState.Success)
                                                .Build())" />
 
     <FluentTextInput id="myText" Label="@LabelSample" Required="true" Margin="30px" MessageCondition="DisplayMessage" @bind-Value="@Value2" Immediate="true" />

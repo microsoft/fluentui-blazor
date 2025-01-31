@@ -8,19 +8,20 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class FluentFieldCondition
 {
     private readonly IFluentField _value;
-    private readonly List<ConditionItem> _listOfConditions = [];
+    private readonly List<FluentFieldConditionItem> _listOfConditions = [];
 
     /// <summary />
-    public FluentFieldCondition(IFluentField value)
+    internal FluentFieldCondition(IFluentField value)
     {
         _value = value;
     }
 
     /// <summary />
-    public FluentFieldCondition When(Func<bool> condition, string message, FieldMessageState? state = null, Icon? icon = null)
+    public FluentFieldConditionItem When(Func<bool> condition)
     {
-        _listOfConditions.Add(new ConditionItem(condition, message, state, icon));
-        return this;
+        var item = new FluentFieldConditionItem(this, condition);
+        _listOfConditions.Add(item);
+        return item;
     }
 
     /// <summary />
@@ -30,15 +31,13 @@ public class FluentFieldCondition
         {
             if (item.Condition.Invoke())
             {
-                _value.MessageState = item.state;
+                _value.MessageState = item.State;
                 _value.Message = item.Message;
-                _value.MessageIcon = item.icon;
+                _value.MessageIcon = item.Icon;
                 return true;
             }
         }
 
         return false;
     }
-
-    private record ConditionItem(Func<bool> Condition, string? Message, FieldMessageState? state, Icon? icon);
 }

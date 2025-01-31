@@ -8,8 +8,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public static class FluentFieldExtensions
 {
     /// <summary />
-    public static FluentFieldCondition When(this IFluentField fluentField, Func<bool> condition, string message, FieldMessageState? state = null, Icon? icon = null)
+    public static FluentFieldConditionItem When(this IFluentField fluentField, Func<bool> condition)
     {
-        return new FluentFieldCondition(fluentField).When(condition, message, state, icon);
+        return new FluentFieldCondition(fluentField).When(condition);
     }
 }
