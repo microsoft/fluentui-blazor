@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Field adds a label, validation message, and hint text to a control.
 /// </summary>
-public partial class FluentField : FluentComponentBase
+public partial class FluentField : FluentComponentBase, IFluentField
 {
     private readonly string _defaultId = Identifier.NewId();
 
@@ -45,6 +45,9 @@ public partial class FluentField : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? ForId { get; set; }
+
+    /// <see cref="IFluentField.FocusLost"/>"
+    public bool FocusLost { get; private set; }
 
     /// <see cref="IFluentField.Label"/>"
     [Parameter]
@@ -90,11 +93,11 @@ public partial class FluentField : FluentComponentBase
 
     /// <see cref="IFluentField.MessageCondition" />
     [Parameter]
-    public Func<bool>? MessageCondition { get; set; }
+    public Func<IFluentField, bool>? MessageCondition { get; set; }
 
     /// <see cref="IFluentField.MessageIcon"/>"
     [Parameter]
-    public bool? MessageState { get; set; }
+    public FieldMessageState? MessageState { get; set; }
 
     private FluentFieldParameterSelector Parameters => new(this);
 
@@ -123,7 +126,14 @@ public partial class FluentField : FluentComponentBase
         };
     }
 
-    private bool HasLabel => !string.IsNullOrWhiteSpace(Parameters.Label) || Parameters.LabelTemplate is not null;
+    private bool HasLabel
+        => !string.IsNullOrWhiteSpace(Parameters.Label)
+        || Parameters.LabelTemplate is not null;
 
-    private bool HasMessage => !string.IsNullOrWhiteSpace(Parameters.Message) || Parameters.MessageTemplate is not null || Parameters.MessageIcon is not null;
+    private bool HasMessage
+        => !string.IsNullOrWhiteSpace(Parameters.Message)
+        || Parameters.MessageTemplate is not null
+        || Parameters.MessageIcon is not null
+        || Parameters.MessageState is not null
+        || Parameters.MessageCondition is not null;
 }

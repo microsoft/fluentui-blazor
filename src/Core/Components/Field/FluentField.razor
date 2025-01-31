@@ -36,15 +36,22 @@
         }
     })
 
-    @if (HasMessage && Parameters.MessageCondition?.Invoke() == true)
+    @if (HasMessage && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
     {
         <FluentText slot="message" size="@TextSize.Size200">
             @if (Parameters.MessageIcon is not null)
             {
-                <FluentIcon Value="@Parameters.MessageIcon" Width="12px" Margin="2px 4px 0 0" />
+                <FluentIcon Value="@Parameters.MessageIcon" Width="12px" Margin="0px 4px 0 0" />
             }
-            @Parameters.Message
-            @Parameters.MessageTemplate
+
+            @if (Parameters.MessageTemplate is not null)
+            {
+                @Parameters.MessageTemplate
+            }
+            else
+            {
+                @Parameters.Message
+            }
         </FluentText>
     }
 

@@ -9,8 +9,8 @@ body:has(.prevent-scroll) {
     --font-monospace: var(--fontFamilyMonospace);
     --success: var(--colorStatusSuccessForeground1);
     --warning: var(--colorStatusWarningForeground1);
-    --error: var(--colorStatusDangerForeground1);
-    --info: var(--colorPalettePlatinumForeground2);
+    --error: var(--colorPaletteRedForeground1);
+    --info: var(--colorNeutralForeground3);
     --presence-available: var(--colorPaletteLightGreenForeground3);
     --presence-away: var(--colorPaletteMarigoldBackground3);
     --presence-busy: var(--colorPaletteRedBackground3);

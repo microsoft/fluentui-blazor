@@ -79,6 +79,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     #region IFluentField
 
     /// <inheritdoc />
+    public virtual bool FocusLost { get; protected set; }
+
+    /// <inheritdoc />
     [Parameter]
     public virtual bool? Disabled { get; set; }
 
@@ -111,15 +114,16 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual Icon? MessageIcon { get; set; }
 
     /// <inheritdoc />
+    [Parameter]
     public virtual RenderFragment? MessageTemplate { get; set; }
 
     /// <inheritdoc />
     [Parameter]
-    public virtual Func<bool>? MessageCondition { get; set; }
+    public virtual Func<IFluentField, bool>? MessageCondition { get; set; }
 
     /// <inheritdoc />
     [Parameter]
-    public virtual bool? MessageState { get; set; }
+    public virtual FieldMessageState? MessageState { get; set; }
 
     #endregion
 

@@ -14,17 +14,24 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
 {
-    private bool _focusLost;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
     public FluentTextInput()
     {
         // Default conditions for the message
-        MessageCondition = () => _focusLost && (Required ?? false) && !(Disabled ?? false) && !ReadOnly && string.IsNullOrEmpty(CurrentValueAsString);
-        MessageIcon = FluentStatus.ErrorIcon;
-        Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+        MessageCondition = (field) =>
+        {
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && string.IsNullOrEmpty(CurrentValueAsString);
+        };
+
     }
 
     /// <inheritdoc />
@@ -142,7 +149,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// <returns></returns>
     protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
     {
-        _focusLost = true;
+        FocusLost = true;
         return Task.CompletedTask;
     }
 }

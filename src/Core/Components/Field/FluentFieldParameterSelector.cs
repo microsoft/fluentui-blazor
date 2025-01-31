@@ -18,6 +18,12 @@ internal class FluentFieldParameterSelector : IFluentField
 
     public bool HasInputComponent => _component.InputComponent != null;
 
+    public bool FocusLost
+    {
+        get => _component.InputComponent?.FocusLost ?? false;
+        set => throw new NotSupportedException();
+    }
+
     public string? Label
     {
         get => _component.Label ?? _component.InputComponent?.Label;
@@ -56,31 +62,94 @@ internal class FluentFieldParameterSelector : IFluentField
 
     public string? Message
     {
-        get => _component.Message ?? _component.InputComponent?.Message;
+        get => _component.Message ?? _component.InputComponent?.Message ?? StateToMessage();
         set => throw new NotSupportedException();
     }
 
     public Icon? MessageIcon
     {
-        get => _component.MessageIcon ?? _component.InputComponent?.MessageIcon;
+        get => _component.MessageIcon ?? _component.InputComponent?.MessageIcon ?? StateToIcon();
         set => throw new NotSupportedException();
     }
 
     public RenderFragment? MessageTemplate
     {
-        get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate;
+        get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate ?? StateToMessageTemplate();
         set => throw new NotSupportedException();
     }
 
-    public Func<bool>? MessageCondition
+    public Func<IFluentField, bool>? MessageCondition
     {
-        get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (() => true);
+        get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (field => true);
         set => throw new NotSupportedException();
     }
 
-    public bool? MessageState
+    public FieldMessageState? MessageState
     {
         get => _component.MessageState ?? _component.InputComponent?.MessageState;
         set => throw new NotSupportedException();
+    }
+
+    private Icon? StateToIcon()
+    {
+        return MessageState switch
+        {
+            FieldMessageState.Success => FluentStatus.SuccessIcon,
+            FieldMessageState.Error => FluentStatus.ErrorIcon,
+            FieldMessageState.Warning => FluentStatus.WarningIcon,
+            _ => null
+        };
+    }
+
+    private string? StateToMessage()
+    {
+        return MessageState switch
+        {
+            FieldMessageState.Success => "Success message",
+            FieldMessageState.Error => "Error message",
+            FieldMessageState.Warning => "Warning message",
+            _ => null
+        };
+    }
+
+    private RenderFragment? StateToMessageTemplate()
+    {
+        return MessageState switch
+        {
+            FieldMessageState.Success => builder =>
+            {
+                builder.OpenComponent(0, typeof(FluentText));
+                builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
+                {
+                    contentBuilder.AddContent(0, Message);
+                }));
+                builder.AddAttribute(2, "Color", Color.Success);
+                builder.CloseComponent();
+            }
+            ,
+            FieldMessageState.Error => builder =>
+            {
+                builder.OpenComponent(0, typeof(FluentText));
+                builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
+                {
+                    contentBuilder.AddContent(0, Message);
+                }));
+                builder.AddAttribute(2, "Color", Color.Error);
+                builder.CloseComponent();
+            }
+            ,
+            FieldMessageState.Warning => builder =>
+            {
+                builder.OpenComponent(0, typeof(FluentText));
+                builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
+                {
+                    contentBuilder.AddContent(0, Message);
+                }));
+                builder.AddAttribute(2, "Color", Color.Info);
+                builder.CloseComponent();
+            }
+            ,
+            _ => null
+        };
     }
 }

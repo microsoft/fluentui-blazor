@@ -12,6 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IFluentField
 {
     /// <summary>
+    /// Gets a value indicating whether the input component has already lost the focus.
+    /// As long as the user has been in this field at least once and has left it, this property remains false.
+    /// As soon as the user leaves the field, it becomes true.
+    /// </summary>
+    bool FocusLost { get; }
+
+    /// <summary>
     /// Gets or sets the text to label the input. This is usually displayed just above the input.
     /// </summary>
     string? Label { get; set; }
@@ -61,12 +68,11 @@ public interface IFluentField
     /// <summary>
     /// Gets or sets a value indicating whether the message should be displayed.
     /// </summary>
-    Func<bool>? MessageCondition { get; set; }
-
+    Func<IFluentField, bool>? MessageCondition { get; set; }
 
     /// <summary>
     /// Gets or sets a value that affects the content
     /// of the <see cref="Message"/> and the <see cref="MessageIcon" />.
     /// </summary>
-    bool? MessageState { get; set; }
+    FieldMessageState? MessageState { get; set; }
 }
