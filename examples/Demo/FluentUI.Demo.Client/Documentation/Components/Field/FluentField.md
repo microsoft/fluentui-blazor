@@ -107,3 +107,6 @@ field => field.When(() => MyValue.Length <= 1)
 
 {{ FieldMessageCondition }}
 
+## API FluentField
+
+{{ API Type=FluentField }}
