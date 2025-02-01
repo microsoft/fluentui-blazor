@@ -19,7 +19,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
-        .AddClass(Configuration.DefaultStyles.FluentFieldClass)
+        .AddClass(Configuration.DefaultStyles.FluentFieldClass, when: HasLabel || HasMessage)
         .Build();
 
     /// <summary />
@@ -134,6 +134,5 @@ public partial class FluentField : FluentComponentBase, IFluentField
         => !string.IsNullOrWhiteSpace(Parameters.Message)
         || Parameters.MessageTemplate is not null
         || Parameters.MessageIcon is not null
-        || Parameters.MessageState is not null
-        || Parameters.MessageCondition is not null;
+        || Parameters.MessageState is not null;
 }

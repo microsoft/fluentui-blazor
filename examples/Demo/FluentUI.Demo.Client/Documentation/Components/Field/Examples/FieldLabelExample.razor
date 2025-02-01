@@ -1,0 +1,30 @@
+﻿<FluentSelect Label="Position"
+              Items="@GetLabelPositions()"
+              @bind-Value="@SelectedPosition" />
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
+
+    <FluentField Label="My first label:" LabelWidth="150px" LabelPosition="@SelectedPosition">
+        <FluentTextInput />
+    </FluentField>
+
+    <FluentField LabelWidth="150px" LabelPosition="@SelectedPosition" Required="true">
+        <LabelTemplate>
+            My&nbsp;<b>second</b>&nbsp;<i>label</i>:
+        </LabelTemplate>
+        <ChildContent>
+            <FluentTextInput />
+        </ChildContent>
+    </FluentField>
+
+</FluentStack>
+
+@code
+{
+    private FieldLabelPosition SelectedPosition;
+
+    public static IEnumerable<FieldLabelPosition> GetLabelPositions()
+    {
+        return Enum.GetValues(typeof(FieldLabelPosition)).Cast<FieldLabelPosition>();
+    }
+}

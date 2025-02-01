@@ -7,6 +7,8 @@ route: /Field
 
 Field adds a label, validation message, and hint text to a control.
 
+{{ FieldDefault }}
+
 ## Best practices
 
 **Do**
@@ -30,6 +32,17 @@ to multiple `FluentField`.
 
 This label can be fully customized (bold, italic, icons, ...) using `LabelTemplate`.
 
+{{ FieldLabelExample }}
+
+> By default, the `my-3` class is added to all `FluentField`
+> that contain at least one `Label` or `Message`,
+> to add `12px` before (top) and after (bottom) the field.
+> This will automatically make all your form fields **24px** apart,
+> as recommended by the FluentUI designers.
+>
+> This default value can be modified or removed globally via the startup options:
+> `builder.Services.AddFluentUIComponents(options => options.DefaultStyles.FluentFieldClass = "my-class" );`
+
 ## Validation Message
 
 The `Message` is used to give the user feedback about the value entered.
@@ -39,17 +52,17 @@ It can be used to signal the result of form validation.
 This message can be fully customized (bold, italic, icons, ...) using `MessageTemplate`.
 
 The `MessageState` affects the behavior and appearance of the message:
-- `Error` - The validation message has red text with a red error icon.
-- `Success` - The validation message has gray text with a green checkmark icon.
-- `Warning` - The validation message has gray text with a yellow exclamation icon.
+- `Error` - The validation message has the red text `An error occured` with a red error icon.
+- `Success` - The validation message has gray text `Valid data` with a green checkmark icon.
+- `Warning` - The validation message has gray text `Please, check this value` with a yellow exclamation icon.
 - `<null>` - The validation message must be defined using `Message` or `MessageTemplate`.
 
-Optionally, `MessageIcon` can be used to override the default icon
-(or add an icon in the case of `MessageState = null`).
+These default messages can be located using the [localization](/localization) service.
 
-## Example
+Optionally, `Message` and `MessageIcon` attributes can be used to override
+the default text and icon (or add an icon in the case of `MessageState = null`).
 
-{{ FieldDefault }}
+{{ FieldStatesExample }}
 
 ⚠️ **Note** that the `MessageCondition` attribute must be set to
 `(i) => true` or identical to `FluentFieldCondition.Always`.
@@ -75,7 +88,7 @@ when the user will leave the component.
 
 To help you implement these rules, you can use the `IFluentField.Where`
 method associated with the `Display` method. You must finalize the rule
-definition using the method `Build()`.
+definition using the method `Build()` (to start the validation of the rules).
 
 Rules are evaluated in order of creation: the first rule checked applies
 the associated `Display` action
