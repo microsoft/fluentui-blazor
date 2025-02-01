@@ -11,6 +11,12 @@ public class FluentFieldCondition
     private readonly List<FluentFieldConditionItem> _listOfConditions = [];
 
     /// <summary />
+    public static readonly Func<IFluentField, bool> Always = (i) => true;
+
+    /// <summary />
+    public static readonly Func<IFluentField, bool> Never = (i) => false;
+
+    /// <summary />
     internal FluentFieldCondition(IFluentField value)
     {
         _value = value;
