@@ -135,4 +135,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         || Parameters.MessageTemplate is not null
         || Parameters.MessageIcon is not null
         || Parameters.MessageState is not null;
+
+    private bool HasMessageOrCondition
+       => HasMessage || Parameters.MessageCondition is not null;
 }

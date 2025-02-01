@@ -35,7 +35,7 @@
         }
     }
 
-    @if (HasMessage && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+    @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
     {
         <FluentText slot="message" size="@TextSize.Size200">
             @if (Parameters.MessageIcon is not null)
