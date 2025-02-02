@@ -6,54 +6,54 @@
 
 <div class="icon-explorer" style="width: @(Width ?? "100%"); height: @(Height ?? "calc(100vh - 120px)");">
 
-    @if (!string.IsNullOrEmpty(Title))
-    {
-        <h2>@Title</h2>
-    }
+	@if (!string.IsNullOrEmpty(Title))
+	{
+		<h2>@Title</h2>
+	}
 
-    <FluentGrid Style="width: 100%;" Spacing="1">
-        <FluentGridItem Style="min-width: 200px;">
-            <FluentSearch @bind-Value="@Criteria.SearchTerm"
-                          @bind-Value:after="@(() => StartNewSearchAsync(nameof(Criteria.SearchTerm)))"
-                          Placeholder="Part of icon name..." />
-        </FluentGridItem>
-        <FluentGridItem Gap="0">
-            <FluentSelect TOption="int"
-                          @bind-SelectedOption="@Criteria.Size"
-                          @bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Size)))"
-                          Style="min-width: 100px;"
-                          Items="@AllAvailableSizes"
-                          OptionText="@(i => i > 0 ? $"Size{i}" : "[All]")" />
-        </FluentGridItem>
-        <FluentGridItem>
-            <FluentSelect TOption="IconVariant"
-                          @bind-SelectedOption="@Criteria.Variant"
-                          @bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Variant)))"
-                          Style="min-width: 100px;"
-                          Items="@(Enum.GetValues<IconVariant>())" />
-        </FluentGridItem>
-        <FluentGridItem>
-            <FluentSelect TOption="Color"
-                          @bind-SelectedOption="@Criteria.Color"
-                          @bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Color)))"
-                          Style="min-width: 100px;"
-                          Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
-                          OptionValue="@(i => i.ToAttributeValue())" />
-        </FluentGridItem>
-        <FluentGridItem>
-            <FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
-                          OnClick="@(() => StartNewSearchAsync(string.Empty))" />
-        </FluentGridItem>
-    </FluentGrid>
+	<FluentGrid Style="width: 100%;" Spacing="1">
+		<FluentGridItem Style="min-width: 200px;">
+			<FluentSearch @bind-Value="@Criteria.SearchTerm"
+			@bind-Value:after="@(() => StartNewSearchAsync(nameof(Criteria.SearchTerm)))"
+			Placeholder="Part of icon name..." />
+		</FluentGridItem>
+		<FluentGridItem Gap="0">
+			<FluentSelect TOption="int"
+			@bind-SelectedOption="@Criteria.Size"
+			@bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Size)))"
+			Style="min-width: 100px;"
+			Items="@AllAvailableSizes"
+			OptionText="@(i => i > 0 ? $"Size{i}" : "[All]")" />
+		</FluentGridItem>
+		<FluentGridItem>
+			<FluentSelect TOption="IconVariant"
+			@bind-SelectedOption="@Criteria.Variant"
+			@bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Variant)))"
+			Style="min-width: 100px;"
+			Items="@(Enum.GetValues<IconVariant>())" />
+		</FluentGridItem>
+		<FluentGridItem>
+			<FluentSelect TOption="Color"
+			@bind-SelectedOption="@Criteria.Color"
+			@bind-SelectedOption:after="@(() => StartNewSearchAsync(nameof(Criteria.Color)))"
+			Style="min-width: 100px;"
+			Items="@(Enum.GetValues<Color>().Where(i => i != Color.Custom))"
+			OptionValue="@(i => i.ToAttributeValue())" />
+		</FluentGridItem>
+		<FluentGridItem>
+			<FluentButton IconStart="@(new Icons.Regular.Size24.ArrowCircleRight())"
+			OnClick="@(() => StartNewSearchAsync(string.Empty))" />
+		</FluentGridItem>
+	</FluentGrid>
 
-    @* Results *@
-    @if (SearchInProgress)
-    {
-        <FluentProgressRing Style="width: unset; margin: 50px;" />
-    }
-    else
-    {
-        @if (IconsFound.Any())
+	@* Results *@
+	@if (SearchInProgress)
+	{
+		<FluentProgressRing Style="width: unset; margin: 50px;" />
+	}
+	else
+	{
+		@if (IconsFound.Any())
         {
             <FluentLabel Class="header">
                 Click on upper right clipboard icon in a card to copy a ready to paste <code>FluentIcon</code>
@@ -75,7 +75,7 @@
         else
         {
             <FluentLabel Class="not-found">
-                No icons found
+				@_searchResultMessage
             </FluentLabel>
         }
     }
