@@ -9,6 +9,7 @@
 
 <p>This component demonstrates showing data.</p>
 
+@*#if (InteractiveAtRoot) -->
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
@@ -22,6 +23,16 @@ else
         <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Sortable="true" Align="Align.End"/>
     </FluentDataGrid>
 }
+##else
+<!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
+<FluentDataGrid Id="weathergrid" Items="@forecasts" GridTemplateColumns="1fr 1fr 1fr 2fr" Loading="@(forecasts == null)" Style="height:204px;" TGridItem="WeatherForecast">
+    <PropertyColumn Title="Date" Property="@(c => c!.Date)" Align="Align.Start"/>
+    <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Align="Align.Center"/>
+    <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Align="Align.Center"/>
+    <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Align="Align.End"/>
+</FluentDataGrid>
+##endif*@
+
 
 @code {
     private IQueryable<WeatherForecast>? forecasts;

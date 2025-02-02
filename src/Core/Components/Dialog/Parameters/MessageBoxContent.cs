@@ -11,7 +11,7 @@ public class MessageBoxContent
 
     /// <summary>
     /// Gets or sets the intent of the message box. See <see cref="MessageBoxIntent"/> for details.
-    /// </summary>    
+    /// </summary>
     public MessageBoxIntent Intent { get; set; }
 
     /// <summary>
@@ -27,6 +27,7 @@ public class MessageBoxContent
     /// <summary>
     /// Gets or sets the text to display in the message box.
     /// </summary>
+    [Obsolete("Use MarkupMessage instead")]
     public string? Message { get; set; }
 
     /// <summary>

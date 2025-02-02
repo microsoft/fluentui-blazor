@@ -45,6 +45,7 @@ jobs:
        uses: actions/setup-dotnet@v4
        with:
         dotnet-version: 8.0.x
+        dotnet-quality: ga
 
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@v4
@@ -167,7 +168,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-          dotnet-quality: preview
+          dotnet-quality: ga
 
       - name: .NET Builld
         run: dotnet build ${{ env.PROJECT }} -c ${{ env.BUILD_CONFIG }} -o publish -f ${{ env.DOTNET_VERSION }} -r linux-x64 --self-contained=true -p:BuildNumber=$BUILD_NUMBER -p:SourceRevisionId=$GITHUB_SHA -p:ContinuousIntegrationBuild=true

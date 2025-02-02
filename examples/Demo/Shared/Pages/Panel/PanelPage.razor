@@ -52,6 +52,14 @@
     </Description>
 </DemoSection>
 
+<DemoSection Title="Panels with validation" Component="@typeof(DialogPanelWithValidation)" CollocatedFiles="@(new[] { "cs" })" AdditionalFiles="@(new[] {"SimplePanel.razor"})">
+    <Description>
+        The panel that is anchored to the right side of the screen can be dismissed by clicking the dismiss button (at the top),
+        'No' button (at the bottom) or 'Yes' button (at the bottom). <br />
+        Before the panel is closed, it will validate the data and, if not ok, will prevent the dialog from closing using the 'Yes' button.
+    </Description>
+</DemoSection>
+
 <h2 id="documentation">Documentation</h2>
 
 <ApiDocumentation Component="typeof(DialogParameters<>)" InstanceTypes="@(new[] {typeof(string)})" GenericLabel="TData" />

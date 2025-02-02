@@ -96,9 +96,16 @@ if ($branch -eq "main" -or $branch -eq "archive") {
     $toTest = "true"
 }
 
-# Dev: 1.2.4-preview-23296-1
+
+# Dev without PackageSuffix: 1.2.4-preview-23296-1
+# Dev with    PackageSuffix: 1.2.4-beta.1
 elseif ($branch -eq "dev") {
-    $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
+    if ($packageSuffix -eq "") {
+        $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
+    }
+    else {
+        $package = "$($builds[0]).$($builds[1]).$($builds[2])-$packageSuffix"
+    }
     $toTest = "true"
 }
 

@@ -82,7 +82,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     public EventCallback<IEnumerable<TGridItem>> SelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the selection mode (Single or Multiple).
+    /// Gets or sets the selection mode (Single, SingleSticky or Multiple).
     /// </summary>
     [Parameter]
     public DataGridSelectMode SelectMode
@@ -92,7 +92,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
         {
             _selectMode = value;
 
-            if (value == DataGridSelectMode.Single)
+            if (value is DataGridSelectMode.Single or DataGridSelectMode.SingleSticky)
             {
                 KeepOnlyFirstSelectedItemAsync().Wait();
             }
@@ -280,6 +280,11 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
     {
         if (item != null && (Selectable == null || Selectable.Invoke(item)))
         {
+            if (SelectMode is DataGridSelectMode.SingleSticky && _selectedItems.Contains(item))
+            {
+                return;
+            }
+
             if (SelectedItems.Contains(item))
             {
                 _selectedItems.Remove(item);
@@ -288,7 +293,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             }
             else
             {
-                if (SelectMode == DataGridSelectMode.Single)
+                if (SelectMode is DataGridSelectMode.Single or DataGridSelectMode.SingleSticky)
                 {
                     foreach (var previous in _selectedItems)
                     {
@@ -324,6 +329,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             return IconChecked ?? SelectMode switch
             {
                 DataGridSelectMode.Single => IconSelectedSingle,
+                DataGridSelectMode.SingleSticky => IconSelectedSingle,
                 _ => IconSelectedMultiple
             };
         }
@@ -332,6 +338,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             return IconUnchecked ?? SelectMode switch
             {
                 DataGridSelectMode.Single => IconUnselectedSingle,
+                DataGridSelectMode.SingleSticky => IconUnselectedSingle,
                 _ => IconUnselectedMultiple
             };
         }
@@ -410,6 +417,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
             case DataGridSelectMode.Single:
                 return new RenderFragment((builder) => { });
 
+            case DataGridSelectMode.SingleSticky:
+                return new RenderFragment((builder) => { });
+
             case DataGridSelectMode.Multiple:
                 var selectedAll = GetSelectAll();
                 var iconAllChecked = (selectedAll == null && IconIndeterminate != null)
@@ -426,8 +436,7 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>
                         builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickAllAsync));
                         builder.AddAttribute(4, "onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyAllAsync));
                     }
-                    builder.AddAttribute(5, "Style", "margin-left: 12px;");
-                    builder.AddAttribute(6, "Title", iconAllChecked == IconIndeterminate
+                    builder.AddAttribute(5, "Title", iconAllChecked == IconIndeterminate
                                                         ? TitleAllIndeterminate
                                                         : (iconAllChecked == GetIcon(true) ? TitleAllChecked : TitleAllUnchecked));
                     builder.CloseComponent();

@@ -14,6 +14,7 @@ public class FluentNumberFieldTests : TestBase
     public FluentNumberFieldTests()
     {
         TestContext.Services.AddSingleton(LibraryConfiguration);
+        TestContext.JSInterop.Mode = JSRuntimeMode.Loose;
     }
 
     [Fact]

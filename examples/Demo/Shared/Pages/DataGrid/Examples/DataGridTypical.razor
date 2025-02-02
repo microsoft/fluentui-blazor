@@ -1,55 +1,52 @@
-﻿
-@inject DataSource Data
+﻿@inject DataSource Data
 
 <p>To test set ResizeType on the DataGrid to either DataGridResizeType.Discrete or DataGridResizeType.Exact</p>
 <p>Remove the parameter completely to get the original behavior</p>
 
-<FluentDataGrid Items="@FilteredItems"
-                ResizableColumns=true
-                ResizeType="DataGridResizeType.Discrete"
-                Pagination="@pagination"
-                GridTemplateColumns="0.2fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
-                RowClass="@rowClass"
-                RowStyle="@rowStyle"
-                HeaderCellAsButtonWithMenu="true"
-                Style="height: 405px;overflow:auto;"
-                ColumnResizeLabels="@customLabels"
-                SaveStateInUrl="true"
-                SaveStatePrefix="g1">
-    <TemplateColumn Tooltip="true" HeaderTooltip="Flag of each team" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
-        <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
-    </TemplateColumn>
-    <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the country">
-        <ColumnOptions>
-            <div class="search-box">
-                <FluentSearch Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." Style="width: 100%;" Label="Filter" />
-            </div>
-        </ColumnOptions>
-    </PropertyColumn>
-    <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
-    <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
-    <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="false" Align="Align.End" />
-    <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="Align.End" Tooltip="true">
-        <ColumnOptions>
-            <div style="width: 100%; height: 150px;">
-                <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;">
-                    <FluentSliderLabel Position="0">0</FluentSliderLabel>
-                    <FluentSliderLabel Position="50">50</FluentSliderLabel>
-                    <FluentSliderLabel Position="100">100</FluentSliderLabel>
-                    <FluentSliderLabel Position="150">150</FluentSliderLabel>
-                </FluentSlider>
-                <br /><br />
-                <FluentSlider Label="@($"Max ({maxMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;">
-                    <FluentSliderLabel Position="0">0</FluentSliderLabel>
-                    <FluentSliderLabel Position="50">50</FluentSliderLabel>
-                    <FluentSliderLabel Position="100">100</FluentSliderLabel>
-                    <FluentSliderLabel Position="150">150</FluentSliderLabel>
-                </FluentSlider>
-            </div>
-        </ColumnOptions>
-    </PropertyColumn>
-</FluentDataGrid>
-
+<div style="height: 380px; overflow-x:auto; display:flex;">
+    <FluentDataGrid Items="@FilteredItems"
+                    ResizableColumns=true
+                    ResizeType="DataGridResizeType.Discrete"
+                    GridTemplateColumns="0.3fr 1fr 0.2fr 0.2fr 0.2fr 0.2fr"
+                    Pagination="@pagination"
+                    RowClass="@rowClass"
+                    RowStyle="@rowStyle"
+                    HeaderCellAsButtonWithMenu="true"
+                    ColumnResizeLabels="@customLabels">
+        <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
+            <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
+        </TemplateColumn>
+        <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the country">
+            <ColumnOptions>
+                <div class="search-box">
+                    <FluentSearch Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @bind-Value:after="HandleClear" Placeholder="Country name..." Style="width: 100%;" Label="Filter" />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
+        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
+        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="false" Align="Align.End" />
+        <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="Align.End" Tooltip="true">
+            <ColumnOptions>
+                <div style="width: 100%; height: 150px;">
+                    <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;">
+                        <FluentSliderLabel Position="0">0</FluentSliderLabel>
+                        <FluentSliderLabel Position="50">50</FluentSliderLabel>
+                        <FluentSliderLabel Position="100">100</FluentSliderLabel>
+                        <FluentSliderLabel Position="150">150</FluentSliderLabel>
+                    </FluentSlider>
+                    <br /><br />
+                    <FluentSlider Label="@($"Max ({maxMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=maxMedals Immediate="true" Style="width: 100%;">
+                        <FluentSliderLabel Position="0">0</FluentSliderLabel>
+                        <FluentSliderLabel Position="50">50</FluentSliderLabel>
+                        <FluentSliderLabel Position="100">100</FluentSliderLabel>
+                        <FluentSliderLabel Position="150">150</FluentSliderLabel>
+                    </FluentSlider>
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+    </FluentDataGrid>
+</div>
 
 <FluentPaginator State="@pagination" />
 
@@ -74,7 +71,7 @@
         .ThenDescending(x => x.Medals.Silver)
         .ThenDescending(x => x.Medals.Bronze);
 
-    Func<Country, string?> rowClass = x => x.Name.StartsWith("A") ? "highlighted-row" : null;
+    Func<Country, string?> rowClass = x => x.Name.StartsWith("A") ? "highlighted" : null;
     Func<Country, string?> rowStyle = x => x.Name.StartsWith("Au") ? "background-color: var(--highlight-bg)" : null;
 
     //IQueryable<Country>? FilteredItems => items?.Where(x => x.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));

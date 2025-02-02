@@ -35,3 +35,7 @@ fluent-tab {
     ::deep .fluent-tab-close:hover {
         fill: var(--neutral-fill-strong-hover) !important;
     }
+
+::deep fluent-tab[aria-selected="true"] {
+    font-variation-settings: normal;
+}

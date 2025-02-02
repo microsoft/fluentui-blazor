@@ -1,5 +1,5 @@
 ﻿<div style="height: 400px; overflow-y: scroll;">
-    <FluentDataGrid @ref="grid" Items=@items GridTemplateColumns="1fr 1fr 1fr 1fr" Style="height: 100%;">
+    <FluentDataGrid @ref="grid" Items=@items GridTemplateColumns="1fr 1fr 1fr 1fr">
         <ChildContent>
             <PropertyColumn Property="@(c => c.Item1)" Sortable="true" />
             <PropertyColumn Property="@(c => c.Item2)" />
@@ -7,7 +7,10 @@
             <PropertyColumn Property="@(c => c.Item4)" Align="Align.End" />
         </ChildContent>
         <EmptyContent>
-            <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />&nbsp; Nothing to see here. Carry on!
+            <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Center" HorizontalGap="10">
+                <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Accent" />
+                <div>Nothing to see here. Carry on!</div>
+            </FluentStack>
         </EmptyContent>
     </FluentDataGrid>
 </div>
@@ -53,7 +56,7 @@
         grid?.SetLoadingState(true);
         items = null;
 
-        await Task.Delay(2500);
+        await Task.Delay(1500);
 
         items = GenerateSampleGridData(100);
         grid?.SetLoadingState(false);

@@ -16,12 +16,13 @@
         <p>
             To get up and running with the <code>Microsoft.FluentUI.AspNetCore.Components</code> library, see the &quot;Getting Started&quot; section below.
         </p>
+
         <h2>Introduction and getting started video</h2>
-        <div class="youtube-responsive">
-            <iframe src="https://www.youtube.com/embed/lUZ5mrg2Q8k" frameborder="0" allowfullscreen></iframe>
+        <div class="youtube-thumbnail">
+            <a href="https://youtu.be/lUZ5mrg2Q8k" target="_blank" title="Fluent UI Blazor introduction video"><img src="https://img.youtube.com/vi/lUZ5mrg2Q8k/maxresdefault.jpg" alt="Fluent UI Blazor introduction video" /></a>
         </div>
         <p style="margin-top: 0.5rem;">
-            More videos on our <a href="/Videos">videos page</a>
+            More videos available on our <a href="/Videos">videos page</a>.
         </p>
 
     </FluentGridItem>
@@ -34,26 +35,25 @@
             <br />
             <p>
                 The demo and documentation sites for previous version is available:<br />
-                <a href="https://aka.ms/fluentui-blazor-v3/" target="_blank">Version 3.7.9</a><br />
-                Please be aware that this version is no longer supported as both .NET 6 and .NET 7 are out of support now.
+                <a href="https://aka.ms/fluentui-blazor-v3/" target="_blank">Version 3.8.0</a><br />
+                <em>Please be aware that this version is no longer supported as both .NET 6 and .NET 7 are out of support now.</em>
             </p>
         </div>
-        <h2 id="whatsnew">What's new?</h2>
+
+        <h2>What's new</h2>
+        <ul class="news">
+            <li><NewsDate Day="14" Month="Jan" Year="25" /><a href="/WhatsNew#v4.11.3">v4.11.3 released</a></li>
+            <li><NewsDate Day="13" Month="Jan" Year="25" /><a href="/WhatsNew#v4.11.2">v4.11.2 released</a></li>
+            <li><NewsDate Day="10" Month="Jan" Year="25" /><a href="/WhatsNew#v4.11.1">v4.11.1 released</a></li>
+            <li><NewsDate Day="19" Month="Dec" Year="24" /><a href="/WhatsNew#v4.11.0">v4.11.0 released</a></li>
+            <li><NewsDate Day="15" Month="Nov" Year="24" /><a href="https://youtu.be/w8BKS1a8MnU" target="_blank">Our .NET Cont 2024 session on YouTube</a></li>
+
+            <!--<li><a href=""></a></li>-->
+        </ul>
+
         <p>
             If you are already up-and-running and upgrading from an earlier version of the library, please go to the <a href="/WhatsNew">What's new</a> page
             for information on additions, fixes and (breaking) changes.
-        </p>
-        <h2 id="interactivity">Components & render modes</h2>
-        <p>
-            As described in the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0" target="_blank"> Blazor documentation</a>:
-        </p>
-        <blockquote>
-            By default, components use Static Server-side rendering (SSR). The component renders to the response stream and there is no interactivity.
-        </blockquote>
-        <p>
-            A component inherits its render mode from its parent. So unless a render mode is specified on the app, page or component level, every
-            component (including ours) is <em>statically rendered</em> on the server and <strong>will not be interactive</strong>. For the
-            Fluent UI Blazor library this means most components will display correctly but <strong>will not offer</strong> complete, if any, functionality.
         </p>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="12" md="6">
@@ -130,6 +130,18 @@
         </DemoSection>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="12" md="4">
+        <h2 id="interactivity">Components & render modes</h2>
+        <p>
+            As described in the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-8.0" target="_blank"> Blazor documentation</a>:
+        </p>
+        <blockquote>
+            By default, components use Static Server-side rendering (SSR). The component renders to the response stream and there is no interactivity.
+        </blockquote>
+        <p>
+            A component inherits its render mode from its parent. So unless a render mode is specified on the app, page or component level, every
+            component (including ours) is <em>statically rendered</em> on the server and <strong>will not be interactive</strong>. For the
+            Fluent UI Blazor library this means most components will display correctly but <strong>will not offer</strong> complete, if any, functionality.
+        </p>
         <h2 id="configuring-the-design-system">Configuring the Design System</h2>
         <p>
             The Fluent UI Blazor components are built on FAST's Adaptive UI technology, which enables design customization and personalization, while

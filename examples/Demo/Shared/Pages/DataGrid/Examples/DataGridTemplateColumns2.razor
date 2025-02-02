@@ -1,10 +1,18 @@
 ﻿
-<FluentDataGrid id="defaultGrid" Items=RowsGrid.AsQueryable() GridTemplateColumns="1fr 1fr" TGridItem=SampleGridData OnRowFocus="HandleRowFocus" OnCellFocus="HandleCellFocus">
+<FluentDataGrid id="defaultGrid"
+                Items=RowsGrid.AsQueryable()
+                GridTemplateColumns="1fr 1fr"
+                TGridItem=SampleGridData
+                OnRowClick="HandleRowClick"
+                OnRowFocus="HandleRowFocus"
+                OnCellClick="HandleCellClick"
+                OnCellFocus="HandleCellFocus"
+                RowSize="@DataGridRowSize.Medium">
     <TemplateColumn Title="Name">
-        <FluentTextField @bind-Value="@context!.Name"/>
+        <FluentTextField @bind-Value="@context!.Name" />
     </TemplateColumn>
     <TemplateColumn Title="Age">
-        <FluentNumberField @bind-Value="@context!.Age" TValue="int"/>
+        <FluentNumberField @bind-Value="@context!.Age" TValue="int" />
     </TemplateColumn>
 </FluentDataGrid>
 
@@ -14,7 +22,7 @@
     {
         public string Name { get; set; }
         public int Age { get; set; }
-        
+
         public SampleGridData(string name, int age)
         {
             Name = name;
@@ -30,13 +38,23 @@
         new SampleGridData("Bob", 20 )
     };
 
+    private void HandleRowClick(FluentDataGridRow<SampleGridData> row)
+    {
+        DemoLogger.WriteLine($"Row clicked: {row.RowIndex}");
+    }
+
     private void HandleRowFocus(FluentDataGridRow<SampleGridData> row)
     {
         DemoLogger.WriteLine($"Row focused: {row.RowIndex}");
     }
 
+    private void HandleCellClick(FluentDataGridCell<SampleGridData> cell)
+    {
+        DemoLogger.WriteLine($"Cell clicked: {cell.GridColumn}");
+    }
+
     private void HandleCellFocus(FluentDataGridCell<SampleGridData> cell)
     {
-        DemoLogger.WriteLine($"Cell focused: {cell.GridColumn}");
+        DemoLogger.WriteLine($"Cell focused : {cell.GridColumn}");
     }
 }

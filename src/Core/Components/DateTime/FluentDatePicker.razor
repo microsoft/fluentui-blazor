@@ -27,7 +27,7 @@
     <FluentOverlay @bind-Visible="@Opened" Dismissable="true" FullScreen="true" Interactive="true" InteractiveExceptId="@PopupId" />
     <FluentAnchoredRegion Anchor="@Id"
                           Id="@PopupId"
-                          HorizontalDefaultPosition="@(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right)"
+                          HorizontalDefaultPosition="@(PopupHorizontalPosition ?? (System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? HorizontalPosition.Left : HorizontalPosition.Right))"
                           HorizontalInset="true"
                           VerticalDefaultPosition="@VerticalPosition.Unset"
                           Shadow="ElevationShadow.Flyout"

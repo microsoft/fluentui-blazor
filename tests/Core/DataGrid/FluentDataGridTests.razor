@@ -1,0 +1,156 @@
+﻿@using FluentAssertions
+@using Xunit
+@inherits TestContext
+
+@code {
+    public FluentDataGridTests()
+    {
+        var dataGridModule = JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DataGrid/FluentDataGrid.razor.js");
+        dataGridModule.SetupModule("init", _ => true);
+
+        // Register services
+        Services.AddSingleton(LibraryConfiguration.ForUnitTests);
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public void FluentDataGrid_Default()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <EmptyContent><p>empty content</p></EmptyContent>
+            </FluentDataGrid>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentDataGrid_With_Empty_Items_Stays_Loading_Until_Changed()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@(Array.Empty<Customer>().AsQueryable())" Loading="true">
+                <EmptyContent><p id="empty-content">empty content</p></EmptyContent>
+                <LoadingContent><p id="loading-content">loading content</p></LoadingContent>
+                <ChildContent>
+                    <PropertyColumn Property="@(i => i.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        cut.Find("#loading-content").Should().NotBeNull();
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("#empty-content"));
+
+        cut.SetParametersAndRender(parameters => parameters
+            .Add(p => p.Loading, false));
+
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
+        cut.Find("#empty-content").Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_With_ItemProvider_Stays_Loading_Until_ChangedAsync()
+    {
+        ValueTask<GridItemsProviderResult<Customer>> GetItems(GridItemsProviderRequest<Customer> request)
+        {
+            return ValueTask.FromResult(GridItemsProviderResult.From(
+                Array.Empty<Customer>(),
+                0));
+        }
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="@GetItems" Loading="true">
+                <EmptyContent><p id="empty-content">empty content</p></EmptyContent>
+                <LoadingContent><p id="loading-content">loading content</p></LoadingContent>
+                <ChildContent>
+                    <TemplateColumn Title="Name">
+                        <p class="customer-name">@context.Name</p>
+                    </TemplateColumn>
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var dataGrid = cut.Instance;
+        cut.Find("#loading-content").Should().NotBeNull();
+
+        // should stay loading even after data refresh
+        await cut.InvokeAsync(() => dataGrid.RefreshDataAsync());
+        cut.Find("#loading-content").Should().NotBeNull();
+
+        // now not loading but still with 0 items, should render empty content
+        cut.SetParametersAndRender(parameters => parameters
+            .Add(p => p.Loading, false));
+
+        cut.Find("#empty-content").Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_With_ItemProvider_And_Uncontrolled_Loading_Starts_Loading()
+    {
+        var tcs = new TaskCompletionSource();
+        async ValueTask<GridItemsProviderResult<Customer>> GetItems(GridItemsProviderRequest<Customer> request)
+        {
+            await tcs.Task;
+            var numberOfItems = 1;
+            return GridItemsProviderResult.From(
+                GetCustomers().Take(numberOfItems).ToArray(),
+                numberOfItems);
+        }
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="@GetItems">
+                <EmptyContent><p id="empty-content">empty content</p></EmptyContent>
+                <LoadingContent><p id="loading-content">loading content</p></LoadingContent>
+                <ChildContent>
+                    <TemplateColumn Title="Name">
+                        <p class="customer-name">@context.Name</p>
+                    </TemplateColumn>
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        var dataGrid = cut.Instance;
+
+        // Data is still loading, so loading content should be displayed
+        cut.Find("#loading-content").Should().NotBeNull();
+
+        tcs.SetResult();
+
+        // Data is no longer loading, so loading content should not be displayed after re-render
+        // wait for re-render here
+        cut.WaitForState(() => cut.Find("p").TextContent == GetCustomers().First().Name);
+
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
+
+        // should stay not loading even after data refresh
+        await cut.InvokeAsync(() => dataGrid.RefreshDataAsync());
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
+
+        // if we explicitly set Loading back to null, we should see the same behaviors because data should
+        // be refreshed
+        tcs = new TaskCompletionSource();
+        cut.SetParametersAndRender(parameters => parameters
+            .Add(p => p.Loading, null));
+        cut.Find("#loading-content").Should().NotBeNull();
+
+        tcs.SetResult();
+
+        cut.WaitForState(() => cut.Find("p").TextContent == GetCustomers().First().Name);
+        Assert.Throws<ElementNotFoundException>(() => cut.Find("#loading-content"));
+    }
+
+    // Sample data...
+    private IEnumerable<Customer> GetCustomers()
+    {
+        yield return new Customer(1, "Denis Voituron");
+        yield return new Customer(2, "Vincent Baaij");
+        yield return new Customer(3, "Bill Gates");
+    }
+
+    private record Customer(int Id, string Name);
+}

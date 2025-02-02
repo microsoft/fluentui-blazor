@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk" InitialTargets="AddTemplatesToPackageAsContent">
-
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
 		<Authors>Microsoft</Authors>
@@ -40,18 +39,18 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 	</PropertyGroup>
-	
+
 	 <PropertyGroup>
 		<UsePublicApiAnalyzers>false</UsePublicApiAnalyzers>
-	</PropertyGroup>  
+	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="templates\**\*" />
 		<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
-		
+
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\icon.png" Pack="true" PackagePath="\" />
-		
+
 	</ItemGroup>
 
 	<ItemGroup>
@@ -75,7 +74,7 @@
 			<Content Include="%(_TemplatesForPackage.Identity)" PackagePath="content/content/%(_TemplatesForPackage.RecursiveDir)" />
 		</ItemGroup>
 	</Target>
-	
+
 	<!-- Replaces the versions referenced by the templates projects to use the version of the packages being live-built -->
 	<Target Name="ReplacePackageVersionOnTemplates" DependsOnTargets="CopyTemplatesToIntermediateOutputPath">
 
@@ -89,6 +88,7 @@
 		<WriteLinesToFile File="%(TemplateProjectFiles.DestinationFile)"
 											Lines="$([System.IO.File]::ReadAllText('%(TemplateProjectFiles.FullPath)')
 																								 .Replace('!!REPLACE_WITH_LATEST_VERSION!!', '$(PackageVersion)')
+                                                 .Replace('!!REPLACE_WITH_LATEST_ASPIRE_VERSION!!', '$(AspirePackageVersion)')
 																								 .Replace('!!REPLACE_WITH_ASPNETCORE_8_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet8)')
 																								 .Replace('!!REPLACE_WITH_ASPNETCORE_9_VERSION!!', '$(MicrosoftAspNetCorePackageVersionForNet9)')
 																								 .Replace('!!REPLACE_WITH_DOTNET_EXTENSIONS_VERSION!!', '$(MicrosoftExtensionsHttpResiliencePackageVersion)'))"

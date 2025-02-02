@@ -100,7 +100,7 @@ blockquote p:last-child {
 nav.sitenav {
     padding: 1.5rem 1rem;
     height: calc(100dvh - 90px);
-    width: 18rem;
+    width: 20rem;
     overflow-y: auto;
 }
 
@@ -139,6 +139,31 @@ nav fluent-anchor {
 .content {
     display: flex;
 }
+
+ul.news {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+    ul.news li {
+        display: flex;
+        gap: calc( var(--design-unit) * 2px);
+        align-items: center;
+        padding-bottom: calc( var(--design-unit) * 2px);
+    }
+
+.news .calendar {
+
+}
+
+.news a {
+    font-size: var(--type-ramp-plus-1-font-size);
+    line-height: var(--type-ramp-plus-1-line-height);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
 
 article {
     padding: 1.5rem 1rem;
@@ -203,11 +228,11 @@ code {
     padding: 5px;
 }
 
-.highlighted-row {
+.highlighted {
     background-color: var(--accent-stroke-control-active);
 }
 
-    .highlighted-row > fluent-data-grid-cell {
+    .highlighted > td {
         color: var(--neutral-fill-inverse-rest);
     }
 
@@ -290,7 +315,6 @@ kbd {
     from {
         fill-opacity: 0.1;
     }
-
     to {
         fill-opacity: 1;
     }
@@ -301,7 +325,7 @@ kbd {
     text-align: center;
     font-weight: bold;
     inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
-    margin-top:80px;
+    margin-top: 80px;
 }
 
     .loading-progress-text:after {
@@ -426,6 +450,7 @@ kbd {
     fluent-select::part(control) {
         width: 150px;
     }
+
     .content {
         flex-direction: column;
     }
@@ -433,7 +458,7 @@ kbd {
     aside {
         padding: 1.5em 0.75em 1em 0.75em;
         width: 100%;
-        height: 100%!important;
+        height: 100% !important;
         max-height: 100% !important;
     }
 
@@ -554,3 +579,13 @@ kbd {
     display: block;
     min-height: 24px;
 }
+
+.youtube-thumbnail {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+    .youtube-thumbnail img {
+        width: 100%;
+    }

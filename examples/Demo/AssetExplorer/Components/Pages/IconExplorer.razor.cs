@@ -55,7 +55,7 @@ public partial class IconExplorer
 
         IconsFound =
         [
-            .. Icons.AllIcons
+            .. IconsExtensions.AllIcons
                     .Where(i => i.Variant == Criteria.Variant
                              && (Criteria.Size > 0 ? (int)i.Size == Criteria.Size : true)
                              && (string.IsNullOrWhiteSpace(Criteria.SearchTerm) ? true : i.Name.Contains(Criteria.SearchTerm, StringComparison.InvariantCultureIgnoreCase)))
