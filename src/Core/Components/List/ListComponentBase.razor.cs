@@ -527,19 +527,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
         {
             if (!Equals(item, SelectedOption))
             {
-                var value = GetOptionValue(item);
-
-                if (this is FluentListbox<TOption> ||
-                    this is FluentCombobox<TOption> ||
-                    (this is FluentSelect<TOption> && Value is null))
-                {
-                    await base.ChangeHandlerAsync(new ChangeEventArgs() { Value = value });
-                }
-
                 SelectedOption = item;
-
-                //InternalValue = Value = value;
-                InternalValue = value;
+                InternalValue = GetOptionValue(item);
                 await RaiseChangedEventsAsync();
             }
         }
@@ -562,6 +551,8 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                 await SelectedOptionChanged.InvokeAsync(SelectedOption);
             }
         }
+
+        await base.ChangeHandlerAsync(new ChangeEventArgs() { Value = InternalValue });
     }
 
     protected virtual async Task OnKeydownHandlerAsync(KeyboardEventArgs e)
