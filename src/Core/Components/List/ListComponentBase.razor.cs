@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
@@ -36,7 +37,7 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
     // We cascade the _internalListContext to descendants, which in turn call it to add themselves to the options list
     internal InternalListContext<TOption> _internalListContext;
-    internal override bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionsChanged.HasDelegate;
+    internal override bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate || SelectedOptionChanged.HasDelegate || SelectedOptionExpression is not null || SelectedOptionsChanged.HasDelegate || SelectedOptionsExpression is not null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -148,6 +149,13 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     public virtual EventCallback<TOption?> SelectedOptionChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets an expression that identifies the bound selected options.
+    /// ⚠️ Only available when Multiple = false.
+    /// </summary>
+    [Parameter]
+    public Expression<Func<TOption>>? SelectedOptionExpression { get; set; }
+
+    /// <summary>
     /// If true, the user can select multiple elements.
     /// ⚠️ Only available for the FluentSelect and FluentListbox components.
     /// </summary>
@@ -180,6 +188,13 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
     /// </summary>
     [Parameter]
     public virtual EventCallback<IEnumerable<TOption>?> SelectedOptionsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound selected options.
+    /// ⚠️ Only available when Multiple = true.
+    /// </summary>
+    [Parameter]
+    public Expression<Func<IEnumerable<TOption>>>? SelectedOptionsExpression { get; set; }
 
     /// <summary />
     public ListComponentBase()
@@ -293,11 +308,19 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
 
         if (!_hasInitializedParameters)
         {
-            if (SelectedOptionChanged.HasDelegate)
+            if (SelectedOptionExpression is not null)
+            {
+                FieldIdentifier = FieldIdentifier.Create(SelectedOptionExpression);
+            }
+            else if (SelectedOptionChanged.HasDelegate)
             {
                 FieldIdentifier = FieldIdentifier.Create(() => SelectedOption);
             }
-            if (SelectedOptionsChanged.HasDelegate)
+            else if (SelectedOptionsExpression is not null)
+            {
+                FieldIdentifier = FieldIdentifier.Create(SelectedOptionsExpression);
+            }
+            else if (SelectedOptionsChanged.HasDelegate)
             {
                 FieldIdentifier = FieldIdentifier.Create(() => SelectedOptions);
             }
