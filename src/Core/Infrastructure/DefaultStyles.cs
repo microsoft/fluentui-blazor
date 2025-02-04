@@ -24,16 +24,15 @@ public class DefaultStyles
 
     /// <summary>
     /// Gets or sets the gap between vertically stacked components.
-    /// Default is `var(--spacingVerticalM)` (12px).
+    /// Default is undefined. For example, you can use `var(--spacingVerticalM)` (12px).
     /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/column-gap">column-gap</see> property.
     /// </summary>
-    public string? FluentStackVerticalGap { get; set; } = "var(--spacingVerticalM)";
+    public string? FluentStackVerticalGap { get; set; }
 
     /// <summary>
     /// Gets or sets the gap between horizontally stacked components.
-    /// Default is `var(--spacingHorizontalM)` (12px).
+    /// Default is undefined. For example, you can use `var(--spacingHorizontalM)` (12px).
     /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/row-gap">row-gap</see> property.
     /// </summary>
-    public string? FluentStackHorizontalGap { get; set; } = "var(--spacingHorizontalM)";
-
+    public string? FluentStackHorizontalGap { get; set; }
 }

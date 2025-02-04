@@ -53,21 +53,32 @@ public class InputBaseTests : TestContext
     ///
     /// ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
     /// </summary>
-    /// <param name="propName">Blazor Component property name</param>
-    /// <param name="htmlName">HTML attribute name</param>
-    /// <param name="value">Value</param>
+    /// <param name="attributeName">Blazor Component property name</param>
+    /// <param name="attributeValue">Blazor Component property htmlValue</param>
+    /// <param name="htmlAttribute">HTML attribute name (null to verify only if the `htmlValue` is included in the Markup</param>
+    /// <param name="htmlValue">HTML attribute Value (null to use the same `attributeValue` content</param>
+    /// <param name="extraCondition">Add a custom extra rules, hardcoded in the test</param>
     [Theory]
-    [InlineData("Name", "name", "my-name")]
-    [InlineData("Disabled", "disabled", true)]
-    [InlineData("ReadOnly", "readonly", true)]
-    [InlineData("AriaLabel", "aria-label", "my-aria-label")]
-    [InlineData("Autofocus", "autofocus", true)]
-    [InlineData("Required", "required", true)]
-    [InlineData("Label", "", "my-label")]
-    public void InputBase_DefaultProperties(string propName, string htmlName, object value)
+    [InlineData("Name", "my-name", "name")]
+    [InlineData("Disabled", true, "disabled")]
+    [InlineData("ReadOnly", true, "readonly")]
+    [InlineData("AriaLabel", "my-aria-label", "aria-label")]
+    [InlineData("Autofocus", true, "autofocus")]
+    [InlineData("Required", true, "required")]
+    [InlineData("Label", "my-label")]
+    [InlineData("LabelWidth", "150px", null, "width: 150px;", "Set_LabelPosition_Before")]
+    [InlineData("LabelPosition", FieldLabelPosition.Before, "label-position", "before")]
+    [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
+    [InlineData("MessageState", FieldMessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
+    public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
         var errors = new StringBuilder();
         var localizer = Services.GetRequiredService<IFluentLocalizer>();
+
+        if (htmlValue == null)
+        {
+            htmlValue = attributeValue;
+        }
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
@@ -81,24 +92,38 @@ public class InputBaseTests : TestContext
             // Arrange and Act
             var renderedComponent = RenderComponent<DynamicComponent>(parameters =>
             {
-                parameters.Add(p => p.Type, type);
-                parameters.Add(p => p.Parameters, new Dictionary<string, object>
+                var attributes = new Dictionary<string, object>
                 {
-                    { "Localizer", localizer },
-                    { propName, value }
-                });
+                    { attributeName, attributeValue },
+                };
+
+                // Extra conditions
+                switch (extraCondition)
+                {
+                    case "Set_LabelPosition_Before":
+                        attributes.Add("Label", "my-label");
+                        attributes.Add("LabelPosition", FieldLabelPosition.Before);
+                        break;
+
+                    case "Add_MessageCondition_AlwaysTrue":
+                        attributes.Add("MessageCondition", (IFluentField e) => true);
+                        break;
+                }
+
+                parameters.Add(p => p.Type, type);
+                parameters.Add(p => p.Parameters, attributes);
             });
 
             // Assert
-            var isMatch = string.IsNullOrEmpty(htmlName)
-                        ? renderedComponent.Markup.Contains(value.ToString() ?? "")
-                        : renderedComponent.Markup.ContainsAttribute(htmlName, value);
+            var isMatch = string.IsNullOrEmpty(htmlAttribute)
+                        ? renderedComponent.Markup.Contains(htmlValue.ToString() ?? "")
+                        : renderedComponent.Markup.ContainsAttribute(htmlAttribute, htmlValue);
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 
             if (!isMatch)
             {
-                var error = $"\"{componentType.Name}\" does not use the \"{propName}\" property/attribute (missing HTML attribute {htmlName}=\"{value}\").";
+                var error = $"\"{componentType.Name}\" does not use the \"{attributeName}\" attribute (missing HTML attribute {htmlAttribute}=\"{htmlValue}\").";
                 errors.AppendLine(error);
             }
         }

@@ -27,7 +27,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     private string? LabelStyle => new StyleBuilder()
-        .AddStyle("width", LabelWidth, when: () => !string.IsNullOrEmpty(LabelWidth))
+        .AddStyle("width", Parameters.LabelWidth, when: () => !string.IsNullOrEmpty(Parameters.LabelWidth) && Parameters.LabelPosition != FieldLabelPosition.Above)
         .Build();
 
     /// <summary>
@@ -59,7 +59,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     /// <see cref="IFluentField.LabelPosition"/>"
     [Parameter]
-    public FieldLabelPosition? LabelPosition { get; set; } = FieldLabelPosition.Above;
+    public FieldLabelPosition? LabelPosition { get; set; }
 
     /// <see cref="IFluentField.LabelWidth"/>"
     [Parameter]

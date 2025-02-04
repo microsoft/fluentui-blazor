@@ -77,7 +77,7 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the gap between horizontally stacked components.
-    /// Default is `var(--spacingHorizontalM)` (12px).
+    /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
     /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/row-gap">row-gap</see> property.
     /// </summary>
     [Parameter]
@@ -85,7 +85,7 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the gap between vertically stacked components.
-    /// Default is `var(--spacingVerticalM)` (12px).
+    /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
     /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/column-gap">column-gap</see> property.
     /// </summary>
     [Parameter]

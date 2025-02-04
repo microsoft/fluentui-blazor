@@ -1,4 +1,4 @@
-﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
+﻿<FluentStack Orientation="Orientation.Vertical">
     <FluentField Label="Label above"
                  ForId="field-21"
                  Message="This is a success message"
@@ -44,6 +44,15 @@
         TOTO
     </FluentField>
 
+    <FluentField Label="Label above"
+                 Message="This is a success message"
+                 MessageIcon="@FluentStatus.SuccessIcon">
+        <select>
+            <option>One</option>
+            <option>Two</option>
+        </select>
+    </FluentField>
+
     <FluentTextInput Label="My label" MessageState="@FieldMessageState.Error" MessageCondition="@(i => true)" />
 
     <FluentTextInput Label="My label 4"
@@ -59,7 +68,7 @@
     <FluentButton OnClick="@(e => LabelSample = LabelSample + "x")">Click</FluentButton>
 
 
-    <FluentTextInput id="myText2" Label="@LabelSample" Required="true" Margin="30px" @bind-Value="@Value3" Immediate="true" />
+    <FluentTextInput id="myText2" Label="@LabelSample" LabelPosition="FieldLabelPosition.Before" Required="true" Margin="30px" @bind-Value="@Value3" Immediate="true" />
 
 </FluentStack>
 

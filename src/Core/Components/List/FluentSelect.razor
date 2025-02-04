@@ -5,26 +5,19 @@
 @* This file must be updated when the `fluent-select` web-component will be available  *@
 
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
-    @if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
-    {
-        <div style="margin-top: 4px;">
-            <label for="@Id" aria-label="@GetAriaLabelWithRequired()">
-                @Label
-                @LabelTemplate
-            </label>
-        </div>
-    }
-    <select aria-label="@AriaLabel"
-            autofocus="@Autofocus"
-            class="@ClassValue"
-            disabled="@Disabled"
-            id="@Id"
-            name="@Name"
-            readonly="@ReadOnly"
-            required="@Required"
-            style="@StyleValue"
-            @onchange="ChangeHandlerAsync"
-            @attributes=AdditionalAttributes>
-        @RenderOptions()
-    </select>
+    <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+        <select aria-label="@AriaLabel"
+                autofocus="@Autofocus"
+                disabled="@Disabled"
+                id="@Id"
+                name="@Name"
+                readonly="@ReadOnly"
+                required="@Required"
+                style="@ListStyle"
+                slot="input"
+                @onchange="ChangeHandlerAsync"
+                @attributes=AdditionalAttributes>
+            @RenderOptions()
+        </select>
+    </FluentField>
 </CascadingValue>
