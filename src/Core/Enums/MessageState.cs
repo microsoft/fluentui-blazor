@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents the type of content to display in the message (and the associated icon).
 /// </summary>
-public enum FieldMessageState
+public enum MessageState
 {
     /// <summary>
     /// Display a red error message text and red error icon.

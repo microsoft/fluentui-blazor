@@ -42,9 +42,9 @@ internal class FluentFieldParameterSelector : IFluentField
         set => throw new NotSupportedException();
     }
 
-    public FieldLabelPosition? LabelPosition
+    public LabelPosition? LabelPosition
     {
-        get => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? FieldLabelPosition.Above;
+        get => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? Components.LabelPosition.Above;
         set => throw new NotSupportedException();
     }
 
@@ -89,7 +89,7 @@ internal class FluentFieldParameterSelector : IFluentField
         get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (field => true);
         set => throw new NotSupportedException();
     }
-    public FieldMessageState? MessageState
+    public MessageState? MessageState
     {
         get => _component.MessageState ?? _component.InputComponent?.MessageState;
         set => throw new NotSupportedException();
@@ -99,9 +99,9 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return MessageState switch
         {
-            FieldMessageState.Success => FluentStatus.SuccessIcon,
-            FieldMessageState.Error => FluentStatus.ErrorIcon,
-            FieldMessageState.Warning => FluentStatus.WarningIcon,
+            Components.MessageState.Success => FluentStatus.SuccessIcon,
+            Components.MessageState.Error => FluentStatus.ErrorIcon,
+            Components.MessageState.Warning => FluentStatus.WarningIcon,
             _ => null
         };
     }
@@ -110,9 +110,9 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return MessageState switch
         {
-            FieldMessageState.Success => _localizer[LanguageResource.Field_SuccessMessage],
-            FieldMessageState.Error => _localizer[LanguageResource.Field_ErrorMessage],
-            FieldMessageState.Warning => _localizer[LanguageResource.Field_WarningMessage],
+            Components.MessageState.Success => _localizer[LanguageResource.Field_SuccessMessage],
+            Components.MessageState.Error => _localizer[LanguageResource.Field_ErrorMessage],
+            Components.MessageState.Warning => _localizer[LanguageResource.Field_WarningMessage],
             _ => null
         };
     }
@@ -121,7 +121,7 @@ internal class FluentFieldParameterSelector : IFluentField
     {
         return MessageState switch
         {
-            FieldMessageState.Success => builder =>
+            Components.MessageState.Success => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
@@ -132,7 +132,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            FieldMessageState.Error => builder =>
+            Components.MessageState.Error => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
@@ -143,7 +143,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            FieldMessageState.Warning => builder =>
+            Components.MessageState.Warning => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>

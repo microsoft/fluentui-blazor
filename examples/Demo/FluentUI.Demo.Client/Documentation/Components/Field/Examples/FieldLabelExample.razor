@@ -21,10 +21,10 @@
 
 @code
 {
-    private FieldLabelPosition SelectedPosition;
+    private LabelPosition SelectedPosition;
 
-    public static IEnumerable<FieldLabelPosition> GetLabelPositions()
+    public static IEnumerable<LabelPosition> GetLabelPositions()
     {
-        return Enum.GetValues(typeof(FieldLabelPosition)).Cast<FieldLabelPosition>();
+        return Enum.GetValues(typeof(LabelPosition)).Cast<LabelPosition>();
     }
 }

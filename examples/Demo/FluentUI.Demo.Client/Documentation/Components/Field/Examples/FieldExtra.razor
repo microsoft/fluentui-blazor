@@ -7,7 +7,7 @@
     </FluentField>
 
     <FluentField Label="Label before"
-                 LabelPosition="@FieldLabelPosition.Before"
+                 LabelPosition="@LabelPosition.Before"
                  LabelWidth="150px"
                  ForId="field-22"
                  Required="true"
@@ -17,7 +17,7 @@
     </FluentField>
 
     <FluentField Label="Other label before"
-                 LabelPosition="@FieldLabelPosition.Before"
+                 LabelPosition="@LabelPosition.Before"
                  LabelWidth="150px"
                  ForId="field-23"
                  Required="true"
@@ -27,7 +27,7 @@
     </FluentField>
 
     <FluentField Label="Label after"
-                 LabelPosition="@FieldLabelPosition.After"
+                 LabelPosition="@LabelPosition.After"
                  ForId="field-24"
                  Message="This is a warning message"
                  MessageIcon="@FluentStatus.WarningIcon">
@@ -53,22 +53,22 @@
         </select>
     </FluentField>
 
-    <FluentTextInput Label="My label" MessageState="@FieldMessageState.Error" MessageCondition="@(i => true)" />
+    <FluentTextInput Label="My label" MessageState="@MessageState.Error" MessageCondition="@(i => true)" />
 
     <FluentTextInput Label="My label 4"
                      @bind-Value="@Value4"
                      Immediate="true"
-                     MessageCondition="@(i => i.When(() => Value4.Length > 7).Display(FieldMessageState.Warning)
+                     MessageCondition="@(i => i.When(() => Value4.Length > 7).Display(MessageState.Warning)
                                                .When(() => Value4.Length > 5).Display("More than 5", new Icons.Regular.Size16.Image())
-                                               .When(() => Value4.Length > 3).Display("More than 3", FieldMessageState.Error)
-                                               .When(() => Value4.Length > 1).Display("More than 1", FieldMessageState.Success)
+                                               .When(() => Value4.Length > 3).Display("More than 3", MessageState.Error)
+                                               .When(() => Value4.Length > 1).Display("More than 1", MessageState.Success)
                                                .Build())" />
 
     <FluentTextInput id="myText" Label="@LabelSample" Required="true" Margin="30px" MessageCondition="DisplayMessage" @bind-Value="@Value2" Immediate="true" />
     <FluentButton OnClick="@(e => LabelSample = LabelSample + "x")">Click</FluentButton>
 
 
-    <FluentTextInput id="myText2" Label="@LabelSample" LabelPosition="FieldLabelPosition.Before" Required="true" Margin="30px" @bind-Value="@Value3" Immediate="true" />
+    <FluentTextInput id="myText2" Label="@LabelSample" LabelPosition="LabelPosition.Before" Required="true" Margin="30px" @bind-Value="@Value3" Immediate="true" />
 
 </FluentStack>
 
@@ -91,7 +91,7 @@
         if (Value2.Length == 0)
         {
             input.Message = "My custom required message";
-            input.MessageState = FieldMessageState.Error;
+            input.MessageState = MessageState.Error;
             return true;
         }
 
@@ -104,7 +104,7 @@
 
         if (Value2.Length > 3)
         {
-            input.MessageState = FieldMessageState.Warning;
+            input.MessageState = MessageState.Warning;
             return true;
         }
 

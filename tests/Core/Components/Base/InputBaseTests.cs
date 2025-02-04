@@ -67,9 +67,9 @@ public class InputBaseTests : TestContext
     [InlineData("Required", true, "required")]
     [InlineData("Label", "my-label")]
     [InlineData("LabelWidth", "150px", null, "width: 150px;", "Set_LabelPosition_Before")]
-    [InlineData("LabelPosition", FieldLabelPosition.Before, "label-position", "before")]
+    [InlineData("LabelPosition", LabelPosition.Before, "label-position", "before")]
     [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
-    [InlineData("MessageState", FieldMessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
+    [InlineData("MessageState", MessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
     [InlineData("InputSlot", "input", null, "slot=\"input\"")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
@@ -103,7 +103,7 @@ public class InputBaseTests : TestContext
                 {
                     case "Set_LabelPosition_Before":
                         attributes.Add("Label", "my-label");
-                        attributes.Add("LabelPosition", FieldLabelPosition.Before);
+                        attributes.Add("LabelPosition", LabelPosition.Before);
                         break;
 
                     case "Add_MessageCondition_AlwaysTrue":

@@ -32,7 +32,7 @@ public interface IFluentField
     /// <summary>
     /// Gets or sets the position of the label relative to the input.
     /// </summary>
-    FieldLabelPosition? LabelPosition { get; set; }
+    LabelPosition? LabelPosition { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the label.
@@ -74,5 +74,5 @@ public interface IFluentField
     /// Gets or sets a value that affects the content
     /// of the <see cref="Message"/> and the <see cref="MessageIcon" />.
     /// </summary>
-    FieldMessageState? MessageState { get; set; }
+    MessageState? MessageState { get; set; }
 }

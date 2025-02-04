@@ -10,7 +10,7 @@ public class FluentFieldConditionItem
     internal FluentFieldCondition Owner;
     internal Func<bool> Condition;
     internal string? Message;
-    internal FieldMessageState? State;
+    internal MessageState? State;
     internal Icon? Icon;
 
     /// <summary />
@@ -27,19 +27,19 @@ public class FluentFieldConditionItem
     }
 
     /// <summary />
-    public FluentFieldCondition Display(FieldMessageState state)
+    public FluentFieldCondition Display(MessageState state)
     {
         return InternalDisplay(message: null, state, icon: null);
     }
 
     /// <summary />
-    public FluentFieldCondition Display(string message, FieldMessageState state, Icon? icon = null)
+    public FluentFieldCondition Display(string message, MessageState state, Icon? icon = null)
     {
         return InternalDisplay(message, state, icon);
     }
 
     /// <summary />
-    private FluentFieldCondition InternalDisplay(string? message, FieldMessageState? state, Icon? icon)
+    private FluentFieldCondition InternalDisplay(string? message, MessageState? state, Icon? icon)
     {
         Message = message;
         State = state;

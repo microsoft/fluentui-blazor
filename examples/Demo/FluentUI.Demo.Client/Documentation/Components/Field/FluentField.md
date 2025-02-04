@@ -95,13 +95,13 @@ the associated `Display` action
 
 ```csharp
 field => field.When(() => MyValue.Length <= 1)
-                   .Display("Less than 1", FieldMessageState.Success)
+                   .Display("Less than 1", MessageState.Success)
               .When(() => MyValue.Length <= 3)
-                   .Display("Less than 3", FieldMessageState.Error)
+                   .Display("Less than 3", MessageState.Error)
               .When(() => MyValue.Length <= 5)
                    .Display("Less than 5", new Icons.Regular.Size16.Image())
               .When(() => true)
-                   .Display(FieldMessageState.Warning)
+                   .Display(MessageState.Warning)
               .Build())
 ```
 

@@ -95,7 +95,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <inheritdoc />
     [Parameter]
-    public virtual FieldLabelPosition? LabelPosition { get; set; }
+    public virtual LabelPosition? LabelPosition { get; set; }
 
     /// <inheritdoc />
     [Parameter]
@@ -123,7 +123,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <inheritdoc />
     [Parameter]
-    public virtual FieldMessageState? MessageState { get; set; }
+    public virtual MessageState? MessageState { get; set; }
 
     #endregion
 

@@ -9,7 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents the position of the label relative to the input.
 /// </summary>
-public enum FieldLabelPosition
+public enum LabelPosition
 {
     /// <summary>
     /// The label is positioned above the input.

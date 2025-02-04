@@ -27,7 +27,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .Build();
 
     private string? LabelStyle => new StyleBuilder()
-        .AddStyle("width", Parameters.LabelWidth, when: () => !string.IsNullOrEmpty(Parameters.LabelWidth) && Parameters.LabelPosition != FieldLabelPosition.Above)
+        .AddStyle("width", Parameters.LabelWidth, when: () => !string.IsNullOrEmpty(Parameters.LabelWidth) && Parameters.LabelPosition != Components.LabelPosition.Above)
         .Build();
 
     /// <summary>
@@ -59,7 +59,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     /// <see cref="IFluentField.LabelPosition"/>"
     [Parameter]
-    public FieldLabelPosition? LabelPosition { get; set; }
+    public LabelPosition? LabelPosition { get; set; }
 
     /// <see cref="IFluentField.LabelWidth"/>"
     [Parameter]
@@ -97,7 +97,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     /// <see cref="IFluentField.MessageIcon"/>"
     [Parameter]
-    public FieldMessageState? MessageState { get; set; }
+    public MessageState? MessageState { get; set; }
 
     private FluentFieldParameterSelector Parameters => new(this, Localizer);
 
