@@ -2,11 +2,17 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+/* ********************************************************
+ *  ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
+ * ********************************************************
+ */
+
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -71,6 +77,7 @@ public class InputBaseTests : TestContext
     [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
     [InlineData("MessageState", MessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
     [InlineData("InputSlot", "input", null, "slot=\"input\"")]
+    [InlineData("LostFocus", "input", null, null, "Check_LostFocus")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
         var errors = new StringBuilder();
@@ -120,6 +127,12 @@ public class InputBaseTests : TestContext
                         ? renderedComponent.Markup.Contains(htmlValue.ToString() ?? "")
                         : renderedComponent.Markup.ContainsAttribute(htmlAttribute, htmlValue);
 
+            // LostFocus
+            if (extraCondition == "Check_LostFocus")
+            {
+                isMatch = VerifyLostFocus(renderedComponent);
+            }
+
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
 
             if (!isMatch)
@@ -130,5 +143,21 @@ public class InputBaseTests : TestContext
         }
 
         Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    private bool VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
+    {
+        try
+        {
+            var input = component.Find("[slot='input']");
+            input.FocusOut();
+
+            var field = component.FindComponent<FluentField>();
+            return field.Instance.InputComponent?.FocusLost ?? false;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }
