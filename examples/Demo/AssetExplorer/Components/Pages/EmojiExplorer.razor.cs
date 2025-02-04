@@ -11,6 +11,7 @@ public partial class EmojiExplorer
     private readonly EmojiSearchCriteria Criteria = new();
     private EmojiInfo[] EmojisFound = Array.Empty<EmojiInfo>();
     private PaginationState PaginationState = new() { ItemsPerPage = 4 * 12 };
+    private string _searchResultMessage = "Start search...";
 
     [Parameter]
     public string Title { get; set; } = "FluentUI Blazor - Emoji Explorers";
@@ -56,6 +57,8 @@ public partial class EmojiExplorer
         ];
 
         await PaginationState.SetTotalItemCountAsync(EmojisFound.Length);
+
+        _searchResultMessage = EmojisFound.Length == 0 ? "No emoji found." : string.Empty;
 
         SearchInProgress = false;
     }
