@@ -15,6 +15,7 @@
                 required="@Required"
                 style="@ListStyle"
                 slot="input"
+                @onfocusout="@FocusOutHandlerAsync"
                 @onchange="ChangeHandlerAsync"
                 @attributes=AdditionalAttributes>
             @RenderOptions()

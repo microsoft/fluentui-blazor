@@ -130,7 +130,7 @@ public class InputBaseTests : TestContext
             // LostFocus
             if (extraCondition == "Check_LostFocus")
             {
-                isMatch = VerifyLostFocus(renderedComponent);
+                isMatch = VerifyLostFocus(renderedComponent).After;
             }
 
             Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
@@ -145,19 +145,27 @@ public class InputBaseTests : TestContext
         Assert.True(errors.Length == 0, errors.ToString());
     }
 
-    private bool VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
+    private (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
     {
         try
         {
+            // Before
+            var fieldBefore = component.FindComponent<FluentField>();
+            var focusBefore = fieldBefore.Instance.InputComponent?.FocusLost ?? fieldBefore.Instance?.FocusLost ?? false;
+
+            // Focus out
             var input = component.Find("[slot='input']");
             input.FocusOut();
 
-            var field = component.FindComponent<FluentField>();
-            return field.Instance.InputComponent?.FocusLost ?? false;
+            // After
+            var fieldAfter = component.FindComponent<FluentField>();
+            var focusAfter = fieldAfter.Instance.InputComponent?.FocusLost ?? fieldBefore.Instance?.FocusLost ?? false;
+
+            return (focusBefore, focusAfter);
         }
         catch (Exception)
         {
-            return false;
+            return (false, false);
         }
     }
 }
