@@ -295,7 +295,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                 }
             }
 
-
             if (SelectedOptionChanged.HasDelegate)
             {
                 FieldIdentifier = FieldIdentifier.Create(() => SelectedOption);

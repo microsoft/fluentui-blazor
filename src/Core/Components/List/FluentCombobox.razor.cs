@@ -150,7 +150,7 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyn
         if (e.Value is not null && Items is not null)
         {
             var value = e.Value.ToString();
-            TOption? item = Items.FirstOrDefault(i => GetOptionText(i) == value);
+            var item = Items.FirstOrDefault(i => GetOptionText(i) == value);
 
             if (item is null)
             {
