@@ -1,0 +1,21 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentFieldTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentField_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentField Label="My label" Message="My message">Field content</FluentField>);
+
+        // Assert
+        cut.Verify();
+    }
+}

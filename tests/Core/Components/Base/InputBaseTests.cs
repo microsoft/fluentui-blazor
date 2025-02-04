@@ -70,6 +70,7 @@ public class InputBaseTests : TestContext
     [InlineData("LabelPosition", FieldLabelPosition.Before, "label-position", "before")]
     [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
     [InlineData("MessageState", FieldMessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
+    [InlineData("InputSlot", "input", null, "slot=\"input\"")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
         var errors = new StringBuilder();
