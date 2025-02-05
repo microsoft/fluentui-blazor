@@ -16,85 +16,101 @@ internal class FluentFieldParameterSelector : IFluentField
     private readonly FluentField _component;
     private readonly IFluentLocalizer _localizer;
 
+    /// <summary />
     internal FluentFieldParameterSelector(FluentField component, IFluentLocalizer localizer)
     {
         _component = component;
         _localizer = localizer;
     }
 
+    /// <summary />
     public bool HasInputComponent => _component.InputComponent != null;
 
+    /// <summary />
     public bool FocusLost
     {
         get => _component.InputComponent?.FocusLost ?? false;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public string? Label
     {
         get => _component.Label ?? _component.InputComponent?.Label;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public RenderFragment? LabelTemplate
     {
         get => _component.LabelTemplate ?? _component.InputComponent?.LabelTemplate;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public LabelPosition? LabelPosition
     {
         get => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? Components.LabelPosition.Above;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public string? LabelWidth
     {
         get => _component.LabelWidth ?? _component.InputComponent?.LabelWidth;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public bool? Required
     {
         get => _component.Required ?? _component.InputComponent?.Required ?? false;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public bool? Disabled
     {
         get => _component.Disabled ?? _component.InputComponent?.Disabled ?? false;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public string? Message
     {
         get => _component.Message ?? _component.InputComponent?.Message ?? StateToMessage();
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public Icon? MessageIcon
     {
         get => _component.MessageIcon ?? _component.InputComponent?.MessageIcon ?? StateToIcon();
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public RenderFragment? MessageTemplate
     {
         get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate ?? StateToMessageTemplate(MessageState, Message);
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     public Func<IFluentField, bool>? MessageCondition
     {
         get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? FluentFieldCondition.Always;
         set => throw new NotSupportedException();
     }
+
+    /// <summary />
     public MessageState? MessageState
     {
         get => _component.MessageState ?? _component.InputComponent?.MessageState;
         set => throw new NotSupportedException();
     }
 
+    /// <summary />
     private Icon? StateToIcon()
     {
         return MessageState switch
@@ -106,6 +122,7 @@ internal class FluentFieldParameterSelector : IFluentField
         };
     }
 
+    /// <summary />
     private string? StateToMessage()
     {
         return MessageState switch
@@ -117,6 +134,7 @@ internal class FluentFieldParameterSelector : IFluentField
         };
     }
 
+    /// <summary />
     internal static RenderFragment? StateToMessageTemplate(MessageState? state, string? message)
     {
         return state switch
