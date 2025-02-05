@@ -1,0 +1,113 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits TestContext
+@code
+{
+    public FluentFieldConditionTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, "a > 10")]
+    [InlineData(15, 25, true, "a > 10")]
+    [InlineData(0, 25, true, "b > 20")]
+    [InlineData(0, 0, false, null)]
+    public void FluentFieldCondition_Message(int a, int b, bool expectedBuild, string? expectedMessage)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display("a > 10")
+                        .When(() => b > 20).Display("b > 20")
+                        .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedMessage, field.Message);
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, MessageState.Error)]
+    [InlineData(15, 25, true, MessageState.Error)]
+    [InlineData(0, 25, true, MessageState.Warning)]
+    [InlineData(0, 0, false, null)]
+    public void FluentFieldCondition_State(int a, int b, bool expectedBuild, MessageState? expectedState)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display(MessageState.Error)
+                        .When(() => b > 20).Display(MessageState.Warning)
+                        .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedState, field.MessageState);
+    }
+
+    [Theory]
+    [InlineData(15, 0, true, "Info")]
+    [InlineData(15, 25, true, "Info")]
+    [InlineData(0, 25, true, "Warning")]
+    [InlineData(0, 0, false, null)]
+    public void FluentFieldCondition_Icon(int a, int b, bool expectedBuild, string? expectedIconName)
+    {
+        // Arrange
+        var field = new FluentField();
+
+        bool MyCondition(IFluentField field)
+        {
+            return field.When(() => a > 10).Display("a > 10", Samples.Icons.Info)
+                        .When(() => b > 20).Display("a > 20", Samples.Icons.Warning)
+                        .Build();
+        }
+
+        // Act
+        var ok = MyCondition(field);
+
+        // Assert
+        Assert.Equal(expectedBuild, ok);
+        Assert.Equal(expectedIconName, field.MessageIcon?.Name);
+    }
+
+    [Fact]
+    public void FluentFieldCondition_Always()
+    {
+        // Arrange
+        var field = new FluentField();
+
+        // Act
+        var ok = FluentFieldCondition.Always(field);
+
+        // Assert
+        Assert.True(ok);
+    }
+
+    [Fact]
+    public void FluentFieldCondition_Never()
+    {
+        // Arrange
+        var field = new FluentField();
+
+        // Act
+        var ok = FluentFieldCondition.Never(field);
+
+        // Assert
+        Assert.False(ok);
+    }
+}
