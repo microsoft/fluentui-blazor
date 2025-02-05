@@ -1,4 +1,5 @@
 ﻿<FluentTextInput Label="Example field"
+                 Placeholder="Type some characters"
                  @bind-Value="@MyValue"
                  Immediate="true"
                  MessageCondition="@(i => i.When(() => MyValue.Length <= 1).Display("Less than 1", MessageState.Success)

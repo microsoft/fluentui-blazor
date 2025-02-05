@@ -138,4 +138,21 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     private bool HasMessageOrCondition
        => HasMessage || Parameters.MessageCondition is not null;
+
+    internal static RenderFragment? CreateIcon(Icon? icon)
+    {
+        if (icon is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenComponent(0, typeof(FluentIcon<Icon>));
+            builder.AddAttribute(1, "Value", icon);
+            builder.AddAttribute(2, "Width", "12px");
+            builder.AddAttribute(3, "Margin", "0px 4px 0 0");
+            builder.CloseComponent();
+        };
+    }
 }

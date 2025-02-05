@@ -2,6 +2,8 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Components;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -47,19 +49,73 @@ public class FluentFieldCondition
     /// Build the conditions.
     /// </summary>
     /// <returns></returns>
-    public bool Build()
+    public bool Build(FluentFieldConditionOptions? options = null)
     {
+        options ??= new FluentFieldConditionOptions();
+
+        // Break on the first condition that is true.
+        if (options.BreakOnFirst)
+        {
+            foreach (var item in _listOfConditions)
+            {
+                if (item.Condition.Invoke())
+                {
+                    _value.MessageState = item.State;
+                    _value.Message = item.Message;
+                    _value.MessageIcon = item.Icon;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Display all conditions that are true.
+        var messages = new List<RenderFragment>();
         foreach (var item in _listOfConditions)
         {
             if (item.Condition.Invoke())
             {
-                _value.MessageState = item.State;
-                _value.Message = item.Message;
-                _value.MessageIcon = item.Icon;
-                return true;
+                var coloredMessage = FluentFieldParameterSelector.StateToMessageTemplate(item.State, item.Message);
+
+                messages.Add(builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.AddContent(1, FluentField.CreateIcon(item.Icon ?? FluentFieldParameterSelector.StateToIcon(item.State)));
+
+                    if (item.State is null)
+                    {
+                        builder.AddContent(2, item.Message);
+                    }
+                    else
+                    {
+                        builder.AddContent(2, coloredMessage);
+                    }
+
+                    builder.CloseElement();
+                });
             }
         }
 
-        return false;
+        _value.MessageTemplate = builder =>
+        {
+            foreach (var message in messages)
+            {
+                message(builder);
+            }
+        };
+
+        return messages.Count > 0;
+    }
+
+    /// <summary>
+    /// Build the conditions.
+    /// </summary>
+    /// <returns></returns>
+    public bool Build(Action<FluentFieldConditionOptions> options)
+    {
+        var config = new FluentFieldConditionOptions();
+        options.Invoke(config);
+        return Build(config);
     }
 }

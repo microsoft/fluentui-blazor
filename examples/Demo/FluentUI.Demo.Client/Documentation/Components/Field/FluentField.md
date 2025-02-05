@@ -107,6 +107,11 @@ field => field.When(() => MyValue.Length <= 1)
 
 {{ FieldMessageCondition }}
 
+You can combine the conditions to display several messages simultaneously,
+using an option in the `Build` method: `.Build(options => options.BreakOnFirst = false)`.
+
+{{ FieldMessageMultipleConditions }}
+
 ## API FluentField
 
 {{ API Type=FluentField }}

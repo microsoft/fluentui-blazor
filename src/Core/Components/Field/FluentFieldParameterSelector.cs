@@ -78,14 +78,14 @@ internal class FluentFieldParameterSelector : IFluentField
     /// <summary />
     public string? Message
     {
-        get => _component.Message ?? _component.InputComponent?.Message ?? StateToMessage();
+        get => _component.Message ?? _component.InputComponent?.Message ?? StateToMessage(MessageState, _localizer);
         set => throw new NotSupportedException();
     }
 
     /// <summary />
     public Icon? MessageIcon
     {
-        get => _component.MessageIcon ?? _component.InputComponent?.MessageIcon ?? StateToIcon();
+        get => _component.MessageIcon ?? _component.InputComponent?.MessageIcon ?? StateToIcon(MessageState);
         set => throw new NotSupportedException();
     }
 
@@ -111,9 +111,9 @@ internal class FluentFieldParameterSelector : IFluentField
     }
 
     /// <summary />
-    private Icon? StateToIcon()
+    internal static Icon? StateToIcon(MessageState? state)
     {
-        return MessageState switch
+        return state switch
         {
             Components.MessageState.Success => FluentStatus.SuccessIcon,
             Components.MessageState.Error => FluentStatus.ErrorIcon,
@@ -123,13 +123,13 @@ internal class FluentFieldParameterSelector : IFluentField
     }
 
     /// <summary />
-    private string? StateToMessage()
+    internal static string? StateToMessage(MessageState? state, IFluentLocalizer localizer)
     {
-        return MessageState switch
+        return state switch
         {
-            Components.MessageState.Success => _localizer[LanguageResource.Field_SuccessMessage],
-            Components.MessageState.Error => _localizer[LanguageResource.Field_ErrorMessage],
-            Components.MessageState.Warning => _localizer[LanguageResource.Field_WarningMessage],
+            Components.MessageState.Success => localizer[LanguageResource.Field_SuccessMessage],
+            Components.MessageState.Error => localizer[LanguageResource.Field_ErrorMessage],
+            Components.MessageState.Warning => localizer[LanguageResource.Field_WarningMessage],
             _ => null
         };
     }
