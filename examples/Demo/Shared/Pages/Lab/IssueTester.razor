@@ -1,1 +1,76 @@
-﻿
+﻿@page "/FluentComboBox"
+
+@using System.Linq.Expressions
+
+<Form Model="modelTest" EnableFluentValidation=true>
+    <FluentCombobox
+    SelectedOptionChanged="@((selectedOption) => OnSelectedOptionChangedAsync(selectedOption))"
+    ValueChanged="@((value) => OnValueChangedAsync(value))"
+    ValueExpression="@(() => modelTest.SelectedValue)"
+    TOption="OptionItem"
+    Items="@Items"
+    OptionValue="@(i => i.Value)"
+    OptionText="@(i => i.Name)"
+    OptionDisabled="@(i => i.Disabled)"
+    OptionSelected="@(i => i.Value == modelTest.SelectedValue)"
+    Autocomplete=ComboboxAutocomplete.Both
+    Placeholder="Testing binding" />
+
+    <p>@modelTest.SelectedValue</p>
+    <p>@typedText</p>
+</Form>
+
+@code {
+    private string? typedText;
+    private OptionItem[] Items { get; set; } = [
+        new OptionItem { Name = "Test 1", Value = "TEST1", Disabled = false },
+        new OptionItem { Name = "Test 2", Value = "TEST2", Disabled = false },
+        new OptionItem { Name = "Test 3", Value = "TEST3", Disabled = false }
+    ];
+
+    public class ModelTest
+    {
+        public string? SelectedValue { get; set; }
+    }
+
+    private ModelTest modelTest = new();
+
+    private async Task OnSelectedOptionChangedAsync(OptionItem? selectedOption)
+    {
+        if (selectedOption is not null)
+        {
+            Console.WriteLine($"OnSelectedOptionChangedAsync enter modelTest.SelectedValue:{modelTest.SelectedValue}, selectedOption.Value:{selectedOption.Value}.");
+            if (modelTest.SelectedValue != selectedOption.Value)
+            {
+                Console.WriteLine($"OnSelectedOptionChangedAsync before modelTest.SelectedValue:{modelTest.SelectedValue}, selectedOption.Value:{selectedOption.Value}.");
+                modelTest.SelectedValue = selectedOption.Value;
+                Console.WriteLine($"OnSelectedOptionChangedAsync after modelTest.SelectedValue:{modelTest.SelectedValue}, selectedOption.Value:{selectedOption.Value}.");
+            }
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private async Task OnValueChangedAsync(string? text)
+    {
+        Console.WriteLine($"OnValueChangedAsync enter modelTest.SelectedValue:{modelTest.SelectedValue}, text:{text}.");
+        typedText = text;
+        if (modelTest.SelectedValue != default
+            && (string.IsNullOrEmpty(text) || !Items.Select(i => i.Name).Contains(text)))
+        {
+            Console.WriteLine($"OnValueChangedAsync before value:{modelTest.SelectedValue}");
+            modelTest.SelectedValue = default;
+            Console.WriteLine($"OnValueChangedAsync after value:{modelTest.SelectedValue}");
+        }
+
+        await Task.CompletedTask;
+    }
+
+    public class OptionItem
+    {
+        public string? Name { get; set; }
+        public string? Value { get; set; }
+        public bool Hidden { get; set; }
+        public bool Disabled { get; set; }
+    }
+}
