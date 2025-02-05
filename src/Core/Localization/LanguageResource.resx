@@ -157,7 +157,7 @@
     <value>This field is required</value>
   </data>
   <data name="Field_ErrorMessage" xml:space="preserve">
-    <value>An error occured</value>
+    <value>An error occurred</value>
   </data>
   <data name="Field_SuccessMessage" xml:space="preserve">
     <value>Valid data</value>

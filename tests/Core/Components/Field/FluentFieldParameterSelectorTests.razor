@@ -1,0 +1,145 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit
+@using Bunit
+@inherits TestContext
+@code
+{
+    public FluentFieldParameterSelectorTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    // List of all IField properties: property name, value, expected value and default message state
+    public static IEnumerable<object?[]> GetTestData()
+    {
+        // Predefined values
+        yield return new object?[] { "Label", "my-label", "my-label", null };
+        yield return new object?[] { "LabelTemplate", TemplateWithDiv, TemplateWithDiv, null };
+        yield return new object?[] { "LabelPosition", LabelPosition.Before, LabelPosition.Before, null };
+        yield return new object?[] { "LabelWidth", "10px", "10px", null };
+        yield return new object?[] { "Required", true, true, null };
+        yield return new object?[] { "Disabled", true, true, null };
+        yield return new object?[] { "Message", "my-message", "my-message", null };
+        yield return new object?[] { "MessageIcon", Samples.Icons.Info, Samples.Icons.Info, null };
+        yield return new object?[] { "MessageTemplate", TemplateWithDiv, TemplateWithDiv, null };
+        yield return new object?[] { "MessageCondition", FluentFieldCondition.Always, FluentFieldCondition.Always, null };
+        yield return new object?[] { "MessageState", MessageState.Success, MessageState.Success, null };
+
+        // Default values
+        yield return new object?[] { "Label", null, null, null };
+        yield return new object?[] { "LabelTemplate", null, null, null };
+        yield return new object?[] { "LabelPosition", null, LabelPosition.Above, null };
+        yield return new object?[] { "LabelWidth", null, null, null };
+        yield return new object?[] { "Required", null, false, null };
+        yield return new object?[] { "Disabled", null, false, null };
+        yield return new object?[] { "Message", null, null, null };
+        yield return new object?[] { "MessageIcon", null, null, null };
+        yield return new object?[] { "MessageTemplate", null, null, null };
+        yield return new object?[] { "MessageCondition", null, FluentFieldCondition.Always, null };
+        yield return new object?[] { "MessageState", null, null, null };
+
+        // With default State
+        yield return new object?[] { "Message", null, "Valid data", MessageState.Success };
+        yield return new object?[] { "Message", null, "Please, check this value", MessageState.Warning };
+        yield return new object?[] { "Message", null, "An error occurred", MessageState.Error };
+        yield return new object?[] { "MessageIcon", null, FluentStatus.SuccessIcon, MessageState.Success };
+        yield return new object?[] { "MessageIcon", null, FluentStatus.WarningIcon, MessageState.Warning };
+        yield return new object?[] { "MessageIcon", null, FluentStatus.ErrorIcon, MessageState.Error };
+        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterSelector.StateToMessageTemplate(MessageState.Success, "Valid data"), MessageState.Success };
+        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterSelector.StateToMessageTemplate(MessageState.Warning, "Please, check this value"), MessageState.Warning };
+        yield return new object?[] { "MessageTemplate", null, FluentFieldParameterSelector.StateToMessageTemplate(MessageState.Error, "An error occurred"), MessageState.Error };
+    }
+
+    [Theory]
+    [MemberData(nameof(GetTestData))]
+    public void FluentFieldParameterSelector_Standalone(string name, object? value, object? expectedValue, MessageState? state)
+    {
+        CommonTest(null, name, value, expectedValue, state);
+    }
+
+    [Theory]
+    [MemberData(nameof(GetTestData))]
+    public void FluentFieldParameterSelector_InputComponent(string name, object? value, object? expectedValue, MessageState? state)
+    {
+        CommonTest(new MockFluentField(), name, value, expectedValue, state);
+    }
+
+    private void CommonTest(MockFluentField? inputComponent, string name, object? value, object? expectedValue, MessageState? state)
+    {
+        Dictionary<string, object> attributes;
+
+        // Contains an sub InputComponent
+        if (inputComponent is not null)
+        {
+            inputComponent.GetType().GetProperty(name)?.SetValue(inputComponent, value);
+
+            attributes = value is null
+                        ? new Dictionary<string, object>()
+                        : new Dictionary<string, object> { { "InputComponent", inputComponent } };
+        }
+
+        // Standalone
+        else
+        {
+            attributes = value is null
+                        ? new Dictionary<string, object>()
+                        : new Dictionary<string, object> { { name, value } };
+        }
+
+        // Optional state is defined
+        if (state is not null)
+        {
+            attributes.Add(nameof(MockFluentField.MessageState), state);
+        }
+
+        // Render
+        var cut = RenderComponent<DynamicComponent>(parameters =>
+            {
+                parameters.Add(p => p.Type, typeof(FluentField));
+                parameters.Add(p => p.Parameters, attributes);
+            });
+
+        // Act
+        var instance = cut.FindComponent<FluentField>().Instance;
+        var selector = new FluentFieldParameterSelector(instance, FluentLocalizer);
+        var propValue = selector.GetType().GetProperty(name)?.GetValue(selector);
+
+        // Assert
+        if (expectedValue is RenderFragment && propValue is RenderFragment)
+        {
+            var expectedCut = Render((RenderFragment)expectedValue);
+            var valueCut = Render((RenderFragment)propValue);
+            expectedCut.MarkupMatches(valueCut);
+        }
+        else
+        {
+            Assert.Equal(expectedValue, propValue);
+        }
+    }
+
+    private IFluentLocalizer FluentLocalizer => Services.GetRequiredService<IFluentLocalizer>();
+
+    private static object TemplateWithDiv => (RenderFragment)(builder =>
+    {
+        builder.OpenElement(0, "div");
+        builder.CloseElement();
+    });
+
+    private class MockFluentField : IFluentField
+    {
+        public bool FocusLost { get; }
+        public string? Label { get; set; }
+        public RenderFragment? LabelTemplate { get; set; }
+        public LabelPosition? LabelPosition { get; set; }
+        public string? LabelWidth { get; set; }
+        public bool? Required { get; set; }
+        public bool? Disabled { get; set; }
+        public string? Message { get; set; }
+        public Icon? MessageIcon { get; set; }
+        public RenderFragment? MessageTemplate { get; set; }
+        public Func<IFluentField, bool>? MessageCondition { get; set; }
+        public MessageState? MessageState { get; set; }
+    }
+}

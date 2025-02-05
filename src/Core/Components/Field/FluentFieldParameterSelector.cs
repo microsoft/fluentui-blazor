@@ -80,13 +80,13 @@ internal class FluentFieldParameterSelector : IFluentField
 
     public RenderFragment? MessageTemplate
     {
-        get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate ?? StateToMessageTemplate();
+        get => _component.MessageTemplate ?? _component.InputComponent?.MessageTemplate ?? StateToMessageTemplate(MessageState, Message);
         set => throw new NotSupportedException();
     }
 
     public Func<IFluentField, bool>? MessageCondition
     {
-        get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? (field => true);
+        get => _component.MessageCondition ?? _component.InputComponent?.MessageCondition ?? FluentFieldCondition.Always;
         set => throw new NotSupportedException();
     }
     public MessageState? MessageState
@@ -117,16 +117,16 @@ internal class FluentFieldParameterSelector : IFluentField
         };
     }
 
-    private RenderFragment? StateToMessageTemplate()
+    internal static RenderFragment? StateToMessageTemplate(MessageState? state, string? message)
     {
-        return MessageState switch
+        return state switch
         {
             Components.MessageState.Success => builder =>
             {
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
                 {
-                    contentBuilder.AddContent(0, Message);
+                    contentBuilder.AddContent(0, message);
                 }));
                 builder.AddAttribute(2, "Color", Color.Success);
                 builder.CloseComponent();
@@ -137,7 +137,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
                 {
-                    contentBuilder.AddContent(0, Message);
+                    contentBuilder.AddContent(0, message);
                 }));
                 builder.AddAttribute(2, "Color", Color.Error);
                 builder.CloseComponent();
@@ -148,7 +148,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.OpenComponent(0, typeof(FluentText));
                 builder.AddAttribute(1, "ChildContent", (RenderFragment)(contentBuilder =>
                 {
-                    contentBuilder.AddContent(0, Message);
+                    contentBuilder.AddContent(0, message);
                 }));
                 builder.AddAttribute(2, "Color", Color.Info);
                 builder.CloseComponent();
