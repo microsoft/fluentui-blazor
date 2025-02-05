@@ -66,6 +66,40 @@
         CommonTest(new MockFluentField(), name, value, expectedValue, state);
     }
 
+    [Theory]
+    [MemberData(nameof(GetTestData))]
+    public void FluentFieldParameterSelector_SetNotSupported(string name, object? value, object? expectedValue, MessageState? state)
+    {
+        var selector = new FluentFieldParameterSelector(new FluentField(), FluentLocalizer);
+
+        Assert.ThrowsAny<Exception>(() =>
+        {
+            selector.GetType().GetProperty(name)?.SetValue(selector, value);
+        });
+
+        // Unused parameters (to avoid xUnit 1026)
+        var x = expectedValue;
+        var y = state;
+    }
+
+    [Fact]
+    public void FluentFieldParameterSelector_FocusLost()
+    {
+        // Arrange
+        var field = new FluentField() { FocusLost = true };
+        var selector = new FluentFieldParameterSelector(field, FluentLocalizer);
+
+        // Act
+        Assert.ThrowsAny<Exception>(() =>
+        {
+            selector.FocusLost = true;    
+        });
+
+        // Assert
+        Assert.False(selector.FocusLost);
+        Assert.True(field.FocusLost);
+    }
+
     private void CommonTest(MockFluentField? inputComponent, string name, object? value, object? expectedValue, MessageState? state)
     {
         Dictionary<string, object> attributes;

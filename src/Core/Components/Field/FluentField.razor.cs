@@ -47,7 +47,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     public string? ForId { get; set; }
 
     /// <see cref="IFluentField.FocusLost"/>"
-    public bool FocusLost { get; private set; }
+    public bool FocusLost { get; internal set; }
 
     /// <see cref="IFluentField.Label"/>"
     [Parameter]

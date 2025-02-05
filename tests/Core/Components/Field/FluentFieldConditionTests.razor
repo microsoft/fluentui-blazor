@@ -74,7 +74,7 @@
         {
             return field.When(() => a > 10).Display("a > 10", Samples.Icons.Info)
                         .When(() => b > 20).Display("a > 20", Samples.Icons.Warning)
-                        .Build();
+                    .Build();
         }
 
         // Act
@@ -88,7 +88,7 @@
     [Theory]
     [InlineData(15, 0, true, "a > 10", MessageState.Warning, "Warning")]
     [InlineData(15, 25, true, "a > 10", MessageState.Warning, "Warning")]
-    [InlineData(0, 25, true, "b > 20", MessageState.Success, "Info")]
+    [InlineData(0, 25, true, "b > 20", MessageState.Success, null)]
     [InlineData(0, 0, false, null, null, null)]
     public void FluentFieldCondition_MessageStateIcon(int a, int b,
         bool expectedBuild, string? expectedMessage, MessageState? expectedState, string? expectedIconName)
@@ -99,7 +99,7 @@
         bool MyCondition(IFluentField field)
         {
             return field.When(() => a > 10).Display("a > 10", MessageState.Warning, Samples.Icons.Warning)
-                        .When(() => b > 20).Display("b > 20", MessageState.Success, Samples.Icons.Info)
+                        .When(() => b > 20).Display("b > 20", MessageState.Success, icon: null)
                         .Build();
         }
 
