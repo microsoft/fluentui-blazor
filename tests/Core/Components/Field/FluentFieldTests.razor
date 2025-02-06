@@ -143,7 +143,7 @@
         }
 
         // Arrange & Act
-        var cut = Render(@<FluentField Id="@fieldId" Label="My label" ForId="@forId">Field content</FluentField>);        
+        var cut = Render(@<FluentField Id="@fieldId" Label="My label" ForId="@forId">Field content</FluentField>);
         var labelIdAttr = cut.Find("fluent-label").GetAttribute("id");
         var labelForAttr = cut.Find("fluent-label").GetAttribute("for");
         var inputIdAttr = cut.Find("div").GetAttribute("id");
@@ -157,5 +157,28 @@
         Assert.Equal(labelId, labelIdAttr);
         Assert.Equal(inputId, labelForAttr);
         Assert.Equal(inputId, inputIdAttr);
+    }
+
+    [Fact]
+    public void FluentField_InvalidSlot()
+    {
+        // Call GetId for a standalone FluentField
+        var field1 = new FluentField();
+        Assert.Throws<ArgumentException>(() =>
+        {
+            field1.GetId("Unknown");
+        });
+
+        // Call GetId for a mixed FluentField
+#pragma warning disable BL0005  // Component parameter should not be set outside of its component.
+        var field2 = new FluentField()
+        {
+                InputComponent = new FluentFieldParameterSelectorTests.MockFluentField()
+        };
+        Assert.Throws<ArgumentException>(() =>
+        {
+            field2.GetId("Unknown");
+        });
+#pragma warning restore BL0005
     }
 }

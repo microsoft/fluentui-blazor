@@ -161,7 +161,7 @@
         builder.CloseElement();
     });
 
-    private class MockFluentField : IFluentField
+    internal class MockFluentField : IFluentField
     {
         public bool FocusLost { get; }
         public string? Label { get; set; }
