@@ -1,76 +1,73 @@
-﻿@page "/FluentComboBox"
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
-@using System.Linq.Expressions
+@using FluentUI.Demo.Shared.SampleData
 
-<Form Model="modelTest" EnableFluentValidation=true>
-    <FluentCombobox
-    SelectedOptionChanged="@((selectedOption) => OnSelectedOptionChangedAsync(selectedOption))"
-    ValueChanged="@((value) => OnValueChangedAsync(value))"
-    ValueExpression="@(() => modelTest.SelectedValue)"
-    TOption="OptionItem"
-    Items="@Items"
-    OptionValue="@(i => i.Value)"
-    OptionText="@(i => i.Name)"
-    OptionDisabled="@(i => i.Disabled)"
-    OptionSelected="@(i => i.Value == modelTest.SelectedValue)"
-    Autocomplete=ComboboxAutocomplete.Both
-    Placeholder="Testing binding" />
+@inject HttpClient Http
+@inject NavigationManager NavManager
 
-    <p>@modelTest.SelectedValue</p>
-    <p>@typedText</p>
-</Form>
+<div style="height: 434px; overflow:auto;" tabindex="-1">
+    <FluentDataGrid ItemsProvider="foodRecallProvider"
+                    OnRowDoubleClick="@(()=>DemoLogger.WriteLine("Row double clicked!"))"
+                    Virtualize="true"
+                    ItemSize="46"
+                    GenerateHeader="GenerateHeaderOption.Sticky"
+                    TGridItem="FoodRecall">
+        <PropertyColumn Title="ID" Property="@(c => c!.Event_Id)" />
+        <PropertyColumn Property="@(c => c!.State)" Style="color: #af5f00 ;" />
+        <PropertyColumn Property="@(c => c!.City)" >
+            <ColumnOptions>
+                <FluentSearch @bind-Value="@search"
+                              Immediate ImmediateDelay="200"
+                              Placeholder="App naam..." />
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Title="Company" Property="@(c => c!.Recalling_Firm)" Tooltip="true" />
+        <PropertyColumn Property="@(c => c!.Status)" />
+        <TemplateColumn Title="Actions" Align="@Align.End">
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => DemoLogger.WriteLine("Edit clicked"))" />
+            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => DemoLogger.WriteLine("Delete clicked"))" />
+        </TemplateColumn>
+    </FluentDataGrid>
+</div>
+
+<p>Total: <strong>@numResults results found</strong></p>
 
 @code {
-    private string? typedText;
-    private OptionItem[] Items { get; set; } = [
-        new OptionItem { Name = "Test 1", Value = "TEST1", Disabled = false },
-        new OptionItem { Name = "Test 2", Value = "TEST2", Disabled = false },
-        new OptionItem { Name = "Test 3", Value = "TEST3", Disabled = false }
-    ];
+    GridItemsProvider<FoodRecall> foodRecallProvider = default!;
+    string? search;
+    int? numResults;
 
-    public class ModelTest
+    protected override async Task OnInitializedAsync()
     {
-        public string? SelectedValue { get; set; }
-    }
-
-    private ModelTest modelTest = new();
-
-    private async Task OnSelectedOptionChangedAsync(OptionItem? selectedOption)
-    {
-        if (selectedOption is not null)
+        // Define the GridRowsDataProvider. Its job is to convert QuickGrid's GridRowsDataProviderRequest into a query against
+        // an arbitrary data soure. In this example, we need to translate query parameters into the particular URL format
+        // supported by the external JSON API. It's only possible to perform whatever sorting/filtering/etc is supported
+        // by the external API.
+        foodRecallProvider = async req =>
         {
-            Console.WriteLine($"OnSelectedOptionChangedAsync enter modelTest.SelectedValue:{modelTest.SelectedValue}, selectedOption.Value:{selectedOption.Value}.");
-            if (modelTest.SelectedValue != selectedOption.Value)
+            var url = NavManager.GetUriWithQueryParameters("https://api.fda.gov/food/enforcement.json", new Dictionary<string, object?>
+                            {
+                { "skip", req.StartIndex },
+                { "limit", req.Count },
+                            });
+
+            var response = await Http.GetFromJsonAsync<FoodRecallQueryResult>(url, req.CancellationToken);
+
+            // Simulate a slow data retrieval process
+            if (req.Count is null)
             {
-                Console.WriteLine($"OnSelectedOptionChangedAsync before modelTest.SelectedValue:{modelTest.SelectedValue}, selectedOption.Value:{selectedOption.Value}.");
-                modelTest.SelectedValue = selectedOption.Value;
-                Console.WriteLine($"OnSelectedOptionChangedAsync after modelTest.SelectedValue:{modelTest.SelectedValue}, selectedOption.Value:{selectedOption.Value}.");
+                await Task.Delay(2500);
             }
-        }
+            return GridItemsProviderResult.From(
+                items: response!.Results,
+                totalItemCount: response!.Meta.Results.Total);
+        };
 
-        await Task.CompletedTask;
-    }
-
-    private async Task OnValueChangedAsync(string? text)
-    {
-        Console.WriteLine($"OnValueChangedAsync enter modelTest.SelectedValue:{modelTest.SelectedValue}, text:{text}.");
-        typedText = text;
-        if (modelTest.SelectedValue != default
-            && (string.IsNullOrEmpty(text) || !Items.Select(i => i.Name).Contains(text)))
-        {
-            Console.WriteLine($"OnValueChangedAsync before value:{modelTest.SelectedValue}");
-            modelTest.SelectedValue = default;
-            Console.WriteLine($"OnValueChangedAsync after value:{modelTest.SelectedValue}");
-        }
-
-        await Task.CompletedTask;
-    }
-
-    public class OptionItem
-    {
-        public string? Name { get; set; }
-        public string? Value { get; set; }
-        public bool Hidden { get; set; }
-        public bool Disabled { get; set; }
+        // Display the number of results just for information. This is completely separate from the grid.
+        numResults = (await Http.GetFromJsonAsync<FoodRecallQueryResult>("https://api.fda.gov/food/enforcement.json"))!.Meta.Results.Total;
     }
 }
+
+
+

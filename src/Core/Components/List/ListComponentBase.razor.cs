@@ -310,7 +310,6 @@ public abstract partial class ListComponentBase<TOption> : FluentInputBase<strin
                 }
             }
 
-
             if (SelectedOptionExpression is not null)
             {
                 FieldIdentifier = FieldIdentifier.Create(SelectedOptionExpression);
