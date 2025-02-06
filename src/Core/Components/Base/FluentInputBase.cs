@@ -50,27 +50,27 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     #region IFluentComponentBase
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Id" />
     [Parameter]
     public virtual string? Id { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Class" />
     [Parameter]
     public virtual string? Class { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Style" />
     [Parameter]
     public virtual string? Style { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Margin" />
     [Parameter]
     public virtual string? Margin { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Padding" />
     [Parameter]
     public virtual string? Padding { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Data" />
     [Parameter]
     public virtual object? Data { get; set; }
 
