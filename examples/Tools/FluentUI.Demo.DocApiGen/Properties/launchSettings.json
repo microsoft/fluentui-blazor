@@ -2,7 +2,7 @@
   "profiles": {
     "FluentUI.Demo.DocApiGen": {
       "commandName": "Project",
-      "commandLineArgs": "--xml C:/VSO/Perso/fluentui-blazor-v5/examples/Demo/FluentUI.Demo.Client/Microsoft.FluentUI.AspNetCore.Components.xml --dll C:/VSO/Perso/fluentui-blazor-v5/src/Core/bin/Debug/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll"
+      "commandLineArgs": "--xml C:/VSO/Perso/fluentui-blazor-v5/examples/Demo/FluentUI.Demo.Client/Microsoft.FluentUI.AspNetCore.Components.xml --dll C:/VSO/Perso/fluentui-blazor-v5/src/Core/bin/Debug/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll --output C:/_Temp/doc.cs"
     }
   }
 }

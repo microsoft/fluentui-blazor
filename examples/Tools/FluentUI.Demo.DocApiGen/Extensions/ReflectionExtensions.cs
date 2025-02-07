@@ -14,7 +14,7 @@ namespace FluentUI.Demo.DocApiGen.Extensions;
 public static class ReflectionExtensions
 {
     private static Dictionary<Type, string>? _knownTypeNames;
-    private static readonly string[] EXCLUDE_TYPEE = ["TypeInference", "InternalListContext`1", "SpacingGenerator", "FluentLocalizerInternal"];
+    private static readonly string[] EXCLUDE_TYPES = Constants.EXCLUDE_TYPES;
 
     /// <summary>
     /// Check if the specified type is a valid type that can be used in the documentation.
@@ -25,7 +25,7 @@ public static class ReflectionExtensions
     {
         return type != null &&
                type != typeof(void) &&
-               EXCLUDE_TYPEE.Contains(type.Name) == false &&
+               EXCLUDE_TYPES.Contains(type.Name) == false &&
                type.Name.Contains('>', StringComparison.InvariantCulture) == false &&
                type.Name.Contains('<', StringComparison.InvariantCulture) == false &&
                type.BaseType != typeof(Regex) &&

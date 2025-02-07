@@ -2,7 +2,6 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocApiGen.Extensions;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
@@ -24,11 +23,12 @@ public class Program
         var config = new ConfigurationBuilder().AddCommandLine(args).Build();
         var xmlFile = config["xml"];
         var dllFile = config["dll"];
+        var outputFile = config["output"];
 
         // Help
         if (string.IsNullOrEmpty(xmlFile) || string.IsNullOrEmpty(dllFile))
         {
-            Console.WriteLine("Usage: DocApiGen --xml <xml file> --dll <dll file>");
+            Console.WriteLine("Usage: DocApiGen --xml <xml file> --dll <dll file> --output <generated file>");
             return;
         }
 
@@ -38,19 +38,10 @@ public class Program
 
         var apiGenerator = new ApiClassGenerator(assembly, docXml);
 
-        foreach (var type in assembly.GetTypes().Where(i => i.IsValidType()))
+        if (!string.IsNullOrEmpty(outputFile))
         {
-            var apiClass = apiGenerator.FromTypeName(type);
-            var apiClassMembers = apiClass.ToDictionary();
-
-            if (apiClassMembers.Any())
-            {
-                Console.WriteLine($"{apiClass.Name}");
-                foreach (var member in apiClass.ToDictionary())
-                {
-                    Console.WriteLine($"    {member.Key} => {member.Value}");
-                }
-            }
+            apiGenerator.SaveToFile(outputFile);
+            Console.WriteLine($"Documentation saved to {outputFile}");
         }
     }
 }

@@ -16,21 +16,7 @@ namespace FluentUI.Demo.DocApiGen.Models;
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 public class ApiClass
 {
-    private static readonly string[] MEMBERS_TO_EXCLUDE =
-    [
-        "AdditionalAttributes",
-        "ParentReference",
-        "Element",
-        "Equals",
-        "GetHashCode",
-        "GetType",
-        "SetParametersAsync",
-        "ToString",
-        "Dispose",
-        "DisposeAsync",
-        "ValueExpression",
-    ];
-
+    private static readonly string[] MEMBERS_TO_EXCLUDE = Constants.MEMBERS_TO_EXCLUDE;
     private readonly Type _component;
     private IEnumerable<ApiMember>? _allMembers;
     private readonly ApiClassOptions _options;
