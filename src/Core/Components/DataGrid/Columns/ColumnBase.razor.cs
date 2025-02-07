@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -250,6 +254,7 @@ public abstract partial class ColumnBase<TGridItem>
         if ((Sortable is true || IsDefaultSortColumn) && (Grid.ResizableColumns || ColumnOptions is not null))
         {
             _isMenuOpen = !_isMenuOpen;
+            StateHasChanged();
         }
         else if ((Sortable is true || IsDefaultSortColumn) && !Grid.ResizableColumns && ColumnOptions is null)
         {
@@ -296,7 +301,7 @@ public abstract partial class ColumnBase<TGridItem>
             if (Grid.SortByAscending is true)
             {
                 return Grid.ColumnSortLabels.SortMenuAscendingLabel;
-        }
+            }
             else
             {
                 return Grid.ColumnSortLabels.SortMenuDescendingLabel;

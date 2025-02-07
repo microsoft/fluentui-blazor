@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
@@ -42,7 +46,8 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     /// </summary>
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
 
-    [Parameter] public override GridSort<TGridItem>? SortBy
+    [Parameter]
+    public override GridSort<TGridItem>? SortBy
     {
         get => _customSortBy ?? _sortBuilder;
         set => _customSortBy = value;
@@ -88,8 +93,10 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
                     }
                 };
             }
-
-            _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
+            if (Sortable.HasValue)
+            {
+                _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
+            }
         }
 
         _cellTooltipTextFunc = TooltipText ?? _cellTextFunc;
