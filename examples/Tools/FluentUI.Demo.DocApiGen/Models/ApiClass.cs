@@ -33,30 +33,28 @@ public class ApiClass
 
     private readonly Type _component;
     private IEnumerable<ApiMember>? _allMembers;
-    private readonly bool _allProperties;
+    private readonly ApiClassOptions _options;
 
     /// <summary>
     /// Gets the <see cref="ApiClass"/> for the specified component.
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
-    /// <param name="allProperties">False to returns only [Parameter] properties</param>
+    /// <param name="type"></param>
+    /// <param name="options"></param>
     /// <returns></returns>
-    public static ApiClass? FromTypeName(Assembly assembly, string? typeName, bool allProperties = false)
+    public static ApiClass? FromTypeName(Type type, ApiClassOptions options)
     {
-        var type = assembly.GetTypes().FirstOrDefault(i => i.Name == typeName || i.Name.StartsWith($"{typeName}`1"));
-        return type is null ? null : new ApiClass(type, allProperties);
+        return type is null ? null : new ApiClass(type, options);
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiClass"/> class.
     /// </summary>
     /// <param name="component"></param>
-    /// <param name="allProperties">False to returns only [Parameter] properties</param>
-    public ApiClass(Type component, bool allProperties = false)
+    /// <param name="options"></param>
+    private ApiClass(Type component, ApiClassOptions options)
     {
         _component = component;
-        _allProperties = allProperties;
+        _options = options;
     }
 
     /// <summary>
@@ -75,7 +73,7 @@ public class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiMember> Properties => GetMembers(MemberTypes.Property).Where(i => _allProperties ? true : i.IsParameter);
+    public IEnumerable<ApiMember> Properties => GetMembers(MemberTypes.Property).Where(i => _options.PropertyParameterOnly == false ? true : i.IsParameter);
 
     /// <summary>
     /// Gets the list of Events for the specified component.
@@ -236,7 +234,7 @@ public class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo? member)
     {
-        // TODO
-        return $"{_component}.{component}.{member}";
+        ArgumentNullException.ThrowIfNull(component);
+        return member == null ? "" : _options.DocXmlReader. _summaryReader.GetMemberSummary(member);
     }
 }

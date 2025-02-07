@@ -2,8 +2,11 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using FluentUI.Demo.DocApiGen.Models;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace FluentUI.Demo.DocApiGen;
 
@@ -35,28 +38,36 @@ public class Program
         var assembly = Assembly.LoadFrom(dllFile);
 
         // Read the XML file
-        var docReader = new LoxSmoke.DocXml.DocXmlReader(xmlFile);
+        var apiClass = ApiClass.FromTypeName()
 
         foreach (var type in assembly.GetTypes())
         {
-            if (type.Name == "FluentButton")
+            if (type.Name == "FluentOption" || type.Name == "FluentButton")
             {
-                //var apiClass = ApiClass.FromTypeName(assembly, type.Name, allProperties: true);
 
-                var z = docReader.GetTypeComments(type);
-
-                foreach (var member in type.GetMembers(BindingFlags.Public | BindingFlags.Instance))
-                {
-                    if (member is PropertyInfo property)
-                    {
-                        var comments = docReader.GetMemberComments(property);
-
-                        Console.WriteLine($"{property.Name}:    {comments.Summary}");
-
-                        
-                    }
-                }
+                Console.WriteLine();
             }
         }
+    }
+
+    private static string ConvertSeeCref(string input)
+    {
+        const string pattern = @"<see(also)* cref=""[\w]:Microsoft\.FluentUI\.AspNetCore\.Components\.([\w.]+)"" />";
+        const string replacement = "`$2`";
+
+        return Regex.Replace(input, pattern, replacement);
+    }
+
+    private static string ConvertSeeHref(string input)
+    {
+        const string pattern = @"<see href=""([^""]+)"">([^<]+)</see>";
+        const string replacement = "[$2]($1)";
+
+        return Regex.Replace(input, pattern, replacement);
+    }
+
+    private static string RemoveCrLf(string input)
+    {
+        return input.Replace("\r", "").Replace("\n", "");
     }
 }
