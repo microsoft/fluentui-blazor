@@ -259,6 +259,7 @@ public abstract partial class ColumnBase<TGridItem>
         if (hasMultiple)
         {
             _isMenuOpen = !_isMenuOpen;
+            StateHasChanged();
         }
         else if (hasSorting)
         {
