@@ -27,7 +27,7 @@
 .col-options, .col-resize {
     position: absolute;
     min-width: 250px;
-    top: 2.2rem;
+    top: 2.4rem;
     background: var(--neutral-layer-2);
     border: 1px solid var(--neutral-layer-3);
     border-radius: 0.3rem;
