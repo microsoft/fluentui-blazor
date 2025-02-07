@@ -52,6 +52,25 @@ public record ApiMember
     public bool IsParameter { get; init; }
 
     /// <summary>
+    /// Returns the identifier of the member.
+    /// </summary>
+    /// <returns></returns>
+    public string GetIdentifier()
+    {
+        switch (MemberType)
+        {
+            case MemberTypes.Property:
+                return Name;
+            case MemberTypes.Method:
+                return $"{Name}({string.Join(',', Parameters)})";
+            case MemberTypes.Event:
+                return Name;
+            default:
+                return Name;
+        }
+    }
+
+    /// <summary>
     /// Returns the signature of the method.
     /// </summary>
     /// <returns></returns>

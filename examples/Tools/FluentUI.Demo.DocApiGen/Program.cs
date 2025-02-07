@@ -2,11 +2,9 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocApiGen.Models;
+using FluentUI.Demo.DocApiGen.Extensions;
 using Microsoft.Extensions.Configuration;
-using System.Diagnostics;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace FluentUI.Demo.DocApiGen;
 
@@ -38,16 +36,20 @@ public class Program
         var assembly = Assembly.LoadFrom(dllFile);
         var docXml = new FileInfo(xmlFile);
 
-        var options = new ApiClassOptions(assembly, docXml);
+        var apiGenerator = new ApiClassGenerator(assembly, docXml);
 
-        var apiClass = ApiClass.FromTypeName()
-
-        foreach (var type in assembly.GetTypes())
+        foreach (var type in assembly.GetTypes().Where(i => i.IsValidType()))
         {
-            if (type.Name == "FluentOption" || type.Name == "FluentButton")
-            {
+            var apiClass = apiGenerator.FromTypeName(type);
+            var apiClassMembers = apiClass.ToDictionary();
 
-                Console.WriteLine();
+            if (apiClassMembers.Any())
+            {
+                Console.WriteLine($"{apiClass.Name}");
+                foreach (var member in apiClass.ToDictionary())
+                {
+                    Console.WriteLine($"    {member.Key} => {member.Value}");
+                }
             }
         }
     }

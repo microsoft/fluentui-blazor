@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace FluentUI.Demo.DocApiGen.Extensions;
 
@@ -13,11 +14,30 @@ namespace FluentUI.Demo.DocApiGen.Extensions;
 public static class ReflectionExtensions
 {
     private static Dictionary<Type, string>? _knownTypeNames;
+    private static readonly string[] EXCLUDE_TYPEE = ["TypeInference", "InternalListContext`1", "SpacingGenerator", "FluentLocalizerInternal"];
+
+    /// <summary>
+    /// Check if the specified type is a valid type that can be used in the documentation.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsValidType(this Type type)
+    {
+        return type != null &&
+               type != typeof(void) &&
+               EXCLUDE_TYPEE.Contains(type.Name) == false &&
+               type.Name.Contains('>', StringComparison.InvariantCulture) == false &&
+               type.Name.Contains('<', StringComparison.InvariantCulture) == false &&
+               type.BaseType != typeof(Regex) &&
+               type.BaseType?.Name != "Icon" &&
+               type.IsAbstract == false &&
+               type.Name.EndsWith("_g") == false;
+    }
 
     /// <summary>
     /// A dictionary containing a mapping of type to type names.
     /// </summary>
-    public static Dictionary<Type, string> KnownTypeNames => _knownTypeNames ?? (_knownTypeNames = CreateKnownTypeNamesDictionary());
+    public static Dictionary<Type, string> KnownTypeNames => _knownTypeNames ??= CreateKnownTypeNamesDictionary();
 
     /// <summary>
     /// Create a dictionary of standard value types and a string type. 
@@ -386,7 +406,7 @@ public static class ReflectionExtensions
     /// <summary>
     /// Hash of all possible ValueTuple type definitions for quick check if type is value tuple.
     /// </summary>
-    private static readonly HashSet<Type> GenericTuples = new(new Type[] {
+    private static readonly HashSet<Type> GenericTuples = [.. new Type[] {
         typeof(ValueTuple<>),
         typeof(ValueTuple<,>),
         typeof(ValueTuple<,,>),
@@ -394,7 +414,7 @@ public static class ReflectionExtensions
         typeof(ValueTuple<,,,,>),
         typeof(ValueTuple<,,,,,>),
         typeof(ValueTuple<,,,,,,>),
-        typeof(ValueTuple<,,,,,,,>) });
+        typeof(ValueTuple<,,,,,,,>) }];
 
     /// <summary>
     /// Remove the parameter count part of the generic type name. 
@@ -408,7 +428,7 @@ public static class ReflectionExtensions
     public static string CleanGenericTypeName(this string genericTypeName)
     {
         var index = genericTypeName.IndexOf('`');
-        return (index < 0) ? genericTypeName : genericTypeName.Substring(0, index);
+        return (index < 0) ? genericTypeName : genericTypeName[..index];
     }
 
     /// <summary>

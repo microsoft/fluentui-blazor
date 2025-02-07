@@ -5,32 +5,22 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace FluentUI.Demo.DocApiGen.Models;
+namespace FluentUI.Demo.DocApiGen.Extensions;
 
 /// <summary>
 /// Reads the summary comments from the XML documentation file.
 /// </summary>
-public class ApiSummaryReader
+public static class DocXmlReaderExtensions
 {
-    private readonly LoxSmoke.DocXml.DocXmlReader _docReader;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ApiSummaryReader"/> class.
-    /// </summary>
-    /// <param name="xmlDocumentation"></param>
-    public ApiSummaryReader(FileInfo xmlDocumentation)
-    {
-        _docReader = new LoxSmoke.DocXml.DocXmlReader(xmlDocumentation.FullName);
-    }
-
     /// <summary>
     /// Gets the summary comments for the member.
     /// </summary>
+    /// <param name="docReader"></param>
     /// <param name="member"></param>
     /// <returns></returns>
-    public string GetMemberSummary(MemberInfo member)
+    public static string GetMemberSummary(this LoxSmoke.DocXml.DocXmlReader docReader, MemberInfo member)
     {
-        var comments = _docReader.GetMemberComments(member);
+        var comments = docReader.GetMemberComments(member);
 
         var summary = $"{comments.Summary}" +
                       $"{(string.IsNullOrEmpty(comments.Remarks) ? "" : $" _{comments.Remarks}_")}" +
