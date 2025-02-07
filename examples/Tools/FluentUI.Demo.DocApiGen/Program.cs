@@ -34,10 +34,12 @@ public class Program
             return;
         }
 
-        // Load the assembly
+        // Assembly and documentation file
         var assembly = Assembly.LoadFrom(dllFile);
+        var docXml = new FileInfo(xmlFile);
 
-        // Read the XML file
+        var options = new ApiClassOptions(assembly, docXml);
+
         var apiClass = ApiClass.FromTypeName()
 
         foreach (var type in assembly.GetTypes())
@@ -48,26 +50,5 @@ public class Program
                 Console.WriteLine();
             }
         }
-    }
-
-    private static string ConvertSeeCref(string input)
-    {
-        const string pattern = @"<see(also)* cref=""[\w]:Microsoft\.FluentUI\.AspNetCore\.Components\.([\w.]+)"" />";
-        const string replacement = "`$2`";
-
-        return Regex.Replace(input, pattern, replacement);
-    }
-
-    private static string ConvertSeeHref(string input)
-    {
-        const string pattern = @"<see href=""([^""]+)"">([^<]+)</see>";
-        const string replacement = "[$2]($1)";
-
-        return Regex.Replace(input, pattern, replacement);
-    }
-
-    private static string RemoveCrLf(string input)
-    {
-        return input.Replace("\r", "").Replace("\n", "");
     }
 }
