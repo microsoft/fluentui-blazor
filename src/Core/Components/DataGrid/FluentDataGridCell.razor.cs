@@ -79,8 +79,8 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null))
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
-        .AddStyle("display", "flex", CellType == DataGridCellType.ColumnHeader && !Grid.HeaderCellAsButtonWithMenu && !Grid.ResizableColumns && (Column is null || (Column!.Sortable.HasValue && !Column!.Sortable.Value)) && Grid._columns.Count > 0)
-        .AddStyle("z-index", (Grid._columns.Count - Column?.Index).ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0)
+        .AddStyle("display", "flex", ShouldHaveDisplayFlex())
+        .AddStyle("z-index", (Grid._columns.Count + 1 - Column?.Index).ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0)
         .AddStyle(Owner.Style)
         .Build();
 
@@ -126,4 +126,25 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     public void Dispose() => Owner.Unregister(this);
 
+    private bool ShouldHaveDisplayFlex()
+    {
+
+        var isHeaderCell = CellType == DataGridCellType.ColumnHeader;
+
+        if (!isHeaderCell)
+        {
+            return false;
+        }
+
+        var isButtonWithMenu = Grid.HeaderCellAsButtonWithMenu;
+        var isResizable = Grid.ResizableColumns;
+        var isNotResizableWithOptions = !Grid.ResizableColumns && Column?.ColumnOptions is not null;
+        var isSelectColumn = Column?.GetType() == typeof(SelectColumn<TGridItem>);
+        //var isColumnNull = Column is null;
+        var isSortable = (Column?.Sortable.HasValue ?? false) && Column?.Sortable.Value == true;
+        var isSortByNull = Column?.SortBy is null;
+        var isColumnsCountGreaterThanZero = Grid._columns.Count > 0;
+
+        return isHeaderCell && !isButtonWithMenu && (isResizable || isNotResizableWithOptions) && !isSelectColumn && isColumnsCountGreaterThanZero && (!isSortable || isSortByNull);
+    }
 }
