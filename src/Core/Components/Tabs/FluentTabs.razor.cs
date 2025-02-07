@@ -166,8 +166,11 @@ public partial class FluentTabs : FluentComponentBase
         if (tab is not null && _tabs.Contains(tab))
         {
             await OnTabChange.InvokeAsync(tab);
-            ActiveTabId = tabId!;
-            await ActiveTabIdChanged.InvokeAsync(tabId);
+            if (tabId != null)
+            {
+                ActiveTabId = tabId;
+                await ActiveTabIdChanged.InvokeAsync(tabId);
+            }
         }
     }
 

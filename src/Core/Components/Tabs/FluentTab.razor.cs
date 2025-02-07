@@ -152,7 +152,11 @@ public partial class FluentTab : FluentComponentBase
     /// <summary />
     protected virtual Task CloseClickedAsync()
     {
-        return Owner!.UnregisterTabAsync(Id!);
+        if (Id is null)
+        {
+            return Task.CompletedTask;
+        }
+        return Owner!.UnregisterTabAsync(Id);
     }
 
     /// <summary />
