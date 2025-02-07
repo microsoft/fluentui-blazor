@@ -59,9 +59,17 @@ public class ApiClassGenerator
     {
         var code = new StringBuilder();
 
+        code.AppendLine("// ------------------------------------------------------------------------");
+        code.AppendLine("// MIT License - Copyright (c) Microsoft Corporation. All rights reserved. ");
+        code.AppendLine("// ------------------------------------------------------------------------");
+        code.AppendLine();
         code.AppendLine("/// <summary />");
-        code.AppendLine("public static readonly IDictionary<string, IDictionary<string, string>> SummaryData = new Dictionary<string, IDictionary<string, string>>");
+        code.AppendLine("public class Test");
         code.AppendLine("{");
+
+        code.AppendLine("    /// <summary />");
+        code.AppendLine("    public static readonly IDictionary<string, IDictionary<string, string>> SummaryData = new Dictionary<string, IDictionary<string, string>>");
+        code.AppendLine("    {");
 
         foreach (var type in Assembly.GetTypes().Where(i => i.IsValidType()))
         {
@@ -70,20 +78,22 @@ public class ApiClassGenerator
 
             if (apiClassMembers.Any())
             {
-                code.AppendLine($"    {{ \"{apiClass.Name}\", new Dictionary<string, string>");
-                code.AppendLine($"        {{");
+                code.AppendLine($"        {{ \"{apiClass.Name}\", new Dictionary<string, string>");
+                code.AppendLine($"            {{");
 
                 foreach (var member in apiClass.ToDictionary())
                 {
-                    code.AppendLine($"            {{ \"{member.Key}\", \"{member.Value}\" }},");
+                    code.AppendLine($"                {{ \"{member.Key}\", \"{FormatDescription(member.Value)}\" }},");
                 }
 
-                code.AppendLine($"       }}");
-                code.AppendLine($"    }}");
+                code.AppendLine($"           }}");
+                code.AppendLine($"        }},");
             }
         }
 
+        code.AppendLine("    };");
         code.AppendLine("}");
+        code.AppendLine();
 
         if (File.Exists(fileName))
         {
@@ -91,5 +101,10 @@ public class ApiClassGenerator
         }
 
         File.WriteAllText(fileName, code.ToString());
+    }
+
+    private static string FormatDescription(string description)
+    {
+        return description.Replace("\r\n", " ").Replace("\n", " ").Replace("\"", "\\\"");
     }
 }
