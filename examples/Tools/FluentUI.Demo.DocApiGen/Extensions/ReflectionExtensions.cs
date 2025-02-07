@@ -17,6 +17,18 @@ public static class ReflectionExtensions
     private static readonly string[] EXCLUDE_TYPES = Constants.EXCLUDE_TYPES;
 
     /// <summary>
+    /// Get the signature of the method.
+    /// </summary>
+    /// <param name="member"></param>
+    /// <returns></returns>
+    public static string GetSignature(this MemberInfo member)
+    {
+        return member.MemberType == MemberTypes.Method
+             ? $"{member.Name}({string.Join(", ", ((MethodInfo)member).GetParameters().Select(p => p.ParameterType.Name))})"
+             : member.Name;
+    }
+
+    /// <summary>
     /// Check if the specified type is a valid type that can be used in the documentation.
     /// </summary>
     /// <param name="type"></param>

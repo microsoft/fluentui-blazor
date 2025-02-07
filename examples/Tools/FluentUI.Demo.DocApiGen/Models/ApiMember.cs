@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Reflection;
+using FluentUI.Demo.DocApiGen.Extensions;
 
 namespace FluentUI.Demo.DocApiGen.Models;
 
@@ -11,6 +12,11 @@ namespace FluentUI.Demo.DocApiGen.Models;
 /// </summary>
 public record ApiMember
 {
+    /// <summary>
+    /// Gets the MemberInfo for the member.
+    /// </summary>
+    public required MemberInfo MemberInfo { get; init; }
+
     /// <summary>
     /// Gets the type of the MemberInfo: Property, Method, Event.
     /// </summary>
@@ -55,19 +61,9 @@ public record ApiMember
     /// Returns the identifier of the member.
     /// </summary>
     /// <returns></returns>
-    public string GetIdentifier()
+    public string GetSignature()
     {
-        switch (MemberType)
-        {
-            case MemberTypes.Property:
-                return Name;
-            case MemberTypes.Method:
-                return $"{Name}({string.Join(", ", Parameters)})";
-            case MemberTypes.Event:
-                return Name;
-            default:
-                return Name;
-        }
+        return MemberInfo.GetSignature();
     }
 
     /// <summary>

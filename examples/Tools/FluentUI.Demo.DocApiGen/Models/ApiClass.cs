@@ -89,7 +89,7 @@ public class ApiClass
 
         foreach (var member in members)
         {
-            result.Add(member.GetIdentifier(), member.Description);
+            result.Add(member.GetSignature(), member.Description);
         }
 
         return result;
@@ -163,6 +163,7 @@ public class ApiClass
                         {
                             members.Add(new ApiMember()
                             {
+                                MemberInfo = memberInfo,
                                 MemberType = MemberTypes.Property,
                                 Name = enumInfo.Name,
                                 Type = "",
@@ -192,6 +193,7 @@ public class ApiClass
 
                                 members.Add(new ApiMember()
                                 {
+                                    MemberInfo = memberInfo,
                                     MemberType = MemberTypes.Property,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
@@ -208,6 +210,7 @@ public class ApiClass
                                 var eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
                                 members.Add(new ApiMember()
                                 {
+                                    MemberInfo = memberInfo,
                                     MemberType = MemberTypes.Event,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
@@ -233,6 +236,7 @@ public class ApiClass
 
                             members.Add(new ApiMember()
                             {
+                                MemberInfo = memberInfo,
                                 MemberType = MemberTypes.Method,
                                 Name = methodInfo.Name + genericArguments,
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
