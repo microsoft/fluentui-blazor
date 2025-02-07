@@ -11,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapt
 /// <summary>
 /// An <see cref="IAsyncQueryExecutor"/> implementation for Entity Framework Core.
 /// </summary>
-public class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IDisposable
+internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreException = null) : IAsyncQueryExecutor, IDisposable
 {
     private readonly SemaphoreSlim _lock = new(1);
 
@@ -27,8 +27,7 @@ public class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IDisposabl
     public Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
         => ExecuteAsync(() => queryable.ToArrayAsync(cancellationToken));
 
-    /// <inheritdoc />
-    protected virtual async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
+    private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
     {
         try
         {
@@ -44,6 +43,10 @@ public class EntityFrameworkAsyncQueryExecutor : IAsyncQueryExecutor, IDisposabl
             }
         }
         catch (ObjectDisposedException)
+        {
+            return default!;
+        }
+        catch (Exception ex) when (ignoreException?.Invoke(ex) == true)
         {
             return default!;
         }
