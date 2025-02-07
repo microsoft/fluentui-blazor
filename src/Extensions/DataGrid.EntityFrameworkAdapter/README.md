@@ -28,12 +28,26 @@ Install the package by running the command:
 ```
 dotnet add package Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter
 ```
-
 ## Usage
-In your Program.cs file you need to add the following:
+When using the provided implementation, you need to add add the following in the `Program.cs` file:
+
 ```
 builder.Services.AddDataGridEntityFrameworkAdapter();
 ```
+
+## Changing the adapter's behavior
+Starting with v4.11.4, the `EntityFrameworkAsyncQueryExecutor` exposes a way to ignore exceptions which may occur during query execution.
+This can be useful when you want to handle exceptions in a custom way, for example, by logging them. To ignore exceptions, you can
+supply a `Func<Exception, bool>` to the `IgnoreException` property of the `EntityFrameworkAsyncQueryExecutor` instance. The function
+should return `true` if the exception should be ignored and `false` otherwise. An example:
+```csharp
+builder.Services.AddFluentUIComponents()
+    .AddDataGridEntityFrameworkAdapter(ex => ex is SqlException sqlEx
+        && sqlEx.Errors.OfType<SqlError>().Any(e => (e.Class == 11 && e.Number == 0) || (e.Class == 16 && e.Number == 3204)));
+```
+
+For more information see also https://github.com/microsoft/fluentui-blazor/issues/3269.
+
 
 ## Support
 The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
