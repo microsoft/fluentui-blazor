@@ -134,7 +134,7 @@ public partial class FluentTab : FluentComponentBase
 
     protected override void OnInitialized()
     {
-        Index = Owner!.RegisterTab(this);
+        Index = Owner.RegisterTab(this);
     }
 
     /// <summary />
@@ -156,7 +156,7 @@ public partial class FluentTab : FluentComponentBase
         {
             return Task.CompletedTask;
         }
-        return Owner!.UnregisterTabAsync(Id);
+        return Owner.UnregisterTabAsync(Id);
     }
 
     /// <summary />
