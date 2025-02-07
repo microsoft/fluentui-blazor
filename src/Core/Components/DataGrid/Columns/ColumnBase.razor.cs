@@ -148,7 +148,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
-    protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
+    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
 
     protected override void OnInitialized()
     {
@@ -251,18 +251,26 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleColumnHeaderClickedAsync()
     {
-        if ((Sortable is true || IsDefaultSortColumn) && (Grid.ResizableColumns || ColumnOptions is not null))
+        var hasSorting = Sortable is true || IsDefaultSortColumn;
+        var hasResize = Grid.ResizableColumns;
+        var hasOptions = ColumnOptions is not null;
+        var hasMultiple = (hasSorting && hasResize) || (hasSorting && hasOptions) || (hasResize && hasOptions);
+
+        if (hasMultiple)
         {
             _isMenuOpen = !_isMenuOpen;
-            StateHasChanged();
         }
-        else if ((Sortable is true || IsDefaultSortColumn) && !Grid.ResizableColumns && ColumnOptions is null)
+        else if (hasSorting)
         {
             await Grid.SortByColumnAsync(this);
         }
-        else if (Sortable is not true && !IsDefaultSortColumn && ColumnOptions is null && Grid.ResizableColumns)
+        else if (hasResize)
         {
             await Grid.ShowColumnResizeAsync(this);
+        }
+        else if (hasOptions)
+        {
+            await Grid.ShowColumnOptionsAsync(this);
         }
     }
 

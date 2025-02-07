@@ -13,7 +13,6 @@
 
 <FluentToolbar>
     <FluentRadioGroup Name="rt" @bind-Value="@_resizeType" Label="Resize type">
-        <FluentRadio Value="@((DataGridResizeType?)null)">None</FluentRadio>
         <FluentRadio Value="@DataGridResizeType.Discrete">Discrete</FluentRadio>
         <FluentRadio Value="@DataGridResizeType.Exact">Exact</FluentRadio>
     </FluentRadioGroup>
