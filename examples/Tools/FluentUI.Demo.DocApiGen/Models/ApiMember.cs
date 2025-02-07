@@ -62,7 +62,7 @@ public record ApiMember
             case MemberTypes.Property:
                 return Name;
             case MemberTypes.Method:
-                return $"{Name}({string.Join(',', Parameters)})";
+                return $"{Name}({string.Join(", ", Parameters)})";
             case MemberTypes.Event:
                 return Name;
             default:
@@ -76,6 +76,6 @@ public record ApiMember
     /// <returns></returns>
     public string GetMethodSignature()
     {
-        return $"{Type} {Name}({string.Join(',', Parameters)})";
+        return $"{Type} {Name}({string.Join(", ", Parameters)})";
     }
 }
