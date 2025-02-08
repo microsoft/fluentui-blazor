@@ -34,7 +34,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
 
@@ -119,7 +119,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
