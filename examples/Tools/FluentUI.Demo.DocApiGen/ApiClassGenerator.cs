@@ -129,17 +129,60 @@ public class ApiClassGenerator
     }
 
     /// <summary>
+    /// Generates the JSON for the documentation.
+    /// </summary>
+    /// <returns></returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Not necessary")]
+    public string GenerateJson()
+    {
+        var code = new StringBuilder();
+
+        code.AppendLine("{");
+
+        foreach (var type in Assembly.GetTypes().Where(i => i.IsValidType()))
+        {
+            var apiClass = FromTypeName(type);
+            var apiClassMembers = apiClass.ToDictionary();
+
+            if (apiClassMembers.Any())
+            {
+                code.AppendLine($"  \"{apiClass.Name}\": {{");
+
+                foreach (var member in apiClass.ToDictionary())
+                {
+                    code.AppendLine($"    \"{member.Key}\": \"{FormatDescription(member.Value)}\",");
+                }
+
+                code.AppendLine($"  }},");
+            }
+        }
+
+        code.AppendLine("};");
+        code.AppendLine();
+
+        return code.ToString();
+    }
+
+    /// <summary>
     /// Saves the documentation to a file.
     /// </summary>
     /// <param name="fileName"></param>
-    public void SaveToFile(string fileName)
+    /// <param name="format"></param>
+    public void SaveToFile(string fileName, string format)
     {
         if (File.Exists(fileName))
         {
             File.Delete(fileName);
         }
 
-        File.WriteAllText(fileName, GenerateCSharp());
+        if (format == "json")
+        {
+            File.WriteAllText(fileName, GenerateJson());
+        }
+        else
+        {
+            File.WriteAllText(fileName, GenerateCSharp());
+        }
     }
 
     private static string FormatDescription(string description)

@@ -18,7 +18,7 @@ public class Program
         _watcher.Start();
 
         Console.WriteLine($"-------------------------------------------------------------------");
-        Console.WriteLine($" DocApiGen v{Assembly.GetEntryAssembly()?.GetName().Version}          ");
+        Console.WriteLine($" DocApiGen v{Assembly.GetEntryAssembly()?.GetName().Version}       ");
         Console.WriteLine($" A simple command line tool to generate the documentation classes. ");
         Console.WriteLine($"-------------------------------------------------------------------");
         Console.WriteLine();
@@ -28,11 +28,15 @@ public class Program
         var xmlFile = config["xml"];
         var dllFile = config["dll"];
         var outputFile = config["output"];
+        var format = config["format"] ?? "json";
 
         // Help
         if (string.IsNullOrEmpty(xmlFile) || string.IsNullOrEmpty(dllFile))
         {
-            Console.WriteLine("Usage: DocApiGen --xml <xml_file> --dll <dll_file> --output <generated_file>");
+            Console.WriteLine("Usage: DocApiGen --xml <xml_file>" +
+                                              " --dll <dll_file>" +
+                                              " --output <generated_file>" +
+                                              " --format <csharp|json>");
             return;
         }
 
@@ -44,13 +48,20 @@ public class Program
         Console.WriteLine("Generating documentation...");
         if (!string.IsNullOrEmpty(outputFile))
         {
-            apiGenerator.SaveToFile(outputFile);
+            apiGenerator.SaveToFile(outputFile, format);
             Console.WriteLine($"Documentation saved to {outputFile}");
         }
         else
         {
             Console.WriteLine();
-            Console.WriteLine(apiGenerator.GenerateCSharp());
+            if (format == "json")
+            {
+                Console.WriteLine(apiGenerator.GenerateJson());
+            }
+            else
+            {
+                Console.WriteLine(apiGenerator.GenerateCSharp());
+            }
         }
 
         Console.WriteLine($"Completed in {_watcher.ElapsedMilliseconds} ms");
