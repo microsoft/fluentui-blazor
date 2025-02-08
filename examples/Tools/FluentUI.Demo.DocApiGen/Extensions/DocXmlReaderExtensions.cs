@@ -13,6 +13,23 @@ namespace FluentUI.Demo.DocApiGen.Extensions;
 public static class DocXmlReaderExtensions
 {
     /// <summary>
+    /// Gets the summary comments for the component.
+    /// </summary>
+    /// <param name="docReader"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static string GetComponentSummary(this LoxSmoke.DocXml.DocXmlReader docReader, Type type)
+    {
+        var comments = docReader.GetTypeComments(type);
+
+        var summary = $"{comments.Summary}" +
+                      $"{(string.IsNullOrEmpty(comments.Remarks) ? "" : $" _{comments.Remarks}_")}" +
+                      $"{(string.IsNullOrEmpty(comments.Example) ? "" : $" Example: `{comments.Example}`")}";
+
+        return RemoveCrLf(ConvertSeeHref(ConvertSeeCref(summary)));
+    }
+
+    /// <summary>
     /// Gets the summary comments for the member.
     /// </summary>
     /// <param name="docReader"></param>

@@ -262,7 +262,8 @@ public class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo? member)
     {
-        ArgumentNullException.ThrowIfNull(component);   // Required, but not yet used
-        return member == null ? string.Empty : _options.DocXmlReader.GetMemberSummary(member);
+        return member == null
+             ? _options.DocXmlReader.GetComponentSummary(component)
+             : _options.DocXmlReader.GetMemberSummary(member);
     }
 }

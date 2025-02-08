@@ -73,18 +73,20 @@ public static class ServiceCollectionExtensions
                            "Run the project `FluentUI.Demo.DocApiGen` to generate the file. ";
                 }
 
-                var sectionName = component.Name;
-
                 // Component summary
                 if (member is null)
                 {
-                    return "TODO";
+                    return GetMemberSummary(component.Name, "__summary__");
                 }
 
                 // Member summary
                 else
                 {
-                    var signature = member.GetSignature();
+                    return GetMemberSummary(component.Name, member.GetSignature());
+                }
+
+                string GetMemberSummary(string sectionName, string signature)
+                {
                     if (data?.Items?.TryGetValue(sectionName, out var section) == true)
                     {
                         if (section.TryGetValue(signature, out var summary))
@@ -92,9 +94,9 @@ public static class ServiceCollectionExtensions
                             return summary;
                         }
                     }
-                }
 
-                return "";
+                    return "";
+                }
             };
             options.SourceCodeUrl = "/sources/{0}.txt";
         });

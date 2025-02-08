@@ -95,6 +95,7 @@ public class ApiClassGenerator
             {
                 code.AppendLine($"        {{ \"{apiClass.Name}\", new Dictionary<string, string>");
                 code.AppendLine($"            {{");
+                code.AppendLine($"                {{ \"__summary__\", \"{FormatDescription(apiClass.Summary)}\" }},");
 
                 foreach (var member in apiClass.ToDictionary())
                 {
@@ -156,6 +157,7 @@ public class ApiClassGenerator
             if (apiClassMembers.Any())
             {
                 code.AppendLine($"  \"{apiClass.Name}\": {{");
+                code.AppendLine($"    \"__summary__\": \"{FormatDescription(apiClass.Summary)}\",");
 
                 foreach (var member in apiClass.ToDictionary())
                 {
