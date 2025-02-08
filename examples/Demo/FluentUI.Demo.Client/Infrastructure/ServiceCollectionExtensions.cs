@@ -67,9 +67,9 @@ public static class ServiceCollectionExtensions
             options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
             options.ApiCommentSummary = (data, component, member) =>
             {
-                if (data is null && member is null)
+                if (member is null && (data is null || data?.Items?.Count <= 1))
                 {
-                    return "⚠️ The file `api-comments.json` was not yet generated in `Client/wwwroot` folder. " +
+                    return "⚠️ The file `api-comments.json` was not found. " +
                            "Run the project `FluentUI.Demo.DocApiGen` to generate the file. ";
                 }
 
