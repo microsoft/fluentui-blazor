@@ -20,7 +20,7 @@ public static class ReflectionExtensions
     /// Get the signature of the method.
     /// </summary>
     /// <param name="member"></param>
-    /// <returns></returns>
+    /// <remarks>⚠️ Must be identical to FluentUI.Demo.Client.ServiceCollectionExtensions.GetSignature</remarks>
     public static string GetSignature(this MemberInfo member)
     {
         return member.MemberType == MemberTypes.Method

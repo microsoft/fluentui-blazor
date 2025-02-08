@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using FluentUI.Demo.DocViewer.Components.ConsoleLog;
+using FluentUI.Demo.DocViewer.Models;
 using FluentUI.Demo.DocViewer.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,5 +40,34 @@ public static class ServicesExtensions
         });
 
         return services;
+    }
+
+    /// <summary>
+    /// Load the summaries from the CodeComments.json file.
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="jsonFile"></param>
+    /// <returns></returns>
+    public static async Task<ApiDocSummary> LoadSummariesAsync(this HttpClient httpClient, string jsonFile)
+    {
+        // Read CodeComments.json
+        try
+        {
+            var json = await httpClient.GetStringAsync(jsonFile);
+            return new ApiDocSummary()
+            {
+                Items = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(json)
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ApiDocSummary()
+            {
+                Items = new Dictionary<string, Dictionary<string, string>>
+                {
+                    ["ERROR"] = new Dictionary<string, string> { [$"{jsonFile} cannot be loaded"] = ex.Message },
+                }
+            };
+        }
     }
 }

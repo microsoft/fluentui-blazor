@@ -225,7 +225,7 @@ internal class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo? member)
     {
-        var summary = _docViewerService.ApiCommentSummary(component, member);
+        var summary = _docViewerService.ApiCommentSummary(ApiDocSummary.Cached, component, member);
 
         if (string.IsNullOrWhiteSpace(summary))
         {
