@@ -64,7 +64,10 @@ public static class ServiceCollectionExtensions
             options.ComponentsAssembly = typeof(Client._Imports).Assembly;
             options.ResourcesAssembly = typeof(Client._Imports).Assembly;
             options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-            options.ApiCommentSummary = (component, member) => member is null ? CodeComments.GetSummary(component.Name) : CodeComments.GetSummary(member);
+            options.ApiCommentSummary = (component, member) =>
+            {
+                return ""; // TODO
+            };
             options.SourceCodeUrl = "/sources/{0}.txt";
         });
 

@@ -4,6 +4,7 @@
 
 using FluentUI.Demo.DocApiGen.Extensions;
 using FluentUI.Demo.DocApiGen.Models;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 
@@ -58,6 +59,7 @@ public class ApiClassGenerator
     public string GenerateCSharp()
     {
         var code = new StringBuilder();
+        var assemblyInfo = GetAssemblyInfo(Assembly);
 
         code.AppendLine("// ------------------------------------------------------------------------");
         code.AppendLine("// MIT License - Copyright (c) Microsoft Corporation. All rights reserved. ");
@@ -69,6 +71,8 @@ public class ApiClassGenerator
         code.AppendLine("//");
         code.AppendLine("//     Changes to this file may cause incorrect behavior and will be lost if");
         code.AppendLine("//     the code is regenerated.");
+        code.AppendLine("//");
+        code.AppendLine("//     Version: " + assemblyInfo.Version + " - " + assemblyInfo.Date);
         code.AppendLine("// </auto-generated>");
         code.AppendLine("//------------------------------------------------------------------------------");
         code.AppendLine();
@@ -136,8 +140,13 @@ public class ApiClassGenerator
     public string GenerateJson()
     {
         var code = new StringBuilder();
+        var assemblyInfo = GetAssemblyInfo(Assembly);
 
         code.AppendLine("{");
+        code.AppendLine($"  \"__Generated__\": {{");
+        code.AppendLine($"    \"AssemblyVersion\": \"{assemblyInfo.Version}\",");
+        code.AppendLine($"    \"DateUtc\": \"{assemblyInfo.Date}\"");
+        code.AppendLine($"  }},");
 
         foreach (var type in Assembly.GetTypes().Where(i => i.IsValidType()))
         {
@@ -187,11 +196,13 @@ public class ApiClassGenerator
         }
     }
 
+    /// <summary />
     private static string FormatDescription(string description)
     {
         return description.Replace("\r\n", " ").Replace("\n", " ").Replace("\"", "\\\"");
     }
 
+    /// <summary />
     private static void RemoveLastComma(StringBuilder sb)
     {
         if (sb == null || sb.Length == 0)
@@ -202,5 +213,28 @@ public class ApiClassGenerator
         var lastIndex = sb.ToString().LastIndexOf(',');
         sb.Remove(lastIndex, sb.Length - lastIndex);
         sb.AppendLine();
+    }
+
+    internal static (string Version, string Date) GetAssemblyInfo(Assembly assembly)
+    {
+        // Assembly version
+        string strVersion = default!;
+        var versionAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        if (versionAttribute != null)
+        {
+            var version = versionAttribute.InformationalVersion;
+            var plusIndex = version.IndexOf('+');
+            if (plusIndex >= 0 && plusIndex + 9 < version.Length)
+            {
+                strVersion = version[..(plusIndex + 9)];
+            }
+            else
+            {
+                strVersion = version;
+            }
+        }
+
+        // Date
+        return (strVersion, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture));
     }
 }
