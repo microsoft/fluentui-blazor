@@ -46,30 +46,30 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public string? ForId { get; set; }
 
-    /// <see cref="IFluentField.FocusLost"/>"
+    /// <inheritdoc cref="IFluentField.FocusLost"/>"
     public bool FocusLost { get; internal set; }
 
-    /// <see cref="IFluentField.Label"/>"
+    /// <inheritdoc cref="IFluentField.Label"/>"
     [Parameter]
     public string? Label { get; set; }
 
-    /// <see cref="IFluentField.LabelTemplate"/>"
+    /// <inheritdoc cref="IFluentField.LabelTemplate"/>"
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
 
-    /// <see cref="IFluentField.LabelPosition"/>"
+    /// <inheritdoc cref="IFluentField.LabelPosition"/>"
     [Parameter]
     public LabelPosition? LabelPosition { get; set; }
 
-    /// <see cref="IFluentField.LabelWidth"/>"
+    /// <inheritdoc cref="IFluentField.LabelWidth"/>"
     [Parameter]
     public string? LabelWidth { get; set; }
 
-    /// <see cref="IFluentField.Required"/>"
+    /// <inheritdoc cref="IFluentField.Required"/>"
     [Parameter]
     public bool? Required { get; set; }
 
-    /// <see cref="IFluentField.Disabled"/>"
+    /// <inheritdoc cref="IFluentField.Disabled"/>"
     [Parameter]
     public bool? Disabled { get; set; }
 
@@ -79,23 +79,23 @@ public partial class FluentField : FluentComponentBase, IFluentField
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <see cref="IFluentField.Message"/>"
+    /// <inheritdoc cref="IFluentField.Message"/>"
     [Parameter]
     public string? Message { get; set; }
 
-    /// <see cref="IFluentField.MessageIcon"/>"
+    /// <inheritdoc cref="IFluentField.MessageIcon"/>"
     [Parameter]
     public Icon? MessageIcon { get; set; }
 
-    /// <see cref="IFluentField.MessageTemplate"/>"
+    /// <inheritdoc cref="IFluentField.MessageTemplate"/>"
     [Parameter]
     public RenderFragment? MessageTemplate { get; set; }
 
-    /// <see cref="IFluentField.MessageCondition" />
+    /// <inheritdoc cref="IFluentField.MessageCondition" />
     [Parameter]
     public Func<IFluentField, bool>? MessageCondition { get; set; }
 
-    /// <see cref="IFluentField.MessageIcon"/>"
+    /// <inheritdoc cref="IFluentField.MessageIcon"/>"
     [Parameter]
     public MessageState? MessageState { get; set; }
 
