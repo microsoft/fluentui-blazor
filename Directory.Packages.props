@@ -54,5 +54,6 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
+    <PackageVersion Include="System.IO.Pipelines" Version="$(RuntimeVersion9)" />
   </ItemGroup>
 </Project>
