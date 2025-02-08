@@ -1,3 +1,34 @@
+## Breaking changes v4.11.0
+
+### Icons and Emoji
+As of version 4.11.0 of our Icons and Emoji packages, we are packaging each icon variant (filled, outlined, regular, etc.) and emoji category (animals, food, etc.) in its own assembly.
+This became necessary due to the large number of icons and some compiler limitations. Nothing has changed on how the packages need to be installed or added to your project.
+
+There is a just a small change needed to your imports file (or using statements).
+
+To use the new versions in your (upgraded) projects, you need add the following <code>&#64;using</code> statement to your _Imports.razor file:
+
+```
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+@* add line below only if you are using the Emoji package *@
+@using Emoji = Microsoft.FluentUI.AspNetCore.Components.Emoji
+```
+        
+Alternatively, you can use the full namespace(s) in your code or define the alias(es) for the namespace(s) at the top of your file(s).
+        
+When creating an application through one of the Fluent templates (v4.11.0 or higher), everything with regards to the icons will already be correctly set up for you.
+The templates do not use emoji so you'll need to make the necessary change yourself after adding the Emoji package.
+
+### DataGrid
+The `DataGrid` **now uses HTML table based rendering**. A lot of changes have been made to the structure of the rendered content and the class names used.
+If you have been overriding grid classes, these probably no longer work and need to be changed in your own code. For more information, please see the DataGrid documentation page.
+
+Because of the change in rendering it is currently not possible to use the `OnRowFocus` and `OnCellFocus` event callbacks. You can use the `OnRowClick`, `OnRowDoubleClick` and `OnCellClick` alternatives.
+
+As of v4.11.1 the `OnCellFocus` event callback will be operational again. For `OnRowFocus`, we are waiting for the necessary support being added by the different browsers. See https://chromestatus.com/feature/6237396851228672 for more information. 
+
+
+
 ## Breaking changes v4.8.0
 
 The `Option<TType>`-type is a utility class that can be used to define list of options that are presented in a `FluentSelect` or any of the other list components. We have [examples of showing how this work](https://www.fluentui-blazor.net/Select#fromalistofoptiontit) available on the demo site.

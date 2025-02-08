@@ -1,0 +1,12 @@
+﻿@page "/datagrid-template-columns"
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples
+
+<PageTitle>Template columns</PageTitle>
+<DemoSection Title="Template columns" Component="@typeof(DataGridTemplateColumns)" CollocatedFiles="@(new[] { "css" })">
+    <Description>
+        <p>
+            <code>TemplateColumn</code> uses arbitrary Razor fragments to supply contents for its cells. It can't
+            infer the column's title or sort order automatically.
+        </p>
+    </Description>
+</DemoSection>

@@ -1183,6 +1183,11 @@
             This is rendered automatically if <see cref="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.HeaderCellItemTemplate" /> is not used.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Index">
+            <summary>
+            Gets or sets the index (1-based) of the column
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ColumnBase`1.Class">
             <summary>
             Gets or sets the an optional CSS class name.
@@ -1626,7 +1631,7 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.SelectMode">
             <summary>
-            Gets or sets the selection mode (Single or Multiple).
+            Gets or sets the selection mode (Single, SingleSticky or Multiple).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.SelectColumn`1.IconUnchecked">
@@ -1858,6 +1863,14 @@
              is small or if you are using pagination.
              </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OverscanCount">
+            <summary>
+            This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>. It defines how many additional items will be rendered
+            before and after the visible region to reduce rendering frequency during scrolling. While higher values can improve
+            scroll smoothness by rendering more items off-screen, they can also increase initial load times. Finding a balance
+            based on your data set size and user experience requirements is recommended. The default value is 3.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemSize">
             <summary>
             This is applicable only when using <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Virtualize"/>. It defines an expected height in pixels for
@@ -1943,6 +1956,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnRowFocus">
             <summary>
             Gets or sets a callback when a row is focused.
+            As of 4.11 a row is a tr element with a 'display: contents'. Browsers can not focus such elements currently, but work is underway to fix that.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.OnCellFocus">
@@ -1988,7 +2002,8 @@
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Loading">
             <summary>
-            Gets or sets a value indicating whether the grid is in a loading data state.
+            Gets or sets a value to indicate the grid loading data state.
+            If not set and a <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.ItemsProvider"/> is present, the grid will show <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent"/> until the provider's first return.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.LoadingContent">
@@ -2002,9 +2017,25 @@
             Sets <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.GridTemplateColumns"/> to automatically fit the columns to the available width as best it can.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoItemsPerPage">
+            <summary>
+            Automatically fit the number of items per page to the available height.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.RowSize">
+            <summary>
+            Gets or sets the size of each row in the grid based on the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize"/> enum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.MultiLine">
+            <summary>
+            Gets or sets a value indicating whether the grid should allow multiple lines of text in cells.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl">
             <summary>
             Gets or sets a value indicating whether the grid should save its paging state in the URL.
+            <para>This is an experimental feature, which might cause unwanted jumping in the page when you change something in the grid.</para>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStatePrefix">
@@ -2012,6 +2043,11 @@
             Gets or sets a prefix to use when saving the grid state in the URL.
             </summary>
             <remarks>Only relevant when <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SaveStateInUrl"/> is set to <see langword="true"/> on multiple grids on a single page.</remarks>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.AutoFocus">
+            <summary>
+            Gets or sets a value indicating whether the grids' first cell should be focused.
+            </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.#ctor">
             <summary>
@@ -2119,6 +2155,15 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.UpdateItemsPerPageAsync(System.Int32)">
+             <summary>
+             Updates the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.Pagination"/>s ItemPerPage parameter.
+             Guards the CurrentPageIndex from getting greater than the LastPageIndex
+            
+             </summary>
+             <param name="visibleRows">The maixmum number of rows that fits the available space</param>
+             <returns></returns>
+        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1.SetColumnWidthDiscreteAsync(System.Nullable{System.Int32},System.Single)">
             <summary>
             Resizes the column width by a discrete amount.
@@ -2168,7 +2213,7 @@
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.GridContext">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
             </summary>
@@ -2176,6 +2221,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Column">
             <summary>
             Gets a reference to the column that this cell belongs to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridCell`1.HandleOnCellClickAsync">
@@ -2207,9 +2257,14 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Owner">
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.InternalGridContext">
             <summary>
             Gets or sets the owning <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/> component
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.Grid">
+            <summary>
+            Gets a reference to the enclosing <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1" />.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1.HandleOnRowClickAsync(System.String)">
@@ -2892,6 +2947,12 @@
             Gets or sets a value which will be set when double-clicking on the text field of date picker.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDatePicker.PopupHorizontalPosition">
+            <summary>
+            Gets or sets an <see cref="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition"/> for the popup displayed when the user open the calendar.
+            By default, this value is Left or Right, depending of the 'CurrentUICulture.TextInfo.IsRightToLeft' value.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTimePicker.StyleValue">
             <summary />
         </member>
@@ -3507,6 +3568,16 @@
             If defined, this value will replace the one defined in the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.ShowDismissTooltip">
+            <summary>
+            When true, shows the "Close" button tooltip in the header.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.TabIndex">
+            <summary>
+            Allows developers to make elements sequentially focusable and determine their relative ordering for navigation (usually with the Tab key).
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentDialogHeader.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -3671,6 +3742,14 @@
             This method is only called when using the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IDialogService"/>.
             </remarks>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.DialogParameters.ValidateDialogAsync">
+            <summary>
+            Function that is called and awaited before the dialog is closed.
+            </summary>
+            <remarks>
+            This is a suitable callback to use when you need to validate the data in the dialog <em>before</em> it closes.
+            </remarks>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DialogParameters`1">
             <summary>
             Parameters for a dialog.
@@ -3689,7 +3768,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent.Intent">
             <summary>
             Gets or sets the intent of the message box. See <see cref="T:Microsoft.FluentUI.AspNetCore.Components.MessageBoxIntent"/> for details.
-            </summary>    
+            </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.MessageBoxContent.Icon">
             <summary>
@@ -4275,6 +4354,28 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentDropZone`1.OnDropHandler(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
             <summary />
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji">
+            <summary>
+            Custom emoji loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.#ctor(Microsoft.FluentUI.AspNetCore.Components.Emoji)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji"/> class.
+            </summary>
+            <param name="emoji"></param>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.Zip(System.String)">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomEmoji.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.Emoji">
             <summary>
             FluentUI Emoji content.
@@ -4327,6 +4428,37 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiCompress.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary />
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.EmojiInfo)">
+            <summary>
+            Returns a new instance of the emoji.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an emoji in your code).
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAllEmojis">
+            <summary>
+            Returns a new instance of the emoji.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.AllEmojis">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.EmojiExtensions.GetAssembly(System.String)">
             <summary />
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.EmojiInfo">
@@ -4680,6 +4812,22 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon">
+            <summary>
+            Custom icon loaded from <see cref="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.CustomIcon.#ctor(Microsoft.FluentUI.AspNetCore.Components.Icon)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.CustomIcon"/> class.
+            </summary>
+            <param name="icon"></param>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentIcon`1">
             <summary>
             FluentIcon is a component that renders an icon from the Fluent System icon set.
@@ -4873,6 +5021,38 @@
             Gets the variant of the icon: Filled, Regular.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetInstance(Microsoft.FluentUI.AspNetCore.Components.IconInfo)">
+            <summary>
+            Returns a new instance of the icon.
+            </summary>
+            <param name="icon">The <see cref="T:Microsoft.FluentUI.AspNetCore.Components.IconInfo"/> to instantiate.</param>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            If the assembly is not yet loaded, it will be loaded by the method `Assembly.Load`.
+            To avoid any issues, the assembly must be loaded before calling this method (e.g. adding an icon in your code).
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAllIcons">
+            <summary>
+            Returns a new instance of the icon.
+            </summary>
+            <remarks>
+            This method requires dynamic access to code. This code may be removed by the trimmer.
+            </remarks>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.IconInfo.Name"/> is not found in predefined icons.</exception>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.AllIcons">
+            <summary />
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.IconsExtensions.GetAssembly(System.String)">
+            <summary />
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile">
             <summary />
         </member>
@@ -4977,6 +5157,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnFileError">
             <summary>
             Raise when a file raised an error. Not yet used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnFileCountExceeded">
+            <summary>
+            Raised when the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.MaximumFileCount"/> is exceeded.
+            The return parameter specifies the total number of files that were attempted for upload.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFile.OnCompleted">
@@ -5094,6 +5280,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ContentType">
             <summary>
             Gets the content type of the current file in an upload process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.LastModified">
+            <summary>
+            Gets the last modified date of the current file in an upload process.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentInputFileEventArgs.ProgressTitle">
@@ -5770,6 +5961,11 @@
             Gets or sets the open attribute.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.EnableClickToClose">
+            <summary>
+            Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown button. Default is false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCombobox`1.Position">
             <summary>
             Gets or sets the placement for the listbox when the combobox is open.
@@ -6013,6 +6209,12 @@
             ⚠️ Only available when Multiple = false.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptionExpression">
+            <summary>
+            Gets or sets an expression that identifies the bound selected options.
+            ⚠️ Only available when Multiple = false.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.Multiple">
             <summary>
             If true, the user can select multiple elements.
@@ -6030,9 +6232,21 @@
             ⚠️ Only available when Multiple = true.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.ChangeOnEnterOnly">
+            <summary>
+            Gets or sets whether using the up and down arrow keys should change focus and select immediately or that selection is done only on Enter.
+            ⚠️ Only applicable in single select scenarios.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptionsChanged">
             <summary>
             Called whenever the selection changed.
+            ⚠️ Only available when Multiple = true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.ListComponentBase`1.SelectedOptionsExpression">
+            <summary>
+            Gets or sets an expression that identifies the bound selected options.
             ⚠️ Only available when Multiple = true.
             </summary>
         </member>
@@ -7687,6 +7901,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.ItemsPerPage">
             <summary>
             Gets or sets the number of items on each page.
+            To set it and update any associated <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>, call <see cref="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetItemsPerPageAsync(System.Int32)" />
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.PaginationState.CurrentPageIndex">
@@ -7720,6 +7935,22 @@
             </summary>
             <param name="pageIndex">The new, zero-based page index.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetItemsPerPageAsync(System.Int32)">
+            <summary>
+            Sets the items per page and notifies any associated <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>
+            to fetch and render updated data.
+            </summary>
+            <param name="itemsPerPage">The new number of items per page.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.PaginationState.SetTotalItemCountAsync(System.Int32,System.Boolean)">
+            <summary>
+            Sets the total number of items nd makes sure the current page index stays valid.
+            </summary>
+            <param name="totalItemCount">The total number of items</param>
+            <param name="force">If true, the total item count will be updated even if it is the same as the current value.</param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentPopover.AnchorId">
             <summary>
@@ -9637,6 +9868,15 @@
             Removes all queued toasts with toast intent Custom
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.LibraryConfiguration">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.JSRuntime">
+            <summary />
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.Module">
+            <summary />
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.Orientation">
             <summary>
             Gets or sets the toolbar's orentation. See <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.Orientation"/>
@@ -9645,6 +9885,11 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentToolbar.EnableArrowKeyTextNavigation">
+            <summary>
+            Gets or sets a value indicating whether arrow key navigation within text input fields is enabled. Default is false.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.ServiceProvider">
@@ -10338,11 +10583,6 @@
             The Direction design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Direction.#ctor">
-            <summary>
-            Constructs an instance of the Direction design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Direction.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the Direction design token
@@ -10353,11 +10593,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DisabledOpacity">
             <summary>
             The DisabledOpacity design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DisabledOpacity.#ctor">
-            <summary>
-            Constructs an instance of the DisabledOpacity design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DisabledOpacity.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10372,11 +10607,6 @@
             The BaseHeightMultiplier design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseHeightMultiplier.#ctor">
-            <summary>
-            Constructs an instance of the BaseHeightMultiplier design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseHeightMultiplier.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the BaseHeightMultiplier design token
@@ -10387,11 +10617,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseHorizontalSpacingMultiplier">
             <summary>
             The BaseHorizontalSpacingMultiplier design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseHorizontalSpacingMultiplier.#ctor">
-            <summary>
-            Constructs an instance of the BaseHorizontalSpacingMultiplier design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseHorizontalSpacingMultiplier.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10406,11 +10631,6 @@
             The Density design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Density.#ctor">
-            <summary>
-            Constructs an instance of the Density design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.Density.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the Density design token
@@ -10421,11 +10641,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignUnit">
             <summary>
             The DesignUnit design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignUnit.#ctor">
-            <summary>
-            Constructs an instance of the DesignUnit design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.DesignUnit.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10440,11 +10655,6 @@
             The ControlCornerRadius design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ControlCornerRadius.#ctor">
-            <summary>
-            Constructs an instance of the ControlCornerRadius design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ControlCornerRadius.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the ControlCornerRadius design token
@@ -10455,11 +10665,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.LayerCornerRadius">
             <summary>
             The LayerCornerRadius design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.LayerCornerRadius.#ctor">
-            <summary>
-            Constructs an instance of the LayerCornerRadius design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.LayerCornerRadius.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10474,11 +10679,6 @@
             The StrokeWidth design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.StrokeWidth.#ctor">
-            <summary>
-            Constructs an instance of the StrokeWidth design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.StrokeWidth.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the StrokeWidth design token
@@ -10489,11 +10689,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeWidth">
             <summary>
             The FocusStrokeWidth design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeWidth.#ctor">
-            <summary>
-            Constructs an instance of the FocusStrokeWidth design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeWidth.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10508,11 +10703,6 @@
             The BodyFont design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BodyFont.#ctor">
-            <summary>
-            Constructs an instance of the BodyFont design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BodyFont.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the BodyFont design token
@@ -10523,11 +10713,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampBaseFontSize">
             <summary>
             The TypeRampBaseFontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampBaseFontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampBaseFontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampBaseFontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10542,11 +10727,6 @@
             The TypeRampBaseLineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampBaseLineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampBaseLineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampBaseLineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampBaseLineHeight design token
@@ -10557,11 +10737,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus1FontSize">
             <summary>
             The TypeRampMinus1FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus1FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampMinus1FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus1FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10576,11 +10751,6 @@
             The TypeRampMinus1LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus1LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampMinus1LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus1LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampMinus1LineHeight design token
@@ -10591,11 +10761,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus2FontSize">
             <summary>
             The TypeRampMinus2FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus2FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampMinus2FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus2FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10610,11 +10775,6 @@
             The TypeRampMinus2LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus2LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampMinus2LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampMinus2LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampMinus2LineHeight design token
@@ -10625,11 +10785,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus1FontSize">
             <summary>
             The TypeRampPlus1FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus1FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus1FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus1FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10644,11 +10799,6 @@
             The TypeRampPlus1LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus1LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus1LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus1LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampPlus1LineHeight design token
@@ -10659,11 +10809,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus2FontSize">
             <summary>
             The TypeRampPlus2FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus2FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus2FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus2FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10678,11 +10823,6 @@
             The TypeRampPlus2LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus2LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus2LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus2LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampPlus2LineHeight design token
@@ -10693,11 +10833,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus3FontSize">
             <summary>
             The TypeRampPlus3FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus3FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus3FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus3FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10712,11 +10847,6 @@
             The TypeRampPlus3LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus3LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus3LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus3LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampPlus3LineHeight design token
@@ -10727,11 +10857,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus4FontSize">
             <summary>
             The TypeRampPlus4FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus4FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus4FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus4FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10746,11 +10871,6 @@
             The TypeRampPlus4LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus4LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus4LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus4LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampPlus4LineHeight design token
@@ -10761,11 +10881,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus5FontSize">
             <summary>
             The TypeRampPlus5FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus5FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus5FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus5FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10780,11 +10895,6 @@
             The TypeRampPlus5LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus5LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus5LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus5LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampPlus5LineHeight design token
@@ -10795,11 +10905,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus6FontSize">
             <summary>
             The TypeRampPlus6FontSize design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus6FontSize.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus6FontSize design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus6FontSize.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10814,11 +10919,6 @@
             The TypeRampPlus6LineHeight design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus6LineHeight.#ctor">
-            <summary>
-            Constructs an instance of the TypeRampPlus6LineHeight design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.TypeRampPlus6LineHeight.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the TypeRampPlus6LineHeight design token
@@ -10829,11 +10929,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseLayerLuminance">
             <summary>
             The BaseLayerLuminance design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseLayerLuminance.#ctor">
-            <summary>
-            Constructs an instance of the BaseLayerLuminance design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.BaseLayerLuminance.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10848,11 +10943,6 @@
             The AccentFillRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentFillRestDelta design token
@@ -10863,11 +10953,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillHoverDelta">
             <summary>
             The AccentFillHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10882,11 +10967,6 @@
             The AccentFillActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentFillActiveDelta design token
@@ -10897,11 +10977,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillFocusDelta">
             <summary>
             The AccentFillFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10916,11 +10991,6 @@
             The AccentForegroundRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentForegroundRestDelta design token
@@ -10931,11 +11001,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundHoverDelta">
             <summary>
             The AccentForegroundHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10950,11 +11015,6 @@
             The AccentForegroundActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentForegroundActiveDelta design token
@@ -10965,11 +11025,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundFocusDelta">
             <summary>
             The AccentForegroundFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -10984,11 +11039,6 @@
             The NeutralFillRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillRestDelta design token
@@ -10999,11 +11049,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillHoverDelta">
             <summary>
             The NeutralFillHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11018,11 +11063,6 @@
             The NeutralFillActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillActiveDelta design token
@@ -11033,11 +11073,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillFocusDelta">
             <summary>
             The NeutralFillFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11052,11 +11087,6 @@
             The NeutralFillInputRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputRestDelta design token
@@ -11067,11 +11097,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputHoverDelta">
             <summary>
             The NeutralFillInputHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11086,11 +11111,6 @@
             The NeutralFillInputActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputActiveDelta design token
@@ -11101,11 +11121,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputFocusDelta">
             <summary>
             The NeutralFillInputFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11120,11 +11135,6 @@
             The NeutralFillInputAltRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputAltRestDelta design token
@@ -11135,11 +11145,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltHoverDelta">
             <summary>
             The NeutralFillInputAltHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11154,11 +11159,6 @@
             The NeutralFillInputAltActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputAltActiveDelta design token
@@ -11169,11 +11169,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltFocusDelta">
             <summary>
             The NeutralFillInputAltFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11188,11 +11183,6 @@
             The NeutralFillLayerRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillLayerRestDelta design token
@@ -11203,11 +11193,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerHoverDelta">
             <summary>
             The NeutralFillLayerHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11222,11 +11207,6 @@
             The NeutralFillLayerActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillLayerActiveDelta design token
@@ -11237,11 +11217,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerAltRestDelta">
             <summary>
             The NeutralFillLayerAltRestDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerAltRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerAltRestDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerAltRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11256,11 +11231,6 @@
             The NeutralFillSecondaryRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryRestDelta design token
@@ -11271,11 +11241,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryHoverDelta">
             <summary>
             The NeutralFillSecondaryHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11290,11 +11255,6 @@
             The NeutralFillSecondaryActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryActiveDelta design token
@@ -11305,11 +11265,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryFocusDelta">
             <summary>
             The NeutralFillSecondaryFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11324,11 +11279,6 @@
             The NeutralFillStealthRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStealthRestDelta design token
@@ -11339,11 +11289,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthHoverDelta">
             <summary>
             The NeutralFillStealthHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11358,11 +11303,6 @@
             The NeutralFillStealthActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStealthActiveDelta design token
@@ -11373,11 +11313,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthFocusDelta">
             <summary>
             The NeutralFillStealthFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11392,11 +11327,6 @@
             The NeutralFillStrongRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStrongRestDelta design token
@@ -11407,11 +11337,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongHoverDelta">
             <summary>
             The NeutralFillStrongHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11426,11 +11351,6 @@
             The NeutralFillStrongActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStrongActiveDelta design token
@@ -11441,11 +11361,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongFocusDelta">
             <summary>
             The NeutralFillStrongFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11460,11 +11375,6 @@
             The NeutralStrokeRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeRestDelta design token
@@ -11475,11 +11385,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeHoverDelta">
             <summary>
             The NeutralStrokeHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11494,11 +11399,6 @@
             The NeutralStrokeActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeActiveDelta design token
@@ -11509,11 +11409,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeFocusDelta">
             <summary>
             The NeutralStrokeFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11528,11 +11423,6 @@
             The NeutralStrokeControlRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeControlRestDelta design token
@@ -11543,11 +11433,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlHoverDelta">
             <summary>
             The NeutralStrokeControlHoverDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlHoverDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11562,11 +11447,6 @@
             The NeutralStrokeControlActiveDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlActiveDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeControlActiveDelta design token
@@ -11577,11 +11457,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlFocusDelta">
             <summary>
             The NeutralStrokeControlFocusDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlFocusDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11596,11 +11471,6 @@
             The NeutralStrokeDividerRestDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeDividerRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeDividerRestDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeDividerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeDividerRestDelta design token
@@ -11611,11 +11481,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerRestDelta">
             <summary>
             The NeutralStrokeLayerRestDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerRestDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeLayerRestDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerRestDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11630,11 +11495,6 @@
             The NeutralStrokeLayerHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeLayerHoverDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerHoverDelta design token
@@ -11645,11 +11505,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerActiveDelta">
             <summary>
             The NeutralStrokeLayerActiveDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeLayerActiveDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11664,11 +11519,6 @@
             The NeutralStrokeStrongHoverDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongHoverDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongHoverDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongHoverDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongHoverDelta design token
@@ -11679,11 +11529,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongActiveDelta">
             <summary>
             The NeutralStrokeStrongActiveDelta design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongActiveDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongActiveDelta design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongActiveDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11698,11 +11543,6 @@
             The NeutralStrokeStrongFocusDelta design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongFocusDelta.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongFocusDelta design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongFocusDelta.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongFocusDelta design token
@@ -11713,11 +11553,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralBaseColor">
             <summary>
             The NeutralBaseColor design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralBaseColor.#ctor">
-            <summary>
-            Constructs an instance of the NeutralBaseColor design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralBaseColor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11732,11 +11567,6 @@
             The AccentBaseColor design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentBaseColor.#ctor">
-            <summary>
-            Constructs an instance of the AccentBaseColor design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentBaseColor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentBaseColor design token
@@ -11747,11 +11577,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayerCardContainer">
             <summary>
             The NeutralLayerCardContainer design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayerCardContainer.#ctor">
-            <summary>
-            Constructs an instance of the NeutralLayerCardContainer design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayerCardContainer.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11766,11 +11591,6 @@
             The NeutralLayerFloating design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayerFloating.#ctor">
-            <summary>
-            Constructs an instance of the NeutralLayerFloating design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayerFloating.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralLayerFloating design token
@@ -11781,11 +11601,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer1">
             <summary>
             The NeutralLayer1 design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer1.#ctor">
-            <summary>
-            Constructs an instance of the NeutralLayer1 design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer1.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11800,11 +11615,6 @@
             The NeutralLayer2 design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer2.#ctor">
-            <summary>
-            Constructs an instance of the NeutralLayer2 design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer2.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralLayer2 design token
@@ -11815,11 +11625,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer3">
             <summary>
             The NeutralLayer3 design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer3.#ctor">
-            <summary>
-            Constructs an instance of the NeutralLayer3 design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer3.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11834,11 +11639,6 @@
             The NeutralLayer4 design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer4.#ctor">
-            <summary>
-            Constructs an instance of the NeutralLayer4 design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralLayer4.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralLayer4 design token
@@ -11849,11 +11649,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FillColor">
             <summary>
             The FillColor design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FillColor.#ctor">
-            <summary>
-            Constructs an instance of the FillColor design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FillColor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11868,11 +11663,6 @@
             The AccentFillRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillRest.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentFillRest design token
@@ -11883,11 +11673,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillHover">
             <summary>
             The AccentFillHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillHover.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11902,11 +11687,6 @@
             The AccentFillActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillActive.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentFillActive design token
@@ -11917,11 +11697,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillFocus">
             <summary>
             The AccentFillFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillFocus.#ctor">
-            <summary>
-            Constructs an instance of the AccentFillFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentFillFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11936,11 +11711,6 @@
             The ForegroundOnAccentRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentRest.#ctor">
-            <summary>
-            Constructs an instance of the ForegroundOnAccentRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the ForegroundOnAccentRest design token
@@ -11951,11 +11721,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentHover">
             <summary>
             The ForegroundOnAccentHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentHover.#ctor">
-            <summary>
-            Constructs an instance of the ForegroundOnAccentHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -11970,11 +11735,6 @@
             The ForegroundOnAccentActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentActive.#ctor">
-            <summary>
-            Constructs an instance of the ForegroundOnAccentActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the ForegroundOnAccentActive design token
@@ -11985,11 +11745,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentFocus">
             <summary>
             The ForegroundOnAccentFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentFocus.#ctor">
-            <summary>
-            Constructs an instance of the ForegroundOnAccentFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.ForegroundOnAccentFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12004,11 +11759,6 @@
             The AccentForegroundRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundRest.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentForegroundRest design token
@@ -12019,11 +11769,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundHover">
             <summary>
             The AccentForegroundHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundHover.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12038,11 +11783,6 @@
             The AccentForegroundActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundActive.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentForegroundActive design token
@@ -12053,11 +11793,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundFocus">
             <summary>
             The AccentForegroundFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundFocus.#ctor">
-            <summary>
-            Constructs an instance of the AccentForegroundFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentForegroundFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12072,11 +11807,6 @@
             The AccentStrokeControlRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlRest.#ctor">
-            <summary>
-            Constructs an instance of the AccentStrokeControlRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentStrokeControlRest design token
@@ -12087,11 +11817,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlHover">
             <summary>
             The AccentStrokeControlHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlHover.#ctor">
-            <summary>
-            Constructs an instance of the AccentStrokeControlHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12106,11 +11831,6 @@
             The AccentStrokeControlActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlActive.#ctor">
-            <summary>
-            Constructs an instance of the AccentStrokeControlActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the AccentStrokeControlActive design token
@@ -12121,11 +11841,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlFocus">
             <summary>
             The AccentStrokeControlFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlFocus.#ctor">
-            <summary>
-            Constructs an instance of the AccentStrokeControlFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.AccentStrokeControlFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12140,11 +11855,6 @@
             The NeutralFillRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillRest design token
@@ -12155,11 +11865,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillHover">
             <summary>
             The NeutralFillHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12174,11 +11879,6 @@
             The NeutralFillActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillActive design token
@@ -12189,11 +11889,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillFocus">
             <summary>
             The NeutralFillFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12208,11 +11903,6 @@
             The NeutralFillInputRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputRest design token
@@ -12223,11 +11913,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputHover">
             <summary>
             The NeutralFillInputHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12242,11 +11927,6 @@
             The NeutralFillInputActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputActive design token
@@ -12257,11 +11937,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputFocus">
             <summary>
             The NeutralFillInputFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12276,11 +11951,6 @@
             The NeutralFillInputAltRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputAltRest design token
@@ -12291,11 +11961,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltHover">
             <summary>
             The NeutralFillInputAltHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12310,11 +11975,6 @@
             The NeutralFillInputAltActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillInputAltActive design token
@@ -12325,11 +11985,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltFocus">
             <summary>
             The NeutralFillInputAltFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillInputAltFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillInputAltFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12344,11 +11999,6 @@
             The NeutralFillLayerRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillLayerRest design token
@@ -12359,11 +12009,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerHover">
             <summary>
             The NeutralFillLayerHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12378,11 +12023,6 @@
             The NeutralFillLayerActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillLayerActive design token
@@ -12393,11 +12033,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerAltRest">
             <summary>
             The NeutralFillLayerAltRest design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerAltRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillLayerAltRest design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillLayerAltRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12412,11 +12047,6 @@
             The NeutralFillSecondaryRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryRest design token
@@ -12427,11 +12057,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryHover">
             <summary>
             The NeutralFillSecondaryHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12446,11 +12071,6 @@
             The NeutralFillSecondaryActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillSecondaryActive design token
@@ -12461,11 +12081,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryFocus">
             <summary>
             The NeutralFillSecondaryFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillSecondaryFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillSecondaryFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12480,11 +12095,6 @@
             The NeutralFillStealthRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStealthRest design token
@@ -12495,11 +12105,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthHover">
             <summary>
             The NeutralFillStealthHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12514,11 +12119,6 @@
             The NeutralFillStealthActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStealthActive design token
@@ -12529,11 +12129,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthFocus">
             <summary>
             The NeutralFillStealthFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStealthFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStealthFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12548,11 +12143,6 @@
             The NeutralFillStrongRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStrongRest design token
@@ -12563,11 +12153,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongHover">
             <summary>
             The NeutralFillStrongHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12582,11 +12167,6 @@
             The NeutralFillStrongActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralFillStrongActive design token
@@ -12597,11 +12177,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongFocus">
             <summary>
             The NeutralFillStrongFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralFillStrongFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralFillStrongFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12616,11 +12191,6 @@
             The NeutralForegroundRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralForegroundRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralForegroundRest design token
@@ -12631,11 +12201,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundHover">
             <summary>
             The NeutralForegroundHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralForegroundHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12650,11 +12215,6 @@
             The NeutralForegroundActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralForegroundActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralForegroundActive design token
@@ -12665,11 +12225,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundFocus">
             <summary>
             The NeutralForegroundFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralForegroundFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12684,11 +12239,6 @@
             The NeutralForegroundHint design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundHint.#ctor">
-            <summary>
-            Constructs an instance of the NeutralForegroundHint design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralForegroundHint.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralForegroundHint design token
@@ -12699,11 +12249,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeRest">
             <summary>
             The NeutralStrokeRest design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeRest design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12718,11 +12263,6 @@
             The NeutralStrokeHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeHover design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeHover design token
@@ -12733,11 +12273,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeActive">
             <summary>
             The NeutralStrokeActive design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeActive design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12752,11 +12287,6 @@
             The NeutralStrokeFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeFocus design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeFocus design token
@@ -12767,11 +12297,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlRest">
             <summary>
             The NeutralStrokeControlRest design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlRest design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12786,11 +12311,6 @@
             The NeutralStrokeControlHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlHover design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeControlHover design token
@@ -12801,11 +12321,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlActive">
             <summary>
             The NeutralStrokeControlActive design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlActive design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12820,11 +12335,6 @@
             The NeutralStrokeControlFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeControlFocus design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeControlFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeControlFocus design token
@@ -12835,11 +12345,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeDividerRest">
             <summary>
             The NeutralStrokeDividerRest design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeDividerRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeDividerRest design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeDividerRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12854,11 +12359,6 @@
             The NeutralStrokeInputRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeInputRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeInputRest design token
@@ -12869,11 +12369,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputHover">
             <summary>
             The NeutralStrokeInputHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeInputHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12888,11 +12383,6 @@
             The NeutralStrokeInputActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeInputActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeInputActive design token
@@ -12903,11 +12393,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputFocus">
             <summary>
             The NeutralStrokeInputFocus design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeInputFocus design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeInputFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12922,11 +12407,6 @@
             The NeutralStrokeLayerRest design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeLayerRest design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerRest design token
@@ -12937,11 +12417,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerHover">
             <summary>
             The NeutralStrokeLayerHover design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeLayerHover design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12956,11 +12431,6 @@
             The NeutralStrokeLayerActive design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeLayerActive design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeLayerActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeLayerActive design token
@@ -12971,11 +12441,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongRest">
             <summary>
             The NeutralStrokeStrongRest design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongRest.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongRest design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongRest.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -12990,11 +12455,6 @@
             The NeutralStrokeStrongHover design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongHover.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongHover design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongHover.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongHover design token
@@ -13005,11 +12465,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongActive">
             <summary>
             The NeutralStrokeStrongActive design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongActive.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongActive design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongActive.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -13024,11 +12479,6 @@
             The NeutralStrokeStrongFocus design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongFocus.#ctor">
-            <summary>
-            Constructs an instance of the NeutralStrokeStrongFocus design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.NeutralStrokeStrongFocus.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the NeutralStrokeStrongFocus design token
@@ -13041,11 +12491,6 @@
             The FocusStrokeOuter design token
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeOuter.#ctor">
-            <summary>
-            Constructs an instance of the FocusStrokeOuter design token
-            </summary>
-        </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeOuter.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
             <summary>
             Constructs an instance of the FocusStrokeOuter design token
@@ -13056,11 +12501,6 @@
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeInner">
             <summary>
             The FocusStrokeInner design token
-            </summary>
-        </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeInner.#ctor">
-            <summary>
-            Constructs an instance of the FocusStrokeInner design token
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.DesignTokens.FocusStrokeInner.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration)">
@@ -13415,6 +12855,23 @@
             Cell is a row header.
             </summary>
         </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode">
+            <summary>
+            The type of rendering to use for the <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode.Grid">
+            <summary>
+            Uses display:grid with HTML table elements to render the DataGrid.
+            With this mode fr units canbe used to set the column widths.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridDisplayMode.Table">
+            <summary>
+            Uses HTML table elements only to render the DataGrid.
+            With this mode fr units cannot be used to set the column widths.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType">
             <summary>
             The type of <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
@@ -13428,6 +12885,32 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridResizeType.Exact">
             <summary>
             Resize datagrid columns by exact pixel values
+            </summary>
+        </member>
+        <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize">
+            <summary>
+            The height of each <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGridRow`1"/> in a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentDataGrid`1"/>.
+            Values are in pixels.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Small">
+            <summary>
+            Small row height (default)
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Medium">
+            <summary>
+            Medium row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Smaller">
+            <summary>
+            Smaller row height
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridRowSize.Large">
+            <summary>
+            Large row height
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.DataGridRowType">
@@ -13453,6 +12936,11 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Single">
             <summary>
             Allow only one selected row.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.SingleSticky">
+            <summary>
+            Allow only one selected row. Keep selection if same row is clicked.
             </summary>
         </member>
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.DataGridSelectMode.Multiple">
@@ -13923,6 +13411,11 @@
         <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Stretch">
             <summary>
             The content is stretched to fill the available space.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.SpaceBetween">
+            <summary>
+            The items are evenly distributed within the alignment container along the main axis.
             </summary>
         </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.HorizontalPosition">
@@ -14932,6 +14425,16 @@
             The content is aligned to the bottom
             </summary>
         </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Stretch">
+            <summary>
+            The content is stretched to fill the available space.
+            </summary>
+        </member>
+        <member name="F:Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.SpaceBetween">
+            <summary>
+            The items are evenly distributed within the alignment container along the main axis.
+            </summary>
+        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.VerticalPosition">
             <summary>
             Describes the vertical positioning of a <see cref="T:Microsoft.FluentUI.AspNetCore.Components.FluentAnchoredRegion"/>.
@@ -15361,6 +14864,13 @@
             <summary>
             Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
             By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ServiceLifetime">
+            <summary>
+            Gets or sets the service lifetime for the library services, when using Fluent UI in WebAssembly, it can make sense to use <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>.
+            Default is <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>.
+            <para>Only <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> and <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> are supported.</para>
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.LibraryConfiguration.ValidateClassNames">

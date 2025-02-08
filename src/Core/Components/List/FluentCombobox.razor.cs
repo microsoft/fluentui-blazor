@@ -10,9 +10,10 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 [CascadingTypeParameter(nameof(TOption))]
-public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where TOption : notnull
+public partial class FluentCombobox<TOption> : ListComponentBase<TOption>, IAsyncDisposable where TOption : notnull
 {
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentCombobox.razor.js";
+    private bool _hasInitializedParameters;
 
     /// <summary />
     [Inject]
@@ -36,6 +37,12 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     /// </summary>
     [Parameter]
     public bool? Open { get; set; }
+
+    /// <summary>
+    /// Gets or sets the option to allow closing the FluentCombobox list by clicking the dropdown button. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool? EnableClickToClose { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the placement for the listbox when the combobox is open.
@@ -64,6 +71,11 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
             {
                 Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", "off");
+
+                if (EnableClickToClose ?? true)
+                {
+                    await Module.InvokeVoidAsync("attachIndicatorClickHandler", Id);
+                }
             }
         }
     }
@@ -72,56 +84,61 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
     {
         parameters.SetParameterProperties(this);
 
-        var isSetSelectedOption = false;
-        TOption? newSelectedOption = default;
-
-        foreach (var parameter in parameters)
+        if (!_hasInitializedParameters)
         {
-            switch (parameter.Name)
-            {
-                case nameof(SelectedOption):
-                    isSetSelectedOption = true;
-                    newSelectedOption = (TOption?)parameter.Value;
-                    break;
-                default:
-                    break;
-            }
-        }
 
-        if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
-        {
-            if (Items != null)
+            var isSetSelectedOption = false;
+            TOption? newSelectedOption = default;
+
+            foreach (var parameter in parameters)
             {
-                if (Items.Contains(newSelectedOption))
+                switch (parameter.Name)
                 {
-                    _currentSelectedOption = newSelectedOption;
+                    case nameof(SelectedOption):
+                        isSetSelectedOption = true;
+                        newSelectedOption = (TOption?)parameter.Value;
+                        break;
+                    default:
+                        break;
                 }
-                else if (OptionSelected != null && newSelectedOption != null && OptionSelected(newSelectedOption))
+            }
+
+            if (isSetSelectedOption && !Equals(_currentSelectedOption, newSelectedOption))
+            {
+                if (Items != null)
                 {
-                    // The selected option might not be part of the Items list. But we can use OptionSelected to compare the current option.
-                    _currentSelectedOption = newSelectedOption;
+                    if (Items.Contains(newSelectedOption))
+                    {
+                        _currentSelectedOption = newSelectedOption;
+                    }
+                    else if (OptionSelected != null && newSelectedOption != null && OptionSelected(newSelectedOption))
+                    {
+                        // The selected option might not be part of the Items list. But we can use OptionSelected to compare the current option.
+                        _currentSelectedOption = newSelectedOption;
+                    }
+                    else
+                    {
+                        // If the selected option is not in the list of items, reset the selected option
+                        _currentSelectedOption = SelectedOption = default;
+                        await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                    }
                 }
                 else
                 {
-                    // If the selected option is not in the list of items, reset the selected option
-                    _currentSelectedOption = SelectedOption = default;
-                    await SelectedOptionChanged.InvokeAsync(SelectedOption);
+                    // If Items is null, we don't know if the selected option is in the list of items, so we just set it
+                    _currentSelectedOption = newSelectedOption;
+                }
+
+                // Sync Value from selected option.
+                // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
+                var value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
+                if (Value != value)
+                {
+                    Value = value;
+                    await ValueChanged.InvokeAsync(Value);
                 }
             }
-            else
-            {
-                // If Items is null, we don't know if the selected option is in the list of items, so we just set it
-                _currentSelectedOption = newSelectedOption;
-            }
-
-            // Sync Value from selected option.
-            // If it is null, we set it to the default value so the attribute is not deleted & the webcomponents don't throw an exception
-            var value = GetOptionValue(_currentSelectedOption) ?? string.Empty;
-            if (Value != value)
-            {
-                Value = value;
-                await ValueChanged.InvokeAsync(Value);
-            }
+            _hasInitializedParameters = true;
         }
 
         await base.SetParametersAsync(ParameterView.Empty);
@@ -133,11 +150,12 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         if (e.Value is not null && Items is not null)
         {
             var value = e.Value.ToString();
-            TOption? item = Items.FirstOrDefault(i => GetOptionText(i) == value);
+            var item = Items.FirstOrDefault(i => GetOptionText(i) == value);
 
             if (item is null)
             {
                 SelectedOption = default;
+                await SelectedOptionChanged.InvokeAsync(SelectedOption);
             }
             else
             {
@@ -161,5 +179,15 @@ public partial class FluentCombobox<TOption> : ListComponentBase<TOption> where 
         {
             return null;
         }
+    }
+
+    public new async ValueTask DisposeAsync()
+    {
+        if (Module is not null && !string.IsNullOrEmpty(Id))
+        {
+            await Module.InvokeVoidAsync("detachIndicatorClickHandler", Id);
+            await Module.DisposeAsync();
+        }
+        await base.DisposeAsync();
     }
 }

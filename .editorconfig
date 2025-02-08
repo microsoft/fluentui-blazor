@@ -26,6 +26,13 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 spelling_exclusion_path = spelling.dic
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+tab_width = 4
+indent_size = 4
+end_of_line = crlf
+dotnet_style_coalesce_expression = true:warning
+dotnet_style_null_propagation = true:warning
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
 
 # C# files
 [*.cs]
@@ -57,7 +64,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:error
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:error
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:error
+dotnet_style_require_accessibility_modifiers = never:error
 
 # Require var all the time.
 csharp_style_var_for_built_in_types = true:suggestion
@@ -296,6 +303,8 @@ dotnet_naming_style.begins_with_i.capitalization = pascal_case
 dotnet_analyzer_diagnostic.category-Usage.severity = none
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
+csharp_style_prefer_primary_constructors = true:suggestion
+csharp_prefer_system_threading_lock = true:suggestion
 
 #### Tests Projects ####
 [/tests/**/*.cs]

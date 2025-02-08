@@ -1,7 +1,12 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -9,7 +14,6 @@ public partial class FluentRating : FluentInputBase<int>
 {
     private bool _updatingCurrentValue = false;
     private int? _hoverValue = null;
-    private bool _labelUsed;
 
     /// <summary />
     protected override string? ClassValue => new CssBuilder(base.ClassValue)
@@ -107,6 +111,15 @@ public partial class FluentRating : FluentInputBase<int>
         else
         {
             await SetCurrentValueAsync(value);
+        }
+    }
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (AllowReset && args.Key == " ")
+        {
+            await SetCurrentValueAsync(0);
+            await UpdateHoverValueAsync(null);
         }
     }
 

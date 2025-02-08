@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -17,7 +21,8 @@ public partial class FluentTab : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("height", $"calc({Owner?.Height} - 40px); overflow-y: auto", () => !string.IsNullOrEmpty(Owner?.Height))
+        .AddStyle("height", "100%", () => !string.IsNullOrEmpty(Owner?.Height))
+        .AddStyle("overflow-y", "auto", () => !string.IsNullOrEmpty(Owner?.Height))
         .Build();
 
     /// <summary />
@@ -129,7 +134,7 @@ public partial class FluentTab : FluentComponentBase
 
     protected override void OnInitialized()
     {
-        Index = Owner!.RegisterTab(this);
+        Index = Owner.RegisterTab(this);
     }
 
     /// <summary />
@@ -147,7 +152,11 @@ public partial class FluentTab : FluentComponentBase
     /// <summary />
     protected virtual Task CloseClickedAsync()
     {
-        return Owner!.UnregisterTabAsync(this);
+        if (Id is null)
+        {
+            return Task.CompletedTask;
+        }
+        return Owner.UnregisterTabAsync(Id);
     }
 
     /// <summary />

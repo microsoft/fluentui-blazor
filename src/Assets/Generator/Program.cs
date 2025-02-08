@@ -80,7 +80,6 @@ internal class Program
                 }
 
                 factoryEmojis.GenerateClasses(emojis);
-                factoryEmojis.GenerateMainEmojisClass(emojis);
 
                 break;
 

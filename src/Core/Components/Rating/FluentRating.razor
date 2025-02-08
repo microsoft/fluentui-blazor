@@ -4,7 +4,6 @@
 @if (!string.IsNullOrEmpty(Label) || LabelTemplate is not null)
 {
     <FluentInputLabel ForId="@Id" Label="@Label" Required="@Required">@LabelTemplate</FluentInputLabel>
-    _labelUsed = true;
 }
 
 <div Id="@Id"
@@ -30,7 +29,8 @@
         {
             <input type="radio" checked="@(index == Value)" name="@GroupName"
                    value="@index"
-                   @onfocus="@(() => OnClickAsync(index, fromFocus: true))" />
+                   @onfocus="@(() => OnClickAsync(index, fromFocus: true))"
+                   @onkeydown="@OnKeyDownAsync" />
 
             <FluentIcon Value="@GetIcon(index)"
                         Width="@IconWidth"

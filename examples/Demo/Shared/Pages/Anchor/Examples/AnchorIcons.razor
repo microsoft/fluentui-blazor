@@ -19,6 +19,22 @@
     </FluentAnchor>
 </div>
 <h4>Hypertext appearane</h4>
+<p>
+    By default, the margin between the icon and the link is equal to the margin that is used for the other
+    appearances. If you find that margin to large, you can add the following to your CSS:<br/><br />
+    <CodeSnippet>
+        /* for icon at the start */
+        fluent-anchor[appearance="hypertext"]::part(start) {
+            margin-inline-end: calc(var(--design-unit) * 1px);
+        }
+        /* for icon at the end */
+        fluent-anchor[appearance="hypertext"]::part(end) {
+        margin-inline-start: calc(var(--design-unit) * 1px);
+        }
+    </CodeSnippet>
+    <br />
+    <em>Do not use these styles if there is no icon being displayed with a hypertext. It will cause the hypertext to get a margin at the stat/end.</em>
+</p>
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
     <FluentAnchor Appearance="@Appearance.Hypertext" Href="#" IconStart="@(new Icons.Regular.Size16.Globe())">
         Icon at start

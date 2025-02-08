@@ -1,6 +1,9 @@
 export function goToNextFocusableElement(forContainer, toOriginal, delay) {
-
     const container = typeof forContainer === "string" ? document.getElementById(forContainer) : forContainer;
+
+    if (container == null || container == undefined) {
+        return;
+    }
 
     if (!!!container.focusableElement) {
         container.focusableElement = new FocusableElement(container);
@@ -28,6 +31,7 @@ export function goToNextFocusableElement(forContainer, toOriginal, delay) {
         }
     }
 }
+
 
 /**
  * Focusable Element

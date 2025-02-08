@@ -147,6 +147,13 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     public EventCallback<FluentInputFileEventArgs> OnFileError { get; set; }
 
     /// <summary>
+    /// Raised when the <see cref="MaximumFileCount"/> is exceeded.
+    /// The return parameter specifies the total number of files that were attempted for upload.
+    /// </summary>
+    [Parameter]
+    public EventCallback<int> OnFileCountExceeded { get; set; }
+
+    /// <summary>
     /// Raise when all files are completely uploaded.
     /// </summary>
     [Parameter]
@@ -215,7 +222,11 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     {
         if (e.FileCount > MaximumFileCount)
         {
-            throw new ApplicationException($"The maximum number of files accepted is {MaximumFileCount}, but {e.FileCount} were supplied.");
+            if (OnFileCountExceeded.HasDelegate)
+            {
+                await OnFileCountExceeded.InvokeAsync(e.FileCount);
+            }
+            return;
         }
 
         // Use the native Blazor event
@@ -238,7 +249,6 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
         foreach (IBrowserFile file in allFiles)
         {
             ProgressFileDetails = new ProgressFileDetails(fileNumber, file.Name, 0);
-
             // Keep a trace of this file
             FluentInputFileEventArgs? fileDetails = new()
             {
@@ -247,6 +257,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
                 Name = file.Name,
                 ContentType = file.ContentType,
                 Size = file.Size,
+                LastModified = file.LastModified,
                 IsCancelled = false,
             };
             uploadedFiles.Add(fileDetails);

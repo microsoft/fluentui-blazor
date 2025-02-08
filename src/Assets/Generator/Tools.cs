@@ -1,4 +1,4 @@
-﻿using System.IO.Compression;
+using System.IO.Compression;
 using System.Text;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
@@ -34,31 +34,27 @@ internal static class Tools
     {
         var bytes = Encoding.UTF8.GetBytes(str);
 
-        using (var msi = new MemoryStream(bytes))
-        using (var mso = new MemoryStream())
+        using var msi = new MemoryStream(bytes);
+        using var mso = new MemoryStream();
+        using (var gs = new GZipStream(mso, CompressionMode.Compress))
         {
-            using (var gs = new GZipStream(mso, CompressionMode.Compress))
-            {
-                CopyTo(msi, gs);
-            }
-
-            return mso.ToArray();
+            CopyTo(msi, gs);
         }
+
+        return mso.ToArray();
     }
 
     /// <summary />
     public static string Unzip(byte[] bytes)
     {
-        using (var msi = new MemoryStream(bytes))
-        using (var mso = new MemoryStream())
+        using var msi = new MemoryStream(bytes);
+        using var mso = new MemoryStream();
+        using (var gs = new GZipStream(msi, CompressionMode.Decompress))
         {
-            using (var gs = new GZipStream(msi, CompressionMode.Decompress))
-            {
-                CopyTo(gs, mso);
-            }
-
-            return Encoding.UTF8.GetString(mso.ToArray());
+            CopyTo(gs, mso);
         }
+
+        return Encoding.UTF8.GetString(mso.ToArray());
     }
 
     /// <summary />

@@ -37,7 +37,7 @@
 </blockquote>
 
 <p>Here is an example of how to reorder your list when the OnUpdate is fired...</p>
-<CodeSnippet>private void SortList(FluentSortableListEventArgs indices)
+<CodeSnippet>private void SortList(FluentSortableListEventArgs args)
 {
      if (args is null || args.OldIndex == args.NewIndex)
      {
@@ -97,7 +97,7 @@
 
 <DemoSection Component="typeof(SortableListFiltering)" Title="Filtering">
     <Description>
-        In the lists below, you cannot drag the item in the accented color. This is because these items are filtered out with an <code>ItemFilter</code> parameter (of type <code>Func&lt;TItem, bool&gt;</code>). 
+        In the lists below, you cannot drag the item in the accented color. This is because these items are filtered out with an <code>ItemFilter</code> parameter (of type <code>Func&lt;TItem, bool&gt;</code>).
         The <code>ItemFilter</code> parameter is a function that takes an item and returns a boolean value. If the function returns true, the item is excluded from dragging in the list. If the function returns false, the item can be dragged.
         In the left list below, the <code>ItemFilter</code> parameter is set to filter out a random item from the list. In the right list, the <code>ItemFilter</code> parameter is set to filter out items with an Id larger than 6.
         See the Razor tab for how the different functions are being specified.

@@ -24,13 +24,13 @@
     </FluentStack>
     <FluentStack Orientation="@Orientation.Vertical">
         <h2>Selected</h2>
-        <FluentCheckbox @bind-Value=DaisySelected>
+        <FluentCheckbox @bind-Value=DaisySelected Disabled="true">
             <span aria-label="Daisy selected">Daisy selected</span>
         </FluentCheckbox>
-        <FluentCheckbox @bind-Value=SunflowerSelected>
+        <FluentCheckbox @bind-Value=SunflowerSelected Disabled="true">
             <span aria-label="Sunflower selected">Sunflower selected</span>
         </FluentCheckbox>
-        <FluentCheckbox @bind-Value=RoseSelected>
+        <FluentCheckbox @bind-Value=RoseSelected Disabled="true">
             <span aria-label="Rose selected">Rose selected</span>
         </FluentCheckbox>
     </FluentStack>
@@ -42,6 +42,6 @@
     bool PlanesExpanded = true;
 
     bool DaisySelected = false;
-    bool SunflowerSelected = true;
+    bool SunflowerSelected = false;
     bool RoseSelected = false;
 }

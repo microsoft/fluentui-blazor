@@ -1,30 +1,39 @@
-fluent-data-grid {
-    --col-gap: 1rem;
-}
-
-::deep .empty-content-row,
-::deep .loading-content-row {
-    width: 100%;
-    height: 100% !important;
-    display: flex;
-    justify-content: center;
+.fluent-data-grid {
+    width: auto;
+    flex: 1;
+    border-collapse: collapse;
     align-items: center;
+    height: max-content;
+    margin-bottom: 0px;
 }
 
-::deep .empty-content-cell,
-::deep .loading-content-cell {
-    font-weight: 600;
+    .fluent-data-grid.grid {
+        display: grid;
+    }
+
+.grid thead,
+.grid tbody {
+    display: contents;
+}
+
+.grid ::deep tr {
+    display: contents;
+}
+
+.fluent-data-grid tbody tr .hover {
+    background: var(--neutral-fill-stealth-hover);
 }
 
 .col-options, .col-resize {
     position: absolute;
     min-width: 250px;
-    top: 2.2rem;
+    top: 2.4rem;
     background: var(--neutral-layer-2);
     border: 1px solid var(--neutral-layer-3);
     border-radius: 0.3rem;
     box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
     padding: 1rem;
+    visibility: hidden;
     z-index: 1;
 }
 
@@ -32,20 +41,19 @@ fluent-data-grid {
     left: unset;
 }
 
-.col-justify-end .col-options, .col-justify-right .col-options {
+.col-justify-end .col-options,
+.col-justify-right .col-options {
     left: unset;
-    margin-right:  0.6rem;
+    margin-right: 0.6rem;
 }
 
-[dir=rtl] .col-justify-end .col-options, [dir=rtl] .col-justify-right .col-options {
+[dir=rtl] .col-justify-end .col-options,
+[dir=rtl] .col-justify-right .col-options {
     right: unset;
     margin-left: 0.6rem;
 }
 
-::deep > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
-    content: '\2026'; /*horizontal ellipsis*/
-    opacity: 0.75;
-}
+
 
 .resize-options {
     display: flex;
@@ -54,17 +62,31 @@ fluent-data-grid {
     align-items: center;
 }
 
-::deep .col-width-draghandle {
-    height: auto;
-    width: calc(var(--design-unit) * 1px + 2px);
-    right: calc(var(--col-gap)/2 - 0.5rem);
-    border-top: none;
-    border-left: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-divider-rest);
+::deep .resize-handle {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    left: unset;
+    bottom: 0;
+    height: 32px;
     cursor: col-resize;
-    position: sticky;
-    min-width: calc(var(--design-unit) * 1px + 2px);
+    margin-left: calc(var(--design-unit) * 2px);
+    width: calc(var(--design-unit) * 1px + 2px);
 }
 
-.col-width-draghandle:hover, .col-width-draghandle:active {
-    background: var(--neutral-stroke-divider-rest);
+[dir=rtl] * ::deep .resize-handle {
+    left: 0;
+    right: unset;
+}
+
+.header {
+    padding: 0;
+    z-index: 3;
+}
+
+::deep tr[row-type='sticky-header'] > th {
+    position: sticky;
+    top: 0;
+    background-color: var(--neutral-fill-stealth-rest);
+    z-index: 2;
 }

@@ -10,7 +10,7 @@
             @TopLeftLabel
         </FluentLabel>
         <FluentIcon Class="image"
-                    Value="@Icons.GetInstance(Icon)"
+                    Value="@IconsExtensions.GetInstance(Icon)"
                     Color="@IconColor"
                     Title="@Icon?.Name" />
     }
@@ -18,7 +18,7 @@
     @if (Emoji is not null)
     {
         <FluentEmoji Class="image"
-                     Value="@Emojis.GetInstance(Emoji)"
+                     Value="@EmojiExtensions.GetInstance(Emoji)"
                      Width="64px"
                      Title="@Emoji?.Name" />
     }

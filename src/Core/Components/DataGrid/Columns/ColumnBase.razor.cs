@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -14,7 +18,7 @@ public abstract partial class ColumnBase<TGridItem>
 {
     private bool _isMenuOpen;
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
-    private readonly string _columnId = $"column-header{Identifier.NewId()}";
+    private readonly string _columnId = Identifier.NewId();
 
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
@@ -25,6 +29,12 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the index (1-based) of the column
+    /// </summary>
+    [Parameter]
+    public int Index { get; set; }
 
     /// <summary>
     /// Gets or sets the an optional CSS class name.
@@ -138,7 +148,15 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
-    protected bool AnyColumnActionEnabled => Sortable is true || IsDefaultSortColumn || ColumnOptions != null || Grid.ResizableColumns;
+    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
+
+    protected override void OnInitialized()
+    {
+        if (GetType() == typeof(SelectColumn<TGridItem>))
+        {
+            Align = Align.Center;
+        }
+    }
 
     /// <summary>
     /// Event callback for when the row is clicked.
@@ -221,7 +239,7 @@ public abstract partial class ColumnBase<TGridItem>
         }
     }
 
-    public bool ShowSortIcon;
+    public bool IsActiveSortColumn;
 
     /// <summary>
     /// Constructs an instance of <see cref="ColumnBase{TGridItem}" />.
@@ -233,17 +251,27 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleColumnHeaderClickedAsync()
     {
-        if ((Sortable is true || IsDefaultSortColumn) && (Grid.ResizableColumns || ColumnOptions is not null))
+        var hasSorting = Sortable is true || IsDefaultSortColumn;
+        var hasResize = Grid.ResizableColumns;
+        var hasOptions = ColumnOptions is not null;
+        var hasMultiple = (hasSorting && hasResize) || (hasSorting && hasOptions) || (hasResize && hasOptions);
+
+        if (hasMultiple)
         {
             _isMenuOpen = !_isMenuOpen;
+            StateHasChanged();
         }
-        else if ((Sortable is true || IsDefaultSortColumn) && !Grid.ResizableColumns && ColumnOptions is null)
+        else if (hasSorting)
         {
             await Grid.SortByColumnAsync(this);
         }
-        else if (Sortable is not true && !IsDefaultSortColumn && ColumnOptions is null && Grid.ResizableColumns)
+        else if (hasResize)
         {
             await Grid.ShowColumnResizeAsync(this);
+        }
+        else if (hasOptions)
+        {
+            await Grid.ShowColumnOptionsAsync(this);
         }
     }
 
@@ -252,7 +280,7 @@ public abstract partial class ColumnBase<TGridItem>
         if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
         {
             await Grid.SortByColumnAsync(this);
-            StateHasChanged();                          
+            StateHasChanged();
             _isMenuOpen = false;
         }
     }
@@ -277,7 +305,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     private string GetSortOptionText()
     {
-        if (Grid.SortByAscending.HasValue && ShowSortIcon)
+        if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
         {
             if (Grid.SortByAscending is true)
             {

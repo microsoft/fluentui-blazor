@@ -7,14 +7,34 @@
 <h1>Icon</h1>
 
 <p>
-    The <a title="FluentUI System Icons repository" href="https://github.com/microsoft/fluentui-system-icons" target="_blank" rel="noopener">Fluent UI System Icons</a> 
-    are a (still growing) collection of familiar, friendly and modern icons from Microsoft. At the moment there are more than 2200 distinct icons 
+    The <a title="FluentUI System Icons repository" href="https://github.com/microsoft/fluentui-system-icons" target="_blank" rel="noopener">Fluent UI System Icons</a>
+    are a (still growing) collection of familiar, friendly and modern icons from Microsoft. At the moment there are more than 2200 distinct icons
     available in both filled and outlined versions and in various sizes. In total the collections consists of well over 11k icons in SVG format.
 </p>
 <p>
     This <a href="https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components.Icons" target="_blank">FluentUI Icons NuGet package</a>
-    contains all these icons, which you can access directly in your projects.
-    To use them, simply reference this package in your project.
+    contains all these icons, which you can access directly in your projects. To use them, simply reference this package in your project.
+</p>
+<p>
+    <div class="demopanel" style="margin: 1rem 0; padding: 1.5rem;">
+        <h3>Important</h3>
+        As of version 4.11.0 of our Icons package, we are packaging each icon variant (filled, outlined, regular, etc.) in its own assembly.
+        This became necessary due to the large number of icons and some compiler limitations. Nothing has changed on how the Icons package needs to be installed or added to your project.
+        There is a just a small change needed to your imports file (or using statements).
+        <br />
+        <br />
+        <blockquote>
+        To use the new version in your (upgraded) projects, you need add the following <code>&#64;using</code> statement to your _Imports.razor file:
+        <CodeSnippet Language="csharp">&#64;using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons</CodeSnippet>
+        </blockquote>
+        <br />
+        Alternatively, you can use the full namespace in your code or define the alias for the namespace at the top of your file.
+        <br />
+        <br />
+        When creating an application through one of the Fluent templates (v4.11.0 or higher), everything will already be correctly set up for you.
+
+
+    </div>
 </p>
 <p>
     During the DotNet Publication process, the unused icons are automatically removed from the final library.
@@ -27,9 +47,9 @@
 </p>
 
 <p>
-    You can use any of these icons by levaraging the <code>&lt;FluentIcon&gt;</code>&nbsp;component. See below for the parameters and examples. 
-    There is also a search capability available on this page wich allows you to browse to all the different icons. At the moment the icons 
-    displayed in this explorer below are always using the default blue accent color. When using the icons in your application, they will render 
+    You can use any of these icons by levaraging the <code>&lt;FluentIcon&gt;</code>&nbsp;component. See below for the parameters and examples.
+    There is also a search capability available on this page wich allows you to browse to all the different icons. At the moment the icons
+    displayed in this explorer below are always using the default blue accent color. When using the icons in your application, they will render
     in the color set with the <code>Color</code> parameter.
 </p>
 
@@ -78,15 +98,15 @@
     <br />
     <ul>
         <li>
-            <FluentIcon Value="@(new MyCircle())" Width="16px" /> 
+            <FluentIcon Value="@(new MyCircle())" Width="16px" />
             <code>&lt;FluentIcon Value="@@(new MyCircle())" Width="16px" /></code>
         </li>
         <li>
-            <FluentIcon Value="@(new MyCircle().WithColor("red"))" Width="16px" /> 
+            <FluentIcon Value="@(new MyCircle().WithColor("red"))" Width="16px" />
             <code>&lt;FluentIcon Value="@@(new MyCircle().WithColor("red"))" Width="16px" /></code>
         </li>
         <li>
-            @(new MyCircle().ToMarkup("16px", "blue")) 
+            @(new MyCircle().ToMarkup("16px", "blue"))
             <code>@@new MyCircle().ToMarkup("16px", "blue")</code>
         </li>
         <li>
@@ -108,7 +128,7 @@
         // Default Color (`fill` style)
         WithColor("#F97316");
     }
-}</CodeSnippet>    
+}</CodeSnippet>
 </p>
 <p>
     Using the <b>IconSize.Custom</b> size, certain restrictions will apply: <code>FluentButton.Loading</code> or <code>Icon.ToMarkup</code> could be affected.
@@ -118,8 +138,8 @@
 
 <ApiDocumentation Component="typeof(FluentIcon<>)" InstanceTypes="@(new[] {typeof(Icon)})" GenericLabel="Icon">
     <Description>
-        You can use either the <code>Icon</code> or <code>Value</code> parameter to specify the icon to render. The <code>Icon</code> parameter takes a 
-        <code>Icon</code> Type, while the <code>Value</code> parameter takes a icon object. 
+        You can use either the <code>Icon</code> or <code>Value</code> parameter to specify the icon to render. The <code>Icon</code> parameter takes a
+        <code>Icon</code> Type, while the <code>Value</code> parameter takes a icon object.
     </Description>
 </ApiDocumentation>
 
