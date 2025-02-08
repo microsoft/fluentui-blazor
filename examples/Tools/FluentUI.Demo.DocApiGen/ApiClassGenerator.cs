@@ -153,11 +153,13 @@ public class ApiClassGenerator
                     code.AppendLine($"    \"{member.Key}\": \"{FormatDescription(member.Value)}\",");
                 }
 
+                RemoveLastComma(code);    // Remove the last comma
                 code.AppendLine($"  }},");
             }
         }
 
-        code.AppendLine("};");
+        RemoveLastComma(code);    // Remove the last comma
+        code.AppendLine("}");
         code.AppendLine();
 
         return code.ToString();
@@ -188,5 +190,17 @@ public class ApiClassGenerator
     private static string FormatDescription(string description)
     {
         return description.Replace("\r\n", " ").Replace("\n", " ").Replace("\"", "\\\"");
+    }
+
+    private static void RemoveLastComma(StringBuilder sb)
+    {
+        if (sb == null || sb.Length == 0)
+        {
+            return;
+        }
+
+        var lastIndex = sb.ToString().LastIndexOf(',');
+        sb.Remove(lastIndex, sb.Length - lastIndex);
+        sb.AppendLine();
     }
 }
