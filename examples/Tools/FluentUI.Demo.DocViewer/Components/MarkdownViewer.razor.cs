@@ -65,11 +65,11 @@ public partial class MarkdownViewer
 
         Sections = await page.ExtractSectionsAsync();
 
-        // Read CodeComments.json
+        // Read api-comments.json
         if (ApiDocSummary.Cached is null)
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
-            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/CodeComments.json");
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
         }
     }
 

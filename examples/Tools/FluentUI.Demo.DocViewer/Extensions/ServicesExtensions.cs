@@ -43,14 +43,14 @@ public static class ServicesExtensions
     }
 
     /// <summary>
-    /// Load the summaries from the CodeComments.json file.
+    /// Load the summaries from the api-comments.json file.
     /// </summary>
     /// <param name="httpClient"></param>
     /// <param name="jsonFile"></param>
     /// <returns></returns>
     public static async Task<ApiDocSummary> LoadSummariesAsync(this HttpClient httpClient, string jsonFile)
     {
-        // Read CodeComments.json
+        // Read api-comments.json
         try
         {
             var json = await httpClient.GetStringAsync(jsonFile);

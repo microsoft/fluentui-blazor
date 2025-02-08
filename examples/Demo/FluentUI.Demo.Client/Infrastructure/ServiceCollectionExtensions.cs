@@ -69,7 +69,7 @@ public static class ServiceCollectionExtensions
             {
                 if (data is null && member is null)
                 {
-                    return "⚠️ The file `CodeComments.json` was not yet generated in `Client/wwwroot` folder. " +
+                    return "⚠️ The file `api-comments.json` was not yet generated in `Client/wwwroot` folder. " +
                            "Run the project `FluentUI.Demo.DocApiGen` to generate the file. ";
                 }
 
