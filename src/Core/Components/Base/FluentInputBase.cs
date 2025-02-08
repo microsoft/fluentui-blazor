@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase
+public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField
 {
     private FluentJSModule? _jsModule;
 
@@ -52,7 +52,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <inheritdoc />
     [Parameter]
-    public virtual string? Id { get; set; }
+    public virtual string? Id { get; set; } = Identifier.NewId();
 
     /// <inheritdoc />
     [Parameter]
@@ -73,6 +73,57 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <inheritdoc />
     [Parameter]
     public virtual object? Data { get; set; }
+
+    #endregion
+
+    #region IFluentField
+
+    /// <inheritdoc />
+    public virtual bool FocusLost { get; protected set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual bool? Disabled { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Label { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual LabelPosition? LabelPosition { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? LabelWidth { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual bool? Required { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual string? Message { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual Icon? MessageIcon { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual RenderFragment? MessageTemplate { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual Func<IFluentField, bool>? MessageCondition { get; set; }
+
+    /// <inheritdoc />
+    [Parameter]
+    public virtual MessageState? MessageState { get; set; }
 
     #endregion
 
@@ -97,12 +148,15 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
     /// Derived components should typically use this value for the primary HTML element class attribute.
     /// </summary>
-    protected virtual string? ClassValue => DefaultClassBuilder.AddClass(base.CssClass).Build();
+    protected virtual string? ClassValue => DefaultClassBuilder
+        .AddClass(base.CssClass)
+        .Build();
 
     /// <summary>
     /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
     /// </summary>
-    protected virtual string? StyleValue => DefaultStyleBuilder.Build();
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
     /// Determines if the element should receive document focus on page load.
@@ -117,25 +171,6 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the form control is disabled and doesn't participate in form submission.
-    /// </summary>
-    [Parameter]
-    public virtual bool Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text to label the input. This is usually displayed just above the input.
-    /// </summary>
-    [Parameter]
-    public virtual string? Label { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to label the input component.
-    /// This is usually displayed just above the input
-    /// </summary>
-    [Parameter]
-    public virtual RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
     /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
@@ -148,12 +183,6 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// </summary>
     [Parameter]
     public virtual bool ReadOnly { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the element needs to have a value.
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
 
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
@@ -178,7 +207,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected virtual string? GetAriaLabelWithRequired()
     {
         return (AriaLabel ?? Label ?? string.Empty) +
-               (Required ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
+               (Required == true ? $", {Localizer["FluentInputBase_Required"]}" : string.Empty);
     }
 
     #endregion

@@ -94,6 +94,18 @@ mark {
   background-color: var(--highlight-bg);
 }
 
+hr {
+  color: inherit;
+  border-top: 1px solid;
+  opacity: 0.25;
+  width: 100%;
+}
+
 [hidden] {
   display: none !important;
+}
+
+/* Border outside the focused element */
+fluent-field:focus-within {
+  outline: none;
 }

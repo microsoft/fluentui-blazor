@@ -11,6 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentStack : FluentComponentBase
 {
+    [Inject]
+    private LibraryConfiguration Configuration { get; set; } = default!;
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-stack-horizontal", () => Orientation == Orientation.Horizontal)
@@ -74,19 +77,19 @@ public partial class FluentStack : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the gap between horizontally stacked components.
-    /// Default is `var(--spacingHorizontalM)` (12px).
+    /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
     /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/row-gap">row-gap</see> property.
     /// </summary>
     [Parameter]
-    public string? HorizontalGap { get; set; } = "var(--spacingHorizontalM)";
+    public string? HorizontalGap { get; set; }
 
     /// <summary>
     /// Gets or sets the gap between vertically stacked components.
-    /// Default is `var(--spacingVerticalM)` (12px).
+    /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
     /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/column-gap">column-gap</see> property.
     /// </summary>
     [Parameter]
-    public string? VerticalGap { get; set; } = "var(--spacingVerticalM)";
+    public string? VerticalGap { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -94,6 +97,16 @@ public partial class FluentStack : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        HorizontalGap ??= Configuration.DefaultStyles.FluentStackHorizontalGap;
+        VerticalGap ??= Configuration.DefaultStyles.FluentStackVerticalGap;
+    }
+
+    /// <summary />
     private string GetHorizontalAlignment()
     {
         return HorizontalAlignment switch
@@ -109,6 +122,7 @@ public partial class FluentStack : FluentComponentBase
         };
     }
 
+    /// <summary />
     private string GetVerticalAlignment()
     {
         return VerticalAlignment switch
