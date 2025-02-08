@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSelect<TOption> : FluentListBase<TOption>
 {
     /// <summary />
-    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
+    private string? ListStyle => new StyleBuilder()
         .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();

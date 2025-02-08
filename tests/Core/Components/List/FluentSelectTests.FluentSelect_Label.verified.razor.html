@@ -1,12 +1,13 @@
 
-<div style="margin-top: 4px;">
-  <label for="xxx" aria-label="List of digits, Required">
+<fluent-field id="xxx" label-position="above" class="my-3">
+  <fluent-label id="xxx" required="" slot="label" for="xxx">
     List of digits
-  </label>
-</div>
-<select id="xxx" required="" blazor:onchange="1">
-  <option selected="" blazor:onclick="x" aria-selected="true"></option>
-  <option value="One" blazor:onclick="x">One</option>
-  <option value="Two" blazor:onclick="x">Two</option>
-  <option value="Three" blazor:onclick="x">Three</option>
-</select>
+  </fluent-label>
+  <select id="xxx" required="" slot="input" blazor:onchange="1">
+    <option selected="" blazor:onclick="x" aria-selected="true"></option>
+    <option value="One" blazor:onclick="x">One</option>
+    <option value="Two" blazor:onclick="x">Two</option>
+    <option value="Three" blazor:onclick="x">Three</option>
+  </select>
+  <fluent-text as="span" size="200" slot="message"></fluent-text>
+</fluent-field>

@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,7 +14,27 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase
 {
-    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
+    /// </summary>
+    public FluentTextInput()
+    {
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && string.IsNullOrEmpty(CurrentValueAsString);
+        };
+
+    }
+
+    /// <inheritdoc />
     [Parameter]
     public ElementReference Element { get; set; }
 
@@ -98,7 +119,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
 
-    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -119,5 +140,16 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        FocusLost = true;
+        return Task.CompletedTask;
     }
 }

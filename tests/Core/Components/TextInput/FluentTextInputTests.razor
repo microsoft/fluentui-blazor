@@ -7,6 +7,10 @@
 
 @code
 {
+    // Create an Identifier context to generate a unique ID `myId` for the components
+    // And not to let the component generate a random ID
+    private IdentifierContext identifierContext = new IdentifierContext(i => $"myId");
+
     public FluentTextInputTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -41,7 +45,8 @@
         var cut = Render(@<FluentTextInput Appearance="@appearance" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"{expectedAttribute}\" />");
     }
 
     [Theory]
@@ -59,7 +64,8 @@
         var cut = Render(@<FluentTextInput InputMode="@inputMode" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" inputmode=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" inputmode=\"{expectedAttribute}\" />");
     }
 
     [Theory]
@@ -74,7 +80,8 @@
         var cut = Render(@<FluentTextInput TextFieldType="@type" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" type=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"{expectedAttribute}\" />");
     }
 
     [Theory]
@@ -87,7 +94,8 @@
         var cut = Render(@<FluentTextInput Size="@size" />);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" control-size=\"{expectedAttribute}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" control-size=\"{expectedAttribute}\" />");
     }
 
     [Fact]
@@ -131,7 +139,8 @@
 
         // Assert
         Assert.Equal("new value", value);
-        cut.MarkupMatches("<fluent-text-input appearance=\"outline\" value=\"new value\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"new value\" />");
     }
 
     [Theory]
@@ -149,12 +158,14 @@
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
         await Task.Delay(200);
         Assert.Equal(expectedDelayedValue, value);
-        cut.MarkupMatches($"<fluent-text-input appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
+        cut.Find("fluent-text-input")
+           .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
     }
 
     [Theory]
