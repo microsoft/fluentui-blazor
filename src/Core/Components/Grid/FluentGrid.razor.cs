@@ -100,7 +100,7 @@ public partial class FluentGrid : FluentComponentBase
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <inheritdoc cref="IAsyncDisposable.DisposeAsync" />
     /// </summary>
     /// <returns></returns>
     [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]

@@ -1,15 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
   </PropertyGroup>
 
-  <!-- Code Analysis -->
+<!-- Code Analysis -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
       <PrivateAssets>all</PrivateAssets>
@@ -20,10 +19,11 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="Markdig.Signed" />
+    <PackageReference Include="LoxSmoke.DocXml" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" />
   </ItemGroup>
-
+  
 </Project>

@@ -50,27 +50,27 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     #region IFluentComponentBase
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Id" />
     [Parameter]
     public virtual string? Id { get; set; } = Identifier.NewId();
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Class" />
     [Parameter]
     public virtual string? Class { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Style" />
     [Parameter]
     public virtual string? Style { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Margin" />
     [Parameter]
     public virtual string? Margin { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Padding" />
     [Parameter]
     public virtual string? Padding { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Data" />
     [Parameter]
     public virtual object? Data { get; set; }
 
@@ -78,50 +78,50 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     #region IFluentField
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.FocusLost" />
     public virtual bool FocusLost { get; protected set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.Disabled" />
     [Parameter]
     public virtual bool? Disabled { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.Label" />
     [Parameter]
     public virtual string? Label { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.LabelTemplate" />
     [Parameter]
     public virtual RenderFragment? LabelTemplate { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.LabelPosition" />
     [Parameter]
     public virtual LabelPosition? LabelPosition { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.LabelWidth" />
     [Parameter]
     public virtual string? LabelWidth { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.Required" />
     [Parameter]
     public virtual bool? Required { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.Message" />
     [Parameter]
     public virtual string? Message { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.MessageIcon" />
     [Parameter]
     public virtual Icon? MessageIcon { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.MessageTemplate" />
     [Parameter]
     public virtual RenderFragment? MessageTemplate { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.MessageCondition" />
     [Parameter]
     public virtual Func<IFluentField, bool>? MessageCondition { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentField.MessageState" />
     [Parameter]
     public virtual MessageState? MessageState { get; set; }
 

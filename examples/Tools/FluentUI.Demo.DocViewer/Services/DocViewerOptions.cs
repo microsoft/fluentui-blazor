@@ -34,7 +34,7 @@ public class DocViewerOptions
     /// <summary>
     /// Function to get the summary of an API comment.
     /// </summary>
-    public Func<Type, MemberInfo?, string> ApiCommentSummary { get; set; } = (type, member) => member?.Name ?? type.Name;
+    public Func<Models.ApiDocSummary?, Type, MemberInfo?, string> ApiCommentSummary { get; set; } = (data, type, member) => member?.Name ?? type.Name;
 
     /// <summary>
     /// Path to the external source code files, where {0} will be replaced by the razor component name 

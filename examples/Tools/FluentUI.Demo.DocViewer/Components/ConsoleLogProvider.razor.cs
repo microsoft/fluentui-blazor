@@ -70,9 +70,7 @@ public partial class ConsoleLogProvider
         }
     }
 
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
+    /// <inheritdoc cref="ComponentBase.OnInitialized" />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD110:Observe result of async calls", Justification = "Allowing Blazor async infrastructure to handle the state updates without forcing synchronous execution")]
     protected override void OnInitialized()
     {

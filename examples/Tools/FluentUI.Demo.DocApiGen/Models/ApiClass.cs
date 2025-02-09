@@ -2,50 +2,34 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocViewer.Extensions;
-using FluentUI.Demo.DocViewer.Services;
-using Markdig;
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using FluentUI.Demo.DocApiGen.Extensions;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
-namespace FluentUI.Demo.DocViewer.Models;
+namespace FluentUI.Demo.DocApiGen.Models;
 
+/// <summary>
+/// Represents a class with properties, methods, and events.
+/// </summary>
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-internal class ApiClass
+public class ApiClass
 {
-    private static readonly string[] MEMBERS_TO_EXCLUDE =
-    [
-        "AdditionalAttributes",
-        "ParentReference",
-        "Element",
-        "Equals",
-        "GetHashCode",
-        "GetType",
-        "SetParametersAsync",
-        "ToString",
-        "Dispose",
-        "DisposeAsync",
-        "ValueExpression",
-    ];
-
+    private static readonly string[] MEMBERS_TO_EXCLUDE = Constants.MEMBERS_TO_EXCLUDE;
     private readonly Type _component;
-    private readonly DocViewerService _docViewerService;
-    private IEnumerable<ApiClassMember>? _allMembers;
-    private readonly bool _allProperties;
+    private IEnumerable<ApiMember>? _allMembers;
+    private readonly ApiClassOptions _options;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiClass"/> class.
     /// </summary>
-    /// <param name="docViewerService"></param>
     /// <param name="component"></param>
-    /// <param name="allProperties">False to returns only [Parameter] properties</param>
-    public ApiClass(DocViewerService docViewerService, Type component, bool allProperties = false)
+    /// <param name="options"></param>
+    public ApiClass(Type component, ApiClassOptions options)
     {
-        _docViewerService = docViewerService;
         _component = component;
-        _allProperties = allProperties;
+        _options = options;
     }
 
     /// <summary>
@@ -54,7 +38,23 @@ internal class ApiClass
     /// This is needed to get and display any default values
     /// Default for this parameter is 'typeof(string)'
     /// </summary>
-    public Type[] InstanceTypes { get; set; } = [typeof(string)];
+    public Type[] InstanceTypes
+    {
+        get
+        {
+            return _component.GetType() switch
+            {
+                //Type t when t == typeof(int) => new[] { typeof(int) },
+                //Type t when t == typeof(bool) => new[] { typeof(bool) },
+                _ => [typeof(string)]
+            };
+        }
+    }
+
+    /// <summary>
+    /// Gets the name of the specified component.
+    /// </summary>
+    public string Name => _component.Name;
 
     /// <summary>
     /// Gets the class summary for the specified component.
@@ -64,64 +64,92 @@ internal class ApiClass
     /// <summary>
     /// Gets the list of properties for the specified component.
     /// </summary>
-    public IEnumerable<ApiClassMember> Properties => GetMembers(MemberTypes.Property).Where(i => _allProperties ? true : i.IsParameter);
+    public IEnumerable<ApiMember> Properties => GetMembers(MemberTypes.Property).Where(i => _options.PropertyParameterOnly == false ? true : i.IsParameter);
 
     /// <summary>
     /// Gets the list of Events for the specified component.
     /// </summary>
 
-    public IEnumerable<ApiClassMember> Events => GetMembers(MemberTypes.Event);
+    public IEnumerable<ApiMember> Events => GetMembers(MemberTypes.Event);
 
     /// <summary>
     /// Gets the list of Methods for the specified component.
     /// </summary>
 
-    public IEnumerable<ApiClassMember> Methods => GetMembers(MemberTypes.Method);
+    public IEnumerable<ApiMember> Methods => GetMembers(MemberTypes.Method);
+
+    /// <summary>
+    /// Returns a dictionary of the properties, methods, and events.
+    /// </summary>
+    /// <returns></returns>
+    public IDictionary<string, string> ToDictionary()
+    {
+        var result = new Dictionary<string, string>();
+        var members = Properties.Union(Methods).Union(Events).OrderBy(i => i.Name);
+
+        foreach (var member in members)
+        {
+            result.Add(member.GetSignature(), member.Description);
+        }
+
+        return result;
+    }
 
     /// <summary />
-    private IEnumerable<ApiClassMember> GetMembers(MemberTypes type)
+    private IEnumerable<ApiMember> GetMembers(MemberTypes type)
     {
         if (_allMembers == null)
         {
-            List<ApiClassMember>? members = [];
-
+            List<ApiMember>? members = [];
             object? obj = null;
             var created = false;
 
+            // Create an instance of the component to get the default values
             object? GetObjectValue(string propertyName)
             {
-                if (!created)
+                try
                 {
-                    if (_component.IsGenericType)
+
+                    if (!created)
                     {
-                        if (InstanceTypes is null)
+                        if (_component.IsGenericType)
                         {
-                            throw new InvalidCastException("InstanceTypes must be specified when Component is a generic type");
+                            if (InstanceTypes is null)
+                            {
+                                throw new InvalidCastException("InstanceTypes must be specified when Component is a generic type");
+                            }
+
+                            // Supply the type to create the generic instance with (needs to be an array)
+                            obj = Activator.CreateInstance(_component.MakeGenericType(InstanceTypes));
+                        }
+                        else
+                        {
+                            obj = Activator.CreateInstance(_component);
                         }
 
-                        // Supply the type to create the generic instance with (needs to be an array)
-                        obj = Activator.CreateInstance(_component.MakeGenericType(InstanceTypes));
-                    }
-                    else
-                    {
-                        obj = Activator.CreateInstance(_component);
+                        created = true;
                     }
 
-                    created = true;
+                    return obj?.GetType().GetProperty(propertyName)?.GetValue(obj);
+
                 }
-
-                return obj?.GetType().GetProperty(propertyName)?.GetValue(obj);
+                catch (Exception)
+                {
+                    return null;
+                }
             }
 
+            var allEnums = _component.IsEnum ? _component.GetFields(BindingFlags.Public | BindingFlags.Static).Select(i => (MemberInfo)i) : [];
             var allProperties = _component.GetProperties().Select(i => (MemberInfo)i);
             var allMethods = _component.GetMethods().Where(i => !i.IsSpecialName).Select(i => (MemberInfo)i);
 
-            foreach (var memberInfo in allProperties.Union(allMethods).OrderBy(m => m.Name))
+            foreach (var memberInfo in allProperties.Union(allMethods).Union(allEnums).OrderBy(m => m.Name))
             {
                 try
                 {
                     if (!MEMBERS_TO_EXCLUDE.Contains(memberInfo.Name) || _component.Name == "FluentComponentBase")
                     {
+                        var enumInfo = memberInfo as FieldInfo;
                         var propertyInfo = memberInfo as PropertyInfo;
                         var methodInfo = memberInfo as MethodInfo;
 
@@ -131,7 +159,22 @@ internal class ApiClass
                             continue;
                         }
 
-                        if (propertyInfo != null)
+                        if (enumInfo != null && enumInfo.FieldType.IsEnum)
+                        {
+                            members.Add(new ApiMember()
+                            {
+                                MemberInfo = memberInfo,
+                                MemberType = MemberTypes.Property,
+                                Name = enumInfo.Name,
+                                Type = "",
+                                EnumValues = [],
+                                Default = "",
+                                Description = GetSummary(_component, enumInfo),
+                                IsParameter = false,
+                            });
+                        }
+
+                        if (!_component.IsEnum && propertyInfo != null)
                         {
                             var isParameter = memberInfo.GetCustomAttribute<ParameterAttribute>() != null;
 
@@ -147,17 +190,10 @@ internal class ApiClass
                                 {
                                     defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
                                 }
-                                //else if (propertyInfo.PropertyType == typeof(Icon))
-                                //{
-                                //    if (GetObjectValue(propertyInfo.Name) is Icon value)
-                                //    {
-                                //        icon = value;
-                                //        defaultValue = $"{value.Variant}.{value.Size}.{value.Name}";
-                                //    }
-                                //}
 
-                                members.Add(new ApiClassMember()
+                                members.Add(new ApiMember()
                                 {
+                                    MemberInfo = memberInfo,
                                     MemberType = MemberTypes.Property,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
@@ -165,7 +201,6 @@ internal class ApiClass
                                     Default = defaultValue,
                                     Description = GetSummary(_component, propertyInfo),
                                     IsParameter = isParameter,
-                                    //Icon = icon
                                 });
                             }
 
@@ -173,8 +208,9 @@ internal class ApiClass
                             if (isEvent)
                             {
                                 var eventTypes = string.Join(", ", propertyInfo.PropertyType.GenericTypeArguments.Select(i => i.Name));
-                                members.Add(new ApiClassMember()
+                                members.Add(new ApiMember()
                                 {
+                                    MemberInfo = memberInfo,
                                     MemberType = MemberTypes.Event,
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
@@ -184,7 +220,7 @@ internal class ApiClass
                         }
 
                         // Methods
-                        if (methodInfo != null)
+                        if (!_component.IsEnum && methodInfo != null)
                         {
                             var isJSInvokable = memberInfo.GetCustomAttribute<JSInvokableAttribute>() != null;
                             if (isJSInvokable)
@@ -198,8 +234,9 @@ internal class ApiClass
                                 genericArguments = "<" + string.Join(", ", methodInfo.GetGenericArguments().Select(i => i.Name)) + ">";
                             }
 
-                            members.Add(new ApiClassMember()
+                            members.Add(new ApiMember()
                             {
+                                MemberInfo = memberInfo,
                                 MemberType = MemberTypes.Method,
                                 Name = methodInfo.Name + genericArguments,
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
@@ -225,13 +262,8 @@ internal class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo? member)
     {
-        var summary = _docViewerService.ApiCommentSummary(ApiDocSummary.Cached, component, member);
-
-        if (string.IsNullOrWhiteSpace(summary))
-        {
-            return string.Empty;
-        }
-
-        return Markdown.ToHtml(summary, DocViewerService.MarkdownPipeline);
+        return member == null
+             ? _options.DocXmlReader.GetComponentSummary(component)
+             : _options.DocXmlReader.GetMemberSummary(member);
     }
 }
