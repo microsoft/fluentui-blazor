@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public static class ZIndex
@@ -17,4 +21,6 @@ public static class ZIndex
     public static int SelectPopup { get; set; } = 9995;
 
     public static int Dialog { get; set; } = 999;
+
+    public static int DataGridHeaderPopup { get; set; } = 5;
 }
