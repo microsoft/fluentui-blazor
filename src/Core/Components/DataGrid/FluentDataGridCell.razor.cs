@@ -68,7 +68,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("grid-column", GridColumn.ToString(), () => (!Grid.EffectiveLoadingValue && Grid.Items is not null) || Grid.Virtualize)
+        .AddStyle("grid-column", GridColumn.ToString(), () => (!Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null)) || Grid.Virtualize)
         .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
