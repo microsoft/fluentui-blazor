@@ -24,10 +24,16 @@ We recommend using a spacing of 24px between checkboxes and other components.
 
 ### Indeterminate
 
-The `FluentCheckbox` component supports an indeterminate state, which can be useful for scenarios where a checkbox represents a mixed or partial selection.
-The indeterminate state is visually distinct from the checked and unchecked states.
+To define the indeterminate state, you need to use the CheckState bindable property,
+which has three possible values: null, true and false.
 
-To set the checkbox to the indeterminate state, use the `Indeterminate` property.
+For the majority of uses, a checkbox with two values (checked/unchecked) is probably sufficient.
+In this case, the value bindable property is used.
+Value has only two possible values: true and false.
+
+A ShowIndeterminate=‘true’ attribute allows you to indicate that the user cannot display this "Indeterminate"
+state himself. This allows you to place the box in the indeterminate state when the page is first displayed, but
+without being able to return to it afterwards (except by code).
 
 {{ CheckboxIndeterminate }}
 

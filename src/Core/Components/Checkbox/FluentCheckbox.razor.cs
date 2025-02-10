@@ -120,8 +120,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
         }
 
         result = default;
-        validationErrorMessage = "The provided value is not a valid boolean.";
-        return false;
+        throw new ArgumentOutOfRangeException("The provided value is not a valid boolean.");
     }
 
     /// <inheritdoc />
@@ -166,14 +165,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
 
         CheckState = newValue;
 
-        if (newValue is null)
-        {
-            await SetValueChangedAsync(newValue: false);
-        }
-        else
-        {
-            await SetValueChangedAsync(newValue.Value);
-        }
+        await SetValueChangedAsync(newValue ?? false);
 
         if (CheckStateChanged.HasDelegate)
         {
