@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -27,6 +26,25 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
+
+    /// <summary>
+    /// Gets or sets the state of the CheckBox: true, false or null.
+    /// Useful when the mode ThreeState is enable
+    /// </summary>
+    [Parameter]
+    public bool? CheckState { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shape of the checkbox
+    /// </summary>
+    [Parameter]
+    public CheckboxShape Shape { get; set; } = CheckboxShape.Square;
+
+    /// <summary>
+    /// Gets or sets the size of the checkbox. See <see cref="CheckboxSize"/>
+    /// </summary>
+    [Parameter]
+    public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
 
     /// <summary>
     /// Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
@@ -51,12 +69,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public bool ThreeStateOrderUncheckToIntermediate { get; set; }
 
     /// <summary>
-    /// Gets or sets the shape of the checkbox
-    /// </summary>
-    [Parameter]
-    public CheckboxShape Shape { get; set; } = CheckboxShape.Square;
-
-    /// <summary>
     /// Gets or sets the content to prefix the input component.
     /// </summary>
     [Parameter]
@@ -69,23 +81,10 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public virtual RenderFragment? EndTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the state of the CheckBox: true, false or null.
-    /// Useful when the mode ThreeState is enable
-    /// </summary>
-    [Parameter]
-    public bool? CheckState { get; set; }
-
-    /// <summary>
     /// Action to be called when the CheckBox state changes.
     /// </summary>
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size of the checkbox. See <see cref="CheckboxSize"/>
-    /// </summary>
-    [Parameter]
-    public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
 
     /// <summary>
     /// Handler for the OnFocus event.
@@ -103,36 +102,10 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     {
         await base.OnInitializedAsync();
 
-        if (HasLabel())
-        {
-            // When the id is not provided, generate a unique id. This allow to use the label for.
-            Id ??= $"{Identifier.NewId()}";
-        }
-
         if (ThreeState && CheckState.HasValue)
         {
             await SetValueChangedAsync(CheckState.Value);
         }
-    }
-
-    /// <summary>
-    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
-    /// </summary>
-    /// <param name="value">The string value to be parsed.</param>
-    /// <param name="result">The result to inject into the Value.</param>
-    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
-    /// <returns>True if the value could be parsed; otherwise false.</returns>
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        if (bool.TryParse(value, out var parsedValue))
-        {
-            result = parsedValue;
-            validationErrorMessage = null;
-            return true;
-        }
-
-        result = default;
-        throw new ArgumentOutOfRangeException("The provided value is not a valid boolean.");
     }
 
     /// <inheritdoc />
@@ -151,8 +124,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
         ? !CheckState.HasValue
         : !ShowIndeterminate && !CheckState.HasValue;
 
-    private bool HasLabel() => !string.IsNullOrEmpty(Label) || LabelTemplate is not null;
-
     private async Task SetValueChangedAsync(bool newValue)
     {
         if (Value == newValue)
@@ -170,11 +141,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
 
     private async Task SetCheckStateChangedAsync(bool? newValue)
     {
-        if (CheckState == newValue)
-        {
-            return;
-        }
-
         CheckState = newValue;
 
         await SetValueChangedAsync(newValue ?? false);
@@ -247,5 +213,24 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     private async Task SetToUncheckedAsync()
     {
         await SetCheckStateChangedAsync(newValue: false);
+    }
+
+    /// <summary>
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        // Overriding mandatory because the parent method is abstract and called via the OnChanged.
+        // However, this method is not used in this component because we need to manage the CheckState.
+        throw new NotSupportedException();
+    }
+
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return TryParseValueFromString(value, out result, out validationErrorMessage);
     }
 }

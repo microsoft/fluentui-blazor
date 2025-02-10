@@ -75,6 +75,16 @@
     }
 
     [Fact]
+    public void FluentCheckbox_TryParseValueFromString()
+    {
+        // Arrange
+        var fluentCheckbox = new FluentCheckbox();
+
+        // Act & Assert
+        Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
+
+    [Fact]
     public void FluentCheckbox_ShowIndeterminate()
     {
         // Arrange && Act
@@ -95,7 +105,7 @@
         // Arrange && Act
         var cut = Render(
     @<FluentCheckbox Label="Title" />
-        );
+    );
         // Assert
         cut.Verify();
     }
@@ -105,11 +115,11 @@
     {
         // Arrange && Act
         var cut = Render(
-            @<FluentCheckbox Id="xxx">
-                <StartTemplate>Start</StartTemplate>
-                <EndTemplate>End</EndTemplate>
-            </FluentCheckbox>
-    );
+    @<FluentCheckbox Id="xxx">
+        <StartTemplate>Start</StartTemplate>
+        <EndTemplate>End</EndTemplate>
+    </FluentCheckbox>
+        );
 
         // Assert
         cut.Verify();
@@ -187,16 +197,5 @@
 
         // Assert
         Assert.Equal(expectedValue, value);
-    }
-
-    [Theory]
-    [InlineData(FluentInputAppearance.Filled, TextInputAppearance.FilledDarker)]
-    [InlineData(FluentInputAppearance.Outline, TextInputAppearance.Outline)]
-    [InlineData((FluentInputAppearance)999, TextInputAppearance.Outline)]
-    public void FluentCheckbox_ToTextInputAppearance(FluentInputAppearance appearance, TextInputAppearance expected)
-    {
-        var value = AspNetCore.Components.Migration.FluentInputAppearanceExtensions.ToTextInputAppearance(appearance);
-
-        Assert.Equal(expected, value);
     }
 }
