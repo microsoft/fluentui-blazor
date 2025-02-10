@@ -1,0 +1,46 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<bool>
+
+<AddTag Name="fluent-field" TagWhen="@(() => HasLabel())" label-position="after">
+    @if (HasLabel())
+    {
+        <label Required="@Required" for="@Id" slot="label">
+            @Label
+            @LabelTemplate
+        </label>
+    }
+
+    <fluent-checkbox id="@Id"
+                     @ref="@Element"
+                     disabled="@Disabled"
+                     autofocus="@Autofocus"
+                     checked="@(_checked ? "true" : "false")"
+                     indeterminate="@(_indeterminate ? "true" : "false")"
+                     name="@Name"
+                     class="@ClassValue"
+                     style="@StyleValue"
+                     aria-label="@AriaLabel"
+                     readonly="@ReadOnly"
+                     required="@Required"
+                     shape="@Shape.ToAttributeValue()"
+                     size="@Size.ToAttributeValue()"
+                     @attributes="AdditionalAttributes"
+                     @onchange="@OnCheckChangedHandlerAsync"
+                     slot="input">
+
+        @if (StartTemplate != null)
+        {
+            <div slot="start">
+                @StartTemplate
+            </div>
+        }
+
+        @if (EndTemplate != null)
+        {
+            <div slot="end">
+                @EndTemplate
+            </div>
+        }
+    </fluent-checkbox>
+</AddTag>
