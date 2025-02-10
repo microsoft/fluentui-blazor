@@ -76,6 +76,17 @@ public static class ReflectionExtensions
     }
 
     /// <summary>
+    /// Checks if the specified member is inherited from a base class or interface.
+    /// </summary>
+    /// <param name="member"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsInherited(this MemberInfo member, Type type)
+    {
+        return member.DeclaringType != type;
+    }
+
+    /// <summary>
     /// Convert type to the proper type _name.
     /// Optional <paramref _name="typeNameConverter"/> function can convert type names to strings 
     /// if type names should be decorated in some way either by converting text to markdown or 

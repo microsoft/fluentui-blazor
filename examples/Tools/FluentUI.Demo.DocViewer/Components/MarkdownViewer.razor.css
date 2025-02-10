@@ -103,6 +103,7 @@
 
   .doc-viewer ::deep .api-summary {
     background-color: var(--colorNeutralBackground4);
+    max-width: calc(100vw - 32px);
     padding: 8px;
   }
 
@@ -114,6 +115,7 @@
 
   .doc-viewer ::deep .api-table {
     width: 100%;
+    max-width: calc(100vw - 32px);
     border-collapse: collapse;
   }
 
@@ -204,10 +206,6 @@
 /* Mobile */
 
 @media(max-width: 768px) {
-
-  .doc-viewer ::deep .api-table {
-      max-width: calc(100vw - 32px);
-  }
 
   .doc-viewer ::deep .api-table tr {
     display: flex;
