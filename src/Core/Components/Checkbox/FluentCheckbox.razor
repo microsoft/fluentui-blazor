@@ -3,18 +3,19 @@
 @inherits FluentInputBase<bool>
 
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
-    <fluent-checkbox id="@Id"
-                     @ref="@Element"
-                     disabled="@Disabled"
+    <fluent-checkbox @ref="@Element"
+                     aria-label="@AriaLabel"
                      autofocus="@Autofocus"
                      checked="@(_checked ? "true" : "false")"
+                     disabled="@Disabled"
                      indeterminate="@(_indeterminate ? "true" : "false")"
+                     id="@Id"
                      name="@Name"
-                     aria-label="@AriaLabel"
                      readonly="@ReadOnly"
                      required="@Required"
                      shape="@Shape.ToAttributeValue()"
                      size="@Size.ToAttributeValue()"
+                     @onfocusout="@FocusOutHandlerAsync"
                      @attributes="AdditionalAttributes"
                      @onchange="@OnCheckChangedHandlerAsync"
                      slot="input">

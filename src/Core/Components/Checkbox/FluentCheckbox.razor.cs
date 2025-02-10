@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -85,6 +86,17 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     /// </summary>
     [Parameter]
     public CheckboxSize Size { get; set; } = CheckboxSize.Medium;
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
 
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
