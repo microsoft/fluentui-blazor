@@ -1,52 +1,40 @@
-﻿<div>
-    <FluentCheckbox
-        @bind-CheckState="checkState1"
-        @bind-Value="value1"
-        ThreeState="true"
-        Label="Three state = true" />
-    <span style="width: 50px; display: inline-block" />
-    Value = @value1 - CheckState is @(checkState1 is null ? "(null indeterminate)" : checkState1.Value.ToString())
-    <br />
+﻿<FluentGrid>
+    <!-- Three state = true -->
+    <FluentGridItem Xs="4">
+        <FluentCheckbox @bind-CheckState="state1"
+                        @bind-Value="value1"
+                        ThreeState="true"
+                        Label="Three state = true" />
+    </FluentGridItem>
+    <FluentGridItem Xs="8">
+        Value = @value1 - CheckState is @(state1 is null ? "(null indeterminate)" : state1.Value.ToString())
+    </FluentGridItem>
 
-    <FluentCheckbox
-        @bind-Value="value2"
-        ThreeState="false"
-        Label="Three state = false" />
-    <span style="width: 50px; display: inline-block" />
-    Value = @value2
-    <br />
-    <FluentCheckbox
-        @bind-CheckState="checkStateThreeStateOrderUncheckToIntermediate"
-        @bind-Value="valueThreeStateOrderUncheckToIntermediate"
-    ThreeState="true"
-    ThreeStateOrderUncheckToIntermediate="true"
-    Label="Three state with order uncheck to intermediate" />
-    <span style="width: 50px; display: inline-block" />
-    Value: @valueThreeStateOrderUncheckToIntermediate - CheckState is
-    @(checkStateThreeStateOrderUncheckToIntermediate is null
-        ? "(null indeterminate)"
-        : checkStateThreeStateOrderUncheckToIntermediate.Value.ToString())
-        
-    <br />
-    <br />
-    <FluentCheckbox @bind-CheckState="checkStateShowIntermediateWithoutThreeState"
-                    @bind-Value="valueShowIntermediateWithoutThreeState"
-                    ShowIndeterminate="false"
-                    ThreeState="true"
-                    Label="Three state with show intermediate" />
-    <span style="width: 50px; display: inline-block" />
-    Value: @valueShowIntermediateWithoutThreeState - CheckState is
-    @(checkStateShowIntermediateWithoutThreeState is null
-        ? "(null indeterminate)"
-        : checkStateShowIntermediateWithoutThreeState.Value.ToString())
-</div>
+    <!-- Three state = false -->
+    <FluentGridItem Xs="4">
+        <FluentCheckbox @bind-Value="value2"
+                        ThreeState="false"
+                        Label="Three state = false" />
+    </FluentGridItem>
+    <FluentGridItem Xs="8">
+        Value = @value2
+    </FluentGridItem>
+
+    <!-- ShowIndeterminate = false -->
+    <FluentGridItem Xs="4">
+        <FluentCheckbox @bind-CheckState="state3"
+                        @bind-Value="value3"
+                        ThreeState="true"
+                        ShowIndeterminate="false"
+                        Label="ShowIndeterminate = false" />
+    </FluentGridItem>
+    <FluentGridItem Xs="8">
+        Value = @value3 - CheckState is @(state3 is null ? "(null indeterminate)" : state3.Value.ToString())
+    </FluentGridItem>
+
+</FluentGrid>
 
 @code {
-    private bool? checkState1 = true;
-    private bool value1 = false;
-    private bool value2 = false;
-    private bool? checkStateThreeStateOrderUncheckToIntermediate = false;
-    private bool valueThreeStateOrderUncheckToIntermediate = false;
-    private bool valueShowIntermediateWithoutThreeState = false;
-    private bool? checkStateShowIntermediateWithoutThreeState = null;
+    bool value1, value2, value3;
+    bool? state1 = false, state3 = null;
 }

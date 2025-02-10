@@ -2,15 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputBase<bool>
 
-<AddTag Name="fluent-field" TagWhen="@(() => HasLabel())" label-position="after">
-    @if (HasLabel())
-    {
-        <label Required="@Required" for="@Id" slot="label">
-            @Label
-            @LabelTemplate
-        </label>
-    }
-
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
     <fluent-checkbox id="@Id"
                      @ref="@Element"
                      disabled="@Disabled"
@@ -18,8 +10,6 @@
                      checked="@(_checked ? "true" : "false")"
                      indeterminate="@(_indeterminate ? "true" : "false")"
                      name="@Name"
-                     class="@ClassValue"
-                     style="@StyleValue"
                      aria-label="@AriaLabel"
                      readonly="@ReadOnly"
                      required="@Required"
@@ -43,4 +33,4 @@
             </div>
         }
     </fluent-checkbox>
-</AddTag>
+</FluentField>

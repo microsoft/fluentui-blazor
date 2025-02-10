@@ -8,6 +8,8 @@ route: /Checkbox
 A **FluentCheckbox** component enables a user to select or deselect an option.
 It's typically used to capture a boolean value.
 
+{{ CheckboxDefault }}
+
 ## Appearance
 
 The apparent style of a checkbox can be changed by setting the `Shape` property, but also by setting the `Size` property.
@@ -19,14 +21,6 @@ We recommend using a spacing of 24px between checkboxes and other components.
 
 {{ CheckboxAppearances }}
 
-### Size
-
-The size of the checkbox can be adjusted using the `Size` property. The available sizes are:
-
-- `Medium`: The default size.
-- `Large`: A larger size for the checkbox.
-
-{{ CheckboxSizes }}
 
 ### Indeterminate
 

@@ -15,8 +15,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public FluentCheckbox()
+    {
+        LabelPosition = Components.LabelPosition.After;
+    }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
 

@@ -1,18 +1,10 @@
-﻿<div>
+﻿<FluentStack Orientation="Orientation.Vertical">
     <FluentCheckbox @bind-Value="@value" @bind-CheckState="checkState" ShowIndeterminate="false" Label="Indeterminate with label" />
-    <br />
-    <p>Value is @(value ? "checked" : "unchecked")</p>
-    <p>CheckState is @(checkState is null ? "(null indeterminate)" : checkState.Value ? "checked" : "unchecked")</p>
-
-    <FluentButton OnClick="OnClick">Display current values in console</FluentButton>
-</div>
+    <FluentLabel>Value is @(value ? "checked" : "unchecked")</FluentLabel>
+    <FluentLabel>CheckState is @(checkState is null ? "(null indeterminate)" : checkState.Value ? "checked" : "unchecked")</FluentLabel>
+</FluentStack>
 
 @code {
     private bool value;
     private bool? checkState;
-
-    void OnClick(){
-        var checkStateString = checkState is null ? "(null indeterminate)" : checkState.Value.ToString();
-        Console.WriteLine($"Value: {value} - Checkstate : {checkStateString}");
-    }
 }
