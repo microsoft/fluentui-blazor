@@ -7,10 +7,6 @@
 
 @code
 {
-    // Create an Identifier context to generate a unique ID `myId` for the components
-    // And not to let the component generate a random ID
-    private IdentifierContext identifierContext = new IdentifierContext(i => $"myId");
-
     public FluentTextInputTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -42,6 +38,7 @@
     public void FluentInputText_Appearance(TextInputAppearance appearance, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput Appearance="@appearance" />);
 
         // Assert
@@ -61,6 +58,7 @@
     public void FluentInputText_InputMode(TextInputMode inputMode, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput InputMode="@inputMode" />);
 
         // Assert
@@ -77,6 +75,7 @@
     public void FluentInputText_TextFieldType(TextInputType type, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput TextFieldType="@type" />);
 
         // Assert
@@ -91,6 +90,7 @@
     public void FluentInputText_Size(TextInputSize size, string expectedAttribute)
     {
         // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
         var cut = Render(@<FluentTextInput Size="@size" />);
 
         // Assert
@@ -131,6 +131,7 @@
     public void FluentInputText_OnChange()
     {
         // Arrange
+        using var context = new IdentifierContext(i => "myId");
         var value = "init";
         var cut = Render(@<FluentTextInput @bind-Value="@value" />);
 
@@ -150,6 +151,7 @@
     public async Task FluentInputText_OnInput(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
     {
         // Arrange
+        using var context = new IdentifierContext(i => "myId");
         var value = "init";
         var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
 
