@@ -71,18 +71,5 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Components\TextArea\FluentTextAreaTests.FluentInputText_Default.verified.razor.html">
-      <DependentUpon>FluentTextAreaTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\TextArea\FluentTextAreaTests.FluentInputText_LabelTemplate.verified.razor.html">
-      <DependentUpon>FluentTextAreaTests.razor</DependentUpon>
-    </None>
-    <None Update="Components\TextArea\FluentTextAreaTests.FluentInputText_StartEndTemplate.verified.razor.html">
-      <DependentUpon>FluentTextAreaTests.razor</DependentUpon>
-    </None>
-  </ItemGroup>
-  
+  </ItemGroup>  
 </Project>

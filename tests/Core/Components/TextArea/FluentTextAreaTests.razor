@@ -58,7 +58,7 @@
 
         // Assert
         cut.Find("fluent-textarea")
-           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" appearance=\"outline\" resize=\"{expectedAttribute}\" />");
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" resize=\"{expectedAttribute}\" />");
     }
 
     [Theory]
@@ -73,7 +73,7 @@
 
         // Assert
         cut.Find("fluent-textarea")
-            .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" appearance=\"outline\" size=\"{expectedAttribute}\" />");
+            .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\"  size=\"{expectedAttribute}\" />");
     }
 
     [Fact]
@@ -140,7 +140,7 @@
         // Assert
         Assert.Equal("new value", value);
         cut.Find("fluent-textarea")
-           .MarkupMatches("<fluent-textarea id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"new value\" />");
+           .MarkupMatches("<fluent-textarea id=\"myId\" slot=\"input\" value=\"new value\" />");
     }
 
     [Theory]
@@ -160,13 +160,13 @@
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
         cut.Find("fluent-textarea")
-           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedImmediateValue}\" />");
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" value=\"{expectedImmediateValue}\" />");
 
         // Assert: After a small delay
         await Task.Delay(200);
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-textarea")
-           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" value=\"{expectedDelayedValue}\" />");
     }
 
     [Theory]

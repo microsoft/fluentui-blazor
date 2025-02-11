@@ -42,7 +42,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// Gets or sets the visual appearance.
     /// </summary>
     [Parameter]
-    public TextAreaAppearance Appearance { get; set; } = TextAreaAppearance.Outline;
+    public TextAreaAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the short hint displayed in the textarea before the user enters a value.
