@@ -48,10 +48,17 @@ public static class DocXmlReaderExtensions
 
     private static string ConvertSeeCref(string input)
     {
-        const string pattern = @"<see(also)* cref=""[\w]:Microsoft\.FluentUI\.AspNetCore\.Components\.([\w.]+)"" />";
+        // Convert FluentUI cref and crefalso
+        const string pattern = @"<see(also)* cref=""[\w]:Microsoft\.FluentUI\.AspNetCore\.Components\.([\w.`]+)"" />";
         const string replacement = "`$2`";
 
-        return Regex.Replace(input, pattern, replacement);
+        var result = Regex.Replace(input, pattern, replacement).Replace("`1", "");
+
+        // Convert External and Microsoft cref
+        const string patternMS = @"<see(also)* cref=""[\w]:([\w.`]+)"" />";
+        const string replacementMS = "[$2](https://learn.microsoft.com/dotnet/api/$2)";
+
+        return Regex.Replace(result, patternMS, replacementMS);
     }
 
     private static string ConvertSeeHref(string input)

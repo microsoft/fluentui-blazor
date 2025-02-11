@@ -44,6 +44,11 @@ internal record ApiClassMember
     public string Description { get; init; } = string.Empty;
 
     /// <summary>
+    /// Gets True if the property is inherited from a base class or interface.
+    /// </summary>
+    public bool IsInherited { get; init; }
+
+    /// <summary>
     /// Gets true if the property is flagged with [Parameter] attribute
     /// </summary>
     public bool IsParameter { get; init; }
@@ -54,6 +59,6 @@ internal record ApiClassMember
     /// <returns></returns>
     public string GetMethodSignature()
     {
-        return $"{Type} {Name}({string.Join(',', Parameters)})";
+        return $"{Type} {Name}({string.Join(", ", Parameters)})";
     }
 }
