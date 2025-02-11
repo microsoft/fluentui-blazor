@@ -11,7 +11,7 @@
 
 @code
 {
-    string TestData = "Test Data";
+
     SimpleEditDialog.RegisterContent DialogData { get; set; } = new() { Id = 1, Name = "Denis", Age = 24 };
 
     private async Task EditAsync()
@@ -38,8 +38,9 @@
 
     private async Task EditSafeAsync()
     {
-        // When replacing the line below with the commented one, the code will not compile
-        //var dialog = await DialogService.ShowAsync(DialogHelper.From<SimpleEditDialog>() ,TestData, new DialogParameters()
+        //string TestData = "Test Data";
+        //var dialog = await DialogService.ShowDialogAsync(DialogHelper.From<SimpleEditDialog>(), TestData, new DialogParameters()
+        // When replacing the line below with the commented ones above, the code will not compile
         var dialog = await DialogService.ShowDialogAsync(DialogHelper.From<SimpleEditDialog>(), DialogData, new DialogParameters()
         {
             Height = "400px",
