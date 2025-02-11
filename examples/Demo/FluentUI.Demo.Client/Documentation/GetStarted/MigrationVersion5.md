@@ -32,6 +32,10 @@ component changes (flagged with 🔃) or Breaking Changes (flagged with 💥).
 
 {{ INCLUDE MigrationFluentLabel }}
 
+## FluentTextArea
+
+{{ INCLUDE MigrationFluentTextArea }}
+
 ## FluentLayout and FluentMainLayout
 
 {{ INCLUDE MigrationFluentLayout }}
