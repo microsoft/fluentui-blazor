@@ -1,6 +1,8 @@
 ## V4.11.4
 
 ### General
+- Use latest .NET SDKs (8.0.406 / 9.0.200)
+- Update NuGet packages
 - Set `FluentComponentBase.Element` to a correct value for several elements ([#3222](https://github.com/microsoft/fluentui-blazor/pull/3222))
 
 ### Components
