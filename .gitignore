@@ -412,3 +412,4 @@ Microsoft.Fast.Components.FluentUI.xml
 /tests/TemplateValidation/**/Data/Migrations
 /tests/TemplateValidation/**/Data/*
 /spelling.dic
+/global.json

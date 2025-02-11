@@ -2,12 +2,12 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,7 +16,7 @@ public partial class FluentTabs : FluentComponentBase
     private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
 
     private const string FLUENT_TAB_TAG = "fluent-tab";
-    private readonly Dictionary<string, FluentTab> _tabs = [];
+    private readonly List<FluentTab> _tabs = [];
     //private string _activeId = string.Empty;
     private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
     private IJSObjectReference _jsModuleOverflow = default!;
@@ -28,8 +28,8 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected string? StyleValue => new StyleBuilder(Style)
         .AddStyle("padding", "6px", () => Size == TabSize.Small)
-        .AddStyle("padding", "12px 10px", () => Size == TabSize.Small)
-        .AddStyle("padding", "16px 10px", () => Size == TabSize.Small)
+        .AddStyle("padding", "12px 10px", () => Size == TabSize.Medium)
+        .AddStyle("padding", "16px 10px", () => Size == TabSize.Large)
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
         .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .Build();
@@ -98,7 +98,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Gets the active selected tab.
     /// </summary>
-    public FluentTab ActiveTab => _tabs.FirstOrDefault(i => i.Key == ActiveTabId).Value ?? _tabs.First().Value;
+    public FluentTab ActiveTab => _tabs.FirstOrDefault(t => t.Id == ActiveTabId) ?? _tabs.First();
 
     [Parameter]
     public string ActiveTabId { get; set; } = default!;
@@ -135,7 +135,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Gets all tabs with <see cref="FluentTab.Overflow"/> assigned to True.
     /// </summary>
-    public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Value.Overflow == true).Select(v => v.Value);
+    public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Overflow == true);
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
 
@@ -154,41 +154,47 @@ public partial class FluentTabs : FluentComponentBase
             _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
 
             var horizontal = Orientation == Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG,25);
+            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG, 25);
         }
     }
 
     private async Task HandleOnTabChangedAsync(TabChangeEventArgs args)
     {
         var tabId = args?.ActiveId;
-        if (tabId is not null && _tabs.TryGetValue(tabId, out FluentTab? tab))
+        var tab = _tabs.FirstOrDefault(i => i.Id == tabId);
+
+        if (tab is not null && _tabs.Contains(tab))
         {
             await OnTabChange.InvokeAsync(tab);
-            ActiveTabId = tabId;
-            await ActiveTabIdChanged.InvokeAsync(tabId);
+            if (tabId != null)
+            {
+                ActiveTabId = tabId;
+                await ActiveTabIdChanged.InvokeAsync(tabId);
+            }
         }
     }
 
     internal int RegisterTab(FluentTab tab)
     {
-        _ = _tabs.TryAdd(tab.Id!, tab);
+        _tabs.Add(tab);
         return _tabs.Count - 1;
     }
 
-    internal async Task UnregisterTabAsync(FluentTab tab)
+    internal async Task UnregisterTabAsync(string id)
     {
         if (OnTabClose.HasDelegate)
         {
+            var tab = _tabs.FirstOrDefault(t => t.Id == id);
             await OnTabClose.InvokeAsync(tab);
         }
 
         if (_tabs.Count > 0)
         {
-            _tabs.Remove(tab.Id!);
+            _tabs.RemoveAt(_tabs.Count - 1);
         }
 
         // Set the first tab active
-        FluentTab? firstTab = _tabs.FirstOrDefault().Value;
+        var firstTab = _tabs.FirstOrDefault();
         if (firstTab is not null)
         {
             await ResizeTabsForOverflowButtonAsync();
@@ -228,9 +234,9 @@ public partial class FluentTabs : FluentComponentBase
         }
 
         // Update Item components
-        foreach (OverflowItem item in items)
+        foreach (var item in items)
         {
-            FluentTab? tab = _tabs.FirstOrDefault(i => i.Value.Id == item.Id).Value;
+            var tab = _tabs.FirstOrDefault(i => i.Id == item.Id);
             tab?.SetProperties(item.Overflow);
         }
 

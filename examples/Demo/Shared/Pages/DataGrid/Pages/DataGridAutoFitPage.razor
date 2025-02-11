@@ -1,0 +1,31 @@
+﻿@page "/datagrid-auto-fit"
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples
+
+<PageTitle>Auto fit</PageTitle>
+<DemoSection Title="Auto Fit" Component="@typeof(FluentUI.Demo.Shared.Pages.DataGrid.Examples.DataGridAutoFit)">
+    <Description>
+        <p>
+            The example and code below show what you need to add to one of your Blazor page components to implement auto-fit.
+        </p>
+        <p>
+            The <code>AutoFit</code> parameter is used to automatically adjust the column widths to fit the content. It only runs on
+            the first render and does not update when the content changes.
+        </p>
+        <p>
+            The column widths are calculated with the process below:
+            <ul>
+                <li>
+                    Loop through the columns and find the biggest width of each cell of the column
+                </li>
+                <li>
+                    Build the <code>GridTemplateColumns</code> string using the <code>fr</code> unit
+                </li>
+            </ul>
+        </p>
+        <p>
+            This does not work
+            when <code>Virtualization</code> is turned on. The <code>GridTemplateColumns</code> parameter is ignored
+            when <code>AutoFit</code> is set to <code>true</code>. This is untested in MAUI.
+        </p>
+    </Description>
+</DemoSection>

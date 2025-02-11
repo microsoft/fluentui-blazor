@@ -97,32 +97,35 @@
                             <div class="col-title-text" title="@tooltip">@Title</div>
 
                         @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
+                        {
+                            if (Grid.SortByAscending == true)
                             {
-                                if (Grid.SortByAscending == true)
-                                {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="end" Style="opacity: 0.5;" />
-                                }
-                                else
-                                {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: 0.5;" />
-                                }
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="end" Style="opacity: 0.5;" />
                             }
-                            @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
-                                {
-                                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
-                                }
+                            else
+                            {
+                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: 0.5;" />
+                            }
+                        }
+                        @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType is not null)
+                        {
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
+                        }
                         </FluentButton>
                 </FluentKeyCode>
             }
             else
             {
                 <div class="col-title" style="@($"width: calc(100% - {wdelta});")">
-                    <div class="col-title-text" title="@tooltip">@Title</div>
+                    <div class="col-title-text" title="@tooltip" >@Title
+                        @if (ColumnOptions is not null && Filtered.GetValueOrDefault() && Grid.ResizeType.HasValue )
+                        {
+                            <span style="padding: 0 5px;">
+                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="end" Style="opacity: 0.5;" />
+                            </span>
+                        }
+                    </div>
                 </div>
-                @if (ColumnOptions is not null && Filtered.GetValueOrDefault())
-                {
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == Align.End ? "start" : "end")" Style="opacity: 0.5;" />
-                }
             }
 
             @if (Align == Align.End)

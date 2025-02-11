@@ -1,0 +1,23 @@
+﻿@page "/datagrid-custom-comparer-sort"
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples
+
+<PageTitle>Custom comparer</PageTitle>
+<DemoSection Title="Custom comparer" Component="@typeof(DataGridCustomComparer)" CollocatedFiles="@(new[] { "css" })">
+    <Description>
+        <p>
+            Here a custom comparer is being used to sort counties by the length of their name. The code has examples for both
+            <code>PropertyColumn</code> and <code>TemplateColumn</code> implementations (see the Razor tab).<br />
+            For this example the code for the comparer is placed in the <code>DataGridCustomComparer.razor.cs</code> file but it
+            could of course be placed in its own file.
+        </p>
+        <p>
+            For the paginator, this example also shows how to use the <code>SummaryTemplate</code> and <code>PaginationTextTemplate</code> parameters.
+        </p>
+        <p>
+            This example also shows using an <code>OnRowFocus</code> event callback to detect which row the cursor is over. By setting <code>ShowHover</code>
+            to true, the current row will be highlighted. By default the system will use the designated hover color for this but you can specify an alternative
+            color by setting the <code>--datagrid-hover-color</code> CSS variable. See the Razor tab for how this is done in this example.
+        </p>
+        <p><em>Note: once a value has been selected for the Resize type, it cannot by set to null again. You need to refresh the page to start with a null value again.</em></p>
+    </Description>
+</DemoSection>

@@ -27,7 +27,7 @@
 
             if (ShowDismissTooltip == true)
             {
-                <FluentTooltip Anchor="dialog_close" Position="@TooltipPosition.Bottom">@Dialog.Instance?.Parameters?.DismissTitle</FluentTooltip>
+                <FluentTooltip Anchor="dialog_close" UseTooltipService="false" Position="@TooltipPosition.Bottom">@Dialog.Instance?.Parameters?.DismissTitle</FluentTooltip>
             }
         }
     </FluentStack>

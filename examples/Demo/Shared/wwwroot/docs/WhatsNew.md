@@ -1,3 +1,31 @@
+## V4.11.4
+
+
+### Icons and Emoji
+- Update to Fluent UI System Icons 1.1.273 (changes since 1.1.270)
+
+  **What's new (Name / Size(s) / Variant(s))**
+  - Design Ideas / 16, 20, 24, 28, 32, 48 / Color
+  - Desk Multiple / 20, 24 / Filled & Regular
+  - Fast Forward Circle / 24 / Color
+  - Hand Multiple / 16, 20, 24, 28 / Filled & Regular
+  - Image Add / 28, 32, 48 / Filled & Regular
+  - Lightbulb Filament / 16, 20, 24, 28, 32, 48 / Color
+  - Play Circle Hint Half / 20, 24 / Filled & Regular
+  - Shield Arrow Right / 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Slide Text Sparkle / 16, 20, 24, 28, 32, 48 / Color
+  - Text List Abc Lowercase LTR / 20, 24 / Filled & Regular
+  - Text List Abc Uppercase LTR / 20, 24 / Filled & Regular
+  - Text List Roman Numeral Lowercase / 20, 24 / Filled & Regular
+  - Text List Roman Numeral Uppercase / 20, 24 / Filled & Regular
+
+
+  **What's updated (Name / Size(s) / Variant(s))**
+  - Diversity / 16, 20, 24, 28, 48 / Filled & Regular
+  - Guest Add / 20, 24 / Filled & Regular
+  - Guest / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
+  - Image Add / 24 / Filled & Regular
+
 ## V4.11.3
 
 ### Components

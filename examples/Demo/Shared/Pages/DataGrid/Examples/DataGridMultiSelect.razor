@@ -28,7 +28,7 @@
         <PropertyColumn Width="150px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
     </FluentDataGrid>
 
-    <div>
+    <div style="margin-top: 0.5rem;">
         <b>SelectedItems:</b>
         @String.Join("; ", SelectedItems.Select(p => p.Name))
     </div>

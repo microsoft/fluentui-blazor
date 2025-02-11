@@ -63,12 +63,12 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     protected string? ClassValue => new CssBuilder(Class)
         .AddClass("column-header", when: CellType == DataGridCellType.ColumnHeader)
         .AddClass("select-all", when: CellType == DataGridCellType.ColumnHeader && Column is SelectColumn<TGridItem>)
-        .AddClass("multiline-text", when: Grid.MultiLine && CellType != DataGridCellType.ColumnHeader)
+        .AddClass("multiline-text", when: Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null) && CellType != DataGridCellType.ColumnHeader)
         .AddClass(Owner.Class)
         .Build();
 
     protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("grid-column", GridColumn.ToString(), () => (!Grid.EffectiveLoadingValue && Grid.Items is not null) || Grid.Virtualize)
+        .AddStyle("grid-column", GridColumn.ToString(), () => (!Grid.EffectiveLoadingValue && (Grid.Items is not null || Grid.ItemsProvider is not null)) || Grid.Virtualize)
         .AddStyle("text-align", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("align-content", "center", Column is SelectColumn<TGridItem>)
         .AddStyle("padding-inline-start", "calc(((var(--design-unit)* 3) + var(--focus-stroke-width) - var(--stroke-width))* 1px)", Column is SelectColumn<TGridItem> && Owner.RowType == DataGridRowType.Default)
@@ -76,10 +76,11 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         .AddStyle("padding-top", "calc(var(--design-unit) * 1.5px)", Column is SelectColumn<TGridItem> && Grid.RowSize == DataGridRowSize.Small && Owner.RowType == DataGridRowType.Default)
         .AddStyle("width", Column?.Width, !string.IsNullOrEmpty(Column?.Width) && Grid.DisplayMode == DataGridDisplayMode.Table)
         .AddStyle("height", $"{Grid.ItemSize:0}px", () => !Grid.EffectiveLoadingValue && Grid.Virtualize && Owner.RowType == DataGridRowType.Default)
-        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && Grid.Items is not null && !Grid.MultiLine)
+        .AddStyle("height", $"{(int)Grid.RowSize}px", () => !Grid.EffectiveLoadingValue && !Grid.Virtualize && !Grid.MultiLine && (Grid.Items is not null || Grid.ItemsProvider is not null))
         .AddStyle("height", "100%", Grid.MultiLine)
         .AddStyle("min-height", "44px", Owner.RowType != DataGridRowType.Default)
-        .AddStyle("display", "flex", CellType == DataGridCellType.ColumnHeader && !Grid.HeaderCellAsButtonWithMenu && !Grid.ResizableColumns && (Column is null || (Column!.Sortable.HasValue && !Column!.Sortable.Value)))
+        .AddStyle("display", "flex", ShouldHaveDisplayFlex())
+        .AddStyle("z-index", ZIndex.DataGridHeaderPopup.ToString(), CellType == DataGridCellType.ColumnHeader && Grid._columns.Count > 0)
         .AddStyle(Owner.Style)
         .Build();
 
@@ -125,4 +126,25 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
 
     public void Dispose() => Owner.Unregister(this);
 
+    private bool ShouldHaveDisplayFlex()
+    {
+
+        var isHeaderCell = CellType == DataGridCellType.ColumnHeader;
+
+        if (!isHeaderCell)
+        {
+            return false;
+        }
+
+        var isButtonWithMenu = Grid.HeaderCellAsButtonWithMenu;
+        var isResizable = Grid.ResizableColumns;
+        var isNotResizableWithOptions = !Grid.ResizableColumns && Column?.ColumnOptions is not null;
+        var isSelectColumn = Column?.GetType() == typeof(SelectColumn<TGridItem>);
+        //var isColumnNull = Column is null;
+        var isSortable = (Column?.Sortable.HasValue ?? false) && Column?.Sortable.Value == true;
+        var isSortByNull = Column?.SortBy is null;
+        var isColumnsCountGreaterThanZero = Grid._columns.Count > 0;
+
+        return isHeaderCell && !isButtonWithMenu && (isResizable || isNotResizableWithOptions) && !isSelectColumn && isColumnsCountGreaterThanZero && (!isSortable || isSortByNull);
+    }
 }

@@ -1,0 +1,90 @@
+﻿@page "/datagrid-auto-items-per-page"
+@using FluentUI.Demo.Shared.Pages.DataGrid.Examples
+
+<PageTitle>Auto items per page</PageTitle>
+<DemoSection Title="Auto items per page" Component="@typeof(DataGridAutoItemsPerPage)">
+    <Description>
+        <p>
+            The example and code below show what you need to get auto items per page functionality for the pagination of a datagrid.
+        </p>
+        <p>
+            Resize the page vertically to see the number of rows being displayed per page adapt to the available height.
+        </p>
+        <p>
+            The <code>AutoItemsPerPage</code> parameter must be set to true and obviously <code>Pagination</code> must be used as well for this to work.
+            Also, the DataGrid <stong>container</stong> must have styling that makes it automatially adapt to the available height.
+            <br />
+            <br />
+            An example of how that can be done for this demo site layout is shown in the &lt;style&gt; section below
+        </p>
+
+    </Description>
+</DemoSection>
+
+<CodeSnippet>
+    &lt;style>
+
+        #datagrid-container {
+            height: calc(100% - 3rem);
+            min-height: 8rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        article {
+            min-height: 32rem;
+            max-height: 80dvh;
+        }
+
+        .demo-section-content {
+            height: calc(100% - 10rem);
+        }
+
+        .demo-section-example {
+            min-height: 135px!important;
+            height: 100%;
+        }
+
+        fluent-tabs {
+            height: 100%;
+        }
+
+        #tab-example-autoitemsperpage-panel {
+            height: 100% !important;
+            max-height: calc(100% - 2rem) !important;
+        }
+    &lt;/style>
+
+</CodeSnippet>
+<style>
+
+    #datagrid-container {
+        height: calc(100% - 3rem);
+        min-height: 8rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    article {
+        min-height: 32rem;
+        max-height: 80dvh;
+    }
+
+    .demo-section-content {
+        height: calc(100% - 10rem);
+    }
+
+    .demo-section-example {
+        min-height: 135px !important;
+        height: 100%;
+    }
+
+    fluent-tabs {
+        height: 100%;
+    }
+
+    #tab-example-autoitemsperpage-panel {
+        height: 100% !important;
+        max-height: calc(100% - 2rem) !important;
+    }
+</style>

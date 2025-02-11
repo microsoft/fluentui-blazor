@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -6,7 +10,7 @@ public partial interface IDialogService
 {
     /// <summary>
     /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="data"/> 
+    /// passing the specified <paramref name="data"/>
     /// </summary>
     /// <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
     /// <param name="dialogComponent">Type of component to display.</param>
@@ -17,7 +21,7 @@ public partial interface IDialogService
 
     /// <summary>
     /// Shows a dialog with the component type as the body,
-    /// passing the specified <paramref name="data"/> 
+    /// passing the specified <paramref name="data"/>
     /// </summary>
     /// <typeparam name="TDialog">Type of component to display.</typeparam>
     /// <param name="data">Content to pass to component being displayed.</param>
@@ -32,6 +36,17 @@ public partial interface IDialogService
     /// <param name="parameters">Parameters to configure the dialog component.</param>
     Task<IDialogReference> ShowDialogAsync<TDialog>(DialogParameters parameters)
          where TDialog : IDialogContentComponent;
+
+    /// <summary>
+    /// Shows a dialog with the component type as the body,
+    /// passing the specified <paramref name="data"/>
+    /// </summary>
+    /// <typeparam name="TDialog">Type of component to display.</typeparam>
+    /// <typeparam name="TData">Type of content to pass to component being displayed.</typeparam>
+    /// <param name="data">Content to pass to component being displayed.</param>
+    /// <param name="parameters">Parameters to configure the dialog component.</param>
+    Task<IDialogReference> ShowDialogAsync<TDialog, TData>(TData data, DialogParameters parameters)
+       where TDialog : IDialogContentComponent<TData> => ShowDialogAsync<TDialog>(data!, parameters);
 
     /// <summary>
     /// Updates a dialog.

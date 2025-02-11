@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -35,6 +39,13 @@ public partial class DialogService
          where TDialog : IDialogContentComponent
     {
         return await ShowDialogAsync<object>(typeof(TDialog), default!, parameters);
+    }
+
+    /// <inheritdoc cref="DialogHelper.ShowDialogAsync{TDialog, TData}(IDialogService, DialogHelper{TDialog}, TData, DialogParameters)"/>
+    public async Task<IDialogReference> ShowDialogAsync<TDialog, TData>(TData data, DialogParameters parameters)
+       where TDialog : IDialogContentComponent<TData>
+    {
+        return await ShowDialogAsync<TDialog>(data!, parameters);
     }
 
     /// <inheritdoc cref="IDialogService.UpdateDialogAsync{TData}(string, DialogParameters{TData})"/>/>
