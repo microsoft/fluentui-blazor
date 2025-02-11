@@ -4,7 +4,7 @@
 @inject IJSRuntime JSRuntime
 
 <div id="datagrid-container">
-    <FluentDataGrid Items="items.AsQueryable()"
+    <FluentDataGrid Items="items!.AsQueryable()"
     Pagination="@pagination"
     RowSize="@rowSize"
     AutoItemsPerPage="true"
