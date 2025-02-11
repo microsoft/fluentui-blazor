@@ -98,7 +98,7 @@
     <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Tools\FluentUI.Demo.DocApiGen" />
   </Target>
 
-  <!-- Resources Localization -->
+  <!-- Resources Localization  -->
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator">
       <PrivateAssets>all</PrivateAssets>
