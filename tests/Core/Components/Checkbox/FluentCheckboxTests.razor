@@ -35,12 +35,7 @@
         var cut = Render(@<FluentCheckbox Id="xxx" Shape="@checkboxShape" />);
 
         // Assert
-        cut.MarkupMatches($@"
-             <fluent-field id=""xxx-field"" label-position=""after"">
-              <fluent-checkbox checked=""false"" indeterminate=""false"" id=""xxx"" shape=""{expectedAttribute}"" size=""medium""   slot=""input"" ></fluent-checkbox>
-              <fluent-text as=""span"" size=""200"" slot=""message""></fluent-text>
-            </fluent-field>
-        ");
+        cut.Verify(suffix: expectedAttribute);
     }
 
     [Theory]
@@ -52,11 +47,7 @@
         var cut = Render(@<FluentCheckbox Id="xxx" Size="@checkboxSize" />);
 
         // Assert
-        cut.MarkupMatches($@"
-             <fluent-field id=""xxx-field"" label-position=""after"">
-              <fluent-checkbox checked=""false"" indeterminate=""false"" id=""xxx"" shape=""square"" size=""{expectedAttribute}""   slot=""input"" ></fluent-checkbox>
-              <fluent-text as=""span"" size=""200"" slot=""message""></fluent-text>
-            </fluent-field>");
+        cut.Verify(suffix: expectedAttribute);
     }
 
     [Fact]
@@ -66,12 +57,7 @@
         var cut = Render(@<FluentCheckbox Id="xxx" ThreeState="true" />);
 
         // Assert
-        cut.MarkupMatches($@"
-            <fluent-field id=""xxx-field"" label-position=""after"">
-                <fluent-checkbox checked=""false"" indeterminate=""true"" id=""xxx"" shape=""square"" size=""medium"" slot=""input""></fluent-checkbox>
-                <fluent-text as=""span"" size=""200"" slot=""message""></fluent-text>
-            </fluent-field>
-        ");
+        cut.Verify();
     }
 
     [Fact]
@@ -91,12 +77,7 @@
         var cut = Render(@<FluentCheckbox Id="xxx" ShowIndeterminate="false" />);
 
         // Assert
-        cut.MarkupMatches($@"
-            <fluent-field id=""xxx-field"" label-position=""after"">
-              <fluent-checkbox checked=""false"" indeterminate=""true"" id=""xxx"" shape=""square"" size=""medium"" slot=""input"" ></fluent-checkbox>
-              <fluent-text as=""span"" size=""200"" slot=""message""></fluent-text>
-            </fluent-field>
-        ");
+        cut.Verify();
     }
 
     [Fact]
