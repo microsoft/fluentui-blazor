@@ -1,4 +1,8 @@
-﻿<FluentStack Orientation="Orientation.Vertical">
+﻿@* ******************************************** *@
+@* This sample is not used in the documentation *@
+@* ******************************************** *@
+
+<FluentStack Orientation="Orientation.Vertical">
     <FluentField Label="Label above"
                  ForId="field-21"
                  Message="This is a success message"
@@ -83,11 +87,6 @@
 
     bool DisplayMessage(IFluentField input)
     {
-        // if (input.FocusLost == false)
-        // {
-        //     return false;
-        // }
-
         if (Value2.Length == 0)
         {
             input.Message = "My custom required message";

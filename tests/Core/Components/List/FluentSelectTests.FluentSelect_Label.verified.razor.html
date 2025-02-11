@@ -1,8 +1,9 @@
 
 <fluent-field id="xxx" label-position="above" class="my-3">
-  <fluent-label id="xxx" required="" slot="label" for="xxx">
+  <label id="xxx" required="" slot="label" for="xxx">
     List of digits
-  </fluent-label>
+    <span class="asterisk" aria-hidden="true"></span>
+  </label>
   <select id="xxx" required="" slot="input" blazor:onchange="1">
     <option selected="" blazor:onclick="x" aria-selected="true"></option>
     <option value="One" blazor:onclick="x">One</option>
