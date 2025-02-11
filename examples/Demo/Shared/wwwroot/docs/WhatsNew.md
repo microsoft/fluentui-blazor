@@ -1,5 +1,37 @@
 ## V4.11.4
 
+### General
+- Set `FluentComponentBase.Element` to a correct value for several elements ([#3222](https://github.com/microsoft/fluentui-blazor/pull/3222))
+
+### Components
+- \[Combobox\] Add EnableClickToClose ([#3186](https://github.com/microsoft/fluentui-blazor/pull/3186))
+- \[Combobox\] Fix detachIndicatorClickHandler not found ([#3239](https://github.com/microsoft/fluentui-blazor/pull/3239))
+- \[Combobox\] Fix loop when changing value ([#3300](https://github.com/microsoft/fluentui-blazor/pull/3300))
+- \[DataGrid\] Add AutoItemsPerPage parameter and handling ([#3220](https://github.com/microsoft/fluentui-blazor/pull/3220))
+- \[DataGrid\] Allow EntityFrameworkAsyncQueryExecutor configuration ([#3272](https://github.com/microsoft/fluentui-blazor/pull/3272))
+- \[DataGrid\] Always re-evaluate GridTemplateColumns after collecting columns ([#3189](https://github.com/microsoft/fluentui-blazor/pull/3189))
+- \[DataGrid\] Fix height not being set in specific situation ([#3182](https://github.com/microsoft/fluentui-blazor/pull/3182))
+- \[DataGrid\] Fix issues related to Sortable not being set on a column ([#3310](https://github.com/microsoft/fluentui-blazor/pull/3310))
+- \[DataGrid\] Fix more header edge cases ([#3316](https://github.com/microsoft/fluentui-blazor/pull/3316))
+- \[DataGrid\] Fix popups being displays beneath header cells ([#3221](https://github.com/microsoft/fluentui-blazor/pull/3221))
+- \[DataGrid\] Move down column action popup ([#3319](https://github.com/microsoft/fluentui-blazor/pull/3319))
+- \[DataGrid\] Not displaying EmptyContent/LoadingContent at correct position when in multiline mode. ([#3188](https://github.com/microsoft/fluentui-blazor/pull/3188))
+- \[DataGrid\] Remove padding for first column header ([#3286](https://github.com/microsoft/fluentui-blazor/pull/3286))
+- \[DataGrid\] Small optimization to the number of times data needs to be refreshed ([#3265](https://github.com/microsoft/fluentui-blazor/pull/3265))
+- \[DesignTokens\] Change generated constructors ([#3229](https://github.com/microsoft/fluentui-blazor/pull/3229))
+- \[Dialog\] Add type safe way of working with IDialogContentComponent ([#3339](https://github.com/microsoft/fluentui-blazor/pull/3339))
+- \[Dialog\] Fix the Customized Dialog tooltip ([#3241](https://github.com/microsoft/fluentui-blazor/pull/3241))
+- \[InputFile\] Add OnFileCountExceeded callback ([#3205](https://github.com/microsoft/fluentui-blazor/pull/3205))
+- \[Lists\] Add `ChangeOnEnterOnly` parameter to allow option focus change without selection ([#3263](https://github.com/microsoft/fluentui-blazor/pull/3263))
+- \[Lists\] Trigger field changed when in multiple mode ([#3294](https://github.com/microsoft/fluentui-blazor/pull/3294))
+- \[Tabs\] Fix missing bold highlighting in Firefox #3276 ([#3280](https://github.com/microsoft/fluentui-blazor/pull/3280))
+- \[Tabs\] Fix Overflow getting out of sync with tab collection ([#3284](https://github.com/microsoft/fluentui-blazor/pull/3284))
+- \[Tabs\] Use correct enum values when comparing size ([#3326](https://github.com/microsoft/fluentui-blazor/pull/3326))
+- \[Toolbar\] Allow arrow keys to move cursor inside input fields ([#3200](https://github.com/microsoft/fluentui-blazor/pull/3200))
+
+### Demo site and documentation
+- \[Docs\] Asset Explorer - Change message before search ([#3291](https://github.com/microsoft/fluentui-blazor/pull/3291))
+- \[Docs\] Some site changes ([#3236](https://github.com/microsoft/fluentui-blazor/pull/3236))
 
 ### Icons and Emoji
 - Update to Fluent UI System Icons 1.1.273 (changes since 1.1.270)
@@ -25,6 +57,7 @@
   - Guest Add / 20, 24 / Filled & Regular
   - Guest / 12, 16, 20, 24, 28, 32, 48 / Filled & Regular
   - Image Add / 24 / Filled & Regular
+
 
 ## V4.11.3
 
