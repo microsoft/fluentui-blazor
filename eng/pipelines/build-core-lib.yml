@@ -47,7 +47,7 @@ parameters:
 
   - name: Tests		        # List of Unit-Test projects to run
     default: |
-      **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
+      **/Components.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
