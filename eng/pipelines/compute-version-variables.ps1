@@ -60,7 +60,7 @@ $toTest = "true"
 if ($branchName -eq "main") {
     $branch = "main"
 }
-elseif ($branchName -eq "dev") {
+elseif ($branchName -eq "dev" -or $branchName -eq "dev-v5") {
     $branch = "dev"
 }
 # elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")

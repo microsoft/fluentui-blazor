@@ -7,7 +7,6 @@ trigger:
     include:
     - dev
     - dev-v5
-    - archives/v3
 
   paths:
     include:
@@ -138,21 +137,6 @@ extends:
         - task: NuGetToolInstaller@1
           displayName: Install NuGet tools
 
-        - ${{ if eq(variables['Build.SourceBranchName'], 'v3') }}:
-          # Install .NET 6.0
-          - task: UseDotNet@2
-            displayName: Install .NET 6.0
-            inputs:
-              version: 6.0.x
-              includePreviewVersions: true
-
-          # Install .NET 7.0
-          - task: UseDotNet@2
-            displayName: 'Install .NET 7.0'
-            inputs:
-              version: 7.0.x
-              includePreviewVersions: true
-
         # Install .NET 8.0
         - task: UseDotNet@2
           displayName: 'Install .NET 8.0'
@@ -160,6 +144,7 @@ extends:
             version: 8.0.x
             includePreviewVersions: false
 
+        # Install .NET 9.0
         - task: UseDotNet@2
           displayName: 'Install .NET 9.0'
           inputs:
@@ -188,12 +173,12 @@ extends:
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
 
-        # NPM install Core.Assets
+        # NPM install Core.Scripts
         - task: Npm@1
-          displayName: "NPM install Core.Assets"
+          displayName: "NPM install Core.Scripts"
           inputs:
             command: "install"
-            workingDir: "src/Core.Assets"
+            workingDir: "src/Core.Scripts"
 
         # Build the projects
         - task: DotNetCoreCLI@2
@@ -201,7 +186,6 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            #arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror' temp remove warnaserror
             arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
 
         # Test and generate Code Coverage
