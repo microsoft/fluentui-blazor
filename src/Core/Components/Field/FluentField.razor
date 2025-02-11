@@ -10,15 +10,19 @@
 
     @if (HasLabel)
     {
-        <FluentLabel Id="@GetId("label")"
-                     slot="label"
-                     for="@GetId("input")"
-                     Required="@(Parameters.Required ?? false)"
-                     Disabled="@(Parameters.Disabled ?? false)"
-                     Style="@LabelStyle">
+        <label id="@GetId("label")"
+               slot="label"
+               for="@GetId("input")"
+               required="@(Parameters.Required ?? false)"
+               disabled="@(Parameters.Disabled ?? false)"
+               style="@LabelStyle">
             @Parameters.Label
             @Parameters.LabelTemplate
-        </FluentLabel>
+            @if (Parameters.Required == true)
+            {
+                <span class="asterisk" aria-hidden="true" />
+            }
+        </label>
     }
 
     @if (ChildContent is not null)

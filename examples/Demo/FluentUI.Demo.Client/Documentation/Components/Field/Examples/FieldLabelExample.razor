@@ -5,7 +5,7 @@
 <FluentStack Orientation="Orientation.Vertical">
 
     <FluentField Label="My first label:" LabelWidth="150px" LabelPosition="@SelectedPosition">
-        <FluentTextInput />
+        <InputText @bind-Value="@Value" placeholder="Default InputText" />
     </FluentField>
 
     <FluentField LabelWidth="150px" LabelPosition="@SelectedPosition" Required="true">
@@ -13,15 +13,23 @@
             My&nbsp;<b>second</b>&nbsp;<i>label</i>:
         </LabelTemplate>
         <ChildContent>
-            <FluentTextInput />
+            <InputText @bind-Value="@Value" placeholder="Default InputText" />
         </ChildContent>
     </FluentField>
 
 </FluentStack>
 
+<style>
+    .box {
+        background: var(--colorNeutralBackground6);
+        padding: 2px 4px;
+    }
+</style>
+
 @code
 {
     private LabelPosition SelectedPosition;
+    private string Value = "";
 
     public static IEnumerable<LabelPosition> GetLabelPositions()
     {

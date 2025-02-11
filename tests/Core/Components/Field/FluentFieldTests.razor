@@ -93,7 +93,7 @@
         var cut = Render(@<FluentField Label="My label" LabelWidth="@width" LabelPosition="@position">Field content</FluentField>);
 
         // Assert
-        var attribute = cut.Find("fluent-label").ComputeCurrentStyle().GetPropertyValue("width");
+        var attribute = cut.Find("label").ComputeCurrentStyle().GetPropertyValue("width");
 
         Assert.Equal(expectedWidthAttribute, attribute);
     }
@@ -107,7 +107,7 @@
         var cut = Render(@<FluentField Label="My label" Message="My message" Required="@required">Field content</FluentField>);
 
         // Assert
-        var hasAttribute = cut.Find("fluent-label").HasAttribute("required");
+        var hasAttribute = cut.Find("label").HasAttribute("required");
 
         Assert.Equal(required, hasAttribute);
     }
@@ -121,7 +121,7 @@
         var cut = Render(@<FluentField Label="My label" Message="My message" Disabled="@disabled">Field content</FluentField>);
 
         // Assert
-        var hasAttribute = cut.Find("fluent-label").HasAttribute("disabled");
+        var hasAttribute = cut.Find("label").HasAttribute("disabled");
 
         Assert.Equal(disabled, hasAttribute);
     }
@@ -144,8 +144,8 @@
 
         // Arrange & Act
         var cut = Render(@<FluentField Id="@fieldId" Label="My label" ForId="@forId">Field content</FluentField>);
-        var labelIdAttr = cut.Find("fluent-label").GetAttribute("id");
-        var labelForAttr = cut.Find("fluent-label").GetAttribute("for");
+        var labelIdAttr = cut.Find("label").GetAttribute("id");
+        var labelForAttr = cut.Find("label").GetAttribute("for");
         var inputIdAttr = cut.Find("div").GetAttribute("id");
 
         // Id
