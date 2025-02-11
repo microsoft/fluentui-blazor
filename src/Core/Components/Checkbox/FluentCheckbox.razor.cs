@@ -69,18 +69,6 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public bool ThreeStateOrderUncheckToIntermediate { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to prefix the input component.
-    /// </summary>
-    [Parameter]
-    public virtual RenderFragment? StartTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to suffix the input component.
-    /// </summary>
-    [Parameter]
-    public virtual RenderFragment? EndTemplate { get; set; }
-
-    /// <summary>
     /// Action to be called when the CheckBox state changes.
     /// </summary>
     [Parameter]

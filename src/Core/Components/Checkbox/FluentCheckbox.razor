@@ -18,20 +18,5 @@
                      @onfocusout="@FocusOutHandlerAsync"
                      @attributes="AdditionalAttributes"
                      @onchange="@OnCheckChangedHandlerAsync"
-                     slot="input">
-
-        @if (StartTemplate != null)
-        {
-            <div slot="start">
-                @StartTemplate
-            </div>
-        }
-
-        @if (EndTemplate != null)
-        {
-            <div slot="end">
-                @EndTemplate
-            </div>
-        }
-    </fluent-checkbox>
+                     slot="input" />
 </FluentField>
