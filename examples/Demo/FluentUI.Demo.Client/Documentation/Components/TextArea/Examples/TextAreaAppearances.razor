@@ -1,5 +1,5 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
-    <FluentStack Orientation="Orientation.Horizontal">
+    <FluentStack HorizontalGap="12px" VerticalAlignment="VerticalAlignment.Bottom" Orientation="Orientation.Horizontal">
 
         <FluentSelect Label="Appareance"
                       Items="@(@Enum.GetValues(typeof(TextAreaAppearance)).Cast<TextAreaAppearance>())"
@@ -14,6 +14,7 @@
 
     <FluentTextArea Appearance="@appearance"
                     Size="@size"
+                    Label="Sample"
                     Spellcheck="@spellCheck"
                     @bind-Value="@value" />
 </FluentStack>
