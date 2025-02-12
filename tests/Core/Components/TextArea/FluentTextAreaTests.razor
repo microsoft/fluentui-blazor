@@ -115,18 +115,6 @@
     }
 
     [Fact]
-    public void FluentTextArea_Block()
-    {
-        // Arrange && Act
-        var cut = Render(
-            @<FluentTextArea Block="true" />
-        );
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
     public void FluentTextArea_OnChange()
     {
         // Arrange

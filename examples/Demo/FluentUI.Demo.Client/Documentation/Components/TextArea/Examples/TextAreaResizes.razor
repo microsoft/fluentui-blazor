@@ -1,14 +1,18 @@
-﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="20px">
-    <FluentTextArea Resize="@TextAreaResize.None" Label="Resize none" Placeholder="Resize none" @bind-Value="@Value" />
-    <FluentTextArea Resize="@TextAreaResize.Vertical" Label="Resize vertical" Placeholder="Resize vertical" @bind-Value="@Value" />
-    <FluentTextArea Resize="@TextAreaResize.Horizontal" Label="Resize horizontal" Placeholder="Resize horizontal" @bind-Value="@Value" />
-    <FluentTextArea Resize="@TextAreaResize.Both" Label="Resize both" Placeholder="Resize both" @bind-Value="@Value" />
-    <FluentTextArea AutoResize="true" Label="Auto Resize" Placeholder="Auto Resize" @bind-Value="@Value" />
-</FluentStack>
+﻿<FluentStack Orientation="Orientation.Vertical">
 
-<FluentLabel>Value = @Value</FluentLabel>
+    <FluentSelect Label="Resize modes"
+        Items="@(@Enum.GetValues(typeof(TextAreaResize)).Cast<TextAreaResize>())"
+        @bind-Value="@resizeMode" />
+
+    <FluentTextArea Resize="@resizeMode"
+        Label="@resizeMode.ToString()"
+        Placeholder="@resizeMode.ToString()"
+        @bind-Value="@value" />
+
+</FluentStack>
 
 @code
 {
-    string Value = "";
+    TextAreaResize resizeMode = TextAreaResize.None;
+    string value = "";
 }

@@ -8,7 +8,6 @@ route: /TextArea
 A **FluentTextArea** component enables a user to enter multiple lines of text.
 The component is a wrapper around the FluentUI `TextArea` component.
 
-
 ## Appearance
 
 The apparent style of a textarea can be changed by setting the `Appearance` property, but also by setting the `Size` property.
@@ -39,6 +38,12 @@ This can be achieved by setting the `Immediate` and the optional `ImmediateDelay
 A text input can be in different states, such as `Disabled`, `ReadOnly`, and `Required`.
 
 {{ TextAreaState }}
+
+## Know restrictions
+
+At this time, it's not possible to define the height and width of the component.
+
+> This features are under investigation.
 
 ## API FluentTextArea
 

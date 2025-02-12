@@ -76,12 +76,6 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     public bool? AutoResize { get; set; }
 
     /// <summary>
-    /// Whether the element should be a block-level element.
-    /// </summary>
-    [Parameter]
-    public bool? Block { get; set; }
-
-    /// <summary>
     /// Whether the element displays a visual box shadow
     /// </summary>
     [Parameter]
