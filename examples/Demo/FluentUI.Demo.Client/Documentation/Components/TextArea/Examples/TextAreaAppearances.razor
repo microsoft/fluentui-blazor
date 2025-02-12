@@ -9,15 +9,12 @@
                       Items="@(@Enum.GetValues(typeof(TextAreaSize)).Cast<TextAreaSize>())"
                       @bind-Value="@size" />
 
-        <FluentCheckbox Label="Display shadow" @bind-Value="displayShadown"></FluentCheckbox>
+        <FluentCheckbox Label="Spell check" @bind-Value="spellCheck"></FluentCheckbox>
     </FluentStack>
 
     <FluentTextArea Appearance="@appearance"
                     Size="@size"
-                    DisplayShadow="@displayShadown"
-                    Label="@label"
-                    Placeholder="@label"
-                    @bind-Value="@value" />
+                    @bind-Value="@value" Spellcheck="@spellCheck" />
 </FluentStack>
 
 <FluentLabel>Value = @value</FluentLabel>
@@ -27,7 +24,5 @@
     string value = "";
     TextAreaAppearance appearance = TextAreaAppearance.Outline;
     TextAreaSize size = TextAreaSize.Medium;
-    bool displayShadown = false;
-
-    string label => $"{appearance} {size} - Display shadow : {displayShadown}";
+    bool spellCheck = false;
 }

@@ -78,8 +78,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// <summary>
     /// Whether the element displays a visual box shadow
     /// </summary>
-    [Parameter]
-    public bool? DisplayShadow { get; set; }
+    public string? displayShadow => Appearance.HasValue && (Appearance == TextAreaAppearance.FilledDarkerShadow || Appearance == TextAreaAppearance.FilledLighterShadow) ? "true" : null;
 
     /// <summary>
     /// Gets or sets the size of the textarea. See <see cref="Components.TextAreaSize"/>
@@ -97,7 +96,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// Gets or sets a value indicating whether spellcheck should be used.
     /// </summary>
     [Parameter]
-    public bool? Spellcheck { get; set; }           // TODO: To verify if this is supported by the component
+    public bool? Spellcheck { get; set; }
 
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -132,4 +131,6 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         FocusLost = true;
         return Task.CompletedTask;
     }
+
+    private string? SpeelCheckValue => Spellcheck.HasValue ? Spellcheck.Value ? "true" : "false" : null;
 }

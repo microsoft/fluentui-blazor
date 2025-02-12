@@ -28,4 +28,16 @@ public enum TextAreaAppearance
     /// </summary>
     [Description("filled-darker")]
     FilledDarker,
+
+    /// <summary>
+    /// The appearance where the borders are filled with a lighter color with shadow.
+    /// </summary>
+    [Description("filled-lighter")]
+    FilledLighterShadow,
+
+    /// <summary>
+    /// The appearance where the borders are filled with a darker color with shadow.
+    /// </summary>
+    [Description("filled-darker")]
+    FilledDarkerShadow,
 }

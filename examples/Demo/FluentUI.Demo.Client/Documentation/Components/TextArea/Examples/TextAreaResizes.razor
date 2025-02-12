@@ -1,13 +1,11 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
 
     <FluentSelect Label="Resize modes"
-        Items="@(@Enum.GetValues(typeof(TextAreaResize)).Cast<TextAreaResize>())"
-        @bind-Value="@resizeMode" />
+                  Items="@(@Enum.GetValues(typeof(TextAreaResize)).Cast<TextAreaResize>())"
+                  @bind-Value="@resizeMode" />
 
     <FluentTextArea Resize="@resizeMode"
-        Label="@resizeMode.ToString()"
-        Placeholder="@resizeMode.ToString()"
-        @bind-Value="@value" />
+                    @bind-Value="@value" />
 
 </FluentStack>
 

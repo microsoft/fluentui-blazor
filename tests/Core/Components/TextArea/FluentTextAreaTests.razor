@@ -46,6 +46,20 @@
     }
 
     [Theory]
+    [InlineData(TextAreaAppearance.FilledLighterShadow, "filled-lighter")]
+    [InlineData(TextAreaAppearance.FilledDarkerShadow, "filled-darker")]
+    public void FluentTextArea_AppearanceWithShadow(TextAreaAppearance appearance, string expectedAttribute)
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentTextArea Appearance="@appearance" />);
+
+        // Assert
+        cut.Find("fluent-textarea")
+           .MarkupMatches($"<fluent-textarea id=\"myId\" slot=\"input\" display-shadow=\"true\" appearance=\"{expectedAttribute}\" />");
+    }
+
+    [Theory]
     [InlineData(TextAreaResize.None, "none")]
     [InlineData(TextAreaResize.Both, "both")]
     [InlineData(TextAreaResize.Vertical, "vertical")]
@@ -84,18 +98,6 @@
             @<FluentTextArea>
                 <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
             </FluentTextArea>
-        );
-
-        // Assert
-        cut.Verify();
-    }
-
-    [Fact]
-    public void FluentTextArea_DisplayShadow()
-    {
-        // Arrange && Act
-        var cut = Render(
-            @<FluentTextArea Appearance="TextAreaAppearance.FilledLighter" DisplayShadow="true" />
         );
 
         // Assert
