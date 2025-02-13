@@ -19,6 +19,13 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?>
     public virtual Func<DateTime, bool>? DisabledDateFunc { get; set; }
 
     /// <summary>
+    /// By default, the <see cref="DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.
+    /// Set this property to `true` to check if all days of the month and year are disabled (more time consuming).
+    /// </summary>
+    [Parameter]
+    public virtual bool DisabledCheckAllDaysOfMonthYear { get; set; }
+
+    /// <summary>
     /// Apply the disabled style to the <see cref="DisabledDateFunc"/> days.
     /// If this is not the case, the days are displayed like the others, but cannot be selected.
     /// </summary>
