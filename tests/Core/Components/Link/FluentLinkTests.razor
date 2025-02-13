@@ -1,0 +1,197 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+	public FluentLinkTests()
+	{
+		Services.AddFluentUIComponents();
+	}
+
+	[Fact]
+	public void FluentLink_Default()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Href="#">fluent link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Theory]
+	[InlineData(LinkTarget.Blank, "_blank")]
+	[InlineData(LinkTarget.Self, "_self")]
+	[InlineData(LinkTarget.Parent, "_parent")]
+	[InlineData(LinkTarget.Top, "_top")]
+	public void FluentLink_Target(LinkTarget target, string expectedAttribute)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Target="@target">fluent link</FluentLink>);
+
+		// Assert
+		cut.MarkupMatches($"<fluent-link target=\"{expectedAttribute}\">fluent link</fluent-link>");
+	}
+
+	[Fact]
+	public void FluentLink_href()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Href="https://www.fluentui-blazor.net/">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentLink_hreflang()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink hreflang="en">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Theory]
+	[InlineData(LinkReferrerPolicy.NoReferrer, "no-referrer")]
+	[InlineData(LinkReferrerPolicy.NoReferrerWhenDowngrade, "no-referrer-when-downgrade")]
+	[InlineData(LinkReferrerPolicy.Origin, "origin")]
+	[InlineData(LinkReferrerPolicy.OriginWhenCrossOrigin, "origin-when-cross-origin")]
+	[InlineData(LinkReferrerPolicy.UnsafeUrl, "no-referrer")]
+	public void FluentLink_ReferrerPolicy(LinkReferrerPolicy referrerPolicy, string expectedAttribute)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink ReferrerPolicy="@referrerPolicy">fluent link</FluentLink>);
+
+		// Assert
+		cut.MarkupMatches($"<fluent-link referrerPolicy=\"{expectedAttribute}\">fluent link</fluent-link>");
+	}
+
+	[Theory]
+	[InlineData(LinkRel.Alternate, "alternate")]
+	[InlineData(LinkRel.Author, "author")]
+	[InlineData(LinkRel.Canonical, "canonical")]
+	[InlineData(LinkRel.Expect, "expect")]
+	[InlineData(LinkRel.Help, "help")]
+	[InlineData(LinkRel.License, "license")]
+	[InlineData(LinkRel.Manifest, "manifest")]
+	[InlineData(LinkRel.Me, "me")]
+	[InlineData(LinkRel.Next, "next")]
+	[InlineData(LinkRel.Prev, "prev")]
+	[InlineData(LinkRel.PrivacyPolicy, "privacy-policy")]
+	[InlineData(LinkRel.Search, "search")]
+	[InlineData(LinkRel.TermsOfService, "terms-of-service")]
+	public void FluentLink_Rel(LinkRel rel, string expectedAttribute)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Rel="@rel">fluent link</FluentLink>);
+
+		// Assert
+		cut.MarkupMatches($"<fluent-link rel=\"{expectedAttribute}\">fluent link</fluent-link>");
+	}
+
+	[Fact]
+	public void FluentLink_Type()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink LinkType="text/css">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+
+	[Theory]
+	[InlineData(LinkAppearance.Default)]
+	[InlineData(LinkAppearance.Subtle)]
+	public void FluentLink_AppearanceAttribute(LinkAppearance appearance)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Appearance="@appearance">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify(suffix: appearance.ToString());
+	}
+
+	[Fact]
+	public void FluentLink_ClassAttribute()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Class="additional-class">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentLink_StyleAttribute()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Style="background-color: green;">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Theory]
+	[InlineData("id-value")]
+	[InlineData(null)]
+	[InlineData("")]
+	[InlineData(" ")]
+	public void FluentLink_IdAttribute(string? id)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Id="@id">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify(suffix: id);
+	}
+
+	[Fact]
+	public void FluentLink_AdditionalAttribute()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink additional-attribute-name="additional-attribute-value">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentLink_AdditionalAttributes()
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink additional-attribute1-name="additional-attribute1-value" additional-attribute2-name="additional-attribute2-value">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Theory]
+	[InlineData(true)]
+	[InlineData(false)]
+	public void FluentLink_Inline(bool inline)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink Inline="@inline">fluent-link</FluentLink>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentLink_OnClick()
+	{
+		bool clicked = false;
+
+		// Arrange
+		var cut = Render(@<FluentLink OnClick="@(e => { clicked = true; })">fluent link</FluentLink>);
+
+		// Act
+		cut.Find("fluent-link").Click();
+
+		// Assert
+		Assert.True(clicked);
+	}
+}

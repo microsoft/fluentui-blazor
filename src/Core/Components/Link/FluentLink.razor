@@ -1,7 +1,19 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<fluent-link href="#"
+<fluent-link href="@Href"
+			 hreflang="@HrefLang"
+			 referrerpolicy="@ReferrerPolicy"
+			 rel="@Rel"
+			 type="@LinkType"
+			 target="@Target"
+			 appearance="@(Appearance == LinkAppearance.Default ? null : Appearance.ToAttributeValue())"
+			 id="@Id"
+			 inline="@(Inline ? true : null)"
+			 class="@ClassValue"
+			 style="@StyleValue"	  
+			 @onclick="@OnClickHandlerAsync"			   
 			 @attributes="AdditionalAttributes">
 	@ChildContent
 </fluent-link>
