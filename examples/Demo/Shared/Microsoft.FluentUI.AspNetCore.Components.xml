@@ -833,6 +833,7 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.FormId">
             <summary>
             Gets or sets the id of a form to associate the element to.
+            Both the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentComponentBase.Id"/> and the FormId must be set if the button is placed outside of a form.
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentButton.Action">
