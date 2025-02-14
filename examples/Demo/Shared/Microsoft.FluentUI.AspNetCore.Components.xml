@@ -2732,6 +2732,14 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.OnSelectDayMouseOverAsync(System.DateTime,System.Boolean)">
             <summary />
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentCalendar.AllDaysAreDisabled(System.DateTime,System.DateTime)">
+            <summary>
+            Check if all days between two dates are disabled.
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.Culture">
             <summary>
             Gets or sets the culture of the component.
@@ -2741,6 +2749,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledDateFunc">
             <summary>
             Function to know if a specific day must be disabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledCheckAllDaysOfMonthYear">
+            <summary>
+            By default, the <see cref="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.
+            Set this property to `true` to check if all days of the month and year are disabled (more time consuming).
             </summary>
         </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentCalendarBase.DisabledSelectable">
@@ -14596,6 +14610,14 @@
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.StartOfYear(System.DateTime,System.Globalization.CultureInfo)">
             <summary>
             Returns the first day of the year
+            </summary>
+            <param name="self"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.Extensions.DateTimeExtensions.EndOfYear(System.DateTime,System.Globalization.CultureInfo)">
+            <summary>
+            Returns the last day of the year.
             </summary>
             <param name="self"></param>
             <param name="culture"></param>
