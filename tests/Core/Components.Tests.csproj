@@ -71,6 +71,5 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  
+  </ItemGroup>  
 </Project>
