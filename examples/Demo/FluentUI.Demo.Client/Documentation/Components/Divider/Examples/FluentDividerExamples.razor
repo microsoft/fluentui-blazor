@@ -1,31 +1,33 @@
-﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="12px">
-    <FluentStack HorizontalGap="12px" VerticalAlignment="VerticalAlignment.Bottom" Orientation="Orientation.Horizontal">
-        <FluentTextInput Label="Content"
-                         @bind-Value="@content"></FluentTextInput>
-        <FluentSelect Label="Appearance"
-                      Items="@(Enum.GetValues<DividerAppearance>())"
-                      @bind-Value="@appearance" />
+﻿<FluentStack HorizontalGap="12px"
+             Style="margin-bottom:15px;"
+             VerticalAlignment="VerticalAlignment.Bottom"
+             Orientation="Orientation.Horizontal">
 
-        <FluentSelect Label="Align content"
-                      Items="@(Enum.GetValues<DividerAlignContent>())"
-                      @bind-Value="@alignContent" />
+    <FluentTextInput Label="Content"
+                     @bind-Value="@content" />
 
-        <FluentCheckbox Label="Inset"
-                        @bind-Value="inset" />
+    <FluentSelect Label="Appearance"
+                  Items="@(Enum.GetValues<DividerAppearance>())"
+                  @bind-Value="@appearance" />
 
-        <FluentCheckbox Label="Vertical"
-                        @bind-Value="vertical" />
-    </FluentStack>
+    <FluentSelect Label="Align content"
+                  Items="@(Enum.GetValues<DividerAlignContent>())"
+                  @bind-Value="@alignContent" />
 
+    <FluentCheckbox Label="Inset"
+                    @bind-Value="inset" />
 
-    <FluentDivider Appearance="@appearance"
-                   AlignContent="@alignContent"
-                   Inset="@inset"
-                   Vertical="@vertical">
-        @content
-    </FluentDivider>
-
+    <FluentCheckbox Label="Vertical"
+                    @bind-Value="vertical" />
 </FluentStack>
+
+<FluentDivider Appearance="@appearance"
+               AlignContent="@alignContent"
+               Inset="@inset"
+               Vertical="@vertical">
+    @content
+</FluentDivider>
+
 @code
 {
     string content = "Fluent divider";
