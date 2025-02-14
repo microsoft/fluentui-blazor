@@ -1,1 +1,36 @@
-﻿
+﻿<FluentStack Orientation="Orientation.Vertical" VerticalGap="12px">
+    <FluentStack HorizontalGap="12px" VerticalAlignment="VerticalAlignment.Bottom" Orientation="Orientation.Horizontal">
+        <FluentTextInput Label="Content"
+                         @bind-Value="@content"></FluentTextInput>
+        <FluentSelect Label="Appearance"
+                      Items="@(Enum.GetValues<DividerAppearance>())"
+                      @bind-Value="@appearance" />
+
+        <FluentSelect Label="Align content"
+                      Items="@(Enum.GetValues<DividerAlignContent>())"
+                      @bind-Value="@alignContent" />
+
+        <FluentCheckbox Label="Inset"
+                        @bind-Value="inset" />
+
+        <FluentCheckbox Label="Vertical"
+                        @bind-Value="vertical" />
+    </FluentStack>
+
+
+    <FluentDivider Appearance="@appearance"
+                   AlignContent="@alignContent"
+                   Inset="@inset"
+                   Vertical="@vertical">
+        @content
+    </FluentDivider>
+
+</FluentStack>
+@code
+{
+    string content = "Fluent divider";
+    DividerAppearance appearance = DividerAppearance.Default;
+    DividerAlignContent alignContent = DividerAlignContent.Center;
+    bool inset = false;
+    bool vertical = false;
+}

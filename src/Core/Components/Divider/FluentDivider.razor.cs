@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// FluentText component, codifies Fluent's opinions on typography to make them easy to use and standardize across products.
+/// FluentDivider component
 /// </summary>
 public partial class FluentDivider : FluentComponentBase
 {
@@ -21,21 +21,25 @@ public partial class FluentDivider : FluentComponentBase
     /// <summary>
     /// Gets or sets the alignment of the content.
     /// </summary>
+    [Parameter]
     public DividerAlignContent? AlignContent { get; set; }
 
     /// <summary>
     /// Gets or sets the appearance of the content.
     /// </summary>
+    [Parameter]
     public DividerAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Adds padding to the beginning and end of the divider.
     /// </summary>
+    [Parameter]
     public bool? Inset { get; set; }
 
     /// <summary>
     /// A divider can be horizontal (default) or vertical.
     /// </summary>
+    [Parameter]
     public bool? Vertical { get; set; }
 
     /// <summary>
