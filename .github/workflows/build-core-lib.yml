@@ -52,7 +52,7 @@ jobs:
      # Build
 
      - name: Restore
-       run: dotnet restore
+       run: dotnet restore Microsoft.FluentUI-v5.sln
 
      - name: Build
        run: dotnet build ${{ env.PROJECTS }} --configuration Release -warnaserror

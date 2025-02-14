@@ -1,0 +1,17 @@
+fluent-field[label-position='before'] > fluent-label[slot='label'] {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+fluent-field .asterisk {
+  color: var(--colorPaletteRedForeground1);
+  margin-inline-start: var(--spacingHorizontalXS)
+}
+
+  fluent-field .asterisk::before {
+    content: '*';
+  }
+
+fluent-field label[disabled] {
+  color: var(--colorNeutralForegroundDisabled);
+}

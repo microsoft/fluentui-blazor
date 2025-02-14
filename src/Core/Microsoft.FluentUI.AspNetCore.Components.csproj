@@ -95,10 +95,10 @@
     <ItemGroup>
       <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\net9.0\*.xml" />
     </ItemGroup>
-    <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Demo\FluentUI.Demo.Client" />
+    <Copy SourceFiles="@(XmlFiles)" DestinationFolder="$(SolutionDir)examples\Tools\FluentUI.Demo.DocApiGen" />
   </Target>
 
-  <!-- Resources Localization -->
+  <!-- Resources Localization  -->
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator">
       <PrivateAssets>all</PrivateAssets>

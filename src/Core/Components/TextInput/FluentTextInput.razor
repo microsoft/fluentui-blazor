@@ -2,51 +2,46 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputImmediateBase<string?>
 
-<fluent-text-input @ref="@Element"
-                   appearance="@Appearance.ToAttributeValue()"
-                   autocomplete="@AutoComplete"
-                   autofocus="@Autofocus"
-                   aria-label="@AriaLabel"
-                   disabled="@Disabled"
-                   class="@ClassValue"
-                   id="@Id"
-                   inputmode="@InputMode.ToAttributeValue()"
-                   list=@DataList
-                   maxlength="@MaxLength"
-                   minlength="@MinLength"
-                   name="@Name"
-                   pattern="@Pattern"
-                   placeholder="@Placeholder"
-                   readonly="@ReadOnly"
-                   required="@Required"
-                   spellcheck="@Spellcheck"
-                   control-size="@Size.ToAttributeValue()"
-                   style="@StyleValue"
-                   type="@TextFieldType.ToAttributeValue()"
-                   value="@CurrentValueAsString"
-                   @onchange="@ChangeHandlerAsync"
-                   @oninput="@InputHandlerAsync"
-                   @attributes="AdditionalAttributes">
-    @if (!string.IsNullOrEmpty(Label) || LabelTemplate != null)
-    {
-        <FluentLabel Required="@Required">
-            @Label
-            @LabelTemplate
-        </FluentLabel>
-    }
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+    <fluent-text-input @ref="@Element"
+                       appearance="@Appearance.ToAttributeValue()"
+                       autocomplete="@AutoComplete"
+                       autofocus="@Autofocus"
+                       aria-label="@AriaLabel"
+                       disabled="@Disabled"
+                       id="@Id"
+                       inputmode="@InputMode.ToAttributeValue()"
+                       list=@DataList
+                       maxlength="@MaxLength"
+                       minlength="@MinLength"
+                       name="@Name"
+                       pattern="@Pattern"
+                       placeholder="@Placeholder"
+                       readonly="@ReadOnly"
+                       required="@Required"
+                       slot="input"
+                       spellcheck="@Spellcheck"
+                       control-size="@Size.ToAttributeValue()"
+                       type="@TextFieldType.ToAttributeValue()"
+                       value="@CurrentValueAsString"
+                       @onfocusout="@FocusOutHandlerAsync"
+                       @onchange="@ChangeHandlerAsync"
+                       @oninput="@InputHandlerAsync"
+                       @attributes="AdditionalAttributes">
 
-    @if (StartTemplate != null)
-    {
-        <div slot="start">
-            @StartTemplate
-        </div>
-    }
+        @if (StartTemplate != null)
+        {
+            <div slot="start">
+                @StartTemplate
+            </div>
+        }
 
-    @if (EndTemplate != null)
-    {
-        <div slot="end">
-            @EndTemplate
-        </div>
-    }
+        @if (EndTemplate != null)
+        {
+            <div slot="end">
+                @EndTemplate
+            </div>
+        }
 
-</fluent-text-input>
+    </fluent-text-input>
+</FluentField>
