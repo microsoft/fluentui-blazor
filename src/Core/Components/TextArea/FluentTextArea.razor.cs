@@ -73,7 +73,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// Whether the element’s height should be automatically changed based on the content.
     /// </summary>
     [Parameter]
-    public bool? AutoResize { get; set; }    
+    public bool? AutoResize { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the textarea. See <see cref="Components.TextAreaSize"/>
@@ -127,6 +127,15 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         return Task.CompletedTask;
     }
 
-    private string? displayShadow => Appearance == TextAreaAppearance.FilledDarkerShadow || Appearance == TextAreaAppearance.FilledLighterShadow ? "true" : null;
-    private string? speelCheckValue => Spellcheck.HasValue ? Spellcheck.Value ? "true" : "false" : null;
+    private string? DisplayShadow
+        => Appearance == TextAreaAppearance.FilledDarkerShadow || Appearance == TextAreaAppearance.FilledLighterShadow
+            ? "true"
+            : null;
+
+    private string? SpellCheckValue
+        => Spellcheck.HasValue
+            ? Spellcheck.Value
+                ? "true"
+                : "false"
+            : null;
 }
