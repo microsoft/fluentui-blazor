@@ -48,6 +48,17 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
+    /// Returns the last day of the year.
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="culture"></param>
+    /// <returns></returns>
+    public static DateTime EndOfYear(this DateTime self, CultureInfo culture)
+    {
+        return self.StartOfYear(culture).AddYears(1, culture).AddDays(-1, culture);
+    }
+
+    /// <summary>
     /// Returns the last day of the month.
     /// </summary>
     /// <param name="self"></param>
