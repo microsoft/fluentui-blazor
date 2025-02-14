@@ -1,38 +1,40 @@
 <Project>
-	<PropertyGroup>
-		<Authors>Microsoft</Authors>
-		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-		<NeutralLanguage>en</NeutralLanguage>
-		<Owners>Microsoft Corporation</Owners>
-		<PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+  <PropertyGroup>
+    <Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Owners>Microsoft Corporation</Owners>
+    <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
-		<VersionFile>4.11.5</VersionFile>
-		<VersionPrefix>4.11.5</VersionPrefix>
-		<VersionSuffix></VersionSuffix>
-		<AssemblyVersion>$(VersionFile)</AssemblyVersion>
-		<FileVersion>$(VersionFile)</FileVersion>
+    <VersionFile>4.11.5</VersionFile>
+    <VersionPrefix>4.11.5</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+    <AssemblyVersion>$(VersionFile)</AssemblyVersion>
+    <FileVersion>$(VersionFile)</FileVersion>
+
 
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
-		<!-- Enable code style analysis -->
-		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <!-- Enable code style analysis -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
 
-		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <NoWarn>IDE0130</NoWarn>
 
-	</PropertyGroup>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-			<_Parameter1>Microsoft.FluentUI.AspNetCore.Components.Tests</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Microsoft.FluentUI.AspNetCore.Components.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>
