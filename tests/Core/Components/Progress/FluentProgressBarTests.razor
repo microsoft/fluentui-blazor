@@ -1,0 +1,118 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits TestContext
+@code
+{
+    public FluentProgressBarTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentProgressBar_Default()
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProgressBar_MinMaxValue()
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar Min="10" Max="80" Value="20" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentProgressBar_Visible(bool visible)
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar Visible="@visible" />);
+
+        // Assert
+        if (visible)
+        {
+            Assert.NotEmpty(cut.Markup);
+        }
+        else
+        {
+            Assert.Empty(cut.Markup);
+        }
+    }
+
+    [Theory]
+    [InlineData(ProgressThickness.Medium)]
+    [InlineData(ProgressThickness.Large)]
+    [InlineData((ProgressThickness)999)]
+    [InlineData(null)]
+    public void FluentProgressBar_Thickness(ProgressThickness? thickness)
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar Thickness="@thickness" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("thickness");
+        Assert.Equal(thickness.ToAttributeValue(), actual);
+    }
+
+    [Theory]
+    [InlineData(ProgressState.Success)]
+    [InlineData(ProgressState.Warning)]
+    [InlineData(ProgressState.Error)]
+    [InlineData((ProgressState)999)]
+    [InlineData(null)]
+    public void FluentProgressBar_State(ProgressState? state)
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar State="@state" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("validation-state");
+        Assert.Equal(state.ToAttributeValue(), actual);
+    }
+
+    [Fact]
+    public void FluentProgressBar_Width()
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar Width="200px" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("style");
+        Assert.Equal("width: 200px;", actual);
+    }
+
+#pragma warning disable CS0618
+    [Theory]
+    [InlineData(null, ProgressStroke.Small, "medium")]
+    [InlineData(null, ProgressStroke.Normal, "medium")]
+    [InlineData(null, ProgressStroke.Large, "large")]
+    [InlineData(null, (ProgressStroke)999, null)]
+    [InlineData(null, null, null)]
+    [InlineData(ProgressThickness.Medium, ProgressStroke.Small, "medium")]
+    [InlineData(ProgressThickness.Medium, ProgressStroke.Normal, "medium")]
+    [InlineData(ProgressThickness.Medium, ProgressStroke.Large, "medium")]
+    [InlineData(ProgressThickness.Medium, (ProgressStroke)999, "medium")]
+    [InlineData(ProgressThickness.Medium, null, "medium")]
+    public void FluentProgressBar_Stroke(ProgressThickness? thickness, ProgressStroke? stroke, string? expectedThickness)
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar Thickness="@thickness" Stroke="@stroke" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("thickness");
+        Assert.Equal(expectedThickness, actual);
+    }
+#pragma warning restore
+
+}

@@ -1,9 +1,6 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
-@{
-#pragma warning disable CS0618      // Paused is obsolete
-}
 
 @if (Visible)
 {
@@ -12,11 +9,8 @@
                          style="@StyleValue"
                          min="@Min"
                          max="@Max"
-                         value="@(Paused == true ? null : Value)"
-                         thickness="@Thickness.ToAttributeValue()"
+                         value="@Value"
+                         validation-state="@State.ToAttributeValue()"
+                         thickness="@GetThicknessAttribute()"
                          @attributes="AdditionalAttributes" />
-}
-
-@{
-#pragma warning restore CS0618
 }
