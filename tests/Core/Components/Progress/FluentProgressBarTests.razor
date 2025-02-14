@@ -51,6 +51,21 @@
     }
 
     [Theory]
+    [InlineData(ProgressShape.Rounded)]
+    [InlineData(ProgressShape.Square)]
+    [InlineData((ProgressShape)999)]
+    [InlineData(null)]
+    public void FluentProgressBar_Shape(ProgressShape? shape)
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar Shape="@shape" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("shape");
+        Assert.Equal(shape.ToAttributeValue(), actual);
+    }
+
+    [Theory]
     [InlineData(ProgressThickness.Medium)]
     [InlineData(ProgressThickness.Large)]
     [InlineData((ProgressThickness)999)]

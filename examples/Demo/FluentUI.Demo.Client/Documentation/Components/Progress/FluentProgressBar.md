@@ -38,3 +38,11 @@ This color is overridden by the `State` attribute.
 The background color of the progress bar can be set using the `BackgroundColor` attribute.
 
 {{ ProgressBarState }}
+
+## API FluentProgressBar
+
+{{ API Type=FluentProgressBar }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentProgressBar }}

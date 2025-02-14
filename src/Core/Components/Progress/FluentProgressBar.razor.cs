@@ -39,6 +39,12 @@ public partial class FluentProgressBar : FluentComponentBase
     public int? Max { get; set; }
 
     /// <summary>
+    /// Gets or sets the shape of the progress bar: rounded or square.
+    /// </summary>
+    [Parameter]
+    public ProgressShape? Shape { get; set; }
+
+    /// <summary>
     /// Gets or sets the current value.
     /// If `null` (default), the FluentProgressBar will display an indeterminate state.
     /// </summary>
