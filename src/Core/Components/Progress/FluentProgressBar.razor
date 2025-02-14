@@ -4,7 +4,11 @@
 
 @if (Visible)
 {
-    <fluent-progress-bar id="@Id"
+    @if (HasCustomStyle)
+    {
+        @CustomStyle()
+    }
+    <fluent-progress-bar id="@GetId()"
                          class="@ClassValue"
                          style="@StyleValue"
                          min="@Min"

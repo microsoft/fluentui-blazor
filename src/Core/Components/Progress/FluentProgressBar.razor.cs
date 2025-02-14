@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -12,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentProgressBar : FluentComponentBase
 {
+    private readonly string _defaultId = Identifier.NewId();
+
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -19,6 +22,7 @@ public partial class FluentProgressBar : FluentComponentBase
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .Build();
 
     /// <summary>
@@ -60,6 +64,19 @@ public partial class FluentProgressBar : FluentComponentBase
     public ProgressState? State { get; set; }
 
     /// <summary>
+    /// Gets or sets the background color of the progress bar.
+    /// </summary>
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color of the progress bar.
+    /// This property is not used when the <see cref="State"/> property is set.
+    /// </summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    /// <summary>
     /// Gets or sets the stroke width of the progress bar.
     /// If not set, the default theme stroke width is used.
     /// </summary>
@@ -79,6 +96,18 @@ public partial class FluentProgressBar : FluentComponentBase
         var value = Thickness ?? StrokeToThickness();
         return value?.ToAttributeValue();
     }
+
+    /// <summary />
+    private string? GetId() => HasCustomStyle ? (Id ?? _defaultId) : Id;
+
+    /// <summary />
+    private MarkupString? CustomStyle() =>
+        HasCustomStyle
+        ? new MarkupString($"<style>#{GetId()}::part(indicator) {{ background-color: {Color}; }}</style>")
+        : null;
+
+    /// <summary />
+    private bool HasCustomStyle => !string.IsNullOrEmpty(Color) && State is null;
 
     /// <summary />
     private ProgressThickness? StrokeToThickness()

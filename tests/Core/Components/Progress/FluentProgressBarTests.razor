@@ -81,6 +81,30 @@
         Assert.Equal(state.ToAttributeValue(), actual);
     }
 
+    [Theory]
+    [InlineData(null, "red")]
+    [InlineData(ProgressState.Success, "red")]
+    public void FluentProgressBar_Color(ProgressState? state, string color)
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar State="@state" Color="@color" />);
+
+        // Assert
+        cut.Verify(suffix: state == ProgressState.Success ? "success" : "color");
+    }
+
+    [Fact]
+    public void FluentProgressBar_BackgroundColor()
+    {
+        // Act
+        var cut = Render(@<FluentProgressBar BackgroundColor="red" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("style");
+        Assert.Equal("background-color: red;", actual);
+
+    }
+
     [Fact]
     public void FluentProgressBar_Width()
     {
