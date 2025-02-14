@@ -9,10 +9,6 @@ The `Link` component allows users to navigation to a URL
 
 View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/link/usage).
 
-## Appareance
-
-{{ LinkAppareance }}
-
 ## Inline
 
 {{ LinkInline }}
@@ -21,9 +17,11 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 {{ LinkWrapping }}
 
-## Disabled
+## Link with icons
 
-{{ LinkDisabled }}
+By placing the icon the content of the link, it is possible to specify a Color for the icon. [Icon customization]( https://www.fluentui-blazor.net/Icon#customization) .
+
+{{ LinkWithIcons }}
 
 ## API FluentLink
 

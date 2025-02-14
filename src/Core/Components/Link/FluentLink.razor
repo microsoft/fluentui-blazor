@@ -4,16 +4,24 @@
 
 <fluent-link href="@Href"
 			 hreflang="@HrefLang"
-			 referrerpolicy="@ReferrerPolicy"
-			 rel="@Rel"
+			 referrerpolicy="@ReferrerPolicy.ToAttributeValue()"
+			 rel="@Rel.ToAttributeValue()"
 			 type="@LinkType"
-			 target="@Target"
-			 appearance="@(Appearance == LinkAppearance.Default ? null : Appearance.ToAttributeValue())"
+			 target="@Target.ToAttributeValue()"
+			 appearance="@Appearance.ToAttributeValue(returnEmptyAsNull: true)"
+			 inline="@Inline"
 			 id="@Id"
-			 inline="@(Inline ? true : null)"
 			 class="@ClassValue"
-			 style="@StyleValue"	  
-			 @onclick="@OnClickHandlerAsync"			   
+			 style="@StyleValue"
+			 @onclick="@OnClickHandlerAsync"
 			 @attributes="AdditionalAttributes">
+	@if (IconStart is not null)
+	{
+		<FluentIcon Value="@IconStart" Width="16" Margin="mr-1" />
+	}
 	@ChildContent
+	@if (IconEnd is not null)
+	{
+		<FluentIcon Value="@IconEnd" Width="16" Margin="ml-1" />
+	}
 </fluent-link>

@@ -18,6 +18,7 @@ public partial class FluentLink : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("display", "flex", when:() => IconStart is not null || IconEnd is not null)
         .Build();
 
     /// <summary>
@@ -80,6 +81,18 @@ public partial class FluentLink : FluentComponentBase
     /// </summary>
     [Parameter]
     public bool Inline { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconStart { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
+    /// </summary>
+    [Parameter]
+    public Icon? IconEnd { get; set; }
 
     /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs e)

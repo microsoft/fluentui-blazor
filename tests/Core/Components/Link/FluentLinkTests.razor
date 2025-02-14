@@ -1,4 +1,5 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits TestContext
@@ -24,6 +25,7 @@
 	[InlineData(LinkTarget.Self, "_self")]
 	[InlineData(LinkTarget.Parent, "_parent")]
 	[InlineData(LinkTarget.Top, "_top")]
+	[InlineData((LinkTarget)999, "")]
 	public void FluentLink_Target(LinkTarget target, string expectedAttribute)
 	{
 		// Arrange && Act
@@ -58,7 +60,8 @@
 	[InlineData(LinkReferrerPolicy.NoReferrerWhenDowngrade, "no-referrer-when-downgrade")]
 	[InlineData(LinkReferrerPolicy.Origin, "origin")]
 	[InlineData(LinkReferrerPolicy.OriginWhenCrossOrigin, "origin-when-cross-origin")]
-	[InlineData(LinkReferrerPolicy.UnsafeUrl, "no-referrer")]
+	[InlineData(LinkReferrerPolicy.UnsafeUrl, "unsafe-url")]
+	[InlineData((LinkReferrerPolicy)999, "")]
 	public void FluentLink_ReferrerPolicy(LinkReferrerPolicy referrerPolicy, string expectedAttribute)
 	{
 		// Arrange && Act
@@ -82,6 +85,7 @@
 	[InlineData(LinkRel.PrivacyPolicy, "privacy-policy")]
 	[InlineData(LinkRel.Search, "search")]
 	[InlineData(LinkRel.TermsOfService, "terms-of-service")]
+	[InlineData((LinkRel)999, "")]
 	public void FluentLink_Rel(LinkRel rel, string expectedAttribute)
 	{
 		// Arrange && Act
@@ -105,13 +109,15 @@
 	[Theory]
 	[InlineData(LinkAppearance.Default)]
 	[InlineData(LinkAppearance.Subtle)]
+	[InlineData((LinkAppearance)999)]
 	public void FluentLink_AppearanceAttribute(LinkAppearance appearance)
 	{
 		// Arrange && Act
 		var cut = Render(@<FluentLink Appearance="@appearance">fluent-link</FluentLink>);
 
 		// Assert
-		cut.Verify(suffix: appearance.ToString());
+		var actual = cut.Find("fluent-link").GetAttribute("appearance");
+		Assert.Equal(appearance.ToAttributeValue(returnEmptyAsNull: true), actual);
 	}
 
 	[Fact]
@@ -177,7 +183,8 @@
 		var cut = Render(@<FluentLink Inline="@inline">fluent-link</FluentLink>);
 
 		// Assert
-		cut.Verify();
+		var actual = cut.Find("fluent-link").HasAttribute("inline");
+		Assert.Equal(inline, actual);
 	}
 
 	[Fact]
@@ -194,4 +201,24 @@
 		// Assert
 		Assert.True(clicked);
 	}
+
+    [Fact]
+    public void FluentLink_IconStart()
+    {
+        // Arrange && Act
+		var cut = Render(@<FluentLink IconStart="@Samples.Icons.Info">fluent link</FluentLink>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLink_IconEnd()
+    {
+        // Arrange && Act
+		var cut = Render(@<FluentLink IconEnd="@Samples.Icons.Info">fluent link</FluentLink>);
+
+        // Assert
+        cut.Verify();
+    }
 }
