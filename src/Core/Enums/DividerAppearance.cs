@@ -2,35 +2,36 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// The visual appearance of the <see cref="FluentButton" />.
+/// The appearance of the <see cref="FluentDivider" />.
 /// </summary>
-public enum ButtonAppearance
+public enum DividerAppearance
 {
     /// <summary>
-    /// The button appears with the default style
+    /// The divider appears with the default style.
     /// </summary>
+    [Description("")]
     Default,
 
     /// <summary>
-    /// Emphasizes the button as a primary action.
+    /// The divider appears with the default style.
     /// </summary>
-    Primary,
+    [Description("strong")]
+    Strong,
 
     /// <summary>
-    /// Removes background styling.
+    /// The divider appears with the brand style.
     /// </summary>
-    Outline,
+    [Description("brand")]
+    Brand,
 
     /// <summary>
-    /// Minimizes emphasis to blend into the background until hovered or focused
+    /// The divider appears with the subtle style.
     /// </summary>
+    [Description("subtle")]
     Subtle,
-
-    /// <summary>
-    /// Removes background and border styling.
-    /// </summary>
-    Transparent,
 }

@@ -1,0 +1,14 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-divider id="@Id"
+                class="@ClassValue"
+                style="@StyleValue"
+                alignContent="@AlignContent.ToAttributeValue()"
+                appearance="@Appearance.ToAttributeValue()"
+                inset="@Inset"
+                orientation="@Orientation"
+                @attributes="AdditionalAttributes">
+    @ChildContent
+</fluent-divider>
