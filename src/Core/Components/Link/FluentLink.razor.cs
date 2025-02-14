@@ -83,13 +83,13 @@ public partial class FluentLink : FluentComponentBase
     public bool Inline { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the start of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the start of link content.
     /// </summary>
     [Parameter]
     public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Icon"/> displayed at the end of button content.
+    /// Gets or sets the <see cref="Icon"/> displayed at the end of link content.
     /// </summary>
     [Parameter]
     public Icon? IconEnd { get; set; }
