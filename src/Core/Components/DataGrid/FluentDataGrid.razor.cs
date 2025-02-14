@@ -393,11 +393,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
-        if (GridTemplateColumns is not null)
-        {
-            _internalGridTemplateColumns = GridTemplateColumns;
-        }
-
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
@@ -507,7 +502,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             if (!AutoFit)
             {
-                _internalGridTemplateColumns = string.Join(" ", Enumerable.Repeat("1fr", _columns.Count));
+                _internalGridTemplateColumns = GridTemplateColumns ?? string.Join(" ", Enumerable.Repeat("1fr", _columns.Count));
             }
 
             if (_columns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
