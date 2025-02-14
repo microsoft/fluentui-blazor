@@ -30,9 +30,10 @@ public partial class DemoSearch : IAsyncDisposable
 
     public Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        if (args is not null && args.Key == KeyCode.Slash)
+        if (args is not null && args.Key == KeyCode.Slash && _searchAutocomplete is not null)
         {
-            _searchAutocomplete?.Element?.FocusAsync();
+            _searchAutocomplete.Element?.FocusAsync();
+            _searchAutocomplete.ValueText = "";
         }
         //StateHasChanged();
         return Task.CompletedTask;
