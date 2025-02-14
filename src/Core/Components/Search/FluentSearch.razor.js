@@ -13,3 +13,15 @@ export function setControlAttribute(id, attrName, value) {
         fieldElement?.setAttribute(attrName, value);
     }
 }
+
+export function setDataList(id, datalistid) {
+    const fieldElement = document.getElementById(id);
+    const dataList = document.getElementById(datalistid)?.cloneNode(true);
+
+    const shadowRoot = fieldElement.shadowRoot;
+    const shadowDataList = shadowRoot.getElementById(datalistid);
+    if (shadowDataList) {
+        shadowRoot.removeChild(shadowDataList);
+    }
+    shadowRoot.appendChild(dataList);
+}

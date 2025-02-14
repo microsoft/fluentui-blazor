@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -92,6 +96,12 @@ public partial class FluentSearch : FluentInputBase<string?>
             {
                 await Module.InvokeVoidAsync("setControlAttribute", Id, "autocomplete", AutoComplete);
             }
+        }
+
+        if (DataList != null && !string.IsNullOrEmpty(Id))
+        {
+            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            await Module.InvokeVoidAsync("setDataList", Id, DataList);
         }
     }
 

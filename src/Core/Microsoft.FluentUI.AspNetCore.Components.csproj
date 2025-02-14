@@ -31,12 +31,12 @@
     <WarningLevel>6</WarningLevel>
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <NoWarn>1701;1702;8669;1591;1816</NoWarn>
+    <NoWarn>$(NoWarn);1701;1702;8669;1591;1816</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <Optimize>True</Optimize>
-    <NoWarn>1701;1702;8669;1591</NoWarn>
+    <NoWarn>$(NoWarn);1701;1702;8669;1591</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
