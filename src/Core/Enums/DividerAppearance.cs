@@ -18,7 +18,7 @@ public enum DividerAppearance
     Default,
 
     /// <summary>
-    /// The divider appears with the default style.
+    /// The divider appears with the strong style.
     /// </summary>
     [Description("strong")]
     Strong,

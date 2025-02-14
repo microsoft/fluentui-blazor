@@ -25,7 +25,9 @@
     [InlineData(DividerAlignContent.Center, "center")]
     [InlineData(DividerAlignContent.Start, "start")]
     [InlineData(DividerAlignContent.End, "end")]
-    public void FluentDivider_AlignContent(DividerAlignContent value, string expectedValue)
+    [InlineData(null, "")]
+    [InlineData((DividerAlignContent)999, "")]
+    public void FluentDivider_AlignContent(DividerAlignContent? value, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentDivider AlignContent="@value">My content</FluentDivider>);
@@ -40,7 +42,9 @@
     [InlineData(DividerAppearance.Subtle, "subtle")]
     [InlineData(DividerAppearance.Brand, "brand")]
     [InlineData(DividerAppearance.Strong, "strong")]
-    public void FluentDivider_DividerAppearance(DividerAppearance value, string expectedValue)
+    [InlineData(null, "")]
+    [InlineData((DividerAppearance)999, "")]
+    public void FluentDivider_DividerAppearance(DividerAppearance? value, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentDivider Appearance="@value">My content</FluentDivider>);
