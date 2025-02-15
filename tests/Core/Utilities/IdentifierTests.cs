@@ -16,6 +16,7 @@ public class IdentifierTests
     [InlineData(16)]
     public void Identifier_NewId(int length)
     {
+        WaitUntilContextIsNull();
         var id = Identifier.NewId(length);
 
         Assert.StartsWith("f", id);
@@ -23,8 +24,9 @@ public class IdentifierTests
     }
 
     [Fact]
-    public void Identifier_LenghtTooLong()
+    public void Identifier_LengthTooLong()
     {
+        WaitUntilContextIsNull();
         Assert.Throws<ArgumentOutOfRangeException>(() => Identifier.NewId(17));
     }
 
@@ -74,5 +76,14 @@ public class IdentifierTests
 
         Assert.Equal("f99999999", id0);
         Assert.Equal("f0000", id1);
+    }
+
+    private void WaitUntilContextIsNull()
+    {
+        // Wait until IdentifierContext.Current is null
+        while (IdentifierContext.Current != null)
+        {
+            Thread.Sleep(10);
+        }
     }
 }
