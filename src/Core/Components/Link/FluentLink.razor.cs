@@ -101,7 +101,5 @@ public partial class FluentLink : FluentComponentBase
         {
             await OnClick.InvokeAsync(e);
         }
-
-        await Task.CompletedTask;
     }
 }

@@ -19,7 +19,7 @@ View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/
 
 ## Link with icons
 
-By placing the icon the content of the link, it is possible to specify a Color for the icon. [Icon customization]( https://www.fluentui-blazor.net/Icon#customization) .
+By placing the icon the content of the link, it is possible to specify a Color for the icon.
 
 {{ LinkWithIcons }}
 

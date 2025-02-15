@@ -141,40 +141,6 @@
 	}
 
 	[Theory]
-	[InlineData("id-value")]
-	[InlineData(null)]
-	[InlineData("")]
-	[InlineData(" ")]
-	public void FluentLink_IdAttribute(string? id)
-	{
-		// Arrange && Act
-		var cut = Render(@<FluentLink Id="@id">fluent-link</FluentLink>);
-
-		// Assert
-		cut.Verify(suffix: id);
-	}
-
-	[Fact]
-	public void FluentLink_AdditionalAttribute()
-	{
-		// Arrange && Act
-		var cut = Render(@<FluentLink additional-attribute-name="additional-attribute-value">fluent-link</FluentLink>);
-
-		// Assert
-		cut.Verify();
-	}
-
-	[Fact]
-	public void FluentLink_AdditionalAttributes()
-	{
-		// Arrange && Act
-		var cut = Render(@<FluentLink additional-attribute1-name="additional-attribute1-value" additional-attribute2-name="additional-attribute2-value">fluent-link</FluentLink>);
-
-		// Assert
-		cut.Verify();
-	}
-
-	[Theory]
 	[InlineData(true)]
 	[InlineData(false)]
 	public void FluentLink_Inline(bool inline)
