@@ -6,9 +6,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /*
  *  To generate the `Spacing.razor.css` utilities, run the following code in a C# Console Application,
- *  and copy the output to the `Spacing.razor.css` file.
+ *  and copy the output to the `Spacing.razor.css`, "Margin.cs" or "Padding.cs" files.
  *  
  *    System.Console.WriteLine(SpacingGenerator.Script);
+ *    System.Console.WriteLine(SpacingGenerator.CSharpMargin);
+ *    System.Console.WriteLine(SpacingGenerator.CSharpPadding);
  *    
  *  Example, using https://dotnetfiddle.net/
  *  
@@ -63,13 +65,22 @@ internal class SpacingGenerator
 {
     private int _spaceCount = 8;
     private readonly System.Text.StringBuilder _script = new();
+    private readonly System.Text.StringBuilder _csharpMargin = new();
+    private readonly System.Text.StringBuilder _csharpPadding = new();
 
-    public static string Script => new SpacingGenerator().Generate(8);
+    public static string Script => new SpacingGenerator().Generate(8).Styles;
 
-    public static string GenerateScript(int count) => new SpacingGenerator().Generate(count);
+    public static string CSharpMargin => new SpacingGenerator().Generate(8).Margin;
 
-    private string Generate(int count)
+    public static string CSharpPadding => new SpacingGenerator().Generate(8).Padding;
+
+    public static string GenerateScript(int count) => new SpacingGenerator().Generate(count).Styles;
+
+    private (string Styles, string Margin, string Padding) Generate(int count)
     {
+        AddClassName(_csharpMargin, "Margin");
+        AddClassName(_csharpPadding, "Padding");
+
         _spaceCount = count;
         SpacingValues = CreateSpacingValues(_spaceCount, negative: false, withZero: true, withAuto: true);
         SpacingNegativeValues = CreateSpacingValues(_spaceCount, negative: true, withZero: false, withAuto: false);
@@ -85,10 +96,28 @@ internal class SpacingGenerator
             _script.AppendLine("}");
         }
 
-        return _script.ToString();
+        _csharpMargin.AppendLine("}");
+        _csharpPadding.AppendLine("}");
+
+        return (_script.ToString(), _csharpMargin.ToString(), _csharpPadding.ToString());
     }
 
-    private readonly System.Collections.Generic.Dictionary<string, string> BreakpointsCssUtilitiesOnly = new(System.StringComparer.Ordinal)
+    private static void AddClassName(System.Text.StringBuilder builder, string name)
+    {
+        builder.AppendLine("// ------------------------------------------------------------------------");
+        builder.AppendLine("// MIT License - Copyright (c) Microsoft Corporation. All rights reserved. ");
+        builder.AppendLine("// ------------------------------------------------------------------------");
+        builder.AppendLine();
+        builder.AppendLine("namespace Microsoft.FluentUI.AspNetCore.Components;");
+        builder.AppendLine();
+        builder.AppendLine("/// <summary>");
+        builder.AppendLine("/// List of all available " + name + " styles.");
+        builder.AppendLine("/// </summary>");
+        builder.AppendLine("public static class " + name);
+        builder.AppendLine("{");
+    }
+
+    private static readonly System.Collections.Generic.Dictionary<string, string> BreakpointsCssUtilitiesOnly = new(System.StringComparer.Ordinal)
     {
         { "sm", "600px" },
         { "md", "960px" },
@@ -97,9 +126,9 @@ internal class SpacingGenerator
         { "xxl", "2560px" },
     };
 
-    private static System.Collections.Generic.Dictionary<int, string> SpacingHorizontalVariables = new();
+    private static System.Collections.Generic.Dictionary<int, string> SpacingHorizontalVariables = [];
 
-    private static System.Collections.Generic.Dictionary<int, string> SpacingVerticalVariables = new();
+    private static System.Collections.Generic.Dictionary<int, string> SpacingVerticalVariables = [];
 
     private System.Collections.Generic.Dictionary<string, string> SpacingValues = new(System.StringComparer.Ordinal);
 
@@ -194,6 +223,10 @@ internal class SpacingGenerator
                 _script.AppendLine($".{prop.Value}s-{breakpoint}{spacing.Key} {{ {prop.Key}-inline-start: {hValue} !important; }}");
                 _script.AppendLine($".{prop.Value}e-{breakpoint}{spacing.Key} {{ {prop.Key}-inline-end: {hValue} !important; }}");
                 _script.AppendLine($".{prop.Value}a-{breakpoint}{spacing.Key} {{ {prop.Key}: {vValue} {hValue} !important; }}");
+
+                // Convert these 11 lines to C# constants
+                var code = ConvertCssToCSharp(_script, numberOfLines: 11);
+                (string.Equals(prop.Value, "m", StringComparison.Ordinal) ? _csharpMargin : _csharpPadding).Append(code);
             }
         }
 
@@ -215,7 +248,91 @@ internal class SpacingGenerator
                 _script.AppendLine($".{prop.Value}s-{breakpoint}{spacing.Key} {{ {prop.Key}-inline-start: {hValue} !important; }}");
                 _script.AppendLine($".{prop.Value}e-{breakpoint}{spacing.Key} {{ {prop.Key}-inline-end: {hValue} !important; }}");
                 _script.AppendLine($".{prop.Value}a-{breakpoint}{spacing.Key} {{ {prop.Key}: {vValue} {hValue} !important; }}");
+
+                // Convert these 11 lines to C# constants
+                var code = ConvertCssToCSharp(_script, numberOfLines: 11);
+                (string.Equals(prop.Value, "m", StringComparison.Ordinal) ? _csharpMargin : _csharpPadding).Append(code);
             }
         }
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0001:StringComparison is missing", Justification = "")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0051:Method is too long", Justification = "")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "MA0009:Add regex evaluation timeout", Justification = "<Pending>")]
+    public static string ConvertCssToCSharp(System.Text.StringBuilder script, int numberOfLines)
+    {
+        var code = new System.Text.StringBuilder();
+
+        // Extract the last line
+        var lines = script.ToString()
+                          .Split(["\r\n", "\n", Environment.NewLine], StringSplitOptions.RemoveEmptyEntries)
+                          .TakeLast(numberOfLines);
+
+        foreach (var cssLine in lines)
+        {
+            var cssName = cssLine.Substring(cssLine.IndexOf('.') + 1, cssLine.IndexOf(' ') - cssLine.IndexOf('.') - 1);
+
+            if (code.ToString().Contains($"\"{cssName} \"")) // Already exists
+            {
+                continue;
+            }
+
+            // Extract class name
+            var match = System.Text.RegularExpressions.Regex.Match(cssLine, "\\.(m|p)(\\w+)(-([a-z]+))?-(n?)([0-9]+|auto)");
+            if (!match.Success)
+            {
+                throw new InvalidOperationException($"Invalid CSS class name: {cssLine}");
+            }
+
+            var prefix = match.Groups[2].Value;
+            var size = match.Groups[4].Value;
+            var negative = string.Equals(match.Groups[5].Value, "n", StringComparison.Ordinal) ? "Negative" : "";
+            var number = match.Groups[6].Value;
+            var breakpoint = string.IsNullOrEmpty(size) ? "" : $" where `min-width: {BreakpointsCssUtilitiesOnly[size]}`";
+
+            size = size switch
+            {
+                "sm" => "_ForSmall",
+                "md" => "_ForMedium",
+                "lg" => "_ForLarge",
+                "xl" => "_ForExtraLarge",
+                "xxl" => "_ForExtraExtraLarge",
+                _ => ""
+            };
+
+            // Mapping for prefixes
+            Dictionary<string, string> prefixMap = new(StringComparer.Ordinal)
+            {
+                { "t", "Top" },
+                { "b", "Bottom" },
+                { "l", "Left" },
+                { "r", "Right" },
+                { "s", "Start" },
+                { "e", "End" },
+                { "x", "Horizontal" },
+                { "y", "Vertical" },
+                { "m", "Margin" },
+                { "a", "All" },
+            };
+
+            // Convert to proper format
+            // public const string TopXxl0 = "mt-xxl-0"
+            code.AppendLine($"    /// <summary>Class `{cssName}`{breakpoint}.</summary>");
+            code.AppendLine($"    public const string {prefixMap[prefix]}{negative}{Capitalize(number)}{Capitalize(size)} = \"{cssName} \";");
+            code.AppendLine();
+        }
+
+        return code.ToString();
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "MA0011:IFormatProvider is missing", Justification = "<Pending>")]
+    private static string Capitalize(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return input;
+        }
+
+        return char.ToUpper(input[0]) + input[1..];
     }
 }
