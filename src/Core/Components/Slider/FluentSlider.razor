@@ -1,0 +1,25 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputBase<TValue>
+@typeparam TValue
+
+@* <CascadingValue Value="this" IsFixed="true"> *@
+	@* <FluentLabel ForId="@Id"
+		         Label="@Label"
+				 AriaLabel="@AriaLabel"
+				 ChildContent="@LabelTemplate"
+				 Required="@Required"
+				 style="margin-bottom: calc(var(--design-unit) * 3px);" /> *@
+	<fluent-slider id="@Id"
+				   class="@ClassValue"
+			       style="@StyleValue"
+			       disabled="@Disabled"
+				   min="@FormatValueAsString(Min)"
+				   max="@FormatValueAsString(Max)"	
+				   value="@FormatValueAsString(Value)"
+			       step="@(Step == default ? null : FormatValueAsString(Step))"
+			       size="@Size.ToAttributeValue()"
+			       orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())">
+		@ChildContent
+    </fluent-slider>
+@* </CascadingValue> *@
