@@ -164,7 +164,8 @@ internal static class InputHelpers<TValue>
     {
         if (max == null || min == null)
         {
-            throw new ArgumentException("Max or Min values can not be null.");
+            // No need to validate if either max or min is null
+            return;
         }
 
         if (typeof(TValue) == typeof(ushort))

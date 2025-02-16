@@ -475,23 +475,56 @@ public class FluentNumberFieldTests : TestBase
     }
 
     [Fact]
-    public void FluentNumberField_Throw_WhenMinOrMaxIsNull()
+    public void FluentNumberField_SetMinMax_WhenTypeConstraintsTrue()
     {
-        ushort currentValue = 100;
-        // Act
-        Action action = () =>
+        var currentValue = 100;
+
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
         {
-            TestContext.RenderComponent<FluentNumberField<ushort>>(parameters =>
-            {
-                parameters.Add(p => p.Min, null);
-                parameters.Add(p => p.Max, null);
-                parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
-                parameters.AddChildContent("101");
-            });
-        };
+            parameters.Add(p => p.UseTypeConstraints, true);
+            parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+            parameters.AddChildContent("100");
+        });
 
         // Assert
-        action.Should().Throw<ArgumentException>();
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumberField_SetMinMax_WhenTypeConstraintsTrueAndMinIsNotNull()
+    {
+        var currentValue = 100;
+
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
+        {
+            parameters.Add(p => p.UseTypeConstraints, true);
+            parameters.Add(p => p.Min, "10");
+            parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+            parameters.AddChildContent("100");
+        });
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumberField_SetMinMax_WhenTypeConstraintsTrueAndMaxIsNotNull()
+    {
+        var currentValue = 100;
+
+        // Arrange && Act
+        var cut = TestContext.RenderComponent<FluentNumberField<int>>(parameters =>
+        {
+            parameters.Add(p => p.UseTypeConstraints, true);
+            parameters.Add(p => p.Max, "1000");
+            parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+            parameters.AddChildContent("100");
+        });
+
+        // Assert
+        cut.Verify();
     }
 
     [Fact]

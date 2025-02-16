@@ -61,13 +61,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     /// Gets or sets the maximum value.
     /// </summary>
     [Parameter]
-    public string? Max { get; set; } = InputHelpers<TValue>.GetMaxValue();
+    public string? Max { get; set; }
 
     /// <summary>
     /// Gets or sets the minimum value.
     /// </summary>
     [Parameter]
-    public string? Min { get; set; } =  InputHelpers<TValue>.GetMinValue();
+    public string? Min { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="AspNetCore.Components.Appearance" />.
@@ -86,7 +86,7 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     /// Gets or sets the error message to show when the field can not be parsed.
     /// </summary>
     [Parameter]
-    public string ParsingErrorMessage { get; set; } = "The {0} field must be a number.";
+    public string ParsingErrorMessage { get; set; } = "The {0} field must be a (valid) number.";
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -94,7 +94,50 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// If true, the min and max values will be automatically set based on the type of TValue,
+    /// unless an explicit value for Min or Max is provided.
+    /// </summary>
+    [Parameter]
+    public bool UseTypeConstraints { get; set; }
+
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
+
+    // If type constraints is true and min is null, set min to the minimum value of TValue.
+    private string? MinValue
+    {
+        get
+        {
+            if (UseTypeConstraints && Min == null)
+            {
+                return InputHelpers<TValue>.GetMinValue();
+            }
+
+            return Min;
+        }
+        set
+        {
+            Min = value;
+        }
+    }
+
+    // If type constraints is true and max is null, set max to the maximum value of TValue.
+    private string? MaxValue
+    {
+        get
+        {
+            if (UseTypeConstraints && Max == null)
+            {
+                return InputHelpers<TValue>.GetMaxValue();
+            }
+
+            return Max;
+        }
+        set
+        {
+            Max = value;
+        }
+    }
 
    private static string GetStepAttributeValue()
     {
@@ -142,60 +185,19 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        // First, try BindConverter for supported types
-        if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
+        try
         {
-            validationErrorMessage = null;
-            return true;
-        }
-
-        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        var isNullable = typeof(TValue) != targetType;
-
-        // Handle unsigned types manually
-        if (value is not null)
-        {
-            try
+            if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
             {
-                object? parsedValue = null;
-                var success = false;
-
-                switch (targetType)
-                {
-                    case not null when targetType == typeof(uint):
-                        success = uint.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedUint);
-                        parsedValue = parsedUint;
-                        break;
-                    case not null when targetType == typeof(ushort):
-                        success = ushort.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedUshort);
-                        parsedValue = parsedUshort;
-                        break;
-                    case not null when targetType == typeof(ulong):
-                        success = ulong.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedUlong);
-                        parsedValue = parsedUlong;
-                        break;
-                }
-
-                if (success && parsedValue != null)
-                {
-                    if (isNullable)
-                    {
-                        // Create Nullable<T> instance using reflection
-                        var nullableType = typeof(Nullable<>).MakeGenericType(targetType!);
-                        parsedValue = Activator.CreateInstance(nullableType, parsedValue);
-                    }
-
-                    result = (TValue) parsedValue!;
-                    validationErrorMessage = null;
-                    return true;
-                }
-            }
-            catch
-            {
-                // Parsing failed
-                throw new InvalidOperationException($"Unsupported type: ${value.GetType()}");
+                validationErrorMessage = null;
+                return true;
             }
         }
+        catch (ArgumentException)
+        {
+            result = default!;
+        }
+
 
         validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
         return false;
