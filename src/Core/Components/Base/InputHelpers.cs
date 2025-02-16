@@ -81,16 +81,6 @@ internal static class InputHelpers<TValue>
         {
             throw new ArgumentException("Long Max value is smaller then Min value.");
         }
-
-        if (maxValue > 999999999999)
-        {
-            throw new ArgumentException("Long Max value can not be bigger than 999999999999.");
-        }
-
-        if (minValue < -999999999999)
-        {
-            throw new ArgumentException("Long Min value can not be less than -999999999999.");
-        }
     }
 
     internal static void ValidateShortInputs(string? max, string? min)
