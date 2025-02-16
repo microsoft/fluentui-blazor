@@ -14,12 +14,12 @@ internal static class InputHelpers<TValue>
             TypeCode.Double => double.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Int16 => short.MaxValue.ToString(),
             TypeCode.Int32 => int.MaxValue.ToString(),
-            TypeCode.Int64 => "999999999999",
+            TypeCode.Int64 => long.MaxValue.ToString(),
             TypeCode.SByte => sbyte.MaxValue.ToString(),
             TypeCode.Single => float.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt16 => ushort.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MaxValue.ToString(),
-            TypeCode.UInt64 => "18446744073709551615",
+            TypeCode.UInt64 => ulong.MaxValue.ToString(),
             _ => ""
         };
 
@@ -38,7 +38,7 @@ internal static class InputHelpers<TValue>
             TypeCode.Double => double.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.Int16 => short.MinValue.ToString(),
             TypeCode.Int32 => int.MinValue.ToString(),
-            TypeCode.Int64 => "-999999999999",
+            TypeCode.Int64 => long.MinValue.ToString(),
             TypeCode.SByte => sbyte.MinValue.ToString(),
             TypeCode.Single => float.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt16 => ushort.MinValue.ToString(CultureInfo.InvariantCulture),
