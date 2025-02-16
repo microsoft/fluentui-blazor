@@ -19,7 +19,7 @@ internal static class InputHelpers<TValue>
             TypeCode.Single => float.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt16 => ushort.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MaxValue.ToString(),
-            TypeCode.UInt64 => "999999999999",
+            TypeCode.UInt64 => "18446744073709551615",
             _ => ""
         };
 
@@ -43,7 +43,7 @@ internal static class InputHelpers<TValue>
             TypeCode.Single => float.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt16 => ushort.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MinValue.ToString(),
-            TypeCode.UInt64 => "-999999999999",
+            TypeCode.UInt64 => ulong.MinValue.ToString(),
             _ => ""
 
         };
@@ -137,12 +137,64 @@ internal static class InputHelpers<TValue>
         }
     }
 
+    internal static void ValidateUShortInputs(string max, string min)
+    {
+        var maxValue = Convert.ToUInt16(max);
+        var minValue = Convert.ToUInt16(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Unsigned Short Max value is smaller than Min value.");
+        }
+    }
+
+    internal static void ValidateUIntegerInputs(string max, string min)
+    {
+        var maxValue = Convert.ToUInt32(max);
+        var minValue = Convert.ToUInt32(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Unsigned integer Max value is smaller than Min value.");
+        }
+    }
+
+    internal static void ValidateULongInputs(string max, string min)
+    {
+        var maxValue = Convert.ToUInt64(max);
+        var minValue = Convert.ToUInt64(min);
+
+        if (maxValue < minValue)
+        {
+            throw new ArgumentException("Unsigned Long Max value is smaller than Min value.");
+        }
+    }
+
     internal static void ValidateInputParameters(string? max, string? min)
     {
-
         if (max == null || min == null)
         {
-            return; //nothing to validate
+            throw new ArgumentException("Max or Min values can not be null.");
+        }
+
+        if (typeof(TValue) == typeof(ushort))
+        {
+            ValidateUShortInputs(max, min);
+        }
+
+        if (typeof(TValue) == typeof(uint))
+        {
+            ValidateUIntegerInputs(max, min);
+        }
+
+        if (typeof(TValue) == typeof(ulong))
+        {
+            ValidateULongInputs(max, min);
+        }
+
+        if(typeof(TValue) == typeof(byte))
+        {
+            ValidateUShortInputs(max, min);
         }
 
         if (typeof(TValue) == typeof(sbyte))

@@ -415,6 +415,86 @@ public class FluentNumberFieldTests : TestBase
     }
 
     [Fact]
+    public void FluentNumberField_Throw_WhenUShortMinIsLargerThanMax()
+    {
+        ushort currentValue = 100;
+        // Act
+        Action action = () =>
+        {
+            TestContext.RenderComponent<FluentNumberField<ushort>>(parameters =>
+            {
+                parameters.Add(p => p.Min, "10");
+                parameters.Add(p => p.Max, "5");
+                parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+                parameters.AddChildContent("101");
+            });
+        };
+
+        // Assert
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void FluentNumberField_Throw_WhenUIntMinIsLargerThanMax()
+    {
+        uint currentValue = 100;
+        // Act
+        Action action = () =>
+        {
+            TestContext.RenderComponent<FluentNumberField<uint>>(parameters =>
+            {
+                parameters.Add(p => p.Min, "10");
+                parameters.Add(p => p.Max, "5");
+                parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+                parameters.AddChildContent("101");
+            });
+        };
+
+        // Assert
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void FluentNumberField_Throw_WhenULongMinIsLargerThanMax()
+    {
+        ulong currentValue = 100;
+        // Act
+        Action action = () =>
+        {
+            TestContext.RenderComponent<FluentNumberField<ulong>>(parameters =>
+            {
+                parameters.Add(p => p.Min, "10");
+                parameters.Add(p => p.Max, "5");
+                parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+                parameters.AddChildContent("101");
+            });
+        };
+
+        // Assert
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void FluentNumberField_Throw_WhenMinOrMaxIsNull()
+    {
+        ushort currentValue = 100;
+        // Act
+        Action action = () =>
+        {
+            TestContext.RenderComponent<FluentNumberField<ushort>>(parameters =>
+            {
+                parameters.Add(p => p.Min, null);
+                parameters.Add(p => p.Max, null);
+                parameters.Bind(p => p.Value, currentValue, newValue => currentValue = 101);
+                parameters.AddChildContent("101");
+            });
+        };
+
+        // Assert
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
     public void FluentNumberField_Throw_WhenDoubleMaxIsSmallerThanMin()
     {
         var currentValue = 1.4;

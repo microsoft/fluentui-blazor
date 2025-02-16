@@ -61,13 +61,13 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     /// Gets or sets the maximum value.
     /// </summary>
     [Parameter]
-    public string? Max { get; set; }
+    public string? Max { get; set; } = InputHelpers<TValue>.GetMaxValue();
 
     /// <summary>
     /// Gets or sets the minimum value.
     /// </summary>
     [Parameter]
-    public string? Min { get; set; }
+    public string? Min { get; set; } =  InputHelpers<TValue>.GetMinValue();
 
     /// <summary>
     /// Gets or sets the <see cref="AspNetCore.Components.Appearance" />.
@@ -96,16 +96,17 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
 
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
-    private static string GetStepAttributeValue()
+   private static string GetStepAttributeValue()
     {
-        // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
-        // of it for us. We will only get asked to parse the T for nonempty inputs.
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         if (targetType == typeof(sbyte) ||
             targetType == typeof(byte) ||
             targetType == typeof(int) ||
+            targetType == typeof(uint) ||    // Added
             targetType == typeof(long) ||
+            targetType == typeof(ulong) ||   // Added
             targetType == typeof(short) ||
+            targetType == typeof(ushort) ||  // Added
             targetType == typeof(float) ||
             targetType == typeof(double) ||
             targetType == typeof(decimal))
@@ -118,40 +119,86 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         }
     }
 
+    protected override string? FormatValueAsString(TValue? value)
+    {
+        // Directly convert to string using InvariantCulture for all types
+        return value switch
+        {
+            null => null,
+            sbyte @sbyte => @sbyte.ToString(CultureInfo.InvariantCulture),
+            byte @byte => @byte.ToString(CultureInfo.InvariantCulture),
+            int @int => @int.ToString(CultureInfo.InvariantCulture),
+            uint @uint => @uint.ToString(CultureInfo.InvariantCulture),
+            long @long => @long.ToString(CultureInfo.InvariantCulture),
+            ulong @ulong => @ulong.ToString(CultureInfo.InvariantCulture),
+            short @short => @short.ToString(CultureInfo.InvariantCulture),
+            ushort @ushort => @ushort.ToString(CultureInfo.InvariantCulture),
+            float @float => @float.ToString(CultureInfo.InvariantCulture),
+            double @double => @double.ToString(CultureInfo.InvariantCulture),
+            decimal @decimal => @decimal.ToString(CultureInfo.InvariantCulture),
+            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
+        };
+    }
+
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
+        // First, try BindConverter for supported types
         if (BindConverter.TryConvertTo(value, CultureInfo.InvariantCulture, out result))
         {
             validationErrorMessage = null;
             return true;
         }
-        else
-        {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
-            return false;
-        }
-    }
 
-    /// <summary>
-    /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
-    /// </summary>
-    /// <param name = "value">The value to format.</param>
-    /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue? value)
-    {
-        // Avoiding a cast to IFormattable to avoid boxing.
-        return value switch
+        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        var isNullable = typeof(TValue) != targetType;
+
+        // Handle unsigned types manually
+        if (value is not null)
         {
-            null => null,
-            sbyte @sbyte => BindConverter.FormatValue(Convert.ToInt16(@sbyte), CultureInfo.InvariantCulture),
-            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
-        };
+            try
+            {
+                object? parsedValue = null;
+                var success = false;
+
+                switch (targetType)
+                {
+                    case not null when targetType == typeof(uint):
+                        success = uint.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedUint);
+                        parsedValue = parsedUint;
+                        break;
+                    case not null when targetType == typeof(ushort):
+                        success = ushort.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedUshort);
+                        parsedValue = parsedUshort;
+                        break;
+                    case not null when targetType == typeof(ulong):
+                        success = ulong.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedUlong);
+                        parsedValue = parsedUlong;
+                        break;
+                }
+
+                if (success && parsedValue != null)
+                {
+                    if (isNullable)
+                    {
+                        // Create Nullable<T> instance using reflection
+                        var nullableType = typeof(Nullable<>).MakeGenericType(targetType!);
+                        parsedValue = Activator.CreateInstance(nullableType, parsedValue);
+                    }
+
+                    result = (TValue) parsedValue!;
+                    validationErrorMessage = null;
+                    return true;
+                }
+            }
+            catch
+            {
+                // Parsing failed
+                throw new InvalidOperationException($"Unsupported type: ${value.GetType()}");
+            }
+        }
+
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
+        return false;
     }
 
     protected override void OnParametersSet()

@@ -7670,13 +7670,6 @@
             Gets or sets the content to be rendered inside the component.
             </summary>
         </member>
-        <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.FormatValueAsString(`0)">
-            <summary>
-            Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
-            </summary>
-            <param name = "value">The value to format.</param>
-            <returns>A string representation of the value.</returns>
-        </member>
         <member name="T:Microsoft.FluentUI.AspNetCore.Components.FluentOverflow">
             <summary />
         </member>
