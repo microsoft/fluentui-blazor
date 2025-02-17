@@ -6,6 +6,7 @@ route: /progress-bar
 # ProgressBar
 
 A **ProgressBar** provides a visual representation of content being loaded or processed.
+This component is a wrapper for the web component.
 
 ## Best practices
 

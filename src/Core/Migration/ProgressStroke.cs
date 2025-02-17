@@ -12,13 +12,13 @@ public enum ProgressStroke
     /// <summary>
     /// Small stroke size.
     /// </summary>
-    [Obsolete("This value is obsolete. Use the ProgressThickness.Normal value instead.")]
+    [Obsolete("This value is obsolete. Use the ProgressThickness.Medium value instead.")]
     Small,
 
     /// <summary>
     /// Normal stroke size.
     /// </summary>
-    [Obsolete("This value is obsolete. Use the ProgressThickness.Normal value instead.")]
+    [Obsolete("This value is obsolete. Use the ProgressThickness.Medium value instead.")]
     Normal,
 
     /// <summary>

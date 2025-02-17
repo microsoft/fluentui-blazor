@@ -4,6 +4,9 @@ route: /Migration/ProgressBar
 hidden: true
 ---
 
+The component itself has been renamed from `FluentProgress` to `FluentProgressBar`
+to be coherent with the Web Components and React naming conventions.
+
 ### New properties
   `State`, `Thickness` are new properties.
 

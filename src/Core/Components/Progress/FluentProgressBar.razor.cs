@@ -87,7 +87,7 @@ public partial class FluentProgressBar : FluentComponentBase
     /// If not set, the default theme stroke width is used.
     /// </summary>
     [Parameter]
-    [Obsolete("This property is not supported in FluentUI components and will be removed in a future release. Use Thickness property.")]
+    [Obsolete("This property is not supported anymore and will be removed in a future release. Use Thickness property instead.")]
     public ProgressStroke? Stroke { get; set; }
 
     /// <summary>
