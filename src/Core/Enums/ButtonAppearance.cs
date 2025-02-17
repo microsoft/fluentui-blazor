@@ -34,4 +34,3 @@ public enum ButtonAppearance
     /// </summary>
     Transparent,
 }
-

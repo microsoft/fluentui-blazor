@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -30,7 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
     <ProjectReference Include="..\..\Tools\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
-    <ProjectReference Include="..\..\Tools\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\Tools\FluentUI.Demo.SampleData\FluentUI.Demo.SampleData.csproj" />
   </ItemGroup>
 

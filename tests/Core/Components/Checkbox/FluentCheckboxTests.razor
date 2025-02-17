@@ -1,0 +1,168 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.ComponentModel.DataAnnotations
+@using Xunit;
+@inherits TestContext
+
+@code
+{
+    public FluentCheckboxTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentCheckbox_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Autofocus="true"
+                AriaLabel="My aria label"
+                Name="MyName"
+                Value="true" />
+    );
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(CheckboxShape.Circular, "circular")]
+    [InlineData(CheckboxShape.Square, "square")]
+    public void FluentCheckbox_Shape(CheckboxShape checkboxShape, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="xxx" Shape="@checkboxShape" />);
+
+        // Assert
+        cut.Verify(suffix: expectedAttribute);
+    }
+
+    [Theory]
+    [InlineData(CheckboxSize.Medium, "medium")]
+    [InlineData(CheckboxSize.Large, "large")]
+    public void FluentCheckbox_Size(CheckboxSize checkboxSize, string expectedAttribute)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="xxx" Size="@checkboxSize" />);
+
+        // Assert
+        cut.Verify(suffix: expectedAttribute);
+    }
+
+    [Fact]
+    public void FluentCheckbox_EnableThreeState()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="xxx" ThreeState="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_TryParseValueFromString()
+    {
+        // Arrange
+        var fluentCheckbox = new FluentCheckbox();
+
+        // Act & Assert
+        Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
+
+    [Fact]
+    public void FluentCheckbox_ShowIndeterminate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Id="xxx" ShowIndeterminate="false" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentCheckbox_LabelTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentCheckbox Label="Title" />
+        );
+
+        // Assert
+        cut.Verify();
+    } 
+
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    public void FluentCheckbox_InitialValue_WithCheckState(bool? initialValue, bool expectedValue)
+    {
+        // Arrange && Act
+        bool value = default;
+        bool? checkState = initialValue;
+        var cut = Render(
+            @<FluentCheckbox ThreeState="true" @bind-value="value" @bind-CheckState="checkState" />
+        );
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void FluentCheckbox_OnClick(bool initialValue, bool expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentCheckbox @bind-value="@value" />);
+
+        // Act
+        cut.Find("fluent-checkbox").Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Theory]
+    [InlineData(false, false, true)]
+    [InlineData(false, true, null)]
+    [InlineData(false, null, false)]
+    [InlineData(true, false, null)]
+    [InlineData(true, null, true)]
+    [InlineData(true, true, false)]
+    public void FluentCheckbox_ThreeStateOnClick(bool threeStateOrderUncheckToIntermediate, bool? initialValue, bool? expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentCheckbox ThreeState="true" ThreeStateOrderUncheckToIntermediate="@threeStateOrderUncheckToIntermediate" @bind-checkstate="@value" />);
+        var findCut = cut.Find("fluent-checkbox");
+
+        // Act
+        findCut.Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Theory]
+    [InlineData(false, false, true)]
+    [InlineData(false, true, false)]
+    [InlineData(false, null, false)]
+    [InlineData(true, false, true)]
+    [InlineData(true, null, true)]
+    [InlineData(true, true, false)]
+    public void FluentCheckbox_ThreeStateWithoutIndeterminateStateOnClick(bool threeStateOrderUncheckToIntermediate, bool? initialValue, bool? expectedValue)
+    {
+        // Arrange
+        var value = initialValue;
+        var cut = Render(@<FluentCheckbox ThreeState="true" ShowIndeterminate="false" ThreeStateOrderUncheckToIntermediate="@threeStateOrderUncheckToIntermediate" @bind-checkstate="@value" />);
+        var findCut = cut.Find("fluent-checkbox");
+
+        // Act
+        findCut.Change("");
+
+        // Assert
+        Assert.Equal(expectedValue, value);
+    }
+}

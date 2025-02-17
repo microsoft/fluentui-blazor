@@ -113,7 +113,13 @@
                                     @foreach (var item in apiClass.Properties)
                                     {
                                         <tr>
-                                            <td><code>@item.Name</code></td>
+                                            <td>
+                                                <code>@item.Name</code>
+                                                @if (!item.IsInherited)
+                                                {
+                                                    <sup>✨</sup>
+                                                }
+                                            </td>
                                             <td>
                                                 <span>@item.Type</span>
                                                 @if (item.EnumValues.Length > 0)
@@ -160,7 +166,7 @@
                         {
                             <h3>⚒️ Methods</h3>
 
-                            <table class="api-table">
+                            <table class="api-table" no-col>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
