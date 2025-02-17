@@ -145,11 +145,11 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         if (targetType == typeof(sbyte) ||
             targetType == typeof(byte) ||
             targetType == typeof(int) ||
-            targetType == typeof(uint) ||    // Added
+            targetType == typeof(uint) ||
             targetType == typeof(long) ||
-            targetType == typeof(ulong) ||   // Added
+            targetType == typeof(ulong) ||
             targetType == typeof(short) ||
-            targetType == typeof(ushort) ||  // Added
+            targetType == typeof(ushort) ||
             targetType == typeof(float) ||
             targetType == typeof(double) ||
             targetType == typeof(decimal))
@@ -162,6 +162,11 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         }
     }
 
+    /// <summary>
+    /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+    /// </summary>
+    /// <param name = "value">The value to format.</param>
+    /// <returns>A string representation of the value.</returns>
     protected override string? FormatValueAsString(TValue? value)
     {
         // Directly convert to string using InvariantCulture for all types
