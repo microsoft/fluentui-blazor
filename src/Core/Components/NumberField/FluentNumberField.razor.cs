@@ -104,42 +104,12 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
     // If type constraints is true and min is null, set min to the minimum value of TValue.
-    private string? MinValue
-    {
-        get
-        {
-            if (UseTypeConstraints && Min == null)
-            {
-                return InputHelpers<TValue>.GetMinValue();
-            }
-
-            return Min;
-        }
-        set
-        {
-            Min = value;
-        }
-    }
+    private string? MinValue => UseTypeConstraints && Min == null ? InputHelpers<TValue>.GetMinValue() : Min;
 
     // If type constraints is true and max is null, set max to the maximum value of TValue.
-    private string? MaxValue
-    {
-        get
-        {
-            if (UseTypeConstraints && Max == null)
-            {
-                return InputHelpers<TValue>.GetMaxValue();
-            }
+    private string? MaxValue => UseTypeConstraints && Max == null ? InputHelpers<TValue>.GetMaxValue() : Max;
 
-            return Max;
-        }
-        set
-        {
-            Max = value;
-        }
-    }
-
-   private static string GetStepAttributeValue()
+    private static string GetStepAttributeValue()
     {
         var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         if (targetType == typeof(sbyte) ||
@@ -202,7 +172,6 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         {
             result = default!;
         }
-
 
         validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
         return false;
