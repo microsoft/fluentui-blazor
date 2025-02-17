@@ -143,17 +143,16 @@ public partial class FluentNumberField<TValue> : FluentInputBase<TValue>, IAsync
         return value switch
         {
             null => null,
-            sbyte @sbyte => @sbyte.ToString(CultureInfo.InvariantCulture),
-            byte @byte => @byte.ToString(CultureInfo.InvariantCulture),
-            int @int => @int.ToString(CultureInfo.InvariantCulture),
-            uint @uint => @uint.ToString(CultureInfo.InvariantCulture),
-            long @long => @long.ToString(CultureInfo.InvariantCulture),
-            ulong @ulong => @ulong.ToString(CultureInfo.InvariantCulture),
-            short @short => @short.ToString(CultureInfo.InvariantCulture),
-            ushort @ushort => @ushort.ToString(CultureInfo.InvariantCulture),
-            float @float => @float.ToString(CultureInfo.InvariantCulture),
-            double @double => @double.ToString(CultureInfo.InvariantCulture),
-            decimal @decimal => @decimal.ToString(CultureInfo.InvariantCulture),
+            sbyte @sbyte => BindConverter.FormatValue(Convert.ToInt16(@sbyte), CultureInfo.InvariantCulture),
+            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+            uint @uint => BindConverter.FormatValue(@uint, CultureInfo.InvariantCulture).ToString(),
+            ushort @ushort => BindConverter.FormatValue(@ushort, CultureInfo.InvariantCulture).ToString(),
+            ulong @ulong => BindConverter.FormatValue(@ulong, CultureInfo.InvariantCulture).ToString(),
             _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
         };
     }

@@ -1,6 +1,11 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentInputBase<TValue>
 @typeparam TValue where TValue : new()
+@using System.Globalization;
+
+@{
+    var value = BindConverter.FormatValue(CurrentValue, CultureInfo.InvariantCulture);
+}
 
 <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
 <fluent-number-field @ref=Element
@@ -15,10 +20,10 @@
                      minlength="@MinLength"
                      size="@Size"
                      step=@Step
-                     max="@(ReadOnly ? CurrentValue : MaxValue)"
-                     min="@(ReadOnly ? CurrentValue : MinValue)"
+                     max="@(ReadOnly ? value : MaxValue)"
+                     min="@(ReadOnly ? value : MinValue)"
                      id=@Id
-                     value="@CurrentValue"
+                     value="@value"
                      disabled="@Disabled"
                      name=@Name
                      required="@Required"

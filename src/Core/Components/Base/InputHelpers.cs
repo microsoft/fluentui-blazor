@@ -4,28 +4,38 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal static class InputHelpers<TValue>
 {
+    private const string WebComponentMaxValue = "9999999999";
+    private const string WebComponentMinValue = "-9999999999";
+    /// <summary>
+    /// Because of the limitation of the web component, the maximum value is set to 9999999999 for really large numbers.
+    /// </summary>
+    /// <returns>The maximum value for the underlying type</returns>
     public static string GetMaxValue()
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
         TypeCode typeCode = Type.GetTypeCode(targetType);
         var value = typeCode switch
         {
-            TypeCode.Decimal => decimal.MaxValue.ToString(CultureInfo.InvariantCulture),
-            TypeCode.Double => double.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Decimal => WebComponentMaxValue,
+            TypeCode.Double => WebComponentMaxValue,
             TypeCode.Int16 => short.MaxValue.ToString(),
             TypeCode.Int32 => int.MaxValue.ToString(),
-            TypeCode.Int64 => long.MaxValue.ToString(),
+            TypeCode.Int64 => "999999999999",
             TypeCode.SByte => sbyte.MaxValue.ToString(),
-            TypeCode.Single => float.MaxValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Single => WebComponentMaxValue,
             TypeCode.UInt16 => ushort.MaxValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MaxValue.ToString(),
-            TypeCode.UInt64 => ulong.MaxValue.ToString(),
+            TypeCode.UInt64 => "999999999999",
             _ => ""
         };
 
         return value;
     }
 
+    /// <summary>
+    /// Because of the limitation of the web component, the minimum value is set to -9999999999 for really large negative numbers.
+    /// </summary>
+    /// <returns>The minimum value for the underlying type</returns>
     public static string GetMinValue()
     {
         Type? targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -34,13 +44,13 @@ internal static class InputHelpers<TValue>
         var value = typeCode switch
         {
 
-            TypeCode.Decimal => decimal.MinValue.ToString(CultureInfo.InvariantCulture),
-            TypeCode.Double => double.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Decimal => WebComponentMinValue,
+            TypeCode.Double => WebComponentMinValue,
             TypeCode.Int16 => short.MinValue.ToString(),
             TypeCode.Int32 => int.MinValue.ToString(),
-            TypeCode.Int64 => long.MinValue.ToString(),
+            TypeCode.Int64 => WebComponentMinValue,
             TypeCode.SByte => sbyte.MinValue.ToString(),
-            TypeCode.Single => float.MinValue.ToString(CultureInfo.InvariantCulture),
+            TypeCode.Single => WebComponentMinValue,
             TypeCode.UInt16 => ushort.MinValue.ToString(CultureInfo.InvariantCulture),
             TypeCode.UInt32 => uint.MinValue.ToString(),
             TypeCode.UInt64 => ulong.MinValue.ToString(),
