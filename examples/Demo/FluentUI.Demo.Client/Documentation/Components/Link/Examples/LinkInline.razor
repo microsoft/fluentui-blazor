@@ -1,7 +1,24 @@
-﻿<FluentText As="@TextTag.Paragraph">
+﻿<FluentLink Href="link#inline"> link</FluentLink>
+
+<FluentText As="@TextTag.Paragraph">
 	This is an
 	<FluentLink Href="link#inline" Inline>inline link</FluentLink>
 	used alongside text within the
 	<code>FluentText</code>
 	component.
 </FluentText>
+
+
+<style>
+	.max-width {
+		display: block;
+		width: 250px;
+	}
+</style>
+<p class="max-width">
+	This paragraph contains a link which is very long.
+	<FluentLink href="#">
+		Fluent links wrap correctly between lines when they are very long.
+	</FluentLink>
+	This is because they are inline elements.
+</p>
