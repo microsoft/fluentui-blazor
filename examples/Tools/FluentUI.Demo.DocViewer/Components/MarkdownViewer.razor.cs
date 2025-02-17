@@ -24,6 +24,14 @@ public partial class MarkdownViewer
 
     /// <summary />
     [Inject]
+    internal HttpClient HttpClient { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    internal NavigationManager NavigationManager { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
     internal IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary>
@@ -56,6 +64,13 @@ public partial class MarkdownViewer
         PageTitle = page.Title;
 
         Sections = await page.ExtractSectionsAsync();
+
+        // Read api-comments.json
+        if (ApiDocSummary.Cached is null)
+        {
+            HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
+            ApiDocSummary.Cached = await HttpClient.LoadSummariesAsync("/api-comments.json");
+        }
     }
 
     /// <summary />

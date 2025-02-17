@@ -62,29 +62,29 @@
     overflow: auto;
   }
 
-  .doc-viewer ::deep pre code {
-    overflow-x: auto;
-    display: block;
-    padding: 1em;
-    background-color: rgb(243, 243, 243);
-    border: 1px solid silver;
-    font-size: 13px;
-    font-weight: bold;
-    transition: opacity 0.2s ease-in-out;
-    opacity: 0.2;
-  }
-
-    .doc-viewer ::deep pre code[class*="hljs"] {
-      opacity: 1;
+    .doc-viewer ::deep pre code {
+      overflow-x: auto;
+      display: block;
+      padding: 1em;
+      background-color: rgb(243, 243, 243);
+      border: 1px solid silver;
+      font-size: 13px;
+      font-weight: bold;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 0.2;
     }
 
-    .doc-viewer ::deep pre code[source] {
-      display: none;
-    }
-
-      .doc-viewer ::deep pre code[source][class*="hljs"] {
-        display: block;
+      .doc-viewer ::deep pre code[class*="hljs"] {
+        opacity: 1;
       }
+
+      .doc-viewer ::deep pre code[source] {
+        display: none;
+      }
+
+        .doc-viewer ::deep pre code[source][class*="hljs"] {
+          display: block;
+        }
 
   /* Demo Section */
 
@@ -103,6 +103,7 @@
 
   .doc-viewer ::deep .api-summary {
     background-color: var(--colorNeutralBackground4);
+    max-width: calc(100vw - 32px);
     padding: 8px;
   }
 
@@ -114,8 +115,14 @@
 
   .doc-viewer ::deep .api-table {
     width: 100%;
+    max-width: calc(100vw - 32px);
     border-collapse: collapse;
   }
+
+    .doc-viewer ::deep .api-table[no-col] {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
     .doc-viewer ::deep .api-table th {
       text-align: start;
@@ -161,6 +168,41 @@
         width: 20px;
         height: 20px;
       }
+
+    /* No Columns, for Methods view (same styles as Mobile */
+    .doc-viewer ::deep .api-table[no-col] tr {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .doc-viewer ::deep .api-table[no-col] td,
+    .doc-viewer ::deep .api-table[no-col] th {
+      display: none;
+      flex-wrap: wrap;
+      white-space: normal;
+    }
+
+      .doc-viewer ::deep .api-table[no-col] td:first-child {
+        display: block;
+        flex-grow: 1;
+      }
+
+        .doc-viewer ::deep .api-table[no-col] td:first-child code {
+          font-weight: bold;
+        }
+
+      .doc-viewer ::deep .api-table[no-col] td:nth-child(2) {
+        display: block;
+      }
+
+      .doc-viewer ::deep .api-table[no-col] td:last-child {
+        flex-basis: 100%;
+        display: block;
+        margin-left: 24px;
+      }
+
 /* Mobile */
 
 @media(max-width: 768px) {
@@ -175,6 +217,7 @@
   .doc-viewer ::deep .api-table td,
   .doc-viewer ::deep .api-table th {
     display: none;
+    flex-wrap: wrap;
   }
 
     .doc-viewer ::deep .api-table td:first-child {

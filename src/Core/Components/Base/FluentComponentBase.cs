@@ -44,31 +44,31 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
         .AddStyle("margin", Margin.ConvertSpacing().Style)
         .AddStyle("padding", Padding.ConvertSpacing().Style);
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Id" />
     [Parameter]
     public virtual string? Id { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Class" />
     [Parameter]
     public virtual string? Class { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Style" />
     [Parameter]
     public virtual string? Style { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Margin" />
     [Parameter]
     public virtual string? Margin { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Padding" />
     [Parameter]
     public virtual string? Padding { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.Data" />
     [Parameter]
     public virtual object? Data { get; set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IFluentComponentBase.AdditionalAttributes" />
     [Parameter(CaptureUnmatchedValues = true)]
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 

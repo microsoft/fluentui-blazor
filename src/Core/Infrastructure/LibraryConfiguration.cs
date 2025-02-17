@@ -36,6 +36,13 @@ public class LibraryConfiguration
     public IFluentLocalizer? Localizer { get; set; }
 
     /// <summary>
+    /// Gets or sets the default CSS class and styles for the library components.
+    /// </summary>
+    public DefaultStyles DefaultStyles { get; } = new DefaultStyles();
+
+    /* TODO: Implement these properties
+     
+    /// <summary>
     /// Gets or sets the value indicating whether the library should validate CSS class names.
     /// respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
     /// Default is true.
@@ -45,7 +52,7 @@ public class LibraryConfiguration
         get => Utilities.CssBuilder.ValidateClassNames;
         set => Utilities.CssBuilder.ValidateClassNames = value;
     }
-
+    
     /// <summary>
     /// Gets or sets the function that formats the URL of the collocated JavaScript file,
     /// adding the return value as a query string parameter.
@@ -53,4 +60,5 @@ public class LibraryConfiguration
     /// </summary>
     public Func<string, string>? CollocatedJavaScriptQueryString { get; set; } = (url)
         => string.IsNullOrEmpty(AssemblyVersion) ? string.Empty : $"v={AssemblyVersion}";
+    */
 }

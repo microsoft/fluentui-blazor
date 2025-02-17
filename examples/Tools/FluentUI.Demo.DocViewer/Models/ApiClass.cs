@@ -141,21 +141,12 @@ internal class ApiClass
                             // Parameters/properties
                             if (!isEvent)
                             {
-                                // Icon? icon = null;
                                 var defaultValue = "";
                                 if (propertyInfo.PropertyType.IsValueType || propertyInfo.PropertyType == typeof(string))
                                 {
                                     defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
                                 }
-                                //else if (propertyInfo.PropertyType == typeof(Icon))
-                                //{
-                                //    if (GetObjectValue(propertyInfo.Name) is Icon value)
-                                //    {
-                                //        icon = value;
-                                //        defaultValue = $"{value.Variant}.{value.Size}.{value.Name}";
-                                //    }
-                                //}
-
+                                
                                 members.Add(new ApiClassMember()
                                 {
                                     MemberType = MemberTypes.Property,
@@ -165,7 +156,7 @@ internal class ApiClass
                                     Default = defaultValue,
                                     Description = GetSummary(_component, propertyInfo),
                                     IsParameter = isParameter,
-                                    //Icon = icon
+                                    IsInherited = propertyInfo.IsInherited(_component),
                                 });
                             }
 
@@ -179,6 +170,7 @@ internal class ApiClass
                                     Name = propertyInfo.Name,
                                     Type = propertyInfo.ToTypeNameString(),
                                     Description = GetSummary(_component, propertyInfo),
+                                    IsInherited = propertyInfo.IsInherited(_component),
                                 });
                             }
                         }
@@ -205,6 +197,7 @@ internal class ApiClass
                                 Parameters = methodInfo.GetParameters().Select(i => $"{i.ToTypeNameString()} {i.Name}").ToArray(),
                                 Type = methodInfo.ToTypeNameString(),
                                 Description = GetSummary(_component, methodInfo),
+                                IsInherited = methodInfo.IsInherited(_component),
                             });
                         }
                     }
@@ -225,7 +218,7 @@ internal class ApiClass
     /// <summary />
     private string GetSummary(Type component, MemberInfo? member)
     {
-        var summary = _docViewerService.ApiCommentSummary(component, member);
+        var summary = _docViewerService.ApiCommentSummary(ApiDocSummary.Cached, component, member);
 
         if (string.IsNullOrWhiteSpace(summary))
         {

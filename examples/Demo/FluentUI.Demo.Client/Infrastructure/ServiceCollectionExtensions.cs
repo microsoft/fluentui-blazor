@@ -2,6 +2,7 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.Reflection;
 using FluentUI.Demo.DocViewer;
 
 namespace FluentUI.Demo.Client;
@@ -64,10 +65,54 @@ public static class ServiceCollectionExtensions
             options.ComponentsAssembly = typeof(Client._Imports).Assembly;
             options.ResourcesAssembly = typeof(Client._Imports).Assembly;
             options.ApiAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components._Imports).Assembly;
-            options.ApiCommentSummary = (component, member) => member is null ? CodeComments.GetSummary(component.Name) : CodeComments.GetSummary(member);
+            options.ApiCommentSummary = (data, component, member) =>
+            {
+                if (member is null && (data is null || data?.Items?.Count <= 1))
+                {
+                    return "⚠️ The file `api-comments.json` was not found. " +
+                           "Run the project `FluentUI.Demo.DocApiGen` to generate the file. ";
+                }
+
+                // Component summary
+                if (member is null)
+                {
+                    return GetMemberSummary(component.Name, "__summary__");
+                }
+
+                // Member summary
+                else
+                {
+                    return GetMemberSummary(component.Name, member.GetSignature());
+                }
+
+                string GetMemberSummary(string sectionName, string signature)
+                {
+                    if (data?.Items?.TryGetValue(sectionName, out var section) == true)
+                    {
+                        if (section.TryGetValue(signature, out var summary))
+                        {
+                            return summary;
+                        }
+                    }
+
+                    return "";
+                }
+            };
             options.SourceCodeUrl = "/sources/{0}.txt";
         });
 
         return new DemoServices(services);
+    }
+
+    /// <summary>
+    /// Get the signature of the method.
+    /// </summary>
+    /// <param name="member"></param>
+    /// <remarks>⚠️ Must be identical to FluentUI.Demo.DocApiGen.Extensions.ReflectionExtensions.GetSignature</remarks>
+    public static string GetSignature(this MemberInfo member)
+    {
+        return member.MemberType == MemberTypes.Method
+             ? $"{member.Name}({string.Join(", ", ((MethodInfo)member).GetParameters().Select(p => p.ParameterType.Name))})"
+             : member.Name;
     }
 }

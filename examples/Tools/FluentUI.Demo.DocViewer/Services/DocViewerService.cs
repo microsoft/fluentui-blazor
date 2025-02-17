@@ -57,7 +57,7 @@ public class DocViewerService
     /// <summary>
     /// Function to get the summary of an API comment.
     /// </summary>
-    public Func<Type, MemberInfo?, string> ApiCommentSummary { get; }
+    public Func<ApiDocSummary?, Type, MemberInfo?, string> ApiCommentSummary { get; }
 
     /// <summary>
     /// Gets the list of all markdown pages found in the resources

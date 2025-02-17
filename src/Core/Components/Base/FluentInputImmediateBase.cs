@@ -53,7 +53,7 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
         }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDisposable.Dispose" />
     [ExcludeFromCodeCoverage()]
     protected override void Dispose(bool disposing)
     {

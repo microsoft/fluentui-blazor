@@ -1,0 +1,31 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<string?>
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+    <fluent-textarea @ref="@Element"
+                     appearance="@Appearance.ToAttributeValue()"
+                     autocomplete="@AutoComplete"
+                     autofocus="@Autofocus"
+                     auto-resize="@AutoResize"
+                     aria-label="@AriaLabel"
+                     disabled="@Disabled"
+                     display-shadow="@DisplayShadow"
+                     id="@Id"
+                     maxlength="@MaxLength"
+                     minlength="@MinLength"
+                     name="@Name"
+                     placeholder="@Placeholder"
+                     readonly="@ReadOnly"
+                     required="@Required"
+                     size="@Size.ToAttributeValue()"
+                     slot="input"
+                     spellcheck="@SpellCheckValue"
+                     resize="@Resize.ToAttributeValue()"
+                     value="@CurrentValueAsString"
+                     @onfocusout="@FocusOutHandlerAsync"
+                     @onchange="@ChangeHandlerAsync"
+                     @oninput="@InputHandlerAsync"
+                     @attributes="AdditionalAttributes">
+    </fluent-textarea>
+</FluentField>
