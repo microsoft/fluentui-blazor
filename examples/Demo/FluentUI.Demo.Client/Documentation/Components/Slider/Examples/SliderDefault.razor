@@ -1,11 +1,15 @@
 ﻿<FluentStack Orientation="Orientation.Vertical">
-	<FluentSlider Max="100"></FluentSlider>
-	<FluentSlider Max="100" Size="SliderSize.Small"></FluentSlider>
+	<FluentSlider Max="100" Label="Title"></FluentSlider>
+	<FluentSlider Max="100" Size="SliderSize.Small" Style="width:350px"></FluentSlider>
 	<FluentSlider Max="100" Disabled="true"></FluentSlider>
-	<FluentSlider Min="20" Max="100" Step="1.5" @bind-Value=value></FluentSlider>
+	<FluentSlider Min="20" Max="50" Step="1.5" @bind-Value=value></FluentSlider>
+	<p>Selected value: @value</p>
 	<FluentSlider Max="100" Step="50"></FluentSlider>
-	<FluentSlider Max="100" Orientation="Orientation.Vertical"></FluentSlider>
+	<FluentSlider Max="100" Orientation="Orientation.Vertical">
+		<FluentIcon Value="@(new Icons.Regular.Size24.Bookmark())" />
+	</FluentSlider>
 </FluentStack>
+
 
 @code {
 	double value = 33.5;

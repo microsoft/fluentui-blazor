@@ -43,6 +43,9 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     [Parameter, EditorRequired]
     public TValue? Max { get; set; }
 
+    /// <summary/>   
+    public new TValue? Value { get; set; }
+
     /// <summary>
     /// Gets or sets the slider's step value.
     /// </summary>
@@ -57,6 +60,12 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
+    /// Gets or sets the label for the slider.
+    /// </summary>
+    [Parameter]
+    public override string? Label { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
@@ -64,6 +73,7 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
 
     /// <summary />
     private IJSObjectReference? Module { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

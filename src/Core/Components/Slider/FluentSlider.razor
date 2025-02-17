@@ -3,14 +3,24 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 
-@* <CascadingValue Value="this" IsFixed="true"> *@
-	@* <FluentLabel ForId="@Id"
-		         Label="@Label"
-				 AriaLabel="@AriaLabel"
-				 ChildContent="@LabelTemplate"
-				 Required="@Required"
-				 style="margin-bottom: calc(var(--design-unit) * 3px);" /> *@
-	<fluent-slider id="@Id"
+@*
+
+ReadOnly="true"
+Mode ? https://github.com/microsoft/fluentui/blob/master/packages/web-components/src/slider/slider.spec.ts
+@ref=Element
+*@
+
+@* <CascadingValue Value="this" IsFixed="true">
+	ForId="@Id"	 
+	AriaLabel="@AriaLabel"
+	ChildContent="@LabelTemplate"
+*@
+	<FluentLabel Required="@Required"
+				 style="margin-bottom: calc(var(--design-unit) * 3px);">
+		@Label
+	</FluentLabel>
+    <fluent-slider 
+	               id="@Id"
 				   class="@ClassValue"
 			       style="@StyleValue"
 			       disabled="@Disabled"
@@ -19,7 +29,9 @@
 				   value="@FormatValueAsString(Value)"
 			       step="@(Step == default ? null : FormatValueAsString(Step))"
 			       size="@Size.ToAttributeValue()"
-			       orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())">
+			       orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
+				   required="@Required"
+			       @onchange="@ChangeHandlerAsync">
 		@ChildContent
     </fluent-slider>
 @* </CascadingValue> *@
