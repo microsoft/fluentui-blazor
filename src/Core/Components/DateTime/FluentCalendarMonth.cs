@@ -20,7 +20,14 @@ internal class FluentCalendarMonth
         _calendar = calendar;
         Month = month.GetDay(_calendar.Culture) == 1 ? month : month.StartOfMonth(_calendar.Culture);
 
-        _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month) ?? false;
+        if (calendar.DisabledCheckAllDaysOfMonthYear)
+        {
+            _isInDisabledList = calendar.AllDaysAreDisabled(month.StartOfMonth(_calendar.Culture), month.EndOfMonth(_calendar.Culture));
+        }
+        else
+        {
+            _isInDisabledList = calendar.DisabledDateFunc?.Invoke(Month) ?? false;
+        }
     }
 
     /// <summary>

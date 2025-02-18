@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -13,6 +17,7 @@ public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TO
 
     /// <summary />
     protected virtual MarkupString InlineStyleValue => new InlineStyleBuilder()
+        .AddStyle($"#{Id}::part(listbox)", "position", "relative", Multiple)
         .AddStyle($"#{Id}::part(listbox)", "max-height", Height, !string.IsNullOrWhiteSpace(Height))
         .AddStyle($"#{Id}::part(listbox)", "height", "fit-content", !string.IsNullOrWhiteSpace(Height))
         .AddStyle($"#{Id}::part(listbox)", "z-index", ZIndex.SelectPopup.ToString())
