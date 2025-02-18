@@ -27,7 +27,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
  *       for (int i = 1; i < 25; i++)
  *       {
  *           var script = SpacingGenerator.GenerateScript(i);
- *           System.Console.WriteLine($"   Count = {i:00}   =>   Max sp<acing size: {i*4}px - File size:  {script.Length / 1024} kb.");
+ *           System.Console.WriteLine($"   Count = {i:00}   =>   Max spacing size: {i*4}px - File size:  {script.Length / 1024} kb.");
  *       }
  *   
  *  Results:
