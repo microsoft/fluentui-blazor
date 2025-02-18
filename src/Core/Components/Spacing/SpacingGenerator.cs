@@ -284,22 +284,6 @@ internal class SpacingGenerator
                 throw new System.InvalidOperationException($"Invalid CSS class name: {cssLine}");
             }
 
-            var prefix = match.Groups[2].Value;
-            var size = match.Groups[4].Value;
-            var negative = string.Equals(match.Groups[5].Value, "n", System.StringComparison.Ordinal) ? "Negative" : "";
-            var number = match.Groups[6].Value;
-            var breakpoint = string.IsNullOrEmpty(size) ? "" : $" where `min-width: {BreakpointsCssUtilitiesOnly[size]}`";
-
-            size = size switch
-            {
-                "sm" => "_ForSmall",
-                "md" => "_ForMedium",
-                "lg" => "_ForLarge",
-                "xl" => "_ForExtraLarge",
-                "xxl" => "_ForExtraExtraLarge",
-                _ => ""
-            };
-
             // Mapping for prefixes
             System.Collections.Generic.Dictionary<string, string> prefixMap = new(System.StringComparer.Ordinal)
             {
@@ -315,9 +299,30 @@ internal class SpacingGenerator
                 { "a", "All" },
             };
 
+            var prefix = match.Groups[2].Value;
+            var size = match.Groups[4].Value;
+            var negative = string.Equals(match.Groups[5].Value, "n", System.StringComparison.Ordinal) ? "Negative" : "";
+            var number = match.Groups[6].Value;
+            var numberInPixels = number switch
+            {
+                "auto" => "",
+                _ => $" ({prefixMap[prefix]}: {(negative == "" ? "" : "-")}{(int.Parse(number, System.Globalization.CultureInfo.InvariantCulture) * 4)}px)"
+            };
+            var breakpoint = string.IsNullOrEmpty(size) ? "" : $" where `min-width: {BreakpointsCssUtilitiesOnly[size]}`";
+
+            size = size switch
+            {
+                "sm" => "_ForSmall",
+                "md" => "_ForMedium",
+                "lg" => "_ForLarge",
+                "xl" => "_ForExtraLarge",
+                "xxl" => "_ForExtraExtraLarge",
+                _ => ""
+            };
+
             // Convert to proper format
             // public const string TopXxl0 = "mt-xxl-0"
-            code.AppendLine($"    /// <summary>Class `{cssName}`{breakpoint}.</summary>");
+            code.AppendLine($"    /// <summary>CSS `{cssName}`{numberInPixels}{breakpoint}.</summary>");
             code.AppendLine($"    public const string {prefixMap[prefix]}{negative}{Capitalize(number)}{Capitalize(size)} = \"{cssName} \";");
             code.AppendLine();
         }
