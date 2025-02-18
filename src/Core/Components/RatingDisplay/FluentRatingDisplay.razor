@@ -1,0 +1,20 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<fluent-rating-display class="@ClassValue"
+                       style="@StyleValue"
+                       count="@Count?.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)"
+                       compact="@Compact"
+                       max="@Max?.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"
+                       size="@Size.ToAttributeValue()"
+                       color="@Color.ToAttributeValue()"
+                       value="@Value?.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"
+                       @attributes="AdditionalAttributes">
+
+    @if (Shape is not null)
+    {
+        @Shape.ToMarkup(slotName: "icon")
+    }
+   
+</fluent-rating-display>
