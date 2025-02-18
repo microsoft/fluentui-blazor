@@ -152,6 +152,17 @@
         var actual = cut.Find("fluent-progress-bar").GetAttribute("thickness");
         Assert.Equal(expectedThickness, actual);
     }
+
+    [Fact]
+    public void FluentProgressBar_OldComponent()
+    {
+        // Act
+        var cut = Render(@<FluentProgress Value="10" />);
+
+        // Assert
+        var actual = cut.Find("fluent-progress-bar").GetAttribute("value");
+        Assert.Equal("10", actual);
+    }
 #pragma warning restore
 
 }

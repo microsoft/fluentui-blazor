@@ -9,7 +9,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// 
+/// Visual representation of content being loaded or processed.
 /// </summary>
 public partial class FluentProgressBar : FluentComponentBase
 {
