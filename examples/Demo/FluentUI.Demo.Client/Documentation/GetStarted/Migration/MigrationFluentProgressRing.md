@@ -7,7 +7,7 @@ hidden: true
 The component itself has been renamed from `FluentProgressRing` to `FluentSpinner`
 to be coherent with the Web Components and React naming conventions.
 
-> **Note: **The new component `FluentSpinner` cannot be paused. It must always be spinning.
+> **Note:** The new component `FluentSpinner` cannot be paused. It must always be spinning.
 > So, the `Paused`, `Min`, `Max`, `Value` properties has been removed.
 
 ### New properties

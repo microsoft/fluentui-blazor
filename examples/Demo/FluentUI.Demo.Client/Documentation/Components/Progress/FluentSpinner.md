@@ -28,7 +28,7 @@ for the activity to complete.
 
 ## Default
 
-The spinner can have mutiple sizes, the default size is **Medium**.
+The spinner can have multiple sizes, the default size is **Medium**.
 
 {{ SpinnerDefault }}
 
