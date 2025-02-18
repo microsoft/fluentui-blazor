@@ -27,7 +27,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
  *       for (int i = 1; i < 25; i++)
  *       {
  *           var script = SpacingGenerator.GenerateScript(i);
- *           System.Console.WriteLine($"   Count = {i:00}   =>   Max spacing size: {i*4}px - File size:  {script.Length / 1024} kb.");
+ *           System.Console.WriteLine($"   Count = {i:00}   =>   Max sp<acing size: {i*4}px - File size:  {script.Length / 1024} kb.");
  *       }
  *   
  *  Results:
@@ -163,7 +163,7 @@ internal class SpacingGenerator
 
     private static string ConvertSpacingValueToVariable(string value, char direction)
     {
-        if (string.Equals(value, "auto", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(value, "auto", System.StringComparison.OrdinalIgnoreCase))
         {
             return "auto";
         }
@@ -174,13 +174,13 @@ internal class SpacingGenerator
         if (direction == 'h')
         {
             return negative
-                ? $"calc(-1 * var({SpacingHorizontalVariables[Math.Abs(index)]}))"
-                : $"var({SpacingHorizontalVariables[Math.Abs(index)]})";
+                ? $"calc(-1 * var({SpacingHorizontalVariables[System.Math.Abs(index)]}))"
+                : $"var({SpacingHorizontalVariables[System.Math.Abs(index)]})";
         }
 
         return negative
-                ? $"calc(-1 * var({SpacingVerticalVariables[Math.Abs(index)]}))"
-                : $"var({SpacingVerticalVariables[Math.Abs(index)]})";
+                ? $"calc(-1 * var({SpacingVerticalVariables[System.Math.Abs(index)]}))"
+                : $"var({SpacingVerticalVariables[System.Math.Abs(index)]})";
     }
 
     private static System.Collections.Generic.Dictionary<int, string> CreateSpacingVariables(string direction)
@@ -226,7 +226,7 @@ internal class SpacingGenerator
 
                 // Convert these 11 lines to C# constants
                 var code = ConvertCssToCSharp(_script, numberOfLines: 11);
-                (string.Equals(prop.Value, "m", StringComparison.Ordinal) ? _csharpMargin : _csharpPadding).Append(code);
+                (string.Equals(prop.Value, "m", System.StringComparison.Ordinal) ? _csharpMargin : _csharpPadding).Append(code);
             }
         }
 
@@ -251,7 +251,7 @@ internal class SpacingGenerator
 
                 // Convert these 11 lines to C# constants
                 var code = ConvertCssToCSharp(_script, numberOfLines: 11);
-                (string.Equals(prop.Value, "m", StringComparison.Ordinal) ? _csharpMargin : _csharpPadding).Append(code);
+                (string.Equals(prop.Value, "m", System.StringComparison.Ordinal) ? _csharpMargin : _csharpPadding).Append(code);
             }
         }
     }
@@ -264,9 +264,9 @@ internal class SpacingGenerator
         var code = new System.Text.StringBuilder();
 
         // Extract the last line
-        var lines = script.ToString()
-                          .Split(["\r\n", "\n", Environment.NewLine], StringSplitOptions.RemoveEmptyEntries)
-                          .TakeLast(numberOfLines);
+        var lines = System.Linq.Enumerable.TakeLast(script.ToString()
+                                                          .Split(["\r\n", "\n", System.Environment.NewLine], System.StringSplitOptions.RemoveEmptyEntries)
+                                                  , numberOfLines);
 
         foreach (var cssLine in lines)
         {
@@ -281,12 +281,12 @@ internal class SpacingGenerator
             var match = System.Text.RegularExpressions.Regex.Match(cssLine, "\\.(m|p)(\\w+)(-([a-z]+))?-(n?)([0-9]+|auto)");
             if (!match.Success)
             {
-                throw new InvalidOperationException($"Invalid CSS class name: {cssLine}");
+                throw new System.InvalidOperationException($"Invalid CSS class name: {cssLine}");
             }
 
             var prefix = match.Groups[2].Value;
             var size = match.Groups[4].Value;
-            var negative = string.Equals(match.Groups[5].Value, "n", StringComparison.Ordinal) ? "Negative" : "";
+            var negative = string.Equals(match.Groups[5].Value, "n", System.StringComparison.Ordinal) ? "Negative" : "";
             var number = match.Groups[6].Value;
             var breakpoint = string.IsNullOrEmpty(size) ? "" : $" where `min-width: {BreakpointsCssUtilitiesOnly[size]}`";
 
@@ -301,7 +301,7 @@ internal class SpacingGenerator
             };
 
             // Mapping for prefixes
-            Dictionary<string, string> prefixMap = new(StringComparer.Ordinal)
+            System.Collections.Generic.Dictionary<string, string> prefixMap = new(System.StringComparer.Ordinal)
             {
                 { "t", "Top" },
                 { "b", "Bottom" },
