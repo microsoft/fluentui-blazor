@@ -1,0 +1,26 @@
+﻿<p>
+    <FluentNumberField @bind-Value="@exampleUshort1" UseTypeConstraints>Unsigned short with inherent constraints from type</FluentNumberField>
+    Example unsigned short: @exampleUshort1
+    <br/>
+    Minimum value: @(ushort.MinValue); Maximum value: @(ushort.MaxValue)
+</p>
+
+<p>
+    <FluentNumberField @bind-Value="@exampleUshort2" Max="10" UseTypeConstraints>Unsigned short with inherent constraints from type and manual max</FluentNumberField>
+    Example unsigned short: @exampleUshort2
+    <br/>
+    Minimum value: @(ushort.MinValue); Maximum value: 10
+</p>
+
+<p>
+    <FluentNumberField @bind-Value="@exampleUshort3" Min="5" Max="10" UseTypeConstraints>Unsigned short with inherent constraints, but Min and Max overrides.</FluentNumberField>
+    Example unsigned short: @exampleUshort3
+    <br/>
+    Minimum value: 5; Maximum value: 10
+</p>
+
+@code {
+    ushort exampleUshort1 { get; set; }
+    ushort exampleUshort2 { get; set; }
+    ushort exampleUshort3 { get; set; }
+}

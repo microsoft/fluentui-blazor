@@ -753,6 +753,18 @@
             <param name="e"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.InputHelpers`1.GetMaxValue">
+            <summary>
+            Because of the limitation of the web component, the maximum value is set to 9999999999 for really large numbers.
+            </summary>
+            <returns>The maximum value for the underlying type</returns>
+        </member>
+        <member name="M:Microsoft.FluentUI.AspNetCore.Components.InputHelpers`1.GetMinValue">
+            <summary>
+            Because of the limitation of the web component, the minimum value is set to -9999999999 for really large negative numbers.
+            </summary>
+            <returns>The minimum value for the underlying type</returns>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentBodyContent.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
@@ -7668,6 +7680,12 @@
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.ChildContent">
             <summary>
             Gets or sets the content to be rendered inside the component.
+            </summary>
+        </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.UseTypeConstraints">
+            <summary>
+            If true, the min and max values will be automatically set based on the type of TValue,
+            unless an explicit value for Min or Max is provided.
             </summary>
         </member>
         <member name="M:Microsoft.FluentUI.AspNetCore.Components.FluentNumberField`1.FormatValueAsString(`0)">
