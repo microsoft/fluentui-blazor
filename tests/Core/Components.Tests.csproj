@@ -71,5 +71,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Badge\" />
   </ItemGroup>  
 </Project>

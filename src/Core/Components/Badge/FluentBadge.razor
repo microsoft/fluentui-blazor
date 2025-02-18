@@ -1,0 +1,37 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+<fluent-badge id="@Id"
+              class="@ClassValue"
+              style="@StyleValue"
+              appearance="@Appearance.ToAttributeValue()"
+              color="@Color.ToAttributeValue()"
+              shape="@Shape.ToAttributeValue()"
+              size="@Size.ToAttributeValue()"
+              @attributes="AdditionalAttributes">
+        @if (IconStart != null)
+        {
+            if (ChildContent is null)
+            {
+            <FluentIcon Value="@IconStart" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            }
+            else
+            {
+            <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            }
+        }
+        @ChildContent
+        @if (IconEnd != null)
+        {
+
+            if (ChildContent is null)
+            {
+            <FluentIcon Value="@IconEnd" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            }
+            else
+            {
+            <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+            }
+
+        }
+</fluent-badge>
