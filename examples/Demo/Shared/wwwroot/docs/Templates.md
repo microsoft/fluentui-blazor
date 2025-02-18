@@ -25,7 +25,7 @@ The pages created from these templates will appear like the following based on t
 You can install the templates by running the following command:
 
 ```cshtml
-dotnet new install Microsoft.FluentUI.AspNetCore.TemplatesCopy
+dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
 
 The current version can be found on the [NuGet site](https://www.nuget.org/packages/Microsoft.FLuentUI.AspNetCore.Templates/).
@@ -37,13 +37,13 @@ After installing the templates, you can create a new project from either the CLI
 For creating a new Fluent Blazor Web App project from the CLI:
 
 ```cshtml
-dotnet new fluentblazor -o {your project name}Copy
+dotnet new fluentblazor -o {your project name}
 ```
 
 For creating a Fluent Blazor WebAssembly Standalone App project from the CLI:
 
 ```cshtml
-dotnet new fluentblazorwasm -o {your project name}Copy
+dotnet new fluentblazorwasm -o {your project name}
 ```
 
 In Visual Studio you can create a new project by selecting on of the templates in the 'File-&gt;New-&gt;Project'-dialog. It looks like this (when you select 'Fluent'
