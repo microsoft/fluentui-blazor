@@ -1,3 +1,20 @@
+## V4.11.5
+
+### General
+- \[General] Some miscellaneous changes ([#3353](https://github.com/microsoft/fluentui-blazor/pull/3353))
+
+### Components
+
+- \[Autocomplete] Fix the second unnecessary call ([#3367](https://github.com/microsoft/fluentui-blazor/pull/3367))
+- \[Calendar] Add DisabledCheckAllDaysOfMonthYear ([#3351](https://github.com/microsoft/fluentui-blazor/pull/3351))
+- \[DataGrid] Fix regression with `GridTemplateColumns` ([#3357](https://github.com/microsoft/fluentui-blazor/pull/3357))
+- \[NumberField] Unsigned integer values and fixes ([#3373](https://github.com/microsoft/fluentui-blazor/pull/3373))
+- \[Search] Fix non working datalist ([#3354](https://github.com/microsoft/fluentui-blazor/pull/3354))
+- \[Select] Fix positioning when multiple is true ([#3380](https://github.com/microsoft/fluentui-blazor/pull/3380))
+
+### Demo site and documentation
+- \[Demo] Fix (most) printing issues when trying to print the page ([#3370](https://github.com/microsoft/fluentui-blazor/pull/3370))
+
 ## V4.11.4
 
 ### General
