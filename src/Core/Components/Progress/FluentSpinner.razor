@@ -1,0 +1,13 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+@if (Visible)
+{
+    <fluent-spinner id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
+                    appearance="@(AppearanceInverted ? "inverted" : null)"
+                    size="@GetSize().ToAttributeValue()"
+                    @attributes="AdditionalAttributes" />
+}
