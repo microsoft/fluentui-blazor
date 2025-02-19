@@ -20,4 +20,4 @@ As the `ClassValue` and `StyleValue` attributes are added to the FluentField, yo
 
 ## Example
 
-See FluentTextField for an example.
+See FluentTextArea for an example.

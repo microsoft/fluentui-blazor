@@ -38,7 +38,8 @@ public class InputBaseTests : TestContext
     private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
     {
         // { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
-        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(string)) }    // FluentSelect<string>
+        { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(string)) },// FluentSelect<string>
+        { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(string)) },  
     };
 
     /// <summary />

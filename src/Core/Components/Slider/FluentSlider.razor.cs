@@ -5,25 +5,17 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-//using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-///     
+/// FluentSlider component, a slider control that allows users to select from a range of values.    
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class FluentSlider<TValue> : FluentInputBase<TValue>
-    where TValue : System.Numerics.INumber<TValue>
 {
-    //private TValue? _max;
-    //private TValue? _min;
-    //private bool updateSliderThumb;
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT
-        + "Slider/FluentSlider.razor.js";
-
     /// <summary>
     /// Gets or sets the size for the slider.
     /// Default is <see cref="SliderSize.Medium"/>.
@@ -43,9 +35,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     [Parameter, EditorRequired]
     public TValue? Max { get; set; }
 
-    /// <summary/>   
-    public new TValue? Value { get; set; }
-
     /// <summary>
     /// Gets or sets the slider's step value.
     /// </summary>
@@ -60,43 +49,16 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
-    /// Gets or sets the label for the slider.
+    /// Gets or sets the selection mode.
     /// </summary>
     [Parameter]
-    public override string? Label { get; set; }
+    public SliderMode? Mode { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    /// <summary />
-    private IJSObjectReference? Module { get; set; }
-
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Import the JavaScript module
-            Module = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-        }
-        else
-        {
-            //if (updateSliderThumb)
-            //{
-            //    updateSliderThumb = false;
-            //    if (Module is not null)
-            //    {
-            //        Debounce.Run(100, async () =>
-            //        {
-            //            await Module!.InvokeVoidAsync("updateSlider", Element);
-            //        });
-            //    }
-            //}
-        }
-    }
 
     /// <summary>
     /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
@@ -111,7 +73,6 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
             null => null,
             int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
             long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
             float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
             double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
             decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
@@ -119,7 +80,24 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>
         };
     }
 
-    /// <summary />
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);

@@ -2,12 +2,18 @@
 // MIT License - Copyright (c) Microsoft Corporation. All rights reserved.
 // ------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Represents a label for a Fluent UI slider component.
+/// The selection mode of the slider
 /// </summary>
-public partial class FluentSliderLabel : FluentComponentBase
+public enum SliderMode
 {
-
+    /// <summary>
+    /// The slider is in single selection mode
+    /// </summary>
+    [Description("single-value")]
+    SingleValue
 }

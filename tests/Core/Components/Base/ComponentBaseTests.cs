@@ -33,6 +33,7 @@ public class ComponentBaseTests : TestContext
     {
         { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) },
         { typeof(FluentSelect<>), type => type.MakeGenericType(typeof(int)) },
+        { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(string)) },
     };
 
     /// <summary />

@@ -3,34 +3,25 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 
-@*
-
-ReadOnly="true"
-Mode ? https://github.com/microsoft/fluentui/blob/master/packages/web-components/src/slider/slider.spec.ts
-
-*@
-
-@* <CascadingValue Value="this" IsFixed="true">
-	ForId="@Id"	 
-	AriaLabel="@AriaLabel"
-	ChildContent="@LabelTemplate"
-*@
-	<FluentLabel style="margin-bottom: calc(var(--design-unit) * 3px);">
-		@Label
-	</FluentLabel>
-    <fluent-slider 
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+	<fluent-slider slot="input"
 	               id="@Id"
-				   class="@ClassValue"
-			       style="@StyleValue"
 			       disabled="@Disabled"
 				   min="@FormatValueAsString(Min)"
 				   max="@FormatValueAsString(Max)"	
 				   value="@FormatValueAsString(Value)"
-			       step="@(Step == default ? null : FormatValueAsString(Step))"
+				   step="@(Step is null || (Step is int value && value == 0) ? null : FormatValueAsString(Step))"
 			       size="@Size.ToAttributeValue()"
 			       orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
+				   mode="@Mode.ToAttributeValue()"
+				   name="@Name"
+				   readonly="@ReadOnly"
+				   aria-label="@AriaLabel"
+				   autofocus="@Autofocus"
 				   required="@Required"
-			       @onchange="@ChangeHandlerAsync">
+				   @onfocusout="@FocusOutHandlerAsync"
+				   @onchange="@ChangeHandlerAsync"
+				   @attributes="AdditionalAttributes">
 		@ChildContent
     </fluent-slider>
-@* </CascadingValue> *@
+</FluentField>
