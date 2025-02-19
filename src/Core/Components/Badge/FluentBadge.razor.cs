@@ -13,11 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentBadge : FluentComponentBase
 {
     /// <summary />
-    protected string? ClassValue => DefaultClassBuilder
+    protected virtual string? ClassValue => DefaultClassBuilder
          .Build();
 
     /// <summary />
-    protected string? StyleValue => DefaultStyleBuilder
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, () => !string.IsNullOrEmpty(BackgroundColor))
         .Build();
 
@@ -86,7 +86,8 @@ public partial class FluentBadge : FluentComponentBase
         }
     }
 
-    private string GetIconColor()
+    /// <summary />
+    protected string GetIconColor()
     {
         return Color switch
         {

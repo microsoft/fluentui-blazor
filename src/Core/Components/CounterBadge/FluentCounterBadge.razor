@@ -1,0 +1,27 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentBadge
+<fluent-counter-badge id="@Id"
+                      class="@ClassValue"
+                      style="@StyleValue"
+                      appearance="@Appearance.ToAttributeValue()"
+                      color="@Color.ToAttributeValue()"
+                      shape="@Shape.ToAttributeValue()"
+                      size="@Size.ToAttributeValue()"
+                      count="@_internalCount"
+                      overflow-count="@OverflowCount"
+                      show-zero="@ShowZero"
+                      dot="@Dot"
+                      @attributes="@AdditionalAttributes">
+    @if (IconStart != null)
+    {
+        <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+    }
+
+
+
+    @if (IconEnd != null)
+    {
+        <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+    }
+</fluent-counter-badge>
