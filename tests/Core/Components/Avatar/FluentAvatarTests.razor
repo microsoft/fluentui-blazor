@@ -1,0 +1,276 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using static Microsoft.FluentUI.AspNetCore.Components.Tests.Samples.Icons;
+@inherits TestContext
+
+@code
+{
+    public FluentAvatarTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAvatar_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAvatar_DefaultWithOnClick()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar OnClick="@(e => {} )" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(true, "active")]
+    [InlineData(false, "inactive")]
+    [InlineData(null, "")]
+    public void FluentAvatar_Active(bool? active, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar Active="@active" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-avatar").GetAttribute("active") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(AvatarActiveAppearance.Shadow, "shadow")]
+    [InlineData(AvatarActiveAppearance.Ring, "ring")]
+    [InlineData(AvatarActiveAppearance.RingShadow, "ring-shadow")]
+    [InlineData((AvatarActiveAppearance)999, "")]
+    [InlineData(null, "")]
+    public void FluentAvatar_AvatarActiveAppearance(AvatarActiveAppearance? activeAppearance, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar ActiveAppearance="@activeAppearance" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-avatar").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(AvatarColor.Neutral, "neutral")]
+    [InlineData(AvatarColor.Anchor, "anchor")]
+    [InlineData(AvatarColor.Beige, "beige")]
+    [InlineData(AvatarColor.Blue, "blue")]
+    [InlineData(AvatarColor.Brand, "brand")]
+    [InlineData(AvatarColor.Brass, "brass")]
+    [InlineData(AvatarColor.Brown, "brown")]
+    [InlineData(AvatarColor.Colorful, "colorful")]
+    [InlineData(AvatarColor.Cornflower, "cornflower")]
+    [InlineData(AvatarColor.Cranberry, "cranberry")]
+    [InlineData(AvatarColor.DarkGreen, "dark-green")]
+    [InlineData(AvatarColor.DarkRed, "dark-red")]
+    [InlineData(AvatarColor.Forest, "forest")]
+    [InlineData(AvatarColor.Grape, "grape")]
+    [InlineData(AvatarColor.Gold, "gold")]
+    [InlineData(AvatarColor.Lavender, "lavender")]
+    [InlineData(AvatarColor.LightTeal, "light-teal")]
+    [InlineData(AvatarColor.Lilac, "lilac")]
+    [InlineData(AvatarColor.Magenta, "magenta")]
+    [InlineData(AvatarColor.Marigold, "marigold")]
+    [InlineData(AvatarColor.Mink, "mink")]
+    [InlineData(AvatarColor.Navy, "navy")]
+    [InlineData(AvatarColor.Peach, "peach")]
+    [InlineData(AvatarColor.Pink, "pink")]
+    [InlineData(AvatarColor.Platinum, "platinum")]
+    [InlineData(AvatarColor.Plum, "plum")]
+    [InlineData(AvatarColor.Pumpkin, "pumpkin")]
+    [InlineData(AvatarColor.Purple, "purple")]
+    [InlineData(AvatarColor.Red, "red")]
+    [InlineData(AvatarColor.RoyalBlue, "royal-blue")]
+    [InlineData(AvatarColor.Seafoam, "seafoam")]
+    [InlineData(AvatarColor.Steel, "steel")]
+    [InlineData(AvatarColor.Teal, "teal")]
+    [InlineData((AvatarColor)999, "")]
+    [InlineData(null, "")]
+    public void FluentAvatar_Color(AvatarColor? color, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar Color="@color" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-avatar").GetAttribute("color") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(AvatarSize.Size16, "16")]
+    [InlineData(AvatarSize.Size20, "20")]
+    [InlineData(AvatarSize.Size24, "24")]
+    [InlineData(AvatarSize.Size28, "28")]
+    [InlineData(AvatarSize.Size32, "32")]
+    [InlineData(AvatarSize.Size36, "36")]
+    [InlineData(AvatarSize.Size40, "40")]
+    [InlineData(AvatarSize.Size48, "48")]
+    [InlineData(AvatarSize.Size56, "56")]
+    [InlineData(AvatarSize.Size64, "64")]
+    [InlineData(AvatarSize.Size72, "72")]
+    [InlineData(AvatarSize.Size96, "96")]
+    [InlineData(AvatarSize.Size120, "120")]
+    [InlineData(AvatarSize.Size128, "128")]
+    [InlineData((AvatarSize)999, "")]
+    [InlineData(null, "")]
+    public void FluentAvatar_Size(AvatarSize? size, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar Size="@size" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-avatar").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(AvatarShape.Circle, "circle")]
+    [InlineData(AvatarShape.Square, "square")]
+    [InlineData((AvatarShape)999, "")]
+    [InlineData(null, "")]
+    public void FluentAvatar_Shape(AvatarShape? shape, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar Shape="@shape" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-avatar").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentAvatar_Name()
+    {
+        // Arrange
+        string name = "John Doe";
+        string expectedValue = "John Doe";
+        // Act
+        var cut = Render(@<FluentAvatar Name="@name" />);
+
+        // Assert
+        var value = cut.Find("fluent-avatar").GetAttribute("name") ?? string.Empty;
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Fact]
+    public void FluentAvatar_Initials()
+    {
+        // Arrange
+        string initials = "JD";
+        string expectedValue = "JD";
+        // Act
+        var cut = Render(@<FluentAvatar Initials="@initials" />);
+
+        // Assert
+        var value = cut.Find("fluent-avatar").GetAttribute("initials") ?? string.Empty;
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Fact]
+    public void FluentAvatar_Image()
+    {
+        // Arrange
+        string imageUrl = "ImageUrl";
+        string expectedValue = "ImageUrl";
+
+        // Act
+        var cut = Render(@<FluentAvatar Image="@imageUrl" />);
+
+        // Assert
+        var value = cut.Find("fluent-avatar img").GetAttribute("src") ?? string.Empty;
+        Assert.Equal(expectedValue, value);
+    }
+
+    [Fact]
+    public void FluentAvatar_Icon()
+    {
+        // Arrange
+        Icon icon = new Samples.Info();
+
+        // Act
+        var cut = Render(@<FluentAvatar Icon="icon" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAvatar_TabIndex()
+    {
+        // Arrange & Act
+        var tabIndex = "55";
+        var cut = Render(@<FluentAvatar OnClick="@(e => {})" tabindex="@tabIndex" />);
+
+        // Assert
+        cut.Find("fluent-avatar").HasAttribute("tabindex", tabIndex);
+    }
+
+    [Fact]
+    public void FluentAvatar_WithOnClick_WithoutTabIndex()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentAvatar OnClick="@(e => {})" />);
+
+        // Assert
+        cut.Find("fluent-avatar").HasAttribute("tabindex", "0");
+    }
+
+    [Fact]
+    public void FluentAvatar_Icon_WithSize()
+    {
+        // Arrange
+        Icon icon = new Samples.Info();
+
+        // Act
+        var cut = Render(@<FluentAvatar Icon="icon" Size="AvatarSize.Size96" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAvatar_OnClick()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentAvatar OnClick="@(e => { clicked = true; } )"></FluentAvatar>);
+
+        // Act
+        cut.Find("fluent-avatar").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+
+    [Theory]
+    [InlineData("Enter", true)]
+    [InlineData("Space", true)]
+    [InlineData("a", false)]
+
+    public async Task FluentAvatar_OnKressPress(string code, bool expectedValue)
+    {
+        bool clicked = false;
+        // Arrange
+        var cut = Render(@<FluentAvatar OnClick="@(e => { clicked = true; } )"></FluentAvatar>);
+
+        // Act
+        await cut.Find("fluent-avatar").KeyDownAsync(new KeyboardEventArgs { Code = code });
+
+        // Assert
+        Assert.Equal(expectedValue, clicked);
+    }
+}
