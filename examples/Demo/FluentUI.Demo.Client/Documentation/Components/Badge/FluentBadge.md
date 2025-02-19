@@ -24,15 +24,8 @@ There are two actions authors should consider taking when using Badge to improve
    <FluentBadge IconLabel="paste" />
    ```
 
-1. If the text of the badge itself is not sufficient to convey its meaning, it can either be given additional hidden text, or the parent element given an explicit label:
+1. If the text of the badge itself is not sufficient to convey its meaning, the parent element should be given an explicit label:
     ```
-    <FluentButton>
-        Inbox
-        <FluentBadge>6<span class="visuallyHidden"> unread messages</span></FluentBadge>
-    </FluentButton>
-
-    Or
-
     <FluentButton aria-label="Inbox, 6 unread messages">
         Inbox
         <FluentBadge>6</FluentBadge>
