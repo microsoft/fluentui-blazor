@@ -2,9 +2,10 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<fluent-rating-display class="@ClassValue"
+<fluent-rating-display id="@Id"
+                       class="@ClassValue"
                        style="@StyleValue"
-                       count="@Count?.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)"
+                       count="@Count?.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"
                        compact="@Compact"
                        max="@Max?.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"
                        size="@Size.ToAttributeValue()"
