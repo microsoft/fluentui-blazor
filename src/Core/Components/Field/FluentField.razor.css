@@ -15,3 +15,11 @@ fluent-field .asterisk {
 fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
+
+/* To use with input element without specifi width/height */
+fluent-field div[slot='input'] {
+  min-width: -webkit-fill-available;
+  min-width: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;
+}
