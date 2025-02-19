@@ -28,4 +28,23 @@ public static class AppearanceExtensions
         };
 #pragma warning restore CS0618 // Type or member is obsolete
     }
+
+    /// <summary>
+    /// Converts an obsolete <see cref="Appearance"/> enum value to a <see cref="BadgeAppearance"/>.
+    /// </summary>
+    /// <param name="appearance"></param>
+    /// <returns></returns>
+    public static BadgeAppearance ToBadgeAppearance(this Appearance appearance)
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        return appearance switch
+        {
+            Appearance.Neutral => BadgeAppearance.Filled,
+            Appearance.Accent => BadgeAppearance.Filled,
+            Appearance.Lightweight => BadgeAppearance.Ghost,
+
+            _ => BadgeAppearance.Filled
+        };
+#pragma warning restore CS0618 // Type or member is obsolete
+    }
 }
