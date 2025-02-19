@@ -9,29 +9,29 @@
               shape="@Shape.ToAttributeValue()"
               size="@Size.ToAttributeValue()"
               @attributes="AdditionalAttributes">
-        @if (IconStart != null)
+    @if (IconStart != null)
+    {
+        if (ChildContent is null)
         {
-            if (ChildContent is null)
-            {
             <FluentIcon Value="@IconStart" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-            }
-            else
-            {
-            <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-            }
         }
-        @ChildContent
-        @if (IconEnd != null)
+        else
         {
-
-            if (ChildContent is null)
-            {
-            <FluentIcon Value="@IconEnd" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-            }
-            else
-            {
-            <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
-            }
-
+            <FluentIcon Value="@IconStart" Slot="start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
         }
+    }
+    @ChildContent
+    @if (IconEnd != null)
+    {
+
+        if (ChildContent is null)
+        {
+            <FluentIcon Value="@IconEnd" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+        }
+        else
+        {
+            <FluentIcon Value="@IconEnd" Slot="end" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+        }
+
+    }
 </fluent-badge>

@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -13,12 +12,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentBadge : FluentComponentBase
 {
-    /// <summary />
-    public FluentBadge()
-    {
-        Id = Identifier.NewId();
-    }
-
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
          .Build();
