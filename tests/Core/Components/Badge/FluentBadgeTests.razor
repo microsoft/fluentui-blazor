@@ -36,8 +36,9 @@
     [InlineData(BadgeAppearance.Filled, "filled")]
     [InlineData(BadgeAppearance.Outline, "outline")]
     [InlineData(BadgeAppearance.Ghost, "ghost")]
+    [InlineData(null, "")]
     [InlineData((BadgeAppearance)999, "")]
-    public void FluentBadge_Appearance(BadgeAppearance value, string expectedValue)
+    public void FluentBadge_Appearance(BadgeAppearance? value, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentBadge Appearance="@value">Content</FluentBadge>);
@@ -74,7 +75,7 @@
         Assert.Throws<ArgumentException>(() =>
         {
             // Arrange && Act
-            var cut = Render(@<FluentBadge BackgroundColor="mediumpurple">Hello World</FluentBadge>);
+            var cut = Render(@<FluentBadge BackgroundColor="mediumpurple" Color="BadgeColor.Danger">Hello World</FluentBadge>);
         });
     }
 
@@ -88,13 +89,13 @@
         cut.Verify();
     }
 
-
     [Theory]
     [InlineData(BadgeShape.Rounded, "rounded")]
     [InlineData(BadgeShape.Circular, "circular")]
     [InlineData(BadgeShape.Square, "square")]
+    [InlineData(null, "")]
     [InlineData((BadgeShape)999, "")]
-    public void FluentBadge_Shape(BadgeShape value, string expectedValue)
+    public void FluentBadge_Shape(BadgeShape? value, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentBadge Shape="@value">Content</FluentBadge>);
@@ -111,8 +112,9 @@
     [InlineData(BadgeSize.Medium, "medium")]
     [InlineData(BadgeSize.Large, "large")]
     [InlineData(BadgeSize.ExtraLarge, "extra-large")]
+    [InlineData(null, "")]
     [InlineData((BadgeSize)999, "")]
-    public void FluentBadge_Size(BadgeSize value, string expectedValue)
+    public void FluentBadge_Size(BadgeSize? value, string expectedValue)
     {
         // Arrange && Act
         var cut = Render(@<FluentBadge Size="@value">Content</FluentBadge>);
@@ -175,7 +177,6 @@
         // Assert
         cut.Verify();
     }
-
 
     [Theory]
     [InlineData(BadgeColor.Brand, "width: 24px; fill: var(--colorNeutralForegroundOnBrand);")]

@@ -25,7 +25,7 @@ public partial class FluentBadge : FluentComponentBase
     /// Gets or sets the color.
     /// </summary>
     [Parameter]
-    public BadgeColor? Color { get; set; } = BadgeColor.Brand;
+    public BadgeColor? Color { get; set; }
 
     /// <summary>
     /// Gets or sets the background color.
@@ -39,19 +39,19 @@ public partial class FluentBadge : FluentComponentBase
     /// Gets or sets the visual appearance.
     /// </summary>
     [Parameter]
-    public BadgeAppearance Appearance { get; set; }
+    public BadgeAppearance? Appearance { get; set; }
 
     /// <summary>
     /// Gets or sets the shape of the badge.
     /// </summary>
     [Parameter]
-    public BadgeShape Shape { get; set; }
+    public BadgeShape? Shape { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the badge.
     /// </summary>
     [Parameter]
-    public BadgeSize Size { get; set; }
+    public BadgeSize? Size { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -82,7 +82,7 @@ public partial class FluentBadge : FluentComponentBase
     {
         if (!string.IsNullOrWhiteSpace(BackgroundColor) && Color is not null)
         {
-            throw new ArgumentException("When using BackgroundColor, Color must be set to null explicitly.");
+            throw new ArgumentException("When setting BackgroundColor, Color must not be set.");
         }
     }
 
