@@ -20,45 +20,47 @@ public partial class FluentRatingDisplay : FluentComponentBase
         .Build();
 
     /// <summary>
-    /// The color of the rating display items.
+    /// Gets or sets the color of the rating display items.
     /// </summary>
     [Parameter]
     public RatingDisplayColor? Color { get; set; }
 
     /// <summary>
+    /// Gets or sets the compact mode.
     /// Renders a single filled star, with the value written next to it.
     /// </summary>
     [Parameter]
     public bool? Compact { get; set; }
 
     /// <summary>
-    /// The number of ratings represented by the rating value. This will be formatted with a thousands separator (if applicable) and displayed next to the value.
+    /// Gets or sets the number of ratings represented by the rating value.
+    /// This will be formatted with a thousands separator (if applicable) and displayed next to the value.
     /// </summary>
     [Parameter]
     public double? Count { get; set; }
 
     /// <summary>
-    /// The max value of the rating. This controls the number of rating items displayed. Must be a whole number greater than 1
+    /// Gets or sets the max value of the rating.
+    /// This controls the number of rating items displayed. Must be a whole number greater than 1
     /// </summary>
     [Parameter]
     public double? Max { get; set; }
 
     /// <summary>
-    /// The size of the rating items
+    /// Gets or sets the size of the rating items
     /// </summary>
     [Parameter]
     public RatingSize? Size { get; set; }
 
     /// <summary>
-    /// You can pass in a custom icon to the FluentRatingDisplay component using the icon prop.
+    /// Gets or sets the shape
     /// </summary>
     [Parameter]
     public Icon? Shape { get; set; }
 
     /// <summary>
-    /// The value of the rating
+    /// Gets or sets the value of the rating
     /// </summary>
     [Parameter]
     public double? Value { get; set; }
 }
-
