@@ -8,6 +8,8 @@ route: /rating-display
 **RatingDisplay** is used to communicate user sentiment.
 By default, it shows rating as filled stars out of 5, as well as a text displaying the average value and the aggregate number of ratings.
 
+{{ DisplayRatingDefault }}
+
 ## Best practices
 
 **Do**
@@ -19,13 +21,11 @@ By default, it shows rating as filled stars out of 5, as well as a text displayi
 - Display an empty `FluentRatingDisplay`.
 - Display a `FluentRatingDisplay` with no value.
 
-## Default
-
-{{ DisplayRatingDefault }}
-
 ## Value
 
-The `Value` controls the number of filled stars, and is written out next to the `FluentRatingDisplay`. The number of filled stars is rounded to the nearest half-star.
+The `Value` controls the number of filled stars, and is written out next to the `FluentRatingDisplay`.
+
+The number of filled stars is rounded to the nearest half-star.
 
 {{ DisplayRatingValue }}
 
@@ -38,17 +38,20 @@ The component can display the total number of ratings being displayed with the `
 {{ DisplayRatingCount }}
 
 ## Compact
+
 You can enable a compact view of the `FluentRatingDisplay` using the `Compact` parameter.
 
 {{ DisplayRatingCompact }}
 
 ## Max
+
 You can specify the maximum number of elements in the `FluentRatingDisplay` with the `Max` parameter.
 
 {{ DisplayRatingMax }}
 
 ## Shape
-You can provide a custom icon to the `FluentRatingDisplay` component using the `Icon` parameter.
+
+You can provide a custom icon to the `FluentRatingDisplay` component using the `Shape` parameter.
 
 {{ DisplayRatingShape }}
 
