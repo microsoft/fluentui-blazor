@@ -173,6 +173,12 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
     [Parameter]
     public AxisScalingMode? HorizontalScaling { get; set; }
 
+    /// <summary>
+    /// Raised when FluentMenuItem Checked changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentMenuItem> OnCheckedChanged { get; set; }
+
     protected override void OnInitialized()
     {
         if (Anchored && string.IsNullOrEmpty(Anchor))
@@ -315,6 +321,24 @@ public partial class FluentMenu : FluentComponentBase, IDisposable
             await OpenChanged.InvokeAsync(Open);
         }
     }
+
+    internal async Task NotifyCheckedChangedAsync(FluentMenuItem menuItem)
+    {
+        if (menuItem.Role == MenuItemRole.MenuItemRadio && menuItem.Checked)
+        {
+            foreach (var otherItem in items.Values)
+            {
+                if (otherItem != menuItem &&
+                    otherItem.Role == MenuItemRole.MenuItemRadio &&
+                    otherItem.Checked)
+                {
+                    await otherItem.SetCheckedAsync(false);
+                }
+            }
+        }
+        await OnCheckedChanged.InvokeAsync(menuItem);
+    }
+
 
     /// <summary>
     /// Dispose this menu.
